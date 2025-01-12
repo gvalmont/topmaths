@@ -1,0 +1,48 @@
+import { choice } from '../../../lib/outils/arrayOutils'
+import { fraction } from '../../../modules/fractions'
+import { randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
+export const titre = 'Calculer une probabilité'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
+
+/**
+ * @author Jean-Claude Lhote
+ * Créé pendant l'été 2021
+
+*/
+export const uuid = '47142'
+
+export const refs = {
+  'fr-fr': ['can3S01'],
+  'fr-ch': []
+}
+export default class CalculProbaSimple extends Exercice {
+  constructor () {
+    super()
+
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+
+    this.formatInteractif = 'fractionEgale'
+  }
+
+  nouvelleVersion () {
+    const parfums = ['au citron', 'à la fraise', 'à la menthe', "à l'orange", 'à la cerise', 'à la framboise', 'au cassis']
+    const a = randint(3, 10)
+    const k = choice([1, 3, 4, 9])
+    const parfum1 = choice(parfums)
+    let parfum2 = choice(parfums)
+    while (parfum1 === parfum2) { parfum2 = choice(parfums) }
+    this.reponse = fraction(1, k + 1)
+    this.question = `Un sachet de bonbons contient ${a} bonbons ${parfum1} et ${k * a} bonbons ${parfum2}.<br>
+     On choisit un bonbon au hasard. <br>
+     
+    Quelle est la probabilité de choisir un bonbon ${parfum1} ?`
+    this.correction = `Il y a en tout : $${a} + ${k * a} = ${a * (k + 1)}$ bonbons.<br>La probabilité de choisir un bonbon ${parfum1} est de $\\dfrac{${a}}{${a + k * a}}=\\dfrac{1}{${k + 1}}$.`
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
+  }
+}

@@ -1,15 +1,15 @@
-import { point } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { grille, seyes } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { similitude, translation2Points } from '../../lib/2d/transformations.js'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { grille, seyes } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, nouveau paramètre, couleur appropriée dans la correction, AMC
 
@@ -17,16 +17,24 @@ export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, no
  * fonction servant à plusieurs exercices autour du cube et du pavé droit
  * @author Jean-Claude Lhote
  */
-export default function Solide6e () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.sup2 = 1
-  this.sup3 = 5
-  this.titre = ''
-  this.nouvelleVersion = function () {
+export default class Solide6e extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.sup = 1
+    this.sup2 = 1
+    this.sup3 = 5
+    this.titre = ''
+    this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+    this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Arêtes parallèles\n2: Faces parallèles\n3: Arêtes perpendiculaires\n4: Faces perpendiculaires\n5 : Mélange']
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = this.sup === 3 ? [1, 2] : [this.sup]
 
     const listeTypeDeQuestions = combinaisonListes(
@@ -515,8 +523,8 @@ export default function Solide6e () {
       texte += props.texte
       if (this.questionJamaisPosee(i, texte, k, l, s)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte + '<br>')
-        this.listeCorrections.push(correction + '<br>')
+        this.listeQuestions[i] = texte + '<br>'
+        this.listeCorrections[i] = correction + '<br>'
         i++
       }
       cpt++
@@ -524,11 +532,4 @@ export default function Solide6e () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 3, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange']
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
-  this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Arêtes parallèles\n2: Faces parallèles\n3: Arêtes perpendiculaires\n4: Faces perpendiculaires\n5 : Mélange']
 }

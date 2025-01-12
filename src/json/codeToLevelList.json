@@ -21,5 +21,18 @@
   "EN": "Énigmes et jeux",
   "CM": "Calcul mental",
   "MG": "",
-  "static": "Annales d'examens et de concours"
+  "static": "Annales d'examens et de concours",
+  "STI2D": "BAC STI2D par année",
+  "STI2DTags": "BAC STI2D par thème",
+  "Bac": "BAC (en partenariat avec l'APMEP)",
+  "Bac99TerminaleSpecialite": "Terminale - Spécialité - Par année",
+  "Bac98TerminaleSpecialiteTags": "Terminale - Spécialité - Par thème",
+  "Bac89STI2D": "Terminale - STI2D - Par année",
+  "Bac88STI2DTags": "Terminale - STI2D - Par thème",
+  "crpe": "CRPE - Par année",
+  "crpeTags": "CRPE - Par thème",
+  "Brevet": "Brevet des collèges par année - APMEP",
+  "BrevetTags": "Brevet des collèges par thème - APMEP",
+  "E3C": "E3C - Par année",
+  "E3CTags": "E3C - Par thème"
 }

@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { texteGras } from '../../lib/format/style'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -14,22 +14,24 @@ export const dateDeModifImportante = '15/11/2023'
  * @author Stéphane Guyon et Gilles Mora (interactif + modif correction)
  */
 export const uuid = '55cc0'
-export const ref = '2N32-1'
+
 export const refs = {
   'fr-fr': ['2N32-1'],
   'fr-ch': ['11NO1-4', '1CN-6']
 }
-export default function ExistenceDUneRacineCarree () {
-  Exercice.call(this)
-  this.titre = titre
+export default class ExistenceDUneRacineCarree extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 //
-  this.correctionDetaillee = true
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 //
+    this.correctionDetaillee = true
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     if (!this.interactif) {
       this.consigne = ' Le nombre proposé existe-t-il ? Justifier.'
     } else {
@@ -164,8 +166,8 @@ export default function ExistenceDUneRacineCarree () {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.vFON, '')
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

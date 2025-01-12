@@ -86,7 +86,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
  * Le résultat est un string qui doit être entouré de $ pour le mode mathématique
  * @author Rémi Angot
  */
-export function simplificationDeFractionAvecEtapes (num, den) {
+export function simplificationDeFractionAvecEtapes (num, den, { couleur1 = '#f15929', couleur2 = 'black' } = {}) {
   let result = '='
   if (num === 0) {
     return '=0'
@@ -100,7 +100,7 @@ export function simplificationDeFractionAvecEtapes (num, den) {
     if (numAbs % denAbs === 0) { // si le résultat est entier
       result += `${num / den}`
     } else {
-      result += `${signe}${texFractionFromString(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
+      result += `${signe}${texFractionFromString(numAbs / s + miseEnEvidence('\\times' + s, couleur1), denAbs / s + miseEnEvidence('\\times' + s, couleur1))}=${miseEnEvidence(texFractionSigne(num / s, den / s), couleur2)}`
     }
   } else if (num < 0 || den < 0) {
     result += `${texFractionSigne(num, den)}`

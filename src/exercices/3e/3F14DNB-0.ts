@@ -38,7 +38,7 @@ export default class Exercice3F14DNB0 extends ExerciceBrevetA {
     this.sup = false
     this.besoinFormulaire2CaseACocher = ['Présence possible de nombres négatifs', false]
     this.sup2 = false
-    this.nbQuestionsModifiable = true
+
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
     this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Nouvelle-Calédonie 2023.')

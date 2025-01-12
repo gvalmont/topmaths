@@ -4,6 +4,7 @@ import figureApigeom from '../../lib/figureApigeom'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { randint } from '../../modules/outils'
 import { mathaleaRenderDiv } from '../../lib/mathalea'
+import { context } from '../../modules/context'
 
 export const titre = 'Tracer un triangle à partir de longueurs des 3 côtés'
 export const dateDePublication = '29/10/2023'
@@ -13,10 +14,9 @@ export const interactifType = 'custom'
 /**
  * Tracer un triangle à partir de longueurs des 3 côtés
  * @author Rémi Angot
- * Références geoTriangle-1
+
  */
 
-export const ref = 'triangle1'
 export const refs = {
   'fr-fr': ['triangle1'],
   'fr-ch': []
@@ -35,8 +35,8 @@ class ConstructionTriangle extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.reponse = ''
-    this.formatChampTexte = 'none'
     this.exoCustomResultat = true
+    this.formatChampTexte = 'none' // Pas de champ texte pour cet exercice simple de géométrie dynamique
   }
 
   nouvelleVersion (): void {
@@ -58,7 +58,7 @@ class ConstructionTriangle extends Exercice {
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [
       string,
       string,
-      string,
+      string
     ]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
 
@@ -100,7 +100,10 @@ class ConstructionTriangle extends Exercice {
       idAddendum: 'Correction',
       figure: figureCorrection
     })
-    this.question = enonce + emplacementPourFigure
+    if (!context.isHtml) {
+      texteCorr = figureCorrection.tikz()
+    }
+    this.question = this.interactif ? enonce + emplacementPourFigure : enonce
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
@@ -117,7 +120,7 @@ class ConstructionTriangle extends Exercice {
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [
       string,
       string,
-      string,
+      string
     ]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
     let { message, isValid } = this.figure.checkDistance({
@@ -231,6 +234,12 @@ function createAnimationConstructionTriangle (triangle: Triangle): Figure {
   description.text = 'On peut cacher les cercles.'
   cA2.hide()
   cB.hide()
+  if (!context.isHtml) {
+    description.text = ''
+    A.shape = ''
+    B.shape = ''
+    C.shape = ''
+  }
   figure.saveState()
   return figure
 }

@@ -1,18 +1,18 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu, randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Résoudre algébriquement une équation $f(x)=k$ avec une fonction de référence'
 export const dateDePublication = '07/01/2022'
@@ -27,34 +27,36 @@ export const interactifType = 'mathLive'
 *
 */
 export const uuid = 'de0d1'
-export const ref = '2F12-1'
+
 export const refs = {
   'fr-fr': ['2F12-1'],
   'fr-ch': []
 }
-export default function EquationsFonctionsRef () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
-  this.consigne = ''
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.spacing = 1
-  this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : x^2=k',
-      '2 : sqrt(x)=k',
-      '3 : 1/x=k',
-      '4 : x^3=k',
-      '5 : Mélange'
-    ].join('\n')
-  ]
+export default class EquationsFonctionsRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Équation directe\n2 : Équation indirecte\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.sup = 1
+    this.sup2 = 1
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+
+    this.nbQuestions = 2
+
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : x^2=k',
+        '2 : sqrt(x)=k',
+        '3 : 1/x=k',
+        '4 : x^3=k',
+        '5 : Mélange'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -698,19 +700,18 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
           }
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
       texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
       texteCorr = correction
       if (this.interactif) { texte += '<br>$\\textit{Respecter les notations}$.' }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Équation directe\n2 : Équation indirecte\n3 : Mélange']
 }

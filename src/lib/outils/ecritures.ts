@@ -1,13 +1,13 @@
 import Decimal from 'decimal.js'
 import { equal, round } from 'mathjs'
-import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { egal } from '../../modules/outils.js'
-import { miseEnEvidence } from './embellissements.js'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { egal } from '../../modules/outils'
+import { miseEnEvidence } from './embellissements'
 import { arrondi } from './nombres'
-import { lettreDepuisChiffre } from './outilString.js'
+import { lettreDepuisChiffre } from './outilString'
 import { stringNombre, texNombre } from './texNombre'
-import { fraction } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 
 /**
@@ -17,7 +17,12 @@ import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
  * //rienSi1(-1)+'x' -> -x
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function rienSi1 (a: number | FractionEtendue) {
+export function rienSi1 (a: number | FractionEtendue | Decimal | string) {
+  if (a instanceof Decimal) {
+    if (a.eq(1)) return ''
+    if (a.eq(-1)) return '-'
+    return texNombre(a)
+  }
   if (a instanceof FractionEtendue && !(a.isEqual(fraction(1, 1)) || a.isEqual(fraction(-1, 1)))) return a.toLatex()
   if (typeof a === 'string') {
     window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
@@ -25,8 +30,10 @@ export function rienSi1 (a: number | FractionEtendue) {
   }
   if (a instanceof FractionEtendue && (a.isEqual(fraction(1, 1)))) return ''
   if (a instanceof FractionEtendue && (a.isEqual(fraction(-1, 1)))) return '-'
-  if (equal(a, 1)) return ''
-  if (equal(a, -1)) return '-'
+  if (!(a instanceof FractionEtendue)) {
+    if (egal(a, 1)) return ''
+    if (egal(a, -1)) return '-'
+  }
 
   if (Number(a) || a === 0) return stringNombre(a as number, 7) // on retourne 0, ce ne sera pas joli, mais Number(0) est false !!!
   window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
@@ -39,7 +46,8 @@ export function rienSi1 (a: number | FractionEtendue) {
  * // 'dm'+texteExposant(3)
  * @author Rémi Angot
  */
-export function texteExposant (texte: string) {
+export function texteExposant (texte: string | number) {
+  if (typeof texte === 'number') texte = String(texte)
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
@@ -174,8 +182,9 @@ export function signeMoinsEnEvidence (r: number, precision = 0) {
  * @Example
  * // 3 ou (-3)
  * @author Rémi Angot
+ * @return {string}
  */
-export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtendue) {
+export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtendue): string {
   let result = ''
   if (a instanceof Decimal) {
     if (a.gte(0)) return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
@@ -191,6 +200,7 @@ export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtend
     return a.ecritureParentheseSiNegatif
   } else {
     window.notify('ecritureParentheseSiNegatif() appelée avec autre chose qu\'un nombre', { argument: a })
+    return 'undefined'
   }
 }
 
@@ -200,7 +210,7 @@ export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtend
  * // (-3x)
  * @author Rémi Angot
  */
-export function ecritureParentheseSiMoins (expr: string | number| FractionEtendue) {
+export function ecritureParentheseSiMoins (expr: string | number | FractionEtendue) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
   else if (typeof expr === 'string') return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
   else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, 7)})`
@@ -237,7 +247,6 @@ export function calculAligne (numero: number, etapes: number[]) {
  */
 export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: number) {
   if (a instanceof FractionEtendue) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ ts-expect-errors
     return egal(a.num / a.den, arrondi(a.num / a.den, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {

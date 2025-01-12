@@ -1,12 +1,12 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,22 +21,26 @@ export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 * rendu interactif + AMC par Jean-Claude Lhote
 */
 export const uuid = '234a7'
-export const ref = '5N14'
+
 export const refs = {
   'fr-fr': ['5N14'],
   'fr-ch': ['9NO12-5']
 }
-export default function ExerciceComparerDeuxFractions (max = 11) {
-  Exercice.call(this)
-  this.sup = max // Correspond au facteur commun
-  this.consigne = 'Comparer les fractions suivantes.'
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
-  this.sup2 = false
+export default class ExerciceComparerDeuxFractions extends Exercice {
+  constructor (max = 11) {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
+    this.besoinFormulaire2CaseACocher = ['Inclure des nombres négatifs']
+    this.sup = max // Correspond au facteur commun
+    this.consigne = 'Comparer les fractions suivantes.'
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.sup2 = false
+  }
+
+  nouvelleVersion () {
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions)
     // On crée une liste de FractionEtendues irréductibles.
     const listeFractions = obtenirListeFractionsIrreductibles()
@@ -94,12 +98,12 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
           options: { ordered: false }
         }
       } else {
-        handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
+        handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, options: { texteSansCasse: true } } }, { formatInteractif: 'fillInTheBlank' })
       }
 
       if (this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       if (!context.isHtml) {
@@ -116,6 +120,4 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
-  this.besoinFormulaire2CaseACocher = ['Inclure des nombres négatifs']
 }

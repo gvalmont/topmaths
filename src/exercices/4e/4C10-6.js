@@ -1,13 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { Relatif } from '../../modules/Relatif.js'
-import Exercice from '../deprecatedExercice.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { Relatif } from '../../modules/Relatif'
+import Exercice from '../Exercice'
 import {
   listeQuestionsToContenu, randint
-} from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+} from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -21,23 +21,27 @@ export const dateDeModifImportante = '18/09/2024'
 * @author Cédric GROLLEAU
 */
 export const uuid = '73187'
-export const ref = '4C10-6'
+
 export const refs = {
   'fr-fr': ['4C10-6'],
   'fr-ch': ['10NO4-8']
 }
-export default function ExerciceTableauMultiplicationsRelatifs () {
-  Exercice.call(this)
-  this.sup = 3
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.spacing = 2
-  this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+export default class ExerciceTableauMultiplicationsRelatifs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      5,
+      '1 : Multiplications\n2 : Quotients \n3 : Multiplications et quotients \n4 : Multiplications avec plusieurs fois la lettre (dont puissances) \n5 : Mélange '
+    ]
+    this.sup = 3
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+    this.spacing = 2
+    this.nbQuestions = 3
+  }
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-    this.sup = parseInt(this.sup)
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1: // multiplications
@@ -264,17 +268,12 @@ export default function ExerciceTableauMultiplicationsRelatifs () {
       texte += propositionsQcm(this, i).texte
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], ...listeNombres)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    5,
-    '1 : Multiplications\n2 : Quotients \n3 : Multiplications et quotients \n4 : Multiplications avec plusieurs fois la lettre (dont puissances) \n5 : Mélange '
-  ]
 }

@@ -13,7 +13,6 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  */
 
-export const ref = 'elements1'
 export const refs = {
   'fr-fr': ['elements1'],
   'fr-ch': []
@@ -21,10 +20,10 @@ export const refs = {
 export const uuid = '6fdab'
 
 class Trait {
-  type: 'Segment'|'Ray'|'Line'
+  type: 'Segment' | 'Ray' | 'Line'
   nameA: string
   nameB: string
-  constructor (type: 'Segment'|'Ray'|'Line', nameA: string, nameB: string) {
+  constructor (type: 'Segment' | 'Ray' | 'Line', nameA: string, nameB: string) {
     this.type = type
     this.nameA = nameA
     this.nameB = nameB
@@ -102,7 +101,7 @@ class ConstructionSegmentRayLine extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.reponse = ''
-    this.formatChampTexte = 'none'
+    this.formatChampTexte = 'none' // Pas de champ texte pour cet exercice simple de géométrie dynamique
     this.exoCustomResultat = true
   }
 
@@ -116,7 +115,7 @@ class ConstructionSegmentRayLine extends Exercice {
     this.nameC = String.fromCharCode(indiceFirstLetter + 2)
     this.figure.options.labelAutomaticBeginsWith = this.nameA
 
-    const types = ['Segment', 'Line', 'Ray'].sort(() => Math.random() - 0.5) as ('Segment'|'Line'|'Ray')[]
+    const types = ['Segment', 'Line', 'Ray'].sort(() => Math.random() - 0.5) as ('Segment' | 'Line' | 'Ray')[]
     this.traits.push(new Trait(types[0], this.nameA, this.nameB))
     this.traits.push(new Trait(types[1], this.nameB, this.nameC))
     this.traits.push(new Trait(types[2], this.nameC, this.nameA))
@@ -135,7 +134,7 @@ class ConstructionSegmentRayLine extends Exercice {
   }
 
   correctionInteractive = () => {
-    const resultat: ('OK'|'KO')[] = []
+    const resultat: ('OK' | 'KO')[] = []
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.figure.id] = this.figure.json

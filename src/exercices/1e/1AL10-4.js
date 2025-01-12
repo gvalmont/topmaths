@@ -4,10 +4,10 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegati
 import { arcenciel } from '../../lib/format/style'
 import { signe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer les termes d\'une suite définie par récurrence'
@@ -19,34 +19,34 @@ export const dateDeModifImportante = '11/10/2024'
  * @author Gaelle Morvan et Gilles Mora pour MAJ (interactif, nouveau cas)
  */
 export const uuid = 'b8c14'
-export const ref = '1AL10-4'
+
 export const refs = {
   'fr-fr': ['1AL10-4'],
   'fr-ch': []
 }
-export default function TermeDUneSuiteDefinieParRecurrence () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 1
-  this.sup = 6
-  this.sup2 = 3
-  this.spacing = 1.5
-  this.spacingCorr = 1.5
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Suite arithmétique',
-      '2 : Suite géométrique',
-      '3 : Suite arithmético-géométrique',
-      '4 : Suite de la forme u(n+1) = a+/-u(n)²',
-      '5 : Suite de la forme u(n+1)=au(n)+/-bn',
-      '6 : Mélange'
-    ].join('\n')
-  ]
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+export default class TermeDUneSuiteDefinieParRecurrence extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Calcul de u(1)\n2 : Calcul de u(k)\n3 : Mélange']
+    this.nbQuestions = 1
+    this.sup = 6
+    this.sup2 = 3
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Suite arithmétique',
+        '2 : Suite géométrique',
+        '3 : Suite arithmético-géométrique',
+        '4 : Suite de la forme u(n+1) = a+/-u(n)²',
+        '5 : Suite de la forme u(n+1)=au(n)+/-bn',
+        '6 : Mélange'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -56,8 +56,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
-    this.listeCorrections = [] // Vide la liste de questions corrigées
+
     for (let i = 0, texte, texteCorr, cpt = 0, u, a, b, reponse, k; i < this.nbQuestions && cpt < 50;) {
       const nomSuite = ['u', 'v', 'w']
       const s = choice(nomSuite)
@@ -157,17 +156,16 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           texteCorr += `<br> Ainsi, $${s}_{${k}}= ${miseEnEvidence(texNombre(u, 0))}$.`
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
 
       texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${s}_{${k}}=$` })
       if (this.questionJamaisPosee(i, a, u, k)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
-        this.listeCorrections.push(texteCorr) // On fait pareil pour la correction
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++ // On passe à la question suivante
       }
       cpt++ // Sinon on incrémente le compteur d'essai pour avoir une question nouvelle
     }
     listeQuestionsToContenu(this) // La liste de question et la liste de la correction
   }
-  this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Calcul de u(1)\n2 : Calcul de u(k)\n3 : Mélange']
 }

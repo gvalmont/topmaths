@@ -33,7 +33,7 @@ async function test (page: Page) {
   await page.screenshot({ path: 'screenshots/last/interactifZoom.png' })
   const urlDiaporama = urlExercice + '&v=diaporama'
   await page.goto(urlDiaporama)
- // await page.click('text=Défilement manuel')
+  // await page.click('text=Défilement manuel')
   await page.click('text=Démarrer')
   await page.screenshot({ path: `screenshots/${uuid}/diaporama1.png` })
   await page.screenshot({ path: 'screenshots/last/diaporama1.png' })

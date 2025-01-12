@@ -1,17 +1,16 @@
 /* eslint-disable camelcase */
 import { choice, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = ['AMCOpen', 'AMCNum', 'qcmMult', 'qcmMono']
@@ -26,22 +25,27 @@ export const dateDeModifImportante = '08/03/2024'
  * @author Rémi Angot
  */
 export const uuid = 'f8f4e'
-export const ref = '5N13'
+
 export const refs = {
   'fr-fr': ['5N13'],
   'fr-ch': ['9NO12-3']
 }
-export default function Exercice_fractions_simplifier (max = 11) {
-  Exercice.call(this)
-  this.sup = max // Correspond au facteur commun
-  this.sup2 = false
-  this.spacing = 2
-  this.spacingCorr = 3
+export default class Exercice_fractions_simplifier extends Exercice {
+  constructor (max = 11) {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99999]
+    this.besoinFormulaire2CaseACocher = ['Simplification maximale exigée']
+    this.besoinFormulaire3CaseACocher = ['QCM']
+    this.sup = max // Correspond au facteur commun
+    this.sup2 = false
+    this.spacing = 2
+    this.spacingCorr = 3
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     this.amcType = this.sup3 ? (!this.sup2 ? 'qcmMult' : 'qcmMono') : (!this.sup2 ? 'AMCOpen' : 'AMCNum')
-    this.autoCorrection = []
+
     this.consigne = this.sup3
       ? ''
       : this.sup2 ? 'Simplifier les fractions suivantes au maximum.' : 'Simplifier les fractions suivantes.'
@@ -204,10 +208,11 @@ export default function Exercice_fractions_simplifier (max = 11) {
       }
       if ((this.interactif && context.isHtml) || this.sup3) texte = texte.replace(' \\dfrac{\\phantom{00000000000000}}{} = \\dfrac{\\phantom{0000}}{}', '')
       if (this.questionJamaisPosee(i, a, b)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (this.interactifType === 'mathLive' || this.amcType === 'AMCNum') {
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup2, fractionSimplifiee: !this.sup2 } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: this.sup2, fractionSimplifiee: !this.sup2 } } })
           if (context.isAmc) {
             texte = 'Simplifier la fraction suivante au maximum.\\\\\n' + texte
             this.autoCorrection[i] = {
@@ -234,7 +239,4 @@ export default function Exercice_fractions_simplifier (max = 11) {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99999]
-  this.besoinFormulaire2CaseACocher = ['Simplification maximale exigée']
-  this.besoinFormulaire3CaseACocher = ['QCM']
 }

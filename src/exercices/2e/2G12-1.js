@@ -2,22 +2,22 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
-import { cercle } from '../../lib/2d/cercle.js'
-import { deuxColonnes } from '../../lib/format/miseEnPage.js'
-import { milieu, point, tracePoint, pointIntersectionLC } from '../../lib/2d/points.js'
-import { codageSegments } from '../../lib/2d/codages.js'
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import Exercice from '../deprecatedExercice.js'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { cercle } from '../../lib/2d/cercle'
+import { deuxColonnes } from '../../lib/format/miseEnPage'
+import { milieu, point, tracePoint, pointIntersectionLC } from '../../lib/2d/points'
+import { codageSegments } from '../../lib/2d/codages'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { texteParPosition } from '../../lib/2d/textes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import Exercice from '../Exercice'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexte, ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texteGras } from '../../lib/format/style'
-import { mediatrice } from '../../lib/2d/droites.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mediatrice } from '../../lib/2d/droites'
+import { mathalea2d } from '../../modules/2dGeneralites'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer et utiliser la distance entre deux points dans un repère'
@@ -27,20 +27,24 @@ export const dateDeModifImportante = '23/11/2023'
  * @author Stéphane Guyon + Gilles Mora (interactif + bricoles)
  */
 export const uuid = 'c5480'
-export const ref = '2G12-1'
+
 export const refs = {
   'fr-fr': ['2G12-1'],
   'fr-ch': []
 }
-export default function Distance () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 //
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+export default class Distance extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Application directe\n2 :  Application indirecte \n3 : Mélange']
+
+    this.nbQuestions = 1
+
+    this.sup = 1 //
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     this.sup = Number(this.sup)
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     if (this.sup === 1) {
@@ -222,7 +226,7 @@ export default function Distance () {
           setReponse(this, i, ['OUI', 'oui', 'Oui'], { formatInteractif: 'texte' })
           texte = 'Dans un repère orthonormé $(O\\,;\\,I\\,,\\,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
-          texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il à la médiatrice du segment  $${A.nom}${B.nom}$ ?`
+          texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il à la médiatrice du segment  $[${A.nom}${B.nom}]$ ?`
           if (this.interactif) {
             texte += '<br>Répondre par "oui" ou "non".' + ajouteChampTexte(this, i)
           }
@@ -335,13 +339,12 @@ export default function Distance () {
           break
       }
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Application directe\n2 :  Application indirecte \n3 : Mélange']
 }

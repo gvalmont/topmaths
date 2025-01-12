@@ -1,11 +1,10 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,20 +16,21 @@ export const dateDeModifImportante = '27/09/2024'
  * @author Gilles Mora
  */
 export const uuid = 'ef686'
-export const ref = '2N42-1'
+
 export const refs = {
   'fr-fr': ['2N42-1'],
   'fr-ch': ['11FA5-3']
 }
-export default function ExprimerEnFonctionDesAutres () {
-  Exercice.call(this)
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 1
-  this.sup = 1
-  this.nouvelleVersion = function () {
+export default class ExprimerEnFonctionDesAutres extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Niveau 3\n 4 : Mélange des niveaux précédents']
+
+    this.nbQuestions = 1
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -427,7 +427,7 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
       if (GilllesDAccord) texte += '<br>' + ajouteChampTexteMathLive(this, i, ' alphanumeric  ', { texteAvant: sp(10) + `$${varAExprimer} =$` })
       else texte += ajouteChampTexteMathLive(this, i, ' alphanumeric  ', { texteAvant: sp(10) })
       // setReponse(this, i, reponse)
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 
@@ -446,13 +446,12 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
 
       if (this.questionJamaisPosee(i, typesDeQuestions, choix, nomV)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Niveau 3\n 4 : Mélange des niveaux précédents']
 }

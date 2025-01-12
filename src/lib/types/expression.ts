@@ -1,9 +1,9 @@
-export type Operator = '+' | '-' | '\\times'| '\\div' | '^'
+export type Operator = '+' | '-' | '\\times' | '\\div' | '^'
 
 export interface ExpressionNode {
-    operator: Operator
-    left: ExpressionNode | number | string
-    right: ExpressionNode | number | string
+  operator: Operator
+  left: ExpressionNode | number | string
+  right: ExpressionNode | number | string
 }
 
 export type Expression = ExpressionNode | number | string

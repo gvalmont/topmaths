@@ -4,6 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer avec les chiffres (relatifs)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,22 +16,19 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
+
 */
 export default class calcAvecChiffresRel extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.compare = functionCompare
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = randint(-2, 2, 0)
     this.reponse = `${reduireAxPlusB(a, 0)}`
     this.question = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2025, 0)})=${texNombre(a * 2025, 0)}$.<br>

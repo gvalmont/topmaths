@@ -1,8 +1,8 @@
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from './ecritures.js'
-import { texNombre } from './texNombre.js'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from './ecritures'
+import { texNombre } from './texNombre'
 
-export function eqToLatex (vect : Array<number| FractionEtendue>, nomVal : Array<string>, inSys : boolean) {
+export function eqToLatex (vect : Array<number | FractionEtendue>, nomVal : Array<string>, inSys : boolean) {
   let expr = ''
   let checkPreviousNull = true
   for (let i = 0; i < 3; i++) {

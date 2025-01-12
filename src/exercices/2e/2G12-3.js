@@ -1,19 +1,19 @@
-import { codageSegments } from '../../lib/2d/codages.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { codageSegments } from '../../lib/2d/codages'
+import { point, tracePoint } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { texteGras } from '../../lib/format/style'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogramme'
 export const dateDeModifImportante = '30/11/2023'
 
@@ -22,23 +22,23 @@ export const dateDeModifImportante = '30/11/2023'
  * @author Stéphane Guyon a tout fait, Gilles Mora a juste repris quelques bricoles
  */
 export const uuid = '31760'
-export const ref = '2G12-3'
+
 export const refs = {
   'fr-fr': ['2G12-3'],
   'fr-ch': ['11GM1-6']
 }
-export default function Parallélogramme () {
-  Exercice.call(this)
-  this.titre = titre
-  this.sup = parseInt(this.sup)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 //
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+export default class Parallélogramme extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 1
+
+    this.sup = 1 //
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -317,8 +317,8 @@ export default function Parallélogramme () {
           break
       }
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

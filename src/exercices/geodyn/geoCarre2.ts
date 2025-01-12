@@ -11,10 +11,9 @@ export const interactifType = 'custom'
 /**
  * Tracer un carré
  * @author Rémi Angot
- * Références geoCarre2
+
  */
 
-export const ref = 'carre2'
 export const refs = {
   'fr-fr': ['carre2'],
   'fr-ch': []
@@ -31,7 +30,7 @@ class ConstructionCarre2 extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.reponse = ''
-    this.formatChampTexte = 'none'
+    this.formatChampTexte = 'none' // Pas de champ texte pour cet exercice simple de géométrie dynamique
     this.exoCustomResultat = true
   }
 

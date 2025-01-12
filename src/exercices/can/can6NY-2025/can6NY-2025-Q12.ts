@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { prenomF } from '../../../lib/outils/Personne'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class ageATrouver extends Exercice {
   constructor () {
@@ -25,13 +25,10 @@ export default class ageATrouver extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: ' ans' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = randint(2040, 2080)
     const prenom = prenomF(1)
     this.question = 'Si ' + prenom + ` naît en $2025$, quel âge aura-t-elle en $${a}$ ?`

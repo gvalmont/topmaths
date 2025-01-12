@@ -9,7 +9,8 @@ class PointOnSpline extends Point {
   abscissa: boolean
   ordinate: boolean
   constructor (figure: Figure, { spline, x = 1, dx, abscissa = false, ordinate = false, ...options }:
-  { spline: Spline
+  {
+    spline: Spline
     x?: number
     abscissa?: boolean
     ordinate?: boolean
@@ -24,7 +25,8 @@ class PointOnSpline extends Point {
     isChild?: boolean
     isFree?: boolean
     isVisible?: boolean
-    id?: string }) {
+    id?: string
+  }) {
     super(figure, { x, y: spline.fonction(x), ...options })
     this.type = 'PointOnGraph'
     this.spline = spline

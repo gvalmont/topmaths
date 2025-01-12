@@ -152,15 +152,16 @@ export default class SchemaEnBoite {
    * @param nb1 Le premier facteur (celui de la ligne du haut)
    * @param nb2 Le deuxième facteur (celui de l'accolade)
    * @param precision Le nombre de décimales
+   * @param produit Le produit au format string si on veut écrire autre chose que '?' (écrit dans la case du dessous)
    * @returns
    */
-  static multiplication (nb1: number, nb2: number, precision: number): SchemaEnBoite {
+  static multiplication (nb1: number | undefined, nb2: number | undefined, precision: number, produit:string | undefined): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       topBraces: [
         {
           start: 1,
           end: 8 + precision * 2,
-          text: `$${nb2}$ fois`,
+          text: nb2 != null ? `$${texNombre(nb2, precision)}\\text{ fois}$` : '? fois',
         }
       ], /* // Pour les test d'ajustement css (J-C)
       bottomBraces: [
@@ -172,26 +173,26 @@ export default class SchemaEnBoite {
       ], */
       topBar: [
         {
-          length: 1 + precision,
-          color: 'white',
-          content: `${nb1}`,
+          length: 2 + precision,
+          color: 'lightgray',
+          content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?',
         },
         {
-          length: 5,
-          color: 'white',
+          length: 3,
+          color: 'lightgray',
           content: '\\ldots',
         },
         {
-          length: 1 + precision,
-          color: 'white',
-          content: `${nb1}`,
+          length: 2 + precision,
+          color: 'lightgray',
+          content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?',
         }
       ],
       bottomBar: [
         {
           length: 7 + precision * 2,
           color: 'white',
-          content: '?' // `${nb1 * nb2}`,
+          content: produit != null ? produit : '?' // `${nb1 * nb2}`,
         }
       ]
     })
@@ -201,18 +202,18 @@ export default class SchemaEnBoite {
   /**
  *
  * @param dividende Le dividende (écrit dans la case du dessous)
- * @param nbFois Le diviseur (nombre entier de fois écrit sur l'accolade)
+ * @param quotient Le diviseur (nombre entier de fois écrit sur l'accolade)
  * @param diviseur Le diviseur (écrit dans les cases du dessus)
  * @param precision nombre de chiffres après la virgule du dividende et du diviseur
  * @returns
  */
-  static division (dividende: number | undefined, nbFois: number | undefined, diviseur: number | undefined, precision: number): SchemaEnBoite {
+  static division (dividende: number | undefined, diviseur: number | undefined, quotient: number | undefined, precision: number): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       topBraces: [
         {
           start: 1,
           end: 8 + 2 * precision,
-          text: nbFois == null ? '? fois' : `${texNombre(nbFois, 0)} fois`,
+          text: quotient == null ? '? fois' : `${texNombre(quotient, 0)} fois`,
         }
       ],
       topBar: [
@@ -229,71 +230,40 @@ export default class SchemaEnBoite {
 
   /**
    *
-   * @param nb1 diviseur (est écrit dans les cases du dessus)
-   * @param nb2 dividende (est écrit dans la case du dessous, mettre undefined pour avoir un ?)
-   * @param nbFois Le nombre de fois écrit sur l'accolade (un string qui peut être égal à '?')
+   * @param diviseur diviseur (est écrit dans les cases du dessus)
+   * @param dividende dividende (est écrit dans la case du dessous, mettre undefined pour avoir un ?)
+   * @param quotient Le nombre de fois écrit sur l'accolade (un string qui peut être égal à '?')
    * @param reste Le reste de la division (un string qui peut être égal à '?')
    * @param precision
    * @returns
    */
-  static divisionAvecReste (nb1: number | undefined, nb2: number | undefined, nbFois: number | undefined, precision: number, reste?: string): SchemaEnBoite {
+  static divisionAvecReste (dividende: number | undefined, diviseur: number | undefined, quotient: number | undefined, precision: number, reste?: string): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       topBraces: [
         {
           start: 1,
           end: 8 + 2 * precision,
-          text: nbFois == null ? '? fois' : `$${nbFois}$ fois`,
+          text: quotient == null ? '? fois' : `$${quotient}$ fois`,
         }
       ],
       topBar: [
-        { color: 'lightgray', length: 2 + precision, content: nb1 == null ? '?' : `$${texNombre(nb1, precision)}$` },
+        { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
         { color: 'lightgray', length: 3, content: '\\ldots' },
-        { color: 'lightgray', length: 2 + precision, content: nb1 == null ? '?' : `$${texNombre(nb1, precision)}$` },
+        { color: 'lightgray', length: 2 + precision, content: diviseur == null ? '?' : `$${texNombre(diviseur, precision)}$` },
         { color: 'lightgray', length: 2, content: reste ?? '?' }
       ],
       bottomBar: [
-        { color: 'white', length: 9 + 2 * precision, content: nb2 == null ? '?' : `$${texNombre(nb2, precision)}$` },
+        { color: 'white', length: 9 + 2 * precision, content: dividende == null ? '?' : `$${texNombre(dividende, precision)}$` },
       ]
     })
     return seb
   }
 
-  /**
- *
- * @param nb1 Le diviseur (écrit dans la case du dessus
- * @param nb2 Le dividende (écrit dans la case du dessous peut être unedfined pour avoir un ?)
- * @param nb3 Le nombre de fois écrit sur l'accolade (un
- * @param precision
- * @param reste
- * @returns
- */
-  divisionPartitionAvecReste (nb1: number | undefined, nb2: number | undefined, nb3: number | undefined, precision: number, reste?: string): SchemaEnBoite {
-    const seb = new SchemaEnBoite({
-      topBraces: [
-        {
-          start: 1,
-          end: 8 + 2 * precision,
-          text: nb3 == null ? '?' : `${texNombre(nb3, 0)} fois`,
-        }
-      ],
-      topBar: [
-        { color: 'lightgray', length: 2 + precision, content: nb1 == null ? '?' : `$${texNombre(nb1, precision)}$` },
-        { color: 'lightgray', length: 3, content: '\\ldots' },
-        { color: 'lightgray', length: 2 + precision, content: nb1 == null ? '?' : `$${texNombre(nb1, precision)}$` },
-        { color: 'lightgray', length: 2, content: reste ?? '?' }
-      ],
-      bottomBar: [
-        { color: 'white', length: 9 + 2 * precision, content: nb2 == null ? '?' : `$${texNombre(nb2, precision)}$` },
-      ]
-    })
-    return seb
-  }
-
-  static addition (nb1: number, nb2: number, precision: number): SchemaEnBoite {
+  static addition (nb1: number | undefined, nb2: number | undefined, precision: number): SchemaEnBoite {
     const seb = new SchemaEnBoite({
       topBar: [
-        { color: 'lightgray', length: 2 + precision, content: `$${texNombre(nb1, precision)}$` },
-        { color: 'lightgray', length: 2 + precision, content: `$${texNombre(nb2, precision)}$` },
+        { color: 'lightgray', length: 2 + precision, content: nb1 != null ? `$${texNombre(nb1, precision)}$` : '?' },
+        { color: 'lightgray', length: 2 + precision, content: nb2 != null ? `$${texNombre(nb2, precision)}$` : '?' },
       ],
       bottomBar: [
         { color: 'white', length: 4 + precision * 2, content: '?' },

@@ -1,10 +1,10 @@
-import { repere } from '../../lib/2d/reperes.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { repere } from '../../lib/2d/reperes'
+import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { spline } from '../../lib/mathFonctions/Spline.js'
+import { spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 
 export const dateDePublication = '27/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '7761e' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
-export const ref = '2F32-2'// @todo à modifier aussi
+
 export const refs = {
   'fr-fr': ['2F32-2'],
   'fr-ch': []
@@ -76,12 +76,12 @@ function aleatoiriseCourbe () {
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
  * @author Gilles Mora (grâce au travail de Jean-Claude Lhote)
- * Référence (2F32-2)
+
  */
 export default class BetaModeleSpline extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = '4'
     this.nbQuestions = 1 // Nombre de questions par défaut
   }

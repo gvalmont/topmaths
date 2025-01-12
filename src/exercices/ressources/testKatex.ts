@@ -6,12 +6,12 @@ export const titre = 'Katex sandbox'
 export default class KatexSandbox {
   typeExercice: string
   numeroExercice!: number
-  titre: string
+  // titre: string
   container: HTMLDivElement
 
   constructor () {
     this.typeExercice = 'html'
-    this.titre = titre
+
     this.container = document.createElement('div')
     this.container.setAttribute('overflow', 'auto')
     this.container.id = 'katex-sandbox'

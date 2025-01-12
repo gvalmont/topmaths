@@ -1,13 +1,13 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Développer (a-b)(a+b)'
@@ -23,29 +23,29 @@ export const dateDeModifImportante = '26/02/2023' // Une date de modification im
  * 3L12-1
  */
 export const uuid = 'be157'
-export const ref = '3L12-1'
+
 export const refs = {
   'fr-fr': ['3L12-1'],
   'fr-ch': ['11FA2-12']
 }
-export default function DevelopperIdentitesRemarquables3 () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
-  this.sup = 2
-  this.sup2 = true
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
+export default class DevelopperIdentitesRemarquables3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 
-  this.nouvelleVersion = function () {
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 5
+    this.sup = 2
+    this.sup2 = true
+
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
-    this.sup = parseInt(this.sup)
+
     const Fractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
       [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
@@ -77,7 +77,6 @@ export default function DevelopperIdentitesRemarquables3 () {
         reponse1 = new FractionEtendue(ns * ns, ds * ds)
       }
       if (this.sup2) {
-        this.spacingCorr = 1
         // On enlève la première égalité pour ne pas avoir A = A en première ligne
         texteCorr = texteCorr.slice(4)
         // On découpe
@@ -161,14 +160,12 @@ export default function DevelopperIdentitesRemarquables3 () {
       }
       if (this.sup === 1 ? this.questionJamaisPosee(i, a) : this.sup === 2 ? this.questionJamaisPosee(i, a, b) : this.questionJamaisPosee(i, a, ns, ds)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }

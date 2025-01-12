@@ -19,7 +19,7 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot
  */
 export const uuid = 'f2db1'
-export const ref = '5R21-1'
+
 export const refs = {
   'fr-fr': ['5R21-1'],
   'fr-ch': ['9NO9-14']
@@ -38,10 +38,6 @@ class SoustractionRelatifs extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     const listeTypeQuestions = combinaisonListes(this.typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -72,8 +68,9 @@ class SoustractionRelatifs extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, a, b, listeTypeQuestions[i])) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: '',

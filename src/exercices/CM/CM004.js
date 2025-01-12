@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -18,27 +18,27 @@ export const amcType = 'AMCNum'
  * * Niveau 2 Addition 2 chiffres + 2 chiffres ne dépassant pas 100, soustraction dont le résultat est entre 11 et 19, tables de 6 à 9
  * * Niveau 3 Addition 2 chiffre + 2 chiffres dépassant 100, soustraction dont le résultat est entre 21 et 39, table de 7, 8, 11 ou 12,
  * @author Rémi Angot
- * Référence CM004
+
  */
 export const uuid = 'ac900'
-export const ref = 'CM004'
+
 export const refs = {
   'fr-fr': ['CM004'],
   'fr-ch': []
 }
-export default function QuatreOperations () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 10
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 // niveau de difficulté
-  this.tailleDiaporama = 3
+export default class QuatreOperations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Calculer.'
 
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 // niveau de difficulté
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = range1(4)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -125,13 +125,12 @@ export default function QuatreOperations () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }

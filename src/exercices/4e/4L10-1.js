@@ -5,9 +5,9 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -36,23 +36,23 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  */
 export const uuid = 'cc129'
-export const ref = '4L10-1'
+
 export const refs = {
   'fr-fr': ['4L10-1'],
   'fr-ch': ['10FA1-15']
 }
-export default function ReductionsPiegesClassiques () {
-  Exercice.call(this)
-  this.spacing = 1
-  this.nbQuestions = 10
-  this.sup = true
-  this.listeAvecNumerotation = false
+export default class ReductionsPiegesClassiques extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 
-  this.nouvelleVersion = function () {
+    this.sup = true
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Réduire et simplifier, si possible, '
     this.consigne += this.nbQuestions > 1 ? 'les expressions suivantes.' : 'l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [
       'ax+b',
@@ -159,13 +159,12 @@ export default function ReductionsPiegesClassiques () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 }

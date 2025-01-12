@@ -11,7 +11,7 @@ import { droiteParPointEtPente } from '../../../lib/2d/droites'
 import { sqrt } from 'mathjs'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { courbe } from '../../../lib/2d/courbes'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Résoudre une inéquation du type $\\sqrt{x}<k$ ou $\\sqrt{x}>k$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,16 +24,15 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class EquationsRacCarree extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   }
 
@@ -72,7 +71,6 @@ export default class EquationsRacCarree extends Exercice {
       case 1 :// sqrt(x)<k
         { const choix = choice([true, false])
           sAAx.epaisseur = 2
-          // @ts-expect-error problème typage pointilles à revoir
           sAAx.pointilles = 5
           sAxBx.epaisseur = 2
           sAxBx.tailleExtremites = 6
@@ -93,7 +91,7 @@ export default class EquationsRacCarree extends Exercice {
           }), Cg
           , r1, sAAx, o, sAxBx, Texte1, Texte2, Texte3)
           reponse = choix ? `[0;${a ** 2}[` : `[0;${a ** 2}]`
-          this.reponse = { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } }
+          this.reponse = { reponse: { value: reponse, options: { intervalle: true } } }
           this.question = `Donner l'ensemble $S$ des solutions de  l'inéquation $\\sqrt{x}${choix ? '<' : ' \\leqslant '}${a}$.`
           this.correction = 'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
           this.correction += `${graphiqueC}`
@@ -105,7 +103,6 @@ export default class EquationsRacCarree extends Exercice {
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2
-          // @ts-expect-error problème typage pointilles à revoir
           sAAx.pointilles = 5
           const AxI = point(4, 0)
           const sAxAxI = segment(Ax, AxI, 'red')
@@ -128,7 +125,7 @@ export default class EquationsRacCarree extends Exercice {
           Cg
           , r1, o, sAAx, sAxAxI, Texte1, Texte2, Texte3)
           reponse = choix ? `]${a ** 2};+\\infty[` : `[${a ** 2};+\\infty[`
-          this.reponse = { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } }
+          this.reponse = { reponse: { value: reponse, options: { intervalle: true } } }
           this.question = `Donner l'ensemble $S$ des solutions de  l'inéquation : $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$.`
           this.correction = 'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
           this.correction += `${graphiqueC}<br>`

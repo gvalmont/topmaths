@@ -151,8 +151,8 @@ export default class ExerciceEquationSecondDegre extends Exercice {
         texteCorr += `$S_x=${miseEnEvidence(`\\left\\{-${ensembleDeSolutions[1]};\\,-${ensembleDeSolutions[0]};\\,${ensembleDeSolutions[0]};\\,${ensembleDeSolutions[1]}\\right\\}`)}$`
       }
       if (this.questionJamaisPosee(i, equation.ensembleDeSolutionsTex, equation.equationTex)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

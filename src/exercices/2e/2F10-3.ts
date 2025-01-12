@@ -1,15 +1,15 @@
 import figureApigeom from '../../lib/figureApigeom'
 import Figure from 'apigeom'
-import { Droite, droite } from '../../lib/2d/droites.js'
-import { TracePoint, point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { Droite, droite } from '../../lib/2d/droites'
+import { TracePoint, point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { min, max } from 'mathjs'
 import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
@@ -26,7 +26,7 @@ export const interactifType = 'custom'
 * 2F10-3
 */
 export const uuid = 'c360e'
-export const ref = '2F10-3'
+
 export const refs = {
   'fr-fr': ['2F10-3'],
   'fr-ch': ['10FA5-15']
@@ -47,9 +47,8 @@ export default class Representerfonctionaffine extends Exercice {
   nouvelleVersion () {
     this.figures = []
     this.coefficients = []
-    this.listeQuestions = []
-    this.listeCorrections = []
-    let typesDeQuestionsDisponibles: (1|2)[] = []
+
+    let typesDeQuestionsDisponibles: (1 | 2)[] = []
 
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -242,8 +241,8 @@ export default class Representerfonctionaffine extends Exercice {
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -253,9 +252,9 @@ export default class Representerfonctionaffine extends Exercice {
 
   correctionInteractive = (i?: number) => {
     if (i === undefined) return 'KO'
-    let result: 'OK'|'KO' = 'KO'
+    let result: 'OK' | 'KO' = 'KO'
     if (this.figures?.[i] == null) throw new Error('La figure n\'a pas été créée')
-    const figure = this.figures[i]
+    const figure = this.figures[i] as Figure
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[figure.id] = figure.json

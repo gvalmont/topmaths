@@ -1,12 +1,12 @@
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { katexPopup2 } from '../../lib/format/message.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { katexPopup2 } from '../../lib/format/message'
+import { numAlpha } from '../../lib/outils/outilString'
 import { decompositionFacteursPremiers, pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils'
 export const titre = 'Résoudre un exercice d\'engrenages'
 export const dateDeModifImportante = '01/04/2023'
 /**
@@ -16,25 +16,25 @@ export const dateDeModifImportante = '01/04/2023'
  * @author Sébastien Lozano
  */
 export const uuid = 'ce352'
-export const ref = '3A12'
+
 export const refs = {
   'fr-fr': ['3A12'],
   'fr-ch': ['9NO4-23']
 }
-export default function PpcmEngrenages () {
-  Exercice.call(this)
-  context.isHtml ? this.spacing = 2 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestionsModifiable = false
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = false
+export default class PpcmEngrenages extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function (numeroExercice) {
+    context.isHtml ? this.spacing = 2 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestionsModifiable = false
+    this.nbQuestions = 4
+
+    this.sup = false
+  }
+
+  nouvelleVersion (numeroExercice) {
     let typesDeQuestions
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -307,8 +307,8 @@ export default function PpcmEngrenages () {
       }
 
       if (this.questionJamaisPosee(i, nbDentsr1, nbDentsr2)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

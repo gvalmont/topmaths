@@ -7,6 +7,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { randint } from '../../modules/outils'
 import { choice } from '../../lib/outils/arrayOutils'
+import { sp } from '../../lib/outils/outilString'
 
 export const uuid = 'd11ae'
 export const refs = {
@@ -137,7 +138,7 @@ export default class Exercice3S2DNB0 extends ExerciceBrevetA {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.nbQuestionsModifiable = true
+
     this.versionAleatoire(0)
     this.introduction = texteItalique('D\'après l\'exercice 1 du brevet Métropole 2024.<br>')
   }
@@ -168,14 +169,14 @@ ${createList({
   items: [
       `Expliquer pourquoi la probabilité s'arrête sur le numéro ${num1} est $\\dfrac{1}{37}$.`,
       `Déterminer la probabilité que la bille s'arrête sur une case à la fois ${couleur} et ${parite ? 'paire' : 'impaire'}.`,
-      createList({
+      `${sp(1)}${createList({
         items: [
         `Déterminer la probabilité que la bille s'arrête sur un numéro inférieur ou égal à ${num2}.`,
         `En déduire la probabilité que la bille s'arrête sur un numéro supérieur ou égal à ${num2 + 1}.`,
         `Un joueur affirme qu'on a plus de 3 chances sur 4 d'obtenir un numéro supérieur ou égal à ${num2 + 1}. A-t-il raison?`
       ],
 style: 'alpha'
-})
+})}`
       ],
 style: 'nombres'
 })}`

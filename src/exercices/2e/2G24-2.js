@@ -1,12 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,21 +18,24 @@ export const dateDePublication = '21/05/2023'
  * @author Stéphan Grignon Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = '49570'
-export const ref = '2G24-2'
+
 export const refs = {
   'fr-fr': ['2G24-2'],
   'fr-ch': []
 }
-export default function Calculercoordonneessommevecteurs () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+export default class Calculercoordonneessommevecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations différentes ', 4, '1 : Coordonnées entières\n 2 : Coordonnées en écriture fractionnaire\n 3 : À partir de quatre points\n4 : Mélange']
+
+    this.nbQuestions = 2
+
+    this.sup = 1
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['t1'] // On donne 2 vecteurs à coordonnées entières
@@ -173,8 +176,8 @@ export default function Calculercoordonneessommevecteurs () {
       }
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: wxFraction.texFraction, compare: fonctionComparaison },
-        champ2: { value: wyFraction.texFraction, compare: fonctionComparaison }
+        champ1: { value: wxFraction.texFraction },
+        champ2: { value: wyFraction.texFraction }
       })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,
@@ -184,13 +187,12 @@ export default function Calculercoordonneessommevecteurs () {
       }
 
       if (this.questionJamaisPosee(i, wxFraction.texFraction, wyFraction.texFraction)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes ', 4, '1 : Coordonnées entières\n 2 : Coordonnées en écriture fractionnaire\n 3 : À partir de quatre points\n4 : Mélange']
 }

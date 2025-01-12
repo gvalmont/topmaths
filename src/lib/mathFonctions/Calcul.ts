@@ -13,7 +13,7 @@ export class Operande {
     return this.value.toString()
   }
 
-  toString ({ parentheses }: {parentheses?: boolean} = {}): string {
+  toString ({ parentheses }: { parentheses?: boolean } = {}): string {
     if (parentheses) {
       return `(${this.string})`
     }
@@ -38,7 +38,7 @@ export class ExponentialOperande extends Operande {
   get string (): string {
     if (this.polynome.toString() === '') {
       return String(this.k)
-    } 
+    }
     if (this.k === 0) {
       return '0'
     }
@@ -55,7 +55,7 @@ export class ExponentialOperande extends Operande {
 abstract class Calcul {
   abstract string: string
 
-  toString ({ parentheses }: { parentheses?: boolean} = {}): string {
+  toString ({ parentheses }: { parentheses?: boolean } = {}): string {
     if (parentheses) {
       return `(${this.string})`
     }
@@ -244,7 +244,7 @@ export class Pow extends Calcul {
 function handle1 (k: number) {
   if (k === 1) {
     return ''
-  } 
+  }
   if (k === -1) {
     return '-'
   }

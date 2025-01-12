@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer avec des puissances'
@@ -21,14 +21,11 @@ export default class calculPuissances extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const choix = randint(1, 5)
     if (choix === 1) {
       this.reponse = -1

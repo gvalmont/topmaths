@@ -2,41 +2,43 @@ import Decimal from 'decimal.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import {
   listeQuestionsToContenu,
   randint
-} from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Comparer deux images avec une fonction de référence'
 export const dateDePublication = '14/02/2023'
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
- * Référence
+
  */
 export const uuid = '9315e'
-export const ref = '2F11-2'
+
 export const refs = {
   'fr-fr': ['2F11-2'],
   'fr-ch': []
 }
-export default function ComparerAvecFonctionRef () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 6
-  this.sup2 = true
-  this.sup2 = 1
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1.5 // Interligne des questions
-  this.spacingCorr = 1 // Interligne des réponses
-  this.nouvelleVersion = function () {
+export default class ComparerAvecFonctionRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 6, '1 : Avec une fonction affine\n2 : Avec la fonction carré\n3 : Avec la fonction inverse\n4 : Avec la fonction racine carrée\n5 : Avec la fonction cube\n6 : Mélange']
+    this.besoinFormulaire2Numerique = ['Choix des énoncés', 2, '1 : Avec la fonction précisée \n2 : Sans la fonction précisée (sauf fonction affine)']
+
+    this.nbQuestions = 1
+
+    this.sup = 6
+    this.sup2 = true
+    this.sup2 = 1
+
+    this.spacing = 1.5 // Interligne des questions
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']
@@ -350,14 +352,12 @@ export default function ComparerAvecFonctionRef () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 6, '1 : Avec une fonction affine\n2 : Avec la fonction carré\n3 : Avec la fonction inverse\n4 : Avec la fonction racine carrée\n5 : Avec la fonction cube\n6 : Mélange']
-  this.besoinFormulaire2Numerique = ['Choix des énoncés', 2, '1 : Avec la fonction précisée \n2 : Sans la fonction précisée (sauf fonction affine)']
 }

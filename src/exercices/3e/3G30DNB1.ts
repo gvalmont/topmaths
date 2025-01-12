@@ -38,7 +38,7 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.spacingCorr = 2.5
     this.sup = false
-    this.nbQuestionsModifiable = true
+
     this.versionAleatoire()
     this.introduction = texteItalique('D\'après l\'exercice 4 du brevet Amérique du Sud 2024.<br>')
   }
@@ -118,7 +118,7 @@ On dispose des informations suivantes :<br><br>
 `$AB = ${texNombre(hypo, 2)}$ m.`
       ],
       style: 'fleches'
-    })}`, { eleId: 'figure1', largeur1: 60, widthmincol1: 360, widthmincol2: 240, stylecol2: 'vertical-align: center;' })}`
+    })}`, { eleId: 'figure1', largeur1: 60, widthmincol1: '360px', widthmincol2: '240px', stylecol2: 'vertical-align: center;' })}`
     enonce += createList({
       items: [
   `Justifier que la longueur $CB$ est égale à $${texNombre(base, 2)}$ m.`,

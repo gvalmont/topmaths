@@ -1,18 +1,18 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../lib/outils/ecritures'
-import { texteCentre } from '../../lib/format/miseEnPage.js'
+import { texteCentre } from '../../lib/format/miseEnPage'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 import {
   listeQuestionsToContenu, randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 
 /**
@@ -22,24 +22,30 @@ export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 * 3F10-1
 */
 export const uuid = '36795'
-export const ref = '2F20-1'
+
 export const refs = {
   'fr-fr': ['2F20-1'],
   'fr-ch': ['11FA9-1']
 }
-export default function PointSurCourbe () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
-  this.consigne = ''
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.spacing = 1
-  this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-    this.sup = parseInt(this.sup)
+export default class PointSurCourbe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      4,
+      '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
+    ]
+    this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Abscisse du point A entière\n2 : Abscisse du point A fractionnaire\n3 : Mélange']
+
+    this.sup = 1
+    this.sup2 = 1
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+
+    this.nbQuestions = 2
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1:
@@ -362,18 +368,12 @@ export default function PointSurCourbe () {
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    4,
-    '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
-  ]
-  this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Abscisse du point A entière\n2 : Abscisse du point A fractionnaire\n3 : Mélange']
 }

@@ -1,24 +1,24 @@
-import { codageSegments } from '../../../lib/2d/codages.js'
-import { courbeInterpolee } from '../../../lib/2d/courbes.js'
-import { droite } from '../../../lib/2d/droites.js'
-import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
-import { grille, repere } from '../../../lib/2d/reperes.js'
-import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
+import { codageSegments } from '../../../lib/2d/codages'
+import { courbeInterpolee } from '../../../lib/2d/courbes'
+import { droite } from '../../../lib/2d/droites'
+import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { grille, repere } from '../../../lib/2d/reperes'
+import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texPrix } from '../../../lib/format/style'
 import { abs, arrondi, range1 } from '../../../lib/outils/nombres'
-import { sp } from '../../../lib/outils/outilString.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { sp } from '../../../lib/outils/outilString'
+
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import Exercice from '../../Exercice'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { min, round } from 'mathjs'
-import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { context } from '../../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
@@ -31,7 +31,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '03/04/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '9bc44'
-export const ref = 'can2a-2023'
+
 export const refs = {
   'fr-fr': ['can2a-2023'],
   'fr-ch': []
@@ -40,30 +40,28 @@ export const refs = {
 /**
  * Aléatoirisation du sujet 2023 de CAN seconde
  * Gilles Mora
- * Référence
+
  */
 
 function compareNombres (a, b) {
   return a - b
 }
 
-export default function SujetCAN2023Seconde () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.nbQuestions = 30
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+export default class SujetCAN2023Seconde extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 30
+
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+  }
+
+  nouvelleVersion () {
     let typeQuestionsDisponibles = []
     if (this.nbQuestions === 30) {
       typeQuestionsDisponibles = range1(30)
@@ -145,7 +143,7 @@ export default function SujetCAN2023Seconde () {
           n = couplenm[0]
           m = couplenm[1] * choice([-1, 1])
           f = choice(['a', 'b', 'y', 'x'])
-          handleAnswers(this, index, { reponse: { value: `${f}(${n}${ecritureAlgebrique(m)}${f})`, compare: fonctionComparaison } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, index, { reponse: { value: `${f}(${n}${ecritureAlgebrique(m)}${f})` } }, { formatInteractif: 'calcul' })
           // reponse = [`${f}(${n}+${m}${f})`, `${f}(${m}${f}+${n})`]
           if (choice([true, false])) {
             texte = ` Factoriser $${n}${f}${ecritureAlgebrique(m)}${f}^2$`
@@ -1440,8 +1438,8 @@ export default function SujetCAN2023Seconde () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += nbChamps
       }

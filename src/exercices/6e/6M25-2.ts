@@ -1,11 +1,11 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer l\'aire de carrés, rectangles, triangles et disques (calcul mental)'
@@ -47,7 +47,7 @@ export default class AiresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{A}_\\text{carré} = ${texNombre(c)}~\\text{cm}  \\times ${texNombre(c)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{A}_\\text{carré} = ${miseEnEvidence(texNombre(c * c))}~\\text{cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{A}_\\text{carré} =$', texteApres: '$~\\text{cm}^2$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(c * c), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(c * c), options: { nombreDecimalSeulement: true } } })
           }
           break
         case 'rectangle':
@@ -59,7 +59,7 @@ export default class AiresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{A}_\\text{rectangle} = ${texNombre(L)}~\\text{cm} \\times ${texNombre(l)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{A}_\\text{rectangle} = ${miseEnEvidence(texNombre(L * l))}~\\text{cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{A}_\\text{rectangle} =$', texteApres: '$~\\text{cm}^2$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(L * l), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(L * l), options: { nombreDecimalSeulement: true } } })
           }
           break
         case 'triangle':
@@ -72,7 +72,7 @@ export default class AiresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = ${texNombre(b * h)}~\\text{cm}^2 \\div 2$`
             texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = ${miseEnEvidence(texNombre(b * h / 2))}~\\text{cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{A}_\\text{triangle} =$', texteApres: '$~\\text{cm}^2$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(b * h / 2), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(b * h / 2), options: { nombreDecimalSeulement: true } } })
           }
           break
         case 'disqueRayon':
@@ -83,7 +83,7 @@ export default class AiresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${texNombre(r)}~\\text{cm} \\times ${texNombre(r)}~\\text{cm} \\times \\pi$`
             texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${miseEnEvidence(`${texNombre(r * r)}\\pi`)}~\\text{cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{A}_\\text{disque} =$', texteApres: '$~\\text{cm}^2$' })
-            handleAnswers(this, i, { reponse: { value: `${r * r}\\pi`, compare: fonctionComparaison, options: { exclusifFactorisation: true } } })
+            handleAnswers(this, i, { reponse: { value: `${r * r}\\pi`, options: { exclusifFactorisation: true } } })
           }
           break
         case 'disqueDiametre':
@@ -94,15 +94,15 @@ export default class AiresCalculMental extends Exercice {
           texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${texNombre(r)}~\\text{cm} \\times ${texNombre(r)}~\\text{cm} $`
           texteCorr += `<br>$\\mathcal{A}_\\text{disque} = ${miseEnEvidence(`${texNombre(r * r)}\\pi`)}~\\text{cm}^2$`
           texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{A}_\\text{disque} =$', texteApres: '$~\\text{cm}^2$' })
-          handleAnswers(this, i, { reponse: { value: `${r * r}\\pi`, compare: fonctionComparaison, options: { exclusifFactorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `${r * r}\\pi`, options: { exclusifFactorisation: true } } })
         }
       }
       if (this.questionJamaisPosee(i, texte)) {
         if (this.interactif) {
           texte += '<br>' + texteInteractif
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

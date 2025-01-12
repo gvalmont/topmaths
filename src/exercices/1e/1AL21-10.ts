@@ -1,8 +1,8 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import engine from '../../lib/interactif/comparisonFunctions.js'
-import { Point } from '../../lib/2d/points.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import engine from '../../lib/interactif/comparisonFunctions'
+import { Point } from '../../lib/2d/points'
+import { numAlpha } from '../../lib/outils/outilString'
 import type { SemiBoxedExpression, BoxedExpression } from '@cortex-js/compute-engine'
 
 export const titre = 'Interpolation polynomiale'
@@ -21,7 +21,7 @@ export const dateDeModifImportante = '08/09/2024'
 */
 
 export const uuid = '9fa71' // exécuter pnpm getNewUuid
-export const ref = '1AL21-10' // Référence de l'exercice
+
 export const refs = {
   'fr-fr': ['1AL21-10'],
   'fr-ch': ['1F3-5']
@@ -127,15 +127,11 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const [texte, texteCorr, ax, ay, bx, by] = i % 2 === 0 ? questionRacine() : questionInterpolation()
       if (this.questionJamaisPosee(i, ax, ay, bx, by)) {
-        this.listeQuestions.push(String(texte))
-        this.listeCorrections.push(String(texteCorr))
+        this.listeQuestions[i] = String(texte)
+        this.listeCorrections[i] = String(texteCorr)
         i++
       }
       cpt++

@@ -1,6 +1,6 @@
 import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils.js'
+import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
@@ -14,7 +14,7 @@ export const dateDeModifImportante = '24/09/2024'
 /**
  * Exercice modèle pour la nouvelle fonctionnalité de Drag&Drop
  * @author Jean-Claude Lhote
- * Référence c3N10-0
+
 */
 export const uuid = '6498e'
 export const refs = {
@@ -52,7 +52,6 @@ class DragAndDropNumerationEntiere extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     // Pour activer le mélange
     const desordonne = this.sup5
     const enLettre = this.sup
@@ -179,8 +178,8 @@ class DragAndDropNumerationEntiere extends Exercice {
       texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
       if (this.questionJamaisPosee(i, nombreStr)) {
         this.dragAndDrops.push(leDragAndDrop) // on stocke les instances de dragAndDrop dans l'exercice pour pouvoir accéder aux listeners à supprimer lors de la vérification.
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -33,8 +33,6 @@ export default class EtudeFctPoly3 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -203,8 +201,8 @@ export default class EtudeFctPoly3 extends Exercice {
           break
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

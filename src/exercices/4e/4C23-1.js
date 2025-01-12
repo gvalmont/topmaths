@@ -6,17 +6,16 @@ import {
   obtenirListeFractionsIrreductiblesFaciles,
   produitDeDeuxFractions,
   simplificationDeFractionAvecEtapes
-} from '../../lib/outils/deprecatedFractions.js'
+} from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
+import { fraction } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Fractions et priorités opératoires'
 export const amcReady = true
@@ -31,28 +30,41 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  */
 export const uuid = '18ddd'
-export const ref = '4C23-1'
+
 export const refs = {
   'fr-fr': ['4C23-1'],
   'fr-ch': ['10NO6-3']
 }
-export default function ExerciceAdditionnerFractionProduit () {
-  Exercice.call(this)
-  this.sup = 3
-  this.sup2 = false
-  this.sup3 = true
-  this.sup4 = true
-  this.titre = titre
-  this.consigne = 'Calculer et donner un résultat simplifié au maximum.'
-  this.nbCols = 2
-  this.spacing = 1
-  this.spacingCorr = 2
-  this.nbQuestions = 6
-  this.nbColsCorr = this.sup4 ? 2 : 1
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+export default class ExerciceAdditionnerFractionProduit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Style d\'expressions',
+      4,
+      `   1 : Fractions faciles, tout enchaînement d'opérations possibles
+  2 : Fractions standards, tout enchaînement d'opérations possibles
+  3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
+  4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`
+    ]
+    this.besoinFormulaire2CaseACocher = ['Utiliser les nombres relatifs', false]
+    this.besoinFormulaire3CaseACocher = ['Utiliser les divisions', true]
+    this.besoinFormulaire4CaseACocher = ['Présentation des calculs en colonnes', true]
+    this.sup = 3
+    this.sup2 = false
+    this.sup3 = true
+    this.sup4 = true
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Calculer et donner un résultat simplifié au maximum.'
+    this.nbCols = 2
+
+    this.spacingCorr = 2
+    this.nbQuestions = 6
+    this.nbColsCorr = this.sup4 ? 2 : 1
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     const listeFractions = obtenirListeFractionsIrreductibles()
     const listeFractionsFaciles = obtenirListeFractionsIrreductiblesFaciles()
@@ -273,7 +285,7 @@ export default function ExerciceAdditionnerFractionProduit () {
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
-        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
 
         if (this.sup4) {
           texte = `$${lettreDepuisChiffre(i + 1)} = $ ${texte}`
@@ -322,23 +334,12 @@ export default function ExerciceAdditionnerFractionProduit () {
           }
         }
 
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = [
-    'Style d\'expressions',
-    4,
-        `   1 : Fractions faciles, tout enchaînement d'opérations possibles
-    2 : Fractions standards, tout enchaînement d'opérations possibles
-    3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
-    4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`
-  ]
-  this.besoinFormulaire2CaseACocher = ['Utiliser les nombres relatifs', false]
-  this.besoinFormulaire3CaseACocher = ['Utiliser les divisions', true]
-  this.besoinFormulaire4CaseACocher = ['Présentation des calculs en colonnes', true]
 }

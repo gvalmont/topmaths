@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -15,7 +15,7 @@ export const dateDePublication = '31/10/2024'
  * @author Gilles Mora
  */
 export const uuid = 'ab2fc'
-export const ref = 'can6C49'
+
 export const refs = {
   'fr-fr': ['can6C49'],
   'fr-ch': []
@@ -28,11 +28,6 @@ export default class egaliteCompleter extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -46,7 +41,7 @@ export default class egaliteCompleter extends Exercice {
           choix = choice([true, false])
           this.reponse = texNombre(a + b + c, 0)
           texte = 'Compléter l\'égalité.<br>'
-          handleAnswers(this, i, { champ1: { value: this.reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { champ1: { value: this.reponse } })
           texte += remplisLesBlancs(this, i, `${choix ? `${a}+${b}= %{champ1} -${c}` : `%{champ1} -${c}=${a}+${b} `}`, 'fillInTheBlank ' + KeyboardType.clavierNumbers, '\\ldots')
           texteCorr = `Le nombre cherché vérifie  l'égalité : 
            ${choix ? `$${a + b}= \\ldots -${c}$` : `$\\ldots -${c}=${a + b}$ `}.<br>
@@ -66,7 +61,7 @@ export default class egaliteCompleter extends Exercice {
           choix = choice([true, false])
           this.reponse = texNombre(a + b - c, 0)
           texte = 'Compléter l\'égalité.<br>'
-          handleAnswers(this, i, { champ1: { value: this.reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { champ1: { value: this.reponse } })
           texte += remplisLesBlancs(this, i, `${choix ? `${a}+${b}= %{champ1} +${c}` : `%{champ1} +${c}=${a}+${b} `}`, 'fillInTheBlank ' + KeyboardType.clavierNumbers, '\\ldots')
           texteCorr = `Le nombre cherché vérifie  l'égalité : 
              ${choix ? `$${a + b}= \\ldots +${c}$` : `$\\ldots +${c}=${a + b}$ `}.<br>
@@ -79,9 +74,9 @@ export default class egaliteCompleter extends Exercice {
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
       }
-      if (this.questionJamaisPosee(i, exp, texte)) {
-        this.listeCorrections.push(texteCorr)
-        this.listeQuestions.push(texte)
+      if (this.questionJamaisPosee(i, exp, String(a), String(b))) {
+        this.listeCorrections[i] = texteCorr
+        this.listeQuestions[i] = texte
 
         i++
       }

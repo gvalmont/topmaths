@@ -1,4 +1,4 @@
-import QuestionsPrix from '../6e/6C12.js'
+import QuestionsPrix from '../6e/6C12'
 export const titre = 'Résoudre des problèmes de prix'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,11 +10,11 @@ export const dateDePublication = '02/11/2021'
 
 /**
  * @author Eric Elter
- * Référence c3C13
+
  * Date octobre 2021
  */
 export const uuid = 'b0311'
-export const ref = 'c3C13'
+
 export const refs = {
   'fr-fr': ['c3C13'],
   'fr-ch': ['9FA3-16']

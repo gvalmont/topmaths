@@ -1,26 +1,26 @@
 /* eslint-disable camelcase */
-import { angleOriente } from '../../lib/2d/angles.js'
-import { arc } from '../../lib/2d/cercle.js'
-import { codageSegments } from '../../lib/2d/codages.js'
-import { droite } from '../../lib/2d/droites.js'
-import { milieu, point, pointIntersectionDD, pointSurSegment, tracePoint } from '../../lib/2d/points.js'
-import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { grille } from '../../lib/2d/reperes.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { rotation } from '../../lib/2d/transformations.js'
-import { aireTriangle } from '../../lib/2d/triangle.js'
+import { angleOriente } from '../../lib/2d/angles'
+import { arc } from '../../lib/2d/cercle'
+import { codageSegments } from '../../lib/2d/codages'
+import { droite } from '../../lib/2d/droites'
+import { milieu, point, pointIntersectionDD, pointSurSegment, tracePoint } from '../../lib/2d/points'
+import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
+import { grille } from '../../lib/2d/reperes'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { rotation } from '../../lib/2d/transformations'
+import { aireTriangle } from '../../lib/2d/triangle'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { texteGras } from '../../lib/format/style'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { context } from '../../modules/context'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -31,20 +31,19 @@ export const titre = 'Reconnaître des triangles égaux dans différentes config
  * @author Jean-Claude Lhote et Sébastien Lozano (Rendu QCM et interactif par EE)
  */
 export const uuid = '91513'
-export const ref = '3G23'
+
 export const refs = {
   'fr-fr': ['3G23'],
   'fr-ch': ['11GM3-6']
 }
-export default function TrianglesEgaux () {
-  Exercice.call(this)
-  this.debug = false
-  this.titre = titre
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.nouvelleVersion = function () {
+export default class TrianglesEgaux extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     const typesDeQuestions = randint(1, 1)

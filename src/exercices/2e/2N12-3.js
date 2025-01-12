@@ -3,9 +3,9 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -19,19 +19,22 @@ export const dateDePublication = '28/09/2022' // La date de publication initiale
  */
 
 export const uuid = 'ed2ee'
-export const ref = '2N12-3'
+
 export const refs = {
   'fr-fr': ['2N12-3'],
   'fr-ch': ['10NO3-5']
 }
-export default function EncadrerRacineCarreeEntre2Entiers () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Encadrer sqrt(a)\n2 : Encadrer a+b*sqrt(c) avec des entiers\n3 : Encadrer a+b*sqrt(c) avec des décimaux\n4 : Mélange']
+
+    this.nbQuestions = 2
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['Encadrer1']
@@ -150,13 +153,12 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
       }
 
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Encadrer sqrt(a)\n2 : Encadrer a+b*sqrt(c) avec des entiers\n3 : Encadrer a+b*sqrt(c) avec des décimaux\n4 : Mélange']
 }

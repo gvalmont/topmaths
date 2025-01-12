@@ -1,15 +1,15 @@
-import { point } from '../../lib/2d/points.js'
-import { droiteGraduee } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { point } from '../../lib/2d/points'
+import { droiteGraduee } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi, troncature } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { calculANePlusJamaisUtiliser } from '../../modules/outils'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
-export const ref = 'P006'
+
 export const refs = {
   'fr-fr': ['P006'],
   'fr-ch': []
@@ -18,21 +18,23 @@ export const uuid = 'bd5f7'
 
 /**
  * Fonction permettant aux enseignants de proposer rapidement un axe avec zooms pour placer un décimal
- * ref P006
  * @author Jean-Claude Lhote
  */
-export default function NombreAPlacer () {
-  Exercice.call(this)
-  this.nbCols = 1
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.sup = 1
-  this.sup2 = 2573
-  this.sup3 = false
-  this.titre = titre
+export default class NombreAPlacer extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes']
+    this.besoinFormulaire2Numerique = ['Saisir le nombre du millièmes du nombre décimal ', 99999]
+    this.besoinFormulaire3CaseACocher = ['Afficher les abscisses']
 
-  this.nouvelleVersion = function () {
-    this.contenu = ''
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.sup = 1
+    this.sup2 = 2573
+    this.sup3 = false
+  }
+
+  nouvelleVersion () {
     let texte = ''
     const noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0
@@ -154,7 +156,4 @@ export default function NombreAPlacer () {
     }
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes']
-  this.besoinFormulaire2Numerique = ['Saisir le nombre du millièmes du nombre décimal ', 99999]
-  this.besoinFormulaire3CaseACocher = ['Afficher les abscisses']
 }

@@ -1,46 +1,48 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
-import { toutPourUnPoint } from '../../lib/interactif/mathLive.js'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { toutPourUnPoint } from '../../lib/interactif/mathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
+export const dateDeModifImportante = '04/01/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
-* Développer des expressions de double distributivité à l'aide d'un tableau de multiplication
+* Développer des expressions de double distributivité à l'aide d'un tableau de  multiplication
 * @author Sébastien LOZANO
 */
 
 export const uuid = 'c8403'
-export const ref = '3L11-10'
+
 export const refs = {
   'fr-fr': ['3L11-10'],
   'fr-ch': ['11FA2-6']
 }
-export default function TableDoubleDistributivite () {
-  Exercice.call(this)
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
-  this.sup = 1
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
-  this.exoCustomResultat = true
+export default class TableDoubleDistributivite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 5
+    this.sup = 1
+
+    this.listeAvecNumerotation = false
+    this.exoCustomResultat = true
+  }
+
+  nouvelleVersion () {
     this.answers = {}
     this.consigne = this.nbQuestions > 1 ? 'Dans chaque cas, compléter les tables de multiplication, écrire le développement obtenu et le réduire.' : 'Compléter la table de multiplication, écrire le développement obtenu et le réduire.'
-    this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {
@@ -50,7 +52,7 @@ export default function TableDoubleDistributivite () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.autoCorrection = []
+
     for (let i = 0, texte, texteCorr, termesRectangles, developpements, cpt = 0, a, b, c, d, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(2, 9)
@@ -180,20 +182,19 @@ export default function TableDoubleDistributivite () {
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
       texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
 
-      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L1C2: { value: L1C2, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C1: { value: L2C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C2: { value: L2C2, compare: expressionDeveloppeeEtNonReduiteCompare } })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: expressionDeveloppeeEtNonReduiteCompare } })
+      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: functionCompare }, L1C2: { value: L1C2, compare: functionCompare }, L2C1: { value: L2C1, compare: functionCompare }, L2C2: { value: L2C2, compare: functionCompare } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: functionCompare } })
       const reponse = developpements.reduit
-      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse } })
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
 }

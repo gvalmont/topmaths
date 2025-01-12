@@ -24,8 +24,8 @@
 }
 */
 import { abs, acos, polynomialRoot, round } from 'mathjs'
-import { Polynome } from './Polynome.js'
-import { Trace } from './Spline.js'
+import { Polynome } from './Polynome'
+import { Trace } from './Spline'
 
 /**
  * inspiré de https://yahiko.developpez.com/tutoriels/introduction-interpolation/?page=page_8#L8-3
@@ -236,10 +236,10 @@ class SplineCatmullRom {
  * @method  {(number)=>number[]} solve(y) retourne les antécédents de y
  * @method {number=>number} image(x) retourne l'image de x par la fonction
  * @author Jean-Claude Lhote
- *
- * @param {number[]} tabY liste des valeurs de y au niveau des noeuds (sa longueur détermine le nombre d'intervalles
- * @param {number} x0 l'abscisse du début de l'intervalle de définition
- * @param {number} step le pas entre chaque valeur de x pour les différents noeuds successifs
+ * @param {object} parametres
+ * @param {number[]} parametres.tabY liste des valeurs de y au niveau des noeuds (sa longueur détermine le nombre d'intervalles
+ * @param {number} parametres.x0 l'abscisse du début de l'intervalle de définition
+ * @param {number} [parametres.step] le pas entre chaque valeur de x pour les différents noeuds successifs
  * @deprecated préférer la classe Spline de Spline.js beaucoup mieux faite (J'ai beaucoup appris de mes erreurs) J-C Lhote
  */
 export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 } = {}) {

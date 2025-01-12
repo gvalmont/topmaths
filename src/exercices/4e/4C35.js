@@ -1,11 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { puissanceEnProduit } from '../../lib/outils/puissance'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Transformer une écriture de puissance en écriture décimale ou fractionnaire'
@@ -20,26 +20,25 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  */
 export const uuid = '125bd'
-export const ref = '4C35'
+
 export const refs = {
   'fr-fr': ['4C35'],
   'fr-ch': ['10NO2-12']
 }
-export default function PuissanceDecimaleOuFractionnaire () {
-  Exercice.call(this)
-  this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants.'
-  this.nbQuestions = 8
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = false
-  this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
-  this.besoinFormulaire2CaseACocher = ['Avec que des exposants positifs (incontournable pour AMC)']
+export default class PuissanceDecimaleOuFractionnaire extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = () => {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants.'
+    this.nbQuestions = 8
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = false
+    this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
+    this.besoinFormulaire2CaseACocher = ['Avec que des exposants positifs (incontournable pour AMC)']
+  }
 
+  nouvelleVersion () {
     const typeQuestionsDisponibles = ['puissancePos', 'puissanceNeg', 'negPuissancePaire', 'negPuissanceImpaire', 'negParenthesePuissancePaire', 'negParenthesePuissanceImpaire', 'puissance0', 'puissance1', 'negParenthesePuissancePaireNeg', 'negParenthesePuissanceImpaireNeg'] // On créé 3 types de questions
     const typesDeQuestions = this.sup2 || context.isAmc // Ici on ne prends que les exposants positifs pour ne pas influencer par le format de réponse AMC
       ? ['puissance0', 'puissance1', 'puissancePos', 'puissancePos', 'puissancePos', 'puissancePos']
@@ -152,8 +151,8 @@ export default function PuissanceDecimaleOuFractionnaire () {
 
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, n, listeTypeQuestions[i])) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

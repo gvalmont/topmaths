@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
 import type { AutoCorrection, clickFigures } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
+import { KeyboardType, type PartialKbType } from '../lib/interactif/claviers/keyboard'
 
 /**
  *
@@ -22,7 +21,6 @@ export default class Exercice {
   sup3: any
   sup4: any
   sup5: any
-  correctionInteractive?: (i: number) => string | string[] | Promise<string | string[]>
   exoCustomResultat?: boolean // Lorsqu'il est à true, correctionInteractive renvoie un tableau de string ce qui permet à une question de rapporter plusieurs points
   duree?: number
   seed?: string
@@ -35,24 +33,26 @@ export default class Exercice {
   introduction: string
   listeQuestions: string[] = []
   listeCorrections: string[] = []
-  listeCanReponsesACompleter?: string[] = []
-  listeCanEnonces?: string[] = []
+  listeCanReponsesACompleter: string[] = []
+  listeCanEnonces: string[] = []
   question?: string // Seulement pour les exercices de type simple
   reponse?: string | number | object// Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple
-  canReponseACompleter?: string // Seulement pour les exercices de type simple
-  formatChampTexte?: string // Seulement pour les exercices de type simple
+  canReponseACompleter: string = '' // Seulement pour les exercices de type simple
+  formatChampTexte: string | undefined | PartialKbType = KeyboardType.clavierDeBase // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
+  // tailleDiaporama?: number // Pour fixer un zoom de base en mode diaporama
   compare?: ((input: string, goodAnswer: string) => { isOk: boolean, feedback?: string }) | ((input: string, goodAnswer: Grandeur) => { isOk: boolean, feedback?: string }) // Seulement pour les exercices de type simple
   // optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
-  optionsDeComparaison?:Partial<OptionsComparaisonType>
+  optionsDeComparaison?: Partial<OptionsComparaisonType>
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
   figures?: Figure[] | clickFigures[]
+  amcReady?: boolean
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number
@@ -96,6 +96,7 @@ export default class Exercice {
   besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
   mg32Editable: boolean
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+  lastCallback: string // La dernière signature de listeArguments afin de comparaison : permet d'éviter un nouvelleVersionWrapper inutile
   examen?: string // Pour les exercices statiques
   mois?: string // Pour les exercices statiques
   annee?: string // Pour les exercices statiques
@@ -108,6 +109,7 @@ export default class Exercice {
   isDone?: boolean
   private _html: HTMLElement = document.createElement('div')
   score?: number
+
   constructor () {
   // ////////////////////////////////////////////////
   // Autour de l'exercice
@@ -120,7 +122,8 @@ export default class Exercice {
     this.consigne = '' // Chaîne de caractère qui apparaît en gras au-dessus des questions de préférence à l'infinitif et AVEC point à la fin.
     this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
     this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
-    this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ?...)
+
+    this.listeQuestions = []
     this.listeCorrections = [] // Idem avec la correction.
     this.contenu = '' // Chaîne de caractères avec tout l'énoncé de l'exercice construit à partir de `this.listeQuestions` suivant le `context`
     this.contenuCorrection = '' // Idem avec la correction
@@ -195,10 +198,10 @@ export default class Exercice {
 
     // this.typeExercice = 'Scratch' // Pour charger Scratchblocks.
     // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
-    // this.typeExercice = 'XCas' // Pour charger le JavaScript de XCas qui provient de https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html
     // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+    this.lastCallback = ''
     this.answers = {}
     this.listeAvecNumerotation = true
   }
@@ -212,6 +215,8 @@ export default class Exercice {
   }
 
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
+
+  correctionInteractive? (i: number): string | string[]
 
   nouvelleVersion (numeroExercice?: number): void {
     console.info(numeroExercice)

@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 export const titre = 'Problèmes avec des puissances de 10 et des conversions'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -10,24 +10,25 @@ export const amcType = 'AMCOpen'
 /**
  * Problèmes avec des multiplications ou des divisions avec des puissances de 10 et des conversions
  * @author Rémi Angot
- * Référence 4C32-3
+
  * 2021-02-05
 */
 export const uuid = '051c7'
-export const ref = '4C32-3'
+
 export const refs = {
   'fr-fr': ['4C32-3'],
   'fr-ch': ['10NO2-6']
 }
-export default function ProblemesPuissancesDe10EtConversions () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+export default class ProblemesPuissancesDe10EtConversions extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['info', 'info2', 'electricite', 'lumiere']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, a1, b, b1, c, c1, u, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -86,8 +87,8 @@ export default function ProblemesPuissancesDe10EtConversions () {
 
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { create, all } from 'mathjs'
 
 export const titre = 'Produit de matrices carrées ou colonnes'
@@ -12,12 +12,12 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Maxime Nguyen
- * Référence ExC101
+
 */
 export const uuid = '88241'
-export const ref = 'ExC101'
+
 export const refs = {
   'fr-fr': ['TExC101'],
   'fr-ch': []
@@ -25,13 +25,11 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.consigne = 'On définit deux matrices $A$ et $B$. Si le produit $A \\times B$ est possible, effectuer le calcul. Faire de même pour $B \\times A$.'
     this.nbQuestions = 3 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-    this.video = '' // Id YouTube ou url
   }
 
   nouvelleVersion () {
@@ -130,8 +128,8 @@ export default class nomExercice extends Exercice {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, matrices)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c, d...)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

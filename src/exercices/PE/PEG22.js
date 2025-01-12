@@ -1,31 +1,35 @@
-import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points.js'
-import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { similitude } from '../../lib/2d/transformations.js'
+import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { similitude } from '../../lib/2d/transformations'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Alea2iep from '../../modules/Alea2iep.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Alea2iep from '../../modules/Alea2iep'
 export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de Pythagore'
 
 export const dateDePublication = '1/11/2021'
 
 /**
  * @author Rémi Angot
- * Référence PEG22
+
 */
 export const uuid = 'b752a'
-export const ref = 'PEG22'
+
 export const refs = {
   'fr-fr': ['PEG22'],
   'fr-ch': []
 }
-export default function RacineCarrAvecTheoremePythagore () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.sup = 2
+export default class RacineCarrAvecTheoremePythagore extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Avec un seul triangle, \n2 : Nécessite de construire 2 triangles']
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.sup = 2
+  }
+
+  nouvelleVersion (numeroExercice) {
     let AB, BC, r
     AB = randint(2, 5)
     BC = randint(2, 5)
@@ -148,5 +152,4 @@ export default function RacineCarrAvecTheoremePythagore () {
     this.listeCorrections = [texteCorr]
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Avec un seul triangle, \n2 : Nécessite de construire 2 triangles']
 }

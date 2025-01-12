@@ -10,17 +10,17 @@ export const uuid = 'c49da'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: '%' }
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

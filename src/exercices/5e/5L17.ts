@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { tableau, type StyledText } from '../../lib/2d/tableau'
 import { arrondi } from '../../lib/outils/nombres'
@@ -11,7 +11,7 @@ export const titre = 'Traduire la relation de dépendance entre deux grandeurs p
 export const dateDePublication = '28/05/2024'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Guillaume Valmont
 */
 export const uuid = '01387'
@@ -28,9 +28,6 @@ export default class TraduireDependanceGrandeursTableau extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     const nbCalculsParQuestion = Number(this.sup)
 
     const typeQuestionsDisponibles = ['Température ressentie', 'Distance de freinage', 'Pression en pascals', 'Pression en bars', 'Energie cinétique', 'Prix d\'un spectacle']
@@ -140,8 +137,8 @@ En s'aidant d'un tableau, calculer les prix totaux correspondant à ${lister(nom
         style: 'display:block'
       }), monTableau)
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

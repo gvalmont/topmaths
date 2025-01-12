@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 
@@ -20,7 +20,7 @@ export const refs = {
 export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     // this.consigne = 'Une suite étant donnée, étudier son sens de variation.'
     this.nbQuestions = 3
     this.sup = 4
@@ -36,7 +36,6 @@ export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -46,8 +45,6 @@ export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
-    this.listeCorrections = [] // Vide la liste de questions corrigées
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -130,8 +127,8 @@ export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, alea1, alea2)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
-        this.listeCorrections.push(texteCorr) // On fait pareil pour la correction
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++ // On passe à la question suivante
       }
       cpt++ // Sinon on incrémente le compteur d'essai pour avoir une question nouvelle

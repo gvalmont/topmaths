@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -13,19 +13,17 @@ export const uuid = '050b3'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 
 export default class PlaceVirguleProduit extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    // this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
+
     this.canOfficielle = false
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

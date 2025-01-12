@@ -12,11 +12,11 @@ export const titre = 'Calculer avec des puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '15/10/2024'
-/*!
+/**
  * @author Gilles Mora
  */
 export const uuid = 'b9584'
-export const ref = 'can3C17'
+
 export const refs = {
   'fr-fr': ['can3C17'],
   'fr-ch': []
@@ -29,11 +29,6 @@ export default class calculsAvecPuissance10 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const typesDeQuestionsDisponibles = combinaisonListes([1, 2, 3], this.nbQuestions) // EE : tu mets ici toutes les possibiiltés et tu les mélanges jusqu'à obtenir au moins nbQuestions
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -111,9 +106,9 @@ export default class calculsAvecPuissance10 extends Exercice {
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
       }
-      if (this.questionJamaisPosee(i, exp, texte)) {
-        this.listeCorrections.push(texteCorr)
-        this.listeQuestions.push(texte)
+      if (this.questionJamaisPosee(i, exp, String(a))) {
+        this.listeCorrections[i] = texteCorr
+        this.listeQuestions[i] = texte
 
         i++
       }

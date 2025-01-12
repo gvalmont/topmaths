@@ -1,9 +1,9 @@
-import { tracePoint } from '../../lib/2d/points.js'
-import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
+import { tracePoint } from '../../lib/2d/points'
+import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { numAlpha } from '../../lib/outils/outilString'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import {
   arete3d,
   demicercle3d,
@@ -14,13 +14,13 @@ import {
   sensDeRotation3d,
   sphere3d,
   vecteur3d
-} from '../../modules/3d.js'
-import { context } from '../../modules/context.js'
+} from '../../modules/3d'
+import { context } from '../../modules/context'
 import {
   listeQuestionsToContenuSansNumero,
   randint
-} from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 export const titre = 'Repérage sur la sphère'
@@ -28,36 +28,32 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 export const uuid = '75ea2'
-export const ref = '3G40'
+
 export const refs = {
   'fr-fr': ['3G40'],
   'fr-ch': []
 }
-export default function ReperageSurLaSphere () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 4
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
-  this.video = ''
-  this.sup = 3
-  this.sup2 = false
-  this.sup3 = false
-  this.sup4 = false
-  this.listeAvecNumerotation = false
-  const inclinaison = 5
-  const O = point3d(0, 0, 0, false, 'O')
+export default class ReperageSurLaSphere extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Coordonnées relatives']
+    this.besoinFormulaire3CaseACocher = ['Axe Nord-Sud présent']
+    this.besoinFormulaire4CaseACocher = ['Afficher demi-équateur caché']
 
-  const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison)
+    this.nbQuestions = 4
+    this.sup = 3
+    this.sup2 = false
+    this.sup3 = false
+    this.sup4 = false
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
-    this.autoCorrection = []
+  nouvelleVersion () {
+    const inclinaison = 5
+    const O = point3d(0, 0, 0, false, 'O')
+
+    const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison, false)
     let listeTypeDeQuestions
     if (this.sup === 1) listeTypeDeQuestions = combinaisonListes([1], this.nbQuestions)
     else if (this.sup === 2) listeTypeDeQuestions = combinaisonListes([2], this.nbQuestions)
@@ -205,25 +201,10 @@ export default function ReperageSurLaSphere () {
         case 1:
           texte += `${numAlpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
           texteCorrection += `${numAlpha(i)} Les coordonnées de $${nom[i]}$ sont `
-          texteCorrection += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
+          texteCorrection += this.sup2 ? `($${latitudes[i]}^\\circ$ ; $${longitudes[i]}^\\circ$).<br>` : `($${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]} ; $${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]}).<br>`
           objetsEnonce.push(croix, lab)
           objetsCorrection.push(croix, lab)
           if (context.isAmc) {
-            this.autoCorrection[0].propositions.push(
-              {
-                type: 'AMCOpen',
-                propositions: [
-                  {
-                    texte: ' ',
-                    statut: 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                    enonce: `${numAlpha(iAMC)} Donner la longitude du point $${nom[i]}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                    sanscadre: false,
-                    pointilles: false
-                  }
-                ]
-              }
-            )
-            iAMC++
             this.autoCorrection[0].propositions.push(
               {
                 type: 'AMCOpen',
@@ -238,16 +219,31 @@ export default function ReperageSurLaSphere () {
                 ]
               }
             )
+            iAMC++
+            this.autoCorrection[0].propositions.push(
+              {
+                type: 'AMCOpen',
+                propositions: [
+                  {
+                    texte: ' ',
+                    statut: 1, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    enonce: `${numAlpha(iAMC)} Donner la longitude du point $${nom[i]}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                    sanscadre: false,
+                    pointilles: false
+                  }
+                ]
+              }
+            )
           }
           iAMC++
           break
         case 2:
 
           texteAMC = `Placer le point $${nom[i]}$ de  coordonnées GPS `
-          texteAMC += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
+          texteAMC += this.sup2 ? `($${latitudes[i]}^\\circ$ ; $${longitudes[i]}^\\circ$).<br>` : `($${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]} ; $${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]}).<br>`
           texte += `${numAlpha(i)} ` + texteAMC
           texteCorrection += `${numAlpha(i)} Le point $${nom[i]}$ de coordonnées GPS `
-          texteCorrection += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
+          texteCorrection += this.sup2 ? `($${latitudes[i]}^\\circ$ ; $${longitudes[i]}^\\circ$).<br>` : `($${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]} ; $${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]}).<br>`
           texteCorrection += ' est placé sur cette sphère.<br>'
           objetsCorrection.push(croix, lab)
           if (context.isAmc) {
@@ -283,9 +279,4 @@ export default function ReperageSurLaSphere () {
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenuSansNumero(this)
   }
-
-  this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Coordonnées relatives']
-  this.besoinFormulaire3CaseACocher = ['Axe Nord-Sud présent']
-  this.besoinFormulaire4CaseACocher = ['Afficher demi-équateur caché']
 }

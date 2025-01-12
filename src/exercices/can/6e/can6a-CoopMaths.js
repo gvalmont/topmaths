@@ -1,13 +1,13 @@
-import { droiteGraduee } from '../../../lib/2d/reperes.js'
+import { droiteGraduee } from '../../../lib/2d/reperes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { sp } from '../../../lib/outils/outilString.js'
+import { sp } from '../../../lib/outils/outilString'
 import { pgcd } from '../../../lib/outils/primalite'
 import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import Exercice from '../../Exercice'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -15,7 +15,6 @@ import { arrondi } from '../../../lib/outils/nombres'
 import Hms from '../../../modules/Hms'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const dateDeModifImportante = '11/09/2024'
 export const dateDePublication = '5/08/2021'
@@ -31,26 +30,57 @@ export const amcType = 'AMCNum'
  */
 
 export const uuid = '3a526'
-export const ref = 'can6a-CoopMaths'
+
 export const refs = {
   'fr-fr': ['can6a-CoopMaths'],
   'fr-ch': []
 }
-export default function CourseAuxNombres6e () {
-  Exercice.call(this)
-  this.nbQuestions = 30
-  if (this.interactif) {
-    this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
-  } else {
-    this.consigne = ''
+export default class CourseAuxNombres6e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des questions',
+  ` Nombres séparés par des tirets\n1 : Moitié et double\n
+2 : Quotient de a par b\n
+3 : Somme astucieuse de 4 nombres entiers\n
+4 : Somme de deux décimaux avec retenue\n
+5 : Double ou triple d'un nombre entier\n
+6 : Double ou triple d'un nombre décimal\n
+7 : Recomposition d'un entier\n
+8 : Tables de multiplication\n
+9 : Soustraire un nombre se finissant par 9\n
+10 :  Le quart ou le tiers d'un nombre.\n
+11 :  Recomposer un nombre à partir d'un nombre de centaines et d'un nombre d'unités\n
+12 :  Recomposer une nombre avec chevauchement\n
+13 :  Conversion heures et minutes\n
+14 :  Reste de la division par 3\n
+15 :  Une division par 9 qui tombe juste\n
+16 :  Ajouter un nombre de la forme 10n+9\n
+17 :  4 × #,## × 25 ou 2 × #,## × 50\n
+18 :  Addition à trou\n
+19 :  Nombre pair de 2 chiffres × 5\n
+20 :  Proportionnalité simple\n
+21 :  Ordre de grandeur\n
+22 :  Conversion cm -> m\n
+23 :  Fraction 1/n d'une quantité de L\n
+24 :  Reste de la division euclidienne\n
+25 :  Ordre de grandeur : hauteurs\n
+26 :  Appliquer un pourcentage\n
+27 :  Calcul de distance à vitesse constante\n
+28 :  Comparaison de périmètre\n
+29 :  Repérage fraction\n
+30 :  Proportionnalité par linéarité\n
+31 :  Mélange`]
+    this.nbQuestions = 30
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   }
 
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    if (this.interactif) {
+      this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
+    } else {
+      this.consigne = ''
+    }
     let a, b, c, d, resultat, propositions
 
     const listeIndex = gestionnaireFormulaireTexte({
@@ -263,7 +293,7 @@ export default function CourseAuxNombres6e () {
           texte = `Convertir $${d}$ minutes en heures et minutes (format : ... h ...min)`
           texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
           resultat = new Hms({ hour: a, minute: b })
-          handleAnswers(this, q, { reponse: { value: resultat.toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, q, { reponse: { value: resultat.toString(), options: { HMS: true } } })
           texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierHms)
           break
         case 'q14':
@@ -489,8 +519,8 @@ export default function CourseAuxNombres6e () {
 
       if (this.questionJamaisPosee(i, a, b, c, listeIndex[i])) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         q++
         i++
       }
@@ -498,36 +528,4 @@ export default function CourseAuxNombres6e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions',
-        ` Nombres séparés par des tirets\n1 : Moitié et double\n
-  2 : Quotient de a par b\n
-  3 : Somme astucieuse de 4 nombres entiers\n
-  4 : Somme de deux décimaux avec retenue\n
-  5 : Double ou triple d'un nombre entier\n
-  6 : Double ou triple d'un nombre décimal\n
-  7 : Recomposition d'un entier\n
-  8 : Tables de multiplication\n
-  9 : Soustraire un nombre se finissant par 9\n
-  10 :  Le quart ou le tiers d'un nombre.\n
-  11 :  Recomposer un nombre à partir d'un nombre de centaines et d'un nombre d'unités\n
-  12 :  Recomposer une nombre avec chevauchement\n
-  13 :  Conversion heures et minutes\n
-  14 :  Reste de la division par 3\n
-  15 :  Une division par 9 qui tombe juste\n
-  16 :  Ajouter un nombre de la forme 10n+9\n
-  17 :  4 × #,## × 25 ou 2 × #,## × 50\n
-  18 :  Addition à trou\n
-  19 :  Nombre pair de 2 chiffres × 5\n
-  20 :  Proportionnalité simple\n
-  21 :  Ordre de grandeur\n
-  22 :  Conversion cm -> m\n
-  23 :  Fraction 1/n d'une quantité de L\n
-  24 :  Reste de la division euclidienne\n
-  25 :  Ordre de grandeur : hauteurs\n
-  26 :  Appliquer un pourcentage\n
-  27 :  Calcul de distance à vitesse constante\n
-  28 :  Comparaison de périmètre\n
-  29 :  Repérage fraction\n
-  30 :  Proportionnalité par linéarité\n
-  31 :  Mélange`]
 }

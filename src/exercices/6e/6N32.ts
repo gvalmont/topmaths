@@ -1,12 +1,12 @@
-import { grille, seyes } from '../../lib/2d/reperes.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import { grille, seyes } from '../../lib/2d/reperes'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import Exercice from '../Exercice'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { fraction } from '../../modules/fractions'
 import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom.js'
+import figureApigeom from '../../lib/figureApigeom'
 import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
 export const titre = 'Représenter une fraction de l\'unité'
 export const amcReady = true
@@ -21,7 +21,7 @@ export const dateDeModifImportante = '7/10/2024'
  */
 
 export const uuid = 'c28e5'
-export const ref = '6N32'
+
 export const refs = {
   'fr-fr': ['6N32'],
   'fr-ch': ['9NO10-12']
@@ -131,8 +131,8 @@ export default class FractionsDunite extends Exercice {
         }
       }
       if (this.questionJamaisPosee(i, num, den)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

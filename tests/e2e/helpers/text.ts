@@ -1,6 +1,6 @@
 import type { Question } from './types'
 
-export function clean (text: string, options: ('dollars' | 'espaces' | 'virgules'|'cr')[]) {
+export function clean (text: string, options: ('dollars' | 'espaces' | 'virgules' | 'cr')[]) {
   text = text.replaceAll('−', '-')
   if (options.includes('dollars')) text = text.replaceAll('$', '')
   if (options.includes('virgules')) text = text.replaceAll('{,}', ',')

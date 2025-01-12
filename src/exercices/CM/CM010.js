@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
@@ -15,27 +15,26 @@ export const amcType = 'AMCNum'
 /**
  * Calculer le tiers d'un multiple de 3, d'un multiple de 300, d'un multiple de 30 ou d'un nombre a,b avec a et b multiples de 3
  * @author Rémi Angot
- * Référence CM010
+
  */
 export const uuid = '6a3de'
-export const ref = 'CM010'
+
 export const refs = {
   'fr-fr': ['CM010'],
   'fr-ch': []
 }
-export default function Tiers () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 10
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 // niveau de difficulté
-  this.tailleDiaporama = 3
+export default class Tiers extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Calculer.'
 
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 // niveau de difficulté
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = range1(4)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -85,8 +84,8 @@ export default function Tiers () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

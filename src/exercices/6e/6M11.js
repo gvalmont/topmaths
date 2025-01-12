@@ -1,16 +1,16 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages.js'
-import { point, pointAdistance } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { rotation, similitude, translation } from '../../lib/2d/transformations.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages'
+import { point, pointAdistance } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { texteExposant } from '../../lib/outils/ecritures'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -28,37 +28,35 @@ export const interactifReady = true
  *
  * Pas de version LaTeX
  * @author Rémi Angot
- * Référence 6M11
+
  */
 export const uuid = 'eb45a'
-export const ref = '6M11'
+
 export const refs = {
   'fr-fr': ['6M11'],
   'fr-ch': ['9GM1-2']
 }
-export default function AireCarresRectanglesTriangles () {
-  Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = "Calculer l'aire des 3 figures suivantes."
-  this.spacing = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class AireCarresRectanglesTriangles extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.amcReady = amcReady
+    this.amcType = amcType
+    this.interactif = false
+
+    this.consigne = "Calculer l'aire des 3 figures suivantes."
+    this.spacing = 2
+
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')
-    this.listeQuestions = []
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
+
     const c = randint(2, 6)
     const L = randint(2, 5)
     const l = randint(2, 5, L)

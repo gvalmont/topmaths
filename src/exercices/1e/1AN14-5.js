@@ -1,9 +1,9 @@
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { Polynome } from '../../lib/mathFonctions/Polynome.js'
+import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { signe } from '../../lib/outils/nombres'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
  * Calculer la dérivée d'un produit
  * @author Jean-Léon Henry modifié par Rémi Angot (choix des fonctions + parenthèses)
  * mise en jour par Jean-Claude Lhote à la demande des collègues de lycée (notations + paramétrage + quelques améliorations esthétiques)
- * Référence 1AN14-4
+
  */
 
 export const uuid = '1a60f'
@@ -34,23 +34,26 @@ export function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '').replaceAll('~', '')
 }
 
-export default function DeriveeProduit () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
-  this.nbQuestions = 3
-  // Sortie LaTeX
-  this.nbCols = 2 // Nombre de colonnes
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-  this.sup = '6'
-  // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  // const reglesDeSimplifications = math.simplify.rules.slice()
-  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
-  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
-  // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
-  // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
+export default class DeriveeProduit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['types de fonctions :', 'Nombres séparés par des tirets\n1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynome\n4 : racine et polynome degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
+    this.nbQuestions = 3
+    // Sortie LaTeX
+    this.nbCols = 2 // Nombre de colonnes
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction
+    this.sup = '6'
+    // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
+    // const reglesDeSimplifications = math.simplify.rules.slice()
+    // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
+    // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
+    // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
+    // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
+  }
+
+  nouvelleVersion () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
@@ -250,13 +253,12 @@ export default function DeriveeProduit () {
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['types de fonctions :', 'Nombres séparés par des tirets\n1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynome\n4 : racine et polynome degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
 }

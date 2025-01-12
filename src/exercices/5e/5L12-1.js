@@ -1,13 +1,13 @@
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { rienSi1 } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
-import { context } from '../../modules/context.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+
 export const titre = 'Réduire et simplifier, si possible, un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,20 +20,23 @@ export const dateDeModifImportante = '19/11/2023'
  * @author Sébastien Lozano (modifié par EE)
  */
 export const uuid = '46234'
-export const ref = '5L12-1'
+
 export const refs = {
   'fr-fr': ['5L12-1'],
   'fr-ch': ['10FA1-14']
 }
-export default function ReduireDinstinctionSommeProduit () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  let typesDeQuestionsDisponibles
-  this.sup = 3
-  this.nouvelleVersion = function () {
-    typesDeQuestionsDisponibles = this.sup === 3 ? [choice([0, 2]), choice([1, 3])] : this.sup === 2 ? [choice([1, 3])] : [choice([0, 2])]
+export default class ReduireDinstinctionSommeProduit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Avec des mots\n2 : Avec des signes\n3 : Mélange']
+
+    this.nbQuestions = 2
+
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = this.sup === 3 ? [choice([0, 2]), choice([1, 3])] : this.sup === 2 ? [choice([1, 3])] : [choice([0, 2])]
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     const variables = ['x', 'y', 'z', 'a', 'b', 'c']
@@ -85,9 +88,9 @@ export default function ReduireDinstinctionSommeProduit () {
 
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 2 * i, ' ', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Somme : ' : '<br>Produit : ' })
-        handleAnswers(this, 2 * i, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseProduit : reponseSomme, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseProduit : reponseSomme } })
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, ' ', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ' })
-        handleAnswers(this, 2 * i + 1, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseSomme : reponseProduit, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseSomme : reponseProduit } })
       }
       texteCorr = listeTypeDeQuestions[i] > 1 ? enonces[listeTypeDeQuestions[i]].correction_somme : enonces[listeTypeDeQuestions[i]].correction_produit
       texteCorr += listeTypeDeQuestions[i] > 1 ? correctionSommeFinale : correctionProduitFinal
@@ -95,9 +98,10 @@ export default function ReduireDinstinctionSommeProduit () {
       texteCorr += listeTypeDeQuestions[i] > 1 ? enonces[listeTypeDeQuestions[i]].correction_produit : enonces[listeTypeDeQuestions[i]].correction_somme
       texteCorr += listeTypeDeQuestions[i] > 1 ? correctionProduitFinal : correctionSommeFinale
 
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, n, p, inc)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte + '<br>',
@@ -117,5 +121,4 @@ export default function ReduireDinstinctionSommeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Avec des mots\n2 : Avec des signes\n3 : Mélange']
 }

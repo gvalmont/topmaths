@@ -1,6 +1,6 @@
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
+import { numAlpha } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
@@ -15,7 +15,7 @@ export const dateDeModifImportante = '5/11/2023'
  * @author Rémi Angot
  */
 export const uuid = 'e6718'
-export const ref = '1AL23-51'
+
 export const refs = {
   'fr-fr': ['1AL23-51'],
   'fr-ch': ['1F3-8']

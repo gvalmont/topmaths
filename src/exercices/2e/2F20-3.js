@@ -1,17 +1,17 @@
-import { antecedentInterpole, graphiqueInterpole, imageInterpolee } from '../../lib/2d/courbes.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { antecedentInterpole, graphiqueInterpole, imageInterpolee } from '../../lib/2d/courbes'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi, numTrie } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { inferieurouegal, listeQuestionsToContenu, randint, superieurouegal } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { inferieurouegal, listeQuestionsToContenu, randint, superieurouegal } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer graphiquement les extremums'
@@ -23,32 +23,30 @@ export const dateDePublication = '1/08/2021'
 export const dateDeModifImportante = '5/08/2022'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Jean-Claude Lhote
- * Référence 2F32-2
+
  */
 export const uuid = '573f2'
-export const ref = '2F20-3'
+
 export const refs = {
   'fr-fr': ['2F20-3'],
   'fr-ch': ['11FA9-4']
 }
-export default function LecturesGraphiques () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.nbQuestions = 6
-  this.nbQuestionsModifiable = false
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class LecturesGraphiques extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+    this.nbQuestions = 6
+    this.nbQuestionsModifiable = false
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
 
+    this.sup = 1 // Niveau de difficulté
+  }
+
+  nouvelleVersion () {
     const typeFonctionsDisponibles = ['minimum', 'maximum', 'image', 'plusPetitAntécédent', 'plusGrandAntécédent', 'nombreAntécédents'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeFonctionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     let mini = 4
@@ -74,25 +72,39 @@ export default function LecturesGraphiques () {
       grilleSecondaireYMin: -4,
       grilleSecondaireYMax: 4
     })
-    const noeuds = []
-    for (let x = -4, y = -5; x < 5; x += 2) {
-      y = randint(-4, 4, y)
-      noeuds.push([x, y])
-      mini = Math.min(y, mini)
-      maxi = Math.max(y, maxi)
-    }
-    const minimum = [-15, 5]
-    const maximum = [-15, -5]
-    for (let i = 0; i < noeuds.length; i++) {
-      if (minimum[1] > noeuds[i][1]) {
-        minimum[0] = noeuds[i][0]
-        minimum[1] = noeuds[i][1]
+    let noeuds = []
+    let minima
+    let maxima
+    let minimum
+    let maximum
+    let cptBoucleInf = 0
+    const doubleYPrec = 0
+    do {
+      noeuds = []
+      for (let x = -4, y = -5; x < 5; x += 2) {
+        const doubleY = randint(-8, 8, doubleYPrec)
+        y = doubleY / 2
+        noeuds.push([x, y])
+        mini = Math.min(y, mini)
+        maxi = Math.max(y, maxi)
       }
-      if (maximum[1] < noeuds[i][1]) {
-        maximum[0] = noeuds[i][0]
-        maximum[1] = noeuds[i][1]
+      minimum = [-15, 5]
+      maximum = [-15, -5]
+      for (let i = 0; i < noeuds.length; i++) {
+        if (minimum[1] > noeuds[i][1]) {
+          minimum[0] = noeuds[i][0]
+          minimum[1] = noeuds[i][1]
+        }
+        if (maximum[1] < noeuds[i][1]) {
+          maximum[0] = noeuds[i][0]
+          maximum[1] = noeuds[i][1]
+        }
       }
-    }
+      minima = noeuds.filter(n => n[1] === mini)
+      maxima = noeuds.filter(n => n[1] === maxi)
+      cptBoucleInf++
+    } while ((minima.length > 1 || maxima.length > 1) && cptBoucleInf < 1000)
+
     const graph = graphiqueInterpole(noeuds, { repere: r, step: 0.1 })
     this.introduction = 'Voici la représentation graphique de la fonction $f$ définie sur $[-4;4]$.<br>' + mathalea2d({
       xmin: -13.5,
@@ -109,7 +121,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, minimum[1])
           reponses[i] = minimum[1]
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le minimum de $f$ est $${minimum[1]}$ et il est atteint en $x=${minimum[0]}$.<br>`
+          texteCorr = `Le minimum de $f$ est $${texNombre(minimum[1], 1)}$ et il est atteint en $x=${minimum[0]}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(minimum[0] * 3, 0, minimum[0] * 3, minimum[1] * 2, 'blue')
             s[0].pointilles = 5
@@ -130,7 +142,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, maximum[1])
           reponses[i] = maximum[1]
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le maximum de $f$ est $${maximum[1]}$ et il est atteint en $x=${maximum[0]}$.<br>`
+          texteCorr = `Le maximum de $f$ est $${texNombre(maximum[1], 1)}$ et il est atteint en $x=${maximum[0]}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(maximum[0] * 3, 0, maximum[0] * 3, maximum[1] * 2, 'blue')
             s[0].pointilles = 5
@@ -296,8 +308,8 @@ export default function LecturesGraphiques () {
       graph.epaisseur = 2
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], x0, y0, k)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

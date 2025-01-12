@@ -7,7 +7,7 @@ interface Items {
 
 interface DocumentsEntity {
   title: string;
-  items: (string)[];
+  items: string[];
   number?: number;
 }
 

@@ -10,7 +10,7 @@ import { repere } from '../../../lib/2d/reperes'
 import { droite } from '../../../lib/2d/droites'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { courbe } from '../../../lib/2d/courbes'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Résoudre une inéquation du type $x^2<k$ ou $x^2>k$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,7 +30,6 @@ export default class EquationsCarree extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
-    this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {
@@ -53,9 +52,9 @@ export default class EquationsCarree extends Exercice {
       case 1 :// x^2<k
         { const choix = choice([true, false])
           sAAx.epaisseur = 2
-          sAAx.pointilles = '5'
+          sAAx.pointilles = 5
           sBBx.epaisseur = 2
-          sBBx.pointilles = '5'
+          sBBx.pointilles = 5
           const sAxBx = segment(Bx, Ax, 'red')
           sAxBx.epaisseur = 2
           sAxBx.styleExtremites = choix ? ']-[' : '[-]'
@@ -103,9 +102,9 @@ export default class EquationsCarree extends Exercice {
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2
-          sAAx.pointilles = '5'
+          sAAx.pointilles = 5
           sBBx.epaisseur = 2
-          sBBx.pointilles = '5'
+          sBBx.pointilles = 5
           const BxI = point(-4, 0)
           const sBxBxI = segment(BxI, Bx, 'red')
           sBxBxI.epaisseur = 2
@@ -161,7 +160,6 @@ export default class EquationsCarree extends Exercice {
     this.reponse = {
       reponse: {
         value: reponse,
-        compare: fonctionComparaison,
         options: { intervalle: true }
       }
     }

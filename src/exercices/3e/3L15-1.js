@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js' // eslint-disable-next-line camelcase
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -15,23 +15,24 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  */
 export const uuid = '57f44'
-export const ref = '3L15-1'
+
 export const refs = {
   'fr-fr': ['3L15-1'],
   'fr-ch': ['11FA10-5']
 }
-export default function ResoudreEquatioeX2EgalA () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  // eslint-disable-next-line no-undef
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
-  this.spacing = 1
-  this.tailleDiaporama = 3
+export default class ResoudreEquatioeX2EgalA extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Solutions entières\n 2 : Solutions rationnelles\n 3 : Solutions irrationnelles\n 4 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+
+    this.sup = 1
+
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     const listeFractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
@@ -83,8 +84,8 @@ export default function ResoudreEquatioeX2EgalA () {
       }
       texte += ajouteChampTexteMathLive(this, i, '')
       if (this.questionJamaisPosee(i, a)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -92,5 +93,4 @@ export default function ResoudreEquatioeX2EgalA () {
     this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>" : ''
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Solutions entières\n 2 : Solutions rationnelles\n 3 : Solutions irrationnelles\n 4 : Mélange']
 }

@@ -2,9 +2,9 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
@@ -21,27 +21,31 @@ export const titre = 'Trouver le terme manquant d\'une somme de nombres relatifs
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  */
 export const uuid = '61b4a'
-export const ref = '5R20-1'
+
 export const refs = {
   'fr-fr': ['5R20-1'],
   'fr-ch': ['9NO9-4']
 }
-export default function TermeInconnuDeSomme () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.sup = 1
-  this.sup3 = 1
-  this.sup2 = 20 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-  this.titre = titre
-  this.consigne = 'Calculer le terme manquant.'
-  this.spacing = 2
-  this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
+export default class TermeInconnuDeSomme extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Nombres entiers\n2 : Nombres décimaux']
+    this.besoinFormulaire2Numerique = ['Valeur maximale', 9999]
+    this.besoinFormulaire3Numerique = ["Type d'égalités", 2, '1 : Égalités à trou\n2 : Équations']
+    this.nbQuestions = 5
+    this.sup = 1
+    this.sup3 = 1
+    this.sup2 = 20 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Calculer le terme manquant.'
+    this.spacing = 2
+    this.interactif = false
+
+    this.amcType = amcType
+    this.amcReady = amcReady
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let decimal
@@ -94,8 +98,9 @@ export default function TermeInconnuDeSomme () {
       texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
 
       if (this.questionJamaisPosee(i, a, b)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         setReponse(this, i, arrondi(b - a, 2), {
           signe: true,
           digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(b - a)),
@@ -107,7 +112,4 @@ export default function TermeInconnuDeSomme () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Nombres entiers\n2 : Nombres décimaux']
-  this.besoinFormulaire2Numerique = ['Valeur maximale', 9999]
-  this.besoinFormulaire3Numerique = ["Type d'égalités", 2, '1 : Égalités à trou\n2 : Équations']
 }

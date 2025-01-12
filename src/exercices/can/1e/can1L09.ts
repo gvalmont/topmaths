@@ -1,0 +1,78 @@
+import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
+import Exercice from '../../Exercice'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+
+export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '19/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
+/**
+ *
+ * @author Gilles Mora
+
+ */
+export const uuid = '6adb0'
+
+export const refs = {
+  'fr-fr': ['can1L09'],
+  'fr-ch': []
+}
+export default class EquationSecondDegreParticuliere extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 1
+  }
+
+  nouvelleVersion () {
+    let texte, texteCorr, a, b, c, f
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      a = randint(-10, 10, 0)
+      b = randint(-10, 10, 0)
+      c = randint(-10, 10, 0)
+      f = new FractionEtendue(-b, a)
+      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br> $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.`
+      if (this.interactif) {
+        texte += '<br>Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=$'
+        texte += remplisLesBlancs(this, i, '\\bigg\\{ %{champ1}\\,;\\,  %{champ2} \\bigg\\}', KeyboardType.clavierDeBaseAvecFraction)
+        if (-b / a > 0) {
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: 0, options: { fractionEgale: true } },
+            champ2: { value: f.texFSD, options: { fractionEgale: true } }
+          }
+          )
+        } else {
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: f.texFSD, options: { fractionEgale: true } },
+            champ2: { value: 0, options: { fractionEgale: true } }
+          }
+          )
+        }
+      }
+
+      texteCorr = `L'équation $${reduirePolynomeDegre3(0, a, b, c)}=${c}$ s'écrit $${reduirePolynomeDegre3(0, a, b, 0)}=0$.<br>
+          En factorisant le premier membre (facteur commun $x$), on obtient $x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$.<br>
+          On reconnaît une équation produit nul dont les solutions sont : $0$ et $\\dfrac{${-b}}{${a}}${f.texSimplificationAvecEtapes()}$`
+
+      if (this.questionJamaisPosee(i, a, b, c)) {
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+    this.canEnonce = texte
+    this.canReponseACompleter = ''
+  }
+}

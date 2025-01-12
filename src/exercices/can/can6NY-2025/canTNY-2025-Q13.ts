@@ -5,7 +5,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer un coefficient directeur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,13 +24,10 @@ export default class coeffDirecteur extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = choice([-1, 1])
     const c = choice([-1, 1])
     const b = randint(1, 4) * c

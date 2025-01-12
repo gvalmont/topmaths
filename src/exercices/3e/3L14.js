@@ -1,12 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { fraction } from '../../modules/fractions.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { fraction } from '../../modules/fractions'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Résoudre une équation produit nul'
@@ -24,23 +24,23 @@ export const dateDeModifImportante = '09/03/2023'
  * Rendu interactif par Guillaume Valmont le 18/03/2022
  */
 export const uuid = 'ecf62'
-export const ref = '3L14'
+
 export const refs = {
   'fr-fr': ['3L14'],
   'fr-ch': ['11FA10-1']
 }
-export default function ResoudreUneEquationProduitNul () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
-  this.spacing = 1
-  this.tailleDiaporama = 3
+export default class ResoudreUneEquationProduitNul extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 8, '1 : Coefficients de x = 1\n2 : Un coefficient de x > 1 et l\'autre = 1\n3 : Coefficient de x > 1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+
+    this.sup = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     let listeTypeDeQuestions = []
     switch (contraindreValeur(1, 8, this.sup, 1)) {
@@ -268,8 +268,9 @@ export default function ResoudreUneEquationProduitNul () {
       texte += ajouteChampTexteMathLive(this, i, '')
       this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>" : ''
       if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: 'Résoudre l\'équation : ' + texte + '\\\\\nSi il n\'y a qu\'une solution double, il faut la coder dans solution1 et solution2.\\\\\nLes fractions doivent être simplifiées au maximum.',
@@ -351,5 +352,4 @@ export default function ResoudreUneEquationProduitNul () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 8, '1 : Coefficients de x = 1\n2 : Un coefficient de x > 1 et l\'autre = 1\n3 : Coefficient de x > 1 et solutions entières\n4 : Solutions rationnelles\n5 : Mélange 1 et 2\n6 : Mélange 2 et 3\n7 : Mélange 3 et 4\n8 : Mélange de tout']
 }

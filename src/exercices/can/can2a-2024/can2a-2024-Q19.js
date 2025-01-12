@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer avec une puissance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,13 +15,12 @@ export const uuid = '60d7b'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.formatInteractif = 'fillInTheBlank'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

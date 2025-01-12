@@ -1,36 +1,35 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Déterminer si des droites sont parallèles, sécantes ou confondues'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Stéphane Guyon
 */
 export const uuid = 'e715d'
-export const ref = '2G33-2'
+
 export const refs = {
   'fr-fr': ['2G33-2'],
   'fr-ch': []
 }
-export default function PositionsDeDroites () {
-  Exercice.call(this)
-  this.consigne = 'Déterminer si les droites $(d)$ et $(d\')$, dont on donne, ci-dessous, des équations cartésiennes, sont parallèles, confondues ou sécantes.'
-  this.nbQuestions = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class PositionsDeDroites extends Exercice {
+  constructor () {
+    super()
 
-  const typeQuestionsDisponibles = ['type1', 'type1', 'type2'] //, 'type1', 'type2' On créé 2 types de questions
-  const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Déterminer si les droites $(d)$ et $(d\')$, dont on donne, ci-dessous, des équations cartésiennes, sont parallèles, confondues ou sécantes.'
+    this.nbQuestions = 3
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+
+    this.sup = 1 // Niveau de difficulté
+  }
+
+  nouvelleVersion () {
+    const typeQuestionsDisponibles = ['type1', 'type1', 'type2'] //, 'type1', 'type2' On créé 2 types de questions
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, a1, b1, c1, k, a2, b2, c2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
@@ -115,8 +114,8 @@ export default function PositionsDeDroites () {
 
       if (this.questionJamaisPosee(i, a1, b1, c1, b2, c2, a2)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

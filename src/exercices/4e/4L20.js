@@ -2,13 +2,13 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import { abs, signe } from '../../lib/outils/nombres'
 
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { sp } from '../../lib/outils/outilString'
 
@@ -23,7 +23,7 @@ export const dateDeModifImportante = '02/04/2024'
  * @author Rémi Angot
  */
 export const uuid = '799c4'
-export const ref = '4L20'
+
 export const refs = {
   'fr-fr': ['4L20'],
   'fr-ch': ['10FA3-7']
@@ -34,18 +34,34 @@ function gestionEspaceMiseEnEvidence (texte) { // EE : Pour améliorer la gestio
   return (sp(2) + texte[0] + sp(2) + texteSepare[1])
 }
 
-export default function ExerciceEquation1 () {
-  Exercice.call(this)
-  this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = context.isHtml
-  this.sup = true // Avec des nombres relatifs
-  this.sup2 = '1-2-3-4-5' // Choix du type d'équation
-  this.sup3 = true
-  this.nbQuestions = 6
+export default class ExerciceEquation1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire2Texte = ["Type d'équations", [
+      'Nombres séparés par des tirets',
+      '1 : ax+b=0',
+      '2 : ax+b=c',
+      '3 : ax=b',
+      '4 : x+b=c',
+      '5 : ax+b=cx+d',
+      '6 : x/a=b',
+      '7 : ax/b=c',
+      '8 : Mélange'
+    ].join('\n')
+    ]
+    this.besoinFormulaire3CaseACocher = ['Avec seulement la lettre $x$']
+    this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = context.isHtml
+    this.sup = true // Avec des nombres relatifs
+    this.sup2 = '1-2-3-4-5' // Choix du type d'équation
+    this.sup3 = true
+    this.nbQuestions = 6
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? 'Résoudre l\'équation suivante.'
       : 'Résoudre les équations suivantes.'
@@ -293,12 +309,12 @@ export default function ExerciceEquation1 () {
       }
       texteCorr += `<br> La solution de l'équation ${texte} est $${miseEnEvidence(reponse.texFSD)}$.`
       texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: `<br>$ ${inconnue} = $ ` })
-      setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+      handleAnswers(this, i, { reponse: { value: reponse.texFSD } })
 
       if (this.questionJamaisPosee(i, a, b, c, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte) // replace(/1x/g,'${inconnue}')); //remplace 1x par ${inconnue}
-        this.listeCorrections.push(texteCorr) // .replace(/1x/g,'${inconnue}')); //remplace 1x par ${inconnue}
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: '', // `Résoudre ${texte} et donner la solution sous la forme d'une fraction irréductible`,
@@ -326,18 +342,4 @@ export default function ExerciceEquation1 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
-  this.besoinFormulaire2Texte = ["Type d'équations", [
-    'Nombres séparés par des tirets',
-    '1 : ax+b=0',
-    '2 : ax+b=c',
-    '3 : ax=b',
-    '4 : x+b=c',
-    '5 : ax+b=cx+d',
-    '6 : x/a=b',
-    '7 : ax/b=c',
-    '8 : Mélange'
-  ].join('\n')
-  ]
-  this.besoinFormulaire3CaseACocher = ['Avec seulement la lettre $x$']
 }

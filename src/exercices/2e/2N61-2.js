@@ -1,18 +1,17 @@
-import { lampeMessage } from '../../lib/format/message.js'
+import { lampeMessage } from '../../lib/format/message'
 import { texSymbole, texteGras } from '../../lib/format/style'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,25 +32,29 @@ export const titre = 'Résoudre une inéquation-produit'
  * 17/07/2021
  */
 export const uuid = '014a4'
-export const ref = '2N61-2'
+
 export const refs = {
   'fr-fr': ['2N61-2'],
   'fr-ch': []
 }
-export default function ExerciceInequationProduit () {
-  Exercice.call(this)
-  this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
-  this.spacing = 2 // Espace entre deux lignes
-  this.spacingCorr = 2 // Espace entre deux lignes pour la correction
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false // Désactive la correction détaillée par défaut
-  this.sup = 1 // Choix du type d'inéquation
-  this.nbQuestions = 4 // Choix du nombre de questions
+export default class ExerciceInequationProduit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Type d\'inéquation',
+      6,
+      '1: (x+a)(x+b)<0\n2: (x+a)(x+b)(x+c)<0\n3: (ax+b)(cx+d)<0\n4: (ax+b)(cx+d)(ex+f)<0\n5: (ax+b)²(cx+d)<0\n6: Tous les types précédents'
+    ]
+    this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
+    this.spacing = 2 // Espace entre deux lignes
+    this.spacingCorr = 2 // Espace entre deux lignes pour la correction
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false // Désactive la correction détaillée par défaut
+    this.sup = 1 // Choix du type d'inéquation
+    this.nbQuestions = 4 // Choix du nombre de questions
+  }
 
-  this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
-  this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif // Pour récupérer l'intervalle solution à saisir
     const separateur = ';'
@@ -685,7 +688,6 @@ export default function ExerciceInequationProduit () {
         handleAnswers(this, i, {
           reponse: {
             value: correctionInteractif,
-            compare: fonctionComparaison,
             options: { intervalle: true }
           }
         })
@@ -699,8 +701,8 @@ export default function ExerciceInequationProduit () {
       }
       if (this.questionJamaisPosee(i, a, b, c, d, e, f)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -708,9 +710,4 @@ export default function ExerciceInequationProduit () {
     listeQuestionsToContenu(this)
   }
   // Choisit le type de question à l'aide d'un formulaire numérique (la réponse sera stockée dans this.sup)
-  this.besoinFormulaireNumerique = [
-    'Type d\'inéquation',
-    6,
-    '1: (x+a)(x+b)<0\n2: (x+a)(x+b)(x+c)<0\n3: (ax+b)(cx+d)<0\n4: (ax+b)(cx+d)(ex+f)<0\n5: (ax+b)²(cx+d)<0\n6: Tous les types précédents'
-  ]
 }

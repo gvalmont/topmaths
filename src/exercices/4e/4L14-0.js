@@ -1,8 +1,8 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { rienSi1, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils'
 
 export const titre = 'Tester si un nombre est solution d\'une équation'
 
@@ -12,7 +12,7 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
  * @author Sébastien Lozano
  */
 export const uuid = 'a1c9a'
-export const ref = '4L14-0'
+
 export const refs = {
   'fr-fr': ['4L14-0'],
   'fr-ch': ['10FA3-2', '11FA6-1']
@@ -32,23 +32,31 @@ export const refs = {
 * * 9) x²-bx-ax+ab=0 => (a-x)(x-b)=0 solutions a et b.
 */
 
-export default function TesterSiUnNombreEstSolutionDUneEquation () {
-  Exercice.call(this)
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  if (this.exo === '4L14-1') {
-    this.nbQuestions = 4
-    this.sup2 = '1-3-5-2-4'
-  } else if (this.exo === '4L14-2') {
-    this.nbQuestions = 3
-    this.sup2 = '9-6-7'
-  } else {
-    this.nbQuestions = 9
-    this.sup2 = '1-2-3-4-5-6-7-8-9'
+export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      '1 : Entiers naturels\n2 : Entiers relatifs'
+    ]
+    this.besoinFormulaire2Texte = ['Choix des équations', 'Nombres séparés par des tirets\n1 : 3x-a=2x+b\n2 : 3x+a=5x-b\n3 : 10(x-a)=4(2x+b)\n4 : ax+b=(a+1)x-c\n5 : a-2x=b+2x\n6 : ax-ab=x²-bx\n7 : adx-bd=acx²-bcx\n8 : 2x-4a=4(2x+b)\n9 : x²-bx-ax+ab=0\n10 : Mélange\n']
+    this.besoinFormulaire3CaseACocher = ['Forme simplifiée', false]
+
+    this.sup = 1
+    if (this.exo === '4L14-1') {
+      this.nbQuestions = 4
+      this.sup2 = '1-3-5-2-4'
+    } else if (this.exo === '4L14-2') {
+      this.nbQuestions = 3
+      this.sup2 = '9-6-7'
+    } else {
+      this.nbQuestions = 9
+      this.sup2 = '1-2-3-4-5-6-7-8-9'
+    }
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -439,21 +447,14 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    2,
-    '1 : Entiers naturels\n2 : Entiers relatifs'
-  ]
-  this.besoinFormulaire2Texte = ['Choix des équations', 'Nombres séparés par des tirets\n1 : 3x-a=2x+b\n2 : 3x+a=5x-b\n3 : 10(x-a)=4(2x+b)\n4 : ax+b=(a+1)x-c\n5 : a-2x=b+2x\n6 : ax-ab=x²-bx\n7 : adx-bd=acx²-bcx\n8 : 2x-4a=4(2x+b)\n9 : x²-bx-ax+ab=0\n10 : Mélange\n']
-  this.besoinFormulaire3CaseACocher = ['Forme simplifiée', false]
 }
 
 function testOneValueForCase6 (sup3, x1, a, b) {

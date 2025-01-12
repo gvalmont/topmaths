@@ -1,12 +1,11 @@
-/* eslint-disable no-sequences */
 import Decimal from 'decimal.js'
-import { courbe } from '../../lib/2d/courbes.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { resolutionSystemeLineaire2x2 } from '../../lib/mathFonctions/outilsMaths.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { courbe } from '../../lib/2d/courbes'
+import { repere } from '../../lib/2d/reperes'
+import { resolutionSystemeLineaire2x2 } from '../../lib/mathFonctions/outilsMaths'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -22,26 +21,25 @@ export const dateDeModifImportante = '23/09/2023'
  * 3F13
  */
 export const uuid = '8117d'
-export const ref = '3F13'
+
 export const refs = {
   'fr-fr': ['3F13'],
   'fr-ch': ['11FA7-4']
 }
-export default function AntecedentGraphique () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.sup = 2
-  this.spacing = 1
-  context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  // this.listeAvecNumerotation = false
+export default class AntecedentGraphique extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de fonctions', 3, '1 : Affine\n2 : Polynôme du 2nd degré\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
+    this.sup = 2
+
+    context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
+    this.nbQuestions = 1
+
+    // this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     let a, b, c, x1, x2, x3, fx1, fx2, fx3, texte, texteCorr, f
     let indexInteractif = 0
     let incrementInteractif
@@ -121,8 +119,9 @@ export default function AntecedentGraphique () {
       const Cf = courbe(f, { repere: r, step: 0.2, color: 'purple' })
       texte += mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5 }, r, Cf)
       if (this.questionJamaisPosee(i, a, fx1)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         indexInteractif += incrementInteractif
         i++
       }
@@ -130,5 +129,4 @@ export default function AntecedentGraphique () {
 
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Type de fonctions', 3, '1 : Affine\n2 : Polynôme du 2nd degré\n3 : Mélange']
 }

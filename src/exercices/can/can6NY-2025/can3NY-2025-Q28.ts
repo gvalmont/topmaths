@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Trouver un inverse ou un opposé'
 export const interactifReady = true
@@ -22,13 +22,10 @@ export default class InverseOppose extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.compare = fonctionComparaison
     // this.optionsDeComparaison = { nombreDecimalSeulement: true } // Car on attend fraction ou décimal
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const nbre = choice([-2025, 2025])
     if (choice([true, false])) {
       this.question = `Quel est l'opposé de  $${texNombre(nbre)}$ ? `

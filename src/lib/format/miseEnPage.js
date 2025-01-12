@@ -1,4 +1,4 @@
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 
 /**
  * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
@@ -76,12 +76,12 @@ export function troisColonnes (cont1, cont2, cont3, largeur1 = 33, largeur2 = 33
  * @author Mickael Guironnet
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {{eleId: string, largeur1: number, widthmincol1: number, widthmincol2: number, stylecol1?: string, stylecol2?: string}} options
+ * @param {{eleId?: string, largeur1: number, widthmincol1: string, widthmincol2: string, stylecol1?: string, stylecol2?: string}} options
  *          eleId : identifiant ID pour retrouver la colonne
  *          largeur1 : largeur de la première colonne en latex en pourcentage
  *          widthmincol1 : largeur de la première minimum en html en px
  *          widthmincol2 : largeur de la deuxième minimum en html en px
- *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
+ *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: '400px', widthmincol2: '200px'})
  * @return {string}
  */
 export function deuxColonnesResp (cont1, cont2, options) {

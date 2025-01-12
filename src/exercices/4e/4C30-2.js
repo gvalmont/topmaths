@@ -1,15 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { puissanceEnProduit } from '../../lib/outils/puissance'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const dateDeModifImportante = '16/09/2024'
 export const titre = 'Donner l\'écriture décimale d\'une puissance de 10'
@@ -23,19 +22,22 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  */
 export const uuid = '93df9'
-export const ref = '4C30-2'
+
 export const refs = {
   'fr-fr': ['4C30-2'],
   'fr-ch': ['10NO2-4']
 }
-export default function EcritureDecimalePuissanceDe10 () {
-  Exercice.call(this)
-  this.nbQuestions = 8
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 3 // exposants positifs et négatifs par défaut
+export default class EcritureDecimalePuissanceDe10 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Exposants positifs\n2 : Exposants négatifs\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 8
+
+    this.sup = 3 // exposants positifs et négatifs par défaut
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? "Donner l'écriture décimale du nombre suivant."
       : "Donner l'écriture décimale des nombres suivants."
@@ -73,7 +75,7 @@ export default function EcritureDecimalePuissanceDe10 () {
           texte = this.interactif
             ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, ' ')
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
-          handleAnswers(this, i, { reponse: { value: texNombre(Decimal.pow(10, -n), n), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { reponse: { value: texNombre(Decimal.pow(10, -n), n), options: { nombreDecimalSeulement: true } } })
           if (context.isHtml) {
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10, -n), n))}$`
           } else {
@@ -84,13 +86,12 @@ export default function EcritureDecimalePuissanceDe10 () {
 
       if (this.questionJamaisPosee(i, n, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Exposants positifs\n2 : Exposants négatifs\n3 : Mélange']
 }

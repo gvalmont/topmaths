@@ -1,14 +1,14 @@
-import { Point, point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
-import { homothetie } from '../../lib/2d/transformations.js'
+import { Point, point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { latexParPoint, texteParPosition } from '../../lib/2d/textes'
+import { homothetie } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
@@ -19,10 +19,10 @@ export const dateDeModifImportante = '17/04/2024'
 /**
  * Calculer les coordonnées d'un point image ou antécédent d'un autre par une translation
  * @author Stéphane Guyon, Jean-Claude Lhote, Stéphan Grignon et Nathan Scheinmann
- * Référence 2G23-2
+
  */
 export const uuid = 'fa7b9'
-export const ref = '2G23-2'
+
 export const refs = {
   'fr-fr': ['2G23-2'],
   'fr-ch': []
@@ -31,7 +31,6 @@ export const refs = {
 export default class TranslationEtCoordonnes extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
     this.nbQuestions = 3
     this.sup = 2
     this.correctionDetailleeDisponible = true
@@ -39,7 +38,7 @@ export default class TranslationEtCoordonnes extends Exercice {
   }
 
   nouvelleVersion () {
-    let typeQuestionsDisponibles: ('coorImage' | 'coorPre' |'melange')[]
+    let typeQuestionsDisponibles: ('coorImage' | 'coorPre' | 'melange')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['coorImage']
     } else if (this.sup === 2) {
@@ -208,8 +207,8 @@ export default class TranslationEtCoordonnes extends Exercice {
       // setReponse(this, 2 * i, AbsRep)
       // setReponse(this, 2 * i + 1, OrdRep)
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -32,7 +32,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.nbQuestionsModifiable = true
+
     this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Amérique du sud 2024.<br>')
 
     this.versionAleatoire(0)
@@ -175,12 +175,12 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
 À l’aide d’un logiciel de programmation, on définit un bloc ${premiereLettreEnMajuscule(figure)} pour construire un ${figure}.<br>
 ${deuxColonnesResp(`${centrage(texteEnCouleurEtGras(`Bloc «${figure}»`, 'black'))}
 ${scratchblock(texteScratch1)}`, `${centrage(texteEnCouleurEtGras(`${premiereLettreEnMajuscule(figure)} obtenu`, 'black'))}
-${figure1}`, { largeur1: 50, widthmincol1: 100, widthmincol2: 100, eleId: '' })}
+${figure1}`, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', eleId: '' })}
 `
     const listeFigs = figs.map((el, k) => `${centrage(`figure ${k + 1}`)}${el}`) as [string, string, string]
     enonce += createList({
       items: [
-        `Dans le bloc «${figure}», par quelles valeurs faut-il remplacer $a$ et $b$ poour obtenir le ${figure} ci-dessus ?`,
+        `Dans le bloc «${figure}», par quelles valeurs faut-il remplacer $a$ et $b$ pour obtenir le ${figure} ci-dessus ?`,
     `On définit ensuite un nouveau bloc nommé  «Motif A» :<br>
     ${scratchblock(texteScratch2)}<br>
     Parmi les figures ci-dessous, laquelle est obtenue en utilisant le bloc «Motif A» ?<br>

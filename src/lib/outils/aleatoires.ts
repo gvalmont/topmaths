@@ -1,10 +1,10 @@
 import {
   randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import { shuffle } from './arrayOutils'
 import { joursParMois } from './dateEtHoraires'
 import { rangeMinMax } from './nombres'
-import { lettreDepuisChiffre, lettreMinusculeDepuisChiffre } from './outilString.js'
+import { lettreDepuisChiffre, lettreMinusculeDepuisChiffre } from './outilString'
 
 /**
  * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de listeAEviter

@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = ''
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,12 +22,9 @@ export default class reduireExpression extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     switch (randint(1, 3)) {
       case 1 :
         this.question = `Exprimer la somme de $a$ et $${texNombre(2025, 0)}$ en fonction de $a$.`

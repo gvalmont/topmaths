@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -130,8 +130,9 @@ export default class AnglesEtVocabulaire extends Exercice {
             ` ${KeyboardType.nombresEtDegre}`
           )
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (listeTypesDeQuestions[i] !== 1) {
           handleAnswers(
             this,
@@ -139,7 +140,6 @@ export default class AnglesEtVocabulaire extends Exercice {
             {
               reponse: {
                 value: goodAnswer,
-                compare: fonctionComparaison,
                 options: { unite: true }
               }
             }

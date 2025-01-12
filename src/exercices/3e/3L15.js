@@ -1,12 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Résoudre une équation du second degré se ramenant au premier degré'
@@ -20,31 +20,32 @@ export const dateDeModifImportante = '21/06/2023' // EE : Rajout d'un paramètre
  * Résoudre une équation du type ax2 + bx = 0
  *
  * @author Rémi Angot
- * Référence 3L15
+
  */
 export const uuid = '231d2'
-export const ref = '3L15'
+
 export const refs = {
   'fr-fr': ['3L15'],
   'fr-ch': ['11FA10-4']
 }
-export default function ExerciceEquations () {
-  Exercice.call(this)
-  this.nbQuestions = 6
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.sup = 4
-  this.sup2 = true
-  this.spacingCorr = 3
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.comment = 'Dans le niveau plus facile, l\'énoncé contient un maximum d\'entiers positifs. <br>'
-  this.comment += 'Dans le niveau moins facile, l\'énoncé contient aléatoirement des entiers positifs ou négatifs. <br>'
+export default class ExerciceEquations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ["Type d'équations", 'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: (ax+b)2=0\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange']
+    this.besoinFormulaire2CaseACocher = ['Niveau plus facile']
+    this.nbQuestions = 6
+    this.nbCols = 2
 
-  this.nouvelleVersion = function () {
+    this.sup = 4
+    this.sup2 = true
+    this.spacingCorr = 3
+
+    this.comment = 'Dans le niveau plus facile, l\'énoncé contient un maximum d\'entiers positifs. <br>'
+    this.comment += 'Dans le niveau moins facile, l\'énoncé contient aléatoirement des entiers positifs ou négatifs. <br>'
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     const typeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -240,10 +241,11 @@ export default function ExerciceEquations () {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         indiceQ += increment
         i++
       }
@@ -252,8 +254,6 @@ export default function ExerciceEquations () {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireTexte = ["Type d'équations", "Nombres séparés par des tirets : \n1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
-  this.besoinFormulaireTexte = ["Type d'équations", 'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: (ax+b)2=0\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange']
-  this.besoinFormulaire2CaseACocher = ['Niveau plus facile']
 }
 
 function ax2plusbx (a, b) {

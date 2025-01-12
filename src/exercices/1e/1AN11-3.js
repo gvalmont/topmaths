@@ -5,8 +5,8 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer une équation de tangente'
 
@@ -17,23 +17,23 @@ export const dateDeModifImportante = '07/03/2024'
  * Déterminer une équation de tangente en utilisant un nombre dérivé
 */
 export const uuid = '4c8c7'
-export const ref = '1AN11-3'
+
 export const refs = {
   'fr-fr': ['1AN11-3'],
   'fr-ch': []
 }
-export default function Equationdetangente () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.sup = 2
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+export default class Equationdetangente extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Consigne ', 2, '1 : Avec formule\n2 : Avec démonstration']
+    this.nbQuestions = 1 // Nombre de questions par défaut
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
 
+    this.sup = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [this.sup]
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
@@ -88,13 +88,12 @@ export default function Equationdetangente () {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Consigne ', 2, '1 : Avec formule\n2 : Avec démonstration']
 }

@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Compléter un encadrement'
@@ -30,7 +30,6 @@ export default class NomExercice extends Exercice {
     this.reponse = {
       reponse: {
         value: `]${valInf};${valSup}[`,
-        compare: fonctionComparaison,
         options: { estDansIntervalle: true }
       }
     }

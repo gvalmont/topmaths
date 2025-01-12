@@ -83,7 +83,7 @@ export default class BetaSchemaEnBoite extends Exercice {
           nb2 = nb1 * nbFois
 
           texte = `${lea} a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Combien de bonbons a-t-elle distribués en tout ?`
-          seb = SchemaEnBoite.multiplication(nb1, nbFois, 2) // J'ai mis 2 en précision pour que les cases soient plus grandes
+          seb = SchemaEnBoite.multiplication(nb1, nbFois, 2, undefined) // J'ai mis 2 en précision pour que les cases soient plus grandes
         }
           break
         case 4: // Division partition ou quotition exacte
@@ -93,7 +93,7 @@ export default class BetaSchemaEnBoite extends Exercice {
               nb1 = randint(2, 8)
               nb2 = nb1 * nbFois
               texte = `${lea} avait ${nb2} bonbons. Elle les a distribués équitablement à chacun de ses ${nbFois} élèves. Combien de bonbons a reçu chaque élève ?`
-              seb = SchemaEnBoite.division(nb2, nbFois, undefined, 2)
+              seb = SchemaEnBoite.division(nb2, undefined, nbFois, 2)
             }
               break
             default: {
@@ -101,7 +101,7 @@ export default class BetaSchemaEnBoite extends Exercice {
               nb1 = randint(2, 8)
               nb2 = nb1 * nbFois
               texte = `${lea} a distribué ${nb1} bonbons à chacun de ses élèves. En tout, elle a distribué ${nb2} bonbons. Combien d'élèves a-t-elle ?`
-              seb = SchemaEnBoite.division(nb2, undefined, nb1, 2)
+              seb = SchemaEnBoite.division(nb2, nb1, undefined, 2)
             }
           }
           break
@@ -111,7 +111,7 @@ export default class BetaSchemaEnBoite extends Exercice {
           nb1 = randint(2, 8)
           nb2 = nb1 * nbFois + randint(1, nb1 - 1)
           texte = `${lea} avait ${nb2} bonbons. Elle a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Combien de bonbons lui reste-t-il ?`
-          seb = SchemaEnBoite.divisionAvecReste(nb1, nb2, nbFois, 0, '?')
+          seb = SchemaEnBoite.divisionAvecReste(nb2, nb1, nbFois, 0, '?')
         }
           break
         default: { // Division dont on cherche le dividende
@@ -122,7 +122,7 @@ export default class BetaSchemaEnBoite extends Exercice {
               const reste = randint(1, nb1 - 1)
               nb2 = nb1 * nbFois + reste
               texte = `${lea} a distribué ${nb1} bonbons à chacun de ses ${nbFois} élèves. Il lui en reste ${reste}. Combien en avait-elle avant la distribution ?`
-              seb = SchemaEnBoite.divisionAvecReste(nb1, undefined, nbFois, 0, `$${texNombre(reste, 0)}$`)
+              seb = SchemaEnBoite.divisionAvecReste(undefined, nb1, nbFois, 0, `$${texNombre(reste, 0)}$`)
             }
               break
             default: {
@@ -131,15 +131,15 @@ export default class BetaSchemaEnBoite extends Exercice {
               const reste = randint(1, nb1 - 1)
               nb2 = nb1 * nbFois + reste
               texte = `${lea} avait ${nb2} bonbons. Elle a distribué ${nb1} bonbons à chacun de ses élèves. Il lui reste ${reste} bonbons. Combien d'élèves a-t-elle ?`
-              seb = SchemaEnBoite.divisionAvecReste(nb1, nb2, undefined, 0, `$${texNombre(reste, 0)}$`)
+              seb = SchemaEnBoite.divisionAvecReste(nb2, nb1, undefined, 0, `$${texNombre(reste, 0)}$`)
             }
               break
           }
         }
       }
       if (this.questionJamaisPosee(i, nb1, nb2)) {
-        this.listeQuestions.push(`${texte}<br>${seb.display()}`)
-        this.listeCorrections.push('') // TODO
+        this.listeQuestions[i] = `${texte}<br>${seb.display()}`
+        this.listeCorrections[i] = ''
         i++
       }
       cpt++

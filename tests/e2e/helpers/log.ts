@@ -26,7 +26,7 @@ let lastLog = Promise.resolve()
  * @param {boolean} [options.append=false] Passer true pour ne pas vider le fichier s'il existe
  * @return {Logger} Le logger (chaque argument sortira sur une ligne dans le log, le premier sera préfixé avec le moment)
  */
-export function getFileLogger (fileName: string, options: {append?: boolean} = {}): Logger {
+export function getFileLogger (fileName: string, options: { append?: boolean } = {}): Logger {
   // on prépare le log
   const logDir = resolve(__dirname, '..', 'logs')
   // avec recursive, ça ne gêne pas si ça existe déjà (https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_fs_mkdir_path_options_callback)
@@ -110,7 +110,7 @@ const dummyFn = () => Promise.resolve()
  * Envoie les arguments à console.log en préfixant avec la date courante
  * @type {Logger}
  */
-export const log = logSerializer.bind(null, console.log) // eslint-disable-line no-console
+export const log = logSerializer.bind(null, console.log)
 /**
  * Envoie les arguments à console.log en préfixant avec la date courante
  * @type {Logger}

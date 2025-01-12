@@ -1,14 +1,14 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Tableau } from '../../lib/2d/tableau'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Situation de proportionnalité avec des échelles'
 export const dateDePublication = '15/03/2024'
 export const interactifReady = true
@@ -21,23 +21,20 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
 export default class EchellesCartes extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 3
     this.sup = 4
     this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Distance sur la carte\n2 : Distance réelle\n3 : Échelle\n4 : Mélange']
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     let typeQuestionsDisponibles: ('carte' | 'reelle' | 'echelle')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['carte']
@@ -180,8 +177,8 @@ export default class EchellesCartes extends Exercice {
           break
       }
       if (this.questionJamaisPosee(i, dCarte, dReelle.toString(), echelle.toString())) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

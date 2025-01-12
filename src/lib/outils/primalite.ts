@@ -1,7 +1,7 @@
 import { gcd, isPrime } from 'mathjs'
 import { egal } from '../../modules/outils.js'
 import { ecritureParentheseSiNegatif } from './ecritures'
-import { abs } from './nombres.js'
+import { abs } from './nombres'
 
 /**
  * Renvoie le PGCD de deux nombres
@@ -86,7 +86,7 @@ export function texFactorisation (n: number, puissancesOn = true) {
 
 /**
  * Renvoie un tableau contenant les diviseurs d'un nombre entier, rangés dans l'ordre croissant
- * @param {integer} n
+ * @param {number} n
  * @author Sébastien Lozano
  */
 export function listeDesDiviseurs (n: number) {
@@ -103,8 +103,8 @@ export function listeDesDiviseurs (n: number) {
 
 /**
  * Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
- * @param {integer} k On cherchera un multiple de k
- * @param {integer} n Ce multiple sera supérieur ou égal à n
+ * @param {number} k On cherchera un multiple de k
+ * @param {number} n Ce multiple sera supérieur ou égal à n
  * @author Rémi Angot
  */
 export function premierMultipleSuperieur (k: number, n: number) {

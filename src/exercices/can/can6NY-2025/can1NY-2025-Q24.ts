@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 export const titre = 'Résoudre une inéquation'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora+Eric Elter
- * Référence
+
 */
 export default class inequationAResoudre extends Exercice {
   constructor () {
@@ -24,13 +24,10 @@ export default class inequationAResoudre extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
-    this.compare = fonctionComparaison
     // this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     let solution1
     const a = choice([-2025, 2025])
     const b = choice([-2025, 2025])

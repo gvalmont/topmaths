@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { simpExp } from '../../lib/outils/puissance'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -23,24 +23,24 @@ export const amcType = 'AMCNum'
  * 4C33-3 initialement
  */
 export const uuid = 'c71da'
-export const ref = '2N31-3'
+
 export const refs = {
   'fr-fr': ['2N31-3'],
   'fr-ch': ['10NO2-14', '11NO1-10']
 }
-export default function PuissancesDUnRelatif2 () {
-  Exercice.call(this)
-  context.isHtml
-    ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
-    : (this.consigne = 'Écrire sous la forme $a^n$.')
-  this.spacing = 2
-  this.spacingCorr = 2.5
-  this.nbQuestions = 8
-  this.nbColsCorr = 1
+export default class PuissancesDUnRelatif2 extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    context.isHtml
+      ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
+      : (this.consigne = 'Écrire sous la forme $a^n$.')
+    this.spacing = 2
+    this.spacingCorr = 2.5
+    this.nbQuestions = 8
+  }
 
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     // const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListes(
@@ -242,8 +242,8 @@ export default function PuissancesDUnRelatif2 () {
       }
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

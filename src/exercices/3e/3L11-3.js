@@ -1,12 +1,11 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, printlatex } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, randint, printlatex } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
@@ -20,29 +19,26 @@ export const amcReady = true
  * @author Rémi Angot (Amélioration AMC par Eric Elter)
  */
 export const uuid = '82313'
-export const ref = '3L11-3'
+
 export const refs = {
   'fr-fr': ['3L11-3'],
   'fr-ch': ['11FA2-4']
 }
-export default function DistributiviteSimpleDoubleReduction () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.tailleDiaporama = 3
-  this.comment = 'L\'expression peut être au hasard de la forme :<br>$cx+e(ax+b)$<br> $ex+(ax+b)(cx+d)$<br> $e+(ax+b)(cx+d)$<br> $e-(ax+b)(cx+d)$<br> $(ax \\times b)(cx+d)$<br> $e(ax+b)-(d+cx)$.'
-  this.listeAvecNumerotation = false
+export default class DistributiviteSimpleDoubleReduction extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+
+    this.comment = 'L\'expression peut être au hasard de la forme :<br>$cx+e(ax+b)$<br> $ex+(ax+b)(cx+d)$<br> $e+(ax+b)(cx+d)$<br> $e-(ax+b)(cx+d)$<br> $(ax \\times b)(cx+d)$<br> $e(ax+b)-(d+cx)$.'
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = ['cx+e(ax+b)', 'ex+(ax+b)(cx+d)', 'e+(ax+b)(cx+d)', 'e-(ax+b)(cx+d)', '(ax*b)(cx+d)', 'e(ax+b)-(d+cx)']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -121,7 +117,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           break
       }
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false }, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false } } })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
       } else {
         this.autoCorrection[i] = {
@@ -192,8 +188,8 @@ export default function DistributiviteSimpleDoubleReduction () {
         }
       }
       if (this.questionJamaisPosee(i, a, b, c, d, e)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,25 +1,25 @@
-import { milieu, point } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { milieu, point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
 import {
   longueur,
   nomVecteurParPosition,
   vecteur
-} from '../../lib/2d/segmentsVecteurs.js'
+} from '../../lib/2d/segmentsVecteurs'
 import {
   labelPoint,
   latex2d,
   latexParPoint,
   texteParPosition
-} from '../../lib/2d/textes.ts'
-import { homothetie } from '../../lib/2d/transformations.js'
+} from '../../lib/2d/textes'
+import { homothetie } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées'
@@ -34,7 +34,7 @@ export const dateDeModifImportante = '06/08/2024'
  * @author Stéphane Guyon légèrement modifié par Jean-Claude Lhote, rendu interactif par Eric Elter
  */
 export const uuid = '3a3ec'
-export const ref = '2G22-1'
+
 export const refs = {
   'fr-fr': ['2G22-1'],
   'fr-ch': []
@@ -48,8 +48,7 @@ export default class RepresenterUnVecteur extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 2
-    this.nbCols = 1
-    this.nbColsCorr = 1
+
     this.sup = 1 //
     this.besoinFormulaireNumerique = [
       'Situations différentes',
@@ -283,8 +282,8 @@ export default class RepresenterUnVecteur extends Exercice {
 
       if (this.questionJamaisPosee(i, this.xA[i], this.yA[i], this.xB[i], this.yB[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

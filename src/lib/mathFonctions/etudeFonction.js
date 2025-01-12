@@ -3,18 +3,18 @@ import {
   colorToLatexOrHTML,
   fixeBordures,
   mathalea2d
-} from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { fraction } from '../../modules/fractions.js'
-import { egal } from '../../modules/outils.js'
-import { point } from '../2d/points.js'
-import { polygone } from '../2d/polygones.js'
-import { segment, vecteur } from '../2d/segmentsVecteurs.js'
-import { translation } from '../2d/transformations.js'
+} from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { fraction } from '../../modules/fractions'
+import { egal } from '../../modules/outils'
+import { point } from '../2d/points'
+import { polygone } from '../2d/polygones'
+import { segment, vecteur } from '../2d/segmentsVecteurs'
+import { translation } from '../2d/transformations'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
-import { matrice } from './Matrice.js'
+import { matrice } from './Matrice'
 import engine from '../interactif/comparisonFunctions'
 import { round } from 'mathjs'
 

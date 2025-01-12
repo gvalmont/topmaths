@@ -39,7 +39,7 @@ export default class ExerciceProbleme006 extends Exercice {
     this.sup2 = '1'
     this.besoinFormulaire3CaseACocher = ['Opération posée dans la correction', false]
     this.sup3 = false
-    this.nbQuestionsModifiable = true
+
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
   }
@@ -112,8 +112,8 @@ export default class ExerciceProbleme006 extends Exercice {
 ? deuxColonnesResp((this.correctionDetaillee ? '' : `Nombre de billes de ${prenom1} :<br>`) + String(Operation({ operande1: nb1 - nb2, operande2: nb2, type: 'addition' })), (this.correctionDetaillee ? '' : 'Nombre de billes total :<br>') + String(Operation({ operande1: nb1, operande2: nb2, type: 'addition' })), {
           eleId: '',
           largeur1: 20,
-          widthmincol1: 40,
-          widthmincol2: 40
+          widthmincol1: '40px',
+          widthmincol2: '40px'
         })
         : ` $(${nb1 - nb2} + ${nb2}) + ${nb2} = ${nb1}+${nb2}=${nb1 + nb2}$<br>`}
        Ensemble, ${prenom1} et ${prenom2} ont $${miseEnEvidence(String(nb1 + nb2))}$ billes.`
@@ -150,8 +150,8 @@ export default class ExerciceProbleme006 extends Exercice {
 ? deuxColonnesResp((this.correctionDetaillee ? '' : `Nombre de billes de ${prenom1} :<br>`) + String(Operation({ operande1: nb1 - nb2, operande2: nb2, type: 'addition' })), (this.correctionDetaillee ? '' : 'Nombre de billes total :<br>') + String(Operation({ operande1: nb1, operande2: nb2, type: 'addition' })), {
           eleId: '',
           largeur1: 20,
-          widthmincol1: 40,
-          widthmincol2: 40
+          widthmincol1: '40px',
+          widthmincol2: '40px'
         })
         : ` $(${nb1 - nb2} + ${nb2}) + ${nb2} = ${nb1}+${nb2}=${nb1 + nb2}$<br>`}
         Ensemble, ${prenom1} et ${prenom2} ont $${miseEnEvidence(String(nb1 + nb2))}$ billes.`
@@ -191,8 +191,8 @@ export default class ExerciceProbleme006 extends Exercice {
 ? deuxColonnesResp((this.correctionDetaillee ? '' : 'Nombre de billes total :<br>') + String(Operation({ operande1: nb1, operande2: nbFois, type: 'multiplication' })), (this.correctionDetaillee ? '' : `Nombre de billes de ${prenom2} :<br>`) + String(Operation({ operande1: nb1 * nbFois, operande2: nb1, type: 'soustraction' })), {
           eleId: '',
           largeur1: 20,
-          widthmincol1: 40,
-          widthmincol2: 40
+          widthmincol1: '40px',
+          widthmincol2: '40px'
         })
         : ` $${nb1} \\times ${nbFois} = ${nb1 * nbFois}$<br> $${nb1 * nbFois} -  ${nb1} = ${nb2}$<br>`}
       ${prenom2} a $${miseEnEvidence(String(nb2))}$ billes.<br>
@@ -206,8 +206,8 @@ export default class ExerciceProbleme006 extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, nb1, nb2)) {
-        this.listeQuestions.push(enonce)
-        this.listeCorrections.push(correction)
+        this.listeQuestions[i] = enonce
+        this.listeCorrections[i] = correction
         i++
       }
       cpt++

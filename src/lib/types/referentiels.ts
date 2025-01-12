@@ -32,6 +32,7 @@ export interface Features {
   interactif?: FeatureParams
   amc?: FeatureParams
   qcm?: FeatureParams
+  qcmcam?: FeatureParams
 }
 
 /**
@@ -124,7 +125,7 @@ export interface StaticItemInreferentiel extends BaseItemInReferentiel {
   pngCor: string
   tex: string
   texCor: string
-  typeExercice: 'static' | 'dnb' | 'bac' | 'e3c' |'evacom'
+  typeExercice: 'static' | 'dnb' | 'bac' | 'e3c' | 'evacom'
 }
 
 /**
@@ -314,6 +315,17 @@ export const isCrpeType = (obj: any): obj is crpeItemInreferentiel =>
   Object.keys(obj).includes('typeExercice') &&
   obj.typeExercice !== undefined &&
   obj.typeExercice === 'crpe'
+
+export const isStaticWithoutPngUrl = (obj: any): obj is ExamItemInReferentiel =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  !Object.keys(obj).includes('png') &&
+  Object.keys(obj).includes('annee') &&
+  Object.keys(obj).includes('lieu') &&
+  Object.keys(obj).includes('typeExercice') &&
+  obj.annee !== undefined &&
+  obj.lieu !== undefined &&
+  (obj.typeExercice === 'sti2d' || obj.typeExercice === 'dnb' || obj.typeExercice === 'bac')
 
 /**
  * Détecte si la terminaison d'un référentiel est un exercice de géométrie dynamique ou pas.

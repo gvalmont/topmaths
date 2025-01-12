@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -15,27 +15,29 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '20/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Stéphane Guyon
- * Référence
+
  */
 export const uuid = 'b9e6a'
-export const ref = '1AN42'
+
 export const refs = {
   'fr-fr': ['1AN42'],
   'fr-ch': []
 }
-export default function MesurePrincipale () {
-  Exercice.call(this)
-  this.consigne = 'Déterminer une écriture plus simple, en fonction de $\\cos(x)$ ou $\\sin(x)$.'
-  this.nbQuestions = 3 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
-  this.sup = 1
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+export default class MesurePrincipale extends Exercice {
+  constructor () {
+    super()
 
+    this.consigne = 'Déterminer une écriture plus simple, en fonction de $\\cos(x)$ ou $\\sin(x)$.'
+    this.nbQuestions = 3 // Nombre de questions par défaut
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     const typeQuestionsDisponibles = [
       {
         texte: '$\\cos\\big(x+\\pi\\big)=$',
@@ -178,8 +180,8 @@ export default function MesurePrincipale () {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i].texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(listeTypeQuestions[i].texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = listeTypeQuestions[i].texteCorr
         i++
       }
       cpt++

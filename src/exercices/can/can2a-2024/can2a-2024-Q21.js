@@ -1,15 +1,15 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { context } from '../../../modules/context.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { milieu, point } from '../../../lib/2d/points.js'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { milieu, point } from '../../../lib/2d/points'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { grille } from '../../../lib/2d/reperes.js'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
+import { grille } from '../../../lib/2d/reperes'
+import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer la longueur d\'une ligne brisée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,13 +21,11 @@ export const uuid = 'd0a64'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

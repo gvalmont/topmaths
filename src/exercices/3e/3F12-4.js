@@ -1,15 +1,15 @@
 import Decimal from 'decimal.js'
-import { courbe } from '../../lib/2d/courbes.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { courbe } from '../../lib/2d/courbes'
+import { repere } from '../../lib/2d/reperes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { chercheMinMaxFonction } from '../../lib/mathFonctions/etudeFonction.js'
-import { resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3 } from '../../lib/mathFonctions/outilsMaths.js'
+import { chercheMinMaxFonction } from '../../lib/mathFonctions/etudeFonction'
+import { resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3 } from '../../lib/mathFonctions/outilsMaths'
 import { abs, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { numAlpha } from '../../lib/outils/outilString'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Lire l\'image d\'un nombre à partir d\'un graphique'
@@ -26,29 +26,25 @@ export const amcType = 'AMCHybride'
  * 3F12-4
  */
 export const uuid = 'b8946'
-export const ref = '3F12-4'
+
 export const refs = {
   'fr-fr': ['3F12-4'],
   'fr-ch': ['11FA7-3', '1F1-3']
 }
-export default function ImageGraphique () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.sup = 3
-  this.spacing = 1
-  context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
-  this.nbQuestions = 1
-  this.pointsParQuestions = 3
-  // this.nbQuestionsModifiable = false
-  this.nbCols = 1
+export default class ImageGraphique extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.sup = 3
 
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
-    this.sup = parseInt(this.sup)
+    context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
+    this.nbQuestions = 1
+    this.pointsParQuestions = 3
+    // this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, ymax, f
 
     function initialiseVariables () {
@@ -197,14 +193,12 @@ export default function ImageGraphique () {
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
 }

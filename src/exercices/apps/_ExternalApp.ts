@@ -3,8 +3,6 @@ import { globalOptions, resultsByExercice, exercicesParams } from '../../lib/sto
 import { sendToCapytaleSaveStudentAssignment } from '../../lib/handleCapytale'
 import Exercice from '../Exercice'
 
-const titre = 'Application externe'
-
 class ExternalApp extends Exercice {
   typeExercice: string
   container: HTMLDivElement
@@ -15,7 +13,7 @@ class ExternalApp extends Exercice {
   constructor (url: string) {
     super()
     this.url = new URL(url)
-    this.titre = titre
+
     this.typeExercice = 'html'
     this.state = ''
     this.container = document.createElement('div')

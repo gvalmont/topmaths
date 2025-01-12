@@ -1,22 +1,22 @@
-import { Droite, droite, droiteAvecNomLatex } from '../../lib/2d/droites.js'
-import { repere } from '../../lib/2d/reperes.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { Point, pointIntersectionDD } from '../../lib/2d/points.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { Droite, droite, droiteAvecNomLatex } from '../../lib/2d/droites'
+import { repere } from '../../lib/2d/reperes'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { Point, pointIntersectionDD } from '../../lib/2d/points'
+import { texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { eqToLatex, printSystem } from '../../lib/outils/systemeEquations.js'
+import { eqToLatex, printSystem } from '../../lib/outils/systemeEquations'
 export const titre = 'Déterminer le point d\'intersection de deux droites données graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '20/04/2024'
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
@@ -28,7 +28,7 @@ export const refs = {
 export default class IntersectionDroites extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 1
     this.sup = 1
     this.sup2 = 1
@@ -40,10 +40,7 @@ export default class IntersectionDroites extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    let typeDeQuestionsDisponibles: ('deuxDroitesSG' |'troisDroitesSG' |'deuxDroitesHG'|'troisDroitesHG')[]
+    let typeDeQuestionsDisponibles: ('deuxDroitesSG' | 'troisDroitesSG' | 'deuxDroitesHG' | 'troisDroitesHG')[]
     if (this.sup === 1 && this.sup2 === 1) {
       typeDeQuestionsDisponibles = ['deuxDroitesSG']
     } else if (this.sup === 1 && this.sup2 === 2) {
@@ -280,8 +277,8 @@ export default class IntersectionDroites extends Exercice {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

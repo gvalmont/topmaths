@@ -4,10 +4,10 @@
  ************************************************
  */
 
-import { droite } from '../../lib/2d/droites.js'
-import { pointAdistance, pointSurSegment } from '../../lib/2d/points.js'
-import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { homothetie, similitude, translation2Points } from '../../lib/2d/transformations.js'
+import { droite } from '../../lib/2d/droites'
+import { pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { homothetie, similitude, translation2Points } from '../../lib/2d/transformations'
 
 /**
    * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs

@@ -545,7 +545,7 @@ class ComputeEngineSandbox {
     }
 
     if (inputSep) {
-      const jsonChange = ({ from, to, json }: {from: string, to: string, json: Expression|string}) => {
+      const jsonChange = ({ from, to, json }: { from: string, to: string, json: Expression | string }) => {
         if (Array.isArray(json)) {
           for (const element of json) {
             jsonChange({ from, to, json: element })

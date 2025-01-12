@@ -1,12 +1,12 @@
 import Exercice from '../Exercice'
 import { choice } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
-import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul.js'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Simplifier des expressions exponentielles'
 
 export const dateDePublication = '2/7/2024'
@@ -19,9 +19,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Rémi Angot
- * Référence
+
 */
 export default class SimplifierExponentielles extends Exercice {
   can: boolean
@@ -189,8 +189,8 @@ export default class SimplifierExponentielles extends Exercice {
         handleAnswers(this, i, { reponse: { value: answer } })
       }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

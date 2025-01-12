@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils'
 export const titre = 'Nom de l\'exercice'
 
 export const dateDePublication = '4/5/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -14,7 +14,7 @@ export const refs = {
  * Ce model est prévu pour les exercice où le nombre de questions est fixe
  * et où on ne demande pas la même chose à toutes les questions
  * @author
- * Référence
+
 */
 export default class nomExercice extends Exercice {
   constructor () {

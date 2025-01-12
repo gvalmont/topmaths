@@ -1,19 +1,19 @@
-import { lectureAntecedent } from '../../lib/2d/courbes.js'
-import { droiteParPointEtPente } from '../../lib/2d/droites.js'
-import { point } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { lectureAntecedent } from '../../lib/2d/courbes'
+import { droiteParPointEtPente } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { texteParPosition } from '../../lib/2d/textes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { spline } from '../../lib/mathFonctions/Spline.js'
+import { spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre graphiquement une équation du type $f(x)=k$'
@@ -23,7 +23,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '08/09/2024'
 export const uuid = 'a2ac2'
-export const ref = '2F22-1'
+
 export const refs = {
   'fr-fr': ['2F22-1'],
   'fr-ch': ['10FA5-17']
@@ -96,17 +96,13 @@ function aleatoiriseCourbe (listeFonctions) {
 export default class LecturesGraphiquesSurSplines extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
     this.exoCustomResultat = true
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let bornes = {}
       const objetsEnonce = []
@@ -165,9 +161,9 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur entière de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}` +
       (this.interactif ? ' : ' : '.') + ajouteChampTexteMathLive(this, 3 * i + 2, ' ')
 
-      handleAnswers(this, 3 * i, { reponse: { value: nombreAntecedentCherches0, compare: fonctionComparaison } })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
-      handleAnswers(this, 3 * i + 2, { reponse: { value: reponseQ3, compare: fonctionComparaison } })
+      handleAnswers(this, 3 * i, { reponse: { value: nombreAntecedentCherches0 } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: reponseQ3 } })
       const correctionPartA = `${numAlpha(0)} Le nombre de solutions de l'équation $f(x)=${y0}$ est donné par le nombre d'antécédents de $${y0}$ par $f$. <br>
           ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$ (tracé rouge en pointillés).'}<br>`
       const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses tracée en pointillés verts) d'équation $y = ${y1}$.`}<br>
@@ -232,8 +228,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
                 mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorrection2)), objetsCorrection2, origine)
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

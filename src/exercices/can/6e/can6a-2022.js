@@ -1,26 +1,25 @@
-import { codageAngleDroit } from '../../../lib/2d/angles.js'
-import { milieu, point } from '../../../lib/2d/points.js'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
-import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { milieu, point } from '../../../lib/2d/points'
+import { droiteGraduee, grille } from '../../../lib/2d/reperes'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
-import { sp } from '../../../lib/outils/outilString.js'
+import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { fraction } from '../../../modules/fractions.js'
+import Exercice from '../../Exercice'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { fraction } from '../../../modules/fractions'
 import { min, round } from 'mathjs'
 import Hms from '../../../modules/Hms'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 6e sujet 2022'
 export const interactifReady = true
@@ -39,25 +38,25 @@ function compareNombres (a, b) {
 }
 
 export const uuid = 'b9634'
-export const ref = 'can6a-2022'
+
 export const refs = {
   'fr-fr': ['can6a-2022'],
   'fr-ch': []
 }
-export default function SujetCAN2022Sixieme () {
-  Exercice.call(this)
-  this.nbQuestions = 30
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+export default class SujetCAN2022Sixieme extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 30
+
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+  }
+
+  nouvelleVersion () {
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
@@ -323,7 +322,7 @@ export default function SujetCAN2022Sixieme () {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: 60 - b + d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: 60 - b + d }).toString(), options: { HMS: true } } })
 
           nbChamps = 1
           break
@@ -372,7 +371,7 @@ export default function SujetCAN2022Sixieme () {
               texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), options: { HMS: true } } })
           } else {
             a = randint(6, 10)
             b = choice([20, 25, 30, 35])
@@ -385,7 +384,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
               texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
             }
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 1, minute: reponse }).toString(), options: { HMS: true } } })
           }
 
           nbChamps = 1
@@ -950,8 +949,8 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           break
       }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += nbChamps
       }

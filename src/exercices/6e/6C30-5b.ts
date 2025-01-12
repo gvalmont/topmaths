@@ -1,9 +1,9 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import { sp } from '../../lib/outils/outilString.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -25,13 +25,11 @@ export const refs = {
   'fr-fr': ['6C30-5b'],
   'fr-ch': []
 }
-class MultiplierPar001 extends Exercice {
+export default class MultiplierPar001Bis extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4 // Ici le nombre de questions
-    this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
-    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
+
     this.consigne = 'Compléter les pointillés.'
     this.correctionDetailleeDisponible = true
 
@@ -104,8 +102,8 @@ class MultiplierPar001 extends Exercice {
       if (this.questionJamaisPosee(i, nombre, coef)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         handleAnswers(this, i, { champ1: { value: reponse } })
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -113,4 +111,3 @@ class MultiplierPar001 extends Exercice {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
-export default MultiplierPar001

@@ -7,6 +7,8 @@ import engine from '../../lib/interactif/comparisonFunctions'
 import type { MathfieldElement } from 'mathlive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { getLang } from '../../lib/stores/languagesStore'
+import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Déterminer une équation cartésienne avec un point et un vecteur normal'
 export const dateDePublication = '04/07/2024'
 export const interactifReady = true
@@ -17,7 +19,7 @@ export const interactifType = 'mathLive'
  * @author Gilles Mora+Jean Claude Lhote interactif
  */
 export const uuid = '816d5'
-export const ref = '1G13'
+
 export const refs = {
   'fr-fr': ['1G13'],
   'fr-ch': []
@@ -28,13 +30,13 @@ class EqCartDroite extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.spacingCorr = 1
+
     this.version = 1
   }
 
   nouvelleVersion (): void {
     // Lettre entre A et W mais pas L, M, N ou O pour ne pas avoir O dans les 4 points
-
+    const lang = getLang()
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let xA, yA, xB, yB, xn, yn, constante, xu, yu, m
       let texte = ''
@@ -48,11 +50,16 @@ class EqCartDroite extends Exercice {
           yn = -1
           constante = -m * xA + yA
           texte = `Dans un repère orthonormé du plan, on considère le point $A(${xA}\\,;\\,${yA})$.`
-          texte += `<br>Déterminer une équation cartésienne de la droite $(d)$ passant par le point $A$ et ayant pour coefficent directeur $${m}$.`
-          texteCorr = 'On sait que si une droite $(d)$ possède une pente égale à un réel $m$, alors elle admet $\\vec u \\begin{pmatrix}1\\\\m\\end{pmatrix}$ comme vecteur directeur.'
-          texteCorr += `<br>Cela signifie que la droite $(d)$ dont nous cherchons une équation cartésienne, admet comme vecteur directeur $\\vec u \\begin{pmatrix}1\\\\${m}\\end{pmatrix}$.`
-          texteCorr += '<br>On sait d\'autre part qu\'une droite portée par un vecteur directeur de coordonnées $\\vec u \\begin{pmatrix}-b\\\\a\\end{pmatrix}$, avec $(-b\\,;\\,a)\\neq (0\\,;\\,0)$, admet une équation cartesienne de la forme $ax+by+c=0$.'
-          texteCorr += `<br>Ce qui signifie que : $-b=1$ (soit $b=-1$) et $a=${m}$.`
+          texte += `<br>Déterminer une équation cartésienne de la droite $(d)$ passant par le point $A$ et ayant pour ${lang === 'fr-CH' ? 'une pente égale à' : 'coefficent directeur'} $${m}$.`
+          texteCorr = ''
+          if (lang === 'fr-CH') {
+            texteCorr = 'On sait que si une droite $(d)$ possède une pente égale à un réel $m$, alors elle peut s\'écrire sous la forme $y=mx+p$. On veut écrire cette équation sous la forme $ax+by+c=0$.'
+          } else {
+            texteCorr = 'On sait que si une droite $(d)$ possède une pente égale à un réel $m$, alors elle admet $\\vec u \\begin{pmatrix}1\\\\m\\end{pmatrix}$ comme vecteur directeur.'
+            texteCorr += `<br>Cela signifie que la droite $(d)$ dont nous cherchons une équation cartésienne, admet comme vecteur directeur $\\vec u \\begin{pmatrix}1\\\\${m}\\end{pmatrix}$.`
+            texteCorr += '<br>On sait d\'autre part qu\'une droite portée par un vecteur directeur de coordonnées $\\vec u \\begin{pmatrix}-b\\\\a\\end{pmatrix}$, avec $(-b\\,;\\,a)\\neq (0\\,;\\,0)$, admet une équation cartesienne de la forme $ax+by+c=0$.'
+          }
+          texteCorr += `<br>Ce qui signifie que : $-b=1$ (soit $b=-1$) et $a=${m}$ (on écrit la droite sous la forme $0=ax+by+c$, ce qui revient au même).`
           texteCorr += `<br>On en déduit que la droite $(d)$ admet une équation cartésienne de la forme $${m}x-y+c=0.$`
           texteCorr += `<br>Pour déterminer la valeur de $c$, on utilise le fait que $A$ appartient à la droite $(d)$, donc ses coordonnées $(${xA};${yA})$ vérifient l'équation : `
           texteCorr += `$${m} x-y+c=0$`
@@ -119,20 +126,30 @@ class EqCartDroite extends Exercice {
           this.nbQuestions === 1 ? texte = '' : texte = `Avec $A(${xA}\\,;\\,${yA})$ et $B(${xB}\\,;\\,${yB})$.`
           texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme :'
           texteCorr += ' $ax+by+c=0$, avec $(a;b)\\neq (0\\,;\\,0)$.'
-          texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
-          texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$'
-          texteCorr += ' <br>Il suffit donc de trouver un vecteur directeur à cette droite pour déterminer une valeur possible pour les coefficients $a$ et $b$. <br>Or le vecteur $\\overrightarrow{AB}$ est un vecteur  directeur de la droite, dont on peut calculer les coordonnées :'
-          texteCorr += ' <br>$\\overrightarrow{AB}  \\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$'
-          texteCorr += ` $\\iff\\overrightarrow{AB}  \\begin{pmatrix} ${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
-          texteCorr += ` $\\iff\\overrightarrow{AB}  \\begin{pmatrix} ${xB - xA}\\\\${yB - yA}\\end{pmatrix}$`
-          texteCorr += ` <br>On en déduit $-b = ${xB - xA}$ (soit $b=${xA - xB}$) et $a=${yB - yA}$.`
-          texteCorr += ` <br>L'équation cartésienne de la droite $(AB)$ est donc de la forme : $ ${yB - yA} x ${ecritureAlgebriqueSauf1(xA - xB)} y + c=0$ `
-          texteCorr += `<br>Comme $A\\in (AB)$, ses coordonnées $(${xA}\\,;\\,${yA})$ vérifient l'équation de la droite $(AB)$. `
-          texteCorr += ` <br>$\\begin{aligned}
+          if (lang === 'fr-CH') {
+            const pente = new FractionEtendue(yB - yA, xB - xA)
+            const oo = new FractionEtendue(yA, 1).sommeFraction(pente.produitFraction(new FractionEtendue(xA, 1).oppose())).simplifie()
+            texteCorr += `<br>On sait que la pente de la droite $(AB)$ est donnée par : $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}$. On réduit cette fraction pour obtenir $m=${pente.texFractionSimplifiee}$.`
+            texteCorr += `<br>On en déduit que l'équation réduite de la droite $(AB)$ est de la forme : \\[y=${pente.texFractionSimplifiee}x+p.\\]
+            <br>On détermine la valeur de $p$ en utilisant que $A\\in (AB)$. Ainsi, 
+            \\[${yA}=${pente.texFractionSimplifiee}\\cdot ${ecritureParentheseSiNegatif(xA)}+p\\] et donc $p=${yA}${pente.simplifie().oppose().texFractionSignee}\\cdot ${ecritureParentheseSiNegatif(xA)}=${oo.texFractionSimplifiee}$.
+            <br>On en déduit que l'équation réduite de la droite $(AB)$ est : $y=${pente.texFractionSimplifiee}x${oo.texFractionSignee}$.`
+          } else {
+            texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
+            texteCorr += ' $\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$'
+            texteCorr += ' <br>Il suffit donc de trouver un vecteur directeur à cette droite pour déterminer une valeur possible pour les coefficients $a$ et $b$. <br>Or le vecteur $\\overrightarrow{AB}$ est un vecteur  directeur de la droite, dont on peut calculer les coordonnées :'
+            texteCorr += ' <br>$\\overrightarrow{AB}  \\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$'
+            texteCorr += ` $\\iff\\overrightarrow{AB}  \\begin{pmatrix} ${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$`
+            texteCorr += ` $\\iff\\overrightarrow{AB}  \\begin{pmatrix} ${xB - xA}\\\\${yB - yA}\\end{pmatrix}$`
+            texteCorr += ` <br>On en déduit $-b = ${xB - xA}$ (soit $b=${xA - xB}$) et $a=${yB - yA}$.`
+            texteCorr += ` <br>L'équation cartésienne de la droite $(AB)$ est donc de la forme : $ ${yB - yA} x ${ecritureAlgebriqueSauf1(xA - xB)} y + c=0$ `
+            texteCorr += `<br>Comme $A\\in (AB)$, ses coordonnées $(${xA}\\,;\\,${yA})$ vérifient l'équation de la droite $(AB)$. `
+            texteCorr += ` <br>$\\begin{aligned}
        ${yB - yA} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebriqueSauf1(xA - xB)} \\times ${ecritureParentheseSiNegatif(yA)}+ c&=0\\\\
        ${yB * xA - yA * xA} ${ecritureAlgebrique(xA * yA - xB * yA)} + c&=0\\\\
        c&= ${-xA * yA + xB * yA - yB * xA + yA * xA}
        \\end{aligned}$`
+          }
 
           break
         default : // 1G13 Point et vecteur normal
@@ -212,7 +229,7 @@ class EqCartDroite extends Exercice {
         return resultat
       }
       if (this.version === 4) {
-        texteCorr += `<br>On en déduit qu'une équation cartésienne de $(d)$ est : $${miseEnEvidence(reponse)}$.`
+        texteCorr += `<br>On en déduit qu'une équation cartésienne de ${lang === 'fr-CH' ? '$(AB)$' : '$(d)$'} est : $${miseEnEvidence(reponse)}$.`
         if (m != null) {
           if (m < 0 && (-m * xA + yA) < 0) {
             texteCorr += `<br>Cette équation peut s'écrire plus simplement :  $${-m} x+y${ecritureAlgebrique(m * xA - yA)}=0$.`
@@ -222,15 +239,15 @@ class EqCartDroite extends Exercice {
         texteCorr += 'équation cartésienne de la droite $(d)$ est donc de la forme : '
         texteCorr += `$${miseEnEvidence(reponse)}$.`
       } else {
-        texteCorr += '<br>Une équation cartésienne de la droite $(d)$ est donc de la forme : '
+        texteCorr += `<br>Une équation cartésienne de la droite ${lang === 'fr-CH' ? '$(AB)$' : '$(d)$'} est donc de la forme : `
         texteCorr += `$${miseEnEvidence(reponse)}$.`
       }
 
       texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: 'Équation cartésienne de la droite $(d)$ :' })
       handleAnswers(this, i, { reponse: { value: reponse }, callback })
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

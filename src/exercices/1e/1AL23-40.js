@@ -1,4 +1,4 @@
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -6,33 +6,35 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre une inéquation du second degré'
 
 /**
  * Résoudre une inéquation du second degré
  * @author Stéphane Guyon
- * Référence 1E11
+
  */
 export const uuid = '77bcc'
-export const ref = '1AL23-40'
+
 export const refs = {
   'fr-fr': ['1AL23-40'],
   'fr-ch': []
 }
-export default function ResoudreEquationDegre2 () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les inéquations suivantes.'
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.spacingCorr = 3
-  // this.sup = 1
+export default class ResoudreEquationDegre2 extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les inéquations suivantes.'
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.spacingCorr = 3
+    // this.sup = 1
+  }
+
+  nouvelleVersion () {
     // let listeTypeDeQuestions
     // if (this.sup === 1) {
     const listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal', 'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)
@@ -370,8 +372,8 @@ export default function ResoudreEquationDegre2 () {
         }
       }
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

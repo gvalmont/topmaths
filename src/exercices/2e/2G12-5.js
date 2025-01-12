@@ -1,25 +1,25 @@
-import { codageSegments } from '../../lib/2d/codages.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { context } from '../../modules/context.js'
+import { codageSegments } from '../../lib/2d/codages'
+import { point, tracePoint } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { context } from '../../modules/context'
 import Decimal from 'decimal.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { repere } from '../../lib/2d/reperes'
 import { prenom } from '../../lib/outils/Personne'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.ts'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { latexParCoordonnees } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { texteGras } from '../../lib/format/style'
 import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer les coordonnées du 4e sommet d\'un parallélogramme'
@@ -30,21 +30,24 @@ export const dateDePublication = '06/12/2023'
  * @author  Gilles Mora
  */
 export const uuid = 'b77cc'
-export const ref = '2G12-5'
+
 export const refs = {
   'fr-fr': ['2G12-5'],
   'fr-ch': ['11GM1-8']
 }
-export default function ParallélogrammeSommet () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 //
+export default class ParallélogrammeSommet extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Avec des entiers \n2 : Avec des décimaux\n3 : Situation concrète ']
+
+    this.nbQuestions = 1
+
+    this.sup = 1 //
   // this.correctionDetaillee = false
   // this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -136,7 +139,7 @@ export default function ParallélogrammeSommet () {
           texte += ` $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.<br>
        `
           texte += `Déterminer les coordonnées du point $${D.nom}$ tel que $${A.nom}${B.nom}${C.nom}${D.nom}$ soit un parallélogramme. Justifier.`
-          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, options: { nombreDecimalSeulement: true } } })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `${D.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`)
           }
@@ -261,7 +264,7 @@ export default function ParallélogrammeSommet () {
             yLabelDistance: 2,
             xLabelDistance: 2
           }))
-          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, options: { nombreDecimalSeulement: true } } })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `${D.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`)
           }
@@ -378,7 +381,7 @@ export default function ParallélogrammeSommet () {
             yLabelDistance: 15,
             xLabelDistance: 15
           }))
-          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, options: { nombreDecimalSeulement: true } } })
 
           texte += mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: 25, scale: 0.6 }, objets, E, G, M)
           if (this.interactif) {
@@ -407,13 +410,12 @@ export default function ParallélogrammeSommet () {
           break
       }
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Avec des entiers \n2 : Avec des décimaux\n3 : Situation concrète ']
 }

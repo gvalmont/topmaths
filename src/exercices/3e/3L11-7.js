@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -21,26 +21,27 @@ export const dateDePublication = '12/12/2021'
  * 3L11-7
  */
 export const uuid = '7cf81'
-export const ref = '3L11-7'
+
 export const refs = {
   'fr-fr': ['3L11-7'],
   'fr-ch': ['11FA2-8']
 }
-export default function CarreDoubleDistributivite () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.sup = true
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
+export default class CarreDoubleDistributivite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Écrire toutes les multiplications dans la correction']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.sup = true
+
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = ['(ax+b)2', '(b+ax)2', '(ax-b)2', '(b-ax)2']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -176,13 +177,12 @@ export default function CarreDoubleDistributivite () {
       }
 
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireCaseACocher = ['Écrire toutes les multiplications dans la correction']
 }

@@ -18,7 +18,7 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
@@ -31,9 +31,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     if (this.nbQuestions === 1) {
       this.consigne = 'Résoudre l\'équation suivante.'
     } else {
@@ -146,8 +143,8 @@ export default class nomExercice extends Exercice {
       }
       texteCorr += ` L'ensemble de solutions est $S=${sol}`
       if (this.questionJamaisPosee(i, coeffConstant, coeffX)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

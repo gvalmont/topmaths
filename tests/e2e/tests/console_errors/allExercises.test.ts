@@ -162,19 +162,21 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   log(filter)
   testRunAllLots(filter)
 } else {
-  // testRunAllLots('can')
+  testRunAllLots('can')
   // testRunAllLots('6e')
   // testRunAllLots('5e')
   // testRunAllLots('4e')
   // testRunAllLots('3e')
-  // testRunAllLots('2e')
+  //  testRunAllLots('2e')
   // testRunAllLots('1e')
-  // prefs.headless = true
-  // testRunAllLots('3e/3G22')
+  // testRunAllLots('QCM')
   // testRunAllLots('TEx')
   // testRunAllLots('TSpe')
-  // testRunAllLots('Techno1')
-  // testRunAllLots('HP')
+  // testRunAllLots('techno1')
+  // testRunAllLots('QCMBac')
+  // testRunAllLots('QCMBrevet')
+  // testRunAllLots('QCMStatiques')
 
-  testRunAllLots('5e/5R10-0.js')
+  // pour faire un test sur un exercice particulier:
+  // testRunAllLots('4e/4C32.js')
 }

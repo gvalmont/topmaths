@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
-    this.nbQuestions = 10
+
     this.besoinFormulaireNumerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
     this.besoinFormulaire2Numerique = ['Degré minimum', 6, '0\n1\n2\n3\n4\n5']
     this.besoinFormulaire3Numerique = ['Degré maximum (au moins égal au degré minimum)', 5, '1\n2\n3\n4\n5']
@@ -46,9 +46,6 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = [1]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -120,8 +117,8 @@ export default class NomExercice extends Exercice {
       const solution = texteCorr.split('=')[1]
       if (this.questionJamaisPosee(i, solution)) {
         handleAnswers(this, i, { reponse: { value: rep.toString() } })
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

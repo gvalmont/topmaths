@@ -1,9 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -21,22 +21,24 @@ export const dateDePublication = '16/08/2021'
  * Rendre l'exercice interactif Laurence Candille
  */
 export const uuid = 'b2c55'
-export const ref = '5N110'
+
 export const refs = {
   'fr-fr': ['5N110'],
   'fr-ch': ['9NO14-11']
 }
-export default function VariationEnPourcentages () {
-  Exercice.call(this)
-  this.consigne = 'Calculer le nouveau prix.'
-  this.nbQuestions = 5
-  this.spacing = 1
-  this.spacingCorr = 2
-  this.nbColsCorr = 1
-  this.nbCols = 1
-  this.interactifType = 'mathLive'
+export default class VariationEnPourcentages extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Calculer le nouveau prix.'
+    this.nbQuestions = 5
+
+    this.spacingCorr = 2
+
+    this.interactifType = 'mathLive'
+  }
+
+  nouvelleVersion () {
     let reponse
     for (let i = 0, prix, taux, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       prix = choice([new Decimal(randint(2, 9)),
@@ -90,8 +92,8 @@ export default function VariationEnPourcentages () {
       texteCorr += ' €'
 
       if (this.questionJamaisPosee(i, taux, prix, reponse)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,12 +1,11 @@
-import { fixeBordures } from '../../modules/2dGeneralites'
+import { fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { milieu, point, Point } from './points'
 import { polygone, Polyline, polyline } from './polygones'
-import { Segment, segment } from './segmentsVecteurs.js'
+import { Segment, segment } from './segmentsVecteurs'
 import { latexParCoordonnees, TexteParPoint, texteParPosition } from './textes'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
-import { randint } from '../../modules/outils.js'
 import { MathfieldElement } from 'mathlive'
 import './tableau2x2.scss'
 
@@ -18,14 +17,14 @@ export type StyledText = { texte: string, gras?: boolean, math?: boolean, latex?
  * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur
  * @author Rémi Angot
  */
-function flecheH (D: Point, A: Point, texte: StyledText, h: number = 1): (Polyline|Segment|TexteParPoint)[] {
+function flecheH (D: Point, A: Point, texte: StyledText, h: number = 1): (Polyline | Segment | TexteParPoint)[] {
   const D1 = new Point(D.x, D.y + h)
   const A1 = point(A.x, A.y + h)
   const fleche = polyline(D, D1, A1)
   const eFleche = segment(A1, A)
   eFleche.styleExtremites = '->'
   const M = milieu(D1, A1)
-  const objets = [fleche, eFleche]
+  const objets: any[] = [fleche, eFleche]
   let t
   if (texte) {
     const color = texte.color ?? 'black'
@@ -33,7 +32,7 @@ function flecheH (D: Point, A: Point, texte: StyledText, h: number = 1): (Polyli
       t = latexParCoordonnees(texte.texte, M.x, M.y + (h > 0 ? 0.5 : -0.8), color, 50, 20, '', 10)
     } else {
       const math = texte.math ?? false
-      t = texteParPosition(texte.texte, M.x, M.y + (h > 0 ? 0.5 : -0.8), 0, color, 1, 'gauche', math)
+      t = texteParPosition(texte.texte, M.x, M.y + (h > 0 ? 0.5 : -0.8), 0, color, 1, 'gauche', math) as TexteParPoint
       t.gras = texte.gras ?? false
     }
     objets.push(t)
@@ -47,7 +46,7 @@ function flecheH (D: Point, A: Point, texte: StyledText, h: number = 1): (Polyli
  * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur
  * @author Rémi Angot
  */
-function flecheV (D: Point, A: Point, texte: StyledText, h: number = 1, flip: boolean = false): (Polyline|Segment|TexteParPoint)[] {
+function flecheV (D: Point, A: Point, texte: StyledText, h: number = 1, flip: boolean = false): (Polyline | Segment | TexteParPoint)[] {
   if (flip) h = -h
   const D1 = point(D.x + h, D.y)
   const A1 = point(A.x + h, A.y)
@@ -55,7 +54,7 @@ function flecheV (D: Point, A: Point, texte: StyledText, h: number = 1, flip: bo
   const eFleche = segment(A1, A)
   eFleche.styleExtremites = '->'
   const M = milieu(D1, A1)
-  const objets = [fleche, eFleche]
+  const objets: any[] = [fleche, eFleche]
   let t
   const color = texte.color ?? 'black'
   const math = texte.math ?? false
@@ -65,7 +64,7 @@ function flecheV (D: Point, A: Point, texte: StyledText, h: number = 1, flip: bo
       // EE : Changement 19/04/2024 pour 5P13 et tenir compte de grands coefficients de proportionnalité
       t = latexParCoordonnees(texte.texte, M.x + texte.texte.length / 10 + h / 2, M.y, color, 50, 20, '', 10)
     } else {
-      t = texteParPosition(texte.texte, M.x + h, M.y - 0.6, 0, color, 1, flip ? 'droite' : 'gauche', math)
+      t = texteParPosition(texte.texte, M.x + h, M.y - 0.6, 0, color, 1, flip ? 'droite' : 'gauche', math) as TexteParPoint
       t.gras = texte.gras ?? false
     }
     objets.push(t)
@@ -88,7 +87,7 @@ type TableauParams = {
   flecheGauche?: StyledText | boolean
   flecheGaucheSens?: 'bas' | 'haut'
 }
-export class Tableau {
+export class Tableau extends ObjetMathalea2D {
   /**
    * Réalise un tableau typique des exercices de proportionnalité avec d'éventuelles flèches
    * @author Rémi Angot
@@ -108,7 +107,7 @@ export class Tableau {
     flecheGauche = false,
     flecheGaucheSens = 'haut'
   }: TableauParams) {
-    // ObjetMathalea2D.call(this, {}) rectification due aux latexParCoordonnees() qui ne sont plus des ObjetsMathalea2d comme les autres
+    super()
     // Jean-Claude Lhote 15/08/2023
     if (ligne1 && ligne2 && Array.isArray(ligne1) && Array.isArray(ligne2)) {
       nbColonnes = Math.max(ligne1.length, ligne2.length, nbColonnes)
@@ -118,35 +117,35 @@ export class Tableau {
     const C = point(B.x, B.y + 2 * hauteur)
     const D = point(A.x, A.y + 2 * hauteur)
     // ABCD est le cadre extérieur (A en bas à gauche et B en bas à droite)
-    const objets = []
-    objets.push(polygone(A, B, C, D))
-    objets.push(segment(point(A.x, A.y + hauteur), point(B.x, B.y + hauteur)))
+    this.objets = []
+    this.objets.push(polygone(A, B, C, D))
+    this.objets.push(segment(point(A.x, A.y + hauteur), point(B.x, B.y + hauteur)))
     // trait horizontal au milieu
     let x = A.x + largeurTitre
     // x est l'abscisse de la première séparation verticale
     // Ecrit le texte dans les colonnes
     for (let i = 0; i < nbColonnes; i++) {
-      objets.push(segment(point(x, A.y), point(x, C.y)))
+      this.objets.push(segment(point(x, A.y), point(x, C.y)))
       if (ligne1[i + 1]) {
         if (ligne1[i + 1].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
-          objets.push(latexParCoordonnees(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, ligne1[i + 1].color || 'black', largeur * 8, 20, '', 10))
+          this.objets.push(latexParCoordonnees(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, ligne1[i + 1].color || 'black', largeur * 8, 20, '', 10))
         } else {
           const color = ligne1[i + 1].color ?? 'black'
           const math = ligne1[i + 1].math ?? false
-          const texte = texteParPosition(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, 0, color, 1.2, 'milieu', math)
+          const texte = texteParPosition(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, 0, color, 1.2, 'milieu', math) as TexteParPoint
           texte.gras = ligne1[i + 1].gras ?? false
-          objets.push(texte)
+          this.objets.push(texte)
         }
       }
       if (ligne2[i + 1]) {
         if (ligne2[i + 1].latex) {
-          objets.push(latexParCoordonnees(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, ligne2[i + 1].color || 'black', largeur * 8, 20, '', 10))
+          this.objets.push(latexParCoordonnees(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, ligne2[i + 1].color || 'black', largeur * 8, 20, '', 10))
         } else {
           const color = ligne2[i + 1].color ?? 'black'
           const math = ligne2[i + 1].math ?? false
-          const texte = texteParPosition(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, 0, color, 1.2, 'milieu', math)
+          const texte = texteParPosition(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, 0, color, 1.2, 'milieu', math) as TexteParPoint
           texte.gras = ligne2[i + 1].gras ?? false
-          objets.push(texte)
+          this.objets.push(texte)
         }
       }
       x += largeur
@@ -154,33 +153,33 @@ export class Tableau {
     // Ecrit les titres
     if (ligne1[0]) {
       if (ligne1[0].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
-        objets.push(latexParCoordonnees(ligne1[0].texte ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 'black', largeur * 8, 20, '', 10))
+        this.objets.push(latexParCoordonnees(ligne1[0].texte ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 'black', largeur * 8, 20, '', 10))
       } else {
         const color = ligne1[0].color ?? 'black'
         const math = ligne1[0].math ?? false
-        const texte = texteParPosition(ligne1[0].texte ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 0, color, 1.2, 'milieu', math)
+        const texte = texteParPosition(ligne1[0].texte ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 0, color, 1.2, 'milieu', math) as TexteParPoint
         texte.gras = ligne1[0].gras ?? false
-        objets.push(texte)
+        this.objets.push(texte)
       }
     }
     if (ligne2[0]) {
       if (ligne2[0].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
-        objets.push(latexParCoordonnees(ligne2[0].texte ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 'black', largeur * 8, 20, '', 10))
+        this.objets.push(latexParCoordonnees(ligne2[0].texte ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 'black', largeur * 8, 20, '', 10))
       } else {
         const color = ligne2[0].color ?? 'black'
         const math = ligne2[0].math ?? false
-        const texte = texteParPosition(ligne2[0].texte ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 0, color, 1.2, 'milieu', math)
+        const texte = texteParPosition(ligne2[0].texte ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 0, color, 1.2, 'milieu', math) as TexteParPoint
         texte.gras = ligne2[0].gras ?? false
-        objets.push(texte)
+        this.objets.push(texte)
       }
     }
     for (const fleche of flecheHaut) {
       const Depart = point(A.x + largeurTitre + fleche[0] * largeur - 0.4 * largeur, A.y + 2.1 * hauteur)
       const Arrivee = point(A.x + largeurTitre + fleche[1] * largeur - 0.6 * largeur, A.y + 2.1 * hauteur)
       if (fleche[3]) {
-        objets.push(...flecheH(Depart, Arrivee, fleche[2], fleche[3]))
+        this.objets.push(...flecheH(Depart, Arrivee, fleche[2], fleche[3]))
       } else {
-        objets.push(...flecheH(Depart, Arrivee, fleche[2]))
+        this.objets.push(...flecheH(Depart, Arrivee, fleche[2]))
       }
     }
     for (const fleche of flecheBas) {
@@ -192,31 +191,31 @@ export class Tableau {
       } else {
         hFleche = -1
       }
-      objets.push(...flecheH(Depart, Arrivee, fleche[2], hFleche))
+      this.objets.push(...flecheH(Depart, Arrivee, fleche[2], hFleche))
     }
     if (flecheDroite && typeof flecheDroite === 'string') {
       const Depart = point(A.x + largeurTitre + (nbColonnes - 1) * largeur + 0.2, A.y + 1.5 * hauteur)
       const Arrivee = point(A.x + largeurTitre + (nbColonnes - 1) * largeur + 0.2, A.y + 0.5 * hauteur)
       if (flecheDroiteSens === 'bas') {
-        objets.push(...flecheV(Depart, Arrivee, flecheDroite))
+        this.objets.push(...flecheV(Depart, Arrivee, flecheDroite))
       } else {
-        objets.push(...flecheV(Arrivee, Depart, flecheDroite))
+        this.objets.push(...flecheV(Arrivee, Depart, flecheDroite))
       }
-      const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
+      const { xmin, ymin, xmax, ymax } = fixeBordures(this.objets)
       this.bordures = [xmin, ymin, xmax, ymax]
     }
     if (flecheGauche && typeof flecheGauche === 'string') {
       const Depart = point(A.x, A.y + 1.5 * hauteur)
       const Arrivee = point(A.x, A.y + 0.5 * hauteur)
       if (flecheGaucheSens === 'bas') {
-        objets.push(...flecheV(Depart, Arrivee, flecheGauche, 1, true))
+        this.objets.push(...flecheV(Depart, Arrivee, flecheGauche, 1, true))
       } else {
-        objets.push(...flecheV(Arrivee, Depart, flecheGauche, 1, true))
+        this.objets.push(...flecheV(Arrivee, Depart, flecheGauche, 1, true))
       }
     }
-    const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
+    const { xmin, ymin, xmax, ymax } = fixeBordures(this.objets)
     this.bordures = [xmin, ymin, xmax, ymax]
-    return objets
+    return this
   }
 }
 export function tableau (tableauParams: TableauParams) {
@@ -283,7 +282,7 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
   exo = 0,
   question = 0,
   isInteractif = false,
-  style: {[key: string]: string} = {}): string {
+  style: { [key: string]: string } = {}): string {
   // on définit le nombre de colonnes
   const nbColonnes = tabEntetesColonnes.length > 0 ? tabEntetesColonnes.length : (tabLignes.length / tabEntetesLignes.length + 1)
   // on définit le nombre de lignes
@@ -363,7 +362,7 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
   }
 }
 
-type Cellule = {content: string, latex: boolean, color: string, background: string}
+type Cellule = { content: string, latex?: boolean, color?: string, background?: string }
 /**
  * produit un tableau 2x2 pour calcul de 4e proportionnelle par exemple
  */

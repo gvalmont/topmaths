@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -15,26 +15,25 @@ export const amcType = 'AMCNum'
 /**
  * Calculer le quart d'un multiple de 4, d'un impair, d'un multiple de 400, d'un multiple de 40, d'un nombre a,b avec a et b multiples de 4
  * @author Rémi Angot
- * Référence CM011
+
  */
 export const uuid = 'b434c'
-export const ref = 'CM011'
+
 export const refs = {
   'fr-fr': ['CM011'],
   'fr-ch': []
 }
-export default function Quart () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 10
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+export default class Quart extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Calculer.'
 
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = range1(5)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -93,8 +92,8 @@ export default function Quart () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

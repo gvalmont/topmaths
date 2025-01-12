@@ -1,7 +1,7 @@
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,18 +12,22 @@ export const amcType = 'AMCNum'
 * @author Stéphane Guyon
 */
 export const uuid = 'a66ad'
-export const ref = 'techno1P2-1'
+
 export const refs = {
   'fr-fr': ['techno1P2-1'],
   'fr-ch': []
 }
-export default function Proportion () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 3
-  this.formatChampTexte = ''
+export default class Proportion extends Exercice {
+  constructor () {
+    super()
+
+    this.typeExercice = 'simple'
+    this.nbQuestions = 3
+
   // this.optionsChampTexte = { texteApres: ' €' }
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     const b = randint(3, 80)/* Pourcentage */
     const a = randint(10, 100)/* Valeur */
     this.question = `Calculer  $${b}\\,\\%$ de $${a}$. `

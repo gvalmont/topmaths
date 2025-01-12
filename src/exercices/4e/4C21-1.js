@@ -1,14 +1,14 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
+import { fraction } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { context } from '../../modules/context'
 
 export const titre = 'Additionner deux fractions'
@@ -26,7 +26,7 @@ export const dateDeModifImportante = '31/08/2024'
  * @author Rémi Angot
  */
 export const uuid = '5e8fc'
-export const ref = '4C21-1'
+
 export const refs = {
   'fr-fr': ['4C21-1'],
   'fr-ch': ['9NO13-7']
@@ -37,11 +37,11 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
     this.sup = 2 // Niveau de difficulté
     this.sup2 = false // Avec ou sans relatifs
     this.sup3 = false // Fraction irréductible attendue
-    this.titre = titre
+
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 5
-    this.nbColsCorr = 1
+
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
     this.besoinFormulaire3CaseACocher = ['Fraction irréductible attendue']
@@ -169,7 +169,7 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
 
       reponse = fraction(num, den).simplifie()
       texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
-      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
+      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
 
       if (context.isAmc) {
         texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte

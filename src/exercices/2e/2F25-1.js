@@ -1,13 +1,13 @@
-import { courbe } from '../../lib/2d/courbes.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.ts'
+import { courbe } from '../../lib/2d/courbes'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { abs } from 'mathjs'
 
 export const titre = 'Étudier graphiquement la parité d\'une fonction'
@@ -18,23 +18,21 @@ export const titre = 'Étudier graphiquement la parité d\'une fonction'
 * 2F20
 */
 export const uuid = '6e82d'
-export const ref = '2F25-1'
+
 export const refs = {
   'fr-fr': ['2F25-1'],
   'fr-ch': []
 }
-export default function EtudierGraphiqueParite () {
-  Exercice.call(this)
-  this.titre = titre
-  this.video = ''
-  this.consigne = 'Déterminer, par lecture graphique mais en le justifiant, si la fonction $f$ représentée est paire, impaire ou ni paire, ni impaire.'
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 1
+export default class EtudierGraphiqueParite extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Déterminer, par lecture graphique mais en le justifiant, si la fonction $f$ représentée est paire, impaire ou ni paire, ni impaire.'
+
+    this.nbQuestions = 1
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]//
 
@@ -464,8 +462,8 @@ export default function EtudierGraphiqueParite () {
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

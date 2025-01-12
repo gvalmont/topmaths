@@ -2,9 +2,9 @@ import loadjs from 'loadjs'
 
 // import JSON uuidsRessources
 import renderMathInElement from 'katex/contrib/auto-render'
-import Exercice from '../exercices/deprecatedExercice'
+import Exercice from '../exercices/Exercice'
 import type TypeExercice from '../exercices/Exercice'
-// import context from '../modules/context.js'
+// import context from '../modules/context'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore'
 import { get } from 'svelte/store'
@@ -112,11 +112,12 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-      if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+      /*  if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
         animationLoading(true)
         await loadGiac()
         animationLoading(false)
       }
+        */
       return exercice
     } catch (error) {
       attempts++
@@ -188,11 +189,14 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-      if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+      /* Plus de xcas
+
+     if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
         animationLoading(true)
         await loadGiac()
         animationLoading(false)
       }
+        */
       return exercice
     } catch (error) {
       attempts++
@@ -224,15 +228,15 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
             param.uuid.substring(0, 4) === 'dnb_' ||
             param.uuid.substring(0, 4) === 'e3c_' ||
             param.uuid.substring(0, 4) === 'bac_' ||
+            param.uuid.startsWith('sti2d_') ||
             param.uuid.substring(0, 7) === 'evacom_' ||
             param.uuid.startsWith('2nd_')
     ) {
       const infosExerciceStatique = (param.uuid.substring(0, 7) === 'evacom_') ? getExerciceByUuid(referentielStaticCH, param.uuid) : getExerciceByUuid(referentielStaticFR, param.uuid)
       let content = ''
       let contentCorr = ''
-      let sujet = param.uuid.substring(0, 4)
-      if (sujet === 'dnb_' || sujet === 'bac_') {
-        sujet = sujet.substring(0, 3)
+      const sujet = param.uuid.split('_')[0]
+      if (sujet === 'dnb' || sujet === 'bac' || sujet === 'sti2d') {
         let response = await window.fetch(`static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`)
         if (response.status === 200) {
           const text = await response.clone().text()
@@ -284,6 +288,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
+      if (param.uuid.startsWith('sti2d_')) examen = 'STI2D'
       if (param.uuid.substring(0, 7) === 'evacom_') examen = 'EVACOM'
       exercices.push({ typeExercice: 'statique', uuid: param.uuid, content, contentCorr, annee, lieu, mois, numeroInitial, examen })
     } else {
@@ -405,10 +410,10 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
     if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
     if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
     if (ex.sup5 != null) url.searchParams.append('s5', ex.sup5)
-    if (ex.alea != null) url.searchParams.append('alea', ex.alea)
     if (ex.interactif === '1') url.searchParams.append('i', '1')
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
     if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
+    if (ex.alea != null) url.searchParams.append('alea', ex.alea)
   }
   updateURLFromReferentielLocale(url)
   updateGlobalOptionsInURL(url)
@@ -656,7 +661,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
-      if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
+      if (compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
         if (typeof exercice.reponse !== 'string' && typeof exercice.reponse !== 'number') {
           if (exercice.reponse instanceof FractionEtendue) {
@@ -685,18 +690,18 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(
-            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
+            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte, exercice.optionsChampTexte || {})
           )
         } else {
           exercice.listeQuestions.push(exercice.question || '')
         }
       } else {
         // La question doit contenir une unique variable %{champ1} On est en fillInTheBlank
-        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte || '', '\\ldots'))
+        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte, '\\ldots'))
         if (typeof exercice.reponse === 'object' && 'champ1' in exercice.reponse) {
           handleAnswers(exercice, i, exercice.reponse, { formatInteractif: 'fillInTheBlank' })
         } else {
-          handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(exercice, i, { champ1: { value: exercice.reponse } }, { formatInteractif: 'fillInTheBlank' })
         }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')
@@ -908,12 +913,12 @@ async function load (name: 'giac' | 'mathgraph') {
 
 /**
  * Attend que xcas soit chargé (max 60s), car giacsimple lance le chargement du wasm|js suivant les cas
- * @return {Promise<undefined,Error>} rejette en cas de timeout
+ * @return {Promise<undefined,Error>} rejette en cas de timeout // On n'utilise plus xcas (giacsimple)
  */
-function waitForGiac () {
-  /* global Module */
-  // @ts-expect-error : Module est défini par giacsimple
-  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
+// function waitForGiac () {
+/* global Module */
+// @ts-expect-error : Module est défini par giacsimple
+/*  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
   const timeout = 60 // en s
   const tsStart = Date.now()
   return new Promise((resolve, reject) => {
@@ -931,18 +936,19 @@ function waitForGiac () {
     }, 500)
   })
 }
+  */
 
 /**
  * Charge giac
- * @return {Promise} qui peut échouer…
  */
+/* Plus de xcas
 export async function loadGiac () {
   await load('giac')
   // attention, le load précédent résoud la promesse lorsque giacsimple est chargé,
   // mais lui va charger le webAssembly ou js ensuite, d'où le besoin de waitForGiac
   await waitForGiac()
 }
-
+*/
 function animationLoading (state: boolean) {
   if (state) {
     document.getElementById('loading')?.classList.remove('hidden')

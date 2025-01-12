@@ -4,17 +4,17 @@ import {
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -37,7 +37,7 @@ export const dateDeModifImportante = '23/08/2024'
  * Ajout possibilité correction non détaillée le 11/11/2021 par Mireille Gain
  */
 export const uuid = 'b6982'
-export const ref = '5R21'
+
 export const refs = {
   'fr-fr': ['5R21'],
   'fr-ch': ['9NO9-13']
@@ -48,7 +48,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
     this.sup = 20
     this.sup2 = false // écriture simplifiée
     this.sup3 = false // nombres décimaux
-    this.titre = titre
+
     this.consigne = 'Calculer.'
     this.nbCols = 3
     this.nbColsCorr = 2
@@ -111,15 +111,16 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
         }
       }
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           setReponse(this, i, [arrondi(a - b), `(${ecritureAlgebrique(a - b)})`], {
             signe: true,
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(arrondi(a - b))),
             decimals: 0
           })
-        } else handleAnswers(this, i, { reponse: { value: (arrondi(a - b)).toString(), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+        } else handleAnswers(this, i, { reponse: { value: (arrondi(a - b)).toString(), options: { resultatSeulementEtNonOperation: true } } })
 
         i++
       }

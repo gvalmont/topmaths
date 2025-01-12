@@ -1,15 +1,15 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-// import { lampeMessage } from '../../lib/format/message.js'
+// import { lampeMessage } from '../../lib/format/message'
 import { abs, signe } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Résoudre une équation du premier degré (utilisant la distributivité)'
@@ -27,28 +27,29 @@ export const dateDeModifImportante = '24/06/2024'
  * Rendre interactif Laurence Candille
  */
 export const uuid = '1802d'
-export const ref = '3L13-1'
+
 export const refs = {
   'fr-fr': ['3L13-1'],
   'fr-ch': ['11FA6-5']
 }
-export default function ExerciceEquation1Tiret2 () {
-  Exercice.call(this)
-  // this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
-  this.comment = 'Les équations sont de la forme :<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
-  this.spacing = 2
-  this.interactifType = 'mathLive'
-  context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2
-  this.correctionDetailleeDisponible = true
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
-  }
-  this.nbQuestions = 3
-  this.tailleDiaporama = 3
+export default class ExerciceEquation1Tiret2 extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    // this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
+    this.comment = 'Les équations sont de la forme :<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
+    this.spacing = 2
+    this.interactifType = 'mathLive'
+    context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2
+    this.correctionDetailleeDisponible = true
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    }
+    this.nbQuestions = 3
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
-    this.autoCorrection = []
 
     // let listeTypeDeQuestions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d']
     let listeTypeDeQuestions = ['k(ax+b)=cx+d', 'k-(ax+b)=cx+d']
@@ -197,8 +198,8 @@ export default function ExerciceEquation1Tiret2 () {
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d, k)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
-        this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,16 +1,16 @@
-import { codageAngle } from '../../lib/2d/angles.js'
-import { codageSegment } from '../../lib/2d/codages.js'
-import { milieu, point } from '../../lib/2d/points.js'
-import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint } from '../../lib/2d/textes.ts'
+import { codageAngle } from '../../lib/2d/angles'
+import { codageSegment } from '../../lib/2d/codages'
+import { milieu, point } from '../../lib/2d/points'
+import { nommePolygone, polygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { latexParPoint } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -24,20 +24,21 @@ export const dateDeModifImportante = '18/04/2024'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
 */
 export const uuid = '588fe'
-export const ref = '5G40-2'
+
 export const refs = {
   'fr-fr': ['5G40-2'],
   'fr-ch': ['9ES2-2']
 }
-export default function ParallelogrammeAPartirDUneFigure () {
-  Exercice.call(this)
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.nbQuestions = 4
+export default class ParallelogrammeAPartirDUneFigure extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+
+    this.nbQuestions = 4
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? 'Pour la figure suivante, tracée '
       : 'Pour chacune des figures suivantes, tracées '
@@ -218,8 +219,8 @@ export default function ParallelogrammeAPartirDUneFigure () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

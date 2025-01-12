@@ -33,10 +33,9 @@ class DerivationSommesSimples extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, defaut: 1, melange: 5, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const lesFonctions: {fonction: string, derivee: string}[] = []
+      const lesFonctions: { fonction: string, derivee: string }[] = []
       const [a, b, c] = choice(
         [[0, 0, randint(-5, 5, [-1, 0, 1])],
           [0, randint(-5, 5, [-1, 0, 1]), 0],
@@ -117,8 +116,9 @@ class DerivationSommesSimples extends Exercice {
       texteCorr += `$f'(x)=${miseEnEvidence(laDerivee)}$.<br>`
 
       if (this.questionJamaisPosee(i, laFonction)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         handleAnswers(this, i, { reponse: { value: laDerivee, options: { variable: 'x' }, compare: functionCompare } })
         i++
         cpt--

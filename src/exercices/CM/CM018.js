@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -13,26 +13,25 @@ export const amcType = 'AMCNum'
 /**
  * Somme de 3 nombres dont 2 ont des chiffres des unités compléments à 10
  * @author Rémi Angot
- * Référence CM018
+
  */
 export const uuid = '678f9'
-export const ref = 'CM018'
+
 export const refs = {
   'fr-fr': ['CM018'],
   'fr-ch': []
 }
-export default function SommeDeDeuxNombresMariesEtUnEntier () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 10
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+export default class SommeDeDeuxNombresMariesEtUnEntier extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Calculer.'
 
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -63,8 +62,8 @@ export default function SommeDeDeuxNombresMariesEtUnEntier () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

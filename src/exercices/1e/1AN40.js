@@ -1,9 +1,9 @@
-import { cercleTrigo } from '../../lib/2d/angles.js'
+import { cercleTrigo } from '../../lib/2d/angles'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { valeursTrigo } from '../../lib/mathFonctions/trigo.js'
+import { valeursTrigo } from '../../lib/mathFonctions/trigo'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -20,7 +20,7 @@ export const dateDeModifImportante = '12/01/2024'
  */
 
 export const uuid = '4e684'
-export const ref = '1AN40'
+
 export const refs = {
   'fr-fr': ['1AN40'],
   'fr-ch': []
@@ -28,11 +28,12 @@ export const refs = {
 export default class CosEtsin extends Exercice {
   constructor () {
     super()
+    this.can = false
     this.consigne = 'Déterminer la valeur exacte de :'
     this.nbQuestions = 3 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.video = '' // Id YouTube ou url
+
     this.sup = 1 // difficulté par défaut
     this.sup2 = '-1,1'
     this.besoinFormulaireTexte = [
@@ -129,9 +130,8 @@ export default class CosEtsin extends Exercice {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i][0][0], listeTypeQuestions[i][1].radians)) { // On regarde l'angle en radian et le type de fonction
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -141,8 +141,7 @@ export default class CosEtsin extends Exercice {
       this.canEnonce = 'Donner la valeur exacte de ' + this.listeQuestions[0] + '.'
       this.correction = this.listeCorrections[0]
       this.canReponseACompleter = ''
-      this.listeCanEnonces = []
-      this.listeCanReponsesACompleter = []
+
       for (const enonce of this.listeQuestions) {
         this.listeCanEnonces.push('Donner la valeur exacte de ' + enonce + '.')
         this.listeCanReponsesACompleter.push('')

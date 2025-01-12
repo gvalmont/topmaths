@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import { sp } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -26,23 +26,26 @@ export const amcType = 'AMCHybride'
 * @author Rémi Angot
 */
 export const uuid = 'd88d6'
-export const ref = '5L15'
+
 export const refs = {
   'fr-fr': ['5L15'],
   'fr-ch': ['10FA3-1']
 }
-export default function TesterUneEgalite () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.sup2 = false
-  this.sup3 = 2
+export default class TesterUneEgalite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Entiers naturels\n2 : Entiers relatifs']
+    this.besoinFormulaire2CaseACocher = ['Avec des expressions du second degré']
+    this.besoinFormulaire3Numerique = ['Type d\'exercices AMC', 2, '1 : Question ouverte\n2 : Réponses numériques']
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.nbQuestions = 3
 
+    this.sup = 1
+    this.sup2 = false
+    this.sup3 = 2
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles // = range1(5)
 
     if (!this.sup2) { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] } else { typesDeQuestionsDisponibles = [6, 7, 3] }
@@ -406,15 +409,12 @@ export default function TesterUneEgalite () {
         }
       }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Entiers naturels\n2 : Entiers relatifs']
-  this.besoinFormulaire2CaseACocher = ['Avec des expressions du second degré']
-  this.besoinFormulaire3Numerique = ['Type d\'exercices AMC', 2, '1 : Question ouverte\n2 : Réponses numériques']
 }

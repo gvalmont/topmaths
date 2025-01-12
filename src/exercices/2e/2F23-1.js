@@ -1,8 +1,8 @@
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import Trinome from '../../modules/Trinome'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
@@ -16,7 +16,7 @@ export const dateDeModifImportante = '5/11/2023'
  * @author Gilles Mora
 */
 export const uuid = '4dced'
-export const ref = '2F23-1'
+
 export const refs = {
   'fr-fr': ['2F23-1'],
   'fr-ch': []

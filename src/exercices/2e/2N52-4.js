@@ -1,13 +1,13 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { fraction } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre des équations se ramenant au produit-nul'
@@ -18,26 +18,23 @@ export const titre = 'Résoudre des équations se ramenant au produit-nul'
 * 2N52-4 (ex 2L12-2)
 */
 export const uuid = '93432'
-export const ref = '2N52-4'
+
 export const refs = {
   'fr-fr': ['2N52-4'],
   'fr-ch': ['11FA10-3']
 }
-export default function Equationspresqueproduitnulle () {
-  Exercice.call(this)
-  this.titre = titre
-  this.video = ''
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 3
-  this.spacingCorr = 3
-  this.nbQuestions = 5
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
+export default class Equationspresqueproduitnulle extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3
+    this.spacingCorr = 3
+    this.nbQuestions = 5
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
+
+  nouvelleVersion () {
     this.consigne = `Résoudre dans $\\mathbb R$ ${this.nbQuestions > 1 ? 'les équations suivantes' : 'l\'équation suivante'} :`
     if (this.interactif) {
       this.consigne += "<br>On donnera la réponse sous forme d'un ensemble de solution."
@@ -217,14 +214,13 @@ export default function Equationspresqueproduitnulle () {
       handleAnswers(this, i, {
         reponse: {
           value: `\\{${valeursSolution}\\}`,
-          compare: fonctionComparaison,
           options: { ensembleDeNombres: true }
         }
       })
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

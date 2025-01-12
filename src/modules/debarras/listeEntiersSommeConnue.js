@@ -1,4 +1,4 @@
-import { randint } from '../outils.js'
+import { randint } from '../outils'
 
 /**
  * Donne une liste d'entiers relatifs dont on connait la somme.

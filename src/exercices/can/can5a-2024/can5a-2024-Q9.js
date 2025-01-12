@@ -6,7 +6,6 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Convertir des dm en m et réciproquement'
 export const interactifReady = true
@@ -23,7 +22,6 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = false
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

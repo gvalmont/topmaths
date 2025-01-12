@@ -17,7 +17,7 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
 */
 
@@ -31,8 +31,6 @@ export default class ComparerImagesTableau extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -448,8 +446,8 @@ export default class ComparerImagesTableau extends Exercice {
           break
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

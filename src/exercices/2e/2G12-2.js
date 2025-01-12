@@ -1,20 +1,20 @@
-import { point, tracePoint } from '../../lib/2d/points.js'
+import { point, tracePoint } from '../../lib/2d/points'
 import Decimal from 'decimal.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
@@ -25,23 +25,24 @@ export const dateDeModifImportante = '04/12/2023'
  * @author Stéphane Guyon modif Gilles Mora
  */
 export const uuid = '4b25a'
-export const ref = '2G12-2'
+
 export const refs = {
   'fr-fr': ['2G12-2'],
   'fr-ch': ['11GM1-5']
 }
-export default function Milieu () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 //
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+export default class Milieu extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations', 4, '1 : Application directe  \n2 : Application directe (fractions) \n3 : Application indirecte \n4 : Mélange ']
 
+    this.nbQuestions = 1
+
+    this.sup = 1 //
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -92,7 +93,7 @@ export default function Milieu () {
       // s3 = codageSegments('X', 'red', s1, s2)
       T = tracePoint(A, B, M) // Repère les points avec une croix
       L = labelPoint(A, B, M)
-      corrD = `<br>On sait d'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d'un repère orthonormé,
+      corrD = `On sait d'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d'un repère orthonormé,
        alors $x_M$ l'abscisse du point $M$ est la ${texteGras('moyenne')} des abscisses des points $A$ et $B$, soit $x_M=\\dfrac{x_A+x_B}{2}$ et 
       $y_M$ l'ordonnée du point $M$ est la ${texteGras('moyenne')} des ordonnées des points $A$ et $B$, soit $y_M=\\dfrac{y_A+y_B}{2}$. <br>
       Ainsi,  les coordonnées du point $M$ milieu de $[AB]$ sont 
@@ -105,8 +106,8 @@ export default function Milieu () {
           objets.push(g, T, L, s, o, I, J)
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: xM.texFraction, compare: fonctionComparaison },
-            champ2: { value: yM.texFraction, compare: fonctionComparaison }
+            champ1: { value: xM.texFraction },
+            champ2: { value: yM.texFraction }
           })
 
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
@@ -136,8 +137,8 @@ export default function Milieu () {
           objets.push(g, T, L, s, o, I, J)
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: new Decimal(xM).mul(2).sub(xA).toString(), compare: fonctionComparaison },
-            champ2: { value: new Decimal(yM).mul(2).sub(yA).toString(), compare: fonctionComparaison }
+            champ1: { value: new Decimal(xM).mul(2).sub(xA).toString() },
+            champ2: { value: new Decimal(yM).mul(2).sub(yA).toString() }
           })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$.`
@@ -196,8 +197,8 @@ export default function Milieu () {
           texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$.`
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: xM.texFraction, compare: fonctionComparaison },
-            champ2: { value: yM.texFraction, compare: fonctionComparaison }
+            champ1: { value: xM.texFraction },
+            champ2: { value: yM.texFraction }
           })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i,
@@ -220,13 +221,12 @@ export default function Milieu () {
       }
 
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations', 4, '1 : Application directe  \n2 : Application directe (fractions) \n3 : Application indirecte \n4 : Mélange ']
 }

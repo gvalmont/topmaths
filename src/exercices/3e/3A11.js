@@ -1,11 +1,11 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
-import { warnMessage } from '../../lib/format/message.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { warnMessage } from '../../lib/format/message'
+import { numAlpha } from '../../lib/outils/outilString'
 import { decompositionFacteursPremiersArray, premiersEntreBornes } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Rendre irréductible une fraction'
 
 /**
@@ -13,27 +13,26 @@ export const titre = 'Rendre irréductible une fraction'
  * @author Sébastien Lozano
  */
 export const uuid = 'a6667'
-export const ref = '3A11'
+
 export const refs = {
   'fr-fr': ['3A11'],
   'fr-ch': ['9NO12-8']
 }
-export default function FractionsIrreductibles () {
-  Exercice.call(this)
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
-  context.isHtml ? this.spacing = 4 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = true
+export default class FractionsIrreductibles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Décomposition « simple »']
+    // pas de différence entre la version html et la version latex pour la consigne
+    this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
+    context.isHtml ? this.spacing = 4 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2
+    this.nbQuestions = 1
 
-  this.nouvelleVersion = function () {
+    this.sup = true
+  }
+
+  nouvelleVersion () {
     let typesDeQuestions
-
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -263,13 +262,12 @@ export default function FractionsIrreductibles () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Décomposition « simple »']
 }

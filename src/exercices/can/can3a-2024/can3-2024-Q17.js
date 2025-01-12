@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,17 +11,16 @@ export const uuid = '54dc6'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
+
     this.canOfficielle = false
   }
 

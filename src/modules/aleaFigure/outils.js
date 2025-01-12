@@ -1,5 +1,5 @@
-import { GVPoint, GVPolygon, GVSegment, GVLine } from './elements.js'
-import { GVGrandeur } from './grandeurs.js'
+import { GVPoint, GVPolygon, GVSegment, GVLine } from './elements'
+import { GVGrandeur } from './grandeurs'
 export function circularPermutation (arg /** string | any[] */, n/** number */ = Math.random() * arg.length)/** any[] */ {
   if (typeof arg === 'string') {
     arg = arg.split('')

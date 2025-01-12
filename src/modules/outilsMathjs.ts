@@ -1,13 +1,13 @@
 import { obtenirListeFacteursPremiers } from '../lib/outils/primalite'
 import { texNombre2 } from '../lib/outils/texNombre'
-import { context } from './context.js'
+import { context } from './context'
 import { all, create, type Fraction, type MathNode } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
-import { getNewChangeNodes } from './Change.js'
+import { getNewChangeNodes } from './Change'
 import Decimal from 'decimal.js'
 
-type ListeVariable = 'a'| 'b'| 'c'| 'd'| 'e'| 'f'| 'g'| 'h'| 'i'| 'j'| 'k'| 'l'| 'm'| 'n'| 'o'| 'p'| 'q'| 'r'| 's'| 't'| 'u'| 'v'| 'w'| 'x'| 'y'| 'z' | 'test'
-export type Variables =Partial<Record<ListeVariable, string|number|boolean|Fraction|object>>
+type ListeVariable = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | 'test'
+export type Variables = Partial<Record<ListeVariable, string | number | boolean | Fraction | object>>
 
 const math = create(all)
 
@@ -227,7 +227,7 @@ function transformNode (node: Node, parent: Node, oldNode:Node, params = { suppr
       }
     }
     // Peut-être faut-il mettre à jour le mathjs de mathsteps car il semble que le code suivant ne fonctionne pas
-    // dans mathsteps lorsqu'il est placé dans print.js de mathsteps
+    // dans mathsteps lorsqu'il est placé dans print de mathsteps
     // alors qu'il fonctionne avec la version mathjs de mathalea
     if (node.isOperatorNode && node.op === '*') { // Multiplication implicite 2*x devient 2x et 2*(x+3) devient 2(x+3)
       if ((node.args[1].isParenthesisNode || node.args[1].isSymbolNode) && !(searchLastNode(node.args[0]).node.isSymbolNode)) node.implicit = true
@@ -294,7 +294,7 @@ function correctifNodeMathsteps (node: Node) {
  * toTex('-3/4') -> -\dfrac{3}{4}
  * toTex('OA/OM=OB/ON',{OA: 1.2, OM: 1.5, OB: 1.7}) -> \dfrac{1{.}2}{1{.}5}=\dfrac{1{.}7}{OB}
  */
-export function toTex (node: MathNode|string, params:{suppr1?: boolean, suppr0?: boolean, supprPlusMoins?: boolean, variables?: Variables, removeImplicit?: boolean} = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined, removeImplicit: true }): string {
+export function toTex (node: MathNode | string, params:{ suppr1?: boolean, suppr0?: boolean, supprPlusMoins?: boolean, variables?: Variables, removeImplicit?: boolean } = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined, removeImplicit: true }): string {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
@@ -366,7 +366,7 @@ export function toTex (node: MathNode|string, params:{suppr1?: boolean, suppr0?:
   }
 }
 
-export function toString (node: MathNode|string, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }) {
+export function toString (node: MathNode | string, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }) {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
@@ -429,7 +429,7 @@ export function toString (node: MathNode|string, params = { suppr1: true, suppr0
   }
 }
 
-export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations: Variables = { a: 1, b: 2, c: 3, d: -6 }, rules?:{l:string, r:string}[]) {
+export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations: Variables = { a: 1, b: 2, c: 3, d: -6 }, rules?:{ l: string, r: string }[]) {
   // Ne pas oublier le signe de la multiplication
   return math.simplify(expression, rules ?? [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
 }
@@ -666,7 +666,7 @@ export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, 
   for (const v of Object.keys(assignations)) {
     assignations[v as keyof Variables] = math.number(String(assignations[v as keyof Variables]))
   }
-  let comparator: string|undefined
+  let comparator: string | undefined
   let sides
   for (let i = 0; i < comparators.length; i++) {
     const comparatorSearch = comparators[i]

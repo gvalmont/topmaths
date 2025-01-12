@@ -1,10 +1,10 @@
-import { base10VersBaseN } from '../exercices/PE/PEA13.js'
-import { segment } from '../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../lib/2d/textes.ts'
+import { base10VersBaseN } from '../exercices/PE/PEA13'
+import { segment } from '../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../lib/2d/textes'
 import { nombreDeChiffresDansLaPartieEntiere, ordreDeGrandeur } from '../lib/outils/nombres'
 import Decimal from 'decimal.js'
-import { context } from './context.js'
-import { fixeBordures, mathalea2d } from './2dGeneralites.js'
+import { context } from './context'
+import { fixeBordures, mathalea2d } from './2dGeneralites'
 import { texNombre } from '../lib/outils/texNombre'
 /**
  *
@@ -15,7 +15,7 @@ import { texNombre } from '../lib/outils/texNombre'
  */
 
 const espacement = 1
-export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block', methodeParCompensation = true, options = { solution: true, colore: false } }) { // precision est pour le quotient décimal
+export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block', methodeParCompensation = true, options = { solution: true, colore: '' } }) { // precision est pour le quotient décimal
   const calculer = options.solution
   let Code
   const nombreDeChiffresApresLaVirgule = function (x) {
@@ -518,13 +518,11 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   }
   operande1 = new Decimal(operande1)
   operande2 = new Decimal(operande2)
-  const colore = options.colore ? 'Colore' : ''
+  let colore = ''
+  if (options.colore != null) colore = options.colore
   const solution = options.solution ? 'Solution' : ''
   if (context.isHtml) {
     switch (type) {
-      case 'addition':
-        Code = AdditionPosee3d(operande1, operande2, base, retenuesOn, calculer)
-        break
       case 'soustraction':
         Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation, calculer)
         break
@@ -537,16 +535,13 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       case 'divisionE':
         Code = DivisionPosee3d(operande1, operande2, 0, calculer)
         break
+      case 'addition':
+      default:
+        Code = AdditionPosee3d(operande1, operande2, base, retenuesOn, calculer)
+        break
     }
   } else {
     switch (type) {
-      case 'addition':
-        Code = options.colore
-          ? `\\Addition${colore}[${solution}]{${operande1}}{${operande2}}`
-          : options.solution
-            ? `\\opadd[lineheight=\\baselineskip,columnwidth=2ex,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
-            : `\\opadd[lineheight=\\baselineskip,columnwidth=2ex,displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\whitedecimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
-        break
       case 'soustraction':
         if (!methodeParCompensation) {
           Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation, calculer)
@@ -578,6 +573,14 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
           : options.solution
             ? `\\opidiv[lineheight=\\baselineskip,columnwidth=2ex,voperation=top]{${operande1}}{${operande2}}`
             : `\\opidiv[lineheight=\\baselineskip,columnwidth=2ex,displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\white,voperation=top]{${operande1}}{${operande2}}`
+        break
+      case 'addition':
+      default:
+        Code = options.colore
+          ? `\\Addition${colore}[${solution}]{${operande1}}{${operande2}}`
+          : options.solution
+            ? `\\opadd[lineheight=\\baselineskip,columnwidth=2ex,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+            : `\\opadd[lineheight=\\baselineskip,columnwidth=2ex,displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\whitedecimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
         break
     }
   }

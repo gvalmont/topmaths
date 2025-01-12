@@ -33,10 +33,10 @@ export const refs = {
  * Placer des parenthèses mais pas inutilement dans une expression pour qu'elle vérifie une égalité
  */
 
-type Materiel = { expSP: string; expAP: string; test: (a:number, b:number, c:number, d:number)=>boolean}
+type Materiel = { expSP: string; expAP: string; test: (a:number, b:number, c:number, d:number)=>boolean }
 
-type ListeVariableExo = 'a'| 'b'| 'c'| 'd'
-type VariablesExo =Partial<Record<ListeVariableExo, string|number|boolean|Fraction|object>>
+type ListeVariableExo = 'a' | 'b' | 'c' | 'd'
+type VariablesExo = Partial<Record<ListeVariableExo, string | number | boolean | Fraction | object>>
 
 // Les tirets bas sont placés là où il n'y a pas de parenthèses mais qu'il pourrait y en avoir une. Cela sert à placer les placeholders et à savoir à quelle position on a quelle parenthèse
 // Pour l'analyse et l'utilisation de l'expression, ces tirets bas sont remplacés par du vide.
@@ -149,7 +149,6 @@ class MettreDesParentheses extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     if (this.nbQuestions > 1) {
       this.consigne =
         'Mettre des parenthèses si besoin dans les égalités suivantes afin que celles-ci soient justes.<br>'
@@ -241,27 +240,27 @@ class MettreDesParentheses extends Exercice {
       // La fonction calculer() de Frédéric Piou fournit la correction, mais elle fournit aussi le résultat, et bien d'autres choses que je n'utilise pas...
       const answer = parentheses
         ? calculer(
-          assignVariables(materiel.expAP.replaceAll('_', ''), valeurs),
-          {
-            removeImplicit: false,
-            suppr1: false,
-            suppr0: false,
-            supprPlusMoins: false,
-            comment: true,
-            commentStep: true
-          }
-        )
+            assignVariables(materiel.expAP.replaceAll('_', ''), valeurs),
+            {
+              removeImplicit: false,
+              suppr1: false,
+              suppr0: false,
+              supprPlusMoins: false,
+              comment: true,
+              commentStep: true
+            }
+          )
         : calculer(
-          assignVariables(materiel.expSP.replaceAll('_', ''), valeurs),
-          {
-            removeImplicit: false,
-            suppr1: false,
-            suppr0: false,
-            supprPlusMoins: false,
-            comment: true,
-            commentStep: true
-          }
-        )
+            assignVariables(materiel.expSP.replaceAll('_', ''), valeurs),
+            {
+              removeImplicit: false,
+              suppr1: false,
+              suppr0: false,
+              supprPlusMoins: false,
+              comment: true,
+              commentStep: true
+            }
+          )
       const texteCorr: string = `${answer.texteCorr}`
       // La callback de correction intéractive
       const callback = (
@@ -424,8 +423,8 @@ class MettreDesParentheses extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d, materiel.expAP)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

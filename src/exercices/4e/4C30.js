@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { eclatePuissance, simpExp } from '../../lib/outils/puissance'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -22,34 +22,34 @@ export const dateDeModifImportante = '24/09/2023'
  * @author Sébastien Lozano
  */
 export const uuid = 'f5dcf'
-export const ref = '4C30'
+
 export const refs = {
   'fr-fr': ['4C30'],
   'fr-ch': ['10NO2-3']
 }
-export default function PuissancesDeDix () {
-  Exercice.call(this)
-  context.isHtml
-    ? (this.consigne = 'Écrire sous la forme $\\mathbf{10^n}$.')
-    : (this.consigne = 'Écrire sous la forme $10^n$.')
-  context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.sup2 = 4
-  this.sup3 = false
-  this.besoinFormulaireNumerique = false // Voir 2N31-5 pour voir besoinFormulaireNumerique à true
-  this.besoinFormulaire2Texte = ['Type de calculs', 'Nombres séparés par des tirets\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
-  this.besoinFormulaire3CaseACocher = ['Avec des puissances négatives']
+export default class PuissancesDeDix extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    context.isHtml
+      ? (this.consigne = 'Écrire sous la forme $\\mathbf{10^n}$.')
+      : (this.consigne = 'Écrire sous la forme $10^n$.')
+    context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.nbQuestions = 5
+
+    this.sup = 1
+    this.sup2 = 4
+    this.sup3 = false
+    this.besoinFormulaireNumerique = false // Voir 2N31-5 pour voir besoinFormulaireNumerique à true
+    this.besoinFormulaire2Texte = ['Type de calculs', 'Nombres séparés par des tirets\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
+    this.besoinFormulaire3CaseACocher = ['Avec des puissances négatives']
+  }
+
+  nouvelleVersion () {
     this.sup3 = Boolean(this.sup3)
     this.correctionDetailleeDisponible = this.sup !== 2
     let typesDeQuestions
-
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
@@ -64,16 +64,16 @@ export default function PuissancesDeDix () {
     }
     const listeTypeDeQuestions = this.besoinFormulaireNumerique
       ? combinaisonListes(
-        typesDeQuestionsDisponibles,
-        this.nbQuestions
-      )
+          typesDeQuestionsDisponibles,
+          this.nbQuestions
+        )
       : gestionnaireFormulaireTexte({
-        nbQuestions: this.nbQuestions,
-        saisie: this.sup2,
-        max: 3,
-        melange: 4,
-        defaut: 4
-      })
+          nbQuestions: this.nbQuestions,
+          saisie: this.sup2,
+          max: 3,
+          melange: 4,
+          defaut: 4
+        })
 
     // pour pouvoir adapter les couleurs en cas de besoin
     const coul0 = 'red'
@@ -452,8 +452,8 @@ export default function PuissancesDeDix () {
       }
       if (this.questionJamaisPosee(i, exp, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

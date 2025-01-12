@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Compléter une suite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class CompleterUneSuite extends Exercice {
   constructor () {
@@ -24,13 +24,10 @@ export default class CompleterUneSuite extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const k = randint(3, 9)
     const nbre2 = 2025 + k
     const nbre3 = nbre2 + k

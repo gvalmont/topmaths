@@ -3,8 +3,8 @@ import { minToHour } from '../../lib/outils/dateEtHoraires'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { nombreAvecEspace, stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  */
 export const uuid = 'a29bd'
-export const ref = '5P11-1'
+
 export const refs = {
   'fr-fr': ['5P11-1'],
   'fr-ch': ['11FA11-1']
@@ -42,10 +42,6 @@ export default class VitesseDistanceTemps extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     let typesDeQuestionsDisponibles = ['vitesse', 'temps', 'distance']
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['vitesse']
@@ -172,8 +168,8 @@ export default class VitesseDistanceTemps extends Exercice {
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres })
       if (this.questionJamaisPosee(i, v, t)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

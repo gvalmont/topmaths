@@ -1,14 +1,15 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
+import engine from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Développer puis réduire des expressions littérales complexes'
 export const dateDePublication = '20/04/2024'
@@ -32,26 +33,46 @@ export const refs = {
   'fr-ch': []
 }
 
-export default function DevelopperReduireExprComplexe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 3
-  this.sup = '3'
-  this.sup2 = false
-  this.sup3 = 3
-  this.sup4 = true
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.nouvelleVersion = function () {
+export default class DevelopperReduireExprComplexe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Types de questions',
+      `Nombres séparés par des tirets
+1 : '(ax+b)(cx+d)+(ex+f)(gx+h)'
+2 : '(ax+b)(cx+d)-(ex+f)(gx+h)'
+3 : '(ax+b)^2 + (cx+d)^2'
+4 : '(ax+b)^2 - (cx+d)^2'
+5 : '(ax+b)^2 + (cx+d)(ex+f)'
+6 : '(ax+b)^2 - (cx+d)(ex+f)'
+7 : '(cx+d)(ex+f) + (ax+b)^2'
+8 : '(cx+d)(ex+f) - (ax+b)^2'
+9 : '(ax+b)(ax-b) + (cx+d)^2'
+10 : '(ax-b)(ax+b) - (cx+d)^2'
+11 : 'Mélange'
+`]
+    this.besoinFormulaire2CaseACocher = ['Coefficients strictement positifs', true]
+    this.besoinFormulaire3Numerique = ['Niveau de détail dans la correction détaillée', 3]
+    this.besoinFormulaire4CaseACocher = ['Couleur dans la correction', true]
+    // Héritage de la classe Exercice()
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 3
+    this.sup = '3'
+    this.sup2 = false
+    this.sup3 = 3
+    this.sup4 = true
+
+    this.listeAvecNumerotation = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
+
+  nouvelleVersion () {
     this.consigne =
             this.nbQuestions > 1
               ? 'Développer puis réduire les expressions littérales suivantes.'
               : 'Développer puis réduire l\'expression littérale suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     const lettresPossibles = ['x', 'y', 'z', 't']
 
@@ -182,7 +203,7 @@ export default function DevelopperReduireExprComplexe () {
 
       // La correction pour de vrai
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
                     ajouteChampTexteMathLive(this, i, ' ')
@@ -259,29 +280,11 @@ export default function DevelopperReduireExprComplexe () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireTexte = [
-    'Types de questions',
-        `Nombres séparés par des tirets
-1 : '(ax+b)(cx+d)+(ex+f)(gx+h)'
-2 : '(ax+b)(cx+d)-(ex+f)(gx+h)'
-3 : '(ax+b)^2 + (cx+d)^2'
-4 : '(ax+b)^2 - (cx+d)^2'
-5 : '(ax+b)^2 + (cx+d)(ex+f)'
-6 : '(ax+b)^2 - (cx+d)(ex+f)'
-7 : '(cx+d)(ex+f) + (ax+b)^2'
-8 : '(cx+d)(ex+f) - (ax+b)^2'
-9 : '(ax+b)(ax-b) + (cx+d)^2'
-10 : '(ax-b)(ax+b) - (cx+d)^2'
-11 : 'Mélange'
-`]
-  this.besoinFormulaire2CaseACocher = ['Coefficients strictement positifs', true]
-  this.besoinFormulaire3Numerique = ['Niveau de détail dans la correction détaillée', 3]
-  this.besoinFormulaire4CaseACocher = ['Couleur dans la correction', true]
 }

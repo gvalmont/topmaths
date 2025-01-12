@@ -1,33 +1,32 @@
-import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles.js'
-import { droite } from '../../../lib/2d/droites.js'
-import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
-import { polygone } from '../../../lib/2d/polygones.js'
-import { pave } from '../../../lib/2d/projections3d.js'
-import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.ts'
-import { rotation } from '../../../lib/2d/transformations.js'
+import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
+import { droite } from '../../../lib/2d/droites'
+import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { polygone } from '../../../lib/2d/polygones'
+import { pave } from '../../../lib/2d/projections3d'
+import { droiteGraduee } from '../../../lib/2d/reperes'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../../lib/2d/textes'
+import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
-import { sp } from '../../../lib/outils/outilString.js'
+import { sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
-import { paveLPH3d } from '../../../modules/3d.js'
+import Exercice from '../../Exercice'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { paveLPH3d } from '../../../modules/3d'
 import { min, round } from 'mathjs'
-import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { context } from '../../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 5e sujet 2023'
 export const interactifReady = true
@@ -36,7 +35,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '03/04/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '312eb'
-export const ref = 'can5a-2023'
+
 export const refs = {
   'fr-fr': ['can5a-2023'],
   'fr-ch': []
@@ -45,25 +44,26 @@ export const refs = {
 /**
  * Aléatoirisation du sujet 2023 de CAN 5e
  * Gilles Mora
- * Référence can5a-2023
+
  */
 
 function compareNombres (a, b) {
   return a - b
 }
 
-export default function SujetCAN2023Cinquieme () {
-  Exercice.call(this)
-  this.nbQuestions = 30
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+export default class SujetCAN2023Cinquieme extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 30
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+  }
+
+  nouvelleVersion () {
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
@@ -1135,7 +1135,7 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}$ km` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
             texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km.<br>
             Comme il met $3$ h pour parcourir $${texNombre(b)}$ km,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 4, minute: 30 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 4, minute: 30 }).toString(), options: { HMS: true } } })
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
           if (m === 2) {
@@ -1145,7 +1145,7 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(b + b / 6, 0)}$ km` : `\\Lg[km]{${texNombre(b + b / 6, 0)}}`} ? `
             texteCorr = `En $1$ h , l'avion parcourt $${texNombre(b / 3, 0)}$ km, donc en $30$ min, il parcourt  $${texNombre(b / 6, 0)}$ km. <br>
             Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}$ km`
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 3, minute: 30 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: 3, minute: 30 }).toString(), options: { HMS: true } } })
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
           this.listeCanEnonces.push(texte)
@@ -1264,8 +1264,8 @@ export default function SujetCAN2023Cinquieme () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += nbChamps
       }

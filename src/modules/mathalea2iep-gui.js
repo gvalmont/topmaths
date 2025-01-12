@@ -3,18 +3,18 @@ import iepLoadPromise from 'instrumenpoche'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/monokai.css'
-import 'codemirror/mode/javascript/javascript.js'
-import 'codemirror/mode/xml/xml.js'
-import 'codemirror/mode/htmlmixed/htmlmixed.js'
-import 'codemirror/mode/stex/stex.js'
-import 'codemirror/addon/hint/javascript-hint.js'
-import 'codemirror/addon/hint/show-hint.js'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/mode/xml/xml'
+import 'codemirror/mode/htmlmixed/htmlmixed'
+import 'codemirror/mode/stex/stex'
+import 'codemirror/addon/hint/javascript-hint'
+import 'codemirror/addon/hint/show-hint'
 import 'codemirror/addon/hint/show-hint.css'
-import 'codemirror/addon/edit/closebrackets.js'
-import initialiseEditeur from './initialiseEditeur.js'
+import 'codemirror/addon/edit/closebrackets'
+import initialiseEditeur from './initialiseEditeur'
 import '../../css/style_mathalea.css'
-import { telechargeFichier } from './download.js'
-import { context } from './context.js'
+import { telechargeFichier } from './download'
+import { context } from './context'
 import { isLocalStorageAvailable } from '../lib/stores/storage'
 window.notify = function (error, metadatas) { // On écrit la fonction window.notify ici pour éviter les signalements bugsnag... on ne charge plus firstload pour cet éditeur
   console.error(error instanceof Error ? error.message : error, ' avec les métadatas : ', metadatas)
@@ -105,7 +105,7 @@ function scriptJsToAnimEtSvg () {
     buttonURL.style.visibility = 'visible'
   }
   // Les variables globales utiles pour l'autocomplétion
-  // Charge en mémoire les fonctions utiles de 2d.js et de outils.js
+  // Charge en mémoire les fonctions utiles de 2d et de outils
   const interpreter = initialiseEditeur()
   interpreter.run(myCodeMirror.getValue())
   // On exporte l'animation et le code SVG

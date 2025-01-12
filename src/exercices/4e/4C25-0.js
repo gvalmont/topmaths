@@ -1,10 +1,10 @@
 import { shuffle, enleveElementBis } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { fraction, listeFractions } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { fraction, listeFractions } from '../../modules/fractions'
 
 export const titre = 'Résoudre des problèmes additifs et de comparaison sur les fractions'
 
@@ -14,24 +14,26 @@ export const titre = 'Résoudre des problèmes additifs et de comparaison sur le
  * @author Sébastien Lozano
  */
 export const uuid = '9db08'
-export const ref = '4C25-0'
+
 export const refs = {
   'fr-fr': ['4C25-0'],
   'fr-ch': ['9NO15-3']
 }
-export default function ProblemesAdditifsFractionsBis () {
-  Exercice.call(this)
-  this.sup = '6'
-  this.video = ''
-  this.nbQuestions = 5
-  this.consigne = 'Justifier vos réponses aux problèmes suivants.'
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class ProblemesAdditifsFractionsBis extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de problèmes', 'Nombres séparés par des tirets\n1: Triathlon (3 fractions)\n2 : Élection (3 fractions)\n3 : Mandala (4 fractions)\n4 : Jardin (4 fractions)\n5 : Stade (4 fractions)\n6 : Mélange']
 
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+    this.sup = '6'
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.consigne = 'Justifier vos réponses aux problèmes suivants.'
+
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -536,13 +538,12 @@ export default function ProblemesAdditifsFractionsBis () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de problèmes', 'Nombres séparés par des tirets\n1: Triathlon (3 fractions)\n2 : Élection (3 fractions)\n3 : Mandala (4 fractions)\n4 : Jardin (4 fractions)\n5 : Stade (4 fractions)\n6 : Mélange']
 }

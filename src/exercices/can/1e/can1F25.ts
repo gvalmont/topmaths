@@ -7,15 +7,15 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const dateDePublication = '05/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Déterminer graphiquement le nombre de solutions de l\'équation $f\\prime(x)=0$'
-/*!
+/**
  * @author Gilles MORA
   *
- * Référence can1F25
+
 */
 export const uuid = 'd96b4'
 export const refs = {
@@ -26,13 +26,11 @@ export default class ResolEquationDerivee extends Exercice {
   spline!: Spline
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'solution(s)' }
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -63,7 +61,7 @@ export default class ResolEquationDerivee extends Exercice {
       { x: 4, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
     ]
     const mesFonctions = [noeuds0, noeuds1, noeuds2, noeuds3, noeuds4]// noeuds0, noeuds1, noeuds2, noeuds3, noeuds4
-    function aleatoiriseCourbe (listeFonctions : Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>[]) {
+    function aleatoiriseCourbe (listeFonctions : Array<{ x: number, y: number, deriveeGauche: number, deriveeDroit: number, isVisible: boolean }>[]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-2, 2) // translations

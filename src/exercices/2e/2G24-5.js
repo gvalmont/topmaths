@@ -1,11 +1,11 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -19,21 +19,24 @@ export const dateDePublication = '12/06/2023'
  * @author Stéphan Grignon Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = '222f6'
-export const ref = '2G24-5'
+
 export const refs = {
   'fr-fr': ['2G24-5'],
   'fr-ch': []
 }
-export default function Calculercoordonneesegalitevecteurs () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = '1'
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+export default class Calculercoordonneesegalitevecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Situations différentes ', '1 : À partir d\'une égalité\n 2 : À partir d\'une somme\n 3 : À partir d\'un produit par un réel\n4 : Mélange']
+
+    this.nbQuestions = 2
+
+    this.sup = '1'
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 3,
@@ -233,8 +236,8 @@ export default function Calculercoordonneesegalitevecteurs () {
 
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: xB.texFraction, compare: fonctionComparaison },
-        champ2: { value: yB.texFraction, compare: fonctionComparaison }
+        champ1: { value: xB.texFraction },
+        champ2: { value: yB.texFraction }
       })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,
@@ -248,13 +251,12 @@ export default function Calculercoordonneesegalitevecteurs () {
       // setReponse(this, 2 * i, xB, { formatInteractif: 'fractionEgale' })
       // setReponse(this, 2 * i + 1, yB, { formatInteractif: 'fractionEgale' })
       if (this.questionJamaisPosee(i, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Situations différentes ', '1 : À partir d\'une égalité\n 2 : À partir d\'une somme\n 3 : À partir d\'un produit par un réel\n4 : Mélange']
 }

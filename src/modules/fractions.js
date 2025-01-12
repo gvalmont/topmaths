@@ -81,7 +81,7 @@ export function listeFractions (...fractions) {
 export function fraction (a, b) {
   if (b === undefined) { // pas d'argument b
     if (a === undefined) {
-      window.notify('fraction de fractions.js : aucun argument n\'est défini ', { a, b })
+      window.notify('fraction de fractions : aucun argument n\'est défini ', { a, b })
       return NaN
     } else {
       if (typeof a === 'number') {
@@ -91,12 +91,12 @@ export function fraction (a, b) {
         const frac = rationnalise(Number(a))
         return frac
       }
-      window.notify('fraction de fractions.js : l\'argument est de type inconvenant ', { a })
+      window.notify('fraction de fractions : l\'argument est de type inconvenant ', { a })
       return NaN
     }
   } else { // on a un argument b
     if (a === undefined) {
-      window.notify('fraction de fractions.js : le premier argument n\'est pas défini ', { a, b })
+      window.notify('fraction de fractions : le premier argument n\'est pas défini ', { a, b })
       return NaN
     } else {
       if (typeof a === 'number' && typeof b === 'number') {
@@ -104,7 +104,7 @@ export function fraction (a, b) {
       } else if (!isNaN(b) && !isNaN(a)) {
         return new FractionEtendue(Number(a), Number(b))
       }
-      window.notify('fraction de fractions.js : les arguments sont de type inconvenant ', { a, b })
+      window.notify('fraction de fractions : les arguments sont de type inconvenant ', { a, b })
       return NaN
     }
   }

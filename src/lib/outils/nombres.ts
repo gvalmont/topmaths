@@ -24,7 +24,7 @@ export function signe (a: number) { // + ou -
  * sommeDesChiffres(123)
  * // [ 6, '1+2+3']
  * @author Rémi Angot (Rajout Tableau par EE)
- */export function sommeDesChiffres (n: number) {
+ */export function sommeDesChiffres (n: number): [number, string] {
   let nString
   if (Array.isArray(n)) nString = n.join('').toString()
   else nString = n.toString()
@@ -74,6 +74,7 @@ export function troncature (nombre: number, precision: number) {
 /**
  * Renvoie la valeur absolue
  * @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
+ * @returns {number|Decimal}
  */
 export function abs (a: number | Decimal) {
   if (a instanceof Decimal) return a.abs()
@@ -100,11 +101,12 @@ export function triePositifsNegatifs (liste: number[]) {
  * @param {number} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Rémi Angot
  */
-export function nombreDeChiffresDansLaPartieDecimale (nb: number | string, except?: number) {
+export function nombreDeChiffresDansLaPartieDecimale (nb: number | string | Decimal, except?: number) {
   let sauf = 0
-  if (String(nb).indexOf('.') > 0) {
+  if (nb instanceof Decimal || typeof nb === 'number') nb = nb.toString()
+  if (nb.indexOf('.') > 0) {
     if (except && !isNaN(except)) sauf = (String(nb).split('.')[1].split(String(except)).length - 1)
-    return String(nb).split('.')[1].length - sauf
+    return nb.split('.')[1].length - sauf
   } else {
     return 0
   }
@@ -137,7 +139,8 @@ export function nombreDeChiffresDansLaPartieEntiere (nb: number, except?: number
  * @param {number} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Jean-Claude Lhote
  */
-export function nombreDeChiffresDe (nb: number, except?: number) {
+export function nombreDeChiffresDe (nb: number | Decimal, except?: number) {
+  if (nb instanceof Decimal) nb = nb.toNumber()
   return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
 
@@ -190,7 +193,7 @@ export function range (max: number = 10, listeAEviter: number[] = []) {
  *
  * @author Rémi Angot
  */
-export function rangeMinMax (min: number, max: number, listeAEviter: number|number[] = [], step = 1) {
+export function rangeMinMax (min: number, max: number, listeAEviter: number | number[] = [], step = 1) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const liste = []
   for (let i = min; i <= max; i = i + step) {

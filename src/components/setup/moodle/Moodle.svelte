@@ -2,7 +2,7 @@
   import { exercicesParams, darkMode } from '../../../lib/stores/generalStore'
   import Footer from '../../Footer.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea.js'
+  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea'
   import type TypeExercice from '../../../exercices/Exercice'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'

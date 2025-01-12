@@ -5,7 +5,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { vertMathalea, bleuMathalea } from '../../lib/colors'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
@@ -184,10 +184,10 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       $${mdg.toStringEvaluate({ x: sol2 })}=${miseEnEvidence(vSubSol2Mdg, bleuMathalea)}$ ${vSubSol2Mdg === vSubSol2Mdd ? 'et' : 'tandis que'} $${this.sup3 ? polySup.oppose().toStringEvaluate({ x: sol2 }) + '+' : ''}\\sqrt{${mdd.toStringEvaluate({ x: sol2 })}}=${miseEnEvidence(vSubSol2Mdd, `${vSubSol2Mdg === vSubSol2Mdd ? bleuMathalea : vertMathalea}`)}$, donc $${sol2.texFractionSimplifiee}$ ${vSubSol2Mdd === vSubSol2Mdg ? 'est' : 'n\'est pas'} solution de l'équation.<br>
       Ainsi, l'ensemble des solutions de l'équation est $S=${miseEnEvidence(ensembleSol)}$.`
 
-      handleAnswers(this, i, { reponse: { value: `${ensembleSol}`, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: `${ensembleSol}`, options: { ensembleDeNombres: true } } })
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

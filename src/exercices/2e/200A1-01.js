@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 
@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '15fd6'
-export const ref = '200A1-01'
+
 export const refs = {
   'fr-fr': ['200A1-01'],
   'fr-ch': []
@@ -19,12 +19,12 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
  */
 export default class ModeleAutomatisme2nde extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 1

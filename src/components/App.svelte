@@ -14,11 +14,11 @@
     resultsByExercice
 
   } from '../lib/stores/generalStore'
-  import { context } from '../modules/context.js'
+  import { context } from '../modules/context'
   import {
     ElementButtonInstrumenpoche,
     ElementInstrumenpoche
-  } from '../modules/ElementInstrumenpoche.js'
+  } from '../modules/ElementInstrumenpoche'
   import Amc from './setup/amc/Amc.svelte'
   import Anki from './setup/anki/Anki.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'

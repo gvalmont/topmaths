@@ -1,20 +1,20 @@
-import { droite } from '../../lib/2d/droites.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { droite } from '../../lib/2d/droites'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { texNombre } from '../../lib/outils/texNombre.ts'
+import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { point } from '../../lib/2d/points'
 import { choice } from '../../lib/outils/arrayOutils'
 
@@ -25,31 +25,26 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
- * Description didactique de l'exercice
+ *
  * @author Stéphane Guyon + modif Gilles Mora (droite verticale)
  */
 export const uuid = '41e6f'
-export const ref = '2G30-7'
+
 export const refs = {
   'fr-fr': ['2G30-7'],
   'fr-ch': ['11FA9-7', '1F2-6']
 }
-export default function Lecturegraphiquedeaetb () {
-  Exercice.call(this)
-  this.nbQuestions = 1// On complète le nb de questions
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.tailleDiaporama = 3
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.spacingCorr = 1
-  this.sup = 1
+export default class Lecturegraphiquedeaetb extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Types de questions ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires']
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.nbQuestions = 1// On complète le nb de questions
 
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     for (let i = 0, a, b, r, c, d, A, B, droiteAB, choix, s1, s2, o, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       b = randint(-5, 5) // ordonnée à l'origine
@@ -191,18 +186,18 @@ export default function Lecturegraphiquedeaetb () {
 
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '<br>L\'équation réduite de la droite est : $y=$' })
         const reponse = reduireAxPlusB(coeffDir.simplifie(), b)
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse } })
       } else {
         texteCorr = 'On observe que la droite est verticale.'
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '<br>L\'équation réduite de la droite est : ' })
         texteCorr += `<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $x=${miseEnEvidence(a)}$.`
         const reponse = `x=${a}`
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { egaliteExpression: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { egaliteExpression: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -210,5 +205,4 @@ export default function Lecturegraphiquedeaetb () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de questions ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires']
 }

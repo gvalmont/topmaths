@@ -1,17 +1,17 @@
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
+import { point, tracePoint } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { repere } from '../../lib/2d/reperes'
 import { texteGras } from '../../lib/format/style'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { texteParPosition } from '../../lib/2d/textes'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Déterminer la nature d\'un polygone avec les coordonnées'
 export const dateDeModifImportante = '30/11/2023'
 /**
@@ -19,22 +19,22 @@ export const dateDeModifImportante = '30/11/2023'
  * @author Stéphane Guyon + Gilles Mora
  */
 export const uuid = 'd633a'
-export const ref = '2G12-4'
+
 export const refs = {
   'fr-fr': ['2G12-4'],
   'fr-ch': ['11GM1-7']
 }
-export default function NaturePolygone () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 3
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+export default class NaturePolygone extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations', 3, '1 : Triangles \n2 : Quadrilétères\n3 : Mélange ']
 
+    this.nbQuestions = 1
+
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let objets
     let A, B, C, D, P, XMIN, XMAX, YMIN, YMAX
 
@@ -393,13 +393,12 @@ export default function NaturePolygone () {
       }
 
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations', 3, '1 : Triangles \n2 : Quadrilétères\n3 : Mélange ']
 }

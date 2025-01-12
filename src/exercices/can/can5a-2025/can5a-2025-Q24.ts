@@ -1,0 +1,79 @@
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceCan from '../../ExerciceCan'
+import { randint } from '../../../modules/outils'
+import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../../modules/2dGeneralites'
+import { Point, point, tracePointSurDroite } from '../../../lib/2d/points'
+import { codageSegments, placeLatexSurSegment } from '../../../lib/2d/codages'
+import { context } from '../../../modules/context'
+import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs'
+import { droite } from '../../../lib/2d/droites'
+import { labelPoint } from '../../../lib/2d/textes'
+import { translation } from '../../../lib/2d/transformations'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { rienSi1 } from '../../../lib/outils/ecritures'
+
+export const titre = 'Partage d\'un segment'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = 'y343x'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
+
+/**
+ * @author Jean-Claude Lhote
+
+*/
+export default class Can2025N5Q18 extends ExerciceCan {
+  private enonce (a?: number, b?:number, c?:number) {
+    if (a == null || b == null || c == null) {
+      b = randint(3, 6, 5)
+      a = randint(1, b - 1)
+      c = randint(4, 9) * b / 10
+    }
+    const A = point(0, 0, 'A', 'above')
+    const B = point(7 * a / b, 0, 'B', 'above')
+    const C = point(7, 0)
+    const s = segment(A, C)
+    s.styleExtremites = '|-|'
+    s.tailleExtremites = 7
+    const s2 = translation(s, vecteur(0, -0.5))
+    s2.styleExtremites = '<->'
+    const l = placeLatexSurSegment(`${texNombre(c, 1)}\\text{ cm}`, A, C, { distance: -0.9, letterSize: 'footnotesize' })
+    const ps: ObjetMathalea2D[] = []
+    const pts = [A]
+    const d = droite(A, C)
+    let p: Point
+    for (let i = 0; i < b - 1; i++) {
+      p = point((i + 1) * 7 / b, 0)
+      pts.push(p)
+      pts.push(p)
+      const pSurS = tracePointSurDroite(p, d)
+      pSurS.epaisseur = 2
+      pSurS.taille = 0.25
+      ps.push(pSurS)
+    }
+    pts.push(C)
+    const codages = codageSegments('//', 'black', ...pts)
+    codages.echelle = 0.6
+    const labels = labelPoint(A, B)
+
+    this.reponse = 90 - a
+    this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30, style: 'display: inline-block' }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: -0.2 })), [s, s2, codages, ps, labels, l])}`
+    this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}$ cm.<br>
+    Il mesure donc : $\\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}=${rienSi1(a)}${a === 1 ? '' : '\\times'}\\dfrac{${texNombre(c, 1)}}{${b}}=${miseEnEvidence(texNombre(a * c / b, 1))}$ cm.`
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$AB=\\ldots$ cm'
+    this.optionsChampTexte = { texteApres: ' cm' }
+    if (this.interactif) {
+      this.question += '$AB=$'
+    } else if (context.isHtml) {
+      this.question += '$AB=\\ldots$'
+    }
+  }
+
+  nouvelleVersion () {
+    this.canOfficielle ? this.enonce(1, 3, 2.1) : this.enonce()
+  }
+}

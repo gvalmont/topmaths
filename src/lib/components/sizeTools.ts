@@ -16,11 +16,11 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
     return
   }
 
-  let zoom = 3 // parseFloat(fontSize) / 16
-  parent.style.fontSize = `${zoom}rem` // on remet zoom à 3... au départ
-
   const originalClientWidth = parent.clientWidth
   const originalClientHeight = parent.clientHeight
+
+  let zoom = 3 // parseFloat(fontSize) / 16
+  parent.style.fontSize = `${zoom}rem` // on remet zoom à 3... au départ
 
   const svgContainers = parent.getElementsByClassName('svgContainer')
 

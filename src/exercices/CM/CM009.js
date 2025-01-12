@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -15,27 +15,26 @@ export const amcType = 'AMCNum'
  * Calculer la moitié d'un nombre pair, d'un impair inférieur à 20, d'un multiple de 200, d'un nombre de la forme a00 avec a impair, d'un nombre de la forme
  *  a,b avec a et b pairs ou 1xx avec xx un nombre pair
  * @author Rémi Angot
- * Référence CM009
+
  */
 export const uuid = '14688'
-export const ref = 'CM009'
+
 export const refs = {
   'fr-fr': ['CM009'],
   'fr-ch': []
 }
-export default function Moitie () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 10
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 // niveau de difficulté
-  this.tailleDiaporama = 3
+export default class Moitie extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Calculer.'
 
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 // niveau de difficulté
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = range1(6)
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -103,8 +102,8 @@ export default function Moitie () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,13 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Supprimer les parenthèses puis réduire l\'expression'
 export const interactifReady = true
@@ -22,23 +21,38 @@ export const amcReady = true
  * @author Rémi Angot (AMC par Eric Elter)
  */
 export const uuid = '603a8'
-export const ref = '3L10'
+
 export const refs = {
   'fr-fr': ['3L10'],
   'fr-ch': ['11FA1-1']
 }
-export default function OpposeExpression () {
-  Exercice.call(this)
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacing = context.isHtml ? 3 : 2
-  this.nbQuestions = 6
-  this.sup = '1-2-3-4'
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
-  this.nouvelleVersion = function () {
+export default class OpposeExpression extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Types de questions',
+  `Nombres séparés par des tirets
+1 : '-(ax+b)'
+2 : '(ax+b)'
+3 : '-(ax2+bx+c)'
+4 : '(ax2+bx+c)'
+5 : '(ax+b)-(cx+d)'
+6 : '-(ax+b)+(cx+d)'
+7 : '(ax+b)-(cx2+dx+e)'
+8 : '-(ax+b)+(cx2+dx+e)'
+9 : '(ax2+bx+c)-(dx2+ex+f)'
+10 : '-(ax2+bx+c)+(dx2+ex+f)'
+11 : Mélange`
+    ]
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacing = context.isHtml ? 3 : 2
+    this.nbQuestions = 6
+    this.sup = '1-2-3-4'
+
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']
 
@@ -166,7 +180,7 @@ export default function OpposeExpression () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
       } else {
         this.autoCorrection[i] = {
@@ -238,25 +252,11 @@ export default function OpposeExpression () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireTexte = ['Types de questions',
-        `Nombres séparés par des tirets
-1 : '-(ax+b)'
-2 : '(ax+b)'
-3 : '-(ax2+bx+c)'
-4 : '(ax2+bx+c)'
-5 : '(ax+b)-(cx+d)'
-6 : '-(ax+b)+(cx+d)'
-7 : '(ax+b)-(cx2+dx+e)'
-8 : '-(ax+b)+(cx2+dx+e)'
-9 : '(ax2+bx+c)-(dx2+ex+f)'
-10 : '-(ax2+bx+c)+(dx2+ex+f)'
-11 : Mélange`
-  ]
 }

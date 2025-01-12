@@ -1,5 +1,5 @@
 import { choice } from './arrayOutils'
-import { sp } from './outilString.js'
+import { sp } from './outilString'
 
 /**
  * @author Rémi Angot

@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -12,11 +12,11 @@ export const titre = 'Décomposer un nombre décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '02/11/2024'
-/*!
+/**
  * @author Gilles Mora
  */
 export const uuid = '3a8f8'
-export const ref = 'can6N19'
+
 export const refs = {
   'fr-fr': ['can6N19'],
   'fr-ch': []
@@ -27,17 +27,11 @@ export default class decomposerDecimal extends Exercice {
     this.nbQuestions = 1
     this.spacing = 1.5
     this.spacingCorr = 1.5
-    this.formatInteractif = 'calcul'
+
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -188,8 +182,8 @@ export default class decomposerDecimal extends Exercice {
           break
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeCorrections.push(texteCorr)
-        this.listeQuestions.push(texte)
+        this.listeCorrections[i] = texteCorr
+        this.listeQuestions[i] = texte
 
         i++
       }

@@ -1,12 +1,12 @@
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choisiDelta } from '../../lib/mathFonctions/outilsMaths.js'
+import { choisiDelta } from '../../lib/mathFonctions/outilsMaths'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import { fraction } from '../../modules/fractions.js'
-import { egal, listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { fraction } from '../../modules/fractions'
+import { egal, listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = false
 // export const interactifType = 'mathLive'
@@ -19,21 +19,22 @@ export const titre = 'Équation du second degré (via forme canonique)'
  * @author Stéphane Guyon
  */
 export const uuid = '89559'
-export const ref = '1AL23-20'
+
 export const refs = {
   'fr-fr': ['1AL23-20'],
   'fr-ch': []
 }
-export default function Resolutionavecformecanonique () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Utiliser la forme canonique pour résoudre une équation du second degré : '
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacingCorr = 3
+export default class Resolutionavecformecanonique extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Utiliser la forme canonique pour résoudre une équation du second degré : '
+    this.nbQuestions = 4
+
+    this.spacingCorr = 3
+  }
+
+  nouvelleVersion () {
     if (this.interactif) {
       this.consigne += '<br> '
     }
@@ -172,8 +173,8 @@ export default function Resolutionavecformecanonique () {
 
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,8 +1,7 @@
-import { context } from '../../modules/context.js'
-import { get } from '../html/dom.js'
-import { messageFeedback } from '../../modules/messages.js'
-import { gestionCan } from './gestionCan.js'
-import { afficheScore } from './gestionInteractif.ts'
+import { context } from '../../modules/context'
+import { get } from '../html/dom'
+import { messageFeedback } from '../../modules/messages'
+import { afficheScore } from './afficheScore'
 import { lettreDepuisChiffre } from '../outils/outilString'
 import { barreTexte, miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../outils/embellissements'
 import { shuffleJusquaWithIndexes } from '../amc/qcmCam'
@@ -287,9 +286,6 @@ export function exerciceQcm (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
     if (exercice.interactifType === 'qcm') {
-      if (context.vue === 'can') {
-        gestionCan(exercice)
-      }
       const button = document.querySelector(
         `#btnValidationEx${exercice.numeroExercice}-${exercice.id}`
       )

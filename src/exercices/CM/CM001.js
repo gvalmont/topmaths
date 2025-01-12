@@ -1,4 +1,4 @@
-import TablesDeMultiplications from '../6e/_Tables_de_multiplications.js'
+import TablesDeMultiplications from '../6e/_Tables_de_multiplications'
 
 export const titre = 'Tables de multiplication'
 export const interactifReady = true
@@ -14,7 +14,7 @@ export const dateDeModifImportante = '27/08/2024'
  * @author Rémi Angot
  */
 export const uuid = '665a0'
-export const ref = 'CM001'
+
 export const refs = {
   'fr-fr': ['CM001'],
   'fr-ch': []
@@ -22,6 +22,5 @@ export const refs = {
 export default class TablesParametres extends TablesDeMultiplications {
   constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super(tablesParDefaut)
-    this.tailleDiaporama = 3
   }
 }

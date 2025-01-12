@@ -13,7 +13,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class multiple extends Exercice {
   constructor () {
@@ -21,7 +21,6 @@ export default class multiple extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'qcm'
-    this.formatChampTexte = ''
   }
 
   nouvelleVersion () {

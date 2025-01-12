@@ -1,5 +1,5 @@
 <script>
-    import Exercice from '../exercices/Exercice.ts'
+    import Exercice from '../exercices/Exercice'
     import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
     import { ajouteChampTexteMathLive } from '../lib/interactif/questionMathLive'
     import { loadMathLive } from '../modules/loaders'

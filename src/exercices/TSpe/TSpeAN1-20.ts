@@ -6,7 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { context } from '../../modules/context'
 export const titre = 'Équations différentielles'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export const dateDePublication = '16/06/2024'
 class EquaDiffs extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.besoinFormulaireTexte = ['Types d\'équations (nombre séparés par des tirets)', '1 : y\'= ay\n2 : y\'= ay + b\n3 : y\'= ay + f\n4 : Mélange']
     this.sup = '1'
     this.nbQuestions = 2
@@ -36,7 +36,7 @@ class EquaDiffs extends Exercice {
 
   nouvelleVersion () {
     // initialise les propriété exportée de l'exo comme this.autoCorrection, this.listeQuestions...
-    this.reinit()
+
     // on récupère la liste des valeurs saisies dans le formulaire
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -132,10 +132,11 @@ class EquaDiffs extends Exercice {
       if (this.questionJamaisPosee(i, a)) {
         if (this.interactif && context.isHtml) {
           texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$y=$ ' })
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: reponse } })
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         // handleAnswers(this, i, { reponse: { value: laDerivee, options: { variable: 'x' }, compare: functionCompare } })
         i++
         cpt--

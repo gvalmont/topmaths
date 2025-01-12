@@ -63,10 +63,8 @@ export default class nomExercice extends Exercice {
       symbole += `${nbBesoinsFormulaireCaseACocher > 1 ? ' ou ' : ''} les symboles $\\subset, \\not\\subset$`
     }
     this.consigne = `Compléter avec ${this.sup5 ? symbole : 'le symbole qui convient'}.`
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    let typeQuestionsDisponibles: ('nombresElementTrue' | 'nombresElementFalse'| 'nombresContenanceTrue' | 'nombresContenanceFalse'| 'lettresElementTrue' | 'lettresElementFalse'| 'lettresContenanceTrue' | 'lettresContenanceFalse'|'erreur')[]
+
+    let typeQuestionsDisponibles: ('nombresElementTrue' | 'nombresElementFalse' | 'nombresContenanceTrue' | 'nombresContenanceFalse' | 'lettresElementTrue' | 'lettresElementFalse' | 'lettresContenanceTrue' | 'lettresContenanceFalse' | 'erreur')[]
     typeQuestionsDisponibles = []
     if (this.sup === 1) {
       if (this.sup3 === true) {
@@ -156,8 +154,8 @@ export default class nomExercice extends Exercice {
         }
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

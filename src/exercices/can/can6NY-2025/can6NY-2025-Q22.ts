@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class CalculDivers extends Exercice {
   constructor () {
@@ -24,13 +24,10 @@ export default class CalculDivers extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const choix = randint(1, 5)
     if (choix === 1) {
       this.question = `À quel nombre décimal est égal $${texNombre(2025)}$ dixièmes ? `

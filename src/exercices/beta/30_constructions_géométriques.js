@@ -1,11 +1,11 @@
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
-import { carre } from '../../lib/2d/polygones.js'
-import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
+import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { carre } from '../../lib/2d/polygones'
+import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
-import { rotation } from '../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
+import { rotation } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -20,9 +20,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author NomAuteur(s)
- * Référence
+
  */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -34,7 +34,6 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-    this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = [1] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -114,8 +113,8 @@ export default class NomExercice extends Exercice {
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, objetsEnonce)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,36 +1,39 @@
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Instruction conditionnelle (scratch)'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const titre = 'Trouver la position d\'un lutin grâce à des instructions conditionnelles (scratch)'
+export const dateDePublication = '24/11/2020'
+export const dateDeModifImportante = '02/01/2025'
 
 /**
  * * Instructions conditionnelles
- * * numéro de l'exo ex : 3Algo1
- * * publié le  24/11/2020
- * @author Erwan Duplessy
+ * @author Erwan Duplessy (rendu interactif par Eric Elter)
  */
 export const uuid = '8cbd6'
-export const ref = '3I1'
+
 export const refs = {
   'fr-fr': ['3I1'],
   'fr-ch': []
 }
-export default function InstructionConditionnelle () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  this.nbQuestions = 2
+export default class InstructionConditionnelle extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Variante', 3, '1 : Sans condition imbriquée\n2 : Avec une condition imbriquée\n3 : Avec deux conditions imbriquées']
+    this.sup = 1
+    this.nbQuestions = 1
+    this.consigne = 'Donner les coordonnées de la position finale du lutin.'
+    this.typeExercice = 'Scratch'
+    this.nbCols = 2
+    this.nbQuestionsModifiable = false
+  }
 
-  this.titre = titre
-  this.consigne = 'Donner les coordonnées de la position finale du lutin.'
-  this.typeExercice = 'Scratch'
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.nbQuestionsModifiable = false
-  context.isHtml ? this.spacing = 1 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
-  // let typesDeQuestionsDisponibles;
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     function scratchblocksTikz (codeSvg, codeTikz) {
       if (context.isHtml) {
         return codeSvg
@@ -54,23 +57,27 @@ export default function InstructionConditionnelle () {
     const n2 = randint(1, 10)
     const n3 = randint(1, 10)
     const n4 = randint(1, 10)
+    const xLutin1 = randint(1, 10) * 10
+    const xLutin2 = randint(1, 10) * 10
+    const yLutin1 = randint(1, 10) * 10
+    const yLutin2 = randint(1, 10) * 10
 
     codeTikz += '\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}'
     codeSvg += 'quand le drapeau vert pressé <br>'
     codeSvg += 'Aller à x:(0) y:(0) <br>'
     codeSvg += `mettre (var) à (${n1}) <br>`
     codeSvg += ` si <(var) < [${n2}]> alors <br>`
-    codeSvg += ' ajouter (100) à x <br>'
+    codeSvg += ` ajouter (${xLutin1}) à x <br>`
     if (this.sup > 1) {
       codeSvg += ` si <(var) > [${n3}]> alors <br>`
-      codeSvg += ' ajouter (50) à x <br>'
+      codeSvg += ` ajouter (${xLutin2}) à x <br>`
       codeSvg += ' fin <br>'
     }
     codeSvg += ' sinon <br>'
-    codeSvg += ' ajouter (70) à y <br>'
+    codeSvg += ` ajouter (${yLutin1}) à y <br>`
     if (this.sup > 2) {
       codeSvg += ` si <(var) > [${n4}]> alors <br>`
-      codeSvg += ' ajouter (40) à y <br>'
+      codeSvg += ` ajouter (${yLutin2}) à y <br>`
       codeSvg += ' fin <br>'
     }
     codeSvg += ' fin <br>'
@@ -79,35 +86,43 @@ export default function InstructionConditionnelle () {
     codeTikz += '\\end{scratch}'
 
     texte += scratchblocksTikz(codeSvg, codeTikz)
-
     if (n1 < n2) {
-      texteCorr += `Comme l'inégalité "${n1} < ${n2}" est vraie, alors on ajoute 100 à l'abscisse du lutin. <br>`
-      xLutin += 100
+      texteCorr += `Comme l'inégalité "${n1} < ${n2}" est vraie, alors on ajoute ${xLutin1} à l'abscisse du lutin. <br>`
+      xLutin += xLutin1
       if (this.sup > 1) {
         if (n1 > n3) {
-          texteCorr += `Comme l'inégalité "${n1} > ${n3}" est vraie, alors on ajoute 50 à l'abscisse du lutin. <br>`
-          xLutin += 50
+          texteCorr += `Comme l'inégalité "${n1} > ${n3}" est vraie, alors on ajoute ${xLutin2} à l'abscisse du lutin. <br>`
+          xLutin += xLutin2
         } else {
           texteCorr += `Comme l'inégalité "${n1} > ${n3}" est fausse, alors on ne change pas l'abscisse du lutin. <br>`
         }
       }
     } else {
-      texteCorr += `Comme l'inégalité "${n1} < ${n2}" est fausse, alors on ajoute 70 à l'ordonnée du lutin. <br>`
-      yLutin += 70
+      texteCorr += `Comme l'inégalité "${n1} < ${n2}" est fausse, alors on ajoute ${yLutin1} à l'ordonnée du lutin. <br>`
+      yLutin += yLutin1
       if (this.sup > 2) {
         if (n1 > n4) {
-          texteCorr += `Comme l'inégalité "${n1} > ${n4}" est vraie, on ajoute 40 à l'ordonnée du lutin. <br>`
-          yLutin += 40
+          texteCorr += `Comme l'inégalité "${n1} > ${n4}" est vraie, on ajoute ${yLutin2} à l'ordonnée du lutin. <br>`
+          yLutin += yLutin2
         } else {
           texteCorr += `Comme l'inégalité "${n1} > ${n4}" est fausse, alors on ne change pas l'ordonnée du lutin. <br>`
         }
       }
     }
-    texteCorr += ` La position finale est donc : (${xLutin} ; ${yLutin}).`
+    texteCorr += ` La position finale est donc : (${texteEnCouleurEtGras(xLutin)} ; ${texteEnCouleurEtGras(yLutin)}).`
+    if (this.interactif) {
+      texte += '<br>La position finale du lutin est : ' + remplisLesBlancs(this, 0, ' (~%{champ1}~;~%{champ2}~).', KeyboardType.clavierDeBase)
+    }
+    handleAnswers(this, 0, {
+      // bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
+      champ1: { value: xLutin },
+      champ2: { value: yLutin }
+    },
+    { formatInteractif: 'fillInTheBlank' }
+    )
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Variante', 3, '1 : Sans condition imbriquée\n2 : Avec une condition imbriquée\n3 : Avec deux conditions imbriquées']
 }

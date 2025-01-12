@@ -3,13 +3,13 @@ import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/ou
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 import { tableau } from '../../lib/2d/tableau'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 
@@ -26,32 +26,27 @@ export const dateDeModifImportante = '15/06/2024'
  * @author Sébastien Lozano
  */
 export const uuid = '6516e'
-export const ref = '3L13-2'
+
 export const refs = {
   'fr-fr': ['3L13-2'],
   'fr-ch': ['11GM3-7', '11FA5-5']
 }
-export default function EqResolvantesThales () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.sup = 1
-  this.consignePluriel = 'Résoudre les équations suivantes.'
-  this.consigneSingulier = 'Résoudre l\'équation suivante.'
-  this.tailleDiaporama = 3
+export default class EqResolvantesThales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de nombres', 4, '1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux\n4 : Mélange']
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    this.nbQuestions = 2
+    this.sup = 1
+    this.consignePluriel = 'Résoudre les équations suivantes.'
+    this.consigneSingulier = 'Résoudre l\'équation suivante.'
+  }
 
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    const typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])
     this.consigne = (this.nbQuestions === 1 || context.vue === 'diap') ? this.consigneSingulier : this.consignePluriel
-    typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])
-
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
@@ -190,13 +185,12 @@ $${inc}=${miseEnEvidence(texNombre(b.mul(a).div(c), 4))}$`,
       else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
       if (this.questionJamaisPosee(i, nbAlea)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de nombres', 4, '1 : Entiers naturels\n2 : Entiers relatifs\n3 : Décimaux\n4 : Mélange']
 }

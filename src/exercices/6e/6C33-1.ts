@@ -3,12 +3,12 @@ import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import { prenom } from '../../lib/outils/Personne'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import engine, { exprCompare } from '../../lib/interactif/comparisonFunctions'
 import { lister } from '../../lib/outils/ecritures'
@@ -20,7 +20,7 @@ export const titre = 'Organiser des calculs en une seule ligne'
 export const dateDePublication = '31/05/2024'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Guillaume Valmont
 */
 export const uuid = '2b06d'
@@ -46,9 +46,6 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     const computeEngine = new ComputeEngine()
     const avecDivision = !!this.sup
     const nombreDeCalculs = gestionnaireFormulaireTexte({ shuffle: false, saisie: this.sup2, nbQuestions: this.nbQuestions, min: 2, max: 4, defaut: 4, melange: 5 })
@@ -418,8 +415,8 @@ Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' clavierDeB
 
       const nombreCibleValide = Number(nombreCible) < 100 * Number(nombreDeCalculs[i])
       if (this.questionJamaisPosee(i, ...nombres, ...signes, listeTypeQuestions[i]) && nombreCibleValide) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
     }

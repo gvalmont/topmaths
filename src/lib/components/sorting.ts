@@ -231,7 +231,7 @@ export const customSortStringNumber = (a: number | string, b: number | string): 
   }
 }
 
-type Order = 'asc' | 'desc' | 'ascStringdescNumber';
+type Order = 'asc' | 'desc' | 'ascStringdescNumber'
 
 // Fonction qui divise une chaîne en parties numériques et non numériques (pour mettre dans l'ordre sujet1, sujet2 et sujet10)
 function splitAlphaNumeric (str: string): (string | number)[] {
@@ -239,7 +239,6 @@ function splitAlphaNumeric (str: string): (string | number)[] {
     .split(/(\d+)/)
     .map((part) => (isNaN(Number(part)) ? part : Number(part)))
 }
-
 
 // Fonction de comparaison prenant en compte les parties numériques et les majuscules accentuées
 function compareAlphaNumeric (a: string, b: string, order: Order): number {

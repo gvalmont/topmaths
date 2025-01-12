@@ -1,11 +1,11 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fraction } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction d\'après sa forme algébrique'
@@ -26,27 +26,22 @@ export const amcType = 'AMCNum'
  * 3F12-2
  */
 export const uuid = '082d7'
-export const ref = '3F12-2'
+
 export const refs = {
   'fr-fr': ['3F12-2'],
   'fr-ch': ['10FA5-10', '11FA8-4', '1F1-9']
 }
-export default function ImageFonctionAlgebrique () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 5 // niveau de difficulté
+export default class ImageFonctionAlgebrique extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.nbQuestions = 5
 
+    this.sup = 5 // niveau de difficulté
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['ax+b', 'ax-b', '-ax+b', '-ax-b']
@@ -179,13 +174,12 @@ export default function ImageFonctionAlgebrique () {
       texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 }

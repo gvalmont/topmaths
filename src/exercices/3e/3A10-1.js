@@ -1,12 +1,12 @@
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { warnMessage } from '../../lib/format/message.js'
+import { warnMessage } from '../../lib/format/message'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Indiquer si des nombres sont premiers ou pas'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -19,31 +19,38 @@ export const amcType = 'qcmMono'
  * et un nombre premier inferieur à 529
  * dans cet exo on n'utilise pas les critères par 7 et 11
  * @author Sébastien Lozano + Jean-Claude Lhote pour l'interactivité.
- * Référence 3A10-1
+
  */
 export const uuid = 'bba55'
-export const ref = '3A10-1'
+
 export const refs = {
   'fr-fr': ['3A10-1'],
   'fr-ch': ['9NO4-9']
 }
-export default function PremierOuPas () {
-  Exercice.call(this)
-  // pas de différence entre la version html et la version latex pour la consigne
-  context.isHtml ? this.spacing = 1 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
-  // this.correctionDetailleeDisponible = true;
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.nbQuestions = 5
-  this.sup = 1
-  this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
-  this.sup3 = false
-  this.level = 2
-  // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
-  const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
-  this.nouvelleVersion = function () {
+export default class PremierOuPas extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans calculatrice\n2 : Avec calculatrice']
+    this.besoinFormulaire2CaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
+    this.besoinFormulaire3CaseACocher = ['Ne proposer que des nombres premiers inférieurs à 100']
+    // pas de différence entre la version html et la version latex pour la consigne
+    context.isHtml ? this.spacing = 1 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+
+    // this.correctionDetailleeDisponible = true;
+    this.nbCols = 2
+
+    this.nbQuestions = 5
+    this.sup = 1
+    this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
+    this.sup3 = false
+    this.level = 2
+    // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
+  }
+
+  nouvelleVersion () {
     this.consigne = this.level === 2
       ? this.nbQuestions > 1
         ? 'Justifier que les nombres suivants sont premiers ou pas.'
@@ -52,11 +59,6 @@ export default function PremierOuPas () {
         ? 'Indiquer si les nombres suivants sont premiers ou pas.' + (this.interactif ? '' : ' Justifier s\'ils ne le sont pas.')
         : 'Indiquer si le nombre suivant est premier ou pas.' + (this.interactif ? '' : ' Justifier s\'il ne l\'est pas.')
     let typesDeQuestions
-
-    this.autoCorrection = []
-
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles // = [1, 2, 3, 6, 7];
     if (this.sup === 1) {
@@ -310,8 +312,8 @@ export default function PremierOuPas () {
         texte += props.texte
       }
       if (this.questionJamaisPosee(i, N)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -319,7 +321,4 @@ export default function PremierOuPas () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans calculatrice\n2 : Avec calculatrice']
-  this.besoinFormulaire2CaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
-  this.besoinFormulaire3CaseACocher = ['Ne proposer que des nombres premiers inférieurs à 100']
 }

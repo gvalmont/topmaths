@@ -2,7 +2,7 @@ import InequationsLog from './TSpeAN1-0'
 
 export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec ln'
 export const dateDePublication = '4/5/2024'
-export const dateDeModificationImportante = '18/07/2024'
+export const dateDeModifImportante = '18/07/2024'
 export const uuid = 'e7929'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,9 +12,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
- * @autor clone de TSpeAN1-0 de Claire Rousset réalisé par Jean-Claude Lhote
- * Référence
+ *
+ * @author clone de TSpeAN1-0 de Claire Rousset réalisé par Jean-Claude Lhote
+
  */
 export default class InequationsLn extends InequationsLog {
   constructor () {

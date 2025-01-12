@@ -1,16 +1,15 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer des produits et des quotients de nombres relatifs'
 export const interactifReady = true
@@ -20,23 +19,24 @@ export const amcType = 'AMCNum'
 export const dateDePublication = '23/09/2022'
 
 export const uuid = '745ba'
-export const ref = '4C10'
+
 export const refs = {
   'fr-fr': ['4C10'],
   'fr-ch': ['10NO4-1']
 }
-export default function ProduitsEtQuotientRelatifs () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.sup = 1
-  this.sup2 = 1
-  this.nbQuestions = 10
-  this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : Rationnels\n4 : Mélange']
+export default class ProduitsEtQuotientRelatifs extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
+    this.consigne = 'Calculer.'
+    this.sup = 1
+    this.sup2 = 1
+
+    this.besoinFormulaireNumerique = ['Opérations', 3, '1 : Multiplication\n2 : Division\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Opérandes', 4, '1 : Entiers relatifs (quotient exact)\n2 : Un entier et un décimal (quotient décimal simple)\n3 : Rationnels\n4 : Mélange']
+  }
+
+  nouvelleVersion () {
     this.sup = contraindreValeur(1, 3, this.sup, 3)
     this.sup2 = contraindreValeur(1, 4, this.sup2, 1)
     const typesDeQuestions = []
@@ -77,12 +77,12 @@ export default function ProduitsEtQuotientRelatifs () {
           if (listeTypesDeNombre[i] < 3) {
             texte = `$${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(b)} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
             texteCorr = texte.split('=')[0] + ' = ' + texNombre(a.mul(b), 1) + '$'
-            handleAnswers(this, i, { reponse: { value: listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+            handleAnswers(this, i, { reponse: { value: listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b), options: { resultatSeulementEtNonOperation: true } } })
           } else {
             texte = `$${a.texFSD}\\times ${b.texFSP} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)}`
             texteCorr = texte.split('=')[0] + ' = ' + a.texProduitFraction(b, true) + '$'
             // setReponse(this, i, a.produitFraction(b), { formatInteractif: 'fractionEgale' })
-            handleAnswers(this, i, { reponse: { value: a.produitFraction(b).texFraction, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+            handleAnswers(this, i, { reponse: { value: a.produitFraction(b).texFraction, options: { resultatSeulementEtNonOperation: true } } })
           }
           break
 
@@ -115,8 +115,8 @@ export default function ProduitsEtQuotientRelatifs () {
       // Fin de cette uniformisation
 
       if (this.questionJamaisPosee(i, a, b, listeTypesDeQuestion[i])) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

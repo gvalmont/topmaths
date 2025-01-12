@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -11,17 +11,16 @@ export const uuid = 'e88e8'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class SommetParabole extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {

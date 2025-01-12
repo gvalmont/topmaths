@@ -1,13 +1,13 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
@@ -19,11 +19,11 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '14/12/2024'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
 */
 export const uuid = '6487c'
-export const ref = '1AL10-1'
+
 export const refs = {
   'fr-fr': ['1AL10-1'],
   'fr-ch': []
@@ -55,7 +55,6 @@ export default class ModeliserSuites extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -65,8 +64,6 @@ export default class ModeliserSuites extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
-    this.listeCorrections = [] // Vide la liste de questions corrigées
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -98,8 +95,8 @@ export default class ModeliserSuites extends Exercice {
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: reponse1, compare: fonctionComparaison },
-            champ2: { value: reponse2, compare: fonctionComparaison }
+            champ1: { value: reponse1 },
+            champ2: { value: reponse2 }
           },
           { formatInteractif: 'fillInTheBlank' }
           )
@@ -136,8 +133,8 @@ qui suit le 1er juillet 2024.<br>
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: reponse1, compare: fonctionComparaison },
-            champ2: { value: reponse2, compare: fonctionComparaison }
+            champ1: { value: reponse1 },
+            champ2: { value: reponse2 }
           },
           { formatInteractif: 'fillInTheBlank' }
           )
@@ -175,8 +172,8 @@ au 1er janvier de l'année $2022 + n$.<br>
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: reponse1, compare: fonctionComparaison },
-            champ2: { value: reponse2, compare: fonctionComparaison }
+            champ1: { value: reponse1 },
+            champ2: { value: reponse2 }
           },
           { formatInteractif: 'fillInTheBlank' }
           )
@@ -210,8 +207,8 @@ au 1er janvier de l'année $2022 + n$.<br>
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: reponse1, compare: fonctionComparaison },
-            champ2: { value: reponse2, compare: fonctionComparaison }
+            champ1: { value: reponse1 },
+            champ2: { value: reponse2 }
           },
           { formatInteractif: 'fillInTheBlank' }
           )
@@ -247,8 +244,8 @@ Pour l’année $2024$, il y a $${a}$ abonnés.<br>`
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: reponse1, compare: fonctionComparaison },
-            champ2: { value: reponse2, compare: fonctionComparaison }
+            champ1: { value: reponse1 },
+            champ2: { value: reponse2 }
           },
           { formatInteractif: 'fillInTheBlank' }
           )
@@ -287,8 +284,8 @@ Le premier versement a lieu le $25$ février $2024$.<br>`
           }
           handleAnswers(this, i, {
             bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: reponse1, compare: fonctionComparaison },
-            champ2: { value: reponse2, compare: fonctionComparaison }
+            champ1: { value: reponse1 },
+            champ2: { value: reponse2 }
           },
           { formatInteractif: 'fillInTheBlank' }
           )
@@ -319,7 +316,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierSuite)
           }
-          handleAnswers(this, i, { champ1: { value: reponse1, compare: fonctionComparaison } },
+          handleAnswers(this, i, { champ1: { value: reponse1 } },
             { formatInteractif: 'fillInTheBlank' }
           )
           texteCorr = `$u_n$ est la température (en degrés Celsius) sur le parcours du randonneur à l'altitude $${texNombre(alt, 0)}+n$ mètres.<br>
@@ -342,7 +339,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
 
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, 'w_n=%{champ1}', KeyboardType.clavierSuite)
-            handleAnswers(this, i, { champ1: { value: reponse1, compare: fonctionComparaison } },
+            handleAnswers(this, i, { champ1: { value: reponse1 } },
               { formatInteractif: 'fillInTheBlank' }
             )
           }
@@ -366,7 +363,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
 
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierSuite)
-            handleAnswers(this, i, { champ1: { value: reponse1, compare: fonctionComparaison } },
+            handleAnswers(this, i, { champ1: { value: reponse1 } },
               { formatInteractif: 'fillInTheBlank' }
             )
           }
@@ -389,7 +386,7 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
 
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, 'u_n=%{champ1}', KeyboardType.clavierSuite)
-            handleAnswers(this, i, { champ1: { value: reponse1, compare: fonctionComparaison } },
+            handleAnswers(this, i, { champ1: { value: reponse1 } },
               { formatInteractif: 'fillInTheBlank' }
             )
           }
@@ -400,8 +397,8 @@ Au point de départ, la température est de $${temp}$ degrés Celsius.<br>`
       }
 
       if (this.questionJamaisPosee(i, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

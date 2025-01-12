@@ -1,12 +1,12 @@
-import { point } from '../../lib/2d/points.js'
-import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { point } from '../../lib/2d/points'
+import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 /* auteur Stéphane Guyon */
 export const titre = 'Résoudre une équation avec des valeurs absolues'
@@ -16,23 +16,25 @@ export const titre = 'Résoudre une équation avec des valeurs absolues'
  * @author Stéphane Guyon
  */
 export const uuid = 'e471c'
-export const ref = '2N15-2'
+
 export const refs = {
   'fr-fr': ['2N15-2'],
   'fr-ch': []
 }
-export default function ValeurAbsolueEtEquation () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 //
-  this.correction_detaille_disponible = true
-  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+export default class ValeurAbsolueEtEquation extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 //
+    this.correction_detaille_disponible = true
+    context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -90,8 +92,8 @@ export default function ValeurAbsolueEtEquation () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

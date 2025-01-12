@@ -1,13 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-import { fraction } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions'
 import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom.js'
-import type CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram.js'
+import figureApigeom from '../../lib/figureApigeom'
+import type CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const dateDeModifImportante = '15/01/2024'
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '87479'
-export const ref = '6N14'
+
 export const refs = {
   'fr-fr': ['6N14'],
   'fr-ch': ['9NO10-1']
@@ -32,7 +32,7 @@ export default class RepresenterUneFraction extends Exercice {
   numerators: number[] = []
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 4
     this.nbCols = 2
     this.nbColsCorr = 2
@@ -128,8 +128,8 @@ export default class RepresenterUneFraction extends Exercice {
       }
       if (this.questionJamaisPosee(i, num, den)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

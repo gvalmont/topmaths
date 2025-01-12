@@ -1,16 +1,16 @@
-import { arcPointPointAngle } from '../../lib/2d/cercle.js'
-import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { rotation } from '../../lib/2d/transformations.js'
+import { arcPointPointAngle } from '../../lib/2d/cercle'
+import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
+import { point, tracePoint } from '../../lib/2d/points'
+import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { rotation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel } from '../../lib/format/style'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Construire l\'image d\'un point par une rotation avec cible auto-corrective'
 
 /**
@@ -20,21 +20,24 @@ export const titre = 'Construire l\'image d\'un point par une rotation avec cibl
  * Publié le 30/11/2020
  */
 export const uuid = '19ce6'
-export const ref = '3G10-3'
+
 export const refs = {
   'fr-fr': ['3G10-3'],
   'fr-ch': ['10ES2-8']
 }
-export default function ConstruireRotationPoint3e () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 3
-  this.nouvelleVersion = function () {
+export default class ConstruireRotationPoint3e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
+    // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
+
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let nontrouve, assezloin, cible
     const angle = randint(-8, 8, 0) * 10
     let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
@@ -111,6 +114,4 @@ export default function ConstruireRotationPoint3e () {
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
   }
-  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
-  // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 }

@@ -1,13 +1,13 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fraction } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../lib/outils/texNombre'
 
@@ -23,31 +23,33 @@ export const dateDeModifImportante = '06/10/2024'
  */
 
 export const uuid = '374b6'
-export const ref = '4C23'
+
 export const refs = {
   'fr-fr': ['4C23'],
   'fr-ch': ['10NO5-4']
 }
-export default function SommeOuProduitFractions () {
-  Exercice.call(this)
-  this.spacing = context.isHtml ? 4 : 3
-  this.spacingCorr = context.isHtml ? 4 : 3
-  this.nbColonneModifiable = false
-  this.consigne = 'Effectuer les calculs suivants.'
-  this.nbQuestions = 8 // Nombre de questions par défaut
-  this.nbCols = 4 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.sup = '1-3'
-  this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
-  this.correctionDetaillee = false
-  this.listeAvecNumerotation = false
+export default class SommeOuProduitFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions',
+      'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient'
+    ]
+    this.spacing = context.isHtml ? 4 : 3
+    this.spacingCorr = context.isHtml ? 4 : 3
+    this.nbColonneModifiable = false
+    this.consigne = 'Effectuer les calculs suivants.'
+    this.nbQuestions = 8 // Nombre de questions par défaut
+    this.nbCols = 4 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 4 // Uniquement pour la sortie LaTeX
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.sup = '1-3'
+    this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
+    this.correctionDetaillee = false
+    this.listeAvecNumerotation = false
+  }
 
+  nouvelleVersion () {
     let typeQuestionsDisponibles = []
     const typeQuestionsPossibles = [
       ['sommeMult', 'sommeAvecEntier'],
@@ -296,8 +298,8 @@ export default function SommeOuProduitFractions () {
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         texte += ajouteChampTexteMathLive(this, i, '')
         setReponse(this, i, fraction(num, den), { formatInteractif: 'fractionEgale' })
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
 
@@ -306,8 +308,4 @@ export default function SommeOuProduitFractions () {
 
     listeQuestionsToContenuSansNumero(this, false) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions',
-    'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient'
-  ]
 }

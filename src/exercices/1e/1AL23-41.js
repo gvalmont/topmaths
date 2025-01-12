@@ -1,9 +1,9 @@
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
@@ -18,7 +18,7 @@ export const dateDeModifImportante = '5/11/2023'
  * @author Rémi Angot
  */
 export const uuid = 'b9252'
-export const ref = '1AL23-41'
+
 export const refs = {
   'fr-fr': ['1AL23-41'],
   'fr-ch': []
@@ -30,9 +30,6 @@ export default class EquationsEtInequations extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.tailleDiaporama = 3
     if (context.vue === 'diap' || this.nbQuestions === 1) {
       this.introduction = 'Résoudre dans $\\mathbb{R}$ :'
     } else this.introduction = 'Résoudre dans $\\mathbb{R}$ les équations et inéquations suivantes.'
@@ -170,8 +167,8 @@ export default class EquationsEtInequations extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

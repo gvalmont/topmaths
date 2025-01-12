@@ -1,17 +1,17 @@
-import { traceCompas } from '../../lib/2d/cercle.js'
-import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
-import { codageMilieu } from '../../lib/2d/codages.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { rotation } from '../../lib/2d/transformations.js'
+import { traceCompas } from '../../lib/2d/cercle'
+import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
+import { codageMilieu } from '../../lib/2d/codages'
+import { point, tracePoint } from '../../lib/2d/points'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { rotation } from '../../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel } from '../../lib/format/style'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { context } from '../../modules/context'
 
 export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
 
@@ -22,21 +22,23 @@ export const titre = 'Construire le symétrique d\'un point avec cible auto-corr
  * Publié le 30/11/2020
  */
 export const uuid = '34032'
-export const ref = '5G11-3'
+
 export const refs = {
   'fr-fr': ['5G11-3'],
   'fr-ch': ['9ES6-8']
 }
-export default function ConstruireSymetriquePoint5e () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 3
-  this.nouvelleVersion = function () {
+export default class ConstruireSymetriquePoint5e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
+
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
     const celluleAlea = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, rang))
@@ -112,6 +114,4 @@ export default function ConstruireSymetriquePoint5e () {
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos
   }
-  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
-  // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
 }

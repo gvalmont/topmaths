@@ -13,10 +13,10 @@ export const interactifType = 'mathLive'
 /**
  * Retrouver le nombre de départ
  * @author Rémi Angot
- * Références 6C13-3
+
  */
 export const uuid = '2be1d'
-export const ref = '6C13-3'
+
 export const refs = {
   'fr-fr': ['6C13-3'],
   'fr-ch': ['9FA2-2']
@@ -30,10 +30,6 @@ class OperationsReciproques extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     type TypeQuestionsDisponibles = 'x+' | '+x' | 'x-' | '-x' | '/+' | '+/' | '/-' | '-/'
     const typeQuestionsDisponibles = ['x+', '+x', 'x-', '-x', '/+', '+/', '/-', '-/'] as TypeQuestionsDisponibles[]
 
@@ -129,8 +125,8 @@ class OperationsReciproques extends Exercice {
         setReponse(this, i, depart)
       }
       if (this.questionJamaisPosee(i, depart, operande1, operande2)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

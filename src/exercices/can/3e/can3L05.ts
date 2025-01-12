@@ -1,0 +1,66 @@
+import { choice } from '../../../lib/outils/arrayOutils'
+import Exercice from '../../Exercice'
+import { randint } from '../../../modules/outils'
+export const titre = 'Calculer le produit des solutions d’une équation produit nul'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDePublication = '25/10/2021'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+
+ * Date de publication
+*/
+export const uuid = 'ab332'
+
+export const refs = {
+  'fr-fr': ['can3L05'],
+  'fr-ch': []
+}
+export default class SolutionsEquationProduit extends Exercice {
+  constructor () {
+    super()
+
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+  }
+
+  nouvelleVersion () {
+    const b = randint(1, 10) // (x+a)(x+b)=0 avec a et b entiers
+    const d = randint(1, 10, [b])
+    switch (choice([1, 2, 3])) {
+      case 1 :
+        this.question = `Calculer le produit des solutions de l'équation $(x+${b})(x+${d})=0$.` //
+        this.correction = 'On reconnaît une équation produit nul. <br>'
+        this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+        this.correction += '<br>' + `$(x+${b})(x+${d})=0$`
+        this.correction += '<br> ' + `$x+${b}=0$` + ' ou ' + `$x+${d}=0$`
+        this.correction += '<br>  ' + `$x=${0 - b}$` + ' ou ' + `$x=${0 - d}$`
+        this.correction += '<br>Le produit vaut donc : ' + `$(${-b})\\times (${-d})=${b * d}$.`
+        this.reponse = b * d
+        break
+      case 2 :
+        this.question = `Calculer le produit des solutions de l'équation $(x-${b})(x+${d})=0$.` //
+        this.correction = 'On reconnaît une équation produit nul. <br>'
+        this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+        this.correction += '<br>' + `$(x-${b})(x+${d})=0$`
+        this.correction += '<br>  ' + `$x-${b}=0$` + ' ou  ' + `$x+${d}=0$`
+        this.correction += '<br>  ' + `$x=${b}$` + ' ou ' + `$x=${0 - d}$`
+        this.correction += '<br>Le produit vaut donc :' + `$${b}\\times (${-d})=${-b * d}$.`
+        this.reponse = b * (-d)
+        break
+      case 3 :
+        this.question = `Calculer le produit des solutions de l'équation $(x-${b})(x-${d})=0$.` //
+        this.correction = 'On reconnaît une équation produit nul. <br>'
+        this.correction += 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
+        this.correction += '<br>' + `$(x-${b})(x-${d})=0$`
+        this.correction += '<br>  ' + `$x-${b}=0$` + ' ou  ' + `$x-${d}=0$`
+        this.correction += '<br>  ' + `$x=${b}$` + ' ou ' + `$x=${d}$`
+        this.correction += '<br>Le produit vaut donc :' + `$${b}\\times ${d}=${b * d}$.`
+        this.reponse = b * d
+        break
+    }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
+  }
+}

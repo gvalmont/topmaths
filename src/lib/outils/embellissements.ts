@@ -1,5 +1,5 @@
 import { isArray, isInteger } from 'mathjs'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { choice } from './arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
 
@@ -11,8 +11,9 @@ import FractionEtendue from '../../modules/FractionEtendue'
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function miseEnEvidence (texte: string | FractionEtendue, couleur: string = '#f15929') {
+export function miseEnEvidence (texte: string | FractionEtendue | number, couleur: string = '#f15929') {
   if (texte instanceof FractionEtendue) texte = texte.texFraction
+  if (typeof texte === 'number') texte = String(texte)
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `{\\color{${couleur}}\\boldsymbol{${texte}}}`
@@ -34,7 +35,8 @@ export function miseEnEvidence (texte: string | FractionEtendue, couleur: string
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
  */
-export function miseEnCouleur (texte: string, couleur: string = '#f15929') {
+export function miseEnCouleur (texte: string | number, couleur: string = '#f15929') {
+  texte = typeof texte === 'number' ? String(texte) : texte
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `{\\color{${couleur}} ${texte}}`
@@ -55,7 +57,8 @@ export function miseEnCouleur (texte: string, couleur: string = '#f15929') {
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function texteEnCouleur (texte: string, couleur = '#f15929') {
+export function texteEnCouleur (texte: string | number, couleur = '#f15929') {
+  texte = typeof texte === 'number' ? String(texte) : texte
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `<span style="color:${couleur};">${texte}</span>`
@@ -76,7 +79,8 @@ export function texteEnCouleur (texte: string, couleur = '#f15929') {
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function texteEnCouleurEtGras (texte: string, couleur = '#f15929') {
+export function texteEnCouleurEtGras (texte: string | number, couleur = '#f15929') {
+  if (typeof texte === 'number') texte = String(texte)
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`

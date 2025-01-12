@@ -1,20 +1,15 @@
-import OrganiserDonneesDepuisTexte from '../6e/6S11.js'
+import OrganiserDonneesDepuisTexte from '../6e/6S11'
 export const titre = 'Organiser des données dans un tableau'
 export const interactifReady = false
-
-/**
- * Organiser des données dans un tableau
- * @author Guillaume Valmont
- * Publié le 08/08/2021
- */
 export const uuid = '60eb8'
-export const ref = '5S10'
 export const refs = {
   'fr-fr': ['5S10'],
   'fr-ch': []
 }
-export default function OrganiserDonneesDepuisTexte5e () {
-  OrganiserDonneesDepuisTexte.call(this)
-  this.sup = false
-  this.sup2 = 4
+export default class OrganiserDonneesDepuisTexte5e extends OrganiserDonneesDepuisTexte {
+  constructor () {
+    super()
+    this.sup = false
+    this.sup2 = 4
+  }
 }

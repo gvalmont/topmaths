@@ -1,41 +1,42 @@
-import { angle, codageAngle } from '../../lib/2d/angles.js'
-import { codageSegment } from '../../lib/2d/codages.js'
-import { point, pointAdistance } from '../../lib/2d/points.js'
-import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { rotation, similitude, translation } from '../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
+import { angle, codageAngle } from '../../lib/2d/angles'
+import { codageSegment } from '../../lib/2d/codages'
+import { point, pointAdistance } from '../../lib/2d/points'
+import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
+import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { combinaisonListes, shuffleLettres } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 export const titre = 'Triangles égaux et côtés homologues'
 
 /**
  * Deux triangles égaux sont codés, il faut reconnaître les côtés homologues
  * @author Rémi Angot
- * Référence 5G24-1
+
 */
 export const uuid = '10148'
-export const ref = '5G24-1'
+
 export const refs = {
   'fr-fr': ['5G24-1'],
   'fr-ch': ['9ES2-8']
 }
-export default function TrianglesEgaux () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Compléter les phrases suivantes.'
-  this.nbQuestions = 3
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.video = '' // Id YouTube ou url
-  this.spacing = 2
+export default class TrianglesEgaux extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Compléter les phrases suivantes.'
+    this.nbQuestions = 3
+
+    this.sup = 1 // Niveau de difficulté
+
+    this.spacing = 2
+  }
+
+  nouvelleVersion () {
     const zoom = context.vue === 'diap' ? 0.5 : 1
 
     let typeQuestionsDisponibles = ['rotation', 'similitude', 'rotation2', 'similitude2', 'rotation3', 'similitude3']
@@ -319,8 +320,8 @@ export default function TrianglesEgaux () {
       texteCorr += `$[${Cnom + Anom}]$ et $[${Fnom + Dnom}]$ sont homologues.<br>`
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

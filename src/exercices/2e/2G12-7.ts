@@ -4,7 +4,7 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { Matrice } from '../../lib/mathFonctions/Matrice'
-import SuperFigure from 'apigeom'
+import Figure from 'apigeom'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
 import figureApigeom from '../../lib/figureApigeom'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
@@ -28,7 +28,7 @@ export const refs = {
  * On se propose de placer des points aux coordonnées données dans un repère orthogonal, normé ou quelconque.
  */
 export default class BetaReperage2e extends Exercice {
-  figuresApiGeom!: SuperFigure[]
+  figuresApiGeom!: Figure[]
   labelsPoints!: string[][]
   X!: number[][]
   Y!: number[][]
@@ -65,7 +65,7 @@ export default class BetaReperage2e extends Exercice {
 
     for (let i = 0; i < this.nbQuestions;) {
       const options = {}
-      this.figuresApiGeom[i] = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
+      this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
       this.figuresApiGeom[i].options.latexHeight = 20
       this.figuresApiGeom[i].options.labelDxInPixels = 20
       this.figuresApiGeom[i].options.labelDyInPixels = 20
@@ -154,7 +154,7 @@ export default class BetaReperage2e extends Exercice {
       figureCorrection.height = 300
       figureCorrection.scale = 0.5
 */
-      const figureCorrection = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
+      const figureCorrection = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
       figureCorrection.options.latexHeight = 20
       figureCorrection.options.labelDxInPixels = 20
       figureCorrection.options.labelDyInPixels = 20
@@ -201,8 +201,8 @@ export default class BetaReperage2e extends Exercice {
         ? figureApigeom({ exercice: this, figure: figureCorrection, i, idAddendum: 'correction', isDynamic: false })
         : figureCorrection.tikz()
       if (this.questionJamaisPosee(i, ...x[i], ...y[i], ...coordsI, ...coordsK)) {
-        this.listeQuestions.push(question)
-        this.listeCorrections.push(reponse)
+        this.listeQuestions[i] = question
+        this.listeCorrections[i] = reponse
         i++
       }
     }

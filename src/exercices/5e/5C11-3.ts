@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -21,7 +21,7 @@ export const refs = {
 /**
  * Travail sur le sens de l'égalité
  * @author Rémi Angot
- * Référence 5C13
+
 */
 export default class CompleterEgalite extends Exercice {
   constructor () {
@@ -111,8 +111,8 @@ export default class CompleterEgalite extends Exercice {
         champ1: { value: x }
       })
       if (this.questionJamaisPosee(i, x.toString(), a.toString(), b.toString(), c.toString())) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

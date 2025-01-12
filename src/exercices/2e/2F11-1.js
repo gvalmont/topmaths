@@ -1,16 +1,15 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence'
 export const interactifReady = true
@@ -28,34 +27,32 @@ export const dateDePublication = '18/01/2022' // La date de publication initiale
  *
  */
 export const uuid = 'b6cc0'
-export const ref = '2F11-1'
+
 export const refs = {
   'fr-fr': ['2F11-1'],
   'fr-ch': []
 }
-export default function ImageFonctionsRefs () {
-  Exercice.call(this)
-  this.nbQuestions = 8
+export default class ImageFonctionsRefs extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireCaseACocher = ['Fonction carré']
-  this.besoinFormulaire2CaseACocher = ['Fonction cube']
-  this.besoinFormulaire3CaseACocher = ['Fonction racine carrée']
-  this.besoinFormulaire4CaseACocher = ['Fonction inverse']
-  this.sup = true
-  this.sup2 = true
-  this.sup3 = true
-  this.sup4 = true
-  this.can = false // course aux nombres, si true les calculs pourront être fait de tête
+    this.nbQuestions = 8
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+    this.besoinFormulaireCaseACocher = ['Fonction carré']
+    this.besoinFormulaire2CaseACocher = ['Fonction cube']
+    this.besoinFormulaire3CaseACocher = ['Fonction racine carrée']
+    this.besoinFormulaire4CaseACocher = ['Fonction inverse']
+    this.sup = true
+    this.sup2 = true
+    this.sup3 = true
+    this.sup4 = true
+    this.can = false // course aux nombres, si true les calculs pourront être fait de tête
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
 
+  nouvelleVersion () {
     const typeQuestionsDisponibles = []
     this.sup && typeQuestionsDisponibles.push('carré')
     this.sup2 && typeQuestionsDisponibles.push('cube')
@@ -113,10 +110,11 @@ export default function ImageFonctionsRefs () {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], nombre)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         // setReponse(this, i, solution, { digits: 6, decimals: listeTypeQuestions[i] === 'inverse' ? 6 : 0, signe: true })
-        handleAnswers(this, i, { reponse: { value: solution.texFraction, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: solution.texFraction } })
         i++
       }
       cpt++

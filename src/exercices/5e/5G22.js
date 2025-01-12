@@ -1,20 +1,20 @@
-import { codageBissectrice, codageMediatrice } from '../../lib/2d/codages.js'
-import { bissectrice, mediatrice } from '../../lib/2d/droites.js'
-import { point } from '../../lib/2d/points.js'
-import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { rotation, similitude } from '../../lib/2d/transformations.js'
+import { codageBissectrice, codageMediatrice } from '../../lib/2d/codages'
+import { bissectrice, mediatrice } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/points'
+import { nommePolygone, polygone } from '../../lib/2d/polygones'
+import { rotation, similitude } from '../../lib/2d/transformations'
 import {
   centreGraviteTriangle,
   codageHauteurTriangle,
   codageMedianeTriangle,
   hauteurTriangle,
   medianeTriangle
-} from '../../lib/2d/triangle.js'
+} from '../../lib/2d/triangle'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { Triangle } from '../../modules/Triangle.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { Triangle } from '../../modules/Triangle'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Déterminer la nature d\'une droite remarquable'
 
@@ -24,21 +24,23 @@ export const titre = 'Déterminer la nature d\'une droite remarquable'
  * Les droites remarquables du triangle : hauteurs médiatrices....médianes et bissectrices
  */
 export const uuid = '796f3'
-export const ref = '5G22'
+
 export const refs = {
   'fr-fr': ['5G22'],
   'fr-ch': ['9ES3-9']
 }
-export default function DroiteRemarquableDuTriangle () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.spacing = 2
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
+export default class DroiteRemarquableDuTriangle extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.spacing = 2
+    this.nbQuestions = 1
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     const triangles = []
     const sommets = [[]]
     const A = []
@@ -55,7 +57,7 @@ export default function DroiteRemarquableDuTriangle () {
     else if (this.sup === 2) typesDeQuestionsDisponibles = [3, 4]
     else typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, angle, rapport, texte, texteCorr; i < this.nbQuestions; i++) { // this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+    for (let i = 0, a, angle, rapport, texte, texteCorr; i < this.nbQuestions;) { // this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       triangles[i] = new Triangle()
       sommets[i] = triangles[i].getSommets(false)
 
@@ -115,12 +117,13 @@ export default function DroiteRemarquableDuTriangle () {
         pixelsParCm: 20
       }, ...objets[i])
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, angle, rapport, a)) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
+        i++
       }
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de droites', 3, '1 : Hauteurs et Médiatrices\n2 : Médianes et Bissectrices\n3 : Mélange']
 }

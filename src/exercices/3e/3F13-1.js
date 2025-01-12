@@ -1,12 +1,12 @@
-import { graphiqueInterpole } from '../../lib/2d/courbes.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { graphiqueInterpole } from '../../lib/2d/courbes'
+import { repere } from '../../lib/2d/reperes'
 import { choice } from '../../lib/outils/arrayOutils'
-import { deuxColonnes } from '../../lib/format/miseEnPage.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { randint, texConsigne } from '../../modules/outils.js'
+import { deuxColonnes } from '../../lib/format/miseEnPage'
+import { numAlpha } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { randint, texConsigne } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -21,23 +21,24 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot
  */
 export const uuid = '4b121'
-export const ref = '3F13-1'
+
 export const refs = {
   'fr-fr': ['3F13-1'],
   'fr-ch': []
 }
-export default function AntecedentEtImageGraphique () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  if (context.isHtml) {
-    this.spacingCorr = 2
+export default class AntecedentEtImageGraphique extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    if (context.isHtml) {
+      this.spacingCorr = 2
+    }
   }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
+  nouvelleVersion () {
     const r = repere({
       xMin: -5,
       xMax: 5,

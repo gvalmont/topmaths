@@ -1,14 +1,14 @@
-import { diagrammeBarres } from '../../lib/2d/diagrammes.js'
+import { diagrammeBarres } from '../../lib/2d/diagrammes'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { fraction } from '../../modules/fractions'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -196,217 +196,217 @@ class Population {
  * Calculs de fréquences sur une série qualitative
  * avec un effectif manquant et l'effectif total donné
  * @author Eve & Sylvain CHAMBON
- * Référence 5S13-2
+
  */
 export const uuid = 'ff67d'
-export const ref = '5S13-2'
+
 export const refs = {
   'fr-fr': ['5S13-2'],
   'fr-ch': ['11NO2-2']
 }
-export default function CalculerDesFrequences () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = true // pourquoi pas ?
-  this.spacing = 1
-  this.spacingCorr = 1.5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.besoinFormulaireNumerique = [
-    'Type de questions', 4, [
-      '1 : Choix d\'un exercice aléatoire parmi les deux versions',
-      '2 : Calculer des fréquences à partir d\'un tableau d\'effectifs',
-      '3 : Calculer des fréquences à partir d\'un diagramme bâton',
-      '4 : Les deux versions en deux questions (thème du 2e au hasard)'
-    ].join('\n')
-  ]
-  this.sup2 = 1
-  this.besoinFormulaire2Numerique = [
-    'Thème du contexte', 5, [
-      '1 : Au hasard',
-      '2 : Établissement scolaire et sports préférés',
-      '3 : Salon européen et nationalités des participants',
-      '4 : Parking et couleurs des voitures',
-      '5 : Collection de disques et styles de musique'
-    ].join('\n')
-  ]
-  const listeDesThemes = ['hasard', 'etablissement', 'salon', 'parking', 'collection']
+/**
+     * version 0 :
+     * La consigne avec un tableau d'effectifs
+     * */
+function exerciceAvecTableau (theme, exercice, numero) { // On a besoin de l'exercice et du numéro de question pour l'interactif
+  // paramètres du problème
+  const serie = new Population(theme)
+  let preambule = serie.getPreambule('tableau')
+  // construction du tableau
+  const entetesColonnes = [`\\text{\\textbf{${serie.caracterePourTableau}}}`]
+  for (const modalite of serie.modalites) {
+    entetesColonnes.push(`\\text{${modalite}}`)
+  }
+  entetesColonnes.push('\\text{\\textbf{TOTAL}}')
+  const entetesLignes = ['\\text{\\textbf{Effectifs}}', '\\text{\\textbf{Fréquences}}']
+  const cellules = []
+  // première ligne des effectifs
+  serie.effectifs.forEach((eff, index) => {
+    if (index !== serie.rangEffectifCache) {
+      cellules.push(eff)
+    } else {
+      cellules.push('')
+    }
+  })
+  cellules.push(`${serie.effectifTotal}`)
+  // deuxième ligne de fréquences (vide)
+  for (let i = 0; i <= serie.effectifs.length; i++) {
+    cellules.push('')
+  }
+  preambule += tableauColonneLigne(entetesColonnes, entetesLignes, cellules, 1.5)
+  preambule += '<br>'
+  const texte = questionsEtCorrections(preambule, serie, exercice, numero) // on récupère les questions/réponses en relation
+  return { questions: texte.questions, corrections: texte.corrections, effectifs: serie.effectifs } // On ajoute les effectifs pour ne pas avoir de doublons dans les différentes questions
+}
 
-  /**
+/**
+   * version 1 :
+   * La consigne avec un diagramme bâton
+   * */
+function exerciceAvecDiagramme (theme, exercice, numero) { // On a besoin de l'exercice et du numéro de question pour l'interactif
+  // paramètres du problème
+  const serie = new Population(theme)
+  let preambule = serie.getPreambule('diagramme')
+  // construction du diagramme
+  const effectifsSansValeurCachee = serie.effectifs.map((elt, i) => i !== serie.rangEffectifCache ? elt : 0)
+  const diagrammeBaton = graphique(effectifsSansValeurCachee, serie.modalites, {
+    reperageTraitPointille: false,
+    axeVertical: true,
+    titreAxeVertical: 'Effectifs',
+    labelAxeVert: true
+  })
+  preambule += diagrammeBaton
+  const texte = questionsEtCorrections(preambule, serie, exercice, numero) // on,numero récupère les questions/réponses en relation
+  return { questions: texte.questions, corrections: texte.corrections, effectifs: serie.effectifs } // On ajoute les effectifs pour ne pas avoir de doublons dans les différentes questions
+}
+
+/**
      * Les questions non modifiables, seule la physionomie de la consigne change (données en tableau ou en diagramme)...
      * Une seule fonction donc pour générer les questions et leurs corrections identiques pour les deux versions
      * @param {Map} entreesTableau l'objet Map avec les entrees du tableau sport/effectif
      * @param {String} cachee le sport dont on a caché l'effectif
      * @returns liste des questions, liste des corrections
      */
-  function questionsEtCorrections (preambule, serie, exercice, numero) {
-    let questions = []
-    const rangValeurChoisie = randint(0, serie.effectifs.length - 1, serie.rangEffectifCache)
-    const frequenceDemandee = arrondi(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)
-    // correction question 1
-    let correction1 = numAlpha(0) + `L'effectif manquant est celui du ${serie.entreeCachee.charAt(0).toLocaleLowerCase() + serie.entreeCachee.slice(1)}. Soit $e$ cet effectif.<br>`
-    correction1 += `$e=${serie.effectifTotal}-( `
-    let first = true
-    serie.effectifs.forEach((eff, index) => {
-      if (index !== serie.rangEffectifCache) {
-        if (first) {
-          correction1 += `${eff} `
-          first = !first
-        } else {
-          correction1 += `+ ${eff} `
-        }
-      }
-    })
-    correction1 += ')$<br>'
-    correction1 += `$e=${texNombre(serie.effectifTotal, 0)}-${texNombre(serie.effectifTotal - serie.effectifs[serie.rangEffectifCache], 0)}$<br>`
-    correction1 += `$e=${texNombre(serie.effectifs[serie.rangEffectifCache], 0)}$<br>`
-    // correction question 2
-    let correction2
-    if (!context.isAmc && !exercice.interactif) {
-      correction2 = numAlpha(1) + 'Calculs des fréquences.<br>'
-      correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
-      correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
-      correction2 += 'On en déduit donc les calculs suivants :<br><br>'
-      const enteteTableau = ['']
-      const premiereColonne = []
-      const premiereLigneTableau = []
-      const deuxiemeLigneTableau = []
-      serie.effectifs.forEach((eff, index) => {
-        enteteTableau.push(`\\text{${serie.modalites[index]}}`)
-        const f = fraction(eff, serie.effectifTotal)
-        premiereLigneTableau.push(f.texFraction)
-        deuxiemeLigneTableau.push(`${texNombre(f.pourcentage, 1)} ${sp(1)}\\%`)
-      })
-      premiereColonne.push('\\textbf{Fréquences}', '\\textbf{Fréquences en pourcentages}')
-      correction2 += tableauColonneLigne(enteteTableau, premiereColonne, premiereLigneTableau.concat(deuxiemeLigneTableau))
-      correction2 += '<br>'
-    } else { // Pas besoin de tableau pour une seule valeur demandée.
-      correction2 = '<br>' + numAlpha(1) + `Calcul de la fréquence de la valeur ${serie.modalites[rangValeurChoisie]}<br><br>`
-      correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
-      correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$.<br><br>'
-      correction2 += 'On en déduit donc :<br>'
-      const fValeur = fraction(serie.effectifs[rangValeurChoisie], serie.effectifTotal)
-      correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}= ${fValeur.texFraction}$<br>`
-      correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}${egalOuApprox(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)}${texNombre(arrondi(fValeur.pourcentage, 1))} ${sp(1)}\\%$`
-    }
-
-    if (!exercice.interactif && !context.isAmc) { // Questions normales pour version non interactive html ou latex
-      questions = [preambule,
-        numAlpha(0) + 'Déterminer l\'effectif manquant.<br>',
-        numAlpha(1) + `Déterminer les fréquences pour chaque ${serie.caractere.substring(5)} (en pourcentage, arrondir au dixième si besoin).<br>`]
-    } else {
-      if (!context.isAmc) { // Questions pour interactivité html
-        setReponse(exercice, numero * 2, serie.effectifs[serie.rangEffectifCache], { formatInteractif: 'calcul' })
-        setReponse(exercice, numero * 2 + 1, frequenceDemandee, { formatInteractif: 'calcul' })
-        questions = [preambule,
-          numAlpha(0) + 'Déterminer l\'effectif manquant.' + ajouteChampTexteMathLive(exercice, numero * 2, '') + '<br>',
-          numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` + ajouteChampTexteMathLive(exercice, numero * 2 + 1, '', { texteApres: '%' }) + '<br>']
-      } else { // Pour AMC, on ne peut pas doubler les questions, il faut les intégrer dans un seul AMCHybride.
-        exercice.autoCorrection[numero] = {
-          options: { multicols: true },
-          enonce: preambule + '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.' + '<br>' + numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).`,
-          propositions: [
-            {
-              type: 'AMCNum',
-              propositions: [
-                {
-                  texte: correction1 + correction2,
-                  reponse: {
-                    texte: numAlpha(0),
-                    valeur: [serie.effectifs[serie.rangEffectifCache]],
-                    param: {
-                      digits: 3,
-                      decimals: 0,
-                      signe: false
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              type: 'AMCNum',
-              propositions: [
-                {
-                  texte: '',
-                  reponse: {
-                    texte: numAlpha(1),
-                    valeur: [frequenceDemandee],
-                    param: {
-                      digits: 3,
-                      decimals: 1,
-                      signe: false
-                    }
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      }
-    }
-    return { questions: questions.join('\n'), corrections: [correction1, correction2].join('\n') }
-  }
-
-  /**
-     * version 0 :
-     * La consigne avec un tableau d'effectifs
-     * */
-  function exerciceAvecTableau (theme, exercice, numero) { // On a besoin de l'exercice et du numéro de question pour l'interactif
-    // paramètres du problème
-    const serie = new Population(theme)
-    let preambule = serie.getPreambule('tableau')
-    // construction du tableau
-    const entetesColonnes = [`\\text{\\textbf{${serie.caracterePourTableau}}}`]
-    for (const modalite of serie.modalites) {
-      entetesColonnes.push(`\\text{${modalite}}`)
-    }
-    entetesColonnes.push('\\text{\\textbf{TOTAL}}')
-    const entetesLignes = ['\\text{\\textbf{Effectifs}}', '\\text{\\textbf{Fréquences}}']
-    const cellules = []
-    // première ligne des effectifs
-    serie.effectifs.forEach((eff, index) => {
-      if (index !== serie.rangEffectifCache) {
-        cellules.push(eff)
+function questionsEtCorrections (preambule, serie, exercice, numero) {
+  let questions = []
+  const rangValeurChoisie = randint(0, serie.effectifs.length - 1, serie.rangEffectifCache)
+  const frequenceDemandee = arrondi(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)
+  // correction question 1
+  let correction1 = numAlpha(0) + `L'effectif manquant est celui du ${serie.entreeCachee.charAt(0).toLocaleLowerCase() + serie.entreeCachee.slice(1)}. Soit $e$ cet effectif.<br>`
+  correction1 += `$e=${serie.effectifTotal}-( `
+  let first = true
+  serie.effectifs.forEach((eff, index) => {
+    if (index !== serie.rangEffectifCache) {
+      if (first) {
+        correction1 += `${eff} `
+        first = !first
       } else {
-        cellules.push('')
+        correction1 += `+ ${eff} `
       }
-    })
-    cellules.push(`${serie.effectifTotal}`)
-    // deuxième ligne de fréquences (vide)
-    for (let i = 0; i <= serie.effectifs.length; i++) {
-      cellules.push('')
     }
-    preambule += tableauColonneLigne(entetesColonnes, entetesLignes, cellules, 1.5)
-    preambule += '<br>'
-    const texte = questionsEtCorrections(preambule, serie, exercice, numero) // on récupère les questions/réponses en relation
-    return { questions: texte.questions, corrections: texte.corrections, effectifs: serie.effectifs } // On ajoute les effectifs pour ne pas avoir de doublons dans les différentes questions
-  }
-
-  /**
-     * version 1 :
-     * La consigne avec un diagramme bâton
-     * */
-  function exerciceAvecDiagramme (theme, exercice, numero) { // On a besoin de l'exercice et du numéro de question pour l'interactif
-    // paramètres du problème
-    const serie = new Population(theme)
-    let preambule = serie.getPreambule('diagramme')
-    // construction du diagramme
-    const effectifsSansValeurCachee = serie.effectifs.map((elt, i) => i !== serie.rangEffectifCache ? elt : 0)
-    const diagrammeBaton = graphique(effectifsSansValeurCachee, serie.modalites, {
-      reperageTraitPointille: false,
-      axeVertical: true,
-      titreAxeVertical: 'Effectifs',
-      labelAxeVert: true
+  })
+  correction1 += ')$<br>'
+  correction1 += `$e=${texNombre(serie.effectifTotal, 0)}-${texNombre(serie.effectifTotal - serie.effectifs[serie.rangEffectifCache], 0)}$<br>`
+  correction1 += `$e=${texNombre(serie.effectifs[serie.rangEffectifCache], 0)}$<br>`
+  // correction question 2
+  let correction2
+  if (!context.isAmc && !exercice.interactif) {
+    correction2 = numAlpha(1) + 'Calculs des fréquences.<br>'
+    correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
+    correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
+    correction2 += 'On en déduit donc les calculs suivants :<br><br>'
+    const enteteTableau = ['']
+    const premiereColonne = []
+    const premiereLigneTableau = []
+    const deuxiemeLigneTableau = []
+    serie.effectifs.forEach((eff, index) => {
+      enteteTableau.push(`\\text{${serie.modalites[index]}}`)
+      const f = fraction(eff, serie.effectifTotal)
+      premiereLigneTableau.push(f.texFraction)
+      deuxiemeLigneTableau.push(`${texNombre(f.pourcentage, 1)} ${sp(1)}\\%`)
     })
-    preambule += diagrammeBaton
-    const texte = questionsEtCorrections(preambule, serie, exercice, numero) // on,numero récupère les questions/réponses en relation
-    return { questions: texte.questions, corrections: texte.corrections, effectifs: serie.effectifs } // On ajoute les effectifs pour ne pas avoir de doublons dans les différentes questions
+    premiereColonne.push('\\textbf{Fréquences}', '\\textbf{Fréquences en pourcentages}')
+    correction2 += tableauColonneLigne(enteteTableau, premiereColonne, premiereLigneTableau.concat(deuxiemeLigneTableau))
+    correction2 += '<br>'
+  } else { // Pas besoin de tableau pour une seule valeur demandée.
+    correction2 = '<br>' + numAlpha(1) + `Calcul de la fréquence de la valeur ${serie.modalites[rangValeurChoisie]}<br><br>`
+    correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
+    correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$.<br><br>'
+    correction2 += 'On en déduit donc :<br>'
+    const fValeur = fraction(serie.effectifs[rangValeurChoisie], serie.effectifTotal)
+    correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}= ${fValeur.texFraction}$<br>`
+    correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}${egalOuApprox(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)}${texNombre(arrondi(fValeur.pourcentage, 1))} ${sp(1)}\\%$`
   }
 
-  // on met tout ensemble
-  this.nouvelleVersion = function () {
+  if (!exercice.interactif && !context.isAmc) { // Questions normales pour version non interactive html ou latex
+    questions = [preambule,
+      numAlpha(0) + 'Déterminer l\'effectif manquant.<br>',
+      numAlpha(1) + `Déterminer les fréquences pour chaque ${serie.caractere.substring(5)} (en pourcentage, arrondir au dixième si besoin).<br>`]
+  } else {
+    if (!context.isAmc) { // Questions pour interactivité html
+      setReponse(exercice, numero * 2, serie.effectifs[serie.rangEffectifCache], { formatInteractif: 'calcul' })
+      setReponse(exercice, numero * 2 + 1, frequenceDemandee, { formatInteractif: 'calcul' })
+      questions = [preambule,
+        numAlpha(0) + 'Déterminer l\'effectif manquant.' + ajouteChampTexteMathLive(exercice, numero * 2, '') + '<br>',
+        numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` + ajouteChampTexteMathLive(exercice, numero * 2 + 1, '', { texteApres: '%' }) + '<br>']
+    } else { // Pour AMC, on ne peut pas doubler les questions, il faut les intégrer dans un seul AMCHybride.
+      exercice.autoCorrection[numero] = {
+        options: { multicols: true },
+        enonce: preambule + '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.' + '<br>' + numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).`,
+        propositions: [
+          {
+            type: 'AMCNum',
+            propositions: [
+              {
+                texte: correction1 + correction2,
+                reponse: {
+                  texte: numAlpha(0),
+                  valeur: [serie.effectifs[serie.rangEffectifCache]],
+                  param: {
+                    digits: 3,
+                    decimals: 0,
+                    signe: false
+                  }
+                }
+              }
+            ]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [
+              {
+                texte: '',
+                reponse: {
+                  texte: numAlpha(1),
+                  valeur: [frequenceDemandee],
+                  param: {
+                    digits: 3,
+                    decimals: 1,
+                    signe: false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+  return { questions: questions.join('\n'), corrections: [correction1, correction2].join('\n') }
+}
+
+// on met tout ensemble
+const listeDesThemes = ['hasard', 'etablissement', 'salon', 'parking', 'collection']
+export default class CalculerDesFrequences extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 1
+
+    this.spacingCorr = 1.5
+
+    this.sup = 1
+    this.besoinFormulaireNumerique = [
+      'Type de questions', 4, [
+        '1 : Choix d\'un exercice aléatoire parmi les deux versions',
+        '2 : Calculer des fréquences à partir d\'un tableau d\'effectifs',
+        '3 : Calculer des fréquences à partir d\'un diagramme bâton',
+        '4 : Les deux versions en deux questions (thème du 2e au hasard)'
+      ].join('\n')
+    ]
+    this.sup2 = 1
+    this.besoinFormulaire2Numerique = [
+      'Thème du contexte', 5, [
+        '1 : Au hasard',
+        '2 : Établissement scolaire et sports préférés',
+        '3 : Salon européen et nationalités des participants',
+        '4 : Parking et couleurs des voitures',
+        '5 : Collection de disques et styles de musique'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     const theme = listeDesThemes[this.sup2 - 1]
     const exercice = { questions: [], corrections: [] }
     let transit = {}
@@ -444,8 +444,8 @@ export default function CalculerDesFrequences () {
           exercice.corrections.push(transit.corrections)
       }
       if (this.questionJamaisPosee(i, ...transit.effectifs)) {
-        this.listeQuestions.push(...exercice.questions)
-        this.listeCorrections.push(...exercice.corrections)
+        this.listeQuestions[i] = exercice.questions[0]
+        this.listeCorrections[i] = exercice.corrections[0]
         i++
       }
       cpt++

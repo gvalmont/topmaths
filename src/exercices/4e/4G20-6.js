@@ -1,10 +1,10 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Encadrer une racine carrée et en donner un arrondi'
@@ -16,32 +16,31 @@ export const amcType = 'AMCHybride'
 /**
  * Encadrer une racine carrée et en donner une valeur approchée
  * @author Guillaume Valmont  (Amélioration AMC par Eric Elter)
- * Référence 4G20-6
+
  * Date de publication : 08/08/2021
  */
 export const uuid = '516d1'
-export const ref = '4G20-6'
+
 export const refs = {
   'fr-fr': ['4G20-6'],
   'fr-ch': ['10NO3-4']
 }
-export default function CalculValeurApprocheeRacineCarree () {
-  Exercice.call(this)
-  this.nbQuestions = 6
+export default class CalculValeurApprocheeRacineCarree extends Exercice {
+  constructor () {
+    super()
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
-  this.video = ''
-  this.besoinFormulaireNumerique = ['Avec ou sans calculatrice', 3, '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : Collège\n2 : Lycée']
-  this.sup = 3
-  this.sup2 = 1
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.sup = parseInt(this.sup)
+    this.nbQuestions = 6
+
+    this.nbCols = 2
+    this.nbColsCorr = 2
+
+    this.besoinFormulaireNumerique = ['Avec ou sans calculatrice', 3, '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : Collège\n2 : Lycée']
+    this.sup = 3
+    this.sup2 = 1
+  }
+
+  nouvelleVersion () {
     let listeAvecOuSansCalculatrice
     if (this.sup === 1) {
       listeAvecOuSansCalculatrice = ['avec']
@@ -199,8 +198,9 @@ export default function CalculValeurApprocheeRacineCarree () {
             }
           }
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (listeAvecOuSansCalculatrice[i] === 'avec') {
           indexRep++
         } else {

@@ -1,14 +1,14 @@
 import Decimal from 'decimal.js'
 import { evaluate, format, round } from 'mathjs'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import {
   tropDeChiffres
-} from '../../modules/outils.js'
-import { miseEnEvidence } from './embellissements.js'
-import { extraireRacineCarree } from './calculs.js'
+} from '../../modules/outils'
+import { miseEnEvidence } from './embellissements'
+import { extraireRacineCarree } from './calculs'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres'
-import { sp } from './outilString.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import { sp } from './outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
 const math = { format, evaluate }
 /**
  *
@@ -202,7 +202,10 @@ export function scientifiqueToDecimal (mantisse: number, exp: number) {
  * @param {boolean?} aussiCompleterEntiers=false si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb: number | Decimal, precision: number, completerZeros = false, aussiCompleterEntiers = false) {
+export function stringNombre (nb: number | Decimal, precision?: number, completerZeros?:boolean, aussiCompleterEntiers?:boolean) {
+  if (completerZeros === undefined) completerZeros = false
+  if (aussiCompleterEntiers === undefined) aussiCompleterEntiers = false
+  if (precision === undefined) precision = 8
   if (typeof nb === 'string') {
     window.notify('stringNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
   }

@@ -1,20 +1,20 @@
-import { cercle, cercleCentrePoint, traceCompas } from '../../lib/2d/cercle.js'
-import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
-import { codageSegments } from '../../lib/2d/codages.js'
-import { droite } from '../../lib/2d/droites.js'
-import { point, pointAdistance, pointIntersectionCC, tracePoint } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
-import { rotation, similitude } from '../../lib/2d/transformations.js'
+import { cercle, cercleCentrePoint, traceCompas } from '../../lib/2d/cercle'
+import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
+import { codageSegments } from '../../lib/2d/codages'
+import { droite } from '../../lib/2d/droites'
+import { point, pointAdistance, pointIntersectionCC, tracePoint } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPoint } from '../../lib/2d/textes'
+import { rotation, similitude } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import Alea2iep from '../../modules/Alea2iep.js'
-import { context } from '../../modules/context.js'
+import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils'
+import Alea2iep from '../../modules/Alea2iep'
+import { context } from '../../modules/context'
 
 export const titre = 'Construire des parallélogrammes avec dispositif d\'auto-correction'
 export const dateDeModifImportante = '18/04/2024'
@@ -28,24 +28,29 @@ export const amcType = 'AMCHybride'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  */
 export const uuid = 'b611a'
-export const ref = '5G40'
+
 export const refs = {
   'fr-fr': ['5G40'],
   'fr-ch': ['9ES4-4']
 }
-export default function ConstructionsParallelogrammes () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 5
-  this.sup2 = 2
-  this.spacingCorr = 2
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function (numeroExercice) {
+export default class ConstructionsParallelogrammes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Mélange']
+    this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
+
+    this.nbQuestions = 1
+
+    this.sup = 5
+    this.sup2 = 2
+    this.spacingCorr = 2
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion (numeroExercice) {
     const tailleGrille = 0.2 + this.sup2 * 0.2
-    this.autoCorrection = [] // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+
     // const typeQuestionsDisponibles = [1, 2, 3, 4]
     //    if (this.sup < 5) typeQuestionsDisponibles = [parseInt(this.sup)]
 
@@ -316,14 +321,12 @@ export default function ConstructionsParallelogrammes () {
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Supprime b, c et d dans la ligne ci-dessus et remplace les par NombreAAjouter !
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Mélange']
-  this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
 }

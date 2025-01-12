@@ -1,12 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import { context } from '../../modules/context.js'
+import { numAlpha } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { OutilsStats } from '../../modules/outilsStat.js'
-import Exercice from '../deprecatedExercice.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { OutilsStats } from '../../modules/outilsStat'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer des caractéristiques d\'une série'
@@ -23,31 +23,31 @@ export const dateDeModifImportante = '19/08/2023'
  * @author Mickael Guironnet
  */
 export const uuid = 'b8afd'
-export const ref = '3S14'
+
 export const refs = {
   'fr-fr': ['3S14'],
   'fr-ch': ['11NO2-11']
 }
 
-export default function CalculerCaracteristiques () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
-  this.nbQuestions = 4
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbColsCorr = 1
-  this.nbCols = 1
-  this.sup = 7
-  this.sup2 = 4
-  this.sup3 = true
+export default class CalculerCaracteristiques extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de séries',
+      'Nombres séparés par des tirets\n1 : Lancers de dés\n2 : Notes\n3 : Températures\n4 : Salaires\n5 : Pointures\n6 : Notes avec coefficients\n7 : Mélange']
+    this.besoinFormulaire2Texte = [
+      'Choix des questions',
+      'Nombres séparés par des tirets\n1 : Moyenne\n2 : Médiane\n3 : Étendue\n4 : Toutes']
+    this.besoinFormulaire3CaseACocher = ['Avec du vocabulaire explicatif']
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.nbQuestions = 4
 
+    this.sup = 7
+    this.sup2 = 4
+    this.sup3 = true
+  }
+
+  nouvelleVersion () {
     const questionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -534,18 +534,11 @@ export default function CalculerCaracteristiques () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de séries',
-    'Nombres séparés par des tirets\n1 : Lancers de dés\n2 : Notes\n3 : Températures\n4 : Salaires\n5 : Pointures\n6 : Notes avec coefficients\n7 : Mélange']
-  this.besoinFormulaire2Texte = [
-    'Choix des questions',
-    'Nombres séparés par des tirets\n1 : Moyenne\n2 : Médiane\n3 : Étendue\n4 : Toutes']
-  this.besoinFormulaire3CaseACocher = ['Avec du vocabulaire explicatif']
 }

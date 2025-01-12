@@ -11,7 +11,6 @@ import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import type FractionEtendue from '../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -183,7 +182,7 @@ export default class BetaReperage2e extends Exercice {
           exercice: this,
           question: i * this.sup3 + k,
           typeInteractivite: 'remplisLesBlancs',
-          objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
+          objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
           content: '(%{champ1}~~;~~%{champ2})'
         })}`).join('<br>')
       } else {
@@ -192,8 +191,8 @@ export default class BetaReperage2e extends Exercice {
       const reponse = `Dans le repère $(${labelO},${labelI},${labelK})$ sont :<br>
             $${points[i].map((p, k) => `${listeNoms[k + 3]}(${x[i][k].texFractionSimplifiee};${y[i][k].texFractionSimplifiee})`).join(', ')}$`
       if (this.questionJamaisPosee(i, ...X[i], ...Y[i], ...coordsI, ...coordsK)) {
-        this.listeQuestions.push(question)
-        this.listeCorrections.push(reponse)
+        this.listeQuestions[i] = question
+        this.listeCorrections[i] = reponse
         i++
       }
     }

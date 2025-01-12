@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -22,36 +22,38 @@ export const dateDeModifImportante = '13/08/2024'
  */
 
 export const uuid = '25fb4'
-export const ref = '2N14-1'
+
 export const refs = {
   'fr-fr': ['2N14-1'],
   'fr-ch': ['10NO1-1']
 }
-export default function EnsembleDeNombres () {
-  Exercice.call(this)
-  this.consigne = 'Parmi $\\mathbb{R}$, $\\mathbb{Q}$, $\\mathbb{D}$, $\\mathbb{Z}$ et $\\mathbb{N}$, déterminer le plus petit ensemble de nombres auquel le nombre proposé appartient.'
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 10
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Entier naturel',
-      '2 : Entier relatif',
-      '3 : Nombre décimal',
-      '4 : Racine carrée d\'un carré',
-      '5 : Fraction égale à un entier',
-      '6 : Nombre rationnel',
-      '7 : Fraction égale à un décimal',
-      '8 : Racine carrée irrationnelle',
-      '9 : Nombre irrationnel',
-      '10 : Mélange'
-    ].join('\n')
-  ]
+export default class EnsembleDeNombres extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.consigne = 'Parmi $\\mathbb{R}$, $\\mathbb{Q}$, $\\mathbb{D}$, $\\mathbb{Z}$ et $\\mathbb{N}$, déterminer le plus petit ensemble de nombres auquel le nombre proposé appartient.'
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 10
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Entier naturel',
+        '2 : Entier relatif',
+        '3 : Nombre décimal',
+        '4 : Racine carrée d\'un carré',
+        '5 : Fraction égale à un entier',
+        '6 : Nombre rationnel',
+        '7 : Fraction égale à un décimal',
+        '8 : Racine carrée irrationnelle',
+        '9 : Nombre irrationnel',
+        '10 : Mélange'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -160,8 +162,8 @@ export default function EnsembleDeNombres () {
       texte += this.interactif ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemblePredefini) : '$\\dots$'
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

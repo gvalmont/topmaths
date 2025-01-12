@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = ''
@@ -15,7 +15,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class CalculDivers extends Exercice {
   constructor () {
@@ -24,13 +24,10 @@ export default class CalculDivers extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: '€' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     let a
     let b
     switch (randint(1, 2)) {

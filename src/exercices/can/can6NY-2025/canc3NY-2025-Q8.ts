@@ -7,7 +7,7 @@ import Decimal from 'decimal.js'
 import { droiteGraduee } from '../../../lib/2d/reperes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { latex2d } from '../../../lib/2d/textes'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer une abscisse'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter + Gilles Mora
- * Référence
+
 */
 export default class CompleterUneSuite extends Exercice {
   constructor () {
@@ -28,13 +28,10 @@ export default class CompleterUneSuite extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const choix = choice([true, false])
     const abs0 = choix ? 2000 : 2020
     const abs1 = choix ? abs0 + 25 : abs0 + 5

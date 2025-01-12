@@ -1,6 +1,6 @@
 import { combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lcm } from 'mathjs'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -21,14 +21,13 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
 export default class systemeEquationsPremDeg extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
     this.nbQuestions = 3
     this.sup = 4
     this.sup2 = false
@@ -43,9 +42,7 @@ export default class systemeEquationsPremDeg extends Exercice {
     } else {
       this.consigne = 'Résoudre les systèmes d\'équations suivants par combinaison linéaire :'
     }
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     this.besoinFormulaire2CaseACocher = ['Solution contenant des fractions']
     let typeQuestionsDisponibles: ('lv1' | 'lv2' | 'lv3')[]
     if (this.sup === 1) {
@@ -268,8 +265,8 @@ export default class systemeEquationsPremDeg extends Exercice {
         )
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

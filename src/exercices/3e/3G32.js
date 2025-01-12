@@ -1,4 +1,4 @@
-import problemesTrigoLongueur from '../3e/3G32-0.js'
+import problemesTrigoLongueur from '../3e/3G32-0'
 export const titre = "Calculer la largeur d'une rivière"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,7 +10,7 @@ export const amcType = 'AMCHybride'
  * reference 3G32
  */
 export const uuid = '95adb'
-export const ref = '3G32'
+
 export const refs = {
   'fr-fr': ['3G32'],
   'fr-ch': []

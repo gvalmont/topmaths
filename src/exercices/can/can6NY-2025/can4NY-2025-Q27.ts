@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Convertir m$^3$ et Litres'
@@ -23,14 +23,10 @@ export default class Convertir extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     // this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
-
     let a, b
     switch (choice(['b', 'b'])) {
       case 'a':
@@ -55,7 +51,7 @@ export default class Convertir extends Exercice {
         if (!this.interactif) {
           this.question += ' .... m$^3$ '
         }
-        this.formatChampTexte = ''
+
         this.optionsChampTexte = { texteApres: ' m$^3$' }
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}$ L $ = \\dots$ m$^3$`

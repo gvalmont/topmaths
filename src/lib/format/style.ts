@@ -4,7 +4,7 @@
  * @author Rémi Angot
  */
 import Decimal from 'decimal.js'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { choice } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
 
@@ -55,7 +55,8 @@ export function texcolors (i: number, fondblanc = true) {
  * @param {string} texte à mettre en gras
  * @author Rémi Angot
  */
-export function texteGras (texte: string) {
+export function texteGras (texte: string | number) {
+  if (typeof texte === 'number') texte = String(texte)
   if (context.isHtml) {
     return `<b>${texte}</b>`
   } else {

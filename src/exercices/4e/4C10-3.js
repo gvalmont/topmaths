@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -19,22 +19,24 @@ export const interactifType = 'mathLive'
  * 4C10-3
  */
 export const uuid = '153b9'
-export const ref = '4C10-3'
+
 export const refs = {
   'fr-fr': ['4C10-3'],
   'fr-ch': ['10NO4-5']
 }
-export default function ExerciceMultiplicationsRelatifs (max = 10) {
-  Exercice.call(this)
-  this.sup = max
-  this.sup2 = false // écriture simplifiée
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = 'Calculer.'
-  this.spacing = 2
+export default class ExerciceMultiplicationsRelatifs extends Exercice {
+  constructor (max = 10) {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+    this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
+    this.sup = max
+    this.sup2 = false // écriture simplifiée
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+  }
+
+  nouvelleVersion () {
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup)
       b = randint(1, this.sup)
@@ -58,14 +60,12 @@ export default function ExerciceMultiplicationsRelatifs (max = 10) {
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
       if (this.questionJamaisPosee(i, a, b, k)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-  this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
 }

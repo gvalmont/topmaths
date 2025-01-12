@@ -1,8 +1,8 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, printlatex, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, printlatex, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -20,27 +20,43 @@ export const dateDeModifImportante = '06/02/2024'
  * @author Rémi Angot (Amélioration AMC par Eric Elter)
  */
 export const uuid = 'f6853'
-export const ref = '3L11-2'
+
 export const refs = {
   'fr-fr': ['3L11-2'],
   'fr-ch': ['10FA1-13']
 }
-export default function ReductionSiPossible () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.tailleDiaporama = 3
-  this.sup = false
-  this.sup2 = false
-  this.sup3 = 9
-  this.listeAvecNumerotation = false
+export default class ReductionSiPossible extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['On peut toujours réduire.']
+    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.besoinFormulaire3Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : ax+b',
+        '2 : ax+bx',
+        '3 : ax+bx²',
+        '4 : ax*b',
+        '5 : b*ax',
+        '6 : ax+b+cx+d',
+        '7 : b+ax+d+cx',
+        '8 : ax+b+x',
+        '9 : Mélange'
+      ].join('\n')
+    ]
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+
+    this.sup = false
+    this.sup2 = false
+    this.sup3 = 9
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes, si cela est possible.' : 'Réduire l\'expression suivante, si cela est possible.'
-    this.autoCorrection = []
 
     const exclus = []
     if (this.sup) {
@@ -170,7 +186,6 @@ export default function ReductionSiPossible () {
           break
       }
       if (this.sup2) {
-        this.spacingCorr = 1
         // On découpe
         const etapes = texteCorr.split('=')
         texteCorr = ''
@@ -240,29 +255,12 @@ export default function ReductionSiPossible () {
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenuSansNumero(this)
   }
-
-  this.besoinFormulaireCaseACocher = ['On peut toujours réduire.']
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
-  this.besoinFormulaire3Texte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : ax+b',
-      '2 : ax+bx',
-      '3 : ax+bx²',
-      '4 : ax*b',
-      '5 : b*ax',
-      '6 : ax+b+cx+d',
-      '7 : b+ax+d+cx',
-      '8 : ax+b+x',
-      '9 : Mélange'
-    ].join('\n')
-  ]
 }

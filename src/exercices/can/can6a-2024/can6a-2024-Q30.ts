@@ -10,17 +10,16 @@ export const uuid = 'd7ce2'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 
 export default class QuestionDeDifference extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
+
     this.canOfficielle = false
   }
 

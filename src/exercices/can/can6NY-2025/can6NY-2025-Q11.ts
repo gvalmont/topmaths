@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Charger d\'unités'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class ChangerUnites extends Exercice {
   constructor () {
@@ -25,13 +25,10 @@ export default class ChangerUnites extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const choix = choice([true, false])
     if (choix) {
       this.reponse = 20.25

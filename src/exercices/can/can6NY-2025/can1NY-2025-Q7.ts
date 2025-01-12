@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
 export const titre = 'Donner une écriture scientifique'
@@ -23,13 +23,10 @@ export default class ecritureScien extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { texteSansCasse: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const exposant = randint(0, 2)
     const a = new Decimal(2025).div(new Decimal(10).pow(exposant))
     this.question = `Quelle est l'écriture scientifique de $${texNombre(a)}$ ?`

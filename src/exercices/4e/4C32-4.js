@@ -2,9 +2,9 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeDesDiviseurs, texFactorisation } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -17,37 +17,32 @@ export const dateDePublication = '20/08/2022' // La date de publication initiale
 /**
  * Calculs avec des multiplications et des puissances de 10
  * @author Mickael Guironnet
- * Référence 4C32-4
+
  * 2022-08-18
 */
 export const uuid = '8b399'
-export const ref = '4C32-4'
+
 export const refs = {
   'fr-fr': ['4C32-4'],
   'fr-ch': ['10NO2-7', '11NO1-1']
 }
-export default function CalculsPuissancesDe10 () {
-  Exercice.call(this)
-  this.sup = 1
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.nbQuestions = 5
-  this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
-  this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+export default class CalculsPuissancesDe10 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile']
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.autoCorrection = []
+    this.sup = 1
 
+    this.amcReady = amcReady
+    this.amcType = amcType
+
+    this.nbQuestions = 5
+    this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
+    this.correctionDetaillee = false // booléen indiquant si la correction détaillée doit être affiché par défaut (récupéré dans l'url avec le paramètre `,cd=`).
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Donner la notation scientifique.'
-
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     const listeFacteurs1 = [2, 3, 5, 7]
 
@@ -119,14 +114,12 @@ export default function CalculsPuissancesDe10 () {
         texte += props.texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile']
 }

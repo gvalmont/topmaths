@@ -1,10 +1,10 @@
-import { arcPointPointAngle, cercle } from '../../lib/2d/cercle.js'
-import { texteSurSegment } from '../../lib/2d/codages.js'
-import { point } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements.js'
-import { mathalea2d } from '../2dGeneralites.js'
+import { arcPointPointAngle, cercle } from '../../lib/2d/cercle'
+import { texteSurSegment } from '../../lib/2d/codages'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements'
+import { mathalea2d } from '../2dGeneralites'
 export function getMathalea2DExport (graphic /** GVGraphicView */) {
   if (graphic.allowResize) graphic.resize()
   const scaleppc = 20 / (graphic.ppc ?? 20)

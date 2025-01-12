@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 
 export const titre = 'Titre de l\'exercice'
@@ -12,14 +12,13 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * Description didactique de l'exercice
+ *
  * @author
 */
 export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = 'Consigne'
-    this.nbQuestions = 10
   }
 
   nouvelleVersion () {
@@ -43,8 +42,8 @@ export default class nomExercice extends Exercice {
           break
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

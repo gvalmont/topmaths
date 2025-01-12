@@ -1,11 +1,11 @@
-import { courbe } from '../../lib/2d/courbes.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { courbe } from '../../lib/2d/courbes'
+import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Représentation graphique d\'un polynôme du second degré'
 
@@ -16,20 +16,24 @@ export const titre = 'Représentation graphique d\'un polynôme du second degré
  * - les racines
  * - les coordonnées du sommet et/ou la valeur de l'extremum
  * - les 3 trucs précédents
- * référence 1E12-1
+
  */
 export const uuid = 'a896e'
-export const ref = '1AL23-50'
+
 export const refs = {
   'fr-fr': ['1AL23-50'],
   'fr-ch': ['1F3-1']
 }
-export default function LireElementsCarac () {
-  Exercice.call(this)
-  this.nbQuestions = 5 // Nombre de questions par défaut
-  this.sup = 4
+export default class LireElementsCarac extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Signe du coefficient dominant\n2 : Racines\n3 : Coordonnées du sommet\n4 : Mélange des trois type de questions']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5 // Nombre de questions par défaut
+    this.sup = 4
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Répondre à '
     this.consigne += this.nbQuestions > 1 ? 'ces questions' : 'cette question'
     this.consigne += ' par lecture graphique.'
@@ -50,8 +54,10 @@ export default function LireElementsCarac () {
         case 1: // Signe du coefficient dominant
           texte = 'Quel est le signe du coefficient dominant'
           // On choisit 2 racines entières distinctes dans [-10;10]
-          x1 = randint(-10, 10)
-          x2 = randint(-10, 10, x1)// Flemme de coder la gestion d'une racine double
+          do {
+            x1 = randint(-10, 10)
+            x2 = randint(-10, 10, x1)
+          } while (x1 * x2 > 0)// Flemme de coder la gestion d'une racine double
           // On fabrique les coeffs à partir des racines
           b = -a * (x1 + x2)
           c = x1 * x2 * a
@@ -61,8 +67,10 @@ export default function LireElementsCarac () {
         case 2: // Racines
           texte = 'Quelles sont les racines'
           // On choisit 2 racines entières distinctes dans [-10;10]
-          x1 = randint(-10, 10)
-          x2 = randint(-10, 10, x1)// Flemme de coder la gestion d'une racine double
+          do {
+            x1 = randint(-10, 10)
+            x2 = randint(-10, 10, x1)
+          } while (x1 * x2 > 0) // Flemme de coder la gestion d'une racine double
           // On fabrique les coeffs à partir des racines
           b = -a * (x1 + x2)
           c = x1 * x2 * a
@@ -118,7 +126,7 @@ export default function LireElementsCarac () {
         Yscale = 1
       }
       r = repere({
-        xMmin: Xmin,
+        xMin: Xmin,
         yMin: premierMultipleInferieur(Yscale, Ymin),
         yMax: premierMultipleSuperieur(Yscale, Ymax),
         xMax: Xmax,
@@ -132,7 +140,10 @@ export default function LireElementsCarac () {
       svgYmax = Math.max(Ymax / Yscale, 1)
 
       F = x => a * x ** 2 + b * x + c
-
+      const objets = [
+        r,
+        courbe(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 })
+      ]
       texte += mathalea2d({
         xmin: Xmin - 1,
         xmax: Xmax + 1,
@@ -140,17 +151,15 @@ export default function LireElementsCarac () {
         ymax: svgYmax + 2,
         pixelsParCm,
         scale: 0.6
-      }, r,
-      courbe(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 }))
+      }, objets)
 
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Signe du coefficient dominant\n2 : Racines\n3 : Coordonnées du sommet\n4 : Mélange des trois type de questions']
 }

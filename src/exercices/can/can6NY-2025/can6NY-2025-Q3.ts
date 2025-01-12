@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer des sommes et des différences avec 2024 et 2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +15,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class calcAvecSommesEtDiff extends Exercice {
   constructor () {
@@ -24,13 +24,10 @@ export default class calcAvecSommesEtDiff extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const choix = choice([1, 2, 3, 4, 5])
     if (choix === 1) {
       this.question = `$${texNombre(2025, 0)}+${texNombre(2024, 0)}$`

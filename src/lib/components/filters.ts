@@ -139,7 +139,7 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
   ```
  */
 export function featuresCriteria (
-  specs: ('interactif' | 'amc'|'qcm')[]
+  specs: ('interactif' | 'amc' | 'qcm' | 'qcmcam')[]
 ): Criterion<ResourceAndItsPath> {
   // construction du critère pour la spécification `amc`
   const amcCriterion: Criterion<ResourceAndItsPath> = {
@@ -168,6 +168,25 @@ export function featuresCriteria (
           if (
             item.resource.features.qcm &&
             item.resource.features.qcm.isActive
+          ) {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      })
+    }
+  }
+  // construction du critère pour la spécification `qcmcam`
+  const qcmcamCriterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]): ResourceAndItsPath[] {
+      return items.filter((item: ResourceAndItsPath) => {
+        if (isExerciceItemInReferentiel(item.resource)) {
+          if (
+            item.resource.features.qcmcam &&
+            item.resource.features.qcmcam.isActive
           ) {
             return true
           } else {
@@ -218,12 +237,28 @@ export function featuresCriteria (
         return interactifCriterion
       case 'qcm':
         return qcmCriterion
+      case 'qcmcam':
+        return qcmcamCriterion
     }
   } else {
-    // les deux spécifications sont présents, on renvoie l'intersection des deux critères
+    //  on renvoie l'intersection des critères
     const criterion = new MultiCriteria<ResourceAndItsPath>()
-    criterion.addCriterion(amcCriterion)
-    criterion.addCriterion(interactifCriterion)
+    for (const spec of specs) {
+      switch (spec) {
+        case 'amc':
+          criterion.addCriterion(amcCriterion)
+          break
+        case 'interactif':
+          criterion.addCriterion(interactifCriterion)
+          break
+        case 'qcm':
+          criterion.addCriterion(qcmCriterion)
+          break
+        case 'qcmcam':
+          criterion.addCriterion(qcmcamCriterion)
+          break
+      }
+    }
     return criterion
   }
 }

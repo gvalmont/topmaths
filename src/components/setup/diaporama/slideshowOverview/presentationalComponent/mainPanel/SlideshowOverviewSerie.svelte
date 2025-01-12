@@ -31,7 +31,7 @@
         <span class="font-black
           text-coopmaths-struct dark:text-coopmathsdark-struct"
         >
-          {index + 1}.
+          {index + 1})
         </span>
       </div>
       <div class="flex flex-col justify-start items-start">

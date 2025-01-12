@@ -1,19 +1,19 @@
 /* eslint-disable camelcase */
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { texteParPositionEchelle } from '../../lib/2d/textes.ts'
+import { point, tracePoint } from '../../lib/2d/points'
+import { texteParPositionEchelle } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
-import { createLink } from '../../lib/outils/modales.js'
+import { createLink } from '../../lib/outils/modales'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { scratchblock } from '../../modules/scratchblock.js'
-import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
-import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
+import Exercice from '../Exercice'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { scratchblock } from '../../modules/scratchblock'
+import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 
 export const titre = 'Note la couleur (Scratch)'
 export const interactifReady = true
@@ -28,30 +28,31 @@ export const dateDePublication = '11/04/2021'
  * @author Jean-Claude Lhote
  */
 export const uuid = 'e380b'
-export const ref = 'c3I11'
+
 export const refs = {
   'fr-fr': ['c3I11'],
   'fr-ch': []
 }
-export default function NoteLaCouleurC3 () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
-  this.typeExercice = 'Scratch'
-  this.sup = 1
-  this.sup2 = true
-  this.sup3 = 4
-  this.sup4 = true
-  this.relatif = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
+export default class NoteLaCouleurC3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
+    this.besoinFormulaire2CaseACocher = ['Graduations', true]
+    this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
+    this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.typeExercice = 'Scratch'
+    this.sup = 1
+    this.sup2 = true
+    this.sup3 = 4
+    this.sup4 = true
+    this.relatif = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
+
+  nouvelleVersion () {
     const damier = [
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
       ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Jaune', 'Rose', 'Blanc'],
@@ -68,8 +69,7 @@ export default function NoteLaCouleurC3 () {
     ]
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     const echelleDessin = 0.75
-    this.listeQuestions = []
-    this.listeCorrections = []
+
     let j, test
     let objetsEnonce = []
     let objetsCorrection = []
@@ -312,15 +312,12 @@ export default function NoteLaCouleurC3 () {
         texteCorr += '\n\\newpage'
       }
       if (this.questionJamaisPosee(q, xdepart, ydepart, angledepart)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[q] = texte
+        this.listeCorrections[q] = texteCorr
+
         q++
       }
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
-  this.besoinFormulaire2CaseACocher = ['Graduations', true]
-  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
-  this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
 }

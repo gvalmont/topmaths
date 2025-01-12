@@ -31,7 +31,7 @@ export default class NelleCaledoniep19Ex1Q3 extends ExerciceQcmA {
     { nom: 'Neptune', masse: 1.02e26 }
   ]
 
-  private appliquerLesValeurs ({ nom, masse }: {nom: string, masse: number}): void {
+  private appliquerLesValeurs ({ nom, masse }: { nom: string, masse: number }): void {
     const ordreDeGrandeur = Math.round(Math.log10(masse))
     const expo1 = ordreDeGrandeur - 22
     const expo2 = ordreDeGrandeur - 41

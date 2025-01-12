@@ -1,29 +1,35 @@
-import { milieu, point, pointAdistance } from '../../lib/2d/points.js'
+import { milieu, point, pointAdistance } from '../../lib/2d/points'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Alea2iep from '../../modules/Alea2iep.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Alea2iep from '../../modules/Alea2iep'
 export const titre = 'Réaliser le quotient de deux longueurs à la règle non graduée et au compas'
 
 export const dateDePublication = '1/11/2021'
 
 /**
  * @author Rémi Angot
- * Référence PEG24
+
 */
 export const uuid = 'f9dd2'
-export const ref = 'PEG24'
+
 export const refs = {
   'fr-fr': ['PEG24'],
   'fr-ch': []
 }
-export default function QuotientDeDeuxLongueurs () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.sup = 1
+export default class QuotientDeDeuxLongueurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Longueur de l\'unité en cm', 10]
+    this.besoinFormulaire2Numerique = ['Longueur de a en cm', 10, 'Valeur au hasard si laissé vide']
+    this.besoinFormulaire3Numerique = ['Longueur de b en cm', 10, 'Valeur au hasard si laissé vide']
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.sup = 1
+  }
+
+  nouvelleVersion (numeroExercice) {
     const anim = new Alea2iep()
     const unite = this.sup
     const a = this.sup2 === undefined ? randint(2, 5) : this.sup2
@@ -116,7 +122,4 @@ export default function QuotientDeDeuxLongueurs () {
     this.listeCorrections = [texteCorr]
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Longueur de l\'unité en cm', 10]
-  this.besoinFormulaire2Numerique = ['Longueur de a en cm', 10, 'Valeur au hasard si laissé vide']
-  this.besoinFormulaire3Numerique = ['Longueur de b en cm', 10, 'Valeur au hasard si laissé vide']
 }

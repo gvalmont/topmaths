@@ -2,15 +2,14 @@ import { choice, combinaisonListes, combinaisonListesSansChangerOrdre } from '..
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere, rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { pow } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const dateDeModifImportante = '22/09/2024'
 export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
@@ -28,7 +27,7 @@ export const amcType = 'AMCNum'
  */
 
 export const uuid = '34579'
-export const ref = '6N10-3'
+
 export const refs = {
   'fr-fr': ['6N10-3'],
   'fr-ch': ['9NO1-4']
@@ -91,21 +90,24 @@ function nombreDeJustif (type, str, rang, cduNum) {
   return sortie
 }
 
-export default function ChiffreNombreDe () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 3
+export default class ChiffreNombreDe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Chiffre des ...\n2 : Nombre de ...\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Nombre maximum', 3, '1 : 1 000\n2 : 1 000 000\n3 : 1 000 000 000']
 
-  this.nbQuestions = 6
+    this.sup = 1
+    this.sup2 = 3
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    this.nbQuestions = 6
+  }
 
-  let typesDeQuestionsDisponibles = []
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    let typesDeQuestionsDisponibles = []
     this.consigne = (this.interactif && this.sup > 1) ? texteGras('Penser à mettre les espaces nécessaires.') : ''
     let listeChiffres = []
     let listeLettres = []
@@ -126,8 +128,6 @@ export default function ChiffreNombreDe () {
         }
         break
     }
-
-    this.autoCorrection = []
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
     const reponses = []
@@ -293,7 +293,7 @@ export default function ChiffreNombreDe () {
       }
       texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
       texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
-      handleAnswers(this, i, { reponse: { value: texNombre(reponses[listeTypeDeQuestions[i]]), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+      handleAnswers(this, i, { reponse: { value: texNombre(reponses[listeTypeDeQuestions[i]]), options: { nombreAvecEspace: true } } })
 
       if (context.isAmc) {
         const nbDigitsSupplementaires = randint(1, 2)
@@ -321,14 +321,12 @@ export default function ChiffreNombreDe () {
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
         texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.numbersSpace}`, { texteAvant: `${sp(5)}` })
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Chiffre des ...\n2 : Nombre de ...\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Nombre maximum', 3, '1 : 1 000\n2 : 1 000 000\n3 : 1 000 000 000']
 }

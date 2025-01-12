@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -14,31 +14,31 @@ export const amcType = 'AMCNum'
 export const dateDePublication = '24/03/2021'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Benjamin Angot
  */
 
 export const uuid = 'ec7e4'
-export const ref = 'c3N20'
+
 export const refs = {
   'fr-fr': ['c3N20'],
   'fr-ch': ['9NO13-3']
 }
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
-  this.consigne = "Donner l'écriture décimale des nombres suivants."
-  this.nbQuestions = 6
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.sup = 2
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : L\'ordre est respecté\n 2 : L\'ordre des termes est aléatoire']
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = "Donner l'écriture décimale des nombres suivants."
+    this.nbQuestions = 6
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
 
+    this.sup = 2
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6'] // On créé 3 types de questions
     if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = ['type1', 'type5']
@@ -86,13 +86,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       if (this.questionJamaisPosee(i, a, b, c)) {
         setReponse(this, i, reponse)
         texte += ajouteChampTexteMathLive(this, i)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : L\'ordre est respecté\n 2 : L\'ordre des termes est aléatoire']
 }

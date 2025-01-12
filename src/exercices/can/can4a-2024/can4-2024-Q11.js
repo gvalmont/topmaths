@@ -12,12 +12,12 @@ export const uuid = 'b8916'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
@@ -26,7 +26,6 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.formatInteractif = 'calcul'
       this.reponse = 45
       this.question = '$\\dfrac{3}{4}$ d\'heure $=$ '
       this.correction = `$\\dfrac{1}{4}$ d'heure $=60\\text{ min }\\div4=15$ min.<br><br>
@@ -42,7 +41,6 @@ export default class NomExercice extends Exercice {
       const a = choice(listeHeures)
       const fracHeures = new FractionEtendue(a[0], a[1])
       if (choice([true, false])) {
-        this.formatInteractif = 'calcul'
         this.reponse = a[2]
         this.question = `$${fracHeures.texFraction}$ d'heure $=$ `
         this.correction = `$\\dfrac{1}{${a[1]}}$ h $=60\\text{ min }\\div ${a[1]}= ${texNombre(a[2] / a[0], 0)}$ min.<br>

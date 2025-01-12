@@ -1,14 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { consecutiveCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { consecutiveCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
-export const ref = '6N20-3'
+
 export const refs = {
   'fr-fr': ['6N20-3'],
   'fr-ch': ['9NO11-3']
@@ -29,11 +29,7 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
-    type TypeQuestionsDisponibles = 'dixieme'|'centieme'|'millieme'
+    type TypeQuestionsDisponibles = 'dixieme' | 'centieme' | 'millieme'
     const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
@@ -71,7 +67,7 @@ export default class nomExercice extends Exercice {
       }
       handleAnswers(this, i, {
         bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-        feedback: (saisies: {champ1: string, champ2: string}) => {
+        feedback: (saisies: { champ1: string, champ2: string }) => {
           const rep1 = saisies.champ1
           const rep2 = saisies.champ2
           // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
@@ -79,12 +75,12 @@ export default class nomExercice extends Exercice {
           const { feedback } = consecutiveCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, `${a}<${(a + b) / 2}<${b}`)
           return feedback
         },
-        champ1: { value: String(a), compare: fonctionComparaison },
-        champ2: { value: String(b), compare: fonctionComparaison }
+        champ1: { value: String(a) },
+        champ2: { value: String(b) }
       }, { formatInteractif: 'fillInTheBlank' })
       if (this.questionJamaisPosee(i, num, den)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

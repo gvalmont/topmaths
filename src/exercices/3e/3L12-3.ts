@@ -24,7 +24,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 10
+
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1- Groupement non développé sans monôme semblable\n2- Groupement non développé avec monômes semblables\n3- Groupement non développé avec changement de signe dans le groupement\n4- Groupement développé termes non mélangés\n5- Groupement développé termes mélangés\n6- Groupement non développé sans monôme semblable avec mise en évidence supplémentaire\n7- Groupement non développé avec monômes semblables avec mise en évidence supplémentaire\n8- Groupement non développé avec changement de signe dans le groupement avec mise en évidence supplémentaire\n9- Groupement développé termes non mélangés avec mise en évidence supplémentaire\n10- Groupement développé termes mélangés avec mise en évidence supplémentaire\n11- Mélange']
     this.besoinFormulaire2Numerique = ['Degré maximum du monôme en évidence', 3, '2\n3\n4']
     this.besoinFormulaire3Numerique = ['Nombre de termes du groupement (>1)', 2, '2\n3']
@@ -40,9 +40,7 @@ export default class nomExercice extends Exercice {
 
   nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser au maximum les expressions suivantes' : 'Factoriser au maximum l\'expression suivante'
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -273,8 +271,8 @@ export default class nomExercice extends Exercice {
       texteCorr = transformEquation(texteCorr)
 
       if (this.questionJamaisPosee(i, p1.toString(), groupement.toString())) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

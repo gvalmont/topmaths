@@ -5,7 +5,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer une dérivée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,13 +23,10 @@ export default class calcDerivee extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.compare = fonctionComparaison
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     let a, b, c, pol
     if (choice([true, false])) {
       this.question = 'Soit $f$ la fonction définie sur $\\mathbb{R}$ par : '

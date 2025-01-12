@@ -2,11 +2,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Trouver l\'opposé d\'un nombre relatif'
 export const dateDeModifImportante = '24/11/2024'
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const interactifReady = true
 */
 
 export const uuid = 'cab80'
-export const ref = '5R10'
+
 export const refs = {
   'fr-fr': ['5R10'],
   'fr-ch': ['9NO9-3']
@@ -36,7 +36,6 @@ export default class TrouverOppose extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     const listeSignesPositifs = combinaisonListes(['+', ''], 6 * this.nbQuestions)
     const listeSignes = combinaisonListes(['+', '-'], 6 * this.nbQuestions)
 
@@ -143,7 +142,7 @@ export default class TrouverOppose extends Exercice {
           const ligne = Math.floor(i / (6))
           const colonne = i % (6)
           const ref = `L${ligne + 1}C${colonne + 1}`
-          const valeur = Object.assign({}, { value: `${enonces[0].tabLinesCorr[i]}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
+          const valeur = Object.assign({}, { value: `${enonces[0].tabLinesCorr[i]}`, options: { nombreDecimalSeulement: true } })
           const cellule = Object.fromEntries([[ref, valeur]])
           objetReponse = Object.assign(objetReponse, cellule)
         }
@@ -166,8 +165,8 @@ export default class TrouverOppose extends Exercice {
       texteCorr = `${enonces[0].correction}`
 
       if (this.listeQuestions.indexOf(i, nbLigneNombresCorrNu) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

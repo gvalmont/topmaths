@@ -1,9 +1,9 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier (bis)'
@@ -59,10 +59,10 @@ export default class ListeDiviseurs extends Exercice {
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i)
           this.consigne = `Donner la liste de tous les diviseurs des nombres suivants ${texteGras('séparés par un point-virgule')}.`
-          handleAnswers(this, i, { reponse: { value: divisors.join(';'), compare: fonctionComparaison, options: { suiteDeNombres: true } } })
+          handleAnswers(this, i, { reponse: { value: divisors.join(';'), options: { suiteDeNombres: true } } })
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

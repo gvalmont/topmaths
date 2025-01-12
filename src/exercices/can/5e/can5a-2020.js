@@ -1,30 +1,30 @@
-import { codageAngleDroit } from '../../../lib/2d/angles.js'
-import { codageSegment } from '../../../lib/2d/codages.js'
-import { milieu, point } from '../../../lib/2d/points.js'
-import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { pave } from '../../../lib/2d/projections3d.js'
-import { droiteGraduee, grille, repere } from '../../../lib/2d/reperes.js'
-import { traceBarre } from '../../../lib/2d/diagrammes.js'
-import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { codageSegment } from '../../../lib/2d/codages'
+import { milieu, point } from '../../../lib/2d/points'
+import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
+import { pave } from '../../../lib/2d/projections3d'
+import { droiteGraduee, grille, repere } from '../../../lib/2d/reperes'
+import { traceBarre } from '../../../lib/2d/diagrammes'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { sp } from '../../../lib/outils/outilString.js'
+import { sp } from '../../../lib/outils/outilString'
 import { prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
+import Exercice from '../../Exercice'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
-import { fraction } from '../../../modules/fractions.js'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
+import { fraction } from '../../../modules/fractions'
 import { min, round } from 'mathjs'
 import Hms from '../../../modules/Hms'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 5e sujet 2020'
@@ -35,9 +35,9 @@ export const dateDePublication = '04/09/2022' // La date de publication initiale
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * Gilles Mora
- * Référence
+
  */
 
 function compareNombres (a, b) {
@@ -45,28 +45,25 @@ function compareNombres (a, b) {
 }
 
 export const uuid = '7292b'
-export const ref = 'can5a-2020'
+
 export const refs = {
   'fr-fr': ['can5a-2020'],
   'fr-ch': []
 }
-export default function SujetCAN20205ieme () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.nbQuestions = 30
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
-  Il est composé de 30 questions réparties de la façon suivante :<br>
-  Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
-  Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
-  En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
-  Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+export default class SujetCAN20205ieme extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 30
+
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+Il est composé de 30 questions réparties de la façon suivante :<br>
+Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
+En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
+Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
+  }
+
+  nouvelleVersion () {
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
@@ -206,7 +203,7 @@ export default function SujetCAN20205ieme () {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
 
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + c + 1, minute: b + d - 60 }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + c + 1, minute: b + d - 60 }).toString(), options: { HMS: true } } })
 
           nbChamps = 1
           break
@@ -551,7 +548,7 @@ export default function SujetCAN20205ieme () {
           } else {
             texte = `Convertis en heures/minutes : <br>$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}=$`
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
           }
 
           nbChamps = 1
@@ -902,8 +899,8 @@ export default function SujetCAN20205ieme () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += nbChamps
       }

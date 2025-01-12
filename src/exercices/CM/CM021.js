@@ -1,41 +1,45 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import {
   listeQuestionsToContenu,
   randint,
   calculANePlusJamaisUtiliser,
   gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 
 export const titre = 'Le compte est bon original'
 
 /**
  * Un "Le compte est bon" avec des solutions "formatées" pour travailler certains incontournables du calcul mental
  *  @author Jean-Claude Lhote
- * Référence CM021
+
  */
 export const uuid = 'bd6ff'
-export const ref = 'CM021'
+
 export const refs = {
   'fr-fr': ['CM021'],
   'fr-ch': []
 }
-export default function CompteEstBon () {
-  Exercice.call(this)
-  this.consigne =
+export default class CompteEstBon extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Niveaux de difficultés nombres de 1 à 3 séparés par des tirets',
+      '1: Avec 10 et 100\n2 : Avec 10 et de quoi faire facilement 100\n3 : Avec des calculs imbriqués\n4 : Mélange'
+    ] // Texte, tooltip
+    this.consigne =
     'Trouve le résultat en utilisant les quatre opérations et les nombres du tirage (une seule fois).'
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 // niveau de calcul souhaité
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 // niveau de calcul souhaité
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let a, b, c, d, cible, tirage
     const typesDeQuestions = gestionnaireFormulaireTexte(({ saisie: this.sup, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions }))
     const choix = combinaisonListes(range1(5), this.nbQuestions)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typesDeQuestions[i]) {
@@ -142,16 +146,12 @@ export default function CompteEstBon () {
 
       if (this.questionJamaisPosee(i, choix[i], a, b, c)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Niveaux de difficultés nombres de 1 à 3 séparés par des tirets',
-    '1: Avec 10 et 100\n2 : Avec 10 et de quoi faire facilement 100\n3 : Avec des calculs imbriqués\n4 : Mélange'
-  ] // Texte, tooltip
 }

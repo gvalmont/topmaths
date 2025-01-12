@@ -5,18 +5,18 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Déterminer des racines carrées ou des carrés parfaits*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '23/10/2024'
-/*!
+/**
  * @author Gilles Mora
  */
 export const uuid = 'bd96a'
-export const ref = 'can2C21'
+
 export const refs = {
   'fr-fr': ['can2C21'],
   'fr-ch': []
@@ -29,11 +29,6 @@ export default class calculsRacinesCarresPafaitsDecimaux extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -49,7 +44,7 @@ export default class calculsRacinesCarresPafaitsDecimaux extends Exercice {
           if (this.interactif) {
             handleAnswers(this, i,
               {
-                champ1: { value: reponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+                champ1: { value: reponse, options: { nombreDecimalSeulement: true } }
 
               }
             )
@@ -88,9 +83,9 @@ export default class calculsRacinesCarresPafaitsDecimaux extends Exercice {
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
       }
-      if (this.questionJamaisPosee(i, texte)) {
-        this.listeCorrections.push(texteCorr)
-        this.listeQuestions.push(texte)
+      if (this.questionJamaisPosee(i, String(a), String(b))) {
+        this.listeCorrections[i] = texteCorr
+        this.listeQuestions[i] = texte
 
         i++
       }

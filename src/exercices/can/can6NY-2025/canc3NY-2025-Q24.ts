@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -25,13 +25,10 @@ export default class CalculDivers extends Exercice {
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9\\times 9 \\times 5\\times 5$, compléter :`
     switch (randint(1, 4)) {
       case 1 :

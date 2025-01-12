@@ -1,12 +1,12 @@
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { warnMessage } from '../../lib/format/message.js'
+import { warnMessage } from '../../lib/format/message'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,38 +21,36 @@ export const amcType = 'qcmMono'
  * @author Sébastien Lozano
  */
 export const uuid = '526f8'
-export const ref = '3A10-2'
+
 export const refs = {
   'fr-fr': ['3A10-2'],
   'fr-ch': ['9NO4-27']
 }
-export default function PremierOuPasCriterePar7Par11 () {
-  Exercice.call(this)
-  this.titre = titre
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
-  if (context.isDiaporama) {
-    this.consigne = 'Ce nombre est-il premier ?'
+const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
+export default class PremierOuPasCriterePar7Par11 extends Exercice {
+  constructor () {
+    super()
+
+    // pas de différence entre la version html et la version latex pour la consigne
+    this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
+    if (context.isDiaporama) {
+      this.consigne = 'Ce nombre est-il premier ?'
+    }
+    context.isHtml ? this.spacing = 1 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestions = 7
+
+    this.nbCols = 2
+
+    this.besoinFormulaireCaseACocher = ['Afficher un coup de pouce']
+    this.sup = true
   }
-  context.isHtml ? this.spacing = 1 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestions = 7
 
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.besoinFormulaireCaseACocher = ['Afficher un coup de pouce']
-  this.sup = true
-  const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestions
     if (this.interactif) {
       this.consigne = 'Les nombres suivants sont-ils premiers ? Penser aux critères de divisibilité.'
     }
-    this.autoCorrection = []
-
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
@@ -278,8 +276,8 @@ export default function PremierOuPasCriterePar7Par11 () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

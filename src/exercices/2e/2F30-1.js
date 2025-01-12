@@ -1,39 +1,38 @@
-import { courbeInterpolee } from '../../lib/2d/courbes.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { courbeInterpolee } from '../../lib/2d/courbes'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { texteParPosition } from '../../lib/2d/textes'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Dresser un tableau de variations à partir d\'une courbe'
 export const dateDePublication = '14/02/2023'
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
- * Référence
+
  */
 export const uuid = '05b52'
-export const ref = '2F30-1'
+
 export const refs = {
   'fr-fr': ['2F30-1'],
   'fr-ch': []
 }
-export default function VariationsCourbe () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1
-  this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1// Interligne des questions
-  this.spacingCorr = 1 // Interligne des réponses
-  this.nouvelleVersion = function () {
+export default class VariationsCourbe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Avec un repère classique\n2 : Avec des grandes valeurs\n3 : Mélange des cas précédents']
+
+    this.nbQuestions = 1
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6']// 'typeE1', 'typeE2',
@@ -733,13 +732,12 @@ export default function VariationsCourbe () {
       }
       if (this.questionJamaisPosee(i, x0, x1, y0)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Avec un repère classique\n2 : Avec des grandes valeurs\n3 : Mélange des cas précédents']
 }

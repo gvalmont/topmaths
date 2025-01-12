@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer avec des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,25 +16,22 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
+
 */
 export default class calcAvecDecimaux extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.formatChampTexte = ''
-    this.compare = fonctionComparaison
+
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = new Decimal(2025).div(choice([10, 100, 1000, 10000]))
     this.reponse = texNombre(new Decimal(2025).add(a), 5)
     this.question = `$${texNombre(2025)}+${texNombre(a, 4)}$`

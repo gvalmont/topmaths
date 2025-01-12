@@ -2,9 +2,9 @@ import { combinaisonListesSansChangerOrdre, shuffle, shuffle2tableaux } from '..
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint, contraindreValeur } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, egal, randint, contraindreValeur } from '../../modules/outils'
 
 export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
 
@@ -14,33 +14,33 @@ export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseur
  * @author Sébastien Lozano
  */
 export const uuid = '5b60d'
-export const ref = '3A10'
+
 export const refs = {
   'fr-fr': ['3A10'],
   'fr-ch': ['9NO4-1']
 }
-export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
-  Exercice.call(this)
-  // context.isHtml ? this.spacing = 3 : this.spacing = 2;
-  context.isHtml ? this.spacing = 1 : this.spacing = 2
-  // context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = '3'
-  this.sup2 = '10'
-  this.sup3 = 13
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombres de chiffres de l\'entier de la question 5', 20]
+    this.besoinFormulaire2Numerique = ['Nombre maximum de diviseurs de l\'entier de la question 5', 20]
+    // context.isHtml ? this.spacing = 3 : this.spacing = 2;
+    context.isHtml ? this.spacing = 1 : this.spacing = 2
+    // context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.sup = '3'
+    this.sup2 = '10'
+    this.sup3 = 13
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
     this.sup3 = contraindreValeur(2, 16, this.sup3, 10)
     let nbChiffresMax = contraindreValeur(1, 5, this.sup, 2)
     const nbDiviseursMax = contraindreValeur(2, this.sup3, this.sup2, 6)
-
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -239,8 +239,8 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
       }
 
       if (this.questionJamaisPosee(i, typeDeQuestion, texte)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -248,6 +248,4 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombres de chiffres de l\'entier de la question 5', 20]
-  this.besoinFormulaire2Numerique = ['Nombre maximum de diviseurs de l\'entier de la question 5', 20]
 }

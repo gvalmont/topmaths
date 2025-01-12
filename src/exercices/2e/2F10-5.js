@@ -1,17 +1,17 @@
-import { courbe } from '../../lib/2d/courbes.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { courbe } from '../../lib/2d/courbes'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { sp } from '../../lib/outils/outilString'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDeModifImportante = '06/07/2023'
 export const titre = 'Déterminer le signe d\'une fonction affine'
@@ -21,25 +21,25 @@ export const titre = 'Déterminer le signe d\'une fonction affine'
  * 2F10-3
  */
 export const uuid = '03b71'
-export const ref = '2F10-5'
+
 export const refs = {
   'fr-fr': ['2F10-5'],
   'fr-ch': []
 }
-export default function Signefonctionaffine () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1 // On complète le nb de questions
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.video = ''
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 1
-  this.sup2 = 1
-  this.correctionDetaillee = false
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+export default class Signefonctionaffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : En utilisant le sens de variation d\'une fonction affine\n2 : En utilisant le calcul']
+
+    this.nbQuestions = 1 // On complète le nb de questions
+
+    this.sup = 1
+    this.sup2 = 1
+    this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
     const listeFractions = [
       [10, 9],
       [2, 3],
@@ -267,14 +267,12 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : En utilisant le sens de variation d\'une fonction affine\n2 : En utilisant le calcul']
 }

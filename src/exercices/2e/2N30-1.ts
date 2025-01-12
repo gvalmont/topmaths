@@ -8,7 +8,7 @@ export const interactifType = 'custom'
  * @author Sébastien LOZANO
  */
 export const uuid = '45726'
-export const ref = '2N30-1'
+
 export const refs = {
   'fr-fr': ['2N30-1'],
   'fr-ch': []

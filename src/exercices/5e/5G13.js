@@ -1,19 +1,19 @@
-import { angle } from '../../lib/2d/angles.js'
-import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages.js'
-import { distancePointDroite, droite, droiteAvecNomLatex, droiteParPointEtParallele, positionLabelDroite } from '../../lib/2d/droites.js'
-import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
-import { rotation, symetrieAxiale, translation, translation2Points } from '../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
+import { angle } from '../../lib/2d/angles'
+import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages'
+import { distancePointDroite, droite, droiteAvecNomLatex, droiteParPointEtParallele, positionLabelDroite } from '../../lib/2d/droites'
+import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPoint } from '../../lib/2d/textes'
+import { rotation, symetrieAxiale, translation, translation2Points } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
 export const dateDePublication = '05/08/2021'
@@ -26,27 +26,26 @@ export const dateDeModifImportante = '06/03/2023'
  * Les noms des points sont maintenant aléatoires par Guillaume Valmont le 06/03/2023
 */
 export const uuid = '07d1a'
-export const ref = '5G13'
+
 export const refs = {
   'fr-fr': ['5G13'],
   'fr-ch': ['9ES6-24']
 }
-export default function ConservationTransformation () {
-  Exercice.call(this)
-  this.nbQuestions = 2
+export default class ConservationTransformation extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Symétrie axiale ou centrale\n4 : Translation'] // Je n'ajoute pas de nouvelle option de mélange, ce serait bien d'ajouter la rotation avant.
-  this.besoinFormulaire2Numerique = ['Propriétés conservées', 3, '1 : Parallélisme\n2 : Longueurs et Angles\n3 : Mélange']
-  this.sup = 1
-  this.sup2 = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
+    this.nbQuestions = 2
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Symétrie axiale ou centrale\n4 : Translation'] // Je n'ajoute pas de nouvelle option de mélange, ce serait bien d'ajouter la rotation avant.
+    this.besoinFormulaire2Numerique = ['Propriétés conservées', 3, '1 : Parallélisme\n2 : Longueurs et Angles\n3 : Mélange']
+    this.sup = 1
+    this.sup2 = 3
+  }
+
+  nouvelleVersion () {
     context.fenetreMathalea2d = [-6, -6, 6, 6]
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     this.sup = Number(this.sup)
     this.sup2 = Number(this.sup2)
     let typesDeTransformationsDisponibles
@@ -206,8 +205,8 @@ export default function ConservationTransformation () {
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(Object.assign({}, fixeBordures([objetsCorrectionOnly, objetsEnonceEtCorr])), objetsCorrectionOnly, objetsEnonceEtCorr)
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

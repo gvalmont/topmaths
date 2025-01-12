@@ -2,7 +2,7 @@ import { sqrt } from 'mathjs'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../lib/outils/ecritures'
 import FractionEtendue from './FractionEtendue'
 import { shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
-import { num, randint } from './outils'
+import { randint } from './outils'
 import { getLang } from '../lib/stores/languagesStore'
 import { pgcd } from '../lib/outils/primalite'
 import { extraireRacineCarree } from '../lib/outils/calculs'
@@ -88,11 +88,11 @@ class EquationSecondDegre {
         const racineDelta = extraireRacineCarree(this.delta.num)
         if (this.delta.estEntiere) {
           if (this.delta.num === 0) {
-            const sol1 = new FractionEtendue(-this.coefficientsEqReduite[1], 2 * this.coefficientsEqReduite[0])
+            const sol1 = new FractionEtendue(-this.coefficientsEqReduite[1], 2).produitFraction((this.coefficientsEqReduite[0]).inverse())
             this.solutionsListeTex = [sol1.texFractionSimplifiee, sol1.texFractionSimplifiee]
           } else if (racineDelta[1] === 1) {
-            const sol1 = new FractionEtendue(-this.coefficientsEqReduite[1] + racineDelta[0], 2 * this.coefficientsEqReduite[0])
-            const sol2 = new FractionEtendue(-this.coefficientsEqReduite[1] - racineDelta[0], 2 * this.coefficientsEqReduite[0])
+            const sol1 = new FractionEtendue(-this.coefficientsEqReduite[1] + racineDelta[0], 2).produitFraction((this.coefficientsEqReduite[0]).inverse())
+            const sol2 = new FractionEtendue(-this.coefficientsEqReduite[1] - racineDelta[0], 2).produitFraction(this.coefficientsEqReduite[0].inverse())
             this.solutionsListeTex = [sol1.texFractionSimplifiee, sol2.texFractionSimplifiee]
           } else {
             let pgcdRacines = pgcd(2 * this.coefficientsEqReduite[0].num * this.coefficientsEqReduite[1].den, this.coefficientsEqReduite[1].num * this.coefficientsEqReduite[0].den)
@@ -283,26 +283,24 @@ class EquationSecondDegre {
     return `\\left(${this.variable}${alpha.oppose().simplifie().texFractionSignee}\\right)^2${beta.texFractionSignee}`
   }
 
-  solutionFrac() : FractionEtendue[] | string {
+  solutionFrac () : FractionEtendue[] | string {
     if (this.nombreSolutions === 0) {
       return 'Pas de solution'
-    }
-    else{
-      if(this.solutionsListeTex[0].includes('sqrt')){
+    } else {
+      if (this.solutionsListeTex[0].includes('sqrt')) {
         return 'Les solutions ne peuvent pas être exprimées sous forme de fraction'
-      }
-      else{
-        let solListe = []
+      } else {
+        const solListe = []
         for (let j = 0; j < this.solutionsListeTex.length; j++) {
-            let solution = new FractionEtendue(0, 1)
-            let numDen1 = [0, 1]
-            if (!this.solutionsListeTex[j].includes('\\dfrac')) {
-              numDen1 = [Number(this.solutionsListeTex[j]), Number('1')]
-            } else {
-              numDen1 = this.solutionsListeTex[j].match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)
-            }
-            solution = new FractionEtendue(Number(numDen1[0]), Number(numDen1[1]))
-            solListe.push(solution)
+          let solution = new FractionEtendue(0, 1)
+          let numDen1 = [0, 1]
+          if (!this.solutionsListeTex[j].includes('\\dfrac')) {
+            numDen1 = [Number(this.solutionsListeTex[j]), Number('1')]
+          } else if (this.solutionsListeTex[j].includes('\\dfrac')) {
+            numDen1 = [Number(this.solutionsListeTex[j].match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)[0]), Number(this.solutionsListeTex[j].match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)[1])]
+          }
+          solution = new FractionEtendue(Number(numDen1[0]), Number(numDen1[1]))
+          solListe.push(solution)
         }
         return solListe
       }

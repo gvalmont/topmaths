@@ -1,16 +1,16 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Decimal from 'decimal.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
 export const dateDePublication = '07/01/2022'
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora // Suppression de calcul et mise en place de Decimal par Jean-Claude Lhote
- * Référence
+
 */
 function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
   if (a instanceof Decimal) {
@@ -20,24 +20,24 @@ function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
   return a < 0 ? `(${result})` : result
 }
 export const uuid = '1803c'
-export const ref = '2F31-1'
+
 export const refs = {
   'fr-fr': ['2F31-1'],
   'fr-ch': []
 }
-export default function ComparerAvecFctRef () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 2
-  // this.nbQuestionsModifiable = false
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1
-  this.spacingCorr = 2
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class ComparerAvecFctRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 5, '1 : carré\n2 : inverse\n3 : cube\n4 : racine carrée\n5 : mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 2
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1
+    this.spacingCorr = 2
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['carré']
@@ -205,13 +205,12 @@ export default function ComparerAvecFctRef () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 5, '1 : carré\n2 : inverse\n3 : cube\n4 : racine carrée\n5 : mélange']
 }

@@ -1,11 +1,11 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
 
@@ -24,7 +24,7 @@ export const dateDeModifImportante = '18/11/2023'
 */
 
 export const uuid = '9103e'
-export const ref = '5C12-3'
+
 export const refs = {
   'fr-fr': ['5C12-3'],
   'fr-ch': ['11FA2-1']
@@ -47,8 +47,6 @@ class DistributiviteNumerique extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
     const typesDeQuestionsDisponibles = this.sup === 3 ? [1, 2, 3, 4] : this.sup === 2 ? [3, 4] : [1, 2]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = 'Utiliser la distributivité pour calculer de façon astucieuse '
@@ -162,10 +160,11 @@ class DistributiviteNumerique extends Exercice {
         }
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, k, c)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: '',

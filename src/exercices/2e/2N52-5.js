@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { sp } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const dateDePublication = '02/05/2023'
 export const titre = 'Résoudre des équations avec un quotient'
 
@@ -14,22 +14,21 @@ export const titre = 'Résoudre des équations avec un quotient'
 * 2N41-8
 */
 export const uuid = 'b5828'
-export const ref = '2N52-5'
+
 export const refs = {
   'fr-fr': ['2N52-5'],
   'fr-ch': []
 }
-export default function ResoudreEquationsQuotient () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 2
-  this.sup = 3
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+export default class ResoudreEquationsQuotient extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type d\'équations', 3, '1 : A(x)/B(x)=0\n 2 : A(x)/B(x)=a ou a/A(x)=b/B(x)\n 3 : Mélange']
+
+    this.nbQuestions = 2
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2]
@@ -243,13 +242,12 @@ x&=${texFractionReduite(-e * d + f * b, e * c - f * a)}
       }
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'équations', 3, '1 : A(x)/B(x)=0\n 2 : A(x)/B(x)=a ou a/A(x)=b/B(x)\n 3 : Mélange']
 }

@@ -1,14 +1,14 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { signe } from '../../lib/outils/nombres'
 
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -23,21 +23,24 @@ export const dateDeModifImportante = '14/06/2023'
  * @author Stéphan Grignon & Jean-Claude Lhote Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = '68693'
-export const ref = '2G24-4'
+
 export const refs = {
   'fr-fr': ['2G24-4'],
   'fr-ch': []
 }
-export default function Calculercoordonneesproduitvecteurs () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = '1'
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
+export default class Calculercoordonneesproduitvecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Situations différentes ', '1 : Coordonnées entières\n2 : Coordonnées en écriture fractionnaire\n3 : À partir de quatre points\n4 : Mélange']
+
+    this.nbQuestions = 2
+
+    this.sup = '1'
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -154,8 +157,8 @@ export default function Calculercoordonneesproduitvecteurs () {
       }
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: wx.texFraction, compare: fonctionComparaison },
-        champ2: { value: wy.texFraction, compare: fonctionComparaison }
+        champ1: { value: wx.texFraction },
+        champ2: { value: wy.texFraction }
       })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,
@@ -165,13 +168,12 @@ export default function Calculercoordonneesproduitvecteurs () {
       }
 
       if (this.questionJamaisPosee(i, wx, wy)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Situations différentes ', '1 : Coordonnées entières\n2 : Coordonnées en écriture fractionnaire\n3 : À partir de quatre points\n4 : Mélange']
 }

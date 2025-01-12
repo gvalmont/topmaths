@@ -1,15 +1,15 @@
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import { numAlpha } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../lib/outils/texNombre'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Compléter et utiliser un tableau d\'effectif'
@@ -19,31 +19,33 @@ export const interactifType = 'mathLive'
 /**
  * Compléter ou utiliser un tableau
  * @author Gilles Mora +Jean-Claude Lhote pour l'interactif
- * Références 2S10-4
+
  */
 export const uuid = '3f39d'
 // Je déréférence temporairement pour éviter que cet exo non finalisé apparaîsse dans le menu.
-// export const ref = '2S10-4'
+
 // export const refs = {
 //  'fr-fr': ['2S10-4'],
 //   'fr-ch': []
 //  }
 
-export default function TableauProportion () {
-  Exercice.call(this)
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = context.isHtml ? 1.5 : 2
-  this.spacingCorr = context.isHtml ? 1 : 2
-  this.nbQuestions = 1
-  this.sup = 2
-  this.tailleDiaporama = 1
-  this.listeAvecNumerotation = false
-  this.exoCustomResultat = true
-  this.nbQuestionsModifiable = false
-  this.nouvelleVersion = function () {
+export default class TableauProportion extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Tableau à compléter\n 2 : Utiliser un tableau\n 3 : Mélange']
+
+    this.spacing = context.isHtml ? 1.5 : 2
+    this.spacingCorr = context.isHtml ? 1 : 2
+    this.nbQuestions = 1
+    this.sup = 2
+
+    this.listeAvecNumerotation = false
+    this.exoCustomResultat = true
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     this.answers = {}
-    this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = [1]
     if (this.sup === 2) {
@@ -53,7 +55,7 @@ export default function TableauProportion () {
     }
     const toutPourUn = (listePoints) => [Math.min(...listePoints), 1]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.autoCorrection = []
+
     let index = 0
     let increment = 1
     for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
@@ -110,15 +112,15 @@ export default function TableauProportion () {
             [`${miseEnEvidence(GAetG)}`, `${miseEnEvidence(FetG)}`, `${miseEnEvidence(totalG)}`, `${miseEnEvidence(GAetT)}`, `${miseEnEvidence(FetT)}`, `${miseEnEvidence(totalT)}`, `${miseEnEvidence(totalGA)}`, `${miseEnEvidence(totalF)}`, `${miseEnEvidence(total)}`], 1, true, this.numeroExercice, i)
           handleAnswers(this, index, {
             bareme: toutPourUn,
-            L1C1: { value: GAetG, compare: fonctionComparaison },
-            L1C2: { value: FetG, compare: fonctionComparaison },
-            L1C3: { value: totalG, compare: fonctionComparaison },
-            L2C1: { value: GAetT, compare: fonctionComparaison },
-            L2C2: { value: FetT, compare: fonctionComparaison },
-            L2C3: { value: totalT, compare: fonctionComparaison },
-            L3C1: { value: totalGA, compare: fonctionComparaison },
-            L3C2: { value: totalF, compare: fonctionComparaison },
-            L3C3: { value: total, compare: fonctionComparaison }
+            L1C1: { value: GAetG },
+            L1C2: { value: FetG },
+            L1C3: { value: totalG },
+            L2C1: { value: GAetT },
+            L2C2: { value: FetT },
+            L2C3: { value: totalT },
+            L3C1: { value: totalGA },
+            L3C2: { value: totalF },
+            L3C3: { value: total }
           })
           increment = 1
           break
@@ -130,26 +132,26 @@ export default function TableauProportion () {
             [`${GAetG}`, `${FetG}`, `${totalG}`, `${GAetT}`, `${FetT}`, `${totalT}`, `${totalGA}`, `${totalF}`, `${total}`])
 
           texte += `<br><br>${numAlpha(0)}  Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves de ce lycée ?<br>`
-          handleAnswers(this, index, { reponse: { value: choix ? new FractionEtendue(FetT, total).texFraction : new FractionEtendue(GAetT, total).texFraction, compare: fonctionComparaison } })
+          handleAnswers(this, index, { reponse: { value: choix ? new FractionEtendue(FetT, total).texFraction : new FractionEtendue(GAetT, total).texFraction } })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
           texte += ajouteChampTexteMathLive(this, index, '')
-          handleAnswers(this, index + 1, { reponse: { value: choix ? texNombre(FetT * 100 / total, 0) : texNombre(GAetT * 100 / total, 0), compare: fonctionComparaison } })
+          handleAnswers(this, index + 1, { reponse: { value: choix ? texNombre(FetT * 100 / total, 0) : texNombre(GAetT * 100 / total, 0) } })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
           texte += ajouteChampTexteMathLive(this, index + 1, '', { texteApres: '%' })
 
           texte += `<br><br>${numAlpha(1)} Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves en première technologique ?<br>`
-          handleAnswers(this, index + 2, { reponse: { value: choix ? new FractionEtendue(FetT, totalT).texFraction : new FractionEtendue(GAetT, totalT).texFraction, compare: fonctionComparaison } })
+          handleAnswers(this, index + 2, { reponse: { value: choix ? new FractionEtendue(FetT, totalT).texFraction : new FractionEtendue(GAetT, totalT).texFraction } })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
           texte += ajouteChampTexteMathLive(this, index + 2, '')
-          handleAnswers(this, index + 3, { reponse: { value: choix ? arrondi(FetT * 100 / totalT, 0) : arrondi(GAetT * 100 / totalT, 0), compare: fonctionComparaison } })
+          handleAnswers(this, index + 3, { reponse: { value: choix ? arrondi(FetT * 100 / totalT, 0) : arrondi(GAetT * 100 / totalT, 0) } })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
           texte += ajouteChampTexteMathLive(this, index + 3, '', { texteApres: '%' })
 
           texte += `<br><br>${numAlpha(2)}  Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les ${choix ? 'filles' : 'garçons'} ?<br>`
-          handleAnswers(this, index + 4, { reponse: { value: choix ? new FractionEtendue(FetT, totalF).texFraction : new FractionEtendue(GAetT, totalGA).texFraction, compare: fonctionComparaison } })
+          handleAnswers(this, index + 4, { reponse: { value: choix ? new FractionEtendue(FetT, totalF).texFraction : new FractionEtendue(GAetT, totalGA).texFraction } })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
           texte += ajouteChampTexteMathLive(this, index + 4, '')
-          handleAnswers(this, index + 5, { reponse: { value: choix ? arrondi(FetT * 100 / totalF, 0) : arrondi(GAetT * 100 / totalGA, 0), compare: fonctionComparaison } })
+          handleAnswers(this, index + 5, { reponse: { value: choix ? arrondi(FetT * 100 / totalF, 0) : arrondi(GAetT * 100 / totalGA, 0) } })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
           texte += ajouteChampTexteMathLive(this, index + 5, '', { texteApres: '%' })
 
@@ -171,8 +173,8 @@ export default function TableauProportion () {
 
       if (this.questionJamaisPosee(i, total, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += increment
       }
@@ -180,5 +182,4 @@ export default function TableauProportion () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Tableau à compléter\n 2 : Utiliser un tableau\n 3 : Mélange']
 }

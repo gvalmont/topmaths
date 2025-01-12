@@ -3,17 +3,17 @@ import {
   texFractionFromString,
   obtenirListeFractionsIrreductibles,
   texFractionSigne
-} from '../../lib/outils/deprecatedFractions.js'
+} from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { fraction } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
-import { context } from '../../modules/context.js'
+
+import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Diviser des fractions'
@@ -29,22 +29,28 @@ export const interactifType = 'mathLive'
  * 4C22-2
  */
 export const uuid = '55354'
-export const ref = '4C22-2'
+
 export const refs = {
   'fr-fr': ['4C22-2'],
   'fr-ch': ['10NO5-7']
 }
-export default function ExerciceDiviserFractions () {
-  Exercice.call(this)
-  this.sup = 1 // Avec ou sans relatifs
-  this.titre = titre
-  this.consigne = 'Calculer et donner le résultat sous forme irréductible.'
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
+export default class ExerciceDiviserFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      2,
+      ' 1 : Fractions à numérateur et dénominateur positifs \n 2 : Fractions à numérateur et dénominateur relatifs'
+    ]
+    this.sup = 1 // Avec ou sans relatifs
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Calculer et donner le résultat sous forme irréductible.'
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
+  }
+
+  nouvelleVersion () {
     const listeFractions = obtenirListeFractionsIrreductibles()
 
     const typesDeQuestionsDisponibles = [parseInt(this.sup)]
@@ -167,7 +173,7 @@ export default function ExerciceDiviserFractions () {
       reponse = fraction((signe === '-' ? -1 : 1) * a * d, b * c).simplifie()
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
-        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
 
         if (context.isAmc) {
           texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
@@ -189,8 +195,8 @@ export default function ExerciceDiviserFractions () {
             }
           }
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
 
@@ -198,9 +204,4 @@ export default function ExerciceDiviserFractions () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    2,
-    ' 1 : Fractions à numérateur et dénominateur positifs \n 2 : Fractions à numérateur et dénominateur relatifs'
-  ]
 }

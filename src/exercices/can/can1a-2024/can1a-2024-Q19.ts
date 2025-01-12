@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../lib/outils/ecritures'
 import { expressionDeveloppeeEtNonReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
@@ -11,7 +11,7 @@ export const uuid = '4f56c'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class deriveeSecondDegre extends Exercice {
   constructor () {
@@ -20,7 +20,7 @@ export default class deriveeSecondDegre extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-    // this.formatInteractif = 'calcul'
+
     this.compare = expressionDeveloppeeEtNonReduiteCompare
   }
 

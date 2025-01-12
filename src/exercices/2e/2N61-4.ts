@@ -1,15 +1,14 @@
 import { texSymbole } from '../../lib/format/style'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +27,7 @@ export const titre = 'Résoudre une inéquation quotient'
  * @author Guillaume Valmont
  */
 export const uuid = '0716b'
-export const ref = '2N61-4'
+
 export const refs = {
   'fr-fr': ['2N61-4'],
   'fr-ch': []
@@ -42,8 +41,7 @@ export default class ExerciceInequationQuotient extends Exercice {
     this.correctionDetaillee = false // Désactive la correction détaillée par défaut
     this.sup = 1 // Choix du type d'inéquation
     this.nbQuestions = 4 // Choix du nombre de questions
-    this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
-    this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
+
     // Choisit le type de question à l'aide d'un formulaire numérique (la réponse sera stockée dans this.sup)
     this.besoinFormulaireNumerique = [
       'Type d\'inéquation',
@@ -799,14 +797,13 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
         handleAnswers(this, i, {
           reponse: {
             value: correctionInteractif,
-            compare: fonctionComparaison,
             options: { intervalle: true }
           }
         })
       }
       if (this.questionJamaisPosee(i, a, b, c, e, d)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

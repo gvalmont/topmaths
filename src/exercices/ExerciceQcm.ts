@@ -48,7 +48,7 @@ export default class ExerciceQcm extends Exercice {
     // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.spacing = 1 // à adapter selon le contenu de l'énoncé
+
     this.spacingCorr = 2 // idem pour la correction
     // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
     this.options = { vertical: false, ordered: false, lastChoice: 8 }
@@ -56,7 +56,6 @@ export default class ExerciceQcm extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
     if (this.sup2) {
       this.consigne = this.bonnesReponses == null
         ? `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>

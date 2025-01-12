@@ -27,7 +27,7 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Factoriser au maximum les expressions suivantes' : 'Factoriser au maximum l\'expression suivante'
-    this.nbQuestions = 10
+
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 - Mise en évidence\n2 - Identité remarquable (sans somme-produit)\n3 - Mise en évidence puis identité (sans somme-produit)\n4 - Identité remarquable (somme-produit)\n5 - Mise en évidence puis identité (somme-produit)\n6 - Identité remarquable (somme-produit avec degré > 0)\n7 - Mise en évidence puis identité (somme-produit avec degré > 0)\n8 - Mélange']
     this.besoinFormulaire2Numerique = ['Degré maximum du monôme en évidence ou du monôme de l\'identité', 3, '1\n2\n3']
     this.besoinFormulaire3Numerique = ['Degré maximum du facteur restant', 5, '1\n2\n3\n4\n5']
@@ -43,9 +43,7 @@ export default class nomExercice extends Exercice {
 
   nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser au maximum les expressions suivantes' : 'Factoriser au maximum l\'expression suivante'
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -201,8 +199,8 @@ export default class nomExercice extends Exercice {
         }
       }
       if (this.questionJamaisPosee(i, p1.monomes[0].coefficient.num.toString() + p2.monomes[0].coefficient.num.toString())) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

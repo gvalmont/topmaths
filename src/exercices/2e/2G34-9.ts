@@ -1,14 +1,14 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import { ceil } from 'mathjs'
 import { texNombre } from '../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite.js'
+import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite'
 import { abs } from '../../lib/outils/nombres'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Problèmes avec les systèmes d\'équations du premier degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,14 +21,14 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
 export default class systemeEquationsPremDeg extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 3
     this.sup = 3
     this.correctionDetailleeDisponible = true
@@ -41,9 +41,6 @@ export default class systemeEquationsPremDeg extends Exercice {
     } else {
       this.consigne = 'Résourdre les problèmes suivants :'
     }
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
 
     let typeQuestionsDisponibles: ('p1' | 'p2')[]
     if (this.sup === 1) {
@@ -176,8 +173,8 @@ export default class systemeEquationsPremDeg extends Exercice {
             )
           }
           if (this.questionJamaisPosee(i, a, b, tot)) {
-            this.listeQuestions.push(texte)
-            this.listeCorrections.push(texteCorr)
+            this.listeQuestions[i] = texte
+            this.listeCorrections[i] = texteCorr
             i++
           }
           break
@@ -197,8 +194,8 @@ export default class systemeEquationsPremDeg extends Exercice {
             )
           }
           if (this.questionJamaisPosee(i, largeur, longueur, cLargeur, cLongueur)) {
-            this.listeQuestions.push(texte)
-            this.listeCorrections.push(texteCorr)
+            this.listeQuestions[i] = texte
+            this.listeCorrections[i] = texteCorr
             i++
           }
           break

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -11,17 +11,16 @@ export const uuid = '70846'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-    this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {

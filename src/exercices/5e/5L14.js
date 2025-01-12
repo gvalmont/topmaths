@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -27,21 +27,19 @@ export const interactifType = 'mathLive'
  * 5L14
  */
 export const uuid = '17e39'
-export const ref = '5L14'
+
 export const refs = {
   'fr-fr': ['5L14'],
   'fr-ch': ['10FA1-2', '11FA1-6']
 }
-export default function CalculerLaValeurDUneExpressionLitterale () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.nbQuestions = 5
+  }
 
+  nouvelleVersion () {
     // let typesDeQuestionsDisponibles = range1(10)
     let typesDeQuestionsDisponibles
 
@@ -157,8 +155,8 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
       texte += this.interactif ? (' : ' + ajouteChampTexteMathLive(this, i)) : '.'
 
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

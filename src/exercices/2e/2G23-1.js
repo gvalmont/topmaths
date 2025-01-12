@@ -1,14 +1,14 @@
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { grille } from '../../lib/2d/reperes.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { point, tracePoint } from '../../lib/2d/points'
+import { grille } from '../../lib/2d/reperes'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
+import { mathalea2d } from '../../modules/2dGeneralites'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { translation } from '../../lib/2d/transformations.js'
+import { translation } from '../../lib/2d/transformations'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -23,7 +23,7 @@ export const dateDeModifImportante = '15/10/2023'
  * @author Stéphan Grignon (modifié par EE pour une meilleure visibilité de la correction)
  */
 export const uuid = 'd2b57'
-export const ref = '2G23-1'
+
 export const refs = {
   'fr-fr': ['2G23-1'],
   'fr-ch': []
@@ -71,14 +71,18 @@ function estEgalAUnAutreSegment (s, s1, s2, s3) { // recherche si le segment s e
   (s.extremite2.x === s3.extremite2.x && s.extremite2.y === s3.extremite2.y))))
 }
 
-export default function ImagePtParTranslation () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = '1'
-  this.classe = 2
-  this.nouvelleVersion = function () {
+export default class ImagePtParTranslation extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Situations différentes ', 'Nombres séparés par des tirets \n1 : À partir d\'une point\n2 : À partir d\'une segment\n3 : À partir d\'un triangle\n4 : Mélange']
+
+    this.nbQuestions = 2
+
+    this.sup = '1'
+    this.classe = 2
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -443,13 +447,12 @@ export default function ImagePtParTranslation () {
           break
       }
       if (this.questionJamaisPosee(i, xSOL, xPtArrivSeg, xPt2Triangle)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Situations différentes ', 'Nombres séparés par des tirets \n1 : À partir d\'une point\n2 : À partir d\'une segment\n3 : À partir d\'un triangle\n4 : Mélange']
 }

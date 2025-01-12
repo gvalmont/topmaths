@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { milieu, point, tracePoint } from '../../../lib/2d/points'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
+import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { afficheLongueurSegment } from '../../../lib/2d/codages'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -17,16 +17,16 @@ export const uuid = '1020d'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

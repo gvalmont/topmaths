@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils'
 export const titre = 'Proportions de proportions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,11 +12,11 @@ export const dateDeModifImportante = '09/05/2023'
 /**
 * Modèle d'exercice très simple pour la course aux nombres
 * @author Stéphane Guyon et Gilles Mora pour augmenter les cas
-* Référence
+
 * Date de publication
 */
 export const uuid = 'f0c23'
-export const ref = 'techno1P4'
+
 export const refs = {
   'fr-fr': ['techno1P4'],
   'fr-ch': []
@@ -26,7 +26,7 @@ export default class ProportiondeProportion extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = ''
+
     this.optionsChampTexte = { texteApres: ' %' }
   }
 

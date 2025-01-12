@@ -22,7 +22,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class longueursRectPerimetre extends Exercice {
   constructor () {
@@ -30,7 +30,7 @@ export default class longueursRectPerimetre extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.formatInteractif = 'calcul'
+
     this.spacingCorr = 1.5
     this.compare = functionCompare
   }

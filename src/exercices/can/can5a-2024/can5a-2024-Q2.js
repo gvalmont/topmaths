@@ -16,12 +16,12 @@ export const uuid = 'b34f7'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: ' est : ', texteApres: '.' }
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

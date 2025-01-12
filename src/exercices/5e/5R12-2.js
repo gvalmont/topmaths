@@ -1,18 +1,17 @@
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { labelPoint } from '../../lib/2d/textes'
 import { creerCouples, shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser, contraindreValeur } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser, contraindreValeur } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
 export const interactifReady = true
@@ -26,32 +25,30 @@ export const dateDeModifImportante = '24/11/2024'
  * @author Jean-Claude Lhote - Eric Elter (pour l'interactivité)
  */
 export const uuid = 'ab968'
-export const ref = '5R12-2'
+
 export const refs = {
   'fr-fr': ['5R12-2'],
   'fr-ch': ['9FA1-7']
 }
-export default function ReperagePointDuPlan () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 1
-  this.sup2 = true
-  this.sup3 = 5
-  this.quartDePlan = false
-  this.listeAvecNumerotation = false
+export default class ReperagePointDuPlan extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
+    this.besoinFormulaire2CaseACocher = ['Grille pour les demis ou pour les quarts']
+    this.besoinFormulaire3Numerique = ['Nombre de points (entre 2 et 5)', 5]
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.sup = 1
+    this.sup2 = true
+    this.sup3 = 5
+    this.quartDePlan = false
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     let texte, texteCorr
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     let listePoints = []
     const points = []
     let xmin, xmax, ymin, ymax
@@ -166,8 +163,8 @@ export default function ReperagePointDuPlan () {
     if (this.interactif) {
       for (let i = 0; i < nbPoints; i++) {
         texte += `<br>Les coordonnées de $${nom[i]}$ sont ` + sp(3) + ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierDeBase, { texteAvant: '(' }) + sp() + ';' + ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase) + ').'
-        handleAnswers(this, 2 * i, { reponse: { value: points[i].x, compare: fonctionComparaison } })
-        handleAnswers(this, 2 * i + 1, { reponse: { value: points[i].y, compare: fonctionComparaison } })
+        handleAnswers(this, 2 * i, { reponse: { value: points[i].x } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: points[i].y } })
       }
     }
 
@@ -179,7 +176,4 @@ export default function ReperagePointDuPlan () {
 
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
-  this.besoinFormulaire2CaseACocher = ['Grille pour les demis ou pour les quarts']
-  this.besoinFormulaire3Numerique = ['Nombre de points (entre 2 et 5)', 5]
 }

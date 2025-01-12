@@ -1,5 +1,5 @@
 import { choice } from '../lib/outils/arrayOutils'
-import { egal } from './outils.js'
+import { egal } from './outils'
 
 /**
  * @class
@@ -130,6 +130,14 @@ export class Triangle {
       sommets[2] = '$' + sommets[2] + '$'
     }
     return sommets
+  }
+
+  /**
+   * @return {string} Renvoie un string avec les noms des sommets du triangle de la forme : '$A$, $B$ et $C$'
+   */
+  get stringSommets () {
+    const [a, b, c] = this.getSommets()
+    return `${a}, ${b} et ${c}`
   }
 
   /**

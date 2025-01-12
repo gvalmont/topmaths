@@ -1,11 +1,11 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { choice } from '../../lib/outils/arrayOutils'
-import Trinome from '../../modules/Trinome.js'
-import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
+import Trinome from '../../modules/Trinome'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { createList } from '../../lib/format/lists.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import { createList } from '../../lib/format/lists'
 export const titre = 'Résoudre une équation en choisissant la forme la plus appropriée'
 
 export const dateDePublication = '22/09/2024'
@@ -15,7 +15,7 @@ export const uuid = '2a6c7'
 * Ce model est prévu pour les exercice où le nombre de questions est fixe
 * et où on ne demande pas la même chose à toutes les questions
 * @author Samuel Rattoray
-* Référence
+
 */
 
 export const refs = {

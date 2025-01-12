@@ -2,10 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere, range1 } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -68,28 +68,29 @@ export const dateDeModifImportante = '17/09/2023'
  * Ajout de l'interactivité par Guillaume Valmont le 2021-11-20
  */
 export const uuid = '2d79c'
-export const ref = '4C34'
+
 export const refs = {
   'fr-fr': ['4C34'],
   'fr-ch': ['10NO6-1']
 }
-export default function PrioritesEtRelatifsEtPuissances () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.tailleDiaporama = 3
-  this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
-  this.spacing = context.isHtml ? 3 : 1
-  this.spacingCorr = context.isHtml ? 3 : 1
-  this.listeAvecNumerotation = false
-  this.sup = false
+export default class PrioritesEtRelatifsEtPuissances extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['AMC : Que la réponse numérique (pas de question ouverte)', 'false']
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Calculer.'
+    this.nbQuestions = 5
+
+    this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
+    this.spacing = context.isHtml ? 3 : 1
+    this.spacingCorr = context.isHtml ? 3 : 1
+    this.listeAvecNumerotation = false
+    this.sup = false
+  }
+
+  nouvelleVersion () {
     if (this.sup) this.amcType = 'AMCNum'
     let reponse
-    this.autoCorrection = []
 
     const listeQuestionsDisponibles = range1(7)
 
@@ -217,13 +218,12 @@ export default function PrioritesEtRelatifsEtPuissances () {
             ]
           }
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireCaseACocher = ['AMC : Que la réponse numérique (pas de question ouverte)', 'false']
 }

@@ -1,7 +1,7 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { cercle } from '../../lib/2d/cercle.js'
-import { afficheLongueurSegment, codageMilieu } from '../../lib/2d/codages.js'
-import { droite, mediatrice } from '../../lib/2d/droites.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { cercle } from '../../lib/2d/cercle'
+import { afficheLongueurSegment, codageMilieu } from '../../lib/2d/codages'
+import { droite, mediatrice } from '../../lib/2d/droites'
 import {
   Point,
   point,
@@ -9,16 +9,16 @@ import {
   pointIntersectionDD,
   pointIntersectionLC,
   tracePoint
-} from '../../lib/2d/points.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
+} from '../../lib/2d/points'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 export const titre = 'Utiliser les propriétés de la médiatrice d\'un segment'
 export const dateDePublication = '05/08/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '17/08/2023'
@@ -29,26 +29,24 @@ export const dateDeModifImportante = '17/08/2023'
 */
 
 export const uuid = '3acc1'
-export const ref = '5G22-1'
+
 export const refs = {
   'fr-fr': ['5G22-1'],
   'fr-ch': ['9ES3-10']
 }
-export default function ProprietesMediatrice () {
-  Exercice.call(this)
-  this.nbQuestions = 4
+export default class ProprietesMediatrice extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Situation', 3, '1 : Liée à une médiatrice (ou pas)\n2 : Liée à une équidistance (ou pas)\n3 : Mélange']
-  this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['Inclure des situations où aucun point n\'appartient pas à la médiatrice']
-  this.sup2 = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.besoinFormulaireNumerique = ['Situation', 3, '1 : Liée à une médiatrice (ou pas)\n2 : Liée à une équidistance (ou pas)\n3 : Mélange']
+    this.sup = 3
+    this.besoinFormulaire2CaseACocher = ['Inclure des situations où aucun point n\'appartient pas à la médiatrice']
+    this.sup2 = true
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles, listeSurLaMediatrice
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['appartient']
@@ -156,8 +154,8 @@ export default function ProprietesMediatrice () {
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       if (this.listeQuestions.indexOf(texte) === -1) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

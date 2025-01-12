@@ -1,12 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre les équations produit-nul'
 export const interactifReady = true
@@ -18,21 +18,25 @@ export const dateDePublication = '06/02/2021'
 * @author Stéphane Guyon & Jean-claude Lhote
 */
 export const uuid = '53762'
-export const ref = '2N52-1'
+
 export const refs = {
   'fr-fr': ['2N52-1'],
   'fr-ch': ['11FA10-2']
 }
-export default function EquationsProduitsNuls2 () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.sup = 1
-  this.spacingCorr = 3
-  this.nbQuestions = 2
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
+export default class EquationsProduitsNuls2 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=0 b et d rationnels\n4 : Mélange des cas précédents']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3
+    this.sup = 1
+    this.spacingCorr = 3
+    this.nbQuestions = 2
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     let typesDeQuestionsDisponibles = []
     if (this.sup < 4) {
@@ -135,7 +139,7 @@ export default function EquationsProduitsNuls2 () {
           break
       }
       texte += sp(4) + ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 
@@ -153,13 +157,12 @@ export default function EquationsProduitsNuls2 () {
 
       if (this.questionJamaisPosee(i, a, b, c, d, ...fractions)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : (ax+b)(cx+d)=0 a,b,c et d entiers\n 2 : (ax+b)(cx+d)=0 a et c rationnels\n 3 : (ax+b)(cx+d)=0 b et d rationnels\n4 : Mélange des cas précédents']
 }

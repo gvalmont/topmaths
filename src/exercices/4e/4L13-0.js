@@ -1,13 +1,13 @@
-import { afficheCoteSegment, codageCarre, codageSegments } from '../../lib/2d/codages.js'
-import { point } from '../../lib/2d/points.js'
-import { nommePolygone, polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { afficheCoteSegment, codageCarre, codageSegments } from '../../lib/2d/codages'
+import { point } from '../../lib/2d/points'
+import { nommePolygone, polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
 /**
@@ -16,31 +16,23 @@ export const titre = 'Mettre en équation un problème sans objectif de résolut
  * @author Sébastien Lozano
  */
 export const uuid = '5a6f2'
-export const ref = '4L13-0'
+
 export const refs = {
   'fr-fr': ['4L13-0'],
   'fr-ch': ['10FA3-9']
 }
-export default function MettreEnEquationSansResoudre () {
-  Exercice.call(this)
-  this.sup = 1
-  this.nbQuestions = 2
+export default class MettreEnEquationSansResoudre extends Exercice {
+  constructor () {
+    super()
 
-  this.titre = titre
-  this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
+    this.sup = 1
+    this.nbQuestions = 2
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
+    this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
+  }
 
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    typesDeQuestionsDisponibles = [1, 2]
-
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-
-    typesDeQuestionsDisponibles = [1]
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [1, 2]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -174,8 +166,8 @@ export default function MettreEnEquationSansResoudre () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

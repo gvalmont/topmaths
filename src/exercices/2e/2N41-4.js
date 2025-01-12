@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
@@ -14,34 +14,34 @@ export const titre = 'Développer $(a+b)^2$'
 /**
  * Développer (ax+b)²
  * @author Matthieu Devillers
- * matthieu.devillers@ac-rennes.fr
- * 2N41-4, ex 2L12-2
  */
 export const uuid = '877a9'
-export const ref = '2N41-4'
+
 export const refs = {
   'fr-fr': ['2N41-4'],
   'fr-ch': ['11FA2-10']
 }
-export default function DevelopperIdentitesRemarquables3 () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Développer puis réduire les expressions suivantes.'
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 3
-  this.sup = 5
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.correctionDetailleeDisponible = true
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
+export default class DevelopperIdentitesRemarquables3 extends Exercice {
+  constructor () {
+    super()
+
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
+
+    this.nbQuestions = 3
+    this.sup = 5
+
+    this.correctionDetailleeDisponible = true
+    this.spacingCorr = context.isHtml ? 3 : 2
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    }
   }
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+
+  nouvelleVersion () {
+    this.consigne = this.nbQuestions === 1
+      ? 'Développer puis réduire l\'expression suivante.'
+      : 'Développer puis réduire les expressions suivantes.'
+
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -155,13 +155,12 @@ export default function DevelopperIdentitesRemarquables3 () {
       setReponse(this, i, reponse)
       if (this.questionJamaisPosee(i, typesDeQuestions, a)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
 }

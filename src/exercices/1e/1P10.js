@@ -1,17 +1,17 @@
 import { fraction, number } from 'mathjs'
-import { point } from '../../lib/2d/points.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.ts'
+import { point } from '../../lib/2d/points'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { latexParCoordonnees } from '../../lib/2d/textes'
 import { texteGras } from '../../lib/format/style'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { sp } from '../../lib/outils/outilString'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Probabilités conditionnelles'
 
@@ -20,37 +20,41 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '01/06/2024' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Stephane Guyon
  */
 export const uuid = '9ccfd'
-export const ref = '1P10'
+
 export const refs = {
   'fr-fr': ['1P10'],
   'fr-ch': []
 }
-export default function ProbabilitesConditionnelles () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Nombre de questions par défaut
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = context.isHtml ? 2 : 1
-  this.spacingCorr = context.isHtml ? 3 : 1
-  this.video = '' // Id YouTube ou url
-  this.sup = false
-  this.sup2 = 3
 
-  /**
+/**
      *
      * @param {Number} proba La probabilité à afficher
      * @param {Boolean} rationnel Si true alors // \\dfrac sinon 0,..
      * @returns la chaine latex pour écrire la proba.
      * version arrondie au millième
      */
-  function texProba (proba, rationnel) {
-    return rationnel ? fraction(arrondi(proba, 3)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, 3)).toString().replace('.', '{,}')
+function texProba (proba, rationnel) {
+  return rationnel ? fraction(arrondi(proba, 3)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, 3)).toString().replace('.', '{,}')
+}
+export default class ProbabilitesConditionnelles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
+    this.besoinFormulaire2Numerique = ['Choix d\'exercices : ', 3, '1 : Sujet 1 issu E3C\n2 : Sujet 2 issu E3C\n3 : Mélange']
+    this.nbQuestions = 1 // Nombre de questions par défaut
+
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 3 : 1
+
+    this.sup = false
+    this.sup2 = 3
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let objets
     let listeTypeDeQuestions
     this.sup2 = contraindreValeur(1, 3, this.sup2, 3)
@@ -209,14 +213,12 @@ export default function ProbabilitesConditionnelles () {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
-  this.besoinFormulaire2Numerique = ['Choix d\'exercices : ', 3, '1 : Sujet 1 issu E3C\n2 : Sujet 2 issu E3C\n3 : Mélange']
 }

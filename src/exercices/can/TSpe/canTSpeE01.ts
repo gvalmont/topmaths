@@ -1,11 +1,11 @@
-import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { lettreDepuisChiffre } from '../../../lib/outils/outilString.js'
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { lettreDepuisChiffre } from '../../../lib/outils/outilString'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
-import Exercice from '../../Exercice.js'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import Exercice from '../../Exercice'
 
 export const titre = "Calculer les coordonnées du milieu d'un segment"
 export const dateDePublication = '05/10/2024'
@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author
 */
 
@@ -26,7 +26,7 @@ export const refs = {
 export default class MilieuSegment extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 1
   }
 
@@ -60,8 +60,8 @@ export default class MilieuSegment extends Exercice {
       texteCorr += `ce qui donne finalement : $I(${miseEnEvidence(`${texNombre((xA + xB) / 2, 1)}~;~${texNombre((yA + yB) / 2, 1)}~;~${texNombre((zA + zB) / 2, 1)} `)})$`
 
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

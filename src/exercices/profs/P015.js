@@ -1,16 +1,16 @@
-import { point } from '../../lib/2d/points.js'
-import { infoMessage } from '../../lib/format/message.js'
+import { point } from '../../lib/2d/points'
+import { infoMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import Alea2iep from '../../modules/Alea2iep.js'
-import { randint, enumerate, enumerateSansPuceSansNumero } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import Alea2iep from '../../modules/Alea2iep'
+import { randint, enumerate, enumerateSansPuceSansNumero } from '../../modules/outils'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '14/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const titre = 'Puzzles géométriques avec animation'
-export const ref = 'P015'
+
 export const refs = {
   'fr-fr': ['P015'],
   'fr-ch': []
@@ -20,20 +20,22 @@ export const uuid = '085ed'
 /**
  * Proposisiton des étapes de construction du puzzles géométriques type tangram, œuf magique ...
  * @author Sébastien LOZANO
- * Référence P015
+
  */
 
-export default function PuzzlesGeometriques () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
-  // this.pasDeVersionLatex = true // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.sup = 1
-  this.sup2 = true
+export default class PuzzlesGeometriques extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de puzzle', 4, '1 : Oeuf magique\n 2 : Tangram\n 3 : Sam Loyd \n 4 : Sam Loyd bis']
+    this.besoinFormulaire2CaseACocher = ['Animation disponible']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1 // Ici le nombre de questions
+    this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
+    this.sup = 1
+    this.sup2 = true
+  }
+
+  nouvelleVersion () {
     const type = parseInt(this.sup)
     const anim = new Alea2iep()
     // anim.taille(1200, 1200)
@@ -410,11 +412,9 @@ export default function PuzzlesGeometriques () {
     }
 
     if (this.sup2) {
-      texte += anim.htmlBouton(this.numeroExercice)
+      texte += anim.htmlBouton(this.numeroExercice ?? 0, 0)
     }
     this.contenu = texte
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireNumerique = ['Type de puzzle', 4, '1 : Oeuf magique\n 2 : Tangram\n 3 : Sam Loyd \n 4 : Sam Loyd bis']
-  this.besoinFormulaire2CaseACocher = ['Animation disponible']
 }

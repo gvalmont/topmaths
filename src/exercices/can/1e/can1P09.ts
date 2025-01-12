@@ -7,7 +7,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer une espérance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,16 +20,13 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class esperance extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
-    this.formatChampTexte = ''
   }
 
   nouvelleVersion () {

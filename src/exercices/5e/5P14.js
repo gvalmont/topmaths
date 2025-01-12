@@ -1,4 +1,4 @@
-import ExercicePourcentage from '../2e/2S10-2.js'
+import ExercicePourcentage from '../2e/2S10-2'
 export const titre = 'Exprimer une proportion sous la forme d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -7,7 +7,6 @@ export const amcType = 'AMCNum'
 
 export const dateDePublication = '04/04/2022'
 
-export const ref = '5P14'
 export const refs = {
   'fr-fr': ['5P14'],
   'fr-ch': []

@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -19,12 +19,12 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class EnFonctionDe extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
@@ -39,7 +39,7 @@ export default class EnFonctionDe extends Exercice {
           const val2 = randint(1, 10)
           const somme = val1 + val2
           const moy = new Decimal(somme).div(2)
-          this.reponse = { reponse: { value: val2, compare: fonctionComparaison } }
+          this.reponse = val2
 
           this.question = `La moyenne de $${val1}$ et $a$ est $${texNombre(moy, 1)}$.<br>`
 
@@ -60,7 +60,7 @@ export default class EnFonctionDe extends Exercice {
           const somme = 3 * randint(Math.max(val1, val2), 15)
           const val3 = somme - val1 - val2
           const moy = new Decimal(somme).div(3)
-          this.reponse = { reponse: { value: val3, compare: fonctionComparaison } }
+          this.reponse = val3
 
           this.question = `La moyenne de la  série de nombres suivante est $${texNombre(moy, 1)}$.<br>
            $${val1}$ ${sp(7)} $${val2}$ ${sp(7)} $a$<br>

@@ -1,28 +1,27 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
 import {
   droiteAvecNomLatex,
   droiteHorizontaleParPoint,
   droiteParPointEtPente,
   droiteVerticaleParPoint
-} from '../../lib/2d/droites.js'
-import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
+} from '../../lib/2d/droites'
+import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
-import Exercice from '../deprecatedExercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { imagePointParTransformation } from '../../modules/imagePointParTransformation'
+import Exercice from '../Exercice'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Trouver les coordonnées de l\'image d\'un point par une rotation et une homothétie'
 export const interactifReady = true
@@ -36,24 +35,23 @@ export const dateDeModifImportante = '06/02/2024'
  * @author Jean-Claude Lhote (Modif des paramètres, nbQuestions modifiables par Eric Elter)
  */
 export const uuid = 'd4088'
-export const ref = '3G10-1'
+
 export const refs = {
   'fr-fr': ['3G10-1'],
   'fr-ch': ['11ES3-1']
 }
-export default function TransformationsDuPlanEtCoordonnees () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.fenetreMathalea2d = [-9, -9, 9, 9]
-  this.sup = '4-5-6'
+export default class TransformationsDuPlanEtCoordonnees extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Translation\n4 : Rotation\n5 : Homothétie de rapport décimal (agrandissement)\n6 : Homothétie de rapport fractionnaire (réduction)\n7: Mélange']
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.nbQuestions = 1
+
+    context.fenetreMathalea2d = [-9, -9, 9, 9]
+    this.sup = '4-5-6'
+  }
+
+  nouvelleVersion () {
     const k = []
     let A, B, C, Aprime, Bprime, Cprime
     const xP = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14] // ces nombres sont juste là pour compter combien il y en a... ils seront remplacés plus tard par les coordonnées utiles ou pas.
@@ -623,7 +621,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
         texte += ajouteChampTexteMathLive(this, i, '')
         texte += '<br>'
         if (context.isAmc) setReponse(this, i, [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`])
-        handleAnswers(this, i, { reponse: { value: [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
+        handleAnswers(this, i, { reponse: { value: [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`], options: { texteAvecCasse: true } } })
 
         if (context.isAmc) {
           enonceAmc += '<br>'
@@ -758,7 +756,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
         )
       }
       if (this.questionJamaisPosee(ee, xA, yA, xB, yB, xC, yC)) {
-        this.listeQuestions.push(texte + '<br>' + mathalea2d({
+        this.listeQuestions[ee] = texte + '<br>' + mathalea2d({
           xmin: -10,
           ymin: -10,
           xmax: 10,
@@ -766,8 +764,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
           pixelsParCm: 20,
           scale: 0.45,
           mainlevee: false
-        }, objetsEnonce))
-        this.listeCorrections.push(texteCorr + '<br>' + mathalea2d({
+        }, objetsEnonce)
+        this.listeCorrections[ee] = texteCorr + '<br>' + mathalea2d({
           xmin: -10,
           ymin: -10,
           xmax: 10,
@@ -775,12 +773,11 @@ export default function TransformationsDuPlanEtCoordonnees () {
           pixelsParCm: 20,
           scale: 0.45,
           mainlevee: false
-        }, objetsCorrection))
+        }, objetsCorrection)
         ee++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des transformations ', 'Nombres séparés par des tirets (3 maximum) \n1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Translation\n4 : Rotation\n5 : Homothétie de rapport décimal (agrandissement)\n6 : Homothétie de rapport fractionnaire (réduction)\n7: Mélange']
 }

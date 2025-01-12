@@ -116,8 +116,8 @@ export default class MultiplierEnDistribuant extends Exercice {
         texteApres: ' (écrire seulement le résultat sous forme d\'un nombre entier)'
       })
       if (this.questionJamaisPosee(i, a, b)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,8 +1,8 @@
-import { context } from '../../modules/context.js'
-import { addElement, get } from '../html/dom.js'
-import { verifQuestionCliqueFigure } from './cliqueFigure.js'
-import { verifQuestionMathLive } from './mathLive.js'
-import { verifQuestionQcm } from './qcm.js'
+import { context } from '../../modules/context'
+import { addElement, get } from '../html/dom'
+import { verifQuestionCliqueFigure } from './cliqueFigure'
+import { verifQuestionMathLive } from './mathLive'
+import { verifQuestionQcm } from './qcm'
 
 export function gestionCan (exercice) {
   context.nbBonnesReponses = 0

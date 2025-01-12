@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Compléter une égalité'
 export const interactifReady = true
@@ -17,7 +17,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class EgaliteACompleter extends Exercice {
   constructor () {
@@ -28,13 +28,10 @@ export default class EgaliteACompleter extends Exercice {
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = 2025
     const b = randint(2, 5)
     const c = randint(1, 5)

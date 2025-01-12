@@ -38,7 +38,6 @@ export default class ExerciceBrevet extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
     if (this.versionAleatoire != null) {
       for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
         if (this.sup) this.versionOriginale()

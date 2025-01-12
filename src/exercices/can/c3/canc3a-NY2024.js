@@ -1,10 +1,8 @@
 import CourseAuxNombresSpeciale2024 from '../6e/CANSpeciale2024'
-
 export const titre = 'CAN Spéciale année 2024 - CM'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '5c15e'
-export const ref = 'canc3a-NY2024'
 export const refs = {
   'fr-fr': ['canc3a-NY2024'],
   'fr-ch': []
@@ -17,8 +15,10 @@ export const dateDePublication = '01/01/2024'
  * @author Gilles Mora
  */
 
-export default function CourseAuxNombresSpeciale2024CM () {
-  CourseAuxNombresSpeciale2024.call(this)
-  this.sup = 7
-  this.besoinFormulaireTexte = false
+export default class CourseAuxNombresSpeciale2024CM extends CourseAuxNombresSpeciale2024 {
+  constructor () {
+    super()
+    this.sup = 7
+    this.besoinFormulaireTexte = false
+  }
 }

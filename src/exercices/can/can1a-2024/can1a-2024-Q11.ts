@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Décomposer une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,18 +10,17 @@ export const uuid = '40cd8'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class FractionAvecPi extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'mathlive'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -33,7 +32,7 @@ export default class FractionAvecPi extends Exercice {
 
     this.question = `Compléter.<br>
       $\\dfrac{${nbrepi * den + num}\\pi}{${den}}=${nbrepi}\\pi+$ `
-    this.reponse = { reponse: { value: `\\dfrac{${num}\\pi}{${den}}`, compare: fonctionComparaison } }
+    this.reponse = { reponse: { value: `\\dfrac{${num}\\pi}{${den}}` } }
     this.correction = `$\\begin{aligned}
       \\dfrac{${nbrepi * den + num}\\pi}{${den}}&=\\dfrac{${nbrepi * den}\\pi}{${den}}+\\dfrac{${num}\\pi}{${den}}\\\\
       &=${nbrepi}\\pi+${miseEnEvidence(`\\dfrac{${num}\\pi}{${den}}`)}

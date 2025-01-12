@@ -1,57 +1,36 @@
-import { droite, mediatrice } from '../../lib/2d/droites.js'
-import { milieu, point, pointAdistance, pointSurSegment, tracePoint } from '../../lib/2d/points.js'
-import { nommePolygone, polygone, polygoneAvecNom, renommePolygone } from '../../lib/2d/polygones.js'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, latexParPoint } from '../../lib/2d/textes.ts'
-import { rotation, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Alea2iep from '../../modules/Alea2iep.js'
-import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
+import { droite, mediatrice } from '../../lib/2d/droites'
+import { milieu, point, pointAdistance, pointSurSegment, tracePoint } from '../../lib/2d/points'
+import { nommePolygone, polygone, polygoneAvecNom, renommePolygone } from '../../lib/2d/polygones'
+import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, latexParPoint } from '../../lib/2d/textes'
+import { rotation, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations'
+import Exercice from '../Exercice'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Alea2iep from '../../modules/Alea2iep'
+import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation'
 
 export const titre = 'Tranformations de triangle'
 /**
  * @author Liouba Leroux & Jean-Claude Lhote
  */
 export const uuid = '0da6a'
-export const ref = '4G15'
+
 export const refs = {
   'fr-fr': ['4G15'],
   'fr-ch': ['10ES2-7']
 }
-export default function TransformationsDeTriangle () {
-  Exercice.call(this)
-  this.titre = 'Tranformations de triangle'
-  this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
-  this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
-  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
+export default class TransformationsDeTriangle extends Exercice {
+  constructor () {
+    super()
 
-  //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+    this.titre = 'Tranformations de triangle'
+    this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
+    this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
+  }
 
-  // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function (numeroExercice) {
-    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
-    // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
-    // Ci-dessus On crée une liste aléatoire comprenant nbQuestions parmi les types disponibles.
-    /* Un exemple ci-dessous : si la classe est 6, alors les types dispo sont 1 et 2 sinon , 1,2,3 et 4.
-  if (this.classe == 6) typesDeQuestionsDisponibles = [1, 2]
-      else typesDeQuestionsDisponibles = [1, 2, 3,4]
-  listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-  */
-    // boucle pour fabriquer les nbQuestions questions en s'assurant que si il n'y a pas nbQuestions différentes
-    // La boucle s'arrête après 50 tentatives.
-
+  nouvelleVersion (numeroExercice) {
     const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
     const objetsCorrection = [] // Idem pour la correction
 

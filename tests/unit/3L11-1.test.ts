@@ -18,7 +18,6 @@ describe('DoubleDistributivite', () => {
     expect(exercice.sup).toBe(1)
     expect(exercice.sup2).toBe(true)
     expect(exercice.sup3).toBe(false)
-    expect(exercice.tailleDiaporama).toBe(3)
     expect(exercice.listeAvecNumerotation).toBe(false)
   })
 

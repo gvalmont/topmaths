@@ -1,21 +1,21 @@
-import { arc, cercleCentrePoint } from '../../lib/2d/cercle.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { carre, motifs } from '../../lib/2d/polygones.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import { rotation, translation } from '../../lib/2d/transformations.js'
+import { arc, cercleCentrePoint } from '../../lib/2d/cercle'
+import { point, tracePoint } from '../../lib/2d/points'
+import { carre, motifs } from '../../lib/2d/polygones'
+import { repere } from '../../lib/2d/reperes'
+import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
+import { rotation, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { texcolors } from '../../lib/format/style'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
+import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -26,30 +26,28 @@ export const titre = 'Représenter des données par un diagramme'
  * @author Mickael Guironnet - Jean-Claude Lhote
  */
 export const uuid = 'd3ca7'
-export const ref = '5S12'
+
 export const refs = {
   'fr-fr': ['5S12'],
   'fr-ch': ['9FA1-4']
 }
-export default function ConstruireUnDiagramme () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
-  this.sup = 3
-  this.sup2 = 1
-  this.sup3 = 1
-  this.sup4 = true
-  this.listeAvecNumerotation = false
+export default class ConstruireUnDiagramme extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
+    this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
+    this.besoinFormulaire3Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en bâtons\n4 : Diagramme cartésien\n5 : Au hasard']
+    this.besoinFormulaire4CaseACocher = ['Valeur exactes', true]
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.sup = 3
+    this.sup2 = 1
+    this.sup3 = 1
+    this.sup4 = true
+    this.listeAvecNumerotation = false
+  }
 
-  //  this.sup3 = false;
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     if (this.sup3 < 5) {
       typesDeQuestionsDisponibles = [parseInt(this.sup3)]
@@ -323,8 +321,4 @@ export default function ConstruireUnDiagramme () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
-  this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
-  this.besoinFormulaire3Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en bâtons\n4 : Diagramme cartésien\n5 : Au hasard']
-  this.besoinFormulaire4CaseACocher = ['Valeur exactes', true]
 }

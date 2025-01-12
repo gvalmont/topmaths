@@ -1,11 +1,10 @@
-/* eslint-disable camelcase */
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
-import { Relatif } from '../../modules/Relatif.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { Relatif } from '../../modules/Relatif'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -18,31 +17,29 @@ export const titre = 'Signe d\'un produit ou d\'un quotient de nombres relatifs'
  * Plusieurs niveaux 2, 3 ou 4 factieurs, un quotient de 2 nombres, 1  nombre sur un produit de deux nombres, un produit de 2 nombres sur un nombre, un quotient de produit de 2 nombres
  * 4C10-0 exercice parent de 4C10-1 et 4C10-2
  * 4C10-0 contient tous les cas
- * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à context.html
- * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
 
  * @author Sébastien Lozano
  */
 export const uuid = '450ae'
-export const ref = '4C10-0'
+
 export const refs = {
   'fr-fr': ['4C10-0'],
   'fr-ch': ['10NO4-2']
 }
-export default function SigneProduitQuotientRelatifs () {
-  Exercice.call(this)
-  this.consigne = 'Donner le signe des expressions numériques.'
-  this.nbQuestions = 7
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
+export default class SigneProduitQuotientRelatifs extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 7
+  }
 
-  let typesDeQuestionsDisponibles
+  nouvelleVersion () {
+    this.consigne = this.nbQuestions === 1
+      ? 'Donner le signe des expressions numériques.'
+      : 'Donner le signe de l\'expression numérique.'
+    let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-    this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
-    if (this.exo === this.beta + '4C10-1') {
+    // this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+    if (this.exo === '4C10-1') {
       // signe d'un produit
       switch (this.sup) {
         case 1: // 2 facteurs
@@ -58,7 +55,7 @@ export default function SigneProduitQuotientRelatifs () {
           typesDeQuestionsDisponibles = [1, 2, 3]
           break
       }
-    } else if (this.exo === this.beta + '4C10-2') {
+    } else if (this.exo === '4C10-2') {
       // signe d'un quotient
       switch (this.sup) {
         case 1: // quotient de 2 nombres
@@ -83,8 +80,6 @@ export default function SigneProduitQuotientRelatifs () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
@@ -315,8 +310,8 @@ export default function SigneProduitQuotientRelatifs () {
       texte += '<br>' + propositionsQcm(this, i).texte
       if (this.questionJamaisPosee(i, num.relatifs[0], num.relatifs[1], num.relatifs[2], num.relatifs[3], listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,7 +1,6 @@
 // et notre css
 import './listeDeroulante.scss'
 import { MathfieldElement } from 'mathlive'
-import type Exercice from '../../../exercices/Exercice'
 type EventListener = (event?: Event) => void
 type KeyboardEventListener = (event: KeyboardEvent) => void
 
@@ -31,8 +30,8 @@ function empty (...elts: Element[]): void {
 //            {latex: '\\frac{\\sqrt{3}}{2}',value: 'sinusPiSur3'},
 //            {label: "n'est pas définie en zéro", value: 'noF0'}
 //            'Je ne sais pas']
-type AllChoiceType = (string | CHoiceValue)
-type AllChoicesType = AllChoiceType[]
+export type AllChoiceType = (string | CHoiceValue)
+export type AllChoicesType = AllChoiceType[]
 
 /**
  * Cette fonction est amenée à disparaître : elle palie à un bug du MathfieldElement qui intercepte les actions du pointer alors qu'il est readOnly.
@@ -106,8 +105,8 @@ class ListeDeroulante {
      * @param options.choix0
      */
   constructor (choices: AllChoicesType, { choix0 }: {
-        choix0?: boolean,
-    } = { choix0: false }) {
+    choix0?: boolean,
+  } = { choix0: false }) {
     if (arguments.length > 2) throw Error('nombre d’arguments invalides')
     if (!Array.isArray(choices)) throw Error('Il faut passer une liste de choix')
     this.disabled = false // mettre à true pour désactiver la liste
@@ -125,7 +124,7 @@ class ListeDeroulante {
      * Crée les éléments dans le DOM (appelé par create) et ajoute les listeners
      * @private
      */
-  _init ({ conteneur, sansFleche, select }:{ conteneur?: HTMLElement, sansFleche?: boolean, select?: number} = { sansFleche: false, select: 0 }) {
+  _init ({ conteneur, sansFleche, select }:{ conteneur?: HTMLElement, sansFleche?: boolean, select?: number } = { sansFleche: false, select: 0 }) {
     /**
          * Le span qui va contenir la liste (tous les éléments que l'on crée, enfant de conteneur)
          * @type {HTMLSpanElement}
@@ -284,8 +283,8 @@ class ListeDeroulante {
      * @param {boolean} [options.withoutOffset] Passer true si l'index est celui du tableau après avoir éventuellement retiré son 1er élément (à priori usage interne seulement)
      */
   select (index: number, { withoutOffset }: {
-        withoutOffset?: boolean,
-    } = {}) {
+    withoutOffset?: boolean,
+  } = {}) {
     if (this.spanSelected != null) {
       if (this.disabled) return
       this.spanSelected.style.fontStyle = ''
@@ -360,6 +359,10 @@ class ListeDeroulante {
     else return false
   }
 
+  getSelectedIndex () {
+    return this._kbIndex
+  }
+
   /**
      * Ajoute la liste dans le dom et retourne l'objet ListeDeroulante qu'elle a créé
      * @name ListeDeroulante
@@ -375,10 +378,10 @@ class ListeDeroulante {
     sansFleche,
     select
   }: {
-        choix0?: boolean,
-        sansFleche?: boolean,
-        select?: number,
-    } = {
+    choix0?: boolean,
+    sansFleche?: boolean,
+    select?: number,
+  } = {
     choix0: false,
     sansFleche: false,
     select: 0

@@ -1,14 +1,15 @@
-import { point } from '../lib/2d/points.js'
-import { segment } from '../lib/2d/segmentsVecteurs.js'
-import { latex2d, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes.ts'
+import { point } from '../lib/2d/points'
+import { segment } from '../lib/2d/segmentsVecteurs'
+import { latex2d, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes'
 import { combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
-import { randint } from './outils.js'
+import { randint } from './outils'
 
 /**  Crée un ensemble de chemins possibles dans un labyrinthe. Cette fonction est à associer aux méthodes conçues pour.
  * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.nbLignes = 3]
  * @param {number} [parametres.nbColonnes = 6]
+ * @param {number} [parametres.scaleFigure = 1]
  * @author Jean-Claude Lhote & Eric Elter (améliorée par EE pour choisir le nombre de lignes et de colonnes)
  * Publié le 6/12/2020 (Modifié le 05/10/2022)
  * @class
@@ -19,7 +20,10 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
   function arrayCopy (arr) {
     return JSON.parse(JSON.stringify(arr))
   }
-
+  this.niveau = 1
+  this.murs2d = []
+  this.chemin2d = []
+  this.nombres2d = []
   // Permet de tester si un tableau est contenu dans un autre.
   // tableauDansTableau([0, 1, 0, 0, 1, 1, 1, 0],[1, 1]) Permet de tester si [1, 1] est contenu dans [[0, 1], [0, 0], [1, 1], [1, 0]]
   function tableauDansTableau (gdTableau, petitTableau) {
@@ -355,6 +359,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
  * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.nbLignes = 3]
  * @param {number} [parametres.nbColonnes = 6]
+ * @param {number} [parametres.scaleFigure = 1]
  * @example laby = labyrinthe ({ nbLignes: 4, nbColonnes: 5 })
  * // Crée l'ensemble de chemins possibles dans un labyrinthe à 4 lignes et 5 colonnes
  * @author Jean-Claude Lhote & Eric Elter (améliorée par EE pour choisir le nombre de lignes et de colonnes)

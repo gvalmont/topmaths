@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -25,7 +25,7 @@ const bleuMathalea = context.isHtml ? '#216D9A' : 'black'
 export default class EtudeSuiteRecurrence extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.sup = 5

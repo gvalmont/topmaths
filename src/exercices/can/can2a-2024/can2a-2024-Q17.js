@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Rendre une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,12 +14,11 @@ export const uuid = '2c801'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {
@@ -43,7 +42,6 @@ export default class NomExercice extends Exercice {
       this.reponse = {
         reponse: {
           value: b.simplifie().texFraction,
-          compare: fonctionComparaison,
           options: { fractionIrreductible: true }
         }
       }

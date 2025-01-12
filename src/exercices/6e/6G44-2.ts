@@ -9,20 +9,20 @@ import {
   pyramide3d,
   translation3d,
   vecteur3d
-} from '../../modules/3d.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+} from '../../modules/3d'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import Exercice from '../Exercice'
 import { notify } from '../../bugsnag'
 
 export const titre = 'Décrire un assemblage de solides'
 export const dateDePublication = '9/3/2024'
-/*!
+/**
  * @author Guillaume Valmont à partir de 6G44 de Jean-Claude Lhote
  */
 export const uuid = '083b9'
-export const ref = '6G44-2'
+
 export const refs = {
   'fr-fr': ['6G44-2'],
   'fr-ch': []
@@ -65,9 +65,6 @@ export default class DecrireAssemblageDeSolides extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     const troncs = ['prisme', 'cylindre', 'prisme sans', 'cylindre sans']
     const chapeaux = ['haut', 'bas', 'les deux']
     const combinaisons = []
@@ -183,8 +180,8 @@ export default class DecrireAssemblageDeSolides extends Exercice {
       }
       this.question = mathalea2d(Object.assign({}, fixeBordures(objets), { scale: 0.4 }), objets)
       if (this.questionJamaisPosee(j, tronc, chapeau, rayon)) {
-        this.listeQuestions.push(this.question)
-        this.listeCorrections.push(this.correction)
+        this.listeQuestions[j] = this.question
+        this.listeCorrections[j] = this.correction
         j++
       }
       cpt++

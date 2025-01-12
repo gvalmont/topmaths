@@ -1,21 +1,21 @@
 import Decimal from 'decimal.js'
-import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
-import { milieu, point } from '../../lib/2d/points.js'
-import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint } from '../../lib/2d/textes.ts'
-import { homothetie, rotation } from '../../lib/2d/transformations.js'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { milieu, point } from '../../lib/2d/points'
+import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { latexParPoint } from '../../lib/2d/textes'
+import { homothetie, rotation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { quatriemeProportionnelle } from '../../lib/outils/calculs'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -36,7 +36,7 @@ export const titre = 'Calculer une longueur dans un triangle rectangle en utilis
  * combinaisonListes des questions par Guillaume Valmont le 23/05/2022
  */
 export const uuid = 'bd6b1'
-export const ref = '3G30'
+
 export const refs = {
   'fr-fr': ['3G30'],
   'fr-ch': []
@@ -45,8 +45,7 @@ export default class CalculDeLongueur extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.nbCols = 1
-    this.nbColsCorr = 1
+
     this.sup = false
     this.sup2 = '7'
     this.sup3 = 1
@@ -66,7 +65,6 @@ export default class CalculDeLongueur extends Exercice {
   }
 
   nouvelleVersion () {
-    this.consigne = ''
     let reponse
     let listeDeNomsDePolygones
     const typeQuestionsDisponibles = (this.level === 4)

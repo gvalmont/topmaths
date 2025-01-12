@@ -1,5 +1,3 @@
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable comma-dangle */
 /* tags
 
    Algorithmie
@@ -17,9 +15,7 @@
    Variables aléatoires
    QCM
 
-
 */
-
 
 export const dictionnaireE3C = {
   e3c_2021_01_specimen1_1: {

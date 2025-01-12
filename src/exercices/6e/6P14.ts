@@ -1,21 +1,21 @@
-import { angleOriente, codageAngleDroit } from '../../lib/2d/angles.js'
-import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages.js'
-import { point, pointAdistance } from '../../lib/2d/points.js'
-import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { rotation } from '../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
+import { angleOriente, codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages'
+import { point, pointAdistance } from '../../lib/2d/points'
+import { nommePolygone, polygone } from '../../lib/2d/polygones'
+import { rotation } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { max, min } from 'mathjs'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
@@ -31,7 +31,7 @@ export const dateDeModifImportante = '11/04/2024'
  * @author Eric Elter
  */
 export const uuid = '4c6e2'
-export const ref = '6P14'
+
 export const refs = {
   'fr-fr': ['6P14'],
   'fr-ch': ['9FA3-17']
@@ -39,7 +39,7 @@ export const refs = {
 class AgrandirReduireFigure extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.besoinFormulaireTexte = [
       'Type de figures', [
         'Nombres séparés par des tirets',
@@ -56,7 +56,7 @@ class AgrandirReduireFigure extends Exercice {
     this.sup = 7
     this.sup2 = '15'
     this.nbQuestions = 4
-    this.spacingCorr = 1
+
     this.spacing = 2
   }
 
@@ -786,8 +786,8 @@ class AgrandirReduireFigure extends Exercice {
       } while (longueurMax > longueurMaximum && cpt < 200)
       if (this.questionJamaisPosee(i, absBFinal, coeffFinal, listeTypeQuestions[i])) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionSigne } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const titre = 'Reconnaître une fonction affine'
 export const interactifReady = true
@@ -17,22 +17,21 @@ export const amcType = 'qcmMono'
 * @author Stéphane Guyon
 */
 export const uuid = '90998'
-export const ref = '2F10-1'
+
 export const refs = {
   'fr-fr': ['2F10-1'],
   'fr-ch': ['11FA8-1']
 }
-export default function Reconnaitrefonctionaffine () {
-  Exercice.call(this)
-  this.video = ''
-  this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines.'
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 5
+export default class Reconnaitrefonctionaffine extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines.'
+
+    this.nbQuestions = 5
+  }
+
+  nouvelleVersion () {
     let bonneReponse
 
     const listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions)
@@ -170,8 +169,8 @@ export default function Reconnaitrefonctionaffine () {
       }
       if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

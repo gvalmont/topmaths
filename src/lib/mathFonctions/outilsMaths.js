@@ -1,7 +1,7 @@
-import { randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils'
 import { ecritureAlgebrique } from '../outils/ecritures'
-import { matrice } from './Matrice.js'
-import { Polynome } from './Polynome.js'
+import { matrice } from './Matrice'
+import { Polynome } from './Polynome'
 import { miseEnEvidence } from '../outils/embellissements'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 

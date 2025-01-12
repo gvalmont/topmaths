@@ -1,4 +1,4 @@
-import ConstruireParSymetrie from '../6e/_Construire_par_symetrie.js'
+import ConstruireParSymetrie from '../6e/_Construire_par_symetrie'
 export const titre = 'Construire le symétrique d\'un point par symétrie centrale'
 export const interactifReady = false
 export const amcReady = true
@@ -8,7 +8,7 @@ export const dateDeModifImportante = '14/11/2021'
  * @author Jean-Claude Lhote
  */
 export const uuid = '8d4bf'
-export const ref = '5G11-1'
+
 export const refs = {
   'fr-fr': ['5G11-1'],
   'fr-ch': ['9ES6-5']

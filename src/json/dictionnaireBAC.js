@@ -24,8 +24,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_01_sujet0_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_01_sujet0_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Exponentielle', 'Convexité']
   },
@@ -34,8 +32,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_01_sujet0_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_01_sujet0_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -44,8 +40,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_01_sujet0_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_01_sujet0_3_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Python']
   },
@@ -54,8 +48,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_01_sujet0_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_01_sujet0_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité']
   },
@@ -64,8 +56,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_01_sujet0_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_01_sujet0_5_cor.png',
     typeExercice: 'bac',
     tags: ['Équations différentielles', 'Exponentielle', 'Suites']
   },
@@ -74,8 +64,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet1',
     mois: 'Mars',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet1_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet1_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -84,8 +72,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet1',
     mois: 'Mars',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet1_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet1_2_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle']
   },
@@ -94,8 +80,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet1',
     mois: 'Mars',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet1_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet1_3_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Espace']
   },
@@ -104,8 +88,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet1',
     mois: 'Mars',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet1_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet1_4_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Tableur']
   },
@@ -114,8 +96,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet1',
     mois: 'Mars',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet1_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet1_5_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité']
   },
@@ -124,8 +104,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet2',
     mois: 'Mars',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet2_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet2_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -134,8 +112,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet2',
     mois: 'Mars',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet2_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet2_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -144,8 +120,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet2',
     mois: 'Mars',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet2_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet2_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -154,8 +128,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet2',
     mois: 'Mars',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet2_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet2_4_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle']
   },
@@ -164,8 +136,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet2',
     mois: 'Mars',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_03_sujet2_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_03_sujet2_5_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Primitives']
   },
@@ -174,8 +144,6 @@ export const dictionnaireBAC = {
     lieu: 'Amérique du Nord',
     mois: 'Mai',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -184,8 +152,6 @@ export const dictionnaireBAC = {
     lieu: 'Amérique du Nord',
     mois: 'Mai',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -194,8 +160,6 @@ export const dictionnaireBAC = {
     lieu: 'Amérique du Nord',
     mois: 'Mai',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -204,8 +168,6 @@ export const dictionnaireBAC = {
     lieu: 'Amérique du Nord',
     mois: 'Mai',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_4_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Exponentielle', 'Convexité']
   },
@@ -214,8 +176,6 @@ export const dictionnaireBAC = {
     lieu: 'Amérique du Nord',
     mois: 'Mai',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_05_ameriquenord_5_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité']
   },
@@ -224,8 +184,6 @@ export const dictionnaireBAC = {
     lieu: 'Polynésie',
     mois: 'Juin',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_06_polynesie_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Suites']
   },
@@ -234,8 +192,6 @@ export const dictionnaireBAC = {
     lieu: 'Polynésie',
     mois: 'Juin',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_06_polynesie_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -244,8 +200,6 @@ export const dictionnaireBAC = {
     lieu: 'Polynésie',
     mois: 'Juin',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_06_polynesie_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -254,8 +208,6 @@ export const dictionnaireBAC = {
     lieu: 'Polynésie',
     mois: 'Juin',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_06_polynesie_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Convexité', 'Équations différentielles']
   },
@@ -264,8 +216,6 @@ export const dictionnaireBAC = {
     lieu: 'Polynésie',
     mois: 'Juin',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_06_polynesie_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_polynesie_5_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI']
   },
@@ -275,8 +225,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -285,8 +233,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '10',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_10.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_10_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Logarithme', 'Tableur']
   },
@@ -295,8 +241,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -305,8 +249,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Dénombrement', 'Variables aléatoires', 'Loi binomiale']
   },
@@ -315,8 +257,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Convexité']
   },
@@ -325,8 +265,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_5_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Équations différentielles']
   },
@@ -335,8 +273,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '6',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_6.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_6_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Exponentielle', 'Convexité', 'Python']
   },
@@ -345,8 +281,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '7',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_7.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_7_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -355,8 +289,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '8',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_8.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_8_cor.png',
     typeExercice: 'bac',
     tags: ['Variables aléatoires', 'Loi binomiale', 'Dénombrement']
   },
@@ -365,8 +297,6 @@ export const dictionnaireBAC = {
     lieu: 'Asie',
     mois: 'Juin',
     numeroInitial: '9',
-    png: 'static/bac/2021/tex/png/bac_2021_06_asie_9.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_asie_9_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Équations différentielles']
   },
@@ -375,8 +305,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Exponentielle', 'Dénombrement']
   },
@@ -385,8 +313,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '10',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_10.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_10_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Équations différentielles']
   },
@@ -395,8 +321,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -405,8 +329,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites']
   },
@@ -415,8 +337,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -425,8 +345,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_5_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Équations différentielles']
   },
@@ -435,8 +353,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '6',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_6.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_6_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Variables aléatoires']
   },
@@ -445,8 +361,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '7',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_7.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_7_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Exponentielle', 'Python']
   },
@@ -455,8 +369,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '8',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_8.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_8_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -465,8 +377,6 @@ export const dictionnaireBAC = {
     lieu: 'Centres étrangers',
     mois: 'Juin',
     numeroInitial: '9',
-    png: 'static/bac/2021/tex/png/bac_2021_06_etrangers_9.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_etrangers_9_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Variables aléatoires']
   },
@@ -475,8 +385,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Exponentielle', 'Convexité']
   },
@@ -485,8 +393,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '10',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_10.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_10_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Convexité']
   },
@@ -495,8 +401,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -505,8 +409,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -515,8 +417,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -525,8 +425,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_5_cor.png',
     typeExercice: 'bac',
     tags: ['Équations différentielles', 'Exponentielle']
   },
@@ -535,8 +433,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '6',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_6.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_6_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Espace']
   },
@@ -545,8 +441,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '7',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_7.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_7_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Python']
   },
@@ -555,8 +449,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '8',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_8.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_8_cor.png',
     typeExercice: 'bac',
     tags: ['Suites']
   },
@@ -565,8 +457,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '9',
-    png: 'static/bac/2021/tex/png/bac_2021_06_metropole_9.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_06_metropole_9_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI']
   },
@@ -575,8 +465,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '1',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_1.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Exponentielle', 'Convexité']
   },
@@ -585,8 +473,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '10',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_10.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_10_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme']
   },
@@ -595,8 +481,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '2',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_2.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -605,8 +489,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '3',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_3.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Probabilités conditionnelles']
   },
@@ -615,8 +497,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '4',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_4.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -625,8 +505,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '5',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_5.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_5_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme']
   },
@@ -635,8 +513,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '6',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_6.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_6_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -645,8 +521,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '7',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_7.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_7_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Espace']
   },
@@ -655,8 +529,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '8',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_8.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_8_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'TVI']
   },
@@ -665,8 +537,6 @@ export const dictionnaireBAC = {
     lieu: 'Métropole',
     mois: 'Septembre',
     numeroInitial: '9',
-    png: 'static/bac/2021/tex/png/bac_2021_09_metropole_9.png',
-    pngCor: 'static/bac/2021/tex/png/bac_2021_09_metropole_9_cor.png',
     typeExercice: 'bac',
     tags: ['Suites']
   },
@@ -677,8 +547,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
@@ -688,8 +556,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python', 'Logarithme']
   },
@@ -699,8 +565,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -710,8 +574,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Convexité', 'Vrai/Faux']
   },
@@ -721,8 +583,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_asie_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_asie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -732,8 +592,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python', 'Exponentielle', 'Logarithme']
   },
@@ -743,8 +601,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_asie_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_asie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -754,8 +610,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_asie_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_asie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité']
   },
@@ -765,8 +619,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Convexité', 'Logarithme', 'Primitives']
   },
@@ -776,8 +628,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -787,8 +637,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Suites']
   },
@@ -798,8 +646,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -809,8 +655,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -820,8 +664,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Logarithme', 'Convexité']
   },
@@ -831,8 +673,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Exponentielle', 'TVI', 'Python']
   },
@@ -842,8 +682,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -853,8 +691,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Suites', 'TVI']
   },
@@ -864,8 +700,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -875,8 +709,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Python']
   },
@@ -886,8 +718,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'QCM', 'Primitives', 'Convexité']
   },
@@ -897,8 +727,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Logarithme', 'Primitives', 'Suites', 'Convexité', 'Python']
   },
@@ -908,8 +736,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -919,8 +745,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -930,8 +754,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -941,8 +763,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Suites']
   },
@@ -952,8 +772,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2_cor.png',
     typeExercice: 'bac',
     tags: ['TVI', 'Exponentielle', 'Convexité']
   },
@@ -963,8 +781,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -974,8 +790,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Loi binomiale', 'QCM']
   },
@@ -985,8 +799,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_asie_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_asie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -996,8 +808,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Convexité', 'Logarithme', 'TVI']
   },
@@ -1007,8 +817,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
@@ -1018,8 +826,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python', 'Tableur']
   },
@@ -1029,8 +835,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Convexité', 'Exponentielle', 'Primitives']
   },
@@ -1040,8 +844,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité', 'Suites']
   },
@@ -1051,8 +853,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1062,8 +862,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_4_cor.png',
     typeExercice: 'bac',
     tags: ['Variables aléatoires', 'Loi binomiale']
   },
@@ -1073,8 +871,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1084,8 +880,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1095,8 +889,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Convexité']
   },
@@ -1106,8 +898,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Logarithme', 'Suites', 'Python']
   },
@@ -1117,8 +907,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1128,8 +916,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Convexité', 'Suites']
   },
@@ -1139,8 +925,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1150,8 +934,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'TVI']
   },
@@ -1161,8 +943,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Logarithme', 'Exponentielle', 'Primitives']
   },
@@ -1172,8 +952,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1183,8 +961,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1194,8 +970,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1205,8 +979,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1216,8 +988,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python', 'Logarithme']
   },
@@ -1227,8 +997,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Convexité']
   },
@@ -1238,8 +1006,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1249,8 +1015,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Exponentielle', 'Convexité', 'Suites', 'Primitives']
   },
@@ -1260,8 +1024,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Variables aléatoires', 'Loi binomiale']
   },
@@ -1271,8 +1033,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Exponentielle', 'TVI']
   },
@@ -1282,8 +1042,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1293,8 +1051,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1304,8 +1060,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1315,8 +1069,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité', 'Primitives']
   },
@@ -1326,8 +1078,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1337,8 +1087,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1348,8 +1096,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Convexité']
   },
@@ -1359,8 +1105,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1370,8 +1114,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1381,8 +1123,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
@@ -1392,8 +1132,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Python', 'Convexité', 'Primitives']
   },
@@ -1403,8 +1141,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Suites']
   },
@@ -1414,8 +1150,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1425,8 +1159,6 @@ export const dictionnaireBAC = {
     mois: 'Octobre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité']
   },
@@ -1436,8 +1168,6 @@ export const dictionnaireBAC = {
     mois: 'Octobre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Suites', 'Python']
   },
@@ -1447,8 +1177,6 @@ export const dictionnaireBAC = {
     mois: 'Octobre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1458,8 +1186,6 @@ export const dictionnaireBAC = {
     mois: 'Octobre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1469,8 +1195,6 @@ export const dictionnaireBAC = {
     mois: 'Octobre',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_1.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1480,8 +1204,6 @@ export const dictionnaireBAC = {
     mois: 'Octobre',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Python']
   },
@@ -1491,8 +1213,6 @@ export const dictionnaireBAC = {
     mois: 'Octobre',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_3.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1502,8 +1222,6 @@ export const dictionnaireBAC = {
     mois: 'Octobre',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4.png',
-    pngCor: 'static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Exponentielle', 'Logarithme']
   },
@@ -1513,8 +1231,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_1_cor.png',
     typeExercice: 'bac',
     tags: ['Équations différentielles', 'Exponentielle']
   },
@@ -1523,8 +1239,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_2_cor.png',
     typeExercice: 'bac',
     tags: ['Primitives', 'Python', 'Suites', 'Exponentielle']
   },
@@ -1533,8 +1247,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_3_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Variables aléatoires', 'Loi binomiale']
   },
@@ -1543,8 +1255,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace', 'QCM']
   },
@@ -1553,8 +1263,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '5',
-    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_5.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_5_cor.png',
     typeExercice: 'bac',
     tags: ['Fonctions trigonométriques', 'Convexité', 'QCM', 'Combinatoire', 'Loi binomiale']
   },
@@ -1563,8 +1271,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '6',
-    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_6.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_6_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Suites']
   },
@@ -1573,8 +1279,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '7',
-    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_7.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_7_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Logarithme']
   },
@@ -1583,8 +1287,6 @@ export const dictionnaireBAC = {
     lieu: 'sujet0',
     mois: 'Janvier',
     numeroInitial: '8',
-    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_8.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_8_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1595,8 +1297,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_ameriquenord_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_ameriquenord_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1606,8 +1306,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_ameriquenord_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_ameriquenord_2_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'TVI', 'Convexité']
   },
@@ -1617,8 +1315,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_ameriquenord_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_ameriquenord_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1628,8 +1324,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_ameriquenord_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_ameriquenord_4_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1639,8 +1333,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_asie_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_asie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1650,8 +1342,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_asie_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_asie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1661,8 +1351,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_asie_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_asie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme']
   },
@@ -1672,8 +1360,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_asie_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_asie_4_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Probabilités conditionnelles']
   },
@@ -1683,8 +1369,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe1_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe1_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Logarithme', 'Primitives', 'Python', 'Loi binomiale']
   },
@@ -1694,8 +1378,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe1_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe1_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Suites', 'Loi binomiale']
   },
@@ -1705,8 +1387,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe1_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe1_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1716,8 +1396,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe1_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe1_4_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Exponentielle']
   },
@@ -1727,8 +1405,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe2_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe2_1_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme']
   },
@@ -1738,8 +1414,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe2_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe2_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Suites']
   },
@@ -1749,8 +1423,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe2_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe2_3_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Logarithme', 'Convexité', 'Suites']
   },
@@ -1760,8 +1432,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe2_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_etrangers_groupe2_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1771,8 +1441,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_metropole_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1782,8 +1450,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_metropole_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI']
   },
@@ -1793,8 +1459,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_metropole_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1804,8 +1468,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_metropole_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1815,8 +1477,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_polynesie_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1826,8 +1486,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_polynesie_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1837,8 +1495,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_polynesie_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Convexité', 'Primitives', 'Exponentielle', 'Python']
   },
@@ -1848,8 +1504,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_polynesie_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Logarithme']
   },
@@ -1859,8 +1513,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_reunion_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_reunion_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -1870,8 +1522,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_reunion_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_reunion_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Convexité', 'Primitives']
   },
@@ -1881,8 +1531,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_reunion_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_reunion_3_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Suites', 'Python']
   },
@@ -1892,8 +1540,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet1_reunion_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet1_reunion_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1903,8 +1549,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_ameriquenord_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_ameriquenord_1_cor.png',
     typeExercice: 'bac',
     tags: ['Convexité', 'Exponentielle']
   },
@@ -1914,8 +1558,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_ameriquenord_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_ameriquenord_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1925,8 +1567,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_ameriquenord_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_ameriquenord_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1936,8 +1576,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_ameriquenord_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_ameriquenord_4_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Logarithme', 'TVI', 'Suites', 'Variables aléatoires', 'Loi binomiale']
   },
@@ -1947,8 +1585,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_asie_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_asie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -1958,8 +1594,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_asie_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_asie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'TVI', 'Logarithme']
   },
@@ -1969,8 +1603,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_asie_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_asie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -1980,8 +1612,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_asie_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_asie_4_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Probabilités conditionnelles']
   },
@@ -1991,8 +1621,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe1_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe1_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Exponentielle', 'Primitives', 'Convexité', 'Python', 'Probabilités conditionnelles']
   },
@@ -2002,8 +1630,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe1_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe1_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Suites']
   },
@@ -2013,8 +1639,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe1_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe1_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2024,8 +1648,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe1_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe1_4_cor.png',
     typeExercice: 'bac',
     tags: ['Loi binomiale']
   },
@@ -2035,8 +1657,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe2_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe2_1_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Convexité']
   },
@@ -2046,8 +1666,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe2_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe2_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Suites']
   },
@@ -2057,8 +1675,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe2_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe2_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2068,8 +1684,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe2_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_etrangers_groupe2_4_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Loi binomiale', 'Python']
   },
@@ -2079,8 +1693,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_metropole_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2090,8 +1702,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_metropole_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2101,8 +1711,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_metropole_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2112,8 +1720,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_metropole_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme']
   },
@@ -2123,8 +1729,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_polynesie_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Suites', 'Loi binomiale']
   },
@@ -2134,8 +1738,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_polynesie_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2145,8 +1747,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_polynesie_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Convexité']
   },
@@ -2156,8 +1756,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_polynesie_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Suites', 'Logarithme', 'Convexité', 'Python']
   },
@@ -2167,8 +1765,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_reunion_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_reunion_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2178,8 +1774,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_reunion_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_reunion_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2189,8 +1783,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_reunion_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_reunion_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2200,8 +1792,6 @@ export const dictionnaireBAC = {
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_03_sujet2_reunion_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_03_sujet2_reunion_4_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Convexité', 'Exponentielle', 'Logarithme']
   },
@@ -2211,8 +1801,6 @@ export const dictionnaireBAC = {
     mois: 'Août',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_08_sujet1_caledonie_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_08_sujet1_caledonie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2222,8 +1810,6 @@ export const dictionnaireBAC = {
     mois: 'Août',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_08_sujet1_caledonie_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_08_sujet1_caledonie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2233,8 +1819,6 @@ export const dictionnaireBAC = {
     mois: 'Août',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_08_sujet1_caledonie_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_08_sujet1_caledonie_3_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Primitives', 'Espace', 'Exponentielle']
   },
@@ -2244,8 +1828,6 @@ export const dictionnaireBAC = {
     mois: 'Août',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_08_sujet1_caledonie_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_08_sujet1_caledonie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité', 'TVI']
   },
@@ -2255,8 +1837,6 @@ export const dictionnaireBAC = {
     mois: 'Août',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_08_sujet2_caledonie_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_08_sujet2_caledonie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2266,8 +1846,6 @@ export const dictionnaireBAC = {
     mois: 'Août',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_08_sujet2_caledonie_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_08_sujet2_caledonie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'TVI', 'Convexité']
   },
@@ -2277,8 +1855,6 @@ export const dictionnaireBAC = {
     mois: 'Août',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_08_sujet2_caledonie_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_08_sujet2_caledonie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2288,8 +1864,6 @@ export const dictionnaireBAC = {
     mois: 'Août',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_08_sujet2_caledonie_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_08_sujet2_caledonie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles']
   },
@@ -2299,8 +1873,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_ameriquesud_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_ameriquesud_1_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Python']
   },
@@ -2310,8 +1882,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_ameriquesud_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_ameriquesud_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2321,8 +1891,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_ameriquesud_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_ameriquesud_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2332,8 +1900,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_ameriquesud_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_ameriquesud_4_cor.png',
     typeExercice: 'bac',
     tags: ['Suites']
   },
@@ -2343,8 +1909,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_metropole_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Exponentielle', 'Suites', 'Primitives', 'Python']
   },
@@ -2354,8 +1918,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_metropole_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2365,8 +1927,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_metropole_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2376,8 +1936,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_metropole_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Convexité', 'Exponentielle']
   },
@@ -2387,8 +1945,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_polynesie_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2398,8 +1954,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_polynesie_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'TVI', 'Convexité']
   },
@@ -2409,8 +1963,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_polynesie_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2420,8 +1972,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet1_polynesie_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet1_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2431,8 +1981,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet2_ameriquesud_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet2_ameriquesud_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Variables aléatoires', 'Loi binomiale']
   },
@@ -2442,8 +1990,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet2_ameriquesud_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet2_ameriquesud_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2453,8 +1999,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet2_ameriquesud_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet2_ameriquesud_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2464,8 +2008,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet2_ameriquesud_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet2_ameriquesud_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Exponentielle', 'TVI', 'Convexité']
   },
@@ -2475,8 +2017,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet2_metropole_1.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet2_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2486,8 +2026,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet2_metropole_2.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet2_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité']
   },
@@ -2497,8 +2035,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet2_metropole_3.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet2_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python', 'Exponentielle']
   },
@@ -2508,8 +2044,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2023/tex/png/bac_2023_09_sujet2_metropole_4.png',
-    pngCor: 'static/bac/2023/tex/png/bac_2023_09_sujet2_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Espace']
   },
@@ -2520,8 +2054,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet1_ameriquenord_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet1_ameriquenord_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2531,8 +2063,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet1_ameriquenord_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet1_ameriquenord_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2542,8 +2072,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet1_ameriquenord_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet1_ameriquenord_3_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI']
   },
@@ -2553,8 +2081,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet1_ameriquenord_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet1_ameriquenord_4_cor.png',
     typeExercice: 'bac',
     tags: ['Primitives', 'Suites', 'Python']
   },
@@ -2564,8 +2090,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -2575,8 +2099,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2586,8 +2108,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2597,8 +2117,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Primitives']
   },
@@ -2608,8 +2126,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_etrangers_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_etrangers_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles']
   },
@@ -2619,8 +2135,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_etrangers_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_etrangers_2_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Suites', 'Python']
   },
@@ -2630,8 +2144,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_etrangers_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_etrangers_3_cor.png',
     typeExercice: 'bac',
     tags: ['Équations différentielles', 'Fonctions trigonométriques']
   },
@@ -2641,8 +2153,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_etrangers_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_etrangers_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2652,8 +2162,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_etrangers_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_etrangers_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
@@ -2663,8 +2171,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_etrangers_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_etrangers_2_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Convexité', 'TVI']
   },
@@ -2674,8 +2180,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_etrangers_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_etrangers_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2685,8 +2189,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_etrangers_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_etrangers_4_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2697,8 +2199,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_asie_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_asie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Convexité', 'Exponentielle', 'Primitives']
   },
@@ -2708,8 +2208,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_asie_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_asie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2719,8 +2217,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_asie_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_asie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Loi binomiale', 'Probabilités conditionnelles']
   },
@@ -2730,8 +2226,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_asie_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_asie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Suites', 'Python']
   },
@@ -2741,8 +2235,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Exponentielle', 'Équations différentielles', 'Suites']
   },
@@ -2752,8 +2244,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
@@ -2763,8 +2253,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2774,8 +2262,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'TVI', 'Intégration']
   },
@@ -2785,8 +2271,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: 'devoile',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_devoile_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_devoile_1_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2796,8 +2280,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: 'devoile',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_devoile_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_devoile_2_cor.png',
     typeExercice: 'bac',
     tags: ['Loi binomiale', 'Variables aléatoires']
   },
@@ -2807,8 +2289,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: 'devoile',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_devoile_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_devoile_3_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Suites', 'Python', 'Intégration']
   },
@@ -2818,8 +2298,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: 'devoile',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_devoile_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_metropole_devoile_4_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Exponentielle', 'Convexité', 'Logarithme', 'TVI']
   },
@@ -2829,8 +2307,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_polynesie_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Espace']
   },
@@ -2840,8 +2316,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_polynesie_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Équations différentielles', 'Intégration']
   },
@@ -2851,8 +2325,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_polynesie_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Loi binomiale', 'Probabilités conditionnelles']
   },
@@ -2862,8 +2334,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_polynesie_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -2873,8 +2343,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_asie_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_asie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Convexité', 'Suites']
   },
@@ -2884,8 +2352,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_asie_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_asie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Suites', 'Python']
   },
@@ -2895,8 +2361,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_asie_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_asie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Convexité', 'Dénombrement', 'Logarithme', 'Équations différentielles']
   },
@@ -2906,8 +2370,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_asie_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_asie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -2917,8 +2379,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
@@ -2928,8 +2388,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python', 'Équations différentielles']
   },
@@ -2939,8 +2397,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Convexité', 'Logarithme', 'TVI']
   },
@@ -2950,8 +2406,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Espace']
   },
@@ -2961,8 +2415,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: 'devoile',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_devoile_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_devoile_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
@@ -2972,8 +2424,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: 'devoile',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_devoile_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_devoile_2_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Espace']
   },
@@ -2983,8 +2433,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: 'devoile',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_devoile_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_devoile_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python', 'Logarithme']
   },
@@ -2994,8 +2442,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: 'devoile',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_devoile_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_metropole_devoile_4_cor.png',
     typeExercice: 'bac',
     tags: ['Convexité', 'Primitives', 'Exponentielle', 'Intégration']
   },
@@ -3005,8 +2451,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_polynesie_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -3016,8 +2460,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_polynesie_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['QCM', 'Équations différentielles', 'Intégration', 'Logarithme', 'Dénombrement']
   },
@@ -3027,8 +2469,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_polynesie_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Logarithme', 'Python']
   },
@@ -3038,8 +2478,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J2',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet2_polynesie_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet2_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -3049,8 +2487,6 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '5',
-    png: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_5.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_05_sujet2_ameriquenord_5_cor.png',
     typeExercice: 'bac',
     tags: ['Logarithme', 'Primitives', 'Intégration']
   },
@@ -3060,8 +2496,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_09_sujet1_metropole_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_09_sujet1_metropole_1_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -3071,8 +2505,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_09_sujet1_metropole_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_09_sujet1_metropole_2_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'Intégration']
   },
@@ -3082,8 +2514,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_09_sujet1_metropole_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_09_sujet1_metropole_3_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Suites', 'Python']
   },
@@ -3093,8 +2523,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_09_sujet1_metropole_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_09_sujet1_metropole_4_cor.png',
     typeExercice: 'bac',
     tags: ['Loi binomiale', 'Variables aléatoires']
   },
@@ -3104,8 +2532,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_09_sujet1_polynesie_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_09_sujet1_polynesie_1_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
@@ -3115,8 +2541,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_09_sujet1_polynesie_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_09_sujet1_polynesie_2_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Exponentielle', 'Logarithme', 'TVI', 'Équations différentielles', 'Intégration']
   },
@@ -3126,8 +2550,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_09_sujet1_polynesie_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_09_sujet1_polynesie_3_cor.png',
     typeExercice: 'bac',
     tags: ['Suites', 'Python']
   },
@@ -3137,8 +2559,6 @@ export const dictionnaireBAC = {
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_09_sujet1_polynesie_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_09_sujet1_polynesie_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },
@@ -3149,8 +2569,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '1',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_1.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_1_cor.png',
     typeExercice: 'bac',
     tags: ['Vrai/Faux', 'Équations différentielles', 'Suites', 'Python', 'Logarithme']
   },
@@ -3160,8 +2578,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '2',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_2.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_2_cor.png',
     typeExercice: 'bac',
     tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Suites']
   },
@@ -3171,8 +2587,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '3',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_3.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_3_cor.png',
     typeExercice: 'bac',
     tags: ['Exponentielle', 'TVI', 'Intégration']
   },
@@ -3182,8 +2596,6 @@ export const dictionnaireBAC = {
     mois: 'Juin',
     jour: 'J1',
     numeroInitial: '4',
-    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_4.png',
-    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_4_cor.png',
     typeExercice: 'bac',
     tags: ['Espace']
   },

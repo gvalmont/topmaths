@@ -1,11 +1,11 @@
 import Decimal from 'decimal.js'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '01/10/2022'
 export const titre = 'Dresser et utiliser le tableau de signes d\'une fonction affine en lien avec son sens de variation'
@@ -16,27 +16,24 @@ export const titre = 'Dresser et utiliser le tableau de signes d\'une fonction a
  */
 
 export const uuid = '46bec'
-export const ref = '2F10-7'
+
 export const refs = {
   'fr-fr': ['2F10-7'],
   'fr-ch': []
 }
-export default function SignefonctionaffineVariation () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 2 // On complète le nb de questions
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.video = ''
-  this.spacing = 1.75
-  this.spacingCorr = 1.75
-  this.sup = 1
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.sup = parseInt(this.sup)
+export default class SignefonctionaffineVariation extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Donner le tableau de signes.\n2 : Utiliser le tableau de signes.\n3 : Mélange.']
+
+    this.nbQuestions = 2 // On complète le nb de questions
+
+    this.spacing = 1.75
+    this.spacingCorr = 1.75
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['Signes1']
@@ -225,8 +222,8 @@ export default function SignefonctionaffineVariation () {
       }
       if (this.questionJamaisPosee(i, this.sup, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -234,5 +231,4 @@ export default function SignefonctionaffineVariation () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Donner le tableau de signes.\n2 : Utiliser le tableau de signes.\n3 : Mélange.']
 }

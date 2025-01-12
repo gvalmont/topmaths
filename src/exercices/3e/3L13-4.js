@@ -1,8 +1,8 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { toString, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs.ts'
-import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
-import { name } from '../../modules/aleaFigure/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { toString, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs'
+import { GVGraphicView } from '../../modules/aleaFigure/GraphicView'
+import { name } from '../../modules/aleaFigure/outils'
 import { create, all } from 'mathjs'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -23,7 +23,7 @@ export const dateDeModifImportante = '25/09/2024'
  * Problème à partir de https://twitter.com/blatherwick_sam/status/1497292774621822979
  */
 export const uuid = 'cd2f2'
-export const ref = '3L13-4'
+
 export const refs = {
   'fr-fr': ['3L13-4'],
   'fr-ch': ['11FA6-9']
@@ -39,9 +39,6 @@ export default class problemes extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     for (let i = 0, solutionDecimale, cpt = 0, exercice = {}; i < this.nbQuestions && cpt < 50;) {
       const numeroquestion = this.nbQuestions % 2 === 0 ? i % 2 + 1 : Math.floor(Math.random() * 2) + 1
       switch (numeroquestion) {
@@ -250,8 +247,8 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${miseEnEvidence(toTex(soluti
 
       // exercice.texte += numeroquestion
       if (this.questionJamaisPosee(i, i)) {
-        this.listeQuestions.push(exercice.texte.replaceAll('\n\n', '<br>'))
-        this.listeCorrections.push(exercice.texteCorr.replaceAll('\n\n', '<br>'))
+        this.listeQuestions[i] = exercice.texte.replaceAll('\n\n', '<br>')
+        this.listeCorrections[i] = exercice.texteCorr.replaceAll('\n\n', '<br>')
         i++
       }
       cpt++

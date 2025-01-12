@@ -1,13 +1,13 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { context } from '../../modules/context.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { context } from '../../modules/context'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+
 import Decimal from 'decimal.js'
 import { arrondi } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -29,7 +29,7 @@ export const dateDeModifImportante = '24/9/2024'
  * 5R20
  */
 export const uuid = 'cbc26'
-export const ref = '5R20'
+
 export const refs = {
   'fr-fr': ['5R20'],
   'fr-ch': ['9NO9-6']
@@ -61,7 +61,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
     } else if (this.sup2 === true) {
       this.sup2 = 3
     }
-    this.sup = parseInt(this.sup)
+
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     const partieDecimaleAUnChiffre = combinaisonListes([true, true, false], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -128,11 +128,11 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), options: { resultatSeulementEtNonOperation: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

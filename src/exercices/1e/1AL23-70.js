@@ -1,5 +1,5 @@
-import { courbe } from '../../lib/2d/courbes.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { courbe } from '../../lib/2d/courbes'
+import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
@@ -8,12 +8,12 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Déterminer une équation de parabole'
 
@@ -25,22 +25,25 @@ export const titre = 'Déterminer une équation de parabole'
  * 3) connaissant les deux racines et un autre point de passage à coordonnées entières
  */
 export const uuid = '392b3'
-export const ref = '1AL23-7'
+
 export const refs = {
   'fr-fr': ['1AL23-7'],
   'fr-ch': ['1F3-6']
 }
-export default function TrouverEquationParabole () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacingCorr = 3
-  this.sup = 4
-  this.correctionDetailleeDisponible = true
+export default class TrouverEquationParabole extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Passant par trois points à coordonnées entières 1\n2 : Connaissant le sommet et un point de passage\n3 : Connaissant les deux racines et un point de passage\n4 : Mélange des trois type de questions']
+
+    this.nbQuestions = 5
+
+    this.spacingCorr = 3
+    this.sup = 4
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     this.consigne = "Trouver l'expression de "
     this.consigne += this.nbQuestions > 1 ? 'chacune des fonctions suivantes.' : 'la fonction suivante.'
     const pixelsParCm = 20
@@ -162,13 +165,12 @@ ${f(x1) - f(-x1)}=${2 * x1}b
       F = x => a * x ** 2 + b * x + c
       texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm, scale: 0.6 }, courbe(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions ', 4, '1 : Passant par trois points à coordonnées entières 1\n2 : Connaissant le sommet et un point de passage\n3 : Connaissant les deux racines et un point de passage\n4 : Mélange des trois type de questions']
 }

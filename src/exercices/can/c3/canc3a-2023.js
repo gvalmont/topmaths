@@ -1,18 +1,17 @@
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { sp } from '../../../lib/outils/outilString.js'
+import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
+import Exercice from '../../Exercice'
 import { min, round } from 'mathjs'
-import { context } from '../../../modules/context.js'
+import { context } from '../../../modules/context'
 import Hms from '../../../modules/Hms'
-import { listeQuestionsToContenu } from '../../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../../modules/outils'
 
 import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import ClasseCan2023 from './_Canc3a.js'
+import ClasseCan2023 from './_Canc3a'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN CM2 sujet 2023'
 export const interactifReady = true
@@ -22,7 +21,7 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const uuid = '57239'
-export const ref = 'canc3a-2023'
+
 export const refs = {
   'fr-fr': ['canc3a-2023'],
   'fr-ch': []
@@ -31,27 +30,26 @@ export const refs = {
 /**
  * Aléatoirisation du sujet 2023 de CAN CM2
  * @author Sébastien LOZANO
- * Référence canc3a-2023
+
  */
 
 function compareNombres (a, b) {
   return a - b
 }
 
-export default function SujetCAN2023CM2 () {
-  Exercice.call(this)
-  this.nbQuestions = 30
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+export default class SujetCAN2023CM2 extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 30
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+  }
+
+  nouvelleVersion () {
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)//
@@ -155,7 +153,7 @@ export default function SujetCAN2023CM2 () {
           texte = sommeDeDurees.texte
           texteCorr = sommeDeDurees.texteCorr
           texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
-          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: sommeDeDurees.reponse }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+          handleAnswers(this, index, { reponse: { value: new Hms({ hour: 1, minute: sommeDeDurees.reponse }).toString(), options: { HMS: true } } })
           nbChamps = 1
           this.listeCanEnonces.push(sommeDeDurees.canEnonce)
           this.listeCanReponsesACompleter.push(sommeDeDurees.canReponseACompleter)
@@ -504,8 +502,8 @@ export default function SujetCAN2023CM2 () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += nbChamps
       }

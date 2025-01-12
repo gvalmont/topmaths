@@ -2,9 +2,9 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -24,27 +24,21 @@ export const dateDePublication = '16/01/2022'
  * 2S12-3
  */
 export const uuid = '509db'
-export const ref = '2S12-3'
+
 export const refs = {
   'fr-fr': ['2S12-3'],
   'fr-ch': []
 }
-export default function EvolutionsSuccesives () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 4 // type de questions
-  this.spacing = 1
-  this.spacingCorr = 1
+export default class EvolutionsSuccesives extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
+    this.nbQuestions = 3
+
+    this.sup = 4 // type de questions
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let typesDeQuestions, CM, CMr, CMra, p, pr, nom, nomr, t, tr, metier
@@ -204,8 +198,8 @@ export default function EvolutionsSuccesives () {
       setReponse(this, i, tauxr)
       if (this.questionJamaisPosee(i, taux)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

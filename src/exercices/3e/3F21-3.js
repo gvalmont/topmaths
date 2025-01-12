@@ -1,20 +1,20 @@
-import { cercle } from '../../lib/2d/cercle.js'
-import { droite } from '../../lib/2d/droites.js'
-import { milieu, point } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.ts'
+import { cercle } from '../../lib/2d/cercle'
+import { droite } from '../../lib/2d/droites'
+import { milieu, point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPoint } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import { functionCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
@@ -26,26 +26,33 @@ export const dateDeModifImportante = '28/05/2023'
 /**
  * Lire la pente et l'ordonnée à l'origine d'une droite pour en déduire la forme algébrique de la fonction affine
  * @author Rémi Angot (modifié par EE pour l'ajout de paramètres)
- * Référence
+
  */
 export const uuid = '056fa'
-export const ref = '3F21-3'
+
 export const refs = {
   'fr-fr': ['3F21-3'],
   'fr-ch': ['11FA8-12']
 }
-export default function PenteEtOrdonneeOrigineDroite () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 2
-  // this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.sup = 3
-  this.sup2 = 3
-  this.sup3 = 3
-  this.sup4 = 2
-  this.nouvelleVersion = function () {
+export default class PenteEtOrdonneeOrigineDroite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Numerique = ['Signe du coefficient directeur ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
+    this.besoinFormulaireNumerique = ['Coefficient directeur ', 3, '1 : Entier\n2 : Décimal\n3: Peu importe']
+    this.besoinFormulaire3Numerique = ['Signe de l\'ordonnée à l\'origine ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
+    this.besoinFormulaire4Numerique = ['Type de fonctions ', 3, '1 : Linéaires\n2 : Affines et non linéaires\n3: Affines ou linéaires']
+
+    this.nbQuestions = 2
+    // this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+
+    this.sup = 3
+    this.sup2 = 3
+    this.sup3 = 3
+    this.sup4 = 2
+  }
+
+  nouvelleVersion () {
     let questionInteractif = 0
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const signeNum = (this.sup2 === 3 ? choice([-1, 1]) : (this.sup2 === 2 ? -1 : 1))
@@ -130,15 +137,16 @@ export default function PenteEtOrdonneeOrigineDroite () {
       correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x$` + (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
 
       if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)
-      handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}`, compare: fonctionComparaison } })
+      handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}` } })
       handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, options: { variable: 'x' }, compare: functionCompare } })
 
       texte = introduction + '<br>' + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
       texteCorr = (vocabulaire === 'affine' ? (correction1 + '<br>') : '') + correction2 + '<br>' + correction3
 
       if (this.questionJamaisPosee(i, a, b, num, den)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: introduction + '<br>',
@@ -199,8 +207,4 @@ export default function PenteEtOrdonneeOrigineDroite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Signe du coefficient directeur ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
-  this.besoinFormulaireNumerique = ['Coefficient directeur ', 3, '1 : Entier\n2 : Décimal\n3: Peu importe']
-  this.besoinFormulaire3Numerique = ['Signe de l\'ordonnée à l\'origine ', 3, '1 : Positif\n2 : Négatif\n3: Peu importe']
-  this.besoinFormulaire4Numerique = ['Type de fonctions ', 3, '1 : Linéaires\n2 : Affines et non linéaires\n3: Affines ou linéaires']
 }

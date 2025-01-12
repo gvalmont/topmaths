@@ -1,16 +1,16 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { codageSegments } from '../../lib/2d/codages.js'
-import { point } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { rotation, similitude } from '../../lib/2d/transformations.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { codageSegments } from '../../lib/2d/codages'
+import { point } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { rotation, similitude } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Déterminer la nature de parallélogrammes'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -21,20 +21,19 @@ export const amcType = 'qcmMono'
  *
 */
 export const uuid = '8812e'
-export const ref = '5G42'
+
 export const refs = {
   'fr-fr': ['5G42'],
   'fr-ch': ['9ES2-3']
 }
-export default function DemonstrationsParallelogrammes () {
-  Exercice.call(this)
-  this.nbQuestions = 7
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+export default class DemonstrationsParallelogrammes extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.nbQuestions = 7
+  }
 
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const lesNoms = []
@@ -169,8 +168,8 @@ export default function DemonstrationsParallelogrammes () {
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nom)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

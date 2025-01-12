@@ -1,7 +1,7 @@
 import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
 export const interactifReady = false
@@ -14,7 +14,7 @@ export const dateDeModifImportante = '5/11/2023'
  * @author Rémi Angot
 */
 export const uuid = '8fde1'
-export const ref = '1AL23-7'
+
 export const refs = {
   'fr-fr': ['1AL23-7'],
   'fr-ch': ['1F3-7']

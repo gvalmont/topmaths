@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import Trinome from '../../modules/Trinome'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -17,22 +17,23 @@ export const amcType = 'AMCNum'
 export const dateDeModifImportante = '5/11/2023'
 export const uuid = '731f0'
 
-export const ref = '1AL20-10'
 export const refs = {
   'fr-fr': ['1AL20-10'],
   'fr-ch': ['11FA10-8']
 }
-export default function CalculerDiscriminant () {
-  Exercice.call(this)
-  this.besoinFormulaireNumerique = ['Niveaux de difficulté', 4, '1 : Coefficients entiers positifs\n2 : Coefficients entiers relatifs\n3 : Coefficients rationnels\n4 : Mélange']
-  this.nbQuestions = 5
-  this.sup = 2
-  this.listeAvecNumerotation = false
-  this.nouvelleVersion = function () {
+export default class CalculerDiscriminant extends Exercice {
+  constructor () {
+    super()
+
+    this.besoinFormulaireNumerique = ['Niveaux de difficulté', 4, '1 : Coefficients entiers positifs\n2 : Coefficients entiers relatifs\n3 : Coefficients rationnels\n4 : Mélange']
+    this.nbQuestions = 5
+    this.sup = 2
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
-    this.autoCorrection = []
-    this.listeQuestions = []
-    this.listeCorrections = []
+
     if (this.nbQuestions > 1) this.consigne = 'Calculer le discriminant de chacune de ces expressions :'
     else this.consigne = 'Calculer le discriminant de cett expression :'
     let listeTypesDeQuestions
@@ -67,8 +68,8 @@ export default function CalculerDiscriminant () {
       texteCorr = `$\\Delta_${lettreDepuisChiffre(i + 1)} = ${p.texCalculDiscriminantSansResultat}$`
       texteCorr += `<br><br>$\\Delta_${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(p.discriminant.texFractionSimplifiee)}$`
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

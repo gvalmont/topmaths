@@ -1,6 +1,6 @@
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import TrouverSolutionMathador from '../5e/_TrouverSolutionMathador.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import TrouverSolutionMathador from '../5e/_TrouverSolutionMathador'
 export const titre = 'Générateur de compte est bon'
 export const amcReady = true
 export const interactifReady = false
@@ -12,28 +12,30 @@ export const amcType = 'AMCOpen'
  */
 
 export const uuid = '1e528'
-export const ref = 'CM019'
+
 export const refs = {
   'fr-fr': ['CM019'],
   'fr-ch': []
 }
-export default function LeCompteEstBonV3 () {
-  Exercice.call(this)
-  this.consigne =
+export default class LeCompteEstBonV3 extends Exercice {
+  constructor (maxSolution) {
+    super()
+    this.besoinFormulaireNumerique = ['Limite inférieure', maxSolution]
+    this.besoinFormulaire2Numerique = ['Limite supérieure', 100]
+    this.consigne =
     'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 30
-  this.sup2 = 70
-  let maxSolution = 70
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 30
+    this.sup2 = 70
+  }
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+  nouvelleVersion () {
     let solutionMathador = []
     let tirage, solution, expression
     let minSolution = parseInt(this.sup)
-    maxSolution = parseInt(this.sup2)
+    const maxSolution = parseInt(this.sup2)
     if (minSolution > maxSolution) {
       minSolution = maxSolution
       this.sup = this.sup2
@@ -58,8 +60,9 @@ export default function LeCompteEstBonV3 () {
       }
       if (this.questionJamaisPosee(i, ...solutionMathador)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 4, feedback: '' }] }
         i++
       }
@@ -67,6 +70,4 @@ export default function LeCompteEstBonV3 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Limite inférieure', maxSolution]
-  this.besoinFormulaire2Numerique = ['Limite supérieure', 100]
 }

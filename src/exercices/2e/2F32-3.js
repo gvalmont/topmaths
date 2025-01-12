@@ -1,8 +1,8 @@
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { numAlpha, sp } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer un extremum ou encadrer par lecture d\'un tableau de variations'
 export const dateDePublication = '20/12/2021'
@@ -10,19 +10,21 @@ export const dateDePublication = '20/12/2021'
  * @author Gilles Mora
  */
 export const uuid = 'acee0'
-export const ref = '2F32-3'
+
 export const refs = {
   'fr-fr': ['2F32-3'],
   'fr-ch': []
 }
-export default function LireUnTableauDevariations () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.sup = 3 // Niveau de difficulté
-  this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.nouvelleVersion = function () {
+export default class LireUnTableauDevariations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Minimum et maximum\n2 :Encadrement\n3 :Mélange']
+
+    this.nbQuestions = 1
+    this.sup = 3 // Niveau de difficulté
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']
@@ -198,13 +200,12 @@ export default function LireUnTableauDevariations () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Minimum et maximum\n2 :Encadrement\n3 :Mélange']
 }

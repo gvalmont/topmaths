@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -19,28 +19,25 @@ export const dateDePublication = '16/03/2022'
  * @author Guillaume Valmont
  */
 export const uuid = '91d72'
-export const ref = '5N10'
+
 export const refs = {
   'fr-fr': ['5N10'],
   'fr-ch': ['9NO10-2', '1CN-3']
 }
-export default function PasserEcritureDecimaleEcritureFractionnaireInversement () {
-  Exercice.call(this)
-  this.nbQuestions = 10
+export default class PasserEcritureDecimaleEcritureFractionnaireInversement extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Sens demandé', 3, '1 : De l\'écriture décimale à une fraction\n2 : D\'une fraction à l\'écriture décimale\n3 : Mélange']
-  this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['Uniquement des fractions décimales']
-  this.sup2 = false
+    this.besoinFormulaireNumerique = ['Sens demandé', 3, '1 : De l\'écriture décimale à une fraction\n2 : D\'une fraction à l\'écriture décimale\n3 : Mélange']
+    this.sup = 3
+    this.besoinFormulaire2CaseACocher = ['Uniquement des fractions décimales']
+    this.sup2 = false
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
+  nouvelleVersion () {
     let typesDesSensDemandes
     if (this.sup === 1) {
       typesDesSensDemandes = ['DecimaleAFractionnaire']
@@ -103,8 +100,8 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
       }
 
       if (this.questionJamaisPosee(i, numerateur, denominateur, listeTypeFractions[i], listeDesSensDemandes[i])) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Déterminer une image par une fonction affine (non définie explicitement)'
@@ -17,7 +17,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class ImageFctAff extends Exercice {
   constructor () {
@@ -25,8 +25,6 @@ export default class ImageFctAff extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

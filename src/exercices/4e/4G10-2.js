@@ -1,27 +1,27 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { afficheLongueurSegment } from '../../lib/2d/codages.js'
-import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
-import { point, pointAdistance, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { translation2Points } from '../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/codages'
+import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { point, pointAdistance, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { translation2Points } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
-import Alea2iep from '../../modules/Alea2iep.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { randint, listeQuestionsToContenu } from '../../modules/outils'
+import Alea2iep from '../../modules/Alea2iep'
 export const titre = 'Transformer une figure par translation'
 
 export const dateDePublication = '16/05/2022'
 
 /**
  * @author Guillaume Valmont
- * Référence 4G10-2
+
 */
 export const uuid = '6a2dd'
-export const ref = '4G10-2'
+
 export const refs = {
   'fr-fr': ['4G10-2'],
   'fr-ch': ['10ES2-3']
@@ -40,10 +40,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     let objetsEnonceEtCorr, objetsEnonceOnly, objetsCorrectionOnly, paramsEnonce, paramsCorrection
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonceOnly = []
@@ -186,10 +182,10 @@ export default class nomExercice extends Exercice {
       texte = `Tracer l'image du triangle $${lettres[0]}${lettres[1]}${lettres[2]}$ par la translation qui transforme $${lettres[3]}$ en $${lettres[4]}$.<br>`
       texte += mathalea2d(paramsEnonce, objetsEnonceOnly, objetsEnonceEtCorr)
       texteCorr = mathalea2d(paramsCorrection, objetsCorrectionOnly, objetsEnonceEtCorr)
-      texteCorr += anim.htmlBouton()
+      texteCorr += anim.htmlBouton(this.numeroExercice ?? 0, i)
       if (this.questionJamaisPosee(i, B.x, B.y, C.x, C.y)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

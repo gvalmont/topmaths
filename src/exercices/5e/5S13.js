@@ -1,15 +1,15 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { joursParMois, nomDuMois } from '../../lib/outils/dateEtHoraires'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
 import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { context } from '../../modules/context.js'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -27,21 +27,24 @@ export const dateDeModifImportante = '28/02/2022'
  * @author Jean-Claude Lhote (Interactif et AMC par EE)
  */
 export const uuid = '8cdd5'
-export const ref = '5S13'
+
 export const refs = {
   'fr-fr': ['5S13'],
   'fr-ch': ['11NO2-1']
 }
-export default function CalculerDesFrequences () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.spacing = 1
-  this.spacingCorr = 1.5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
+export default class CalculerDesFrequences extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+
+    this.spacingCorr = 1.5
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     for (let i = 0, temperatures, nombreTemperatures, nombreNotes, notes, reponse, nombreDes, nombreFaces, nombreTirages, indexValeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) { // ici on lance des dés
         nombreDes = randint(1, 2)
@@ -235,13 +238,12 @@ export default function CalculerDesFrequences () {
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures']
 }

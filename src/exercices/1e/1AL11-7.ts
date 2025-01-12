@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { choice } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
@@ -8,7 +8,7 @@ import { createList } from '../../lib/format/lists'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Étudier une suite arithmético-géométrique'
 export const dateDePublication = '30/11/2024'
@@ -20,7 +20,7 @@ export const interactifType = 'mathLive'
  * @author Gilles Mora
 */
 export const uuid = '12afc'
-export const ref = '1AL11-7'
+
 export const refs = {
   'fr-fr': ['1AL11-7'],
   'fr-ch': []
@@ -36,10 +36,6 @@ export default class SuitesArithmeticoG extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-    this.listeQuestions = [] // Vide la liste de questions
-    this.listeCorrections = [] // Vide la liste de questions corrigées
-
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -131,11 +127,11 @@ Montrer que  $(${NomSA}_n)$ est une suite géométrique.<br>
       )
       const reponse1 = `${new Decimal(u0).sub(k)} \\times ${ecritureParentheseSiNegatif(a)}^n`
       const reponse2 = `${new Decimal(u0).sub(k)}\\times ${ecritureParentheseSiNegatif(a)}^n ${ecritureAlgebrique(k)}`
-      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: fonctionComparaison } })
-      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse2, compare: fonctionComparaison } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1 } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: reponse2 } })
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

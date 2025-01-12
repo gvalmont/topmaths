@@ -1,20 +1,20 @@
-import { cercle } from '../../lib/2d/cercle.js'
-import { droite } from '../../lib/2d/droites.js'
-import { point } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { symetrieAxiale, translation } from '../../lib/2d/transformations.js'
+import { cercle } from '../../lib/2d/cercle'
+import { droite } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { symetrieAxiale, translation } from '../../lib/2d/transformations'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { context } from '../../modules/context'
 export const titre = 'Encadrer l\'aire d\'un disque'
-export const ref = 'P017'
+
 export const refs = {
   'fr-fr': ['P017'],
   'fr-ch': []
@@ -24,21 +24,24 @@ export const uuid = '0ff0f'
 /**
  * Encadre l'aire d'un disque par des aires de figures composées que de carrés de même taille
  * @author Eric Elter
- * Référence P017
-*/
-export default function EncadrerAireDisque () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.spacing = context.isHtml ? 2 : 1
-  this.nbCols = 1
-  this.nbQuestions = 1
-  this.sup = 10
-  this.sup2 = 10
 
-  this.nouvelleVersion = function () {
+*/
+export default class EncadrerAireDisque extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'étapes (entre 1 et 50)', 50]
+    this.besoinFormulaire2Numerique = ['Rayon du disque (nombre entier entre 1 et 20)', 20]
+
+    this.spacing = context.isHtml ? 2 : 1
+
+    this.nbQuestions = 1
+    this.sup = 10
+    this.sup2 = 10
+  }
+
+  nouvelleVersion () {
     let texte = ''
-    this.listeQuestions = []
+
     this.listeCorrections = [''] // Liste de questions corrigées
     let objets = []
 
@@ -170,7 +173,4 @@ export default function EncadrerAireDisque () {
 
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireNumerique = ['Nombre d\'étapes (entre 1 et 50)', 50]
-  this.besoinFormulaire2Numerique = ['Rayon du disque (nombre entier entre 1 et 20)', 20]
 }

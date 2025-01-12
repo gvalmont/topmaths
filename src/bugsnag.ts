@@ -1,21 +1,20 @@
 import Bugsnag, { type NotifiableError } from '@bugsnag/js'
 import bigInt from 'big-integer'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-import { tropDeChiffres } from './modules/outils.js'
-import { showDialogForLimitedTime } from './lib/components/dialogs.js'
+
+import { tropDeChiffres } from './modules/outils'
+import { showDialogForLimitedTime } from './lib/components/dialogs'
 import { get } from 'svelte/store'
-import { exercicesParams } from './lib/stores/generalStore.js'
+import { exercicesParams } from './lib/stores/generalStore'
 
 type Metadatas = Record<string, unknown>
 
 /* global BigInt */
 if (typeof (BigInt) === 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   window.BigInt = bigInt
 }
 async function handleBugsnag () {
-  const fileName = '../_private/bugsnagApiKey.js'
+  const fileName = '../_private/bugsnagApiKey'
   const getBugsnagApiKey = await import(/* @vite-ignore */fileName)
   const key = getBugsnagApiKey.default() || ''
   Bugsnag.start(key)
@@ -29,10 +28,9 @@ function isDevMode () {
   return window.location.href.startsWith('http://localhost')
 }
 
-export function notifyLocal (error: string|Error, metadatas: Metadatas) {
+export function notifyLocal (error: string | Error, metadatas: Metadatas) {
   if (!isDevMode()) return
   if (typeof error === 'string') {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     if (error.includes(tropDeChiffres) && !window.Bugsnag) {
       console.error(error + '\nIl y a un risque d\'erreur d\'approximation (la limite est de 15 chiffres significatifs)\nnb : ' + metadatas.nb + '\nprecision (= nombre de décimales demandé) : ' + metadatas.precision)
@@ -54,14 +52,13 @@ export function notifyLocal (error: string|Error, metadatas: Metadatas) {
  */
 export function notify (error: string | NotifiableError, metadatas: Metadatas) {
   if (typeof error === 'string') {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     if (error.includes(tropDeChiffres) && !window.Bugsnag) {
       console.error(error + '\nIl y a un risque d\'erreur d\'approximation (la limite est de 15 chiffres significatifs)\nnb : ' + metadatas.nb + '\nprecision (= nombre de décimales demandé) : ' + metadatas.precision)
     }
     error = Error(error).message
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
   // @ts-expect-error
   if (window.Bugsnag) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)
@@ -75,9 +72,9 @@ export function notify (error: string | NotifiableError, metadatas: Metadatas) {
     console.info('Paramètres des exercices', get(exercicesParams))
   }
 }
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
 // @ts-expect-error
 window.notify = notify
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
 // @ts-expect-error
 window.notifyLocal = notifyLocal

@@ -1,8 +1,8 @@
 import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
-import { randint } from '../../modules/outils.js'
-import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
+import { randint } from '../../modules/outils'
+import type TextByPosition from 'apigeom/src/elements/text/TextByPosition'
 import { context } from '../../modules/context'
 
 export const titre = 'Placer des points dans un repère'
@@ -17,7 +17,7 @@ export const amcType = 'AMCOpen'
  * @author Rémi Angot
  */
 export const uuid = '4dadb'
-export const ref = '5R12-1'
+
 export const refs = {
   'fr-fr': ['5R12-1'],
   'fr-ch': ['9FA1-6']
@@ -38,7 +38,6 @@ class ReperagePointDuPlan extends Exercice {
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
     this.reponse = ''
-    this.formatChampTexte = 'none'
   }
 
   nouvelleVersion (): void {

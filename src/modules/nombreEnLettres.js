@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../lib/outils/nombres'
-import { estentier } from './outils.js'
+import { estentier } from './outils'
 
 export function nombreEnLettres (nb, type = 1) {
   let partieEntiere, partieDecimale, nbstring, nbDec, decstring

@@ -1,13 +1,13 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
-import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
+import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Trouver l\'erreur dans une résolution d\'équation du premier degré'
 
 /**
@@ -15,49 +15,29 @@ export const titre = 'Trouver l\'erreur dans une résolution d\'équation du pre
  * @author Sébastien Lozano
  */
 export const uuid = 'df5a3'
-export const ref = '4L15-0'
+
 export const refs = {
   'fr-fr': ['4L15-0'],
   'fr-ch': ['10FA3-8']
 }
-export default function TrouverErreurResolEqDeg1 () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  if (this.debug) {
-    this.nbQuestions = 5
-  } else {
+export default class TrouverErreurResolEqDeg1 extends Exercice {
+  constructor () {
+    super()
     this.nbQuestions = 3
-  }
-
-  this.titre = titre
-  this.consigne = "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
-  // On ne peut pas aller à la ligne dans l'environnement exo de la sortie LaTeX
-  if (!context.isHtml) {
-    this.consigne = this.consigne.replace('<br>', '')
-  }
-
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
-
-  let typeDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typeDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    } else {
-      typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
+    // On ne peut pas aller à la ligne dans l'environnement exo de la sortie LaTeX
+    if (!context.isHtml) {
+      this.consigne = this.consigne.replace('<br>', ' ')
     }
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
+  }
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+  nouvelleVersion () {
+    this.consigne = this.nbQuestions === 1
+      ? "Trouver l'erreur dans les résolutions suivantes.<br>On ne demande pas de résoudre l'équation."
+      : "Trouver l'erreur dans la résolution suivante.<br>On ne demande pas de résoudre l'équation."
+    const typeDeQuestionsDisponibles = shuffle([choice([1, 3]), choice([2, 4]), 5])
 
-    // typesDeQuestionsDisponibles=[1];
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
     const variables = ['x', 't', 'u', 'v', 'w', 'y', 'z']
 
@@ -303,71 +283,16 @@ export default function TrouverErreurResolEqDeg1 () {
         `
         })
       }
-
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += `
-             `
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-        case 2:
-          texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
-          break
-        case 3:
-          texte = `${enonces[2].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
-          break
-        case 4:
-          texte = `${enonces[3].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
-          break
-        case 5:
-          texte = `${enonces[4].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[4].correction}`
-          }
-          break
-      }
+      texte = `${enonces[listeTypeDeQuestions[i] - 1].enonce}`
+      texteCorr = `${enonces[listeTypeDeQuestions[i] - 1].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }

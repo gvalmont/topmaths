@@ -1,10 +1,10 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { range } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -33,19 +33,21 @@ export const dateDeModifImportante = '06/02/2024'
  * @author Rémi Angot
  */
 export const uuid = '8865d'
-export const ref = '5L14-2'
+
 export const refs = {
   'fr-fr': ['5L14-2'],
   'fr-ch': ['10FA1-1', '11FA1-4']
 }
-export default function ExerciceSubstituer (difficulte = 1) {
-  Exercice.call(this)
-  this.sup = difficulte
-  this.spacing = 1
-  this.consigneModifiable = false
+export default class ExerciceSubstituer extends Exercice {
+  constructor (difficulte = 1) {
+    super()
+    this.sup = difficulte
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif']
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.consigneModifiable = false
+  }
+
+  nouvelleVersion () {
     let reponse
     const typeDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -130,14 +132,12 @@ export default function ExerciceSubstituer (difficulte = 1) {
       setReponse(this, i, reponse, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
 
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif']
 }

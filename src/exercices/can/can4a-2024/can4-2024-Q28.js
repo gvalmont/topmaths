@@ -6,7 +6,6 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Hms from '../../../modules/Hms'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Transformer une heure décimale en heures/minutes'
 export const interactifReady = true
@@ -15,7 +14,7 @@ export const uuid = '318bc'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -23,7 +22,6 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierHms
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { HMS: true }
 
     this.canOfficielle = false

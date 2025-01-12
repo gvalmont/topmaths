@@ -1,13 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { puissanceEnProduit } from '../../lib/outils/puissance'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { sp } from '../../lib/outils/outilString'
+
 import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Donner l\'écriture entière d\'une puissance'
@@ -21,22 +21,23 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  */
 export const uuid = '36f8b'
-export const ref = '4C30-3'
+
 export const refs = {
   'fr-fr': ['4C30-3'],
   'fr-ch': ['9NO5-2']
 }
-export default function EcritureDecimalePuissance () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 // exposants positifs par défaut
+export default class EcritureDecimalePuissance extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = false // A garder pour le clone 3C10-1
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1 // exposants positifs par défaut
+  }
 
+  nouvelleVersion () {
     const listeDeCalculs = combinaisonListes([[2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [3, 2], [3, 3], [3, 4], [4, 2], [4, 3], [5, 2], [5, 3], [6, 2], [6, 3], [7, 2], [7, 3], [8, 2], [8, 3], [9, 2], [9, 3]], this.nbQuestions)
 
     let listeTypeDeQuestions
@@ -64,7 +65,7 @@ export default function EcritureDecimalePuissance () {
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${n}}$`
           texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${miseEnEvidence(texNombre(a ** n, 0))}$`
-          handleAnswers(this, i, { reponse: { value: a ** n, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+          handleAnswers(this, i, { reponse: { value: a ** n, options: { resultatSeulementEtNonOperation: true } } })
 
           break
         case '-':
@@ -72,7 +73,7 @@ export default function EcritureDecimalePuissance () {
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${-n}}$`
           texteCorr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a, n)}}=${miseEnEvidence('\\dfrac{1}{' + texNombre(a ** n, 0)) + '}'}$`
-          handleAnswers(this, i, { reponse: { value: new FractionEtendue(1, a ** n).simplifie().toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(1, a ** n).simplifie().toLatex(), options: { fractionEgale: true } } })
           break
       }
 
@@ -80,13 +81,12 @@ export default function EcritureDecimalePuissance () {
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, n)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = false // A garder pour le clone 3C10-1
 }

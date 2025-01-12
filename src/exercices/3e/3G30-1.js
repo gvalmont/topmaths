@@ -1,18 +1,18 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages.js'
-import { droite } from '../../lib/2d/droites.js'
-import { point, pointSurSegment } from '../../lib/2d/points.js'
-import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.ts'
-import { projectionOrtho, rotation, similitude } from '../../lib/2d/transformations.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
+import { droite } from '../../lib/2d/droites'
+import { point, pointSurSegment } from '../../lib/2d/points'
+import { nommePolygone, polygone } from '../../lib/2d/polygones'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPoint } from '../../lib/2d/textes'
+import { projectionOrtho, rotation, similitude } from '../../lib/2d/transformations'
 import { enleveDoublonNum, shuffleLettres } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
+import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -32,30 +32,31 @@ export const dateDeModifImportante = '21/08/2024'
  * Rendu interactif et AMC par EE (Mars 2022)
  */
 export const uuid = '0d1f7'
-export const ref = '3G30-1'
+
 export const refs = {
   'fr-fr': ['3G30-1'],
   'fr-ch': []
 }
-export default function ExprimerCosSinTan () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.sup2 = '4'
-  if (context.isHtml) {
-    this.spacing = 2
-    this.spacingCorr = 3
-  } else {
-    this.spacing = 2
-    this.spacingCorr = 2
+export default class ExprimerCosSinTan extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Donner jusque 3 rapports trigonométriques\n2 : Donner jusque 6 rapports trigonométriques\n3 : Deux triangles imbriqués, donner un rapport de deux manières différentes']
+    this.besoinFormulaire2Texte = ['Rapports trigonométriques', 'Nombres séparés par des tirets : \n1 : Cosinus\n2 : Sinus\n3 : Tangente\n4 : Les trois']
+
+    this.nbQuestions = 1
+
+    this.sup = 1
+    this.sup2 = '4'
+    if (context.isHtml) {
+      this.spacing = 2
+      this.spacingCorr = 3
+    } else {
+      this.spacing = 2
+      this.spacingCorr = 2
+    }
   }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+  nouvelleVersion () {
     let fonctionsTrigonometriques = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -576,13 +577,10 @@ export default function ExprimerCosSinTan () {
         }
       }
       if (this.questionJamaisPosee(i, nom)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
       }
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Donner jusque 3 rapports trigonométriques\n2 : Donner jusque 6 rapports trigonométriques\n3 : Deux triangles imbriqués, donner un rapport de deux manières différentes']
-  this.besoinFormulaire2Texte = ['Rapports trigonométriques', 'Nombres séparés par des tirets : \n1 : Cosinus\n2 : Sinus\n3 : Tangente\n4 : Les trois']
 }

@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = ''
@@ -23,13 +23,10 @@ export default class ComparerFractions extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = randint(-5, 5, [0, -1, 1])
     this.reponse = randint(-9, 9, [-1, 0, 1])
     const b = -a * this.reponse + 2025

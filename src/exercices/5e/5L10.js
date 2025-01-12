@@ -1,8 +1,8 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const amcReady = true
 export const amcType = 'qcmMult'
@@ -25,25 +25,45 @@ export const dateDeModifImportante = '19/11/2023'
 * Ajout de la possibilité de choisir séparément chaque cas par Eric Elter le 19/11/2023
 */
 export const uuid = '3c1f7'
-export const ref = '5L10'
+
 export const refs = {
   'fr-fr': ['5L10'],
   'fr-ch': ['9FA2-3', '10FA1-4']
 }
-export default function ÉcrireUneExpressionLitterale () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
-  this.sup = true
-  this.sup2 = 19
+export default class ÉcrireUneExpressionLitterale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2Texte = ['Type de questions', [
+      'Nombres séparés par des tirets',
+      ' 1 : Double',
+      ' 2 : Triple',
+      ' 3 : Moitié',
+      ' 4 : Quart',
+      ' 5 : Entier suivant',
+      ' 6 : Entier précédent',
+      ' 7 : Carré',
+      ' 8 : Cube',
+      ' 9 : Opposé',
+      '10 : Inverse',
+      '11 : Somme de deux nombres',
+      '12 : Produit de deux nombres V1',
+      '13 : Produit de deux nombres V2',
+      '14 : Quotient de deux nombres V1',
+      '15 : Quotient de deux nombres V2',
+      '16 : Nombre pair',
+      '17 : Nombre impair',
+      '18 : Multiple',
+      '19 : Mélange'
+    ].join('\n')
+    ]
+    this.nbQuestions = 4
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
+    this.sup = true
+    this.sup2 = 19
+  }
 
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 18,
       defaut: 19,
@@ -715,35 +735,12 @@ export default function ÉcrireUneExpressionLitterale () {
         if (this.interactif) {
           texte += props.texte
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Texte = ['Type de questions', [
-    'Nombres séparés par des tirets',
-    ' 1 : Double',
-    ' 2 : Triple',
-    ' 3 : Moitié',
-    ' 4 : Quart',
-    ' 5 : Entier suivant',
-    ' 6 : Entier précédent',
-    ' 7 : Carré',
-    ' 8 : Cube',
-    ' 9 : Opposé',
-    '10 : Inverse',
-    '11 : Somme de deux nombres',
-    '12 : Produit de deux nombres V1',
-    '13 : Produit de deux nombres V2',
-    '14 : Quotient de deux nombres V1',
-    '15 : Quotient de deux nombres V2',
-    '16 : Nombre pair',
-    '17 : Nombre impair',
-    '18 : Multiple',
-    '19 : Mélange'
-  ].join('\n')
-  ]
 }

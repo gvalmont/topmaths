@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
 export const titre = 'Écrire plus simplement'
@@ -17,7 +17,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class aSimplifier extends Exercice {
   constructor () {
@@ -26,13 +26,10 @@ export default class aSimplifier extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const choix = choice([1, 2])
     const a = choice([-5, 3, 5, -3, 9, -9])
     const b = randint(-10, 10, 0)

@@ -1,13 +1,13 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
+import { numAlpha } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Équations avec la fonction logarithme'
 export const dateDePublication = '22/7/2024'
@@ -20,8 +20,8 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
- * @autor  Jean-Claude Lhote
+ *
+ * @author  Jean-Claude Lhote
  */
 export default class EquationsLog extends Exercice {
   version: string
@@ -208,11 +208,11 @@ export default class EquationsLog extends Exercice {
       }
       if (this.questionJamaisPosee(i, a, b, n, listeTypeQuestions[i])) {
         if (this.interactif) {
-          handleAnswers(this, 2 * i, { reponse: { value: domaine, compare: fonctionComparaison, options: { intervalle: true } } })
-          handleAnswers(this, 2 * i + 1, { reponse: { value: solution, compare: fonctionComparaison } })
+          handleAnswers(this, 2 * i, { reponse: { value: domaine, options: { intervalle: true } } })
+          handleAnswers(this, 2 * i + 1, { reponse: { value: solution } })
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,4 +1,4 @@
-import AssocierCoefficient from '../3e/3P10-1.js'
+import AssocierCoefficient from '../3e/3P10-1'
 export const titre = 'Associer évolution en pourcentage et coefficient'
 export const dateDePublication = '19/06/2022'
 export const interactifReady = true
@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  */
 
 export const uuid = 'e38d8'
-export const ref = 'techno1E2'
+
 export const refs = {
   'fr-fr': ['techno1E2'],
   'fr-ch': []

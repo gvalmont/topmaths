@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -21,24 +21,23 @@ export const dateDeModifImportante = '10/01/2024'
  * Amélioration de l'interactivité par Eric Elter le 10/01/2024
  */
 export const uuid = '6b534'
-export const ref = '5N11-4'
+
 export const refs = {
   'fr-fr': ['5N11-4'],
   'fr-ch': ['9NO14-7']
 }
-export default function ValeurApprocheeDePourcentages () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 6
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class ValeurApprocheeDePourcentages extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de précision', 2, "1 : Donner un pourcentage à l'unité près\n2 : Donner un pourcentage au dixième près"]
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.nbQuestions = 6
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+  }
 
+  nouvelleVersion () {
     const denominateurDisponibles = [100, 200, 300, 1000]
     const listeTypeDeQuestions = combinaisonListes(denominateurDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     this.consigne = this.interactif
@@ -84,13 +83,12 @@ export default function ValeurApprocheeDePourcentages () {
 
       if (this.questionJamaisPosee(i, num, den)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de précision', 2, "1 : Donner un pourcentage à l'unité près\n2 : Donner un pourcentage au dixième près"]
 }

@@ -1,18 +1,18 @@
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
@@ -25,21 +25,23 @@ export const dateDeModifImportante = '30/06/2023'
  * @author Stéphane Guyon & Stéphan Grignon Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = 'f71c1'
-export const ref = '2G24-1'
+
 export const refs = {
   'fr-fr': ['2G24-1'],
   'fr-ch': []
 }
-export default function Calculercoordonneesvecteurs () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.sup = 1
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+export default class Calculercoordonneesvecteurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 : Coordonnées entières\n 2 : Coordonnées en écriture fractionnaire']
 
+    this.nbQuestions = 2
+    this.sup = 1
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let xA, yA, xB, yB, xABFraction, yABFraction, r
       const nomsPoints = creerNomDePolygone(2, ['Q', 'I', 'J', 'O', 'X', 'Y', 'Z'])
@@ -158,8 +160,8 @@ export default function Calculercoordonneesvecteurs () {
       }
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: xABFraction.texFraction, compare: fonctionComparaison },
-        champ2: { value: yABFraction.texFraction, compare: fonctionComparaison }
+        champ1: { value: xABFraction.texFraction },
+        champ2: { value: yABFraction.texFraction }
       })
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i,
@@ -169,13 +171,12 @@ export default function Calculercoordonneesvecteurs () {
       }
 
       if (this.questionJamaisPosee(i, xABFraction.texFraction, yABFraction.texFraction)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 : Coordonnées entières\n 2 : Coordonnées en écriture fractionnaire']
 }

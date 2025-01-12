@@ -2,12 +2,12 @@ import { choice, combinaisonListes, enleveElement } from '../../lib/outils/array
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -50,7 +50,7 @@ export const interactifType = 'mathLive'
  * 4C11
  */
 export const uuid = '62f66'
-export const ref = '4C11'
+
 export const refs = {
   'fr-fr': ['4C11'],
   'fr-ch': ['10NO6-2']
@@ -58,14 +58,12 @@ export const refs = {
 export default class PrioritesEtRelatifs extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.interactifReady = interactifReady
-    this.interactifType = interactifType
+
     this.consigne = 'Calculer.'
     this.spacing = 2
     this.nbQuestions = 6
     this.nbCols = 2
-    this.nbColsCorr = 1
+
     this.sup = 3
     this.besoinFormulaireNumerique = [
       'Type de calculs',
@@ -77,7 +75,6 @@ export default class PrioritesEtRelatifs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
     let listeQuestionsDisponibles
     if (this.sup === 1) {
       listeQuestionsDisponibles = range1(11)
@@ -424,8 +421,8 @@ export default class PrioritesEtRelatifs extends Exercice {
       }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,31 +1,31 @@
-import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles.js'
-import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
-import { polygone } from '../../../lib/2d/polygones.js'
-import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
-import { rotation } from '../../../lib/2d/transformations.js'
+import { codageAngle, codageAngleDroit } from '../../../lib/2d/angles'
+import { milieu, point, tracePoint } from '../../../lib/2d/points'
+import { polygone } from '../../../lib/2d/polygones'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
-import { sp } from '../../../lib/outils/outilString.js'
+import { sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
-import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { scratchblock } from '../../../modules/scratchblock.js'
+import Exercice from '../../Exercice'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
+import { scratchblock } from '../../../modules/scratchblock'
 import { min, round } from 'mathjs'
-import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
+import { context } from '../../../modules/context'
+import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
 
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 4e sujet 2023'
@@ -35,7 +35,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '03/04/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'cae4f'
-export const ref = 'can4a-2023'
+
 export const refs = {
   'fr-fr': ['can4a-2023'],
   'fr-ch': []
@@ -50,19 +50,20 @@ function compareNombres (a, b) {
   return a - b
 }
 
-export default function SujetCAN2023Quatrieme () {
-  Exercice.call(this)
-  this.nbQuestions = 30
-  this.typeExercice = 'Scratch'
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+export default class SujetCAN2023Quatrieme extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 30
+    this.typeExercice = 'Scratch'
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+  }
+
+  nouvelleVersion () {
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
@@ -962,7 +963,7 @@ export default function SujetCAN2023Quatrieme () {
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
-            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, i, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
           }
           texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${miseEnEvidence(a)}$ h $${miseEnEvidence(d)}$ min`
           nbChamps = 1
@@ -1115,8 +1116,8 @@ export default function SujetCAN2023Quatrieme () {
           break
       }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += nbChamps
       }

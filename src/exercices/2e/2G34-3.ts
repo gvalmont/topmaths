@@ -1,11 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante'
+
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Tester si un couple de points vérifie un système de deux équations à deux inconnues.'
 export const interactifReady = true
@@ -20,14 +20,13 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
 export default class systemeEquationsPremDegSol extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
     this.nbQuestions = 3
     this.sup = 3
     this.correctionDetailleeDisponible = true
@@ -36,11 +35,8 @@ export default class systemeEquationsPremDegSol extends Exercice {
 
   nouvelleVersion () {
     this.consigne = 'Déterminer si le couple proposé est solution du système d\'équations.'
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
 
-    let typeQuestionsDisponibles: ('lv1E1Ne2' | 'lv1Ne1E2' |'lv1E1E2' |'lv1Ne1Ne2' |'lv2E1Ne2' | 'lv2Ne1E2' |'lv2E1E2' |'lv2Ne1Ne2')[]
+    let typeQuestionsDisponibles: ('lv1E1Ne2' | 'lv1Ne1E2' | 'lv1E1E2' | 'lv1Ne1Ne2' | 'lv2E1Ne2' | 'lv2Ne1E2' | 'lv2E1E2' | 'lv2Ne1Ne2')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['lv1E1Ne2', 'lv1Ne1E2', 'lv1E1E2', 'lv1Ne1Ne2']
     } else if (this.sup === 2) {
@@ -276,14 +272,14 @@ export default class systemeEquationsPremDegSol extends Exercice {
       texteCorr = texteCorr + `<br> ${texteEnCouleurEtGras(`${rep}`)}`
       if (this.interactif) {
         texte = texte + choixDeroulant(this, i, choix, 'une réponse')
-        handleAnswers(this, i, { reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'listeDeroulante' })
+        handleAnswers(this, i, { reponse: { value: rep, options: { texteSansCasse: true } } }, { formatInteractif: 'listeDeroulante' })
       } else {
         const options = { ordered: true, vertical: true }
         listeDeroulanteToQcm(this, i, choix, rep, options)
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

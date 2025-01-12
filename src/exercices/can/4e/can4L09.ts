@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -19,12 +19,12 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class ReduireDecimaux extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
@@ -40,7 +40,7 @@ export default class ReduireDecimaux extends Exercice {
           const a = randint(1, 2)
           const reduction = b.mul(-1).plus(a)
           this.reponse = texNombre(b.mul(-1).plus(a), 2) + `${variable}`
-          this.reponse = { reponse: { value: this.reponse, compare: fonctionComparaison } }
+          this.reponse = { reponse: { value: this.reponse } }
           this.question = `Écrire le plus simplement possible  $${rienSi1(a)}${variable}-${texNombre(b, 2)}${variable}$.`
           if (this.interactif) { this.question += `<br>$${rienSi1(a)}${variable}-${texNombre(b, 2)}${variable}=$` }
           this.correction = 'À l\'aide d\'une factorisation, on obtient :<br>'
@@ -65,7 +65,7 @@ export default class ReduireDecimaux extends Exercice {
           const a = randint(1, 2)
           const reduction = b.sub(a)
           this.reponse = texNombre(b.sub(a), 2) + `${variable}`
-          this.reponse = { reponse: { value: this.reponse, compare: fonctionComparaison } }
+          this.reponse = { reponse: { value: this.reponse } }
           this.question = `Écrire le plus simplement possible  $${texNombre(b, 2)}${variable}-${rienSi1(a)}${variable}$.`
           if (this.interactif) { this.question += `<br>$${texNombre(b, 2)}${variable}-${rienSi1(a)}${variable}=$` }
           this.correction = 'À l\'aide d\'une factorisation, on obtient :<br>'

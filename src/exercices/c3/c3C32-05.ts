@@ -8,7 +8,7 @@ import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const uuid = 'ab18c'
@@ -38,7 +38,7 @@ export default class ExerciceProbleme005 extends Exercice {
     this.nbQuestions = 1
     this.besoinFormulaireNumerique = ['niveau de difficulté', 3, '1 : Élèves à besoin\n2 : Moyens\n3 : Avancés']
     this.sup = 2
-    this.nbQuestionsModifiable = true
+
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
   }
@@ -101,7 +101,7 @@ export default class ExerciceProbleme005 extends Exercice {
               typeInteractivite: 'mathlive',
               texteApres: '',
               texteAvant: 'O pour oui, N pour non.',
-              objetReponse: { reponse: { value: volume.mul(100).plus(frac.multiplieEntier(100).valeurDecimale).greaterThan(100) ? 'O' : 'N', compare: fonctionComparaison, options: { texteSansCasse: true } } },
+              objetReponse: { reponse: { value: volume.mul(100).plus(frac.multiplieEntier(100).valeurDecimale).greaterThan(100) ? 'O' : 'N', options: { texteSansCasse: true } } },
               classe: KeyboardType.vFON
             })}<br>
             ${ajouteQuestionMathlive({
@@ -161,8 +161,8 @@ export default class ExerciceProbleme005 extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, volume, frac.texFraction)) {
-        this.listeQuestions.push(enonce)
-        this.listeCorrections.push(correction)
+        this.listeQuestions[i] = enonce
+        this.listeCorrections[i] = correction
         i++
       }
       cpt++

@@ -6,9 +6,9 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB, rienSi1
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -22,23 +22,19 @@ export const dateDeModifImportante = '19/06/2023'
 * 2F25-2
 */
 export const uuid = '1e362'
-export const ref = '2F25-2'
+
 export const refs = {
   'fr-fr': ['2F25-2'],
   'fr-ch': []
 }
-export default function EtudierPariteFonction () {
-  Exercice.call(this)
-  this.titre = titre
-  this.video = ''
-  this.consigne = ''
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 1
+export default class EtudierPariteFonction extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     let bonneReponse
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]//
@@ -268,8 +264,8 @@ export default function EtudierPariteFonction () {
       }
       if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

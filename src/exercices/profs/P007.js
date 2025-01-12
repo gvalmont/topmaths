@@ -1,13 +1,13 @@
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { texteParPosition } from '../../lib/2d/textes'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { pavage } from '../../modules/Pavage.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { pavage } from '../../modules/Pavage'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
-export const ref = 'P007'
+
 export const refs = {
   'fr-fr': ['P007'],
   'fr-ch': []
@@ -20,21 +20,26 @@ export const uuid = 'ad5f8'
  * Publié le 12/12/2020
  * Ref : P007
  */
-export default function PavagesMathalea2d () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 4
-  this.sup2 = '1-1'
-  this.sup3 = true
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = function () {
+export default class PavagesMathalea2d extends Exercice {
+  constructor () {
+    super()
+
+    this.besoinFormulaireNumerique = ['Type de pavage', 7, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d\'écolier\n7 : Pavage 6.3.6.3\n8 : Mélange']
+    this.besoinFormulaire2Texte = ['Nombre de répétitions du motif (2 entiers séparés par un tiret)']
+    this.besoinFormulaire3CaseACocher = ['Présence de numéros']
+
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    this.sup = 4
+    this.sup2 = '1-1'
+    this.sup3 = true
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  }
+
+  nouvelleVersion () {
     const objets = []
     let Nx, Ny // nombres de dalles en x et en y
     if (!this.sup2) { // On fixe le nombre de dalles en x et en y
@@ -48,8 +53,6 @@ export default function PavagesMathalea2d () {
         [Nx, Ny] = [parseInt(this.sup2.split('-')[0]), parseInt(this.sup2.split('-')[1])] // Sinon on créé un tableau à partir des valeurs séparées par des -
       }
     }
-    this.listeCorrections = []
-    this.listeQuestions = []
 
     const monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
     const typeDePavage = this.sup === 8 ? randint(1, 7) : this.sup
@@ -79,7 +82,4 @@ export default function PavagesMathalea2d () {
     this.comment = texteComment
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de pavage', 7, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones\n4 : Pavage 3².4.3.4\n5 : Pavage 8².4\n6 : Pavage hexagonal d\'écolier\n7 : Pavage 6.3.6.3\n8 : Mélange']
-  this.besoinFormulaire2Texte = ['Nombre de répétitions du motif (2 entiers séparés par un tiret)']
-  this.besoinFormulaire3CaseACocher = ['Présence de numéros']
 } // Fin de l'exercice.

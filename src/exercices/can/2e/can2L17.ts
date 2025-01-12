@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Trinome from '../../../modules/Trinome'
 export const titre = 'Résoudre une inéquation à partir d\'un tableau de signes'
 export const interactifReady = true
@@ -18,16 +18,15 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class InequationTableau extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { texteSansCasse: true }
   }
 

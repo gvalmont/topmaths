@@ -1,4 +1,4 @@
-import { context } from '../context.js'
+import { context } from '../context'
 
 /**
  * Gère l'écriture de l'indice en mode text (ne doit pas s'utiliser entre $ $)

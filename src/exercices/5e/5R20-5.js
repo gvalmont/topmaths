@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 
 export const titre = 'Additionner deux entiers relatifs dans un tableau à double entrée'
 export const amcReady = true
@@ -13,19 +13,22 @@ export const amcType = 'AMCOpen'
 * @author Rémi Angot
 */
 export const uuid = '41254'
-export const ref = '5R20-5'
+
 export const refs = {
   'fr-fr': ['5R20-5'],
   'fr-ch': ['9NO9-10']
 }
-export default function ExerciceTableauAdditionsRelatifs () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.spacing = 1
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class ExerciceTableauAdditionsRelatifs extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Calculer.'
+
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     const listeSignes1 = combinaisonListes([-1, 1], 4)
     let a1 = randint(2, 9)
     let a2 = randint(2, 9, a1)

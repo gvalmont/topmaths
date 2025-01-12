@@ -1,11 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
@@ -23,24 +23,25 @@ export const dateDeModifImportante = '26/12/2022' // Une date de modification im
  * 3L10-1
  */
 export const uuid = '815eb'
-export const ref = '3L10-1'
+
 export const refs = {
   'fr-fr': ['3L10-1'],
   'fr-ch': ['11FA1-2']
 }
-export default function ParenthesesPrecedesDeMoinsOuPlus () {
-  Exercice.call(this)
-  this.titre = titre
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
-  this.sup = false
-  this.besoinFormulaireCaseACocher = ['Sanctionner les formes non simplifiées', false]
+export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 5
+
+    this.listeAvecNumerotation = false
+    this.sup = false
+    this.besoinFormulaireCaseACocher = ['Sanctionner les formes non simplifiées', false]
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']
@@ -156,7 +157,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           break
       }
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
       } else {
         this.autoCorrection[i] = {
@@ -229,8 +230,8 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

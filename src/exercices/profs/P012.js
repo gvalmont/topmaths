@@ -1,14 +1,14 @@
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 
-import { fraction } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions'
 import {
   gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 
 export const titre = 'Faire des camemberts pour travailler les fractions'
-export const ref = 'P012'
+
 export const refs = {
   'fr-fr': ['P012'],
   'fr-ch': []
@@ -17,25 +17,27 @@ export const uuid = '62f5e'
 
 /**
  * Fonction permettant aux enseignants de proposer rapidement des diques partagés en parts
- * ref P012
  * @author Jean-Claude Lhote
  */
-export default function Camemberts () {
-  Exercice.call(this)
-  this.nb_cols = 1
-  this.nbQuestions = 3
-  this.nb_questions_modifiable = false
-  this.sup = '2-3-4-5' // nombre de parts
-  this.sup2 = '5' // nombre de disques par ligne
-  this.titre = titre
+export default class Camemberts extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Nombre de parts séparés par des tirets (de 2 à 12)']
+    this.besoinFormulaire2Texte = ['Nombre de disques par ligne séparés par des tirets (de 1 à 5)']
 
-  this.nouvelleVersion = function () {
+    this.nb_cols = 1
+    this.nbQuestions = 3
+    this.nb_questions_modifiable = false
+    this.sup = '2-3-4-5' // nombre de parts
+    this.sup2 = '5' // nombre de disques par ligne
+  }
+
+  nouvelleVersion () {
     if (this.sup === '') {
       this.sup = '2-3-4-5'
     }
     const secteurs = gestionnaireFormulaireTexte({ saisie: this.sup, min: 2, max: 12, defaut: 6, nbQuestions: this.nbQuestions, shuffle: false })
     const unites = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 5, defaut: 2, nbQuestions: this.nbQuestions, shuffle: false })
-    this.contenu = ''
 
     // const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
     // const unites = combinaisonListesSansChangerOrdre(nbDisques, this.nbQuestions)
@@ -52,6 +54,4 @@ export default function Camemberts () {
     }
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireTexte = ['Nombre de parts séparés par des tirets (de 2 à 12)']
-  this.besoinFormulaire2Texte = ['Nombre de disques par ligne séparés par des tirets (de 1 à 5)']
 }

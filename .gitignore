@@ -35,6 +35,7 @@ _private/
 /src/topmaths/typ/fiches/**/*.typ
 tests/e2e/logs
 updatefile
+.madgerc
 # Dictionnaires générés
 src/json/referentielStaticFR.json
 src/json/referentielStaticCH.json

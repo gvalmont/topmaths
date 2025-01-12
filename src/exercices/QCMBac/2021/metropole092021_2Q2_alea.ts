@@ -102,7 +102,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
        ${graphique}`
       : ''
     this.enonce += 'On admet que la fonction $f$ représentée ci-dessus est définie sur $\\R$ par $f(x) = (ax + b)\\text{e}^x$,<br>'
-     this.enonce += ' où $a$ et $b$ sont deux nombres réels et que sa courbe coupe l\'axe des abscisses <br>en son point de coordonnées $(-0,5~;~ 0)$. <br>On peut affirmer que:'
+    this.enonce += ' où $a$ et $b$ sont deux nombres réels et que sa courbe coupe l\'axe des abscisses <br>en son point de coordonnées $(-0,5~;~ 0)$. <br>On peut affirmer que:'
     this.correction = `Graphiquement $f(0) = ${b} \\iff b\\text{e}^0 = ${b} \\iff b = ${b}$ ;<br>
      D'autre part $f$ est dérivable sur $\\mathbb{R}$ et sur cet intervalle :<br>
 $f'(x) = ${a}\\text{e}^x + (${a}x + ${b})\\text{e}^x = \\text{e}^x(${a}x + ${a} + ${b})$.<br>

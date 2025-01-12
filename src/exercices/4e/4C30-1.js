@@ -1,12 +1,12 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 
 export const dateDeModifImportante = '05/09/2023'
 export const interactifReady = true
@@ -20,20 +20,25 @@ export const titre = 'Encadrer des nombres positifs avec des puissances de 10'
  * @author Sébastien Lozano (Modifications apportées par Eric Elter)
  */
 export const uuid = '760d7'
-export const ref = '4C30-1'
+
 export const refs = {
   'fr-fr': ['4C30-1'],
   'fr-ch': ['9NO5-1']
 }
-export default function PuissancesEncadrement () {
-  Exercice.call(this)
-  this.sup = 4
-  this.nbQuestions = 5
+export default class PuissancesEncadrement extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Niveau de difficulté',
+      'Nombres séparés par des tirets\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Mélange'
+    ]
+    this.sup = 4
+    this.nbQuestions = 5
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.classe = 4 // Ce distinguo permet de supprimer les 10^0 du niveau 4ème
-  this.nouvelleVersion = function () {
+    this.classe = 4 // Ce distinguo permet de supprimer les 10^0 du niveau 4ème
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = []
     let signeChange
     this.consigne = this.nbQuestions === 1
@@ -67,7 +72,6 @@ export default function PuissancesEncadrement () {
           break
       }
     }
-    this.autoCorrection = []
 
     for (
       let i = 0, signe, texte, texteCorr, consigneAMC, exposantInf, exposantSup, cpt = 0;
@@ -194,17 +198,12 @@ export default function PuissancesEncadrement () {
         }
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireTexte = [
-    'Niveau de difficulté',
-    'Nombres séparés par des tirets\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Mélange'
-  ]
 }

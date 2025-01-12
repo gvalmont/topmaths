@@ -1,12 +1,12 @@
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 
 export const titre = 'Exprimer en fonction de log(x)'
 export const dateDePublication = '22/7/2024'
@@ -21,8 +21,8 @@ export const refs = {
 const listeExposants = [1, 2, 3, -1, -2, -3]
 /**
  * Réduire une expression en fonction de ln/log de x
- * @autor  Jean-Claude Lhote
- * Référence TSpeAN1-5
+ * @author  Jean-Claude Lhote
+
  */
 export default class ExpressionsLogX extends Exercice {
   version: string
@@ -81,10 +81,10 @@ export default class ExpressionsLogX extends Exercice {
         texte = `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '=' })
-          handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: answer } })
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

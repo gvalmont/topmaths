@@ -30,7 +30,7 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
     super()
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.nbQuestionsModifiable = true
+
     this.introduction = texteItalique('D\'après l\'exercice 2 du brevet Métropole 2024.')
 
     this.versionAleatoire(0)
@@ -125,8 +125,8 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
      &= ${miseEnEvidence(`x^2 + ${rienSi1(b)}x - ${c}`, 'blue')}\\end{aligned}$<br>
     ${texteEnCouleurEtGras('Le résultat du programme A est le double du résultat du programme B')}.`
 
-    const enonce = `${deuxColonnesResp('Programme A', 'ProgrammeB', { largeur1: 50, widthmincol1: 100, widthmincol2: 100, stylecol1: 'border: solid; ', stylecol2: 'border: solid; ', eleId: '' })}
-    ${deuxColonnesResp(programmeA, String(programmeB), { largeur1: 50, widthmincol1: 100, widthmincol2: 100, stylecol1: 'border: solid; ', stylecol2: 'border: solid; ', eleId: '' })}
+    const enonce = `${deuxColonnesResp('Programme A', 'ProgrammeB', { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', stylecol1: 'border: solid; ', stylecol2: 'border: solid; ', eleId: '' })}
+    ${deuxColonnesResp(programmeA, String(programmeB), { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', stylecol1: 'border: solid; ', stylecol2: 'border: solid; ', eleId: '' })}
     ${createList({
       items: [
         question1,

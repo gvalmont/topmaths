@@ -25,7 +25,7 @@ const UPLOAD_FOLDER = 'updatefile'
 const UPLOAD_SUBFOLDER = 'output'
 
 // file parameter retrieved from an input type=file
-async function readZip (file: fs.FileHandle): Promise<Map<string, string| ArrayBuffer>> {
+async function readZip (file: fs.FileHandle): Promise<Map<string, string | ArrayBuffer>> {
   const buffer = await fs.readFile(file)
   const files : Map<string, string | ArrayBuffer> = new Map<string, string | ArrayBuffer>()
   const zipper = new JSZip()

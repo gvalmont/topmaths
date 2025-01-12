@@ -1,12 +1,11 @@
 import Exercice from '../Exercice'
 import { choice } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculs utilisant les propriétés des logarithmes'
 export const dateDePublication = '27/07/2024'
@@ -18,9 +17,9 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * Description didactique de l'exercice
+ *
  * @author Jean-Claude Lhote et modifié par Claire Rousset
- * Référence TSpeAN1-3
+
 */
 export default class ExerciceCalculsProprietesLog extends Exercice {
   version: string
@@ -50,7 +49,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       const valeurA = A.base ** A.exp
       const valeurB = B.base ** B.exp
       const valeurAfoisB = valeurA * valeurB
-      const exprime = (A: {base: number, exp: number}) => `${A.base}^${A.exp}`
+      const exprime = (A: { base: number, exp: number }) => `${A.base}^${A.exp}`
       const intro = `Exprimer, en fonction de $${logString} \\left(${A.base}\\right)$ et $${logString} \\left(${B.base}\\right)$, le nombre suivant : &nbsp `
       let texte: string
       let texteCorr = ''
@@ -90,13 +89,13 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       texte = `${intro}$${texte}$`
       const answer = `${A.exp}${logString}(${A.base})${signe}${B.exp}${logString}(${B.base})`
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: answer } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, A.base, A.exp, B.base, B.exp, signe)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

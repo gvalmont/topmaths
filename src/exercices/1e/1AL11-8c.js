@@ -3,10 +3,10 @@ import { texteGras } from '../../lib/format/style'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer la somme des termes d\'une suite géométrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const dateDePublication = '28/12/2022'
  * Calculer \sum_{k=0}^n u_k, avec n et (u_n) (suite géométrique) données
  * @author Rémi Angot
 */
-export const ref = '1AL11-8c'
+
 export const refs = {
   'fr-fr': ['1AL11-8c'],
   'fr-ch': []
@@ -34,7 +34,6 @@ export default class SommeSuiteGeometrique extends Exercice {
     this.correctionDetailleeDisponible = true
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 

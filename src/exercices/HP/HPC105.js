@@ -1,8 +1,7 @@
-import { Matrice } from '../../lib/mathFonctions/Matrice.js'
+import { Matrice } from '../../lib/mathFonctions/Matrice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreIndiceeDepuisChiffre, lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { lettreIndiceeDepuisChiffre, lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import Exercice from '../Exercice'
 
@@ -13,11 +12,11 @@ export const dateDePublication = '26/11/2024' // La date de publication initiale
 // export const dateDeModifImportante = '26/11/2024' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Maxime Nguyen
  */
 export const uuid = 'de526'
-export const ref = 'HPC105'
+
 export const refs = {
   'fr-fr': ['HPC105'],
   'fr-ch': []
@@ -25,7 +24,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.consigne = 'Déterminer la matrice de l\'application linéaire définie ci-dessous dans la base canonique.'
     this.nbQuestions = 4
 
@@ -36,15 +35,11 @@ export default class nomExercice extends Exercice {
 
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.tailleDiaporama = 3
-    this.video = ''
   }
 
   nouvelleVersion () {
     const computeEngine = new ComputeEngine()
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) { // On ajuste la difficulté selon le paramètre.
       listeTypeDeQuestionsDisponibles = ['type1']
@@ -152,8 +147,8 @@ export default class nomExercice extends Exercice {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

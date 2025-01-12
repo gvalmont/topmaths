@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora + Eric Elter
- * Référence
+
 */
 export default class nbreMinutes extends Exercice {
   constructor () {
@@ -26,13 +26,10 @@ export default class nbreMinutes extends Exercice {
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     this.consigne = 'Compléter l\'égalité.<br>'
     switch (randint(1, 4)) {
       case 1 :

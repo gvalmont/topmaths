@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -7,6 +7,7 @@ import { fractionCliquable } from '../../modules/2dinteractif'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Écrire un nombre entier sous la forme d\'une fraction'
 export const interactifReady = true
@@ -62,7 +63,7 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
       const denominateur = listeDenominateurs[cpt % this.nbQuestions] === 1000 ? randint(2, 11) : listeDenominateurs[cpt % this.nbQuestions]
       const entier = listeNombresEntiers[cpt % this.nbQuestions] === 1000 ? randint(1, 3) : listeNombresEntiers[cpt % this.nbQuestions]
 
-      const texte = remplisLesBlancs(this, i, `${entier} = \\dfrac{%{champ1}}{${denominateur}}`)
+      const texte = remplisLesBlancs(this, i, `${entier} = \\dfrac{%{champ1}}{${denominateur}}`, KeyboardType.clavierNumbers)
       let texteCorr = ''
       if (this.correctionDetaillee) {
         texteCorr += `$1$ unité = $\\dfrac{${denominateur}}{${denominateur}}$.<br>
@@ -97,8 +98,8 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
         champ1: { value: String(entier * denominateur) }
       }, { formatInteractif: 'fillInTheBlank' })
       if (this.questionJamaisPosee(i, entier, denominateur)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

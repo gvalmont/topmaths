@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,13 +15,12 @@ export const uuid = 'fc596'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
+
     this.optionsChampTexte = { texteApres: '.' }
   }
 

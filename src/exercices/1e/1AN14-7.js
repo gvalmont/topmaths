@@ -1,9 +1,9 @@
-import { Polynome } from '../../lib/mathFonctions/Polynome.js'
+import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -14,7 +14,7 @@ export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
 /**
  * Calculer la dérivée de x -> f(ax+b)
  * @author Jean-Léon Henry
- * Référence 1AN14-6
+
  */
 
 export const uuid = '3391d'
@@ -22,18 +22,22 @@ export const refs = {
   'fr-fr': ['1AN14-7'],
   'fr-ch': []
 }
-export default function DeriveeComposee () {
-  Exercice.call(this)
-  this.titre = titre
-  // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-  this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
-  this.nbQuestions = 5
-  // Sortie LaTeX
-  this.nbCols = 2 // Nombre de colonnes
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-  this.sup = false
+export default class DeriveeComposee extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Inclure l\'exponentielle']
+
+    // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
+    this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
+    this.nbQuestions = 5
+    // Sortie LaTeX
+    this.nbCols = 2 // Nombre de colonnes
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction
+    this.sup = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     this.sup = Number(this.sup)
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
@@ -135,8 +139,9 @@ export default function DeriveeComposee () {
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         handleAnswers(this, i, { reponse: { value, compare: functionCompare } })
         i++
       }
@@ -144,5 +149,4 @@ export default function DeriveeComposee () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Inclure l\'exponentielle']
 }

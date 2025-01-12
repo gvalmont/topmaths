@@ -1,4 +1,3 @@
-/* eslint-disable no-tabs */
 import { createList } from './lists'
 import { setOutputLatex, setOutputHtml } from '../../modules/context'
 

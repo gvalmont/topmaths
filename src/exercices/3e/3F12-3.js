@@ -1,13 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fraction } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -29,20 +29,23 @@ export const dateDeModifImportante = '20/02/2023'
  * @author Rémi Angot
  */
 export const uuid = 'afb2f'
-export const ref = '3F12-3'
+
 export const refs = {
   'fr-fr': ['3F12-3'],
   'fr-ch': ['10FA5-11', '11FA8-5', '1F1-11']
 }
-export default function TableauDeValeurs () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 5 // niveau de difficulté
-  this.correctionDetailleeDisponible = true
+export default class TableauDeValeurs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+
+    this.sup = 5 // niveau de difficulté
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     this.spacing = this.interactif ? 2 : 1
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
@@ -368,13 +371,12 @@ export default function TableauDeValeurs () {
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d, f, listeTypeDeQuestions[i])) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 }

@@ -1,14 +1,14 @@
-import { droiteGraduee } from '../../../lib/2d/reperes.js'
+import { droiteGraduee } from '../../../lib/2d/reperes'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
-import { sp } from '../../../lib/outils/outilString.js'
+import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import Grandeur from '../../../modules/Grandeur'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
@@ -21,27 +21,55 @@ export const amcType = 'AMCNum'
  * Course aux nombres avec 30 questions début de 5e
  * @author jeanclaude Lhote
  * Créé pendant l'été 2021
- * Référence canPredef5-1
+
  */
 export const uuid = '9e40d'
-export const ref = 'can5a-xxxx'
+
 export const refs = {
   'fr-fr': ['can5a-xxxx'],
   'fr-ch': []
 }
-export default function CourseAuxNombres5e () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 30
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class CourseAuxNombres5e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des questions',
+  `Nombres séparés par des tirets\n1 : Multiplication (facteur 12 à 19)\n
+2 : Somme à abc + de\n
+3 : Différence abc - de\n
+4 : Somme de deux décimaux avec retenue\n
+5 : Somme astucieuse\n
+6 : Conversion en heures et minutes\n
+7 : Triple et moitié\n
+8 : Produit avec facteur 100\n
+9 : Division\n
+10 : Reste de division par diviseur à 2 chiffres\n
+11 : Priorité opératoire\n
+12 : Recomposer une nombre avec chevauchement\n
+13 : conversion heures et minutes vers minutes\n
+14 :  Reste de la division par 3\n
+15 :  Une division par 9 qui tombe juste\n
+16 :  ajouter un nombre de la forme 10n+9\n
+17 :  quart d'un nombre\n
+18 :  addition à trou\n
+19 :  Nombre impair de 2 chiffres × 5\n
+20 :  Prix de la mitié\n
+21 :  Ordre de grandeur\n
+22 :  Conversion cm ou mm -> m\n
+23 :  Fraction m/n d'une quantité de L\n
+24 :  Reste de la division euclidienne\n
+25 :  Ordre de grandeur : hauteurs\n
+26 :  Appliquer un pourcentage\n
+27 :  Calcul de distance à vitesse constante\n
+28 :  Comparaison de périmètre\n
+29 :  Repérage fraction\n
+30 : Proportionnalité par linéarité\n`]
+    this.nbQuestions = 30
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+  }
 
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+  nouvelleVersion () {
     let a, b, c, d, resultat, propositions
     const fruits = [
       ['pêches', 4, 10, 30],
@@ -424,43 +452,12 @@ export default function CourseAuxNombres5e () {
       }
       if (this.questionJamaisPosee(i, a, b, c, d, resultat)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions',
-        `Nombres séparés par des tirets\n1 : Multiplication (facteur 12 à 19)\n
-  2 : Somme à abc + de\n
-  3 : Différence abc - de\n
-  4 : Somme de deux décimaux avec retenue\n
-  5 : Somme astucieuse\n
-  6 : Conversion en heures et minutes\n
-  7 : Triple et moitié\n
-  8 : Produit avec facteur 100\n
-  9 : Division\n
-  10 : Reste de division par diviseur à 2 chiffres\n
-  11 : Priorité opératoire\n
-  12 : Recomposer une nombre avec chevauchement\n
-  13 : conversion heures et minutes vers minutes\n
-  14 :  Reste de la division par 3\n
-  15 :  Une division par 9 qui tombe juste\n
-  16 :  ajouter un nombre de la forme 10n+9\n
-  17 :  quart d'un nombre\n
-  18 :  addition à trou\n
-  19 :  Nombre impair de 2 chiffres × 5\n
-  20 :  Prix de la mitié\n
-  21 :  Ordre de grandeur\n
-  22 :  Conversion cm ou mm -> m\n
-  23 :  Fraction m/n d'une quantité de L\n
-  24 :  Reste de la division euclidienne\n
-  25 :  Ordre de grandeur : hauteurs\n
-  26 :  Appliquer un pourcentage\n
-  27 :  Calcul de distance à vitesse constante\n
-  28 :  Comparaison de périmètre\n
-  29 :  Repérage fraction\n
-  30 : Proportionnalité par linéarité\n`]
 }

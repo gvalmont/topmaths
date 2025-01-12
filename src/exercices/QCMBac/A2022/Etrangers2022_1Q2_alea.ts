@@ -26,7 +26,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
   // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
   // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
   private appliquerLesValeurs (xA: number, xB: number, yB : number, xC : number, yD : number, xE : number, yE :number, xF : number):
-   void {
+  void {
     this.reponses = [
       `$f'$ admet un maximum en $${xC}$ `,
       `$f$ est convexe sur $[${xC};${xE}]$`,

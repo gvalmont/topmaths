@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
@@ -13,17 +13,17 @@ export const uuid = 'ffbe9'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 
 export default class EncadreParDeuxEntiers extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'
-    this.formatChampTexte = ''
+
     this.canOfficielle = false
   }
 
@@ -42,7 +42,7 @@ export default class EncadreParDeuxEntiers extends Exercice {
     this.question = `%{champ1} < ${texNombre(decimal, 1)} < %{champ2}`
     this.canEnonce = 'Encadre par deux entiers consécutifs.'
     this.canReponseACompleter = `$\\ldots < ${texNombre(decimal, 1)} < \\ldots$`
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: fonctionComparaison }, champ2: { value: entierSup, compare: fonctionComparaison } }
+    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf }, champ2: { value: entierSup } }
     this.correction = `$${miseEnEvidence(texNombre(entierInf, 0))} < ${texNombre(decimal, 1)} < ${miseEnEvidence(texNombre(entierSup, 0))}$`
   }
 }

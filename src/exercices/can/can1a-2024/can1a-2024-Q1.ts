@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -12,19 +12,18 @@ export const uuid = 'edbea'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 
 export default class MultiplierDecimaux1 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = false
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

@@ -1,11 +1,11 @@
-import { courbe, integrale } from '../../lib/2d/courbes.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { courbe, integrale } from '../../lib/2d/courbes'
+import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { aleaVariables } from '../../modules/outilsMathjs.ts'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import { aleaVariables } from '../../modules/outilsMathjs'
 import { all, create, sqrt } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -22,22 +22,25 @@ const math = create(all)
  */
 
 export const uuid = '89071'
-export const ref = 'HPC102'
+
 export const refs = {
   'fr-fr': ['HPC102'],
   'fr-ch': []
 }
-export default function CalculsLoiNormale () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Les évaluations numériques pourront se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
-  this.nbQuestions = 4
-  this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX
-  this.nbColsCorr = 1 // Nombre de colonnes dans la correction pour la sortie LaTeX
-  this.sup = 1
-  this.spacing = 1
-  this.spacingCorr = 1.5
-  this.nouvelleVersion = function () {
+export default class CalculsLoiNormale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Loi normale centrée réduite \n2 : Loi normale quelconque']
+
+    this.consigne = 'Les évaluations numériques pourront se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
+    this.nbQuestions = 4
+
+    this.sup = 1
+
+    this.spacingCorr = 1.5
+  }
+
+  nouvelleVersion () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) {
@@ -292,13 +295,12 @@ export default function CalculsLoiNormale () {
 
       if (this.questionJamaisPosee(i, bornea, borneb, bornec, borned)) { // Si la question n'a jamais été posée, on en créé une autre
         this.liste_valeurs.push(expression)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Loi normale centrée réduite \n2 : Loi normale quelconque']
 }

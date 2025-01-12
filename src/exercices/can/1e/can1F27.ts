@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction.js'
+import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
 import { rienSi1, reduireAxPlusB } from '../../../lib/outils/ecritures'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { abs } from '../../../lib/outils/nombres'
 export const titre = 'Retrouver un polynôme du second degré à partir de son tableau de signes'
 export const interactifReady = true
@@ -17,15 +17,14 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class PolyTableauSignes extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.compare = fonctionComparaison
-    this.formatChampTexte = ''
+
     this.spacingCorr = 2
   }
 

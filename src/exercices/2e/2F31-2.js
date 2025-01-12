@@ -1,42 +1,44 @@
-import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../lib/outils/arrayOutils'
 import { abs } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString.js'
-import { context } from '../../modules/context.js'
+import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint
-} from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
 export const dateDePublication = '31/01/2022'
 export const dateDeModifImportante = '12/07/2023'
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora, Louis Paternault
  */
 export const uuid = '1ca05'
-export const ref = '2F31-2'
+
 export const refs = {
   'fr-fr': ['2F31-2'],
   'fr-ch': []
 }
-export default function EncadrerAvecFctRef () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 3
-  // this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 5
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-  context.isHtml ? (this.spacingCorr = 2.2) : (this.spacingCorr = 1)
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.nouvelleVersion = function () {
+export default class EncadrerAvecFctRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Choix des questions ',
+      'Nombres séparés par des tirets\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange'
+    ]
+    this.nbQuestions = 3
+
+    this.sup = 5
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
+    context.isHtml ? (this.spacingCorr = 2.2) : (this.spacingCorr = 1)
+  }
+
+  nouvelleVersion () {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 4,
@@ -524,16 +526,12 @@ Si $${inégalité}$ alors, $${Math.pow(a, 3)} ${large1 ? ' \\leqslant ' : ' < '}
       texteCorr = texteCorrAvantTableau + tableau + texteCorrApresTableau
       if (this.questionJamaisPosee(i, this.listeQuestions[i], xMin, xMax)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Choix des questions ',
-    'Nombres séparés par des tirets\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange'
-  ]
 }

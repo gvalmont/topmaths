@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 export const titre = 'Résoudre une équation du type $(x+a)^2=k$'
@@ -17,18 +17,17 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class EquationsCarree extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.lycee
-    this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
+
     this.optionsDeComparaison = { ensembleDeNombres: true }
   }
 

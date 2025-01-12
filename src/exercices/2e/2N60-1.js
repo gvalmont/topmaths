@@ -1,26 +1,26 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { milieu, point } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { milieu, point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { prenomF } from '../../lib/outils/Personne'
 import { pgcd } from '../../lib/outils/primalite'
 import { texPrix, texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, itemize, randint } from '../../modules/outils.js'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, itemize, randint } from '../../modules/outils'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -28,28 +28,30 @@ export const titre = 'Modéliser un problème par une inéquation'
 export const dateDePublication = '14/02/2023'
 export const dateDeModifImportante = '07/06/2024'
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
- * Référence
+
 */
 export const uuid = 'd2084'
-export const ref = '2N60-1'
+
 export const refs = {
   'fr-fr': ['2N60-1'],
   'fr-ch': []
 }
-export default function ModeliseInequations () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 4
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1.5 // Interligne des questions
-  this.spacingCorr = 1.5// Interligne des réponses
-  this.nouvelleVersion = function () {
+export default class ModeliseInequations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Situation concrète\n2 : Situation géométrique\n3 : Programme de calcul\n4 : Mélange des cas précédents']
+
+    this.nbQuestions = 1
+
+    this.sup = 4
+
+    this.spacing = 1.5 // Interligne des questions
+    this.spacingCorr = 1.5// Interligne des réponses
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3']//
@@ -100,7 +102,7 @@ export default function ModeliseInequations () {
             }
 
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: ' km' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
+            handleAnswers(this, i, { reponse: { value: reponse } }) }
           break
 
         case 'typeE2':
@@ -130,7 +132,7 @@ export default function ModeliseInequations () {
             reponse = texNombre(Math.floor((budget - b) / a), 0)
 
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: ' km' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
+            handleAnswers(this, i, { reponse: { value: reponse } }) }
           break
         case 'typeE3':
           { const PB = new Decimal(randint(7, 25, [10, 20])).div(2)// prix billet
@@ -156,7 +158,7 @@ export default function ModeliseInequations () {
             reponse = Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? texNombre((RT - PB * EM) / PB, 0) : texNombre(Math.floor((RT - PB * EM) / PB) + 1, 0)
 
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: '€' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
+            handleAnswers(this, i, { reponse: { value: reponse } }) }
           break
 
         case 'typeE4':
@@ -220,7 +222,7 @@ export default function ModeliseInequations () {
               reponse = choix ? `[0;${f.texFraction}]` : `[${f.texFraction};${L}]`
               texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
             }
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } }) }
+            handleAnswers(this, i, { reponse: { value: reponse, options: { intervalle: true } } }) }
           break
 
         case 'typeE5':
@@ -271,7 +273,7 @@ export default function ModeliseInequations () {
             reponse = new FractionEtendue(P - 2 * b - 2 * a, 4).texFraction
 
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$x>$' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
 
@@ -335,7 +337,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
               reponse = f.texFraction
             }
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$x>$' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
 
@@ -372,7 +374,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
               texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: c * a > 0 ? `$x${choix[1]}$` : `$x${choix[2]}$` })
             }
             reponse = f.texFraction
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           break
 
@@ -419,7 +421,7 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             }
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: a - 2 * b > 0 ? `$x${choix[1]}$` : `$x${choix[2]}$` })
             reponse = f.texFraction
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
 
           break
@@ -427,13 +429,12 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Situation concrète\n2 : Situation géométrique\n3 : Programme de calcul\n4 : Mélange des cas précédents']
 }

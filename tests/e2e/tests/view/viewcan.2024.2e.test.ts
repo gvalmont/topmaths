@@ -121,6 +121,7 @@ async function testCanView (page: Page) {
   await inputAnswerById(page1, '0Q29', '[-5;2]')
   await page1.locator('.bxs-chevron-right').click()
   await page1.getByRole('button', { name: 'Rendre la copie' }).click()
+  await page.waitForTimeout(500)
   await page1.getByRole('button', { name: 'Terminer' }).click()
   log('Accéder aux solutions')
   await page1.getByRole('button', { name: 'Accéder aux solutions' }).click()

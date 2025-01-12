@@ -3,16 +3,15 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fraction } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions'
 import { texNombre } from '../../lib/outils/texNombre'
 import { sp } from '../../lib/outils/outilString'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const dateDeModifImportante = '25/03/2024'
 export const amcReady = true
@@ -33,7 +32,7 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
  * @author Rémi Angot
  */
 export const uuid = 'd5ee3'
-export const ref = '5N20'
+
 export const refs = {
   'fr-fr': ['5N20'],
   'fr-ch': ['9NO13-6']
@@ -162,7 +161,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
           texte += '<br>' + props.texte
         }
         if (this.interactifType === 'mathLive') {
-          handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d + c * b, b * d).toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d + c * b, b * d).toLatex(), options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
@@ -237,7 +236,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         }
 
         if (this.interactifType === 'mathLive') {
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       }
       texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
@@ -259,8 +258,8 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
       if (this.questionJamaisPosee(i, a, k, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
     }

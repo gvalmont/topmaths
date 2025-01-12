@@ -1,7 +1,7 @@
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -14,22 +14,24 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '02/04/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Stéphane Guyon rendu interactif par JC Lhote + utilisation de decimal.js
  * Choix des types de problèmes par Guillaume Valmont le 02/04/2023
- * Référence 3G22-1
+
  */
 export const uuid = 'a0ad1'
-export const ref = '3G22-1'
+
 export const refs = {
   'fr-fr': ['3G22-1'],
   'fr-ch': []
 }
-export default function Agrandissement () {
-  Exercice.call(this)
-  this.sup = '9'
+export default class Agrandissement extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireTexte = ['Choix des types de problèmes', `Nombres séparés par des tirets
+    this.sup = '9'
+
+    this.besoinFormulaireTexte = ['Choix des types de problèmes', `Nombres séparés par des tirets
   1 : Calcul de A2 connaissant k et A1
   2 : Calcul de V2 connaissant V1 et k
   3 : Calcul de A1 connaissant k et A2
@@ -39,8 +41,9 @@ export default function Agrandissement () {
   7 : Calcul de k connaissant V1 et V2
   8 : Conservation des angles
   9 : Mélange`]
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -187,8 +190,8 @@ export default function Agrandissement () {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, k, l1, A1, V1)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

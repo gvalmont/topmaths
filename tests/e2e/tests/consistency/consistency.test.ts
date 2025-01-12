@@ -25,8 +25,7 @@ async function test (page: Page) {
   await testUrl(classicExerciseUrl, page, context, questionsNb, 'classique')
   const simpleExerciseUrl = hostname + '?uuid=4ba86&id=canc3C04&n=10&d=10&cd=1&uuid=4ba86&id=canc3C04&n=10&d=10&cd=1'
   await testUrl(simpleExerciseUrl, page, context, questionsNb, 'simple')
-  checkConsistency()
-  return true
+  return isConsistent()
 }
 
 async function testUrl (url: string, page: Page, context: BrowserContext, questionsNb: number, exerciseType: ExerciseType) {
@@ -229,23 +228,17 @@ function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 
   }
 }
 
-function checkConsistency () {
+function isConsistent () {
   const differenceIndexes = getDifferencesIndexes()
-  for (let i = 1; i < states.length; i++) {
-    if (differenceIndexes.includes(i)) {
-      console.log(`Il y a une différence entre la vue ${states[i - 1].view} et la vue ${states[i].view} pour les exercices de type ${states[i].exerciseType}`)
-    } else {
-      console.log(`Les questions n'ont pas changé entre la vue ${states[i - 1].view} et la vue ${states[i].view} pour les exercices de type ${states[i].exerciseType}`)
-    }
-  }
   if (differenceIndexes.length > 0) {
     const messages: string[] = []
     for (const differenceIndex of differenceIndexes) {
-      messages.push(`Il y a une différence entre la vue ${states[differenceIndex - 1].view} et la vue ${states[differenceIndex].view} pour les exercices de type ${states[differenceIndex].exerciseType}`)
+      console.log(`Il y a une différence entre la vue ${states[differenceIndex - 1].view} et la vue ${states[differenceIndex].view} pour les exercices de type ${states[differenceIndex].exerciseType}`)
+      console.log(states[differenceIndex - 1], states[differenceIndex])
     }
-    console.log(states)
-    throw Error(messages.join('\n'))
+    return false
   }
+  return true
 }
 
 function getDifferencesIndexes () {
@@ -255,7 +248,7 @@ function getDifferencesIndexes () {
       if (
         states[i].exerciseType === states[i - 1].exerciseType &&
           states[i].numbers[j] !== states[i - 1].numbers[j] &&
-          !(states[i].exerciseType === 'simple' && (states[i].view === 'AMC:AMCcodeGrid' || states[i - 1].view === 'AMC:AMCcodeGrid')) // Les exercices simples n'ont pas de sortie AMC
+          !(states[i].exerciseType === 'simple' && (states[i].view.startsWith('AMC:') || states[i - 1].view.startsWith('AMC:'))) // Les exercices simples n'ont pas de sortie AMC
       ) {
         differenceIndexes.push(i)
         break

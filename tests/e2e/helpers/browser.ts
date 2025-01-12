@@ -14,9 +14,9 @@ declare global {
 type RequestListener = (request: playwright.Request) => void
 type AccessLogger = (requestUrl: string) => void
 type Page = PlaywrightPage & {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   warnings: JSHandle<any>[]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   errors: JSHandle<any>[]
   nbLoads: number
   failures: {
@@ -54,7 +54,7 @@ export async function loadUrl (page: Page, url: string, maxTries: number = 3) {
  * @param accessLogger
  * @return {Promise<Page>}
  */
-export async function getPage (browser: Browser, { requestListener, accessLogger }: {requestListener?: RequestListener, accessLogger?: AccessLogger} = {}) {
+export async function getPage (browser: Browser, { requestListener, accessLogger }: { requestListener?: RequestListener, accessLogger?: AccessLogger } = {}) {
   // une valeur par défaut suivant les prefs
   const [context] = browser.contexts()
   const page = await context.newPage() as Page

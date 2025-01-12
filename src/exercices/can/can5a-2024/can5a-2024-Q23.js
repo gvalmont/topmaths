@@ -1,6 +1,6 @@
-import { randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { plaque3d } from '../../../modules/3d'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -14,7 +14,7 @@ export const uuid = '5191d'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote pour la pyramide et Gilles Mora pour essayer d'en faire quelque chose de bien....
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -22,7 +22,6 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     context.anglePerspective = 40
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.nbQuestions = 1
     this.canOfficielle = false
     // this.formatInteractif = 'mathlive'

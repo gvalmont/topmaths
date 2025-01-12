@@ -8,7 +8,7 @@
     type JSONReferentielEnding,
     isGeoDynamic
   } from '../../../../../../lib/types/referentiels'
-  import katex from 'katex/dist/katex.js'
+  import katex from 'katex/dist/katex'
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   import { changes, exercicesParams, globalOptions } from '../../../../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../../../../lib/types'
@@ -167,7 +167,7 @@
                 </span>
               </span>
             {/if}
-            {#if ending.features.qcm}
+            {#if ending.features.qcmcam}
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"

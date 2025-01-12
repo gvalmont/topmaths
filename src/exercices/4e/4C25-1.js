@@ -1,11 +1,11 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { prenomF } from '../../lib/outils/Personne'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { fraction, listeFractions } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { fraction, listeFractions } from '../../modules/fractions'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 
 export const titre = 'Résoudre des problèmes additifs et multiplicatifs utilisant des fractions'
@@ -17,25 +17,27 @@ export const titre = 'Résoudre des problèmes additifs et multiplicatifs utilis
  */
 
 export const uuid = '7ba8b'
-export const ref = '4C25-1'
+
 export const refs = {
   'fr-fr': ['4C25-1'],
   'fr-ch': ['10NO5-10']
 }
-export default function ProblemesMultiplicatifsFractions () {
-  Exercice.call(this)
-  this.sup = '8'
-  this.video = ''
-  this.nbQuestions = 4
-  this.titre = titre
-  this.consigne = 'Justifier vos réponses aux problèmes suivants.'
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class ProblemesMultiplicatifsFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de problèmes (séparé par un trait d\'union', '1: bouteille (3 fractions)\n2 : examen (3 fractions)\n3 : élections (3 fractions)\n4 : argent (3 fractions)\n5 : jeu tv(4 fractions)\n6 : timbres(4 fractions)\n7 : fleurs(4 fractions)\n8 : mélange']
 
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+    this.sup = '8'
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+
+    this.consigne = 'Justifier vos réponses aux problèmes suivants.'
+
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -482,13 +484,12 @@ export default function ProblemesMultiplicatifsFractions () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de problèmes (séparé par un trait d\'union', '1: bouteille (3 fractions)\n2 : examen (3 fractions)\n3 : élections (3 fractions)\n4 : argent (3 fractions)\n5 : jeu tv(4 fractions)\n6 : timbres(4 fractions)\n7 : fleurs(4 fractions)\n8 : mélange']
 }

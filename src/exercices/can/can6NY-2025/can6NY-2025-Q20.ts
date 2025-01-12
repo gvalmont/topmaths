@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -26,13 +26,10 @@ export default class CalculDivers extends Exercice {
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     this.consigne = 'Compléter l\'égalité.'
     switch (randint(4, 4)) {
       case 1 :

@@ -1,46 +1,44 @@
-import { point } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
-import { createList } from '../../lib/format/lists.ts'
+import { createList } from '../../lib/format/lists'
 import { egalOuApprox } from '../../lib/outils/ecritures'
-import { numAlpha } from '../../lib/outils/outilString.js'
 import { decompositionFacteursPremiers, premierAvec } from '../../lib/outils/primalite'
-import { texteGras } from '../../lib/format/style'
 import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { pyramide3d, pave3d, point3d, polygone3d } from '../../modules/3d.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { pyramide3d, pave3d, point3d, polygone3d } from '../../modules/3d'
 
 export const titre = 'Arithmétique & volumes'
 
 /**
  * diviseurs communs, calcul de volume
  * @author Jean-Claude Lhote
- * Référence dnb06_2022_5
+
  */
 export const uuid = '2e22a'
-export const ref = '3A14-0'
+
 export const refs = {
   'fr-fr': ['3A14-0'],
   'fr-ch': ['11GM2-2']
 }
-export default function DesChocolatsDansDesBoites () {
-  Exercice.call(this)
-  this.titre = titre
-  this.introduction = 'D’après Brevet des Collège - Centres étrangers - Juin 2022'
-  this.consigne = ''
-  context.isHtml ? this.spacing = 1 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class DesChocolatsDansDesBoites extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.introduction = 'D’après Brevet des Collège - Centres étrangers - Juin 2022'
+
+    context.isHtml ? this.spacing = 1 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     context.anglePerspective = 50
     const premier1 = choice([2, 3, 5, 7])
     const premier2 = choice([2, 3, 5, 7])

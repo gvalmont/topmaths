@@ -1,4 +1,4 @@
-import AppliquerPourcentage from '../6e/6N33-1.js'
+import AppliquerPourcentage from '../6e/6N33-1'
 export const titre = 'Appliquer un pourcentage (calculs simples)'
 export const dateDePublication = '19/06/2022'
 export const amcReady = true
@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
  */
 
 export const uuid = '5199b'
-export const ref = '5P14-2'
+
 export const refs = {
   'fr-fr': ['5P14-2'],
   'fr-ch': []

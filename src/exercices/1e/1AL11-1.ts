@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { ecritureAlgebrique, rienSi1, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -12,12 +12,12 @@ export const interactifType = 'qcm'
 export const dateDePublication = '23/11/2024'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
- * Référence
+
 */
 export const uuid = '42983'
-export const ref = '1AL11-1'
+
 export const refs = {
   'fr-fr': ['1AL11-1'],
   'fr-ch': []
@@ -34,8 +34,6 @@ export default class ReconnaitreSuites extends Exercice {
     // this.consigne = this.interactif ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}` : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
     const typeDeQuestionsDisponibles = [1, 2, 3]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
-    this.listeCorrections = [] // Vide la liste de questions corrigées
 
     for (let i = 0, a, b, r, q, u0, q1, monQcm, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typeDeQuestion = listeTypeDeQuestions[i]
@@ -100,7 +98,7 @@ export default class ReconnaitreSuites extends Exercice {
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
-          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite arithmétique de raison $${r}$.`)}`
+          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite arithmétique de raison $${r}$`)}.`
           break
 
         case 2:// SG
@@ -164,7 +162,7 @@ export default class ReconnaitreSuites extends Exercice {
           }
           monQcm = propositionsQcm(this, i)
           texte = texte + monQcm.texte
-          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite arithmétique de raison $${texNombre(q, 2)}$.`)}`
+          texteCorr = texteCorr + `<br> ${texteEnCouleur(`$(${NomS}_n)$ est une suite géométrique de raison $${texNombre(q, 2)}$`)}.`
           break
 
         default:// NiNi
@@ -225,8 +223,8 @@ export default class ReconnaitreSuites extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, typeDeQuestion)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

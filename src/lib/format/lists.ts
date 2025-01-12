@@ -1,4 +1,4 @@
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 
 // const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
 const orderedListTypes: string[] = [

@@ -1,16 +1,16 @@
-import { point } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
+import { point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { traceGraphiqueCartesien } from '../../lib/2d/diagrammes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { lampeMessage } from '../../lib/format/message.js'
+import { lampeMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 
 export const titre = 'Conjecture de Syracuse'
 
@@ -79,38 +79,23 @@ function syracuse ({ N = '1' }) {
 }
 
 export const uuid = '9ff49'
-export const ref = '3I1-1'
+
 export const refs = {
   'fr-fr': ['3I1-1'],
   'fr-ch': []
 }
-export default function ConjectureDeSyracuse () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 5 // Ici le nombre de questions
-  this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
-  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.correctionDetailleeDisponible = true
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
+export default class ConjectureDeSyracuse extends Exercice {
+  constructor () {
+    super()
 
-  //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+    this.nbQuestions = 5
+    this.nbQuestionsModifiable = false
+    this.correctionDetailleeDisponible = true
+  }
 
-  // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    // On choisit un entier pour l'étude de la suite de Syracuse correspondante
-    // On contraint le temps de vol entre 5 et 25
-    // On contraint l'altitude maximale en dessous de 100
-    // let entier = 15;
     let entier = randint(1, 200)
     while (syracuse({ N: entier }).tempsDeVol() > 25 || syracuse({ N: entier }).tempsDeVol() < 5 || syracuse({ N: entier }).altitudeMaximale() > 100) {
       entier = randint(1, 200)
@@ -178,7 +163,7 @@ export default function ConjectureDeSyracuse () {
       })
 
       // Le graphique cartésien
-      const g = traceGraphiqueCartesien(coordSyracuse, r2)
+      const g = traceGraphiqueCartesien(coordSyracuse, r2, {})
 
       // On pousse tout ça dans les objets, le repère aussi coño !!!
       objetsCorrection.push(r2, g)
@@ -283,8 +268,8 @@ export default function ConjectureDeSyracuse () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,17 +1,17 @@
 import Exercice from '../Exercice'
 import { choice } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { pgcd } from '../../lib/outils/primalite.js'
-import { fraction } from '../../modules/fractions.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { pgcd } from '../../lib/outils/primalite'
+import { fraction } from '../../modules/fractions'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Résolution d\'équations du type $a^x = b$ avec log'
 export const dateDePublication = '28/07/2024'
-export const dateDeModificationImportante = '28/07/2024'
+export const dateDeModifImportante = '28/07/2024'
 export const uuid = '00ec8'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,9 +21,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice : Résolution d'équations du type a^x = b
- * @autor Claire Rousset
- * Référence TSpeAN1-6
+ *  : Résolution d'équations du type a^x = b
+ * @author Claire Rousset
+
  */
 export default class EquationsLog extends Exercice {
   constructor () {
@@ -94,7 +94,7 @@ export default class EquationsLog extends Exercice {
       let texteCorr = ''
       let a: number
       let b: number
-      let quotient: number|[number, number]|null
+      let quotient: number | [number, number] | null
       let base: number | null
       switch (listeTypeQuestions[i]) {
         case 1: // rationnel
@@ -168,8 +168,8 @@ export default class EquationsLog extends Exercice {
         texte += remplisLesBlancs(this, i, 'S=\\{%{champ1}\\}', KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

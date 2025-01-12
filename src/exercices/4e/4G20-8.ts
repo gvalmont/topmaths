@@ -6,7 +6,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Calculer mentalement une longueur avec le théorème de Pythagore'
 export const dateDePublication = '05/10/2024'
 export const interactifReady = true
@@ -77,12 +77,12 @@ export default class CalculMentalPythagore extends Exercice {
           texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetB}${sommetC} $\\approx$ `, texteApres: ('cm (Partie entière)') })
           break
       }
-      handleAnswers(this, 2 * i, { reponse: { value: reponse0, compare: fonctionComparaison } })
-      handleAnswers(this, 2 * i + 1, { reponse: { value: String(reponse), compare: fonctionComparaison } })
+      handleAnswers(this, 2 * i, { reponse: { value: reponse0 } })
+      handleAnswers(this, 2 * i + 1, { reponse: { value: String(reponse) } })
 
       if (this.questionJamaisPosee(i, AB, BC, AC)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,13 +1,13 @@
-import { point } from '../../lib/2d/points.js'
+import { point } from '../../lib/2d/points'
 import { choice } from '../../lib/outils/arrayOutils'
-import { lampeMessage } from '../../lib/format/message.js'
-import { deuxColonnes } from '../../lib/format/miseEnPage.js'
+import { lampeMessage } from '../../lib/format/message'
+import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { texteGras } from '../../lib/format/style'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { noteLaCouleur, plateau2dNLC, testInstruction } from '../../modules/noteLaCouleur'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import {
   ajouterAx,
   ajouterAy,
@@ -18,10 +18,10 @@ import {
   creerLutin,
   leveCrayon,
   orienter
-} from '../../modules/2dLutin.js'
-import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { scratchblock } from '../../modules/scratchblock.js'
+} from '../../modules/2dLutin'
+import { context } from '../../modules/context'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { scratchblock } from '../../modules/scratchblock'
 
 export const titre = 'Analyser des scripts Scratch'
 export const interactifReady = true
@@ -36,35 +36,42 @@ export const dateDePublication = '27/09/2022'
  * @author Jean-Claude Lhote
  */
 export const uuid = '2ecd9'
-export const ref = '3I10-1'
+
 export const refs = {
   'fr-fr': ['3I10-1'],
   'fr-ch': []
 }
-export default function ScratchMultiScript () {
-  Exercice.call(this)
-  function nombreDeNegatifs (arr) {
-    const initialValue = 0
-    return arr.reduce((previousValue, currentValue) => previousValue + (currentValue < 0 ? 1 : 0), initialValue)
+function nombreDeNegatifs (arr) {
+  const initialValue = 0
+  return arr.reduce((previousValue, currentValue) => previousValue + (currentValue < 0 ? 1 : 0), initialValue)
+}
+
+export default class ScratchMultiScript extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Compétence évaluée',
+      'Nombres séparés par des tirets\n1 : Repérage dans le plan\n2 : Boucles répéter n fois imbriquées\n3 : Conditionnelles'
+    ]
+
+    this.spacing = 2
+    this.nbQuestions = 1
+
+    this.typeExercice = 'Scratch'
+
+    this.sup = '1-2-3'
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaille = false
   }
 
-  this.spacing = 2
-  this.nbQuestions = 1
-  this.titre = titre
-  this.typeExercice = 'Scratch'
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = '1-2-3'
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaille = false
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.introduction = lampeMessage({
       titre: 'Information',
       texte: scratchblock(`\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}`) +
           ' Cette brique donne la couleur de la case sur laquelle est positionné le lutin.',
       couleur: 'nombres'
     })
-    const lePlateau = plateau2dNLC(1, false, 0.5, true)
+    const lePlateau = plateau2dNLC({ type: 1, melange: false, scale: 0.5, relatif: true })
     const listeCouleurs = ['Blanc', 'Vert', 'Bleu', 'Rouge', 'Noir', 'Rose', 'Orange', 'Jaune', 'Gris']
     this.consigne = 'Donner la série de couleurs affichées par ce' + (this.nbQuestions > 1 ? 's' : '') + ' programme' + (this.nbQuestions > 1 ? 's.' : '.')
     const mesQcm = []
@@ -177,7 +184,7 @@ export default function ScratchMultiScript () {
 }\n`
           for (let k = 0; k < 2; k++) {
             for (let l = 0; l < 2; l++) {
-              const test = pion.testInstruction(`AV${x[i % 3 + 1]}`, lutins[i])
+              const test = testInstruction(`AV${x[i % 3 + 1]}`, lutins[i], pion)
               if (test[0]) {
                 pion.currentPos.x = test[1]
                 pion.currentPos.y = test[2]
@@ -187,7 +194,7 @@ export default function ScratchMultiScript () {
                 //   throw Error('Le mouvement n\'est pas valide : sortie de plateau')
               }
               if (rotations[i % 2] === '\\turnright{}') {
-                const test = pion.testInstruction('TD90', lutins[i])
+                const test = testInstruction('TD90', lutins[i], pion)
                 if (test[0]) {
                   pion.currentPos.x = test[1]
                   pion.currentPos.y = test[2]
@@ -197,7 +204,7 @@ export default function ScratchMultiScript () {
                   //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               } else {
-                const test = pion.testInstruction('TG90', lutins[i])
+                const test = testInstruction('TG90', lutins[i], pion)
                 if (test[0]) {
                   pion.currentPos.x = test[1]
                   pion.currentPos.y = test[2]
@@ -207,7 +214,7 @@ export default function ScratchMultiScript () {
                   //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
                 }
               }
-              const test2 = pion.testInstruction(`AV${y[i % 3 + 1]}`, lutins[i])
+              const test2 = testInstruction(`AV${y[i % 3 + 1]}`, lutins[i], pion)
               if (test2[0]) {
                 pion.currentPos.x = test2[1]
                 pion.currentPos.y = test2[2]
@@ -217,13 +224,13 @@ export default function ScratchMultiScript () {
                 //  throw Error('Le mouvement n\'est pas valide : sortie de plateau')
               }
               if (rotations[(i + 1) % 2] === '\\turnright{}') {
-                const test3 = pion.testInstruction('TD90', lutins[i])
+                const test3 = testInstruction('TD90', lutins[i], pion)
                 pion.currentPos.x = test3[1]
                 pion.currentPos.y = test3[2]
                 pion.currentOrientation = test3[3]
                 lutins[i] = test3[5]
               } else {
-                const test3 = pion.testInstruction('TG90', lutins[i])
+                const test3 = testInstruction('TG90', lutins[i], pion)
                 if (test3[0]) {
                   pion.currentPos.x = test3[1]
                   pion.currentPos.y = test3[2]
@@ -238,9 +245,9 @@ export default function ScratchMultiScript () {
             }
             let test4
             if (rotations[(i % 3 === 2 ? 1 : 0)] === '\\turnright{}') {
-              test4 = pion.testInstruction('TD90', lutins[i])
+              test4 = testInstruction('TD90', lutins[i], pion)
             } else {
-              test4 = pion.testInstruction('TG90', lutins[i])
+              test4 = testInstruction('TG90', lutins[i], pion)
             }
             pion.currentPos.x = test4[1]
             pion.currentPos.y = test4[2]
@@ -334,10 +341,10 @@ export default function ScratchMultiScript () {
       }
       texteScratch += '\\end{scratch}'
       let texte = `${(this.interactif || context.isAmc) ? '' : 'Noter la séquence de couleurs produite.<br>'}`
-      texte += deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures(lePlateau.plateau2d), {
+      texte += deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures(lePlateau.objets), {
         scale: 0.4,
         style: 'display: inline'
-      }), lePlateau.plateau2d), 35)
+      }), lePlateau.objets), 35)
 
       let texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteGras(couleurs[i][0])} `
@@ -359,7 +366,7 @@ export default function ScratchMultiScript () {
       }
       lutins[i].animation += '" begin="10s" dur="10s" repeatCount="indefinite" />; </circle>'
 
-      objetsCorrection.push(lePlateau.plateau2d, lutins[i])
+      objetsCorrection.push(lePlateau.objets, lutins[i])
       texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), {
         style: 'display: inline',
         scale: 0.4
@@ -379,10 +386,10 @@ export default function ScratchMultiScript () {
         }
       } else {
         this.autoCorrection[i] = {}
-        this.autoCorrection[i].enonce = `${deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures(lePlateau.plateau2d), {
+        this.autoCorrection[i].enonce = `${deuxColonnes(scratchblock(texteScratch), mathalea2d(Object.assign({}, fixeBordures(lePlateau.objets), {
                     scale: 0.4,
                     style: 'display: inline'
-                }), lePlateau.plateau2d), 35)}`
+                }), lePlateau.objets), 35)}`
         this.autoCorrection[i].propositions = []
         this.autoCorrection[i].propositions.push(
           {
@@ -423,8 +430,9 @@ export default function ScratchMultiScript () {
         texteCorr += '\\columnbreak'
       }
       if (this.questionJamaisPosee(i, ...couleurs[i])) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (!context.isAmc) {
           indexReponse += couleurs[i].length
         } else {
@@ -436,8 +444,4 @@ export default function ScratchMultiScript () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Compétence évaluée',
-    'Nombres séparés par des tirets\n1 : Repérage dans le plan\n2 : Boucles répéter n fois imbriquées\n3 : Conditionnelles'
-  ]
 }

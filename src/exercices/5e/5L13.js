@@ -1,12 +1,11 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { context } from '../../modules/context.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { context } from '../../modules/context'
 
 export const titre = 'Réduire une expression de la forme $ax+bx$ '
 export const interactifReady = true
@@ -20,19 +19,22 @@ export const amcType = 'AMCOpen'
  * @author Rémi Angot
  */
 export const uuid = '1bce3'
-export const ref = '5L13'
+
 export const refs = {
   'fr-fr': ['5L13'],
   'fr-ch': ['10FA1-11']
 }
-export default function Reductionaxbx () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = true
+export default class Reductionaxbx extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+
+    this.sup = true
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions !== 1
       ? 'Réduire les expressions suivantes.'
       : 'Réduire l\'expression suivante.'
@@ -58,11 +60,12 @@ export default function Reductionaxbx () {
           break
       }
 
-      handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false }, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false } } })
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
-      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, x, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i] = {
             // enonce: 'Réduire l\'expression ' + '$' + texte.split('=')[1] + '.',
@@ -83,6 +86,4 @@ export default function Reductionaxbx () {
     }
     listeQuestionsToContenu(this)
   }
-
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
 }

@@ -39,7 +39,6 @@ export default class VocabulaireTriangleRectangle extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     const mainlevee = this.sup
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, melange: 3, defaut: 3, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 100;) {
@@ -148,8 +147,8 @@ export default class VocabulaireTriangleRectangle extends Exercice {
       const monQcm = propositionsQcm(this, i)
       texte += `<br>${monQcm.texte}`
       if (this.questionJamaisPosee(i, ab, ac)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

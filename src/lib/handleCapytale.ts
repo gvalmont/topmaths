@@ -1,9 +1,9 @@
-import type { Activity, InterfaceResultExercice } from '../lib/types.js'
-import { capytaleMode, exercicesParams, globalOptions, resultsByExercice } from './stores/generalStore.js'
-import { mathaleaGoToView, mathaleaWriteStudentPreviousAnswers } from './mathalea.js'
+import type { Activity, InterfaceResultExercice } from '../lib/types'
+import { capytaleMode, exercicesParams, globalOptions, resultsByExercice } from './stores/generalStore'
+import { mathaleaGoToView, mathaleaWriteStudentPreviousAnswers } from './mathalea'
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
-import { canOptions as canOptionsStore } from './stores/canStore.js'
+import { canOptions as canOptionsStore } from './stores/canStore'
 
 interface AssignmentData {
   duration?: number

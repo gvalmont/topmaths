@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Soustraire un décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class soustraireDecimal extends Exercice {
   constructor () {
@@ -25,13 +25,10 @@ export default class soustraireDecimal extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const annee = new Decimal(2025)
     const a = new Decimal(randint(0, 4) * 2 + 1).div(2)
     this.reponse = annee.sub(a).toFixed(1)

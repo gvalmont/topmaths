@@ -1,13 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { context } from '../../modules/context'
 export const titre = 'Connaître les propriétés des parallélogrammes particuliers'
 
 export const dateDePublication = '26/04/2023'
 export const uuid = '78f28'
-export const ref = '5G42-1'
+
 export const refs = {
   'fr-fr': ['5G42-1'],
   'fr-ch': ['9ES2-4']
@@ -24,17 +24,13 @@ export const amcType = 'qcmMult'
 export default class QcmProprietesParallelogrammesParticuliers extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 4
     this.sup = 3 // Mélange de questions directes et indirectes
     this.sup2 = false // Par défaut on n'écrit pas « non croisé » dans les énoncés
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     let texte, texteCorr
     let questionsDirects = ['par1', 'par2', 'par3', 'par4', 'par5', 'rect1', 'rect2', 'rect3', 'rect4', 'rect5', 'losange1', 'losange2', 'losange3', 'losange4', 'losange5', 'carre1', 'carre2', 'carre3', 'carre4', 'carre5']
     let questionsIndirects = ['reciproque1', 'reciproque2', 'reciproque3', 'reciproque4', 'reciproque5', 'reciproque6', 'reciproque7', 'reciproque8', 'reciproque9', 'reciproque10', 'reciproque11', 'reciproque12', 'reciproque13', 'reciproque14', 'reciproque15', 'reciproque16']
@@ -1029,8 +1025,8 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i])) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

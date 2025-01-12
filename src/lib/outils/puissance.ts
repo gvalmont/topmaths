@@ -107,7 +107,7 @@ export function eclatePuissance (b: number, e: number, couleur: string) {
 /**
  * Fonction pour écrire la forme éclatée d'une puissance
  * @param b {number} base
- * @param e {integer} exposant
+ * @param e {number} exposant
  * @author Rémi Angot
  * @return string
  */

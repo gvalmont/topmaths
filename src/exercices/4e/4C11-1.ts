@@ -1,9 +1,9 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -16,7 +16,7 @@ import { string } from 'mathjs'
 
 export const titre = 'Résoudre un problème avec les relatifs'
 export const dateDePublication = '05/10/2024' // fonctions de mise en place des éléments interactifs
-export const dateDeModificationImportante = '13/10/2024'
+export const dateDeModifImportante = '13/10/2024'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,10 +36,6 @@ export default class resoudreProblemeRelatifs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.consigne = ''
-    this.nbCols = 1 // Uniquement pour la sortie LaTeX
-    this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-    // this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
     this.spacing = 2 // Interligne des questions
     this.spacingCorr = 2// Interligne des réponses
     function solutionsScoreNul (nombQuestions:number, nombPoints:number[]) {
@@ -162,13 +158,13 @@ export default class resoudreProblemeRelatifs extends Exercice {
         }
       }
       if (this.questionJamaisPosee(i, nombreQuestions, nombresPoints.join(''))) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
   }
 
-  listeQuestionsToContenu(this)
+  listeQuestionsToContenu (this)
 }

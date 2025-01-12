@@ -1,46 +1,145 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures'
-import { katexPopup2 } from '../../lib/format/message.js'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
+import { katexPopup2 } from '../../lib/format/message'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenom, prenomF } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   listeQuestionsToContenu,
   randint,
   gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import { round } from 'mathjs'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
 
 /**
  * problèmes de grandeurs composées
  * @author Jean-Claude Lhote
- * Référence : 4P10
+
  */
 export const uuid = '72c5a'
-export const ref = '4P10'
+
 export const refs = {
   'fr-fr': ['4P10'],
   'fr-ch': ['10FA4-2']
 }
-export default function ProblemesGrandeursComposees () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? (this.spacing = 3) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.sup = ''
+const solutes = [
+  ['sel', 'd\'eau', 300],
+  ['sucre', 'd\'eau', 2000],
+  ['dioxyde de carbone', 'd\'eau', 3],
+  ['bicarbonate de sodium', 'd\'eau', 9],
+  ['carbonate de sodium', 'd\'eau', 300]
+] // soluté, masse maximale en gramme pour saturer 1 L de solvant
+const materiaux = [
+  ['palladium', 12000, 'du ', 'de '],
+  ['acier', 7800, 'de l\'', 'd\''],
+  ['fonte', 7100, 'de la', 'de '],
+  ['aluminium', 2700, 'de l\'', 'd\''],
+  ['argent', 10500, 'de l\'', 'd\''],
+  ['bronze', 8800, 'du ', 'de '],
+  ['cuivre', 8960, 'du ', 'de '],
+  ['fer', 7860, 'du ', 'de '],
+  ['lithium', 530, 'du ', 'de '],
+  ['mercure', 13545, 'du ', 'de '],
+  ['nickel', 8900, 'du ', 'de '],
+  ['or', 19300, 'de l\'', 'd\''],
+  ['platine', 21450, 'du ', 'de '],
+  ['titane', 4500, 'du ', 'de '],
+  ['zinc', 7150, 'du ', 'de ']
+]
+const villes = [
+  ['Nice', 342637, 71.9],
+  ['Montpellier', 281613, 56.9],
+  ['Rennes', 216268, 50.4],
+  ['Dijon', 155090, 40.4],
+  ['Orléans', 114782, 27.5],
+  ['Clermont-Ferrand', 142686, 42.7],
+  ['Nantes', 306694, 65.2],
+  ['Paris', 2190327, 105.4],
+  ['Lyon', 515695, 47.9],
+  ['Marseille', 862211, 240.6],
+  ['Bordeaux', 252040, 49.4],
+  ['Nancy', 104592, 15],
+  ['Toulouse', 475438, 118.3],
+  ['Lille', 232440, 34.8],
+  ['Strasbourg', 279284, 78.3]
+] // [Ville, population, superfice en ha, année du recensement]
+const locations = [
+  ['un vélo', 1.5, 2, 8],
+  ['un canoé', 10, 2, 4],
+  ['des rollers', 7, 2, 5],
+  ['un char à voile', 12, 2, 4]
+]
+const cours = [
+  ['de piano', 20],
+  ['de maths', 25],
+  ['de yoga', 5],
+  ['de dessin', 12],
+  ['de voile', 15]
+]
+const fruits = [
+  ['pêches', 4, 10, 30],
+  ['noix', 5.4, 4, 13],
+  ['cerises', 5.6, 11, 20],
+  ['pommes', 2.2, 20, 40],
+  ['framboises', 15, 1, 5],
+  ['fraises', 7.5, 5, 10],
+  ['citrons', 1.5, 15, 30],
+  ['bananes', 1.5, 15, 25]
+]
+const appareils = [
+  ['radiateur', 2300, 20],
+  ['téléviseur', 46, 12],
+  ['four électrique', 2960, 4],
+  ['ordinateur', 460, 8]
+] // [appareil,puissance,durée maxi de fonctionnement]
+const liquides = [
+  ['de lait entier', 1.032],
+  ['d\'essence', 0.755],
+  ['de diesel', 0.83],
+  ['d\'huile', 0.91],
+  ['de bière', 0.9],
+  ['de sable', 1.6]
+] // [nom,densité]
+const rivieres = [
+  ['Marne', 'Gournay-sur-Marne', 110, 550, 'avril 1983', 'la ', 'de la '],
+  ['Seine', 'Alfortville', 218, 2100, 'janvier 1982', 'la ', 'de la '],
+  ['Oise', 'Pont-Sainte-Maxence', 109, 665, 'février 1995', 'l\'', 'de l\''],
+  ['Loire', 'Saint-Nazaire', 931, 5350, 'décembre 1999', 'la ', 'de la'],
+  ['Rhin', 'Strasbourg', 951, 3310, 'juin 2016', 'le ', 'du '],
+  ['Rhône', 'Beaucaire', 1690, 11500, 'décembre 2003', 'le ', 'du '],
+  ['Meuse', 'Chooz', 144, 1610, 'janvier 1995', 'la ', 'de la ']
+]
+// [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
+const vitesses = [
+  ['sur un vélo', 4, 12, 8],
+  ['dans un train', 50, 100, 5],
+  ['dans une voiture', 15, 30, 5],
+  ['en avion', 150, 250, 12],
+  ['à pied', 2, 4, 5]
+] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h]
+export default class ProblemesGrandeursComposees extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type des grandeurs',
+      'Nombres séparés par des tirets\n 1 : Energie consommée\n 2 :  Volume\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesse\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'
+    ] // Texte, tooltip
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.nbQuestions = 3
+
+    context.isHtml ? (this.spacing = 3) : (this.spacing = 1.5)
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.sup = ''
+  }
+
+  nouvelleVersion (numeroExercice) {
     // let listeIndex_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)
@@ -55,101 +154,7 @@ export default function ProblemesGrandeursComposees () {
     const grandeurs = gestionnaireFormulaireTexte({ saisie: this.sup, max: 14, melange: 15, defaut: 15, nbQuestions: this.nbQuestions })
     let typeAide = 1
     if (!context.isHtml) typeAide = 0
-    const solutes = [
-      ['sel', 'd\'eau', 300],
-      ['sucre', 'd\'eau', 2000],
-      ['dioxyde de carbone', 'd\'eau', 3],
-      ['bicarbonate de sodium', 'd\'eau', 9],
-      ['carbonate de sodium', 'd\'eau', 300]
-    ] // soluté, masse maximale en gramme pour saturer 1 L de solvant
-    const materiaux = [
-      ['palladium', 12000, 'du ', 'de '],
-      ['acier', 7800, 'de l\'', 'd\''],
-      ['fonte', 7100, 'de la', 'de '],
-      ['aluminium', 2700, 'de l\'', 'd\''],
-      ['argent', 10500, 'de l\'', 'd\''],
-      ['bronze', 8800, 'du ', 'de '],
-      ['cuivre', 8960, 'du ', 'de '],
-      ['fer', 7860, 'du ', 'de '],
-      ['lithium', 530, 'du ', 'de '],
-      ['mercure', 13545, 'du ', 'de '],
-      ['nickel', 8900, 'du ', 'de '],
-      ['or', 19300, 'de l\'', 'd\''],
-      ['platine', 21450, 'du ', 'de '],
-      ['titane', 4500, 'du ', 'de '],
-      ['zinc', 7150, 'du ', 'de ']
-    ]
-    const villes = [
-      ['Nice', 342637, 71.9],
-      ['Montpellier', 281613, 56.9],
-      ['Rennes', 216268, 50.4],
-      ['Dijon', 155090, 40.4],
-      ['Orléans', 114782, 27.5],
-      ['Clermont-Ferrand', 142686, 42.7],
-      ['Nantes', 306694, 65.2],
-      ['Paris', 2190327, 105.4],
-      ['Lyon', 515695, 47.9],
-      ['Marseille', 862211, 240.6],
-      ['Bordeaux', 252040, 49.4],
-      ['Nancy', 104592, 15],
-      ['Toulouse', 475438, 118.3],
-      ['Lille', 232440, 34.8],
-      ['Strasbourg', 279284, 78.3]
-    ] // [Ville, population, superfice en ha, année du recensement]
-    const locations = [
-      ['un vélo', 1.5, 2, 8],
-      ['un canoé', 10, 2, 4],
-      ['des rollers', 7, 2, 5],
-      ['un char à voile', 12, 2, 4]
-    ]
-    const cours = [
-      ['de piano', 20],
-      ['de maths', 25],
-      ['de yoga', 5],
-      ['de dessin', 12],
-      ['de voile', 15]
-    ]
-    const fruits = [
-      ['pêches', 4, 10, 30],
-      ['noix', 5.4, 4, 13],
-      ['cerises', 5.6, 11, 20],
-      ['pommes', 2.2, 20, 40],
-      ['framboises', 15, 1, 5],
-      ['fraises', 7.5, 5, 10],
-      ['citrons', 1.5, 15, 30],
-      ['bananes', 1.5, 15, 25]
-    ]
-    const appareils = [
-      ['radiateur', 2300, 20],
-      ['téléviseur', 46, 12],
-      ['four électrique', 2960, 4],
-      ['ordinateur', 460, 8]
-    ] // [appareil,puissance,durée maxi de fonctionnement]
-    const liquides = [
-      ['de lait entier', 1.032],
-      ['d\'essence', 0.755],
-      ['de diesel', 0.83],
-      ['d\'huile', 0.91],
-      ['de bière', 0.9],
-      ['de sable', 1.6]
-    ] // [nom,densité]
-    const rivieres = [
-      ['Marne', 'Gournay-sur-Marne', 110, 550, 'avril 1983', 'la ', 'de la '],
-      ['Seine', 'Alfortville', 218, 2100, 'janvier 1982', 'la ', 'de la '],
-      ['Oise', 'Pont-Sainte-Maxence', 109, 665, 'février 1995', 'l\'', 'de l\''],
-      ['Loire', 'Saint-Nazaire', 931, 5350, 'décembre 1999', 'la ', 'de la'],
-      ['Rhin', 'Strasbourg', 951, 3310, 'juin 2016', 'le ', 'du '],
-      ['Rhône', 'Beaucaire', 1690, 11500, 'décembre 2003', 'le ', 'du '],
-      ['Meuse', 'Chooz', 144, 1610, 'janvier 1995', 'la ', 'de la ']
-    ]
-    // [Nom de rivière,Lieu de passage,débit moyen annuel, débitmax, date de la crue, article défini, article partitif]
-    const vitesses = [
-      ['sur un vélo', 4, 12, 8],
-      ['dans un train', 50, 100, 5],
-      ['dans une voiture', 15, 30, 5],
-      ['en avion', 150, 250, 12],
-      ['à pied', 2, 4, 5]
-    ] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h]
+
     for (
       let i = 0,
         j,
@@ -1209,18 +1214,12 @@ export default function ProblemesGrandeursComposees () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
-  // this.besoinFormulaireCaseACocher =['Choix des exercices aléatoire'];
-  // this.besoinFormulaire2Numerique = ['Type de questions', 14, '1 : Energie consommée\n 2 :  Volumes\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesses\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'];
-  this.besoinFormulaireTexte = [
-    'Type des grandeurs',
-    'Nombres séparés par des tirets\n 1 : Energie consommée\n 2 :  Volume\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesse\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'
-  ] // Texte, tooltip
 }

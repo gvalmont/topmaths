@@ -1,15 +1,14 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres'
-import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { context } from '../../modules/context'
 
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
@@ -30,20 +29,23 @@ export const dateDeModifImportante = '04/11/2023'
 * @author Rémi Angot
 */
 export const uuid = '85d2d'
-export const ref = '5L12'
+
 export const refs = {
   'fr-fr': ['5L12'],
   'fr-ch': ['10FA1-12']
 }
-export default function ReduireUneExpressionLitterale () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 9 // valeur maximale des coefficients
-  this.sup2 = false // avec des nombres décimaux
+export default class ReduireUneExpressionLitterale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale des coefficients (sup. à 1)', 999]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.sup = 9 // valeur maximale des coefficients
+    this.sup2 = false // avec des nombres décimaux
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Réduire l\'expression suivante.' : 'Réduire les expressions suivantes.'
 
     const typesDeQuestionsDisponibles = range1(7)
@@ -117,10 +119,11 @@ export default function ReduireUneExpressionLitterale () {
       }
       texteCorr += `${sp()}${miseEnEvidence(reponse)}$`
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${sp()} = $` })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: 'Réduire l\'expression ' + texte + '.',
@@ -140,6 +143,4 @@ export default function ReduireUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale des coefficients (sup. à 1)', 999]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
 }

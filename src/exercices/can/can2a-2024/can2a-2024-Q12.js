@@ -2,12 +2,12 @@ import Exercice from '../../Exercice'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { droiteGraduee } from '../../../lib/2d/reperes.js'
+import { droiteGraduee } from '../../../lib/2d/reperes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer une abscisse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,18 +15,16 @@ export const uuid = 'd734a'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
@@ -19,22 +19,23 @@ export const dateDeModifImportante = '08/05/2022'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
 */
 export const uuid = 'af2c2'
-export const ref = '5G40-1'
+
 export const refs = {
   'fr-fr': ['5G40-1'],
   'fr-ch': ['9ES2-1']
 }
-export default function ProprietesDesParallelogrammes () {
-  Exercice.call(this)
-  this.sup = 3
-  this.nbQuestions = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+export default class ProprietesDesParallelogrammes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme (max. 4 questions)\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme (max. 5 questions)\n3 : Mélange (max. 9 questions)"]
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.sup = 3
+    this.nbQuestions = 3
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  }
 
+  nouvelleVersion () {
     this.consigne = "À l'aide de la définition ou d'une propriété d'un parallélogramme, "
     this.consigne += this.nbQuestions === 1
       ? 'compléter la phrase suivante'
@@ -141,13 +142,12 @@ export default function ProprietesDesParallelogrammes () {
       }
 
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Propriétés du parallélogramme (max. 4 questions)\n2 : Propriétés pour montrer qu'un quadrilatère est un parallélogramme (max. 5 questions)\n3 : Mélange (max. 9 questions)"]
 }

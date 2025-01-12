@@ -24,7 +24,7 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
-    this.nbQuestions = 10
+
     this.besoinFormulaireNumerique = ['Type de calcul', 3, 'Distributivité simple\nDistributivité double\nMélange']
     this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
     this.besoinFormulaire3Numerique = ['Degré maximum', 5, '1\n2\n3\n4\n5']
@@ -42,9 +42,7 @@ export default class nomExercice extends Exercice {
 
   nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     let typeQuestionsDisponibles: ('simple' | 'double')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['simple']
@@ -149,8 +147,8 @@ export default class nomExercice extends Exercice {
         }
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

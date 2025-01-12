@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice.js'
-import { OutilsStats } from '../../modules/outilsStat.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { OutilsStats } from '../../modules/outilsStat'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
@@ -20,29 +20,22 @@ export const dateDeModifImportante = '31/08/2022'
  * 12/01/2023 Mickael Guironnet Refactoring
  */
 export const uuid = '36e68'
-export const ref = '3S15'
+
 export const refs = {
   'fr-fr': ['3S15'],
   'fr-ch': ['11NO2-12']
 }
-export default function CalculerEtendues () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbColsCorr = 1
-  this.nbCols = 1
-  this.sup = 1
+export default class CalculerEtendues extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Série de notes\n2 : Série de températures\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.nbQuestions = 1
 
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typeQuestionsDisponibles = ['notes', 'températures']
     if (this.sup === 1) typeQuestionsDisponibles = ['notes']
     if (this.sup === 2) typeQuestionsDisponibles = ['températures']
@@ -74,13 +67,12 @@ export default function CalculerEtendues () {
       setReponse(this, i, max - min)
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, min, max)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Série de notes\n2 : Série de températures\n3 : Mélange']
 }

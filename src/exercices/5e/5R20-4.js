@@ -1,11 +1,11 @@
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix, texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs'
 
@@ -15,47 +15,20 @@ export const titre = 'Résoudre un problème en utilisant une somme algébrique 
  */
 
 export const uuid = '6667e'
-export const ref = '5R20-4'
+
 export const refs = {
   'fr-fr': ['5R20-4'],
   'fr-ch': ['9NO9-9']
 }
-export default function ProblemesAdditifsRelatifs5e () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  if (this.debug) {
+export default class ProblemesAdditifsRelatifs5e extends Exercice {
+  constructor () {
+    super()
     this.nbQuestions = 1
-  } else {
-    this.nbQuestions = 1
+    this.spacing = context.isHtml ? 2 : 1
+    this.spacingCorr = context.isHtml ? 2 : 0.5
   }
 
-  this.titre = titre
-  this.consigne = ''
-
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 0.5
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0]
-    } else {
-      //   typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = [0]
-    }
-
-    this.autoCorrection = []
-
-    // typesDeQuestionsDisponibles=[1];
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
-
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let gainPerteUnitaire // pour le gain/perte unitaire
       let gainMultiple // pour le gain multiple
@@ -184,23 +157,12 @@ ${texteEnCouleur(`Globalement, ${situations[k].prenom} ${situations[k].bilan[3]}
         })
       }
 
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-      }
+      texte = `${enonces[0].enonce}`
+      texteCorr = `${enonces[0].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

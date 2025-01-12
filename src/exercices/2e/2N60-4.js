@@ -1,17 +1,17 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { pgcd } from '../../lib/outils/primalite'
 import { texSymbole } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import FractionEtendue from '../../modules/FractionEtendue'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,25 +27,33 @@ export const dateDeModifImportante = '07/06/2024'
  * 2N60-4, ex 2L13
  */
 export const uuid = 'bc1e4'
-export const ref = '2N60-4'
+
 export const refs = {
   'fr-fr': ['2N60-4'],
   'fr-ch': []
 }
-export default function ExerciceInequation1 () {
-  Exercice.call(this)
-  this.titre = titre
-  this.spacing = 1.5
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
-  this.correctionDetailleeDisponible = true
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
-  }
-  this.sup = true // Avec des nombres relatifs
-  this.sup2 = 4 // Choix du type d'inéquation
-  this.nbQuestions = 2
+export default class ExerciceInequation1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire2Numerique = [
+      "Type d'inéquations",
+      4,
+      '1 : ax≤b ou x+a≤b ou x-a≤b\n2 : ax+b≤c\n3 : ax+b≤cx+d\n4 : Les 2 types précédents'
+    ]
 
-  this.nouvelleVersion = function () {
+    this.spacing = 1.5
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    this.correctionDetailleeDisponible = true
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    }
+    this.sup = true // Avec des nombres relatifs
+    this.sup2 = 4 // Choix du type d'inéquation
+    this.nbQuestions = 2
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les inéquations suivantes' : 'l\'inéquation suivante') + '.'
     let listeTypeDeQuestions
 
@@ -299,21 +307,15 @@ export default function ExerciceInequation1 () {
       }
       // texte += `<br> Solution : $${reponse}$`// pour test
       texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: ' $S=$' })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } })
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      handleAnswers(this, i, { reponse: { value: reponse, options: { intervalle: true } } })
+      if (this.questionJamaisPosee(i, JSON.stringify([a, b, c, d, symboleInegalite]))) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
-        this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
-  this.besoinFormulaire2Numerique = [
-    "Type d'inéquations",
-    4,
-    '1 : ax≤b ou x+a≤b ou x-a≤b\n2 : ax+b≤c\n3 : ax+b≤cx+d\n4 : Les 2 types précédents'
-  ]
 }

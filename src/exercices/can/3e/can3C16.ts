@@ -1,4 +1,4 @@
-import NotationScientifique from '../../4e/4C32.js'
+import NotationScientifique from '../../4e/4C32'
 export const titre = 'Donner l\'écriture scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -7,7 +7,7 @@ export const amcType = 'AMCNum'
 
 export const dateDePublication = '20/09/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
-/*!
+/**
  * @author
  */
 export const uuid = '74fc9'

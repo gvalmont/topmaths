@@ -1,17 +1,16 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { context } from '../../modules/context'
 
 export const titre = 'Réduire et simplifier une expression littérale (somme et produit)'
 export const interactifReady = true
@@ -38,21 +37,39 @@ export const dateDeModifImportante = '05/11/2023'
  * @author Mickael Guironnet - Rémi Angot
  */
 export const uuid = 'a8ad0'
-export const ref = '5L12-2'
+
 export const refs = {
   'fr-fr': ['5L12-2'],
   'fr-ch': ['10FA1-10']
 }
-export default function ReduireUneExpressionLitterale () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 9 // valeur maximale des coefficients
-  this.sup2 = false // avec des nombres décimaux
-  this.sup3 = '6-7-8-9' // Type de question
+export default class ReduireUneExpressionLitterale extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+    this.besoinFormulaire3Texte = [
+      'Type de questions ', [
+        'Nombres séparés par des tirets',
+        '1 : ax+bx+c',
+        '2 : ax+b+x+c',
+        '3 : ax^2+bx+c+dx^2+x',
+        '4 : a+x+b+c+dx',
+        '5 : ax+y+bx+c+dy',
+        '6 : ax × bx',
+        '7 : ax+c',
+        '8 : ax × b',
+        '9 : ax+bx',
+        '10 : Mélange'
+      ].join('\n')
+    ]
+    this.nbQuestions = 5
 
-  this.nouvelleVersion = function () {
+    this.sup = 9 // valeur maximale des coefficients
+    this.sup2 = false // avec des nombres décimaux
+    this.sup3 = '6-7-8-9' // Type de question
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Réduire et simplifier l\'expression suivante' : 'Réduire et simplifier les expressions suivantes'
     this.consigne += ', si c\'est possible.'
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
@@ -133,11 +150,12 @@ export default function ReduireUneExpressionLitterale () {
       texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(3, 1)}${'y'}\\times${texNombre(2, 2)}`
       */
       texteCorr += `=${miseEnEvidence(reponse)}$`
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: sp() + '= ' })
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: 'Réduire l\'expression ' + texte + '. Si ce n\'est pas possible, recopier juste l\'expression.<br>',
@@ -157,21 +175,4 @@ export default function ReduireUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale des coefficients', 999]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  this.besoinFormulaire3Texte = [
-    'Type de questions ', [
-      'Nombres séparés par des tirets',
-      '1 : ax+bx+c',
-      '2 : ax+b+x+c',
-      '3 : ax^2+bx+c+dx^2+x',
-      '4 : a+x+b+c+dx',
-      '5 : ax+y+bx+c+dy',
-      '6 : ax × bx',
-      '7 : ax+c',
-      '8 : ax × b',
-      '9 : ax+bx',
-      '10 : Mélange'
-    ].join('\n')
-  ]
 }

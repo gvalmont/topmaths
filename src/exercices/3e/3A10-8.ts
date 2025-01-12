@@ -1,5 +1,5 @@
 import { createList } from '../../lib/format/lists'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -179,8 +179,8 @@ export default class LireUnePuissance extends Exercice {
         itemsCorr.push(`La décomposition en produit de facteurs premiers de $${texNombre(nb1, 0)}$ est $${miseEnEvidence(texFactorisation(nb1, false))}$
 et celle de $${texNombre(nb2, 0)}$ est $${miseEnEvidence(texFactorisation(nb2, false))}$, soit respectivement : $${miseEnEvidence(texFactorisation(nb1, true))}$
 et $${miseEnEvidence(texFactorisation(nb2, true))}$.`)
-        handleAnswers(this, indiceI + indiceII, { reponse: { value: texFactorisation(nb1, true), compare: fonctionComparaison, options: { nbFacteursIdentiquesFactorisation: true } } })
-        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: texFactorisation(nb2), compare: fonctionComparaison, options: { nbFacteursIdentiquesFactorisation: true } } })
+        handleAnswers(this, indiceI + indiceII, { reponse: { value: texFactorisation(nb1, true), options: { nbFacteursIdentiquesFactorisation: true } } })
+        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: texFactorisation(nb2), options: { nbFacteursIdentiquesFactorisation: true } } })
         indiceII += 2
       }
       if (listeQ.includes(2)) {
@@ -190,14 +190,14 @@ et $${miseEnEvidence(texFactorisation(nb2, true))}$.`)
 : ''}`)
         itemsCorr.push(`Les diviseurs de $${texNombre(nb1, 0)}$ sont $${miseEnEvidence(listDiv1.join('~;~'))}$.<br>
         Et ceux de $${texNombre(nb2, 0)}$ sont $${miseEnEvidence(listDiv2.join('~;~'))}$.`)
-        handleAnswers(this, indiceI + indiceII, { reponse: { value: listDiv1.join(';'), compare: fonctionComparaison, options: { suiteDeNombres: true } } })
-        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: listDiv2.join(';'), compare: fonctionComparaison, options: { suiteDeNombres: true } } })
+        handleAnswers(this, indiceI + indiceII, { reponse: { value: listDiv1.join(';'), options: { suiteDeNombres: true } } })
+        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: listDiv2.join(';'), options: { suiteDeNombres: true } } })
         indiceII += 2
       }
       if (listeQ.includes(3)) {
         items.push(`En déduire le plus grand nombre ${situation.groupementDet}${situation.groupement}s que le ${situation.qui} pourra constituer.` + ajouteChampTexteMathLive(this, indiceI + indiceII))
         itemsCorr.push(`Le plus grand diviseur commun à $${texNombre(nb1, 0)}$ et $${texNombre(nb2, 0)}$ est $${miseEnEvidence(texNombre(pgcd12, 0))}$.`)
-        handleAnswers(this, indiceI + indiceII, { reponse: { value: String(pgcd12), compare: fonctionComparaison } })
+        handleAnswers(this, indiceI + indiceII, { reponse: { value: String(pgcd12) } })
         indiceII += 1
       }
       if (listeQ.includes(4)) {
@@ -208,8 +208,8 @@ et $${miseEnEvidence(texFactorisation(nb2, true))}$.`)
         itemsCorr.push(`Il y aura $${texNombre(nb1, 0)}\\div ${texNombre(pgcd12, 0)}=${miseEnEvidence(texNombre(nb1parGroupe, 0))}$ ${situation.espece1}${situation.especePluriel}
              et $${texNombre(nb2, 0)}\\div ${texNombre(pgcd12, 0)}=${miseEnEvidence(texNombre(nb2parGroupe, 0))}$ ${situation.espece2}${situation.especePluriel}
               dans chaque ${situation.groupement}.`)
-        handleAnswers(this, indiceI + indiceII, { reponse: { value: String(nb1parGroupe), compare: fonctionComparaison } })
-        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: String(nb2parGroupe), compare: fonctionComparaison } })
+        handleAnswers(this, indiceI + indiceII, { reponse: { value: String(nb1parGroupe) } })
+        handleAnswers(this, indiceI + indiceII + 1, { reponse: { value: String(nb2parGroupe) } })
       }
       const liste = createList(
         {
@@ -226,8 +226,8 @@ et $${miseEnEvidence(texFactorisation(nb2, true))}$.`)
       )
       const texteCorr = listeCorr
       if (this.questionJamaisPosee(i, nb1, nb2)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

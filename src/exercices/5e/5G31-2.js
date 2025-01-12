@@ -1,14 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { Triangle } from '../../modules/Triangle.js'
+import { Triangle } from '../../modules/Triangle'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre = 'Déterminer un angle dans un triangle et sa nature'
 export const dateDePublication = '11/01/2023'
-export const dateDeModificationImportante = '13/10/2024'
+export const dateDeModifImportante = '13/10/2024'
 
 /**
 * Déterminer la valeur d'un angle dans un triangle et sa nature.
@@ -23,7 +23,7 @@ export const dateDeModificationImportante = '13/10/2024'
 */
 
 export const uuid = 'c2f77'
-export const ref = '5G31-2'
+
 export const refs = {
   'fr-fr': ['5G31-2'],
   'fr-ch': ['9ES2-10']
@@ -171,8 +171,6 @@ export default class anglesTrianglesTableau extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1: // quelconque
@@ -228,8 +226,8 @@ export default class anglesTrianglesTableau extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,42 +1,43 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { Triangle } from '../../modules/Triangle.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Alea2iep from '../../modules/Alea2iep.js'
-import { contraindreValeur } from '../../modules/outils.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../../lib/2d/codages'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { Triangle } from '../../modules/Triangle'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import Alea2iep from '../../modules/Alea2iep'
+import { contraindreValeur } from '../../modules/outils'
 
 export const titre = 'Construction animée d\'un triangle'
-export const ref = 'P011'
+
 export const refs = {
   'fr-fr': ['P011'],
   'fr-ch': []
 }
 export const uuid = '697a7'
 
-export default function ConstruisMonTriangle () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
-  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = true // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.sup = 1
-  this.sup2 = 'ABC'
-  this.sup3 = '3 4 5'
+function aLeMinDArguments (params, nombre) {
+  if (params.length >= nombre) {
+    return true
+  } else {
+    return false
+  }
+}
+export default class ConstruisMonTriangle extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de triangle', 6, '1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l\'hypoténuse\n 5 : Triangle équilatéral\n 6 : Triangle 2 longueurs et l\'angle entre ces côtés']
+    this.besoinFormulaire2Texte = ['Nom du triangle', 'ABC par exemple']
+    this.besoinFormulaire3Texte = ['Longueurs ou angles séparés par des espaces', '3 4 5']
 
-  function aLeMinDArguments (params, nombre) {
-    if (params.length >= nombre) {
-      return true
-    } else {
-      return false
-    }
+    this.nbQuestions = 1 // Ici le nombre de questions
+    this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
+    this.pasDeVersionLatex = true // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+    this.sup = 1
+    this.sup2 = 'ABC'
+    this.sup3 = '3 4 5'
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let triangle
     let defaut = [3, 4, 5]
     const type = contraindreValeur(1, 6, this.sup, 1)
@@ -140,11 +141,8 @@ export default function ConstruisMonTriangle () {
       mainlevee: true,
       amplitude: 0.5
     }
-    const texte = mathalea2d(paramsEnonce, objetsEnonceml) + '<br>' + anim.htmlBouton(this.numeroExercice)
+    const texte = mathalea2d(paramsEnonce, objetsEnonceml) + '<br>' + anim.htmlBouton(this.numeroExercice ?? 0, 0)
     this.contenu = texte
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireNumerique = ['Type de triangle', 6, '1 : Triangle par 3 longueurs\n 2 : Triangle par 1 longueur et 2 angles\n 3 : Triangle rectangle 2 côtés angle droit\n 4 : Triangle rectangle 1 coté et l\'hypoténuse\n 5 : Triangle équilatéral\n 6 : Triangle 2 longueurs et l\'angle entre ces côtés']
-  this.besoinFormulaire2Texte = ['Nom du triangle', 'ABC par exemple']
-  this.besoinFormulaire3Texte = ['Longueurs ou angles séparés par des espaces', '3 4 5']
 } // Fin de l'exercice.

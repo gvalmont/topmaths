@@ -1,15 +1,15 @@
-import { droite } from '../../lib/2d/droites.js'
-import { pointSurDroite } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { droite } from '../../lib/2d/droites'
+import { pointSurDroite } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { texteParPosition } from '../../lib/2d/textes'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import { troisColonnes } from '../../lib/format/miseEnPage.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
+import { troisColonnes } from '../../lib/format/miseEnPage'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
@@ -18,7 +18,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '20/04/2024'
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 // TODO à passer en ts, nouvelle classe exercice et interactif avec handleAnswer
@@ -31,7 +31,7 @@ export const refs = {
 export default class AssocierGraphiqueSysteme extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 1
     this.correctionDetaillee = true
     this.correctionDetailleeDisponible = true
@@ -39,14 +39,11 @@ export default class AssocierGraphiqueSysteme extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     const listeFractions = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [3, 5], [4, 7], [1, 5], [4, 5], [3, 4], [1, 4], [2, 5], [5, 3], [6, 5], [1, 6], [5, 6], [1, 7]]
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, d, a2, a3, b2, b3, d2, d3, c, c2, c3, a4, b4, c4, d4, a4Frac, a5, b5, c5, d5, a5Frac, a6, b6, c6, d6, a6Frac, r, t1, t2, t3, s1, s2, s3, s4, s5, s6, aFrac, a2Frac, a3Frac, pente1, pente2, pente3, pente4, pente5, pente6, texte, texteCorr, lsys, ss1, ss2, ss3, vari, lass, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
-      const eqToLatex = function (vect : Array<number| FractionEtendue>, nomVal : Array<string>, inSys : boolean) {
+      const eqToLatex = function (vect : Array<number | FractionEtendue>, nomVal : Array<string>, inSys : boolean) {
         let expr = ''
         let checkPreviousNull = true
         for (let i = 0; i < 3; i++) {
@@ -262,8 +259,8 @@ export default class AssocierGraphiqueSysteme extends Exercice {
       texteCorr = texteCorr + `Le système ${['$A$', '$B$', '$C$'][lass.findIndex(item => item === '1')]} est associé au premier graphique,` + ` le système ${['$A$', '$B$', '$C$'][lass.findIndex(item => item === '2')]} est associé au deuxième graphique, le système ${['$A$', '$B$', '$C$'][lass.findIndex(item => item === '3')]} au troisième graphique.`
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

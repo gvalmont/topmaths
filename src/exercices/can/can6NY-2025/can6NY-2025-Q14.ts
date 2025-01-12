@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Déterminer un nombre plus grand ou plus petit'
@@ -15,7 +15,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class SommeDeProduitsCompleter extends Exercice {
   constructor () {
@@ -23,13 +23,10 @@ export default class SommeDeProduitsCompleter extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const choixPG = [[0, 2030], [1, 2031], [2, 2032], [3, 2033], [4, 2034], [5, 2035], [6, 2026], [7, 2027], [8, 2028], [9, 2029]]
     const choixPP = [[0, 2020], [1, 2021], [2, 2022], [3, 2023], [4, 2024], [5, 2015], [6, 2016], [7, 2017], [8, 2018], [9, 2019]]
     const PlusGrand = choice(choixPG)

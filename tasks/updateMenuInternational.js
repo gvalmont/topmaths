@@ -59,7 +59,8 @@ async function readInfos (
           file !== 'ExerciceQcm.ts' &&
           file !== 'ExerciceQcmA.ts' &&
           file !== 'ExerciceBrevet.ts' &&
-          file !== 'ExerciceBrevetA.ts'
+          file !== 'ExerciceBrevetA.ts' &&
+          file !== 'ExerciceCan.ts'
 
         ) {
           const infos = {}
@@ -196,18 +197,39 @@ async function readInfos (
                       isActive: true,
                       type: ''
                     }
+                    // Regex pour capturer le contenu de this.reponses
+                    const arrayRegex = /this\.reponses\s*=\s*\[\s*((["'`][^"'`]*["'`]|[^,\s]+)(\s*,\s*(["'`][^"'`]*["'`]|[^,\s]+))*(\s*\/\/[^\n]*)?\s*)\]/s
+                    const arrayMatch = arrayRegex.exec(data)
+
+                    if (arrayMatch) {
+                      const arrayContent = arrayMatch[1]
+                      // Regex pour compter les éléments dans l'array
+                      const elementRegex = /(["'`][^"'`]*["'`]|[^,\s]+)(\s*\/\/[^\n]*)?/g
+                      const elements = arrayContent.match(elementRegex)
+                      const count = elements ? elements.length : 0
+                      if (count < 5 && count > 1) {
+                        infos.features.qcmcam = {
+                          isActive: true,
+                          type: ''
+                        }
+                      }
+                    }
                   } else {
                     const objectRegex = /this\.autoCorrection\[\w+\]\s*=\s*\{[^}]*propositions\s*:\s*\[([^\]]*)\][^}]*\}/g
                     const objectMatch = objectRegex.exec(data)
 
                     if (objectMatch) {
+                      infos.features.qcm = {
+                        isActive: true,
+                        type: ''
+                      }
                       const propositionsContent = objectMatch[1]
                       // Regex pour compter les éléments de propositions à l'intérieur de l'objet capturé
                       const propositionRegex = /\{\s*texte:\s*.*?,\s*statut:\s*.*?\s*\}/g
                       const matchPropositions = propositionsContent.match(propositionRegex)
                       const count = matchPropositions ? matchPropositions.length : 0
                       if (count < 5 && count > 1) {
-                        infos.features.qcm = {
+                        infos.features.qcmcam = {
                           isActive: true,
                           type: ''
                         }

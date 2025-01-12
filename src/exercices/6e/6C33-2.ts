@@ -1,12 +1,13 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { prenom } from '../../lib/outils/Personne'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
-import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
+import engine from '../../lib/interactif/comparisonFunctions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -14,7 +15,7 @@ export const titre = 'Organiser des calculs en une seule ligne'
 export const dateDePublication = '31/05/2024'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Guillaume Valmont
 */
 export const uuid = '2z3e5'
@@ -37,14 +38,10 @@ export default class ExpressionsDepuisCalculs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     const avecDivision = !!this.sup
 
-    const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    // const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
+    // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const nbOps = gestionnaireFormulaireTexte({ defaut: 2, saisie: this.sup2, min: 2, max: 4, melange: 5, nbQuestions: this.nbQuestions }) as number[]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200; cpt++) {
       const A = randint(2, 9)
@@ -165,14 +162,14 @@ En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidenc
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${tirage.join(' ; ')}.<br>
 Voici ses calculs :<br>${enonce.slice(0, nbOps[i]).join('\n')}
 Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6eme')}`
-      handleAnswers(this, i, { reponse: { value: redaction, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+      handleAnswers(this, i, { reponse: { value: redaction, options: { operationSeulementEtNonResultat: true } } })
       //   if (!this.correctionDetaillee) texteCorr = ''
       //   texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
 
       const nombreCibleValide = Number(nombreCible) < 100 * Number(nbOps[i])
       if (this.questionJamaisPosee(i, ...nombres, ...signes, redaction) && nombreCibleValide) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
     }

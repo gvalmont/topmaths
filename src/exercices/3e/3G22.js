@@ -1,14 +1,14 @@
-import { fractionSimplifiee, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { fractionSimplifiee, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { texteExposant } from '../../lib/outils/ecritures'
-import { katexPopup2 } from '../../lib/format/message.js'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
+import { katexPopup2 } from '../../lib/format/message'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { mg32DisplayAll } from '../../modules/mathgraph.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { mg32DisplayAll } from '../../modules/mathgraph'
 export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
 
 /**
@@ -16,26 +16,29 @@ export const titre = 'Connaître les effets des agrandissements/réductions sur 
 * @author Jean-Claude Lhote
 */
 export const uuid = '960f9'
-export const ref = '3G22'
+
 export const refs = {
   'fr-fr': ['3G22'],
   'fr-ch': []
 }
-export default function AgrandissementReduction () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  context.isHtml ? this.spacingCorr = 3.5 : this.spacingCorr = 1.5
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.quatrieme = false
-  this.sup = 1 //
-  this.sup2 = 1
+export default class AgrandissementReduction extends Exercice {
+  constructor () {
+    super()
+    this.started = false
+    this.timeoutHandle = null
+    this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Calcul d\'aires et de volumes\n 2 : Problème complexe\n 3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Coefficient de réduction (Calcul d\'aires et de volumes)', 3, ' 1 : Décimal\n 2 : Non décimal\n 3 : Mélange']
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    context.isHtml ? this.spacingCorr = 3.5 : this.spacingCorr = 1.5
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = []
-    this.listeCorrections = []
+    this.quatrieme = false
+    this.sup = 1 //
+    this.sup2 = 1
+  }
+
+  nouvelleVersion (numeroExercice) {
     let texte, texteCorr, r, r2, h1, h2, h3, c, c2, kprime
     const pi = Decimal.acos(-1)
     this.typeExercice = 'MG32'
@@ -691,10 +694,7 @@ export default function AgrandissementReduction () {
 
     if (context.isHtml) {
       texte += `<div id="MG32div${numeroExercice}"><svg id="svgMtg${numeroExercice}"></svg></div>`
-
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
       const that = this
-
       const listener = function () {
         const div = document.getElementById(`MG32div${numeroExercice}`)
         if (div) {
@@ -717,8 +717,4 @@ export default function AgrandissementReduction () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.started = false
-  this.timeoutHandle = null
-  this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Calcul d\'aires et de volumes\n 2 : Problème complexe\n 3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Coefficient de réduction (Calcul d\'aires et de volumes)', 3, ' 1 : Décimal\n 2 : Non décimal\n 3 : Mélange']
 }

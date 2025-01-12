@@ -1,14 +1,14 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils.js'
-import { spline } from '../../../lib/mathFonctions/Spline.js'
+import { randint } from '../../../modules/outils'
+import { spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { repere } from '../../../lib/2d/reperes.js'
+import { repere } from '../../../lib/2d/reperes'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer le signe d\'une fonction graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,17 +16,16 @@ export const uuid = 'eb73a'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = '  blocCenter ' + KeyboardType.clavierEnsemble
-    this.formatInteractif = 'calcul'
+    this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
   nouvelleVersion () {
@@ -106,7 +105,6 @@ export default class NomExercice extends Exercice {
       this.reponse = {
         reponse: {
           value: '[-5;2]',
-          compare: fonctionComparaison,
           options: { intervalle: true }
         }
       }
@@ -172,19 +170,18 @@ export default class NomExercice extends Exercice {
           ? {
               reponse: {
                 value: `[${theSpline.x[0]};${theSpline.x[3]}]`,
-                compare: fonctionComparaison,
                 options: { intervalle: true }
               }
             }
           : {
               reponse: {
                 value: `[${theSpline.x[3]};${theSpline.x[6]}]`,
-                compare: fonctionComparaison,
                 options: { intervalle: true }
               }
             }
-        this.question = `Sur quel intervalle,  $f$ est-elle ${choix ? 'négative' : 'positive'} ou nulle ?<br>` +
-             mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+        this.question = 'On donne le graphique d’une fonction $f$ : <br>'
+        this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+        this.question += `Sur quel intervalle,  $f$ est-elle ${choix ? 'négative' : 'positive'} ou nulle ? `
         this.correction = `La fonction est ${choix ? 'négative' : 'positive'} ou nulle lorsque les images sont ${choix ? 'négatives' : 'positives'} ou nulles.<br>
         Graphiquement, les images sont ${choix ? 'négatives' : 'positives'} ou nulles  lorsque la courbe se situe sur ou ${choix ? 'en dessous' : 'au-dessus'}  de l'axe des abscisses, soit sur l'intervalle  
         ${choix ? `$${miseEnEvidence(`[${theSpline.x[0]}\\,;\\,${theSpline.x[3]}`)}]$` : `$${miseEnEvidence(`[${theSpline.x[3]}\\,;\\,${theSpline.x[6]}]`)}$`}

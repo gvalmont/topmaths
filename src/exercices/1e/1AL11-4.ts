@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -15,12 +15,12 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '29/09/2024'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
- * Référence
+
 */
 export const uuid = '3ae4a'
-export const ref = '1AL11-4'
+
 export const refs = {
   'fr-fr': ['1AL11-4'],
   'fr-ch': []
@@ -49,7 +49,6 @@ export default class TermesSASG extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -59,8 +58,6 @@ export default class TermesSASG extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
-    this.listeCorrections = [] // Vide la liste de questions corrigées
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -233,8 +230,8 @@ export default class TermesSASG extends Exercice {
 
       if (listeTypeDeQuestions[i] === 1 || listeTypeDeQuestions[i] === 2 || listeTypeDeQuestions[i] === 3) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_{${k}}=$` }) } else { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_{${k}}\\simeq$` }) }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { abs } from '../../../lib/outils/nombres'
 import Decimal from 'decimal.js'
@@ -19,7 +19,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
- * Référence
+
 */
 export default class calcPuissanceDe10 extends Exercice {
   constructor () {
@@ -29,13 +29,10 @@ export default class calcPuissanceDe10 extends Exercice {
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = choice([new Decimal(2025), new Decimal(2025).div(10), new Decimal(2025).div(100)])
     const exp = randint(-3, 3, 0)
     const expABS = abs(exp)

@@ -1,4 +1,4 @@
-import { loadScratchblocks } from './loaders.js'
+import { loadScratchblocks } from './loaders'
 
 /**
  * Charge scratchblocks puis sa traduction fr

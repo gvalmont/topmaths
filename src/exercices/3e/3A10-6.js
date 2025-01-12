@@ -1,12 +1,12 @@
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texteGras } from '../../lib/format/style'
 import { sommeDesChiffres } from '../../lib/outils/nombres'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { numAlpha, sp } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Trouver un chiffre pour qu\'un nombre soit divisible par un autre'
@@ -14,34 +14,34 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '29/08/2022'
-export const dateDeModificationImportante = '30/09/2024'
+export const dateDeModifImportante = '30/09/2024'
 /**
  *
  * Attendus de 3e : Connaître et utiliser les critères de divisibilité par 2, par 3, par 5, par 9 et par 10
  * @author Eric Elter
  */
 
-export const ref = '3A10-6'
 export const refs = {
   'fr-fr': ['3A10-6'],
   'fr-ch': ['9NO4-7']
 }
 export const uuid = '5636e'
-export default function TrouverChiffre () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.besoinFormulaireTexte = ['Nombre de chiffres dans le nombre à découvrir ', 'Nombres séparés par des tirets\n2 : 2 chiffres\n3 : 3 chiffres\n4 : 4 chiffres\n5 : 5 chiffres\n6 : 6 chiffres\n7 : Mélange']
-  this.besoinFormulaire2Texte = ['Critère choisi de divisibilité', 'Nombres séparés par des tirets \n1 : par 2\n2 : par 3\n3 : par 5\n4 : par 9\n5 : par 2 et par 3\n6 : par 2 et par 5\n7 : par 6\n8 : par 10\n9 : Mélange']
-  this.besoinFormulaire3Numerique = ['Choix du symbole remplaçant le chiffre manquant', 4, '1 : ?\n2 : _\n3 : ...\n4 : X']
-  this.besoinFormulaire4CaseACocher = ['Le chiffre des unités est le seul chiffre caché', false]
-  this.sup = 7
-  this.sup2 = 9
-  this.sup3 = 1
-  const symboleChiffreCacheTab = ['?', '_', '...', 'X']
+export default class TrouverChiffre extends Exercice {
+  constructor () {
+    super()
 
-  this.tailleDiaporama = 2
+    this.nbQuestions = 4
+    this.besoinFormulaireTexte = ['Nombre de chiffres dans le nombre à découvrir ', 'Nombres séparés par des tirets\n2 : 2 chiffres\n3 : 3 chiffres\n4 : 4 chiffres\n5 : 5 chiffres\n6 : 6 chiffres\n7 : Mélange']
+    this.besoinFormulaire2Texte = ['Critère choisi de divisibilité', 'Nombres séparés par des tirets \n1 : par 2\n2 : par 3\n3 : par 5\n4 : par 9\n5 : par 2 et par 3\n6 : par 2 et par 5\n7 : par 6\n8 : par 10\n9 : Mélange']
+    this.besoinFormulaire3Numerique = ['Choix du symbole remplaçant le chiffre manquant', 4, '1 : ?\n2 : _\n3 : ...\n4 : X']
+    this.besoinFormulaire4CaseACocher = ['Le chiffre des unités est le seul chiffre caché', false]
+    this.sup = 7
+    this.sup2 = 9
+    this.sup3 = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    const symboleChiffreCacheTab = ['?', '_', '...', 'X']
     const symboleChiffreCache = symboleChiffreCacheTab[this.sup3 - 1]
     this.consigne = this.interactif ? 'Dans le champ de réponses, indiquer toutes les réponses possibles, séparées par des points-virgules. Si aucun chiffre n\'est possible, saisir le symbole $\\emptyset$.' : ''
     // CHOIX DU NOMBRE DE CHIFFRES COMPOSANT LE NOMBRE
@@ -438,13 +438,13 @@ export default function TrouverChiffre () {
           }
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { suiteDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
 
       texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)) : ''
       if (this.questionJamaisPosee(i, nbAvecChiffreCache)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

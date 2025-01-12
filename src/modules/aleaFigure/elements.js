@@ -1,12 +1,12 @@
 /* eslint-disable no-useless-constructor */
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.ts'
-/* eslint-disable no-unused-vars */
-import { context } from '../context.js'
-import { GVCartesian, GVCoordinates } from './coordinates.js'
-import { aleaName } from '../outilsMathjs.ts'
+import { point, tracePoint } from '../../lib/2d/points'
+import { latexParCoordonnees } from '../../lib/2d/textes'
+
+import { context } from '../context'
+import { GVCartesian, GVCoordinates } from './coordinates'
+import { aleaName } from '../outilsMathjs'
 import { dot, round, cross } from 'mathjs'
-import { circularPermutation, getDimensions } from './outils.js'
+import { circularPermutation, getDimensions } from './outils'
 
 /**
  * @class

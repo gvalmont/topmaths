@@ -1,23 +1,23 @@
-import { codageSegments } from '../../lib/2d/codages.js'
-import { point } from '../../lib/2d/points.js'
-import { polygone, polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import { homothetie } from '../../lib/2d/transformations.js'
+import { codageSegments } from '../../lib/2d/codages'
+import { point } from '../../lib/2d/points'
+import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
+import { homothetie } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { resoudre } from '../../modules/outilsMathjs.ts'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { resoudre } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
 import Grandeur from '../../modules/Grandeur'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Mettre en équation un problème et le résoudre'
@@ -38,7 +38,7 @@ export const dateDeModifImportante = '06/04/2023'
  * Date de publication 15/02/2022
  */
 export const uuid = '22412'
-export const ref = '3L13-3'
+
 export const refs = {
   'fr-fr': ['3L13-3'],
   'fr-ch': ['11FA6-6']
@@ -95,9 +95,6 @@ export default class ProblemesEnEquation extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     const listeDeProblemes = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -431,8 +428,9 @@ export default class ProblemesEnEquation extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, x, a, b, d)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (uniteOptions[0] === '') setReponse(this, i, x, { formatInteractif: 'calcul' })
         else setReponse(this, i, uniteOptions[1], { formatInteractif: 'unites' })
         i++

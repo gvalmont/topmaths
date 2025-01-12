@@ -1,11 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fraction } from '../../modules/fractions.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { fraction } from '../../modules/fractions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
@@ -17,30 +17,30 @@ export const interactifType = 'mathLive'
  * @author Matthieu Devillers
  */
 export const uuid = '5a4ad'
-export const ref = '2N41-5'
+
 export const refs = {
   'fr-fr': ['2N41-5'],
   'fr-ch': ['11FA2-11']
 }
 
-export default function DevelopperIdentitesRemarquables4 () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.correctionDetailleeDisponible = true
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
+export default class DevelopperIdentitesRemarquables4 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
+
+    this.correctionDetailleeDisponible = true
+    this.spacingCorr = context.isHtml ? 3 : 2
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    }
+    this.nbQuestions = 4
+    this.sup = 5
   }
-  this.consigne = 'Développer puis réduire les expressions suivantes.'
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 4
-  this.sup = 5
-  this.nouvelleVersion = function () {
+
+  nouvelleVersion () {
+    this.consigne = this.nbQuestions === 1
+      ? 'Développer puis réduire l\'expression suivante.'
+      : 'Développer puis réduire les expressions suivantes.'
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -110,7 +110,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr += `$\\left(x+${a} \\right)^2=x^2-${2 * a}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}` } })
           break
         case 2:
           texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
@@ -121,7 +121,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2-${2 * b * a}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}` } })
           break
         case 3:
           b = -b
@@ -138,7 +138,7 @@ export default function DevelopperIdentitesRemarquables4 () {
             texteCorr = texte + `$= ${b * b}x^2-${2 * (-b) * a}x+${a * a}$`
           }
 
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}` } })
           break
         case 4:
           texte = `$\\left(${dfrac}x-${a}\\right)^2$`
@@ -152,7 +152,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr = texte + `$= ${dfrac2}x^2-${dbleProdFracRed}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}`, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}` } })
           break
       }
 
@@ -172,13 +172,12 @@ export default function DevelopperIdentitesRemarquables4 () {
       if (this.interactif) texte += '$=$' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
       if (this.questionJamaisPosee(i, a, b, ns, ds, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x négatif\n 4 : Coefficient de x rationnel\n 5 : Mélange des cas précédents']
 }

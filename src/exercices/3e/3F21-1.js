@@ -1,19 +1,19 @@
-import { droiteParPointEtPente, positionLabelDroite } from '../../lib/2d/droites.js'
-import { point } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { latexParPoint } from '../../lib/2d/textes.ts'
+import { droiteParPointEtPente, positionLabelDroite } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { latexParPoint } from '../../lib/2d/textes'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
-import { katexPopup2 } from '../../lib/format/message.js'
+import { katexPopup2 } from '../../lib/format/message'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Déterminer une fonction affine'
 export const amcReady = true
@@ -34,24 +34,27 @@ export const dateDeModifImportante = '31/03/2023'
  * - Ajout d'un paramètre Mélange
  */
 export const uuid = 'e5ddd'
-export const ref = '3F21-1'
+
 export const refs = {
   'fr-fr': ['3F21-1'],
   'fr-ch': ['11FA8-10']
 }
-export default function LectureExpressionFonctionsAffines () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.sup = 1
-  this.sup2 = 3
-  this.lineaire = false
+export default class LectureExpressionFonctionsAffines extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'\n4 : Mélange"]
+    this.besoinFormulaire2Numerique = ['Nombre de droites (1 à 5)', 5]
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.sup = 1
+    this.sup2 = 3
+    this.lineaire = false
+  }
+
+  nouvelleVersion (numeroExercice) {
     let explain = ''
     let preK = this.sup
     if (this.sup === 4) {
@@ -59,12 +62,9 @@ export default function LectureExpressionFonctionsAffines () {
     }
     let k = Math.pow(2, preK - 1)
     let nbDroites = parseInt(this.sup2)
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     const colors = ['blue', 'red', 'black', 'purple', 'brown']
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     const listeDroites = []
     const posLab = []
     const nomDroite = []
@@ -195,6 +195,4 @@ export default function LectureExpressionFonctionsAffines () {
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Coefficient directeur entier\n2 : Coefficient directeur 'en demis'\n3 : Coefficient directeur 'en quarts'\n4 : Mélange"]
-  this.besoinFormulaire2Numerique = ['Nombre de droites (1 à 5)', 5]
 }

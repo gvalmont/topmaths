@@ -4,11 +4,11 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
@@ -20,20 +20,23 @@ export const titre = 'Déterminer la forme canonique d\'un polynôme du second d
  * @author Stéphane Guyon
  */
 export const uuid = '60504'
-export const ref = '1AL23-1'
+
 export const refs = {
   'fr-fr': ['1AL23-1'],
   'fr-ch': ['1F3-2']
 }
-export default function Formacanonique () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.spacingCorr = 3
-  this.besoinFormulaireCaseACocher = ['Le coefficient de $x^2$ est 1', false]
-  this.nouvelleVersion = function () {
+export default class Formacanonique extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.spacingCorr = 3
+    this.besoinFormulaireCaseACocher = ['Le coefficient de $x^2$ est 1', false]
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Déterminer la forme canonique ' + (this.nbQuestions === 1 ? 'du polynôme' : 'de chacun des polynômes') + ' $P$, défini pour tout $x \\in \\mathbb{R}$ par : '
     if (this.interactif) {
       // this.consigne += '<br> '
@@ -100,8 +103,8 @@ export default function Formacanonique () {
 
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${sp()}=${sp()}$` })
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

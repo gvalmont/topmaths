@@ -1,4 +1,4 @@
-import { matrice } from '../lib/mathFonctions/Matrice.js'
+import { matrice } from '../lib/mathFonctions/Matrice'
 
 /**
  * Description

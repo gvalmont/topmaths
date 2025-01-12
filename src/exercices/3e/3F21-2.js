@@ -1,12 +1,12 @@
-import { courbe } from '../../lib/2d/courbes.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { courbe } from '../../lib/2d/courbes'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { fraction } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -23,33 +23,27 @@ export const interactifType = 'mathLive'
  * cas 4 : f(x1) et f(x2) donnés a et b rationnels
  * x1, x2, f(x1) et f(x2) sont toujours entiers relatifs
  * @author Jean-Claude Lhote
- * Référence 3F21-2
+
  */
 export const uuid = 'b8b33'
-export const ref = '3F21-2'
+
 export const refs = {
   'fr-fr': ['3F21-2'],
   'fr-ch': ['11FA9-3']
 }
-export default function DeterminerFonctionAffine () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
-  this.sup = 1
-  this.nbQuestions = 2
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  // this.sup = 1
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class DeterminerFonctionAffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile\n3 : Très difficile']
 
-  this.nouvelleVersion = function () {
-    this.titre = titre
+    this.sup = 1
+    this.nbQuestions = 2
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    // this.sup = 1
+  }
 
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (parseInt(this.sup) === 1) {
       typeDeQuestionsDisponibles = [0, 1]
@@ -235,13 +229,12 @@ export default function DeterminerFonctionAffine () {
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, x1, x2, y1, y2, a, b, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Difficile\n3 : Très difficile']
 }

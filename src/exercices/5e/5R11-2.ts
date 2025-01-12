@@ -1,12 +1,12 @@
 import Exercice from '../Exercice'
 import { arrondi } from '../../lib/outils/nombres'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import type Figure from 'apigeom/src/Figure'
-import figureApigeom from '../../lib/figureApigeom.js'
+import figureApigeom from '../../lib/figureApigeom'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine'
 
@@ -23,7 +23,7 @@ export const dateDeModifImportante = '03/05/2024'
 * @author Jean-Claude Lhote et Rémi Angot
 */
 export const uuid = '6d576'
-export const ref = '5R11-2'
+
 export const refs = {
   'fr-fr': ['5R11-2'],
   'fr-ch': ['9NO9-2']
@@ -42,11 +42,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
   nouvelleVersion () {
     let typesDeQuestions
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.contenu = ''
-    this.contenuCorrection = ''
+
     this.figures = []
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
 
@@ -150,7 +146,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
   correctionInteractive = (i?: number) => {
     if (i === undefined || this.figures === undefined) return ['KO']
-    const result: ('OK'|'KO')[] = []
+    const result: ('OK' | 'KO')[] = []
     const figure = this.figures[i] as Figure
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale

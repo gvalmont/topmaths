@@ -1,12 +1,12 @@
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import { lcm } from 'mathjs'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer la nature des solutions d\'un système linéaire de deux équations à deux inconnues'
 export const interactifReady = true
@@ -20,14 +20,13 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
 export default class systemeEquationsPremDeg extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
     this.nbQuestions = 3
     this.sup = 3
     this.correctionDetailleeDisponible = true
@@ -40,11 +39,8 @@ export default class systemeEquationsPremDeg extends Exercice {
     } else {
       this.consigne = 'Les systèmes suivants ont-ils une, aucune ou une infinité de solutions ?'
     }
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
 
-    let typeQuestionsDisponibles: ('lv1Uni' |'lv1Auc' |'lv1Inf' |'lv2Uni' |'lv2Auc' |'lv2Inf')[]
+    let typeQuestionsDisponibles: ('lv1Uni' | 'lv1Auc' | 'lv1Inf' | 'lv2Uni' | 'lv2Auc' | 'lv2Inf')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['lv1Uni', 'lv1Auc', 'lv1Inf']
     } else if (this.sup === 2) {
@@ -280,11 +276,11 @@ export default class systemeEquationsPremDeg extends Exercice {
       texteCorr = texteCorr + `Ainsi, le système ${texteEnCouleurEtGras(`${rep}`)}.`
       if (this.interactif) {
         texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix, 'reponse') + '.'
-        handleAnswers(this, i, { reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'listeDeroulante' })
+        handleAnswers(this, i, { reponse: { value: rep, options: { texteSansCasse: true } } }, { formatInteractif: 'listeDeroulante' })
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

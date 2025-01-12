@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { abs } from '../../lib/outils/nombres'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Connaître les propriétés calculatoires des racines carrées'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -13,19 +13,22 @@ export const dateDeModifImportante = '13/12/2023'
  * @author Stéphane Guyon modif Gilles Mora
  */
 export const uuid = '99b29'
-export const ref = '2N32-2'
+
 export const refs = {
   'fr-fr': ['2N32-2'],
   'fr-ch': ['11NO1-5', '1CN-7']
 }
-export default function Proprietesracinecarree () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 2
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.sup = 1 //
-  this.nouvelleVersion = function () {
+export default class Proprietesracinecarree extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 2
+    this.nbCols = 2
+
+    this.sup = 1 //
+  }
+
+  nouvelleVersion () {
     this.consigne = this.interactif ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}` : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]; let typesDeQuestions//,
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -288,8 +291,8 @@ export default function Proprietesracinecarree () {
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

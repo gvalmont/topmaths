@@ -1,42 +1,34 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
-import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
+import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString'
 import { personne, personnes } from '../../lib/outils/Personne'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } from '../../modules/outils'
 
 export const titre = 'Problèmes de ratio'
 
 export const uuid = '0a637'
-export const ref = '5P12-1'
+
 export const refs = {
   'fr-fr': ['5P12-1'],
   'fr-ch': ['9NO14-10']
 }
 // Ancien 5N15 avant septembre 2023
-export default function ProblemeDeRatio () {
-  Exercice.call(this)
-  this.nbQuestions = 4 // Ici le nombre de questions
-  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
-  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
-  this.sup = 3
-  this.spacing = 2
-  this.spacingCorr = 3
+export default class ProblemeDeRatio extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
 
-  // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function () {
-    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
-    // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
+    this.nbQuestions = 4 // Ici le nombre de questions
+    this.sup = 3
+    this.spacing = 2
+    this.spacingCorr = 3
+  }
 
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
-    this.autoCorrection = []
+  nouvelleVersion () {
     let prenoms = []
     const objets = ['billes', 'livres', 'perles', 'gâteaux', 'bonbons']
     const sirops = ['de fraise', 'de citron', 'de cerise', 'de menthe', 'd\'orange']
@@ -292,8 +284,8 @@ export default function ProblemeDeRatio () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -303,6 +295,4 @@ export default function ProblemeDeRatio () {
   // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
   // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-  this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
 } // Fin de l'exercice.

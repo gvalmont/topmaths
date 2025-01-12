@@ -1,19 +1,19 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Connaître les différentes écritures d\'une proportion'
 export const dateDePublication = '21/04/2023'
-export const dateDeModificationImportante = '31/01/2024'
+export const dateDeModifImportante = '31/01/2024'
 /**
 * Ecriture des  proportions
 *
@@ -26,20 +26,21 @@ export const dateDeModificationImportante = '31/01/2024'
 * *
 */
 export const uuid = 'ae913'
-export const ref = '2S10-1'
+
 export const refs = {
   'fr-fr': ['2S10-1'],
   'fr-ch': []
 }
-export default function DiffentesEcrituresProportions () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 4 // type de questions
+export default class DiffentesEcrituresProportions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Décimal vers fraction ou pourcentage \n2 : Pourcentage vers fraction ou décimal\n3 : Fraction vers décimal ou pourcentage \n4 : Mélange']
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
+    this.nbQuestions = 4
+    this.sup = 4 // type de questions
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['Decimal']
@@ -112,7 +113,7 @@ export default function DiffentesEcrituresProportions () {
             }
           }
           texteCorr = `$${texNombre(dec, 4)}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}=${miseEnEvidence(texNombre(pourc, 3))} \\,\\%$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: String(100), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ3: { value: pourc.toFixed(4) }, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4), options: { nombreDecimalSeulement: true } }, champ2: { value: String(100), options: { nombreDecimalSeulement: true } }, champ3: { value: pourc.toFixed(4), options: { nombreDecimalSeulement: true } } })
           break
 
         case 'Pourcentage':
@@ -133,7 +134,7 @@ export default function DiffentesEcrituresProportions () {
             }
           }
           texteCorr = `$${texNombre(pourc, 3)}\\,\\%=${miseEnEvidence(texNombre(dec, 4))}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], champ1: { value: dec.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: pourc.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ3: { value: String(100), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], champ1: { value: dec.toFixed(4), options: { nombreDecimalSeulement: true } }, champ2: { value: pourc.toFixed(4), options: { nombreDecimalSeulement: true } }, champ3: { value: String(100), options: { nombreDecimalSeulement: true } } })
 
           break
         case 'Fraction':
@@ -155,18 +156,17 @@ export default function DiffentesEcrituresProportions () {
           }
 
           texteCorr = `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${miseEnEvidence(texNombre(f, 4))}=${miseEnEvidence(texNombre(f * 100, 4))}\\,\\%$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], champ1: { value: f.toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }, champ2: { value: (f * 100).toFixed(4), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], champ1: { value: f.toFixed(4), options: { nombreDecimalSeulement: true } }, champ2: { value: (f * 100).toFixed(4), options: { nombreDecimalSeulement: true } } })
           break
       }
 
       if (this.questionJamaisPosee(i, dec, pourc)) { // on utilise donc cette fonction basée sur les variables aléatoires pour éviter les doublons
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Décimal vers fraction ou pourcentage \n2 : Pourcentage vers fraction ou décimal\n3 : Fraction vers décimal ou pourcentage \n4 : Mélange']
 }

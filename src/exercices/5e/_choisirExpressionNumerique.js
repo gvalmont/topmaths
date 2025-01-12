@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
-import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 
 /**
  * Chosis aléatoirement une expressions numérique parmi de nombreuses variantes.
@@ -50,6 +50,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           expc = `$${texNombre(a)} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
           break
         case 3: // quotient de deux nombres
+        default:
           a = calculANePlusJamaisUtiliser(Math.round(a) * b)
           repNum = arrondi(a / b)
           expf = `Le quotient de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)}`
@@ -172,6 +173,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(a + b / c)
           break
         case 9: // a - b/c
+        default:
           a = calculANePlusJamaisUtiliser(a + b)
           b = calculANePlusJamaisUtiliser(b * c)
           if (calculMental) {
@@ -391,6 +393,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(a / b + c / d)
           break
         case 13: // a/b-c/d
+        default:
           if (calculMental) { // b et d sont différents et plus grands que 1.
             d = randint(2, 5)
             c = randint(2, 5) * d
@@ -485,6 +488,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(3 * (a + b) - 2 * (c + d))
           break
         case 5: // 2(a-b)+3(c+d)
+        default:
           if (calculMental) { // 2(a-b)<11 et c+d<14
             b = randint(2, 9)
             a = randint(2, 5) + b
@@ -501,6 +505,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
       }
       break
     case 4: // 4 opérations : Pffiouuu en calcul mental mais en papier, ce sera faisable par tous, sans calculatrice, même ceux faibles en calcul.
+    default:
       souscas = typeof sousCas === 'number' ? sousCas : randint(0, 2)
       switch (souscas) {
         case 0: // (a+b)/(c(d+e))
@@ -538,6 +543,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi((a - b) * (c + d * e))
           break
         case 2: // ab+cd/e
+        default:
           if (calculMental) { // Une simplification mentale en c et e sera nécessaire.
             a = randint(2, 6)
             b = randint(2, 6, [a])

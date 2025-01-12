@@ -1,8 +1,8 @@
-import { Matrice } from '../../lib/mathFonctions/Matrice.js'
+import { Matrice } from '../../lib/mathFonctions/Matrice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Calcul de déterminant'
@@ -12,13 +12,13 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Maxime Nguyen
  * Terminé par Jean-Claude Lhote (correction du cas 3x3 détaillée + mise en place classe MatriceCarree)
- * Référence HPC104
+
  */
 export const uuid = '2806f'
-export const ref = 'HPC104'
+
 export const refs = {
   'fr-fr': ['HPC104'],
   'fr-ch': []
@@ -26,7 +26,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.consigne = 'Calcul du déterminant d\'une matrice carrée'
     this.nbQuestions = 3
 
@@ -37,14 +37,9 @@ export default class nomExercice extends Exercice {
 
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.tailleDiaporama = 3
-    this.video = ''
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) { // On ajuste la difficulté selon le paramètre.
       listeTypeDeQuestionsDisponibles = ['type1']
@@ -124,8 +119,8 @@ export default class nomExercice extends Exercice {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

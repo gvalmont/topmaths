@@ -1,9 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Trouver l\'exposant manquant dans des nombres écrits avec des puissances de 10'
@@ -18,18 +18,21 @@ export const interactifReady = true
  * @author Jean-Claude Lhote (adapté par Eric Elter)
  */
 export const uuid = 'f49ff'
-export const ref = '2N31-7'
+
 export const refs = {
   'fr-fr': ['2N31-7'],
   'fr-ch': ['10NO2-15']
 }
-export default function CalculsAvecPuissancesDeDixBis () {
-  Exercice.call(this)
-  this.sup = 1
-  this.nbQuestions = 5
+export default class CalculsAvecPuissancesDeDixBis extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+    this.besoinFormulaire2CaseACocher = ['Avec des exposants élevés', false]
+    this.sup = 1
+    this.nbQuestions = 5
+  }
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+  nouvelleVersion () {
     if (this.interactif) {
       this.consigne = this.nbQuestions === 1 ? 'Choisir l\'exposant manquant dans l\'égalité suivante.' : 'Choisir l\'exposant manquant dans les égalités suivantes.'
     } else {
@@ -105,14 +108,12 @@ export default function CalculsAvecPuissancesDeDixBis () {
       const props = propositionsQcm(this, i)
       if (this.interactif) texte += props.texte
       if (this.listeQuestions.indexOf(texte) === -1) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
-  this.besoinFormulaire2CaseACocher = ['Avec des exposants élevés', false]
 }

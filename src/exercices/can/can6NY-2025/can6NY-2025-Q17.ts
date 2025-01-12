@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { sp } from '../../../lib/outils/outilString'
@@ -16,21 +16,18 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class SuiteACompleterHeures extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { HMS: true }
     this.formatChampTexte = KeyboardType.clavierHms
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const h = 20
     const k = randint(14, 16)
     const minutes1Aff = minToHoraire(20 * 60 + 25, true)
@@ -42,7 +39,7 @@ export default class SuiteACompleterHeures extends Exercice {
          $${minutes1Aff}$ ${sp(3)}; ${sp(3)}$${minutes2Aff}$ ${sp(3)}; ${sp(3)}$${minutes3Aff}$ ${sp(3)}; ${sp(3)} `
 
     this.correction = `On ajoute $${k}$ minutes à chaque fois, donc l'heure qui suit est $${miseEnEvidence(minutes4Aff)}$.`
-    this.reponse = { reponse: { value: `${h + 1}h ${25 + 3 * k - 60}`, compare: fonctionComparaison, options: { HMS: true } } }
+    this.reponse = { reponse: { value: `${h + 1}h ${25 + 3 * k - 60}`, options: { HMS: true } } }
     if (!this.interactif) { this.question += `$\\ldots${sp()}\\text{h}${sp()}\\ldots${sp()}\\text{min}$` }
 
     this.canEnonce = 'Compléter la suite.'

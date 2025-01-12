@@ -48,7 +48,7 @@ Vous pouvez donc supprimer l'import de la fonction randint,
 et comme aucune fonction n'a besoin d'être importé de '../../modules/outils', vous pouvez supprimer toute cette ligne.
 Allez-y, faites-le.
 */
-import { randint } from '../../modules/outils'
+// import { randint } from '../../modules/outils'
 
 /*
 La ligne suivante (obligatoire) permet de préciser le titre de l'exercice qui sera affiché sur le site MathALÉA.
@@ -71,7 +71,7 @@ le menu sur le site MathALÉA et taggués avec 'New' ou 'MAJ'.
 Cela permet de montrer que le site est vivant et permet de suivre nos nouveautés.
 */
 export const dateDePublication = '01/01/2001'
-export const dateDeModificationImportante = '29/12/2034'
+export const dateDeModifImportante = '29/12/2034'
 
 /*
 Les lignes suivantes concernent l'interactivité et sont facultatives si vous n'utilisez pas l'interactivité
@@ -129,7 +129,7 @@ $    Le this indique que ces paramétrages sont liés à l'objet Exercice.
     Conseil : Donc, ne pas décommenter tout de suite.
     this.formatChampTexte = KeyboardType.clavierDeBase // Format du champ de réponse + type de clavier virtuel de l'exercice.
     this.optionsChampTexte = { texteAvant: 'Pour écrire quelque chose avant le champ de réponse', texteApres: "ben, là, c'est après" }
-    this.compare = fonctionComparaison // Type de fonction de comparaison utilisée. Voir wiki : https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Choisir-sa-fonction-de-comparaison-dans-handleAnwsers()#2-pour-comparer-des-nombres-entiers-d%C3%A9cimaux-et-pas-forc%C3%A9ment-fractionnaires-exclusivement-sous-leur-forme-num%C3%A9rique
+    // Type de fonction de comparaison utilisée. Voir wiki : https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Choisir-sa-fonction-de-comparaison-dans-handleAnwsers()#2-pour-comparer-des-nombres-entiers-d%C3%A9cimaux-et-pas-forc%C3%A9ment-fractionnaires-exclusivement-sous-leur-forme-num%C3%A9rique
     this.optionsDeComparaison = { fractionEgale: true } // Option possible de la fonction de comparaison utilisée
   */
   }

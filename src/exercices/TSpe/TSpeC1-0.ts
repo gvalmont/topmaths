@@ -1,13 +1,13 @@
 import Exercice from '../Exercice'
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer avec le logarithme décimal'
 export const dateDePublication = '4/5/2024'
@@ -20,9 +20,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Claire Rousset
- * Référence
+
 */
 export default class ExerciceCalculsAvecLog extends Exercice {
   constructor () {
@@ -104,8 +104,8 @@ export default class ExerciceCalculsAvecLog extends Exercice {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
       }
       if (this.questionJamaisPosee(i, a, m, n, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

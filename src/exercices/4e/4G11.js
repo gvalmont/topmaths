@@ -1,17 +1,17 @@
-import { codageSegment } from '../../lib/2d/codages.js'
-import { tracePoint } from '../../lib/2d/points.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import { translation } from '../../lib/2d/transformations.js'
+import { codageSegment } from '../../lib/2d/codages'
+import { tracePoint } from '../../lib/2d/points'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
+import { translation } from '../../lib/2d/transformations'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, egal, randint } from '../../modules/outils.js'
-import { translationAnimee } from '../../modules/2dAnimation.js'
-import { pavage } from '../../modules/Pavage.js'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, egal, randint } from '../../modules/outils'
+import { translationAnimee } from '../../modules/2dAnimation'
+import { pavage } from '../../modules/Pavage'
 export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**
@@ -21,26 +21,30 @@ export const titre = 'Trouver l\'image d\'une figure par une translation dans un
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.
  */
 export const uuid = '3bfb6'
-export const ref = '4G11'
+
 export const refs = {
   'fr-fr': ['4G11'],
   'fr-ch': ['10ES2-9']
 }
-export default function PavageEtTranslation2d () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
-  this.correctionDetaillee = true
-  this.correctionDetailleeDisponible = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
-  this.sup2 = false // On cache les centres par défaut.
-  this.sup3 = 7
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = function () {
+export default class PavageEtTranslation2d extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
+    this.besoinFormulaire2CaseACocher = ['Montrer les centres']
+    this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
+
+    this.nbQuestions = 3
+
+    this.correctionDetaillee = true
+    this.correctionDetailleeDisponible = true
+
+    this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
+    this.sup2 = false // On cache les centres par défaut.
+    this.sup3 = 7
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  }
+
+  nouvelleVersion () {
     this.sup = Number(this.sup)
     this.sup3 = Number(this.sup3)
     const videcouples = function (tableau) {
@@ -115,8 +119,7 @@ export default function PavageEtTranslation2d () {
     if (this.nbQuestions > 5) {
       taillePavage = 2
     }
-    this.listeCorrections = []
-    this.listeQuestions = []
+
     let Nx, Ny, index1, index2, A, B, d, image
     let monpavage, fenetre
     let texte = ''
@@ -231,7 +234,4 @@ export default function PavageEtTranslation2d () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
-  this.besoinFormulaire2CaseACocher = ['Montrer les centres']
-  this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
 }

@@ -1,14 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fraction } from '../../modules/fractions.js'
-import Exercice from '../deprecatedExercice.js'
-import { randint, itemize, listeQuestionsToContenu } from '../../modules/outils.js'
+import { fraction } from '../../modules/fractions'
+import Exercice from '../Exercice'
+import { randint, itemize, listeQuestionsToContenu } from '../../modules/outils'
 
 export const titre = 'Modéliser une situation à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
@@ -16,22 +16,24 @@ export const dateDePublication = '16/12/2021'
  * @author Gilles Mora
  */
 export const uuid = '846b8'
-export const ref = '2N50-3'
+
 export const refs = {
   'fr-fr': ['2N50-3'],
   'fr-ch': ['10FA3-12', '11FA6-8']
 }
-export default function ModeliserEquations () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 3
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class ModeliserEquations extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Situations concrètes\n2 : Programmes de calculs\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    // this.nbQuestionsModifiable = false
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4']
@@ -373,13 +375,12 @@ export default function ModeliserEquations () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Situations concrètes\n2 : Programmes de calculs\n3 : Mélange']
 }

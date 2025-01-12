@@ -1,6 +1,6 @@
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { matrice } from '../../lib/mathFonctions/Matrice'
 import { choice } from '../../lib/outils/arrayOutils'
 import { index, range } from 'mathjs'
@@ -12,12 +12,12 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Maxime Nguyen
- * Référence HPC103
+
 */
 export const uuid = 'a868f'
-export const ref = 'HPC103'
+
 export const refs = {
   'fr-fr': ['HPC103'],
   'fr-ch': []
@@ -25,18 +25,14 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.consigne = 'On définit deux matrices $A$ et $B$. Si le produit $A \\times B$ est possible, effectuer le calcul. Faire de même pour $B \\times A$.'
     this.nbQuestions = 3 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-    this.video = '' // Id YouTube ou url
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const matrices = [] // vecteur qui stocke les matrices
       const matricesprint = [] // vecteur qui stocke les matrices écrites en LaTeX
@@ -101,7 +97,10 @@ export default class nomExercice extends Exercice {
         const c1 = matrices[1].subset(index(range(0, nblignes[1]), nbcolonnes[1] - 1))
         let detail = `c_{${nblignes[0]}, ${nbcolonnes[1]}}  = `
         for (let i = 0; i < nbcolonnes[0]; i++) {
-          detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
+          if (typeof l1 === 'number') {
+            window.notify('l1 n\'est pas une matrice !, on ne peut pas faire subset dessus, il manque donc le détail des calculs', { l1 })
+          }
+          if (typeof l1 !== 'number') detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
           if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
         }
         detail += `${produit.subset(index(nblignes[0] - 1, nbcolonnes[1] - 1))}`
@@ -130,8 +129,8 @@ export default class nomExercice extends Exercice {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, matrices)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c, d...)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

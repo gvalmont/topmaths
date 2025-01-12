@@ -1,5 +1,3 @@
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable comma-dangle */
 export const dictionnaireEVACOM = {
   evacom_2023_LS_p1_1: {
     annee: '2023',

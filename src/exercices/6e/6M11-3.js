@@ -1,15 +1,15 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { cercle } from '../../lib/2d/cercle.js'
-import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages.js'
-import { point, pointAdistance, pointIntersectionCC } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { rotation, similitude, translation } from '../../lib/2d/transformations.js'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { cercle } from '../../lib/2d/cercle'
+import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages'
+import { point, pointAdistance, pointIntersectionCC } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -28,37 +28,35 @@ export const dateDePublication = '27/11/2022'
  *
  * @author Sébastien LOZANO
  * Lachement repiquer à Remi Angot et adapté
- * Référence 6M11-3
+
  */
 export const uuid = '5563e'
-export const ref = '6M11-3'
+
 export const refs = {
   'fr-fr': ['6M11-3'],
   'fr-ch': ['9GM1-1']
 }
-export default function AireCarresRectanglesTriangles () {
-  Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = 'Calculer le périmètre des 3 figures suivantes.'
-  this.spacing = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+export default class AireCarresRectanglesTriangles extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.amcReady = amcReady
+    this.amcType = amcType
+    this.interactif = false
+
+    this.consigne = 'Calculer le périmètre des 3 figures suivantes.'
+    this.spacing = 2
+
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+  }
+
+  nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')
-    this.listeQuestions = []
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
+
     const c = randint(2, 6)
     const L = randint(2, 5)
     const l = randint(2, 5, L)

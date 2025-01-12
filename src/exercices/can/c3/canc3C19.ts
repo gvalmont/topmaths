@@ -4,17 +4,17 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { prenomM, prenomF } from '../../../lib/outils/Personne'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Résoudre un problème avec une multiplication'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '31/10/2024'
-/*!
+/**
  * @author Gilles Mora
  */
 export const uuid = 'a24fb'
-export const ref = 'canc3C19'
+
 export const refs = {
   'fr-fr': ['canc3C19'],
   'fr-ch': []
@@ -25,9 +25,8 @@ export default class problemeMultiplication extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.spacing = 1.5
-    this.formatInteractif = 'calcul'
+
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -100,9 +99,8 @@ Combien cela coûte-t-il pour le collège ?`
         break
 
       case 5:
-        { const listeValeur = [[1000, 'mille'], [2000, 'deux mille'], [3000, 'trois mille'], [4000, 'quatre mille'], [5000, 'cinq mille'],
+        { const listeValeur: [number, string][] = [[1000, 'mille'], [2000, 'deux mille'], [3000, 'trois mille'], [4000, 'quatre mille'], [5000, 'cinq mille'],
           [6000, 'six mille'], [7000, 'sept mille'], [8000, 'huit mille'], [9000, 'neuf mille']]
-        // let a:[ number, string] = [0, '']
         const a = choice(listeValeur)
         const b = randint(9, 25)
         this.reponse = texNombre(a[0] * b, 0)
@@ -120,7 +118,7 @@ Combien cela coûte-t-il pour le collège ?`
 
       case 6:
         { const prenom = prenomF()
-          const listeValeur = [[4, 'trois'], [5, 'quatre'], [6, 'cinq'], [7, 'six']]
+          const listeValeur: [number, string][] = [[4, 'trois'], [5, 'quatre'], [6, 'cinq'], [7, 'six']]
           const a = choice(listeValeur)
           const b = randint(1, 2) * 10 + randint(1, 9)
           this.reponse = texNombre(a[0] * b, 0)

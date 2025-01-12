@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -9,12 +9,12 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Encadrer une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '20/09/2024'
-/*!
+export const dateDeModifImportante = '20/09/2024'
+/**
  * @author Gilles Mora
  */
 export const uuid = '0ad86'
-export const ref = 'can3C12'
+
 export const refs = {
   'fr-fr': ['can3C12'],
   'fr-ch': []
@@ -29,12 +29,7 @@ export default class EncadreRacine extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCanEnonces = []
     this.spacingCorr = 1.5
-    this.listeCanReponsesACompleter = []
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -57,18 +52,18 @@ $${Math.floor(Math.sqrt(a))}^2< ${a} < ${Math.ceil(Math.sqrt(a))}^2$<br>`
 
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: `${Math.floor(Math.sqrt(a))}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-        champ2: { value: `${Math.ceil(Math.sqrt(a))}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+        champ1: { value: `${Math.floor(Math.sqrt(a))}`, options: { nombreDecimalSeulement: true } },
+        champ2: { value: `${Math.ceil(Math.sqrt(a))}`, options: { nombreDecimalSeulement: true } }
       }
       )
 
       this.canEnonce = 'Compléter par deux entiers consécutifs.'
       this.canReponseACompleter = `$\\ldots < \\sqrt{${a}} <\\ldots$`
       if (this.questionJamaisPosee(i, a)) {
-        this.listeCorrections.push(this.correction)
-        this.listeQuestions.push(texte)
-        this.listeCanEnonces.push(this.canEnonce)
-        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+        this.listeCorrections[i] = this.correction
+        this.listeQuestions[i] = texte
+        this.listeCanEnonces[i] = this.canEnonce
+        this.listeCanReponsesACompleter[i] = this.canReponseACompleter
         i++
       }
       cpt++

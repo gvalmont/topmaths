@@ -1,0 +1,61 @@
+import { choice } from '../../../lib/outils/arrayOutils'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
+export const titre = 'Calculer une image par une fonction affine'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
+export const dateDeModifImportante = '13/10/2022'
+/**
+ * @author Jean-Claude Lhote/Gilles Mora
+  * Créé pendant l'été 2021
+
+*/
+export const uuid = 'cf55d'
+
+export const refs = {
+  'fr-fr': ['can3F03'],
+  'fr-ch': []
+}
+export default class CalculImageParFonctionAffine extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 1
+
+    this.typeExercice = 'simple'
+  }
+
+  nouvelleVersion () {
+    let nomF, x, n, m, y
+    switch (choice([1, 2])) {
+      case 1:
+        x = randint(-9, 9, [0, 1, -1])
+        n = choice([2, 4, 5])
+        m = randint(2, 6, [n, n * 2, n * 3])
+        nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
+        this.question = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${m}x+${n}$.<br>
+        
+        Quelle est l'image de $${x}$ par la fonction $${nomF}$ ?`
+        this.correction = `$${nomF}(x)=${m}x+${n}$ donc ici on a : $${nomF}(${x})=${m}\\times ${ecritureParentheseSiNegatif(x)}+${n}=${m * x}+${n}=${m * x + n}$.`
+        this.reponse = m * x + n
+        break
+      case 2:
+        x = randint(-9, 9, [0, 1, -1])
+        n = choice([2, 3, 5])
+        m = randint(2, 6, [n, n * 2, n * 3])
+        y = randint(-9, 9, [x, 0])
+        nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
+        this.question = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$.<br>
+            
+            Quelle est l'image de $${n * x}$ par la fonction $${nomF}$ ?`
+        this.correction = `$${nomF}(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$ donc ici on a : $${nomF}(${n * x})=\\dfrac{${m}}{${n}}\\times ${ecritureParentheseSiNegatif(n * x)}${ecritureAlgebrique(y)}=${m}\\times \\dfrac{${n * x}}{${n}}${ecritureAlgebrique(y)}=${m * x}${ecritureAlgebrique(y)}=${m * x + y}$.`
+        this.reponse = m * x + y
+        break
+    }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+  }
+}

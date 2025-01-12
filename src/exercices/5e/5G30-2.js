@@ -1,18 +1,18 @@
-import { arcPointPointAngle } from '../../lib/2d/cercle.js'
-import { texteSurArc } from '../../lib/2d/codages.js'
-import { droite } from '../../lib/2d/droites.js'
-import { point } from '../../lib/2d/points.js'
-import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { homothetie, rotation, translation } from '../../lib/2d/transformations.js'
+import { arcPointPointAngle } from '../../lib/2d/cercle'
+import { texteSurArc } from '../../lib/2d/codages'
+import { droite } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/points'
+import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { homothetie, rotation, translation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { pickRandom } from 'mathjs'
 import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { abs } from '../../lib/outils/nombres'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
 export const dateDeModifImportante = '21/01/2024'
@@ -71,41 +71,39 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
  * rendu interactif par Guillaume Valmont le 21/01/2024
 */
 export const uuid = '19812'
-export const ref = '5G30-2'
+
 export const refs = {
   'fr-fr': ['5G30-2'],
   'fr-ch': ['11ES2-2']
 }
-export default function ExercicesAnglesAIC () {
-  Exercice.call(this)
-  const formulaire = [
-    '1 : Angles marqués alternes-internes ou correspondants ?',
-    '2 : Déterminer si des droites sont parallèles (angles marqués).',
-    '3 : Déterminer si des droites sont parallèles (angles nommés).',
-    '4 : Calculer la mesure d\'un angle (angles marqués).',
-    '5 : Calculer la mesure d\'un angle (angles nommés).',
-    '6 : Marquer un angle alterne-interne ou correspondant à un angle marqué.',
-    '7 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
-    '8 : Mélange'
-  ]
+export default class ExercicesAnglesAIC extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 1
-  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n' + formulaire.join('\n')]
+    const formulaire = [
+      '1 : Angles marqués alternes-internes ou correspondants ?',
+      '2 : Déterminer si des droites sont parallèles (angles marqués).',
+      '3 : Déterminer si des droites sont parallèles (angles nommés).',
+      '4 : Calculer la mesure d\'un angle (angles marqués).',
+      '5 : Calculer la mesure d\'un angle (angles nommés).',
+      '6 : Marquer un angle alterne-interne ou correspondant à un angle marqué.',
+      '7 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
+      '8 : Mélange'
+    ]
 
-  this.consigne = ''
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 1
-  this.video = ''
-  this.correctionDetailleeDisponible = false
-  this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 1.75) : (this.spacing = 0)
-  context.isHtml ? (this.spacingCorr = 1.75) : (this.spacingCorr = 0)
-  this.sup = 8 // Type d'exercice
-  this.nbQuestions = 3
+    this.nbQuestions = 1
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n' + formulaire.join('\n')]
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
+    this.nbCols = 2
+    this.nbColsCorr = 2
+
+    context.isHtml ? (this.spacing = 1.75) : (this.spacing = 0)
+    context.isHtml ? (this.spacingCorr = 1.75) : (this.spacingCorr = 0)
+    this.sup = 8 // Type d'exercice
+    this.nbQuestions = 3
+  }
+
+  nouvelleVersion () {
     const nquestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 7,
@@ -1415,8 +1413,8 @@ export default function ExercicesAnglesAIC () {
         if (this.interactif) {
           exercice.texte = exercice.texte + monQcm.texte
         }
-        this.listeQuestions.push(exercice.texte)
-        this.listeCorrections.push(exercice.texteCorr)
+        this.listeQuestions[i] = exercice.texte
+        this.listeCorrections[i] = exercice.texteCorr
         i++
       }
       cpt++

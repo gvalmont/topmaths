@@ -34,11 +34,11 @@ export const dateDePublication = '28/11/2024'
 export default class Exercice3A10DNB0 extends ExerciceBrevetA {
   constructor () {
     super()
-    this.spacing = 1
+
     this.spacingCorr = 2
     this.besoinFormulaireCaseACocher = ['Sujet original', false]
     this.sup = false
-    this.nbQuestionsModifiable = true
+
     this.versionAleatoire()
     this.introduction = texteItalique('D\'après l\'exercice 5 du brevet Métropole 2024.')
   }
@@ -85,8 +85,8 @@ ${deuxColonnesResp(
   mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets),
   {
     largeur1: 50,
-    widthmincol1: 150,
-    widthmincol2: 150,
+    widthmincol1: '150px',
+    widthmincol2: '150px',
     eleId: ''
   }
 )}`
@@ -119,14 +119,14 @@ ${deuxColonnesResp(
   })}
   ${texteEnCouleurEtGras('PARTIE B', 'black')}<br>
   Le volume de la piscine est en $\\text{m}^3$ : $${longueur} \\times ${largeur} \\times ${texNombre(hauteur, 1)} =${texNombre(volume, 1)}$, soit $${texNombre(volume, 1)}\\text{m}^3$.<br>
-  Le prix d'un remplissage total de ce volume d'eau est :$${texNombre(volume, 1)}\\times ${texNombre(prixM3,2,true)}=${texNombre(volume*prixM3,2,true)}$ €.<br>
+  Le prix d'un remplissage total de ce volume d'eau est :$${texNombre(volume, 1)}\\times ${texNombre(prixM3, 2, true)}=${texNombre(volume * prixM3, 2, true)}$ €.<br>
   La question ayant été jugée ambigue, voici trois réponses possibles (la première est celle envisagée initialement par l'auteur du sujet) :<br>
   ${createList({
-    items:  [
-      `Si on considère que la question porte sur le coût de remplissage de $${fracR.texFractionSimplifiee}$ du volume total de la piscine, alors le prix du remplissage est :  $${fracR.texFractionSimplifiee}\\times ${texNombre(volume*prixM3,2,true)}=${texNombre(prixFinal, 2, true)}$ €.`,
-      `Si on considère que la piscine est déjà remplie de $${fracR.texFractionSimplifiee}$ du volume total et qu'on veut la remplir totalement, alors il reste $${fraction(1,1).differenceFraction(fracR).texFractionSimplifiee}$ du volume à remplir.<br>
-      Le prix du remplissage est alors : $${fraction(1,1).differenceFraction(fracR).texFractionSimplifiee}\\times ${texNombre(volume*prixM3,2,true)}=${texNombre(volume*prixM3-prixFinal,2,true)}$ €.`,
-      `Si on considère que la question porte sur le remplissage complet de la piscine, alors le prix du remplissage est : $${texNombre(volume*prixM3,2,true)}$ €.`
+    items: [
+      `Si on considère que la question porte sur le coût de remplissage de $${fracR.texFractionSimplifiee}$ du volume total de la piscine, alors le prix du remplissage est :  $${fracR.texFractionSimplifiee}\\times ${texNombre(volume * prixM3, 2, true)}=${texNombre(prixFinal, 2, true)}$ €.`,
+      `Si on considère que la piscine est déjà remplie de $${fracR.texFractionSimplifiee}$ du volume total et qu'on veut la remplir totalement, alors il reste $${fraction(1, 1).differenceFraction(fracR).texFractionSimplifiee}$ du volume à remplir.<br>
+      Le prix du remplissage est alors : $${fraction(1, 1).differenceFraction(fracR).texFractionSimplifiee}\\times ${texNombre(volume * prixM3, 2, true)}=${texNombre(volume * prixM3 - prixFinal, 2, true)}$ €.`,
+      `Si on considère que la question porte sur le remplissage complet de la piscine, alors le prix du remplissage est : $${texNombre(volume * prixM3, 2, true)}$ €.`
     ],
     style: 'fleches'
   })}`

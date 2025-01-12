@@ -3,12 +3,11 @@ import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { round } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const uuid = 'a1d0b'
 export const titre = 'Calculer avec des nombres en notation scientifique'
@@ -25,9 +24,7 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
 export default class CalculerAvecEcritureScientifique extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.interactifReady = interactifReady
-    this.interactifType = interactifType
+
     this.correctionDetailleeDisponible = true
     context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
     if (!context.isHtml) {
@@ -45,7 +42,6 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // Produit
@@ -112,11 +108,11 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
           break
       }
       texte += ajouteChampTexteMathLive(this, i)
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ecritureScientifique: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { ecritureScientifique: true } } })
       if (this.questionJamaisPosee(i, reponse, somme, a, b, c, prod)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

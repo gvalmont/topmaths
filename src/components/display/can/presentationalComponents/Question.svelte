@@ -6,6 +6,7 @@
   import { keyboardState } from '../../../keyboard/stores/keyboardStore'
   import type { MathfieldElement } from 'mathlive'
   import { canOptions } from '../../../../lib/stores/canStore'
+    import { questionCliqueFigure } from '../../../../lib/interactif/cliqueFigure';
 
   export let question: string
   export let consigne: string
@@ -23,12 +24,14 @@
     ) as HTMLDivElement
     if (questionContent) {
       mathaleaRenderDiv(questionContent)
+      setSizeWithinSvgContainer(questionContent)
     }
     loadMathLive()
   })
 
   afterUpdate(() => {
     if (visible) {
+      updateInteractivity()
       const questionContent = document.getElementById(
         `question-content-${index}`
       ) as HTMLDivElement
@@ -36,8 +39,7 @@
     }
   })
 
-  $: {
-    if (visible) {
+  function  updateInteractivity(){
       if (questionContainer) {
         const mf = questionContainer?.querySelector('math-field') as MathfieldElement
         if (mf) {
@@ -62,23 +64,45 @@
           }, 0)
         } else {
           // on n'a pas trouvé de math-field, c'est pas du mathlive !
-          const qcm = questionContainer?.querySelectorAll('input')
-          if (qcm == null || qcm.length < 2) {
-            window.notify('Question.svelte vérifie un qcm qui n\'a pas 2 inputs minimum ou alors, il n\'y a pas d\'input', { qcm: JSON.stringify(qcm) })
-            $canOptions.questionGetAnswer[index] = false
-          } else {
-            for (const box of qcm) {
-              box.addEventListener('click', el => {
-                if (el.currentTarget?.checked) {
-                  $canOptions.questionGetAnswer[index] = true
-                }
+          const figureCliquables = questionContainer?.querySelectorAll('[id^="cliquefigure"]')
+          if (figureCliquables.length > 0) {
+            $keyboardState.isVisible = false
+            for (const figureCliquable of figureCliquables) {
+              questionCliqueFigure(figureCliquable)
+              figureCliquable.addEventListener('click', () => {
+                const val = Array.from(figureCliquables).reduce((acc, b) => {
+                    if ((b as any).etat) {
+                      acc = true
+                    }
+                    return acc
+                  }, false)
+                $canOptions.questionGetAnswer[index] = val
               })
+            }
+          } else {
+            const qcm = questionContainer?.querySelectorAll('input')
+            if (qcm.length < 2) {
+              window.notify('Question.svelte vérifie un qcm qui n\'a pas 2 inputs minimum ou alors, il n\'y a pas d\'input', { qcm: JSON.stringify(qcm) })
+              $canOptions.questionGetAnswer[index] = false
+            } else {
+              $keyboardState.isVisible = false
+              for (const box of qcm) {
+                box.addEventListener('click', () => {
+                  const val = Array.from(qcm).reduce((acc, b) => {
+                    if (b.checked) {
+                      acc = true
+                    }
+                    return acc
+                  }, false)
+                  // au moins 1 coché
+                  $canOptions.questionGetAnswer[index] = val                  
+                })
+              }
             }
           }
         }
       }
     }
-  }
 </script>
 
 <div

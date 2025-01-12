@@ -1,16 +1,16 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
-import { infoMessage, lampeMessage } from '../../lib/format/message.js'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { infoMessage, lampeMessage } from '../../lib/format/message'
+import { numAlpha } from '../../lib/outils/outilString'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context.js'
-import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines.js'
-import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs.js'
+import { context } from '../../modules/context'
+import { machineMathsVideo, tikzMachineDiag, tikzMachineMaths } from '../../modules/machines'
+import { SvgMachineDiag3F12, SvgMachineDiag3F1ActMono } from '../../modules/macroSvgJs'
 import {
   listeQuestionsToContenu,
   randint
-} from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+} from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Fonctions : Notion et vocabulaire'
 
@@ -24,7 +24,7 @@ export const titre = 'Fonctions : Notion et vocabulaire'
  * @author Sébastien Lozano
  */
 export const uuid = '77d18'
-export const ref = '3F1-act'
+
 export const refs = {
   'fr-fr': ['3F1-act'],
   'fr-ch': ['10FA5-3']
@@ -55,28 +55,30 @@ export function katexPopup (texte, titrePopup, textePopup) {
   }
 }
 
-export default function FonctionNotionVocabulaire () {
-  Exercice.call(this)
-  this.sup = 1
-  this.titre = titre
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Étudier différents procédés de calcul.'
-  context.isHtml ? this.spacing = 3 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  // this.nbQuestions;// = 4;
-  this.nbQuestionsModifiable = false
-  // this.correctionDetailleeDisponible = true;
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 5
+export default class FonctionNotionVocabulaire extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de fonction', 5, '1 : Périmètre d\'un carré\n2 : Aire d\'un carré\n3 : Somme de 1 et du triple du nombre de départ\n4 : Nombre de diviseurs d\'un entier positif\n5 : Les quatre']
 
-  const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+    this.sup = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
+    // pas de différence entre la version html et la version latex pour la consigne
+    this.consigne = 'Étudier différents procédés de calcul.'
+    context.isHtml ? this.spacing = 3 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    // this.nbQuestions;// = 4;
+    this.nbQuestionsModifiable = false
+    // this.correctionDetailleeDisponible = true;
+
+    this.sup = 5
+  }
+
+  nouvelleVersion (numeroExercice) {
+    const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+
     let typesDeQuestions
     let j, idDuDivDiag, idDuDivCorr
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     let typesDeQuestionsDisponibles
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
     switch (this.sup) {
@@ -651,13 +653,12 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
       }
 
       if (this.questionJamaisPosee(i, typesDeQuestions, x, y, z)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de fonction', 5, '1 : Périmètre d\'un carré\n2 : Aire d\'un carré\n3 : Somme de 1 et du triple du nombre de départ\n4 : Nombre de diviseurs d\'un entier positif\n5 : Les quatre']
 }

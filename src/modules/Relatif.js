@@ -158,7 +158,7 @@ export class Relatif {
 
   /**
    * Fonction locale
-   * @param {integer} n un entier désignant le cardinal de facteurs négatifs dans un produit
+   * @param {number} n un entier désignant le cardinal de facteurs négatifs dans un produit
    * @return un string au singulier ou au pluriel
    * @example orth_facteurs_negatifs(0) ou orth_facteurs_negatifs(1) renvoie 'facteur negatif'
    * @example orth_facteurs_negatifs(7) renvoie 'facteurs negatifs'

@@ -1,24 +1,24 @@
-import { codageAngleDroit } from '../../../lib/2d/angles.js'
-import { codageSegment } from '../../../lib/2d/codages.js'
-import { milieu, point } from '../../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { ellipse } from '../../../lib/2d/projections3d.js'
-import { demiDroite, segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
+import { codageAngleDroit } from '../../../lib/2d/angles'
+import { codageSegment } from '../../../lib/2d/codages'
+import { milieu, point } from '../../../lib/2d/points'
+import { polygoneAvecNom } from '../../../lib/2d/polygones'
+import { ellipse } from '../../../lib/2d/projections3d'
+import { demiDroite, segment } from '../../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { fraction } from '../../../modules/fractions.js'
-import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { fraction } from '../../../modules/fractions'
+import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { min, round } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 3e sujet 2021'
@@ -28,34 +28,35 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '30/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * Gilles Mora
- * Référence
+
  */
 function compareNombres (a, b) {
   return a - b
 }
 
 export const uuid = 'afd9f'
-export const ref = 'can3a-2021'
+
 export const refs = {
   'fr-fr': ['can3a-2021'],
   'fr-ch': []
 }
-export default function SujetCAN20213ieme () {
-  Exercice.call(this)
-  this.nbQuestions = 30// 10,20,30
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+export default class SujetCAN20213ieme extends Exercice {
+  constructor () {
+    super()
+
+    this.nbQuestions = 30// 10,20,30
+
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+  }
+
+  nouvelleVersion () {
     const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 22)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8]).slice(-nbQ1).sort(compareNombres)
@@ -431,7 +432,7 @@ export default function SujetCAN20213ieme () {
 
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: d }).toString(), options: { HMS: true } } })
 
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
 
@@ -690,7 +691,7 @@ export default function SujetCAN20213ieme () {
 
           reponse = b.simplifie()
 
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
 
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -965,7 +966,7 @@ export default function SujetCAN20213ieme () {
   On en déduit que la probabilité d'obtenir un nombre premier est : $${texFractionFromString(b + 4, a)}${simplificationDeFractionAvecEtapes(b + 4, a)}$.`
             reponse = [fraction(b + 4, a), fraction(b + 4, a).simplifie()]
           }
-          handleAnswers(this, i, { reponse: { value: fraction(b + 4, a).toLatex(), compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: fraction(b + 4, a).toLatex() } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ')
           }
@@ -1075,8 +1076,8 @@ export default function SujetCAN20213ieme () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += nbChamps
       }

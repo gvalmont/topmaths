@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -9,7 +9,6 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculs avec des grands traits de fractions'
 export const interactifReady = true
@@ -135,11 +134,11 @@ export default class CalculsAvecGrandsTraitsDeFraction extends Exercice {
       if (this.interactif) {
         texte += '<br><br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: `$${lettreDepuisChiffre(i + 1)} = $` })
         // @ts-expect-error typage handleanswer
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+        handleAnswers(this, i, { reponse: { value: answer, options: { resultatSeulementEtNonOperation: true } } })
       }
       if (this.questionJamaisPosee(i, answer)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

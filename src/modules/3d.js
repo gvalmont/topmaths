@@ -1,14 +1,14 @@
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
-import { distancePointDroite, droite } from '../lib/2d/droites.js'
-import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points.js'
-import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones.js'
-import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../lib/2d/textes.ts'
-import { translation } from '../lib/2d/transformations.js'
+import { distancePointDroite, droite } from '../lib/2d/droites'
+import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points'
+import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones'
+import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../lib/2d/textes'
+import { translation } from '../lib/2d/transformations'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires'
 import { arrondi } from '../lib/outils/nombres'
-import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, vide2d } from './2dGeneralites.js'
-import { context } from './context.js'
+import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, vide2d } from './2dGeneralites'
+import { context } from './context'
 
 const math = { matrix, multiply, norm, cross, dot }
 
@@ -23,21 +23,7 @@ const math = { matrix, multiply, norm, cross, dot }
  *
  * @author Rémi Angot
  */
-let numId = 0
-
-function ObjetMathalea2D () {
-  this.positionLabel = 'above'
-  this.isVisible = true
-  this.color = colorToLatexOrHTML('black')
-  this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
-  this.styleTikz = ''
-  this.epaisseur = 1
-  this.opacite = 1
-  this.pointilles = false
-  this.id = numId
-  numId++
-  if (context.isInEditor) context.objets2D.push(this)
-}
+// let numId = 0
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -65,7 +51,7 @@ export class Point3d {
     this.typeObjet = 'point3d'
     const V = math.matrix([this.x, this.y, this.z])
     const W = math.multiply(MT, V)
-    this.c2d = point(W._data[0], W._data[1], this.label, positionLabel)
+    this.c2d = point(arrondi(W._data[0], 2), arrondi(W._data[1], 2), this.label, positionLabel)
   }
 }
 
@@ -114,7 +100,7 @@ class Vecteur3d {
         this.z = args[0]._data[2]
       }
     }
-    this.matrice = math.matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math.js
+    this.matrice = math.matrix([this.x, this.y, this.z]) // On exporte cette matrice colonne utile pour les calculs vectoriels qui seront effectués par math
     this.norme = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2) // la norme du vecteur
     const W = math.multiply(MT, this.matrice) // voilà comment on obtient les composantes du projeté 2d du vecteur
     this.c2d = vecteur(W._data[0], W._data[1]) // this.c2d est l'objet 2d qui représente l'objet 3d this
@@ -392,43 +378,6 @@ export function polygone3d (...args) {
  * @param {string} color
  */
 
-/*
-function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
-  ObjetMathalea2D.call(this, { })
-  this.centre = centre
-  this.rayon = vecteur3d(rayon, 0, 0)
-  this.normal = vecteur3d(0, 0, 1)
-  this.color = color
-  this.nbMeridiens = nbMeridiens
-  this.nbParalleles = nbParalleles
-  this.c2d = []; let c1; let c2; let c3; let c4; let C; let D
-  const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
-  const rayon2 = vecteur3d(math.cross(this.rayon.matrice, math.multiply(prodvec.matrice, 1 / math.norm(prodvec.matrice))))
-  const R = rayon
-  const cote1 = 'caché'
-  const cote2 = 'visible'
-  for (let k = 0, rayon3; k < 1; k += 1 / (this.nbParalleles + 1)) {
-    C = point3d(centre.x, centre.y, centre.z + R * Math.sin(k * Math.PI / 2))
-    D = point3d(centre.x, centre.y, centre.z + R * Math.sin(-k * Math.PI / 2))
-    rayon3 = vecteur3d(R * Math.cos(k * Math.PI / 2), 0, 0)
-    c1 = demicercle3d(C, this.normal, rayon3, cote1, this.color, context.anglePerspective)
-    c2 = demicercle3d(C, this.normal, rayon3, cote2, this.color, context.anglePerspective)
-    c3 = demicercle3d(D, this.normal, rayon3, cote1, this.color, context.anglePerspective)
-    c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, context.anglePerspective)
-    this.c2d.push(c1, c2, c3, c4)
-  }
-  for (let k = 0, V; k < 181; k += 90 / this.nbMeridiens) {
-    V = rotationV3d(prodvec, this.normal, context.anglePerspective + k)
-    c1 = demicercle3d(this.centre, V, rayon2, cote2, this.color, 0)
-    c2 = demicercle3d(this.centre, V, rayon2, cote1, this.color, 0)
-    this.c2d.push(c1, c2)
-  }
-}
-export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'black') {
-  return new Sphere3d(centre, rayon, nbParalleles, nbMeridiens, color)
-}
-*/
-
 /**
  * Classe de la sphère
  * @param {Point3d} centre Centre de la sphère
@@ -442,6 +391,7 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
  * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la sphère.
  * @param {string} [colorAxe = 'black'] Couleur de l'axe de la sphère : du type 'blue' ou du type '#f15929'
  * @param {number} inclinaison angle d'inclinaison de l'axe N-S
+ * @param {boolean} faceCachee Si false on économise tout ce qui est en pointillé à l'arrière.
  * @property {Point3d} centre Centre de la sphère
  * @property {Vecteur3d} rayon Rayon de la sphère
  * @property {string} colorEquateur Couleur de l'équateur : du type 'blue' ou du type '#f15929'
@@ -456,363 +406,380 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @class
  */
-function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black', inclinaison = 0) {
-  ObjetMathalea2D.call(this, {})
-  this.centre = centre
-  this.rayon = rayon
-  this.colorEquateur = colorEquateur
-  this.colorEnveloppe = colorEnveloppe
-  this.nbParalleles = nbParalleles
-  this.colorParalleles = colorParalleles
-  this.nbMeridiens = nbMeridiens
-  this.colorMeridiens = colorMeridiens
-  this.affichageAxe = affichageAxe
-  this.colorAxe = colorAxe
-  const droiteRot = droite3d(point3d(this.centre.x, this.centre.y, this.centre.z), vecteur3d(0, 1, 0))
-  const poleNord = rotation3d(
-    point3d(
-      this.centre.x,
-      this.centre.y,
-      this.centre.z + this.rayon,
-      true,
-      choisitLettresDifferentes(1, 'OQWX' + this.centre.label)[0],
-      'left'
-    ),
-    droiteRot,
-    inclinaison)
-  const poleSud = rotation3d(
-    point3d(
-      this.centre.x,
-      this.centre.y,
-      this.centre.z - this.rayon,
-      true,
-      choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label)[0],
-      'left'
-    ),
-    droiteRot,
-    inclinaison)
-  const nbParallelesDeConstruction = 36 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
-  const divisionParalleles = this.nbParalleles !== 0 ? Math.round(2 * nbParallelesDeConstruction / this.nbParalleles) : 1
-  let unDesParalleles
-  let centreParallele
-  let rayonDuParallele
-  let normal
-  const paralleles = {
-    listePoints3d: [],
-    ptCachePremier: [],
-    indicePtCachePremier: [],
-    ptCacheDernier: [],
-    indicePtCacheDernier: []
-  }
-  const enveloppeSphere1 = []
-  let enveloppeSphere2 = []
-  let premierParallele = 100
-  let indicePremier
-  let indiceDernier
-  this.c2d = []
+export class Sphere3d extends ObjetMathalea2D {
+  constructor (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
+    super()
+    this.centre = centre
+    this.rayon = rayon
+    this.objets = []
+    this.colorEquateur = colorEquateur
+    this.colorEnveloppe = colorEnveloppe
+    this.nbParalleles = nbParalleles
+    this.colorParalleles = colorParalleles
+    this.nbMeridiens = nbMeridiens
+    this.colorMeridiens = colorMeridiens
+    this.affichageAxe = affichageAxe
+    this.colorAxe = colorAxe
+    const droiteRot = droite3d(point3d(this.centre.x, this.centre.y, this.centre.z), vecteur3d(0, 1, 0))
+    const poleNord = rotation3d(
+      point3d(
+        this.centre.x,
+        this.centre.y,
+        this.centre.z + this.rayon,
+        true,
+        choisitLettresDifferentes(1, 'OQWX' + this.centre.label)[0],
+        'left'
+      ),
+      droiteRot,
+      inclinaison)
+    const poleSud = rotation3d(
+      point3d(
+        this.centre.x,
+        this.centre.y,
+        this.centre.z - this.rayon,
+        true,
+        choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label)[0],
+        'left'
+      ),
+      droiteRot,
+      inclinaison)
+    const nbParallelesDeConstruction = 36 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
+    const divisionParalleles = this.nbParalleles !== 0 ? Math.round(2 * nbParallelesDeConstruction / this.nbParalleles) : 1
+    let unDesParalleles
+    let centreParallele
+    let rayonDuParallele
+    let normal
+    const paralleles = {
+      listePoints3d: [],
+      ptCachePremier: [],
+      indicePtCachePremier: [],
+      ptCacheDernier: [],
+      indicePtCacheDernier: []
+    }
+    const enveloppeSphere1 = []
+    let enveloppeSphere2 = []
+    let premierParallele = 100
+    let indicePremier
+    let indiceDernier
+    this.c2d = []
 
-  // Construction de tous les paralleles
+    // Construction de tous les paralleles
 
-  // Construction du parallèle le plus proche du pôle nord
-  centreParallele = rotation3d(
-    point3d(
-      this.centre.x,
-      this.centre.y,
-      this.centre.z + this.rayon * Math.sin((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2)
-    ),
-    droiteRot,
-    inclinaison
-  )
-  rayonDuParallele = rotation3d(
-    vecteur3d(this.rayon * Math.cos((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2), 0, 0),
-    droiteRot,
-    inclinaison)
-  normal = rotation3d(
-    vecteur3d(0, 0, 1),
-    droiteRot,
-    inclinaison)
-  unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
-  paralleles.listePoints3d.push(unDesParalleles[1])
-  paralleles.ptCachePremier.push('')
-  paralleles.indicePtCachePremier.push('')
-  paralleles.ptCacheDernier.push('')
-  paralleles.indicePtCacheDernier.push('')
-
-  // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
-  for (let k = nbParallelesDeConstruction - 2, poly, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
+    // Construction du parallèle le plus proche du pôle nord
     centreParallele = rotation3d(
       point3d(
         this.centre.x,
         this.centre.y,
-        this.centre.z + this.rayon * Math.sin(k / nbParallelesDeConstruction * Math.PI / 2)
+        this.centre.z + this.rayon * Math.sin((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2)
       ),
       droiteRot,
-      inclinaison)
+      inclinaison
+    )
     rayonDuParallele = rotation3d(
-      vecteur3d(this.rayon * Math.cos(k / nbParallelesDeConstruction * Math.PI / 2), 0, 0),
+      vecteur3d(this.rayon * Math.cos((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2), 0, 0),
       droiteRot,
       inclinaison)
-
-    normal = rotation3d(vecteur3d(0, 0, 1), droiteRot, inclinaison)
-    poly = polygone(unDesParalleles[2])
-    poly.isVisible = false
-    unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele, false)
+    normal = rotation3d(
+      vecteur3d(0, 0, 1),
+      droiteRot,
+      inclinaison)
+    unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
     paralleles.listePoints3d.push(unDesParalleles[1])
-    for (let ee = 0; ee < paralleles.listePoints3d[0].length; ee++) {
-      paralleles.listePoints3d[j][ee].isVisible = !(paralleles.listePoints3d[j][ee].c2d.estDansPolygone(poly))
-    }
     paralleles.ptCachePremier.push('')
     paralleles.indicePtCachePremier.push('')
     paralleles.ptCacheDernier.push('')
     paralleles.indicePtCacheDernier.push('')
 
-    for (let ee = 0, s, s1, d1, d2, jj, pt; ee < paralleles.listePoints3d[0].length; ee++) {
-      s = segment(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
-      s.isVisible = false
-      // Recherche du point d'intersection entre le parallèle actuel et le précédent.
-      if ((!paralleles.listePoints3d[j][ee].isVisible) && (paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
-        jj = ee - 3
-        s1 = segment(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
-        s1.isVisible = false
-        // Le point d'intersection avec ce segment précis du parallèle actuel est avec l'un des 7 (nombre totalement empirique) segments les plus proches du parallèle précédent.
-        while (!s.estSecant(s1)) {
-          jj++
-          s1 = segment(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
-          s1.isVisible = false
-        }
+    // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
+    for (let k = nbParallelesDeConstruction - 2, poly, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
+      centreParallele = rotation3d(
+        point3d(
+          this.centre.x,
+          this.centre.y,
+          this.centre.z + this.rayon * Math.sin(k / nbParallelesDeConstruction * Math.PI / 2)
+        ),
+        droiteRot,
+        inclinaison)
+      rayonDuParallele = rotation3d(
+        vecteur3d(this.rayon * Math.cos(k / nbParallelesDeConstruction * Math.PI / 2), 0, 0),
+        droiteRot,
+        inclinaison)
 
-        // s étant secant avec s1, on mène plusieurs actions :
-        d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
-        d1.isVisible = false
-        d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
-        d2.isVisible = false
-        pt = pointIntersectionDD(d1, d2) // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
-        enveloppeSphere1.push(pt)
-        //  2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
-        // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
-        if (premierParallele >= j) {
-          premierParallele = j
-          indicePremier = jj % paralleles.listePoints3d[0].length
-        }
-        // 3) On note ce point pour le futur tracé du parallèle, si besoin
-        paralleles.ptCachePremier[j] = pt
-        paralleles.indicePtCachePremier[j] = ee
-      } else if ((paralleles.listePoints3d[j][ee].isVisible) && (!paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
-        // Si le point précédent était l'entrée dans la partie cachée, alors celui-ci sera celui de l'entrée dans la partie visible (ou inversement)
-        // car pour chaque parallèle intersecté avec le précédent, il y a "forcément" deux points sauf tangence mais ce n'est pas un pb.
-        jj = ee - 3
-        s1 = segment(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
-        s1.isVisible = false
-        // On recherche le point d'intersection
-        while (!s.estSecant(s1)) {
-          jj++
-          s1 = segment(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
-          s1.isVisible = false
-        }
-        // s étant secant avec s1, on mène plusieurs actions :
-        d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
-        d1.isVisible = false
-        d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
-        d2.isVisible = false
-        pt = pointIntersectionDD(d1, d2)
-        // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
-        enveloppeSphere2.push(pt)
-        // 2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
-        // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Sud.
-        if (premierParallele >= j) {
-          premierParallele = j
-          indiceDernier = jj
-        }
-        // 3) On note ce point pour le futur tracé du parallèle, si besoin
-        paralleles.ptCacheDernier[j] = pt
-        paralleles.indicePtCacheDernier[j] = ee
-      }
-    }
-    j++
-  }
-
-  if (this.nbParalleles !== 0) {
-    let t = tracePoint(poleNord.c2d, this.colorParalleles)
-    t.style = 'o'
-    t.taille = 0.5
-    this.c2d.push(t)
-    t = tracePoint(poleSud.c2d, assombrirOuEclaircir(this.colorParalleles, 50))
-    t.style = 'o'
-    t.taille = 0.5
-    this.c2d.push(t)
-  }
-
-  // Construction des parallèles demandés
-  for (let k = nbParallelesDeConstruction, j = -1; k > -nbParallelesDeConstruction; k -= 1) {
-    const polyLineVisible = [] // Contient l'ensemble des points du parallèle contenus dans la partie visible
-    let polyLineCachee = [] // Idem pour la partie cachée.
-    if ((this.nbParalleles !== 0 || k === 0) && (k !== nbParallelesDeConstruction) && (k % divisionParalleles === 0)) { // k=0 : C'est l'équateur
+      normal = rotation3d(vecteur3d(0, 0, 1), droiteRot, inclinaison)
+      poly = polygone(unDesParalleles[2])
+      unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele, false)
+      paralleles.listePoints3d.push(unDesParalleles[1])
       for (let ee = 0; ee < paralleles.listePoints3d[0].length; ee++) {
-        if (paralleles.indicePtCachePremier[j] === ee) {
-          polyLineCachee.push(paralleles.ptCachePremier[j])
-        } else if (paralleles.indicePtCacheDernier[j] === ee) {
-          polyLineCachee.push(paralleles.ptCacheDernier[j])
-        } else {
-          // Tracé des pointilles ou pas des parallèles
-          if ((!paralleles.listePoints3d[j][ee].isVisible) && (!paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
-            polyLineCachee.push(paralleles.listePoints3d[j][ee].c2d)
+        paralleles.listePoints3d[j][ee].isVisible = !(paralleles.listePoints3d[j][ee].c2d.estDansPolygone(poly))
+      }
+      paralleles.ptCachePremier.push('')
+      paralleles.indicePtCachePremier.push('')
+      paralleles.ptCacheDernier.push('')
+      paralleles.indicePtCacheDernier.push('')
+
+      for (let ee = 0, s, s1, d1, d2, jj, pt; ee < paralleles.listePoints3d[0].length; ee++) {
+        s = segment(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
+        // Recherche du point d'intersection entre le parallèle actuel et le précédent.
+        if ((!paralleles.listePoints3d[j][ee].isVisible) && (paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
+          jj = ee - 3
+          s1 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
+          // Le point d'intersection avec ce segment précis du parallèle actuel est avec l'un des 7 (nombre totalement empirique) segments les plus proches du parallèle précédent.
+          let cptBoucleInfinie = 0
+          while (!s.estSecant(s1) && cptBoucleInfinie < 7) {
+            jj++
+            s1 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
+            cptBoucleInfinie++
+          }
+          if (cptBoucleInfinie === 7) {
+            // console.info('Boucle infinie')
           } else {
-            polyLineVisible.push(paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
+            // s étant secant avec s1, on mène plusieurs actions :
+            d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
+            d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
+            pt = pointIntersectionDD(d1, d2) // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
+            enveloppeSphere1.push(pt)
+            //  2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
+            // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
+            if (premierParallele >= j) {
+              premierParallele = j
+              indicePremier = jj % paralleles.listePoints3d[0].length
+            }
+            // 3) On note ce point pour le futur tracé du parallèle, si besoin
+            paralleles.ptCachePremier[j] = pt
+            paralleles.indicePtCachePremier[j] = ee
+          }
+        } else if ((paralleles.listePoints3d[j][ee].isVisible) && (!paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
+          // Si le point précédent était l'entrée dans la partie cachée, alors celui-ci sera celui de l'entrée dans la partie visible (ou inversement)
+          // car pour chaque parallèle intersecté avec le précédent, il y a "forcément" deux points sauf tangence mais ce n'est pas un pb.
+          jj = ee - 3
+          s1 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
+          // On recherche le point d'intersection
+          let cptBoucleInfinie = 0
+          while (!s.estSecant(s1) && cptBoucleInfinie < 7) {
+            jj++
+            s1 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
+            cptBoucleInfinie++
+          }
+          if (cptBoucleInfinie === 7) {
+            // console.info('Boucle infinie')
+          } else {
+            // s étant secant avec s1, on mène plusieurs actions :
+            d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
+            d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
+            pt = pointIntersectionDD(d1, d2)
+            // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
+            enveloppeSphere2.push(pt)
+            // 2) Ensuite, si pt est le tout premier point d'intersection trouvé, on enregistre quel est le premier parallèle et quel est son indice
+            // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Sud.
+            if (premierParallele >= j) {
+              premierParallele = j
+              indiceDernier = jj
+            }
+            // 3) On note ce point pour le futur tracé du parallèle, si besoin
+            paralleles.ptCacheDernier[j] = pt
+            paralleles.indicePtCacheDernier[j] = ee
           }
         }
       }
-      if (k < 36 && k > -30) { // uniquement à bonne distance des pôles pour éviter les points trop proches
-        let securite = 0
-        if (polyLineCachee.length > 4) { // une précaution au cas où la liste de points est courte ça pourrait boucler à l'infini
-          while (securite < 10 && longueur(polyLineCachee[polyLineCachee.length - 1], polyLineCachee[0]) < 1) {
-            const dernierPoint = polyLineCachee.pop()
-            polyLineCachee = [point(dernierPoint.x, dernierPoint.y), ...polyLineCachee]
-            securite++
+      j++
+    }
+
+    if (this.nbParalleles !== 0) {
+      let t = tracePoint(poleNord.c2d, this.colorParalleles)
+      t.style = 'o'
+      t.taille = 0.5
+      this.c2d.push(t)
+      t = tracePoint(poleSud.c2d, assombrirOuEclaircir(this.colorParalleles, 50))
+      t.style = 'o'
+      t.taille = 0.5
+      this.c2d.push(t)
+    }
+
+    // Construction des parallèles demandés
+    for (let k = nbParallelesDeConstruction, j = -1; k > -nbParallelesDeConstruction; k -= 1) {
+      const polyLineVisible = [] // Contient l'ensemble des points du parallèle contenus dans la partie visible
+      let polyLineCachee = [] // Idem pour la partie cachée.
+      if ((this.nbParalleles !== 0 || k === 0) && (k !== nbParallelesDeConstruction) && (k % divisionParalleles === 0)) { // k=0 : C'est l'équateur
+        for (let ee = 0; ee < paralleles.listePoints3d[0].length; ee++) {
+          if (paralleles.indicePtCachePremier[j] === ee) {
+            polyLineCachee.push(paralleles.ptCachePremier[j])
+          } else if (paralleles.indicePtCacheDernier[j] === ee) {
+            polyLineCachee.push(paralleles.ptCacheDernier[j])
+          } else {
+            // Tracé des pointilles ou pas des parallèles
+            if (!paralleles.listePoints3d[j][ee].isVisible && (!paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
+              polyLineCachee.push(paralleles.listePoints3d[j][ee].c2d)
+            } else {
+              polyLineVisible.push(paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
+            }
           }
         }
-        if (polyLineVisible.length > 4) {
-          while (securite < 20 && longueur(polyLineVisible[polyLineVisible.length - 1], polyLineVisible[0]) < 1) {
-            const premierPoint = polyLineVisible.shift()
-            polyLineVisible.push(point(premierPoint.x, premierPoint.y))
-            securite++
+        if (k < 36 && k > -30) { // uniquement à bonne distance des pôles pour éviter les points trop proches
+          let securite = 0
+          if (polyLineCachee.length > 4) { // une précaution au cas où la liste de points est courte ça pourrait boucler à l'infini
+            while (securite < 10 && longueur(polyLineCachee[polyLineCachee.length - 1], polyLineCachee[0]) < 1) {
+              const dernierPoint = polyLineCachee.pop()
+              polyLineCachee = [point(dernierPoint.x, dernierPoint.y), ...polyLineCachee]
+              securite++
+            }
+          }
+          if (polyLineVisible.length > 4) {
+            while (securite < 20 && longueur(polyLineVisible[polyLineVisible.length - 1], polyLineVisible[0]) < 1) {
+              const premierPoint = polyLineVisible.shift()
+              polyLineVisible.push(point(premierPoint.x, premierPoint.y))
+              securite++
+            }
           }
         }
+        if (faceCachee) {
+          const ligneCachee = polyLineCachee.length > 0 ? polyline(...polyLineCachee) : null // parfois, il n'y a rien à cacher près du pôle nord
+          if (k === 0) { // là on est certain qu'il y a du monde à cacher
+            ligneCachee.color = colorToLatexOrHTML(this.colorEquateur)
+            ligneCachee.epaisseur = 1.5
+          } else {
+            if (ligneCachee) ligneCachee.color = colorToLatexOrHTML(this.colorParalleles)
+          }
+          if (faceCachee && ligneCachee) {
+            ligneCachee.pointilles = 4
+            ligneCachee.opacite = 0.5
+            this.c2d.push(ligneCachee)
+          }
+        }
+        const ligneVisible = polyLineVisible.length > 0 ? polyline(...polyLineVisible) : null // et rien non plus à montrer près du pôle sud.
+        if (k === 0) { // là on est certain qu'il y a du monde à montrer
+          ligneVisible.color = colorToLatexOrHTML(this.colorEquateur)
+          ligneVisible.epaisseur = 1.5
+        } else {
+          if (ligneVisible) ligneVisible.color = colorToLatexOrHTML(this.colorParalleles)
+        }
+        if (ligneVisible) {
+          this.c2d.push(ligneVisible)
+        }
       }
-      const ligneCachee = polyLineCachee.length > 0 ? polyline(...polyLineCachee) : null // parfois, il n'y a rien à cacher près du pôle nord
-      const ligneVisible = polyLineVisible.length > 0 ? polyline(...polyLineVisible) : null // et rien non plus à montrer près du pôle sud.
-      if (k === 0) { // là on est certain qu'il y a du monde à cacher et à montrer
-        ligneCachee.color = colorToLatexOrHTML(this.colorEquateur)
-        ligneCachee.epaisseur = 1.5
-        ligneVisible.color = colorToLatexOrHTML(this.colorEquateur)
-        ligneVisible.epaisseur = 1.5
-      } else {
-        if (ligneVisible) ligneVisible.color = colorToLatexOrHTML(this.colorParalleles)
-        if (ligneCachee) ligneCachee.color = colorToLatexOrHTML(this.colorParalleles)
-      }
-      if (ligneCachee) {
-        ligneCachee.pointilles = 4
-        ligneCachee.opacite = 0.5
-        this.c2d.push(ligneCachee)
-      }
-      if (ligneVisible) {
-        this.c2d.push(ligneVisible)
+      j++
+    }
+
+    // Construction des méridiens demandés
+    if (this.nbMeridiens !== 0) {
+      const divisionMeridiens = Math.round(36 / this.nbMeridiens)
+      for (let k = 0, s; k < 18; k += divisionMeridiens) {
+        const polyLineCachee1 = []
+        const polyLineVisible1 = []
+        const polyLineCachee2 = []
+        const polyLineVisible2 = []
+
+        for (let ee = 1; ee < paralleles.listePoints3d.length - 1; ee++) {
+          // Affichage des méridiens sans le dernier segment relié aux pôles
+          // s = segment(paralleles.listePoints3d[ee][k].c2d, paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k].c2d, this.colorMeridiens)
+          if ((!paralleles.listePoints3d[ee][k].isVisible) && (!paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k].isVisible)) {
+            //  s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+            //  s.opacite = 0.5
+            polyLineCachee1.push(paralleles.listePoints3d[ee][k].c2d)
+          } else {
+            polyLineVisible1.push(paralleles.listePoints3d[ee][k].c2d)
+          }
+          // this.c2d.push(s)
+          // s = segment(paralleles.listePoints3d[ee][k + 18].c2d, paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k + 18].c2d, this.colorMeridiens)
+          if ((!paralleles.listePoints3d[ee][k + 18].isVisible) && (!paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k + 18].isVisible)) {
+            //   s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+            //   s.opacite = 0.5
+            polyLineCachee2.push(paralleles.listePoints3d[ee][k + 18].c2d)
+          } else {
+            polyLineVisible2.push(paralleles.listePoints3d[ee][k + 18].c2d)
+          }
+        }
+        // Affichage de la partie reliée au pôle Nord
+        s = segment(poleNord.c2d, paralleles.listePoints3d[1][k].c2d, this.colorMeridiens)
+        this.c2d.push(s)
+        s = segment(paralleles.listePoints3d[1][k + 18].c2d, poleNord.c2d, this.colorMeridiens)
+        this.c2d.push(s)
+        // Affichage de la partie reliée au pôle Sud
+        s = segment(poleSud.c2d, paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k].c2d, this.colorMeridiens)
+        if (faceCachee && !paralleles.listePoints3d[paralleles.listePoints3d.length - 1][0].isVisible) {
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+          s.opacite = 0.5
+          this.c2d.push(s)
+        } else {
+          if (faceCachee) this.c2d.push(s)
+        }
+        s = segment(paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k + 18].c2d, poleSud.c2d, this.colorMeridiens)
+        if (faceCachee && !paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k].isVisible) {
+          s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
+          s.opacite = 0.5
+          this.c2d.push(s)
+        } else {
+          if (faceCachee) this.c2d.push(s)
+        }
+
+        const ligneVisible1 = polyline(...polyLineVisible1)
+        const ligneVisible2 = polyline(...polyLineVisible2)
+
+        if (faceCachee) {
+          const ligneCachee1 = polyline(...polyLineCachee1)
+          const ligneCachee2 = polyline(...polyLineCachee2)
+          ligneCachee1.pointilles = 4
+          ligneCachee1.opacite = 0.5
+          ligneCachee2.pointilles = 4
+          ligneCachee2.opacite = 0.5
+          this.c2d.push(ligneCachee1, ligneCachee2)
+        }
+        this.c2d.push(ligneVisible1, ligneVisible2)
       }
     }
-    j++
-  }
 
-  // Construction des méridiens demandés
-  if (this.nbMeridiens !== 0) {
-    const divisionMeridiens = Math.round(36 / this.nbMeridiens)
-    for (let k = 0, s; k < 18; k += divisionMeridiens) {
-      const polyLineCachee1 = []
-      const polyLineVisible1 = []
-      const polyLineCachee2 = []
-      const polyLineVisible2 = []
+    // L'enveloppe finale contiendra les points de l'enveloppe 1 + les points de l'enveloppe 2 inversée (sinon le polygone serait croisé)
+    // A cela, il faut ajouter les points autour des pôles car les premiers parallèles ne s'intersectent pas forcément.
+    enveloppeSphere2 = enveloppeSphere2.reverse()
+    const enveloppeSphere = [...enveloppeSphere1]
 
-      for (let ee = 1; ee < paralleles.listePoints3d.length - 1; ee++) {
-        // Affichage des méridiens sans le dernier segment relié aux pôles
-        // s = segment(paralleles.listePoints3d[ee][k].c2d, paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k].c2d, this.colorMeridiens)
-        if ((!paralleles.listePoints3d[ee][k].isVisible) && (!paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k].isVisible)) {
-          //  s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
-          //  s.opacite = 0.5
-          polyLineCachee1.push(paralleles.listePoints3d[ee][k].c2d)
-        } else {
-          polyLineVisible1.push(paralleles.listePoints3d[ee][k].c2d)
-        }
-        // this.c2d.push(s)
-        // s = segment(paralleles.listePoints3d[ee][k + 18].c2d, paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k + 18].c2d, this.colorMeridiens)
-        if ((!paralleles.listePoints3d[ee][k + 18].isVisible) && (!paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k + 18].isVisible)) {
-          //   s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
-          //   s.opacite = 0.5
-          polyLineCachee2.push(paralleles.listePoints3d[ee][k + 18].c2d)
-        } else {
-          polyLineVisible2.push(paralleles.listePoints3d[ee][k + 18].c2d)
-        }
-      }
-      // Affichage de la partie reliée au pôle Nord
-      s = segment(poleNord.c2d, paralleles.listePoints3d[1][k].c2d, this.colorMeridiens)
-      this.c2d.push(s)
-      s = segment(paralleles.listePoints3d[1][k + 18].c2d, poleNord.c2d, this.colorMeridiens)
-      this.c2d.push(s)
-      // Affichage de la partie reliée au pôle Sud
-      s = segment(poleSud.c2d, paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k].c2d, this.colorMeridiens)
-      if (!paralleles.listePoints3d[paralleles.listePoints3d.length - 1][0].isVisible) {
-        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
-        s.opacite = 0.5
-      }
-      this.c2d.push(s)
-      s = segment(paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k + 18].c2d, poleSud.c2d, this.colorMeridiens)
-      if (!paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k].isVisible) {
-        s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
-        s.opacite = 0.5
-      }
-      this.c2d.push(s)
-
-      const ligneCachee1 = polyline(...polyLineCachee1)
-      const ligneVisible1 = polyline(...polyLineVisible1)
-      const ligneCachee2 = polyline(...polyLineCachee2)
-      const ligneVisible2 = polyline(...polyLineVisible2)
-      ligneCachee1.pointilles = 4
-      ligneCachee1.opacite = 0.5
-      ligneCachee2.pointilles = 4
-      ligneCachee2.opacite = 0.5
-
-      this.c2d.push(ligneCachee1, ligneVisible1, ligneCachee2, ligneVisible2)
-    }
-  }
-
-  // L'enveloppe finale contiendra les points de l'enveloppe 1 + les points de l'enveloppe 2 inversée (sinon le polygone serait croisé)
-  // A cela, il faut ajouter les points autour des pôles car les premiers parallèles ne s'intersectent pas forcément.
-  enveloppeSphere2 = enveloppeSphere2.reverse()
-  const enveloppeSphere = [...enveloppeSphere1]
-
-  // Pour trouver les points du cercle apparent près du pôle sud
-  // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
-  let ii = 1
-  while ((indiceDernier + paralleles.listePoints3d[0].length / 2 + ii) % paralleles.listePoints3d[0].length < (indicePremier + paralleles.listePoints3d[0].length / 2) % paralleles.listePoints3d[0].length) {
-    enveloppeSphere.push(paralleles.listePoints3d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listePoints3d[0].length / 2 + ii) % paralleles.listePoints3d[0].length].c2d)
-    ii++
-  }
-  enveloppeSphere.push(...enveloppeSphere2)
-  // Pour trouver les points du cercle apparent près du pôle nord
-  // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
-  // La gestion des indices est plus compliquée car il arrive de repasser de 35 à 0 (36 modulo 36) d'où cette double gestion.
-
-  if (indiceDernier > indicePremier) {
-    ii = 1
-    while (indiceDernier + ii < indicePremier + paralleles.listePoints3d[0].length) {
-      enveloppeSphere.push(paralleles.listePoints3d[premierParallele][(indiceDernier + ii) % paralleles.listePoints3d[0].length].c2d)
+    // Pour trouver les points du cercle apparent près du pôle sud
+    // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
+    let ii = 1
+    while ((indiceDernier + paralleles.listePoints3d[0].length / 2 + ii) % paralleles.listePoints3d[0].length < (indicePremier + paralleles.listePoints3d[0].length / 2) % paralleles.listePoints3d[0].length) {
+      enveloppeSphere.push(paralleles.listePoints3d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listePoints3d[0].length / 2 + ii) % paralleles.listePoints3d[0].length].c2d)
       ii++
     }
-  } else {
-    ii = 1
-    while (indiceDernier + ii < indicePremier) {
-      enveloppeSphere.push(paralleles.listePoints3d[premierParallele][indiceDernier + ii].c2d)
-      ii++
+    enveloppeSphere.push(...enveloppeSphere2)
+    // Pour trouver les points du cercle apparent près du pôle nord
+    // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
+    // La gestion des indices est plus compliquée car il arrive de repasser de 35 à 0 (36 modulo 36) d'où cette double gestion.
+
+    if (indiceDernier > indicePremier) {
+      ii = 1
+      while (indiceDernier + ii < indicePremier + paralleles.listePoints3d[0].length) {
+        enveloppeSphere.push(paralleles.listePoints3d[premierParallele][(indiceDernier + ii) % paralleles.listePoints3d[0].length].c2d)
+        ii++
+      }
+    } else {
+      ii = 1
+      while (indiceDernier + ii < indicePremier) {
+        enveloppeSphere.push(paralleles.listePoints3d[premierParallele][indiceDernier + ii].c2d)
+        ii++
+      }
     }
-  }
-  const p = polygone(enveloppeSphere, this.colorEnveloppe)
-  p.epaisseur = 1.5
+    const p = polygone(enveloppeSphere, this.colorEnveloppe)
+    p.epaisseur = 1.5
 
-  this.c2d.push(p)
+    this.c2d.push(p)
 
-  if (this.affichageAxe) {
-    const l = longueur(poleNord.c2d, poleSud.c2d)
-    let ee = 1
-    const poly = polygone(enveloppeSphere)
-    // poly.isVisible = false
-    while (ee < 2 && pointSurSegment(poleNord.c2d, poleSud.c2d, ee * l).estDansPolygone(poly)) {
-      ee += 0.01
+    if (this.affichageAxe) {
+      const l = longueur(poleNord.c2d, poleSud.c2d)
+      let ee = 1
+      const poly = polygone(enveloppeSphere)
+      // poly.isVisible = false
+      while (ee < 2 && pointSurSegment(poleNord.c2d, poleSud.c2d, ee * l).estDansPolygone(poly)) {
+        ee += 0.01
+      }
+
+      let s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, Math.max(ee - 0.01, 1) * l), this.colorAxe)
+      s.pointilles = 2
+      this.c2d.push(s)
+      s = segment(poleSud.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, 1.1 * l), this.colorAxe)
+      this.c2d.push(s)
+      s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, -0.1 * l), this.colorAxe)
+      this.c2d.push(s)
     }
-
-    let s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, Math.max(ee - 0.01, 1) * l), this.colorAxe)
-    s.pointilles = 2
-    this.c2d.push(s)
-    s = segment(poleSud.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, 1.1 * l), this.colorAxe)
-    this.c2d.push(s)
-    s = segment(poleNord.c2d, pointSurSegment(poleNord.c2d, poleSud.c2d, -0.1 * l), this.colorAxe)
-    this.c2d.push(s)
+    this.objets = this.c2d
   }
 }
 
@@ -837,81 +804,9 @@ function Sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue'
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @return {Sphere3d}
  */
-export function sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black', inclinaison = 0) {
-  return new Sphere3d(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe, inclinaison)
+export function sphere3d (centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black', inclinaison = 0, faceCachee = true) {
+  return new Sphere3d(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe, inclinaison, faceCachee)
 }
-
-/**
- * LE CONE (jamais utilisé)
- *
- * @author Jean-Claude Lhote
- *
- * centrebase est le centre du disque de base
- * sommet est le sommet du cône
- * normal est un vecteur 3d normal au plan du disque (il détermine avec rayon de quel côté se trouve la partie visible)
- *
- */
-
-/*
-function Cone3d (centrebase, sommet, rayon, generatrices = 18) {
-  ObjetMathalea2D.call(this, { })
-  this.sommet = sommet
-  this.centrebase = centrebase
-  this.normal = vecteur3d(centrebase, sommet)
-  if (typeof (rayon) === 'number') {
-    this.rayon = vecteur3d(rayon, 0, 0)
-  } else {
-    this.rayon = rayon
-  }
-  this.c2d = []
-  let s, color1, color2
-  const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon.matrice))
-  const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
-  let cote1, cote2
-  if (prodscal > 0) {
-    cote1 = 'caché'
-    color1 = 'gray'
-    cote2 = 'visible'
-    color2 = 'black'
-  } else {
-    cote2 = 'caché'
-    cote1 = 'visible'
-    color1 = 'black'
-    color2 = 'gray'
-  }
-  const c1 = demicercle3d(this.centrebase, this.normal, this.rayon, cote1, color1)
-  const c2 = demicercle3d(this.centrebase, this.normal, this.rayon, cote2, color2)
-
-  for (let i = 0; i < c1.listePoints.length; i++) {
-    if (i % generatrices === 0) {
-      s = segment(this.sommet.c2d, c1.listePoints[i])
-      if (cote1 === 'caché') {
-        s.pointilles = 2
-        s.color = colorToLatexOrHTML('gray')
-      } else {
-        s.color = colorToLatexOrHTML('black')
-      }
-      this.c2d.push(s)
-    }
-  }
-  for (let i = 0; i < c2.listePoints.length; i++) {
-    if (i % generatrices === 0) {
-      s = segment(this.sommet.c2d, c2.listePoints[i])
-      if (cote2 === 'caché') {
-        s.pointilles = 2
-        s.color = colorToLatexOrHTML('gray')
-      } else {
-        s.color = colorToLatexOrHTML('black')
-      }
-      this.c2d.push(s)
-    }
-  }
-  this.c2d.push(c1, c2)
-}
-export function cone3d (centre, sommet, rayon, generatrices = 18) {
-  return new Cone3d(centre, sommet, rayon, generatrices)
-}
-*/
 
 /**
  * Classe du cône
@@ -934,24 +829,26 @@ export function cone3d (centre, sommet, rayon, generatrices = 18) {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @class
  */
-function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
-  ObjetMathalea2D.call(this, {})
-  this.centre = centre
-  this.sommet = sommet
-  this.rayon = rayon
-  this.color = color
-  this.colorAxe = colorAxe
-  this.colorCone = colorCone
+export class Cone3d extends ObjetMathalea2D {
+  constructor (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
+    super()
+    this.centre = centre
+    this.sommet = sommet
+    this.rayon = rayon
+    this.color = color
+    this.colorAxe = colorAxe
+    this.colorCone = colorCone
 
-  const pt1 = translation3d(this.centre, this.rayon)
-  const ptsBase = [pt1]
-  const nbSommets = 36
-  for (let ee = 1; ee < nbSommets; ee++) {
-    ptsBase.push(rotation3d(pt1, droite3d(this.centre, vecteur3d(this.sommet, this.centre)), ee * 360 / (nbSommets)))
+    const pt1 = translation3d(this.centre, this.rayon)
+    const ptsBase = [pt1]
+    const nbSommets = 36
+    for (let ee = 1; ee < nbSommets; ee++) {
+      ptsBase.push(rotation3d(pt1, droite3d(this.centre, vecteur3d(this.sommet, this.centre)), ee * 360 / (nbSommets)))
+    }
+    const p = polygone3d(ptsBase, this.color)
+    // this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
+    this.c2d = pyramide3d(p, this.sommet, this.color, affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone, affichageBase).c2d
   }
-  const p = polygone3d(ptsBase, this.color)
-  // this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
-  this.c2d = pyramide3d(p, this.sommet, this.color, affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone, affichageBase).c2d
 }
 
 /**
@@ -1008,129 +905,130 @@ export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = f
  * @author Jean-Claude Lhote (optimisé par Eric Elter)
  * @class
  */
-function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray', avecFaceHaut = true) {
-  ObjetMathalea2D.call(this, {})
-  this.centrebase1 = centrebase1
-  this.centrebase2 = centrebase2
-  this.rayon1 = rayon1
-  this.rayon2 = rayon2
-  this.color = color
-  this.affichageGeneratrices = affichageGeneratrices
-  this.affichageCentreBases = affichageCentreBases
-  this.affichageAxe = affichageAxe
-  this.colorAxe = colorAxe
-  this.cylindreColore = cylindreColore
-  this.colorCylindre = colorCylindre
-  this.c2d = []
-  let s
-  this.normal = vecteur3d(this.centrebase1, this.centrebase2)
-  const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon1.matrice))
-  const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
-  let cote1, cote2
-  const centre1PlusBasQueCentre2 = this.centrebase1.c2d.y !== this.centrebase2.c2d.y ? this.centrebase1.c2d.y < this.centrebase2.c2d.y : (context.anglePerspective > 0)
-  if (prodscal * context.anglePerspective > 0) {
-    cote1 = centre1PlusBasQueCentre2 ? 'direct' : 'indirect'
-    cote2 = centre1PlusBasQueCentre2 ? 'indirect' : 'direct'
-  } else {
-    cote2 = centre1PlusBasQueCentre2 ? 'direct' : 'indirect'
-    cote1 = centre1PlusBasQueCentre2 ? 'indirect' : 'direct'
-  }
-  cote2 = (this.rayon1.x === 0 && this.rayon1.y === 0) ? 'indirect' : cote2
-  cote1 = (this.rayon1.x === 0 && this.rayon1.y === 0) ? 'direct' : cote1
-  // Cette partie permet de chercher le bon angle de départ pour le tracé des demi-bases
-  // Recherche du premier point visible sur la demi-base visible
-  let angleDepart = 0
-  let distanceMax = 0
-  const d = droite3d(this.centrebase1, this.normal)
-  let ptReference = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart)
-  const secondPt = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart + 1)
-  const sensRecherche = distancePointDroite(ptReference.c2d, d.c2d) < distancePointDroite(secondPt.c2d, d.c2d) ? 1 : -1
-  while ((distancePointDroite(ptReference.c2d, d.c2d) > distanceMax)) {
-    distanceMax = distancePointDroite(ptReference.c2d, d.c2d)
-    angleDepart = angleDepart + sensRecherche
-    ptReference = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart)
-  }
-  angleDepart = angleDepart - sensRecherche
-  // angleDepart est donc l'angle qui permet d'avoir un tracé de demicercle3d idéal
-  this.angleDepart = angleDepart
-  // Description de chaque demi-base en position verticale
-  // c1 : cercle bas derrière
-  const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
-  // c3 : cercle haut derrière
-  const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, false, this.color, angleDepart)
-  // c2 : cercle bas devant
-  const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, false, this.color, angleDepart)
-  // c4 : cercle haut devant
-  const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, false, this.color, angleDepart)
-  this.pointsBase1 = [...c1.listePoints, ...c2.listePoints]
-  this.pointsBase2 = [...c3.listePoints, ...c4.listePoints]
-  if (this.cylindreColore) {
-    let polygon = [...c4.listePoints]
-    for (let i = c2.listePoints.length - 1; i >= 0; i--) {
-      polygon.push(c2.listePoints[i])
+export class Cylindre3d extends ObjetMathalea2D {
+  constructor (centrebase1, centrebase2, rayon1, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray', avecFaceHaut = true) {
+    super()
+    this.centrebase1 = centrebase1
+    this.centrebase2 = centrebase2
+    this.rayon1 = rayon1
+    this.rayon2 = rayon2
+    this.color = color
+    this.affichageGeneratrices = affichageGeneratrices
+    this.affichageCentreBases = affichageCentreBases
+    this.affichageAxe = affichageAxe
+    this.colorAxe = colorAxe
+    this.cylindreColore = cylindreColore
+    this.colorCylindre = colorCylindre
+    this.c2d = []
+    let s
+    this.normal = vecteur3d(this.centrebase1, this.centrebase2)
+    const prodvec = vecteur3d(math.cross(this.normal.matrice, this.rayon1.matrice))
+    const prodscal = math.dot(prodvec.matrice, vecteur3d(0, 1, 0).matrice)
+    let cote1, cote2
+    const centre1PlusBasQueCentre2 = this.centrebase1.c2d.y !== this.centrebase2.c2d.y ? this.centrebase1.c2d.y < this.centrebase2.c2d.y : (context.anglePerspective > 0)
+    if (prodscal * context.anglePerspective > 0) {
+      cote1 = centre1PlusBasQueCentre2 ? 'direct' : 'indirect'
+      cote2 = centre1PlusBasQueCentre2 ? 'indirect' : 'direct'
+    } else {
+      cote2 = centre1PlusBasQueCentre2 ? 'direct' : 'indirect'
+      cote1 = centre1PlusBasQueCentre2 ? 'indirect' : 'direct'
     }
-    const faceColoree = polygone(polygon, 'white')
-    faceColoree.couleurDeRemplissage = colorToLatexOrHTML(this.colorCylindre)
-    this.c2d.push(faceColoree)
-
-    polygon = [...c3.listePoints]
-    for (let i = c4.listePoints.length - 1; i >= 0; i--) {
-      polygon.push(c4.listePoints[i])
+    cote2 = (this.rayon1.x === 0 && this.rayon1.y === 0) ? 'indirect' : cote2
+    cote1 = (this.rayon1.x === 0 && this.rayon1.y === 0) ? 'direct' : cote1
+    // Cette partie permet de chercher le bon angle de départ pour le tracé des demi-bases
+    // Recherche du premier point visible sur la demi-base visible
+    let angleDepart = 0
+    let distanceMax = 0
+    const d = droite3d(this.centrebase1, this.normal)
+    let ptReference = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart)
+    const secondPt = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart + 1)
+    const sensRecherche = distancePointDroite(ptReference.c2d, d.c2d) < distancePointDroite(secondPt.c2d, d.c2d) ? 1 : -1
+    while ((distancePointDroite(ptReference.c2d, d.c2d) > distanceMax)) {
+      distanceMax = distancePointDroite(ptReference.c2d, d.c2d)
+      angleDepart = angleDepart + sensRecherche
+      ptReference = rotation3d(translation3d(this.centrebase1, this.rayon1), d, angleDepart)
     }
-    const baseColoree = polygone(polygon, 'white')
-    baseColoree.couleurDeRemplissage = colorToLatexOrHTML(assombrirOuEclaircir(this.colorCylindre, 25))
-    this.c2d.push(baseColoree)
-  }
+    angleDepart = angleDepart - sensRecherche
+    // angleDepart est donc l'angle qui permet d'avoir un tracé de demicercle3d idéal
+    this.angleDepart = angleDepart
+    // Description de chaque demi-base en position verticale
+    // c1 : cercle bas derrière
+    const c1 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote1, true, this.color, angleDepart)
+    // c3 : cercle haut derrière
+    const c3 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote1, false, this.color, angleDepart)
+    // c2 : cercle bas devant
+    const c2 = demicercle3d(this.centrebase1, this.normal, this.rayon1, cote2, false, this.color, angleDepart)
+    // c4 : cercle haut devant
+    const c4 = demicercle3d(this.centrebase2, this.normal, this.rayon2, cote2, false, this.color, angleDepart)
+    this.pointsBase1 = [...c1.listePoints, ...c2.listePoints]
+    this.pointsBase2 = [...c3.listePoints, ...c4.listePoints]
+    if (this.cylindreColore) {
+      let polygon = [...c4.listePoints]
+      for (let i = c2.listePoints.length - 1; i >= 0; i--) {
+        polygon.push(c2.listePoints[i])
+      }
+      const faceColoree = polygone(polygon, 'white')
+      faceColoree.couleurDeRemplissage = colorToLatexOrHTML(this.colorCylindre)
+      this.c2d.push(faceColoree)
 
-  if (this.affichageGeneratrices) {
-    for (let i = 1; i < c1.listePoints.length - 1; i += 2) {
-      s = segment(c3.listePoints[i], c1.listePoints[i], this.color)
+      polygon = [...c3.listePoints]
+      for (let i = c4.listePoints.length - 1; i >= 0; i--) {
+        polygon.push(c4.listePoints[i])
+      }
+      const baseColoree = polygone(polygon, 'white')
+      baseColoree.couleurDeRemplissage = colorToLatexOrHTML(assombrirOuEclaircir(this.colorCylindre, 25))
+      this.c2d.push(baseColoree)
+    }
+
+    if (this.affichageGeneratrices) {
+      for (let i = 1; i < c1.listePoints.length - 1; i += 2) {
+        s = segment(c3.listePoints[i], c1.listePoints[i], this.color)
+        s.pointilles = 2
+        s.opacite = 0.3
+        this.c2d.push(s)
+      }
+    }
+
+    s = segment(c4.listePoints[0], c2.listePoints[0], this.color)
+    this.c2d.push(s)
+
+    if (this.affichageGeneratrices) {
+      for (let i = 1; i < c2.listePoints.length - 1; i++) {
+        s = segment(c4.listePoints[i], c2.listePoints[i], this.color)
+        this.c2d.push(s)
+      }
+    }
+
+    s = segment(c4.listePoints[c2.listePoints.length - 1], c2.listePoints[c2.listePoints.length - 1], this.color)
+    this.c2d.push(s)
+
+    this.c2d.push(c1, c2)
+    if (avecFaceHaut) this.c2d.push(c3, c4)
+
+    if (this.affichageCentreBases) {
+      this.c2d.push(tracePoint(this.centrebase1.c2d, this.centrebase2.c2d, this.colorAxe))
+    }
+
+    if (this.affichageAxe) {
+      let distanceMin = 9999
+      const pt = c2.listePoints
+      let i = 0
+      while ((distancePointDroite(pt[i], d.c2d) < distanceMin)) {
+        distanceMin = distancePointDroite(pt[i], d.c2d)
+        i++
+      }
+      s = segment(this.centrebase2.c2d, pt[i - 1], this.colorAxe)
       s.pointilles = 2
-      s.opacite = 0.3
+      s.opacite = 0.7
+      this.c2d.push(s)
+      const v = vecteur(this.centrebase2.c2d, this.centrebase1.c2d)
+      s = segment(pt[i - 1], translation(pt[i - 1], vecteur(v.x / norme(v), v.y / norme(v))), this.colorAxe)
+      this.c2d.push(s)
+      s = segment(this.centrebase2.c2d, translation(translation(this.centrebase2.c2d, vecteur(pt[i - 1], this.centrebase1.c2d)), vecteur(-v.x / norme(v), -v.y / norme(v))), this.colorAxe)
       this.c2d.push(s)
     }
-  }
-
-  s = segment(c4.listePoints[0], c2.listePoints[0], this.color)
-  this.c2d.push(s)
-
-  if (this.affichageGeneratrices) {
-    for (let i = 1; i < c2.listePoints.length - 1; i++) {
-      s = segment(c4.listePoints[i], c2.listePoints[i], this.color)
-      this.c2d.push(s)
-    }
-  }
-
-  s = segment(c4.listePoints[c2.listePoints.length - 1], c2.listePoints[c2.listePoints.length - 1], this.color)
-  this.c2d.push(s)
-
-  this.c2d.push(c1, c2)
-  if (avecFaceHaut) this.c2d.push(c3, c4)
-
-  if (this.affichageCentreBases) {
-    this.c2d.push(tracePoint(this.centrebase1.c2d, this.centrebase2.c2d, this.colorAxe))
-  }
-
-  if (this.affichageAxe) {
-    let distanceMin = 9999
-    const pt = c2.listePoints
-    let i = 0
-    while ((distancePointDroite(pt[i], d.c2d) < distanceMin)) {
-      distanceMin = distancePointDroite(pt[i], d.c2d)
-      i++
-    }
-    s = segment(this.centrebase2.c2d, pt[i - 1], this.colorAxe)
-    s.pointilles = 2
-    s.opacite = 0.7
-    this.c2d.push(s)
-    const v = vecteur(this.centrebase2.c2d, this.centrebase1.c2d)
-    s = segment(pt[i - 1], translation(pt[i - 1], vecteur(v.x / norme(v), v.y / norme(v))), this.colorAxe)
-    this.c2d.push(s)
-    s = segment(this.centrebase2.c2d, translation(translation(this.centrebase2.c2d, vecteur(pt[i - 1], this.centrebase1.c2d)), vecteur(-v.x / norme(v), -v.y / norme(v))), this.colorAxe)
-    this.c2d.push(s)
   }
 }
-
 /**
  * Crée un cylindre de révolution défini par les centres de ses 2 bases
  * Permet en faisant varier les rayons des deux bases de créer des troncs de cônes (A VERIFIER)
@@ -1159,40 +1057,6 @@ export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'bl
 }
 
 /**
- * LE PRISME - ANCIENNE FONCTION
- *
- * @author Jean-Claude Lhote
- * Crée un prisme à partir du base Polygone3d et d'un vecteur3d d'extrusion (on peut faire des prismes droits ou non droits)
- */
-
-/* class Prisme3d {
-  constructor (base, vecteur, color) {
-    ObjetMathalea2D.call(this, { })
-
-    this.color = color
-    base.color = colorToLatexOrHTML(this.color)
-    this.base1 = base
-    this.base2 = translation3d(base, vecteur)
-    this.base2.color = this.base1.color
-    this.c2d = []; let s
-    for (let i = 0; i < this.base1.listePoints.length; i++) {
-      this.c2d.push(this.base1.c2d[i])
-    }
-    for (let i = 0; i < this.base2.listePoints.length; i++) {
-      this.c2d.push(this.base2.c2d[i])
-    }
-    for (let i = 0; i < this.base1.listePoints.length; i++) {
-      s = arete3d(this.base1.listePoints[i], this.base2.listePoints[i], this.color)
-      this.c2d.push(s.c2d)
-    }
-  }
-}
-
-export function prisme3d (base, vecteur, color = 'black') {
-  return new Prisme3d(base, vecteur, color)
-} */
-
-/**
  * Classe du prisme droit
  * Ce prisme droit est optimisé dans son tracé des arêtes cachées pour des bases dans le plan (xOy) et son vecteur normal selon (Oz)
  * Pour d'autres usages, il faut approfondir la fonction mais laissé en l'état car justement pas d'autre usage demandé.
@@ -1209,9 +1073,9 @@ export function prisme3d (base, vecteur, color = 'black') {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @class
  */
-class Prisme3d {
+export class Prisme3d extends ObjetMathalea2D {
   constructor (base, vecteur, color, affichageNom = false, nomBase2, positionLabels2) {
-    ObjetMathalea2D.call(this, {})
+    super()
     this.affichageNom = affichageNom
     this.color = color
     base.color = colorToLatexOrHTML(this.color)
@@ -1286,6 +1150,8 @@ class Prisme3d {
  * @param {Vecteur3d} vecteur Vecteur normal à la base dont la norme indique la hauteur du prisme droit.
  * @param {string} [color = 'black'] Couleur des arêtes du prisme droit : du type 'blue' ou du type '#f15929'
  * @param {boolean} [affichageNom = false] Permet (ou pas) l'affichage du nom des sommets du prisme.
+ * @param {string} [nomBase2] Nom de la base 2
+ * @param {string[]} [positionLabels2] Position des labels de la base 2
  * @example prisme3d(p, v)
  * // Retourne un prisme droit de base p dont un vecteur normal à la base est v.
  * @example prisme3d(p, v, 'blue', true)
@@ -1296,50 +1162,6 @@ class Prisme3d {
 export function prisme3d (base, vecteur, color = 'black', affichageNom = false, nomBase2, positionLabels2) {
   return new Prisme3d(base, vecteur, color, affichageNom, nomBase2, positionLabels2)
 }
-
-/**
- * La pyramide  - ANCIENNE FONCTION
- *
- * @author Jean-Claude Lhote
- * Crée une pyramide à partir d'une base Polygone3d et d'un sommet
- */
-
-/*
-class Pyramide3d {
-  constructor (base, sommet, color) {
-    ObjetMathalea2D.call(this, { })
-
-    this.color = color
-    base.color = colorToLatexOrHTML(color)
-    this.base = base
-    this.aretes = []
-    this.sommet = sommet
-    this.c2d = []; let s
-    for (let i = 0; i < this.base.listePoints.length; i++) {
-      s = this.base.c2d[i]
-      if (this.base.listePoints[i].visible) {
-        s.pointilles = false
-      } else {
-        s.pointilles = 2
-      }
-      this.c2d.push(s)
-    }
-    for (let i = 0; i < this.base.listePoints.length; i++) {
-      s = arete3d(this.base.listePoints[i], this.sommet, this.color, true)
-      if (this.base.listePoints[i].visible) {
-        s.c2d.pointilles = false
-      } else {
-        s.c2d.pointilles = 2
-      }
-      this.c2d.push(s.c2d)
-    }
-  }
-}
-
-export function pyramide3d (base, vecteur, color = 'black') {
-  return new Pyramide3d(base, vecteur, color)
-}
-*/
 
 /**
  * Classe de la pyramide
@@ -1367,10 +1189,9 @@ export function pyramide3d (base, vecteur, color = 'black') {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @class
  */
-class Pyramide3d {
+export class Pyramide3d extends ObjetMathalea2D {
   constructor (base, sommet, color, centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
-    ObjetMathalea2D.call(this, {})
-
+    super()
     base.color = colorToLatexOrHTML(color)
     this.base = base
     this.sommet = sommet
@@ -1443,7 +1264,7 @@ class Pyramide3d {
       const premierPlan = [this.sommet.c2d]
       for (let i = angleReference[0]; i < angleReference[1]; i++) {
         premierPlan.push(this.base.listePoints[i % this.base.listePoints.length].c2d)
-      // ok
+        // ok
       }
       const faceAv = polygone(premierPlan, this.colorCone)
       faceAv.couleurDeRemplissage = colorToLatexOrHTML(this.colorCone)
@@ -1494,7 +1315,7 @@ class Pyramide3d {
     if (this.centre !== undefined && this.centre.constructor === Point3d) {
       this.c2d.push(tracePoint(this.centre.c2d, this.colorAxe))
       if (this.centre.label === '') this.centre.label = choisitLettresDifferentes(1, 'OQWX')[0]
-      this.c2d.push(labelPoint(this.centre.c2d))
+      this.c2d.push(...labelPoint(this.centre.c2d))
 
       if (this.affichageAxe) { // Axe affiché que si centre précisé
         if (this.sommet.z > 0) {
@@ -1588,10 +1409,9 @@ export function pyramide3d (base, sommet, color = 'black', centre, affichageAxe 
  * Crée une pyramide à partir d'une base Polygone3d d'un sommet et d'un coefficient compris entre 0 et 1
  * un coefficient de 0.5 coupera la pyramide à mi-hauteur (valeur par défaut).
  */
-class PyramideTronquee3d {
+export class PyramideTronquee3d extends ObjetMathalea2D {
   constructor (base, sommet, coeff = 0.5, color = 'black') {
-    ObjetMathalea2D.call(this, {})
-
+    super()
     this.color = color
     base.color = colorToLatexOrHTML(color)
     this.base = base
@@ -1639,9 +1459,9 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
  * @author Jean-Claude Lhote (Amendée par Eric Elter)
  * @class
  */
-class Cube3d {
+export class Cube3d extends ObjetMathalea2D {
   constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorHautouBas = 'white', colorDr = 'darkgray', aretesCachee = true, affichageNom = false, nom = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']) {
-    ObjetMathalea2D.call(this, {})
+    super()
     this.affichageNom = affichageNom
     const A = point3d(x, y, z)
     A.c2d.nom = nom[0]
@@ -1734,9 +1554,9 @@ export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colo
  * Créer une barre de l cubes de c de côté à partir du point (x,y,z)
  * La barre est positionnée suivant l'axe x
  */
-class Barre3d {
+export class Barre3d extends ObjetMathalea2D {
   constructor (x, y, z, c, l, color = 'black') {
-    ObjetMathalea2D.call(this, {})
+    super()
     let B, C, D, E, F, G, H, faceAv, faceTop
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -1773,9 +1593,9 @@ export function barre3d (x, y, z, c, l, color = 'black') {
  * @author Jean-Claude Lhote
  * Crée une plaque de cubes de côtés c de dimensions l suivant x et p suivant y
  */
-class Plaque3d {
+export class Plaque3d extends ObjetMathalea2D {
   constructor (x, y, z, c, l, p, color = 'black') {
-    ObjetMathalea2D.call(this, {})
+    super()
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -1813,9 +1633,9 @@ export function plaque3d (x, y, z, c, l, p, color = 'black') {
   return new Plaque3d(x, y, z, c, l, p, color)
 }
 
-class PaveLPH3d {
+export class PaveLPH3d extends ObjetMathalea2D {
   constructor (x, y, z, c, l, p, h, color = 'black') {
-    ObjetMathalea2D.call(this, {})
+    super()
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -1863,7 +1683,7 @@ class PaveLPH3d {
  * @param {number} l longueur
  * @param {number} h hauteur
  * @param {*} color couleur
- * @returns {object}
+ * @returns {PaveLPH3d}
  */
 export function paveLPH3d (x, y, z, c, l, p, h, color = 'black') {
   return new PaveLPH3d(x, y, z, c, l, p, h, color)
@@ -1877,9 +1697,9 @@ export function paveLPH3d (x, y, z, c, l, p, h, color = 'black') {
  * Il ne s'agit pas à proprement parler d'un objet 3d, c'est un objet 2d avec sa méthode svg() et sa méthode tikz()
  * Utilisée par exemple dans 6G43
  */
-class Cube {
+export class Cube extends ObjetMathalea2D {
   constructor (x, y, z, alpha, beta, colorD, colorT, colorG) {
-    ObjetMathalea2D.call(this, {})
+    super()
     this.x = x
     this.y = y
     this.z = z
@@ -1951,9 +1771,9 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, {
  * @author Jean-Claude Lhote (optimisé par Eric Elter)
  * @class
  */
-class Pave3d {
+export class Pave3d extends ObjetMathalea2D {
   constructor (A, B, D, E, color = 'black', affichageNom = false, nom = 'ABCDEFGH') {
-    ObjetMathalea2D.call(this, {})
+    super()
     this.affichageNom = affichageNom
     const v1 = vecteur3d(A, B)
     const v2 = vecteur3d(A, E)
@@ -2115,35 +1935,37 @@ export function rotation3d (point3D, droite3D, angle, color) {
  * l'angle définit l'arc formé par la flèche
  * son sens est définit par le vecteur directeur de l'axe (changer le signe de chaque composante de ce vecteur pour changer le sens de rotation)
  */
-function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
-  ObjetMathalea2D.call(this, {})
-  this.epaisseur = epaisseur
-  this.color = color
-  this.c2d = []
-  let M
-  let N
-  let s
-  M = translation3d(axe.origine, rayon)
-  for (let i = 0; i < angle; i += 5) {
+export class SensDeRotation3d extends ObjetMathalea2D {
+  constructor (axe, rayon, angle, epaisseur, color) {
+    super()
+    this.epaisseur = epaisseur
+    this.color = color
+    this.c2d = []
+    let M
+    let N
+    let s
+    M = translation3d(axe.origine, rayon)
+    for (let i = 0; i < angle; i += 5) {
+      N = rotation3d(M, axe, 5)
+      s = segment(M.c2d, N.c2d, this.color)
+      s.epaisseur = this.epaisseur
+      this.c2d.push(s)
+      M = N
+    }
     N = rotation3d(M, axe, 5)
     s = segment(M.c2d, N.c2d, this.color)
     s.epaisseur = this.epaisseur
     this.c2d.push(s)
-    M = N
+    const d = droite3d(N, axe.directeur)
+    const A = rotation3d(M, d, 30)
+    const B = rotation3d(M, d, -30)
+    s = segment(N.c2d, A.c2d, this.color)
+    s.epaisseur = this.epaisseur
+    this.c2d.push(s)
+    s = segment(N.c2d, B.c2d, this.color)
+    s.epaisseur = this.epaisseur
+    this.c2d.push(s)
   }
-  N = rotation3d(M, axe, 5)
-  s = segment(M.c2d, N.c2d, this.color)
-  s.epaisseur = this.epaisseur
-  this.c2d.push(s)
-  const d = droite3d(N, axe.directeur)
-  const A = rotation3d(M, d, 30)
-  const B = rotation3d(M, d, -30)
-  s = segment(N.c2d, A.c2d, this.color)
-  s.epaisseur = this.epaisseur
-  this.c2d.push(s)
-  s = segment(N.c2d, B.c2d, this.color)
-  s.epaisseur = this.epaisseur
-  this.c2d.push(s)
 }
 
 export function sensDeRotation3d (axe, rayon, angle, epaisseur, color) {

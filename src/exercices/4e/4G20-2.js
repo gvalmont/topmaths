@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -14,34 +14,35 @@ export const interactifReady = true
 /**
  * Déterminer la racine carrée d'un carré parfait compris entre 1 et 256
  * @author Stéphane Guyon et Guillaume Valmont
- * Référence 4G20-2
+
  * Mis à jour le 08/08/2021
  */
 export const uuid = 'f5cbd'
-export const ref = '4G20-2'
+
 export const refs = {
   'fr-fr': ['4G20-2'],
   'fr-ch': ['10NO3-1']
 }
-export default function RacineCareeDeCarresParfaits () {
-  Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.besoinFormulaireNumerique = ['Formulation de la question', 3, '1 : Calculer la racine de ...\n2 : Trouver le nombre positif dont le carré est ...\n3 : Mélange']
-  this.besoinFormulaire2Numerique = ['Entier maximum', 2, '1 : 144\n2 : 256']
-  this.sup = 1
-  this.sup2 = 2
+export default class RacineCareeDeCarresParfaits extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.amcReady = amcReady
+    this.amcType = amcType
+
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.besoinFormulaireNumerique = ['Formulation de la question', 3, '1 : Calculer la racine de ...\n2 : Trouver le nombre positif dont le carré est ...\n3 : Mélange']
+    this.besoinFormulaire2Numerique = ['Entier maximum', 2, '1 : 144\n2 : 256']
+    this.sup = 1
+    this.sup2 = 2
+  }
+
+  nouvelleVersion () {
     let listeRacines = []
     let listeQuestions = []
-    this.sup = parseInt(this.sup)
+
     this.sup2 = parseInt(this.sup2)
     if (this.sup === 1) {
       listeQuestions = [1]
@@ -85,8 +86,8 @@ export default function RacineCareeDeCarresParfaits () {
             signe: false
           }
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

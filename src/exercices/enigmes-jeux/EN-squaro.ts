@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import bluePoint from './svg/blueCirclePoint.svg'
 import redPoint from './svg/redPoint.svg'
 import remove from 'apigeom/src/assets/svg/restart.svg'
@@ -34,8 +34,8 @@ class squaro extends Exercice {
   figureCorrection!: Figure
   goodAnswers: Array<{ x: number; y: number }>
   nbSommets: Array<number>
-  longueur:number
-  largeur:number
+  longueur: number
+  largeur: number
   blueButton!: HTMLElement
 
   constructor () {
@@ -46,7 +46,7 @@ class squaro extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.reponse = ''
-    this.formatChampTexte = 'none'
+
     this.exoCustomResultat = true
     this.besoinFormulaireTexte = [
       'Longueur de la grille',

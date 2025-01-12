@@ -1,23 +1,23 @@
 import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1
-} from '../../lib/outils/ecritures.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+} from '../../lib/outils/ecritures'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 
 export const titre = "Domaine de définition d'une fonction logarithme"
 export const dateDePublication = '22/7/2024'
@@ -31,8 +31,8 @@ export const refs = {
 
 /**
  * Réduire une expression en fonction de ln/log de x
- * @autor  Jean-Claude Lhote
- * Référence TSpeF1-0
+ * @author  Jean-Claude Lhote
+
  */
 export default class DomaineDefFnLog extends Exercice {
   version: string
@@ -482,13 +482,12 @@ export default class DomaineDefFnLog extends Exercice {
           handleAnswers(this, i, {
             reponse: {
               value: answer,
-              compare: fonctionComparaison,
               options: { intervalle: true }
             }
           })
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

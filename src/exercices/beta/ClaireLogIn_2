@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -17,9 +17,9 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Description didactique de l'exercice
+ * 
  * @author Claire Rousset
- * Référence
+
 */
 export default class ExerciceCalculsDeLog extends Exercice {
   constructor () {
@@ -106,8 +106,8 @@ export default class ExerciceCalculsDeLog extends Exercice {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
       }
       if (this.questionJamaisPosee(i, a, b)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

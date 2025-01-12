@@ -1,19 +1,19 @@
-import { angleOriente } from '../../lib/2d/angles.js'
-import { point, pointSurSegment } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { texteParPoint } from '../../lib/2d/textes.ts'
-import { homothetie, rotation } from '../../lib/2d/transformations.js'
+import { angleOriente } from '../../lib/2d/angles'
+import { point, pointSurSegment } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { texteParPoint } from '../../lib/2d/textes'
+import { homothetie, rotation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import { creerBoutonMathalea2d } from '../../lib/outils/modales.js'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { creerBoutonMathalea2d } from '../../lib/outils/modales'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
 import Decimal from 'decimal.js'
-import { context } from '../../modules/context.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -31,28 +31,42 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
  */
 export const uuid = '3451c'
-export const ref = '3G21'
+
 export const refs = {
   'fr-fr': ['3G21'],
   'fr-ch': ['11GM3-5']
 }
-export default function ReciproqueThales () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.quatrieme = false
-  this.sup = 1
-  this.sup2 = 3
-  this.sup3 = 3
+export default class ReciproqueThales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      3,
+      ' 1 : Cas simple \n 2 : Complication \n 3 : Sans figure'
+    ]
+    this.besoinFormulaire2Numerique = [
+      'Réciproque ou contraposée',
+      3,
+      ' 1 : Réciproque \n 2 : Contraposée \n 3 : Mélange'
+    ]
+    this.besoinFormulaire3Numerique = [
+      'Triangles emboîtés ou papillon',
+      3,
+      ' 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L\'un des deux au hasard'
+    ]
+    this.nbQuestions = 3
+    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
+
+    this.quatrieme = false
+    this.sup = 1
+    this.sup2 = 3
+    this.sup3 = 3
 
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
-  this.nouvelleVersion = function (numeroExercice) {
-    this.autoCorrection = []
-    this.listeQuestions = []
-    this.listeCorrections = []
+  }
+
+  nouvelleVersion (numeroExercice) {
     this.sup = contraindreValeur(1, 3, parseInt(this.sup), 1)
     this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 1)
     this.sup3 = contraindreValeur(1, 3, parseInt(this.sup3), 3)
@@ -424,28 +438,12 @@ export default function ReciproqueThales () {
       }
       if (this.questionJamaisPosee(i, x2, y2, x3, y3)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    3,
-    ' 1 : Cas simple \n 2 : Complication \n 3 : Sans figure'
-  ]
-  this.besoinFormulaire2Numerique = [
-    'Réciproque ou contraposée',
-    3,
-    ' 1 : Réciproque \n 2 : Contraposée \n 3 : Mélange'
-  ]
-  this.besoinFormulaire3Numerique = [
-    'Triangles emboîtés ou papillon',
-    3,
-    ' 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L\'un des deux au hasard'
-  ]
 }

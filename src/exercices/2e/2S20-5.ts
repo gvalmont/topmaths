@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { point, Point, pointIntersectionDD } from '../../lib/2d/points'
 import { polyline } from '../../lib/2d/polygones'
@@ -56,9 +56,9 @@ const aleaPopulation = function (effectif:number, valeurMin:number, valeurMax:nu
 }
 
 const trouveQuartiles = function (yGrecs: number[], pts: Point[]): [number, number, number] {
-  let d1: Droite|null = null
-  let d2: Droite|null = null
-  let d3: Droite|null = null
+  let d1: Droite | null = null
+  let d2: Droite | null = null
+  let d3: Droite | null = null
   let cpt = 0
   do {
     for (let i = 0; i < pts.length; i++) {
@@ -96,7 +96,6 @@ export default class Quartiles extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let q1: number
       let q2: number
@@ -179,8 +178,8 @@ export default class Quartiles extends Exercice {
 
       texte = fig + texte
       if (this.questionJamaisPosee(i, texte, q1, q2, q3)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

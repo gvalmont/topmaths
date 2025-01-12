@@ -1,5 +1,5 @@
 import { getUniqueStringBasedOnTimeStamp } from '../../lib/components/time'
-export function createButon ({ title = 'Valider' } : {title?: string} = {}) {
+export function createButon ({ title = 'Valider' } : { title?: string } = {}) {
   const button = document.createElement('button')
   button.textContent = title
   button.setAttribute('id', 'html-insert-button' + getUniqueStringBasedOnTimeStamp('-'))
@@ -7,7 +7,7 @@ export function createButon ({ title = 'Valider' } : {title?: string} = {}) {
   return button
 }
 
-export function createTextInput ({ placeholder = '', autoCorrect = true } : {placeholder?: string, autoCorrect?: boolean} = {}) {
+export function createTextInput ({ placeholder = '', autoCorrect = true } : { placeholder?: string, autoCorrect?: boolean } = {}) {
   const input = document.createElement('input')
   input.setAttribute('placeholder', placeholder)
   input.setAttribute('id', 'html-insert-text-input' + getUniqueStringBasedOnTimeStamp('-'))
@@ -17,7 +17,7 @@ export function createTextInput ({ placeholder = '', autoCorrect = true } : {pla
   return input
 }
 
-export function createIButton ({ tooltip = '', direction }: { tooltip?: string, direction?: 'top'|'bottom'|'left'|'right'} = {}) {
+export function createIButton ({ tooltip = '', direction }: { tooltip?: string, direction?: 'top' | 'bottom' | 'left' | 'right' } = {}) {
   // <i class="bx bx-sm px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
   const i = document.createElement('i')
   i.setAttribute('id', 'html-insert-info' + getUniqueStringBasedOnTimeStamp('-'))

@@ -1,14 +1,14 @@
-import { milieu, point, tracePoint } from '../../lib/2d/points.js'
-import { grille, seyes } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { similitude, translation2Points } from '../../lib/2d/transformations.js'
+import { milieu, point, tracePoint } from '../../lib/2d/points'
+import { grille, seyes } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 
@@ -17,23 +17,33 @@ export const titre = 'Compléter une représentation en perspective cavalière'
  * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  */
 export const uuid = 'a013f'
-export const ref = '5G51'
+
 export const refs = {
   'fr-fr': ['5G51'],
   'fr-ch': ['9ES7-2']
 }
-export default function RepresenterUnSolide5e () {
-  Exercice.call(this) // Héritage de la classe Exercice ()
-  this.titre = titre
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.sup2 = 1
-  this.classe = 5
-  this.nouvelleVersion = function () {
+export default class RepresenterUnSolide5e extends Exercice {
+  constructor () {
+    super()
+    // Héritage de la classe Exercice ()
+    this.besoinFormulaireNumerique = ['Type de solides', 5, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange']
+
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+
+    this.nbQuestions = 1
+
+    this.sup = 1
+    this.sup2 = 1
+    this.classe = 5
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
-    this.sup = parseInt(this.sup)
+
     if (this.sup === 3) { typesDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typesDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typesDeQuestionsDisponibles = [1, 2, 4, 6] } else { typesDeQuestionsDisponibles = [parseInt(this.sup)] }
 
     const listeTypeDeQuestions = combinaisonListes(
@@ -336,19 +346,12 @@ export default function RepresenterUnSolide5e () {
       correction += mathalea2d(params, objetsCorrection)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(enonce + '<br>')
-        this.listeCorrections.push(correction + '<br>')
+        this.listeQuestions[i] = enonce + '<br>'
+        this.listeCorrections[i] = correction + '<br>'
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 5, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange']
-
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

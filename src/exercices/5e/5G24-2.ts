@@ -1,24 +1,24 @@
-import { codageAngle } from '../../lib/2d/angles.js'
-import { codageSegment } from '../../lib/2d/codages.js'
-import { point, pointAdistance } from '../../lib/2d/points.js'
-import { barycentre, nommePolygone } from '../../lib/2d/polygones.js'
-import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { rotation, translation } from '../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
-import { texteEnCouleur } from '../../lib/outils/embellissements.js'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import { codageAngle } from '../../lib/2d/angles'
+import { codageSegment } from '../../lib/2d/codages'
+import { point, pointAdistance } from '../../lib/2d/points'
+import { barycentre, nommePolygone } from '../../lib/2d/polygones'
+import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { rotation, translation } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { texteEnCouleur } from '../../lib/outils/embellissements'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Justifier que deux triangles sont égaux'
 
 /**
  * Deux triangles égaux sont codés, il faut reconnaître les côtés homologues
  * @author Rémi Angot
- * Référence 5G24-1
+
 */
 export const uuid = 'b9a52'
-export const ref = '5G24-2'
+
 export const refs = {
   'fr-fr': ['5G24-2'],
   'fr-ch': []
@@ -123,8 +123,8 @@ export default class TrianglesEgaux extends Exercice {
       texte = mathalea2d(Object.assign({ scale: 0.3, optionsTikz: ['baseline=(current bounding box.north)'] }, fixeBordures(objetsAAfficher)), objetsAAfficher)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

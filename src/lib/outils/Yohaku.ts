@@ -17,7 +17,7 @@ const engine = new ComputeEngine()
  * @property {number?} largeur
  * @property {number?} hauteur
  * @property {number?} taille
- * @property {number?} Case
+ * @property {number|null} Case
  * @property {string[]} cellules
  * @property {'addition'|'multiplication'} operation = 'addition'
  * @property {number} valeurMax = 50,
@@ -26,20 +26,20 @@ const engine = new ComputeEngine()
  */
 export class Yohaku {
   type: string
-  largeur:number
-  hauteur:number
-  taille:number
-  Case:number|undefined
+  largeur: number
+  hauteur: number
+  taille: number
+  Case: number | undefined
   cellules: string[]
   cellulesEE: FractionEtendue[]
   sommesCellules: FractionEtendue[]
   cellulesPreremplies: string[]
-  resultats:string[]
-  operation:'addition'|'multiplication'
-  solution: boolean
-  clavier: KeyboardType
+  resultats: string[]
+  operation?: 'addition' | 'multiplication'
+  solution?: boolean
+  clavier?: string
   constructor ({ type, largeur, hauteur, taille, Case, cellules, operation, valeurMax, solution }:
-                   {type: string, largeur: number, hauteur: number, taille: number, Case: number |undefined, cellules: string[], resultats: string[], operation: 'addition'|'multiplication', valeurMax: number, solution: boolean} = {
+  { type?: string, largeur?: number, hauteur?: number, taille?: number, Case?: number | undefined, cellules?: string[], resultats?: string[], operation?: 'addition' | 'multiplication', valeurMax?: number, solution?: boolean } = {
     type: 'entiers',
     largeur: 2,
     hauteur: 2,
@@ -51,34 +51,35 @@ export class Yohaku {
     solution: false,
     cellules: []
   }) {
-    this.largeur = largeur
-    this.hauteur = hauteur
+    this.largeur = largeur ?? 2
+    this.hauteur = hauteur ?? 2
     this.Case = Case
     this.resultats = []
-    this.taille = taille
+    this.taille = taille ?? 2
     this.operation = operation
     this.solution = solution
-    this.type = type
+    this.type = type ?? 'entiers'
     this.cellules = cellules ?? []
     this.cellulesPreremplies = []
     this.cellulesEE = []
     this.sommesCellules = []
-    this.clavier = KeyboardType.clavierDeBase
+    this.clavier = String(KeyboardType.clavierDeBase)
+    if (valeurMax == null) valeurMax = 50
     if (this.cellules.length === 0) {
       const den = randint(2, valeurMax)
       for (let i = 0; i < this.taille ** 2; i++) {
         switch (this.type) {
           case 'entiers' :
             this.cellules.push(String(randint(1, valeurMax) ?? 2))
-            this.clavier = KeyboardType.clavierDeBase
+            this.clavier = String(KeyboardType.clavierDeBase)
             break
           case 'entiers relatifs' :
             this.cellules.push(String(randint(-valeurMax, valeurMax, 0)))
-            this.clavier = KeyboardType.clavierDeBase
+            this.clavier = String(KeyboardType.clavierDeBase)
             break
           case 'littéraux' :
             this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
-            this.clavier = KeyboardType.clavierDeBaseAvecVariable
+            this.clavier = String(KeyboardType.clavierDeBaseAvecVariable)
             break
           case 'fractions dénominateurs multiples': { // EE : Modif pour 4C21-2 afin que les sommes des lignes ne soient pas identiques aux sommes des colonnes
             let testFraction = new FractionEtendue(randint(1, valeurMax), den)
@@ -110,40 +111,40 @@ export class Yohaku {
             }
             this.cellulesEE.push(testFraction)
             this.cellules.push(testFraction.texFSD.replace('dfrac', 'frac'))
-            this.clavier = KeyboardType.clavierDeBaseAvecFraction
+            this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
             break
           }
           case 'fractions positives dénominateurs premiers':
             this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
-            this.clavier = KeyboardType.clavierDeBaseAvecFraction
+            this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
             break
 
           case 'fractions positives' :
             this.cellules.push(fraction(randint(1, valeurMax), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
-            this.clavier = KeyboardType.clavierDeBaseAvecFraction
+            this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
             break
           case 'fractions relatives' :
             this.cellules.push(fraction(randint(-valeurMax, valeurMax, 0), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
-            this.clavier = KeyboardType.clavierDeBaseAvecFraction
+            this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
             break
         }
       }
     } else { // si elles sont définies, on complète éventuellement la grille aléatoirement.
-      this.cellulesPreremplies = [...cellules]
+      this.cellulesPreremplies = [...cellules ?? []]
       for (let i = this.cellules.length; i < this.taille ** 2; i++) {
-        if (cellules[i] === '') {
+        if (Array.isArray(cellules) && cellules[i] === '') {
           switch (this.type) {
             case 'entiers' :
               this.cellules.push(String(randint(1, valeurMax)))
-              this.clavier = KeyboardType.clavierDeBase
+              this.clavier = String(KeyboardType.clavierDeBase)
               break
             case 'entiers relatifs' :
               this.cellules.push(String(randint(-valeurMax, valeurMax, 0)))
-              this.clavier = KeyboardType.clavierDeBase
+              this.clavier = String(KeyboardType.clavierDeBase)
               break
             case 'littéraux' :
               this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
-              this.clavier = KeyboardType.clavierDeBaseAvecVariable
+              this.clavier = String(KeyboardType.clavierDeBaseAvecVariable)
               break
             case 'fractions dénominateurs multiples':{
               const cellulePrecedente = engine.parse(this.cellules[i - 1])
@@ -151,20 +152,20 @@ export class Yohaku {
                 const [, den] = cellulePrecedente.numericValue
                 this.cellules.push(fraction(randint(1, valeurMax), Number(den) ?? 1).texFraction.replace('dfrac', 'frac'))
               }
-              this.clavier = KeyboardType.clavierDeBaseAvecFraction
+              this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
             }
               break
             case 'fractions positives dénominateurs premiers':
               this.cellules.push(new FractionEtendue(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
-              this.clavier = KeyboardType.clavierDeBaseAvecFraction
+              this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
               break
             case 'fractions positives' :
               this.cellules.push(fraction(randint(1, valeurMax), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
-              this.clavier = KeyboardType.clavierDeBaseAvecFraction
+              this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
               break
             case 'fractions relatives' :
               this.cellules.push(fraction(randint(-valeurMax, valeurMax, 0), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
-              this.clavier = KeyboardType.clavierDeBaseAvecFraction
+              this.clavier = String(KeyboardType.clavierDeBaseAvecFraction)
               break
           }
         }
@@ -180,14 +181,14 @@ export class Yohaku {
       for (let j = 0; j < this.taille; j++) {
         valeurs.push(this.cellules[i + j * this.taille])
       }
-      this.resultats[i] = this.operate(valeurs)
+      this.resultats[i] = String(this.operate(valeurs))
     }
     for (let i = this.taille; i < this.taille * 2; i++) {
       valeurs = []
       for (let j = 0; j < this.taille; j++) {
         valeurs.push(this.cellules[(i - this.taille) * this.taille + j])
       }
-      this.resultats[i] = this.operate(valeurs)
+      this.resultats[i] = String(this.operate(valeurs))
     }
   }
 
@@ -209,7 +210,7 @@ export class Yohaku {
      * @param {boolean} isInteractif
      * @returns {string}
      */
-  representation ({ numeroExercice, question, isInteractif, classes = '' }:{numeroExercice: number, question: number, isInteractif: boolean, classes: string}) {
+  representation ({ numeroExercice, question, isInteractif, classes = '' }:{ numeroExercice: number, question: number, isInteractif: boolean, classes?: string }) {
     const dimension = this.taille
     const largeurARemplir = this.taille + 1 // 1 de plus que dimension pour la colonne/ligne résultat.
     // première case ; l'opération

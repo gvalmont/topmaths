@@ -50,7 +50,7 @@
   function cleanFillInTheBlanks (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
     if (removeDollar) text = text.replace(/\$/g, '')
-    return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '')
+    return text.replace(/\\placeholder(\[[^\]]*\])+/g, '')
   }
 </script>
 

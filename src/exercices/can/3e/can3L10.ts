@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 export const titre = 'Utiliser la distributivité simple et réduire'
@@ -24,8 +24,6 @@ export default class ReduireAvecParentheses2 extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -36,7 +34,7 @@ export default class ReduireAvecParentheses2 extends Exercice {
     const k = randint(-10, 10, [-1, 1, 0])
     const choix = choice([true, false])
     const reponse = choix ? reduireAxPlusB(a + k * c, k * d, variable) : reduireAxPlusB(k * c, k * d + a, variable)// texNombre(b).mul(-1).plus(a), 2) + `${variable}`
-    this.reponse = { reponse: { value: reponse, compare: fonctionComparaison } }
+    this.reponse = { reponse: { value: reponse } }
     this.question = `Écrire le plus simplement possible  $${choix ? `${rienSi1(a)}${variable}` : `${a}`}${ecritureAlgebrique(k)}(${reduireAxPlusB(c, d, variable)})$.`
     if (this.interactif) { this.question += `<br>$${choix ? `${rienSi1(a)}${variable}` : `${a}`}${ecritureAlgebrique(k)}(${reduireAxPlusB(c, d, variable)})=$` }
     this.correction = 'On commence par développer le produit, puis on réduit. <br>'

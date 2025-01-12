@@ -6,7 +6,6 @@ import { point } from '../../../lib/2d/points'
 import { polygone, Polygone } from '../../../lib/2d/polygones'
 import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une fraction d\'aire'
 export const interactifReady = true
@@ -15,19 +14,17 @@ export const uuid = '32d25'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Jean-Claude Lhote
- * Référence
+
 */
 
 export default class FractionDeRectangle extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    // this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
+
     this.canOfficielle = false
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

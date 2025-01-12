@@ -1,33 +1,35 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
-import { objet } from '../6e/6C35.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { objet } from '../6e/6C35'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Partager une quantité en deux ou trois parts selon un ratio donné'
 
 /**
  * Partager une quantité en deux ou trois parts selon un ratio donné.
  * @author Guillaume Valmont
- * Référence 5P12
+
  * Date de publication : 24/07/2021
 */
 export const uuid = '60910'
-export const ref = '5P12'
+
 export const refs = {
   'fr-fr': ['5P12'],
   'fr-ch': ['9NO14-9']
 }
-export default function PartagerSelonUnRatio () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 1
-  this.sup = 1
-  this.correctionDetailleeDisponible = true
+export default class PartagerSelonUnRatio extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Partager en deux parts\n2 : Partager en trois parts']
 
+    this.nbQuestions = 1
+    this.sup = 1
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, objet1, prenom1, prenom2, prenom3, quantite1, quantite2, quantite3, facteur, total, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objet1 = objet()
       prenom1 = prenomF()
@@ -90,13 +92,12 @@ export default function PartagerSelonUnRatio () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Partager en deux parts\n2 : Partager en trois parts']
 }

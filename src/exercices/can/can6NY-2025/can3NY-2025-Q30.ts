@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = ''
@@ -24,13 +24,10 @@ export default class ComparerFractions extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: ' bouteilles' }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const oliveK = choice([100, 200])
     const nbreBouteilles = choice([20, 25, 10])
     const oliveParBouteille = new Decimal(oliveK).div(nbreBouteilles)

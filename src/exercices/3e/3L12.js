@@ -1,14 +1,14 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
-import { fraction } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { pgcd } from '../../lib/outils/primalite'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -24,24 +24,24 @@ export const dateDeModifImportante = '26/02/2023'
  * Ajout Mélange des questions Matthieu Devillers
  */
 export const uuid = '81fd2'
-export const ref = '3L12'
+
 export const refs = {
   'fr-fr': ['3L12'],
   'fr-ch': ['11FA3-4']
 }
-export default function FactoriserIdentitesRemarquables3 () {
-  Exercice.call(this)
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 4
-  this.sup = 4
-  this.sup2 = true
-  this.tailleDiaporama = 3
+export default class FactoriserIdentitesRemarquables3 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas précédents']
+    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.sup = 4
+    this.sup2 = true
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
     const Fractions = [
       [1, 2],
@@ -101,24 +101,23 @@ export default function FactoriserIdentitesRemarquables3 () {
         case 1:
           texte = `$${lettreDepuisChiffre(i + 1)} = x^2-${a * a}$` // (x-a)(x+a)
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = x^2-${a * a}=x^2-${a}^2=(x-${a})(x+${a})$`
-          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(1, -a)})(${reduireAxPlusB(1, a)})`, compare: fonctionComparaison, options: { factorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(1, -a)})(${reduireAxPlusB(1, a)})`, options: { factorisation: true } } })
           break
         case 2:
           texte = `$${lettreDepuisChiffre(i + 1)} = ${b * b}x^2-${a * a}$` // b>1
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
-          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(b, -a)})(${reduireAxPlusB(b, a)})`, compare: fonctionComparaison, options: { factorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(b, -a)})(${reduireAxPlusB(b, a)})`, options: { factorisation: true } } })
           break
         case 3:{
           const dfrac = fraction(ns, ds).texFraction
           const dfrac2 = fraction(ns * ns, ds * ds).texFraction
           texte = `$${lettreDepuisChiffre(i + 1)} = ${dfrac2}x^2-${a * a}$` // b>1
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${dfrac2}x^2-${a * a}=\\left(${dfrac}x\\right)^2-${a}^2=\\left(${dfrac}x-${a}\\right)\\left(${dfrac}x+${a}\\right)$`
-          handleAnswers(this, i, { reponse: { value: `(${dfrac}x+${a})(${dfrac}x-${a})`, compare: fonctionComparaison, options: { factorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: `(${dfrac}x+${a})(${dfrac}x-${a})`, options: { factorisation: true } } })
         }
           break
       }
       if (this.sup2) {
-        this.spacingCorr = 1
         // On enlève la première égalité pour ne pas avoir A = A en première ligne
         texteCorr = texteCorr.slice(4)
         // On découpe
@@ -146,14 +145,12 @@ export default function FactoriserIdentitesRemarquables3 () {
 
       if (this.questionJamaisPosee(i, a, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Coefficient de x égal à 1\n 2 : Coefficient de x supérieur à 1\n 3 : Coefficient de x rationnel\n 4 : Mélange des cas précédents']
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
 }

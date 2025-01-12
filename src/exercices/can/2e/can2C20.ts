@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { prenomF } from '../../../lib/outils/Personne'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { pgcd } from '../../../lib/outils/primalite'
 export const titre = 'Résoudre un problème avec des fractions'
 export const interactifReady = true
@@ -18,18 +18,18 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class ProblemeFractions extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+
     this.spacing = 1.5
     this.spacingCorr = 1.5
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { fractionEgale: true }
   }
 

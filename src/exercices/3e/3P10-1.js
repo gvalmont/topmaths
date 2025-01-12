@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -16,22 +16,25 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  */
 export const uuid = '4ce2d'
-export const ref = '3P10-1'
+
 export const refs = {
   'fr-fr': ['3P10-1'],
   'fr-ch': ['10FA4-6']
 }
-export default function CoefficientEvolution () {
-  Exercice.call(this)
-  this.consigne = 'Compléter.'
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.version = 1
+export default class CoefficientEvolution extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange']
 
-  // this.nouvelleVersion = function (numeroExercice) {
-  this.nouvelleVersion = function () {
+    this.consigne = 'Compléter.'
+    this.nbQuestions = 4
+
+    this.sup = 1
+    this.version = 1
+  }
+
+  // }
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     this.sup = contraindreValeur(1, 3, this.sup, 1)
     if (this.sup === 1) {
@@ -109,13 +112,12 @@ export default function CoefficientEvolution () {
       }
       texte += this.interactif ? ajouteChampTexteMathLive(this, i) : '...'
       if (this.questionJamaisPosee(i, taux)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange']
 }

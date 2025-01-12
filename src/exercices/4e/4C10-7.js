@@ -6,11 +6,11 @@ import {
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { sp } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -28,21 +28,34 @@ export const amcType = 'AMCNum'
  * @author Mickael Guironnet - Rémi Angot
  */
 export const uuid = '0b020'
-export const ref = '4C10-7'
+
 export const refs = {
   'fr-fr': ['4C10-7'],
   'fr-ch': ['10NO4-9']
 }
-export default function ExerciceOperationsRelatifs () {
-  Exercice.call(this)
-  this.sup = false // écriture simplifiée
-  this.sup2 = 5 // Mélange par défaut
-  this.sup3 = 10 // Valeur maximum
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.nbQuestions = 10
+export default class ExerciceOperationsRelatifs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des écritures simplifiées']
+    this.besoinFormulaire2Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : multiplication',
+        '2 : division',
+        '3 : addition',
+        '4 : soustraction',
+        '5 : Mélange'
+      ].join('\n')
+    ]
+    this.besoinFormulaire3Numerique = ['Valeur maximale', 99999]
+    this.sup = false // écriture simplifiée
+    this.sup2 = 5 // Mélange par défaut
+    this.sup3 = 10 // Valeur maximum
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const listeTypeDeSignes = combinaisonListes(['-+', '+-', '--', '-+', '+-', '--', '++'], this.nbQuestions)
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
@@ -153,8 +166,9 @@ export default function ExerciceOperationsRelatifs () {
       }
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (context.isAmc) {
           this.autoCorrection[i].propositions = [{ statut: 0, sanscadre: false, texte: texteCorr }]
           this.autoCorrection[i].enonce = 'Calculer.\\\\' + texte
@@ -165,16 +179,4 @@ export default function ExerciceOperationsRelatifs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Avec des écritures simplifiées']
-  this.besoinFormulaire2Texte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : multiplication',
-      '2 : division',
-      '3 : addition',
-      '4 : soustraction',
-      '5 : Mélange'
-    ].join('\n')
-  ]
-  this.besoinFormulaire3Numerique = ['Valeur maximale', 99999]
 }

@@ -1,16 +1,16 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { milieu, point, tracePoint } from '../../lib/2d/points.js'
-import { cone, semiEllipse } from '../../lib/2d/projections3d.js'
-import { grille, seyes } from '../../lib/2d/reperes.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { similitude, translation2Points } from '../../lib/2d/transformations.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { milieu, point, tracePoint } from '../../lib/2d/points'
+import { cone, semiEllipse } from '../../lib/2d/projections3d'
+import { grille, seyes } from '../../lib/2d/reperes'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { similitude, translation2Points } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 export const amcReady = true
@@ -25,22 +25,29 @@ export const dateDeModifImportante = '18/06/2022'
  * AMC pour Eric Elter le 25/11/2024
  */
 export const uuid = '0e754'
-export const ref = '4G51'
+
 export const refs = {
   'fr-fr': ['4G51'],
   'fr-ch': ['9ES7-3']
 }
-export default function RepresenterUnSolide4e () {
-  Exercice.call(this) // Héritage de la classe Exercice ()
-  this.titre = titre
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.sup2 = 1
-  this.classe = 4
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+export default class RepresenterUnSolide4e extends Exercice {
+  constructor () {
+    super()
+    // Héritage de la classe Exercice ()
+    this.besoinFormulaireNumerique = ['Type de solides', 9, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides\n 8 : Cônes\n 9 : Mélange cubes, pavés, prismes, pyramides, cônes']
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+    this.nbQuestions = 1
+
+    this.sup = 1
+    this.sup2 = 1
+    this.classe = 4
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
 
     if (this.sup === 3) {
@@ -80,7 +87,7 @@ export default function RepresenterUnSolide4e () {
     let objetsEnonce = []
     let objetsCorrection = []
     let listeDeNomsDePolygones
-    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (i % 2 === 0) listeDeNomsDePolygones = ['QD'] // lettres à éviter
       const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
@@ -294,20 +301,20 @@ export default function RepresenterUnSolide4e () {
         const rayon = segment(centre, milieuBF, 'red')
         rayon.pointilles = 5
         const angleDroit = codageAngleDroit(milieuBF, centre, sommet, 'red')
-        const Rx = longueur(centre, milieuBF)
-        const Ry = longueur(A, E) / 3
+        const rx = longueur(centre, milieuBF)
+        const ry = longueur(A, E) / 3
         objetsEnonce.push(tracePoint(sommet), g, carreaux)
-        objetsCorrection.push(tracePoint(sommet), cone({ centre, Rx, hauteur: 1.5 * Rx }), g, carreaux)
+        objetsCorrection.push(tracePoint(sommet), cone({ centre, rx, hauteur: 1.5 * rx }), g, carreaux)
         switch (choice(['hemisphere nord', 'hemisphere sud'])) {
           case 'hemisphere nord':
-            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', pointilles: 5 }))
+            objetsEnonce.push(semiEllipse({ centre, rx, ry, hemisphere: 'nord', pointilles: 5 }))
             break
           case 'hemisphere sud':
-            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'sud' }))
+            objetsEnonce.push(semiEllipse({ centre, rx, ry, hemisphere: 'sud' }))
             break
         }
 
-        objetsCorrection.push(tracePoint(sommet), hauteur, rayon, angleDroit, cone({ centre, Rx, hauteur: 1.5 * Rx }),
+        objetsCorrection.push(tracePoint(sommet), hauteur, rayon, angleDroit, cone({ centre, rx, hauteur: 1.5 * rx }),
           g,
           carreaux
         )
@@ -406,20 +413,14 @@ export default function RepresenterUnSolide4e () {
           ]
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(I, A, B, C, D, E, F, G, H)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(enonce + '<br>')
-        this.listeCorrections.push(correction + '<br>')
+        this.listeQuestions[i] = enonce + '<br>'
+        this.listeCorrections[i] = correction + '<br>'
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de solides', 9, ' 1 : Cubes\n 2 : Pavés droits\n 3 : Mélange cubes et pavés\n 4 : Prismes\n 5 : Mélange cubes, pavés, prismes\n 6 : Pyramides\n 7 : Mélange cubes, pavés, prismes, pyramides\n 8 : Cônes\n 9 : Mélange cubes, pavés, prismes, pyramides, cônes']
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

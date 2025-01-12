@@ -6,7 +6,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Effectuer des calculs complexes avec des fractions'
@@ -16,10 +16,10 @@ export const dateDePublication = '20/06/2024'
 
 /**
  * @author Jean-Claude Lhote
- * Référence 4C23-11
+
  */
 export const uuid = 'f7f49'
-export const ref = '4C23-11'
+
 export const refs = {
   'fr-fr': ['4C23-11'],
   'fr-ch': []
@@ -30,13 +30,12 @@ export default class FractionEtPriorites extends Exercice {
     this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : produit en premier\n2 : produit en deuxième sans piège\n3 : produit en deuxième avec piège\n4 : quotient en premier\n5 : quotient en deuxième sans piège\n6 : quotient en deuxième avec piège\n7 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Présence de nombre relatifs', false]
     this.sup = '3'
-    this.titre = titre
+
     this.correctionDetaillee = true
     this.correctionDetailleeDisponible = true
   }
 
   nouvelleVersion () {
-    this.reinit()
     this.consigne = this.interactif
       ? 'Donner le résultat du calcul sous forme d\'une fraction irréductible.'
       : 'Effectuer les calculs suivant en respectant les priorités opératoires.'
@@ -230,9 +229,10 @@ export default class FractionEtPriorites extends Exercice {
       texteCorr += '\\end{aligned}$\n'
 
       if (this.questionJamaisPosee(i, a.texFraction, b.texFraction, c.texFraction)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        if (this.interactif) handleAnswers(this, i, { reponse: { value: reponse.texFractionSimplifiee, compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
+        if (this.interactif) handleAnswers(this, i, { reponse: { value: reponse.texFractionSimplifiee, options: { fractionIrreductible: true } } })
         i++
       }
       cpt++

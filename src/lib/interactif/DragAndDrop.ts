@@ -1,9 +1,9 @@
-import type Exercice from '../../exercices/Exercice.js'
-import { context } from '../../modules/context.js'
+import type Exercice from '../../exercices/Exercice'
+import { context } from '../../modules/context'
 import { shuffle } from '../outils/arrayOutils'
-import { get } from '../html/dom.js'
-import { messageFeedback } from '../../modules/messages.js'
-import { toutPourUnPoint } from './mathLive.js'
+import { get } from '../html/dom'
+import { messageFeedback } from '../../modules/messages'
+import { toutPourUnPoint } from './mathLive'
 
 export type Etiquette = {
   id: string // Un numéro unique par étiquette ! (valeur réservée : 0 pour signaler l'absence d'étiquette !)
@@ -313,10 +313,10 @@ export function verifDragAndDrop (
   exercice: Exercice,
   question: number
 ): {
-  isOk: boolean
-  feedback: string
-  score: { nbBonnesReponses: number; nbReponses: number }
-} {
+    isOk: boolean
+    feedback: string
+    score: { nbBonnesReponses: number; nbReponses: number }
+  } {
   // tout d'abord on va supprimer les listeners !
   const exoDragAndDrops = exercice.dragAndDrops
   if (exoDragAndDrops == null) {
@@ -332,7 +332,7 @@ export function verifDragAndDrop (
   }
   const leDragAndDrop = exoDragAndDrops[question]
   for (const [element, type, listener] of leDragAndDrop.listeners) {
-    element.removeEventListener(type, listener)
+    element.removeEventListener(type, listener as EventListener)
   }
   // fin de suppression des listeners
   const numeroExercice = exercice.numeroExercice

@@ -9,7 +9,6 @@ import { droite } from '../../../lib/2d/droites'
 import { repere } from '../../../lib/2d/reperes'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une équation réduite de droite'
 export const interactifReady = true
@@ -25,7 +24,7 @@ export default class EquationReduite extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = ''
+
     this.canOfficielle = false
   }
 
@@ -82,7 +81,7 @@ export default class EquationReduite extends Exercice {
     const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, o, d, r1, traceB, traceA, labelPoint(A), labelPoint(B))
     this.question = 'Déterminer l\'équation réduite de la droite $(AB)$.<br>    '
     this.question += `${objet}<br>`
-    this.reponse = { reponse: { value: `y=${`${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`}`, compare: fonctionComparaison, options: { egaliteExpression: true } } }
+    this.reponse = { reponse: { value: `y=${`${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`}`, options: { egaliteExpression: true } } }
     this.correction = `En utilisant les deux points $A$ et $B$, on détermine le coefficient directeur $m$ de la droite : <br>
     $m=\\dfrac{y_B-y_A}{x_B-x_A}=${coeffDir.texFractionSimplifiee}$.<br>
          L' ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est `

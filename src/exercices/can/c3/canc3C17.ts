@@ -4,16 +4,16 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Résoudre un problème avec une addition'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '31/10/2024'
-/*!
+/**
  * @author Gilles Mora
  */
 export const uuid = 'a7a49'
-export const ref = 'canc3C17'
+
 export const refs = {
   'fr-fr': ['canc3C17'],
   'fr-ch': []
@@ -24,9 +24,8 @@ export default class problemeAddition extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.spacing = 1.5
-    this.formatInteractif = 'calcul'
+
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

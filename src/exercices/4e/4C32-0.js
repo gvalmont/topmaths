@@ -1,11 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,24 +19,24 @@ export const dateDeModifImportante = '05/09/2023'
  * Ajout du choix du signe de l'exposant par Guillaume Valmont le 26/04/2023
  */
 export const uuid = '5d72b'
-export const ref = '4C32-0'
+
 export const refs = {
   'fr-fr': ['4C32-0'],
   'fr-ch': ['10NO2-5']
 }
-export default function EcritureDecimaleApresPuissancesDeDix () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Exposants', 3, '1 : Positifs\n2 : Négatifs\n3 : Mélange']
-  this.sup = 3
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+
+    this.besoinFormulaireNumerique = ['Exposants', 3, '1 : Positifs\n2 : Négatifs\n3 : Mélange']
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1
       ? 'Donner le résultat du calcul suivant en écriture décimale.'
       : 'Donner le résultat des calculs suivants en écriture décimale.'
@@ -92,8 +92,8 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `${sp(2)}$=$${sp(2)}` })
 
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

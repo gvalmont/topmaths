@@ -1,10 +1,10 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
+import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { RedactionPythagore } from './_pythagore.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { RedactionPythagore } from './_pythagore'
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -27,7 +27,7 @@ export const interactifType = ['qcm', 'mathLive']
  * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter)
  */
 export const uuid = 'b18e8'
-export const ref = '4G22'
+
 export const refs = {
   'fr-fr': ['4G22'],
   'fr-ch': ['10GM4-3', '11GM1-4']
@@ -36,9 +36,7 @@ export default class ProblemesPythagore extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 2
-    this.nbCols = 1
-    this.nbColsCorr = 1
-    this.spacing = 1
+
     this.sup = 3
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
     this.besoinFormulaireNumerique = ['Sens direct ou réciproque/contraposée', 3, '1 : Sens direct\n2 : Réciproque/contraposée\n3 : Mélange']
@@ -380,8 +378,8 @@ export default class ProblemesPythagore extends Exercice {
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

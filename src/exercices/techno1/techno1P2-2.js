@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Proportion d\'une sous-population'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -9,12 +9,12 @@ export const dateDePublication = '25/06/2022' // La date de publication initiale
 export const dateDeModifImportante = '' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Stéphane Guyon
- * Référence
+
 */
 export const uuid = '86f71'
-export const ref = 'techno1P2-2'
+
 export const refs = {
   'fr-fr': ['techno1P2-2'],
   'fr-ch': []
@@ -22,16 +22,13 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.video = '' // Id YouTube ou url
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-
     const typeQuestionsDisponibles = ['Basket', 'STMG'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -71,8 +68,8 @@ export default class nomExercice extends Exercice {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

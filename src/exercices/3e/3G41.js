@@ -1,10 +1,10 @@
 import { choice, compteOccurences, enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { cube } from '../../modules/3d.js'
-import { context } from '../../modules/context.js'
+import { numAlpha } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { cube } from '../../modules/3d'
+import { context } from '../../modules/context'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
 export const dateDePublication = '06/10/2022'
 export const dateDeModifImportante = '08/11/2023' // Retour du formulaire numérique en supprimant le tooltip
@@ -19,23 +19,26 @@ export const amcType = 'AMCHybride'
 */
 
 export const uuid = '136dd'
-export const ref = '3G41'
+
 export const refs = {
   'fr-fr': ['3G41'],
   'fr-ch': []
 }
-export default function VuesEmpilementCubes () {
-  Exercice.call(this)
-  this.titre = titre
-  this.sup = 1
-  this.sup2 = 7
-  this.sup3 = 3
-  this.nbQuestions = 2
+export default class VuesEmpilementCubes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Longueur, largeur et hauteur sous la forme abc', 'a étant la longueur du solide (a>1)\nb étant la largeur du solide (b>1)\nc étant sa hauteur du solide (c>1)\n Choisir 0 ou 1 si on souhaite laisser le hasard faire.']
+    this.besoinFormulaire2Texte = ['Vues possibles dans les questions ', 'Nombres séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : 3 faces non parallèles']
+    // 'De 1 à 6\nSi le nombre de vues demandé est supérieur au nombre de vues possible, alors des vues autres que celles choisies sont proposées.'
+    this.besoinFormulaire3Numerique = ['Nombre de vues demandé', 6]
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.sup = 1
+    this.sup2 = 7
+    this.sup3 = 3
+    this.nbQuestions = 2
+  }
+
+  nouvelleVersion () {
     let objetsEnonce, objetsCorrection
 
     const dimensionsTab = gestionnaireFormulaireTexte({
@@ -173,18 +176,14 @@ export default function VuesEmpilementCubes () {
           )
         }
       }
-      if (this.questionJamaisPosee(q, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(q, JSON.stringify(L))) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        this.listeQuestions[q] = texte
+        this.listeCorrections[q] = texteCorr
+
         q++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  this.besoinFormulaireTexte = ['Longueur, largeur et hauteur sous la forme abc', 'a étant la longueur du solide (a>1)\nb étant la largeur du solide (b>1)\nc étant sa hauteur du solide (c>1)\n Choisir 0 ou 1 si on souhaite laisser le hasard faire.']
-  this.besoinFormulaire2Texte = ['Vues possibles dans les questions ', 'Nombres séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : 3 faces non parallèles']
-  // 'De 1 à 6\nSi le nombre de vues demandé est supérieur au nombre de vues possible, alors des vues autres que celles choisies sont proposées.'
-  this.besoinFormulaire3Numerique = ['Nombre de vues demandé', 6]
 }

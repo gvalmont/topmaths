@@ -1,20 +1,20 @@
-import { cercle } from '../../lib/2d/cercle.js'
-import { droite } from '../../lib/2d/droites.js'
-import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { cercle } from '../../lib/2d/cercle'
+import { droite } from '../../lib/2d/droites'
+import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
+import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { clone } from 'mathjs'
 import { codageSegments } from '../../lib/2d/codages'
 export const interactifReady = true
@@ -31,10 +31,10 @@ export const dateDeModifImportante = '16/12/2024'
  * et en travaillant la reconnaissance et la production (QCM ou réponse libre)
  * @author Guillaume Valmont
  * Ajout Mireille du centre de cercle, milieu de diamètre et nombre de sous-questions le 16/11/2024
- * Référence 6G10-4
+
  */
 export const uuid = '03b49'
-export const ref = '6G10-4'
+
 export const refs = {
   'fr-fr': ['6G10-4'],
   'fr-ch': ['9ES1-9']
@@ -65,42 +65,44 @@ function segmentAlternatif (reponses) {
   }
 }
 
-export default function VocabulaireDuCercle () {
-  Exercice.call(this)
-  this.nbQuestions = 1
+export default class VocabulaireDuCercle extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
-  this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['QCM']
-  this.sup2 = true
-  this.correctionDetailleeDisponible = true
-  const typesDeQuestionsParDefaut = '1-2-3-4-5-6-7'
-  this.sup3 = typesDeQuestionsParDefaut
-  this.besoinFormulaire3Texte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Le rayon',
-      '2 : Un rayon',
-      '3 : Le diamètre',
-      '4 : Un diamètre',
-      '5 : Une corde',
-      '6 : Le centre',
-      '7 : Le centre, qui est aussi le milieu'
-    ].join('\n')
-  ]
+    this.nbQuestions = 1
 
-  this.spacing = 1 // Interligne des questions
-  this.spacingCorr = 1.5 // Interligne des réponses
+    this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
+    this.sup = 3
+    this.besoinFormulaire2CaseACocher = ['QCM']
+    this.sup2 = true
+    this.correctionDetailleeDisponible = true
+    // this.typesDeQuestionsParDefaut = '1-2-3-4-5-6-7'
+    // this.sup3 = this.typesDeQuestionsParDefaut
+    this.sup3 = '1-2-3-4-5-6-7'
+    this.besoinFormulaire3Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Le rayon',
+        '2 : Un rayon',
+        '3 : Le diamètre',
+        '4 : Un diamètre',
+        '5 : Une corde',
+        '6 : Le centre',
+        '7 : Le centre, qui est aussi le milieu'
+      ].join('\n')
+    ]
 
-  this.avecLeCentreQuiEstAussiLeMilieu = false
+    this.spacingCorr = 1.5 // Interligne des réponses
 
-  this.nouvelleVersion = function () {
-    const typesDeQuestions = String(this.sup3 ?? typesDeQuestionsParDefaut)
+    this.avecLeCentreQuiEstAussiLeMilieu = false
+  }
+
+  nouvelleVersion () {
+    // const typesDeQuestions = String(this.sup3 ?? this.typesDeQuestionsParDefaut)
+    const typesDeQuestions = this.sup3
     this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
     if (context.isHtml) this.consigne += '<br><br>'
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
     const nbSousQuestionMax = 7 // Il y a 6 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
     let sensDesQuestionsDisponibles
@@ -369,8 +371,8 @@ export default function VocabulaireDuCercle () {
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, nomsDesPoints, objetsEnonce)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
 
         if (context.isAmc) {
           this.autoCorrection[i] = {

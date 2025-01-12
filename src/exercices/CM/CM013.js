@@ -1,6 +1,6 @@
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -13,26 +13,25 @@ export const amcType = 'AMCNum'
 /**
  * Une soustraction dont le premier terme est un multiple de 10
  * @author Rémi Angot
- * Référence CM013
+
  */
 export const uuid = '5e009'
-export const ref = 'CM013'
+
 export const refs = {
   'fr-fr': ['CM013'],
   'fr-ch': []
 }
-export default function ComplementAUneDizaine () {
-  Exercice.call(this)
-  this.consigne = 'Calculer.'
-  this.nbQuestions = 10
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
+export default class ComplementAUneDizaine extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Calculer.'
 
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
+
+  nouvelleVersion () {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -46,8 +45,8 @@ export default function ComplementAUneDizaine () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

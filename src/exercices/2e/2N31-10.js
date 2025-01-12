@@ -1,14 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { simpExp } from '../../lib/outils/puissance'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.ts'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer des calculs littéraux avec des puissances et leurs règles de calculs'
 
@@ -24,25 +23,25 @@ export const amcType = 'AMCNum'
  * 2N31-3 initialement
  */
 export const uuid = 'fc2e8'
-export const ref = '2N31-10'
+
 export const refs = {
   'fr-fr': ['2N31-10'],
   'fr-ch': ['']
 }
-export default function PuissancesDUnRelatif2 () {
-  Exercice.call(this)
-  this.consigne = 'Écrire sous la forme '
-  context.isHtml
-    ? (this.consigne += '$\\mathbf{a^n}$.')
-    : (this.consigne += '$a^n$.')
-  this.spacing = 2
-  this.spacingCorr = 2.5
-  this.nbQuestions = 8
-  this.nbColsCorr = 1
+export default class PuissancesDUnRelatif2 extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.consigne = 'Écrire sous la forme '
+    context.isHtml
+      ? (this.consigne += '$\\mathbf{a^n}$.')
+      : (this.consigne += '$a^n$.')
+    this.spacing = 2
+    this.spacingCorr = 2.5
+    this.nbQuestions = 8
+  }
 
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -204,7 +203,7 @@ export default function PuissancesDUnRelatif2 () {
           break
       }
       if (this.interactif && !context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: fonctionComparaison, options: { puissance: true } } })
+        handleAnswers(this, i, { reponse: { value: reponseInteractive, options: { puissance: true } } })
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
       }
       if (context.isAmc) {
@@ -228,8 +227,8 @@ export default function PuissancesDUnRelatif2 () {
 
       if (this.questionJamaisPosee(i, exp, base)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

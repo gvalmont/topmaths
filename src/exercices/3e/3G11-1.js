@@ -2,9 +2,9 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Homothétie - Rapport'
 
@@ -16,7 +16,7 @@ export const dateDePublication = '27/11/2022'
 */
 
 export const uuid = '1ebf7'
-export const ref = '3G11-1'
+
 export const refs = {
   'fr-fr': ['3G11-1'],
   'fr-ch': ['11ES3-4']
@@ -25,26 +25,10 @@ export default class HomothetieRapport extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1 // Ici le nombre de questions
-    this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
-    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-    this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-    this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-    // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
-
-    //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
-    //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-    //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
     this.consigne = 'Compléter le tableau ci-dessous en cochant les bonnes cases.'
   }
 
-  // c'est ici que commence le code de l'exercice cette méthode crée une copie de l'exercice
   nouvelleVersion () {
-    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
-    // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
     const typesDeQuestionsDisponibles = [1] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
@@ -149,8 +133,8 @@ export default class HomothetieRapport extends Exercice {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

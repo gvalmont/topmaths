@@ -11,16 +11,15 @@ export const uuid = '1b6cc'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class BillesMultiplieesCM2 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
-    this.formatChampTexte = ''
+
     this.optionsChampTexte = { texteApres: ' billes.' }
     this.canOfficielle = false
   }
@@ -35,7 +34,7 @@ export default class BillesMultiplieesCM2 extends Exercice {
       quidams[0] = 'Léo'
       quidams[1] = 'Lola'
     } else {
-      quidams = prenom(2)
+      quidams = prenom(2) as string[]
       coeff = choice([3, 4, 5])
       nbBilles = randint(11, 15)
     }

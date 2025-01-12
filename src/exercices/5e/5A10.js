@@ -1,13 +1,13 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
@@ -25,30 +25,37 @@ export const amcType = 'AMCOpen'
  * @author Sébastien Lozano & Jean Claude Lhote
  */
 export const uuid = '4828d'
-export const ref = '5A10'
+
 export const refs = {
   'fr-fr': ['5A10'],
   'fr-ch': ['9NO4-6']
 }
-export default function ListeDesDiviseurs5e () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 2
-  this.sup2 = 6
-  this.sup3 = 10
-  this.sup4 = 3
+export default class ListeDesDiviseurs5e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Nombre de chiffres des entiers (entre 1 et 5)', 'Nombres séparés par des tirets']
+    this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers', 'Nombres séparés par des tirets']
+    this.besoinFormulaire4Texte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Avec aide (tableau)',
+        '2 : Sans Aide (tableau)',
+        '3 : Mélange'
+      ].join('\n')
+    ]
 
-  this.nouvelleVersion = function () {
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestions = 3
+
+    this.sup = 2
+    this.sup2 = 6
+    this.sup3 = 10
+    this.sup4 = 3
+  }
+
+  nouvelleVersion () {
     let typesDeQuestions
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
-    this.autoCorrection = []
 
     this.sup3 = contraindreValeur(2, 16, parseInt(this.sup3), 10)
     const nombresDeChiffresMax = gestionnaireFormulaireTexte({
@@ -196,7 +203,7 @@ export default function ListeDesDiviseurs5e () {
       }
       texteCorr += '.'
 
-      handleAnswers(this, i, { reponse: { value: listeDesDiviseurs(M).join(';'), compare: fonctionComparaison, options: { suiteDeNombres: true } } })
+      handleAnswers(this, i, { reponse: { value: listeDesDiviseurs(M).join(';'), options: { suiteDeNombres: true } } })
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -207,8 +214,8 @@ export default function ListeDesDiviseurs5e () {
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -216,16 +223,6 @@ export default function ListeDesDiviseurs5e () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Nombre de chiffres des entiers (entre 1 et 5)', 'Nombres séparés par des tirets']
-  this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers', 'Nombres séparés par des tirets']
-  this.besoinFormulaire4Texte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Avec aide (tableau)',
-      '2 : Sans Aide (tableau)',
-      '3 : Mélange'
-    ].join('\n')
-  ]
 }
 
 /**

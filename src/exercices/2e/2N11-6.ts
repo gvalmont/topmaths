@@ -31,9 +31,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     let typeQuestionsDisponibles: ('nombres' | 'lettres')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['nombres']
@@ -68,8 +65,8 @@ export default class nomExercice extends Exercice {
 
       // replace {} by \emptyset
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

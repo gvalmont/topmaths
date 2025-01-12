@@ -1,19 +1,19 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Déterminer un antécédent par une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'd341f'
-export const ref = '3F22'
+
 export const refs = {
   'fr-fr': ['3F22'],
   'fr-ch': []
@@ -33,19 +33,20 @@ export const dateDePublication = '08/10/2024'
 * f(x) = a(bx + c) + dx + e  avec a, b, c, d petits relatifs
 */
 
-export default function AntecedentParCalcul () {
-  Exercice.call(this)
-  this.besoinFormulaireTexte = ['Type de fonction affine', '1 : ax+b (a et b petits relatifs)\n2 : ax+b (a et b grands relatifs)\n3 : a(x+b) + c (petits relatifs)\n4 : a(bx + c) + dx + e (petits relatifs)\n5 : Mélange']
-  this.titre = titre
-  this.consigne = 'Répondre aux questions suivantes avec une valeur exacte simplifiée. '
-  this.nbQuestions = 4
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacingCorr = context.isHtml ? 2 : 1
-  this.sup = '1'
+export default class AntecedentParCalcul extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireTexte = ['Type de fonction affine', '1 : ax+b (a et b petits relatifs)\n2 : ax+b (a et b grands relatifs)\n3 : a(x+b) + c (petits relatifs)\n4 : a(bx + c) + dx + e (petits relatifs)\n5 : Mélange']
+
+    this.consigne = 'Répondre aux questions suivantes avec une valeur exacte simplifiée. '
+    this.nbQuestions = 4
+
+    this.spacingCorr = context.isHtml ? 2 : 1
+    this.sup = '1'
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, min: 1, max: 4, melange: 5, defaut: 1 })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
@@ -126,11 +127,11 @@ export default function AntecedentParCalcul () {
       if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i])) {
         if (this.interactif) {
           texte += `<br>${ajouteChampTexteMathLive(this, i, '')}`
-          handleAnswers(this, i, { reponse: { value: ante.simplifie().texFSD, compare: fonctionComparaison, options: { fractionEgale: true } } })
+          handleAnswers(this, i, { reponse: { value: ante.simplifie().texFSD, options: { fractionEgale: true } } })
         }
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

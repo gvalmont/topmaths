@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { arrondi } from '../../../lib/outils/nombres'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
@@ -27,14 +27,11 @@ export default class coordMilieu extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const nom = creerNomDePolygone(2, ['PQDO'])
     const b = randint(-5, 5) * 2 + 1
     const c = randint(-5, 5) * 2 + 1
@@ -51,11 +48,11 @@ export default class coordMilieu extends Exercice {
 
     handleAnswers(this, 0, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: reponse1, compare: fonctionComparaison },
-      champ2: { value: reponse2, compare: fonctionComparaison }
+      champ1: { value: reponse1 },
+      champ2: { value: reponse2 }
     }
     )
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: reponse1, compare: fonctionComparaison }, champ2: { value: reponse2, compare: fonctionComparaison } }
+    this.reponse = { bareme: toutPourUnPoint, champ1: { value: reponse1 }, champ2: { value: reponse2 } }
 
     this.canReponseACompleter = '$(\\,\\ldots\\,;\\,\\ldots\\,)$'
     this.canEnonce = this.consigne

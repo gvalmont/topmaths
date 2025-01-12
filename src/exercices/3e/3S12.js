@@ -1,15 +1,15 @@
-import { repere } from '../../lib/2d/reperes.js'
-import { traceBarre } from '../../lib/2d/diagrammes.js'
+import { repere } from '../../lib/2d/reperes'
+import { traceBarre } from '../../lib/2d/diagrammes'
 import { choice } from '../../lib/outils/arrayOutils'
-import { texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionSigne } from '../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../lib/outils/nombres'
-import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
+import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
@@ -27,31 +27,24 @@ export const dateDeModifImportante = '30/01/2024'
  */
 
 export const uuid = 'f4b95'
-export const ref = '3S12'
+
 export const refs = {
   'fr-fr': ['3S12'],
   'fr-ch': []
 }
-export default function CalculEffectifFrequence () {
-  Exercice.call(this)
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
-  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url
-  this.correctionDetailleeDisponible = false
-  this.spacing = 2 // Interligne des questions
-  this.spacingCorr = 2 // Interligne des réponses
+export default class CalculEffectifFrequence extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, ' choix 1 : 5 espèces\n choix 2 : 6 espèces\n choix 3 : 7 espèces']
 
-  this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
-  this.nouvelleVersion = function () {
-    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
-    // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
+    this.nbQuestions = 1
+    this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.sup = 1
+  }
 
-    this.listeQuestions = [] // tableau contenant la liste des questions
-    this.listeCorrections = []
+  nouvelleVersion () {
     const lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     const lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours']
     const symbolePourCent = context.isHtml ? '%' : '$\\%$'
@@ -274,9 +267,10 @@ export default function CalculEffectifFrequence () {
       }
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(ee, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(ee, lstAnimauxExo.join(''), lstNombresAnimaux.join(''), lstOiseaux.join(''), lstQuadri.join(''))) {
+        this.listeQuestions[ee] = texte
+        this.listeCorrections[ee] = texteCorr
+
         ee++
       }
       cpt++
@@ -284,5 +278,4 @@ export default function CalculEffectifFrequence () {
 
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, ' choix 1 : 5 espèces\n choix 2 : 6 espèces\n choix 3 : 7 espèces']
 } // Fin de l'exercice.

@@ -1,15 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 import Figure from 'apigeom'
-import figureApigeom from '../../lib/figureApigeom.js'
+import figureApigeom from '../../lib/figureApigeom'
 import { arrondi } from '../../lib/outils/nombres'
-import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
+import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { fraction } from '../../modules/fractions'
-import type SuperFigure from 'apigeom'
 
 export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '03/05/2024'
@@ -23,7 +22,7 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot
  */
 export const uuid = '2ba53'
-export const ref = '6N21'
+
 export const refs = {
   'fr-fr': ['6N21'],
   'fr-ch': ['9NO11-4']
@@ -33,10 +32,10 @@ type goodAnswer = { label: string, x: number }[]
 
 class PlacerPointsAbscissesFractionnaires extends Exercice {
   goodAnswers!: goodAnswer[]
-  figuresApiGeom!: SuperFigure[]
+  figuresApiGeom!: Figure[]
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 5
     this.sup = 1
     this.exoCustomResultat = true
@@ -107,7 +106,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, i, idAddendum: ref, figure, defaultAction: 'POINT' })
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, i, idAddendum: refs['fr-fr'][0], figure, defaultAction: 'POINT' })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -143,8 +142,8 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
       }
       if (!isArrayInArray(fractionsUtilisees, [num, den])) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         fractionsUtilisees[i] = [num, den]
       }
@@ -161,7 +160,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     if (this == null) return ['KO']
     if (this.figures == null) return ['KO']
     this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
-    const result: ('OK'|'KO')[] = []
+    const result: ('OK' | 'KO')[] = []
     const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
@@ -222,7 +221,7 @@ function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points, step = 1, stepBi
   step?: number,
   stepBis?: number,
   points?: Array<{ x: number, label: string }>
-}): { figure: Figure, latex: string} {
+}): { figure: Figure, latex: string } {
   const width = 750
   const height = 80
   const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: stepBis, xScale: 3 * scale, snapGrid: true })

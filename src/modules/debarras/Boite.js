@@ -1,7 +1,7 @@
-import { point } from '../../lib/2d/points.js'
-import { colorToLatexOrHTML } from '../2dGeneralites.js'
-import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.ts'
-import { polygone } from '../../lib/2d/polygones.js'
+import { point } from '../../lib/2d/points'
+import { colorToLatexOrHTML } from '../2dGeneralites'
+import { latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes'
+import { polygone } from '../../lib/2d/polygones'
 
 /**
  * Objet composé d'un rectangle horizontal et d'un texte optionnel à l'intérieur
@@ -35,7 +35,6 @@ export class Boite {
     texteMath = false,
     echelleFigure = 1
   } = {}) {
-    // ObjetMathalea2D.call(this, {}) rectification due aux latexParCoordonnees() qui ne sont plus des ObjetsMathalea2d comme les autres
     // Jean-Claude Lhote 15/08/2023
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
     this.bordures = this.forme.bordures

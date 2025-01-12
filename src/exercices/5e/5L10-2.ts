@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils'
+import { context } from '../../modules/context'
 import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -19,7 +19,7 @@ export const dateDeModifImportante = '15/10/2022' // Ajout du programme équival
 * Ajout de la possibilité d'afficher un résultat qui n'est pas développé par Guillaume Valmont le 11/05/2022
 */
 export const uuid = '12bb6'
-export const ref = '5L10-2'
+
 export const refs = {
   'fr-fr': ['5L10-2'],
   'fr-ch': ['9FA2-5', '10FA1-8']
@@ -33,8 +33,6 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-
     const typeDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -252,8 +250,8 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
           texte = texte.replace(', quel est le résultat du programme de calcul ?', ',<br> quel est le résultat de ce programme ?')
         }
         if (!context.isHtml && i === 0) { texte = '\\setlength\\itemsep{1em}' + texte } // espacement entre les questions
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

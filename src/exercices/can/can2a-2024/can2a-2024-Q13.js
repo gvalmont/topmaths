@@ -1,11 +1,11 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { point, pointAdistance } from '../../../lib/2d/points.js'
-import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { afficheLongueurSegment } from '../../../lib/2d/codages.js'
-import { codageAngle } from '../../../lib/2d/angles.js'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { point, pointAdistance } from '../../../lib/2d/points'
+import { polygoneAvecNom } from '../../../lib/2d/polygones'
+import { afficheLongueurSegment } from '../../../lib/2d/codages'
+import { codageAngle } from '../../../lib/2d/angles'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer l\'aire d\'un triangle rectangle'
 export const interactifReady = true
@@ -18,12 +18,11 @@ export const uuid = '1e8ea'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {

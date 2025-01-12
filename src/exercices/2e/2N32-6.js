@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Développer les identités remarquables avec des racines carrées'
@@ -17,19 +17,22 @@ export const interactifType = 'mathLive'
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '91dc4'
-export const ref = '2N32-6'
+
 export const refs = {
   'fr-fr': ['2N32-6'],
   'fr-ch': ['11NO1-9', '1CN-11']
 }
-export default function IdentitesRemarquablesEtRacineCarree () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.sup = 1
+export default class IdentitesRemarquablesEtRacineCarree extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.nbCols = 2
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'
@@ -101,11 +104,11 @@ export default function IdentitesRemarquablesEtRacineCarree () {
       texteCorr += `$\\phantom{${texte}}=${miseEnEvidence(reponse)}$`
       texte = `$${texte}$`
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$=$' })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
 
       if (this.questionJamaisPosee(i, a, b, c, d)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

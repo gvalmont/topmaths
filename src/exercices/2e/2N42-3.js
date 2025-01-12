@@ -1,10 +1,10 @@
 import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import Trinome from '../../modules/Trinome'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré (3 formes)'
@@ -18,7 +18,7 @@ export const dateDeModifImportante = '5/11/2023'
  * @author Gilles Mora
 */
 export const uuid = '327cf'
-export const ref = '2N42-3'
+
 export const refs = {
   'fr-fr': ['2N42-3'],
   'fr-ch': []

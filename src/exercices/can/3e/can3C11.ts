@@ -5,16 +5,16 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Déterminer des racines carrées ou des carrés parfaits'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '21/10/2024'
-/*!
+/**
  * @author Gilles Mora
  */
 export const uuid = '59365'
-export const ref = 'can3C11'
+
 export const refs = {
   'fr-fr': ['can3C11'],
   'fr-ch': []
@@ -27,11 +27,6 @@ export default class calculsRacinesCarresPafaits extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -47,7 +42,7 @@ export default class calculsRacinesCarresPafaits extends Exercice {
           if (this.interactif) {
             handleAnswers(this, i,
               {
-                champ1: { value: reponse, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+                champ1: { value: reponse, options: { nombreDecimalSeulement: true } }
 
               }
             )
@@ -82,9 +77,9 @@ export default class calculsRacinesCarresPafaits extends Exercice {
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
       }
-      if (this.questionJamaisPosee(i, exp, texte)) {
-        this.listeCorrections.push(texteCorr)
-        this.listeQuestions.push(texte)
+      if (this.questionJamaisPosee(i, exp, String(a), String(b))) {
+        this.listeCorrections[i] = texteCorr
+        this.listeQuestions[i] = texte
 
         i++
       }

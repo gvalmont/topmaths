@@ -1,20 +1,20 @@
-import { droite } from '../../lib/2d/droites.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint, texteParPosition } from '../../lib/2d/textes.ts'
-import { homothetie, translation } from '../../lib/2d/transformations.js'
+import { droite } from '../../lib/2d/droites'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { latexParPoint, texteParPosition } from '../../lib/2d/textes'
+import { homothetie, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
@@ -28,23 +28,23 @@ export const dateDeModifImportante = '25/05/2023'
 
  */
 export const uuid = '93f13'
-export const ref = '2F10-2'
+
 export const refs = {
   'fr-fr': ['2F10-2'],
   'fr-ch': ['11FA8-13']
 }
-export default function Lecturefonctionaffine () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 1// On complète le nb de questions
-  this.sup = 1
-  this.correctionDetaillee = false
-  this.correctionDetailleeDisponible = true
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+export default class Lecturefonctionaffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Coefficient directeur entier\n2 :Coefficient directeur fractionnaire\n3 :Mélange']
+
+    this.nbQuestions = 1// On complète le nb de questions
+    this.sup = 1
+    this.correctionDetaillee = false
+    this.correctionDetailleeDisponible = true
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']
@@ -384,13 +384,12 @@ export default function Lecturefonctionaffine () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Coefficient directeur entier\n2 :Coefficient directeur fractionnaire\n3 :Mélange']
 }

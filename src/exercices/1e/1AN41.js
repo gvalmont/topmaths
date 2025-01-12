@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { sp } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -15,24 +15,26 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '20/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Stéphane Guyon
- * Référence
+
  */
 export const uuid = 'a720c'
-export const ref = '1AN41'
+
 export const refs = {
   'fr-fr': ['1AN41'],
   'fr-ch': []
 }
-export default function MesurePrincipale () {
-  Exercice.call(this)
-  this.nbQuestions = 3 // Nombre de questions par défaut
-  this.nbColsddd = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
+export default class MesurePrincipale extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 3 // Nombre de questions par défaut
+    this.nbColsddd = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  }
+
+  nouvelleVersion () {
     const lettresGrecques = [['α', '\\alpha'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]
     const alfa = lettresGrecques[randint(0, 7)][1]
     this.consigne = `Déterminer la mesure principale de l'angle $${alfa}$, c'est-à-dire sa mesure sur $]-\\pi;\\pi]$`
@@ -105,8 +107,8 @@ export default function MesurePrincipale () {
       texteCorr += `<br> La mesure principale de $${alfa}$ est donc $\\dfrac{${rienSi1(p)}\\pi}{${n}}$.`
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

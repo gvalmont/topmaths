@@ -1,9 +1,9 @@
-import { point, pointAdistance } from '../../lib/2d/points.js'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import { texteGras } from '../../lib/format/style.js'
+import { point, pointAdistance } from '../../lib/2d/points'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Alea2iep from '../../modules/Alea2iep.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Alea2iep from '../../modules/Alea2iep'
 export const titre = 'Partager un segment au compas et à la règle non graduée'
 
 export const dateDePublication = '29/10/2021'
@@ -11,10 +11,10 @@ export const dateDePublication = '29/10/2021'
 /**
  * Application du théorème de Thalès pour multiplier la longueur d'un segment par ue fraction
  * @author Rémi Angot
- * Référence PEG20
+
 */
 export const uuid = '44b85'
-export const ref = 'PEG20'
+
 export const refs = {
   'fr-fr': ['PEG20'],
   'fr-ch': []
@@ -22,7 +22,7 @@ export const refs = {
 export default class PartageSegmentCompasRegle extends Exercice {
   constructor () {
     super()
-      this.nbQuestions = 1
+    this.nbQuestions = 1
     this.nbQuestionsModifiable = false
   }
 

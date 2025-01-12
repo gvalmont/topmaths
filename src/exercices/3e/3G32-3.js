@@ -1,4 +1,4 @@
-import problemesTrigoLongueur from '../3e/3G32-0.js'
+import problemesTrigoLongueur from '../3e/3G32-0'
 export const titre = "Calculer la hauteur d'une falaise"
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,7 +10,7 @@ export const amcType = 'AMCHybride'
  * reference 3G32-3
  */
 export const uuid = 'e42e0'
-export const ref = '3G32-3'
+
 export const refs = {
   'fr-fr': ['3G32-3'],
   'fr-ch': []

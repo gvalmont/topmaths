@@ -1,12 +1,12 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureNombreRelatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context.js'
-import { sp } from '../../lib/outils/outilString.js'
+import { context } from '../../modules/context'
+import { sp } from '../../lib/outils/outilString'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,20 +23,25 @@ export const titre = 'Écrire sous la forme d\'une expression algébrique sans p
 * Rendu les différentes situations équiprobables le 16/10/2021 par Guillaume Valmont
 */
 export const uuid = '070b4'
-export const ref = '5R22-2'
+
 export const refs = {
   'fr-fr': ['5R22-2'],
   'fr-ch': ['9NO9-16']
 }
-export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
-  Exercice.call(this)
-  this.sup = max
-  this.sup2 = 3
-  this.nbCols = 3
-  this.nbColsCorr = 2
-  this.nbQuestions = 9 // pour équilibrer les colonnes
+export default class ExerciceSimplificationSommeAlgebrique extends Exercice {
+  constructor (max = 20) {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+    this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Que des additions\n2 : Que des soustractions\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.sup = max
+    this.sup2 = 3
+    this.nbCols = 3
+    this.nbColsCorr = 2
+    this.nbQuestions = 9 // pour équilibrer les colonnes
+  }
+
+  nouvelleVersion () {
     this.consigne = this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer.'
     let liste = [[-1, -1, -1], [-1, -1, 1], [-1, 1, -1], [-1, 1, 1], [1, -1, -1], [1, -1, 1], [1, 1, -1], [1, 1, 1]]
     liste = combinaisonListes(liste, this.nbQuestions)
@@ -66,14 +71,12 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: `$${sp()}=$` })
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-  this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Que des additions\n2 : Que des soustractions\n3 : Mélange']
 }

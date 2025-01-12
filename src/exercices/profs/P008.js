@@ -1,8 +1,8 @@
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import Operation from '../../modules/operations.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import Operation from '../../modules/operations'
 export const titre = 'Opérations posées'
-export const ref = 'P008'
+
 export const refs = {
   'fr-fr': ['P008'],
   'fr-ch': []
@@ -22,21 +22,25 @@ export const uuid = '691a6'
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
  * @author Rémi Angot
- * Référence 6C11
- */
-export default function OperationsPosees () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.sup = 1
-  this.sup2 = '1234.5-789.2'
-  this.sup3 = 0
 
-  this.nouvelleVersion = function () {
+ */
+export default class OperationsPosees extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Opération', 5, '1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division euclidienne\n5 : Division décimale']
+    this.besoinFormulaire2Texte = ['Deux nombres séparés par un tiret(séparateur décimal = le point)']
+    this.besoinFormulaire3Numerique = ['Nombre de chiffres après la virgule pour le quotient (5 maximum)', 5]
+
+    this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.sup = 1
+    this.sup2 = '1234.5-789.2'
+    this.sup3 = 0
+  }
+
+  nouvelleVersion () {
     const nombres = [1234.5, 789.2]
     const operandes = String(this.sup2).split('-')
     nombres[0] = parseFloat(operandes[0])
@@ -63,7 +67,4 @@ export default function OperationsPosees () {
     }
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireNumerique = ['Opération', 5, '1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division euclidienne\n5 : Division décimale']
-  this.besoinFormulaire2Texte = ['Deux nombres séparés par un tiret(séparateur décimal = le point)']
-  this.besoinFormulaire3Numerique = ['Nombre de chiffres après la virgule pour le quotient (5 maximum)', 5]
 }

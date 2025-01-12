@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Donner la forme explicite d\'une suite arithmétique ou géométrique'
 
 export const dateDePublication = '30/11/2024'
@@ -16,11 +16,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
 */
 export const uuid = 'b30ac'
-export const ref = '1AL11-6'
+
 export const refs = {
   'fr-fr': ['1AL11-6'],
   'fr-ch': []
@@ -48,7 +48,6 @@ export default class SuitesExplicites extends Exercice {
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -58,8 +57,6 @@ export default class SuitesExplicites extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
-    this.listeCorrections = [] // Vide la liste de questions corrigées
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -79,7 +76,7 @@ export default class SuitesExplicites extends Exercice {
           indice = this.sup2 ? randint(1, 10) : 0
           b = new Decimal(r).mul(indice).mul(-1).add(a)
           reponse = this.sup2 ? `${reduireAxPlusB(a, b, 'n')}` : `${reduireAxPlusB(r, a, 'n')}`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: reponse } })
           texte = `Soit $(${NomS}_n)$ une suite arithmétique de raison $r=${texNombre(r, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
 
@@ -102,7 +99,7 @@ export default class SuitesExplicites extends Exercice {
           indice = this.sup2 ? randint(1, 10) : 0
           b = new Decimal(r).mul(indice).mul(-1).add(a)
           reponse = this.sup2 ? [`${texNombre(b, 1)}+n\\times ${ecritureParentheseSiNegatif(r)} `, `${texNombre(b, 1)}${ecritureAlgebriqueSauf1(r)}n`] : [`${texNombre(a, 1)}+n\\times ${ecritureParentheseSiNegatif(r)}`, `${texNombre(a, 1)}${ecritureAlgebriqueSauf1(r)}n`]
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { expressionsForcementReduites: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { expressionsForcementReduites: true } } })
           texte = `Soit $(${NomS}_n)$ une suite définie par $${NomS}_{${indice}}=${texNombre(a, 1)}$ et  
         $${NomS}_{n+1}=${NomS}_n${ecritureAlgebrique(r)}$ pour tout entier naturel $n$.<br>
       Donner l'expression de $${NomS}_n$ en fonction de $n$.`
@@ -126,7 +123,7 @@ export default class SuitesExplicites extends Exercice {
           indice = this.sup2 ? randint(1, 10) : 0
 
           reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nbFacteursIdentiquesFactorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { nbFacteursIdentiquesFactorisation: true } } })
           texte = `Soit $(${NomS}_n)$ une suite géométrique de raison $q=${texNombre(q, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
           if (this.sup2) {
@@ -144,7 +141,7 @@ export default class SuitesExplicites extends Exercice {
           q = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, [0, 1]))])
           indice = this.sup2 ? randint(1, 10) : 0
           reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: reponse } })
           texte = `Soit $(${NomS}_n)$ une suite définie par $${NomS}_{${indice}}=${texNombre(a, 1)}$ et  
         $${NomS}_{n+1}=${texNombre(q, 1)}\\times ${NomS}_n$ pour tout entier naturel $n$.<br>
       Donner l'expression de $${NomS}_n$ en fonction de $n$.`
@@ -162,8 +159,8 @@ export default class SuitesExplicites extends Exercice {
 
       if (this.interactif) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${NomS}_n=$` }) }
       if (this.questionJamaisPosee(i, a, q, r, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

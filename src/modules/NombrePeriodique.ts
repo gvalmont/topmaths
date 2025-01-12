@@ -5,6 +5,7 @@ import FractionEtendue from './FractionEtendue'
 import Decimal from 'decimal.js'
 import { texNombre } from '../lib/outils/texNombre'
 import { bleuMathalea, vertMathalea } from '../lib/colors'
+import { getLang } from '../lib/stores/languagesStore'
 
 class NombrePeriodique {
   partieEntiere: number
@@ -78,6 +79,7 @@ class NombrePeriodique {
   }
 
   toFractionNouvelProcedure () : string {
+    const lang = getLang()
     let partieDecimaleString = ''
     if (this.partieDecimale !== -1) {
       partieDecimaleString = this.partieDecimale.toString()
@@ -94,12 +96,14 @@ class NombrePeriodique {
     const nouveauNb = new NombrePeriodique(Number(nvPartieEntiere), Number(nvPartieDecimale), this.periode)
     const nbSansPeriode = nouveauNb.toFraction().differenceFraction(this.toFraction()).fractionDecimale()
     const nbDecimal = new Decimal(nbSansPeriode.num / nbSansPeriode.den)
-    const procedure = `On multiplie le nombre par $10^{${this.periode.toString().length}}=${10 ** this.periode.toString().length}$ afin de décaler la virgule du nombre de crans correspondant à la période. On a deux égalités avec le même membre de gauche<br><br>
+    let procedure = `On multiplie le nombre par $10^{${this.periode.toString().length}}=${10 ** this.periode.toString().length}$ afin de décaler la virgule du nombre de crans correspondant à la période. On a deux égalités avec le même membre de gauche<br><br>
     $\\begin{aligned}
     &${miseEnEvidence(`${10 ** this.periode.toString().length}\\times${this.toString()}-${this.toString()}`, vertMathalea)}=${miseEnEvidence(`${10 ** this.periode.toString().length - 1}\\times${this.toString()}`, bleuMathalea)}\\\\
     &${miseEnEvidence(`${10 ** this.periode.toString().length}\\times${this.toString()}-${this.toString()}`, vertMathalea)}=${nouveauNb.toString()}-${this.toString()}=${miseEnEvidence(texNombre(nbDecimal, 6), bleuMathalea)}
-    \\end{aligned}$<br>
-    donc
+    \\end{aligned}$<br>`
+
+    if (lang === 'fr-CH') {
+      procedure += `donc
     \\[${miseEnEvidence(`${10 ** this.periode.toString().length - 1}\\times${this.toString()}`, bleuMathalea)}=${miseEnEvidence(texNombre(nbDecimal, 6), bleuMathalea)}.\\]
     Cela implique que <br><br>
     $\\begin{aligned}
@@ -108,6 +112,17 @@ class NombrePeriodique {
     &=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFractionSimplifiee} \\quad \\text{on simplifie la fraction si nécessaire}
     \\end{aligned}$.<br><br>
     Ainsi, $${this.toString()}=${miseEnEvidence(nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFractionSimplifiee)}$.`
+    } else {
+      procedure += '<br>On a donc les deux membres de droite qui sont égaux.'
+      procedure += `<br><br>$${miseEnEvidence(`${10 ** this.periode.toString().length - 1}\\times${this.toString()}`, bleuMathalea)}=${miseEnEvidence(texNombre(nbDecimal, 6), bleuMathalea)}$`
+      procedure += `<br><br>$${this.toString()}=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFraction}\\\\`
+      if (!nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).estIrreductible) {
+        procedure += `=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFractionSimplifiee}$<br><br>`
+      } else {
+        procedure += '$'
+      }
+    }
+
     return procedure
   }
 }

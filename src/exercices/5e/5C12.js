@@ -1,9 +1,9 @@
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import { context } from '../../modules/context.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
+import choisirExpressionNumerique from './_choisirExpressionNumerique'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -17,7 +17,7 @@ export const titre = 'Calculer en respectant les priorités opératoires'
  * @author Jean-Claude Lhote
  */
 export const uuid = 'e61fc'
-export const ref = '5C12'
+
 export const refs = {
   'fr-fr': ['5C12'],
   'fr-ch': ['9NO6-2']
@@ -26,8 +26,7 @@ export default class CalculerUneExpressionNumerique extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.nbCols = 1
-    this.nbColsCorr = 1
+
     this.sup = 3
     this.sup2 = false // si false alors utilisation de nombres entiers (calcul mental), si true alors utilisation de nombres à un chiffre après la virgule.
     this.sup3 = true
@@ -138,8 +137,8 @@ export default class CalculerUneExpressionNumerique extends Exercice {
             ]
           }
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

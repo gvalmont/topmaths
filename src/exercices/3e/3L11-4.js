@@ -1,14 +1,13 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
@@ -22,25 +21,27 @@ export const amcType = 'AMCOpen'
  * Ajout du paramétrage : Guillaume Valmont 13/08/2021
  */
 export const uuid = '5f5a6'
-export const ref = '3L11-4'
+
 export const refs = {
   'fr-fr': ['3L11-4'],
   'fr-ch': ['11FA3-2']
 }
-export default function FactoriserParNombreOux () {
-  Exercice.call(this)
-  this.sup = 4
-  this.nbQuestions = 8
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.listeAvecNumerotation = false
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
+export default class FactoriserParNombreOux extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.sup = 4
+    this.nbQuestions = 8
+    this.nbCols = 2
+    this.nbColsCorr = 2
+
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.listeAvecNumerotation = false
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
-    this.autoCorrection = []
 
     let typesDeQuestionsDisponibles
     switch (this.sup) {
@@ -138,7 +139,7 @@ export default function FactoriserParNombreOux () {
       }
       if (!context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { operationSeulementEtNonResultat: true } } })
       } else {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -158,8 +159,8 @@ export default function FactoriserParNombreOux () {
       // Fin de cette uniformisation
 
       if (this.questionJamaisPosee(i, k, n, m)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,6 +1,6 @@
 import loadjs from 'loadjs'
-import { context } from './context.js'
-import { UserFriendlyError } from './messages.js'
+import { context } from './context'
+import { UserFriendlyError } from './messages'
 import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { get } from 'svelte/store'
 import { globalOptions } from '../lib/stores/generalStore'
@@ -11,14 +11,13 @@ import { MathfieldElement } from 'mathlive'
  * @type {Object}
  */
 const apps = {
-  giac: '/assets/externalJs/giacsimple.js',
-  mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js',
-  prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css'],
-  scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js',
+  mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min',
+  prism: ['/assets/externalJs/prism', '/assets/externalJs/prism.css'],
+  scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min',
   slick: [
     '/assets/externalJs/semantic-ui/semantic.min.css',
-    '/assets/externalJs/semantic-ui/semantic.min.js',
-    '/assets/externalJs/semantic-ui/components/state.min.js'
+    '/assets/externalJs/semantic-ui/semantic.min',
+    '/assets/externalJs/semantic-ui/components/state.min'
   ]
 }
 
@@ -51,10 +50,11 @@ async function load (name) {
 
 /**
  * Attend que xcas soit chargé (max 60s), car giacsimple lance le chargement du wasm|js suivant les cas
- * @return {Promise<undefined,Error>} rejette en cas de timeout
+ * Plus de xcas
  */
-function waitForGiac () {
-  /* global Module */
+// function waitForGiac () {
+/* global Module */
+/*
   if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') {
     return Promise.reject(
       Error('Le loader giac n’a pas été correctement appelé')
@@ -77,17 +77,17 @@ function waitForGiac () {
     }, 500)
   })
 }
-
+*/
 /**
  * Charge giac
- * @return {Promise} qui peut échouer…
  */
-export async function loadGiac () {
+/* export async function loadGiac () {
   await load('giac')
   // attention, le load précédent résoud la promesse lorsque giacsimple est chargé,
   // mais lui va charger le webAssembly ou js ensuite, d'où le besoin de waitForGiac
   await waitForGiac()
 }
+  */
 
 /**
  * Charge une animation iep dans un élément

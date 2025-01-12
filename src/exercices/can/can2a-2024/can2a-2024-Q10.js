@@ -1,9 +1,9 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils.js'
-import { context } from '../../../modules/context.js'
+import { randint } from '../../../modules/outils'
+import { context } from '../../../modules/context'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { sp } from '../../../lib/outils/outilString.js'
+import { sp } from '../../../lib/outils/outilString'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Trouver le résultat d\'un programme Python'
@@ -13,12 +13,12 @@ export const uuid = 'eb3e8'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1

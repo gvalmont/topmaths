@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Rémi Angot
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {

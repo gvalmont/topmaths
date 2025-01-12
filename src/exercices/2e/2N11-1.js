@@ -1,13 +1,13 @@
-import { crochetD, crochetG, intervalle } from '../../lib/2d/intervalles.js'
-import { point } from '../../lib/2d/points.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { crochetD, crochetG, intervalle } from '../../lib/2d/intervalles'
+import { point } from '../../lib/2d/points'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -20,20 +20,19 @@ export const interactifType = 'mathLive'
  * @Stéphane Guyon
  */
 export const uuid = '31c01'
-export const ref = '2N11-1'
+
 export const refs = {
   'fr-fr': ['2N11-1'],
   'fr-ch': []
 }
-export default function IntervallesDeR () {
-  Exercice.call(this)
-  this.titre = titre
-  // this.consigne = ''
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class IntervallesDeR extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, s, X1, X2, A, B, c1, c2, int, int1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -356,15 +355,15 @@ export default function IntervallesDeR () {
           if (typeDeQuestion < 9) {
             reponse = texteCorr.split('I=')[1] // On prend la réponse après 'I='
             reponse = reponse.substring(0, reponse.length - 1)// et on vire le $ de la fin.
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { intervalle: true } } })
           } else {
             reponse = texteCorr.match(/\$(.*)\$/g)[0] // On prend ce qui est entre les $ $.
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
           texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierEnsemble} ${KeyboardType.clavierCompare}`)
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

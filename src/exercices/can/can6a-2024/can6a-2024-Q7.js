@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Compléter une table de multiplication'
 export const interactifReady = true
@@ -19,7 +19,6 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fillInTheBlank'
-    this.compare = fonctionComparaison
     this.canOfficielle = false
   }
 

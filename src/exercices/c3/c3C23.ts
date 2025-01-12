@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -18,13 +18,12 @@ export const dateDeModifImportante = '25/08/2024'
  * refait en exercice classique par Jean-Claude Lhote
 */
 export const uuid = '3a087'
-export const ref = 'c3C23'
+
 export const refs = {
   'fr-fr': ['c3C23'],
   'fr-ch': ['9NO13-1']
 }
 class CalculsFractionsSimples extends Exercice {
-  tailleDiaporama: number
   version: string
   constructor () {
     super()
@@ -32,14 +31,12 @@ class CalculsFractionsSimples extends Exercice {
     this.nbQuestions = 6
     this.sup = '1-2'
     this.consigne = 'Calculer.'
-    this.tailleDiaporama = 4
+
     this.version = 'c3'
     this.besoinFormulaireTexte = ['Opérations', 'Nombres séparés par des tirets\n1 : Additions\n2 : Soustractions\n3: Multiplications par un entier\n4: Mélange']
   }
 
   nouvelleVersion () {
-    this.reinit()
-
     const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const den = choice([2, 3, 4, 5, 10])
@@ -74,8 +71,8 @@ class CalculsFractionsSimples extends Exercice {
       if (this.questionJamaisPosee(i, a, b, den, listeTypeQuestions[i])) {
         texte += ajouteChampTexteMathLive(this, i, `  ${KeyboardType.clavierDeBaseAvecFraction}`)
         if (this.interactif) handleAnswers(this, i, { reponse: { value, compare: equalFractionCompareSansRadical } })
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

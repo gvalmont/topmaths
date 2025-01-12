@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { prenomM } from '../../../lib/outils/Personne'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter + Gilles Mora
- * Référence
+
 */
 export default class resoudreUnProbleme extends Exercice {
   constructor () {
@@ -25,13 +25,10 @@ export default class resoudreUnProbleme extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: '€' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const prenoms = prenomM(2)
     this.reponse = randint(8, 12, 10)
     const a = this.reponse * 2

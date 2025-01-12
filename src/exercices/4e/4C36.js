@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
+import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { prenomPronom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
@@ -7,9 +7,9 @@ import {
   randint,
   listeQuestionsToContenu,
   gestionnaireFormulaireTexte
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import Decimal from 'decimal.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -24,7 +24,7 @@ export const dateDeModifImportante = '18/06/2022'
  * Reformulation de l'énoncé et ajout de problèmes avec des puissances de 10 par Guillaume Valmont le 18/06/2022
 */
 export const uuid = '975cc'
-export const ref = '4C36'
+
 export const refs = {
   'fr-fr': ['4C36'],
   'fr-ch': ['10NO2-13']
@@ -32,17 +32,13 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 5
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Problèmes \'\'naturels\'\'\n2 : Problèmes avec des puissances de 10\n3 : Mélange']
     this.sup = '3'
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     const problemesNaturels = [
       /* {
         intitule: 'la distance entre la Terre et la Lune',
@@ -244,8 +240,8 @@ export default class nomExercice extends Exercice {
         texteCorr += '<br>' + monQcm.texteCorr // texteCorr est la correction globale de l'exercice
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

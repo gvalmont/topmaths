@@ -1,15 +1,15 @@
-import { tracePoint } from '../../lib/2d/points.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { tracePoint } from '../../lib/2d/points'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Grandeur from '../../modules/Grandeur'
 import {
   CodageAngleDroit3D,
@@ -25,10 +25,10 @@ import {
   sphere3d,
   translation3d,
   vecteur3d
-} from '../../modules/3d.js'
-import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+} from '../../modules/3d'
+import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { RedactionPythagore } from '../4e/_pythagore.js'
+import { RedactionPythagore } from '../4e/_pythagore'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer des longueurs dans la géométrie dans l\'espace'
@@ -45,20 +45,23 @@ export const dateDeModifImportante = '13/11/2023'
  */
 
 export const uuid = '57c70'
-export const ref = '3G44'
+
 export const refs = {
   'fr-fr': ['3G44'],
   'fr-ch': ['11GM2-5']
 }
-export default function CalculPythagoreEspace () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 4
-  this.sup2 = 1
-  this.sup = 10
+export default class CalculPythagoreEspace extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.nbQuestions = 4
+    this.sup2 = 1
+    this.sup = 10
+  }
+
+  nouvelleVersion () {
+    if (context.isAmc) this.besoinFormulaire2Numerique = ['Exercice AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -549,14 +552,12 @@ export default function CalculPythagoreEspace () {
 
       if (this.questionJamaisPosee(i, nomSolide, r, h)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  if (context.isAmc) this.besoinFormulaire2Numerique = ['Exercice AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
-  this.besoinFormulaireTexte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
 }

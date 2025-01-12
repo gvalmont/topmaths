@@ -1,19 +1,19 @@
-import { angleOriente } from '../../lib/2d/angles.js'
-import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.ts'
-import { homothetie, similitude } from '../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
-import { creerBoutonMathalea2d } from '../../lib/outils/modales.js'
+import { angleOriente } from '../../lib/2d/angles'
+import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { texteParPoint } from '../../lib/2d/textes'
+import { homothetie, similitude } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { creerBoutonMathalea2d } from '../../lib/outils/modales'
 import { texteGras } from '../../lib/format/style'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -29,23 +29,27 @@ export const titre = 'Calculer des longueurs avec le théorème de Thalès'
  * @author Rémi Angot
  * Utilisée dans 4G30 et 3G20
  */
-export default function Thales2D () {
-  Exercice.call(this)
+export default class Thales2D extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
 
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
-  this.sup2 = 1 // correction Triangles imbriqués / correction droites sécantes
-  this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
+    this.nbQuestions = 1
 
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
+    this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
+    this.sup2 = 1 // correction Triangles imbriqués / correction droites sécantes
+    this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
+
+  nouvelleVersion (numeroExercice) {
+    if (this.level === 3) {
+      this.besoinFormulaire2Numerique = ['Correction', 2, '1 : Triangles imbriqués\n2 : Droites sécantes']
+    }
     let listeDeNomsDePolygones = []
-    this.autoCorrection = []
+
     if (this.level === 4) {
       this.sup = 1
       this.sup2 = 1
@@ -284,17 +288,12 @@ export default function Thales2D () {
           }
         }
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-  }
-  this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
-
-  if (this.level === 3) {
-    this.besoinFormulaire2Numerique = ['Correction', 2, '1 : Triangles imbriqués\n2 : Droites sécantes']
   }
 }

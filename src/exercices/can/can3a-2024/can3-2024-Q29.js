@@ -5,11 +5,10 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { point } from '../../../lib/2d/points'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Compléter un schéma avec un nombre '
 export const interactifReady = true
@@ -18,18 +17,17 @@ export const uuid = '4dc1d'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: '? $=$' }
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
+
     this.canOfficielle = false
   }
 

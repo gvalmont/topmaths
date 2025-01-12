@@ -9,5 +9,5 @@ export interface BasicHeaderProps {
 
 export type HeaderProps = BasicHeaderProps &
 {
-  [key: string] : string | boolean | number
+  [key: string]: string | boolean | number
 }

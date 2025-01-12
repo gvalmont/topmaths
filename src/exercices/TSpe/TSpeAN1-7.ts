@@ -1,15 +1,14 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { pgcd } from '../../lib/outils/primalite.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { pgcd } from '../../lib/outils/primalite'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 
 export const titre = 'Résolution d\'équations du type $x^a = b$'
 export const dateDePublication = '28/08/2024'
-export const dateDeModificationImportante = '28/08/2024'
+export const dateDeModifImportante = '28/08/2024'
 export const uuid = '364dd'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,9 +18,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice : Résolution d'équations du type x^a = b
- * @autor Claire Rousset
- * Référence TSpeAN1-7
+ *  : Résolution d'équations du type x^a = b
+ * @author Claire Rousset
+
  */
 export default class EquationsLog extends Exercice {
   constructor () {
@@ -166,13 +165,13 @@ export default class EquationsLog extends Exercice {
       }
 
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+        handleAnswers(this, i, { reponse: { value: answer, options: { ensembleDeNombres: true } } })
         texte += '<br>'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '$S=$' })
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

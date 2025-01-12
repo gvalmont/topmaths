@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -34,9 +34,10 @@ export default class LireUneFraction extends Exercice {
       const value = `${nombreEnLettres(numerateur)} ${denominateurEnLettre(denominateur, numerateur > 1)}`
       const texteCorr = `La fraction $\\dfrac{${numerateur}}{${denominateur}}$ se lit ${value}.`
       if (this.questionJamaisPosee(i, numerateur, denominateur)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        handleAnswers(this, i, { reponse: { value, compare: fonctionComparaison, options: { texteSansCasse: true } } })
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
+        handleAnswers(this, i, { reponse: { value, options: { texteSansCasse: true } } })
         i++
       }
       cpt++

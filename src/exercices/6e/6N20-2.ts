@@ -1,7 +1,7 @@
 import { shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
 import figureApigeom from '../../lib/figureApigeom'
@@ -25,7 +25,7 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
  * @author Rémi Angot
  */
 export const uuid = 'ab44e'
-export const ref = '6N20-2'
+
 export const refs = {
   'fr-fr': ['6N20-2'],
   'fr-ch': ['9NO11-2']
@@ -123,8 +123,8 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
       }
       if (this.questionJamaisPosee(i, num, den)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
     }

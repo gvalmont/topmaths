@@ -1,12 +1,12 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { sp } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -28,28 +28,36 @@ export const titre = 'Résoudre une équation du premier degré à solutions ent
  * 4L20-0
  */
 export const uuid = '515b0'
-export const ref = '4L20-0'
+
 export const refs = {
   'fr-fr': ['4L20-0'],
   'fr-ch': ['10FA3-6']
 }
-export default function ExerciceEquationASolutionEntiere () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Résoudre les équations suivantes.'
-  this.spacing = 2
-  context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.correctionDetailleeDisponible = true
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
-  } else {
-    this.correctionDetaillee = true
-  }
-  this.sup = true // Avec des nombres relatifs
-  this.sup2 = 4 // Choix du type d'équation
-  this.nbQuestions = 6
+export default class ExerciceEquationASolutionEntiere extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire2Numerique = [
+      "Type d'équations",
+      4,
+      '1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Mélange'
+    ]
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre les équations suivantes.'
+    this.spacing = 2
+    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    this.correctionDetailleeDisponible = true
+    if (!context.isHtml) {
+      this.correctionDetaillee = false
+    } else {
+      this.correctionDetaillee = true
+    }
+    this.sup = true // Avec des nombres relatifs
+    this.sup2 = 4 // Choix du type d'équation
+    this.nbQuestions = 6
+  }
+
+  nouvelleVersion () {
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':
@@ -226,8 +234,8 @@ export default function ExerciceEquationASolutionEntiere () {
       this.sup ? setReponse(this, i, reponse, { signe: true }) : setReponse(this, i, reponse, { signe: false })
       if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
-        this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -237,18 +245,11 @@ export default function ExerciceEquationASolutionEntiere () {
       this.canEnonce = 'Résoudre l\'équation ' + this.listeQuestions[0] + '.'
       this.correction = this.listeCorrections[0]
       this.canReponseACompleter = ''
-      this.listeCanEnonces = []
-      this.listeCanReponsesACompleter = []
+
       for (const enonce of this.listeQuestions) {
         this.listeCanEnonces.push('Résoudre l\'équation ' + enonce + '.')
         this.listeCanReponsesACompleter.push('')
       }
     }
   }
-  this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
-  this.besoinFormulaire2Numerique = [
-    "Type d'équations",
-    4,
-    '1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Mélange'
-  ]
 }

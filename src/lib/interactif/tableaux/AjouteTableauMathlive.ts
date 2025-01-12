@@ -1,10 +1,10 @@
 import './tableauMathlive.scss'
 import { notify } from '../../../bugsnag'
 export interface Icell {
-texte: string
-latex: boolean
-gras: boolean
-color: string
+  texte: string
+  latex: boolean
+  gras: boolean
+  color: string
   style?: Record<string, string>
 }
 
@@ -17,15 +17,15 @@ type ObjetParams = Record<string, string>
 // Le TabPropMathlive ne gère pas les flèches... alors, je ne sais pas pourquoi j'ai mis toutes ces propriétés faculatives... Pour l'avenir ?
 // Si quelqu'un sait faire, qu'il ne se gêne pas !
 export interface Itableau {
-nbColonnes: number
-ligne1: Icell[]
-ligne2: Icell[]
-flecheHaut?: Fleche[] // [[1, 2, '\\times 6,4', 3], [2, 3, '\\div 6']]
-flecheBas?: Fleche[]
-flecheDroite?: FlecheCote // à remplacer par un string
-flecheDroiteSens?: FlecheSens
-flecheGauche?: FlecheCote
-flecheGaucheSens?: FlecheSens
+  nbColonnes: number
+  ligne1: Icell[]
+  ligne2: Icell[]
+  flecheHaut?: Fleche[] // [[1, 2, '\\times 6,4', 3], [2, 3, '\\div 6']]
+  flecheBas?: Fleche[]
+  flecheDroite?: FlecheCote // à remplacer par un string
+  flecheDroiteSens?: FlecheSens
+  flecheGauche?: FlecheCote
+  flecheGaucheSens?: FlecheSens
 }
 
 export interface ItabDbleEntry {
@@ -46,7 +46,7 @@ export interface ItabDbleEntry {
  * @param NoEx
  * @param NoQ
  */
-function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ, style }: {isInteractif: boolean, line: HTMLElement, icell: Icell, indexCol:number, indexLine:number, tag:'th'|'td', classes:string, NoEx: number, NoQ: number, style: string}) {
+function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ, style }: { isInteractif: boolean, line: HTMLElement, icell: Icell, indexCol: number, indexLine: number, tag: 'th' | 'td', classes: string, NoEx: number, NoQ: number, style: string }) {
   const cell = document.createElement(tag)
   let element: HTMLElement
   if (icell.texte === '') {
@@ -103,7 +103,7 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
  * @param {'td'|'th'} tag le tag (td pour des cellules à l'intérieur th pour des cellules d'entête)
  * @param {string} classes une liste de className dans un string séparés par des espaces
  */
-const fillLine = function ({ isInteractif, line, content, index, tag, classes, NoEx, NoQ, style }:{isInteractif: boolean, line: HTMLElement, content: Icell[], index: number, tag: 'td'|'th', classes: string, NoEx: number, NoQ: number, style: ObjetParams}): void {
+const fillLine = function ({ isInteractif, line, content, index, tag, classes, NoEx, NoQ, style }:{ isInteractif: boolean, line: HTMLElement, content: Icell[], index: number, tag: 'td' | 'th', classes: string, NoEx: number, NoQ: number, style: ObjetParams }): void {
   for (let i = 0; i < content.length; i++) {
     appendCell({ isInteractif, line, icell: content[i], indexCol: i, indexLine: index, tag, classes, NoEx, NoQ, style: style[`L${index}C${i}`] })
   }
@@ -211,7 +211,6 @@ export class AddTabDbleEntryMathlive {
   isInteractif: boolean
   private constructor (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string, isInteractif: boolean) {
     if (numeroExercice == null) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       window.notify('AddTabDbleEntryMathlive a besoin absolument d\'un numero d\'exercice')
     }

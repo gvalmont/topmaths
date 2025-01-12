@@ -1,8 +1,8 @@
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { Polynome } from '../../lib/mathFonctions/Polynome.js'
+import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -11,7 +11,7 @@ import Trinome from '../../modules/Trinome'
 
 export const titre = 'Dériver $\\dfrac{u}{v}$'
 export const dateDePublication = '22/01/2022'
-export const dateDeModificationImportante = '07/05/2024'
+export const dateDeModifImportante = '07/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
  * Calculer la dérivée d'un quotient
  * @author Jean-Léon Henry
  * Finalisé par Jean-Claude Lhote
- * Référence 1AN14-5
+
  */
 
 export const uuid = 'b32f2'
@@ -27,24 +27,29 @@ export const refs = {
   'fr-fr': ['1AN14-6'],
   'fr-ch': []
 }
-export default function DeriveeQuotient () {
-  Exercice.call(this)
-  // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-  this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
-  this.nbQuestions = 5
-  // Sortie LaTeX
-  this.nbCols = 2 // Nombre de colonnes
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-  this.sup = '5'
-  this.sup2 = false
-  // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
+export default class DeriveeQuotient extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : (ax+b)/(cx+d)\n2 : ax^n/(cx+d)\n3 : (ax²+bx+c)/(ex+f)\n4 ax^n/(ax²+bx+c)\n5 : mélange']
+    this.besoinFormulaire2CaseACocher = ['Montrer que... (non interactif)', false]
+    // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
+    this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
+    this.nbQuestions = 5
+    // Sortie LaTeX
+    this.nbCols = 2 // Nombre de colonnes
+    this.nbColsCorr = 2 // Nombre de colonnes dans la correction
+    this.sup = '5'
+    this.sup2 = false
+    // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   /* const reglesDeSimplifications = math.simplify.rules.slice()
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
 */
-  this.nouvelleVersion = function () {
+  }
+
+  nouvelleVersion () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
     if (this.sup2) {
       this.interactifReady = false
@@ -218,8 +223,9 @@ export default function DeriveeQuotient () {
       }
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
         i++
       }
@@ -227,6 +233,4 @@ export default function DeriveeQuotient () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : (ax+b)/(cx+d)\n2 : ax^n/(cx+d)\n3 : (ax²+bx+c)/(ex+f)\n4 ax^n/(ax²+bx+c)\n5 : mélange']
-  this.besoinFormulaire2CaseACocher = ['Montrer que... (non interactif)', false]
 }

@@ -1,30 +1,29 @@
-import { angleModulo, codageAngle, codageAngleDroit, rapporteur } from '../../../lib/2d/angles.js'
-import { arc } from '../../../lib/2d/cercle.js'
-import { droite } from '../../../lib/2d/droites.js'
-import { milieu, point, pointSurSegment, tracePoint } from '../../../lib/2d/points.js'
-import { polygone } from '../../../lib/2d/polygones.js'
-import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
-import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
-import { rotation } from '../../../lib/2d/transformations.js'
+import { angleModulo, codageAngle, codageAngleDroit, rapporteur } from '../../../lib/2d/angles'
+import { arc } from '../../../lib/2d/cercle'
+import { droite } from '../../../lib/2d/droites'
+import { milieu, point, pointSurSegment, tracePoint } from '../../../lib/2d/points'
+import { polygone } from '../../../lib/2d/polygones'
+import { droiteGraduee, grille } from '../../../lib/2d/reperes'
+import { segment } from '../../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
-import { lettreDepuisChiffre, sp } from '../../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import { fraction } from '../../../modules/fractions.js'
+import Exercice from '../../Exercice'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { fraction } from '../../../modules/fractions'
 import { max, min, round } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur'
-import { paveLPH3d } from '../../../modules/3d.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { paveLPH3d } from '../../../modules/3d'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 5e sujet 2022'
 export const interactifReady = true
@@ -34,9 +33,9 @@ export const dateDePublication = '02/05/2022' // La date de publication initiale
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * Gilles Mora avec aide EE et JCL
- * Référence
+
  */
 
 function compareNombres (a, b) {
@@ -44,28 +43,25 @@ function compareNombres (a, b) {
 }
 
 export const uuid = '1fdf7'
-export const ref = 'can5a-2022'
+
 export const refs = {
   'fr-fr': ['can5a-2022'],
   'fr-ch': []
 }
-export default function SujetCAN2022cinquieme () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.nbQuestions = 30// 10,20,30
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
+export default class SujetCAN2022cinquieme extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 30// 10,20,30
+
+    this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   Les 10 premières questions, parfois communes à plusieurs niveaux, font appel à des questions élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle Course Aux Nombres avec des données différentes.
   En choisissant un nombre de questions inférieur à 30, on fabrique une « mini » Course Aux Nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 ou 8 questions élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 12 ou 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
-  this.nouvelleVersion = function () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+  }
+
+  nouvelleVersion () {
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
@@ -424,7 +420,7 @@ export default function SujetCAN2022cinquieme () {
           } else {
             texte = `Écrire en heures/minutes : <br>$${d}$ min $=$ `
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
-            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: b }).toString(), compare: fonctionComparaison, options: { HMS: true } } })
+            handleAnswers(this, index, { reponse: { value: new Hms({ hour: a, minute: b }).toString(), options: { HMS: true } } })
 
             texteCorr = ` On cherche le multiple de $60$ inférieur à $${d}$ le plus grand possible. C'est $${Math.floor(d / 60)}\\times 60 = ${Math.floor(d / 60) * 60}$.<br>
           Ainsi $${d} = ${Math.floor(d / 60) * 60} + ${d % 60}$ donc $${d}$min $= ${Math.floor(d / 60)}$h$${d % 60}$min.`
@@ -1049,8 +1045,8 @@ export default function SujetCAN2022cinquieme () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += nbChamps
       }

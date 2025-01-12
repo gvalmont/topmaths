@@ -1,7 +1,7 @@
-import { courbe } from '../../lib/2d/courbes.js'
-import { point } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { courbe } from '../../lib/2d/courbes'
+import { point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -9,11 +9,11 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures'
-import { modalTexteLong } from '../../lib/outils/modales.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { modalTexteLong } from '../../lib/outils/modales'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Calcul du discriminant d\'une équation du second degré'
@@ -21,25 +21,28 @@ export const titre = 'Calcul du discriminant d\'une équation du second degré'
 /**
  * Calculer le discriminant d'une équation
  * @author Rémi Angot
- * Référence 1E10
+
 */
 export const uuid = 'feb39'
-export const ref = '1AL20-11'
+
 export const refs = {
   'fr-fr': ['1AL20-11'],
   'fr-ch': ['11FA10-7']
 }
-export default function CalculDiscriminant () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
-  this.nbQuestions = 6
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  if (context.isHtml) {
-    this.spacingCorr = 2
+export default class CalculDiscriminant extends Exercice {
+  constructor () {
+    super()
+
+    this.consigne = 'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
+    this.nbQuestions = 6
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    if (context.isHtml) {
+      this.spacingCorr = 2
+    }
   }
-  this.nouvelleVersion = function (numeroExercice) {
+
+  nouvelleVersion (numeroExercice) {
     const listeTypesEquations = combinaisonListes(['0solution', '1solution', '2solutions'], this.nbQuestions)
     for (let i = 0, texte, texteCorr, a, b, c, x1, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let aNbPointsIntersection
@@ -126,8 +129,8 @@ export default function CalculDiscriminant () {
         texteCorr += modalTexteLong(numeroExercice, '<br>Complément graphique', correctionComplementaire, '<br>Complément graphique', 'info circle')
       }
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

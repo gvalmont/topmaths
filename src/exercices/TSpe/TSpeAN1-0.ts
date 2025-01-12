@@ -1,18 +1,17 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { pgcd } from '../../lib/outils/primalite.js'
-import { fraction } from '../../modules/fractions.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { pgcd } from '../../lib/outils/primalite'
+import { fraction } from '../../modules/fractions'
 
 export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec log'
 export const dateDePublication = '4/5/2024'
-export const dateDeModificationImportante = '18/07/2024'
+export const dateDeModifImportante = '18/07/2024'
 export const uuid = '00a7a'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,9 +21,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
- * @autor Claire Rousset (un peu aidé par Jean-Claude Lhote)
- * Référence TSpeAN1-0
+ *
+ * @author Claire Rousset (un peu aidé par Jean-Claude Lhote)
+
  */
 export default class InequationsLog extends Exercice {
   constructor () {
@@ -97,7 +96,7 @@ export default class InequationsLog extends Exercice {
       let texteCorr = ''
       let a: number
       let b: number
-      let quotient: number|[number, number]|null
+      let quotient: number | [number, number] | null
       let base: number | null
       switch (listeTypeQuestions[i]) {
         case 1: // rationnel
@@ -217,13 +216,13 @@ export default class InequationsLog extends Exercice {
       }
       texteCorr += `<br>Ainsi, $S=${miseEnEvidence(answer)}$`
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
+        handleAnswers(this, i, { reponse: { value: answer, options: { intervalle: true } } })
         texte += '<br>$S= $'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

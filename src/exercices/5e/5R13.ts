@@ -1,16 +1,16 @@
 import Exercice from '../Exercice'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Comparer des nombres relatifs'
 export const dateDePublication = '1/08/2024'
-export const dateDeModificationImportante = '01/08/2024'
+export const dateDeModifImportante = '01/08/2024'
 export const uuid = '19060'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice : Comparaison de nombres relatifs
+ *  : Comparaison de nombres relatifs
  * @author Claire Rousset
  */
 export default class InequationsLog extends Exercice {
@@ -224,8 +224,8 @@ export default class InequationsLog extends Exercice {
         texte = remplisLesBlancs(this, i, `${texNombre(a!)} \\quad %{champ1} \\quad ${texNombre(b!)}`, KeyboardType.clavierCompare)
       }
       if (this.questionJamaisPosee(i, a!.toString(), b!.toString())) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
     }

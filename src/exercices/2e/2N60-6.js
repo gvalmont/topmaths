@@ -1,8 +1,8 @@
 import { texteGras } from '../../lib/format/style'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -11,10 +11,10 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '25/05/2023'
 export const titre = 'Étudier la position relative de deux courbes'
@@ -25,24 +25,27 @@ export const titre = 'Étudier la position relative de deux courbes'
  * 2N60-6
  */
 export const uuid = '53e8f'
-export const ref = '2N60-6'
+
 export const refs = {
   'fr-fr': ['2N60-6'],
   'fr-ch': []
 }
-export default function PositionRelative () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
-  this.titre = titre
-  this.nbQuestions = 1
-  this.besoinFormulaireTexte = [
-    'Choix des fonctions',
-    '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange'
-  ]
-  this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
+export default class PositionRelative extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.sup = 1
+    this.sup2 = 1
+
+    this.nbQuestions = 1
+    this.besoinFormulaireTexte = [
+      'Choix des fonctions',
+      '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange'
+    ]
+    this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -580,8 +583,8 @@ export default function PositionRelative () {
       }
       if (this.questionJamaisPosee(i, a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

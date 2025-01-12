@@ -1,10 +1,10 @@
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -22,22 +22,23 @@ export const dateDePublication = '17/08/2021'
  * @author Laurence Candille et Jean-Claude Lhote (pour l'export AMC)
  */
 export const uuid = '8c05e'
-export const ref = '3A12-1'
+
 export const refs = {
   'fr-fr': ['3A12-1'],
   'fr-ch': ['9NO4-24']
 }
-export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this)
-  this.nbQuestionsModifiable = true
-  this.nbQuestions = 3
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.interactifType = 'mathLive'
-  this.sup = '4'
+export default class NomQuelconqueDeLaFonctionQuiCreeExercice extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4: Mélange']
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.nbQuestions = 3
 
+    this.interactifType = 'mathLive'
+    this.sup = '4'
+  }
+
+  nouvelleVersion () {
     const listeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -281,8 +282,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           }
         }
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -290,5 +291,4 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4: Mélange']
 }

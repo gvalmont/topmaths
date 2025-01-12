@@ -1,12 +1,12 @@
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.ts'
+import { point, tracePoint } from '../../lib/2d/points'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Placer un événement sur une échelle de probabilités'
 
@@ -16,23 +16,25 @@ export const titre = 'Placer un événement sur une échelle de probabilités'
  */
 // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
 export const uuid = '86db6'
-export const ref = '5S20'
+
 export const refs = {
   'fr-fr': ['5S20'],
   'fr-ch': ['11NO2-5']
 }
-export default function PlacerProbabilites () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.sup = true
-  this.nouvelleVersion = function () {
+export default class PlacerProbabilites extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Changer le type d\'axe']
+
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.sup = true
+  }
+
+  nouvelleVersion () {
     const lstEvenenementA = [] // liste des évènements disponibles : p === 0 ou p === 1
     const lstEvenenementB = [] // liste des évènements disponibles : p < 0.5
     const lstEvenenementC = [] // liste des évènements disponibles : p = 0.5
@@ -174,5 +176,4 @@ export default function PlacerProbabilites () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
-  this.besoinFormulaireCaseACocher = ['Changer le type d\'axe']
 }

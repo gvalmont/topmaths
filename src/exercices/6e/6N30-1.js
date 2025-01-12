@@ -1,11 +1,11 @@
-import { droiteGraduee } from '../../lib/2d/reperes.js'
+import { droiteGraduee } from '../../lib/2d/reperes'
 import { arrondi } from '../../lib/outils/nombres'
-import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -20,28 +20,30 @@ export const dateDeModifImportante = '01/02/2022'
  * Exercice calqué sur lire abscisse fractionnaire sauf que le résultat attendu est en écriture décimale.
  * demis, quart, cinquièmes dixièmes et centièmes
  * @author Jean-Claude Lhote
- * Référence 6N30-1
+
  */
 export const uuid = '8418e'
-export const ref = '6N30-1'
+
 export const refs = {
   'fr-fr': ['6N30-1'],
   'fr-ch': ['9NO7-2']
 }
-export default function LireAbscisseDecimaleBis2d () {
-  Exercice.call(this)
-  this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
-  this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 7
-  this.interactif = false
-  this.niveau = 6
+export default class LireAbscisseDecimaleBis2d extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Choix des subdivisions',
+      'Nombres séparés par des tirets\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange'
+    ]
+    this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
+    this.nbQuestions = 3
 
-  this.nouvelleVersion = function () {
+    this.sup = 7
+    this.interactif = false
+    this.niveau = 6
+  }
+
+  nouvelleVersion () {
     // numeroExercice est 0 pour l'exercice 1
     /*
         let QuestionsDisponibles
@@ -68,11 +70,6 @@ export default function LireAbscisseDecimaleBis2d () {
       saisie: this.sup
     })
 
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
     const d = []
     this.contenu = this.consigne
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, thick1, thick2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -184,16 +181,12 @@ export default function LireAbscisseDecimaleBis2d () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Choix des subdivisions',
-    'Nombres séparés par des tirets\n1 : Dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : Cinquièmes\n6 : Huitièmes\n7 : Mélange'
-  ]
 }

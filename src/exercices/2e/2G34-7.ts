@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -18,14 +18,13 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
 export default class systemeEquationsPremDegComp extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
     this.nbQuestions = 3
     this.sup = 1
     this.correctionDetailleeDisponible = true
@@ -38,10 +37,8 @@ export default class systemeEquationsPremDegComp extends Exercice {
     } else {
       this.consigne = 'Résoudre les systèmes suivants par substitution :'
     }
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    let typeQuestionsDisponibles : ('lv1'|'lv2')[]
+
+    let typeQuestionsDisponibles : ('lv1' | 'lv2')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['lv1']
     } else if (this.sup === 2) {
@@ -365,8 +362,8 @@ export default class systemeEquationsPremDegComp extends Exercice {
         )
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

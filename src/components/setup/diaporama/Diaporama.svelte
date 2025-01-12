@@ -122,7 +122,7 @@
   function reroll (exercise: Exercice, idVue?: 0 | 1 | 2 | 3) {
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
     const oldSeed = exercise.seed
-    if (idVue !== undefined && idVue > 0) exercise.seed = mathaleaGenerateSeed()
+    if (idVue !== undefined && idVue > 0) exercise.seed = exercise.seed + idVue // Si on inclut un Math.random() ça met le bazar et on risque d'avoir plusieurs fois la même question malgré le this.questionJamaisPosee
     if (exercise.typeExercice === 'simple') {
       mathaleaHandleExerciceSimple(exercise, false)
     } else {

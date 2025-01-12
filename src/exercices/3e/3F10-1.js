@@ -1,13 +1,13 @@
-import { droiteParPointEtPente } from '../../lib/2d/droites.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
+import { droiteParPointEtPente } from '../../lib/2d/droites'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const dateDeModifImportante = '01/11/2024'
 export const interactifReady = true
@@ -22,25 +22,30 @@ export const titre = 'Utiliser le vocabulaire et les notations des fonctions (g�
 * @author Jean-Claude Lhote
 */
 export const uuid = '0eecd'
-export const ref = '3F10-1'
+
 export const refs = {
   'fr-fr': ['3F10-1'],
   'fr-ch': ['10FA5-5', '1F1-4']
 }
-export default function VocabulaireNotationsFonctions () {
-  Exercice.call(this)
-  this.sup = 2
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  this.spacing = 2
-  this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
-  this.consigne = 'Cocher toutes les réponses correctes.'
+export default class VocabulaireNotationsFonctions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      3,
+      '1 : Vocabulaire\n2 : Notations \n3 : Mélange'
+    ]
+    this.besoinFormulaire2CaseACocher = ['Avec éventuellement un graphique', false]
+    this.sup = 2
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+    this.spacing = 2
+    this.nbQuestions = 3
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-    this.autoCorrection = []
+    this.consigne = 'Cocher toutes les réponses correctes.'
+  }
 
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     const r = repere({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
     switch (this.sup) {
@@ -134,18 +139,12 @@ export default function VocabulaireNotationsFonctions () {
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    3,
-    '1 : Vocabulaire\n2 : Notations \n3 : Mélange'
-  ]
-  this.besoinFormulaire2CaseACocher = ['Avec éventuellement un graphique', false]
 }

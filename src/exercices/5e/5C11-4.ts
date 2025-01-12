@@ -1,12 +1,12 @@
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Écrire un nombre sous différentes formes'
 
@@ -27,7 +27,7 @@ export default class EcrireNombreDifferentesFormes extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 6
-    this.nbQuestionsModifiable = true
+
     this.comment = 'Cet exercice permet de voir le symbole = autrement que la touche EXE de la calculatrice.'
     this.besoinFormulaireTexte = ['Types de questions',
       `Nombres séparés par des tirets
@@ -70,18 +70,18 @@ export default class EcrireNombreDifferentesFormes extends Exercice {
       switch (listeTypeQuestions[i]) {
         case 'produit':
           texte += 'sous la forme du produit de deux nombres.'
-          handleAnswers(this, i, { reponse: { value: n.toString(), compare: fonctionComparaison, options: { multiplicationSeulementEtNonResultat: true } } })
+          handleAnswers(this, i, { reponse: { value: n.toString(), options: { multiplicationSeulementEtNonResultat: true } } })
           texteCorr = `Par exemple : $${n} = ${miseEnEvidence(`${a} \\times ${b}`)}$`
           break
         case 'somme':
           texte += 'sous la forme de la somme de deux nombres.'
           c = randint(2, Math.min(10, n - 1))
           texteCorr = `Par exemple : $${n} = ${miseEnEvidence(`${c} + ${n - c}`)}$`
-          handleAnswers(this, i, { reponse: { value: n.toString(), compare: fonctionComparaison, options: { additionSeulementEtNonResultat: true } } })
+          handleAnswers(this, i, { reponse: { value: n.toString(), options: { additionSeulementEtNonResultat: true } } })
           break
         case 'différence':
           texte += 'sous la forme de la différence de deux nombres.'
-          handleAnswers(this, i, { reponse: { value: n.toString(), compare: fonctionComparaison, options: { soustractionSeulementEtNonResultat: true } } })
+          handleAnswers(this, i, { reponse: { value: n.toString(), options: { soustractionSeulementEtNonResultat: true } } })
           c = randint(2, 10)
           texteCorr = `Par exemple : $${n} = ${miseEnEvidence(`${n + c} - ${c}`)}$`
           break
@@ -89,29 +89,29 @@ export default class EcrireNombreDifferentesFormes extends Exercice {
           if (n % 2 === 0) {
             texte += 'sous la forme du double d\'un nombre.'
             texteCorr = `$${n} = ${miseEnEvidence(`2 \\times ${texNombre(n / 2)}`)}$`
-            handleAnswers(this, i, { reponse: { value: `2 \\times ${texNombre(n / 2)}`, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+            handleAnswers(this, i, { reponse: { value: `2 \\times ${texNombre(n / 2)}`, options: { operationSeulementEtNonResultat: true } } })
           } else {
             texte += 'sous la forme de la somme de deux nombres consécutifs.'
-            handleAnswers(this, i, { reponse: { value: `${Math.floor(n / 2)} + ${Math.ceil(n / 2)}`, compare: fonctionComparaison, options: { operationSeulementEtNonResultat: true } } })
+            handleAnswers(this, i, { reponse: { value: `${Math.floor(n / 2)} + ${Math.ceil(n / 2)}`, options: { operationSeulementEtNonResultat: true } } })
 
             texteCorr = `$${n} = ${miseEnEvidence(`${Math.floor(n / 2)} + ${Math.ceil(n / 2)}`)}$`
           }
           break
         case 'moitie':
           texte += 'sous la forme de la moitié d\'un nombre.'
-          handleAnswers(this, i, { reponse: { value: [`${n * 2} \\div 2`, `\\dfrac${n * 2}}{2}`], compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: [`${n * 2} \\div 2`, `\\dfrac${n * 2}}{2}`] } })
           texteCorr = `$${n} = ${miseEnEvidence(`\\dfrac{${2 * n}}{2}`)}$`
           break
         case 'quart':
           texte += 'sous la forme du quart d\'un nombre.'
-          handleAnswers(this, i, { reponse: { value: [`${n * 4} \\div 4`, `\\dfrac${n * 4}}{4}`], compare: fonctionComparaison } })
+          handleAnswers(this, i, { reponse: { value: [`${n * 4} \\div 4`, `\\dfrac${n * 4}}{4}`] } })
           texteCorr = `$${n} = ${miseEnEvidence(`\\dfrac{${4 * n}}{4}`)}$`
           break
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: `${sp(5)}$${n}=$` })
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], n)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

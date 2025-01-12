@@ -73,7 +73,7 @@ export default class ExerciceProbleme002 extends Exercice {
     this.sup = 1
     this.besoinFormulaire3CaseACocher = ['Opération posée dans la correction', false]
     this.sup3 = false
-    this.nbQuestionsModifiable = true
+
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
   }
@@ -317,19 +317,18 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
       enonce += listeQuestions.length === 1
         ? listeQuestions[0]
         : createList({
-          items: listeQuestions,
-          style: 'alpha'
-        })
+            items: listeQuestions,
+            style: 'alpha'
+          })
       correction = listeCorrections.length === 1
         ? listeCorrections[0]
         : createList({
-          items: listeCorrections,
-          style: 'alpha'
-        })
+            items: listeCorrections,
+            style: 'alpha'
+          })
       if (this.questionJamaisPosee(i, [quantiteFruit1, quantiteFruit2, quantiteFruit3].map(el => JSON.stringify(el)).join(''))) {
-        this.listeQuestions.push(enonce)
-        this.listeCorrections.push(correction)
-        // this.listeCorrections.push(correction)
+        this.listeQuestions[i] = enonce
+        this.listeCorrections[i] = correction
         i++
       }
       cpt++

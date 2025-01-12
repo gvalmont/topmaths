@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
-import { orangeMathalea, orangeMathaleaLight } from 'apigeom/src/elements/defaultValues.js'
+import { orangeMathalea, orangeMathaleaLight } from 'apigeom/src/elements/defaultValues'
 import type { Coords } from 'apigeom/src/elements/calculus/Coords'
 import bluePolygon from './svg/bluePolygon.svg'
 import remove from 'apigeom/src/assets/svg/restart.svg'
@@ -28,22 +28,22 @@ export const refs = {
 }
 
 type Cell = {
-  value: number|string;
+  value: number | string;
   regionId: number;
-};
+}
 
 type Rectangle = {
   topLeft: [number, number];
   bottomRight: [number, number];
-};
+}
 
-class shikaku extends Exercice {
+export default class shikaku extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   figureCorrection!: Figure
   goodAnswers: Array<Coords[]>
-  longueur:number
-  largeur:number
+  longueur: number
+  largeur: number
 
   constructor () {
     super()
@@ -52,7 +52,7 @@ class shikaku extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.reponse = ''
-    this.formatChampTexte = 'none'
+
     this.exoCustomResultat = true
     this.besoinFormulaireTexte = [
       'Hauteur de la grille',
@@ -452,5 +452,3 @@ class shikaku extends Exercice {
     return ['KO']
   }
 }
-
-export default shikaku

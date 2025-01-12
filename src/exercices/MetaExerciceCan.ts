@@ -1,4 +1,4 @@
-import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'
@@ -26,22 +26,19 @@ export default class MetaExercice extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     this.nbQuestionsModifiable = this.sup3
     this.besoinFormulaire2Texte = false
-    let listeTypeDeQuestions : (string|number)[]
+    let listeTypeDeQuestions : (string | number)[]
     let listeDeQuestions = this.sup2
-    let ExercicesRef = this.Exercices
+    let exercicesRef = this.Exercices
     if (this.sup3) {
       this.sup2 = false
     } else {
       this.nbQuestions = 30
       listeDeQuestions = this.sup2
-      ExercicesRef = this.Exercices
+      exercicesRef = this.Exercices
     }
 
     if (this.sup2) {
@@ -55,7 +52,7 @@ export default class MetaExercice extends Exercice {
       })
     } else {
       listeTypeDeQuestions = range1(30)
-      ExercicesRef = this.Exercices
+      exercicesRef = this.Exercices
 
       const base = Math.floor(this.nbQuestions / 3)
       const reste = this.nbQuestions % 3
@@ -65,32 +62,35 @@ export default class MetaExercice extends Exercice {
       }
       repartition = combinaisonListes(repartition, 3)
 
-      let exercices1 = ExercicesRef.slice(0, 10)
+      let exercices1 = exercicesRef.slice(0, 10)
       exercices1 = shuffle(exercices1)
       exercices1 = exercices1.slice(0, repartition[0])
 
-      let exercices2 = ExercicesRef.slice(10, 20)
+      let exercices2 = exercicesRef.slice(10, 20)
       exercices2 = shuffle(exercices2)
       exercices2 = exercices2.slice(0, repartition[1])
 
-      let exercices3 = ExercicesRef.slice(20, 30)
+      let exercices3 = exercicesRef.slice(20, 30)
       exercices3 = shuffle(exercices3)
       exercices3 = exercices3.slice(0, repartition[2])
 
-      ExercicesRef = [...exercices1, ...exercices2, ...exercices3]
+      exercicesRef = [...exercices1, ...exercices2, ...exercices3]
     }
 
     let indexQuestion = 0
     let numExo = 1
-    for (const Exercice of ExercicesRef) {
+    if (exercicesRef.length > 30) {
+      window.notify('Nombre de questions supérieur à 30 dans MetaExercice', { nbQuestions: exercicesRef.length })
+      exercicesRef = exercicesRef.slice(0, 30)
+    }
+    this.reinit() // On réinitialise les listes de questions parce qu'on a eu des soucis (est-ce que MetaExercice passe par le nouvelleVersionWrapper ?)
+    for (const UnExercice of exercicesRef as Exercice[]) {
       if (listeTypeDeQuestions.includes(numExo)) { // Permet de ne choisir que certaines questions
-      // @ts-expect-error : question is an Exercice
-        const Question = new Exercice()
-        // Question.numeroExercice = this.numeroExercice
+        const Question = new UnExercice()
         Question.numeroExercice = 0
         Question.canOfficielle = !!this.sup
         Question.interactif = this.interactif
-        Question.nouvelleVersion()
+        Question.nouvelleVersionWrapper()
         //* ************ Question Exo simple *************//
         if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
           const consigne = Question.consigne === '' ? '' : `${Question.consigne}<br>`
@@ -122,11 +122,11 @@ export default class MetaExercice extends Exercice {
           } else {
             if (Question.compare == null) {
               if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse)
-              else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
+              else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } })
+              // else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
             } else {
               const compare = Question.compare
               const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
-
               if (typeof Question.reponse === 'string' || typeof Question.reponse === 'number') {
                 const reponse = String(Question.reponse)
                 handleAnswers(this, indexQuestion, {
@@ -176,8 +176,6 @@ export default class MetaExercice extends Exercice {
           this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${indexQuestion}`)
 
           // fin d'alimentation des listes de question et de correction pour cette question
-          // this.formatChampTexte = Question.formatChampTexte
-          // this.formatInteractif = Question.formatInteractif
           const formatInteractif = Question.autoCorrection[0].reponse.param.formatInteractif
           if (formatInteractif === 'qcm') {
             this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
@@ -199,6 +197,15 @@ export default class MetaExercice extends Exercice {
       }
       numExo++
     }
+    // Une deuxième sécurité pour virer les questions en trop
+    if (indexQuestion > 30) {
+      indexQuestion = 30
+      window.notify('malgré des précautions prises, on a fabriqué plus de 30 questions dans MetaExercice', { nbQuestions: indexQuestion })
+      this.listeQuestions = this.listeQuestions.slice(0, indexQuestion)
+      this.listeCorrections = this.listeCorrections.slice(0, indexQuestion)
+      this.autoCorrection = this.autoCorrection.slice(0, indexQuestion)
+    }
+
     this.besoinFormulaire2Texte = this.sup3
       ? false
       : [

@@ -100,6 +100,7 @@ export function isStatic (uuid: string | undefined) {
     uuid.startsWith('dnb_') ||
     uuid.startsWith('e3c_') ||
     uuid.startsWith('bac_') ||
+    uuid.startsWith('sti2d_') ||
     uuid.startsWith('evacom_') ||
     uuid.startsWith('2nd_')
 }

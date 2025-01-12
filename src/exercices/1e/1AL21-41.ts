@@ -5,11 +5,11 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import type { MathfieldElement } from 'mathlive'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -24,7 +24,7 @@ export const dateDeModifImportante = '9/10/2024'
  * @author Rémi Angot et Stéphane Guyon
  */
 export const uuid = 'a8e1b'
-export const ref = '1AL21-41'
+
 export const refs = {
   'fr-fr': ['1AL21-41'],
   'fr-ch': ['11FA10-13']
@@ -74,7 +74,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br>$${trinome.texCalculRacine2()}$.`
         texteCorr += '<br>On peut donc factoriser le polynôme sous la forme : $P(x)=a(x-x_1)(x-x_2)$.'
         texteCorr += `<br>$P(x)=${miseEnEvidence(trinome.texFormeFactorisee)}$`
-        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, compare: fonctionComparaison, options: { factorisation: true } } })
+        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, options: { factorisation: true } } })
       } else if (listeTypeDeQuestions[i] === 'identiteRemarquable') {
         // k(x-x1)(x-x1)
         x1 = randint(-5, 2, [0])
@@ -95,7 +95,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br> $x_0 = ${trinome.texCalculRacine1()}$.`
         texteCorr += '<br>On peut donc factoriser le polynôme sous la forme : $P(x)=a(x-x_0)^2$.'
         texteCorr += `<br>$P(x)=${miseEnEvidence(trinome.texFormeFactorisee)}$`
-        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, compare: fonctionComparaison, options: { factorisation: true } } })
+        handleAnswers(this, i, { reponse: { value: trinome.texFormeFactorisee, options: { factorisation: true } } })
       } else { // listeTypeDeQuestions[i] === 'pasDeSolution'
         k = randint(1, 5)
         x1 = randint(-3, 3, [0])
@@ -120,8 +120,8 @@ export default class ResoudreEquationDegre2 extends Exercice {
       texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX, { texteAvant: '$P(x)=$' })
 
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

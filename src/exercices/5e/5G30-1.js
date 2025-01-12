@@ -1,17 +1,17 @@
-import { angle, codageAngle } from '../../lib/2d/angles.js'
-import { droite, droiteParPointEtParallele } from '../../lib/2d/droites.js'
-import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points.js'
-import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { rotation, similitude } from '../../lib/2d/transformations.js'
+import { angle, codageAngle } from '../../lib/2d/angles'
+import { droite, droiteParPointEtParallele } from '../../lib/2d/droites'
+import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
+import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { rotation, similitude } from '../../lib/2d/transformations'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi } from '../../lib/outils/nombres'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { numAlpha } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 
 export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
@@ -25,21 +25,23 @@ export const dateDeModifImportante = '10/12/2023'
  * @author Jean-Claude Lhote inspiré d'exercices du manuel sésamath.
  */
 export const uuid = 'd12db'
-export const ref = '5G30-1'
+
 export const refs = {
   'fr-fr': ['5G30-1'],
   'fr-ch': ['11ES2-1']
 }
-export default function EgaliteDAngles () {
-  Exercice.call(this)
-  this.sup = 1
-  this.nbQuestions = 1
-  this.spacing = 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+export default class EgaliteDAngles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de figure', 3, '1 : Le trapèze\n2 : Le papillon\n3 : Au hasard']
+
+    this.sup = 1
+    this.nbQuestions = 1
+    this.spacing = 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+  }
+
+  nouvelleVersion () {
     const choix = this.sup === 3 ? combinaisonListes([1, 2], this.nbQuestions) : combinaisonListes([this.sup], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       let figure = []
@@ -303,5 +305,4 @@ export default function EgaliteDAngles () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de figure', 3, '1 : Le trapèze\n2 : Le papillon\n3 : Au hasard']
 }

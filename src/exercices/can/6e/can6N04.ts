@@ -1,0 +1,145 @@
+import Exercice from '../../Exercice'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+
+import { droiteGraduee } from '../../../lib/2d/reperes'
+import { latex2d } from '../../../lib/2d/textes'
+import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
+import { pgcd } from '../../../lib/outils/primalite'
+import { context } from '../../../modules/context'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
+export const titre = 'Lire une abscisse sur une droite graduée'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
+export const dateDePublication = '29/08/2021'
+export const dateDeModifImportante = '12/10/2024'
+/**
+ * @author Jean-Claude Lhote et Gilles Mora
+ * Créé pendant l'été 2021
+
+ */
+export const uuid = 'ca515'
+
+export const refs = {
+  'fr-fr': ['can6N04'],
+  'fr-ch': []
+}
+
+export default class AbscisseFractionnaire extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+  }
+
+  nouvelleVersion () {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const a = randint(2, 6) // dénominateur
+      let b = randint(2, a * 4 - 1)
+      do {
+        b = randint(2, a * 4 - 1) // numérateur
+      } while (b % a === 0)
+      const c = new FractionEtendue(b, a)
+      this.reponse = c
+      this.question = 'Déterminer l\'abscisse du point $A$.<br>'
+
+      this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.5, pixelsParCm: 30, style: 'margin: auto' }, latex2d('A', 3 * b / a, 0.5, { color: 'blue' }), droiteGraduee({
+        Unite: 3,
+        Min: 0,
+        Max: 4.2,
+        x: 0,
+        y: 0,
+        thickSecDist: 1 / a,
+        thickSec: true,
+        thickOffset: 0,
+        axeStyle: '->',
+        pointListe: [[b / a, '']],
+        pointCouleur: 'blue',
+        pointTaille: 3,
+        pointStyle: 'x',
+        labelsPrincipaux: true,
+        step1: 1,
+        step2: 1
+      }))
+
+      if (!(context.isAmc)) {
+        this.question += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
+        handleAnswers(this, i, { reponse: { value: c.texFraction, options: {} } })
+      }
+
+      if (pgcd(a, b) === 1) {
+        this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
+    Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
+     Comme le point $A$ est situé à $${b}$ graduations de l'origine,
+      l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$, soit  $${miseEnEvidence(`\\dfrac{${b}}{${a}}`)}$.<br>
+      `
+      } else {
+        this.correction = `L'unité est divisée en $${a}$ intervalles.<br>
+      Une graduation correspond donc à $\\dfrac{1}{${a}}$. <br>
+       Comme le point $A$ est situé à $${b}$ graduations de l'origine,
+        l'abscisse du point $A$ est donc $\\dfrac{1}{${a}}\\times ${b}$, soit  $\\dfrac{${b}}{${a}}$ que l'on peut simplifier en $${miseEnEvidence(`${texFractionReduite(b, a)}`)}$.<br>
+        `
+      }
+
+      if (this.questionJamaisPosee(i, a, b)) {
+        this.listeQuestions[i] = this.question
+        this.listeCorrections[i] = this.correction
+
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: this.question,
+            options: { multicols: true },
+            propositions: [
+              {
+                type: 'AMCNum',
+                // @ts-expect-error
+                propositions: [{
+                  texte: this.correction,
+                  statut: '',
+                  reponse: {
+                    texte: 'Numérateur',
+                    valeur: b,
+                    param: {
+                      digits: b > 9 ? 2 : 1,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                // @ts-expect-error
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Dénominateur',
+                    valeur: a,
+                    param: {
+                      digits: 1,
+                      decimals: 0,
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              }
+            ]
+          }
+        }
+
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
+}

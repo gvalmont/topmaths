@@ -1,24 +1,25 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { afficheLongueurSegment } from '../../lib/2d/codages.js'
-import { point } from '../../lib/2d/points.js'
-import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { rotation, similitude } from '../../lib/2d/transformations.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/codages'
+import { point } from '../../lib/2d/points'
+import { nommePolygone, polygone } from '../../lib/2d/polygones'
+import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { rotation, similitude } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
+import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
-import { RedactionPythagore } from './_pythagore.js'
+import { RedactionPythagore } from './_pythagore'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import engine from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 'AMCHybride'
@@ -122,7 +123,7 @@ export function pythagoreCompare (input, goodAnswer) {
  * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter )
  */
 export const uuid = 'bd660'
-export const ref = '4G20'
+
 export const refs = {
   'fr-fr': ['4G20'],
   'fr-ch': ['10GM4-1', '11GM1-1']
@@ -133,7 +134,7 @@ export default class Pythagore2D extends Exercice {
     super()
     this.nbQuestions = 3
     this.nbCols = 3
-    this.nbColsCorr = 1
+
     this.sup = 3
     this.sup2 = 3
     this.sup3 = false
@@ -227,7 +228,7 @@ export default class Pythagore2D extends Exercice {
         }
         texteCorr = redaction[0]
         texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, '  unites[longueurs]', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })) : ''
-        handleAnswers(this, i, { reponse: { value: new Grandeur(reponse.toFixed(1), 'cm'), compare: fonctionComparaison, options: { precisionUnite: 0.1, unite: true } } })
+        handleAnswers(this, i, { reponse: { value: new Grandeur(reponse.toFixed(1), 'cm'), options: { precisionUnite: 0.1, unite: true } } })
 
         if (context.isAmc) {
           this.autoCorrection[i] = {
@@ -296,8 +297,8 @@ export default class Pythagore2D extends Exercice {
       }
       if (this.questionJamaisPosee(i, B1.x, B.y, C1.x, C1.y)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

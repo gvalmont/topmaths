@@ -1,13 +1,13 @@
-import { point } from '../../lib/2d/points.js'
-import { carre, polygone } from '../../lib/2d/polygones.js'
-import { grille, lignesHorizontales, lignesVerticales } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { point } from '../../lib/2d/points'
+import { carre, polygone } from '../../lib/2d/polygones'
+import { grille, lignesHorizontales, lignesVerticales } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
 
 export const titre = 'Grilles décimales'
-export const ref = 'P005'
+
 export const refs = {
   'fr-fr': ['P005'],
   'fr-ch': []
@@ -16,19 +16,20 @@ export const uuid = 'ad5f7'
 
 /**
  * Fonction permettant aux enseignants de proposer des grilles décimale à colorier
- * ref P005
  * @author Jean-Claude Lhote
  */
-export default function FeuilleDeGrilles () {
-  Exercice.call(this)
-  this.nbCols = 1
-  this.sup = 1
-  this.nbQuestionsModifiable = false
-  this.nbQuestions = 1
-  this.titre = titre
+export default class FeuilleDeGrilles extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.contenu = ''
+    this.besoinFormulaireNumerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000']
+
+    this.sup = 1
+    this.nbQuestionsModifiable = false
+    this.nbQuestions = 1
+  }
+
+  nouvelleVersion () {
     const objets = []; let fleche; let A; let B; let C; let D; let texte = ''
     if (parseInt(this.sup) === 1) { // On travaille au dixième
       for (let i = 0; i < 5; i++) {
@@ -119,5 +120,4 @@ export default function FeuilleDeGrilles () {
     this.listeQuestions[0] = this.contenu
     // listeDeChosesAImprimer(this);
   }
-  this.besoinFormulaireNumerique = ['nombre de cases', 3, '1 : 10\n2 : 100\n3 : 1000']
 }

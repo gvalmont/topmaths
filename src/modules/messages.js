@@ -1,4 +1,4 @@
-import { addElement, addText, get } from '../lib/html/dom.js'
+import { addElement, addText, get } from '../lib/html/dom'
 /**
  * Fonctions pour gérer les messages utilisateur (feedback erreur|warning ou messages positifs)
  * @module
@@ -80,7 +80,7 @@ export class UserFriendlyError extends Error {
     if (!message) message = 'Une erreur est survenue.<br>Essayez de rafraichir la page.<br>Si l\'erreur persiste merci de contacter : <a href="mailto:contact@coopmaths.fr">contact@coopmaths.fr</a>'
     super(message)
     this.isUserFriendly = true // pour indiquer que le message peut être affiché tel quel à l'utilisateur
-    this.titre = titre || 'Erreur interne'
+
     this.type = (types.includes(type) && type) || 'error'
   }
 }

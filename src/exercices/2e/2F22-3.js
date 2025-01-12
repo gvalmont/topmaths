@@ -1,14 +1,14 @@
-import { repere } from '../../lib/2d/reperes.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction.js'
-import { spline } from '../../lib/mathFonctions/Spline.js'
+import { repere } from '../../lib/2d/reperes'
+import { texteParPosition } from '../../lib/2d/textes'
+import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
+import { spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '07/12/2023' // interactivité
 export const uuid = 'a7860' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
-export const ref = '2F22-3'// @todo à modifier aussi
+
 export const refs = {
   'fr-fr': ['2F22-3'],
   'fr-ch': []
@@ -99,7 +99,7 @@ function aleatoiriseCourbe (choix) {
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
  * @author Gilles Mora (Jean-Claude Lhote pour la programmation)
- * Référence (2F22-3)
+
  */
 export default class BetaModeleSpline extends Exercice {
   constructor () {
@@ -164,7 +164,7 @@ export default class BetaModeleSpline extends Exercice {
       const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.1 })
 
       const tableauChoisi = [tableau, tableauB][choixInteractif]
-      handleAnswers(this, i, { reponse: { value: choixInteractif === 0 ? ['oui'] : ['non'], compare: fonctionComparaison, options: { texteSansCasse: true } } })
+      handleAnswers(this, i, { reponse: { value: choixInteractif === 0 ? ['oui'] : ['non'], options: { texteSansCasse: true } } })
 
       const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
 

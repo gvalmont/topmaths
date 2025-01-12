@@ -1,10 +1,10 @@
-import { point, tracePoint } from '../lib/2d/points.js'
-import { barycentre, polygone, polygoneRegulier } from '../lib/2d/polygones.js'
-import { vecteur } from '../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../lib/2d/textes.ts'
-import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations.js'
+import { point, tracePoint } from '../lib/2d/points'
+import { barycentre, polygone, polygoneRegulier } from '../lib/2d/polygones'
+import { vecteur } from '../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../lib/2d/textes'
+import { homothetie, rotation, similitude, translation } from '../lib/2d/transformations'
 import { nombreAvecEspace } from '../lib/outils/texNombre'
-import { egal } from './outils.js'
+import { egal } from './outils'
 
 /**
  * Classe Pavage : permet de créer des pavages de polygones en un tour de main et de manipuler les polygones qu'il contient
@@ -22,6 +22,7 @@ export function Pavage () {
   this.Ny = 1
   this.echelle = 20
   this.fenetre = {}
+  this.nb_polygones = 0
 
   this.construit = function (type = 1, Nx = 1, Ny = 1, taille = 3) {
     const nettoieObjets = function (objets) {

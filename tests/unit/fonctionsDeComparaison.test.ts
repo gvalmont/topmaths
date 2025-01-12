@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { fonctionComparaison } from '../../src/lib/interactif/comparisonFunctions'
 import { ComputeEngine } from '@cortex-js/compute-engine'
+import { texNombre } from '../../src/lib/outils/texNombre'
 // import exp from 'constants'
 
 describe('fonctionComparaison', () => {
@@ -258,11 +259,18 @@ describe('fonctionComparaison', () => {
   })
 
   it('Vérifie le fonctionnement de l\'option nombreAvecEspace', () => {
-    const result = fonctionComparaison('1000', '1 000', { nombreAvecEspace: true })
+    let result = fonctionComparaison('1000', '1 000', { nombreAvecEspace: true })
     expect(result.isOk).toBe(false)
-    const result2 = fonctionComparaison('1 000', '1000', { nombreAvecEspace: true }) // @fixme: ça ne devrait pas être false (JCL)
-    expect(result2.isOk).toBe(false) // ça c'est gênant ! l'élève a bien écrit la réponse, lui, c'est la bonne réponse qui est mal écrite
-    expect(result.feedback).toBe('Le nombre est mal écrit, il faut faire attention aux espaces.')
+    result = fonctionComparaison('1 000', '1000', { nombreAvecEspace: true })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('1 000{,}3', texNombre(1000.3), { nombreAvecEspace: true })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('1 000{,}123 4', texNombre(1000.1234), { nombreAvecEspace: true })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('123', texNombre(123), { nombreAvecEspace: true })
+    expect(result.isOk).toBe(true)
+    result = fonctionComparaison('0{,}123', texNombre(0.123), { nombreAvecEspace: true })
+    expect(result.isOk).toBe(true)
   })
 
   it('Vérifie le fonctionnement de l\'option egaliteExpression', () => {

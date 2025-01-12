@@ -1,11 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  fonctionComparaison,
   expressionDeveloppeeEtNonReduiteCompare
 } from '../../lib/interactif/comparisonFunctions'
 
@@ -19,27 +18,24 @@ export const dateDeModifImportante = '13/11/2023'
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
  */
 export const uuid = 'e2e64'
-export const ref = '5L16'
+
 export const refs = {
   'fr-fr': ['5L16'],
   'fr-ch': ['9FA2-8']
 }
-export default function SimplifierEcritureLitterale () {
-  Exercice.call(this)
-  this.nbQuestions = 10
+export default class SimplifierEcritureLitterale extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Type de simplification', 3, '1 : × devant une lettre ou une parenthèse\n2 : Carré et cube\n3 : Mélange']
-  this.sup = 3
-  this.besoinFormulaire2CaseACocher = ['Procédure inverse']
-  this.sup2 = false
-  this.nbCols = 2
-  this.nbColsCorr = 2
+    this.besoinFormulaireNumerique = ['Type de simplification', 3, '1 : × devant une lettre ou une parenthèse\n2 : Carré et cube\n3 : Mélange']
+    this.sup = 3
+    this.besoinFormulaire2CaseACocher = ['Procédure inverse']
+    this.sup2 = false
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
+  nouvelleVersion () {
     if (this.sup2) {
       this.consigne = 'On a simplifié des écritures littérales.<br>Réécrire chaque expression en écrivant les symboles × qui sont sous-entendus.'
     } else {
@@ -321,13 +317,13 @@ export default function SimplifierEcritureLitterale () {
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$ ' })
       }
       if (!this.sup2) {
-        handleAnswers(this, i, { reponse: { value: reponse }, compare: fonctionComparaison })
+        handleAnswers(this, i, { reponse: { value: reponse } })
       } else {
         handleAnswers(this, i, { reponse: { value: reponse }, compare: expressionDeveloppeeEtNonReduiteCompare })
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,17 +1,17 @@
-import { courbe } from '../../lib/2d/courbes.js'
-import { point } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
+import { courbe } from '../../lib/2d/courbes'
+import { point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
 import { premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { texPrix, texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
 
 /**
@@ -20,47 +20,20 @@ export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'
  */
 
 export const uuid = 'c668a'
-export const ref = '4P10-1'
+
 export const refs = {
   'fr-fr': ['4P10-1'],
   'fr-ch': ['9FA3-15', '10FA4-3']
 }
-export default function GraphiquesEtProportionnalite2 () {
-  Exercice.call(this)
-  this.debug = false
-  if (this.debug) {
-    this.nbQuestions = 2
-  } else {
+export default class GraphiquesEtProportionnalite2 extends Exercice {
+  constructor () {
+    super()
     this.nbQuestions = 1
+    this.spacingCorr = 2
+    this.spacing = context.isHtml ? 2 : 1
   }
 
-  this.titre = titre
-  this.consigne = ''
-  this.spacingCorr = 2
-
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [1]
-    } else {
-      typesDeQuestionsDisponibles = [1]
-    }
-
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-
-    // typesDeQuestionsDisponibles=[1];
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
-
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on prévoit un peu d'aléatoire pour les prix unitaires
       const prixUnitaireOranges = choice([1.2, 1.4, 1.6, 1.8])
@@ -198,22 +171,12 @@ export default function GraphiquesEtProportionnalite2 () {
         <br><br>${texteEnCouleur(`Quelle que soit la méthode utilisée, ${situation.qte2} ${situation.unite}  ${situation.articles} coûtent ${texPrix(calculANePlusJamaisUtiliser(situation.qte2 * situation.prix_unitaire)).replace('{,}', ',')} €.`)}
         `
       })
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-      }
+      texte = `${enonces[0].enonce}`
+      texteCorr = `${enonces[0].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

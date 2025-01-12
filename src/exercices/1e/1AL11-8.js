@@ -1,10 +1,9 @@
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer une somme de termes'
 export const interactifReady = true
@@ -17,7 +16,7 @@ export const dateDePublication = '28/12/2022'
  * @author Rémi Angot
 */
 export const uuid = '8ed19'
-export const ref = '1AL11-8'
+
 export const refs = {
   'fr-fr': ['1AL11-8'],
   'fr-ch': []
@@ -30,7 +29,6 @@ export default class SommeSuite extends Exercice {
     this.spacingCorr = 2
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 

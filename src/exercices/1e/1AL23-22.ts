@@ -138,8 +138,8 @@ export default class ExerciceEquationSecondDegre extends Exercice {
         texteCorr += `${equation.correctionDetailleeTex}`
       } else (texteCorr += `$${equation.ensembleDeSolutionsTex}$`)
       if (this.questionJamaisPosee(i, equation.ensembleDeSolutionsTex, equation.equationTex)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

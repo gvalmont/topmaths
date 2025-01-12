@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -18,7 +18,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class entiersConsecutifs extends Exercice {
   constructor () {
@@ -29,11 +29,6 @@ export default class entiersConsecutifs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       const n1 = randint(-20, 20, [0, 1, 2, 3, 4, 5, 6, 7])
@@ -51,17 +46,17 @@ Ainsi le double du plus petit nombre est $${n1 + n2 - 1}$.<br>
 
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: `${n1}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
-        champ2: { value: `${n2}`, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
+        champ1: { value: `${n1}`, options: { nombreDecimalSeulement: true } },
+        champ2: { value: `${n2}`, options: { nombreDecimalSeulement: true } }
       }
       )
       this.canEnonce = texte
       this.canReponseACompleter = '$\\ldots$ et $\\ldots$'
       if (this.questionJamaisPosee(i, n1, n2)) {
-        this.listeCorrections.push(this.correction)
-        this.listeQuestions.push(texte)
-        this.listeCanEnonces.push(this.canEnonce)
-        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+        this.listeCorrections[i] = this.correction
+        this.listeQuestions[i] = texte
+        this.listeCanEnonces[i] = this.canEnonce
+        this.listeCanReponsesACompleter[i] = this.canReponseACompleter
         i++
       }
       cpt++

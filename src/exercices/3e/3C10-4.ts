@@ -68,7 +68,7 @@ export default class LireUnePuissance extends Exercice {
       const texteCorr = `$${mantisse < 0 ? `(${String(mantisse)})` : String(mantisse)}^{${exposant}}$ se lit : ${value}.`
       if (this.questionJamaisPosee(i, mantisse, exposant)) {
         this.dragAndDrops.push(leDragAndDrop)
-        this.listeQuestions.push(`${texte} ${this.interactif ? leDragAndDrop.ajouteDragAndDrop({ melange: false, duplicable: true }) : ''}`)
+        this.listeQuestions[i] = `${texte} ${this.interactif ? leDragAndDrop.ajouteDragAndDrop({ melange: false, duplicable: true }) : ''}`
         const values: string[] = []
         if (mantisse < 0) {
           if (exposant < 0) {
@@ -97,7 +97,7 @@ export default class LireUnePuissance extends Exercice {
           }
         }
         handleAnswers(this, i, { rectangle1: { value: [...values], options: { ordered: true, multi: true } } }, { formatInteractif: 'dnd' })
-        this.listeCorrections.push(texteCorr)
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

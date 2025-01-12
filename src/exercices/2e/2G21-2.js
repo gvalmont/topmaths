@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { rangeMinMax } from '../../lib/outils/nombres'
@@ -17,7 +17,7 @@ export const dateDePublication = '17/08/2024'
  * @author  Eric Elter
  */
 export const uuid = '6cf42'
-export const ref = '2G21-2'
+
 export const refs = {
   'fr-fr': ['2G21-2'],
   'fr-ch': []
@@ -380,8 +380,8 @@ export default class SommeDeVecteurs extends Exercice {
       texteCorr += `Le point $${this.nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${this.nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras(`( ${this.pointExtremite[i].x} ; ${this.pointExtremite[i].y} )`)}.<br>`
 
       if (this.questionJamaisPosee(i, xSomme[i], xSomme[i])) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

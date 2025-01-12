@@ -1,11 +1,11 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer la position relative de deux droites à l\'aide de leur équation et en déduire le nombre de solution d\'un système d\'équations'
 export const interactifReady = true
@@ -19,14 +19,13 @@ export const refs = {
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
 */
 
 export default class systemeEquationsPremDegComp extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
     this.nbQuestions = 3
     this.sup = 1
     this.correctionDetailleeDisponible = true
@@ -39,9 +38,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
     } else {
       this.consigne = 'Déterminer la position relative des droites et en déduire le nombre de solutions des systèmes d\'équations :'
     }
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     const typeQuestionsDisponibles = ['unique', 'unique', 'inf', 'aucune']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -235,12 +232,12 @@ export default class systemeEquationsPremDegComp extends Exercice {
         texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix, 'position') + '.'
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } }
+          reponse: { value: rep, options: { texteSansCasse: true } }
         }, { formatInteractif: 'listeDeroulante' })
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

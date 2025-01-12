@@ -1,12 +1,12 @@
-import { point } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
+import { point } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
 import { choice } from '../../lib/outils/arrayOutils'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 export const titre = 'Produire une formule à partir d\'un tableau'
@@ -17,7 +17,7 @@ export const titre = 'Produire une formule à partir d\'un tableau'
  */
 
 export const uuid = '7aba6'
-export const ref = '5L10-4'
+
 export const refs = {
   'fr-fr': ['5L10-4'],
   'fr-ch': ['10FA1-9']
@@ -28,21 +28,19 @@ function etapeCorrective (str, sup) {
   return sup === 1 ? '' : str
 }
 
-export default function TableauxEtFonction () {
-  Exercice.call(this)
-  this.sup = 1
-  this.nbQuestions = 1
+export default class TableauxEtFonction extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Les mêmes unités\n2 : Unités différentes']
 
-  this.consigne = ''
+    this.sup = 1
+    this.nbQuestions = 1
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1
+  }
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const L1 = randint(3, 7)
       const L2 = L1 + 1
@@ -179,13 +177,12 @@ $${situations[k].secondeQ}$
       texteCorr = `${enonces[0].correction}`
 
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Les mêmes unités\n2 : Unités différentes']
 }

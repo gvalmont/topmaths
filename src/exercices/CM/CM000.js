@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 // on importait amcReady de 5L10 cf commit cf25dab mais mieux vaut le déclarer explicitement
@@ -19,24 +19,30 @@ export const amcType = 'AMCNum'
  *
  * Par défaut c'est un mélange d'additions, soustractions avec et sans trou avec des nombres jusqu'à 20.
  * @author Rémi Angot
- * Référence CM000
+
  */
 export const uuid = '6d698'
-export const ref = 'CM000'
+
 export const refs = {
   'fr-fr': ['CM000'],
   'fr-ch': []
 }
-export default function TablesAdditionsSoustractions () {
-  Exercice.call(this)
-  this.sup = 20
-  this.sup2 = 6 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.tailleDiaporama = 3
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-    this.sup = parseInt(this.sup)
+export default class TablesAdditionsSoustractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale', 9999] // Texte, tooltip
+    this.besoinFormulaire2Numerique = [
+      'Style de questions',
+      6,
+      '1 : Additions\n2: Additions à trous\n3: Soustractions\n4 : Soustractions à trous\n5 : Additions et soustractions \n6 : Additions et soustractions avec ou sans trous'
+    ]
+    this.sup = 20
+    this.sup2 = 6 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+  }
+
+  nouvelleVersion () {
     this.sup2 = parseInt(this.sup2)
     let listeTypeDeQuestions = []
     if (this.sup2 === 1) {
@@ -151,10 +157,4 @@ export default function TablesAdditionsSoustractions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 9999] // Texte, tooltip
-  this.besoinFormulaire2Numerique = [
-    'Style de questions',
-    6,
-    '1 : Additions\n2: Additions à trous\n3: Soustractions\n4 : Soustractions à trous\n5 : Additions et soustractions \n6 : Additions et soustractions avec ou sans trous'
-  ]
 }

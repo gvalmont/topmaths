@@ -1,8 +1,8 @@
-import { Repere } from './reperes.js'
+import { Repere } from './reperes'
 import { round } from 'mathjs'
 type LAbel = {
-    valeur: number,
-    texte: string
+  valeur: number,
+  texte: string
 }
 /**
  * exemple : const repere = new RepereBuilder({xMin: -5, xMax:5, yMin: -3, yMax: 3}).setUniteX(1).setUniteY(2).buildCustom()
@@ -20,19 +20,19 @@ export default class RepereBuilder {
   private yThickMin: number = -10
   private xUnite: number = 1
   private yUnite: number = 1
-  private grilleX: boolean|string = true
+  private grilleX: boolean | 'pointilles' = true
   private grilleXDistance: number = 1
   private grilleXMin: number = -10
   private grilleXMax: number = 10
-  private grilleY: boolean|string = true
+  private grilleY: boolean | 'pointilles' = true
   private grilleYDistance: number = 1
   private grilleYMin: number = -10
   private grilleYMax: number = 10
-  private grilleSecondaireX: boolean|string = false
+  private grilleSecondaireX: boolean | 'pointilles' = false
   private grilleSecondaireXDistance: number = 1
   private grilleSecondaireXMin: number = -10
   private grilleSecondaireXMax: number = 10
-  private grilleSecondaireY: boolean|string = false
+  private grilleSecondaireY: boolean | 'pointilles' = false
   private grilleSecondaireYDistance: number = 1
   private grilleSecondaireYMin: number = -10
   private grilleSecondaireYMax: number = 10
@@ -46,6 +46,13 @@ export default class RepereBuilder {
   private yLabelDistance: number = 1
   private xLabelListe: number[] | { valeur: number, texte: string }[] = []
   private yLabelListe: number[] | { valeur: number, texte: string }[] = []
+  private thickHauteur: number = 0.13
+  private axesCouleur: string = 'black'
+  xThickListe?: boolean | number[]
+  yThickListe?: boolean | number[]
+  grilleCouleur?: string
+  grilleOpacite?: number
+  grilleSecondaireCouleur?: string
 
   /**
      * Le constructeur de l'objet RepereBuilder. Les paramètres à fournir sont minimales. Le reste est à configurer via les setters et l'instanciation du repère se fait à travers les builders exposés.
@@ -115,9 +122,48 @@ export default class RepereBuilder {
       yLabelMax: this.yLabelMax,
       yLabelDistance: this.yLabelDistance,
       xLabelListe: this.xLabelListe,
-      yLabelListe: this.yLabelListe
-    }
-    )
+      yLabelListe: this.yLabelListe,
+      axeXisVisible: true,
+      axeYisVisible: true,
+      axesCouleur: 'black',
+      axeXStyle: 'solid',
+      axeYStyle: 'solid',
+      grilleXOpacite: 0.4,
+      grilleYOpacite: 0.4,
+      grilleSecondaireXOpacite: 0.3,
+      grilleSecondaireYOpacite: 0.3,
+
+      thickHauteur: 0.13,
+      thickCouleur: this.axesCouleur,
+      xThickListe: this.xThickListe ?? false,
+      yThickListe: this.yThickListe ?? false,
+      precisionLabelX: 1,
+      precisionLabelY: 1,
+      xLabelEcart: 0.5,
+      yLabelEcart: 0.5,
+      xLegende: '',
+      xLegendePosition: [],
+      yLegende: '',
+      yLegendePosition: [],
+      grille: true,
+      grilleDistance: 1,
+      grilleCouleur: 'black',
+      grilleOpacite: 0.4,
+      grilleEpaisseur: 1,
+      grilleSecondaire: false,
+      grilleSecondaireDistance: 1,
+      grilleSecondaireCouleur: 'gray',
+      grilleSecondaireOpacite: 0.3,
+      grilleSecondaireEpaisseur: 1,
+      grilleXListe: [],
+      grilleXCouleur: this.grilleCouleur ?? 'gray',
+      grilleYListe: [],
+      grilleYCouleur: this.grilleCouleur ?? 'gray',
+      grilleSecondaireXListe: [],
+      grilleSecondaireXCouleur: this.grilleSecondaireCouleur ?? 'lightgray',
+      grilleSecondaireYListe: [],
+      grilleSecondaireYCouleur: this.grilleSecondaireCouleur ?? 'lightgray',
+    })
   }
 
   /**
@@ -214,7 +260,7 @@ export default class RepereBuilder {
      * @param {{dx: number, xMin: number, xMax: number, style: string}} grilleX
      * @param {{dy: number, yMin: number, yMax: number, style: string}} grilleY
      */
-  setGrille ({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: string }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: string} }) {
+  setGrille ({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: 'pointilles' }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: 'pointilles' } }) {
     if (grilleX) {
       this.grilleX = grilleX.style ? grilleX.style : true
       this.grilleXDistance = grilleX.dx ?? 1
@@ -235,7 +281,7 @@ export default class RepereBuilder {
      * @param {{dx: number, xMin: number, xMax: number}} grilleX
      * @param {{dy: number, yMin: number, yMax: number}} grilleY
      */
-  setGrilleSecondaire ({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: string }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: string } }) {
+  setGrilleSecondaire ({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: 'pointilles' }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: 'pointilles' } }) {
     if (grilleX) {
       this.grilleSecondaireX = grilleX.style ? grilleX.style : true
       this.grilleSecondaireXDistance = grilleX.dx ?? 1

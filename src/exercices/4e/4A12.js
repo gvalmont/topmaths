@@ -4,10 +4,10 @@ import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { personne } from '../../lib/outils/Personne'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -23,31 +23,30 @@ export const dateDeModifImportante = '10/10/2022'
 /**
  * Problèmes d'événements récurrents avec résolution à l'aide de décompositions en produits de facteurs premiers
  * @author Guillaume Valmont
- * Référence 4A12
+
  * 30/10/2021
  * Ajout de questions possibles le 10/10/2022 par Guillaume Valmont
  */
 export const uuid = 'b16c6'
-export const ref = '4A12'
+
 export const refs = {
   'fr-fr': ['4A12'],
   'fr-ch': ['9NO4-22']
 }
-export default function ProblemesEvenementsRecurrents () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.sup = 1
-  this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : 1 facteur commun, 1 facteur spécifique\n2 : 2 facteurs communs, 1 facteur spécifique\n3 : 2 facteurs communs, 2 facteurs spécifiques']
-  this.besoinFormulaire2Texte = ['Type d\'énoncé', 'Nombres séparés par des tirets :\n1 : Guirlandes\n2 : Voiture\n3 : Fusée\n4 : Restau - ciné\n5 : Engrenages\n6 : Mélange']
-  this.sup2 = 6
-  this.correctionDetailleeDisponible = true
-  this.interactif = false
+export default class ProblemesEvenementsRecurrents extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.nbQuestions = 1
+    this.sup = 1
+    this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : 1 facteur commun, 1 facteur spécifique\n2 : 2 facteurs communs, 1 facteur spécifique\n3 : 2 facteurs communs, 2 facteurs spécifiques']
+    this.besoinFormulaire2Texte = ['Type d\'énoncé', 'Nombres séparés par des tirets :\n1 : Guirlandes\n2 : Voiture\n3 : Fusée\n4 : Restau - ciné\n5 : Engrenages\n6 : Mélange']
+    this.sup2 = 6
+    this.correctionDetailleeDisponible = true
+    this.interactif = false
+  }
 
+  nouvelleVersion () {
     const preListePremiers = listeNombresPremiersStrictJusqua(12)
     const listePremiers = combinaisonListes(preListePremiers, this.nbQuestions * 5)
 
@@ -409,8 +408,8 @@ export default function ProblemesEvenementsRecurrents () {
       }
 
       if (this.questionJamaisPosee(i, Commun, A * B)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

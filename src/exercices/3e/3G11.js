@@ -1,20 +1,20 @@
-import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
-import { codageSegments } from '../../lib/2d/codages.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { homothetie } from '../../lib/2d/transformations.js'
+import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
+import { codageSegments } from '../../lib/2d/codages'
+import { point, tracePoint } from '../../lib/2d/points'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { homothetie } from '../../lib/2d/transformations'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arcenciel, texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Alea2iep from '../../modules/Alea2iep.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Alea2iep from '../../modules/Alea2iep'
+import { context } from '../../modules/context'
 export const titre = 'Construire l\'image d\'un point par une homothétie avec cible auto-corrective'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -25,20 +25,24 @@ export const dateDeModifImportante = '31/01/2023'
 * @author Jean-Claude Lhote (modifié par EE)
 */
 export const uuid = '18e25'
-export const ref = '3G11'
+
 export const refs = {
   'fr-fr': ['3G11'],
   'fr-ch': ['11ES3-3']
 }
-export default function ConstruireHomothetiePoint3e () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 3
-  this.sup2 = 3
+export default class ConstruireHomothetiePoint3e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Une seule cible par point\n2 : Plusieurs cibles pour un seul point\n3 : Mélange']
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.nbQuestions = 2
+
+    this.sup = 3
+    this.sup2 = 3
+  }
+
+  nouvelleVersion (numeroExercice) {
     let plusieursCiblesPourUnPoint = true
     const listeRapports = [-2, -1.5, -0.5, 0.5, 1.5, 2]
     const choixCodage = ['OO', '|||', '//']
@@ -225,14 +229,12 @@ export default function ConstruireHomothetiePoint3e () {
 
       if (this.questionJamaisPosee(i, texte)) {
       // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre de points (1 à 5)', 5]
-  this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Une seule cible par point\n2 : Plusieurs cibles pour un seul point\n3 : Mélange']
 }

@@ -1,7 +1,7 @@
-import { context } from '../context.js'
+import { context } from '../context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { listeQuestionsToContenu } from '../outils.js'
+import { listeQuestionsToContenu } from '../outils'
 
 export function exerciceSimpleToContenu (exercice) {
   const listeQuestions = []

@@ -1,11 +1,11 @@
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { degCos } from '../../lib/mathFonctions/trigo.js'
+import { degCos } from '../../lib/mathFonctions/trigo'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -21,25 +21,25 @@ export const titre = 'Arrondir une racine carrée'
  */
 
 export const uuid = '41187'
-export const ref = '4G20-4'
+
 export const refs = {
   'fr-fr': ['4G20-4'],
   'fr-ch': ['10NO3-2']
 }
-export default function ArrondirUneValeur4e () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbColsCorr = 1
-  this.version = 1
-  context.isHtml ? (this.spacing = 1.5) : (this.spacing = 2.5)
-  context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)
+export default class ArrondirUneValeur4e extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.nbQuestions = 3
+
+    this.version = 1
+    context.isHtml ? (this.spacing = 1.5) : (this.spacing = 2.5)
+    context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Arrondir chaque nombre à l\'unité, puis au dixième, puis au centième.'
 
-    this.listeQuestions = []
-    this.listeCorrections = []
     let n, nb, rac, angle, v
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -85,8 +85,8 @@ export default function ArrondirUneValeur4e () {
 
       if (this.questionJamaisPosee(i, n)) { // Si la question n'a jamais été posée, on en créé une autre
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

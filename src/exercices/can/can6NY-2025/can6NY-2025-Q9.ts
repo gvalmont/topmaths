@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Compléter une multiplication'
 export const interactifReady = true
@@ -17,7 +17,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class ProduitACompleter extends Exercice {
   constructor () {
@@ -28,13 +28,10 @@ export default class ProduitACompleter extends Exercice {
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = 2025
     const b = choice([new Decimal(1).div(choice([10, 100, 1000])), choice([10, 100, 1000])])
     const resultat = new Decimal(2025).mul(b)

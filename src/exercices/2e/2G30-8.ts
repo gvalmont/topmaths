@@ -105,8 +105,8 @@ export default class ExerciceEquationSecondDegre extends Exercice {
       texteCorr += `\\[${miseEnEvidence(`y=${rienSi1(nPente.simplifie())}x${nOdonnee.num === 0 ? '' : ecritureAlgebrique(nOdonnee.simplifie())}`)}\\]`
 
       if (this.questionJamaisPosee(i, point[0].texFractionSimplifiee, point[1].texFractionSimplifiee, droite[0].texFractionSimplifiee, droite[1].texFractionSimplifiee)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

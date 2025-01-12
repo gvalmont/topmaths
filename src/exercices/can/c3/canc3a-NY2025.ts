@@ -28,7 +28,7 @@ import Question27 from '../can6NY-2025/can6NY-2025-Q27'
 import Question28 from '../can6NY-2025/can6NY-2025-Q28'
 import Question29 from '../can6NY-2025/can6NY-2025-Q29'
 import Question30 from '../can6NY-2025/canc3NY-2025-Q30'
-import MetaExercice from '../../MetaExerciceCan.js'
+import MetaExercice from '../../MetaExerciceCan'
 import Exercice from '../../Exercice'
 
 export const titre = 'CAN Spéciale année 2025'

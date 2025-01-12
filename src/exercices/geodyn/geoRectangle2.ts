@@ -11,10 +11,9 @@ export const interactifType = 'custom'
 /**
  * Tracer un rectangle
  * @author Rémi Angot
- * Références geoRectangle2
+
  */
 
-export const ref = 'rectangle2'
 export const refs = {
   'fr-fr': ['rectangle2'],
   'fr-ch': []
@@ -32,7 +31,7 @@ class ConstructionRectangleDimensions extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.reponse = ''
-    this.formatChampTexte = 'none'
+    this.formatChampTexte = 'none' // Pas de champ texte pour cet exercice simple de géométrie dynamique
     this.exoCustomResultat = true
   }
 

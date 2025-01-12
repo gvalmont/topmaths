@@ -1,12 +1,12 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 
 export const titre = 'Utiliser la double distributivité'
@@ -21,27 +21,30 @@ export const dateDeModifImportante = '10/06/2024'
  * @author Jean-Claude Lhote  (Amélioration AMC par Eric Elter)
  */
 export const uuid = '4197c'
-export const ref = '3L11-1'
+
 export const refs = {
   'fr-fr': ['3L11-1'],
   'fr-ch': ['11FA2-3']
 }
-export default function DoubleDistributivite () {
-  Exercice.call(this)
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 3 : 2
-  this.nbQuestions = 5
-  this.sup = 1
-  this.sup2 = true
-  this.sup3 = false
-  this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
+export default class DoubleDistributivite extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.besoinFormulaire3CaseACocher = ['Sanctionner les formes non simplifiées', false]
 
-  this.nouvelleVersion = function () {
+    this.spacing = context.isHtml ? 3 : 2
+    this.spacingCorr = context.isHtml ? 3 : 2
+    this.nbQuestions = 5
+    this.sup = 1
+    this.sup2 = true
+    this.sup3 = false
+
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
-    this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {
@@ -98,7 +101,6 @@ export default function DoubleDistributivite () {
       }
       reponse = reduirePolynomeDegre3(0, reponse1, reponse2, reponse3)
       if (this.sup2) {
-        this.spacingCorr = 1
         // On enlève la première égalité pour ne pas avoir A = A en première ligne
         texteCorr = texteCorr.slice(4)
         // On découpe
@@ -122,7 +124,7 @@ export default function DoubleDistributivite () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { expressionsForcementReduites: true } } })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { expressionsForcementReduites: true } } })
         texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
       } else {
         this.autoCorrection[i] = {
@@ -194,15 +196,12 @@ export default function DoubleDistributivite () {
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
-  this.besoinFormulaire3CaseACocher = ['Sanctionner les formes non simplifiées', false]
 }

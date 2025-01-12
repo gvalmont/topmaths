@@ -8,10 +8,10 @@ import {
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -35,7 +35,7 @@ export const dateDeModifImportante = '25/9/2024'
  * 5R20-3
  */
 export const uuid = '36e2a'
-export const ref = '5R20-3'
+
 export const refs = {
   'fr-fr': ['5R20-3'],
   'fr-ch': ['9NO9-8']
@@ -51,8 +51,7 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
     this.spacingCorr = context.isHtml ? 3 : 0.5
     this.nbCols = 2
     this.nbColsCorr = 2
-    this.interactifReady = interactifReady
-    this.interactifType = interactifType
+
     this.amcType = amcType
     this.amcReady = amcReady
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
@@ -152,8 +151,8 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
           digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)),
           decimals: 0
         })
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

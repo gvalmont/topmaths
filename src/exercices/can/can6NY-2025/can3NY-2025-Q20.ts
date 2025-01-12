@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Additionner deux fractions'
 export const interactifReady = true
@@ -23,15 +23,12 @@ export default class additionFraction extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.compare = fonctionComparaison
     this.optionsDeComparaison = { fractionEgale: true }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: ' $=$' }
   }
 
   nouvelleVersion () {
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
     const a = randint(1, 10)
 
     if (choice([true, false])) {

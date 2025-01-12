@@ -1,13 +1,13 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import {
   listeQuestionsToContenu,
   randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { choice } from '../../lib/outils/arrayOutils'
 
@@ -16,30 +16,29 @@ export const titre = 'Compter et lister les diviseurs d\'un entier à partir de 
 /**
  * Compter et lister les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
  * @author Sébastien Lozano
- * Référence 3A10-4
+
  */
 export const uuid = '4117b'
-export const ref = '3A10-4'
+
 export const refs = {
   'fr-fr': ['3A10-4'],
   'fr-ch': ['9NO4-8']
 }
-export default function ListerDiviseursParDecompositionFacteursPremiers () {
-  Exercice.call(this)
-  this.sup = false
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Sans la calculatrice, compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers.'
-  // this.consigne += `<br>`;
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestions = 2
-  // this.correctionDetailleeDisponible = true;
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class ListerDiviseursParDecompositionFacteursPremiers extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
+    this.sup = false
+    // pas de différence entre la version html et la version latex pour la consigne
+    this.consigne = 'Sans la calculatrice, compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers.'
+    // this.consigne += `<br>`;
+    context.isHtml ? this.spacing = 2 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestions = 2
+    // this.correctionDetailleeDisponible = true;
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = 'Lister/compter les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
       // let premiers_dispos = premiersEntreBornes(2,11);
@@ -258,8 +257,8 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       // };
 
       if (this.questionJamaisPosee(i, ...tabPremiersb)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

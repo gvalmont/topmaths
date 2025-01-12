@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import { context } from '../../../modules/context.js'
+import { context } from '../../../modules/context'
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -18,11 +18,11 @@ export const uuid = 'f9727'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

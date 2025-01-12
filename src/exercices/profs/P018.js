@@ -1,9 +1,9 @@
 import Exercice from '../Exercice'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Pyramide from '../../modules/pyramide.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Pyramide from '../../modules/pyramide'
 export const titre = 'Générateur de pyramides'
-export const ref = 'P018'
+
 export const refs = {
   'fr-fr': ['P018'],
   'fr-ch': []
@@ -15,11 +15,6 @@ export default class Pyramides extends Exercice {
     super()
     this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
     this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
-    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-    this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-    this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-
     this.besoinFormulaireNumerique = ['Type de pyramide', 2, '1 : Pyramide additive\n 2 : Pyramide multiplicative']
     this.besoinFormulaire2Texte = ['Valeur minimale de base']
     this.besoinFormulaire3Texte = ['Valeur maximale de base']
@@ -31,8 +26,6 @@ export default class Pyramides extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
     let operation
     const taille = parseInt(this.sup4)
     let texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.

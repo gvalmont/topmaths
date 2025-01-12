@@ -1,11 +1,11 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { labyrinthe } from '../../modules/Labyrinthe.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { labyrinthe } from '../../modules/Labyrinthe'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
@@ -20,24 +20,26 @@ export const interactifType = 'mathLive'
  * @author Eric Elter // Sur la base d'autres labyrinthes déjà créés
  */
 export const uuid = '9552d'
-export const ref = '3A10-7'
+
 export const refs = {
   'fr-fr': ['3A10-7'],
   'fr-ch': ['9NO4-15']
 }
-export default function ExerciceLabyrinthePremiers3e () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
-  this.sup = 3
-  this.sup2 = 6
-  this.sup3 = 1
-  this.sup4 = 1
+export default class ExerciceLabyrinthePremiers3e extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Liste des nombres premiers ', 3, '1 : Inférieurs à 30\n2 : Inférieurs à 100\n3 : Inférieurs à 200']
+    this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
+    this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.nbQuestions = 3
+    this.sup = 3
+    this.sup2 = 6
+    this.sup3 = 1
+    this.sup4 = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const tailleChiffre = 1.5
     let nbPremiers = []
     let nbMax
@@ -55,9 +57,7 @@ export default function ExerciceLabyrinthePremiers3e () {
         nbMax = 29
         break
     }
-    this.listeCorrections = []
-    this.listeQuestions = []
-    this.autoCorrection = []
+
     let texte, texteCorr
     let laby = []
     let monChemin
@@ -83,21 +83,18 @@ export default function ExerciceLabyrinthePremiers3e () {
       const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
       texte += ajouteChampTexteMathLive(this, 2 * q, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
-      handleAnswers(this, 2 * q, { reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}`, compare: fonctionComparaison } })
+      handleAnswers(this, 2 * q, { reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}` } })
       texte += ajouteChampTexteMathLive(this, 2 * q + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
-      handleAnswers(this, 2 * q + 1, { reponse: { value: `${laby.chemin2d.length - 1}`, compare: fonctionComparaison } })
+      handleAnswers(this, 2 * q + 1, { reponse: { value: `${laby.chemin2d.length - 1}` } })
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
 
       if (this.questionJamaisPosee(q, bonnesReponses[0], mauvaisesReponses[0])) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[q] = texte
+        this.listeCorrections[q] = texteCorr
+
         q++
       }
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Liste des nombres premiers ', 3, '1 : Inférieurs à 30\n2 : Inférieurs à 100\n3 : Inférieurs à 200']
-  this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
 } // Fin de l'exercice.

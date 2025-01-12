@@ -1,12 +1,12 @@
-import { courbeSpline } from '../../lib/2d/courbes.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { splineCatmullRom } from '../../lib/mathFonctions/SplineCatmullRom.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Exercice from '../deprecatedExercice.js'
+import { courbeSpline } from '../../lib/2d/courbes'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { splineCatmullRom } from '../../lib/mathFonctions/SplineCatmullRom'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import Exercice from '../Exercice'
 
 export const titre = 'Interpollation de Catmull-Rom'
-export const ref = 'P014'
+
 export const refs = {
   'fr-fr': ['P014'],
   'fr-ch': []
@@ -16,23 +16,24 @@ export const uuid = '295a8'
 /**
  * Trace une courbe interpolee par des splines.
  * @author Jean-Claude Lhote
- * Référence P014
- */
-export default function TraceCourbeInterpolee1 () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = '3;5;2;1;-2;-1;0' // liste de points
-  this.sup2 = '-5;2'
-  this.sup3 = 1
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = function () {
+ */
+export default class TraceCourbeInterpolee1 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Liste des ordonnées sous la forme: y0;y1;y2;...']
+    this.besoinFormulaire2Texte = ['Première abscisse et incrément séparés par ; (séparateur décimal = . ) exemple : -5;0.5']
+    this.besoinFormulaire3Numerique = ['Modèles de couleur ', 3, '1 : Points rouges sur courbe noire\n2 : Points bleus sur courbe rouge\n3 : Points verts sur courbe bleue']
+
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    this.sup = '3;5;2;1;-2;-1;0' // liste de points
+    this.sup2 = '-5;2'
+    this.sup3 = 1
+  }
+
+  nouvelleVersion () {
     const liste = this.sup.split(';')
     const ordonnees = []
     const objets = []
@@ -83,7 +84,4 @@ export default function TraceCourbeInterpolee1 () {
     this.contenu = mathalea2d({ xmin: xMin - 1, xmax: xMax + 1, ymin: yMin - 1, ymax: yMax + 1 }, objets)
     this.listeQuestions[0] = this.contenu
   }
-  this.besoinFormulaireTexte = ['Liste des ordonnées sous la forme: y0;y1;y2;...']
-  this.besoinFormulaire2Texte = ['Première abscisse et incrément séparés par ; (séparateur décimal = . ) exemple : -5;0.5']
-  this.besoinFormulaire3Numerique = ['Modèles de couleur ', 3, '1 : Points rouges sur courbe noire\n2 : Points bleus sur courbe rouge\n3 : Points verts sur courbe bleue']
 }

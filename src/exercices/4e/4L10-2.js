@@ -1,14 +1,14 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { codageSegments } from '../../lib/2d/codages.js'
-import { point, pointAdistance } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.ts'
-import { rotation, similitude, translation } from '../../lib/2d/transformations.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { codageSegments } from '../../lib/2d/codages'
+import { point, pointAdistance } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
+import { rotation, similitude, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Donner l\'expression littérale d\'un périmètre et d\'une aire de quadrilatère'
 
@@ -21,21 +21,22 @@ export const dateDeModifImportante = '11/05/2024'
  * @author Mireille Gain
 */
 export const uuid = 'af8bb'
-export const ref = '4L10-2'
+
 export const refs = {
   'fr-fr': ['4L10-2'],
   'fr-ch': ['10FA2-3']
 }
-export default function AirePerimetrePolygone () {
-  Exercice.call(this)
-  this.consigne = 'Exprimer le périmètre et l\'aire des rectangles et carrés suivants par une expression littérale réduite.'
-  this.nbQuestions = 4 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+export default class AirePerimetrePolygone extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+    this.consigne = 'Exprimer le périmètre et l\'aire des rectangles et carrés suivants par une expression littérale réduite.'
+    this.nbQuestions = 4 // Nombre de questions par défaut
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  }
 
+  nouvelleVersion () {
     // on choisit un nom pour les variables 1 et 2
     const variable1 = ['a', 'b', 'c', 'd', 'e', 'f', 't', 'u', 'v', 'w', 'y', 'z']
     const indiceVariable = randint(0, 10, 5)
@@ -148,8 +149,8 @@ export default function AirePerimetrePolygone () {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

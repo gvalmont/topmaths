@@ -2681,45 +2681,13 @@ export const dictionnaireCrpeCoop = {
     lieu: 'COPIRELEM ESPE',
     numeroInitial: 'Ex 1',
     png: [
-      'static/crpe/2015/2015-espe-ex10-1.png',
-      'static/crpe/2015/2015-espe-ex10-2.png',
-      'static/crpe/2015/2015-espe-ex10-3.png',
-      'static/crpe/2015/2015-espe-ex11-1.png',
-      'static/crpe/2015/2015-espe-ex11-2.png',
-      'static/crpe/2015/2015-espe-ex12-1.png',
-      'static/crpe/2015/2015-espe-ex12-2.png',
-      'static/crpe/2015/2015-espe-ex12-3.png',
-      'static/crpe/2015/2015-espe-ex13-1.png',
-      'static/crpe/2015/2015-espe-ex13-2.png',
-      'static/crpe/2015/2015-espe-ex14.png',
-      'static/crpe/2015/2015-espe-ex15.png'
+      'static/crpe/2015/2015-espe-ex01.png',
     ],
     pngCor: [
-      'static/crpe/2015/2015-espe-ex10-cor-1.png',
-      'static/crpe/2015/2015-espe-ex10-cor-2.png',
-      'static/crpe/2015/2015-espe-ex10-cor-3.png',
-      'static/crpe/2015/2015-espe-ex10-cor-4.png',
-      'static/crpe/2015/2015-espe-ex11-cor-1.png',
-      'static/crpe/2015/2015-espe-ex11-cor-2.png',
-      'static/crpe/2015/2015-espe-ex11-cor-3.png',
-      'static/crpe/2015/2015-espe-ex11-cor-4.png',
-      'static/crpe/2015/2015-espe-ex11-cor-5.png',
-      'static/crpe/2015/2015-espe-ex12-cor-1.png',
-      'static/crpe/2015/2015-espe-ex12-cor-2.png',
-      'static/crpe/2015/2015-espe-ex12-cor-3.png',
-      'static/crpe/2015/2015-espe-ex12-cor-4.png',
-      'static/crpe/2015/2015-espe-ex13-cor-1.png',
-      'static/crpe/2015/2015-espe-ex13-cor-2.png',
-      'static/crpe/2015/2015-espe-ex13-cor-3.png',
-      'static/crpe/2015/2015-espe-ex13-cor-4.png',
-      'static/crpe/2015/2015-espe-ex14-cor-1.png',
-      'static/crpe/2015/2015-espe-ex14-cor-2.png',
-      'static/crpe/2015/2015-espe-ex14-cor-3.png',
-      'static/crpe/2015/2015-espe-ex15-cor-1.png',
-      'static/crpe/2015/2015-espe-ex15-cor-2.png',
-      'static/crpe/2015/2015-espe-ex15-cor-3.png'
+      'static/crpe/2015/2015-espe-ex01-cor-1.png',
+      'static/crpe/2015/2015-espe-ex01-cor-2.png',
     ],
-    tags: ['']
+    tags: []
   },
   'crpe-2015-espe-pb': {
     typeExercice: 'crpe',
@@ -2752,7 +2720,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 1',
     png: [
       'static/crpe/2015/2015-espe-ex01.png'
     ],
@@ -2760,13 +2728,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex01-cor-1.png',
       'static/crpe/2015/2015-espe-ex01-cor-2.png'
     ],
-    tags: ['']
+    tags: []
   },
   'crpe-2015-espe-ex02': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 2',
     png: [
       'static/crpe/2015/2015-espe-ex02.png'
     ],
@@ -2774,13 +2742,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex02-cor-1.png',
       'static/crpe/2015/2015-espe-ex02-cor-2.png'
     ],
-    tags: ['']
+    tags: ['Numération']
   },
   'crpe-2015-espe-ex03': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 3',
     png: [
       'static/crpe/2015/2015-espe-ex03.png'
     ],
@@ -2788,13 +2756,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex03-cor-1.png',
       'static/crpe/2015/2015-espe-ex03-cor-2.png'
     ],
-    tags: ['']
+    tags: ['Probabilités']
   },
   'crpe-2015-espe-ex04': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 4',
     png: [
       'static/crpe/2015/2015-espe-ex04.png'
     ],
@@ -2803,26 +2771,26 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex04-cor-2.png',
       'static/crpe/2015/2015-espe-ex04-cor-3.png'
     ],
-    tags: ['']
+    tags: ['Géométrie plane']
   },
   'crpe-2015-espe-ex05': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 5',
     png: [
       'static/crpe/2015/2015-espe-ex05.png'
     ],
     pngCor: [
       'static/crpe/2015/2015-espe-ex05-cor.png'
     ],
-    tags: ['']
+    tags: []
   },
   'crpe-2015-espe-ex06': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 6',
     png: [
       'static/crpe/2015/2015-espe-ex06-1.png',
       'static/crpe/2015/2015-espe-ex06-2.png',
@@ -2832,13 +2800,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex06-cor-1.png',
       'static/crpe/2015/2015-espe-ex06-cor-2.png'
     ],
-    tags: ['']
+    tags: []
   },
   'crpe-2015-espe-ex07': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 7',
     png: [
       'static/crpe/2015/2015-espe-ex07-1.png',
       'static/crpe/2015/2015-espe-ex07-2.png'
@@ -2848,13 +2816,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex07-cor-2.png',
       'static/crpe/2015/2015-espe-ex07-cor-3.png'
     ],
-    tags: ['']
+    tags: []
   },
   'crpe-2015-espe-ex08': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 8',
     png: [
       'static/crpe/2015/2015-espe-ex08-1.png',
       'static/crpe/2015/2015-espe-ex08-2.png'
@@ -2862,26 +2830,26 @@ export const dictionnaireCrpeCoop = {
     pngCor: [
       'static/crpe/2015/2015-espe-ex08-cor.png'
     ],
-    tags: ['']
+    tags: []
   },
   'crpe-2015-espe-ex09': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 0',
+    numeroInitial: 'Ex 9',
     png: [
       'static/crpe/2015/2015-espe-ex09.png'
     ],
     pngCor: [
       'static/crpe/2015/2015-espe-ex09-cor.png'
     ],
-    tags: ['']
+    tags: []
   },
   'crpe-2015-espe-ex10': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 1',
+    numeroInitial: 'Ex 10',
     png: [
       'static/crpe/2015/2015-espe-ex10-1.png',
       'static/crpe/2015/2015-espe-ex10-2.png',
@@ -2893,13 +2861,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex10-cor-3.png',
       'static/crpe/2015/2015-espe-ex10-cor-4.png'
     ],
-    tags: ['']
+    tags: ['Aires', 'Proportionnalité', 'Statistiques']
   },
   'crpe-2015-espe-ex11': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 1',
+    numeroInitial: 'Ex 11',
     png: [
       'static/crpe/2015/2015-espe-ex11-1.png',
       'static/crpe/2015/2015-espe-ex11-2.png'
@@ -2911,13 +2879,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex11-cor-4.png',
       'static/crpe/2015/2015-espe-ex11-cor-5.png'
     ],
-    tags: ['']
+    tags: ['Vitesses']
   },
   'crpe-2015-espe-ex12': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 1',
+    numeroInitial: 'Ex 12',
     png: [
       'static/crpe/2015/2015-espe-ex12-1.png',
       'static/crpe/2015/2015-espe-ex12-2.png',
@@ -2929,13 +2897,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex12-cor-3.png',
       'static/crpe/2015/2015-espe-ex12-cor-4.png'
     ],
-    tags: ['']
+    tags: ['Aires']
   },
   'crpe-2015-espe-ex13': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 1',
+    numeroInitial: 'Ex 13',
     png: [
       'static/crpe/2015/2015-espe-ex13-1.png',
       'static/crpe/2015/2015-espe-ex13-2.png'
@@ -2946,13 +2914,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex13-cor-3.png',
       'static/crpe/2015/2015-espe-ex13-cor-4.png'
     ],
-    tags: ['']
+    tags: ['Vitesses']
   },
   'crpe-2015-espe-ex14': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 1',
+    numeroInitial: 'Ex 14',
     png: [
       'static/crpe/2015/2015-espe-ex14.png'
     ],
@@ -2961,13 +2929,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex14-cor-2.png',
       'static/crpe/2015/2015-espe-ex14-cor-3.png'
     ],
-    tags: ['']
+    tags: ['Statistiques']
   },
   'crpe-2015-espe-ex15': {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 1',
+    numeroInitial: 'Ex 15',
     png: [
       'static/crpe/2015/2015-espe-ex15.png'
     ],
@@ -2976,7 +2944,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-ex15-cor-2.png',
       'static/crpe/2015/2015-espe-ex15-cor-3.png'
     ],
-    tags: ['']
+    tags: ['Statistiques']
   },
   'crpe-2015-cre-ex1': {
     typeExercice: 'crpe',
@@ -2990,7 +2958,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-cre-ex1-cor-1.png',
       'static/crpe/2015/2015-cre-ex1-cor-2.png'
     ],
-    tags: ['']
+    tags: ['Probabilités']
   },
   'crpe-2015-cre-ex2': {
     typeExercice: 'crpe',
@@ -3004,7 +2972,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-cre-ex2-cor-1.png',
       'static/crpe/2015/2015-cre-ex2-cor-2.png'
     ],
-    tags: ['']
+    tags: ['Géométrie plane']
   },
   'crpe-2015-cre-ex3': {
     typeExercice: 'crpe',
@@ -3020,7 +2988,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-cre-ex3-cor-3.png',
       'static/crpe/2015/2015-cre-ex3-cor-4.png'
     ],
-    tags: ['']
+    tags: ['Proportionnalité']
   },
   'crpe-2015-cre-ex4': {
     typeExercice: 'crpe',
@@ -3033,7 +3001,7 @@ export const dictionnaireCrpeCoop = {
     pngCor: [
       'static/crpe/2015/2015-cre-ex4-cor.png'
     ],
-    tags: ['']
+    tags: ['Calcul littéral']
   },
   'crpe-2015-cre-pb': {
     typeExercice: 'crpe',
@@ -3051,7 +3019,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-cre-pb-cor-4.png',
       'static/crpe/2015/2015-cre-pb-cor-5.png'
     ],
-    tags: ['']
+    tags: ['Proportionnalité', 'Calcul littéral']
   }
 
 }

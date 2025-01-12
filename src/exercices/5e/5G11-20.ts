@@ -6,7 +6,7 @@ import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
-import SuperFigure from 'apigeom'
+import Figure from 'apigeom'
 import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
 import checkSegment from 'apigeom/src/check/checkSegment'
 import checkPolygon from 'apigeom/src/check/checkPolygon'
@@ -30,7 +30,7 @@ export const refs = {
  * fonction pour verifier qu'on est dans le cadre
  * @param points
  */
-function checkDistance (points: {x: number, y:number}[]) {
+function checkDistance (points: { x: number, y: number }[]) {
   const [x0, y0] = [points[0].x, points[0].y]
   const [x1, y1] = [points[1].x, points[1].y]
   const [x2, y2] = [points[2].x, points[2].y]
@@ -56,10 +56,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
   antecedents!: PointApigeom[][]
   labels!: string[][]
   centres!: PointApigeom[]
-  typesDeQuestions!: ('segment'|'droite'|'demidroite'|'cercle'|'triangle')[]
+  typesDeQuestions!: ('segment' | 'droite' | 'demidroite' | 'cercle' | 'triangle')[]
   nbPoints!: number[]
   exoCustomResultat: boolean
-  figuresApiGeom!: SuperFigure[]
+  figuresApiGeom!: Figure[]
   constructor () {
     super()
     this.exoCustomResultat = true
@@ -80,9 +80,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     const marks: string[] = ['//', 'o', '||']
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     this.figuresApiGeom = []
     this.antecedents = []
     this.labels = []
@@ -91,7 +89,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.nbPoints = []
     this.typesDeQuestions = gestionnaireFormulaireTexte({ nbQuestions: this.nbQuestions, saisie: this.sup2, min: 1, max: 5, melange: 6, defaut: 6, listeOfCase: ['segment', 'droite', 'demidroite', 'cercle', 'triangle'] }) as typeof this.typesDeQuestions
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20;) {
-      let nuage: {x: number, y:number}[] = []
+      let nuage: { x: number, y: number }[] = []
       // On construit les points
       do {
         nuage = []
@@ -109,7 +107,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       const options = {}
       if (this.sup === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
 
-      this.figuresApiGeom[i] = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
+      this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
       this.figuresApiGeom[i].options.latexHeight = 20
       this.figuresApiGeom[i].options.labelDxInPixels = 20
       this.figuresApiGeom[i].options.labelDyInPixels = 20
@@ -179,15 +177,15 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
       if (context.isHtml) {
         if (this.interactif) {
-          this.listeQuestions.push(enonce + '<br>' + figureApigeom({ exercice: this, figure: this.figuresApiGeom[i], i, isDynamic: true, defaultAction: 'NAME_POINT' }))
+          this.listeQuestions[i] = enonce + '<br>' + figureApigeom({ exercice: this, figure: this.figuresApiGeom[i], i, isDynamic: true, defaultAction: 'NAME_POINT' })
         } else {
-          this.listeQuestions.push(enonce + '<br>' + wrapperApigeomToMathalea(this.figuresApiGeom[i]))
+          this.listeQuestions[i] = enonce + '<br>' + wrapperApigeomToMathalea(this.figuresApiGeom[i])
         }
       } else {
-        this.listeQuestions.push(enonce + '<br><br>' + this.figuresApiGeom[i].tikz())
+        this.listeQuestions[i] = enonce + '<br><br>' + this.figuresApiGeom[i].tikz()
       }
       // On crée la figure pour la correction
-      const correctionFig = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5, isDynamic: false }))
+      const correctionFig = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5, isDynamic: false }))
       correctionFig.setToolbar({ tools: ['UNDO'], position: 'top' })
       correctionFig.options.latexHeight = 20
       const sym: PointApigeom[] = []
@@ -249,7 +247,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       }
       if (this.questionJamaisPosee(i, this.typesDeQuestions[i], this.labels.join(''), labelCentre)) {
         i++
-        this.listeCorrections.push(context.isHtml ? wrapperApigeomToMathalea(correctionFig) : correctionFig.tikz())
+        this.listeCorrections[i] = context.isHtml ? wrapperApigeomToMathalea(correctionFig) : correctionFig.tikz()
       }
       cpt++
     }
@@ -264,10 +262,10 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     const cords1 = rotationCoord(this.antecedents[i][0], this.centres[i], 180)
     const cords2 = rotationCoord(this.antecedents[i][1], this.centres[i], 180)
     const cords3 = rotationCoord(this.antecedents[i][2], this.centres[i], 180)
-    let resultat: {isValid: boolean, message: string} = { isValid: true, message: '' }
-    let resultat2: {isValid: boolean, message: string} = { isValid: true, message: '' }
-    let resultat3: {isValid: boolean, message: string} = { isValid: true, message: '' }
-    let resultat4: {isValid: boolean, message: string} = { isValid: true, message: '' }
+    let resultat: { isValid: boolean, message: string } = { isValid: true, message: '' }
+    let resultat2: { isValid: boolean, message: string } = { isValid: true, message: '' }
+    let resultat3: { isValid: boolean, message: string } = { isValid: true, message: '' }
+    let resultat4: { isValid: boolean, message: string } = { isValid: true, message: '' }
     switch (typefigure) {
       case 'segment':
         resultat = checkSegment({ figure: this.figuresApiGeom[i], point1: cords1, point2: cords2 })

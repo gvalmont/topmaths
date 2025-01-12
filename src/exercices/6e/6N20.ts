@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { getDynamicFractionDiagram } from './6N20-2'
@@ -80,8 +80,8 @@ export default class ExerciceFractionsDecomposer extends Exercice {
         champ3: { value: String(denominateur) }
       }, { formatInteractif: 'fillInTheBlank' })
       if (this.questionJamaisPosee(i, total, denominateur)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import type { MathfieldElement } from 'mathlive'
@@ -25,7 +25,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 10
+
     this.sup = '3-4-5-6-7-8-9'
     this.sup2 = 9
     this.comment = 'Le multiplicande est issu des tables choisies et le multiplicateur est compris entre 2 et la valeur maximale ci-dessus (qui doit être au moins 5).'
@@ -65,7 +65,7 @@ export default class nomExercice extends Exercice {
             callback: (exercice: Exercice, question: number) => {
               let feedback = ''
               const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
-              if (mfe == null) return { isOk: false, score: { nbBonnesReponses: 0, nbReponses: 0 } }
+              if (mfe == null) return { isOk: false, feedback, score: { nbBonnesReponses: 0, nbReponses: 0 } }
               const facteur1 = Number(mfe.getPromptValue('champ1') || 0)
               const facteur2 = Number(mfe.getPromptValue('champ2') || 0)
               const isOk = (facteur1 * facteur2 === a * b && facteur1 !== 1 && facteur2 !== 1)
@@ -100,8 +100,8 @@ export default class nomExercice extends Exercice {
       const texteCorr = `$${a * b}=${miseEnEvidence(String(a))} \\times ${miseEnEvidence(String(b))}$`
 
       if (this.questionJamaisPosee(i, a * b)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

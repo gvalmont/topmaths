@@ -1,6 +1,6 @@
-import TableauxEtPourcentages from './_Tableaux_et_pourcentages.js'
+import TableauxEtPourcentages from './_Tableaux_et_pourcentages'
 
-export const titre = 'Tableaux et pourcentages - pourcentage constant'
+export const titre = 'Compléter tableau (issu de pourcentages avec un pourcentage fixe)'
 export const interactifReady = false
 
 /**
@@ -10,12 +10,16 @@ export const interactifReady = false
  * @author Sébastien Lozano
  */
 export const uuid = '5a44b'
-export const ref = '5N11-2'
+
 export const refs = {
   'fr-fr': ['5N11-2'],
   'fr-ch': ['9NO14-5']
 }
-export default function TableauxEtPourcentagesPourcentConstant () {
-  this.exo = '5N11-2'
-  TableauxEtPourcentages.call(this)
+export default class TableauxEtPourcentagesPourcentConstant extends TableauxEtPourcentages {
+  constructor () {
+    super()
+    this.exo = '5N11-2'
+    this.consigne = 'Compléter le tableau suivant. Le pourcentage est fixe.'
+    this.besoinFormulaire2Numerique = ['Nombre de colonnes à remplir', 4, '1 : Une colonne\n2 : Deux colonnes\n3 : Trois colonnes\n4 : Quatre colonnes']
+  }
 }

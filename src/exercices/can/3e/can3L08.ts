@@ -23,7 +23,7 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class EnFonctionDeAire extends Exercice {
   constructor () {
@@ -31,7 +31,7 @@ export default class EnFonctionDeAire extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    this.formatInteractif = 'calcul'
+
     this.compare = functionCompare
   }
 

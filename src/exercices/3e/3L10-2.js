@@ -1,4 +1,4 @@
-import OpposeExpression from '../3e/3L10.js'
+import OpposeExpression from '../3e/3L10'
 
 export const titre = 'Supprimer les parenthèses puis réduire l\'expression (niveau 2)'
 export const interactifReady = true
@@ -15,7 +15,7 @@ export const dateDePublication = '28/11/2022'
  * 3L10-2
  */
 export const uuid = 'c88ba'
-export const ref = '3L10-2'
+
 export const refs = {
   'fr-fr': ['3L10-2'],
   'fr-ch': ['11FA1-3']
@@ -23,7 +23,7 @@ export const refs = {
 export default class ReduireExpressionComplexe extends OpposeExpression {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = '5-6-7-8-9-10'
   }
 }

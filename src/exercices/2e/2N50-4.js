@@ -1,45 +1,42 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { codageSegments, texteSurSegment } from '../../lib/2d/codages.js'
-import { milieu, point } from '../../lib/2d/points.js'
-import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { codageSegments, texteSurSegment } from '../../lib/2d/codages'
+import { milieu, point } from '../../lib/2d/points'
+import { segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
+import { sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
- * Référence
+
  */
 export const uuid = 'cf5b7'
-export const ref = '2N50-4'
+
 export const refs = {
   'fr-fr': ['2N50-4'],
   'fr-ch': ['11FA6-10']
 }
-export default function ModeliserEquationsGeometrie () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class ModeliserEquationsGeometrie extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.nbQuestions = 1
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.sup = 1 // Niveau de difficulté
+  }
 
+  nouvelleVersion () {
     const typeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8'] //
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, b, c, d, e, A, B, C, D, E, M, N, P, H, F, K, L, objets, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -338,8 +335,8 @@ export default function ModeliserEquationsGeometrie () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

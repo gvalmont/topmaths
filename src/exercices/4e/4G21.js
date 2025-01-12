@@ -1,10 +1,10 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -16,27 +16,26 @@ export const interactifReady = true
  * 4G21
  */
 export const uuid = 'ab5d4'
-export const ref = '4G21'
+
 export const refs = {
   'fr-fr': ['4G21'],
   'fr-ch': ['11GM1-3']
 }
-export default function ReciproquePythagore () {
-  Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
-  this.nbQuestions = 3
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 3
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+export default class ReciproquePythagore extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "]
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    this.amcReady = amcReady
+    this.amcType = amcType
+
+    this.nbQuestions = 3
+
+    this.sup = 3
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
+  }
+
+  nouvelleVersion () {
     let listeTypeDeQuestions = []
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['rectangle'], this.nbQuestions)
@@ -211,13 +210,12 @@ export default function ReciproquePythagore () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, "1 : Démontrer qu'un triangle est rectangle\n2 : Démontrer qu'un triangle n'est pas rectangle\n3 : Déterminer si un triangle est rectangle ou pas "]
 }

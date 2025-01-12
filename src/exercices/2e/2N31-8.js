@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -18,25 +18,25 @@ export const dateDePublication = '05/02/2021'
  * @author Rémi Angot
 */
 export const uuid = 'fedae'
-export const ref = '2N31-8'
+
 export const refs = {
   'fr-fr': ['2N31-8'],
   'fr-ch': []
 }
-export default function ConversionsPuissancesDe10 () {
-  Exercice.call(this)
-  this.consigne = 'Compléter :'
-  this.nbQuestions = 5
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = !context.isHtml
+export default class ConversionsPuissancesDe10 extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.consigne = 'Compléter :'
+    this.nbQuestions = 5
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
 
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = !context.isHtml
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = ['m>km', 'u>M', 'u>G', 'g>t', 'M>G', 'M>T', 'G>T', 'm>mm', 'm>um', 'm>nm'] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque `cycle`
     const listeDeSens = combinaisonListes(['div', 'fois'], this.nbQuestions)
@@ -147,8 +147,8 @@ export default function ConversionsPuissancesDe10 () {
         : ` = ${texNombre(a)}\\times10^{${miseEnEvidence(exposantReponse)}}~${uniteOrdre[1]}$`
 
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

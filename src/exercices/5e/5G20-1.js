@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lampeMessage } from '../../lib/format/message.js'
+import { lampeMessage } from '../../lib/format/message'
 import { texNombre } from '../../lib/outils/texNombre'
-import { Triangle } from '../../modules/Triangle.js'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, texEnumerateSansNumero } from '../../modules/outils.js'
+import { Triangle } from '../../modules/Triangle'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, texEnumerateSansNumero } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const dateDeModifImportante = '25/07/2023'
 export const titre = 'Utiliser le vocabulaire des triangles'
@@ -14,34 +14,36 @@ export const titre = 'Utiliser le vocabulaire des triangles'
  * @author Sébastien Lozano
  */
 export const uuid = 'c3781'
-export const ref = '5G20-1'
+
 export const refs = {
   'fr-fr': ['5G20-1'],
   'fr-ch': ['9ES2-7']
 }
-export default function VocabulaireDesTriangles () {
-  Exercice.call(this)
-  this.consigne = 'Donner la nature des triangles en justifiant.'
-  this.sup = 1
-  this.sup2 = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  if (this.classe === 6) {
-    if (this.sup === 1) {
-      this.nbQuestions = 4
-    } else {
+export default class VocabulaireDesTriangles extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
+    this.consigne = 'Donner la nature des triangles en justifiant.'
+    this.sup = 1
+    this.sup2 = false
+
+    if (this.classe === 6) {
+      if (this.sup === 1) {
+        this.nbQuestions = 4
+      } else {
+        this.nbQuestions = 5
+      }
+    } else if (this.classe === 5) {
       this.nbQuestions = 5
     }
-  } else if (this.classe === 5) {
-    this.nbQuestions = 5
+    this.classe = 5
   }
-  this.classe = 5
 
-  let typeDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let texteIntro = ''
-    // eslint-disable-next-line no-undef
+    if (this.classe === 6) { this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs'] }
+    let typeDeQuestionsDisponibles
+
     if (context.isHtml) {
       if (this.classe === 6) {
         texteIntro += '- Un <b>triangle quelconque</b> est un triangle qui ne présente aucune relation particulière entre ses angles ou ses côtés.'
@@ -302,14 +304,12 @@ export default function VocabulaireDesTriangles () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  if (this.classe === 6) { this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans conversion de longueurs\n2 : Avec conversions de longueurs'] }
-  this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
 }

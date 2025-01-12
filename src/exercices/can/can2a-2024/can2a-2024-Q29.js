@@ -1,14 +1,14 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils.js'
-import { spline } from '../../../lib/mathFonctions/Spline.js'
+import { randint } from '../../../modules/outils'
+import { spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { repere } from '../../../lib/2d/reperes.js'
+import { repere } from '../../../lib/2d/reperes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { context } from '../../../modules/context'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 export const titre = 'Lire une image graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,7 @@ export const uuid = '325b5'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -24,7 +24,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = '  blocCenter ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
   nouvelleVersion () {
@@ -148,14 +148,16 @@ export default class NomExercice extends Exercice {
       })
       const objetsEnonce = [repere1, courbe2]
       const antecedent = randint(0, 6)
-      this.question = `
-        Quelle est l'image de $${theSpline.x[antecedent]}$ par  $f$ ?<br>` +
+      this.question = 'On donne le graphique d’une fonction $f$ : <br>'
+      this.question +=
         mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+      this.question += `
+        Quelle est l'image de $${theSpline.x[antecedent]}$ par  $f$ ?`
       this.correction = `Pour lire l'image de $${theSpline.x[antecedent]}$, on place la valeur de $${theSpline.x[antecedent]}$ sur l'axe des abscisses (axe de lecture  des antécédents) et on lit
            son image  sur l'axe des ordonnées (axe de lecture des images). <br>
            On obtient :  $f(${theSpline.x[antecedent]})=${miseEnEvidence(theSpline.y[antecedent])}$.`
 
-      this.reponse = { reponse: { value: String(theSpline.y[antecedent]), compare: fonctionComparaison } }
+      this.reponse = { reponse: { value: String(theSpline.y[antecedent]) } }
       this.canEnonce = this.question// 'Compléter'
       this.canReponseACompleter = ''
     }

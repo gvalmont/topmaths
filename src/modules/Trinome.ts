@@ -16,6 +16,7 @@ export default class Trinome {
   a: FractionEtendue
   b: FractionEtendue
   c: FractionEtendue
+  _discriminant: FractionEtendue | false | undefined
   /** Définit un trinôme de la forme ax^2 + bx + c */
   constructor (a: numberOrFraction, b: numberOrFraction, c: numberOrFraction) {
     if (typeof a === 'number') this.a = new FractionEtendue(a, 1)
@@ -24,6 +25,7 @@ export default class Trinome {
     else this.b = b
     if (typeof c === 'number') this.c = new FractionEtendue(c, 1)
     else this.c = c
+    this._discriminant = undefined
   }
 
   /** Modifie le polynome pour qu'il soit égal à a(x-x1)(x-x2) */
@@ -132,10 +134,13 @@ export default class Trinome {
 
   /** Discriminant du trinome */
   get discriminant () {
-    const b2 = this.b.produitFraction(this.b)
-    let ac = this.a.produitFraction(this.c)
-    ac = ac.multiplieEntier(-4)
-    return b2.sommeFraction(ac).simplifie()
+    if (this._discriminant === undefined) {
+      const b2 = this.b.produitFraction(this.b)
+      let ac = this.a.produitFraction(this.c)
+      ac = ac.multiplieEntier(-4)
+      this._discriminant = b2.sommeFraction(ac).simplifie()
+    }
+    return this._discriminant
   }
 
   /** Renvoie l'image de x par la fonction définie par le trinome */
@@ -408,8 +413,9 @@ export default class Trinome {
     let result: number
     if (this.a.valeurDecimale > 0) {
       result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    } else {
+      result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     }
-    result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     return result
   }
 
@@ -428,8 +434,9 @@ export default class Trinome {
     let result: number
     if (this.a.valeurDecimale > 0) {
       result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    } else {
+      result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     }
-    result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     return result
   }
 

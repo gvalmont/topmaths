@@ -1,10 +1,10 @@
 import { choice, compteOccurences } from '../../lib/outils/arrayOutils'
-import { lampeMessage } from '../../lib/format/message.js'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { scratchblock } from '../../modules/scratchblock.js'
-import { context } from '../../modules/context.js'
+import { lampeMessage } from '../../lib/format/message'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { scratchblock } from '../../modules/scratchblock'
+import { context } from '../../modules/context'
 export const titre = 'Compléter un script Scratch - 1'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -17,23 +17,40 @@ export const dateDeModifImportante = '08/05/2023' // par EE : Le nb de questions
  * @author Eric Elter
  */
 export const uuid = '39a32'
-export const ref = '3I12-1'
+
 export const refs = {
   'fr-fr': ['3I12-1'],
   'fr-ch': []
 }
-export default function CompleterScriptMultiple () {
-  Exercice.call(this)
-  this.sup = 5
-  this.sup2 = 5
-  this.sup3 = 4
-  this.sup4 = 3
-  this.spacing = 2
-  this.nbQuestions = 1
-  this.typeExercice = 'Scratch'
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.nouvelleVersion = function () {
+export default class CompleterScriptMultiple extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Brique(s) à trouver',
+      'Nombres séparés par des tirets\n1 : Lignes 3 et 5\n2 : Ligne 6\n3 : Lignes 7 et 8 (aux extrèmes)\n4 : Lignes 7 et 8 (au centre)\n5 : Une des possiblités précédentes choisie au hasard'
+    ]
+    this.besoinFormulaire2Texte = [
+      'Choix sur la brique intiale',
+      'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
+    ]
+    this.besoinFormulaire3Texte = [
+      'Choix sur une des phrases finales',
+      'Nombres séparés par des tirets\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard'
+    ]
+    this.besoinFormulaire4Numerique = [
+      'Choix de l\'ordre sur la brique modulo', 3,
+      '1 : Premier entier demandé modulo le second\n2 : Second entier demandé modulo le premier \n3 : Une des possiblités précédentes choisie au hasard'
+    ]
+    this.sup = 5
+    this.sup2 = 5
+    this.sup3 = 4
+    this.sup4 = 3
+    this.spacing = 2
+    this.nbQuestions = 1
+    this.typeExercice = 'Scratch'
+  }
+
+  nouvelleVersion () {
     this.introduction = lampeMessage({
       titre: context.isHtml ? `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}` : 'Information',
       texte: (context.isHtml
@@ -240,28 +257,12 @@ export default function CompleterScriptMultiple () {
       }
 
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Brique(s) à trouver',
-    'Nombres séparés par des tirets\n1 : Lignes 3 et 5\n2 : Ligne 6\n3 : Lignes 7 et 8 (aux extrèmes)\n4 : Lignes 7 et 8 (au centre)\n5 : Une des possiblités précédentes choisie au hasard'
-  ]
-  this.besoinFormulaire2Texte = [
-    'Choix sur la brique intiale',
-    'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
-  ]
-  this.besoinFormulaire3Texte = [
-    'Choix sur une des phrases finales',
-    'Nombres séparés par des tirets\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard'
-  ]
-  this.besoinFormulaire4Numerique = [
-    'Choix de l\'ordre sur la brique modulo', 3,
-    '1 : Premier entier demandé modulo le second\n2 : Second entier demandé modulo le premier \n3 : Une des possiblités précédentes choisie au hasard'
-  ]
 }

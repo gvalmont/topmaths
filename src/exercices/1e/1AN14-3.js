@@ -1,8 +1,8 @@
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { Polynome } from '../../lib/mathFonctions/Polynome.js'
+import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -19,36 +19,40 @@ export const interactifType = 'mathLive'
  */
 
 export const uuid = 'ec088'
-export const ref = '1AN14-3'
+
 export const refs = {
   'fr-fr': ['1AN14-3'],
   'fr-ch': []
 }
 const termNames = ['u', 'v', 'w', 'z']
 
-export default function DeriveePoly () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
-  this.nbQuestions = 3
-  // Sortie LaTeX
-  this.nbCols = 1 // Nombre de colonnes
-  this.nbColsCorr = 1 // Nombre de colonnes dans la correction
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.sup = '6'
-  this.sup2 = false
-  this.sup3 = false
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
-  // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  // const reglesDeSimplifications = math.simplify.rules.slice()
-  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
-  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
-  // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
-  // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
+export default class DeriveePoly extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 Constante\n2 : Affine\n3 : Degré 2\n4 : Degré 3\n5 : Deux monomes\n6 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Coefficients rationnels', false]
+    this.besoinFormulaire3CaseACocher = ['Coefficients décimaux', false]
 
-  this.nouvelleVersion = function () {
+    this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
+    this.nbQuestions = 3
+    // Sortie LaTeX
+
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.sup = '6'
+    this.sup2 = false
+    this.sup3 = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+    // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
+    // const reglesDeSimplifications = math.simplify.rules.slice()
+    // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
+    // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
+    // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
+    // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
+  }
+
+  nouvelleVersion () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
@@ -119,7 +123,8 @@ export default function DeriveePoly () {
       for (let p = 1; p < poly.monomes.length; p++) {
         if (poly.monomes[deg + 1 - p] !== 0) {
           termes.push(`${ecritureAlgebriqueSauf1(poly.monomes[deg + 1 - p])}${deg + 1 - p > 1 ? 'x^' + String(deg + 1 - p) : deg + 1 - p === 1 ? 'x' : ''}`)
-          termesD.push(`${ecritureAlgebriqueSauf1(poly.derivee().monomes[deg - p])}${deg - p > 1 ? 'x^' + String(deg - p) : deg - p === 1 ? 'x' : ''}`)
+          const monomeD = poly.derivee().monomes[deg - p]
+          termesD.push(`${deg - p > 1 ? ecritureAlgebriqueSauf1(monomeD) : ecritureAlgebrique(monomeD)}${deg - p > 1 ? 'x^' + String(deg - p) : deg - p === 1 ? 'x' : ''}`)
         }
       }
       if (poly.monomes[0] !== 0) {
@@ -154,15 +159,12 @@ export default function DeriveePoly () {
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 Constante\n2 : Affine\n3 : Degré 2\n4 : Degré 3\n5 : Deux monomes\n6 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Coefficients rationnels', false]
-  this.besoinFormulaire3CaseACocher = ['Coefficients décimaux', false]
 }

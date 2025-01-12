@@ -1,7 +1,7 @@
 <script lang="ts">
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import { retrieveResourceFromUuid } from '../../../../../lib/components/refUtils'
-  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType } from '../../../../../lib/types/referentiels'
+  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType, isStaticWithoutPngUrl } from '../../../../../lib/types/referentiels'
   /**
    * Gestion du référentiel pour la recherche de l'uuid
   */
@@ -30,6 +30,11 @@
   export let zoomFactor: string
   export let isSolutionAccessible: boolean
   const foundResource = retrieveResourceFromUuid(allStaticReferentiels, uuid)
+  if (isStaticWithoutPngUrl(foundResource)) {
+    const examen = foundResource.uuid.split('_')[0]
+    foundResource.png = `static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
+    foundResource.pngCor = `static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
+  }
   const resourceToDisplay = isStaticType(foundResource) || isCrpeType(foundResource)
     ? { ...foundResource }
     : null

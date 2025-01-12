@@ -1,53 +1,55 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre = 'Encodeur de texte'
-export const ref = 'P020'
+
 export const refs = {
   'fr-fr': ['P020'],
   'fr-ch': []
 }
 export const uuid = 'de353'
-export default function EncodeurTexte (type = 'générateur') {
-  Exercice.call(this)
-  this.introduction = 'Générateur inspiré par la commande DefiTableTexte du package ProfCollege de Christophe Poulain.'
-  this.consigne = 'Choisir un texte à encoder dans le formulaire en paramètre.'
-  this.besoinFormulaireTexte = ['Texte à encoder (liste de mots ou de phrases séparés par /']
-  this.besoinFormulaire2CaseACocher = ['Grille différente pour chaque morceau', false]
-  this.sup = 'mathématiques'
-  this.sup2 = false
-  this.nbQuestions = 1
-  this.besoinCorrection = false
+const tableauDesCaracteres = Array.from('-xçwjè,k~:aq«rlgdmftbéocsà.êeipzhu\'ynvî»â!')
+tableauDesCaracteres[2] = 'ç'
+const enteteColonnes = ['×', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+const lightgrey = 'lightgray'
+for (let i = 0; i < enteteColonnes.length; i++) {
+  enteteColonnes[i] = `\\colorbox{${lightgrey}}{${enteteColonnes[i]}}`
+}
 
-  const tableauDesCaracteres = Array.from('-xçwjè,k~:aq«rlgdmftbéocsà.êeipzhu\'ynvî»â!')
-  tableauDesCaracteres[2] = 'ç'
-  const enteteColonnes = ['×', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-  const lightgrey = 'lightgray'
-  for (let i = 0; i < enteteColonnes.length; i++) {
-    enteteColonnes[i] = `\\colorbox{${lightgrey}}{${enteteColonnes[i]}}`
+function produitPourCaractere (car, map) {
+  const liste = map.entries()
+  for (const paire of liste) {
+    if (paire[1] === car) return paire[0]
   }
-  const enteteLignes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-  for (let i = 0; i < enteteLignes.length; i++) {
-    enteteLignes[i] = `\\colorbox{${lightgrey}}{${enteteLignes[i]}}`
+  return NaN
+}
+export default class EncodeurTexte extends Exercice {
+  constructor (type = 'générateur') {
+    super()
+    this.introduction = 'Générateur inspiré par la commande DefiTableTexte du package ProfCollege de Christophe Poulain.'
+    this.consigne = 'Choisir un texte à encoder dans le formulaire en paramètre.'
+    this.besoinFormulaireTexte = ['Texte à encoder (liste de mots ou de phrases séparés par /']
+    this.besoinFormulaire2CaseACocher = ['Grille différente pour chaque morceau', false]
+    this.sup = 'mathématiques'
+    this.sup2 = false
+    this.nbQuestions = 1
+    this.besoinCorrection = false
   }
-  function produitPourCaractere (car, map) {
-    const liste = map.entries()
-    for (const paire of liste) {
-      if (paire[1] === car) return paire[0]
+
+  nouvelleVersion (type = 'générateur') {
+    const enteteLignes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    for (let i = 0; i < enteteLignes.length; i++) {
+      enteteLignes[i] = `\\colorbox{${lightgrey}}{${enteteLignes[i]}}`
     }
-    return NaN
-  }
-  this.nouvelleVersion = function () {
     const listeDeMots = ['mathématiques', 'diviseur', 'multiple', 'médiatrice', 'milieu', 'parallèle', 'perpendiculaire', 'multiplication', 'addition',
       'soustraction', 'division', 'addition', 'cercle', 'histogramme', 'diagramme', 'numération', 'fraction', 'égalité', 'propriété', 'contre-exemple']
     const listeDePhrases = ['Les mathématiques/c\'est fantastique', 'multiplier et diviser/se fait avant/additionner ou soustraire',
       'être supérieur/à un nombre signifie/être plus grand que ce nombre', 'Il faut toujours/vérifier la cohérence/de ses résultats',
       'Pour tracer des/droites ou des segments/on utilise une règle', 'Pour tracer des/droites perpendiculaires/utilise ton équerre']
     this.sup3 = contraindreValeur(1, 3, this.sup3, 1)
-    this.listeQuestions = []
-    this.listeCorrections = []
+
     if (type === 'exo') {
       switch (this.sup3) {
         case 1:
@@ -97,8 +99,8 @@ export default function EncodeurTexte (type = 'générateur') {
       texte += '<br><br>'
 
       if (this.questionJamaisPosee(i, texteAEncoder[i], table)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteAEncoder[i].replaceAll('~', ' ').replaceAll('/', ' '))
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteAEncoder[i].replaceAll('~', ' ').replaceAll('/', ' ')
         i++
       }
       cpt++

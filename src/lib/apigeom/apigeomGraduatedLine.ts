@@ -3,11 +3,11 @@ import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine'
 import { arrondi } from '../outils/nombres'
 
 export function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points }: {
-    xMin: number,
-    xMax: number,
-    scale?: number,
-    points?: Array<{ x: number, label: string }>
-  }): { figure: Figure, latex: string} {
+  xMin: number,
+  xMax: number,
+  scale?: number,
+  points?: Array<{ x: number, label: string }>
+}): { figure: Figure, latex: string } {
   //  const width = 900
   const width = 650
   const height = 80

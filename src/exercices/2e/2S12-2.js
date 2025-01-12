@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -26,25 +26,22 @@ export const dateDeModifImportante = '04/05/2023'
  */
 
 export const uuid = '018f3'
-export const ref = '2S12-2'
+
 export const refs = {
   'fr-fr': ['2S12-2'],
   'fr-ch': []
 }
-export default function EvolutionsSuccesives () {
-  Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 // type de question
+export default class EvolutionsSuccesives extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
+    this.nbQuestions = 1
+
+    this.sup = 1 // type de question
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]
@@ -488,13 +485,12 @@ export default function EvolutionsSuccesives () {
       }
       if (this.questionJamaisPosee(i, taux1, taux2)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Déterminer un taux global \n2 : Déterminer un taux intermédiaire\n3 : Mélange']
 }

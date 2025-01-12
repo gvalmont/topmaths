@@ -99,10 +99,12 @@ export class MathAleaURL extends URL {
 export function buildMathAleaURL (options: {
   view: VueType,
   mode?: InterfaceGlobalOptions['presMode'],
-  isEncrypted?: boolean, isShort?: boolean,
+  isEncrypted?: boolean,
+  isShort?: boolean,
   removeSeed?: boolean
   /** S'il y a un recorder l'url est cachée et doit être construite à partir du store exercicesParams */
-  recorder?: 'Moodle'}
+  recorder?: 'Moodle'
+}
 ): URL {
   const url = options.recorder ? MathAleaURL.fromExercisesParams() : new MathAleaURL()
   if (options.removeSeed) {

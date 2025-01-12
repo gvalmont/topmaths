@@ -1,34 +1,31 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import ChoisirUneExpressionLitterale from './_Choisir_expression_litterale.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import ChoisirUneExpressionLitterale from './_Choisir_expression_litterale'
 
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression numérique'
 
 /**
- * Référence 5L14-6
+
  * Déterminer la dernière opération à effectuer dans une expression numérique
  * @author Sébastien Lozano
  */
 export const uuid = 'd1a2c'
-export const ref = '5L14-6'
+
 export const refs = {
   'fr-fr': ['5L14-6'],
   'fr-ch': ['11FA5-1']
 }
-export default function DeterminerDerniereOperationExpNum () {
-  Exercice.call(this)
-  this.debug = false
-  this.consigne = ''
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = true
-  this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
-  this.titre = titre
+export default class DeterminerDerniereOperationExpNum extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
+    this.besoinFormulaireCaseACocher = ['Avec le signe × devant les parenthèses', true]
+    this.nbQuestions = 4
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [5] // expressions complexes
     let expn; let expc; let decimal = 1; let nbOperations; let resultats; let lastOp
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -55,14 +52,12 @@ export default function DeterminerDerniereOperationExpNum () {
       texteCorr += `<br>La dernière opération dans $${str[1]}$ est donc une ${texteEnCouleurEtGras(lastOp)}.`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
-  this.besoinFormulaireCaseACocher = ['Avec le signe × devant les parenthèses', true]
 }

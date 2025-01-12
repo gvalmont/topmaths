@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import NombrePeriodique from '../../modules/NombrePeriodique'
 import { ceil, round } from 'mathjs'
 
@@ -10,11 +10,11 @@ export const interactifReady = false
 export const uuid = '8f8bc'
 export const refs = {
   'fr-ch': ['1CN-4'],
-  'fr-fr': []
+  'fr-fr': ['PEN16']
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Nathan Scheinmann
  */
 
@@ -22,7 +22,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.consigne = ''
+
     this.besoinFormulaireNumerique = ['Longueur maximale de la période', 4, '1\n2\n3\n4']
     this.besoinFormulaire2Numerique = ['Nombre de chiffres maximum dans la partie entière', 3, '1\n2\n3']
     this.besoinFormulaire3Numerique = ['Nombre de chiffres maximum dans la partie décimale (hors période)', 3, '0\n1\n2\n3']
@@ -40,9 +40,6 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     if (this.sup5) {
       this.consigne += ' La calculatrice est autorisée.'
     }
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const periode = ceil(randint(10 ** (this.sup - 1), 10 ** this.sup - 1) / (10 ** randint(0, this.sup)))
@@ -64,8 +61,8 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
       texteCorr = `${nombrePerio.toFractionNouvelProcedure()}`
 
       if (this.questionJamaisPosee(i, periode)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

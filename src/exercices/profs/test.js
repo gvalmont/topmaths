@@ -1,7 +1,7 @@
 // import { ComputeEngine } from '@cortex-js/compute-engine'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -48,11 +48,15 @@ console.info('-\\dfrac{-12}{-13}'.replace(/^\\dfrac(?:(\d)(\d)|{(-?\d+)}{(-?\d+)
 }))
 */
 
-export default function desTestsPourInteractivité () {
-  Exercice.call(this)
-  // this.consigne = 'Quel est le résultat des calculs suivants ?'
-  this.consigne = 'Écrire ce nombre sous forme d\'une somme.'
-  this.nouvelleVersion = function () {
+export default class desTestsPourInteractivité extends Exercice {
+  constructor () {
+    super()
+
+    // this.consigne = 'Quel est le résultat des calculs suivants ?'
+    this.consigne = 'Écrire ce nombre sous forme d\'une somme.'
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 12)
       b = randint(2, 12)
@@ -73,13 +77,13 @@ export default function desTestsPourInteractivité () {
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { additionSeulementEtNonResultat: true } } })
-      // handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { additionSeulementEtNonResultat: true } } })
+      // handleAnswers(this, i, { reponse: { value: reponse } })
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

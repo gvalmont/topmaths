@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils'
 export const titre = 'Nom de l\'exercice'
 
 export const dateDePublication = '4/5/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -12,20 +12,17 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author
- * Référence
+
 */
 export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = 'Consigne'
-    this.nbQuestions = 10 // Nombre de questions par défaut
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -46,8 +43,8 @@ export default class nomExercice extends Exercice {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

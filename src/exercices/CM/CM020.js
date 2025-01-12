@@ -1,29 +1,39 @@
-import Exercice from '../deprecatedExercice.js'
-import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
-import TrouverSolutionMathador from '../5e/_TrouverSolutionMathador.js'
+import Exercice from '../Exercice'
+import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils'
+import TrouverSolutionMathador from '../5e/_TrouverSolutionMathador'
 export const titre = 'Générateur de compte est bon version semi-aléatoire'
 
 /**
  * @author Jean-Claude Lhote
-  * référence CM020
+
  * Dans cette version, il est possible de choisir 1,2,3,4 ou 5 nombres du tirage et de contraindre la cible entre deux valeurs
  */
 export const uuid = 'fec06'
-export const ref = 'CM020'
+
 export const refs = {
   'fr-fr': ['CM020'],
   'fr-ch': []
 }
-export default function LeCompteEstBonV4 () {
-  Exercice.call(this)
-  this.consigne =
+export default class LeCompteEstBonV4 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Choix des nombres du tirage (de aucun à cinq)',
+      'Nombres séparés par des tirets'
+    ] // Texte, tooltip
+    this.besoinFormulaire2Texte = [
+      'Intervalle pour la cible (ou rien pour cible non contrainte)',
+      'Minimum-Maximum (éviter de trop contraindre la cible, cela peut bloquer le programme)'
+    ] // Texte, tooltip
+    this.consigne =
     'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
-  this.nbQuestions = 1
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1
+    this.nbQuestions = 1
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let solutionMathador = []
     let tirage, min, max, texteCorr
     let minmax = []
@@ -77,14 +87,6 @@ export default function LeCompteEstBonV4 () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Choix des nombres du tirage (de aucun à cinq)',
-    'Nombres séparés par des tirets'
-  ] // Texte, tooltip
-  this.besoinFormulaire2Texte = [
-    'Intervalle pour la cible (ou rien pour cible non contrainte)',
-    'Minimum-Maximum (éviter de trop contraindre la cible, cela peut bloquer le programme)'
-  ] // Texte, tooltip
 
   // this.besoinFormulaire2Numerique = ['Limite supérieure',100];
 }

@@ -1,11 +1,13 @@
-import { Courbe } from '../../lib/2d/courbes.js'
-import { Repere } from '../../lib/2d/reperes.js'
-import { brent, tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
-// import { Polynome } from '../../lib/mathFonctions/Polynome.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.ts'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+/*
+import { Courbe } from '../../lib/2d/courbes'
+import { Repere } from '../../lib/2d/reperes'
+import { brent, tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+// import { Polynome } from '../../lib/mathFonctions/Polynome'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
+*/
+import Exercice from '../Exercice'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true
@@ -17,12 +19,12 @@ export const uuid = '9f20b' // @todo à changer dans un nouvel exo (utiliser pnp
 /**
  * Aléatoirise un polynome et dresse le tableau de signes et le tableau de variations
  * @author Jean-Claude Lhote
- * Référence (betaPolynome)
+
  */
 export default class BetaEtudeFonction extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = 3
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
@@ -48,6 +50,7 @@ export default class BetaEtudeFonction extends Exercice {
     const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
    */
     //     Avec ln
+    /*
     const fonction = x => x * Math.log(Math.abs(x)) // Pour le tableau de signes et de variations
     const derivee = x => 1 + Math.log(Math.abs(x)) // pour le tableau de variations
     const latexFonction = 'x\\ln(|x|)' // pour l'énoncé
@@ -60,6 +63,7 @@ export default class BetaEtudeFonction extends Exercice {
     const time = Date.now()
     const { root, iter } = brent(exampleFunction, 1, 10, 1e-13)
     const duree = Date.now() - time
+    */
     /*
     const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
     const repere1 = new Repere({

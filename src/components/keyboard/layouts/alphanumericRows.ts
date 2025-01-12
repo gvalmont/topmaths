@@ -41,7 +41,7 @@ const rowsNum: KeysList[] = [
     'abc', '(', ')', '[', ']', '{', '}', 'INTPOINT', 'EXCPOINT', 'PERCENT'
   ]
 ]
-// eslint-disable-next-line no-unused-vars
+
 export const alphanumericLayouts: { [key in AlphanumericPages]: KeysList[] } = {
   AlphaLow: rowsAlphaLow,
   AlphaUp: rowsAlphaUp,

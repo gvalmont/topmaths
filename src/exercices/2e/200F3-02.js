@@ -1,12 +1,12 @@
-import { courbe, croche } from '../../lib/2d/courbes.js'
-import { plot } from '../../lib/2d/points.js'
+import { courbe, croche } from '../../lib/2d/courbes'
+import { plot } from '../../lib/2d/points'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { spline } from '../../lib/mathFonctions/Spline.js'
+import { spline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { randint } from '../../modules/outils.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lecture graphique de domaine de définition'
@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'e46e6'
-export const ref = '200F3-02'
+
 export const refs = {
   'fr-fr': ['200F3-02'],
   'fr-ch': ['11FA7-5']
@@ -29,7 +29,7 @@ export const refs = {
 export default class LectureEnsebleDef extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 1
@@ -165,7 +165,6 @@ export default class LectureEnsebleDef extends Exercice {
     this.reponse = {
       reponse: {
         value: `${ouvertGauche ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${ouvertDroit ? '\\right\\lbrack' : '\\right\\rbrack'}`,
-        compare: fonctionComparaison,
         options: { intervalle: true }
       }
     }

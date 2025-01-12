@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { calculer, toTex } from '../../modules/outilsMathjs'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '4/5/2024'
 export const uuid = '76926'
-export const ref = '2N40-7'
+
 export const refs = {
   'fr-fr': ['2N40-7'],
   'fr-ch': []
@@ -65,9 +65,6 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
     this.consigne = this.nbQuestions === 1
       ? 'Calculer, pour la valeur donnée de $x$, le résultat de l\'expression suivante'
       : 'Calculer, pour les valeurs données de $x$, le résultat des expressions suivantes'
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
 
     const typeExpression = ['a+b*x', 'b*(a+c*x)', 'a*x^2+b*x+c']
     const typeDeNombres = ['entiers positifs', 'entiers relatifs']
@@ -157,14 +154,13 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
 
       handleAnswers(this, i, {
         reponse: {
-          value: corrDetails.result,
-          compare: fonctionComparaison
+          value: corrDetails.result
         }
       })
 
       if (this.questionJamaisPosee(i, a, b, x, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

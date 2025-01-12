@@ -11,7 +11,7 @@ export const interactifType = 'qcm'
  */
 
 export const uuid = '0a01e'
-export const ref = '2N40-1'
+
 export const refs = {
   'fr-fr': ['2N40-1'],
   'fr-ch': []

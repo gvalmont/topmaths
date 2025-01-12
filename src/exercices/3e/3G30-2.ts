@@ -21,7 +21,7 @@ export const dateDeModifImportante = '20/02/2024'
  * @author Rémi Angot
  */
 export const uuid = 'f13e3'
-export const ref = '3G30-2'
+
 export const refs = {
   'fr-fr': ['3G30-2'],
   'fr-ch': []
@@ -37,10 +37,6 @@ class EquationTrigo extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     type TypeQuestionsDisponibles = 'num' | 'den' | 'angle'
     type Trigo = 'cos' | 'sin' | 'tan'
     let typeQuestionsDisponibles: TypeQuestionsDisponibles[]
@@ -149,8 +145,8 @@ class EquationTrigo extends Exercice {
       }
       setReponse(this, i, reponse)
       if (this.questionJamaisPosee(i, cosSinTan, angle, lAB.toFixed(1))) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

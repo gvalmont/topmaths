@@ -2,11 +2,11 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
@@ -24,11 +24,11 @@ export const interactifType = 'mathLive'
  * * Décimal relatif
  * * Fractionnaire relatif
  * @author Sébastien LOZANO
- * Référence 4G20-3
+
  */
 
 export const uuid = 'e564b'
-export const ref = '4G20-3'
+
 export const refs = {
   'fr-fr': ['4G20-3'],
   'fr-ch': ['10NO2-2']
@@ -36,13 +36,12 @@ export const refs = {
 export default class calculsDeCarre extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.sup = 1
     this.nbQuestions = 6
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
     context.isHtml ? this.spacing = 2 : this.spacing = 2
     this.consigneModifiable = false
-    this.correctionDetailleeDisponible = false
     this.besoinFormulaireNumerique = ['Type de nombre', 4, ' 1: Entier naturel \n2 : Entier relatif\n3 : Nombre décimal positif \n4 : Nombre décimal relatif \n5 : Fractionnaire relatif \n6 : Mélange']
     this.comment = 'Il est possible de faire cet exercice de tête en connaissant les 15 premiers carrés parfaits.'
   }
@@ -120,8 +119,8 @@ export default class calculsDeCarre extends Exercice {
 
       if (this.questionJamaisPosee(i, texte)) {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

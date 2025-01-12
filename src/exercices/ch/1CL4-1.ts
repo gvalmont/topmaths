@@ -6,7 +6,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Résoudre une équation à l\'aide de la méthode de complétion du carré'
@@ -168,12 +168,12 @@ export default class ExerciceEquationSecondDegre extends Exercice {
 
       texteCorr += '\\end{aligned}$'
       texte += ajouteChampTexteMathLive(this, 2 * i, 'clavierFullOperations', { texteAvant: '<br><br> Donner sous forme d\'un entier ou d\'une fraction irréductible le nombre qui permet de compléter le carré :' })
-      handleAnswers(this, 2 * i, { reponse: { value: termeCompletion.texFractionSimplifiee, compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+      handleAnswers(this, 2 * i, { reponse: { value: termeCompletion.texFractionSimplifiee, options: { fractionIrreductible: true } } })
       texte += '<br><br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'clavierFullOperations', { texteAvant: 'Donner l\'ensemble des solutions en séparant chaque solution par un point-virgule $S=$' })
-      handleAnswers(this, 2 * i + 1, { reponse: { value: `\\{${reponse1};${reponse2}\\}`, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, 2 * i + 1, { reponse: { value: `\\{${reponse1};${reponse2}\\}`, options: { ensembleDeNombres: true } } })
       if (this.questionJamaisPosee(i, equation.ensembleDeSolutionsTex, equation.equationTex)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

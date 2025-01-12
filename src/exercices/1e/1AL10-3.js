@@ -1,43 +1,42 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison, functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Déterminer les termes d\'une suite définie de façon explicite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '22/09/2024'
+export const dateDeModifImportante = '22/09/2024'
 /**
- * 1N10
  * @author Gilles Mora (Gaelle Morvan)
  */
 export const uuid = 'f0c2d'
-export const ref = '1AL10-3'
+
 export const refs = {
   'fr-fr': ['1AL10-3'],
   'fr-ch': []
 }
-export default function TermeDUneSuiteDefinieExplicitement () {
-  Exercice.call(this)
-  this.titre = titre
-  // this.consigne = 'Une suite étant donnée, calculer le terme demandé.'
-  this.nbQuestions = 1
-  this.sup = 4
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Affine',
-      '2 : Second degré',
-      '3 : Homographique',
-      '4 : Mélange'
-    ].join('\n')
-  ]
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+export default class TermeDUneSuiteDefinieExplicitement extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.sup = 4
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Affine',
+        '2 : Second degré',
+        '3 : Homographique',
+        '4 : Mélange'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -47,8 +46,6 @@ export default function TermeDUneSuiteDefinieExplicitement () {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Vide la liste de questions
-    this.listeCorrections = [] // Vide la liste de questions corrigées
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
@@ -111,7 +108,7 @@ u_{${k}}&=${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k}^2 ${b === 1 ? '
           texte += `<br>Calculer $u_{${k}}$. <br>
           Donner le résultat sous la forme d'une fraction irréductible ou d'un nombre entier.`
           reponse = new FractionEtendue(a * k + b, c * k + d).simplifie()
-          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionIrreductible: true } } })
           texteCorr = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br>
          $\\begin{aligned}
 u_{${k}}&=\\dfrac{${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecritureAlgebrique(b)}}{${c === 1 ? '' : c === -1 ? '-' : `${c} \\times`} ${k} ${ecritureAlgebrique(d)}}\\\\
@@ -123,8 +120,8 @@ u_{${k}}&=\\dfrac{${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecrit
       texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$u_{${k}}=$` })
 
       if (this.questionJamaisPosee(i, a, b, k)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
-        this.listeCorrections.push(texteCorr) // On fait pareil pour la correction
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++ // On passe à la question suivante
       }
       cpt++ // Sinon on incrémente le compteur d'essai pour avoir une question nouvelle

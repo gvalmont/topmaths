@@ -11,15 +11,14 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author
- * Référence
+
 */
 export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = 'Calcule'
-    this.nbQuestions = 10
 
     this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
     this.sup = 2 // Valeur du paramètre par défaut
@@ -28,10 +27,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 12) // Comme la valeur ne sera pas modifiée, on la déclare avec const
       let NombreAAjouter // Comme la valeur sera modifiée, on la déclare avec let
@@ -47,8 +42,8 @@ export default class nomExercice extends Exercice {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, a, NombreAAjouter)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

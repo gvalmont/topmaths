@@ -1,6 +1,6 @@
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -14,7 +14,7 @@ export const dateDePublication = '22/08/2024'
 /**
  * Soustraire deux entiers
  * @author Jean-Claude Lhote
- * Référence c3C10-5
+
  */
 export const uuid = '3751c'
 export const refs = {
@@ -30,14 +30,12 @@ class ExerciceTablesSoustractions extends Exercice {
     this.sup = 20 // Le paramètre accessible à l'utilisateur sera la valeur maximale du total
     this.sup2 = '1'
     this.spacing = 2
-    this.tailleDiaporama = 3
-    this.nbQuestions = 10
+
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2Texte = ['Type de question', 'Nombres séparés par des tirets\n1 : Calculer la différence\n2 : Calculer le premier terme\n3 : Calculer le deuxième terme\n4 : Calculer un des termes\n5 : Mélange']
   }
 
   nouvelleVersion () {
-    this.reinit()
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 4, defaut: 1, melange: 5 })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const total = randint(2, this.sup)
@@ -71,8 +69,8 @@ class ExerciceTablesSoustractions extends Exercice {
 
       if (this.questionJamaisPosee(i, total, operande, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

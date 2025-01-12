@@ -41,8 +41,7 @@ export default class nomExercice extends Exercice {
 
   nouvelleVersion () {
     this.consigne = 'Compléter le terme manquant afin d\'obtenir une identité remarquable. Écrire ensuite l\'identité remarquable correspondante factorisée.'
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -144,8 +143,8 @@ export default class nomExercice extends Exercice {
         }
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

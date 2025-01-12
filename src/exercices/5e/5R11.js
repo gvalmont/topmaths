@@ -1,18 +1,17 @@
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { droiteGraduee } from '../../lib/2d/reperes.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { point, tracePoint } from '../../lib/2d/points'
+import { droiteGraduee } from '../../lib/2d/reperes'
+import { labelPoint } from '../../lib/2d/textes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Lire l\'abscisse relative d\'un point'
 export const interactifReady = true
@@ -25,33 +24,30 @@ export const amcType = 'AMCHybride'
  * @author Jean-Claude Lhote et Rémi Angot
  */
 export const uuid = 'cd7ce'
-export const ref = '5R11'
+
 export const refs = {
   'fr-fr': ['5R11'],
   'fr-ch': ['9NO9-1']
 }
-export default function LireAbscisseRelative () {
-  Exercice.call(this)
-  this.consigne = "Lire l'abscisse de chacun des points suivants."
-  this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 4
-  const changeCoord = function (x, abs0, pas1) {
-    return (abs0 + (x - abs0) * 3 * pas1)
+const changeCoord = function (x, abs0, pas1) {
+  return (abs0 + (x - abs0) * 3 * pas1)
+}
+export default class LireAbscisseRelative extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
+
+    this.consigne = "Lire l'abscisse de chacun des points suivants."
+    this.nbQuestions = 3
+
+    this.sup = 4
   }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestions
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     let objets = []
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     if (this.sup === 4) {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
@@ -206,5 +202,4 @@ export default function LireAbscisseRelative () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
 }

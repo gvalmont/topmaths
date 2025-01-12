@@ -14,7 +14,6 @@ import figureApigeom from '../../lib/figureApigeom'
 import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { codageMilieu } from '../../lib/2d/codages'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
-import type SuperFigure from 'apigeom'
 import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
 
 export const titre = 'Construire des symétriques de points par rapport à un point'
@@ -35,7 +34,7 @@ export const refs = {
  */
 function positionneLabel (pointA: Point, pointB: Point) {
   if (pointA.x < pointB.x) return 'above left'
-  else if (pointA > pointB.x) return 'below right'
+  else if (pointA.x > pointB.x) return 'below right'
   else {
     if (pointA.y > pointB.y) return 'above left'
     else return 'below right'
@@ -46,7 +45,7 @@ function positionneLabel (pointA: Point, pointB: Point) {
  * fonction pour verifier qu'on est dans le cadre
  * @param points
  */
-function checkDistance (points: {x: number, y:number}[]) {
+function checkDistance (points: { x: number, y: number }[]) {
   for (const point of points) {
     if (point.y < -8 || point.y > 8) {
       return false
@@ -62,15 +61,15 @@ function checkDistance (points: {x: number, y:number}[]) {
 class ConstrctionsSymetrieCentralePoints extends Exercice {
   antecedents!: object[][]
   labels!: string[][]
-  centres!: Point[]|PointApigeom[]
+  centres!: Point[] | PointApigeom[]
   exoCustomResultat: boolean
   nbPoints!: number
-  figuresApiGeom!: SuperFigure[]
+  figuresApiGeom!: Figure[]
   constructor () {
     super()
     this.exoCustomResultat = true
     this.nbQuestions = 1
-    this.spacingCorr = 1
+
     this.besoinFormulaireNumerique = [
       'Type d\'aide',
       4,
@@ -85,9 +84,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     const marks: string[] = ['//', '///', 'x', 'O', '|||']
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     this.figuresApiGeom = []
     this.nbPoints = contraindreValeur(1, 5, this.sup2, 3) // on veut entre 1 et 5 points à construire
     this.antecedents = []
@@ -104,7 +101,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       objetsCorrection.length = 0
       symetriques.length = 0
       antecedents.length = 0
-      let nuage: {x: number, y:number}[] = []
+      let nuage: { x: number, y: number }[] = []
       // On construit les points
       do {
         nuage = []
@@ -215,11 +212,11 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           }
           this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
           const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], defaultAction: 'NAME_POINT' })
-          this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
+          this.listeQuestions[i] = enonce + '<br><br>' + emplacementPourFigure
         } else {
-          this.listeQuestions.push(enonce + '<br><br>' + mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures([...objets, ...objetsCorrection])), objets))
+          this.listeQuestions[i] = enonce + '<br><br>' + mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures([...objets, ...objetsCorrection])), objets)
         }
-        this.listeCorrections.push(mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures(objetsCorrection)), objetsCorrection))
+        this.listeCorrections[i] = mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures(objetsCorrection)), objetsCorrection)
         i++
       }
       cpt++

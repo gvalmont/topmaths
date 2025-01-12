@@ -1,12 +1,12 @@
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { warnMessage } from '../../lib/format/message.js'
+import { warnMessage } from '../../lib/format/message'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const titre = 'Justifier la primalité ou pas'
 export const interactifReady = true
@@ -22,30 +22,29 @@ export const amcType = 'qcmMono'
  * @author Sébastien Lozano
  */
 export const uuid = '36074'
-export const ref = '5A12-1'
+
 export const refs = {
   'fr-fr': ['5A12-1'],
   'fr-ch': ['9NO4-13']
 }
-export default function PremierOuPas5e () {
-  Exercice.call(this)
-  this.titre = titre
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Justifier que les nombres suivants sont premiers ou pas.'
-  // this.consigne += `<br>`;
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.nbQuestions = 7
-  // this.correctionDetailleeDisponible = true;
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.sup = 1
+export default class PremierOuPas5e extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    // pas de différence entre la version html et la version latex pour la consigne
+    this.consigne = 'Justifier que les nombres suivants sont premiers ou pas.'
+    // this.consigne += `<br>`;
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+    this.nbQuestions = 7
+    // this.correctionDetailleeDisponible = true;
+    this.nbCols = 2
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typesDeQuestions
-
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
@@ -212,8 +211,8 @@ export default function PremierOuPas5e () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

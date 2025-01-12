@@ -1,16 +1,15 @@
-import { crochetD, crochetG, intervalle } from '../../lib/2d/intervalles.js'
-import { point } from '../../lib/2d/points.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { crochetD, crochetG, intervalle } from '../../lib/2d/intervalles'
+import { point } from '../../lib/2d/points'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
 export const interactifReady = true
@@ -20,18 +19,21 @@ export const interactifType = 'mathLive'
  * @author Stéphane Guyon
  */
 export const uuid = 'dc2a5'
-export const ref = '2N11-2'
+
 export const refs = {
   'fr-fr': ['2N11-2'],
   'fr-ch': []
 }
-export default function UnionEtIntersectionIntervallesDeR () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
+export default class UnionEtIntersectionIntervallesDeR extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const X1 = point(0, 0)
@@ -814,10 +816,10 @@ export default function UnionEtIntersectionIntervallesDeR () {
       if (this.questionJamaisPosee(i, a, b, c)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`, { texteAvant: '<br>$I=$' })
-          handleAnswers(this, i, { reponse: { value: aRemplacer, compare: fonctionComparaison, options: { intervalle: true } } })
+          handleAnswers(this, i, { reponse: { value: aRemplacer, options: { intervalle: true } } })
         }
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

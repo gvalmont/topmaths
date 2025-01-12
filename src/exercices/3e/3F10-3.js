@@ -1,15 +1,15 @@
-import { droiteParPointEtPente } from '../../lib/2d/droites.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { droiteParPointEtPente } from '../../lib/2d/droites'
+import { point, tracePoint } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
-import { sp } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { context } from '../../modules/context.js'
+import { sp } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { context } from '../../modules/context'
 import { range } from '../../lib/outils/nombres'
 
 export const interactifReady = true
@@ -26,22 +26,30 @@ export const dateDeModifImportante = '15/03/2024'
  */
 
 export const uuid = '4daef'
-export const ref = '3F10-3'
+
 export const refs = {
   'fr-fr': ['3F10-3'],
   'fr-ch': ['10FA5-7', '11FA7-1', '1F1-5']
 }
-export default function VocabulaireNotationsFonctions2 () {
-  Exercice.call(this)
-  this.sup = 5
-  this.spacing = 1.5
-  this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+export default class VocabulaireNotationsFonctions2 extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Traduire une égalité par une phrase',
+        '2 : Traduire une phrase par une égalité',
+        '3 : Interprétation graphique',
+        '4 : Expression littérale',
+        '5 : Mélange'
+      ].join('\n')
+    ]
+    this.sup = 5
+    this.spacing = 1.5
+    this.nbQuestions = 3
+  }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+  nouvelleVersion () {
     this.consigne = this.interactif ? 'Cocher toutes les réponses correctes.' : ''
 
     const r = repere({
@@ -536,8 +544,9 @@ export default function VocabulaireNotationsFonctions2 () {
         texte += propositionsQcm(this, i).texte
       }
       if (this.questionJamaisPosee(i, x, y)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         indice[typeDeQuestions[i] - 1]++
         i++
       }
@@ -545,14 +554,4 @@ export default function VocabulaireNotationsFonctions2 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Traduire une égalité par une phrase',
-      '2 : Traduire une phrase par une égalité',
-      '3 : Interprétation graphique',
-      '4 : Expression littérale',
-      '5 : Mélange'
-    ].join('\n')
-  ]
 }

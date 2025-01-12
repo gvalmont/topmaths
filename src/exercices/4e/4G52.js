@@ -1,14 +1,14 @@
-import { tracePoint } from '../../lib/2d/points.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { degSin, radians } from '../../lib/mathFonctions/trigo.js'
+import { tracePoint } from '../../lib/2d/points'
+import { labelPoint } from '../../lib/2d/textes'
+import { degSin, radians } from '../../lib/mathFonctions/trigo'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { arete3d, point3d } from '../../modules/3d.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { arete3d, point3d } from '../../modules/3d'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Se repérer sur un pavé droit'
 export const amcReady = true
@@ -21,28 +21,26 @@ export const dateDePublication = '09/06/2021'
  * Ajout d'un paramètre permettant de choisir entre placer un point et lire ses coordonnées
  */
 export const uuid = '9c916'
-export const ref = '4G52'
+
 export const refs = {
   'fr-fr': ['4G52'],
   'fr-ch': []
 }
-export default function ReperagePaveDroit () {
-  Exercice.call(this)
-  this.consigne = 'Dans le repère $(A;I;J;K)$ :'
-  this.nbQuestions = 3
-  this.tailleDiaporama = 2
+export default class ReperagePaveDroit extends Exercice {
+  constructor () {
+    super()
 
-  this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
-  this.sup = 1
+    this.consigne = 'Dans le repère $(A;I;J;K)$ :'
+    this.nbQuestions = 3
 
-  this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
-  this.sup2 = 1
+    this.besoinFormulaireNumerique = ['Angle de la perspective', 3, '1 : 30°\n2 : 45°\n3 : 60°']
+    this.sup = 1
 
-  this.nouvelleVersion = function () { // c'est ici que les données sont relatives
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Placer un point\n2 : Lire les coordonnées\n3 : Mélange']
+    this.sup2 = 1
+  }
 
+  nouvelleVersion () { // c'est ici que les données sont relatives
     const hauteur = 12
     const largeur = 12
     const profondeur = 12
@@ -268,8 +266,8 @@ export default function ReperagePaveDroit () {
       }
 
       if (this.questionJamaisPosee(i, x, y, z)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

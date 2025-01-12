@@ -1,13 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
@@ -21,24 +21,25 @@ export const dateDeModifImportante = '14/05/2023'
  * 2F20
  */
 export const uuid = 'ef897'
-export const ref = '2F10-4'
+
 export const refs = {
   'fr-fr': ['2F10-4'],
   'fr-ch': ['11FA8-11']
 }
-export default function Determinerfonctionaffine () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.nbQuestions = 3
-  this.spacingCorr = context.isHtml ? 2 : 1
-  this.sup = 1
-  this.comment = `Dans le premier cas, les nombres $a$ et $b$ obtenus sont des nombres entiers. <br>
+export default class Determinerfonctionaffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Avec deux images (nombres entiers)\n 2 : Avec deux images (fractions)\n 3 : Avec deux points\n 4 : Mélange des cas précédents']
+
+    this.nbQuestions = 3
+    this.spacingCorr = context.isHtml ? 2 : 1
+    this.sup = 1
+    this.comment = `Dans le premier cas, les nombres $a$ et $b$ obtenus sont des nombres entiers. <br>
   Le deuxième cas est plus complexe puisque les nombres $a$ et $b$ sont des fractions. <br>
   Dans le troisième cas, les nombres $a$ et $b$ sont quelconques.`
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // on donne f(a)=b et f(c)=d cas entier
@@ -214,13 +215,12 @@ export default function Determinerfonctionaffine () {
       }
       if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Avec deux images (nombres entiers)\n 2 : Avec deux images (fractions)\n 3 : Avec deux points\n 4 : Mélange des cas précédents']
 }

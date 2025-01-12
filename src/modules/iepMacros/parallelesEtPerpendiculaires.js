@@ -1,8 +1,8 @@
-import { angleOriente } from '../../lib/2d/angles.js'
-import { cercle } from '../../lib/2d/cercle.js'
-import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites.js'
-import { point, pointIntersectionLC, pointSurDroite, pointSurSegment } from '../../lib/2d/points.js'
-import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
+import { angleOriente } from '../../lib/2d/angles'
+import { cercle } from '../../lib/2d/cercle'
+import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
+import { point, pointIntersectionLC, pointSurDroite, pointSurSegment } from '../../lib/2d/points'
+import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import {
   homothetie,
   projectionOrtho,
@@ -10,14 +10,14 @@ import {
   similitude,
   translation,
   translation2Points
-} from '../../lib/2d/transformations.js'
+} from '../../lib/2d/transformations'
 
 /**
    * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {*} options
+   * @param {Point} A
+   * @param {Point} B
+   * @param {Point} C
+   * @param {*} [options]
    */
 export const paralleleRegleEquerre2points3epoint = function (A, B, C, options) {
   let G, D, H1
@@ -85,10 +85,10 @@ export const paralleleRegleEquerre2points3epoint = function (A, B, C, options) {
 /**
    * Trace la perpendiculaire à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
    * Description désactivée par défaut.
-   * @param {point} A
-   * @param {point} B
-   * @param {point} C
-   * @param {*} options
+   * @param {Point} A
+   * @param {Point} B
+   * @param {Point} C
+   * @param {*} [options]
    */
 export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, description = false) {
   const longueurRegle = this.regle.longueur
@@ -121,9 +121,9 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
 /**
  * Construit à la règle et à l'équerre la perpendiculaire à une droite d passant par un point P n'appartenant pas à d.
  * description désactivable.
- * @param {droite} d
- * @param {point} P
- * @param {boolean} description
+ * @param {Droite} d
+ * @param {Point} P
+ * @param {boolean} [description]
  */
 export const perpendiculaireRegleEquerreDroitePoint = function (d, P, description) {
   if (!P.estSur(d)) {
@@ -174,7 +174,7 @@ export const perpendiculaireRegleEquerreDroitePoint = function (d, P, descriptio
 }
 /**
  * Trace la perpendiculaire à une droite passant par un point de cette droite à l'équerre et à la règle.
- * @param {droite} d
+ * @param {Droite} d
  * @param {number} x  // pour choisir le point sur d : l'abscisse de A
  * @param {boolean} description
  */
@@ -210,7 +210,7 @@ export const perpendiculaireRegleEquerrePointSurLaDroite = function (d, x, descr
 }
 /**
  * Trace la perpendiculaire à une droite passant par un point de cette droite au compas.
- * @param {droite} d
+ * @param {Droite} d
  * @param {number} x // pour choisir le point sur d : l'abscisse de A
  * @param {boolean} description
  */
@@ -254,7 +254,7 @@ export const perpendiculaireCompasPointSurLaDroite = function (d, x, description
 }
 /**
  * Trace la perpendiculaire à une droite passant par un point n'appartenant pas à cette droite au compas.
- * @param {droite} d
+ * @param {Droite} d
  * @param {number} x // pour choisir le point sur d : l'abscisse de A
  * @param {boolean} description
  */
@@ -297,11 +297,11 @@ export const perpendiculaireCompasPoint = function (d, A, description) {
 /**
    * Trace la parallèlee à (AB) passant par C avec la règle et l'équerre.
    * Cette macro réalise la construction en décrivant ce qu'elle fait à chaque étape
-   * @param {point} A
-   * @param {point} B
-   * @param {point} M
+   * @param {Point} A
+   * @param {Point} B
+   * @param {Point} M
    * @param {boolean} dessus
-   * @param {*} options
+   * @param {*} [options]
    */
 export const paralleleRegleEquerreDroitePointAvecDescription = function (A, B, M, dessus, description = true) {
   A.nom = 'A'
@@ -352,9 +352,9 @@ export const paralleleRegleEquerreDroitePointAvecDescription = function (A, B, M
 
 /**
  *
- * @param {point} A
- * @param {point} B
- * @param {point} C
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
  * @param {boolean} description
  */
 export const paralleleAuCompasAvecDescription = function (A, B, C, description = true) {
@@ -390,9 +390,9 @@ export const paralleleAuCompasAvecDescription = function (A, B, C, description =
 
 /**
  *
- * @param {point} A
- * @param {point} B
- * @param {point} C
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
  * @param {boolean} description
  */
 export const paralleleAuCompas = function (A, B, C) {

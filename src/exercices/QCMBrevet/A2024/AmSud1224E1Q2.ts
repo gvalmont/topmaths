@@ -200,7 +200,7 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
 
   constructor () {
     super()
-    this.spacingCorr = 1
+
     this.options = { vertical: false }
     this.versionAleatoire()
   }

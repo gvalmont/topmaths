@@ -1,6 +1,6 @@
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -9,8 +9,8 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 export const dateDeModifImportante = '18/05/2023'
@@ -18,27 +18,22 @@ export const dateDeModifImportante = '18/05/2023'
  * @author Stéphane Guyon mise à jour et ajout de cas Gilles Mora
  */
 export const uuid = 'b72b0'
-export const ref = '2F10-6'
+
 export const refs = {
   'fr-fr': ['2F10-6'],
   'fr-ch': []
 }
-export default function Variationsfonctionaffine () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 2 // On complète le nb de questions
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.video = ''
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 4
+export default class Variationsfonctionaffine extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Types de question ', 4, '1 : Avec des  entiers\n2 : Avec des fractions\n3 : Sur un intervalle borné\n4 : Mélange des cas précédents']
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.listeQuestions = []
-    this.listeCorrections = []
+    this.nbQuestions = 2 // On complète le nb de questions
+
+    this.sup = 4
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -201,8 +196,8 @@ export default function Variationsfonctionaffine () {
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
@@ -210,5 +205,4 @@ export default function Variationsfonctionaffine () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 4, '1 : Avec des  entiers\n2 : Avec des fractions\n3 : Sur un intervalle borné\n4 : Mélange des cas précédents']
 }

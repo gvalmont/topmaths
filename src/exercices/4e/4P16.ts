@@ -1,9 +1,9 @@
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Decimal from 'decimal.js'
-import { fraction } from '../../modules/fractions.js'
-import { context } from '../../modules/context.js'
+import { fraction } from '../../modules/fractions'
+import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -16,10 +16,10 @@ export const dateDePublication = '23/05/2022'
 
 /**
  * @author Guillaume Valmont
- * Référence 4P16
+
  */
 export const uuid = '63cdb'
-export const ref = '4P16'
+
 export const refs = {
   'fr-fr': ['4P16'],
   'fr-ch': ['10FA4-4']
@@ -29,14 +29,9 @@ export default class NomExercice extends Exercice {
     super()
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : m/h\n2 : m$^3$/h\n3 : L/h\n4 : L/m$^2$\n5 : m$^2$/h\n6 : Wh\n7 : VA\n8 : Mélange']
     this.sup = 8
-    this.titre = titre
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     const valMaxParametre = 8
     const listeDesProblemes = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
@@ -283,8 +278,8 @@ export default class NomExercice extends Exercice {
         texte += ` ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}`
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

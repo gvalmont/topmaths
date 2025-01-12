@@ -1,5 +1,5 @@
-import { matrice } from '../../lib/mathFonctions/Matrice.js'
-import { egal } from '../outils.js'
+import { matrice } from '../../lib/mathFonctions/Matrice'
+import { egal } from '../outils'
 
 /**
  * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.

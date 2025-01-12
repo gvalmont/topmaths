@@ -7,7 +7,7 @@ import {
   Droite
 } from '../../lib/2d/droites'
 import { point, TracePoint, Point, pointSurDroite } from '../../lib/2d/points'
-import { colorToLatexOrHTML, mathalea2d, Vide2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, mathalea2d, Vide2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { grille } from '../../lib/2d/reperes'
 import { egal, randint } from '../../modules/outils'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -30,7 +30,7 @@ export const interactifReady = true
 export const interactifType = 'custom'
 
 export const uuid = '26ea4'
-export const ref = '6G24-0'
+
 export const refs = {
   'fr-fr': ['6G24-0'],
   'fr-ch': ['9ES6-11']
@@ -43,7 +43,7 @@ export const refs = {
  */
 function positionneLabel (pointA: Point, pointB: Point) {
   if (pointA.x < pointB.x) return 'above left'
-  else if (pointA > pointB.x) return 'below right'
+  else if (pointA.x > pointB.x) return 'below right'
   else {
     if (pointA.y > pointB.y) return 'above left'
     else return 'below right'
@@ -54,8 +54,8 @@ function positionneLabel (pointA: Point, pointB: Point) {
  * supprime les points hors cadre
  * @param points
  */
-function deletePoints (points: {x: number, y:number}[], type : number) {
-  const newPoints: {x: number, y:number}[] = []
+function deletePoints (points: { x: number, y: number }[], type : number) {
+  const newPoints: { x: number, y: number }[] = []
   const typeV = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }, { x: 1, y: -1 }]
   for (const point of points) {
     if (point.x >= -7.5 && point.x <= 7.5 && point.y >= -7.5 && point.y <= 7.5 && point.x !== point.y && point.x !== -point.y) {
@@ -71,14 +71,14 @@ function deletePoints (points: {x: number, y:number}[], type : number) {
  * fonction pour verifier qu'on est dans le cadre
  * @param points
  */
-function checkDistance (points: {x: number, y:number}[]) {
-  for (const point of points) {
-    if (point.x < -7.5 || point.x > 7.5 || point.y < -7.5 || point.y > 7.5 || point.x === point.y || point.x === -point.y) {
-      return false
-    }
-  }
-  return true
-}
+// function checkDistance (points: { x: number, y: number }[]) {
+//   for (const point of points) {
+//     if (point.x < -7.5 || point.x > 7.5 || point.y < -7.5 || point.y > 7.5 || point.x === point.y || point.x === -point.y) {
+//       return false
+//     }
+//   }
+//   return true
+// }
 
 /**
  * Construction interactive de symétriques de points
@@ -112,9 +112,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     const marks: string[] = ['//', '///', 'x', 'O', '|||']
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+
     let choixDeLaxe: number[] = []
     this.figuresApiGeom = []
     if (this.sup === 5) {
@@ -131,18 +129,18 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       let antecedents: Array<Point> = []
       const middle: Point[] = []
       const symetriques: Point[] = []
-      const objets = []
-      let objetsCorrection: object[] = []
+      const objets: NestedObjetMathalea2dArray = []
+      let objetsCorrection: NestedObjetMathalea2dArray = []
       const d: Droite[] = []
-      let labelD!: LatexParCoordonnees|Vide2d
+      let labelD!: LatexParCoordonnees | Vide2d
 
       objets.length = 0
       objetsCorrection.length = 0
       middle.length = 0
       symetriques.length = 0
       antecedents.length = 0
-      let nuage: {x: number, y:number}[] = []
-      let nuageSaved: {x: number, y:number}[] = []
+      let nuage: { x: number, y: number }[] = []
+      let nuageSaved: { x: number, y: number }[] = []
       // On construit les points
       do {
         nuage = []
@@ -209,7 +207,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       enonce += `${this.nbPoints > 1 ? ' des' : ' du'} point${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join(',') : (this.labels[i][0]) + '$ par rapport à la droite $(d).'}$` + (this.nbPoints > 1 ? ` et $${this.labels[i][this.nbPoints - 1]}$ par rapport à la droite $(d)$.<br>` : '<br>')
       const guidesArc = []
       for (let k = 0; k < this.nbPoints; k++) {
-        symetriques[k] = symetrieAxiale(antecedents[k] as Point, d[i])
+        symetriques[k] = symetrieAxiale(antecedents[k] as Point, d[i]) as Point
         middle[k] = projectionOrtho(antecedents[k], d[i]) as Point
         /*  const angleOffset = choice([-12, -10, -8, 8, 10, 12])
           const ext1 = rotation(symetriques[k], middle[k], 3 * angleOffset)
@@ -232,7 +230,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       objets.push(d[i], labelD)
       for (let k = 0; k < this.nbPoints; k++) {
         objets.push(new TracePoint(antecedents[k]))
-        const sym = symetrieAxiale(antecedents[k] as Point, d[i], (antecedents[k] as Point).nom + '\'')
+        const sym = symetrieAxiale(antecedents[k] as Point, d[i], (antecedents[k] as Point).nom + '\'') as Point
         sym.positionLabel = positionneLabel(sym, antecedents[k])
         antecedents[k].positionLabel = positionneLabel(antecedents[k], sym)
         const egalite = codageMilieu(antecedents[k], sym, colors[k], marks[k])
@@ -311,11 +309,11 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         }
         this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
         const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i] })
-        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
+        this.listeQuestions[i] = enonce + '<br><br>' + emplacementPourFigure
       } else {
-        this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets))
+        this.listeQuestions[i] = enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets)
       }
-      this.listeCorrections.push(mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objetsCorrection))
+      this.listeCorrections[i] = mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objetsCorrection)
     }
   }
 

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
@@ -8,15 +8,15 @@ import {
   reduirePolynomeDegre3, rienSi1
 } from '../../lib/outils/ecritures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texteCentre } from '../../lib/format/miseEnPage.js'
-import { sp } from '../../lib/outils/outilString.js'
+import { texteCentre } from '../../lib/format/miseEnPage'
+import { sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
+import Exercice from '../Exercice'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 import {
   listeQuestionsToContenu, randint
-} from '../../modules/outils.js'
+} from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
@@ -30,21 +30,27 @@ export const dateDeModifImportante = '07/11/2023'
 */
 
 export const uuid = 'ec059'
-export const ref = '2F20-2'
+
 export const refs = {
   'fr-fr': ['2F20-2'],
   'fr-ch': ['11FA9-2']
 }
-export default function CalculPointSurCourbe () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 1
-  this.consigne = ''
-  this.spacing = 1
-  this.nbQuestions = 2
-  this.nbQuestionsModifiable = true
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+export default class CalculPointSurCourbe extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = [
+      'Choix des questions',
+      4,
+      '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
+    ]
+    this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaire\n3 : Mélange']
+    this.sup = 1
+    this.sup2 = 1
+
+    this.nbQuestions = 2
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1:
@@ -473,18 +479,12 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    4,
-    '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
-  ]
-  this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaire\n3 : Mélange']
 }

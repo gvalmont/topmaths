@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -19,24 +19,23 @@ export const titre = 'Mettre au même dénominateur des expressions littérales'
  * 2N41-8
  */
 export const uuid = '641bc'
-export const ref = '2N41-8'
+
 export const refs = {
   'fr-fr': ['2N41-8'],
   'fr-ch': []
 }
-export default function MettreAuMemeDenominateurLit () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 2
-  this.sup = 3
-  this.comment = `Les expressions du niveau 1 sont des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
+export default class MettreAuMemeDenominateurLit extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Mélange']
+
+    this.nbQuestions = 2
+    this.sup = 3
+    this.comment = `Les expressions du niveau 1 sont des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
   Les expressions de niveau 2 sont plus complexes. Elles nécessitent par exemple un développement du numérateur et peuvent avoir deux valeurs interdites.`
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]
@@ -302,13 +301,12 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
 
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Niveau 1\n 2 : Niveau 2\n 3 : Mélange']
 }

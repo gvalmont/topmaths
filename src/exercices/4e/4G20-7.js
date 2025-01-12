@@ -1,15 +1,15 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { afficheLongueurSegment } from '../../lib/2d/codages.js'
-import { point } from '../../lib/2d/points.js'
-import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
-import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { rotation, similitude } from '../../lib/2d/transformations.js'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { afficheLongueurSegment } from '../../lib/2d/codages'
+import { point } from '../../lib/2d/points'
+import { nommePolygone, polygone } from '../../lib/2d/polygones'
+import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { rotation, similitude } from '../../lib/2d/transformations'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
-import { RedactionPythagore } from './_pythagore.js'
+import { RedactionPythagore } from './_pythagore'
 import * as Blockly from 'blockly/core'
 import { init } from '../../lib/blockly/blocks'
 import * as En from 'blockly/msg/en'
@@ -27,9 +27,9 @@ export const interactifType = 'custom'
  * 4G20
  */
 export const uuid = 'c0f90'
-export const ref = '4G20-7'
+
 export const refs = {
-  'fr-fr': ['4G20-7'],
+  'fr-fr': [],
   'fr-ch': []
 }
 
@@ -39,7 +39,7 @@ export default class Pythagore2DBlockly extends Exercice {
   //
   constructor () {
     super()
-    this.titre = titre
+
     this.nbQuestions = 2
     this.sup = 3
     this.sup2 = 3
@@ -135,8 +135,9 @@ export default class Pythagore2DBlockly extends Exercice {
       }
       if (this.questionJamaisPosee(i, B1.x, B1.y, C1.x, C1.y)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         const key = nomDuPolygone + longueurBC.toString() + longueurAC.toString() + longueurAB.toString()
         this.saveArguments[i] = { nomDuPolygone, longueurBC, longueurAC, longueurAB, listeTypeDeQuestion: listeTypeDeQuestions[i], key }
         i++
@@ -146,7 +147,6 @@ export default class Pythagore2DBlockly extends Exercice {
     listeQuestionsToContenu(this)
 
     init() // blockly initialisation
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const that = this
     const createAllBlockly = function () {
       const nbQ = that.nbQuestions

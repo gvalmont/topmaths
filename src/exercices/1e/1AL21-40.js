@@ -1,5 +1,5 @@
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { choisiDelta } from '../../lib/mathFonctions/outilsMaths.js'
+import { choisiDelta } from '../../lib/mathFonctions/outilsMaths'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import {
@@ -9,9 +9,9 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import { fraction } from '../../modules/fractions.js'
-import { egal, listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import { fraction } from '../../modules/fractions'
+import { egal, listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = false
 // export const interactifType = 'mathLive'
@@ -21,24 +21,25 @@ export const titre = 'Factoriser un polynôme du second degré'
  * Factoriser, si possible, un polynôme du second degré
  * On utilise un calcul intérmédiaire de discriminant
  * @author Stéphane Guyon
- * Référence 1E13
+
  */
 export const uuid = '334ca'
-export const ref = '1AL21-40'
+
 export const refs = {
   'fr-fr': ['1AL21-40'],
   'fr-ch': ['11FA10-12'] // OK?
 }
-export default function Resolutionavecformecanonique () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacingCorr = 1.5
-  this.sup = 1
+export default class Resolutionavecformecanonique extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 4
+
+    this.spacingCorr = 1.5
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     this.consigne = 'Factoriser sur $\\mathbb{R}$, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme suivant de degré 2 : '
     if (this.interactif) {
       this.consigne += '<br> '
@@ -153,8 +154,8 @@ export default function Resolutionavecformecanonique () {
       }
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

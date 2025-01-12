@@ -49,7 +49,7 @@ export const isKeyboardCategory = (
   KEYBOARD_CATEGORIES.includes(category as KeyboardCategory)
 
 type KbType = Record<KeyboardCategory, string>
-type PartialKbType = Partial<KbType>
+export type PartialKbType = Partial<KbType>
 export const KeyboardType: PartialKbType = KEYBOARD_CATEGORIES.reduce(
   (obj, key) => {
     return { ...obj, [key]: key }

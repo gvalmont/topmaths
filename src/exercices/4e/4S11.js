@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { OutilsStats } from '../../modules/outilsStat.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { OutilsStats } from '../../modules/outilsStat'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -22,27 +22,28 @@ export const dateDeModifImportante = '24/06/2024'
  * Ajout de l'alternance entre effectif total pair et impair le 18/08/2021 : Guilllaume Valmont
  */
 export const uuid = '7c068'
-export const ref = '4S11'
+
 export const refs = {
   'fr-fr': ['4S11'],
   'fr-ch': ['11NO2-9']
 }
-export default function DeterminerDesMedianes () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.spacing = 1
-  this.spacingCorr = 1.5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  if (context.isHtml) {
-    this.spacing = 2
-    this.spacingCorr = 2
+export default class DeterminerDesMedianes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange']
+
+    this.nbQuestions = 1
+
+    this.spacingCorr = 1.5
+
+    this.sup = 1
+    if (context.isHtml) {
+      this.spacing = 2
+      this.spacingCorr = 2
+    }
   }
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
-
+  nouvelleVersion () {
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -118,13 +119,12 @@ export default function DeterminerDesMedianes () {
         texte += ajouteChampTexteMathLive(this, i, '')
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange']
 }

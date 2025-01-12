@@ -1,9 +1,9 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
@@ -20,7 +20,7 @@ export const amcType = 'qcmMono'
  */
 
 export const uuid = 'aa997'
-export const ref = '5P10'
+
 export const refs = {
   'fr-fr': ['5P10'],
   'fr-ch': ['9FA3-3']
@@ -80,26 +80,23 @@ function justificationsKO (n1, n2, n3, coeff, operation, sens) {
   return sortie
 }
 
-export default function TableauxEtProportionnalite () {
-  Exercice.call(this)
-  this.sup = 1
+export default class TableauxEtProportionnalite extends Exercice {
+  constructor () {
+    super()
 
-  this.nbQuestions = 4
+    this.sup = 1
 
-  this.interactif = false
+    this.nbQuestions = 4
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    this.interactif = false
 
-  let typesDeQuestionsDisponibles
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+  }
 
-  this.nouvelleVersion = function () {
-    typesDeQuestionsDisponibles = [choice([0, 1]), 2, choice([3, 4]), 5]
+  nouvelleVersion () {
+    let typesDeQuestionsDisponibles = [choice([0, 1]), 2, choice([3, 4]), 5]
     typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles)
-
-    this.autoCorrection = []
 
     this.consigne = this.interactif ? '' : 'Dire si les tableaux suivants sont de tableaux de proportionnalité. Justifier.'
 
@@ -265,8 +262,8 @@ export default function TableauxEtProportionnalite () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

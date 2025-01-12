@@ -1,5 +1,5 @@
-// import { addElement, get, setStyles } from '../html/dom.js'
-import { context } from '../../modules/context.js'
+// import { addElement, get, setStyles } from '../html/dom'
+import { context } from '../../modules/context'
 
 /**
  * Vérifie la réponse à une question à liste déroulante

@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer les coordonnées d\'un projeté orthogonal sur une droite'
@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
  * @author Gilles Mora
  */
 export const uuid = 'cee3b'
-export const ref = '1G21-7'
+
 export const refs = {
   'fr-fr': ['1G21-7'],
   'fr-ch': []
@@ -26,7 +26,6 @@ class EqCartVectNormal extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.spacingCorr = 1
   }
 
   nouvelleVersion (): void {
@@ -73,15 +72,15 @@ class EqCartVectNormal extends Exercice {
         texte += '<br>Les coordonnées du point $H$ sont :' + remplisLesBlancs(this, i, '(%{champ1};{%{champ2}).')
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          champ1: { value: String(xH), compare: fonctionComparaison },
-          champ2: { value: String(yH), compare: fonctionComparaison }
+          champ1: { value: String(xH) },
+          champ2: { value: String(yH) }
         },
         { formatInteractif: 'fillInTheBlank' }
         )
       }
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

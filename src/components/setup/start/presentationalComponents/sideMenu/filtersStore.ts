@@ -93,6 +93,12 @@ export const allFilters = writable<
       values: ['qcm'],
       isSelected: false,
       clicked: 0
+    },
+    qcmcam: {
+      title: 'exportable QcmCam',
+      values: ['qcmcam'],
+      isSelected: false,
+      clicked: 0
     }
   },
   types: {
@@ -202,6 +208,7 @@ export function handleUncheckingMutipleFilters (key: string) {
  * @author sylvain
  */
 export function updateReferentiel (
+  isQcmCamOnlySelected: boolean,
   isQcmOnlySelected: boolean,
   originalReferentiel: JSONReferentielObject,
   isAmcOnlySelected: boolean,
@@ -221,6 +228,10 @@ export function updateReferentiel (
   if (isQcmOnlySelected) {
     features.push('qcm')
   }
+  if (isQcmCamOnlySelected) {
+    features.push('qcm')
+  }
+
   if (features.length !== 0) {
     // pas de liste de spécificités vide passée à `featuresCriteria`
     filteredList = featuresCriteria(features).meetCriterion(filteredList)

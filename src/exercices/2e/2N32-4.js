@@ -1,10 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Simplifier une somme de racines carrées'
@@ -16,24 +16,24 @@ export const interactifType = 'mathLive'
  * @author Stéphane Guyon
  */
 export const uuid = '12b72'
-export const ref = '2N32-4'
+
 export const refs = {
   'fr-fr': ['2N32-4'],
   'fr-ch': ['11NO1-7', '1CN-9']
 }
-export default function SimplifierUneSommeDeRacinesCarrees () {
-  Exercice.call(this)
-  this.titre = titre
-  // this.consigne = ''
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1
-  this.spacingCorr = context.isHtml ? 2 : 1
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+export default class SimplifierUneSommeDeRacinesCarrees extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
 
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 1
+    this.spacingCorr = context.isHtml ? 2 : 1
+  }
+
+  nouvelleVersion () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const e1 = randint(2, 8) * choice([-1, 1])
       const e2 = randint(2, 8) * choice([-1, 1])
@@ -70,13 +70,12 @@ export default function SimplifierUneSommeDeRacinesCarrees () {
       }
 
       if (this.questionJamaisPosee(i, e1, e2, e3, d1, d2, d3)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
 }

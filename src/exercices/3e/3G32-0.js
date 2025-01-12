@@ -1,21 +1,21 @@
-import { angle, codageAngleDroit } from '../../lib/2d/angles.js'
-import { cercle } from '../../lib/2d/cercle.js'
-import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages.js'
-import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites.js'
-import { milieu, point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points.js'
-import { polygone, polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
-import { projectionOrtho } from '../../lib/2d/transformations.js'
+import { angle, codageAngleDroit } from '../../lib/2d/angles'
+import { cercle } from '../../lib/2d/cercle'
+import { afficheMesureAngle, texteSurSegment } from '../../lib/2d/codages'
+import { droite, droiteVerticaleParPoint } from '../../lib/2d/droites'
+import { milieu, point, pointAdistance, pointIntersectionLC, tracePoint } from '../../lib/2d/points'
+import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { projectionOrtho } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { creerNomDePolygone, lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
+import { creerNomDePolygone, lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
 import { max, min } from 'mathjs'
@@ -39,7 +39,7 @@ export const dateDePublication = '05/03/2022'
  * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Eric Elter
  */
 export const uuid = '2045e'
-export const ref = '3G32-0'
+
 export const refs = {
   'fr-fr': ['3G32-0'],
   'fr-ch': []
@@ -47,7 +47,7 @@ export const refs = {
 export default class ProblemesTrigoLongueur extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.besoinFormulaireCaseACocher = ['Afficher des questions intermédiaires et éventuellement un schéma']
     this.sup = true
     this.besoinFormulaire2Texte = [
@@ -1300,8 +1300,8 @@ export default class ProblemesTrigoLongueur extends Exercice {
       }
       if (this.questionJamaisPosee(i, alfa, baita, beta, alpha)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         ii-- // si on pousse la question, il ne faut pas que l'incrément de i et de ii se cumulent !
         iiAMC--

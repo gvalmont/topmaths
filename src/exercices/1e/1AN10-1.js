@@ -5,8 +5,8 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB
 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Taux de variation des fonctions de référence'
 
 export const dateDePublication = '16/12/2021'
@@ -17,24 +17,23 @@ export const dateDeModifImportante = '24/10/2021'
 */
 
 export const uuid = '29202'
-export const ref = '1AN10-1'
+
 export const refs = {
   'fr-fr': ['1AN10-1'],
   'fr-ch': []
 }
 
-export default function Tauxvariation () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1 // Nombre de questions par défaut
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.sup = 1
-  // this.sup = parseInt(this.sup)
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+export default class Tauxvariation extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine\n 2 : Fonction carré\n 3: Fonction inverse\n 4: Fonction racine carrée\n 5: Mélange']
 
+    this.nbQuestions = 1 // Nombre de questions par défaut
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = [1, 2, 3, 4]
     // this.sup = contraindreValeur(1, 5, this.sup, 5)
     if (this.sup !== 5) typesDeQuestionsDisponibles = [this.sup]
@@ -132,13 +131,12 @@ export default function Tauxvariation () {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de fonctions ', 5, '1 : Fonction affine\n 2 : Fonction carré\n 3: Fonction inverse\n 4: Fonction racine carrée\n 5: Mélange']
 }

@@ -7,9 +7,9 @@ import {
   compteOccurences,
   enleveDoublonNum
 } from '../lib/outils/arrayOutils'
-import { texMulticols } from '../lib/format/miseEnPage.js'
+import { texMulticols } from '../lib/format/miseEnPage'
 import { arrondi, rangeMinMax } from '../lib/outils/nombres'
-import { context } from './context.js'
+import { context } from './context'
 import Decimal from 'decimal.js'
 import FractionEtendue from './FractionEtendue'
 

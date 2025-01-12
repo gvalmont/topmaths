@@ -1,14 +1,14 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import type Figure from 'apigeom/src/Figure.js'
-import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine.js'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
-import figureApigeom from '../../lib/figureApigeom.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import type Figure from 'apigeom/src/Figure'
+import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import figureApigeom from '../../lib/figureApigeom'
 
 export const titre = 'Placer un point d\'abscisse décimale'
 export const dateDeModifImportante = '03/05/2024'
@@ -23,7 +23,7 @@ export const amcType = 'AMCOpen'
  */
 
 export const uuid = 'e528e'
-export const ref = '6N30-2'
+
 export const refs = {
   'fr-fr': ['6N30-2'],
   'fr-ch': ['9NO7-3']
@@ -38,11 +38,7 @@ class PlacerPointsSurAxe extends Exercice {
     super()
     this.consigne = 'Placer trois points sur un axe gradué.'
     this.nbQuestions = 5
-    this.nbQuestionsModifiable = true
-    this.nbCols = 1
-    this.nbColsCorr = 1
-    this.spacing = 1
-    this.spacingCorr = 1
+
     this.sup = 1
     this.exoCustomResultat = true
     this.besoinFormulaireNumerique = [
@@ -53,14 +49,8 @@ class PlacerPointsSurAxe extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
-    // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
+
     if (this.sup > 3) {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
@@ -170,7 +160,7 @@ class PlacerPointsSurAxe extends Exercice {
 
   correctionInteractive = (i?: number) => {
     if (i === undefined) return ['KO']
-    const result: ('OK'|'KO')[] = []
+    const result: ('OK' | 'KO')[] = []
     const figure = this.figures[i]
     // Sauvegarde de la réponse pour Capytale
     if (this.answers === undefined) this.answers = {}

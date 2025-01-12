@@ -10,10 +10,9 @@ export const interactifType = 'custom'
 /**
  * Tracer un parallélogramme
  * @author Rémi Angot
- * Références geoParallelogramme2
+
  */
 
-export const ref = 'parallelogramme2'
 export const refs = {
   'fr-fr': ['parallelogramme2'],
   'fr-ch': []
@@ -29,7 +28,7 @@ class ConstructionParallelogramme extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.reponse = ''
-    this.formatChampTexte = 'none'
+    this.formatChampTexte = 'none' // Pas de champ texte pour cet exercice simple de géométrie dynamique
     this.exoCustomResultat = true
   }
 

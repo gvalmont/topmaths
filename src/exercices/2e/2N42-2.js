@@ -1,9 +1,9 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { sp } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const interactifReady = true
@@ -17,22 +17,21 @@ export const dateDeModifImportante = '06/11/2024'
  * 2N42-2
  */
 export const uuid = '96bac'
-export const ref = '2N42-2'
+
 export const refs = {
   'fr-fr': ['2N42-2'],
   'fr-ch': ['11FA5-4']
 }
-export default function ExprimerEnFonctionDesAutresFormules () {
-  Exercice.call(this)
-  this.titre = titre
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.nbQuestions = 1
-  this.sup = 1
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+export default class ExprimerEnFonctionDesAutresFormules extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Cas possibles', 3, '1 : Sans rappel de formule\n 2 : Avec rappel d\'une formule\n 3 : Mélange ']
+
+    this.nbQuestions = 1
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
@@ -372,16 +371,15 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
       }
 
       if (this.interactif) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' alphanumeric  ', { texteAvant: sp(10) + `$${varAExprimer} =$` }) }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
       if (this.questionJamaisPosee(i, typesDeQuestions, choix, nomV)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Cas possibles', 3, '1 : Sans rappel de formule\n 2 : Avec rappel d\'une formule\n 3 : Mélange ']
 }

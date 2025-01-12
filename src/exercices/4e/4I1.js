@@ -1,10 +1,10 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { scratchblock } from '../../modules/scratchblock.js'
-import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin.js'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { scratchblock } from '../../modules/scratchblock'
+import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin'
 
 export const titre = 'Dessiner avec scratch'
 
@@ -18,31 +18,21 @@ export const titre = 'Dessiner avec scratch'
  */
 
 export const uuid = '33c9a'
-export const ref = '4I1'
+
 export const refs = {
   'fr-fr': ['4I1'],
   'fr-ch': []
 }
-export default function TracerAvecScratch () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
+export default class TracerAvecScratch extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
+    this.typeExercice = 'Scratch'
+    this.nbQuestions = 3
+  }
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
-
-  this.typeExercice = 'Scratch'
-
-  let typesDeQuestionsDisponibles
-  this.nbQuestions = 3
-  this.debug = false
-
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    } else {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    }
+  nouvelleVersion () {
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 
     const fenetreMathalea2D = { xmin: -10, ymin: -15, xmax: 60, ymax: 2, pixelsParCm: 10, scale: 0.2 }
     const pixelsParCm = fenetreMathalea2D.pixelsParCm * 5 / 100
@@ -279,62 +269,12 @@ export default function TracerAvecScratch () {
       enonces.push(mySituation(5)[0])
       enonces.push(mySituation(6)[0])
       enonces.push(mySituation(8)[0])
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-        case 2:
-          texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
-          break
-        case 3:
-          texte = `${enonces[2].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
-          break
-        case 4:
-          texte = `${enonces[3].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
-          break
-        case 5:
-          texte = `${enonces[4].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[4].correction}`
-          }
-          break
-      }
+      texte = `${enonces[listeTypeDeQuestions[i] - 1].enonce}`
+      texteCorr = `${enonces[listeTypeDeQuestions[i] - 1].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

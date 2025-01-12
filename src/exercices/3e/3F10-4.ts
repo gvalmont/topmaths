@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import Figure from 'apigeom'
-import { randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
 import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
@@ -14,7 +14,7 @@ import type Point from 'apigeom/src/elements/points/Point'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { Tableau } from '../../lib/2d/tableau'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { lectureImage } from '../../lib/2d/courbes'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
@@ -25,10 +25,10 @@ export const interactifType = 'mathLive'
 /**
  * Lire une image sur une Spline
  * @author Jean-Claude Lhote (sur le modèle de 5R12-1 de Rémi Angot
- * Références 3F10-4
+
  */
 export const uuid = '6c6b3'
-export const ref = '3F10-4'
+
 export const refs = {
   'fr-fr': ['3F10-4'],
   'fr-ch': ['10FA5-8', '11FA7-2', '1F1-2']
@@ -45,7 +45,7 @@ class LireImageParApiGeom extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
-    this.formatChampTexte = ''
+
     this.besoinFormulaireNumerique = ['Nombre d\'images à trouver (de 1 à 5)', 5]
     this.besoinFormulaire2CaseACocher = ['Utiliser des valeurs entières', false]
     this.sup = 3
@@ -59,17 +59,15 @@ class LireImageParApiGeom extends Exercice {
 
   nouvelleVersion (): void {
     // on va chercher une spline aléatoire
-    this.listeCorrections = []
-    this.listeQuestions = []
+
     const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
     this.figure = new Figure({ xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
     this.figure.create('Grid')
     // this.figure.options.limitNumberOfElement.set('Point', 1)
-    this.listeQuestions = []
+
     this.listeCorrections = ['']
-    this.autoCorrection = []
 
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     const mesPoints = spline.pointsOfSpline
@@ -185,7 +183,7 @@ class LireImageParApiGeom extends Exercice {
       this.listeQuestions = [emplacementPourFigure + enonce]
       const reponses = []
       for (let i = 0; i < nbColonnes; i++) {
-        reponses.push([`L1C${i + 1}`, { value: this.Y[i], compare: fonctionComparaison }])
+        reponses.push([`L1C${i + 1}`, { value: this.Y[i] }])
       }
       reponses.push(['bareme', toutAUnPoint])
       handleAnswers(this, 0, Object.fromEntries(reponses))

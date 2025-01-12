@@ -4,7 +4,7 @@ import { abs } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -26,7 +26,7 @@ export const dateDePublication = '06/01/2022'
  * 2S12-1
  */
 export const uuid = '12444'
-export const ref = '2S11-2'
+
 export const refs = {
   'fr-fr': ['2S11-2'],
   'fr-ch': []
@@ -34,20 +34,15 @@ export const refs = {
 export default class EvolutionsEnPourcentage extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    this.interactifReady = interactifReady
-    this.interactifType = interactifType
-    this.consigne = ''
+
     this.nbQuestions = 4
     this.spacing = 1.5
-    this.nbCols = 1
-    this.nbColsCorr = 1
+
     this.sup = 4 // type de questions
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une évolution en pourcentage\n2 : Calculer un taux d\'évolution\n3 : Calculer la valeur initiale en connaissant le taux d\'évolution et la valeur finale\n4 : Mélange']
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['finale']
@@ -348,8 +343,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
         texte += ajouteChampTexteMathLive(this, i)
       }
       if (this.questionJamaisPosee(i, depart, taux, typesDeSituations[i])) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

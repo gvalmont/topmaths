@@ -1,17 +1,17 @@
-import { codageMilieu } from '../../lib/2d/codages.js'
-import { tracePoint } from '../../lib/2d/points.js'
-import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
-import { rotation, translation } from '../../lib/2d/transformations.js'
+import { codageMilieu } from '../../lib/2d/codages'
+import { tracePoint } from '../../lib/2d/points'
+import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
+import { rotation, translation } from '../../lib/2d/transformations'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { egal, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { rotationAnimee } from '../../modules/2dAnimation.js'
-import { pavage } from '../../modules/Pavage.js'
+import Exercice from '../Exercice'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { egal, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { rotationAnimee } from '../../modules/2dAnimation'
+import { pavage } from '../../modules/Pavage'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -29,26 +29,30 @@ export const dateDeModifImportante = '23/07/2023'
  * Ref 5G12
  */
 export const uuid = '76ea9'
-export const ref = '5G12'
+
 export const refs = {
   'fr-fr': ['5G12'],
   'fr-ch': ['9ES6-21']
 }
-export default function PavageEtDemiTour2D () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
-  this.sup2 = false // On cache les barycentres par défaut.
-  this.sup3 = 7
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = function () {
+export default class PavageEtDemiTour2D extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
+    this.besoinFormulaire2CaseACocher = ['Montrer les centres']
+    this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
+
+    this.nbQuestions = 3
+
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
+
+    this.sup = 1 // 1 pour des pavages modestes, 2 pour des plus grand.
+    this.sup2 = false // On cache les barycentres par défaut.
+    this.sup3 = 7
+    context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  }
+
+  nouvelleVersion () {
     this.sup = Number(this.sup)
     this.sup3 = Number(this.sup3)
     const videcouples = function (tableau) {
@@ -148,9 +152,7 @@ export default function PavageEtDemiTour2D () {
     if (this.nbQuestions > 5) {
       taillePavage = 2
     }
-    this.listeCorrections = []
-    this.listeQuestions = []
-    this.autoCorrection = []
+
     let Nx
     let Ny
     let index1
@@ -277,7 +279,4 @@ export default function PavageEtDemiTour2D () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
-  this.besoinFormulaire2CaseACocher = ['Montrer les centres']
-  this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
 }

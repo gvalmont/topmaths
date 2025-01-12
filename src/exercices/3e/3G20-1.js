@@ -1,18 +1,18 @@
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { texteSurSegment } from '../../lib/2d/codages.js'
-import { milieu, point, pointSurSegment } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
+import { codageAngleDroit } from '../../lib/2d/angles'
+import { texteSurSegment } from '../../lib/2d/codages'
+import { milieu, point, pointSurSegment } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
 import Decimal from 'decimal.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
 /**
@@ -20,20 +20,23 @@ export const titre = 'Problèmes avec le théorème de Thalès'
 * @author Rémi Angot
 */
 export const uuid = 'eea67'
-export const ref = '3G20-1'
+
 export const refs = {
   'fr-fr': ['3G20-1'],
   'fr-ch': ['11GM3-8']
 }
-export default function ProblemesThales () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 3
+export default class ProblemesThales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Triangles rectangles imbriqués\n2 : Triangles dans un rectangle\n3 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+
+    this.sup = 3
+  }
+
+  nouvelleVersion () {
     let texte = ''
     let texteCorr = ''
     const typesDeQuestions = (this.sup === 1 || this.sup === 2) ? this.sup : choice([1, 2])
@@ -158,5 +161,4 @@ export default function ProblemesThales () {
 
     // this.besoinFormulaire2CaseACocher = ['Sans figures']
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Triangles rectangles imbriqués\n2 : Triangles dans un rectangle\n3 : Mélange']
 }

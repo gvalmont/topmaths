@@ -1,6 +1,6 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../../src/lib/outils/texNombre'
@@ -17,24 +17,20 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Remi Angot & Nathan Scheinmann
  */
 
 export default class AmplifierOuReduireFraction extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 6
     this.sup = 3
     this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Amplifier\n2 : Simplifier\n3 : Mélange']
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
     let typeQuestionsDisponibles: ('amplifier' | 'simplifier')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['amplifier']
@@ -93,8 +89,8 @@ export default class AmplifierOuReduireFraction extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, num, den, k)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

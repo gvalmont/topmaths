@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -17,22 +17,24 @@ export const interactifType = 'mathLive'
  * 4C10-4
  */
 export const uuid = 'cdcc1'
-export const ref = '4C10-4'
+
 export const refs = {
   'fr-fr': ['4C10-4'],
   'fr-ch': ['10NO5-2']
 }
-export default function ExerciceQuotientsRelatifs () {
-  Exercice.call(this)
-  this.sup = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.titre = titre
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.nbQuestions = 6
+export default class ExerciceQuotientsRelatifs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Utiliser seulement les tables de multiplication de 2 à 9']
 
-  this.nouvelleVersion = function () {
+    this.sup = false
+
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+    this.nbQuestions = 6
+  }
+
+  nouvelleVersion () {
     const listeTypeDeQuestions = combinaisonListes(['-+', '+-', '--', '++'], this.nbQuestions)
     let typesDeNombres = combinaisonListes(['tables', 'horstables'], this.nbQuestions)
     if (this.sup) {
@@ -64,13 +66,12 @@ export default function ExerciceQuotientsRelatifs () {
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Utiliser seulement les tables de multiplication de 2 à 9']
 }

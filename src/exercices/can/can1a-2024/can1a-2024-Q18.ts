@@ -15,12 +15,12 @@ export const uuid = '5108c'
 export default class DistanceEtVitesse extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'km/h' }
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 

@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Appliquer la double distributivité avec les racines carrées'
@@ -16,18 +16,21 @@ export const interactifType = 'mathLive'
  * @author Stéphane Guyon
  */
 export const uuid = '660de'
-export const ref = '2N32-5'
+
 export const refs = {
   'fr-fr': ['2N32-5'],
   'fr-ch': ['11NO1-8', '1CN-10']
 }
-export default function DoubleDistributiviteAvecRacineCarree () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 2
-  this.nbColsCorr = 2
+export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'
@@ -81,11 +84,11 @@ export default function DoubleDistributiviteAvecRacineCarree () {
       }
       texte = `$${texte}$`
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$=$' })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse } })
 
       if (this.questionJamaisPosee(i, a1, a2, a, b1, b2)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

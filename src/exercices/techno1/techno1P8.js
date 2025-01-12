@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { min } from 'mathjs'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Union et Intersection de proportions'
@@ -12,11 +12,11 @@ export const dateDePublication = '26/06/2022' // La date de publication initiale
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- * Description didactique de l'exercice
+ *
  * @author Stéphane Guyon
 */
 export const uuid = '1aad3'
-export const ref = 'techno1P8'
+
 export const refs = {
   'fr-fr': ['techno1P8'],
   'fr-ch': []
@@ -27,12 +27,9 @@ export default class nomExercice extends Exercice {
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-    this.video = '' // Id YouTube ou url
   }
 
   nouvelleVersion () {
-    this.autoCorrection = []
-
     const typeQuestionsDisponibles = ['type1', 'type2'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -88,8 +85,8 @@ export default class nomExercice extends Exercice {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, effectif, belote, tarot)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

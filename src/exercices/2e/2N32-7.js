@@ -1,11 +1,11 @@
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { equalFractionCompareSansRadical } from '../../lib/interactif/comparisonFunctions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -21,23 +21,32 @@ export const interactifType = 'mathLive'
  * @author Stéphane Guyon
  */
 export const uuid = '4771d'
-export const ref = '2N32-7'
+
 export const refs = {
   'fr-fr': ['2N32-7'],
   'fr-ch': ['1CN-12']
 }
-export default function Rendreentier () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 2
-  this.listeAvecNumerotation = false
+export default class Rendreentier extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Dénominateur « racine de a »',
+        '2 : Dénominateur « a + racine de b »',
+        '3 : Dénominateur « a + b racine de x »',
+        '4 : Mélange'
+      ].join('\n')
+    ]
+    this.nbQuestions = 1
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 2
+    this.listeAvecNumerotation = false
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = ' Trouver une fraction égale à celle proposée en supprimant la racine carrée de son dénominateur.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     const listeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -132,21 +141,12 @@ export default function Rendreentier () {
       handleAnswers(this, i, { reponse: { value: reponse, compare: equalFractionCompareSansRadical } })
 
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser  le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Dénominateur « racine de a »',
-      '2 : Dénominateur « a + racine de b »',
-      '3 : Dénominateur « a + b racine de x »',
-      '4 : Mélange'
-    ].join('\n')
-  ]
 }

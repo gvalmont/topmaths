@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
@@ -17,7 +17,7 @@ export const dateDeModifImportante = '23/06/2024'
  * 6C12-5
  */
 export const uuid = '103a2'
-export const ref = '6C12-5'
+
 export const refs = {
   'fr-fr': ['6C12-5'],
   'fr-ch': []
@@ -176,14 +176,12 @@ export default class RepresenterUneFraction extends Exercice {
     super()
     this.consigne = 'Trouve la bonne réponse en utilisant les ordres de grandeurs.'
     this.nbQuestions = 4
-    this.nbCols = 1
-    this.nbColsCorr = 1
+
     // this.sup = 3
     // this.besoinFormulaireNumerique = ['Type de problèmes']
   }
 
   nouvelleVersion () {
-    this.reinit()
     const listeDeProblemes = combinaisonListes(listePb, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const probleme = listeDeProblemes[i]
@@ -193,23 +191,23 @@ export default class RepresenterUneFraction extends Exercice {
         enonce: '',
         propositions: [
           {
-            texte: reponses[0],
+            texte: reponses[0].toString(),
             statut: true
           },
           {
-            texte: reponses[1],
+            texte: reponses[1].toString(),
             statut: false
           },
           {
-            texte: reponses[2],
+            texte: reponses[2].toString(),
             statut: false
           },
           {
-            texte: reponses[3],
+            texte: reponses[3].toString(),
             statut: false
           },
           {
-            texte: reponses[4],
+            texte: reponses[4].toString(),
             statut: false
           }
         ],
@@ -219,8 +217,8 @@ export default class RepresenterUneFraction extends Exercice {
       texte += monQcm.texte
       const texteCorr = reponseRedigee + monQcm.texteCorr
       if (this.questionJamaisPosee(i, ...reponses)) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

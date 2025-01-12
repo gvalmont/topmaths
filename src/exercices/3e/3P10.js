@@ -2,8 +2,8 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -24,20 +24,22 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  */
 export const uuid = '0bcef'
-export const ref = '3P10'
+
 export const refs = {
   'fr-fr': ['3P10'],
   'fr-ch': ['10FA4-5']
 }
-export default function EvolutionsEnPourcentage () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 4 // type de questions
+export default class EvolutionsEnPourcentage extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange']
 
-  this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
+    this.nbQuestions = 4
+
+    this.sup = 4 // type de questions
+  }
+
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['finale']
@@ -295,13 +297,12 @@ export default function EvolutionsEnPourcentage () {
       setReponse(this, i, reponse)
       texte += ajouteChampTexteMathLive(this, i, '', { texteApres })
       if (this.questionJamaisPosee(i, reponse)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange']
 }

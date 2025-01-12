@@ -1,8 +1,8 @@
 import { choice } from '../lib/outils/arrayOutils'
 import { nomDuMois } from '../lib/outils/dateEtHoraires'
-import { texFractionFromString } from '../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures'
-import { lampeMessage } from '../lib/format/message.js'
+import { lampeMessage } from '../lib/format/message'
 import { arrondi } from '../lib/outils/nombres'
 import { prenom } from '../lib/outils/Personne'
 import { texteGras } from '../lib/format/style'
@@ -550,10 +550,10 @@ function texteTirages2D (nombreDes, nombreTirages, nombreFaces, tirages, aveclam
   }
   texte += aveclampeMessage
     ? lampeMessage({
-      titre: 'Vocabulaire',
-      texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
-      couleur: 'nombres'
-    })
+        titre: 'Vocabulaire',
+        texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
+        couleur: 'nombres'
+      })
     : ''
   texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>'
   texte += desTabEffCumul(tirages, false) + '<br>'

@@ -3,10 +3,8 @@ import {
   type BoxedExpression
 } from '@cortex-js/compute-engine'
 import type { Parser, ParseLatexOptions, LatexDictionaryEntry } from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'
-// import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
-// import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import { areSameArray } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre'
@@ -271,21 +269,6 @@ function inputToGrandeur (input: string): Grandeur | false {
     return new Grandeur(mesure, unite)
   }
   return false
-}
-
-/**
- * Couteau suisse de la comparaison. Devrait correspondre à une très grosse majorité des comparaisons.
- * Comparaison de nombres ou bien d'expressions : c'est la fonction qui choisit.
- * @param {string} input
- * @param {string|number|Decimal|FractionEtendue} goodAnswer
- * @author Eric Elter
- * @return ResultType
- */
-export function calculCompare (input: string, goodAnswer: string): ResultType {
-  // Si goodAnswer est un nombre, alors on utilise la comparaison d'un nombre
-  // if (typeof goodAnswer === 'number' || goodAnswer instanceof Decimal || goodAnswer instanceof FractionEtendue) return numberCompare(input, goodAnswer)
-  // Sinon on utilise la comparaison d'une expression non réduite
-  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer)
 }
 
 /**
@@ -1469,7 +1452,8 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   })
 
   if (!AllExist) {
-    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
+    if (splitGoodAnswer.length === 1) return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas la valeur attendue.' }
+    else return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
   }
   if (kUplet && !(splitInput.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))) {
     return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés dans le bon ordre.' }
@@ -1736,9 +1720,9 @@ export function consecutiveCompare (
   const [entierInf, valeurInter, entierSup] = input.includes('<')
     ? input.split('<').map((el) => Number(engine.parse(el).numericValue))
     : input
-      .split('>')
-      .map((el) => Number(engine.parse(el).numericValue))
-      .sort((a: number, b: number) => a - b)
+        .split('>')
+        .map((el) => Number(engine.parse(el).numericValue))
+        .sort((a: number, b: number) => a - b)
   if (
     !(
       Number.isInteger(Number(entierSup)) && Number.isInteger(Number(entierInf))
@@ -1750,9 +1734,9 @@ export function consecutiveCompare (
   const [goodAnswerEntierInf, , goodAnswerEntierSup] = goodAnswer.includes('<')
     ? goodAnswer.split('<').map((el) => Number(engine.parse(el).numericValue))
     : goodAnswer
-      .split('>')
-      .map((el) => Number(engine.parse(el).numericValue))
-      .sort((a: number, b: number) => a - b)
+        .split('>')
+        .map((el) => Number(engine.parse(el).numericValue))
+        .sort((a: number, b: number) => a - b)
   const diff = Number(
     engine.box(['Subtract', String(entierSup), String(entierInf)]).N()
       .numericValue
@@ -1866,24 +1850,24 @@ export function functionCompare (
   let a: number
   let b: number
   let c: number
-  let variablea: object
-  let variableb: object
-  let variablec: object
+  let variablea: Record<string, number>
+  let variableb: Record<string, number>
+  let variablec: Record<string, number>
   do {
     [a, b, c] = [valAlea(), valAlea(), valAlea()]
     variablea = Object.fromEntries([[variable ?? 'x', a]])
     variableb = Object.fromEntries([[variable ?? 'x', b]])
     variablec = Object.fromEntries([[variable ?? 'x', c]])
   } while (
-    Number.isNaN(goodAnswerFn(variablea)) ||
-    Number.isNaN(goodAnswerFn(variableb)) ||
-    Number.isNaN(goodAnswerFn(variablec))
+    Number.isNaN(goodAnswerFn(variablea) as number) ||
+    Number.isNaN(goodAnswerFn(variableb) as number) ||
+    Number.isNaN(goodAnswerFn(variablec) as number)
   )
   let isOk = true
   for (const x of [a, b, c]) {
     const vars = Object.fromEntries([[variable ?? 'x', x]])
-    const y1 = inputFn(vars)
-    const y2 = goodAnswerFn(vars)
+    const y1 = Number(inputFn(vars))
+    const y2 = Number(goodAnswerFn(vars))
     isOk = isOk && Math.abs(y1 - y2) < 1e-10
   }
   return { isOk }
@@ -1965,6 +1949,35 @@ export function egaliteCompare (input: string, goodAnswer: string): ResultType {
 }
 
 /**
+ * Format des nombres avec les espaces adéquats
+ * @param {string} nombre // Un nombre sans espace sous forme d'une chaîne de caractères
+ * @author Eric Elter (aide par ChatGPT)
+ * @example formatNumberWithSpaces('1234567') renvoie '1 234 567'
+ * @example formatNumberWithSpaces('1239,4567') renvoie '1 239,456 7'
+ * @returns {string}
+ */
+function formatNumberWithSpaces (nombre: string): string {
+  return nombre.replace(/\b\d+(?:[.,]\d+)?\b/g, (match) => {
+    // Détection du séparateur utilisé
+    const separator = match.includes(',') ? ',' : '.'
+
+    // Séparer la partie entière et la partie décimale
+    const [entier, decimal] = match.split(separator)
+
+    // Formater la partie entière : espace tous les 3 chiffres de gauche à droite
+    const entierFormate = entier.replace(/(\d)(?=(\d{3})+$)/g, '$1 ')
+
+    if (decimal) {
+      // Formater la partie décimale : espace tous les 3 chiffres de droite à gauche
+      const decimalFormate = decimal.replace(/(\d{3})(?=\d)/g, '$1 ')
+      return `${entierFormate}${separator}${decimalFormate.trim()}`
+    }
+
+    return entierFormate // Retourne uniquement la partie entière si pas de décimale
+  })
+}
+
+/**
  * Comparaison de nombres avec les espaces exigés
  * @param {string} input
  * @param {string} goodAnswer
@@ -1979,10 +1992,16 @@ export function numberWithSpaceCompare (
   const clean = generateCleaner(['espaces'])
   const inputClean = clean(input)
   const goodAnswerClean = clean(goodAnswer)
-  const goodAnswerNew = goodAnswer.replaceAll(/\\,/g, ' ') // EE : Permet à goodAnswer que les espaces ressemblent uniquement à ' ' et non à '\,'.
+  let goodAnswerNew = goodAnswerClean.replace(/\s+/g, '') // EE : On enlève tous les espaces s'il y en a.
+
+  // Gestion pénible de la virgule ci-dessous dans le cas de plus de 3 chiffres dans la partie décimale.
+  goodAnswerNew = goodAnswerNew.replace('{,}', ',') // EE : On enlève toutes les virgules sous la forme {,} s'il y en a.
+  goodAnswerNew = formatNumberWithSpaces(goodAnswerNew) // EE : On rajoute tous les espaces adéquats.
+  goodAnswerNew = goodAnswerNew.replace(',', '{,}') // EE : On rajoute toutes les virgules sous la forme {,} s'il y en a.
+
   let feedback = ''
   if (inputCleanFirst !== goodAnswerNew && inputClean === goodAnswerClean) {
-    feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces.'
+    feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces. '
   }
   return { isOk: inputCleanFirst === goodAnswerNew, feedback }
 }

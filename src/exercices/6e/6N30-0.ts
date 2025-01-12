@@ -34,7 +34,7 @@ export const dateDePublication = '26/08/2024'
 let listesPas: Array<[number, number][]>
 
 class ReperageEntiersOuDecimaux extends Exercice {
-  version:string
+  version: string
   constructor () {
     super()
     this.version = 'décimaux'
@@ -101,7 +101,6 @@ class ReperageEntiersOuDecimaux extends Exercice {
             ]
           ]
 
-    this.reinit()
     const choix = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
@@ -146,9 +145,9 @@ class ReperageEntiersOuDecimaux extends Exercice {
         ? randint(0, 4) * pasPrincipal +
           (randint(1, subdivision - 1) * pasPrincipal) / subdivision
         : Math.min(
-          premiereGraduation + randint(0, 5) * pasPrincipal + ((randint(1, subdivision - 1) + subdivisionsAvantPrincipale) * pasPrincipal) / subdivision,
-          premiereGraduation + pasPrincipal * (5 + (subdivision - 1) / subdivision)
-        )
+            premiereGraduation + randint(0, 5) * pasPrincipal + ((randint(1, subdivision - 1) + subdivisionsAvantPrincipale) * pasPrincipal) / subdivision,
+            premiereGraduation + pasPrincipal * (5 + (subdivision - 1) / subdivision)
+          )
       // fabrication de la droite graduée (faudra peut-être factoriser ça dans un objetMathalea2d() on verra)
 
       const A = point(0, 0)
@@ -280,7 +279,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
       }
       const correctionRapide = `L'abscisse du point $${lettreDepuisChiffre(i + 1)}$ est : $${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>Notation : $${lettreDepuisChiffre(i + 1)}(${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))})$.`
       if (this.questionJamaisPosee(i, repere1, repere2, nombreATrouver, pas)) {
-        this.listeQuestions.push(texte)
+        this.listeQuestions[i] = texte
         if (this.interactif) {
           handleAnswers(this, i, {
             reponse: {
@@ -289,9 +288,9 @@ class ReperageEntiersOuDecimaux extends Exercice {
             }
           })
         }
-        this.listeCorrections.push(
+        this.listeCorrections[i] =
           `${this.correctionDetaillee ? `${texteCorr}<br>${correctionRapide}` : correctionRapide}<br>${figureCorrection}`
-        )
+
         i++
       }
       cpt++

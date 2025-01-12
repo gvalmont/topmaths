@@ -7,16 +7,15 @@ import {
   ecritureNombreRelatifc
 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombreCoul } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer un enchaînement d\'additions et de soustractions de nombres relatifs'
 export const interactifReady = true
@@ -32,21 +31,25 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot modifications par Jean-Claude Lhote (Correction optimisée par Eric Elter)
  */
 export const uuid = 'f6ea7'
-export const ref = '5R22'
+
 export const refs = {
   'fr-fr': ['5R22'],
   'fr-ch': ['9NO9-15']
 }
-export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
-  Exercice.call(this)
-  this.sup = max
-  this.sup2 = false // écriture simplifiée
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.nbQuestions = 6 // Pour que les colonnes soient équilibrées !
-  this.listeAvecNumerotation = false
+export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
+  constructor (max = 20) {
+    super()
+    this.sup = max
+    this.sup2 = false // écriture simplifiée
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.nbQuestions = 6 // Pour que les colonnes soient équilibrées !
+    this.listeAvecNumerotation = false
+    this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+    this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = this.interactif ? 'Calculer.' : 'Calculer, en détaillant les calculs.'
     let relatifs
     let sommesSignees
@@ -125,11 +128,12 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, a, b, c, d, e)) { // Si la question n'a jamais été posée, on en créé une autre
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
         if (!this.sup2) {
-          handleAnswers(this, i, { reponse: { value: a + s1 * b + s2 * c + s3 * d + s4 * e, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+          handleAnswers(this, i, { reponse: { value: a + s1 * b + s2 * c + s3 * d + s4 * e, options: { resultatSeulementEtNonOperation: true } } })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: '',
@@ -168,7 +172,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
             }
           }
         } else {
-          handleAnswers(this, i, { reponse: { value: a + b + c + d + e, compare: fonctionComparaison, options: { resultatSeulementEtNonOperation: true } } })
+          handleAnswers(this, i, { reponse: { value: a + b + c + d + e, options: { resultatSeulementEtNonOperation: true } } })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: '',
@@ -214,6 +218,4 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-  this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
 }

@@ -1,17 +1,17 @@
-import { angle, angleOriente } from '../../lib/2d/angles.js'
-import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points.js'
-import { polygone } from '../../lib/2d/polygones.js'
-import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.ts'
-import { homothetie, similitude } from '../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
-import { creerBoutonMathalea2d } from '../../lib/outils/modales.js'
+import { angle, angleOriente } from '../../lib/2d/angles'
+import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
+import { longueur } from '../../lib/2d/segmentsVecteurs'
+import { texteParPoint } from '../../lib/2d/textes'
+import { homothetie, similitude } from '../../lib/2d/transformations'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { creerBoutonMathalea2d } from '../../lib/outils/modales'
 import { texteGras } from '../../lib/format/style'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 
 export const titre = 'Écrire une relation de Thalès'
 
@@ -19,16 +19,19 @@ export const titre = 'Écrire une relation de Thalès'
  * Relation de Thalès
  * @author Sébastien LOZANO
 */
-export default function RelationDeThales () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
+export default class RelationDeThales extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
 
-  this.nouvelleVersion = function (numeroExercice) {
+    this.nbQuestions = 1
+
+    this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
+  }
+
+  nouvelleVersion (numeroExercice) {
     let listeDeNomsDePolygones = []
-    this.autoCorrection = []
+
     if (this.level === 4) {
       this.sup = 1
     }
@@ -165,13 +168,12 @@ export default function RelationDeThales () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
 }

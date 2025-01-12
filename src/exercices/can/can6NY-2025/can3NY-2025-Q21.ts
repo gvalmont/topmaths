@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { codageAngleDroit } from '../../../lib/2d/angles'
@@ -29,13 +29,11 @@ export default class calculerPythagore extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierFullOperations
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
     const choix = choice([true, false])
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
+
     const nom = creerNomDePolygone(3, ['QD'])
     const a = randint(1, 6)
     const A = point(0, 0, nom[0], 'below')

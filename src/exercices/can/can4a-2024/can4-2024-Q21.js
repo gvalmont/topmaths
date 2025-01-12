@@ -12,16 +12,16 @@ export const uuid = 'fdd2f'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.formatInteractif = 'calcul'
+
     this.canOfficielle = false
   }
 
@@ -69,7 +69,6 @@ export default class NomExercice extends Exercice {
     prog4 += '}\n'
     prog4 += '\\end{scratch}<br>'
     if (this.canOfficielle) {
-      this.formatInteractif = 'calcul'
       this.reponse = 150
       this.question = `${scratchblock(prog0)}`
 
@@ -82,7 +81,6 @@ export default class NomExercice extends Exercice {
     } else {
       const choix = choice(['a', 'b', 'c', 'd'])//
       if (choix === 'a') {
-        this.formatInteractif = 'calcul'
         this.reponse = 90
         this.question = `${scratchblock(prog2)}`
 
@@ -93,7 +91,6 @@ export default class NomExercice extends Exercice {
         this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'b') {
-        this.formatInteractif = 'calcul'
         this.reponse = 120
         this.question = `${scratchblock(prog3)}`
 
@@ -106,7 +103,6 @@ export default class NomExercice extends Exercice {
         this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'c') {
-        this.formatInteractif = 'calcul'
         this.reponse = 2
         this.question = `${scratchblock(prog4)}`
 
@@ -119,7 +115,6 @@ export default class NomExercice extends Exercice {
         this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'd') {
-        this.formatInteractif = 'calcul'
         this.reponse = a * n
         this.question = `${scratchblock(prog0)}`
 

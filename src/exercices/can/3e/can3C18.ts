@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+
 import { choice } from '../../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -27,8 +27,6 @@ export default class calculDansQuotient extends Exercice {
     this.nbQuestions = 1
     this.spacingCorr = 1.5
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    // this.formatInteractif = 'calcul'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -42,7 +40,7 @@ export default class calculDansQuotient extends Exercice {
 
     if (choix1 === true) {
       reponse = new FractionEtendue(a * f.d, f.n).texFraction
-      this.reponse = { reponse: { value: reponse, compare: fonctionComparaison } }
+      this.reponse = { reponse: { value: reponse } }
       this.question = `Calculer $${inconnue}$ sachant que ${choix2 === true ? `$\\dfrac{${a}}{${inconnue}}=${fraction.texFraction}$.` : `$${fraction.texFraction}=\\dfrac{${a}}{${inconnue}}$.`}`
       this.correction = `Les produits en croix sont égaux :<br>
     $\\begin{aligned}
@@ -52,7 +50,7 @@ export default class calculDansQuotient extends Exercice {
     ${pgcd(a * f.d, f.n) === 1 ? '' : `On peut simplifier : $${inconnue}=${reponse}${new FractionEtendue(a * f.d, f.n).texSimplificationAvecEtapes(false, '#f15929')}$`}`
     } else {
       reponse = new FractionEtendue(a * f.n, f.d).texFraction
-      this.reponse = { reponse: { value: reponse, compare: fonctionComparaison } }
+      this.reponse = { reponse: { value: reponse } }
       this.question = `Calculer $${inconnue}$ sachant que ${choix2 === true ? `$\\dfrac{${inconnue}}{${a}}=${fraction.texFraction}$.` : `$${fraction.texFraction}=\\dfrac{${inconnue}}{${a}}$.`}`
       this.correction = this.correction = `Les produits en croix sont égaux :<br>
     $\\begin{aligned}

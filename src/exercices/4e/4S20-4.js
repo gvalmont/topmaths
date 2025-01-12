@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
 export const titre = 'Calculer des probabilités.'
@@ -13,9 +13,9 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice Calculer des probabilités avec des cartes à jouer.
+ *  Calculer des probabilités avec des cartes à jouer.
  * @author Mireille Gain
- * Référence 4S20-3
+
 */
 export default class ExerciceQcmStatistiques extends Exercice {
   constructor () {

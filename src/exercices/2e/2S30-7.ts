@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import FractionEtendue from '../../modules/FractionEtendue'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -15,7 +15,7 @@ export const dateDePublication = '26/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
 */
 export const uuid = 'ae872'
@@ -34,9 +34,6 @@ export default class ProbaConcret extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
     let index = 0
     let increment = 1
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
@@ -111,14 +108,14 @@ export default class ProbaConcret extends Exercice {
                F : « la personne choisie est une femme ».<br>
                <br>${numAlpha(0)}  Calculer la probabilité de l'événement ${choix1 ? `$${EvInter[0]}$` : `: « ${EvInter[1]} »`}.<br>`
       texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBase) + '<br>'
-      handleAnswers(this, index, { reponse: { value: EvInter[2], compare: fonctionComparaison } })
+      handleAnswers(this, index, { reponse: { value: EvInter[2] } })
       texte += `${numAlpha(1)}  Calculer la probabilité de l'événement ${choix2 ? `$${EvUnion[0]}$` : `: « ${EvUnion[7]} »`}.<br>`
       texte += ajouteChampTexteMathLive(this, index + 1, KeyboardType.clavierDeBase) + '<br>'
-      handleAnswers(this, index + 1, { reponse: { value: EvUnion[8], compare: fonctionComparaison } })
+      handleAnswers(this, index + 1, { reponse: { value: EvUnion[8] } })
       texte += `${numAlpha(2)}  On sait que la personne choisie  ${EvCond[0]}.<br>
           Quelle est la probabilité ${EvCond[1]} ?`
       texte += '<br>' + ajouteChampTexteMathLive(this, index + 2, KeyboardType.clavierDeBase)
-      handleAnswers(this, index + 2, { reponse: { value: EvCond[4], compare: fonctionComparaison } })
+      handleAnswers(this, index + 2, { reponse: { value: EvCond[4] } })
       texteCorr = `${numAlpha(0)} La probabilité est donnée par : <br>
           $P(${EvInter[0]})=\\dfrac{\\text{Nombre ${EvInter[3]}}}{\\text{Effectif total}}=${miseEnEvidence(EvInter[2])}$.
                `
@@ -138,8 +135,8 @@ P(${EvUnion[0]})&=P(${EvUnion[1]})+P(${EvUnion[3]})-P(${EvUnion[5]})\\\\
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         index += increment
       }

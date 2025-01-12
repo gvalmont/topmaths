@@ -1,11 +1,11 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
-import { warnMessage } from '../../lib/format/message.js'
+import { warnMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import Exercice from '../deprecatedExercice.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -21,31 +21,32 @@ export const dateDePublication = '14/11/2020'
  * @author Sébastien Lozano
  */
 export const uuid = 'edbd5'
-export const ref = '3L11-5'
+
 export const refs = {
   'fr-fr': ['3L11-5'],
   'fr-ch': ['11FA2-5']
 }
-export default function IdentitesCalculs () {
-  Exercice.call(this)
-  this.can = false // pour décliner en version CAN
-  this.canVersion = '' // Pour distinguer les déclinaisons
-  // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine
-  // 'v2' Pour une version type (30-2)² (30+2)² ou (30-2)x(30+2), écart par rapport à la dizaine ou à la centaine de 1 à 4
-  this.sup = 1
-  this.nbQuestions = 3
+export default class IdentitesCalculs extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"]
 
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 1 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
-  this.tailleDiaporama = 3
+    this.can = false // pour décliner en version CAN
+    this.canVersion = '' // Pour distinguer les déclinaisons
+    // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine
+    // 'v2' Pour une version type (30-2)² (30+2)² ou (30-2)x(30+2), écart par rapport à la dizaine ou à la centaine de 1 à 4
+    this.sup = 1
+    this.nbQuestions = 3
 
-  let typesDeQuestionsDisponibles
-  this.nouvelleVersion = function () {
+    // this.nbQuestionsModifiable = false;
+    context.isHtml ? this.spacing = 1 : this.spacing = 1
+    context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
+  }
+
+  nouvelleVersion () {
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant ' : 'Effectuer les calculs suivants '
     this.consigne += 'sans calculatrice. Utiliser la double distributivité ou les identités remarquables.'
+    let typesDeQuestionsDisponibles
 
     // une fonction pour gérer un \hfill dans la sortie LaTeX
     const myhfill = function () {
@@ -73,9 +74,6 @@ export default function IdentitesCalculs () {
         this.introduction = warnMessage(`$(a+b)^2 = a^2 +2ab + b^2$ ${myhfill()} $(a-b)^2 = a^2-2ab+b^2$ ${myhfill()} $(a+b)(a-b)=a^2-b^2$`, 'nombres', 'Coup de pouce')
         break
     }
-
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
@@ -271,6 +269,7 @@ export default function IdentitesCalculs () {
                 this.reponse = `${enonces[0].resultatCan}`
                 break
               case 'v2' :
+              default:
                 this.question = `${enonces[0].enonceCanV2}`
                 this.correction = `${enonces[0].correction1} <br><br> ${enonces[0].correction2}`
                 this.reponse = `${enonces[0].resultatCan}`
@@ -306,6 +305,7 @@ export default function IdentitesCalculs () {
                 this.reponse = `${enonces[1].resultatCan}`
                 break
               case 'v2' :
+              default:
                 this.question = `${enonces[1].enonceCanV2}`
                 this.correction = `${enonces[1].correction1} <br><br> ${enonces[1].correction2}`
                 this.reponse = `${enonces[1].resultatCan}`
@@ -316,6 +316,7 @@ export default function IdentitesCalculs () {
           }
           break
         case 2: // Produit somme différence
+        default:
           if (!this.can) {
             texte = `${enonces[2].enonce}`
             if (context.isHtml) {
@@ -341,6 +342,7 @@ export default function IdentitesCalculs () {
                 this.reponse = `${enonces[2].resultatCan}`
                 break
               case 'v2' :
+              default:
                 this.question = `${enonces[2].enonceCanV2}`
                 this.correction = `${enonces[2].correction1} <br><br> ${enonces[2].correction2}`
                 this.reponse = `${enonces[2].resultatCan}`
@@ -354,7 +356,7 @@ export default function IdentitesCalculs () {
       if (!this.can) {
         texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$ ' })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, coeff, coeffSomDif)) { // Si la question n'a jamais été posée, on en créé une autre
         // ToDo traiter les éventuelles questions interactives en double
         let mybool = false
         this.listeQuestions.forEach(elt => {
@@ -363,8 +365,8 @@ export default function IdentitesCalculs () {
           }
         })
         if (!mybool && this.typeExercice !== 'simple') {
-          this.listeQuestions.push(texte)
-          this.listeCorrections.push(texteCorr)
+          this.listeQuestions[i] = texte
+          this.listeCorrections[i] = texteCorr
           i++
         }
       }
@@ -372,5 +374,4 @@ export default function IdentitesCalculs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence\n4 : Mélange"]
 }

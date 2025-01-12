@@ -1,44 +1,45 @@
-import { courbe } from '../../lib/2d/courbes.js'
-import { droite, droiteParPointEtPente } from '../../lib/2d/droites.js'
-import { point } from '../../lib/2d/points.js'
-import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.ts'
+import { courbe } from '../../lib/2d/courbes'
+import { droite, droiteParPointEtPente } from '../../lib/2d/droites'
+import { point } from '../../lib/2d/points'
+import { repere } from '../../lib/2d/reperes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { latexParCoordonnees } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d } from '../../modules/2dGeneralites'
 
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { sqrt } from 'mathjs'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 
 export const titre = 'Résoudre graphiquement une inéquation avec une fonction de référence'
 export const dateDePublication = '14/02/2023'
 /**
- * Description didactique de l'exercice
+ *
  * @author Gilles Mora
- * Référence
+
  */
 export const uuid = '277d3'
-export const ref = '2F12-2'
+
 export const refs = {
   'fr-fr': ['2F12-2'],
   'fr-ch': []
 }
-export default function ResoudreGraphFonctionRef () {
-  Exercice.call(this)
-  this.consigne = ''
-  this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 4
-  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.spacing = 1.5 // Interligne des questions
-  this.spacingCorr = 1 // Interligne des réponses
-  this.nouvelleVersion = function () {
+export default class ResoudreGraphFonctionRef extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Avec la fonction carré\n2 : Avec la fonction inverse\n3 : Avec la fonction racine carrée\n4 : Mélange']
+
+    this.nbQuestions = 1
+
+    this.sup = 4
+
+    this.spacing = 1.5 // Interligne des questions
+  }
+
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2']
@@ -621,13 +622,12 @@ export default function ResoudreGraphFonctionRef () {
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Avec la fonction carré\n2 : Avec la fonction inverse\n3 : Avec la fonction racine carrée\n4 : Mélange']
 }

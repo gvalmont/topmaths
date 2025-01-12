@@ -9,7 +9,7 @@ test('Interpolation de Lagrange', () => {
   for (let i = 0; i < x.length; i++) {
     y.push(randint(-5, 5, y))
   }
-  const points: {x:number, y:number}[] = []
+  const points: { x: number, y: number }[] = []
   for (let i = 0; i < x.length; i++) {
     points.push({ x: x[i], y: y[i] })
   }

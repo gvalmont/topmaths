@@ -1,9 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { abs, rangeMinMax } from '../../lib/outils/nombres'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique'
@@ -18,29 +18,31 @@ export const interactifReady = true
  * @author Jean-Claude Lhote
  */
 export const uuid = '762fe'
-export const ref = '4C32-1'
+
 export const refs = {
   'fr-fr': ['4C32-1'],
   'fr-ch': ['10NO2-17']
 }
-export default function CalculsAvecPuissancesDeDix () {
-  Exercice.call(this)
-  this.sup = 1
-  this.sup2 = 3
-  this.sup3 = 3
-  this.nbQuestions = 5
-  this.classe = 4
+export default class CalculsAvecPuissancesDeDix extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+    this.besoinFormulaire2Numerique = ['Nombre avant la puissance de 10', 3, '1 : Plus grand que 1\n2 : Plus petit que 1\n3 : Mélange']
+    this.besoinFormulaire3Numerique = ['Signe de la puissance de 10', 3, '1 : Positive\n2 : Négative\n3 : Mélange']
+    this.sup = 1
+    this.sup2 = 3
+    this.sup3 = 3
+    this.nbQuestions = 5
+    this.classe = 4
+  }
 
-  this.nouvelleVersion = function () {
-    this.autoCorrection = []
+  nouvelleVersion () {
     if (this.interactif) {
       this.consigne = this.nbQuestions === 1 ? 'Choisir la notation scientifique associée au nombre suivant.' : 'Choisir la notation scientifique associée à chacun des nombres suivants.'
     } else {
       this.consigne = this.nbQuestions === 1 ? 'Donner la notation scientifique du nombre suivant.' : 'Donner la notation scientifique des nombres suivants.'
     }
     // let typeDeQuestionsDisponibles
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
 
     for (let i = 0, texte, texteCorr, mantisse1, exp1, decalage, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
@@ -119,15 +121,12 @@ export default function CalculsAvecPuissancesDeDix () {
         texte += props.texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
-  this.besoinFormulaire2Numerique = ['Nombre avant la puissance de 10', 3, '1 : Plus grand que 1\n2 : Plus petit que 1\n3 : Mélange']
-  this.besoinFormulaire3Numerique = ['Signe de la puissance de 10', 3, '1 : Positive\n2 : Négative\n3 : Mélange']
 }

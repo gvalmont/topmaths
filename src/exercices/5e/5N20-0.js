@@ -1,18 +1,17 @@
-import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
-import { cercleCentrePoint } from '../../lib/2d/cercle.js'
-import { point } from '../../lib/2d/points.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
-import { rotation } from '../../lib/2d/transformations.js'
-import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
+import { cercleCentrePoint } from '../../lib/2d/cercle'
+import { point } from '../../lib/2d/points'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint } from '../../lib/2d/textes'
+import { rotation } from '../../lib/2d/transformations'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { lampeMessage } from '../../lib/format/message.js'
+import { lampeMessage } from '../../lib/format/message'
 import { texteGras } from '../../lib/format/style'
-import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { numAlpha } from '../../lib/outils/outilString'
+import Exercice from '../Exercice'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
 /**
@@ -20,7 +19,7 @@ export const titre = 'Résoudre un problème en utilisant des fractions'
  * @author Sébastien Lozano
  */
 export const uuid = 'b6250'
-export const ref = '5N20-0'
+
 export const refs = {
   'fr-fr': ['5N20-0'],
   'fr-ch': ['9NO15-4']
@@ -58,35 +57,13 @@ function myLabelPosition (y) {
     return 'above'
   }
 }
-export default function ProblemesAdditifsFractions5e () {
-  Exercice.call(this)
-  this.debug = false
-  this.sup = 1
-  this.nbQuestions = 1
+export default class ProblemesAdditifsFractions5e extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+  }
 
-  this.titre = titre
-  this.consigne = ''
-
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 1 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0]
-    } else {
-      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = [0]
-    }
-
-    this.autoCorrection = []
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
+  nouvelleVersion () {
     this.introduction = lampeMessage({
       titre: '',
       texte: 'Calculatrice autorisée',
@@ -302,23 +279,12 @@ ${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.de
         })
       }
 
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-      }
+      texte = `${enonces[0].enonce}`
+      texteCorr = `${enonces[0].correction}`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

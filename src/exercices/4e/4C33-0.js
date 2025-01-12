@@ -1,12 +1,11 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
@@ -21,29 +20,28 @@ export const dateDeModifImportante = '24/09/2023'
  * @author Guillaume Valmont
  */
 export const uuid = '1d078'
-export const ref = '4C33-0'
+
 export const refs = {
   'fr-fr': ['4C33-0'],
   'fr-ch': ['10NO2-1']
 }
-export default function NotationPuissance () {
-  Exercice.call(this)
-  this.nbQuestions = 4
-  this.besoinFormulaireNumerique = ['Type de calcul', 3, '1 : Écrire sous forme de produit\n2 : Écrire sous forme de puissance\n3 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
-  this.sup = 1
-  this.besoinFormulaire2Numerique = ['Mantisse', 3, '1 : Positive\n2 : Négative\n3 : Mélange']
-  this.sup2 = 3
-  this.besoinFormulaire3Numerique = false
-  this.sup3 = 1
-  this.besoinFormulaire4Numerique = ['Signe devant la mantisse', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
-  this.sup4 = 3
-  this.classe = 4
+export default class NotationPuissance extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    this.titre = titre
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.nbQuestions = 4
+    this.besoinFormulaireNumerique = ['Type de calcul', 3, '1 : Écrire sous forme de produit\n2 : Écrire sous forme de puissance\n3 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
+    this.sup = 1
+    this.besoinFormulaire2Numerique = ['Mantisse', 3, '1 : Positive\n2 : Négative\n3 : Mélange']
+    this.sup2 = 3
+    this.besoinFormulaire3Numerique = false
+    this.sup3 = 1
+    this.besoinFormulaire4Numerique = ['Signe devant la mantisse', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
+    this.sup4 = 3
+    this.classe = 4
+  }
+
+  nouvelleVersion () {
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:
@@ -176,7 +174,7 @@ export default function NotationPuissance () {
           }
           texte = this.sup === 3 ? `Simplifier ${enonce} en utilisant la notation puissance` : enonce
           texteCorr = correction
-          handleAnswers(this, i, { reponse: { value: puissances, compare: fonctionComparaison, options: { puissance: true } } })
+          handleAnswers(this, i, { reponse: { value: puissances, options: { puissance: true } } })
           break
         }
       }
@@ -206,8 +204,8 @@ export default function NotationPuissance () {
 
       // Si la question n'mantisse jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, mantisse, exposant, listeTypeDeQuestions[i], listeSignesExposants[i], listeSignes[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple mantisse, exposant, c et d)
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

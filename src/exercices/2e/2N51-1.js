@@ -1,18 +1,10 @@
-import TesterSiUnNombreEstSolutionDUneEquation from '../4e/4L14-0.js'
+import TesterSiUnNombreEstSolutionDUneEquation from '../4e/4L14-0'
 export const titre = 'Tester si un nombre est solution d\'une équation'
 export const interactifReady = false
-
-/**
- * Clone de 4L14-0 pour les 2nde
- *
- * @author Sébastien LOZANO
- */
 export const uuid = '71e5c'
-export const ref = '2N51-1'
 export const refs = {
   'fr-fr': ['2N51-1'],
   'fr-ch': []
 }
-export default function TesterSiUnNombreEstSolutionDUneEquation2nde () {
-  TesterSiUnNombreEstSolutionDUneEquation.call(this)
+export default class TesterSiUnNombreEstSolutionDUneEquation2nde extends TesterSiUnNombreEstSolutionDUneEquation {
 }

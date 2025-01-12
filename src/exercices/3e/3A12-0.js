@@ -1,11 +1,11 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString.js'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, ppcm, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { engrenages } from '../../lib/2d/engrenage.js'
+import { listeQuestionsToContenu, ppcm, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { engrenages } from '../../lib/2d/engrenage'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const dateDeModifImportante = '17/01/2024'
  * Résoudre des problèmes de ppcm avec les engrenages.
  */
 export const uuid = '6b37f'
-export const ref = '3A12-0'
+
 export const refs = {
   'fr-fr': ['3A12-0'],
   'fr-ch': []
@@ -32,20 +32,14 @@ export default class EngrenagesAnimes extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.nbCols = 1
-    this.nbColsCorr = 1
+
     this.sup = 1
     this.sup2 = false
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Calculer le nombre de dents (n tours à gauche)\n2 : Calculer le nombre de dents (tourne de n dents à gauche)\n3 : Calculer le nombre de tours (2 roues)\n4 : Calculer le nombre de tours à droite (tourne de n dents à gauche)\n5 : Synchroniser 3 roues\n6 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Arrêt de l\'animation après un cycle lors de la correction']
   }
 
-  // eslint-disable-next-line no-unused-vars
-
   nouvelleVersion (numeroExercice) {
-    this.listeQuestions = []
-    this.listeCorrections = []
-
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({
       min: 1,
       max: 5,
@@ -312,8 +306,8 @@ export default class EngrenagesAnimes extends Exercice {
       }
 
       if (this.questionJamaisPosee(i, nbToursA, nbToursB, nbToursC, nbDentsRoueA, nbDentsRoueB, nbDentsRoueC)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
         k = kk // pour interactif
       }

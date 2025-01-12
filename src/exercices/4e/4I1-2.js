@@ -1,16 +1,16 @@
 // on importe les fonctions nécessaires.
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.ts'
+import { point, tracePoint } from '../../lib/2d/points'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteParPoint } from '../../lib/2d/textes'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
-import { scratchblock } from '../../modules/scratchblock.js'
+import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin'
+import { scratchblock } from '../../modules/scratchblock'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
@@ -24,26 +24,23 @@ export const dateDePublication = '29/06/2021'
  * @author Jean-Claude Lhote
  */
 export const uuid = '8ded2'
-export const ref = '4I1-2'
+
 export const refs = {
   'fr-fr': ['4I1-2'],
   'fr-ch': []
 }
-export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
-  Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.typeExercice = 'Scratch'
-  this.interactif = true
-  this.listeAvecNumerotation = false
+export default class AlgoTortue extends Exercice { // ça c'est la classe qui permet de créer cet exercice
+  constructor () {
+    super() // la classe parente qui définit les attributs commun à tous les exercices
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
+    this.typeExercice = 'Scratch'
+    this.interactif = true
+    this.listeAvecNumerotation = false
+  }
 
+  nouvelleVersion (numeroExercice) { // la méthode qui crée une nouvelle version de l'exercice
     this.figures = []
     const objetsCorrection = []
     const paramsCorrection = {}

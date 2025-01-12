@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import Trinome from '../../modules/Trinome'
@@ -27,7 +27,7 @@ const bleuMathalea = context.isHtml ? '#216D9A' : 'black'
 export default class EtudeSuiteFonctionRecurrence extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
   }

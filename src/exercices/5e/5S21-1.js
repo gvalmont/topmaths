@@ -1,39 +1,38 @@
-/* eslint-disable camelcase */
-
 import { choice } from '../../lib/outils/arrayOutils'
-import { numAlpha, sp } from '../../lib/outils/outilString.js'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Trouver des probabilités simples'
 export const dateDePublication = '01/05/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
- * Description didactique de l'exercice
+ *
  * @author Rémi Angot et Matthieu Devillers
 */
 export const uuid = '850b0'
-export const ref = '5S21-1'
+
 export const refs = {
   'fr-fr': ['5S21-1'],
   'fr-ch': ['11NO2-7']
 }
-export default function ProbabilitesSimples () {
-  Exercice.call(this)
-  this.nbQuestions = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  // this.sup = 1  // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class ProbabilitesSimples extends Exercice {
+  constructor () {
+    super()
 
-  this.nouvelleVersion = function () {
-    for (let i = 0; i < this.nbQuestions; i++) {
+    this.nbQuestions = 3
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+
+    // this.sup = 1  // Niveau de difficulté
+  }
+
+  nouvelleVersion () {
+    for (let i = 0; i < this.nbQuestions;) {
       let texte
 
       const pG = randint(20, 60) // pG est un pourcentage
@@ -57,10 +56,11 @@ export default function ProbabilitesSimples () {
       const reponse2 = texNombre(1 - (pG + pN) / 100)
       correction1 += `P(«${sp(1)}Perdre le match${sp(1)}») $=${miseEnEvidence(`${reponse2}`)} $<br>`
       if (this.questionJamaisPosee(i, pG)) {
-        handleAnswers(this, 2 * i, { reponse: { value: reponse1, compare: fonctionComparaison } })
-        handleAnswers(this, 2 * i + 1, { reponse: { value: reponse2, compare: fonctionComparaison } })
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(correction1)
+        handleAnswers(this, 2 * i, { reponse: { value: reponse1 } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: reponse2 } })
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = correction1
+        i++
       }
     }
     listeQuestionsToContenu(this)

@@ -1,17 +1,16 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
-import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
+import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../Exercice'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fraction } from '../../modules/fractions.js'
-import { context } from '../../modules/context.js'
+import { fraction } from '../../modules/fractions'
+import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -29,30 +28,35 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  */
 export const uuid = '5f429'
-export const ref = '4C21'
+
 export const refs = {
   'fr-fr': ['4C21'],
   'fr-ch': ['9NO13-5']
 }
-export default function ExerciceAdditionnerOuSoustraireDesFractions () {
-  Exercice.call(this)
-  this.sup = 2 // Niveau de difficulté
-  this.sup2 = false // Avec ou sans relatifs
-  this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
-  this.sup4 = false // Par défaut c'est l'ancienne correction qui est affichée
-  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
+export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
+    this.besoinFormulaire4CaseACocher = ['Présentation des corrections en colonnes', false]
+    this.sup = 2 // Niveau de difficulté
+    this.sup2 = false // Avec ou sans relatifs
+    this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
+    this.sup4 = false // Par défaut c'est l'ancienne correction qui est affichée
+    this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (!this.sup3 && !context.isAmc) {
       this.consigne = 'Calculer.'
     } else {
       this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée au maximum."
     }
-    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
@@ -205,7 +209,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
 
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '=' })
       reponse = this.sup3 ? fraction(num, den).simplifie() : fraction(num, den)
-      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
+      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
 
       if (context.isAmc) {
         texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
@@ -233,8 +237,4 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
 
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
-  this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
-  this.besoinFormulaire4CaseACocher = ['Présentation des corrections en colonnes', false]
 }

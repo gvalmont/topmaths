@@ -1,11 +1,11 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils.js'
-import { spline } from '../../../lib/mathFonctions/Spline.js'
+import { randint } from '../../../modules/outils'
+import { spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { repere } from '../../../lib/2d/reperes.js'
+import { repere } from '../../../lib/2d/reperes'
 import { texteGras } from '../../../lib/format/style'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -16,17 +16,16 @@ export const uuid = '27a60'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
+
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = '  blocCenter ' + KeyboardType.clavierDeBase
-    this.formatInteractif = 'calcul'
+    this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
   nouvelleVersion () {
@@ -162,7 +161,7 @@ export default class NomExercice extends Exercice {
 
       this.question = `On donne le graphique d’une fonction $f$ : <br>
       ` + mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
-      this.question += `<br>Donner le nombre de solutions de l'équation  $f(x)=${a}$.`
+      this.question += `<br>Donner le nombre de solutions de l'équation  $f(x)=${a}$.<br>`
       this.correction = `Le nombre de solution de l'équation $f(x)=${a}$ est le nombre de points d'intersection entre la droite d'équation $y=${a}$ et la courbe de $f$. <br>`
 
       this.correction = `Le nombre de solution de l'équation $f(x)=${a}$ est le nombre de points d'intersection entre la droite d'équation $y=${a}$ et la courbe de $f$. <br>`
@@ -181,7 +180,7 @@ export default class NomExercice extends Exercice {
         this.correction += `La droite horizontale d'équation $y=${a}$ n'a aucun point d'intersection avec la courbe de $f$. <br>
           Ainsi l'équation $f(x)=${a}$ a $${miseEnEvidence(0)}$ solution.`
       }
-      this.optionsChampTexte = { texteApres: 'solution(s)' }
+      this.optionsChampTexte = { texteApres: ' solution(s)' }
       this.canEnonce = this.question// 'Compléter'
       this.canReponseACompleter = '$\\ldots$ solution(s)'
     }

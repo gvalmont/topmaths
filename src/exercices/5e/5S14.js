@@ -1,11 +1,11 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { joursParMois } from '../../lib/outils/dateEtHoraires'
-import Exercice from '../deprecatedExercice.js'
-import { OutilsStats } from '../../modules/outilsStat.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice'
+import { OutilsStats } from '../../modules/outilsStat'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context.js'
+import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
 
@@ -23,21 +23,24 @@ export const dateDeModifImportante = '24/06/2024'
  * 12/01/2023 : Mickael Guironnet Refactoring (remodifié par EE car il n'y avait plus de correction et l'interactif ne fonctionnait plus)
  */
 export const uuid = 'ab91d'
-export const ref = '5S14'
+
 export const refs = {
   'fr-fr': ['5S14'],
   'fr-ch': ['11NO2-4']
 }
-export default function CalculerDesMoyennes () {
-  Exercice.call(this)
-  this.nbQuestions = 1
-  this.spacing = 1
-  this.spacingCorr = 2.5
-  this.nbColsCorr = 1
-  this.nbCols = 1
-  this.sup = 1
+export default class CalculerDesMoyennes extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange']
 
-  this.nouvelleVersion = function () {
+    this.nbQuestions = 1
+
+    this.spacingCorr = 2.5
+
+    this.sup = 1
+  }
+
+  nouvelleVersion () {
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -124,13 +127,12 @@ export default function CalculerDesMoyennes () {
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange']
 }

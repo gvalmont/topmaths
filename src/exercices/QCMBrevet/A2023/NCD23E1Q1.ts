@@ -22,7 +22,7 @@ export const dateDePublication = '28/10/2024'
  */
 
 export default class NouvelleCaledonieDec23Exo1Q1 extends ExerciceQcmA {
-  private appliquerLesValeurs ({ texte, p }: {texte:string, p:number}): void {
+  private appliquerLesValeurs ({ texte, p }: { texte: string, p: number }): void {
     this.enonce = `Des chercheurs ont trouvé que la probabilité ${texte} est de : `
     const proba = p > 1 ? p / 100 : p
     const nombre = decimalToScientifique(proba)

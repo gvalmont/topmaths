@@ -1,8 +1,8 @@
 import { describe, test, expect, beforeEach } from 'vitest'
 
-import {triAnnales} from '../../src/lib/components/sorting'
+import { triAnnales } from '../../src/lib/components/sorting'
 import referentielExams from '../../src/json/referentielStaticFR.json'
-import {  buildReferentiel, getAllEndings} from '../../src/lib/components/refUtils'
+import { buildReferentiel, getAllEndings } from '../../src/lib/components/refUtils'
 import type {
   JSONReferentielObject,
 } from '../../src/lib/types/referentiels'
@@ -23,5 +23,4 @@ describe('sorteddnbexamens', () => {
   test('sorteddnbexamens', () => {
     expect(examens.length).toBe(99)
   })
-
 })
