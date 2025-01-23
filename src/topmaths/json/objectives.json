@@ -3392,8 +3392,12 @@
                 "videos": [],
                 "exercises": [
                   {
+                    "slug": "uuid=b0f4e&id=6P12&n=1&d=10&s=true&s2=7&cd=1",
+                    "description": "Sans tableau"
+                  },
+                  {
                     "slug": "uuid=2d5eb&id=6P15&n=1&d=10&s=1",
-                    "description": ""
+                    "description": "Avec tableau"
                   }
                 ],
                 "lessonPlans": []
