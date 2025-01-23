@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
 
-export const titre = 'Complément à 100'
+export const titre = 'Fraction simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'a343i'

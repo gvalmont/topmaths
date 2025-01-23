@@ -299,12 +299,12 @@ export function regroupeTermesMemeDegre (exp, options) {
  * @param {{isColored: boolean, colorOffset: number, level: 0|1}} options
  * @return {string}
  */
-export function developpe (expr, options) {
+export function developpe (expr: string, options:{ isColored: boolean, colorOffset: number, level: 0 | 1 | 2 }): string {
   const isColored = options?.isColored
   const colorOffset = options.colorOffset ?? 0
   const level = options?.level ?? 0
   const clean = generateCleaner(['parentheses', 'fractions'])
-  const couleurs = options.couleurs ?? ['red', 'blue', 'green', 'black', 'red', 'blue', 'green', 'black']
+  const couleurs = options.isColored ?? ['red', 'blue', 'green', 'black', 'red', 'blue', 'green', 'black']
   expr = clean(expr)
   const arbre = engine.parse(expr)
   if (!['Square', 'Multiply', 'Power'].includes(arbre.head)) { // On ne développe que les produits où les carrés ici

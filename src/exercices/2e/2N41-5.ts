@@ -141,6 +141,7 @@ export default class DevelopperIdentitesRemarquables4 extends Exercice {
           handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}` } })
           break
         case 4:
+        default:
           texte = `$\\left(${dfrac}x-${a}\\right)^2$`
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{blue} a = ${dfrac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`

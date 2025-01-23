@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureNombreRelatif } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -8,6 +8,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { sp } from '../../lib/outils/outilString'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { texNombre } from '../../lib/outils/texNombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -33,9 +34,10 @@ export default class ExerciceSimplificationSommeAlgebrique extends Exercice {
     super()
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Que des additions\n2 : Que des soustractions\n3 : Mélange']
-
+    this.besoinFormulaire3CaseACocher = ['Avec des nombres décimaux']
     this.sup = max
     this.sup2 = 3
+    this.sup3 = false
     this.nbCols = 3
     this.nbColsCorr = 2
     this.nbQuestions = 9 // pour équilibrer les colonnes
@@ -45,9 +47,12 @@ export default class ExerciceSimplificationSommeAlgebrique extends Exercice {
     this.consigne = this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer.'
     let liste = [[-1, -1, -1], [-1, -1, 1], [-1, 1, -1], [-1, 1, 1], [1, -1, -1], [1, -1, 1], [1, 1, -1], [1, 1, 1]]
     liste = combinaisonListes(liste, this.nbQuestions)
-    for (let i = 0, a, b, s, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      a = randint(1, this.sup) * liste[i][0]
-      b = randint(1, this.sup) * liste[i][1]
+    for (let i = 0, s, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
+      const CoefDecimales = this.sup3 ? 10 : 1
+      let a = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
+      let b = randint(1, this.sup * CoefDecimales) / CoefDecimales * choice([-1, 1])
+      a *= liste[i][0]
+      b *= liste[i][1]
       switch (this.sup2) {
         case 1 :
           s = 1 // +
@@ -62,11 +67,11 @@ export default class ExerciceSimplificationSommeAlgebrique extends Exercice {
       texte = context.isAmc ? 'Calculer : ' : ''
       if (s === 1) {
         texte += '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + '$'
-        texteCorr = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' = ' + a + ecritureAlgebrique(s * b) + ' = ' + miseEnEvidence(a + b) + ' $'
+        texteCorr = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' = ' + texNombre(a, 1) + ecritureAlgebrique(s * b) + ' = ' + miseEnEvidence(texNombre(a + b, 1)) + ' $'
         setReponse(this, i, a + b, { digits: 2, signe: true })
       } else {
         texte += '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + '$'
-        texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + a + ecritureAlgebrique(s * b) + ' = ' + miseEnEvidence(a - b) + ' $'
+        texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + texNombre(a, 1) + ecritureAlgebrique(s * b) + ' = ' + miseEnEvidence(texNombre(a - b, 1)) + ' $'
         setReponse(this, i, a - b, { digits: 2, signe: true })
       }
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: `$${sp()}=$` })

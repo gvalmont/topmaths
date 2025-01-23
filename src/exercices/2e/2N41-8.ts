@@ -256,6 +256,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
           break
 
         case 7:// a/(ex+f) +/- b/(cx+d)
+        default:
           {
             let b
             const choix = choice([true, false])

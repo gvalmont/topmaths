@@ -129,6 +129,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           reponseAttendue = `(${fra.texFraction}x-${a})^2`
           break
         case 9:
+        default:
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
           texte = `$${fraC.texFraction}x^2-${a * a}$` // b>1`
           texteCorr = `$${fraC.texFraction}x^2-${a * a}=\\left(${fra.texFraction}x\\right)^2-${a}^2=\\left(${fra.texFraction}x-${a}\\right)\\left(${fra.texFraction}x+${a}\\right)$`

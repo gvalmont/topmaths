@@ -88,7 +88,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
     for (
       let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       const isColored = this.sup4
-      const level = this.sup3 - 1
+      const level = (this.sup3 - 1) as 0 | 1 | 2
       const rationnels = true
       const isPositif = this.sup2
       // Initialisation des variables didactiques en fonction du type de question voulu

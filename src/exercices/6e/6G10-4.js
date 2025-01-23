@@ -103,7 +103,6 @@ export default class VocabulaireDuCercle extends Exercice {
     if (context.isHtml) this.consigne += '<br>'
 
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
-    console.log(this.interactifType)
     const nbSousQuestionMax = 7 // Il y a 6 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
     let sensDesQuestionsDisponibles
     switch (this.sup) {

@@ -38,7 +38,7 @@ async function test5R211 (page: Page) {
   for (const question of questions) {
     const mathField = question.mathField
     const cleanMathField = mathField
-      .replace(' = (\\placeholder[place1]{}) + (\\placeholder[place2]{}) = \\placeholder[place3]{}', '')
+      .replace(' = (\\placeholder[champ1]{}) + (\\placeholder[champ2]{}) = (\\placeholder[champ3]{})', '')
       .replaceAll('(', '')
       .replaceAll(')', '')
     const [stringA, stringB] = cleanMathField.split(' - ')

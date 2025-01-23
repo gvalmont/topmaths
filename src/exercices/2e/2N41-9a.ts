@@ -10,6 +10,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 import engine from '../../lib/interactif/comparisonFunctions'
+import type { BoxedExpression } from '@cortex-js/compute-engine'
 
 export const titre = 'Développer puis réduire des expressions littérales complexes'
 export const dateDePublication = '20/04/2024'
@@ -92,7 +93,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
     for (
       let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       const isColored = this.sup4
-      const level = this.sup3 - 1
+      const level: 0 | 1 | 2 = (this.sup3 - 1) as 0 | 1 | 2
       const isPositif = this.sup2
       // Initialisation des variables didactiques en fonction du type de question voulu
       let ope = '+' // valeur par défaut
@@ -172,9 +173,16 @@ export default class DevelopperReduireExprComplexe extends Exercice {
         : printlatex(`(${eS}*${choixLettre}+(${fS}))^2`).replaceAll(' ', '')
       const expressionDeveloppee1 = developpe(expression1, { isColored, colorOffset: 0, level })
       const expressionDeveloppee2 = developpe(expression2, { isColored, colorOffset: 4, level })
-      const devExpr1 = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex
-      // const devExpr1 = engine.box(['ExpandAll', engine.parse(expression1.replaceAll('\\dfrac', '\\frac'))]).evaluate().latex
-      const devExpr2 = engine.parse(developpe(expression2, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex
+      const parsedExp1: BoxedExpression = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac'))
+      const devExpr1 = parsedExp1 != null ? parsedExp1.latex : ''
+      if (devExpr1 === '') {
+        window.notify('Erreur dans le développement de l\'expression 1', { expression1 })
+      }
+      const parsedExp2 = engine.parse(developpe(expression2, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac'))
+      const devExpr2 = parsedExp2 != null ? parsedExp2.latex : ''
+      if (devExpr2 === '') {
+        window.notify('Erreur dans le développement de l\'expression 2', { expression2 })
+      }
       const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, { isColored })
       const sansParenthesesNetB = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, { isColored: false })
       const expression = `${expression1}${ope}${expression2}`

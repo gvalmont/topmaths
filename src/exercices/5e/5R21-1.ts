@@ -1,22 +1,28 @@
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
-import type { MathfieldElement } from 'mathlive'
-import { ComputeEngine } from '@cortex-js/compute-engine'
+import { ecritureNombreRelatif, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+// import type { MathfieldElement } from 'mathlive'
+// import { ComputeEngine } from '@cortex-js/compute-engine'
 import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { sp } from '../../lib/outils/outilString'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Transformer une soustraction en addition puis calculer'
 export const dateDePublication = '13/11/2023'
+export const dateDeModifImportante = '23/01/2024'
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
  * Transformer une soustraction en addition puis calculer
- * @author Rémi Angot
+ * @author Rémi Angot ; Olivier Mimeau (ajout Decimaux et Modification de l'interactivité)
  */
 export const uuid = 'f2db1'
 
@@ -26,24 +32,31 @@ export const refs = {
 }
 
 type TypeQuestionsDisponibles = '+-' | '--' | '-+'
-const ce = new ComputeEngine()
 
-class SoustractionRelatifs extends Exercice {
+export default class SoustractionRelatifs extends Exercice {
   listeA: number[] = []
   listeB: number[] = []
   typeQuestionsDisponibles = ['+-', '--', '-+'] as TypeQuestionsDisponibles[]
   constructor () {
     super()
     this.nbQuestions = 5
+    this.sup = 20
+    this.sup2 = false
+    this.sup3 = false
+    this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+    this.besoinFormulaire2CaseACocher = ['Seul le 2e terme négatif est entre parenthèses']
+    this.besoinFormulaire3CaseACocher = ['Avec des nombres décimaux']
   }
 
-  nouvelleVersion (): void {
+  nouvelleVersion () {
     const listeTypeQuestions = combinaisonListes(this.typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
+
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
-      let a = randint(2, 10)
-      let b = randint(2, 10)
+      const CoefDecimales = this.sup3 ? 10 : 1
+      let a = randint(1, this.sup * CoefDecimales) / CoefDecimales
+      let b = randint(1, this.sup * CoefDecimales) / CoefDecimales
       switch (listeTypeQuestions[i]) {
         case '+-':
           b *= -1
@@ -58,13 +71,26 @@ class SoustractionRelatifs extends Exercice {
       }
       this.listeA[i] = a
       this.listeB[i] = b
-      texte = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)}$`
-      texteCorr = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = ${miseEnEvidence(ecritureNombreRelatif(a))} + ${miseEnEvidence(ecritureNombreRelatif(-b))} = ${miseEnEvidence(ecritureNombreRelatif(a - b))}$`
+      const textea = this.sup2 ? texNombre(a, 1) : ecritureNombreRelatif(a)
+      const texteb = this.sup2 ? ecritureParentheseSiNegatif(b) : ecritureNombreRelatif(b)
+      const texteReponse = this.sup2 ? texNombre(b - a, 1) : ecritureNombreRelatif(a - b)
+      texte = `$${textea} - ${texteb}$`
+      texteCorr = `$${textea} - ${texteb} = ${miseEnEvidence(textea)} + ${miseEnEvidence(ecritureNombreRelatif(-b))} = ${miseEnEvidence(texteReponse)}$`
 
       if (this.interactif) {
-        texte = `<math-field readonly class="fillInTheBlanks" data-keyboard="numbers basicOperations" style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
+        // pas de $ avec RemplisLesBlancs
+        const texteRemplisLesBlancs = this.sup2 ? `${textea} - ${texteb} = ${sp(1)}%{champ1}${sp(1)} + (%{champ2}) = ${sp(1)}%{champ3}${sp(1)}` : `${textea} - ${texteb} = (%{champ1}) + (%{champ2}) = (%{champ3})`
+        texte = remplisLesBlancs(this, i, texteRemplisLesBlancs, ` ${KeyboardType.clavierDeBase}`, '')
+        /*        texte = `<math-field readonly class="fillInTheBlanks" data-keyboard="numbers basicOperations" style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
         ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = (\\placeholder[place1]{}) + (\\placeholder[place2]{}) = \\placeholder[place3]{}
       </math-field><span class="ml-2" id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+  */
+        handleAnswers(this, i, {
+          bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]) + listePoints[2], 2],
+          champ1: { value: textea },
+          champ2: { value: ecritureNombreRelatif(-b) },
+          champ3: { value: texteReponse }
+        }, { formatInteractif: 'mathlive'/* 'fillInTheBlank' */ })
       }
 
       if (this.questionJamaisPosee(i, a, b, listeTypeQuestions[i])) {
@@ -92,7 +118,7 @@ class SoustractionRelatifs extends Exercice {
                   statut: '',
                   reponse: {
                     texte: 'Résultat du calcul : ',
-                    valeur: [a - b],
+                    valeur: [b - a],
                     param: {
                       digits: 2,
                       decimals: 0,
@@ -112,7 +138,7 @@ class SoustractionRelatifs extends Exercice {
   }
 
   // à mon avis, cette correction est à proscrire et doit pouvoir se faire avec handleAnswer et le formatInteractif 'fillInTheBlank'
-  correctionInteractive = (i?: number) => {
+  /*  correctionInteractive = (i?: number) => {
     if (i === undefined) return ''
     if (this.answers === undefined) this.answers = {}
     let result: 'OK' | 'KO' = 'KO'
@@ -146,7 +172,5 @@ class SoustractionRelatifs extends Exercice {
       mf.setPromptState('place3', 'correct', true)
     }
     return result
-  }
+  } */
 }
-
-export default SoustractionRelatifs

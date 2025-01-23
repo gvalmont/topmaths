@@ -300,6 +300,7 @@ $\\begin{aligned}
           break
 
         case 3:
+        default:
           nomVariables = [
             shuffle(['a', 'b', 'c', 'e', 'f']), shuffle(['x', 'y', 'z', 'w', 'v']), shuffle(['u', 'v', 'w', 't', 'r']), shuffle(['A', 'B', 'C', 'E', 'F']),
             shuffle(['R', 'S', 'T', 'U', 'V']), shuffle(['I', 'J', 'K', 'L', 'M']), shuffle(['c', 'g', 'e', 'f', 'h']),
@@ -444,7 +445,7 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
 
       // Fin de cette uniformisation
 
-      if (this.questionJamaisPosee(i, typesDeQuestions, choix, nomV)) {
+      if (this.questionJamaisPosee(i, typesDeQuestions, choix, nomV.join())) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

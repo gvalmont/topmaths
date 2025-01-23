@@ -42,23 +42,28 @@ export const refs = {
 }
 
 function nombreDecimales (prMin:number, prMax:number, n:number) {
-  let pourcent
+  let pourcent = 0
+  let cpt = 0
   if (n === 0) {
     do {
-      pourcent = randint(1, 9) * 10
-    } while (pourcent < prMin || pourcent > prMax)
+      cpt++
+      pourcent = randint(0, Math.floor(prMax / 10)) * 10
+    } while (cpt < 1000 && (pourcent < prMin || pourcent > prMax))
   } else if (n === 1) {
     do {
+      cpt++
       pourcent = choice([10, 20, 25, 30, 50, 60, 70, 75])
-    } while (pourcent < prMin || pourcent > prMax)
+    } while (cpt < 1000 && (pourcent < prMin || pourcent > prMax))
   } else if (n === 2) {
     do {
-      pourcent = randint(1, 9) + randint(1, 9) * 10
-    } while (pourcent < prMin || pourcent > prMax)
+      cpt++
+      pourcent = randint(1, 9) + randint(0, Math.floor(prMax / 10)) * 10
+    } while (cpt < 1000 && (pourcent < prMin || pourcent > prMax))
   } else {
     do {
-      pourcent = (randint(10, 90) * 100 + randint(1, 9) * 10) / 100
-    } while (pourcent < prMin || pourcent > prMax)
+      cpt++
+      pourcent = (randint(1, 9) * 10 + randint(1, 9)) / 10 + randint(0, Math.floor(prMax / 10)) * 10
+    } while (cpt < 1000 && (pourcent < prMin || pourcent > prMax))
   }
   return pourcent
 }
@@ -157,12 +162,16 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
     const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, enonceInit, enonceAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       const prenom1 = prenomM()
       const prenom2 = prenomF()
       let prixIntial, prixFinal
       let propositionsAMC: unknown[] = []
+      let texte = ''
+      let enonceInit = ''
+      let enonceAMC = ''
+      let texteCorr = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'réduction': {
           const situation = choice(situationsReductions)
@@ -170,7 +179,7 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
           prixIntial = 2 * randint(situation.moitieMin, situation.moitieMax)
           const montantReduction = pourcent * prixIntial / 100
           prixFinal = prixIntial - montantReduction
-          texte = `${situation.quoi} coûte $${prixIntial}$${sp(1)}€. ${prenom1} bénéficie d'une réduction de $${pourcent}${sp(1)}\\%$.`
+          texte = `${situation.quoi} coûte $${prixIntial}$${sp(1)}€. ${prenom1} bénéficie d'une réduction de $${texNombre(pourcent, 1)}${sp(1)}\\%$.`
           enonceInit = texte
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
           texte = enonceInit + '<br>' + enonceAMC
@@ -229,7 +238,7 @@ export default class AugmenterEtReduireDunPourcentage extends Exercice {
               }
             )
           }
-          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${prixIntial}${sp()}€ \\times ${pourcent} \\div 100${egalOuApprox(montantReduction, 2)}`
+          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${prixIntial}${sp()}€ \\times ${texNombre(pourcent, 1)} \\div 100${egalOuApprox(montantReduction, 2)}`
           texteCorr += miseEnEvidence(`${texPrix(montantReduction)}${sp()}`) + '€$. <br>'
           texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera ${situation.quoiReponse} : $${prixIntial}${sp()}€-${texPrix(montantReduction)}${sp()}€=`
           texteCorr += miseEnEvidence(`${texPrix(prixFinal)}${sp()}`) + '€$.'

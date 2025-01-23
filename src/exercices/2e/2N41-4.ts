@@ -133,6 +133,7 @@ export default class DevelopperIdentitesRemarquables3 extends Exercice {
           reponse = `${b * b}x^2-${2 * (-b) * a}x+${a * a}`
           break
         case 4:
+        default:
           texte = `$\\left(${texFractionFromString(ns, ds)}x+${a}\\right)^2$`
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${texFractionFromString(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`

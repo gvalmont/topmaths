@@ -32,18 +32,22 @@ export default class ExprimerEnFonctionDesAutresFormules extends Exercice {
   }
 
   nouvelleVersion () {
-    let typesDeQuestionsDisponibles = []
+    let typesDeQuestionsDisponibles: number[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = shuffle([15, 16, 17, 18, 19, 20, 21, 22])
-    } else if (this.sup === 3) {
+    } else {
       typesDeQuestionsDisponibles = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])//
     } // Tous les cas possibles sauf fractions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0, typesDeQuestions, choix1, nomV, varAExprimer, choix; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      texteCorr = ''
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      let texteCorr = ''
+      let texte = ''
+      let varAExprimer = ''
+      let reponse: string[] = []
+
       switch (typesDeQuestions) {
         case 1: //  côté carré en fonction de son perimètre
           varAExprimer = 'c'
@@ -174,11 +178,12 @@ export default class ExprimerEnFonctionDesAutresFormules extends Exercice {
           break
 
         case 11:// longueur/largeur rectangle en fonction de son périmètre
-          choix1 = choice([['longueur', 'L', 'largeur', 'l'], ['largeur', 'l', 'longueur', 'L']])
-          varAExprimer = choix1[1]
-          texte = `Exprimer la ${choix1[0]} $${choix1[1]}$ d'un rectangle en fonction de son périmètre $P$ et de sa ${choix1[2]} $${choix1[3]}$.<br>`
-          reponse = [`\\dfrac{P-2${choix1[3]}}{2}`, `\\dfrac{P}{2}-${choix1[3]}`]
-          texteCorr = `Le périmètre $P$ d'un rectangle en fonction de sa longueur et de largeur est donné par $P=2L+2l$.<br>
+          {
+            const choix1 = choice([['longueur', 'L', 'largeur', 'l'], ['largeur', 'l', 'longueur', 'L']])
+            varAExprimer = choix1[1]
+            texte = `Exprimer la ${choix1[0]} $${choix1[1]}$ d'un rectangle en fonction de son périmètre $P$ et de sa ${choix1[2]} $${choix1[3]}$.<br>`
+            reponse = [`\\dfrac{P-2${choix1[3]}}{2}`, `\\dfrac{P}{2}-${choix1[3]}`]
+            texteCorr = `Le périmètre $P$ d'un rectangle en fonction de sa longueur et de largeur est donné par $P=2L+2l$.<br>
           On isole $${choix1[1]}$ dans un membre de l'égalité :<br>
           $\\begin{aligned}
     P&=2L+2l\\\\
@@ -186,20 +191,23 @@ export default class ExprimerEnFonctionDesAutresFormules extends Exercice {
     \\dfrac{P-2${choix1[3]}}{2}&=${choix1[1]}
     \\end{aligned}$ <br>  
     Ainsi, $${choix1[1]}=${miseEnEvidence(`\\dfrac{P-2${choix1[3]}}{2}`)}$ ou, par exemple $${choix1[1]}=\\dfrac{P}{2}-${choix1[3]}$.`
+          }
           break
 
         case 12:// longueur/largeur rectangle en fonction de son Aire
-          choix1 = choice([['longueur', 'L', 'largeur', 'l'], ['largeur', 'l', 'longueur', 'L']])
-          varAExprimer = choix1[1]
-          texte = `Exprimer la ${choix1[0]} $${choix1[1]}$ d'un rectangle en fonction de son aire $A$ et de sa ${choix1[2]} $${choix1[3]}$.<br>`
-          reponse = [`\\dfrac{A}{${choix1[3]}}`]
-          texteCorr = `L'aire $A$ d'un rectangle en fonction de sa longueur et de largeur est donnée par $A=L\\times l$.<br>
+          {
+            const choix1 = choice([['longueur', 'L', 'largeur', 'l'], ['largeur', 'l', 'longueur', 'L']])
+            varAExprimer = choix1[1]
+            texte = `Exprimer la ${choix1[0]} $${choix1[1]}$ d'un rectangle en fonction de son aire $A$ et de sa ${choix1[2]} $${choix1[3]}$.<br>`
+            reponse = [`\\dfrac{A}{${choix1[3]}}`]
+            texteCorr = `L'aire $A$ d'un rectangle en fonction de sa longueur et de largeur est donnée par $A=L\\times l$.<br>
           On isole $${choix1[1]}$ dans un membre de l'égalité :<br>
           $\\begin{aligned}
 A&=L\\times l\\\\
 \\dfrac{A}{${choix1[3]}}&=${choix1[1]}\\\\
 \\end{aligned}$ <br>  
 Ainsi, $${choix1[1]}=${miseEnEvidence(`\\dfrac{A}{${choix1[3]}}`)}$.`
+          }
           break
 
         case 13:// Diamètre en fonction du rayon
@@ -220,14 +228,15 @@ Ainsi, $${choix1[1]}=${miseEnEvidence(`\\dfrac{A}{${choix1[3]}}`)}$.`
           break
           // avec les formules* *************************************************************************************** */
         case 15 : // aire triangle  : hauteur ou base en fonction des autres
-          choix1 = choice([['hauteur', 'h', 'base', 'B'], ['Base', 'B', 'hauteur', 'h']])
-          varAExprimer = choix1[1]
-          texte = `L'aire $A$ d'un triangle est donnée par : $A=\\dfrac{B\\times h}{2}$, avec $B$ la longueur d'un côté et $h$ la hauteur relative à ce côté.<br>
+          {
+            const choix1 = choice([['hauteur', 'h', 'base', 'B'], ['Base', 'B', 'hauteur', 'h']])
+            varAExprimer = choix1[1]
+            texte = `L'aire $A$ d'un triangle est donnée par : $A=\\dfrac{B\\times h}{2}$, avec $B$ la longueur d'un côté et $h$ la hauteur relative à ce côté.<br>
  Exprimer $${choix1[1]}$ en fonction de $A$ et de $${choix1[3]}$.<br>`
-          reponse = [`\\dfrac{2\\times A}{${choix1[3]}}`,
+            reponse = [`\\dfrac{2\\times A}{${choix1[3]}}`,
     `2\\times\\dfrac{A}{${choix1[3]}}`,
   `\\dfrac{2}{${choix1[3]}}\\times A`]
-          texteCorr = `On isole $${choix1[1]}$ dans un membre de l'égalité :<br>
+            texteCorr = `On isole $${choix1[1]}$ dans un membre de l'égalité :<br>
        $\\begin{aligned}
       A&=\\dfrac{B\\times h}{2}\\\\
       A\\times 2&=B\\times h\\\\
@@ -235,17 +244,19 @@ Ainsi, $${choix1[1]}=${miseEnEvidence(`\\dfrac{A}{${choix1[3]}}`)}$.`
                      \\end{aligned}$
       <br> 
      Une expression de  $${choix1[1]}$ en fonction de $A$ et de $${choix1[3]}$ est $${choix1[1]}=\\dfrac{A\\times 2}{${choix1[3]}}$ ou plus simplement $${choix1[1]}=${miseEnEvidence(`\\dfrac{2A}{${choix1[3]}}`)}$.`
+          }
           break
 
         case 16: // aire trapèze  : petite base ou grande base en fonction des autres
-          choix1 = choice([['b', 'B'], ['B', 'b']])
-          varAExprimer = choix1[0]
-          texte = `L'aire $A$ d'un trapèze est donnée par : $A=\\dfrac{(b+B)\\times h}{2}$, avec $B$ la longueur de la grande base, $b$ la longueur de la petite base et  $h$ la hauteur du trapèze.<br>
+          {
+            const choix1 = choice([['b', 'B'], ['B', 'b']])
+            varAExprimer = choix1[0]
+            texte = `L'aire $A$ d'un trapèze est donnée par : $A=\\dfrac{(b+B)\\times h}{2}$, avec $B$ la longueur de la grande base, $b$ la longueur de la petite base et  $h$ la hauteur du trapèze.<br>
 Exprimer $${choix1[0]}$ en fonction de $A$, de $${choix1[1]}$ et de $h$.<br>`
-          reponse = [`2\\times\\dfrac{A}{h}-${choix1[1]}`,
+            reponse = [`2\\times\\dfrac{A}{h}-${choix1[1]}`,
 `\\dfrac{2\\times A}{h}-${choix1[1]}`,
 `\\dfrac{2\\times A-${choix1[1]}\\times h}{h}`]
-          texteCorr = `On isole $${choix1[0]}$ dans un membre de l'égalité :<br>
+            texteCorr = `On isole $${choix1[0]}$ dans un membre de l'égalité :<br>
     $\\begin{aligned}
    A&=\\dfrac{(b+B)\\times h}{2}\\\\
   2\\times A&=(b+B)\\times h\\\\
@@ -254,6 +265,7 @@ Exprimer $${choix1[0]}$ en fonction de $A$, de $${choix1[1]}$ et de $h$.<br>`
      <br> 
     
  Une expression de  $${choix1[0]}$ en fonction de $A$, de  $${choix1[1]}$ et de $h$ est $${choix1[0]}=${miseEnEvidence(`\\dfrac{2A}{h}-${choix1[1]}`)}$.`
+          }
           break
 
         case 17:// aire trapèze  : hauteur en fonction des autres
@@ -274,13 +286,14 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
           break
 
         case 18:// moyenne arithmétique
-          choix1 = choice([['a', 'b'], ['b', 'a']])
-          varAExprimer = choix1[0]
-          texte = `La moyenne arithmétique de deux nombres $a$ et $b$ est le nombre $m$ défini par  : 
+          {
+            const choix1 = choice([['a', 'b'], ['b', 'a']])
+            varAExprimer = choix1[0]
+            texte = `La moyenne arithmétique de deux nombres $a$ et $b$ est le nombre $m$ défini par  : 
       $m=\\dfrac{a+b}{2}$.<br>
      Exprimer $${choix1[0]}$ en fonction de $m$ et de $${choix1[1]}$.<br>`
-          reponse = [`2\\times m - ${choix1[1]}`, `-${choix1[1]}+2\\times m`]
-          texteCorr = `On isole $${choix1[0]}$ dans un membre de l'égalité :<br>
+            reponse = [`2\\times m - ${choix1[1]}`, `-${choix1[1]}+2\\times m`]
+            texteCorr = `On isole $${choix1[0]}$ dans un membre de l'égalité :<br>
          $\\begin{aligned}
         m&=\\dfrac{a+b}{2}\\\\
        2\\times m&=a+b\\\\
@@ -288,17 +301,19 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
           <br> 
          
       Une expression de  $${choix1[0]}$ en fonction de $m$ et de $${choix1[1]}$ est $${choix1[0]}=${miseEnEvidence(`2m-${choix1[1]}`)}$.`
+          }
           break
 
         case 19:// moyenne géométrique
-          choix1 = choice([['a', 'b'], ['b', 'a']])
-          varAExprimer = choix1[0]
-          texte = `La moyenne géométrique de deux nombres non nuls $a$ et $b$ (de même signe) est le nombre $m$ défini par  : 
+          {
+            const choix1 = choice([['a', 'b'], ['b', 'a']])
+            varAExprimer = choix1[0]
+            texte = `La moyenne géométrique de deux nombres non nuls $a$ et $b$ (de même signe) est le nombre $m$ défini par  : 
       $m=\\sqrt{a\\times b}$.<br>
      Exprimer $${choix1[0]}$ en fonction de $m$ et de $${choix1[1]}$.<br>`
-          reponse = [`\\dfrac{m^2}{${choix1[1]}}`,
+            reponse = [`\\dfrac{m^2}{${choix1[1]}}`,
           `\\dfrac{1}{${choix1[1]}}\\times m^2`]
-          texteCorr = `On isole $${choix1[0]}$ dans un membre de l'égalité :<br>
+            texteCorr = `On isole $${choix1[0]}$ dans un membre de l'égalité :<br>
          $\\begin{aligned}
         m&=\\sqrt{a\\times b}\\\\
         m^2&=a\\times b\\\\
@@ -306,18 +321,20 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
           <br> 
          
       Une expression de  $${choix1[0]}$ en fonction de $m$ et de $${choix1[1]}$ est  $${miseEnEvidence(`\\dfrac{m^2}{${choix1[1]}}`)}$.`
+          }
           break
 
         case 20:// moyenne harmonique
-          choix1 = choice([['a', 'b'], ['b', 'a']])
-          varAExprimer = choix1[0]
-          texte = `La moyenne harmonique de deux nombres non nuls $a$ et $b$  est le nombre $h$ défini par  : 
+          {
+            const choix1 = choice([['a', 'b'], ['b', 'a']])
+            varAExprimer = choix1[0]
+            texte = `La moyenne harmonique de deux nombres non nuls $a$ et $b$  est le nombre $h$ défini par  : 
       $\\dfrac{1}{h}=\\dfrac{1}{2}\\left(\\dfrac{1}{a}+\\dfrac{1}{b}\\right)$.<br>
      Exprimer $${choix1[0]}$ en fonction de $h$ et de $${choix1[1]}$.<br>`
-          reponse = [`\\dfrac{1}{\\dfrac{2}{h}-\\dfrac{1}{${choix1[1]}}}`,
+            reponse = [`\\dfrac{1}{\\dfrac{2}{h}-\\dfrac{1}{${choix1[1]}}}`,
           `\\dfrac{${choix1[1]}\\times h}{2\\times ${choix1[1]}-h}`,
           `\\dfrac{1}{\\dfrac{2\\times ${choix1[1]}-h}{${choix1[1]}\\times h}}`]
-          texteCorr = `On isole $${choix1[0]}$ dans un membre de l'égalité :<br>
+            texteCorr = `On isole $${choix1[0]}$ dans un membre de l'égalité :<br>
          $\\begin{aligned}
          \\dfrac{1}{h}&=\\dfrac{1}{2}\\left(\\dfrac{1}{a}+\\dfrac{1}{b}\\right)\\\\
          \\dfrac{2}{h}&=\\dfrac{1}{a}+\\dfrac{1}{b}\\\\
@@ -330,6 +347,7 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
           <br> 
          
       Une expression de  $${choix1[0]}$ en fonction de $h$ et de $${choix1[1]}$ est  $${choix1[0]}=${miseEnEvidence(`\\dfrac{${choix1[1]}h}{2${choix1[1]}-h}`)}$.`
+          }
           break
 
         case 21:// taux d'évolution F
@@ -351,6 +369,7 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
           break
 
         case 22:// taux d'évolution I
+        default:
           varAExprimer = 'I'
           texte = `Le taux d'évolution  entre deux valeurs $I$ et  $F$ est le nombre $T$ défini par  : 
       $T=\\dfrac{F-I}{I}$.<br>
@@ -372,7 +391,7 @@ Exprimer $h$ en fonction de $A$, de $B$ et de $b$.<br>`
 
       if (this.interactif) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' alphanumeric  ', { texteAvant: sp(10) + `$${varAExprimer} =$` }) }
       handleAnswers(this, i, { reponse: { value: reponse } })
-      if (this.questionJamaisPosee(i, typesDeQuestions, choix, nomV)) {
+      if (this.questionJamaisPosee(i, typesDeQuestions, varAExprimer)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

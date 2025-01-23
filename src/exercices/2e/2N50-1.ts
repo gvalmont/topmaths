@@ -52,7 +52,7 @@ export default class ProblemesAvecEquations extends Exercice {
     this.spacing = 1.5
   }
 
-  figureThales (a, b, c, OC) {
+  figureThales (a: number, b: number, c: number, OC: number) {
     const O = point(1.5, 0, 'O')
     const B = point(4, 6, 'B')
     const A = point(0, 5, 'A')
@@ -103,11 +103,25 @@ export default class ProblemesAvecEquations extends Exercice {
       shuffle: true,
       nbQuestions: this.nbQuestions
     })
-    for (let i = 0, cpt = 0, texte, x, a, b, c, d, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
       // const n = 0 // un paramètre entier qui peut servir dans certains cas.
       const produit = choice(['fraises', 'pêches', 'poires', 'pommes', 'mangues', 'prunes', 'citrons'])
       const polygones = ['triangle', 'quadrilatère', 'pentagone', 'hexagone']
+      let a = 0
+      let b = 0
+      let c = 0
+      let d = 0
+      let x = 0
+      let equation = ''
+      let resolution
+      let enonce = ''
+      let intro = ''
+      let conclusion = ''
+      let verification = ''
+      let texte = ''
+      let texteCorr = ''
+      let figure = ''
       switch (listeDeProblemes[i]) {
         case 1: // basket
           /* variables = aleaVariables(
@@ -135,7 +149,7 @@ export default class ProblemesAvecEquations extends Exercice {
           intro = `Posons $x$ le nombre de paniers à trois points.<br>Le nombre de paniers à deux points est donc $${a}+x$.<br>`
           intro += 'Le score de l\'équipe fournit donc l\'équation: <br>'
           conclusion = `<br>L'équipe a donc marqué ${texteEnCouleurEtGras(x)} paniers à trois points.`
-          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
           texte = enonce + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
           break
         case 2: // basket2
@@ -163,7 +177,7 @@ export default class ProblemesAvecEquations extends Exercice {
           intro = `Posons $x$ le nombre de paniers à deux points.<br>Le nombre de paniers à trois points est donc $x-${a}$.<br>`
           intro += 'Le score de l\'équipe fournit donc l\'équation: <br>'
           conclusion = `<br>L'équipe a donc marqué ${texteEnCouleurEtGras(x)} paniers à trois points.`
-          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
           texte = enonce + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
           break
 
@@ -192,7 +206,7 @@ export default class ProblemesAvecEquations extends Exercice {
           enonce += `Quel est le prix d'un kilogramme de ${produit} ?`
           intro = `Posons $x$  le prix d'un kilogramme de ${produit}.<br>L'énoncé se traduit par l'équation suivante :<br>`
           conclusion = `<br>Le prix d'un kilogramme de ${produit} est donc de $${miseEnEvidence(texNombre(x))}$ €.`
-          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
           texte = enonce + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: '€' })
           break
         case 4: // polygone
@@ -220,7 +234,7 @@ export default class ProblemesAvecEquations extends Exercice {
           intro += `Un ${polygones[b - 2]} possède ${b + 1} côtés, donc celui-ci possède ${b} côtés de même longueur.<br>`
           intro += 'L\'énoncé se traduit par l\'équation suivante :<br>'
           conclusion = `<br>Les côtés de même longueur mesure donc $${miseEnEvidence(texNombre(x))}$ cm.`
-          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
           texte = enonce + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' $cm$' })
           break
         case 5: // programmes
@@ -277,9 +291,9 @@ export default class ProblemesAvecEquations extends Exercice {
           conclusion = `<br>${quidam[0]} et ${quidam[1]} ont donc choisi au départ le nombre ${texteEnCouleurEtGras(x)}.`
           verification = `<br>Vérification :
           <br>
-          D'une part : $${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$
+          D'une part : $${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$
           <br>
-          D'autre part : $${resolution.verifRightSide.printExpression}=${resolution.verifRightSide.printResult}$
+          D'autre part : $${resolution.verifRightSide!.printExpression}=${resolution.verifRightSide!.printResult}$
           `
           texte = enonce + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
           break
@@ -318,10 +332,11 @@ export default class ProblemesAvecEquations extends Exercice {
           intro += `Comme les $${texNombre(a)}$ places ont été vendues, le nombre de places enfants est : $${texNombre(a)}-x$.<br>`
           intro += 'Le calcul de la recette donne l\'équation suivante.<br>'
           conclusion = `<br>Il y a donc eu $${miseEnEvidence(texNombre(x))}$ adultes au spectacle.`
-          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
           texte = enonce + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
           break
         case 8: // isocele
+        default:
           /* variables = aleaVariables(
             {
               a: 'randomInt(50,100)',
@@ -366,13 +381,13 @@ export default class ProblemesAvecEquations extends Exercice {
           resolution = resoudre(equation, { reduceSteps: true, substeps: false, comment: false, suppr1: false })
           if (c > 0) figure = this.triangleIsocele2()
           else figure = this.triangleIsocele1()
-          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide!.printExpression}=${resolution.verifLeftSide!.printResult}$`
           texte = enonce + figure + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' $cm$' })
           break
       }
 
       texteCorr = intro
-      texteCorr += `$${resolution.equation.replace(/\b\d{4,}\b/g, (match) => { // Afin de mettre des espaces dans les grands nombres
+      texteCorr += `$${(resolution.equation! as string).replace(/\b\d{4,}\b/g, (match: string) => { // Afin de mettre des espaces dans les grands nombres
         // Convertir le nombre en entier et appliquer texNombre
         const nombre = parseInt(match, 10)
         return texNombre(nombre)

@@ -349,7 +349,7 @@ reponse += new FractionEtendue(n, d).valeurDecimale === 0 && valeurDecimaleFract
  * renvoie une chaine correspondant à l'écriture réduite d'ax^3+bx^2+cx+d selon les valeurs de a, b, c et d
  * @author Jean-Claude Lhote
  */
-export function reduirePolynomeDegre3 (a: number, b: number, c: number, d: number, x = 'x') {
+export function reduirePolynomeDegre3 (a: number | string, b: number | string, c: number | string, d: number | string, x = 'x') {
   [a, b, c, d].forEach((el) => typeof el === 'number' ? el : Number(el))
   let result = ''
   if (a !== 0) {
@@ -373,7 +373,7 @@ export function reduirePolynomeDegre3 (a: number, b: number, c: number, d: numbe
           result += `-${x}^2`
           break
         default:
-          result += `${ecritureAlgebrique(b)}${x}^2`
+          result += `${typeof b === 'number' ? ecritureAlgebrique(b) : b}${x}^2`
           break
       }
     }
@@ -386,12 +386,12 @@ export function reduirePolynomeDegre3 (a: number, b: number, c: number, d: numbe
           result += `-${x}`
           break
         default:
-          result += `${ecritureAlgebrique(c)}${x}`
+          result += `${typeof c === 'number' ? ecritureAlgebrique(c) : c}${x}`
           break
       }
     }
     if (d !== 0) {
-      result += `${ecritureAlgebrique(d)}`
+      result += `${typeof d === 'number' ? ecritureAlgebrique(d) : d}`
     }
   } else { // degré 2 pas de degré 3
     if (b !== 0) {
@@ -415,12 +415,12 @@ export function reduirePolynomeDegre3 (a: number, b: number, c: number, d: numbe
             result += `-${x}`
             break
           default:
-            result += `${ecritureAlgebrique(c)}${x}`
+            result += `${typeof c === 'number' ? ecritureAlgebrique(c) : c}${x}`
             break
         }
       }
       if (d !== 0) {
-        result += `${ecritureAlgebrique(d)}`
+        result += `${typeof d === 'number' ? ecritureAlgebrique(d) : d}`
       }
     } else // degré 1 pas de degré 2 ni de degré 3
       if (c !== 0) {
@@ -436,7 +436,7 @@ export function reduirePolynomeDegre3 (a: number, b: number, c: number, d: numbe
             break
         }
         if (d !== 0) {
-          result += `${ecritureAlgebrique(d)}`
+          result += `${typeof d === 'number' ? ecritureAlgebrique(d) : d}`
         }
       } else { // degré 0 a=0, b=0 et c=0
         result += `${d}`

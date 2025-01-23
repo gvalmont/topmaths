@@ -7,6 +7,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import Trinome from '../../modules/Trinome'
+import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré (3 formes)'
 export const interactifReady = false
 
@@ -37,16 +38,21 @@ export default class EtudeTrinome extends Exercice {
   }
 
   nouvelleVersion () {
-    let a = randint(-4, 4, [0, 1]); let question1; let question2; let question3; let correction1; let correction2
+    let a = randint(-4, 4, [0, 1])
+    let correction1 = ''
+    let correction2 = ''
+    let question1 = ''
+    let question2 = ''
+    let question3 = ''
     if (this.sup2 === 1) { a = 1 }
     let x1 = randint(-8, 8, 0)
     let x2 = x1 + 2 * randint(1, 6)
     while (x1 === -x2 || x1 === 0 || x2 === 0) {
-    // x1 + x2 doit êter pair pour n'avoir que des nombres entiers dans les différentes formes
+    // x1 + x2 doit être pair pour n'avoir que des nombres entiers dans les différentes formes
       x1 = randint(-8, 8, 0)
       x2 = x1 + 2 * randint(1, 6)
     }
-    const p = new Trinome()
+    const p = new Trinome(0, 0, 0)
     const q = new Trinome(a, -a * (x1 + x2), a * x1 * x2)
     p.defFormeFactorisee(a, x1, x2)
     const etapesDeveloppement = p.arrayTexDevelopperFormeCanonique
@@ -162,7 +168,7 @@ ${p.texFormeCanonique}  &=${etapesDeveloppement[1]}${this.correctionDetaillee ==
     if (a !== 1) { corr3a += `<br>$f(0)= ${p.texCalculImage(0)}$ ` } else { corr3a += `<br>$f(0)= 0^2${ecritureAlgebrique(-a * (x1 + x2))}\\times 0${ecritureAlgebrique(-a * (x1 + x2))}${ecritureAlgebrique(a * x1 * x2)}=${a * x1 * x2}$ ` }
 
     corr3a += `<br>$\\bullet$ Pour déterminer $f(${x1})$, les calculs à partir de la forme factorisée sont plus rapides : `
-    corr3a += `<br>$f(${x1})= ${rienSi1(a)}(${x1}${p.x1.oppose().simplifie().texFractionSignee})(${x1}${p.x2.oppose().simplifie().texFractionSignee})
+    corr3a += `<br>$f(${x1})= ${rienSi1(a)}(${x1}${p.x1 instanceof FractionEtendue ? p.x1.oppose().simplifie().texFractionSignee : -p.x1})(${x1}${p.x2 instanceof FractionEtendue ? p.x2.oppose().simplifie().texFractionSignee : -p.x2})
     = ${rienSi1(a)}\\times 0\\times ${ecritureParentheseSiNegatif(x1 - x2)}=0$ `
     corr3a += `<br>$\\bullet$ Pour déterminer $f(${p.alpha.simplifie().texFraction})$, les calculs à partir de la forme canonique sont plus rapides : `
     corr3a += `<br>$f(${p.alpha.simplifie().texFraction})= ${p.a.simplifie().texFractionSaufUn}\\left(${p.alpha.simplifie().texFraction}${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2${p.beta.simplifie().texFractionSignee}=0${p.beta.simplifie().texFractionSignee}=${p.beta.simplifie().texFraction}$ `
@@ -170,9 +176,9 @@ ${p.texFormeCanonique}  &=${etapesDeveloppement[1]}${this.correctionDetaillee ==
     const q3b = 'Résoudre l\'équation $f(x)=0$.'
     let corr3b = 'En utilisant la forme factorisée, cela revient à résoudre  une équation produit-nul.'
     corr3b += `<br>$f(x)=0 \\iff ${p.texFormeFactorisee} = 0${this.correctionDetaillee === true ? `${sp(25)}${miseEnEvidence('\\textit{Équation produit-nul }')}` : ''}$`
-    corr3b += `<br>$\\phantom{f(x)=0} \\iff x${p.x1.simplifie().oppose().texFractionSignee} = 0 \\text{\\quad ou \\quad} x${p.x2.simplifie().oppose().texFractionSignee} = 0${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{L\'un au moins des deux facteurs est nul}')}` : ''}$`
-    corr3b += `<br>$\\phantom{f(x)=0} \\iff x=${p.x1.simplifie().texFraction} \\text{\\quad ou \\quad} x=${p.x2.simplifie().texFraction}$`
-    corr3b += `<br>L'équation a deux solutions : $${p.x1.simplifie().texFraction}$ et $${p.x2.simplifie().texFraction}$.`
+    corr3b += `<br>$\\phantom{f(x)=0} \\iff x${p.x1 instanceof FractionEtendue ? p.x1.simplifie().oppose().texFractionSignee : -p.x1} = 0 \\text{\\quad ou \\quad} x${p.x2 instanceof FractionEtendue ? p.x2.simplifie().oppose().texFractionSignee : -p.x2} = 0${this.correctionDetaillee === true ? `${sp(5)}${miseEnEvidence('\\textit{L\'un au moins des deux facteurs est nul}')}` : ''}$`
+    corr3b += `<br>$\\phantom{f(x)=0} \\iff x=${p.x1 instanceof FractionEtendue ? p.x1.simplifie().texFraction : p.x1} \\text{\\quad ou \\quad} x=${p.x2 instanceof FractionEtendue ? p.x2.simplifie().texFraction : p.x2}$`
+    corr3b += `<br>L'équation a deux solutions : $${p.x1 instanceof FractionEtendue ? p.x1.simplifie().texFraction : p.x1}$ et $${p.x2 instanceof FractionEtendue ? p.x2.simplifie().texFraction : p.x2}$.`
 
     const q3c = `Résoudre l'équation $f(x)=${p.beta.simplifie().texFraction}$.`
     let corr3c = 'En utilisant la forme canonique, cela revient à résoudre une équation avec un carré isolé.'

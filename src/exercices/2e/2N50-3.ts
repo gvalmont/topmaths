@@ -39,22 +39,24 @@ export default class ModeliserEquations extends Exercice {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4']
     } else if (this.sup === 2) {
       typeDeQuestionsDisponibles = ['typeE5', 'typeE6', 'typeE7', 'typeE8']
-    } else if (this.sup === 3) {
+    } else {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8']
     }
     //
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, b, c, d, e, N, f, j, t, res, taux, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-
+      let texte = ''
+      let texteCorr = ''
+      const variables: number[] = []
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'typeE1':
-          j = randint(10, 20) * 10// prime janvier
-          f = randint(15, 20) * 10// prime fevrier
-          b = randint(6, 9) * 10
-          a = f - j + b// augmentation
-          t = randint(3, 6)
-          taux = fraction(t, 100)
+        case 'typeE1': {
+          const j = randint(10, 20) * 10// prime janvier
+          const f = randint(15, 20) * 10// prime fevrier
+          const b = randint(6, 9) * 10
+          const a = f - j + b// augmentation
+          const t = randint(3, 6)
+          const taux = fraction(t, 100)
           texte = `  Le salaire mensuel d'un commercial est composé d'un salaire fixe auquel
                   s'ajoute une prime suivant ses objectifs.<br>
                    Au mois de janvier, son salaire fixe est $x$ € et sa prime a été de $${j}$ €.  <br>
@@ -93,14 +95,14 @@ export default class ModeliserEquations extends Exercice {
 
           texteCorr += `Puisque le salaire est composé du fixe et de la prime, le salaire de ce commercial au mois de janvier a été de :
       $${Math.round((f - j - a) / (-t / 100))}+${j}$ €, soit  $${Math.round((f - j - a) / (-t / 100) + j)}$ €.`
-
+          variables.push(a, b, f, j, t)
+        }
           break
-        case 'typeE2':
-
-          a = randint(20, 30) //
-          b = randint(a + 5, 50) //
-          c = randint(20, 35)
-          d = randint(15, c - 1) / 100
+        case 'typeE2': {
+          const a = randint(20, 30) //
+          const b = randint(a + 5, 50) //
+          let c = randint(20, 35)
+          const d = randint(15, c - 1) / 100
           c = c / 100
           texte = `  Une société de location de véhicules propose deux tarifs :<br>
                 $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c)}$ € par km parcouru ;<br>
@@ -134,12 +136,13 @@ export default class ModeliserEquations extends Exercice {
                                          C'est pour une distance d'environ $${Math.round((b - a) / (c - d))}$ km que les deux tarifs sont identiques.
                                 `
           }
-
+          variables.push(a, b, c, d)
+        }
           break
-        case 'typeE3':
-          a = randint(4, 10) / 100 //
-          b = randint(300, 400) //
-          c = randint(Math.floor((a + 1) * 100), 12)
+        case 'typeE3': {
+          const a = randint(4, 10) / 100 //
+          const b = randint(300, 400) //
+          const c = randint(Math.floor((a + 1) * 100), 12)
           texte = `  Une usine fabrique des bouteilles en verre. <br>
             En notant $x$ le nombre de bouteilles fabriquées dans une journée, les coûts de fabrication en euros, sont donnés par :
             $${texNombre(a)}x+${texNombre(b)}$.<br>
@@ -175,15 +178,15 @@ export default class ModeliserEquations extends Exercice {
            C'est pour une production d'environ $${Math.round((b) / (c - a))}$ bouteilles  que le résultat net de l'entreprise est nul.
        `
           }
-
+          variables.push(a, b, c)
+        }
           break
-        case 'typeE4':
-
-          a = randint(48, 55) //
-          b = randint(3, 6) //
-          N = randint(12, 25)
-          d = randint(3, 5)
-          c = N * (a + b) - d * a
+        case 'typeE4': {
+          const a = randint(48, 55) //
+          const b = randint(3, 6) //
+          const N = randint(12, 25)
+          const d = randint(3, 5)
+          const c = N * (a + b) - d * a
 
           texte = `  $${a}$ élèves  d'un lycée font une sortie théâtre. Ils sont accompagnés de $${b}$ adultes. <br>
             Les élèves bénéficient d'un tarif réduit. Ils paient $${d}$ € de moins que les adultes. <br>
@@ -204,14 +207,14 @@ export default class ModeliserEquations extends Exercice {
             x &= ${texNombre((c + a * d) / (a + b))}\\end{aligned}$<br>
       Le prix de la place de théâtre pour un adulte est : $${texNombre((c + a * d) / (a + b))}$ €.
               `
-
+          variables.push(a, b, c, d)
+        }
           break
-        case 'typeE5':
-
-          a = randint(4, 10)
-          b = randint(2, 10)
-          c = randint(2, 10)
-          res = randint(-5, 5)
+        case 'typeE5': {
+          const a = randint(4, 10)
+          const b = randint(2, 10)
+          const c = randint(2, 10)
+          const res = randint(-5, 5)
           texte = ` ${texteGras('Voici un programme de calcul :')} `
           texte += itemize(['Choisir un nombre', `Multiplier ce nombre par $${a}$`, `Ajouter $${b}$`, `Multiplier le résultat par $${c}$`])
           texte += `Quel nombre doit-on choisir au départ pour obtenir $${res}$ comme résultat final ?<br>
@@ -232,13 +235,16 @@ export default class ModeliserEquations extends Exercice {
          \\end{aligned}$<br>
            Le nombre que l'on doit choisir pour obtenir $${res}$ à la fin du programme est :  $${texFractionReduite(res - b * c, c * a)}$.
                      `
+          variables.push(a, b, c, res)
+        }
+
           break
-        case 'typeE6':
-          a = randint(2, 10)
-          b = randint(2, 10)
-          c = randint(2, 10, [a])
-          d = prenom()
-          e = prenom()
+        case 'typeE6': {
+          const a = randint(2, 10)
+          const b = randint(2, 10)
+          const c = randint(2, 10, [a])
+          const d = prenom()
+          const e = prenom()
 
           texte = `${d} choisit un nombre, le multiplie par $${a}$ puis ajoute $${b}$.  <br>
            ${e} choisit le même nombre, lui ajoute $${c}$, multiplie le résultat par le nombre de départ, puis soustrait le carré du nombre de départ.<br>
@@ -269,12 +275,14 @@ export default class ModeliserEquations extends Exercice {
            \\end{aligned}$<br>
           Le nombre commun que ${d} et ${e} doivent choisir au départ pour obtenir le même résultat est : $${texFractionReduite(-b, a - c)}$.`
           }
+          variables.push(a, b, c)
+        }
           break
 
-        case 'typeE7':
-          a = randint(2, 8)
+        case 'typeE7': {
+          const a = randint(2, 8)
 
-          b = randint(10, 100)
+          const b = randint(10, 100)
 
           texte = `On donne les deux programmes de calcul suivants :<br>
           ${texteGras('Programme 1 :')}<br>
@@ -327,14 +335,15 @@ export default class ModeliserEquations extends Exercice {
               }
             }
           }
+          variables.push(a, b)
+        }
           break
         case 'typeE8':
-
-          a = randint(2, 10)
-          b = randint(2, 10)
-          c = randint(2, 10)
-          d = randint(2, 10)
-
+        default: {
+          const a = randint(2, 10)
+          const b = randint(2, 10)
+          const c = randint(2, 10)
+          const d = randint(2, 10)
           texte = `On donne les deux programmes de calcul suivants :<br>
           ${texteGras('Programme 1 :')}<br>
                    `
@@ -370,11 +379,12 @@ export default class ModeliserEquations extends Exercice {
         x=${texFractionReduite(-a, -b)}&${sp(2)}\\text{ou}${sp(2)}x=${texFractionReduite(-d, c)}\\end{aligned}$<br>
               On obtient $0$ en faisant le produit des deux résultats de ces programmes en choisissant comme nombres au départ : $${texFractionReduite(-a, -b)}$ ou $${texFractionReduite(-d, c)}$.
               `
-
+          variables.push(a, b, c, d)
+        }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, variables.map(String).join())) {
+      // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

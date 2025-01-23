@@ -224,6 +224,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
           handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${dblProdFrac}x+${a * a}` } })
           break
         case 9:
+        default:
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
           texte = `$\\left(${frac}x-${a}\\right)\\left(${frac}x+${a}\\right)$` // b>1
           if (this.correctionDetaillee) {
