@@ -201,7 +201,7 @@ export class Tableau extends ObjetMathalea2D {
       } else {
         this.objets.push(...flecheV(Arrivee, Depart, flecheDroite))
       }
-      const { xmin, ymin, xmax, ymax } = fixeBordures(this.objets)
+      const { xmin, ymin, xmax, ymax } = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
       this.bordures = [xmin, ymin, xmax, ymax]
     }
     if (flecheGauche && typeof flecheGauche === 'string') {
@@ -213,7 +213,7 @@ export class Tableau extends ObjetMathalea2D {
         this.objets.push(...flecheV(Arrivee, Depart, flecheGauche, 1, true))
       }
     }
-    const { xmin, ymin, xmax, ymax } = fixeBordures(this.objets)
+    const { xmin, ymin, xmax, ymax } = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [xmin, ymin, xmax, ymax]
     return this
   }

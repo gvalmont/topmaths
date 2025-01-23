@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Passer de la fraction décimale à l’écriture décimale*'
 export const interactifReady = true
@@ -33,7 +33,7 @@ export default class FractionDecimaleEcritureDecimale2 extends Exercice {
         a = randint(1, 19, [10])
         b = randint(11, 59, [20, 30, 40, 50])
 
-        this.reponse = calculANePlusJamaisUtiliser(a * 0.1 + b * 0.01)
+        this.reponse = a * 0.1 + b * 0.01
         if (choice([true, false])) {
           this.question = `Écrire sous forme décimale $\\dfrac{${a}}{10}+\\dfrac{${b}}{100}$. `
           this.correction = `$\\dfrac{${a}}{10}+\\dfrac{${b}}{100}=${texNombre(a / 10)}+${texNombre(b / 100)}=${texNombre(a / 10 + b / 100)}$<br>
@@ -50,7 +50,7 @@ export default class FractionDecimaleEcritureDecimale2 extends Exercice {
         b = randint(1, 299, [20, 30, 40, 50, 60, 70, 80, 90, 100, 200])
         c = randint(1, 29, [10, 20])
 
-        this.reponse = calculANePlusJamaisUtiliser(b * 0.01 + c * 0.001)
+        this.reponse = b * 0.01 + c * 0.001
         if (choice([true, false])) {
           this.question = `Écrire sous forme décimale $\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}$. `
           this.correction = `$\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${b}}{100}=${texNombre(c / 1000)}+${texNombre(b / 100)}=${texNombre(c / 1000 + b / 100)}$

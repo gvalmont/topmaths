@@ -33,7 +33,7 @@ import { texNombre } from './texNombre'
  * @author Jean-Claude Lhote
  */
 
-export function produitsEnCroix ([[a, b], [c, d]]: [[number, number], [number, number]]): string { // écrit une chaine pour a*d=b*c
+export function produitsEnCroix ([[a, b], [c, d]]: [[number | string, number | string], [number | string, number | string]]): string { // écrit une chaine pour a*d=b*c
   let result = ''
   result += `$${a}\\times${d}=${b}\\times${c}$`
   return result
@@ -45,7 +45,7 @@ export function produitsEnCroix ([[a, b], [c, d]]: [[number, number], [number, n
  * @author Jean-Claude Lhote
  */
 
-export function quatriemeProportionnelle (a: number, b: number, c: number, precision: number): string { // calcul de b*c/a
+export function quatriemeProportionnelle (a: number | string, b: number | string, c: number | string, precision = 0): string { // calcul de b*c/a
   let result = ''
   if ((typeof a) === 'number' && (typeof b) === 'number' && (typeof c) === 'number') {
     if (a === 0) {

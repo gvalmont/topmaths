@@ -10,6 +10,10 @@ export const titre = 'Déterminer un vecteur égal sur une grille'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '57688'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -43,7 +47,7 @@ export default class VecteurEgal extends Exercice {
     const ymax = 5.3
     const objets = []
     objets.push(a, PositionPt, LabelsPt)
-    this.reponse = 'G'
+    this.reponse = { champ1: { value: 'G' } }
     this.consigne = mathalea2d({
       xmin,
       ymin,

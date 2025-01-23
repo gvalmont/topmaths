@@ -1,12 +1,12 @@
 import { milieu, point, pointAdistance } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une longueur avec le théorème de Thalès'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -51,9 +51,9 @@ export default class CalculLongueurThales2 extends Exercice {
       // pol = polygoneAvecNom(A, D, C)
       objets = []
       objets.push(segment(B, D), segment(D, E), segment(C, E), segment(B, C), labelPoint(A, B, C, D, E))
-      objets.push(texteParPosition(`${texNombre(b)}`, milieu(A, B).x, milieu(A, B).y - 0.7, 'milieu', 'black', 1, 'middle', true),
-        texteParPosition(`${texNombre(c)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-        texteParPosition(`${texNombre(a)}`, milieu(A, D).x + 0.5, milieu(A, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
+      objets.push(latex2d(`${texNombre(b)}`, milieu(A, B).x, milieu(A, B).y - 0.7, { letterSize: 'scriptsize' }),
+        latex2d(`${texNombre(c)}`, milieu(B, C).x + 0.5, milieu(B, C).y, { letterSize: 'scriptsize' }),
+        latex2d(`${texNombre(a)}`, milieu(A, D).x + 0.5, milieu(A, D).y + 0.5, { letterSize: 'scriptsize' }))
       this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles.
       
       Calculer $${nom[3]}${nom[4]}$.<br>
@@ -64,7 +64,7 @@ export default class CalculLongueurThales2 extends Exercice {
     On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombre(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
         Ainsi, $${nom[3]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${texNombre(a * c / b)}$.
                   <br>`
-      this.reponse = calculANePlusJamaisUtiliser(a * c / b)
+      this.reponse = a * c / b
       this.canReponseACompleter = `$${nom[3]}${nom[4]}=\\ldots$`
     } else {
       nom = creerNomDePolygone(5, ['QD'])
@@ -83,9 +83,10 @@ export default class CalculLongueurThales2 extends Exercice {
       // pol = polygoneAvecNom(A, D, C)
       objets = []
       objets.push(segment(B, D), segment(D, E), segment(C, E), segment(B, C), labelPoint(A, B, C, D, E))
-      objets.push(texteParPosition(`${texNombre(b)}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-        texteParPosition(`${texNombre(c)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
-        texteParPosition(`${texNombre(a)}`, milieu(D, E).x - 0.8, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true))
+      objets.push(
+        latex2d(`${texNombre(b)}`, milieu(B, C).x + 0.5, milieu(B, C).y, { letterSize: 'scriptsize' }),
+        latex2d(`${texNombre(c)}`, milieu(A, B).x, milieu(A, B).y - 0.5, { letterSize: 'scriptsize' }),
+        latex2d(`${texNombre(a)}`, milieu(D, E).x - 0.8, milieu(D, E).y, { letterSize: 'scriptsize' }))
       this.question = `Les droites $(${nom[1]}${nom[2]})$ et $(${nom[3]}${nom[4]})$ sont parallèles.<br>
       
       Calculer $${nom[3]}${nom[0]}$.<br>
@@ -96,11 +97,11 @@ export default class CalculLongueurThales2 extends Exercice {
        On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont $${texNombre(a / b)}$ fois plus grandes que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
            Ainsi, $${nom[3]}${nom[0]}=${texNombre(a / b)}\\times ${c}=${texNombre(a * c / b)}$.
                      <br>`
-      this.reponse = calculANePlusJamaisUtiliser(a * c / b)
+      this.reponse = a * c / b
       this.canReponseACompleter = `$${nom[3]}${nom[0]}=\\ldots$`
     }
 
-    this.question += mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.1 * c, rymin: -0.75 * c, rxmax: 0.1 * c, rymax: 0.1 * c }), { pixelsParCm: 8, mainlevee: false, amplitude: 0.5, scale: 0.2, style: 'margin: auto' }), objets)
+    this.question += mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.1 * c, rymin: -0.75 * c, rxmax: 0.1 * c, rymax: 0.1 * c }), { pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.2, style: 'margin: auto' }), objets)
     this.canEnonce = this.question// 'Compléter'
   }
 }

@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Calculer avec triple et moitié'
 export const interactifReady = true
@@ -36,7 +36,7 @@ export default class TripleEtMoitie extends Exercice {
     Si le triple du nombre est $${3 * a}$, ce nombre est : $${3 * a}\\div 3=${a}$.<br>
     Puisqu'on cherche sa moitié, on le divise par $2$, soit  $${a}\\div 2=${texNombre(a / 2)}$.<br>
      `)
-    this.reponse = calculANePlusJamaisUtiliser(a / 2)
+    this.reponse = a / 2
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

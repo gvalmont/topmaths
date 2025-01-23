@@ -7,7 +7,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -64,7 +64,7 @@ export default class CalculCotePythagore extends Exercice {
         On en déduit : $x^2=${b}^2-${a}^2$, d'où $x=\\sqrt{${b}^2-${a}^2}=\\sqrt{${b ** 2 - a ** 2}}$
        <br>
        Ainsi, $a=${miseEnEvidence(b ** 2 - a ** 2)}$.`
-    this.reponse = calculANePlusJamaisUtiliser(b ** 2 - a ** 2)
+    this.reponse = b ** 2 - a ** 2
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = '$a=\\ldots$'
   }

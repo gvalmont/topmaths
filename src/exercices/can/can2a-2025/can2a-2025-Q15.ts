@@ -10,6 +10,10 @@ export const titre = 'Résoudre graphiquement une inéquation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'efdaf'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -59,13 +63,13 @@ export default class ResoudreGraphiqumentInequation extends Exercice {
     const courbef1 = latex2d('\\mathscr{C}_g', 2.5, 3, { color: 'blue' })
     const courbef2 = latex2d('\\mathscr{C}_f', -1.7, -1.8, { color: 'red' })
 
-    const objets1 = [r1, o, courbef1, courbef2, courbe(f1, { repere: r1, color: 'blue', epaisseur: 2 }), courbe(f2, { repere: r1, color: 'red', epaisseur: 2 })]
+    const objets1 = [r1, o, courbe(f1, { repere: r1, color: 'blue', epaisseur: 2 }), courbe(f2, { repere: r1, color: 'red', epaisseur: 2 })]
 
-    const colonne1 = mathalea2d(Object.assign({}, fixeBordures(objets1)), objets1)
-    this.question = 'Voici les courbes de deux fonctions $f$ et $g$ définies sur $[-2\\,;\\,3]$ : <br> ' + colonne1
-    this.question += 'Résoudre $f(x)<1$.'
+    const colonne1 = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets1, { rxmin: 0, rymin: 0, rxmax: 0, rymax: 0 })), [...objets1, courbef1, courbef2])
+    this.question = `Voici les courbes de deux fonctions $f$ et $g$ définies sur $[-2\\,;\\,3]$ : <br>${colonne1}<br>
+    Résoudre $f(x)<1$.`
     if (this.interactif) { this.question += '<br>' }
-    this.correction = `Ls solutions de l'inéquation sont les abscisses des points de $\\mathscr{C}_f$ qui se trouvent en dessous de la droite horizontale d'équation $y=1$.<br>
+    this.correction = `Les solutions de l'inéquation sont les abscisses des points de $\\mathscr{C}_f$ qui se trouvent en dessous de la droite horizontale d'équation $y=1$.<br>
     $S=${miseEnEvidence('[-2;-1[ \\cup ]1;3]')}$ `
     this.reponse = {
       reponse: {

@@ -24,7 +24,6 @@ export const refs = {
 
 export default class OrdreDeGrandeur extends Exercice {
   nbQuestions: number
-  tailleDiaporama: number
 
   constructor () {
     super()

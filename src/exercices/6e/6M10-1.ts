@@ -40,7 +40,7 @@ interface Rectangle extends Polygone {
   numero: number
 }
 
-function rangeLesLongeurs (longueursHorizontales: number[], longueursVerticales: number[], typeDeGrille: number[]): ItemType[] {
+function rangeLesLongueurs (longueursHorizontales: number[], longueursVerticales: number[], typeDeGrille: number[]): ItemType[] {
   const longueursPossibles = [3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5]
   let tableau = longueursHorizontales.concat(longueursVerticales)
   tableau = tableau.sort((a, b) => a - b)
@@ -399,7 +399,7 @@ export default class ProblemesAiresRectangles extends Exercice {
           longueursVerticales[i] = arrondi(longueursVerticales[i] + randint(0, 1) * randint(1, 9) / 10, 1)
         }
       }
-      const listeDeTailles = rangeLesLongeurs(longueursHorizontales, longueursVerticales, typeDeGrille)
+      const listeDeTailles = rangeLesLongueurs(longueursHorizontales, longueursVerticales, typeDeGrille)
       const [xBordures, yBordures] = fixeBordures(listeDeTailles, typeDeGrille)
       const rectangles = creeRectangles(typeDeGrille, xBordures, yBordures)
       // On trace une grille en pointillés pour prolonger les rectangles

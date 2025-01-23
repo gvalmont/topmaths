@@ -7,7 +7,7 @@ import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -59,12 +59,12 @@ export default class CalculLongueurThalesMilieu extends Exercice {
       Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombre(a)}=${texNombre(2 * a)}$.
   `
 
-      this.reponse = calculANePlusJamaisUtiliser(2 * a)
+      this.reponse = 2 * a
       this.canEnonce = this.question// 'Compléter'
       this.canReponseACompleter = `$${nom[1]}${nom[2]}=\\ldots$`
     } else {
       nom = creerNomDePolygone(5, ['QD'])
-      a = calculANePlusJamaisUtiliser((randint(1, 9) + randint(1, 5) / 10) * 2)
+      a = (randint(1, 9) + randint(1, 5) / 10) * 2
       A = point(0, 0, nom[0], 'below')
       B = point(6, 0, nom[1], 'below')
       C = point(5, 4, nom[2], 'above')
@@ -86,7 +86,7 @@ export default class CalculLongueurThalesMilieu extends Exercice {
             Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombre(a)}\\div 2 =${texNombre(a / 2)}$.
      `
 
-      this.reponse = calculANePlusJamaisUtiliser(a / 2)
+      this.reponse = a / 2
       this.canEnonce = this.question// 'Compléter'
       this.canReponseACompleter = `$${nom[3]}${nom[4]}=\\ldots$`
     }

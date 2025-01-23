@@ -200,7 +200,7 @@ export default class EgalitesEntreFractions extends Exercice {
           const [num1, den1, champ3] = prompts.map(el => engine.parse(mfe.getPromptValue(el)).evaluate().numericValue) as number[]
           const num2 = choix === 0 ? champ3 : c
           const den2 = choix === 1 ? champ3 : d
-          if (num1 != null && den1 != null && num2 != null && den2 != null) {
+          if (num1 !== undefined && den1 !== undefined && num2 !== undefined && den2 !== undefined) {
             const isOk1 = num1 * den2 === num2 * den1 && num1 * den1 * num2 * den2 !== 0
             if (isOk1) {
               mfe.setPromptState('champ1', 'correct', true)

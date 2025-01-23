@@ -34,14 +34,13 @@ export default class NatureSuiteEx extends Exercice {
   }
 
   nouvelleVersion () {
-    let texte, texteCorr, a, b, u, d, props
+    let texte, texteCorr, a, b, d, props
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4])) { //
         case 1 :// suite arithmétique simple
           a = randint(1, 10) * choice([-1, 1])
-          // u = randint(1, 10) * choice([-1, 1])
           b = randint(1, 10) * choice([-1, 1])
 
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${rienSi1(a)}n${ecritureAlgebrique(b)} $.<br>
@@ -80,7 +79,7 @@ export default class NatureSuiteEx extends Exercice {
 
           b = randint(1, 10) * choice([-1, 1])
           d = randint(2, 10)
-          a = calculANePlusJamaisUtiliser(d * randint(1, 10) * choice([-1, 1]))
+          a = d * randint(1, 10) * choice([-1, 1])
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
@@ -117,7 +116,6 @@ export default class NatureSuiteEx extends Exercice {
           break
         case 3 :// suite geométrique simple
           a = randint(-10, 10, [-1, 0])
-          // u = randint(1, 10) * choice([-1, 1])
           b = randint(-10, 10, [-1, 0, 1, a])
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =
           ${a === 1 ? `${ecritureParentheseSiNegatif(b)}^n$` : `${a}\\times${ecritureParentheseSiNegatif(b)}^n$`}
@@ -161,7 +159,6 @@ export default class NatureSuiteEx extends Exercice {
 
         case 4 :// suite geométrique avec quotient
           a = randint(-10, 10, [-1, 0])
-          // u = randint(1, 10) * choice([-1, 1])
           b = randint(2, 10, a)
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}}{${b}^n}$.
          <br>Alors, $(${s}_n)$ est une suite ...`
@@ -196,7 +193,7 @@ export default class NatureSuiteEx extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, u, a)) {
+      if (this.questionJamaisPosee(i, a)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

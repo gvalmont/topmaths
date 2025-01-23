@@ -163,12 +163,12 @@ export class TraceBarre extends ObjetMathalea2D {
       }
     }
     let bordures:{ xmin: number, ymin: number, xmax: number, ymax: number }
-    if (this.p instanceof Polygone) {
-      bordures = fixeBordures([this.p, this.text])
-    } else {
-      bordures = fixeBordures([this.text])
-    }
     this.texte = texteParPosition(legende, x, -0.2, angle, 'black', 1, 'gauche') as TexteParPoint
+    if (this.p instanceof Polygone) {
+      bordures = fixeBordures([this.p, this.texte], { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
+    } else {
+      bordures = fixeBordures([this.texte], { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
+    }
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 

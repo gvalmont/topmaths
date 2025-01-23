@@ -312,6 +312,7 @@ export function loadPackagesFromContent (contents: contentsType) {
         #4
 \\end{pmatrix}}}`, contents, '\\Coord')
   testIfLoaded(['\\widearc{', '\\eurologo'], '\\usepackage{fourier}', contents)
+  testIfLoaded(['\\tkzAxeXY'], '\\usepackage{tkz-base}', contents)
   testIfLoaded(['\\tkz', '\\pic['], '\\usepackage{tkz-euclide}', contents)
   testIfLoaded(['\\pstEllipse[linewidth='], '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}', contents, '\\pstEllipse')
   testIfLoaded(['\\makecell'], '\\usepackage{makecell}', contents)

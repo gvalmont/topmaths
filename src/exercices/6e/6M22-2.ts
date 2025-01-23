@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { arc } from '../../lib/2d/cercle'
 import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
 import { point, pointAdistance } from '../../lib/2d/points'
@@ -10,7 +9,7 @@ import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const interactifReady = true
@@ -34,11 +33,11 @@ export const refs = {
   'fr-fr': ['6M22-2'],
   'fr-ch': ['10GM1-3']
 }
-export default class Perimetre_aire_et_portions_de_disques extends Exercice {
+export default class PerimetreAireEtPortionsDeDisques extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Les deux']
-    this.besoinFormulaire2Texte = ['Type de figures', '1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
 
     this.sup = 3 // 1 : périmètre, 2 : aire, 3 : périmètres et aires
     this.sup2 = 4
@@ -79,7 +78,7 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
       const quartDeDisque = arc(A, C, 90, true, 'white', 'black', 0.2)
       const demiDisque = arc(A, C, 180, true, 'white', 'black', 0.2)
       const troisQuartDeDisque = arc(A, C, 270, true, 'white', 'black', 0.2)
-      let reponseL1, reponseA1, reponseL1bis, reponseA1bis
+      let reponseL1:number, reponseA1:number, reponseL1bis, reponseA1bis
       switch (listeTypeQuestions[i]) {
         case 1:
           if (this.sup !== 2) {
@@ -157,11 +156,11 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
           break
       }
       if (this.sup !== 2) {
-        setReponse(this, this.sup === 3 ? 2 * i : i, [reponseL1!, reponseL1bis!])
+        handleAnswers(this, this.sup === 3 ? 2 * i : i, { reponse: { value: [reponseL1!, reponseL1bis!], options: { nombreDecimalSeulement: true } } })
         texte = 'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i : i, '   ', { texteApres: ' $\\text{cm}$' }) + '<br>'
       }
       if (this.sup !== 1) {
-        setReponse(this, this.sup === 3 ? 2 * i + 1 : i, [reponseA1!, reponseA1bis!])
+        handleAnswers(this, this.sup === 3 ? 2 * i + 1 : i, { reponse: { value: [reponseA1!, reponseA1bis!], options: { nombreDecimalSeulement: true } } })
         texte += 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, '   ', { texteApres: ' $\\text{cm}^2$' })
       }
       if (this.questionJamaisPosee(i, r)) { // Si la question n'a jamais été posée, on en créé une autre
@@ -176,13 +175,12 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
                       reponse: {
                         texte: 'Calculer le périmètre de la figure suivante.<br>' + figure + '<br>Périmètre en $\\text{cm}$ (valeur approchée à 0,1 près)',
-                        valeur: [reponseL1],
+                        valeur: [reponseL1!],
                         alignement: 'center',
                         param: {
                           digits: 1,
@@ -202,13 +200,12 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
                       reponse: {
                         texte: 'Calculer l\'aire de la figure suivante.<br>' + figure + '<br>Aire en $\\text{cm}^2$ (valeur approchée à 0,1 près)',
-                        valeur: [reponseA1],
+                        valeur: [reponseA1!],
                         alignement: 'center',
                         param: {
                           digits: 1,
@@ -231,14 +228,13 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
                       multicolsBegin: true,
                       reponse: {
                         texte: 'Périmètre en $\\text{cm}$ (valeur approchée à 0,1 près)',
-                        valeur: [reponseL1],
+                        valeur: [reponseL1!],
                         alignement: 'center',
                         param: {
                           digits: 1,
@@ -252,14 +248,13 @@ export default class Perimetre_aire_et_portions_de_disques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
                       multicolsEnd: true,
                       reponse: {
                         texte: 'Aire en $\\text{cm}^2$ (valeur approchée à 0,1 près)',
-                        valeur: [reponseA1],
+                        valeur: [reponseA1!],
                         alignement: 'center',
                         param: {
                           digits: 1,

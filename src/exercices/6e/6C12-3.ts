@@ -1319,7 +1319,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
         lastChoice: 5 // A creuser pour supprimer ou mettre nbquestions
       }
       const props = propositionsQcm(this, i)
-      if (this.interactif) {
+      if (!context.isAmc) {
         texte += props.texte
       }
 

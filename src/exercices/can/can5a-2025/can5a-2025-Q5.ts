@@ -20,7 +20,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q5 extends ExerciceCan {
-  private enonce (min?: number, max?: number, pas?: number, absB?: number) {
+  enonce (min?: number, max?: number, pas?: number, absB?: number) {
     let nbPas: number
     if (min != null && max != null && pas != null && absB != null) {
       nbPas = (max - min) / pas

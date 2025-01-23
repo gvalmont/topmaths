@@ -1176,7 +1176,7 @@ export default class SujetCAN2023Seconde extends Exercice {
           }, d, r, o, lA, traceA, s26, s26B)
 
           texte = 'Donner le coefficient directeur $m$ de la droite.<br>'
-          texte += `${objet}<br>`
+          texte += `${objet}`
           texteCorr = `En partant de l'ordonnée à l'origine de la droite pour aller jusqu'au point $A$, on se décale de $${xA26}$ unités vers la droite et on monte de $${yA26 - yB26}$ unités vers le haut. <br>
             Ainsi, le coefficient directeur de la droite est $\\dfrac{${yA26 - yB26}}{${xA26}}${m.texSimplificationAvecEtapes()}$.`
 
@@ -1297,7 +1297,7 @@ export default class SujetCAN2023Seconde extends Exercice {
           }, r1, o, gr, Tk)
           texte = `  Voici la courbe  d'une fonction $f$.<br>
        `
-          texte += `${graphique}`
+          texte += `${graphique}<br>`
 
           texteCorr = `L'ordonnée du point $B$ est $${miseEnEvidence(listeB[1])}$.`
 
@@ -1366,7 +1366,7 @@ export default class SujetCAN2023Seconde extends Exercice {
        `
           texte += `${graphique}
           `
-          texte += `<br> Quel est le nombre d'antécédents de $${texNombre(a, 1)}$ par la fonction $f$ ?
+          texte += `Quel est le nombre d'antécédents de $${texNombre(a, 1)}$ par la fonction $f$ ?
           `
           if (a < 0) {
             texteCorr = `La droite horizontale d'équation $y=${texNombre(a, 1)}$  coupe la courbe en un point. <br>

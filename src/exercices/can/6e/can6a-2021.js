@@ -404,7 +404,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'unité' })
           } else {
-            texte += '<br>$\\ldots$ unité'
+            texte += '$\\ldots$ unité'
           }
           nbChamps = 1
           break
@@ -787,7 +787,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'uA' })
           } else {
-            texte += '<br>Aire $=\\ldots $ uA'
+            texte += 'Aire $=\\ldots $ uA'
           }
           nbChamps = 1
           break

@@ -11,13 +11,15 @@ import { longueur, segment, vecteur } from './segmentsVecteurs'
 import { latexParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation } from './transformations'
 
-export type MarkType = 'simple' | 'double' | 'triple' | 'gras' | 'double-gras' | 'pointilles' | 'double-pointilles' | 'mixte-simple-pointilles' | 'mixte-gras-pointilles'
+export type MarkType = 'simple' | 'double' | 'triple' | 'gras' | 'double-gras' | 'gras-simple-gras' | 'simple-gras-simple' | 'pointilles' | 'double-pointilles' | 'mixte-simple-pointilles' | 'mixte-gras-pointilles'
 export const markTypeArray: MarkType[] = [
   'simple',
   'double',
   'triple',
   'gras',
   'double-gras',
+  'gras-simple-gras',
+  'simple-gras-simple',
   'pointilles',
   'double-pointilles',
   'mixte-simple-pointilles',
@@ -77,19 +79,48 @@ export class MarqueAngle extends ObjetMathalea2D {
           )
         }
         break
+      case 'gras-simple-gras': {
+        const aPrime = homothetie(a, sommet, 0.85)
+        const aSeconde = homothetie(a, sommet, 1.15)
+        const marqueGrasse1 = arc(aPrime, sommet, angle, false, 'none', color)
+        const marqueGrasse2 = arc(aSeconde, sommet, angle, false, 'none', color)
+        marqueGrasse1.epaisseur = 2
+        marqueGrasse2.epaisseur = 2
+        this.objets.push(
+          marqueGrasse1,
+          arc(a, sommet, angle, false, 'none', color),
+          marqueGrasse2
+        )
+      }
+        break
+      case 'simple-gras-simple': {
+        const aPrime = homothetie(a, sommet, 0.85)
+        const aSeconde = homothetie(a, sommet, 1.15)
+        const marqueGrasse = arc(a, sommet, angle, false, 'none', color)
+        const marqueSimple1 = arc(aPrime, sommet, angle, false, 'none', color)
+        const marqueSimple2 = arc(aSeconde, sommet, angle, false, 'none', color)
+        marqueGrasse.epaisseur = 2
+        this.objets.push(
+          marqueSimple1,
+          marqueGrasse,
+          marqueSimple2
+        )
+      }
+        break
       case 'pointilles': {
         const marque = arc(a, sommet, angle, false, 'none', color)
-        marque.pointilles = 4
+        marque.pointilles = 3
+        marque.epaisseur = 2
         this.objets.push(marque)
       }
         break
       case 'double-pointilles': {
-        const aPrime = homothetie(a, sommet, 0.95)
-        const aSeconde = homothetie(a, sommet, 1.05)
+        const aPrime = homothetie(a, sommet, 1)
+        const aSeconde = homothetie(a, sommet, 1.1)
         const marque1 = arc(aPrime, sommet, angle, false, 'none', color)
         const marque2 = arc(aSeconde, sommet, angle, false, 'none', color)
-        marque1.pointilles = 4
-        marque2.pointilles = 4
+        marque1.pointilles = 5
+        marque2.pointilles = 5
         this.objets.push(
           marque1,
           marque2
@@ -101,7 +132,9 @@ export class MarqueAngle extends ObjetMathalea2D {
         const aSeconde = homothetie(a, sommet, 1.1)
         const marque = arc(aSeconde, sommet, angle, false, 'none', color)
         const marque1 = arc(aPrime, sommet, angle, false, 'none', color)
-        marque1.pointilles = 4
+        marque1.pointilles = 3
+        marque1.epaisseur = 2
+        marque.epaisseur = 2
         this.objets.push(
           marque,
           marque1
@@ -113,20 +146,23 @@ export class MarqueAngle extends ObjetMathalea2D {
         const aSeconde = homothetie(a, sommet, 1.1)
         const marque1 = arc(aSeconde, sommet, angle, false, 'none', color)
         const marque = arc(aPrime, sommet, angle, false, 'none', color)
-        marque1.pointilles = 4
+        marque1.pointilles = 3
         marque.epaisseur = 2
         this.objets.push(
           marque,
-          marque1
+          marque1,
         )
       }
         break
       case 'simple':
-      default:
-        this.objets.push(arc(a, sommet, angle, false, 'none', color))
+      default: {
+        const marque = arc(a, sommet, angle, false, 'none', color)
+        marque.epaisseur = 2
+        this.objets.push(marque)
+      }
         break
     }
-    const bordures = fixeBordures(this.objets)
+    const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 
@@ -267,7 +303,7 @@ export class Rapporteur extends ObjetMathalea2D {
       rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2) as Point, color)
     }
     this.objets.push(rayon)
-    const bordures = fixeBordures(this.objets)
+    const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 

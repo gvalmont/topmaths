@@ -162,12 +162,14 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   log(filter)
   testRunAllLots(filter)
 } else {
-  testRunAllLots('can')
+  prefs.headless = true
+
+  // testRunAllLots('can')
   // testRunAllLots('6e')
   // testRunAllLots('5e')
   // testRunAllLots('4e')
   // testRunAllLots('3e')
-  //  testRunAllLots('2e')
+  // testRunAllLots('2e')
   // testRunAllLots('1e')
   // testRunAllLots('QCM')
   // testRunAllLots('TEx')

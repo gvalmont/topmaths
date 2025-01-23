@@ -8,6 +8,10 @@ export const titre = 'Calculer une image par une fonction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'cfa5e'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

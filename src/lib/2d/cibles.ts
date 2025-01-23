@@ -205,8 +205,10 @@ export function dansLaCibleRonde (x: number, y:number, rang:number, taille:numbe
   const P = similitude(point(1, 0), point(0, 0), angle, rayon)
   P.x += x
   P.y += y
-  if (chiffre > rang || chiffrelettre > 8) return 'Cette cellule n\'existe pas dans la cible'
-  else {
+  if (chiffre > rang || chiffrelettre > 8) {
+    console.error('Cette cellule n\'existe pas dans la cible')
+    return [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY]
+  } else {
     return [P.x, P.y]
   }
 }

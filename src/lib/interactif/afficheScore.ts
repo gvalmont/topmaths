@@ -9,8 +9,8 @@ export function afficheScore (
   exercice: Exercice,
   nbBonnesReponses: number,
   nbMauvaisesReponses: number,
-  divScore: HTMLDivElement,
-  divButton: HTMLButtonElement
+  divScore?: HTMLDivElement,
+  divButton?: HTMLButtonElement
 ): ResultOfExerciceInteractif {
   if (divButton != null) {
     divButton.classList.add(

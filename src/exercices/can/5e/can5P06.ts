@@ -39,7 +39,7 @@ export default class ÉcrirePourcentage extends Exercice {
       case 'a':
         {
           const a = randint(10, 99) / 100
-          this.question = `Compléter : $${texNombre(a)}=$`
+          this.question = `Compléter :<br> $${texNombre(a)}=$`
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } } else { this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
           this.correction = `$${texNombre(a)}=\\dfrac{${texNombre(a * 100, 0)}}{100}=${miseEnEvidence(texNombre(a * 100))} ${sp()}\\%$`
           this.reponse = (a * 100).toFixed(0)
@@ -48,10 +48,10 @@ export default class ÉcrirePourcentage extends Exercice {
         break
       case 'b':
         {
-          const a = randint(0, 99)
+          const a = randint(1, 99)
           const dec = new Decimal(a).div(1000)
           const pourc = new Decimal(a).div(10)
-          this.question = `Compléter : $${texNombre(dec, 3)}=$`
+          this.question = `Compléter :<br> $${texNombre(dec, 3)}=$`
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } } else { this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
           this.correction = `$${texNombre(dec, 3)}=\\dfrac{${texNombre(pourc, 2)}}{100}=${miseEnEvidence(texNombre(pourc, 2))} ${sp()}\\%$`
           this.reponse = pourc
@@ -62,10 +62,10 @@ export default class ÉcrirePourcentage extends Exercice {
 
       case 'c':
         {
-          const a = randint(0, 99)
+          const a = randint(1, 99)
           const dec = new Decimal(a).div(10000)
           const pourc = new Decimal(a).div(100)
-          this.question = `Compléter : $${texNombre(dec, 4)}=$`
+          this.question = `Compléter :<br> $${texNombre(dec, 4)}=$`
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } } else { this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
           this.correction = `$${texNombre(dec, 4)}=\\dfrac{${texNombre(pourc, 3)}}{100}=${miseEnEvidence(texNombre(pourc, 3))} ${sp()}\\%$`
           this.reponse = pourc
@@ -81,7 +81,7 @@ export default class ÉcrirePourcentage extends Exercice {
           const d = fraction[1]
           const frac = new FractionEtendue(n, d)
 
-          this.question = `Compléter : $${frac.texFraction}=$`
+          this.question = `Compléter :<br> $${frac.texFraction}=$`
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } } else { this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
           this.correction = `$${frac.texFraction}=\\dfrac{${texNombre(n)}\\times ${texNombre(100 / d, 0)}}{${texNombre(d)}\\times ${texNombre(100 / d, 0)}}=
         \\dfrac{${texNombre((n * 100) / d, 0)}}{100}=${miseEnEvidence(texNombre((n * 100) / d, 0))} ${sp()}\\%$`

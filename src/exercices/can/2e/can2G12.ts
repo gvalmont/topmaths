@@ -35,9 +35,9 @@ export default class VecteursColineairesVF extends Exercice {
     for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4, 5])) { //
         case 1 :
-          ux = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
-          uy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, ux / 2]) * 2)
-          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = randint(-3, 3, 0) * 2
+          uy = randint(-3, 3, [0, ux / 2]) * 2
+          k = choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1])
           vx = k * ux
           vy = k * uy
           texte = `Dans un repère, on considère les vecteurs $\\vec{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$.<br>
@@ -76,9 +76,9 @@ export default class VecteursColineairesVF extends Exercice {
         Ils sont égaux, donc les vecteurs sont colinéaires.`, 'blue')
           break
         case 2 :
-          vx = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
-          vy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, vx / 2]) * 2)
-          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          vx = randint(-3, 3, 0) * 2
+          vy = randint(-3, 3, [0, vx / 2]) * 2
+          k = choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1])
           ux = k * vx
           uy = k * vy
           texte = `Dans un repère, on considère les vecteurs $\\overrightarrow{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\overrightarrow{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$.<br>
@@ -118,9 +118,9 @@ export default class VecteursColineairesVF extends Exercice {
           break
 
         case 3 :
-          ux = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
-          uy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, ux / 2]) * 2)
-          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = randint(-3, 3, 0) * 2
+          uy = randint(-3, 3, [0, ux / 2]) * 2
+          k = choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1])
           vx = k * ux
           vy = k * uy + 1
           texte = `Dans un repère, on considère les vecteurs $\\vec{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$.<br>
@@ -160,9 +160,9 @@ export default class VecteursColineairesVF extends Exercice {
           break
 
         case 4 :
-          ux = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
-          uy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, ux / 2]) * 2)
-          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = randint(-3, 3, 0) * 2
+          uy = randint(-3, 3, [0, ux / 2]) * 2
+          k = choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1])
           vx = k * ux + 1
           vy = k * uy
           texte = `Dans un repère, on considère les vecteurs $\\vec{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$.<br>
@@ -201,9 +201,9 @@ export default class VecteursColineairesVF extends Exercice {
             Ils ne sont pas égaux, donc les vecteurs ne sont pas colinéaires.`, 'blue')
           break
         case 5 :
-          ux = calculANePlusJamaisUtiliser(randint(-3, 3, 0) * 2)
-          uy = calculANePlusJamaisUtiliser(randint(-3, 3, [0, ux / 2]) * 2)
-          k = calculANePlusJamaisUtiliser(choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1]))
+          ux = randint(-3, 3, 0) * 2
+          uy = randint(-3, 3, [0, ux / 2]) * 2
+          k = choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1])
           vx = k * ux
           vy = k * uy * (-1)
           texte = `Dans un repère, on considère les vecteurs $\\vec{u}\\begin{pmatrix}${ux} \\\\ ${uy} \\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx} \\\\ ${vy} \\end{pmatrix}$.<br>

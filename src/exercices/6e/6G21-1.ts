@@ -1,5 +1,5 @@
 import ConstruireUnTriangleAvecCible from './_Construire_un_triangle_avec_cible'
-export const titre = 'Construire un triangle avec cible'
+export const titre = 'Construire un triangle'
 
 export const interactifReady = false
 

@@ -182,14 +182,9 @@ export async function loadMathLive (divExercice) {
         if (mf.getAttribute('data-space') === 'true') {
           mf.mathModeSpace = '\\,'
         }
-        // ces assignations sont mises dans un onMount pour éviter les problèmes d'assignation sur des mathfields non encore montés
-        const onMount = () => {
-          mf.mathVirtualKeyboardPolicy = 'manual'
-          mf.menuItems = []
-          mf.virtualKeyboardTargetOrigin = '*'
-          mf.removeEventListener('mount', onMount)
-        }
-        mf.addEventListener('mount', onMount)
+        if ('mathVirtualKeyboardPolicy' in mf) mf.mathVirtualKeyboardPolicy = 'manual'
+        if ('menuItems' in mf) mf.menuItems = []
+        if ('virtualKeyboardMode' in mf) mf.virtualKeyboardMode = 'manual'
       }
     }
     // On envoie la hauteur de l'iFrame après le chargement des champs MathLive

@@ -48,30 +48,29 @@ export default class TableauSignesSecondDegre extends Exercice {
         case 1 :// cas a(x-x1)(x-x2)>0
           inegalite = choice(['>', '\\geqslant'])
           if (inegalite === '>') {
-            solution1 = [`${a > 0
+            solution1 = `${a > 0
 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`]
-            solution2 = [`${a < 0
+          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`
+            solution2 = `${a < 0
 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`]
-            solution3 = [`$[${b > c ? `${-b}` : `${-c}`}\\,;\\,${b > c ? `${-c}` : `${-b}`}]$`]
-            solution4 = [`$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`]
+          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`
+            solution3 = `$[${b > c ? `${-b}` : `${-c}`}\\,;\\,${b > c ? `${-c}` : `${-b}`}]$`
+            solution4 = `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
           } else {
-            solution1 = [`${a > 0
+            solution1 = `${a > 0
             ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                      : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`]
-            solution2 = [`${a < 0
+                      : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`
+            solution2 = `${a < 0
             ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                      : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`]
-            solution3 = [`$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`]
-            solution4 = [`$]-\\infty\\,;\\,${b > c ? `${-b}` : `${-c}`}]\\cup[${b > c ? `${-c}` : `${-b}`}\\,;\\,+\\infty[$`]
+                      : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`
+            solution3 = `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`
+            solution4 = `$]-\\infty\\,;\\,${b > c ? `${-b}` : `${-c}`}]\\cup[${b > c ? `${-c}` : `${-b}`}\\,;\\,+\\infty[$`
           }
           texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
         $${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) ${inegalite} 0$ est :  `
 
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: solution1,
@@ -119,32 +118,32 @@ On en déduit que l'ensemble des solutions est `
           break
 
         case 2 :// cas a(x-x1)(x-x2)<0
+        default:
           inegalite = choice(['<', '\\leqslant'])
           if (inegalite === '<') {
-            solution1 = [`${a < 0
+            solution1 = `${a < 0
                 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`]
-            solution2 = [`${a > 0
+                          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`
+            solution2 = `${a > 0
                 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}[\\cup]${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`]
-            solution3 = [`$[${b > c ? `${-b}` : `${-c}`}\\,;\\,${b > c ? `${-c}` : `${-b}`}]$`]
-            solution4 = [`$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`]
+                          : `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`}`
+            solution3 = `$[${b > c ? `${-b}` : `${-c}`}\\,;\\,${b > c ? `${-c}` : `${-b}`}]$`
+            solution4 = `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
           } else {
-            solution1 = [`${a < 0
+            solution1 = `${a < 0
                 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                          : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`]
-            solution2 = [`${a > 0
+                          : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`
+            solution2 = `${a > 0
                 ? `$]-\\infty\\,;\\,${b > c ? `${c}` : `${b}`}]\\cup[${b > c ? `${b}` : `${c}`}\\,;\\,+\\infty[$`
-                          : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`]
-            solution3 = [`$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`]
-            solution4 = [`$]-\\infty\\,;\\,${b > c ? `${-b}` : `${-c}`}]\\cup[${b > c ? `${-c}` : `${-b}`}\\,;\\,+\\infty[$`]
+                          : `$[${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}]$`}`
+            solution3 = `$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`
+            solution4 = `$]-\\infty\\,;\\,${b > c ? `${-b}` : `${-c}`}]\\cup[${b > c ? `${-c}` : `${-b}`}\\,;\\,+\\infty[$`
           }
           texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
         $${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) ${inegalite} 0$ est :  `
 
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
             propositions: [
               {
                 texte: solution1,

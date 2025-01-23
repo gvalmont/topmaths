@@ -97,10 +97,10 @@ export class CodageMediatrice extends ObjetMathalea2D {
     this.tikz = function () {
       return c.tikz() + '\n' + v.tikz()
     }
-    this.svgml = function (coeff, amp) {
+    this.svgml = function (coeff: number, amp:number) {
       return c.svgml(coeff, amp) + '\n' + v.svg(coeff)
     }
-    this.tikzml = function (amp) {
+    this.tikzml = function (amp:number) {
       return c.tikzml(amp) + '\n' + v.tikz()
     }
   }
@@ -963,7 +963,7 @@ export class CodageAngle extends ObjetMathalea2D {
         this.objets.push(label)
       } else this.objets.push(texteParPoint(texteACote, M, 0, color, this.tailleTexte))
     }
-    const bordures = fixeBordures(this.objets)
+    const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 }

@@ -8,6 +8,10 @@ export const titre = 'Déterminer un taux global'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '3acb0'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -23,9 +27,9 @@ export default class TauxGlobal extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.question = 'Deux hausses successives de $100\\,\\%$ correspondent à une  hausse globale de :'
-      this.correction = `Augmenter de $100\\,%$ revient à multiplier par $2$. <br>
-      Ainsi, les duex haisses successives de $100\\,\\%$ correspondent à un coefficient multiplicateur global de $4$.<br>
+      this.question = 'Deux hausses successives de $100\\,\\%$ correspondent à une  hausse globale de : '
+      this.correction = `Augmenter de $100\\,\\%$ revient à multiplier par $2$. <br>
+      Ainsi, les deux hausses successives de $100\\,\\%$ correspondent à un coefficient multiplicateur global de $4$.<br>
       On en déduit que la hausse globale est de $${miseEnEvidence('300')}\\,\\%$. `
       this.reponse = 300
       this.optionsChampTexte = { texteApres: '$\\%$' }

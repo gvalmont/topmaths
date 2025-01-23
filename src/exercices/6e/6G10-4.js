@@ -13,10 +13,11 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
 import { clone } from 'mathjs'
 import { codageSegments } from '../../lib/2d/codages'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true
@@ -24,7 +25,7 @@ export const amcType = 'AMCHybride'
 export const titre = 'Connaître le vocabulaire du cercle'
 
 export const dateDePublication = '19/08/2022'
-export const dateDeModifImportante = '16/12/2024'
+export const dateDeModifImportante = '22/01/2024'
 
 /**
  * Exercice testant les connaissances des élèves sur le vocabulaire du cercle dans les deux sens (Un rayon est ... et [AB] est ...)
@@ -78,32 +79,31 @@ export default class VocabulaireDuCercle extends Exercice {
     this.correctionDetailleeDisponible = true
     // this.typesDeQuestionsParDefaut = '1-2-3-4-5-6-7'
     // this.sup3 = this.typesDeQuestionsParDefaut
-    this.sup3 = '1-2-3-4-5-6-7'
+    this.sup3 = '1-2-3-4-5-6'
     this.besoinFormulaire3Texte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Au moins deux nombres séparés par des tirets',
         '1 : Le rayon',
         '2 : Un rayon',
         '3 : Le diamètre',
         '4 : Un diamètre',
         '5 : Une corde',
-        '6 : Le centre',
-        '7 : Le centre, qui est aussi le milieu'
+        '6 : Le centre'
+        // '7 : Le centre, qui est aussi le milieu'
       ].join('\n')
     ]
 
     this.spacingCorr = 1.5 // Interligne des réponses
-
-    this.avecLeCentreQuiEstAussiLeMilieu = false
   }
 
   nouvelleVersion () {
-    // const typesDeQuestions = String(this.sup3 ?? this.typesDeQuestionsParDefaut)
-    const typesDeQuestions = this.sup3
+    // typesDeQuestions nécessite d'avoir au moins deux valeurs
+    const typesDeQuestions = this.sup3.match(/[1-6]/g).length > 1 ? this.sup3 : this.besoinFormulaire3Texte[1]
     this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
-    if (context.isHtml) this.consigne += '<br><br>'
+    if (context.isHtml) this.consigne += '<br>'
 
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
+    console.log(this.interactifType)
     const nbSousQuestionMax = 7 // Il y a 6 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
     let sensDesQuestionsDisponibles
     switch (this.sup) {
@@ -131,6 +131,7 @@ export default class VocabulaireDuCercle extends Exercice {
       const O = point(0, 0, nomsDesPoints[0])
       const leCercle = cercle(O, 3)
       const A = pointAdistance(O, 3, nomsDesPoints[1])
+      this.consigne += `<br>Les points $${nomsDesPoints[0]}$, $${nomsDesPoints[3]}$ et $${nomsDesPoints[2]}$ sont alignés.`
       let B, C, D, E
       do {
         B = pointAdistance(O, 3, nomsDesPoints[2])
@@ -218,7 +219,7 @@ export default class VocabulaireDuCercle extends Exercice {
             sens: sensDesQuestions[i * nbSousQuestionMax + 5]
           })
       }
-      if (typesDeQuestions.includes('7')) {
+      /* if (typesDeQuestions.includes('7')) {
         questions.push(
           { // Ajout Mireille
             nom: `$${O.nom}$`,
@@ -227,18 +228,8 @@ export default class VocabulaireDuCercle extends Exercice {
             commentaireAlt: '',
             sens: sensDesQuestions[i * nbSousQuestionMax + 5]
           })
-      }
+      } */
 
-      if (this.avecLeCentreQuiEstAussiLeMilieu) {
-        questions.push(
-          { // Ajout Mireille
-            nom: `$${O.nom}$`,
-            nature: `le centre du cercle, qui est aussi le milieu de [${B.nom + C.nom}]`,
-            commentaire: `On parle du ${texteEnCouleurEtGras('centre d\'un cercle', 'blue')} ; pour un ${texteEnCouleurEtGras('segment', 'blue')}, on parle de son ${texteEnCouleurEtGras('milieu', 'blue')}.`,
-            commentaireAlt: '',
-            sens: sensDesQuestions[i * nbSousQuestionMax + 5]
-          })
-      }
       const propositionsUnRayonEst = []
       for (const question of questions) {
         const texteProposition = question.nom
@@ -274,13 +265,13 @@ export default class VocabulaireDuCercle extends Exercice {
         texte += numAlpha(j)
         texteCorr += numAlpha(j)
         if (question.sens === 'Un rayon est ...') {
-          enonce = `${premiereLettreEnMajuscule(question.nature)} du cercle est ...`
-          texte += `${enonce}`
+          enonce = `${premiereLettreEnMajuscule(question.nature)} du cercle est ` + (this.interactif ? ajouteChampTexteMathLive(this, i * questions.length + j, KeyboardType.alphanumericAvecEspace) : '...')
+          texte += `${enonce}.`
           texteCorr += `${premiereLettreEnMajuscule(question.nature)} du cercle est ${texteEnCouleurEtGras(question.nom)}.<br>`
           if (question.nature === 'une corde') texteCorr += `${texteEnCouleurEtGras(nomDiametre)} étant un diamètre, c'est aussi une corde.<br>`
         }
         if (question.sens === '[AB] est ...') {
-          enonce = `${question.nom} est ...`
+          enonce = `${question.nom} est ` + (this.interactif ? ajouteChampTexteMathLive(this, i * questions.length + j, KeyboardType.alphanumericAvecEspace) : '...')
           texte += `${enonce} du cercle.`
           texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}${question.nom === nomDiametre ? ' et aussi ' + texteEnCouleurEtGras('une corde') : ''} du cercle.<br>`
         }
@@ -352,15 +343,13 @@ export default class VocabulaireDuCercle extends Exercice {
                 reponses.push(B.nom + C.nom)
                 break
             }
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, '  college6eme alphanumericAvecEspace')
-            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texteAvecEspace' })
           }
+
           if (question.sens === '[AB] est ...') {
             reponses = [question.nature]
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, '  college6eme alphanumericAvecEspace')
-            //  setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
-            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texteAvecEspace' })
           }
+
+          handleAnswers(this, i * questions.length + j, { reponse: { value: reponses, options: { texteSansCasse: true } } })
         }
         texte += '<br>'
 

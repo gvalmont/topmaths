@@ -8,6 +8,10 @@ export const titre = 'Appliquer 25 % sur un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'c9016'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

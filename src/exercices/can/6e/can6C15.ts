@@ -52,7 +52,6 @@ export default class FractionCommeFacteurManquant extends Exercice {
         propositions: [
           {
             type: 'AMCNum',
-            // @ts-expect-error
             propositions: [{
               texte: this.correction,
               statut: '',
@@ -70,7 +69,6 @@ export default class FractionCommeFacteurManquant extends Exercice {
           },
           {
             type: 'AMCNum',
-            // @ts-expect-error
             propositions: [{
               texte: '',
               statut: '',

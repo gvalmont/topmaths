@@ -8,6 +8,10 @@ export const titre = 'Développer une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f3208'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora

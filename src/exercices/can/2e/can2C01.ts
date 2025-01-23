@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Trouver le nombre d’entiers entre deux valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,7 +36,7 @@ export default class NombreDeNombresEntiersEntreDeuxValeurs2 extends Exercice {
         b = randint(8, 18)
         this.question = `Combien y a-t-il d'entiers $n$ tels que : <br>$${a}\\leqslant n \\leqslant ${b}$ ?`
         this.correction = `Il y en a $${b}-${a}+1$, soit $${miseEnEvidence(b - a + 1)}$.`
-        this.reponse = calculANePlusJamaisUtiliser(b - a + 1)
+        this.reponse = b - a + 1
         break
 
       case 'b':
@@ -44,14 +44,14 @@ export default class NombreDeNombresEntiersEntreDeuxValeurs2 extends Exercice {
         b = randint(8, 18)
         this.question = `Combien y a-t-il d'entiers $n$ tels que :<br> $${a}< n \\leqslant ${b}$ ?`
         this.correction = `Il y en a $${b}-${a}$, soit $${miseEnEvidence(b - a)}$.`
-        this.reponse = calculANePlusJamaisUtiliser(b - a)
+        this.reponse = b - a
         break
       case 'c':
         a = randint(3, 5)
         b = randint(8, 18)
         this.question = `Combien y a-t-il d'entiers $n$ tels que : <br>$${a}\\leqslant n < ${b}$ ?`
         this.correction = `Il y en a $${b}-${a}$, soit $${miseEnEvidence(b - a)}$.`
-        this.reponse = calculANePlusJamaisUtiliser(b - a)
+        this.reponse = b - a
         break
     }
     this.canEnonce = this.question// 'Compléter'

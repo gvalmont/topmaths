@@ -406,7 +406,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
   tikz () {
     let copyThistexte = this.texte
     if (this.mathOn && copyThistexte[0] !== '$') copyThistexte = '$' + this.texte + '$'
-    return `\\draw [color=${this.color[1]}] (${String(arrondi(this.point.x))},${String(arrondi(this.point.y))
+    return `\\draw ${this.color[0] === 'black' ? '' : `[color=${this.color[1]}]`} (${String(arrondi(this.point.x))},${String(arrondi(this.point.y))
       }) node[anchor = ${tikzAncrages[this.ancrageDeRotation]}, rotate = ${String(-this.orientation)}, scale=${(this.scale * this.scaleFigure * 1.25).toFixed(2)}] {${copyThistexte}};`
   }
 }
@@ -769,16 +769,8 @@ export class Latex2d extends ObjetMathalea2D {
     this.latex = latex
     this.x = x
     this.y = y
-    const cx = Math.cos(this.orientation)
-    const sx = Math.sin(this.orientation)
-    const ratioLettreCm = 0.25
-    const epaisseurTexte = 0.3
-    const longueurTexte = latex.length * ratioLettreCm
-
-    this.bordures = [x - longueurTexte * cx,
-      y - longueurTexte * sx - epaisseurTexte,
-      x + longueurTexte * cx,
-      y + longueurTexte * sx + epaisseurTexte
+    const marge = 0.25
+    this.bordures = [x - marge, y - marge, x + marge, y + marge
     ]
   }
 

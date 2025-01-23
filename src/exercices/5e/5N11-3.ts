@@ -91,6 +91,7 @@ export default class FractionVersPourcentage extends Exercice {
     const reponseAttendue = String(this.autoCorrection[i].reponse.valeur.champ4.value)
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'
+    let feedback = ''
     const mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
     if (mf == null) {
       window.notify(`La correction de 5N11-3 n'a pas trouvé de mathfield d'id champTexteEx${this.numeroExercice}Q${i}`, { exercice: this })
@@ -102,15 +103,25 @@ export default class FractionVersPourcentage extends Exercice {
       const den1 = mf.getPromptValue('champ2')
       const num2 = mf.getPromptValue('champ3')
       const champ4 = mf.getPromptValue('champ4')
+      let test1: boolean = true
+      let test1Bis: boolean = true
+      if (num1 !== '' && den1 !== '') {
       // const test1 = ce.parse(`\\frac{${num1.replace(',', '.')}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
-      const test1 = num1.includes('\\times')
-        ? ce.parse(`\\frac{${Number(num1.split('\\times')[0]) * (Number(num1.split('\\times')[1]) ?? 1)}}{${Number(den1.split('\\times')[0]) * (Number(den1.split('\\times')[1]) ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))
-        : ce.parse(`\\frac{${Number(num1.split('\\div')[0]) * (Number(num1.split('\\div')[1]) ?? 1)}}{${Number(den1.split('\\div')[0]) * (Number(den1.split('\\div')[1]) ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))
-      const test1Bis = ce.parse(den1).isEqual(ce.parse('100'))
+        test1 = (num1.includes('\\times')
+          ? ce.parse(`\\frac{${Number(num1.split('\\times')[0]) * (Number(num1.split('\\times')[1]) ?? 1)}}{${Number(den1.split('\\times')[0]) * (Number(den1.split('\\times')[1]) ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))
+          : ce.parse(`\\frac{${Number(num1.split('\\div')[0]) * (Number(num1.split('\\div')[1]) ?? 1)}}{${Number(den1.split('\\div')[0]) * (Number(den1.split('\\div')[1]) ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))) ?? false
+        test1Bis = ce.parse(den1).isEqual(ce.parse('100')) ?? false
+      }
+      if (num2 === '') {
+        feedback += 'Il faut saisir un numérateur pour la fraction sur $100$.<br>'
+      }
+      if (champ4 === '') {
+        feedback += 'Le résultat final est obligatoire.<br>'
+      }
       const test1Ter = den1 === '' || num1 === ''
       const test2 = ce.parse(num2).isSame(ce.parse(reponseAttendue))
       const test3 = ce.parse(champ4).isSame(ce.parse(reponseAttendue))
-      let smiley; let feedback = ''
+      let smiley
       if (test2 && test3) {
         smiley = '😎'
         result = 'OK'
@@ -149,6 +160,7 @@ export default class FractionVersPourcentage extends Exercice {
       if (divDuFeedback) {
         divDuFeedback.innerHTML = feedback
         spanResultat.after(divDuFeedback)
+        divDuFeedback.style.display = 'block'
       }
       mf.setPromptState('champ1', test1 ? 'correct' : 'incorrect', true)
       mf.setPromptState('champ2', test1 ? 'correct' : 'incorrect', true)

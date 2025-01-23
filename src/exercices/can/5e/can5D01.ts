@@ -5,7 +5,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
@@ -41,7 +41,7 @@ export default class ConversionHeuresDecimalesMinutes extends Exercice {
 
           a = randint(1, 5)
           b = choice([0.25, 0.5, 0.75])
-          d = calculANePlusJamaisUtiliser(b * 60)
+          d = b * 60
           if (!this.interactif) {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$ ..... h ..... min`
             texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
@@ -61,7 +61,7 @@ export default class ConversionHeuresDecimalesMinutes extends Exercice {
 
           a = randint(1, 5)
           b = choice([0.25, 0.5, 0.75])
-          d = calculANePlusJamaisUtiliser(b * 60)
+          d = b * 60
           if (!this.interactif) {
             texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ ..... h`
             texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>

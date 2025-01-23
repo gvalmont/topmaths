@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q27 extends ExerciceCan {
-  private enonce (p?:string, a?: number, b?: number, c?: number) {
+  enonce (p?:string, a?: number, b?: number, c?: number) {
     let patisserie = 'un éclair'
     let patisserie2 = 'chouquettes'
     let chaque = 'chacune'

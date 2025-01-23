@@ -9,7 +9,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -67,7 +67,7 @@ export default class CalculHypotenusePythagore extends Exercice {
         $${a}^2+${b}^2=x^2$, d'où $x=\\sqrt{${a}^2+${b}^2}=\\sqrt{${a ** 2 + b ** 2}}$
        <br>
        Ainsi, $a=${miseEnEvidence(a ** 2 + b ** 2)}$.`
-        this.reponse = calculANePlusJamaisUtiliser(a ** 2 + b ** 2)
+        this.reponse = a ** 2 + b ** 2
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$a=\\ldots$'
         break
@@ -85,7 +85,7 @@ export default class CalculHypotenusePythagore extends Exercice {
                $${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2=${nom[1]}${nom[2]}^2$, <br>
                soit $${a}^2+\\sqrt{${b}}^2=${nom[1]}${nom[2]}^2$, d'où $${nom[1]}${nom[2]}^2=${a * a + b}$ soit $${nom[1]}${nom[2]}=\\sqrt{${a * a + b}}=${miseEnEvidence(`${Math.sqrt(a * a + b)}`)}$.
              <br>`
-          this.reponse = calculANePlusJamaisUtiliser(Math.sqrt(a ** 2 + b))
+          this.reponse = Math.sqrt(a ** 2 + b)
         } else {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$.<br>
 

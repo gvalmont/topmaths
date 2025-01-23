@@ -136,10 +136,10 @@ export function puissanceEnProduit (b: number, e: number): string {
  * @param e exposant
  * @author Sébastien Lozano
  */
-export function simpExp (b: number, e: number) {
+export function simpExp (b: string | number, e: number) {
   switch (e) {
     case 1:
-      return ` ${b}`
+      return ` ${String(b)}`
     case 0:
       return ' 1'
     default:

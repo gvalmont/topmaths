@@ -3,6 +3,7 @@ export const titre = 'Construire un triangle dont on connaît trois longueurs av
 export const interactifReady = true
 export const dateDePublication = '1/1/2025'
 export const uuid = '79d64'
+export const interactifType = 'custom'
 
 export const refs = {
   'fr-fr': ['6G21-6'],

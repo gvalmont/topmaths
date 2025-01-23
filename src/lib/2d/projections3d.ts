@@ -45,7 +45,7 @@ export class Pave extends ObjetMathalea2D {
       this.objets.push(afficheCoteSegment(segment(A, D), '', 1))
       this.objets.push(afficheCoteSegment(segment(F, B), h + ' cm', 1))
     }
-    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets)
+    const { xmin, xmax, ymin, ymax } = fixeBordures(this.objets, { xmin: 0, xmax: 0, ymin: 0, ymax: 0 })
     this.bordures = [xmin, ymin, xmax, ymax]
   }
 
@@ -235,7 +235,7 @@ export class Ellipse extends ObjetMathalea2D {
  * @param {number} ry Second rayon de l'ellipse
  * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
  * @example ellipse(M, 1, 3) // Trace, en noir, l'ellipse de centre M et de rayons 1 et 3
- * @example ellipse(M, 1, 3, 'red') // Trace, en rouge, l'ellipse de centre M et de rayons 1 et 3
+ * @example M, 1, 3, 'red') // Trace, en rouge, l'ellipse de centre M et de rayons 1 et 3
  * @author Rémi Angot
  * @return {Ellipse}
  */

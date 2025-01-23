@@ -8,9 +8,11 @@ export function countMathField (exercise: Exercice): number {
       return 0
     }
     for (const autoCorr of exercise.autoCorrection) {
-      if (autoCorr.reponse?.param?.formatInteractif === 'mathlive' ||
+      if (autoCorr != null && autoCorr.reponse != null && autoCorr.reponse.param != null && autoCorr.reponse.param.formatInteractif != null) {
+        if (autoCorr.reponse?.param?.formatInteractif === 'mathlive' ||
             autoCorr.reponse?.param?.formatInteractif === 'qcm') {
-        numbOfAnswerFields++
+          numbOfAnswerFields++
+        }
       }
     }
     if (exercise.interactifType === 'custom' && 'goodAnswers' in exercise && Array.isArray(exercise.goodAnswers)) {

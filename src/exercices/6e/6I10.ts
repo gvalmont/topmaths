@@ -7,14 +7,15 @@ import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const titre = 'Programmer des déplacements absolus (Scratch)'
+export const dateDeModifImportante = '13/01/2025'
 
 /**
  * * Colorier le déplacement d'un lutin
- * * 6I10
  * @author Erwan Duplessy // (Ajout paramètre 3 par EE)
  * Ajout AMC : Janvier 2022 par EE
  */
@@ -58,7 +59,7 @@ export default class ColorierDeplacement extends Exercice {
     let texteCorr = '' // texte du corrigé
     let codeTikz = '' // code pour dessiner les blocs en tikz
     let codeSvg = '' // code pour dessiner les blocs en svg
-    const nbCommandes = Number(parseInt(this.sup)) + 2 // nombre de commandes de déplacement dans un script
+    const nbCommandes = this.sup + 2 // nombre de commandes de déplacement dans un script
     let nbRepetition = 1 // Nombre de fois où la boucle est répétée.
     if (this.sup2) {
       nbRepetition = 3
@@ -142,7 +143,7 @@ export default class ColorierDeplacement extends Exercice {
     lstObjet.push(p)
     let txt = '' // variable temporaire
     for (let j = 0; j < (xGrilleMax - xGrilleMin); j++) {
-      txt = String.fromCharCode(65 + j) // ascii 65 = A
+      txt = lettreDepuisChiffre(j + 1) // ascii 65 = A
       lstObjet.push(texteParPosition(txt, xGrilleMin + j + 0.5, yGrilleMax + 0.5, 0, 'black', 1)) // affiche de A à J... en haut de la grille
     }
     for (let i = 0; i < (yGrilleMax - yGrilleMin); i++) {

@@ -11,6 +11,7 @@ import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import type { Matrix } from 'mathjs'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -122,18 +123,18 @@ export default class BetaReperage2e extends Exercice {
       }
       for (let xx = -4; xx < 4 + 1 / denX; xx += 1 / denX) {
         if (this.sup4) {
-          const pointL = point(...matrice.multiply([xx, -3]).toArray() as [number, number])
-          const pointH = point(...matrice.multiply([xx, 3]).toArray() as [number, number])
+          const pointL = point(...(matrice.multiply([xx, -3]) as unknown as Matrix)!.toArray() as [number, number])
+          const pointH = point(...(matrice.multiply([xx, 3]) as unknown as Matrix)!.toArray() as [number, number])
           if (Math.abs(xx) > 0.01) grid.push(segment(pointL, pointH))
         }
         for (let yy = -3; yy < 3 + 1 / denY; yy += 1 / denY) {
           if (this.sup4 && xx === -4) {
-            const pointL = point(...matrice.multiply([-4, yy]).toArray() as [number, number])
-            const pointH = point(...matrice.multiply([4, yy]).toArray() as [number, number])
+            const pointL = point(...(matrice.multiply([-4, yy]) as unknown as Matrix)!.toArray() as [number, number])
+            const pointH = point(...(matrice.multiply([4, yy]) as unknown as Matrix)!.toArray() as [number, number])
             if (Math.abs(yy) > 0.01) grid.push(segment(pointL, pointH))
           }
           if (!this.sup4) {
-            grid.push(point(...matrice.multiply([xx, yy]).toArray() as [number, number]))
+            grid.push(point(...(matrice.multiply([xx, yy]) as unknown as Matrix)!.toArray() as [number, number]))
           }
         }
       }
@@ -157,7 +158,7 @@ export default class BetaReperage2e extends Exercice {
           x[i][k] = fraction(randint(-3 * denX, 3 * denX), denX)
           y[i][k] = fraction(randint(-2 * denY, 2 * denY), denY)
         } while ((x[i][k].isEqual(0) && y[i][k].isEqual(1)) || (x[i][k].isEqual(1) && y[i][k].isEqual(0)) || (x[i][k].isEqual(0) && y[i][k].isEqual(0)) || (x[i].slice(0, k).map(el => el.num).includes(x[i][k].num) && y[i].slice(0, k).map(el => el.num).includes(y[i][k].num)))
-        const [mdx, mdy] = matrice.multiply([x[i][k].valeurDecimale, y[i][k].valeurDecimale]).toArray()
+        const [mdx, mdy] = (matrice.multiply([x[i][k].valeurDecimale, y[i][k].valeurDecimale]) as unknown as Matrix).toArray() as [number, number]
         X[i][k] = mdx
         Y[i][k] = mdy
         points[i][k] = point(mdx, mdy, listeNoms[3 + k], `${x[i][k].valeurDecimale < 0

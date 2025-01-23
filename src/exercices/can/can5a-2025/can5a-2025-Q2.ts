@@ -17,7 +17,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q2 extends ExerciceCan {
-  private enonce (a?: number, b?: number) {
+  enonce (a?: number, b?: number) {
     if (a == null || b == null) {
       a = randint(2, 5) * 0.1 + randint(1, 9) * 0.01
       b = randint(1, 4) * 0.1

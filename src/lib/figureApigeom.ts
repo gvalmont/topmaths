@@ -20,8 +20,8 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   animation?: boolean,
   i: number,
   /** identifiant supplémentaire pour identifier l'
-     * si c'est la figure de la correction ou une 2e figure dans la question
-    */
+  * si c'est la figure de la correction ou une 2e figure dans la question
+  */
   idAddendum?: string,
   /** Action en cours au lancement de l'exercice qui doit obligatoirement être un bouton de la toolbar */
   defaultAction?: string
@@ -69,7 +69,7 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     if (oldZoom !== zoom) {
       oldZoom = zoom
       // console.log('zoom:' + idApigeom + ':' + zoom)
-      figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
+      if (figure != null) figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
     }
   }
   document.addEventListener('zoomChanged', updateZoom)

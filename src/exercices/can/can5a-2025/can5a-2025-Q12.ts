@@ -28,7 +28,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q12 extends ExerciceCan {
-  private enonce (a?: number, b?: number, c?: number, alpha?: number) {
+  enonce (a?: number, b?: number, c?: number, alpha?: number) {
     if (a == null || b == null || c == null || alpha == null) {
       a = 5 + randint(1, 15) / 10
       const s = choice([-1, 1])
@@ -64,7 +64,7 @@ export default class Can2025N5Q12 extends ExerciceCan {
     context.fenetreMathalea2d = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
     const labelD = latex2d('(d)', pointSd1.x - 0.6, pointSd1.y, { letterSize: 'footnotesize' })
 
-    this.reponse = c
+    this.reponse = c.toFixed(1)
     this.question = `Les deux triangles sont symétriques par rapport à la droite (d).<br>
     ${mathalea2d(Object.assign({ scale: 0.35 }, fixeBordures([triangle1, labelD, triangle2, nom, sd])), [triangle1, sd, l1, l2, l3, labelD, triangle2, nom])}`
     this.correction = `La symétrie axiale conserve les longueurs, donc $CD=${miseEnEvidence(`${texNombre(c, 1)}\\text{ cm}`)}$.`

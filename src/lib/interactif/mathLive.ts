@@ -244,9 +244,9 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error}\n Avec les métadonnées : `, {
       champTexteValue: champTexte?.value ?? null,
-      exercice: exercice.id,
+      exercice: exercice?.id,
       i,
-      autoCorrection: exercice.autoCorrection[i],
+      autoCorrection: exercice?.autoCorrection[i],
       formatInteractif,
       spanReponseLigne
     })

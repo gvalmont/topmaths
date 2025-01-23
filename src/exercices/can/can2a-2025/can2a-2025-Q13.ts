@@ -10,6 +10,10 @@ export const titre = 'Déterminer une image graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '1fa2d'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -61,8 +65,8 @@ export default class ImageGraphique extends Exercice {
     const objets1 = [r1, o, courbef1, courbef2, courbe(f1, { repere: r1, color: 'blue', epaisseur: 2 }), courbe(f2, { repere: r1, color: 'red', epaisseur: 2 })]
 
     const colonne1 = mathalea2d(Object.assign({}, fixeBordures(objets1)), objets1)
-    this.question = 'Voici les courbes de deux fonctions $f$ et $g$ définies sur $[-2\\,;\\,3]$ : <br> ' + colonne1
-    this.question += 'Quelle est l\'image de $2$ par la fonction $f$.'
+    this.question = `Voici les courbes de deux fonctions $f$ et $g$ définies sur $[-2\\,;\\,3]$ : <br>${colonne1}\n
+    Quelle est l'image de $2$ par la fonction $f$.`
     if (this.interactif) { this.question += '<br>' }
     this.correction = `L'image de $2$ se lit sur l'axe des ordonnées : <br>
               On lit $f(2)=${miseEnEvidence('-1')}$ `

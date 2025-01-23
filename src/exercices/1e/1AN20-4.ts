@@ -2,6 +2,8 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../Exercice'
 import {
   ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  egalOuApprox,
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../lib/outils/ecritures'
@@ -73,15 +75,15 @@ export default class EtudeFctPoly3 extends Exercice {
               antTex: '$+\\infty$',
               imgTex: ' '
             }]
-            const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
+            const tableau = tableauVariationsFonction(fonction as (x:FractionEtendue | number)=>number, derivee as (x:FractionEtendue | number)=>number, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
 
             texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(2 * a, -3 * a * x1 - 3 * a * x2, 6 * a * x1 * x2, k)}$.<br>
       Étudier le sens de variations de la fonction $f$ sur $\\mathbb{R}$.
       `
 
             texteCorr += `$f$ est une fonction polynôme du troisième degré, dérivable sur $\\mathbb{R}$.<br>
-            Pour tout  $x\\in\\mathbb{R}$, $f'(x)=${reduirePolynomeDegre3(0, 6 * a, -6 * a * (x1 + x2), 6 * a * x1 * x2)}$.<br><br>
-            $f'(x)$ est une fonction polynôme du second degré. <br><br>`
+            Pour tout  $x\\in\\mathbb{R}$, $f^\\prime(x)=${reduirePolynomeDegre3(0, 6 * a, -6 * a * (x1 + x2), 6 * a * x1 * x2)}$.<br><br>
+            $f^\\prime$ est une fonction polynôme du second degré. <br><br>`
             if (6 * a * x1 * x2 === 0 || -6 * a * (x1 + x2) === 0) {
               if (6 * a * x1 * x2 === 0) {
                 texteCorr += `En factorisant par $x$, on obtient $f'(x)=x(${reduireAxPlusB(6 * a, -6 * a * (x1 + x2))})$.<br>
@@ -129,13 +131,13 @@ export default class EtudeFctPoly3 extends Exercice {
               antTex: '$-\\infty$',
               imgTex: ' '
             }, { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
-            const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
+            const tableau = tableauVariationsFonction(fonction as (x:FractionEtendue | number)=>number, derivee as (x:FractionEtendue | number)=>number, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
 
             texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(a, b, c, d)}$.<br>
       Étudier le sens de variations de la fonction $f$ sur $\\mathbb{R}$.`
             texteCorr = `$f$ est une fonction polynôme du troisième degré, dérivable sur $\\mathbb{R}$.<br>
-      Pour tout  $x\\in\\mathbb{R}$, $f'(x)=${reduirePolynomeDegre3(0, 3 * a, 2 * b, c)}$.<br><br>
-      $f'(x)$ est une fonction polynôme du second degré. <br>`
+      Pour tout  $x\\in\\mathbb{R}$, $f^\\prime(x)=${reduirePolynomeDegre3(0, 3 * a, 2 * b, c)}$.<br><br>
+      $f^\\prime$ est une fonction polynôme du second degré. <br>`
 
             if (2 * b === 0) {
               texteCorr += `Les racines de $f'(x)$ sont les solutions de l'équation $${reduirePolynomeDegre3(0, 3 * a, 2 * b, c)}=0$, soit $x^2=${sol.simplifie().texFraction}$.<br>
@@ -172,29 +174,32 @@ export default class EtudeFctPoly3 extends Exercice {
       `
 
             texteCorr += `$f$ est une fonction polynôme du troisième degré, dérivable sur $\\mathbb{R}$.<br>
-            Pour tout  $x\\in\\mathbb{R}$, $f'(x)=${p}$.<br><br>
-             $f'(x)$ est une fonction polynôme du second degré. <br><br>`
+            Pour tout  $x\\in\\mathbb{R}$, $f^\\prime(x)=${p}$.<br><br>
+             $f^\\prime$ est une fonction polynôme du second degré. <br><br>`
 
             if (4 * b ** 2 - 12 * a * c > 0) {
               const calculs1 = p.texCalculRacine1(true).split('=')
               const calculs2 = p.texCalculRacine2(true).split('=')
-              const valX1 = p.x1 instanceof FractionEtendue ? Math.round(p.x1.valeurDecimale * 10) / 10 : Number(p.x1.toFixed(1))
-              const valX2 = p.x2 instanceof FractionEtendue ? Math.round(p.x2.valeurDecimale * 10) / 10 : Number(p.x2.toFixed(1))
+              // Attention : la tolérance étant de 0.005, il faut aller au dix-millième pour les valeurs de p.x1 et p.x2
+              const valX1 = p.x1 instanceof FractionEtendue ? Math.round(p.x1.valeurDecimale * 10000) / 10000 : p.x1 ? Number(p.x1.toFixed(4)) : NaN
+              const valX2 = p.x2 instanceof FractionEtendue ? Math.round(p.x2.valeurDecimale * 10000) / 10000 : p.x2 ? Number(p.x2.toFixed(4)) : NaN
               const texX1 = calculs1[calculs1.length - 1]
               const texX2 = calculs2[calculs2.length - 1]
               texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement positif, donc le polynôme a deux racines :`
               texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
               texteCorr += `<br><br>$${p.texCalculRacine2(true)}$<br><br>`
+              texteCorr += `$\\alpha_1=f\\Big(${p.texX1}\\Big)=${a}\\times ${p.texX1.startsWith('-') || p.texX1.startsWith('\\dfrac') ? `\\Big(${p.texX1}\\Big)^3` : `${p.texX1}^3`}${ecritureAlgebriqueSauf1(b)}\\times ${p.texX1.startsWith('-') || p.texX1.startsWith('\\dfrac') ? `\\Big(${p.texX1}\\Big)^2` : `${p.texX1}^2`}${ecritureAlgebriqueSauf1(c)}\\times ${p.texX1.startsWith('-') ? `\\Big(${p.texX1})\\Big` : `${p.texX1}`}${ecritureAlgebrique(d)}${egalOuApprox(fonction(Number(p.x1)), 2)}${texNombre(fonction(Number(p.x1)), 2)}$<br><br>
+            $\\alpha_2=f\\Big(${p.texX2}\\Big)=${a}\\times ${p.texX2.startsWith('-') || p.texX2.startsWith('\\dfrac') ? `\\Big(${p.texX2}\\Big)^3` : `${p.texX2}^3`}${ecritureAlgebriqueSauf1(b)}\\times ${p.texX2.startsWith('-') || p.texX2.startsWith('\\dfrac') ? `\\Big(${p.texX2}\\Big)^2` : `${p.texX2}^2`}${ecritureAlgebriqueSauf1(c)}\\times ${p.texX2.startsWith('-') ? `\\Big(${p.texX2})\\Big` : `${p.texX2}`}${ecritureAlgebrique(d)}${egalOuApprox(fonction(Number(p.x2)), 2)}${texNombre(fonction(Number(p.x2)), 2)}$<br><br>`
               substituts = [{ antVal: -10, antTex: '$-\\infty$', imgTex: ' ' },
-                { antVal: valX1, antTex: texX1, imgVal: fonction(Number(p.x1)), imgTex: `${texNombre(fonction(Number(p.x1)), 2)}` },
-                { antVal: valX2, antTex: texX2, imgVal: fonction(Number(p.x2)), imgTex: `${texNombre(fonction(Number(p.x2)), 2)}` },
+                { antVal: valX1, antTex: texX1, imgVal: fonction(Number(p.x1)), imgTex: '\\alpha_1' },
+                { antVal: valX2, antTex: texX2, imgVal: fonction(Number(p.x2)), imgTex: '\\alpha_2' },
                 { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
             } else {
               texteCorr += ''
               substituts = [{ antVal: -10, antTex: '$-\\infty$', imgTex: ' ' },
                 { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
             }
-            const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 0.1, tolerance })
+            const tableau = tableauVariationsFonction(fonction as (x:FractionEtendue | number)=>number, derivee as (x:FractionEtendue | number)=>number, xMin, xMax, { ligneDerivee: true, substituts, step: 0.1, tolerance })
 
             texteCorr += `${tableau}`
           }

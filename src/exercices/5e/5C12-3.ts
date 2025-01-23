@@ -93,16 +93,16 @@ class DistributiviteNumerique extends Exercice {
       let texteCorr = '' // Idem pour le texte de la correction.
       // Choix des paramètres aléatoires
       let k = 0
-      let b, c
+      let b
       let cinqChamps: boolean = false
       let correctionTableau:[string, number, number, number, number, number] = ['', 0, 0, 0, 0, 0]
       const puissance = [100, 1000]
       const ajoutRetrait = randint(1, 3)
+      const c = ajoutRetrait
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1: { // Calcul mental addition developpée initialement
           k = randint(47, 83)
           const choixIndicePuissance = randint(0, 1)
-          c = ajoutRetrait
           b = puissance[choixIndicePuissance] - c
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b, 0)} + ${k}\\times ${c}$`
           correctionTableau = avecLesPriorites(i, k, b, c, 'developpee', 1)
@@ -113,7 +113,6 @@ class DistributiviteNumerique extends Exercice {
         case 2: { // Calcul mental soustraction  developpée initialement
           k = randint(47, 83)
           const choixIndicePuissance = randint(0, 1)
-          c = ajoutRetrait
           b = puissance[choixIndicePuissance] + c
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b, 0)} - ${k}\\times ${c}$`
           correctionTableau = avecLesPriorites(i, k, b, c, 'developpee', -1)
@@ -124,7 +123,6 @@ class DistributiviteNumerique extends Exercice {
         case 3: { // Calcul mental addition factorisée initialement
           k = randint(47, 83)
           const choixIndicePuissance = randint(0, 1)
-          c = ajoutRetrait
           b = puissance[choixIndicePuissance] - c
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b + 2 * c, 0)}$`
           correctionTableau = avecLesPriorites(i, k, b + c, c, 'factorisee', 1)
@@ -135,7 +133,6 @@ class DistributiviteNumerique extends Exercice {
         case 4: { // Calcul mental soustraction factorisée initialement
           k = randint(47, 83)
           const choixIndicePuissance = randint(0, 1)
-          c = ajoutRetrait
           b = puissance[choixIndicePuissance] + c
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b - 2 * c, 0)}$`
           correctionTableau = avecLesPriorites(i, k, b - c, c, 'factorisee', -1)

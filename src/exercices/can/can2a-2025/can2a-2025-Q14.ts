@@ -9,6 +9,10 @@ export const titre = 'Résoudre une équation graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '67a5b'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -62,8 +66,8 @@ export default class ResoudreGraphiquementEquation extends Exercice {
     const objets1 = [r1, o, courbef1, courbef2, courbe(f1, { repere: r1, color: 'blue', epaisseur: 2 }), courbe(f2, { repere: r1, color: 'red', epaisseur: 2 })]
 
     const colonne1 = mathalea2d(Object.assign({}, fixeBordures(objets1)), objets1)
-    this.question = 'Voici les courbes de deux fonctions $f$ et $g$ définies sur $[-2\\,;\\,3]$ : <br> ' + colonne1
-    this.question += 'Donner l\'ensemble $S$ des solutions de l\'équation $f(x)=g(x)$.'
+    this.question = `Voici les courbes de deux fonctions $f$ et $g$ définies sur $[-2\\,;\\,3]$ : <br>${colonne1}\n
+    Donner l'ensemble $S$ des solutions de l'équation $f(x)=g(x)$.`
     if (this.interactif) { this.question += '<br>' }
     this.correction = `Les solutions sont les abscisses des pojnts d'intersection entre les deux courbes :<br>
    $S=\\{${miseEnEvidence('-1\\,;\\,2')}\\}$ `

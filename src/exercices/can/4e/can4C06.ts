@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Trouver le nombre de nombres entiers entre deux valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,7 +30,7 @@ export default class NombreDeNombresEntiersEntreDeuxValeurs extends Exercice {
     const b = randint(18, 35)
     this.question = `Donner le nombre d'entiers strictement compris entre $${a}$ et $${b}$.`
     this.correction = `Il y en a $(${b}-${a})-1$ soit $${b - a - 1}$ entiers strictement compris entre $${a}$ et $${b}$ `
-    this.reponse = calculANePlusJamaisUtiliser(b - a - 1)
+    this.reponse = b - a - 1
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

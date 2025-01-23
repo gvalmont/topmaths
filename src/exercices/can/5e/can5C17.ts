@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { fraction } from '../../../modules/fractions'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Écrire la valeur décimale d\'une somme de fractions'
 export const interactifReady = true
@@ -35,7 +35,7 @@ export default class EntierPlusFractionVersDecimal extends Exercice {
         b = randint(1, c - 1)
         maFraction = fraction(b, c)
         a = randint(1, 4)
-        resultat = calculANePlusJamaisUtiliser(a + b / c)
+        resultat = a + b / c
         this.question = `Quelle est la valeur décimale de  $${a}+${maFraction.texFraction}$ ?`
         this.correction = `$${a}+${maFraction.texFraction} = ${a} + ${texNombre(maFraction.valeurDecimale)}= ${texNombre(resultat)}$`
         this.reponse = resultat
@@ -46,7 +46,7 @@ export default class EntierPlusFractionVersDecimal extends Exercice {
         a = randint(1, 15)
         c = randint(11, 19)
         maFraction = fraction(c, b)
-        resultat = calculANePlusJamaisUtiliser(a + c / b)
+        resultat = a + c / b
 
         this.question = `Quelle est la valeur décimale de $${a}+${maFraction.texFraction}$ ?
         `
@@ -59,7 +59,7 @@ export default class EntierPlusFractionVersDecimal extends Exercice {
         c = randint(1, 9)
         maFraction = fraction(b, 100)
         maFraction2 = fraction(c, 1000)
-        resultat = calculANePlusJamaisUtiliser(a + b / 100 + c / 1000)
+        resultat = a + b / 100 + c / 1000
         this.question = `Quelle est la valeur décimale de $${a}+${maFraction.texFraction}+${maFraction2.texFraction}$ ?
        `
         this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombre(b / 100)}+${texNombre(c / 1000)}=${texNombre(resultat)}$.`
@@ -71,7 +71,7 @@ export default class EntierPlusFractionVersDecimal extends Exercice {
         c = randint(1, 9)
         maFraction = fraction(b, 1000)
         maFraction2 = fraction(c, 100)
-        resultat = calculANePlusJamaisUtiliser(a + b / 1000 + c / 100)
+        resultat = a + b / 1000 + c / 100
         this.question = `Quelle est la valeur décimale de $${a}+${maFraction.texFraction}+${maFraction2.texFraction}$ ?
         `
         this.correction = `$${a}+${maFraction.texFraction}+${maFraction2.texFraction}=${a}+${texNombre(b / 1000)}+${texNombre(c / 100)}=${texNombre(resultat)}$.`

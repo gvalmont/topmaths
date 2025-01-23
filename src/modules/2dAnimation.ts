@@ -14,8 +14,8 @@ import { arrondi } from '../lib/outils/nombres'
 import { fixeBordures, ObjetMathalea2D } from './2dGeneralites'
 
 // JSDOC Validee par EE Juin 2022
-export function montrerParDiv (id: number) {
-  const elt = document.getElementById(String(id))
+export function montrerParDiv (id: string) {
+  const elt = document.getElementById(id)
   if (elt != null) {
     elt.style.visibility = 'visible'
   } else {
@@ -30,8 +30,8 @@ export function montrerParDiv (id: number) {
    * @author Rémi Angot
    */
 // JSDOC Validee par EE Juin 2022
-export function cacherParDiv (id: number) {
-  const elt = document.getElementById(String(id))
+export function cacherParDiv (id: string) {
+  const elt = document.getElementById(id)
   if (elt != null) {
     elt.style.visibility = 'hidden'
   } else {
@@ -56,15 +56,15 @@ export function afficherTempo (objet: ObjetMathalea2D, t0 = 1, t = 5, r: number 
   const checkExist = setInterval(function () {
     if (document.getElementById(String(objet.id))) {
       clearInterval(checkExist)
-      cacherParDiv(objet.id)
+      cacherParDiv(String(objet.id))
       if (Number(r) === 1) { // On le montre au bout de t0 et on ne le cache plus
-        setTimeout(function () { montrerParDiv(objet.id) }, t0 * 1000)
+        setTimeout(function () { montrerParDiv(String(objet.id)) }, t0 * 1000)
       } else {
-        const cacheRepete = setInterval(function () { cacherParDiv(objet.id) }, t * 1000) // On cache tous les t s
+        const cacheRepete = setInterval(function () { cacherParDiv(String(objet.id)) }, t * 1000) // On cache tous les t s
         setTimeout(function () {
-          montrerParDiv(objet.id) // On attend t0 pour montrer
+          montrerParDiv(String(objet.id)) // On attend t0 pour montrer
           const montreRepete = setInterval(function () {
-            montrerParDiv(objet.id)
+            montrerParDiv(String(objet.id))
             compteur++
             if (typeof r === 'number') {
               if (compteur >= r) {
@@ -97,15 +97,15 @@ export function cacherTempo (objet: ObjetMathalea2D, t0 = 1, t = 5, r: number | 
   const checkExist = setInterval(function () {
     if (document.getElementById(String(objet.id))) {
       clearInterval(checkExist)
-      montrerParDiv(objet.id)
+      montrerParDiv(String(objet.id))
       if (Number(r) === 1) { // On le cache au bout de t0 et on ne le montre plus
-        setTimeout(function () { cacherParDiv(objet.id) }, t0 * 1000)
+        setTimeout(function () { cacherParDiv(String(objet.id)) }, t0 * 1000)
       } else {
-        const montreRepete = setInterval(function () { montrerParDiv(objet.id) }, t * 1000) // On cache tous les t s
+        const montreRepete = setInterval(function () { montrerParDiv(String(objet.id)) }, t * 1000) // On cache tous les t s
         setTimeout(function () {
-          cacherParDiv(objet.id) // On attend t0 pour montrer
+          cacherParDiv(String(objet.id)) // On attend t0 pour montrer
           const cacheRepete = setInterval(function () {
-            cacherParDiv(objet.id)
+            cacherParDiv(String(objet.id))
             compteur++
             if (typeof r === 'number') {
               if (compteur >= r) {

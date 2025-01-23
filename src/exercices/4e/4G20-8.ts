@@ -82,7 +82,7 @@ export default class CalculMentalPythagore extends Exercice {
 
       if (this.questionJamaisPosee(i, AB, BC, AC)) {
         this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeCorrections[i] = texteCorr !== undefined ? texteCorr : ''
         i++
       }
       cpt++

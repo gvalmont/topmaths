@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { point, TracePoint, Point } from '../../lib/2d/points'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { grille } from '../../lib/2d/reperes'
 import { contraindreValeur, egal, randint } from '../../modules/outils'
 import { shuffle } from '../../lib/outils/arrayOutils'
@@ -92,10 +92,11 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     this.centres = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 20;) {
       let enonce = ''
+      // Ici on fait une figure Mathalea2d, pas apiGeom. On est en mode non interactif pour l'instant
       let antecedents: Array<Point> = []
       const symetriques: Point[] = []
-      const objets = []
-      let objetsCorrection: object[] = []
+      const objets: NestedObjetMathalea2dArray = []
+      let objetsCorrection: NestedObjetMathalea2dArray = []
 
       objets.length = 0
       objetsCorrection.length = 0
@@ -136,7 +137,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           const ext1 = rotation(symetriques[k], middle[k], 3 * angleOffset)
           const ext2 = rotation(symetriques[k], middle[k], -angleOffset)
          */
-        const guide = cercleCentrePoint(this.centres[i], antecedents[k], colors[k])
+        const guide = cercleCentrePoint(this.centres[i] as Point, antecedents[k], colors[k])
         guide.pointilles = 2
         guide.opacite = 0.8
         guidesArc.push(guide)
@@ -150,8 +151,8 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
         enonce += `Les cercles tracés en pointillés sont centrés en $${labelCentre}$.<br>`
         objets.push(...guidesArc)
       }
-      objets.push(new TracePoint(this.centres[i]), labelPoint(this.centres[i] as Point))
-      objetsCorrection.push(new TracePoint(this.centres[i]), labelPoint(this.centres[i] as Point))
+      objets.push(new TracePoint(this.centres[i] as Point), labelPoint(this.centres[i] as Point))
+      objetsCorrection.push(new TracePoint(this.centres[i] as Point), labelPoint(this.centres[i] as Point))
       for (let k = 0; k < this.nbPoints; k++) {
         objets.push(new TracePoint(antecedents[k]))
         const sym = rotation(antecedents[k] as Point, this.centres[i] as Point, 180, (antecedents[k] as Point).nom + '\'')
@@ -184,6 +185,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       if (this.sup === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (this.questionJamaisPosee(i, labelCentre, this.labels.join())) {
         if (context.isHtml && this.interactif) {
+          // On crée la figure avec apigeom pour l'interactif
           this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 600, height: 600 }))
           this.figuresApiGeom[i].scale = 1
           this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })

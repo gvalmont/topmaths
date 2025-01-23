@@ -14,7 +14,7 @@ import { context } from '../../../modules/context'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
 import { min, round } from 'mathjs'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -95,7 +95,7 @@ export default class SujetCAN2021Seconde extends Exercice {
 
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
-          reponse = calculANePlusJamaisUtiliser(a * p / 100)
+          reponse = a * p / 100
           texte = `$${p}\\,\\%$ de $${a}= $`
 
           texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>

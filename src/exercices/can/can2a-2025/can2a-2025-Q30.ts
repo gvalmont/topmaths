@@ -1,4 +1,5 @@
 import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { grille } from '../../../lib/2d/reperes'
 import { point, tracePoint } from '../../../lib/2d/points'
@@ -10,6 +11,10 @@ export const titre = 'Calculer une longueur sur une grille'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '9f2e3'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -66,24 +71,26 @@ export default class CalculLongueurGrille extends Exercice {
       scale: 0.5,
       style: 'margin: auto'
     }, objets)
+    const hypo2 = (C.x - A.x) ** 2 + (A.y - B.y) ** 2
+    const isCarre = Math.round(Math.sqrt(hypo2)) ** 2 === hypo2
     this.correction = `On utilise le triangle rectangle représenté ci-dessous et on applique le théoème de Pythagore : <br>
     $\\begin{aligned}
          AB^2&=AC^2+BC^2\\\\
          AB^2&= ${C.x - A.x}^2+${A.y - B.y}^2\\\\
-         AB&=\\sqrt{${(C.x - A.x) ** 2 + (A.y - B.y) ** 2}}\\\\
-         ${this.canOfficielle ? 'AB&=5' : ''}
-         \\end{aligned}$` +
-    mathalea2d({
-      xmin,
-      ymin,
-      xmax,
-      ymax,
-      pixelsParCm: 20,
-      mainlevee: false,
-      amplitude: 0.5,
-      scale: 0.5,
-      style: 'margin: auto'
-    }, objetsC)
+         AB&=\\sqrt{${hypo2}}${isCarre ? `\\\\\nAB&=${Math.round(Math.sqrt(hypo2))}` : ''}\\\\
+         \\end{aligned}$\n
+             La valeur exacte de $AB$ est ${this.canOfficielle ? `$${miseEnEvidence('5')}$` : `$${miseEnEvidence(`\\sqrt{${(C.x - A.x) ** 2 + (A.y - B.y) ** 2}}`)}$`} u.l.` +
+  mathalea2d({
+    xmin,
+    ymin,
+    xmax,
+    ymax,
+    pixelsParCm: 20,
+    mainlevee: false,
+    amplitude: 0.5,
+    scale: 0.5,
+    style: 'margin: auto'
+  }, objetsC)
 
     this.canEnonce = 'Longueur du segment.<br>' + mathalea2d({
       xmin,

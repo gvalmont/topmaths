@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q3 extends ExerciceCan {
-  private enonce (a?: string, b?: number) {
+  enonce (a?: string, b?: number) {
     let c = 3
     if (a == null || b == null) {
       a = choice(['La moitié', 'Le tiers', 'Le quart'])

@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Calculer un produit d’entiers'
 export const interactifReady = true
@@ -28,7 +28,7 @@ export default class ProduitEntiers5e extends Exercice {
   nouvelleVersion () {
     const b = randint(5, 9)
     const a = randint(12, 19)
-    this.reponse = calculANePlusJamaisUtiliser(a * b)
+    this.reponse = a * b
     this.question = `Calculer $${a} \\times ${b}$.`
     this.correction = `$${a} \\times ${b}=${a * b}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>

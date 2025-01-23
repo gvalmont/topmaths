@@ -76,9 +76,9 @@ export function troncature (nombre: number, precision: number) {
  * @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
  * @returns {number|Decimal}
  */
-export function abs (a: number | Decimal) {
-  if (a instanceof Decimal) return a.abs()
-  return Math.abs(a)
+export function abs<T extends number | Decimal> (a: T): T {
+  if (a instanceof Decimal) return a.abs() as T
+  return Math.abs(a) as T
 }
 
 /**

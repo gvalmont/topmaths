@@ -29,7 +29,7 @@ export default class SuitesRaison extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.sup = '7'
+    this.sup = '5'
     this.spacing = 1.5
     this.spacingCorr = 2
     this.besoinFormulaire2CaseACocher = ['Avec des décimaux']

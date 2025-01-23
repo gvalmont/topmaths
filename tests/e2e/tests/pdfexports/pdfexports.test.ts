@@ -198,7 +198,7 @@ async function getLatexFile (page: Page, urlExercice: string) {
 
 async function testRunAllLots (filter: string) {
   // return testAll(page, '6e/6G23')
-  const uuids = filter.includes('dnb') || filter.includes('crpe') || filter.includes('bac') ? await findStatic(filter) : await findUuid(filter)
+  const uuids = filter.includes('dnb') || filter.includes('crpe') || filter.includes('sti2d') || filter.includes('bac') || filter.includes('e3c') ? await findStatic(filter) : await findUuid(filter)
   for (let i = 0; i < uuids.length && i < 300; i += 10) {
     const ff : ((page: Page) => Promise<boolean>)[] = []
     for (let k = i; k < i + 10 && k < uuids.length; k++) {
@@ -267,5 +267,6 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('dnb_2020_09_metropole_4')
   // testRunAllLots('dnb_2021_06_polynesie_5')
   // testRunAllLots('dnb_2014_12_caledonie_2')
-  testRunAllLots('dnb_2020^dnb_2021^dnb_2022^dnb_2023')
+  // testRunAllLots('dnb_2020^dnb_2021^dnb_2022^dnb_2023')
+  testRunAllLots('bac_2022')
 }

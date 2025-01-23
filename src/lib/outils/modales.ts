@@ -35,7 +35,7 @@ export function createLink ({ text, url }: { text: string; url: string }) {
  * @param icone
  * @author Rémi Angot
  */
-export function creerBoutonMathalea2d (numeroExercice: number, fonction: string, labelBouton = 'Aide', icone = 'info circle') {
+export function creerBoutonMathalea2d (numeroExercice: number | string, fonction: string, labelBouton = 'Aide', icone = 'info circle') {
   return `<button class="inline-block px-6 py-2.5 mr-10 my-5 ml-6 bg-coopmaths text-white font-medium text-xs leading-tight uppercase rounded shadow-md transform hover:scale-110 hover:bg-coopmaths-dark hover:shadow-lg focus:bg-coopmaths-dark focus:shadow-lg focus:outline-none focus:ring-0 active:bg-coopmaths-dark active:shadow-lg transition duration-150 ease-in-out" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
 }
 

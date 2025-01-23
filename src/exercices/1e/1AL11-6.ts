@@ -75,7 +75,7 @@ export default class SuitesExplicites extends Exercice {
           r = choice([new Decimal(randint(-99, 99, [0, 10])).div(10), new Decimal(randint(-15, 15, 0))])
           indice = this.sup2 ? randint(1, 10) : 0
           b = new Decimal(r).mul(indice).mul(-1).add(a)
-          reponse = this.sup2 ? `${reduireAxPlusB(a, b, 'n')}` : `${reduireAxPlusB(r, a, 'n')}`
+          reponse = this.sup2 ? `${reduireAxPlusB(r, b, 'n')}` : `${reduireAxPlusB(r, a, 'n')}`
           handleAnswers(this, i, { reponse: { value: reponse } })
           texte = `Soit $(${NomS}_n)$ une suite arithmétique de raison $r=${texNombre(r, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`

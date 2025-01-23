@@ -8,6 +8,10 @@ export const titre = 'Rendre une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '84545'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * @author Gilles Mora
 */

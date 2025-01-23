@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { prenom } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Résoudre un problème avec la proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -45,7 +45,7 @@ export default class ProportionnaliteNotes extends Exercice {
       this.reponse = (n * 2) / 3
     }
     if (a === 40) {
-      n = calculANePlusJamaisUtiliser(2 * randint(1, 9) + 1)
+      n = 2 * randint(1, 9) + 1
 
       this.question = `${prenom()} a obtenu $${n}$ sur $40$ à son devoir.<br>
 

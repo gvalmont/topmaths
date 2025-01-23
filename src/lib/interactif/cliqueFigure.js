@@ -1,4 +1,4 @@
-import { addElement, get, setStyles } from '../html/dom.js'
+import { addElement, get, setStyles } from '../html/dom'
 import { afficheScore } from './afficheScore'
 
 export function mouseOverSvgEffect () {

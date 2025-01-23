@@ -448,7 +448,7 @@ export default class Alea2iep {
 
   /**
  *
- * @param {number} angle
+ * @param {number|Point} angle
  *@param {objet} [options]
  */
   regleRotation (angle, options) {
@@ -466,7 +466,7 @@ export default class Alea2iep {
 
   /**
  *
- * @param {number} angle
+ * @param {number|Point} angle
  *@param {objet} [options]
  */
   equerreRotation (angle, options) {

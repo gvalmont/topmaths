@@ -3,7 +3,7 @@ import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
 import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 export const titre = 'Résoudre une équation avec une fonction de référence'
 export const interactifReady = true
@@ -37,7 +37,7 @@ export default class ResoudreEquationsFonctionDeReference extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 1, 2, 3])) { //
         case 1 :
-          a = calculANePlusJamaisUtiliser(randint(0, 10) ** 2)
+          a = randint(0, 10) ** 2
           b = choice([2, 3, 5, 7, 10, 11, 13, 14, 15, 17, 19, 21, 23])
           c = choice([-1, -2, -3, -5, -7, -10, -11, -13, -14, -15, -4, -9, -16, -25, -36, -49, -64, -81, -100])
           k = choice([a, a, b, b, c])

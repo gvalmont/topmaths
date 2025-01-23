@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q19 extends ExerciceCan {
-  private enonce (a?: number, b?: string) {
+  enonce (a?: number, b?: string) {
     if (a == null || b == null) {
       a = randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9) + randint(1, 9) / 10 + randint(1, 9) / 100 + randint(1, 9) / 1000
       b = choice(['centièmes', 'dixièmes', 'centaines', 'dizaines'])

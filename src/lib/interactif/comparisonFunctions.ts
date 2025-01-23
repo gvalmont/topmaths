@@ -33,6 +33,7 @@ export type OptionsComparaisonType = {
   divisionSeulementEtNonResultat?: boolean
   resultatSeulementEtNonOperation?: boolean
   ensembleDeNombres ?: boolean
+  fonction ?: boolean
   kUplet ?: boolean
   seulementCertainesPuissances?: boolean
   sansExposantUn?: boolean
@@ -58,7 +59,8 @@ export type OptionsComparaisonType = {
   pluriels?: boolean,
   multi?: boolean, // options pour le drag and drop
   ordered?: boolean // options pour le drag and drop
-  tolerance?: number
+  tolerance?: number,
+  variable?: string
 }
 export type CompareFunction = (
   input: string,
@@ -78,6 +80,7 @@ type CleaningOperation =
   | 'foisUn'
   | 'unites'
   | 'doubleEspaces'
+  | 'espaceNormal'
   | 'mathrm'
 
 /**
@@ -146,6 +149,14 @@ function cleanDoubleSpaces (str: string): string {
 }
 
 /**
+ * Remplace les espaces Latex par des espaces normaux
+ * @param {string} str
+ */
+function cleanEspaceNormal (str: string): string {
+  return str.replaceAll(/\\,/g, ' ')
+}
+
+/**
  * Nettoie les parenthèses en remplaçant par celles supportées par le ComputeEngine
  * @param {string} str
  */
@@ -164,6 +175,9 @@ function cleanParenthses (str: string): string {
     .replaceAll('\\right]', ']')
     .replaceAll('\\right[', '[')
     .replaceAll('\\left]', ']')
+    .replace(/^(?!\{\}$)(?<!\^)\{\}/g, '') // Cela permet de supprimer les doubles accolades vierges sauf :
+    // quand elles sont précédées de ^ (cette gestion est propre aux puissances)
+    // et que la chaine ne contient que {} (qui serait le cas d'un ensemble vide)
 }
 
 function cleanMathRm (str: string): string {
@@ -234,6 +248,8 @@ export function generateCleaner (
         return cleanUnity
       case 'doubleEspaces':
         return cleanDoubleSpaces
+      case 'espaceNormal':
+        return cleanEspaceNormal
       default:
         throw new Error(`Unsupported cleaning operation: ${operation}`)
     }
@@ -567,6 +583,7 @@ export function fonctionComparaison (
     divisionSeulementEtNonResultat, // Documenté
     resultatSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
+    fonction,
     kUplet, // Documenté
     suiteDeNombres, // Documenté
     suiteRangeeDeNombres, // Documenté
@@ -587,7 +604,8 @@ export function fonctionComparaison (
     texteSansCasse,
     nombreAvecEspace,
     egaliteExpression,
-    nonReponseAcceptee
+    nonReponseAcceptee,
+    variable
   }: OptionsComparaisonType = {
     expressionsForcementReduites: true,
     avecSigneMultiplier: true,
@@ -607,6 +625,7 @@ export function fonctionComparaison (
     divisionSeulementEtNonResultat: false,
     resultatSeulementEtNonOperation: false,
     ensembleDeNombres: false,
+    fonction: false,
     kUplet: false,
     seulementCertainesPuissances: false,
     sansExposantUn: false,
@@ -627,7 +646,8 @@ export function fonctionComparaison (
     texteSansCasse: false,
     nombreAvecEspace: false,
     egaliteExpression: false,
-    nonReponseAcceptee: false
+    nonReponseAcceptee: false,
+    variable: 'x'
   }
 ): ResultType {
   // nonReponseAcceptee = true permet d'avoir des champs vides (on pense aux fillInTheBlank qui peuvent être facultatifs, comme par exemple un facteur 1)
@@ -640,6 +660,7 @@ export function fonctionComparaison (
   // ici, on met tous les tests particuliers (HMS, intervalle)
   // if (HMS) return comparaisonExpressions(input, goodAnswer)
   if (HMS) return hmsCompare(input, goodAnswer)
+  if (fonction) return functionCompare(input, goodAnswer, { variable: variable ?? 'x' })
   if (intervalle) return intervalsCompare(input, goodAnswer)
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
   if (ecritureScientifique) return scientifiqueCompare(input, goodAnswer)
@@ -1180,8 +1201,9 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
   if (puissance === 0) saisieCleanFormattee = engine.parse(saisieClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
 
   // Ce code ci-dessous sera à supprimer après correction de l'issue 223 de computeEngine 0.27.0
-  const regex = /(?:\{(-?\d+)\}|(-?\d+))\\cdot(.+)/ // Expression régulière pour capturer le nombre avant et ce qui suit \cdot
+  const regex = /(?:\{(-?\d+(?:\.\d+)?)\}|(-?\d+(?:\.\d+)?))\\cdot(.+)/ // Expression régulière pour capturer le nombre avant et ce qui suit \cdot
   const decoupageSaisie = saisieCleanFormattee.match(regex)
+
   let mantisseSaisie: string | null = null
   if (decoupageSaisie) {
     mantisseSaisie = (decoupageSaisie[1] || decoupageSaisie[2]) || null
@@ -1190,8 +1212,10 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
   // Ce code ci-dessus sera à supprimer après correction de l'issue 223 de computeEngine 0.27.0
 
   const reponseCleanFormattee = engine.parse(reponseClean).toLatex({ notation: 'scientific', avoidExponentsInRange: [0, 0] })
-  if (saisieCleanFormattee === reponseCleanFormattee) return { isOk: true }
 
+  saisieCleanFormattee = saisieCleanFormattee.replace(/(\d+\.?\d*?)0*(?=\\cdot)/, '$1') // Pour corriger 9.040\\cdot10^{4} en 9.04\\cdot10^{4}
+
+  if (saisieCleanFormattee === reponseCleanFormattee) return { isOk: true }
   if (engine.parse(saisieClean).isEqual(engine.parse(reponseClean))) return { isOk: false, feedback: 'La réponse fournie est bien égale à celle attendue mais la réponse fournie n\'est pas en notation scientifique.' }
   return { isOk: false, feedback: 'La réponse fournie n\'est pas égale à celle attendue.' }
 }
@@ -1205,8 +1229,14 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
  */
 function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
   const cleaner = generateCleaner(['parentheses', 'mathrm', 'fractions'])
-  const localInput = cleaner(input)
+  let localInput = cleaner(input)
   const localGoodAnswer = cleaner(goodAnswer)
+  const clean = generateCleaner([
+    'espaceNormal',
+    'doubleEspaces'
+  ])
+  localInput = clean(localInput)
+
   const isOk = localGoodAnswer === localInput
   // Cette commande ci-dessous est mauvaise. Je la laisse pour expliquer pourquoi elle est mauvaise.
   // Autant, elle serait utile pour comparer 'aucun' et 'Aucun'

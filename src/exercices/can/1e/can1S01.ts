@@ -1,9 +1,10 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer un terme d’une suite explicite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +27,7 @@ export const refs = {
 export default class CalculTermeSuiteExp extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
@@ -44,10 +45,8 @@ export default class CalculTermeSuiteExp extends Exercice {
         $u_n = `
         if (a === 1) { this.question += 'n' } else if (a === -1) { this.question += '-n' } else { this.question += `${a}n` }
         if (b > 0) { this.question += `+${b}$.` } else { this.question += `${b}$.` }
-        this.question += `<br>
-        
-        Calculer $u_{${k}}$.
-                `
+        this.question += `<br>        
+        Calculer $u_{${k}}$.`
 
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : $u_{${k}} =`
         if (a === 1) {
@@ -60,7 +59,7 @@ export default class CalculTermeSuiteExp extends Exercice {
           }
         }
         this.correction += `=${a * k + b}$.`
-        this.reponse = calculANePlusJamaisUtiliser(a * k + b)
+        this.reponse = a * k + b
         break
       case 'b':// polynome second degré
         a = randint(1, 2) * choice([-1, 1])
@@ -111,7 +110,7 @@ export default class CalculTermeSuiteExp extends Exercice {
           }
         }
         this.correction += `${ecritureAlgebrique(c)}=${a * k * k + b * k + c}$.`
-        this.reponse = calculANePlusJamaisUtiliser(a * k * k + b * k + c)
+        this.reponse = a * k * k + b * k + c
         break
       case 'c':// suite a+b/n
         choix = choice([true, false])
@@ -130,10 +129,10 @@ export default class CalculTermeSuiteExp extends Exercice {
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
         if (choix === true) {
           this.correction += `${a}+\\dfrac{${b}}{${k}}=${a}+${texNombre(b / k)}=${texNombre(a + b / k)}$.`
-          this.reponse = calculANePlusJamaisUtiliser(a + b / k)
+          this.reponse = a + b / k
         } else {
           this.correction += `${a}-\\dfrac{${b}}{${k}}=${a}-${texNombre(b / k)}=${texNombre(a - b / k)}$.`
-          this.reponse = calculANePlusJamaisUtiliser(a - b / k)
+          this.reponse = a - b / k
         }
 
         break
@@ -159,10 +158,10 @@ export default class CalculTermeSuiteExp extends Exercice {
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
         if (choix === true) {
           this.correction += `${a}+\\dfrac{${b}}{${k}}=\\dfrac{${a}\\times ${k}}{${k}}+\\dfrac{${b}}{${k}}=\\dfrac{${a * k + b}}{${k}}$`
-          this.reponse = texFractionReduite(a * k + b, k)
+          this.reponse = new FractionEtendue(a * k + b, k).simplifie()
         } else {
           this.correction += `${a}-\\dfrac{${b}}{${k}}=\\dfrac{${a}\\times ${k}}{${k}}-\\dfrac{${b}}{${k}}=\\dfrac{${a * k - b}}{${k}}$`
-          this.reponse = texFractionReduite(a * k - b, k)
+          this.reponse = new FractionEtendue(a * k - b, k).simplifie()
         }
         break
     }

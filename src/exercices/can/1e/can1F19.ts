@@ -40,7 +40,7 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
 
            $f(x)=${reduireAxPlusB(m, p)}+\\dfrac{${a}}{x}$.<br>
 
-            Déterminer $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+            Déterminer $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                  On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -59,7 +59,7 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
 
              $f(x)=${reduireAxPlusB(m, p)}-\\dfrac{${a}}{x}$. <br>
 
-              Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+              Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u-v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                    On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -78,7 +78,7 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
 
                $f(x)=${p}${ecritureAlgebrique(m)}x+\\dfrac{${a}}{x}$. <br>
 
-                Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+                Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                      On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -96,7 +96,7 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
 
                   $f(x)=${p}${ecritureAlgebrique(m)}x-\\dfrac{${a}}{x}$. <br>
 
-                  Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+                  Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                        On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -115,7 +115,7 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
 
             $f(x)=${reduirePolynomeDegre3(0, m, 0, p)}+\\dfrac{${a}}{x}$. <br>
 
-            Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+            Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                  On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -133,7 +133,7 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
 
          $f(x)=${p}${ecritureAlgebrique(m)}x^2+\\dfrac{${a}}{x}$. <br>
 
-          Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+          Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x^2$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
@@ -152,7 +152,7 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
 
        $f(x)=${reduirePolynomeDegre3(0, m, 0, p)}-\\dfrac{${a}}{x}$.<br>
 
-        Déterminer  $f'(x)$ (écrire le résultat sous la fomre d'un seul quotient).<br>     `
+        Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f$est de la forme $u-v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
              On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>

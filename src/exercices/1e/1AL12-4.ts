@@ -7,6 +7,11 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { prenom } from '../../lib/outils/Personne'
 import { createList } from '../../lib/format/lists'
 import { sp } from '../../lib/outils/outilString'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { point, tracePoint } from '../../lib/2d/points'
+import { arrondi } from '../../lib/outils/nombres'
+import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { context } from '../../modules/context'
 export const titre = 'Résoudre plusieurs questions sur une même suite (bilan type E3C)'
 export const dateDePublication = '05/01/2025'
 
@@ -23,7 +28,7 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.sup = '10'
+    this.sup = '11'
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
@@ -38,7 +43,8 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
         '7 : Course cycliste',
         '8 : Hauteur d\'une balle',
         '9 : Comparaison de salaires',
-        '10 : mélange'
+        '10 : Population d\'abeilles',
+        '11 : mélange'
       ].join('\n')
     ]
   }
@@ -47,9 +53,9 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 9,
-      melange: 10,
-      defaut: 10,
+      max: 10,
+      melange: 11,
+      defaut: 11,
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -60,7 +66,7 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
       const ListeNomSA = ['v', 't']
       const NomS = choice(ListeNomS)
       const NomSA = choice(ListeNomSA)
-      let p, b, cm, num, den, r, n, Rannee, b1, a1, a2, n1, n2, v, k, u0, u1, u2, v0, v1, somme, nbreS, quidam, annee, choix
+      let point1, point2, point3, point4, point5, point6, limite, nbre, a, c, p, b, cm, num, den, r, n, Rannee, b1, a1, a2, n1, n2, v, k, u0, u1, u2, v0, v1, graphique, somme, nbreS, quidam, annee, choix, r1
       switch (listeTypeDeQuestions[i]) {
         case 1:// création d'entreprises
           u0 = randint(10, 70)
@@ -680,7 +686,7 @@ La balle rebondit à une hauteur de $${texNombre(cm.pow(n).mul(u0), 2)}$ m aprè
           )
           break
 
-        default:// salaires
+        case 9:// salaires
           quidam = prenom(2)
           p = new Decimal(randint(3, 5))
           cm = new Decimal(1).add((p.div(100)))
@@ -808,6 +814,141 @@ $\\begin{array}{|l|}\n
             }
           )
 
+          break
+
+        default:
+          { // population d'abeilles
+            r = randint(28, 39) * 10
+            a = randint(1, 3)// nombre d'années après annee pour lecture d'image
+            annee = randint(2021, 2024)
+            u0 = randint(71, 75) * 100
+            b = randint(3, 4)// valeur pour le seuil
+            c = choice([4, 5, 8]) // indice de la valeur du terme donné pour calculer la raison
+            limite = arrondi((u0 + b * r) / 100, 0) * 100 + 100
+            nbre = randint(9, 11) * 1000// nbre d'abeilles pour produire du miel
+            point1 = point(0, u0 / 100)
+            point2 = point(4, u0 / 100 + 0.01 * r)
+            point3 = point(8, u0 / 100 + 0.02 * r)
+            point4 = point(12, u0 / 100 + 0.03 * r)
+            point5 = point(16, u0 / 100 + 0.04 * r)
+            point6 = point(20, u0 / 100 + 0.05 * r)
+            /* r1 = repere({
+              xMin: 0,
+              xMax: 6,
+              yMin: 7000,
+              yMax: u0 + 6 * r,
+              xUnite: 4,
+              yUnite: 0.01,
+              xThickDistance: 1,
+              yThickDistance: 200,
+              xLabelMin: 0,
+              yLabelMin: 6500,
+              yLabelEcart: 1.3,
+              grilleXDistance: 4,
+              grilleYDistance: 1
+            })
+              */
+            r1 = new RepereBuilder({ xMin: 0, xMax: 6, yMin: 7000, yMax: u0 + 6 * r })
+              .setGrille({ grilleX: { dx: 4, xMin: 0, xMax: 6 }, grilleY: { dy: 2, yMin: 7000, yMax: u0 + 6 * r } })
+              .setUniteX(4)
+              .setUniteY(0.01)
+              .setThickY({ yMin: 7000, yMax: u0 + 6 * r, dy: 200 })
+              .setThickX({ xMin: 0, xMax: 6, dx: 1 })
+              .setLabelY({ yMin: 7000, yMax: u0 + 6 * r, dy: 200 })
+            r1.yLabelEcart = 1.5
+
+            const monRepere = r1.buildCustom()
+            const objets = [monRepere, tracePoint(point1, point2, point3, point4, point5, point6)]
+            graphique = mathalea2d(Object.assign({ pixelsParCm: 15, scale: 0.4, style: 'inline-block' }, fixeBordures(objets)), objets)
+            u1 = u0
+            n1 = 0
+            for (let indice = 0; u1 < nbre; indice++) {
+              u1 = u1 + r
+              n1 = indice + 1
+            }
+            if (context.isHtml) {
+              texte = `En $${annee}$, une ruche est composée de $${texNombre(u0, 0)}$ abeilles dont une reine.<br>
+          On modélise, à partir de cette année, le nombre d'abeilles dans la ruche par une suite $(u_n)$.<br>
+          Le graphique ci-dessous représente les premières valeurs de $u_n$  donnant le nombre d'abeilles de cette ruche prévues en $${annee}+n$.<br>
+          ${graphique}`
+            } else {
+              texte = `En $${annee}$, une ruche est composée de $${texNombre(u0, 0)}$ abeilles dont une reine.<br>
+          On modélise, à partir de cette année, le nombre d'abeilles dans la ruche par une suite $(u_n)$.<br>
+          Le graphique ci-dessous représente les premières valeurs de $u_n$  donnant le nombre d'abeilles de cette ruche prévues en $${annee}+n$.<br>
+          \\begin{tikzpicture}
+  \\begin{axis}[%
+      /pgf/number format/.cd, % trois lignes pour un format de nombre à la française pour les grand nombres
+      use comma,
+      1000 sep={\\,},
+      axis y line=center,axis x line=middle,% pour avoir les axes cenré sur l'origine
+      x=1.5cm,y=0.003cm,% unités sur les axes
+      xmin=0,xmax=6,ymin=7200,ymax=${u0 + 6 * r},% bornes du repère
+      xtick distance=1,ytick distance =200,% nombre d'unités entre deux laabels
+      minor y tick num = 1, % sous grille supplémentaire (indiquer le nombre de trait entre deux graduations)
+      minor grid style = {thin, black!10}, % style des traits pour la sous-grille
+      grid=both,%
+      tick label style={font=\\scriptsize,black!50}, % description des styles des labels sur les axes
+    ]
+    \\addplot+[only marks,mark=+,mark size=3pt,red,thick,domain=0:5,samples={6}] {${r}*x+${u0}};
+  \\end{axis}
+\\end{tikzpicture}`
+            }
+            texte += createList(
+              {
+                items: [
+                  'Avec la précision permise par ce graphique, répondre aux questions suivantes.' +
+                  createList(
+                    {
+                      items: [
+     `Quel est le nombre d'abeilles prévues en $${annee + a}$ ?`,
+`En quelle année le nombre d'abeilles dans la ruche dépassera $${texNombre(limite, 0)}$ abeilles ?`,
+'Pourquoi peut-on conjecturer que le suite $(u_n)$ est une suite arithmétique ?'],
+                      style: 'alpha'
+                    }
+                  ),
+                  `En admettant que la suite $(u_n)$ est une suite arithmétique et que $u_{${c}}=${texNombre(u0 + c * r, 0)}$, déterminer la raison de la suite $(u_n)$.<br>
+                  Justifier en écrivant le(s) calcul(s).`,
+                  `Une ruche produit du miel si au moins $${texNombre(nbre, 0)}$ abeilles l'habitent.<br>
+                  À partir de combien d'années cette ruche produira-t-elle du miel ? Justifier.`
+
+                ],
+                style: 'nombres'
+              }
+            )
+
+            texteCorr = createList(
+              {
+                items: [
+                  createList(
+                    {
+                      items: [
+ `On lit l'ordonnée du point d'abscisse $${a}$.<br>
+ Ainsi, d'après le graphique, le nombre d'abeilles prévues en $${annee + a}$ est $${texNombre(arrondi((u0 + a * r) / 10, 0) * 10, 0)}$.`,
+`Les ordonnées des points dépassent $${texNombre(limite, 0)}$ à partir de $n=${b + 1}$.<br>
+C'est donc en  $${annee + b + 1}$ que le nombre d'abeilles dépassera $${texNombre(limite, 0)}$.`,
+'Les points sur le graphique sont alignés, on conjecture que la suite est arithmétique.'],
+                      style: 'alpha'
+                    }
+                  ),
+              `La raison $r$ de la suite est donnée par : $r=\\dfrac{u_{${c}}-u_0}{${c}}$.<br>
+              $r=\\dfrac{${texNombre(u0 + c * r, 0)}-${texNombre(u0, 0)}}{${c}}=${texNombre(r, 0)}$.
+              `, `L'expression du terme général de la suite $(u_n)$ est $u_n=${texNombre(u0, 0)}+n\\times ${r}$.<br>
+              On cherche $n$ tel que $${texNombre(u0, 0)}+n\\times ${r}>${texNombre(nbre, 0)}$.<br>
+              $\\begin{aligned}
+              ${texNombre(u0, 0)}+n\\times ${r}&>${texNombre(nbre, 0)}\\\\
+              n&>\\dfrac{${texNombre(nbre, 0)}-${texNombre(u0, 0)}}{${r}}\\\\
+              n&>\\dfrac{${texNombre(nbre - u0, 0)}}{${r}}
+              \\end{aligned}$<br>
+              Comme $\\dfrac{${texNombre(nbre - u0, 0)}}{${r}}
+              ${(nbre - u0) % r === 0 ? '=' : '\\approx'}  ${texNombre(arrondi((nbre - u0) / r, 1), 1)}$, c'est à partir de la 
+              
+              ${(nbre - u0) % r === 0 ? `$${n1 + 1}$` : `$${n1}$`}e année après $${annee}$ que la ruche produira du miel, soit en ${(nbre - u0) % r === 0 ? `$${annee + n1 + 1}$` : `$${annee + n1}$`}.`
+
+                ],
+                style: 'nombres'
+              }
+            )
+          }
           break
       }
 

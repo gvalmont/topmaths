@@ -7,6 +7,10 @@ export const titre = 'Calculer la probabilité d\'un événement contraire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '71ddc'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -40,6 +44,6 @@ export default class ProbaEvenementContraire extends Exercice {
           Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${miseEnEvidence(dMoinsNSurD.texFraction)}$.`
     this.reponse = new FractionEtendue(d - n, d)
     this.canEnonce = `Un événement $A$ a pour probabilité $P(A)=${nSurD.texFraction}$.`
-    this.canReponseACompleter = '$P(\\overline{A})=\\ldots'
+    this.canReponseACompleter = '$P(\\overline{A})=\\ldots$'
   }
 }

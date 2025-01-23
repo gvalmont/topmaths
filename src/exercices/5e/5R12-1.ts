@@ -36,7 +36,7 @@ class ReperagePointDuPlan extends Exercice {
     this.exoCustomResultat = true // Pour qu'une unique question puisse rapporter plusieurs points
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    // Pour un exercice de type simple qui n'utilise pas le champ de réponse
+    this.formatChampTexte = 'none' // Pour un exercice de type simple qui n'utilise pas le champ de réponse
     this.reponse = ''
   }
 

@@ -242,15 +242,15 @@ export class Spline {
           }
         }
       }
-      this.noeuds = [...noeuds]
-      this.n = this.noeuds.length
-      this.x = this.noeuds.map((noeud) => noeud.x)
-      this.y = this.noeuds.map((noeud) => noeud.y)
-      this.visibles = this.noeuds.map((noeud) => noeud.isVisible) // On récupère la visibilité des noeuds pour la courbe
-      this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
-      // this.step = step // on en a besoin pour la dérivée...
-      this.fonctions = this.#convertPolyFunction()
     }
+    this.noeuds = [...noeuds]
+    this.n = this.noeuds.length
+    this.x = this.noeuds.map((noeud) => noeud.x)
+    this.y = this.noeuds.map((noeud) => noeud.y)
+    this.visibles = this.noeuds.map((noeud) => noeud.isVisible) // On récupère la visibilité des noeuds pour la courbe
+    this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
+    // this.step = step // on en a besoin pour la dérivée...
+    this.fonctions = this.#convertPolyFunction()
   }
 
   get image () {
@@ -645,18 +645,16 @@ export class Spline {
      * @returns {Trace}
      */
   courbe ({
-    repere,
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = false,
     optionsNoeuds = {}
   }: {
-    repere: Repere,
     color?: string,
     epaisseur?: number,
     ajouteNoeuds?: boolean,
     optionsNoeuds?: Object
-  }) {
+  } = {}) {
     return new Trace(this, {
       color,
       epaisseur,
@@ -714,7 +712,7 @@ export function trieNoeuds (noeuds: NoeudSpline[]) {
  */
 export class Trace extends ObjetMathalea2D {
   /**
-     * @param {Spline | SplineCatmullRom}spline La splineCatmulRom ou Spline dont on veut la Trace
+     * @param {Spline}spline La splineCatmulRom ou Spline dont on veut la Trace
      * @param {Repere} repere le repère associé
      * @param {number} step le pas entre deux points
      * @param {string} color la couleur

@@ -575,7 +575,6 @@ export class Arc extends ObjetMathalea2D {
     }
 
     if (this.hachures != null && typeof this.hachures === 'string') {
-      console.log(this.hachures)
       tableauOptions.push(
         pattern({
           motif: this.hachures,
@@ -704,7 +703,7 @@ export function arcPointPointAngle (
   color = 'black',
   opaciteDeRemplissage = 0.2,
   couleurDesHachures = 'none'
-) {
+): Arc {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2

@@ -41,7 +41,7 @@ export function labelOnLine (droite: Droite, nom: string, {
   letterSize?: LetterSizeType,
   color?: string,
   backgroundColor?: string
-}): Latex2d | ObjetMathalea2D {
+} = {}): Latex2d | ObjetMathalea2D {
   const debug = false
   const largeur = 30
   const hauteur = 20

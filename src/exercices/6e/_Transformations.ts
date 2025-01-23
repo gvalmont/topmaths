@@ -17,7 +17,7 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { imagePointParTransformation } from '../../modules/imagePointParTransformation'
+import { imagePointParTransformation, type TransformationsIndex } from '../../modules/imagePointParTransformation'
 import { assombrirOuEclaircir, colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -58,7 +58,7 @@ export default class Transformations extends Exercice {
       nbQuestions: 3,
       saisie: this.sup,
       melange: 11
-    }).map(Number)
+    }).map(Number) as TransformationsIndex[]
 
     if (this.can) {
       nbImages = 1
@@ -77,7 +77,7 @@ export default class Transformations extends Exercice {
     d2.opacite = 0.5
     d3.opacite = 0.5
     d4.opacite = 0.5
-    const couleurs = ['brown', 'green', 'blue']
+    const couleurs = ['brown', 'green', 'blue', 'purple']
 
     const xO = 4
     const yO = 4
@@ -130,7 +130,7 @@ export default class Transformations extends Exercice {
         mauvaisAntecedents = []
         antecedents[j] = randint(0, 99, pointsDejaUtilises)
         punto[j] = imagePointParTransformation(
-          choixTransformation[j],
+          choixTransformation[j] as TransformationsIndex,
           [antecedents[j] % 10, Math.floor(antecedents[j] / 10)],
           [xO, yO],
           [xu, yu],
@@ -161,7 +161,7 @@ export default class Transformations extends Exercice {
           mauvaisAntecedents.push(antecedents[j])
           antecedents[j] = randint(0, 99, mauvaisAntecedents)
           punto[j] = imagePointParTransformation(
-            choixTransformation[j],
+            choixTransformation[j] as TransformationsIndex,
             [antecedents[j] % 10, Math.floor(antecedents[j] / 10)],
             [xO, yO],
             [xu, yu],
@@ -220,17 +220,17 @@ export default class Transformations extends Exercice {
               ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $(d_1)$.`
             texte +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', context.isHtml ? d1.color[0] : d1.color[1])}$.<br>`
+              ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', couleurs[i])}$.<br>`
             texteCorr +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_1)', context.isHtml ? d1.color[0] : d1.color[1])}$ est le point $${miseEnEvidence(String(images[i]))}$.<br>`
-            objetsEnonce.push(d1, traceAnt, latexParCoordonnees('(d_1)', 4.8, 4.2, context.isHtml ? d1.color[0] : d1.color[1], 20, 10, '', 12))
+              ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_1)', couleurs[i])}$ est le point $${miseEnEvidence(String(images[i]))}$.<br>`
+            objetsEnonce.push(d1, traceAnt, latexParCoordonnees('(d_1)', 4.8, 4.2, couleurs[i], 20, 10, '', 12))
 
-            objetsCorrection.push(d1, traceAnt, traceIm, latexParCoordonnees('(d_1)', 4.8, 4.2, context.isHtml ? d1.color[0] : d1.color[1], 20, 10, '', 12),
-              segment(M[i], N[i], context.isHtml ? d1.color[0] : d1.color[1]), codageSegments('O', context.isHtml ? d1.color[0] : d1.color[1], M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
-              codageAngleDroit(M[i], milieu(M[i], N[i]), pointSurDroite(d1, 1, ''), context.isHtml ? d1.color[0] : d1.color[1], 0.4, 1))
+            objetsCorrection.push(d1, traceAnt, traceIm, latexParCoordonnees('(d_1)', 4.8, 4.2, couleurs[i], 20, 10, '', 12),
+              segment(M[i], N[i], couleurs[i]), codageSegments('O', couleurs[i], M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
+              codageAngleDroit(M[i], milieu(M[i], N[i]), pointSurDroite(d1, 1, ''), couleurs[i], 0.4, 1))
             objetsCorrection.push(texteParPositionEchelle(Number(punto[i][0] + 10 * punto[i][1]).toString(), punto[i][0] - 4.2, punto[i][1] - 4.2, 0, '#f15929', 1, 'milieu', false, 0.8))
-            objetsCorrection.push(texteParPositionEchelle(antecedents[i].toString(), antecedents[i] % 10 - 4.2, Math.floor(antecedents[i] / 10) - 4.2, 0, context.isHtml ? d1.color[0] : d1.color[1], 1, 'milieu', false, 0.8))
+            objetsCorrection.push(texteParPositionEchelle(antecedents[i].toString(), antecedents[i] % 10 - 4.2, Math.floor(antecedents[i] / 10) - 4.2, 0, couleurs[i], 1, 'milieu', false, 0.8))
             break
 
           case 2:
@@ -239,16 +239,16 @@ export default class Transformations extends Exercice {
               ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $(d_2)$.`
             texte +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', context.isHtml ? d2.color[0] : d2.color[1])}$.<br>`
+              ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', couleurs[i])}$.<br>`
             texteCorr +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_2)', context.isHtml ? d2.color[0] : d2.color[1])}$ est le point $${miseEnEvidence(String(images[i]))}$.<br>`
-            objetsEnonce.push(d2, traceAnt, latexParCoordonnees('(d_2)', 4.3, -3.7, context.isHtml ? d2.color[0] : d2.color[1], 20, 10, '', 12))
-            objetsCorrection.push(d2, traceAnt, traceIm, latexParCoordonnees('(d_2)', 4.3, -3.7, context.isHtml ? d2.color[0] : d2.color[1], 15, 10, '', 12),
-              segment(M[i], N[i], context.isHtml ? d2.color[0] : d2.color[1]), codageSegments('||', context.isHtml ? d2.color[0] : d2.color[1], M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
-              codageAngleDroit(M[i], milieu(M[i], N[i]), pointSurDroite(d2, 1, ''), context.isHtml ? d2.color[0] : d2.color[1], 0.4, 1))
+              ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_2)', couleurs[i])}$ est le point $${miseEnEvidence(String(images[i]))}$.<br>`
+            objetsEnonce.push(d2, traceAnt, latexParCoordonnees('(d_2)', 4.3, -3.7, couleurs[i], 20, 10, '', 12))
+            objetsCorrection.push(d2, traceAnt, traceIm, latexParCoordonnees('(d_2)', 4.3, -3.7, couleurs[i], 15, 10, '', 12),
+              segment(M[i], N[i], couleurs[i]), codageSegments('||', couleurs[i], M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
+              codageAngleDroit(M[i], milieu(M[i], N[i]), pointSurDroite(d2, 1, ''), couleurs[i], 0.4, 1))
             objetsCorrection.push(texteParPositionEchelle(Number(punto[i][0] + 10 * punto[i][1]).toString(), punto[i][0] - 4.2, punto[i][1] - 4.2, 0, '#f15929', 1, 'milieu', false, 0.8))
-            objetsCorrection.push(texteParPositionEchelle(antecedents[i].toString(), antecedents[i] % 10 - 4.2, Math.floor(antecedents[i] / 10) - 4.2, 0, context.isHtml ? d2.color[0] : d2.color[1], 1, 'milieu', false, 0.8))
+            objetsCorrection.push(texteParPositionEchelle(antecedents[i].toString(), antecedents[i] % 10 - 4.2, Math.floor(antecedents[i] / 10) - 4.2, 0, couleurs[i], 1, 'milieu', false, 0.8))
             break
 
           case 3:
@@ -257,16 +257,16 @@ export default class Transformations extends Exercice {
               ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $(d_3)$.`
             texte +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_3)', context.isHtml ? d3.color[0] : d3.color[1])}$.<br>`
+              ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_3)', couleurs[i])}$.<br>`
             texteCorr +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_3)', context.isHtml ? d3.color[0] : d3.color[1])}$ est le point $${miseEnEvidence(String(images[i]))}$.<br>`
-            objetsEnonce.push(d3, traceAnt, latexParCoordonnees('(d_3)', -4.2, 0.3, context.isHtml ? d3.color[0] : d3.color[1], 20, 10, '', 12))
-            objetsCorrection.push(d3, traceAnt, traceIm, latexParCoordonnees('(d_3)', -4.2, 0.3, context.isHtml ? d3.color[0] : d3.color[1], 15, 10, '', 12),
-              segment(M[i], N[i], context.isHtml ? d3.color[0] : d3.color[1]), codageSegments('///', context.isHtml ? d3.color[0] : d3.color[1], M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
-              codageAngleDroit(M[i], milieu(M[i], N[i]), pointSurDroite(d3, 1, ''), context.isHtml ? d3.color[0] : d3.color[1], 0.4, 1))
+              ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_3)', couleurs[i])}$ est le point $${miseEnEvidence(String(images[i]))}$.<br>`
+            objetsEnonce.push(d3, traceAnt, latexParCoordonnees('(d_3)', -4.2, 0.3, couleurs[i], 20, 10, '', 12))
+            objetsCorrection.push(d3, traceAnt, traceIm, latexParCoordonnees('(d_3)', -4.2, 0.3, couleurs[i], 15, 10, '', 12),
+              segment(M[i], N[i], couleurs[i]), codageSegments('///', couleurs[i], M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
+              codageAngleDroit(M[i], milieu(M[i], N[i]), pointSurDroite(d3, 1, ''), couleurs[i], 0.4, 1))
             objetsCorrection.push(texteParPositionEchelle(Number(punto[i][0] + 10 * punto[i][1]).toString(), punto[i][0] - 4.2, punto[i][1] - 4.2, 0, '#f15929', 1, 'milieu', false, 0.8))
-            objetsCorrection.push(texteParPositionEchelle(antecedents[i].toString(), antecedents[i] % 10 - 4.2, Math.floor(antecedents[i] / 10) - 4.2, 0, context.isHtml ? d3.color[0] : d3.color[1], 1, 'milieu', false, 0.8))
+            objetsCorrection.push(texteParPositionEchelle(antecedents[i].toString(), antecedents[i] % 10 - 4.2, Math.floor(antecedents[i] / 10) - 4.2, 0, couleurs[i], 1, 'milieu', false, 0.8))
             break
 
           case 4:
@@ -275,16 +275,16 @@ export default class Transformations extends Exercice {
               ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $(d_4)$.`
             texte +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_4)', context.isHtml ? d4.color[0] : d4.color[1])}$.<br>`
+              ` Donner le numéro du symétrique du point $${antecedents[i]}$ par rapport à la droite $${miseEnCouleur('(d_4)', couleurs[i])}$.<br>`
             texteCorr +=
               (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-              ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_4)', context.isHtml ? d4.color[0] : d4.color[1])}$ est le point $${miseEnEvidence(String(images[i]))}$.<br>`
-            objetsEnonce.push(d4, traceAnt, latexParCoordonnees('(d_4)', 0.2, 4.5, context.isHtml ? d4.color[0] : d4.color[1], 15, 10, '', 12))
-            objetsCorrection.push(d4, traceAnt, traceIm, latexParCoordonnees('(d_4)', 0.2, 4.5, context.isHtml ? d4.color[0] : d4.color[1], 20, 10, '', 12),
-              segment(M[i], N[i], context.isHtml ? d4.color[0] : d4.color[1]), codageSegments('OO', context.isHtml ? d4.color[0] : d4.color[1], M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
+              ` Le symétrique du point $${antecedents[i]}$ par rapport à $${miseEnCouleur('(d_4)', couleurs[i])}$ est le point $${miseEnEvidence(String(images[i]))}$.<br>`
+            objetsEnonce.push(d4, traceAnt, latexParCoordonnees('(d_4)', 0.2, 4.5, couleurs[i], 15, 10, '', 12))
+            objetsCorrection.push(d4, traceAnt, traceIm, latexParCoordonnees('(d_4)', 0.2, 4.5, couleurs[i], 20, 10, '', 12),
+              segment(M[i], N[i], couleurs[i]), codageSegments('OO', couleurs[i], M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]),
               codageAngleDroit(M[i], milieu(M[i], N[i]), pointSurDroite(d4, 1, ''), '#f15929', 0.4, 1))
             objetsCorrection.push(texteParPositionEchelle(Number(punto[i][0] + 10 * punto[i][1]).toString(), punto[i][0] - 4.2, punto[i][1] - 4.2, 0, '#f15929', 1, 'milieu', false, 0.8))
-            objetsCorrection.push(texteParPositionEchelle(antecedents[i].toString(), antecedents[i] % 10 - 4.2, Math.floor(antecedents[i] / 10) - 4.2, 0, context.isHtml ? d4.color[0] : d4.color[1], 1, 'milieu', false, 0.8))
+            objetsCorrection.push(texteParPositionEchelle(antecedents[i].toString(), antecedents[i] % 10 - 4.2, Math.floor(antecedents[i] / 10) - 4.2, 0, couleurs[i], 1, 'milieu', false, 0.8))
             break
 
           case 5:
@@ -487,7 +487,6 @@ export default class Transformations extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                // @ts-expect-error Trop difficile à typer
                 propositions: [{
                   texte: texteCorr,
                   statut: '',
@@ -514,7 +513,6 @@ export default class Transformations extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                // @ts-expect-error Trop difficile à typer
                 propositions: [{
                   texte: texteCorr,
                   statut: '',
@@ -534,7 +532,6 @@ export default class Transformations extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error Trop difficile à typer
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -553,7 +550,6 @@ export default class Transformations extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error Trop difficile à typer
                 propositions: [{
                   texte: '',
                   statut: '',

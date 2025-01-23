@@ -6,6 +6,7 @@ import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction
 import Trinome from '../../modules/Trinome'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
+import type FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Comparer des images dans un tableau de variations'
 export const dateDeModifImportante = '08/09/2024'
 export const interactifReady = true
@@ -70,7 +71,7 @@ export default class ComparerImagesTableau extends Exercice {
               {
                 const borneInf = alpha - randint(3, 12)
                 const borneSup = alpha + randint(3, 12)
-                const p = new Trinome()
+                const p = new Trinome(0, 0, 0) // Le constructeur de Trinome veut 3 arguments
                 p.defFormeCanonique(a, alpha, beta)
 
                 const x1 = choix ? randint(borneInf + 1, alpha - 2) : randint(alpha + 1, borneSup - 2)
@@ -83,7 +84,7 @@ export default class ComparerImagesTableau extends Exercice {
                   { antVal: borneSup, antTex: `${borneSup}`, imgVal: Number(p.image(borneSup)), imgTex: `$${p.image(borneSup).texFraction}$` }
                 ]
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction1, derivee1, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(fonction1 as (x: number | FractionEtendue)=>number, derivee1 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
                 texteCorr = `D'après le tableau de variations, la fonction $f$ est strictement ${a > 0 ? `${choix ? 'décroissante' : 'croissante'}` : `${choix ? 'croissante' : 'décroissante'}`} sur ${choix ? `$[${borneInf}\\,;\\,${alpha}]$` : `$[${alpha}\\,;\\,${borneSup}]$`}. <br>
           De plus,<br>
            ${choix ? `$\\bullet$ $${x1}\\in [${borneInf}\\,;\\,${alpha}]$,<br>$\\bullet$ $${x2}\\in [${borneInf}\\,;\\,${alpha}]$, <br>$\\bullet$ $${x1}<${x2}$` : `$\\bullet$ $${x1}\\in [${alpha}\\,;\\,${borneSup}]$,<br> $\\bullet$ $${x2}\\in [${alpha}\\,;\\,${borneSup}]$, <br>$\\bullet$ $${x1}<${x2}$`}.<br>
@@ -95,7 +96,6 @@ export default class ComparerImagesTableau extends Exercice {
           `
                 this.autoCorrection[i] = {
                   enonce: texte,
-                  options: { horizontal: true },
                   propositions: [
                     {
                       texte: `${a > 0 ? `${choix ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}` : `${choix ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`}`,
@@ -147,7 +147,7 @@ export default class ComparerImagesTableau extends Exercice {
                   { antVal: borneSup, antTex: `${texNombre(borneSup, 0)}`, imgTex: `$${texNombre(ImBorneSup, 0)}$` }]
 
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction2, derivee2, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(fonction2 as (x: number | FractionEtendue)=>number, derivee2 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
 
                 if (choixIntervalle === 1 || choixIntervalle === 3) { // corr dans le cas ou x1 et x2 sont dans l'intervalle 1 ou 3
                   texteCorr = `D'après le tableau de variations, la fonction $f$ est strictement ${a > 0 ? 'croissante' : 'décroissante'}  sur 
@@ -178,7 +178,6 @@ export default class ComparerImagesTableau extends Exercice {
                 if (choixIntervalle === 1 || choixIntervalle === 3) {
                   this.autoCorrection[i] = {
                     enonce: texte,
-                    options: { horizontal: true },
                     propositions: [
                       {
 
@@ -199,7 +198,6 @@ export default class ComparerImagesTableau extends Exercice {
                 if (choixIntervalle === 2) {
                   this.autoCorrection[i] = {
                     enonce: texte,
-                    options: { horizontal: true },
                     propositions: [
                       {
 
@@ -231,7 +229,7 @@ export default class ComparerImagesTableau extends Exercice {
               {
                 const borneInf = alpha - randint(3, 12)
                 const borneSup = alpha + randint(3, 12)
-                const p = new Trinome()
+                const p = new Trinome(0, 0, 0)
                 p.defFormeCanonique(a, alpha, beta)
 
                 const x1 = randint(borneInf + 1, alpha - 1)
@@ -248,7 +246,7 @@ export default class ComparerImagesTableau extends Exercice {
                   { antVal: borneSup, antTex: `$${texNombre(borneSup, 0)}$`, imgTex: `${texNombre(ImBorneSup, 0)}` }
                 ]
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction1, derivee1, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(fonction1 as (x: number | FractionEtendue)=>number, derivee1 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
                 texteCorr = `Comme $${x1}$ et $${x2}$ n'appartiennent pas à un intervalle sur lequel $f$ est monotone, on ne peut pas utiliser le sens de variations de $f$ pour comparer $f(${x1})$ et $f(${x2})$.<br>
                 Mais, d'après le tableau de variations, $f(${x2})=${ImBorneSup}$ et comme $${x1}\\in [${borneInf}\\,;\\,${alpha}]$, ${a > 0
 ? ` alors $${ImAlpha}< f(${x1}) < ${ImBorneInf}$.`
@@ -261,7 +259,6 @@ export default class ComparerImagesTableau extends Exercice {
         `
                 this.autoCorrection[i] = {
                   enonce: texte,
-                  options: { horizontal: true },
                   propositions: [
                     {
                       texte: `${a > 0 ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`,
@@ -300,7 +297,7 @@ export default class ComparerImagesTableau extends Exercice {
                   { antVal: borneSup, antTex: `${texNombre(borneSup, 0)}`, imgTex: `$${texNombre(ImBorneSup, 0)}$` }]
 
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction2, derivee2, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(fonction2 as (x: number | FractionEtendue)=>number, derivee2 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
                 texteCorr = `Comme $${x1}$ et $${x2}$ n'appartiennent pas à un intervalle sur lequel $f$ est monotone, on ne peut pas utiliser le sens de variations de $f$ pour comparer $f(${x1})$ et $f(${x2})$.<br>
                 Mais, d'après le tableau de variations :<br>
                 $\\bullet$ Comme $${x1}\\in [${borneInf}\\,;\\,${Math.min(rac1, rac2)}]$, alors ${a > 0 ? `$${ImBorneInf} < f(${x1}) < ${Imx1}$` : `$${Imx1} < f(${x1}) < ${ImBorneInf}$`}. <br>
@@ -312,7 +309,6 @@ export default class ComparerImagesTableau extends Exercice {
         `
                 this.autoCorrection[i] = {
                   enonce: texte,
-                  options: { horizontal: true },
                   propositions: [
                     {
                       texte: `${a > 0 ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`,
@@ -341,7 +337,7 @@ export default class ComparerImagesTableau extends Exercice {
               {
                 const borneInf = alpha - randint(3, 12)
                 const borneSup = alpha + randint(3, 12)
-                const p = new Trinome()
+                const p = new Trinome(0, 0, 0)
                 p.defFormeCanonique(a, alpha, beta)
 
                 const x1 = randint(borneInf + 1, alpha - 1)
@@ -358,7 +354,7 @@ export default class ComparerImagesTableau extends Exercice {
                   { antVal: borneSup, antTex: `$${texNombre(borneSup, 0)}$`, imgTex: `${texNombre(ImBorneSup, 0)}` }
                 ]
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction1, derivee1, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(fonction1 as (x: number | FractionEtendue)=>number, derivee1 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
                 texteCorr = `Comme $${x1}$ et $${x2}$ n'appartiennent pas à un intervalle sur lequel $f$ est monotone, on ne peut pas utiliser le sens de variations de $f$ pour comparer $f(${x1})$ et $f(${x2})$.<br>
               D'après le tableau de variations :<br>
               $\\bullet$ Comme $${x1}\\in [${borneInf}\\,;\\,${alpha}]$, ${a > 0
@@ -373,7 +369,6 @@ export default class ComparerImagesTableau extends Exercice {
                               : `$]${ImBorneInf}\\,;\\, ${ImAlpha}[$.`} `
                 this.autoCorrection[i] = {
                   enonce: texte,
-                  options: { horizontal: true },
                   propositions: [
                     {
                       texte: `${a > 0 ? `$f(${x1}) < f(${x2})$` : `$f(${x1}) > f(${x2})$`}`,
@@ -412,7 +407,7 @@ export default class ComparerImagesTableau extends Exercice {
                   { antVal: borneSup, antTex: `${texNombre(borneSup, 0)}`, imgTex: `$${texNombre(ImBorneSup, 0)}$` }]
 
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
-                texte += tableauVariationsFonction(fonction2, derivee2, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
+                texte += tableauVariationsFonction(fonction2 as (x: number | FractionEtendue)=>number, derivee2 as (x: number | FractionEtendue)=>number, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
                 texteCorr = `Comme $${x1}$ et $${x2}$ n'appartiennent pas à un intervalle sur lequel $f$ est monotone, on ne peut pas utiliser le sens de variations de $f$ pour comparer $f(${x1})$ et $f(${x2})$.<br>
                 Mais, d'après le tableau de variations : <br>
                 $\\bullet$ Comme $${x1}\\in [${borneInf}\\,;\\,${Math.min(rac1, rac2)}]$, alors ${a > 0 ? `$${ImBorneInf} < f(${x1}) < ${Imx1}$` : `$${Imx1} < f(${x1}) < ${ImBorneInf}$`}. <br>
@@ -422,7 +417,6 @@ export default class ComparerImagesTableau extends Exercice {
 
                 this.autoCorrection[i] = {
                   enonce: texte,
-                  options: { horizontal: true },
                   propositions: [
                     {
                       texte: `${a > 0 ? `$f(${x1}) > f(${x2})$` : `$f(${x1}) < f(${x2})$`}`,

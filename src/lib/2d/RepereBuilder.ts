@@ -48,8 +48,12 @@ export default class RepereBuilder {
   private yLabelListe: number[] | { valeur: number, texte: string }[] = []
   private thickHauteur: number = 0.13
   private axesCouleur: string = 'black'
-  xThickListe?: boolean | number[]
-  yThickListe?: boolean | number[]
+  axeXStyle: string = '->'
+  axeYStyle: string = '->'
+  xLabelEcart: number = 0.5
+  yLabelEcart: number = 0.5
+  xThickListe?: boolean | number[] = true
+  yThickListe?: boolean | number[] = true
   grilleCouleur?: string
   grilleOpacite?: number
   grilleSecondaireCouleur?: string
@@ -126,8 +130,8 @@ export default class RepereBuilder {
       axeXisVisible: true,
       axeYisVisible: true,
       axesCouleur: 'black',
-      axeXStyle: 'solid',
-      axeYStyle: 'solid',
+      axeXStyle: this.axeXStyle,
+      axeYStyle: this.axeYStyle,
       grilleXOpacite: 0.4,
       grilleYOpacite: 0.4,
       grilleSecondaireXOpacite: 0.3,
@@ -139,8 +143,8 @@ export default class RepereBuilder {
       yThickListe: this.yThickListe ?? false,
       precisionLabelX: 1,
       precisionLabelY: 1,
-      xLabelEcart: 0.5,
-      yLabelEcart: 0.5,
+      xLabelEcart: this.xLabelEcart,
+      yLabelEcart: this.yLabelEcart,
       xLegende: '',
       xLegendePosition: [],
       yLegende: '',

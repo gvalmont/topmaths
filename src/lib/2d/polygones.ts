@@ -520,7 +520,7 @@ export function polygone (...args: (Point | Point[] | string)[]) {
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
  * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
  */
-export function polygoneAvecNom (...args: (Point | number)[]) {
+export function polygoneAvecNom (...args: (Point | number)[]): [Polygone, NommePolygone] {
   let k = 0.5
   if (typeof args[args.length - 1] === 'number') {
     k = Number(args[args.length - 1])

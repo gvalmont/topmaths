@@ -8,7 +8,7 @@ import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une longueur avec le théorème de Thalès'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -70,7 +70,7 @@ export default class CalculLongueurThales extends Exercice {
     On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombre(a / b)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
         Ainsi, $${nom[3]}${nom[2]}=${texNombre(a / b)}\\times ${nom[1]}${nom[4]}=${texNombre(a / b)}\\times ${c}=${texNombre(a * c / b)}$.
                   <br>`
-      this.reponse = calculANePlusJamaisUtiliser(a * c / b)
+      this.reponse = a * c / b
       this.canEnonce = this.question// 'Compléter'
       this.canReponseACompleter = `$${nom[3]}${nom[2]}=\\ldots$`
     } else {
@@ -106,7 +106,7 @@ export default class CalculLongueurThales extends Exercice {
    On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombre(k)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
        Ainsi, $${nom[0]}${nom[3]}=${texNombre(k)}\\times ${nom[0]}${nom[1]}=${texNombre(k)}\\times ${a}=${texNombre(k * a)}$.
                  <br>`
-      this.reponse = calculANePlusJamaisUtiliser(k * a)
+      this.reponse = k * a
       this.canEnonce = this.question// 'Compléter'
       this.canReponseACompleter = `$${nom[0]}${nom[3]}=\\ldots$`
     }

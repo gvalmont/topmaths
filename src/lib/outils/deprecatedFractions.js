@@ -2,6 +2,7 @@ import { miseEnEvidence } from './embellissements'
 import { ecritureParentheseSiNegatif } from './ecritures'
 import { pgcd } from './primalite'
 import { texNombre } from './texNombre'
+import { orangeMathalea } from '../colors'
 
 /**
  * Fonction de comparaison à utiliser avec tableau.sort(compareFractions)
@@ -86,7 +87,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
  * Le résultat est un string qui doit être entouré de $ pour le mode mathématique
  * @author Rémi Angot
  */
-export function simplificationDeFractionAvecEtapes (num, den, { couleur1 = '#f15929', couleur2 = 'black' } = {}) {
+export function simplificationDeFractionAvecEtapes (num, den, { couleur1 = orangeMathalea, couleur2 = 'black' } = {}) {
   let result = '='
   if (num === 0) {
     return '=0'

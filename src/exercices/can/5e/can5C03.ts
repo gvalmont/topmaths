@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Calculer une différence d’entiers'
 export const interactifReady = true
@@ -29,7 +29,7 @@ export default class DifferenceEntiers5e extends Exercice {
   nouvelleVersion () {
     const b = randint(41, 69, [50, 60])
     const a = randint(2, 30) + 100
-    this.reponse = calculANePlusJamaisUtiliser(a - b)
+    this.reponse = a - b
     this.question = `Calculer $${a} - ${b}$.`
     this.correction = `$${a} - ${b}=${a - b}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>

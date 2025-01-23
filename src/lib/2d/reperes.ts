@@ -314,7 +314,7 @@ export class DroiteGraduee extends ObjetMathalea2D {
         this.objets.push(T, lab)
       }
     }
-    const bordures = fixeBordures(this.objets)
+    const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 }
@@ -767,6 +767,8 @@ export class LabelY extends ObjetMathalea2D {
         )
       )
     }
+    const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
+    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 
   svg (coeff: number) {
@@ -849,7 +851,7 @@ export class Grille extends ObjetMathalea2D {
     this.opacite = opacite
     this.objets = []
     let x = xmin
-    const nbStep = Math.round((xmax - xmin) / step)
+    let nbStep = Math.round((xmax - xmin) / step)
     for (let i = 0; i <= nbStep; i++) {
       const s = segment(x, ymin, x, ymax, color)
       x += step
@@ -860,6 +862,7 @@ export class Grille extends ObjetMathalea2D {
       this.objets.push(s)
     }
     let y = ymin
+    nbStep = Math.round((ymax - ymin) / step)
     for (let i = 0; i <= nbStep; i++) {
       const s = segment(xmin, y, xmax, y, color)
       y += step
@@ -1773,16 +1776,22 @@ export class Repere extends ObjetMathalea2D {
           grilleYDistance = yThickDistance
         }
         // On créé la liste avec ces valeurs
-        grilleYListe = rangeMinMax(
-          0,
-          grilleYMax,
-          [0],
-          grilleYDistance / yUnite
-        ).concat(
-          rangeMinMax(0, -grilleYMin, [0], grilleYDistance / yUnite).map(
-            (el) => -el
-          )
-        )
+        grilleYListe = []
+        if (grilleYMin < 0 && grilleYMax > 0) {
+          grilleYListe.push(0)
+          for (let y = grilleYDistance / yUnite; y < Math.max(-grilleYMin, grilleYMax); y += grilleYDistance / yUnite) {
+            if (y <= grilleYMax) grilleYListe.push(y)
+            if (y <= -grilleYMin) grilleYListe.push(-y)
+          }
+        } else if (grilleYMin >= 0 && grilleYMax > 0) {
+          for (let y = grilleYMin; y <= grilleYMax; y += grilleYDistance / yUnite) {
+            grilleYListe.push(y)
+          }
+        } else if (grilleYMin < 0 && grilleYMax <= 0) {
+          for (let y = grilleYMax; y >= grilleYMin; y -= grilleYDistance / yUnite) {
+            grilleYListe.push(y)
+          }
+        }
       }
       for (const y of grilleYListe) {
         if (y !== 0 || !axeXisVisible) {
@@ -1817,16 +1826,22 @@ export class Repere extends ObjetMathalea2D {
           grilleXDistance = xThickDistance
         }
         // On créé la liste avec ces valeurs
-        grilleXListe = rangeMinMax(
-          0,
-          grilleXMax,
-          [0],
-          grilleXDistance / xUnite
-        ).concat(
-          rangeMinMax(0, -grilleXMin, [0], grilleXDistance / xUnite).map(
-            (el) => -el
-          )
-        )
+        grilleXListe = []
+        if (grilleXMin < 0 && grilleXMax > 0) {
+          grilleXListe.push(0)
+          for (let x = grilleXDistance / xUnite; x < Math.max(-grilleXMin, grilleXMax); x += grilleXDistance / xUnite) {
+            if (x <= grilleXMax) grilleXListe.push(x)
+            if (x <= -grilleXMin) grilleXListe.push(-x)
+          }
+        } else if (grilleXMin >= 0 && grilleXMax > 0) {
+          for (let x = grilleXMin; x <= grilleXMax; x += grilleXDistance / xUnite) {
+            grilleXListe.push(x)
+          }
+        } else if (grilleXMin < 0 && grilleXMax <= 0) {
+          for (let x = grilleXMax; x >= grilleXMin; x -= grilleXDistance / xUnite) {
+            grilleXListe.push(x)
+          }
+        }
       }
       for (const x of grilleXListe) {
         if (x !== 0 || !axeYisVisible) {
@@ -1864,19 +1879,22 @@ export class Repere extends ObjetMathalea2D {
           grilleSecondaireYDistance = yThickDistance / 2
         }
         // On créé la liste avec ces valeurs
-        grilleSecondaireYListe = rangeMinMax(
-          0,
-          grilleSecondaireYMax,
-          grilleYListe,
-          grilleSecondaireYDistance / yUnite
-        ).concat(
-          rangeMinMax(
-            0,
-            -grilleSecondaireYMin,
-            grilleYListe,
-            grilleSecondaireYDistance / yUnite
-          ).map((el) => -el)
-        )
+        grilleSecondaireYListe = []
+        if (grilleSecondaireYMin < 0 && grilleSecondaireYMax > 0) {
+          grilleSecondaireYListe.push(0)
+          for (let y = grilleSecondaireYDistance / yUnite; y < Math.max(-grilleSecondaireYMin, grilleSecondaireYMax); y += grilleSecondaireYDistance / yUnite) {
+            if (y <= grilleSecondaireYMax) grilleSecondaireYListe.push(y)
+            if (y <= -grilleSecondaireYMin) grilleSecondaireYListe.push(-y)
+          }
+        } else if (grilleSecondaireYMin >= 0 && grilleSecondaireYMax > 0) {
+          for (let y = grilleSecondaireYMin; y <= grilleSecondaireYMax; y += grilleSecondaireYDistance / yUnite) {
+            grilleSecondaireYListe.push(y)
+          }
+        } else if (grilleSecondaireYMin < 0 && grilleSecondaireYMax <= 0) {
+          for (let y = grilleSecondaireYMax; y >= grilleSecondaireYMin; y -= grilleSecondaireYDistance / yUnite) {
+            grilleSecondaireYListe.push(y)
+          }
+        }
       }
       for (const y of grilleSecondaireYListe) {
         const traitH = segment(
@@ -1909,19 +1927,22 @@ export class Repere extends ObjetMathalea2D {
           grilleSecondaireXDistance = xThickDistance / 2
         }
         // On créé la liste avec ces valeurs
-        grilleSecondaireXListe = rangeMinMax(
-          0,
-          grilleSecondaireXMax,
-          grilleXListe,
-          grilleSecondaireXDistance / xUnite
-        ).concat(
-          rangeMinMax(
-            0,
-            -grilleSecondaireXMin,
-            grilleXListe,
-            grilleSecondaireXDistance / xUnite
-          ).map((el) => -el)
-        )
+        grilleSecondaireXListe = []
+        if (grilleSecondaireXMin < 0 && grilleSecondaireXMax > 0) {
+          grilleSecondaireXListe.push(0)
+          for (let x = grilleSecondaireXDistance / xUnite; x < Math.max(-grilleSecondaireXMin, grilleSecondaireXMax); x += grilleSecondaireXDistance / xUnite) {
+            if (x <= grilleSecondaireXMax) grilleSecondaireXListe.push(x)
+            if (x <= -grilleSecondaireXMin) grilleSecondaireXListe.push(-x)
+          }
+        } else if (grilleSecondaireXMin >= 0 && grilleSecondaireXMax > 0) {
+          for (let x = grilleSecondaireXMin; x <= grilleSecondaireXMax; x += grilleSecondaireXDistance / xUnite) {
+            grilleSecondaireXListe.push(x)
+          }
+        } else if (grilleSecondaireXMin < 0 && grilleSecondaireXMax <= 0) {
+          for (let x = grilleSecondaireXMax; x >= grilleSecondaireXMin; x -= grilleSecondaireXDistance / xUnite) {
+            grilleSecondaireXListe.push(x)
+          }
+        }
       }
       for (const x of grilleSecondaireXListe) {
         const traitV = segment(
@@ -1946,9 +1967,22 @@ export class Repere extends ObjetMathalea2D {
         (typeof xThickListe === 'boolean' && xThickListe) ||
         (Array.isArray(xThickListe) && xThickListe.length === 0)
       ) {
-        xThickListe = rangeMinMax(0, xThickMax, [0], xThickDistance).concat(
-          rangeMinMax(0, -xThickMin, [0], xThickDistance).map((el) => -el)
-        )
+        xThickListe = []
+        if (xThickMin < 0 && xThickMax > 0) {
+          xThickListe.push(0)
+          for (let x = xThickDistance; x < Math.max(-xThickMin, xThickMax); x += xThickDistance) {
+            if (x <= xThickMax) xThickListe.push(x)
+            if (x <= -xThickMin) xThickListe.push(-x)
+          }
+        } else if (xThickMin >= 0 && xThickMax > 0) {
+          for (let x = xThickMin; x <= xThickMax; x += xThickDistance) {
+            xThickListe.push(x)
+          }
+        } else if (xThickMin < 0 && xThickMax <= 0) {
+          for (let x = xThickMax; x >= xThickMin; x -= xThickDistance) {
+            xThickListe.push(x)
+          }
+        }
       } else if (typeof xThickListe === 'boolean') xThickListe = []
 
       for (const x of xThickListe) {
@@ -1969,9 +2003,22 @@ export class Repere extends ObjetMathalea2D {
         (typeof yThickListe === 'boolean' && yThickListe) ||
         (Array.isArray(yThickListe) && yThickListe.length === 0)
       ) {
-        yThickListe = rangeMinMax(0, yThickMax, [0], yThickDistance).concat(
-          rangeMinMax(0, -yThickMin, [0], yThickDistance).map((el) => -el)
-        )
+        yThickListe = []
+        if (yThickMin < 0 && yThickMax > 0) {
+          yThickListe.push(0)
+          for (let y = yThickDistance; y < Math.max(-yThickMin, yThickMax); y += yThickDistance) {
+            if (y <= yThickMax) yThickListe.push(y)
+            if (y <= -yThickMin) yThickListe.push(-y)
+          }
+        } else if (yThickMin >= 0 && yThickMax > 0) {
+          for (let y = yThickMin; y <= yThickMax; y += yThickDistance) {
+            yThickListe.push(y)
+          }
+        } else if (yThickMin < 0 && yThickMax <= 0) {
+          for (let y = yThickMax; y >= yThickMin; y -= yThickDistance) {
+            yThickListe.push(y)
+          }
+        }
       } else if (typeof yThickListe === 'boolean') yThickListe = []
       for (const y of yThickListe) {
         const thick = segment(
@@ -2086,7 +2133,7 @@ export class Repere extends ObjetMathalea2D {
         )
       )
     }
-    const bords = fixeBordures(this.objets)
+    const bords = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [bords.xmin, bords.ymin, bords.xmax, bords.ymax]
     // pour pouvoir ajouter des objets à ce Repere après l'avoir créé.
   }

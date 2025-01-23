@@ -1,6 +1,6 @@
 // false : pas de connexion à la base des tickets
 // true : création des tickets
-const connection = false
+const connection = true
 
 export async function createIssue (urlExercice : string, messages : string[], labels : string[], log : (...args: unknown[]) => void) {
   if (!connection) {

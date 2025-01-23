@@ -32,15 +32,21 @@ export async function findStatic (filter : string) {
   const uuids = Object.entries(allStaticReferentiels)
   // les clés de allStaticReferentiels sont les thèmes (types)
   // [
-  //   "Brevet des collèges par année - APMEP",
-  //   "BAC par année - APMEP",
-  //   "CRPE (2015-2019) par année - COPIRELEM",
-  //   "CRPE (2022-2023) par année",
-  //   "E3C par specimen - APMEP",
+  // 0 = ['Brevet', {…}]
+  // 1 = ['BrevetTags', {…}]
+  // 2 = ['E3C', {…}]
+  // 3 ['E3CTags', {…}]
+  // 4 ['crpe', {…}]
+  // 5 ['crpeTags', {…}]
+  // 6 ['Bac', {…}]
+  // 7 ['EVACOM', {…}]
+  // 8 ['EVACOMTags', {…}]
   // ]
-  const uuidsDNB = uuids[0][1] // on conserve uniquement les exercices DNB
-  const uuidsBAC = uuids[1][1] // on conserve uniquement les exercices CRPE (2022-2023)
-  const uuidsCRPE = uuids[3][1] // on conserve uniquement les exercices CRPE (2022-2023)
+  const uuidsDNB = uuids[0][1]
+  const uuidsE3C = uuids[2][1]
+  const uuidsBAC = (uuids[6][1] as JSONReferentielObject).Bac99TerminaleSpecialite
+  const uuidsSTI2D = (uuids[6][1] as JSONReferentielObject).Bac89STI2D
+  const uuidsCRPE = uuids[3][1]
   const uuidsFound : [string, string][] = []
   const filters = filter.split('^')
   filters.forEach(e => {
@@ -63,6 +69,24 @@ export async function findStatic (filter : string) {
       })
     })
     Object.entries(uuidsBAC).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (val !== null && typeof val === 'object' && 'uuid' in val && typeof val.uuid === 'string' && val.uuid.startsWith(e)) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsSTI2D).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (val !== null && typeof val === 'object' && 'uuid' in val && typeof val.uuid === 'string' && val.uuid.startsWith(e)) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsE3C).forEach(([, value]) => {
       // les keys sont les années, elles ne nous intéressent pas ici!
       const values = Object.values(value)
       values.forEach((val) => {

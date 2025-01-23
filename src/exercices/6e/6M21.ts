@@ -15,7 +15,9 @@ import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
 import { translationPuisRotationAnimees } from '../../modules/2dAnimation'
+
 export const dateDePublication = '08/06/2022'
+export const dateDeModifImportante = '22/01/2025'
 export const titre = 'Comparer périmètres et/ou aires de figures'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -58,22 +60,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
   }
 
   nouvelleVersion () {
-    /*
-    let typesDeProblemes = []
-    const nbQuestionsDifferentes = 13
-    if (typeof this.sup === 'number') {
-      // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
-      typesDeProblemes[0] = contraindreValeur(1, nbQuestionsDifferentes, this.sup, nbQuestionsDifferentes)
-    } else {
-      typesDeProblemes = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
-      for (let i = 0; i < typesDeProblemes.length; i++) {
-        typesDeProblemes[i] = contraindreValeur(1, nbQuestionsDifferentes, parseInt(typesDeProblemes[i]), nbQuestionsDifferentes)
-      }
-    }
-    if (compteOccurences(typesDeProblemes, 13) > 0) typesDeProblemes = rangeMinMax(1, 12) // Teste si l'utilisateur a choisi tout
-
-    typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
-    */
     const typesDeProblemes = gestionnaireFormulaireTexte({
       max: 12,
       defaut: 13,
@@ -93,8 +79,9 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
       rayonOuCote, pt1, pt2, figAire1, figAire2, figAireCorr, figAireCorr2, figAire2Corr, choixFig, choixFig2, angleCorr,
       aleaAngle, aleaLongueur, aleaRayon, aleaDemiDisque, aleaPente, aleaRapportHomothetie, d1, d2, d3, d4, poly, rect,
       objets, texte, texteCorr, paramsEnonce, monQcmPerimetre, monQcmAire, hauteur,
-      reponsePerimetre1, reponsePerimetre2, reponsePerimetre3, reponseAire1, reponseAire2, reponseAire3;
+      reponseAire1, reponseAire2, reponseAire3;
       q < this.nbQuestions && cpt < 50;) {
+      compteurInteractif = this.sup2 === 3 ? 2 * q : q
       let choixFigAire2: [Point, Point][] | [Point, Point, number][] = []
       objets = []
       A = point(0, 0)
@@ -104,13 +91,10 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
       rect = polygone([A, B, C, D])
       rect.hachures = true
       rect.pointilles = 2
-      reponsePerimetre1 = false
-      reponsePerimetre2 = false
-      reponsePerimetre3 = false
       reponseAire1 = false
       reponseAire2 = false
       reponseAire3 = false
-
+      const comparePerimetre = choice(['grand', 'petit']) // ToDo : Appliquer la même chose pour les aires
       if (this.sup2 === 4) aireOuPerimetre = choice(['Aire', 'Perimetre'])
 
       switch (typesDeProblemes[q]) {
@@ -146,7 +130,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : ''
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire1 = true
           }
           break
@@ -178,7 +161,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire2 = true
           }
           break
@@ -272,7 +254,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           }
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire3 = true
           }
           break
@@ -363,7 +344,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           }
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire1 = !aleaDemiDisque
             reponseAire2 = aleaDemiDisque
           }
@@ -441,7 +421,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire2 = true
           }
           break
@@ -518,7 +497,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : ''
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire1 = true
           }
           break
@@ -540,7 +518,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : ''
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre1 = true
             reponseAire1 = true
           }
           break
@@ -567,7 +544,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire2 = true
           }
           break
@@ -674,7 +650,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           }
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire3 = true
           }
           break
@@ -787,7 +762,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           }
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire1 = !(aleaRapportHomothetie < 1)
             reponseAire2 = aleaRapportHomothetie < 1
           }
@@ -901,7 +875,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire2 = true
           }
           break
@@ -987,7 +960,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : ''
           // QCM interactif
           if (this.interactif) {
-            reponsePerimetre2 = true
             reponseAire1 = true
           }
           break
@@ -1000,17 +972,17 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             propositions: [
               {
                 texte: 'Le rectangle hachuré',
-                statut: reponsePerimetre1, // true ou false pour indiquer si c'est une bonne réponse (true)
+                statut: comparePerimetre === 'petit' || (typesDeProblemes[q] === 7 && comparePerimetre === 'grand'), // true ou false pour indiquer si c'est une bonne réponse (true)
                 feedback: ''
               },
               {
                 texte: 'La figure coloriée',
-                statut: reponsePerimetre2, // true ou false pour indiquer si c'est une bonne réponse (true)
+                statut: comparePerimetre === 'grand' || (typesDeProblemes[q] === 7 && comparePerimetre === 'petit'), // true ou false pour indiquer si c'est une bonne réponse (true)
                 feedback: ''
               },
               {
                 texte: 'Autant l\'un que l\'autre',
-                statut: reponsePerimetre3, // true ou false pour indiquer si c'est une bonne réponse (true)
+                statut: false, // true ou false pour indiquer si c'est une bonne réponse (true)
                 feedback: ''
               }
             ]
@@ -1047,7 +1019,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
       texte += '<br>'
       if (this.sup2 === 3) texte += numAlpha(0)
       if (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') {
-        texte += 'Entre le rectangle hachuré et la figure coloriée, lequel a le plus grand périmètre ?'
+        texte += `Entre le rectangle hachuré et la figure coloriée, lequel a le plus ${comparePerimetre} périmètre ?`
         if (this.interactif) {
           texte += monQcmPerimetre!.texte
         }

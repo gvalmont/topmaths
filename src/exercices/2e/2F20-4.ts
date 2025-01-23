@@ -140,7 +140,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.nbQuestions = 1
     this.listePackages = ['tkz-base']
     this.nbQuestionsModifiable = false
-    // Pour un exercice de type simple qui n'utilise pas le champ de réponse
+    this.formatChampTexte = 'none' // Pour un exercice de type simple qui n'utilise pas le champ de réponse
     this.exoCustomResultat = true
     this.answers = {}
     this.sup2 = 10

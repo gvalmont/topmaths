@@ -36,8 +36,8 @@ export interface ReponseParams {
   signe?: boolean
   exposantNbChiffres?: number
   exposantSigne?: boolean
-  approx?: number
-  aussiCorrect?: number
+  approx?: number | 'intervalleStrict'
+  aussiCorrect?: number | FractionEtendue
   digitsNum?: number
   digitsDen?: number
   basePuissance?: number
@@ -52,13 +52,18 @@ export interface ReponseParams {
     | string
     | undefined
   precision?: number
+  scoreapprox?: number
+  vertical?: boolean
+  strict?: boolean
+  vhead?: boolean
+  tpoint?: string
 }
 
 /** les figures cliquables pour une question donnée */
 export type clickFigures = { id: string; solution: boolean }[]
 
 export type AnswerType = {
-  value: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms
+  value: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[]
   compare?: CompareFunction
   options?: OptionsComparaisonType
 }
@@ -140,29 +145,68 @@ export interface ValeurNormalized {
     score: { nbBonnesReponses: number, nbReponses: number }
   }
 }
+type UneProposition = {
+  texte?: string
+  statut?: number | boolean | string
+  sanscadre?: boolean | number
+  multicolsBegin?: boolean
+  multicolsEnd?: boolean
+  numQuestionVisible?: boolean
+  type?: string
+  feedback?: string
+  pointilles?: boolean | number
+  enonce?: string
+  propositions?: UneProposition[]
+  options?: {
+    ordered?: boolean
+    vertical?: boolean
+    lastChoice?: number
+    barreseparation?: boolean
+    multicols?: boolean
+    nbCols?: number
+    digits?: number
+    decimals?: number
+    signe?: boolean
+    exposantNbChiffres?: number
+    exposantSigne?: boolean
+    approx?: number
+    multicolsAll?: boolean
+    numerotationEnonce?: boolean
+    avecSymboleMult?: boolean
+  }
+  reponse?: {
+    valeur?: ValeurNormalized | ValeurNormalized[] | number | number[] | FractionEtendue | Decimal | FractionEtendue[] | Decimal[] | string | string[]
+    param?: ReponseParams
+    textePosition?: string
+    texte?: string
+    alignement?: string
+
+  }
+}
 
 export type LegacyReponse = string | FractionEtendue | Decimal | number
 export type LegacyReponses = LegacyReponse[] | LegacyReponse
 export interface AutoCorrection {
   enonce?: string
   enonceAvant?: boolean
-  propositions?: {
-    texte: string
-    statut?: number | boolean
-    sanscadre?: boolean
-    type?: string,
-    feedback?: string
-  }[]
+  melange?: boolean
+  enonceAGauche?: [number, number]
+  enonceAvantUneFois?: boolean
+  enonceCentre?: boolean
+  enonceApresNumQuestion?: boolean
+  propositions?: UneProposition[]
   reponse?: {
     valeur?: ValeurNormalized
     param?: ReponseParams
+    textePosition?: string
+    texte?: string
+
   }
   options?: {
     ordered?: boolean,
     vertical?: boolean,
     lastChoice?: number,
     barreseparation?: boolean,
-    numerotationEnonce?: boolean
     multicols?: boolean
     nbCols?: number,
     digits?: number,
@@ -171,6 +215,9 @@ export interface AutoCorrection {
     exposantNbChiffres?: number,
     exposantSigne?: boolean,
     approx?: number,
+    multicolsAll?: boolean,
+    numerotationEnonce?: boolean,
+    avecSymboleMult?: boolean
   }
 }
 
@@ -339,10 +386,10 @@ function verifExerciceCustom (
   let eltFeedback = get(`feedbackEx${exercice.numeroExercice}`, false)
   // On ajoute le div pour le feedback
   if (!eltFeedback) {
-    const eltExercice = get(`exercice${exercice.numeroExercice}`)
+    const eltExercice = get(`exercice${exercice.numeroExercice}`) as HTMLDivElement
     eltFeedback = addElement(eltExercice, 'div', {
       id: `feedbackEx${exercice.numeroExercice}`
-    })
+    }, '')
   }
   setStyles(eltFeedback, 'marginBottom: 20px')
   if (eltFeedback) eltFeedback.innerHTML = ''
@@ -409,10 +456,10 @@ function verifQuestionCliqueFigure (exercice: Exercice, i: number) {
   let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
   // On ajoute le div pour le feedback
   if (!eltFeedback) {
-    const eltExercice = get(`exercice${exercice.numeroExercice}`)
+    const eltExercice = get(`exercice${exercice.numeroExercice}`) as HTMLDivElement
     eltFeedback = addElement(eltExercice, 'div', {
       id: `resultatCheckEx${exercice.numeroExercice}Q${i}`
-    })
+    }, '')
   }
   setStyles(eltFeedback, 'marginBottom: 20px')
   if (eltFeedback) eltFeedback.innerHTML = ''

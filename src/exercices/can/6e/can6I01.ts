@@ -6,10 +6,10 @@ import { createLink } from '../../../lib/outils/modales'
 import { texteGras } from '../../../lib/format/style'
 import { stringNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { noteLaCouleur, Plateau2dNLC } from '../../../modules/noteLaCouleur'
+import { noteLaCouleur, Plateau2dNLC, testInstruction, testSequence } from '../../../modules/noteLaCouleur'
 import {
   allerA,
   angleScratchTo2d,
@@ -81,8 +81,6 @@ export default class CanNoteLaCouleur6 extends Exercice {
     const rose = roseDesVents()
 
     let j, test
-    let objetsEnonce = []
-    let objetsCorrection = []
     const paramsCorrection = {
       xmin: -1,
       ymin: -1,
@@ -119,10 +117,10 @@ export default class CanNoteLaCouleur6 extends Exercice {
       plateau: damier
     })
     for (let q = 0; q < this.nbQuestions;) {
-      objetsCorrection = []
-      objetsEnonce = []
-      objetsEnonce.push(lePlateau.plateau2d)
-      objetsCorrection.push(lePlateau.plateau2d)
+      const objetsCorrection: NestedObjetMathalea2dArray = []
+      const objetsEnonce: NestedObjetMathalea2dArray = []
+      objetsEnonce.push(lePlateau.objets ?? [])
+      objetsCorrection.push(lePlateau.objets ?? [])
       let texte = ''
       let texteCorr = ''
       let compteur = 0
@@ -152,7 +150,7 @@ export default class CanNoteLaCouleur6 extends Exercice {
         ny: 5,
         pas: 20
       })
-      while (retour_a_la_case_depart) {
+      do {
         objetsEnonce.length = 1
         lutin = creerLutin()
         angledepart = choice([90, 0, -90, 180]) as number
@@ -193,17 +191,17 @@ export default class CanNoteLaCouleur6 extends Exercice {
         while (nb_couleurs > j && compteur_essais_sequence < 10) {
           compteur_essais_sequence = 0
           sequence = choice(sequences_disponibles)
-          test = pion.testSequence(sequence)
+          test = testSequence(sequence, pion)
           while (!test[0] && compteur_essais_sequence < 10) {
             compteur_essais_sequence++
             sequence = choice(sequences_disponibles)
-            test = pion.testSequence(sequence)
+            test = testSequence(sequence, pion)
           }
           if (compteur_essais_sequence < 10) {
             retour_a_la_case_depart = false
             for (let i = 0; i < sequence.length; i++) {
               instruction = sequence[i]
-              result = pion.testInstruction(instruction, lutin)
+              result = testInstruction(instruction, lutin, pion)
               if (instruction === 'NLC') {
                 liste_instructions.push(instruction)
                 couleurs.push(pion.nlc())
@@ -228,7 +226,7 @@ export default class CanNoteLaCouleur6 extends Exercice {
             ydepart = 10 + randint(1, 4) * 20
           }
         }
-      }
+      } while (retour_a_la_case_depart)
       if (this.sup2) {
         objetsEnonce.push(tracePoint(point(xdepart * 0.075, ydepart * 0.075)))
         for (let i = 1; i < 5; i++) {

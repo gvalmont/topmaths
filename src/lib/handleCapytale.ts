@@ -186,6 +186,10 @@ export function sendToCapytaleSaveStudentAssignment ({ indiceExercice, assignmen
         console.info('Exercice non sauvegardé car le score est inférieur au meilleur score')
         return
       }
+      if (!Number.isFinite(newScore)) {
+        console.info('Exercice non sauvegardé car le score n\'est pas un nombre')
+        return
+      }
     }
     const data = {
       // Les réponses de l'élève

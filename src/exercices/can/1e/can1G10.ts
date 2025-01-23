@@ -8,6 +8,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
 export const titre = 'Associer une mesure d\'angle à un  point du cercle trigonométrique '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -39,7 +40,7 @@ export default class PointSurCercleTrigo extends Exercice {
     let choix
     const r = 5
     const O = point(0, 0, 'O', 'below left')
-    const o = texteParPosition('O', -0.4, -0.4, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.4, -0.4, 0, 'black', 1)
     const I = point(r, 0, 'I', 'right')
     const J = point(0, r, 'J', 'above')
     const K = point(-r, 0, 'K', 'left')
@@ -85,7 +86,7 @@ export default class PointSurCercleTrigo extends Exercice {
     const g = grille(-5, -5, 5, 5, 'black', 0.4, 2.5)
     const nom = polygoneAvecNom(A1, A2, B1, B2, C1, C2, D1, D2, E1, E2, F1, F2, I, J, K, L)[1]
     const objet = mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1, pixelsParCm: 15, scale: 0.45, style: 'margin: auto' }, c, s1, s2, sA1A2, sB1B2, sC1C2, sD1D2, sE1E2, sF1F2, g, o, nom)
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])) { //, 2, 3, 4, 5
+    switch (randint(1, 16)) { //, 2, 3, 4, 5
       case 1:// point I
         choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\,;\\,0]'])
         this.question = `Quel réel de $${choix}$  a pour point-image le point $I$ ?<br>
@@ -110,14 +111,12 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{\\pi}{6}')}$  est associé au point $A$ dans $${choix}$.   `
           this.reponse = '\\dfrac{\\pi}{6}'
-        }
-        if (choix === '[\\pi\\,;\\,3\\pi[') {
+        } else if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $A$ est le point-image de $\\dfrac{\\pi}{6}$.<br>
             $\\dfrac{\\pi}{6}+2\\pi=\\dfrac{13\\pi}{6}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('\\dfrac{13\\pi}{6}')}$  est associé au point $A$ dans $${choix}$.   `
           this.reponse = '\\dfrac{13\\pi}{6}'
-        }
-        if (choix === ']-2\\pi\\,;\\,0]') {
+        } else {
           this.correction = `Le point $A$ est le point-image de $\\dfrac{\\pi}{6}$.<br>
             $\\dfrac{\\pi}{6}-2\\pi=-\\dfrac{11\\pi}{6}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{11\\pi}{6}')}$  est associé au point $A$ dans $${choix}$.   `
@@ -134,14 +133,12 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{\\pi}{4}')}$  est associé au point $B$ dans $${choix}$.   `
           this.reponse = '\\dfrac{\\pi}{4}'
-        }
-        if (choix === '[\\pi\\,;\\,3\\pi[') {
+        } else if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $B$ est le point-image de $\\dfrac{\\pi}{4}$.<br>
             $\\dfrac{\\pi}{4}+2\\pi=\\dfrac{9\\pi}{4}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('\\dfrac{9\\pi}{4}')}$  est associé au point $B$ dans $${choix}$.   `
           this.reponse = '\\dfrac{9\\pi}{4}'
-        }
-        if (choix === ']-2\\pi\\,;\\,0]') {
+        } else {
           this.correction = `Le point $B$ est le point-image de $\\dfrac{\\pi}{4}$.<br>
             $\\dfrac{\\pi}{4}-2\\pi=-\\dfrac{7\\pi}{4}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{7\\pi}{4}')}$  est associé au point $B$ dans $${choix}$.   `
@@ -159,14 +156,12 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{\\pi}{3}')}$  est associé au point $C$ dans $${choix}$.   `
           this.reponse = '\\dfrac{\\pi}{3}'
-        }
-        if (choix === '[\\pi\\,;\\,3\\pi[') {
+        } else if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $C$ est le point-image de $\\dfrac{\\pi}{3}$.<br>
             $\\dfrac{\\pi}{3}+2\\pi=\\dfrac{7\\pi}{3}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('\\dfrac{7\\pi}{3}')}$  est associé au point $C$ dans $${choix}$.   `
           this.reponse = '\\dfrac{7\\pi}{3}'
-        }
-        if (choix === ']-2\\pi\\,;\\,0]') {
+        } else {
           this.correction = `Le point $C$ est le point-image de $\\dfrac{\\pi}{3}$.<br>
             $\\dfrac{\\pi}{3}-2\\pi=-\\dfrac{5\\pi}{3}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{5\\pi}{3}')}$  est associé au point $C$ dans $${choix}$.   `
@@ -184,14 +179,12 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{\\pi}{2}')}$  est associé au point $J$ dans $${choix}$.   `
           this.reponse = '\\dfrac{\\pi}{2}'
-        }
-        if (choix === '[\\pi\\,;\\,3\\pi[') {
+        } else if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $J$ est le point-image de $\\dfrac{\\pi}{2}$.<br>
             $\\dfrac{\\pi}{2}+2\\pi=\\dfrac{5\\pi}{2}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('\\dfrac{5\\pi}{2}')}$  est associé au point $J$ dans $${choix}$.   `
           this.reponse = '\\dfrac{5\\pi}{2}'
-        }
-        if (choix === ']-2\\pi\\,;\\,0]') {
+        } else {
           this.correction = `Le point $J$ est le point-image de $\\dfrac{\\pi}{2}$.<br>
             $\\dfrac{\\pi}{2}-2\\pi=-\\dfrac{3\\pi}{2}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{3\\pi}{2}')}$  est associé au point $J$ dans $${choix}$.   `
@@ -209,14 +202,12 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{2\\pi}{3}')}$  est associé au point $D$ dans $${choix}$.   `
           this.reponse = '\\dfrac{2\\pi}{3}'
-        }
-        if (choix === '[\\pi\\,;\\,3\\pi[') {
+        } else if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $D$ est le point-image de $\\dfrac{2\\pi}{3}$.<br>
             $\\dfrac{2\\pi}{3}+2\\pi=\\dfrac{8\\pi}{3}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('\\dfrac{8\\pi}{3}')}$  est associé au point $D$ dans $${choix}$.   `
           this.reponse = '\\dfrac{8\\pi}{3}'
-        }
-        if (choix === ']-2\\pi\\,;\\,0]') {
+        } else {
           this.correction = `Le point $D$ est le point-image de $\\dfrac{2\\pi}{3}$.<br>
             $\\dfrac{2\\pi}{3}-2\\pi=-\\dfrac{4\\pi}{3}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{4\\pi}{3}')}$  est associé au point $D$ dans $${choix}$.   `
@@ -234,14 +225,12 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{3\\pi}{4}')}$  est associé au point $E$ dans $${choix}$.   `
           this.reponse = '\\dfrac{3\\pi}{4}'
-        }
-        if (choix === '[\\pi\\,;\\,3\\pi[') {
+        } else if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $E$ est le point-image de $\\dfrac{3\\pi}{4}$.<br>
             $\\dfrac{3\\pi}{4}+2\\pi=\\dfrac{11\\pi}{4}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('\\dfrac{11\\pi}{4}')}$  est associé au point $E$ dans $${choix}$.   `
           this.reponse = '\\dfrac{11\\pi}{4}'
-        }
-        if (choix === ']-2\\pi\\,;\\, 0]') {
+        } else {
           this.correction = `Le point $E$ est le point-image de $\\dfrac{3\\pi}{4}$.<br>
             $\\dfrac{3\\pi}{4}-2\\pi=-\\dfrac{5\\pi}{4}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{5\\pi}{4}')}$  est associé au point $E$ dans $${choix}$.   `
@@ -259,14 +248,12 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === ']-\\pi\\,;\\,\\pi]') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{5\\pi}{6}')}$  est associé au point $F$ dans $${choix}$.   `
           this.reponse = '\\dfrac{5\\pi}{6}'
-        }
-        if (choix === '[\\pi\\,;\\,3\\pi[') {
+        } else if (choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le point $F$ est le point-image de $\\dfrac{5\\pi}{6}$.<br>
             $\\dfrac{5\\pi}{6}+2\\pi=\\dfrac{17\\pi}{6}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('\\dfrac{17\\pi}{6}')}$  est associé au point $F$ dans $${choix}$.   `
           this.reponse = '\\dfrac{17\\pi}{6}'
-        }
-        if (choix === ']-2\\pi\\,;\\,0]') {
+        } else {
           this.correction = `Le point $F$ est le point-image de $\\dfrac{5\\pi}{6}$.<br>
             $\\dfrac{5\\pi}{6}-2\\pi=-\\dfrac{7\\pi}{6}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{7\\pi}{6}')}$  est associé au point $F$ dans $${choix}$.   `
@@ -300,8 +287,7 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{7\\pi}{6}')}$  est associé au point $G$ dans $${choix}$.   `
           this.reponse = '\\dfrac{7\\pi}{6}'
-        }
-        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\,;\\,0]') {
+        } else {
           this.correction = `Le point $G$ est le point-image de $\\dfrac{7\\pi}{6}$.<br>
             $\\dfrac{7\\pi}{6}-2\\pi=-\\dfrac{5\\pi}{6}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{5\\pi}{6}')}$  est associé au point $G$ dans $${choix}$.   `
@@ -318,8 +304,7 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{5\\pi}{4}')}$  est associé au point $H$ dans $${choix}$.   `
           this.reponse = '\\dfrac{5\\pi}{4}'
-        }
-        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
+        } else {
           this.correction = `Le point $H$ est le point-image de $\\dfrac{5\\pi}{4}$.<br>
             $\\dfrac{5\\pi}{4}-2\\pi=-\\dfrac{3\\pi}{4}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{3\\pi}{4}')}$  est associé au point $H$ dans $${choix}$.   `
@@ -337,8 +322,7 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{4\\pi}{3}')}$  est associé au point $M$ dans $${choix}$.   `
           this.reponse = '\\dfrac{4\\pi}{3}'
-        }
-        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
+        } else {
           this.correction = `Le point $M$ est le point-image de $\\dfrac{4\\pi}{3}$.<br>
             $\\dfrac{4\\pi}{3}-2\\pi=-\\dfrac{2\\pi}{3}\\in ${choix}$.<br>
              Le réel $${miseEnEvidence('-\\dfrac{2\\pi}{3}')}$  est associé au point $M$ dans $${choix}$.   `
@@ -356,8 +340,7 @@ export default class PointSurCercleTrigo extends Exercice {
         if (choix === '[0\\,;\\,2\\pi[' || choix === '[\\pi\\,;\\,3\\pi[') {
           this.correction = `Le réel $${miseEnEvidence('\\dfrac{3\\pi}{2}')}$  est associé au point $L$ dans $${choix}$.   `
           this.reponse = '\\dfrac{3\\pi}{2}'
-        }
-        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
+        } else {
           this.correction = `Le réel $${miseEnEvidence('-\\dfrac{\\pi}{2}')}$  est associé au point $L$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{\\pi}{2}'
         }
@@ -375,8 +358,7 @@ export default class PointSurCercleTrigo extends Exercice {
           $-\\dfrac{\\pi}{3}+2\\pi=\\dfrac{5\\pi}{3}\\in ${choix}$.<br>
            Le réel $${miseEnEvidence('\\dfrac{5\\pi}{3}')}$  est associé au point $N$ dans $${choix}$.   `
           this.reponse = '\\dfrac{5\\pi}{3}'
-        }
-        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
+        } else {
           this.correction = `Le réel $${miseEnEvidence('-\\dfrac{\\pi}{3}')}$  est associé au point $N$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{\\pi}{3}'
         }
@@ -394,8 +376,7 @@ export default class PointSurCercleTrigo extends Exercice {
           $-\\dfrac{\\pi}{4}+2\\pi=\\dfrac{7\\pi}{4}\\in ${choix}$.<br>
            Le réel $${miseEnEvidence('\\dfrac{7\\pi}{4}')}$  est associé au point $P$ dans $${choix}$.   `
           this.reponse = '\\dfrac{7\\pi}{4}'
-        }
-        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
+        } else {
           this.correction = `Le réel $${miseEnEvidence('-\\dfrac{\\pi}{4}')}$  est associé au point $P$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{\\pi}{4}'
         }
@@ -403,6 +384,7 @@ export default class PointSurCercleTrigo extends Exercice {
         break
 
       case 16:// point Q
+      default:
         choix = choice(['[0\\,;\\,2\\pi[', ']-\\pi\\,;\\,\\pi]', '[\\pi\\,;\\,3\\pi[', ']-2\\pi\\;\\ 0]'])
         this.question = `Quel réel de $${choix}$ a pour point-image le point $Q$ ?<br>
 
@@ -413,8 +395,7 @@ export default class PointSurCercleTrigo extends Exercice {
           $-\\dfrac{\\pi}{6}+2\\pi=\\dfrac{11\\pi}{6}\\in ${choix}$.<br>
            Le réel $${miseEnEvidence('\\dfrac{11\\pi}{6}')}$  est associé au point $Q$ dans $${choix}$.   `
           this.reponse = '\\dfrac{11\\pi}{6}'
-        }
-        if (choix === ']-\\pi\\,;\\,\\pi]' || choix === ']-2\\pi\\;\\ 0]') {
+        } else {
           this.correction = `Le réel $${miseEnEvidence('-\\dfrac{\\pi}{6}')}$  est associé au point $Q$ dans $${choix}$.   `
           this.reponse = '-\\dfrac{\\pi}{6}'
         }

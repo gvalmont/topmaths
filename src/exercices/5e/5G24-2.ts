@@ -11,6 +11,14 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Justifier que deux triangles sont égaux'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { context } from '../../modules/context'
+
+export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
+export const interactifType = 'qcm'// 'mathLive'
+export const amcReady = true // pour définir que l'exercice peut servir à AMC
+export const amcType = 'qcmMono'
 
 /**
  * Deux triangles égaux sont codés, il faut reconnaître les côtés homologues
@@ -26,10 +34,11 @@ export const refs = {
 export default class TrianglesEgaux extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Les triangles sont-ils égaux ? S\'ils sont égaux, justifier la réponse.'
+
     this.nbQuestions = 4
     this.sup = 6
     this.spacing = 2
+
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange']
   }
 
@@ -42,10 +51,17 @@ export default class TrianglesEgaux extends Exercice {
       nbQuestions: this.nbQuestions,
       listeOfCase: ['CCC', 'CAC', 'ACA', 'AAA', 'CC']
     })
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    if (this.interactif || context.isAmc) {
+      this.consigne = 'Cocher la bonne réponse'
+      this.spacing = 1
+    } else {
+      this.consigne = 'Les triangles sont-ils égaux ? S\'ils sont égaux, justifier la réponse.'
+    }
+    for (let i = 0, texte, texteCorr, monQcm, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeDeNomsDePolygones: string[] = []
       texte = ''
       texteCorr = ''
+      let trianglesEgaux = true
       if (i % 3 === 0) listeDeNomsDePolygones.push('QD')
       // Boucle principale où i+1 correspond au numéro de la question
       let l1 = randint(40, 70)
@@ -94,6 +110,7 @@ export default class TrianglesEgaux extends Exercice {
             $${C.nom}${A.nom} = ${F.nom}${D.nom}$<br>
             Les triangles ${nom1} et ${nom2} ont leurs trois côtés deux à deux de même longueur.<br>
             Ils sont donc égaux.`
+          trianglesEgaux = true
           break
         case 'CAC':
           objetsAAfficher.push(p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1, nommeP2)
@@ -102,6 +119,7 @@ export default class TrianglesEgaux extends Exercice {
             $\\widehat{${A.nom}${B.nom}${C.nom}} = \\widehat{${D.nom}${E.nom}${F.nom}}$<br>
             Les triangles ${nom1} et ${nom2} ont un angle de même mesure compris entre deux côtés deux à deux de même longueur.<br>
             Ils sont donc égaux.`
+          trianglesEgaux = true
           break
         case 'ACA':
           objetsAAfficher.push(p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2)
@@ -110,18 +128,39 @@ export default class TrianglesEgaux extends Exercice {
             $\\widehat{${A.nom}${B.nom}${C.nom}} = \\widehat{${D.nom}${E.nom}${F.nom}}$<br>
             Les triangles ${nom1} et ${nom2} ont un côté de même longueur compris entre deux angles deux à deux de même mesure.<br>
             Ils sont donc égaux.`
+          trianglesEgaux = true
           break
         case 'AAA':
           objetsAAfficher.push(p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
           texteCorr = `On ne peut pas déterminer si ces triangles sont égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}.`
+          trianglesEgaux = false
           break
         case 'CC':
           objetsAAfficher.push(p1, p2, code1, code2, code5, code6, nommeP1, nommeP2)
           texteCorr = 'On ne peut pas déterminer si ces triangles sont égaux (il manque une troisième information).'
+          trianglesEgaux = false
           break
       }
-      texte = mathalea2d(Object.assign({ scale: 0.3, optionsTikz: ['baseline=(current bounding box.north)'] }, fixeBordures(objetsAAfficher)), objetsAAfficher)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.interactif || context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          options: { ordered: true },
+          propositions: [
+            {
+              texte: 'Les triangles sont égaux.',
+              statut: trianglesEgaux
+            },
+            {
+              texte: 'Les triangles ne sont pas égaux.',
+              statut: !trianglesEgaux
+            },
+          ]
+        }
+        monQcm = propositionsQcm(this, i)
+        texte += texte + monQcm.texte
+      }
+      texte += mathalea2d(Object.assign({ scale: 0.3, optionsTikz: ['baseline=(current bounding box.north)'] }, fixeBordures(objetsAAfficher)), objetsAAfficher)
+      if (this.questionJamaisPosee(i, listeTypeQuestions[i], l1, l2, l3)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

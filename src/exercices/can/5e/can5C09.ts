@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Multiplier par les multiples de 101'
 export const interactifReady = true
@@ -30,7 +30,7 @@ export default class MutliplierParN0N extends Exercice {
   nouvelleVersion () {
     const a = randint(2, 4)
     const b = randint(9, 24, [10, 20])
-    this.reponse = calculANePlusJamaisUtiliser(101 * a * b)
+    this.reponse = 101 * a * b
     this.question = `Calculer $${b}\\times ${texNombre(a * 101)}$.`
     this.correction = `$${b}\\times ${a * 101}= ${101 * a * b}$<br><br>`
     this.correction += `${texteEnCouleur('Mentalement :')}<br>`

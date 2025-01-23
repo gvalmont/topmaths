@@ -18,7 +18,7 @@ export const refs = {
 
 */
 export default class Can2025N5Q14 extends ExerciceCan {
-  private enonce (a?: number, b?: number, c?: number) {
+  enonce (a?: number, b?: number, c?: number) {
     let coeff
     let d
     if (a == null || b == null || c == null) {

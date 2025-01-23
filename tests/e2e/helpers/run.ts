@@ -77,7 +77,8 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
   const fileLogger = getFileLogger(path.basename(metaUrl))
   store.set('fileLogger', fileLogger)
   describe(testsSuiteDescription, async () => {
-    let page: Page, result: boolean
+    let page: Page | null = null
+    let result: boolean
     let stop = false
 
     beforeEach(({ skip }) => {
@@ -98,14 +99,16 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
           it(`${test.name} works with ${browserName}`, async ({ skip }) => {
             if (stop) return skip()
             try {
-              if (page === undefined) page = await getDefaultPage({ browserName })
+              if (page === null) page = await getDefaultPage({ browserName })
               result = false
               const promise = test(page)
               if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
               result = await promise
+              if (!result) page = null // si le résultats n'est pas bon, on redémarrera un browser
               expect(result).toBe(true) // si le résultat n'est pas bon, ça lève une exception
             } catch (error: unknown) {
               result = false
+              if (!result) page = null // si le résultats n'est pas bon, on redémarrera un browser
               // faut attendre que l'écriture se termine (sinon on se retrouve en pause avant
               // d'avoir le message d'erreur et on sait pas pourquoi ça a planté)
               await logError(error)

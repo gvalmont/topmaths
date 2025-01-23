@@ -129,7 +129,7 @@ export class NomVecteurParPosition extends ObjetMathalea2D {
     s.styleExtremites = '->'
     s.tailleExtremites = 3
     this.objets = [t, s]
-    const bordures = fixeBordures(this.objets)
+    const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 
@@ -263,11 +263,11 @@ export class Segment extends ObjetMathalea2D {
     this.angleAvecHorizontale = this.longueur < 1e-8
       ? 0
       : angleOriente(
-          point(this.x1 + 1, this.y1),
-          this.extremite1,
-          this.extremite2,
-          5
-        )
+        point(this.x1 + 1, this.y1),
+        this.extremite1,
+        this.extremite2,
+        5
+      )
   }
 
   svg (coeff: number) {

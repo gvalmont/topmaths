@@ -2,7 +2,7 @@ import { point } from '../../lib/2d/points'
 import { droiteGraduee } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { nombreDeChiffresDe } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
@@ -216,7 +216,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         const pardec = x1 - partent
         texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 10, 10).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 10, 10).toLatex())}$.<br>`
 
-        reponse1 = x1
+        reponse1 = arrondi(x1, 3)
         reponse2A = partent
         reponse2B = new FractionEtendue(pardec * 10, 10)
         reponse3 = new FractionEtendue(x1 * 10, 10)
@@ -358,7 +358,7 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         const pardec = x1 - partent
         texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 100, 100).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 100, 100).toLatex())}$.<br>`
 
-        reponse1 = x1
+        reponse1 = arrondi(x1, 3)
         reponse2A = partent
         reponse2B = new FractionEtendue(pardec * 100, 100)
         reponse3 = new FractionEtendue(x1 * 100, 100)
@@ -555,9 +555,9 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         objets.push(d1, d2, d3, sA, sB, sC, sD)
         objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
         const partent = Math.floor(x1)
-        const pardec = x1 - partent
+        const pardec = arrondi(x1 - partent, 3)
         texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 1000, 1000).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 1000, 1000).toLatex())}$.<br>`
-        reponse1 = x1
+        reponse1 = arrondi(x1, 3)
         reponse2A = partent
         reponse2B = new FractionEtendue(1000 * pardec, 1000)
         reponse3 = new FractionEtendue(1000 * x1, 1000)

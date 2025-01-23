@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Calculer une somme d’entiers'
 export const interactifReady = true
@@ -29,7 +29,7 @@ export default class SommeEntiers5e extends Exercice {
   nouvelleVersion () {
     const b = randint(51, 89, [60, 70, 80])
     const a = randint(2, 39, [10, 20, 30]) + 100
-    this.reponse = calculANePlusJamaisUtiliser(a + b)
+    this.reponse = a + b
     this.question = `Calculer $${a} + ${b}$.`
     this.correction = `$${a} + ${b}=${a + b}$`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>

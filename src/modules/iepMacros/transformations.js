@@ -255,7 +255,7 @@ export const rotationPolygone = function (p, centre, angle, noms = [], { couleur
    *
    * @param {objet} p polygone dont on construit l'image et qui doit être tracé avec ses points nommés.
    * @param {objet} d axe de symétrie.
-   * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p
+   * @param {string[]} noms tableau contenant les noms des sommets dans le même ordre que p
    * @param {objet} param3 options couleur et couleurCodage
    * @author Liouba Leroux et Jean-Claude Lhote
    */
@@ -288,7 +288,7 @@ export const symetrieAxialePolygone = function (p, d, noms = [], { couleur = thi
    * @param {objet} p polygone dont on construit l'image
    * @param {objet} A point de départ de la translation
    * @param {objet} B point d'arrivée de la translation
-   * @param {string} noms tableau contenant les noms des sommets dans le même ordre que p
+   * @param {string[]} noms tableau contenant les noms des sommets dans le même ordre que p
  * @param {objet} param3 options couleur et couleurCodage
  * @author Jean-Claude Lhote
 */

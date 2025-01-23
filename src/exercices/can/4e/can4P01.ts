@@ -2,7 +2,7 @@ import { bleuMathalea } from '../../../lib/colors'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Résoudre un problème de robinets'
 export const interactifReady = true
@@ -30,9 +30,9 @@ export default class ProblemesDeRobinets extends Exercice {
 
   nouvelleVersion () {
     const a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
-    const b = calculANePlusJamaisUtiliser(60 / a) // nombres de litres/min
+    const b = 60 / a // nombres de litres/min
     const c = randint(2, b - 1, [10]) % 10 // volume du seau à remplir
-    this.reponse = calculANePlusJamaisUtiliser(c * a)
+    this.reponse = c * a
     this.question = `Le débit d'eau d'un robinet est de $${b}$ L/min.<br>
     
     Combien de secondes faut-il pour remplir un seau de $${c}$ L ?`

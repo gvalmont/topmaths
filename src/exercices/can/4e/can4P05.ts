@@ -1,9 +1,7 @@
-import { courbeSpline } from '../../../lib/2d/courbes'
 import { droiteParPointEtPente } from '../../../lib/2d/droites'
 import { point } from '../../../lib/2d/points'
 import { repere } from '../../../lib/2d/reperes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { splineCatmullRom } from '../../../lib/mathFonctions/SplineCatmullRom'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/2dGeneralites'
@@ -40,7 +38,7 @@ export default class ImageSpline extends Exercice {
   nouvelleVersion () {
     const r = repere({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
     let c
-    const type = choice(['lineaire', 'affine', 'autre'])
+    const type = choice(['lineaire', 'affine'])
     switch (type) {
       case 'lineaire': {
         const pente = (randint(-15, 15, 0)) / 5
@@ -51,25 +49,14 @@ export default class ImageSpline extends Exercice {
          Réponse : OUI (${texteEnCouleurEtGras('O')}) `
       }
         break
-      case 'affine': {
+      case 'affine':
+      default: {
         const pente = (randint(-15, 15, 0)) / 5
         this.lineaire = false
         const OrdX0 = randint(Math.round(-1 + pente), Math.round(1 + pente), [pente, 0])
         c = droiteParPointEtPente(point(0, OrdX0), pente, '', 'blue')
         this.reponse = ['N', 'Non', 'NON', 'non']
         this.correction = `C'est bien une droite mais elle ne passe pas par l'origine.<br>Ce graphique ne représente donc pas une situation de proportionnalité.<br>
-        Réponse : NON (${texteEnCouleurEtGras('N')}) `
-      }
-        break
-      default: {
-        const Y = []
-        for (let x = -1; x <= 1; x++) {
-          Y[x + 1] = randint(-4, 4)
-        }
-        const f = splineCatmullRom({ tabY: Y, x0: -6, step: 6 }).fonction
-        c = courbeSpline(f, { repere: r, step: 0.1, color: 'blue', xMin: -6, xMax: 6, traceNoeuds: false })
-        this.reponse = ['N', 'Non', 'NON', 'non']
-        this.correction = `Ce n'est pas une droite.<br>Ce graphique ne représente donc pas une situation de proportionnalité.<br>
         Réponse : NON (${texteEnCouleurEtGras('N')}) `
       }
         break

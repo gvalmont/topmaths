@@ -6,7 +6,7 @@ import { arcenciel } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { signe } from '../../../lib/outils/nombres'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Calculer un terme d’une suite récurrente'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -61,7 +61,7 @@ export default class CalculTermeSuiteRec extends Exercice {
             ${miseEnEvidence(u, arcenciel(indice, true))}  ${a} = ${miseEnEvidence(u + a, arcenciel(indice + 1, true))}$`
           }
         }
-        this.reponse = calculANePlusJamaisUtiliser(u + a)
+        this.reponse = u + a
         break
       case 'b':// suite géométrique
         a = randint(2, 10) * choice([-1, 1])
@@ -88,7 +88,7 @@ export default class CalculTermeSuiteRec extends Exercice {
                ${a}\\times ${miseEnEvidence(u, arcenciel(indice, true))}  = ${miseEnEvidence(u * a, arcenciel(indice + 1, true))}$`
           }
         }
-        this.reponse = calculANePlusJamaisUtiliser(u * a)
+        this.reponse = u * a
         break
 
       case 'c':// suite géométrique avec fraction
@@ -100,7 +100,7 @@ export default class CalculTermeSuiteRec extends Exercice {
         n1 = fraction1[0]
         d1 = fraction1[1]
         a = randint(1, 10) * choice([-1, 1])
-        u = calculANePlusJamaisUtiliser(a * d1)
+        u = a * d1
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFractionFromString(n1, d1)}u_n $.`
 
         if (!this.interactif) {
@@ -121,7 +121,7 @@ export default class CalculTermeSuiteRec extends Exercice {
     ${texFractionFromString(n1, d1)}\\times ${miseEnEvidence(u, arcenciel(indice, true))}  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
           }
         }
-        this.reponse = calculANePlusJamaisUtiliser(n1 * a)
+        this.reponse = n1 * a
         break
 
       case 'd':// suite arithmético-géométrique
@@ -152,7 +152,7 @@ export default class CalculTermeSuiteRec extends Exercice {
         ${miseEnEvidence(a * u + b, arcenciel(indice + 1, true))}$`
           }
         }
-        this.reponse = calculANePlusJamaisUtiliser(u * a + b)
+        this.reponse = u * a + b
         break
 
       case 'e':// suite de la forme u(n+1) = a +- u(n)^2
@@ -185,7 +185,7 @@ export default class CalculTermeSuiteRec extends Exercice {
                 ${miseEnEvidence(texNombre(a + b * u * u), arcenciel(indice + 1, true))}$`
           }
         }
-        this.reponse = calculANePlusJamaisUtiliser(a + b * u * u)
+        this.reponse = a + b * u * u
         break
     }
   }

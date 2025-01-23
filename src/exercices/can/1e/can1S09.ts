@@ -3,7 +3,7 @@ import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -40,15 +40,12 @@ export default class RelationRec extends Exercice {
       switch (choice([1, 1, 2, 3, 4])) { //
         case 1 :// magazine arithmetico-geo
           a = randint(1, 30)
-          // u = randint(1, 10) * choice([-1, 1])
-          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
-          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
+          b = randint(1, 10) * 100
+          c = randint(5, 20) * 1000
           texte = `Chaque année, un magazine perd $${a}${sp(1)}\\%$  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
           En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
 
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
-          
-          `
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
@@ -70,15 +67,12 @@ export default class RelationRec extends Exercice {
 
         case 2 :// magazine geo
           a = randint(1, 15)
-          // u = randint(1, 10) * choice([-1, 1])
-          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
-          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
+          b = randint(1, 10) * 100
+          c = randint(5, 20) * 1000
 
           texte = `Chaque année, un magazine perd $${a}${sp()} \\%$  de ses abonnés.<br>
           En $2020$, ce magazine compte $${c}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
-          
-          `
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
@@ -100,15 +94,12 @@ export default class RelationRec extends Exercice {
           break
 
         case 3 :// magazine arith
-          a = calculANePlusJamaisUtiliser(randint(1, 15) * 100)
-          // u = randint(1, 10) * choice([-1, 1])
-          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
-          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
+          a = randint(1, 15) * 100
+          b = randint(1, 10) * 100
+          c = randint(5, 20) * 1000
           texte = `Chaque année, un magazine perd $${a}$ abonnés.<br>
           En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
-          
-          `
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
@@ -120,26 +111,22 @@ export default class RelationRec extends Exercice {
           }
 
           texteCorr = `On a $${s}_{n+1}=${s}_{n}-${a}$.<br>
-
           Le premier terme de la suite est $${s}_{0}=${texNombre(c)}$ et  $${s}_{n+1}=${s}_{n}-${a}$.<br>`
           setReponse(this, 2 * i, 1)
           setReponse(this, 2 * i + 1, -a)
           this.canEnonce = texte
           this.canReponseACompleter = ''
           break
-
-        case 4 :// magazine arith/geo avec tiers....
+        case 4:
+        default :// magazine arith/geo avec tiers....
           proportion = ['le quart', 'le tiers', 'le dixième', 'le cinquième', 'la moitié']//
-          a = calculANePlusJamaisUtiliser(randint(1, 15) * 100)
-          // u = randint(1, 10) * choice([-1, 1])
-          b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
-          c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
+          a = randint(1, 15) * 100
+          b = randint(1, 10) * 100
+          c = randint(5, 20) * 1000
           T = choice(proportion)
           texte = `Chaque année, un magazine perd ${T}  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
           En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
-          
-          `
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
@@ -153,23 +140,19 @@ export default class RelationRec extends Exercice {
             texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-\\dfrac{1}{4}${s}_{n}}_{\\text{Perte du quart }} +${b}=0,75${s}_{n}+${b}$.<br>
 
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=0,75${s}_{n}+${b}$.<br>`
-          }
-          if (T === 'le tiers') {
+          } else if (T === 'le tiers') {
             texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-\\dfrac{1}{3}${s}_{n}}_{\\text{Perte du tiers }} +${b}=\\dfrac{2}{3}${s}_{n}+${b}$.<br>
 
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=\\dfrac{2}{3}${s}_{n}+${b}$.<br>`
-          }
-          if (T === 'le cinquième') {
+          } else if (T === 'le cinquième') {
             texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-\\dfrac{1}{5}${s}_{n}}_{\\text{Perte du cinquième }} +${b}=0,8${s}_{n}+${b}$.<br>
 
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=0,8${s}_{n}+${b}$.<br>`
-          }
-          if (T === 'le dixième') {
+          } else if (T === 'le dixième') {
             texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-\\dfrac{1}{10}${s}_{n}}_{\\text{Perte du dixième }} +${b}=0,9${s}_{n}+${b}$.<br>
 
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=0,9${s}_{n}+${b}$.<br>`
-          }
-          if (T === 'la moitié') {
+          } else {
             texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-\\dfrac{1}{2}${s}_{n}}_{\\text{Perte de la moitié }} +${b}=0,5${s}_{n}+${b}$.<br>
 
           Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=0,5${s}_{n}+${b}$.<br>`

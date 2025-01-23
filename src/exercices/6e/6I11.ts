@@ -6,7 +6,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { createLink } from '../../lib/outils/modales'
 import { stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, ObjetLutin, orienter } from '../../modules/2dLutin'
 import { noteLaCouleur, plateau2dNLC, testBoucle, testInstruction, testSequence, thePlateau, traducNum } from '../../modules/noteLaCouleur'
@@ -75,8 +75,6 @@ export default class NoteLaCouleur6e extends Exercice {
     const echelleDessin = 0.5
 
     let j, test
-    let objetsEnonce: (ObjetMathalea2D[] | ObjetMathalea2D)[] = []
-    let objetsCorrection: (ObjetMathalea2D[] | ObjetMathalea2D)[] = []
     const paramsCorrection = this.relatif
       ? { xmin: -13, ymin: -10, xmax: 13, ymax: 10, pixelsParCm: 20, scale: echelleDessin }
       : { xmin: -1, ymin: -1, xmax: 25, ymax: 19, pixelsParCm: 20, scale: echelleDessin }
@@ -111,8 +109,8 @@ export default class NoteLaCouleur6e extends Exercice {
     }
     )
     for (let q = 0; q < this.nbQuestions;) {
-      objetsCorrection = []
-      objetsEnonce = []
+      const objetsCorrection: NestedObjetMathalea2dArray = []
+      const objetsEnonce : NestedObjetMathalea2dArray = []
       const objets = lePlateau.objets ?? []
       objetsEnonce.push(objets)
       objetsCorrection.push(objets)

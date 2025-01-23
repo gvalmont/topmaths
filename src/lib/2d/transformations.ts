@@ -150,7 +150,7 @@ export class SensDeRotation extends ObjetMathalea2D {
     const s1 = segment(A2, F1, color)
     const s2 = segment(A2, F2, color)
     this.objets.push(arc1, s1, s2)
-    const bordures = fixeBordures(this.objets)
+    const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
     this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   }
 

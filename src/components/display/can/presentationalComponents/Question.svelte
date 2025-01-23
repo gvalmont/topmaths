@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
   import { afterUpdate, onMount } from 'svelte'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { setSizeWithinSvgContainer } from '../../../../lib/components/sizeTools'
@@ -6,7 +6,7 @@
   import { keyboardState } from '../../../keyboard/stores/keyboardStore'
   import type { MathfieldElement } from 'mathlive'
   import { canOptions } from '../../../../lib/stores/canStore'
-    import { questionCliqueFigure } from '../../../../lib/interactif/cliqueFigure';
+  import { questionCliqueFigure } from '../../../../lib/interactif/cliqueFigure'
 
   export let question: string
   export let consigne: string
@@ -18,6 +18,17 @@
   export let nextQuestion: () => void
 
   let questionContainer: HTMLDivElement
+  import { onDestroy } from 'svelte'
+
+  onDestroy(() => {
+    const mf = questionContainer?.querySelector(
+      'math-field'
+    ) as MathfieldElement
+    if (mf) {
+      mf.removeEventListener('keyup', handleKeyUp)
+      mf.removeEventListener('input', handleMathfieldElement)
+    }
+  })
   onMount(() => {
     const questionContent = document.getElementById(
       `question-content-${index}`
@@ -39,74 +50,87 @@
     }
   })
 
-  function  updateInteractivity(){
-      if (questionContainer) {
-        const mf = questionContainer?.querySelector('math-field') as MathfieldElement
-        if (mf) {
-          // ToDo : gérer les QCM
-          mf.addEventListener('keyup', (e) => {
-            /* MGu obliger de mettre l'event quand on relache la touche, car sinon events multiples pour la même touche */
-            if (e instanceof KeyboardEvent && e.code === 'Enter') {
-              nextQuestion()
-            }
-            if (mf.value !== '') {
-              $canOptions.questionGetAnswer[index] = true
-            } else {
-              $canOptions.questionGetAnswer[index] = false
-            }
-          })
-          $keyboardState.idMathField = mf.id
-          window.setTimeout(() => {
-            mf.focus()
-            // @ToFix Je remets le clavier visible pour les fillInTheBlanks mais en fait je ne sais pas ce qui les rend invisibles
-            // Mgu je n'ai pas reproduit le problème ...
-            // $keyboardState.isVisible = true
-          }, 0)
+  function handleKeyUp(e: KeyboardEvent) {
+    /* MGu obliger de mettre l'event quand on relache la touche, car sinon events multiples pour la même touche */
+    if (e.key === 'Enter') {
+      nextQuestion()
+    }
+  }
+
+  function handleMathfieldElement(this: HTMLElement, ev: Event) {
+    /* ca peut venir du clavier vituel ou du clavier physique */
+    if ((this as MathfieldElement).value !== '') {
+      $canOptions.questionGetAnswer[index] = true
+    } else {
+      $canOptions.questionGetAnswer[index] = false
+    }
+  }
+
+  function updateInteractivity() {
+    if (questionContainer) {
+      const mf = questionContainer?.querySelector(
+        'math-field'
+      ) as MathfieldElement
+      if (mf) {
+        mf.addEventListener('keyup', handleKeyUp)
+        mf.addEventListener('input', handleMathfieldElement)
+        $keyboardState.idMathField = mf.id
+        window.setTimeout(() => {
+          mf.focus()
+          // @ToFix Je remets le clavier visible pour les fillInTheBlanks mais en fait je ne sais pas ce qui les rend invisibles
+          // Mgu je n'ai pas reproduit le problème ...
+          // $keyboardState.isVisible = true
+        }, 0)
+      } else {
+        // on n'a pas trouvé de math-field, c'est pas du mathlive !
+        const figureCliquables = questionContainer?.querySelectorAll(
+          '[id^="cliquefigure"]'
+        )
+        if (figureCliquables.length > 0) {
+          $keyboardState.isVisible = false
+          for (const figureCliquable of figureCliquables) {
+            questionCliqueFigure(figureCliquable)
+            figureCliquable.addEventListener('click', () => {
+              const val = Array.from(figureCliquables).reduce((acc, b) => {
+                if ((b as any).etat) {
+                  acc = true
+                }
+                return acc
+              }, false)
+              $canOptions.questionGetAnswer[index] = val
+            })
+          }
         } else {
-          // on n'a pas trouvé de math-field, c'est pas du mathlive !
-          const figureCliquables = questionContainer?.querySelectorAll('[id^="cliquefigure"]')
-          if (figureCliquables.length > 0) {
+          const qcm = questionContainer?.querySelectorAll('input')
+          if (qcm.length < 2) {
+            window.notify(
+              'Question.svelte vérifie un qcm qui n\'a pas 2 inputs minimum ou alors, il n\'y a pas d\'input',
+              { qcm: JSON.stringify(qcm) }
+            )
+            $canOptions.questionGetAnswer[index] = false
+          } else {
             $keyboardState.isVisible = false
-            for (const figureCliquable of figureCliquables) {
-              questionCliqueFigure(figureCliquable)
-              figureCliquable.addEventListener('click', () => {
-                const val = Array.from(figureCliquables).reduce((acc, b) => {
-                    if ((b as any).etat) {
-                      acc = true
-                    }
-                    return acc
-                  }, false)
+            for (const box of qcm) {
+              box.addEventListener('click', () => {
+                const val = Array.from(qcm).reduce((acc, b) => {
+                  if (b.checked) {
+                    acc = true
+                  }
+                  return acc
+                }, false)
+                // au moins 1 coché
                 $canOptions.questionGetAnswer[index] = val
               })
-            }
-          } else {
-            const qcm = questionContainer?.querySelectorAll('input')
-            if (qcm.length < 2) {
-              window.notify('Question.svelte vérifie un qcm qui n\'a pas 2 inputs minimum ou alors, il n\'y a pas d\'input', { qcm: JSON.stringify(qcm) })
-              $canOptions.questionGetAnswer[index] = false
-            } else {
-              $keyboardState.isVisible = false
-              for (const box of qcm) {
-                box.addEventListener('click', () => {
-                  const val = Array.from(qcm).reduce((acc, b) => {
-                    if (b.checked) {
-                      acc = true
-                    }
-                    return acc
-                  }, false)
-                  // au moins 1 coché
-                  $canOptions.questionGetAnswer[index] = val                  
-                })
-              }
             }
           }
         }
       }
     }
+  }
 </script>
 
 <div
-  id="question-content-{index}"
+  id='question-content-{index}'
   class={visible
     ? 'px-4 md:px-20 lg:px-32 flex flex-col justify-center items-center font-normal leading-relaxed h-[100%]  w-[100%] text-center'
     : 'hidden'}
@@ -114,29 +138,31 @@
 >
   {#if mode === 'display' || mode === 'correction'}
     <div style='padding:15px;' class='flex overflow-x-auto overflow-y-auto'>
-    <div class="text-pretty">
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      {@html consigne}
-    </div>
-    <div class="text-pretty" style=''>
-      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-      {@html question}
-    </div>
+      <div class='text-pretty'>
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        {@html consigne}
+      </div>
+      <div class='text-pretty' style=''>
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        {@html question}
+      </div>
     </div>
   {/if}
 
   {#if mode === 'correction'}
-    <div class="relative flex p-4 mt-10 bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-      <div class="text-pretty">
+    <div
+      class='relative flex p-4 mt-10 bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus'
+    >
+      <div class='text-pretty'>
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html consigneCorrection}
       </div>
-      <div class="text-pretty">
+      <div class='text-pretty'>
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html correction}
       </div>
       <div
-        class="flex absolute top-8 -left-12 font-bold text-xl text-coopmaths-warn-1000 dark:text-coopmathsdark-warn-dark -rotate-90"
+        class='flex absolute top-8 -left-12 font-bold text-xl text-coopmaths-warn-1000 dark:text-coopmathsdark-warn-dark -rotate-90'
       >
         Solution
       </div>

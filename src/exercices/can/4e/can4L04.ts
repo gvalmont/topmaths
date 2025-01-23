@@ -1,7 +1,7 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une expression pour une valeur particulière'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,7 +36,7 @@ export default class SubstitutionRelatif extends Exercice {
        On commence par calculer le produit :  $${c}\\times (${a})$ qui donne $${a * c}$.<br>
        Puis, on calcule  $${b}${ecritureAlgebrique(c * a)}=${b + c * a}$.  `)
 
-    this.reponse = calculANePlusJamaisUtiliser(b + c * a)
+    this.reponse = b + c * a
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

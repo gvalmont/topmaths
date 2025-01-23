@@ -620,7 +620,7 @@ export function pointIntersectionDD (d: Droite, f: Droite, nom = '', positionLab
  * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
-export function pointAdistance (A: Point, d: number = 1, angle = 0, nom = '', positionLabel = 'above'): Point {
+export function pointAdistance (A: Point, d: number = 1, angle:string | number = 0, nom = '', positionLabel = 'above'): Point {
   let leNom = ''
   let lAngle = 0
   let lePositionLabel = 'above'
