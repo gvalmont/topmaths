@@ -3304,7 +3304,7 @@
                 "titleAcademic": "Résoudre un problème de proportionnalité (Coefficient de linéarité entier)",
                 "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
-                "lessonSummaryImage": "schema-proportionnalite.png",
+                "lessonSummaryImage": "6P11-RDC.png",
                 "videos": [
                   {
                     "title": "",
@@ -3346,8 +3346,8 @@
                 "title": "Résoudre un problème de proportionnalité en passant par l'unité",
                 "titleAcademic": "Résoudre un problème de proportionnalité (retour à l'unité)",
                 "isKey": true,
-                "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
-                "lessonSummaryImage": "schema-proportionnalite.png",
+                "lessonSummaryHTML": "<p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour $3$ personnes qu'il faut $150$ g de farine. <br>Elle veut adapter sa recette pour $21$ personnes. <br>Quelle masse de farine doit-elle prévoir ?</p><br><p>Commençons par trouver la quantité de farine à prévoir pour $1$ personne.<br>$1$ personne, c'est ${\\color{red}3}$ fois moins que $3$ personnes. Pour $1$ personne il faudra donc ${\\color{red}3}$ fois moins de farine que pour $3$ personnes.<br> $ 150 \\div {\\color{red}3} = 50 $ <br><strong>Conclusion intermédiaire :</strong> Pour $1$ personne il faudra prévoir ${\\color{blue}50}$ g de farine.<br><br>Cherchons maintenant la quantité de farine à prévoir pour $21$ personnes.<br> $21$ personnes, c'est ${\\color{red}21}$ fois plus que $1$ personne. Pour $21$ personnes, il faudra donc ${\\color{red}21}$ fois plus de farine que pour $1$ personne.<br> $ {\\color{red}21} \\times {\\color{blue}50} = 1050 $ <br> <strong>Conclusion :</strong> Pour 21 personnes, il faudra prévoir 1050 g de farine.</p>",
+                "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "",
@@ -3369,8 +3369,8 @@
                 "title": "Résoudre un problème de proportionnalité en utilisant un tableau",
                 "titleAcademic": "Résoudre un problème de proportionnalité (additivité à l'aide d'un tableau)",
                 "isKey": true,
-                "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
-                "lessonSummaryImage": "schema-proportionnalite.png",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "",
@@ -3393,7 +3393,7 @@
                 "titleAcademic": "Résoudre un problème de proportionnalité (coefficient de proportionnalité)",
                 "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
-                "lessonSummaryImage": "schema-proportionnalite.png",
+                "lessonSummaryImage": "6P12-RDC.png",
                 "videos": [],
                 "exercises": [
                   {
@@ -3406,7 +3406,7 @@
               {
                 "reference": "6P15",
                 "title": "Résoudre un problème de proportionnalité avec des nombres décimaux",
-                "titleAcademic": "Résoudre un problème de proportionnalité (coefficient de proportionnalité)",
+                "titleAcademic": "Résoudre un problème de proportionnalité avec des nombres décimaux",
                 "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "schema-proportionnalite.png",
