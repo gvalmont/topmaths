@@ -1,4 +1,3 @@
-#import "@local/svg-emoji:0.1.0": setup-emoji
 #import "@preview/tablex:0.0.8": tablex, rowspanx, colspanx, vlinex, hlinex
 
 #let lien(fichier) = {

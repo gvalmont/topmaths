@@ -3,11 +3,16 @@ import * as path from 'path'
 import { spawn } from 'child_process'
 import { isStringGrade, type StringGrade } from '../src/topmaths/types/grade.js'
 import { isUnits, type UnitLessonPlan, type Unit, type UnitObjective, emptyUnitLessonPlan, emptyUnitObjective, emptyUnit } from '../src/topmaths/types/unit.js'
-import units from '../src/topmaths/json/built_units.json' assert { type: 'json' }
 import { countLessonPlans } from './helpers/lesson_plans.js'
 import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { getTitle } from '../src/topmaths/services/string.js'
 import { isObjectiveReferences, type ObjectiveReference } from '../src/topmaths/types/objective.js'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const units: Unit[] = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/built_units.json'), 'utf-8'))
 
 const SOURCE_ROOT = './src/topmaths/typ'
 const LESSONS = 'cours'
@@ -46,7 +51,6 @@ function writeUnitLesson (unit: Unit): void {
 
 function buildHeader (unit: Unit): string {
   let header = `#import "../../../preambule_sequence.typ": * 
-#show: setup-emoji
 #show: doc => sequence(doc, title: "Séquence ${unit.number} : ${unit.title}")
 #objectifs()[
 `
@@ -177,7 +181,6 @@ function buildObjectiveLessonPlanHeader (unitGrade: StringGrade, objective: Unit
   const lessonPlanTotalCount = countLessonPlans(objective, unitGrade)
   const subTitle = `Fiche de leçon${lessonPlanTotalCount > 1 ? ` ${lessonPlanCount} / ${lessonPlanTotalCount}` : ''}`
   return `#import "../../../preambule_fiche.typ": *
-#show: setup-emoji
 #show: doc => fiche(doc, titre: "${objective.reference} : ${getTitle(objective)}", sousTitre: "${subTitle}")
 
 `
@@ -260,7 +263,6 @@ function writeUnitLessonPlan (previousUnit: Unit, currentUnit: Unit, nextUnit: U
 
 function buildUnitLessonPlanHeader (unit: Unit): string {
   return `#import "../../../preambule_fiche.typ": *
-#show: setup-emoji
 #show: doc => fiche(doc, titre: "Séquence ${unit.number} : ${unit.title}", sousTitre: "Fiche de séquence", paysage: true)
 
 #table(
