@@ -1,5 +1,12 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import definitionsJson from '../src/topmaths/json/glossary/definitions.json' assert { type: 'json' }
+import propertiesJson from '../src/topmaths/json/glossary/properties.json' assert { type: 'json' }
+import objectivesMasterJson from '../src/topmaths/json/objectives.json' assert { type: 'json' }
+import unitsMasterJson from '../src/topmaths/json/units.json' assert { type: 'json' }
+import specialUnitsJson from '../src/topmaths/json/special_units.json' assert { type: 'json' }
+import curriculumJson from '../src/topmaths/json/curriculum.json' assert { type: 'json' }
+import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' assert { type: 'json' }
 import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
@@ -12,19 +19,6 @@ import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type Calend
 import { type CurriculumGrade, type CurriculumValue, isCurriculum, type Curriculum, emptyCurriculumValue } from '../src/topmaths/types/curriculum.js'
 import { countLessonPlans } from './helpers/lesson_plans.js'
 import { getTitle } from '../src/topmaths/services/string.js'
-import { type SpecialUnit } from '../src/topmaths/types/specialUnit.js'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-const definitionsJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/glossary/definitions.json'), 'utf-8'))
-const propertiesJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/glossary/properties.json'), 'utf-8'))
-const objectivesMasterJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/objectives.json'), 'utf-8'))
-const unitsMasterJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/units.json'), 'utf-8'))
-const specialUnitsJson: SpecialUnit[] = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/special_units.json'), 'utf-8'))
-const curriculumJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/curriculum.json'), 'utf-8'))
-const calendarSchoolYearMasterJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/calendar.json'), 'utf-8'))
 
 const THIRD_PARTY_WEBSITES = [
   'https://coopmaths.fr',
