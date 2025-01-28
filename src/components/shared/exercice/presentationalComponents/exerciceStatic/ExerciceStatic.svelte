@@ -64,7 +64,7 @@
     if (resourceHasPlace(resourceToDisplay)) {
       headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} ${
         resourceToDisplay.mois || ''
-      } ${resourceToDisplay.annee} ${resourceToDisplay.lieu} - ${resourceToDisplay.numeroInitial}`
+      } ${resourceToDisplay.annee} ${resourceToDisplay.lieu} ${resourceToDisplay.jour || ''} Ex ${resourceToDisplay.numeroInitial}`
     } else {
       headerExerciceProps.title = resourceToDisplay.uuid
     }

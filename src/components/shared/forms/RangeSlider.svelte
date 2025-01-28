@@ -62,10 +62,10 @@
   $track-radius: 5px !default;
 
   $contrast: 5% !default;
-  $ie-bottom-track-color: darken($track-color, $contrast) !default;
+  $ie-bottom-track-color: adjust-color($track-color, $lightness: -$contrast) !default;
 
   @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
-    box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
+    box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size adjust-color($shadow-color, $lightness: $contrast);
   }
 
   @mixin track {
@@ -101,7 +101,7 @@
       outline: 0;
 
       &::-webkit-slider-runnable-track {
-        background: lighten($track-color, $contrast);
+        background: adjust-color($track-color, $lightness: $contrast);
       }
 
       &::-ms-fill-lower {
@@ -109,7 +109,7 @@
       }
 
       &::-ms-fill-upper {
-        background: lighten($track-color, $contrast);
+        background: adjust-color($track-color, $lightness: $contrast);
       }
     }
 

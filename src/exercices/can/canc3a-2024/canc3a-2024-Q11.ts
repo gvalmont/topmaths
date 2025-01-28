@@ -33,10 +33,8 @@ export default class CompareNombre extends Exercice {
     const nbA = a / c
     const nbB = this.canOfficielle ? 4.8 : randint(21, 49, aa) / 10
     if (this.canOfficielle) {
-      this.reponse = '4,8'
       this.correction = `Comme $5$ dixième est égal à $0,5$, le plus grand nombre est  $${miseEnEvidence(texNombre(4.8, 1))}$.`
     } else {
-      this.reponse = nbA > nbB ? nbA : nbB
       this.correction = `Comme $${texNombre(a, 0)}$ ${b} est égal à $${texNombre(nbA, 3)}$ alors, le plus grand nombre est   ${nbA > nbB ? `$${miseEnEvidence(texNombre(a, 3))}$ ${texteEnCouleurEtGras(b)}` : `$${miseEnEvidence(texNombre(nbB, 1))}$`}.`
     }
 

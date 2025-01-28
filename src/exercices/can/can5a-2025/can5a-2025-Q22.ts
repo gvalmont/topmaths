@@ -22,14 +22,15 @@ export default class Can2025N5Q14 extends ExerciceCan {
     let coeff
     let pu
     if (a == null || b == null || c == null) {
-      a = randint(1, 4) * 4
+      a = randint(1, 3) * 4
       coeff = choice([1.5, 2.5])
-      pu = choice([5, 7, 9]) / 4
+      pu = choice([5, 7]) / 4
       b = a * pu
       c = a * coeff
     }
     pu = b / a
     coeff = c / a
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = pu * c
     this.question = `$${a}$ gommes coûtent $${b}$ euros. <br>
     Combien coûtent $${c}$ gommes ?`

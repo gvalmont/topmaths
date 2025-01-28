@@ -25,6 +25,7 @@ export default class Can2025N5Q14 extends ExerciceCan {
       [a, b, c] = liste1.map((x:number) => x * facteur)
     }
     const liste = [a, b, c, '?'].map((el) => `$${el}$`).join(' ; ')
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a + b * c
     this.question = `Complète la suite logique de nombres suivante : <br>${liste}`
     this.correction = `La multiplication est prioritaire sur l'addition, donc :<br> $${a} + ${b}\\times ${c}=${a} + ${b * c} = ${miseEnEvidence(texNombre(a + b * c, 0))}$.`

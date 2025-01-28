@@ -995,8 +995,40 @@
       "TSG2": {
         "titre":"Géométrie dans l'espace"
       },
-  "TExC1": {
-    "titre": "Calculs avec nombres complexes",
+  "TEC1": {
+    "titre": "Nombres complexes : algèbre",
+    "sousThemes": {}
+  },
+  "TEC2": {
+    "titre": "Nombres complexes : géométrie",
+    "sousThemes": {}
+  },
+  "TEC3": {
+    "titre": "Nombres Complexes : trigonométrie",
+    "sousThemes": {}
+  },
+  "TEC4": {
+    "titre": "Nombres Complexes : polynômes$",
+    "sousThemes": {}
+  },
+  "TEM1": {
+    "titre": "Les Matrices",
+    "sousThemes": {}
+  },
+  "TEM2": {
+    "titre": "Les graphes",
+    "sousThemes": {}
+  },
+  "TEA1": {
+    "titre": "Divisibilité dans $\\mathbb Z$",
+    "sousThemes": {}
+  },
+  "TEA2": {
+    "titre": "Théorèmes de Bezout et Gauss",
+    "sousThemes": {}
+  },
+  "TEA3": {
+    "titre": "Nombres premiers",
     "sousThemes": {}
   },
   "TQCM": {

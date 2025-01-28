@@ -7,6 +7,7 @@ import { createList } from '../../lib/format/lists'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { choice } from '../../lib/outils/arrayOutils'
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Étude d\'une suite $u_{n+1}=f(u_n)$ par récurrence'
 export const dateDePublication = '25/10/2024'
@@ -52,7 +53,7 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
 
     const f = new Trinome(a, b, c)
     const alpha = f.alpha.texFractionSimplifiee
-    texte = `On considère la fonction définie sur $\\R$ par $f(x)=${f.tex}$ et la suite $(u_n)$ définie par $u_0 = ${i2}$ et pour tout $n\\in\\N$,&nbsp;&nbsp;$u_{n+1} = f(u_n)$. `
+    texte = `On considère la fonction définie sur $\\R$ par $f(x)=${f.tex}$ et la suite $(u_n)$ définie par $u_0 = ${i2}$ et pour tout $n\\in\\N$,${sp()};${sp()};$u_{n+1} = f(u_n)$. `
     const questions = [
       `Étudier le sens de variation de $f$ sur $[${i1}\\;;\\;${i2}]$.`,
       `Démontrer par récurrence que, pour tout entier naturel $n$, $${i1} \\leqslant u_n \\leqslant ${i2}$`,
@@ -70,14 +71,12 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
     correction1 += `<br><br> $f'(x)=0 \\Leftrightarrow x=${alpha}$.`
     correction1 += `<br><br>Or $${alpha} \\geqslant ${i1}$ donc $f$ est croissante sur $[${i1}\\;;\\;${i2}]$.`
 
-    const fonction = (x: number) => f.image(x).toNumber()
-    const derivee = (x: number) => f.derivee.image(x).toNumber()
+    const fonction = (x:FractionEtendue | number) => f.image(x).toNumber()
+    const derivee = (x:FractionEtendue | number) => f.derivee.image(x).toNumber()
     correction1 += '<br><br>' + tableauVariationsFonction(fonction, derivee, i1, i2, {
       ligneDerivee: true,
       substituts: [
-        // @ts-expect-error typage de tableauVariationsFonction
         { antVal: 3, antTex: '3', imgTex: '$ $' },
-        // @ts-expect-error typage de tableauVariationsFonction
         { antVal: 1, antTex: '1', imgTex: '$ $' }
       ],
       step: new FractionEtendue(1, 100),
@@ -125,7 +124,6 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
     })
 
     if (!context.isHtml) {
-      texte = texte.replaceAll('&nbsp;', ' ')
       texteCorr = texteCorr.replaceAll('forestgreen', 'black')
     }
     this.listeQuestions.push(texte)

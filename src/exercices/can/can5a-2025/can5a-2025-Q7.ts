@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
+import FractionEtendue from '../../../modules/FractionEtendue'
 
 export const titre = 'Conversion en minutes décimales'
 export const interactifReady = true
@@ -23,9 +24,13 @@ export default class Can2025N5Q7 extends ExerciceCan {
       a = randint(2, 9)
       b = choice([15, 30, 45])
     }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a + b / 60
     this.question = `$${a}$ min $${b}$ s`
-    this.correction = `$${a}$ min $${b}$ s $=$ $${a}$ min $+ \\dfrac{${b}}{60}$ min $=${miseEnEvidence(texNombre(a + b / 60, 2))}$ min.`
+    this.correction = `$${b}$ s $=${new FractionEtendue(b, 60).simplifie().texFraction}$ min $=${texNombre(b / 60, 2)}$ min.<br>
+    
+    
+    Ainsi, $${a}$ min $${b}$ s $=$ $${a}$ min $ + $ $${texNombre(b / 60, 2)}$ min $=${miseEnEvidence(texNombre(a + b / 60, 2))}$ min.`
     this.canEnonce = this.question
     this.optionsChampTexte = { texteApres: ' min' }
     this.canReponseACompleter = '$\\ldots\\ldots$ min'

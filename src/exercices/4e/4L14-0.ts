@@ -33,7 +33,6 @@ export const refs = {
 */
 
 export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
-  exo: string
   constructor () {
     super()
     this.besoinFormulaireNumerique = [
@@ -43,22 +42,12 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
     ]
     this.besoinFormulaire2Texte = ['Choix des équations', 'Nombres séparés par des tirets\n1 : 3x-a=2x+b\n2 : 3x+a=5x-b\n3 : 10(x-a)=4(2x+b)\n4 : ax+b=(a+1)x-c\n5 : a-2x=b+2x\n6 : ax-ab=x²-bx\n7 : adx-bd=acx²-bcx\n8 : 2x-4a=4(2x+b)\n9 : x²-bx-ax+ab=0\n10 : Mélange\n']
     this.besoinFormulaire3CaseACocher = ['Forme simplifiée', false]
-
     this.sup = 1
-    this.exo = '4L14-0'
+    this.nbQuestions = 4
+    this.sup2 = '1-2-3-4-5-6-7-8-9'
   }
 
   nouvelleVersion () {
-    if (this.exo === '4L14-1') {
-      this.nbQuestions = 4
-      this.sup2 = '1-3-5-2-4'
-    } else if (this.exo === '4L14-2') {
-      this.nbQuestions = 3
-      this.sup2 = '9-6-7'
-    } else {
-      this.nbQuestions = 9
-      this.sup2 = '1-2-3-4-5-6-7-8-9'
-    }
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,

@@ -52,7 +52,6 @@ export default class Can2025CE2Q4 extends ExerciceCan {
     }
     this.formatInteractif = 'qcm'
     this.question = `Le périmètre ${c} est proche de ...`
-    this.reponse = `$${texNombre(a, 1)}$ ${b}` // C'est juste pour pas faire planter mathaleaHandleExerciceSimple, cette réponse ne sera pas utilisée.
     const monQcm = propositionsQcm(this, 0)
     this.canEnonce = this.question
     this.question += `<br>\n${monQcm.texte}`

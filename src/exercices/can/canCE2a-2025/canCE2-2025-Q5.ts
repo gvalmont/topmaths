@@ -28,7 +28,7 @@ export default class Can2025CE2Q5 extends ExerciceCan {
     this.correction = `Le ${terme} de $${b}$, c'est : $${a}\\times ${b}=${miseEnEvidence(a * b)}$`
     this.canEnonce = this.question
     if (this.interactif) {
-      this.question += ' : '
+      this.question += ' est  : '
     }
   }
 

@@ -3,7 +3,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2022/2022-g1-ex1.png'
     ],
@@ -23,7 +23,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2022/2022-g1-ex2.png'
     ],
@@ -42,7 +42,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2022/2022-g1-ex3.png'
     ],
@@ -61,7 +61,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2022/2022-g1-ex4.png'
     ],
@@ -80,7 +80,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 5',
+    numeroInitial: '5',
     png: [
       'static/crpe/2022/2022-g1-ex5.png'
     ],
@@ -99,7 +99,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2022/2022-g2-ex1.png'
     ],
@@ -118,7 +118,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2022/2022-g2-ex2.png'
     ],
@@ -137,7 +137,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2022/2022-g2-ex3.png'
     ],
@@ -156,7 +156,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2022/2022-g2-ex4.png'
     ],
@@ -175,7 +175,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 5',
+    numeroInitial: '5',
     png: [
       'static/crpe/2022/2022-g2-ex5.png'
     ],
@@ -194,7 +194,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2022/2022-g3-ex1.png'
     ],
@@ -213,7 +213,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2022/2022-g3-ex2.png'
     ],
@@ -232,7 +232,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2022/2022-g3-ex3.png'
     ],
@@ -251,7 +251,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2022/2022-g3-ex4.png'
     ],
@@ -270,7 +270,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2023/2023-g1-ex1.png'
     ],
@@ -289,7 +289,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2023/2023-g1-ex2.png'
     ],
@@ -308,7 +308,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2023/2023-g1-ex3.png'
     ],
@@ -327,7 +327,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2023/2023-g1-ex4.png'
     ],
@@ -346,7 +346,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 5',
+    numeroInitial: '5',
     png: [
       'static/crpe/2023/2023-g1-ex5.png'
     ],
@@ -365,7 +365,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 1',
-    numeroInitial: 'Ex 6',
+    numeroInitial: '6',
     png: [
       'static/crpe/2023/2023-g1-ex6.png'
     ],
@@ -384,7 +384,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2023/2023-g2-ex1.png'
     ],
@@ -403,7 +403,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2023/2023-g2-ex2.png'
     ],
@@ -422,7 +422,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2023/2023-g2-ex3.png'
     ],
@@ -441,7 +441,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2023/2023-g2-ex4.png'
     ],
@@ -460,7 +460,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 5',
+    numeroInitial: '5',
     png: [
       'static/crpe/2023/2023-g2-ex5.png'
     ],
@@ -479,7 +479,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 2',
-    numeroInitial: 'Ex 6',
+    numeroInitial: '6',
     png: [
       'static/crpe/2023/2023-g2-ex6.png'
     ],
@@ -498,7 +498,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2023/2023-g3-ex1.png'
     ],
@@ -517,7 +517,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2023/2023-g3-ex2.png'
     ],
@@ -536,7 +536,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2023/2023-g3-ex3.png'
     ],
@@ -555,7 +555,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2023/2023-g3-ex4.png'
     ],
@@ -574,7 +574,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2023',
     lieu: 'Groupement 3',
-    numeroInitial: 'Ex 5',
+    numeroInitial: '5',
     png: [
       'static/crpe/2023/2023-g3-ex5.png'
     ],
@@ -593,7 +593,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 4',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2022/2022-g4-ex1.tex'
     ],
@@ -606,7 +606,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 4',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2022/2022-g4-ex2.tex'
     ],
@@ -619,7 +619,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 4',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2022/2022-g4-ex3.tex'
     ],
@@ -632,7 +632,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2022',
     lieu: 'Groupement 4',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2022/2022-g4-ex4.tex'
     ],
@@ -700,7 +700,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2019/2019-g1-ex1.png'
     ],
@@ -715,7 +715,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2019/2019-g1-ex2.png'
     ],
@@ -729,7 +729,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2019/2019-g1-ex3-1.png',
       'static/crpe/2019/2019-g1-ex3-2.png'
@@ -772,7 +772,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2019/2019-g2-ex1.png'
     ],
@@ -786,7 +786,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2019/2019-g2-ex2-1.png',
       'static/crpe/2019/2019-g2-ex2-2.png'
@@ -801,7 +801,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2019/2019-g2-ex3.png'
     ],
@@ -815,7 +815,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2019/2019-g2-ex4.png'
     ],
@@ -846,7 +846,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2019/2019-g3-ex1.png'
     ],
@@ -861,7 +861,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2019/2019-g3-ex2.png'
     ],
@@ -876,7 +876,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2019/2019-g3-ex3.png'
     ],
@@ -913,7 +913,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2019/2019-g4-ex1.png'
     ],
@@ -927,7 +927,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2019/2019-g4-ex2.png'
     ],
@@ -946,7 +946,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2019/2019-g4-ex3.png'
     ],
@@ -981,7 +981,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2019/2019-g5-ex1.png'
     ],
@@ -995,7 +995,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2019/2019-g5-ex2.png'
     ],
@@ -1008,7 +1008,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2019/2019-g5-ex3.png'
     ],
@@ -1025,7 +1025,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2019',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2019/2019-g5-ex4-1.png',
       'static/crpe/2019/2019-g5-ex4-2.png'
@@ -1129,7 +1129,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2018/2018-g1-ex1.png'
     ],
@@ -1143,7 +1143,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2018/2018-g1-ex2-1.png',
       'static/crpe/2018/2018-g1-ex2-2.png'
@@ -1158,7 +1158,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2018/2018-g1-ex3.png'
     ],
@@ -1173,7 +1173,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2018/2018-g1-ex4.png'
     ],
@@ -1210,7 +1210,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2018/2018-g2-ex1-1.png',
       'static/crpe/2018/2018-g2-ex1-2.png'
@@ -1225,7 +1225,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2018/2018-g2-ex2-1.png',
       'static/crpe/2018/2018-g2-ex2-2.png'
@@ -1240,7 +1240,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2018/2018-g2-ex3.png'
     ],
@@ -1254,7 +1254,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2018/2018-g2-ex4.png'
     ],
@@ -1289,7 +1289,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2018/2018-g3-ex1.png'
     ],
@@ -1303,7 +1303,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2018/2018-g3-ex2.png'
     ],
@@ -1318,7 +1318,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2018/2018-g3-ex3.png'
     ],
@@ -1331,7 +1331,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2018/2018-g3-ex4.png'
     ],
@@ -1364,7 +1364,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2018/2018-g4-ex1.png'
     ],
@@ -1379,7 +1379,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2018/2018-g4-ex2.png'
     ],
@@ -1393,7 +1393,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2018/2018-g4-ex3.png'
     ],
@@ -1411,7 +1411,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2018/2018-g4-ex4.png'
     ],
@@ -1445,7 +1445,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2018/2018-g5-ex1.png'
     ],
@@ -1460,7 +1460,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2018/2018-g5-ex2.png'
     ],
@@ -1474,7 +1474,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2018/2018-g5-ex3.png'
     ],
@@ -1489,7 +1489,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2018/2018-g5-ex4.png'
     ],
@@ -1522,7 +1522,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM ESPE Dijon',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2018/2018-s1-ex1.png'
     ],
@@ -1537,7 +1537,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM ESPE Dijon',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2018/2018-s1-ex2.png'
     ],
@@ -1555,7 +1555,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM ESPE Dijon',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2018/2018-s1-ex3.png'
     ],
@@ -1570,7 +1570,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM ESPE Dijon',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2018/2018-s1-ex4-1.png',
       'static/crpe/2018/2018-s1-ex4-2.png'
@@ -1588,7 +1588,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2018',
     lieu: 'COPIRELEM ESPE Dijon',
-    numeroInitial: 'Ex 5',
+    numeroInitial: '5',
     png: [
       'static/crpe/2018/2018-s1-ex5.png'
     ],
@@ -1641,7 +1641,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2017/2017-g1-ex1.png'
     ],
@@ -1654,7 +1654,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2017/2017-g1-ex2.png'
     ],
@@ -1667,7 +1667,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2017/2017-g1-ex3.png'
     ],
@@ -1703,7 +1703,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2017/2017-g2-ex1.png'
     ],
@@ -1717,7 +1717,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2017/2017-g2-ex2.png'
     ],
@@ -1731,7 +1731,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2017/2017-g2-ex3.png'
     ],
@@ -1744,7 +1744,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2017/2017-g2-ex4.png'
     ],
@@ -1776,7 +1776,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2017/2017-g3-ex1.png'
     ],
@@ -1790,7 +1790,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2017/2017-g3-ex2.png'
     ],
@@ -1805,7 +1805,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2017/2017-g3-ex3.png'
     ],
@@ -1818,7 +1818,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2017/2017-g3-ex4.png'
     ],
@@ -1851,7 +1851,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2017/2017-g4-ex1.png'
     ],
@@ -1865,7 +1865,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2017/2017-g4-ex2.png'
     ],
@@ -1879,7 +1879,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2017/2017-g4-ex3-2.png',
       'static/crpe/2017/2017-g4-ex3.png'
@@ -1894,7 +1894,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 4',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2017/2017-g4-ex4-1.png',
       'static/crpe/2017/2017-g4-ex4-2.png'
@@ -1926,7 +1926,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2017/2017-g5-ex1.png'
     ],
@@ -1939,7 +1939,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2017/2017-g5-ex2.png'
     ],
@@ -1953,7 +1953,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2017/2017-g5-ex3.png'
     ],
@@ -1967,7 +1967,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM Groupement 5',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2017/2017-g5-ex4.png'
     ],
@@ -2035,7 +2035,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM ESPE Besançon',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex1.png'
     ],
@@ -2049,7 +2049,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM ESPE Besançon',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex2.png'
     ],
@@ -2062,7 +2062,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM ESPE Clermont',
-    numeroInitial: 'Ex Numération',
+    numeroInitial: 'Numération',
     png: [
       'static/crpe/2017/2017-clermont-numeration.png'
     ],
@@ -2098,7 +2098,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2016/2016-g1-ex1.png'
     ],
@@ -2114,7 +2114,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2016/2016-g1-ex2.png'
     ],
@@ -2128,7 +2128,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2016/2016-g1-ex3.png'
     ],
@@ -2143,7 +2143,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2016/2016-g1-ex4.png'
     ],
@@ -2179,7 +2179,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2016/2016-g2-ex1.png'
     ],
@@ -2194,7 +2194,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2016/2016-g2-ex2.png'
     ],
@@ -2209,7 +2209,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2016/2016-g2-ex3-1.png',
       'static/crpe/2016/2016-g2-ex3-2.png'
@@ -2225,7 +2225,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2016/2016-g2-ex4.png'
     ],
@@ -2261,7 +2261,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2016/2016-g3-ex1.png'
     ],
@@ -2275,7 +2275,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2016/2016-g3-ex2.png'
     ],
@@ -2290,7 +2290,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2016/2016-g3-ex3.png'
     ],
@@ -2324,7 +2324,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Créteil',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2016/2016-cre-ex1.png'
     ],
@@ -2337,7 +2337,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Créteil',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2016/2016-cre-ex2.png'
     ],
@@ -2350,7 +2350,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Créteil',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2016/2016-cre-ex3.png'
     ],
@@ -2364,7 +2364,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Créteil',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2016/2016-cre-ex4.png'
     ],
@@ -2397,7 +2397,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Polynésie',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2016/2016-pol-ex1.png'
     ],
@@ -2411,7 +2411,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Polynésie',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2016/2016-pol-ex2.png'
     ],
@@ -2424,7 +2424,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Polynésie',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2016/2016-pol-ex3-1.png',
       'static/crpe/2016/2016-pol-ex3-2.png'
@@ -2439,7 +2439,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2016',
     lieu: 'COPIRELEM Polynésie',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2016/2016-pol-ex4.png'
     ],
@@ -2475,7 +2475,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2015/2015-g1-ex1.png'
     ],
@@ -2488,7 +2488,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2015/2015-g1-ex2.png'
     ],
@@ -2502,7 +2502,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 1',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2015/2015-g1-ex3.png'
     ],
@@ -2535,7 +2535,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2015/2015-g2-ex1.png'
     ],
@@ -2548,7 +2548,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2015/2015-g2-ex2.png'
     ],
@@ -2561,7 +2561,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2015/2015-g2-ex3.png'
     ],
@@ -2574,7 +2574,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 2',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2015/2015-g2-ex4.png'
     ],
@@ -2605,7 +2605,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2015/2015-g3-ex1.png'
     ],
@@ -2618,7 +2618,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2015/2015-g3-ex2.png'
     ],
@@ -2631,7 +2631,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2015/2015-g3-ex3.png'
     ],
@@ -2645,7 +2645,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Groupement 3',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2015/2015-g3-ex4.png'
     ],
@@ -2679,7 +2679,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2015/2015-espe-ex01.png',
     ],
@@ -2720,7 +2720,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2015/2015-espe-ex01.png'
     ],
@@ -2734,7 +2734,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2015/2015-espe-ex02.png'
     ],
@@ -2748,7 +2748,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2015/2015-espe-ex03.png'
     ],
@@ -2762,7 +2762,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2015/2015-espe-ex04.png'
     ],
@@ -2777,7 +2777,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 5',
+    numeroInitial: '5',
     png: [
       'static/crpe/2015/2015-espe-ex05.png'
     ],
@@ -2790,7 +2790,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 6',
+    numeroInitial: '6',
     png: [
       'static/crpe/2015/2015-espe-ex06-1.png',
       'static/crpe/2015/2015-espe-ex06-2.png',
@@ -2806,7 +2806,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 7',
+    numeroInitial: '7',
     png: [
       'static/crpe/2015/2015-espe-ex07-1.png',
       'static/crpe/2015/2015-espe-ex07-2.png'
@@ -2822,7 +2822,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 8',
+    numeroInitial: '8',
     png: [
       'static/crpe/2015/2015-espe-ex08-1.png',
       'static/crpe/2015/2015-espe-ex08-2.png'
@@ -2836,7 +2836,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 9',
+    numeroInitial: '9',
     png: [
       'static/crpe/2015/2015-espe-ex09.png'
     ],
@@ -2849,7 +2849,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 10',
+    numeroInitial: '10',
     png: [
       'static/crpe/2015/2015-espe-ex10-1.png',
       'static/crpe/2015/2015-espe-ex10-2.png',
@@ -2867,7 +2867,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 11',
+    numeroInitial: '11',
     png: [
       'static/crpe/2015/2015-espe-ex11-1.png',
       'static/crpe/2015/2015-espe-ex11-2.png'
@@ -2885,7 +2885,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 12',
+    numeroInitial: '12',
     png: [
       'static/crpe/2015/2015-espe-ex12-1.png',
       'static/crpe/2015/2015-espe-ex12-2.png',
@@ -2903,7 +2903,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 13',
+    numeroInitial: '13',
     png: [
       'static/crpe/2015/2015-espe-ex13-1.png',
       'static/crpe/2015/2015-espe-ex13-2.png'
@@ -2920,7 +2920,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 14',
+    numeroInitial: '14',
     png: [
       'static/crpe/2015/2015-espe-ex14.png'
     ],
@@ -2935,7 +2935,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Ex 15',
+    numeroInitial: '15',
     png: [
       'static/crpe/2015/2015-espe-ex15.png'
     ],
@@ -2950,7 +2950,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Créteil',
-    numeroInitial: 'Ex 1',
+    numeroInitial: '1',
     png: [
       'static/crpe/2015/2015-cre-ex1.png'
     ],
@@ -2964,7 +2964,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Créteil',
-    numeroInitial: 'Ex 2',
+    numeroInitial: '2',
     png: [
       'static/crpe/2015/2015-cre-ex2.png'
     ],
@@ -2978,7 +2978,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Créteil',
-    numeroInitial: 'Ex 3',
+    numeroInitial: '3',
     png: [
       'static/crpe/2015/2015-cre-ex3.png'
     ],
@@ -2994,7 +2994,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2015',
     lieu: 'COPIRELEM Créteil',
-    numeroInitial: 'Ex 4',
+    numeroInitial: '4',
     png: [
       'static/crpe/2015/2015-cre-ex4.png'
     ],

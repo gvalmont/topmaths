@@ -231,7 +231,7 @@ function computeMoyenneTirages2D (tirages: number[][]):[string, number, number] 
   return [texFractionFromString(somme, effectif), somme, effectif]
 }
 
-function computeMedianeTirages2D (nombreTirages:number, tirages: number[][]):[[number, number], number] {
+function computeMedianeTirages2D (nombreTirages:number, tirages: number[][]):[[number, number] | [number], number] {
   const scoresMedians: number[] = []
   let medianeCorr // pour la correction statique
   if (nombreTirages % 2 === 0) {
@@ -417,7 +417,7 @@ function texteCorrMedianeNotes (notes:number[], medianeCorr: number, scoresMedia
   return texteCorr
 }
 
-function texteCorrMedianeTirages2DSalaires (nombreTirages: number, medianeCorr: number, scoresMedians:[number, number], salaires: number[][], categories: string[], salaire = 'salaire') {
+function texteCorrMedianeTirages2DSalaires (nombreTirages: number, medianeCorr: number, scoresMedians:[number] | [number, number], salaires: number[][], categories: string[], salaire = 'salaire') {
   const data = [
     ['note', 'F', 'la médiane des notes', '', `Le nombre de notes est $${nombreTirages}$.`, ['', 'Note', 'Coefficient (Effectif)', 'Effectif cumulé']],
     ['salaire', 'M', 'le salaire médian', ' €', `Dans l'entreprise, le nombre de salariés est $${nombreTirages}$.`, ['Catégorie', 'Salaire en €', 'Effectif', 'Effectif cumulé']],
@@ -457,7 +457,7 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages: number, medianeCorr: 
   return texteCorr
 }
 
-function texteCorrMedianeTirages2D (nombreTirages: number, medianeCorr: number, scoresMedians:[number, number], tirages: number[][]) {
+function texteCorrMedianeTirages2D (nombreTirages: number, medianeCorr: number, scoresMedians:[number, number] | [number], tirages: number[][]) {
   let texteCorr = `Au total, $${nombreTirages}$ lancers ont été réalisés.<br>`
   if (nombreTirages % 2 === 0) {
     texteCorr += `Le nombre de lancers est pair, les scores sont rangés dans l'ordre croissant.<br>

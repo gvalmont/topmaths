@@ -175,5 +175,6 @@ export function remplisLesBlancs (exercice:Exercice, question:number, content:st
     }
     return `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>${ajouteFeedback(exercice, question)}`
   }
+  if (mfeValue === '') return ''
   return `$${mfeValue}$`
 }

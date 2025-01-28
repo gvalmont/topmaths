@@ -53,7 +53,7 @@ export default class coordMilieu extends Exercice {
     }
     )
     this.reponse = { bareme: toutPourUnPoint, champ1: { value: reponse1 }, champ2: { value: reponse2 } }
-
+    this.formatInteractif = 'fillInTheBlank'
     this.canReponseACompleter = '$(\\,\\ldots\\,;\\,\\ldots\\,)$'
     this.canEnonce = this.consigne
   }

@@ -16,6 +16,7 @@ import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import type FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Fractions et priorités opératoires'
 export const amcReady = true
@@ -66,8 +67,8 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
 
   nouvelleVersion () {
     let typesDeQuestionsDisponibles
-    const listeFractions = obtenirListeFractionsIrreductibles()
-    const listeFractionsFaciles = obtenirListeFractionsIrreductiblesFaciles()
+    const listeFractions = obtenirListeFractionsIrreductibles() as [number, number][]
+    const listeFractionsFaciles = obtenirListeFractionsIrreductiblesFaciles() as [number, number][]
     let piegeObligatoire = false
 
     // Définition des styles d'exercices
@@ -99,33 +100,13 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
       this.nbQuestions
     )
 
-    for (
-      let i = 0,
-        ab = Array(2),
-        cd = Array(2),
-        ef = Array(2),
-        a,
-        b,
-        c,
-        d,
-        e,
-        f,
-        p,
-        k1,
-        k2,
-        reponse,
-        operation1,
-        operation2,
-        texteOperation1,
-        texteOperation2,
-        texte,
-        texteCorr,
-        produit = Array(3),
-        typesDeQuestions,
-        cpt = 0;
-      i < this.nbQuestions && cpt < 50;
-    ) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      const typesDeQuestions = listeTypeDeQuestions[i]
+      let ab: [number, number]
+      let cd: [number, number]
+      let ef: [number, number]
 
       if (this.sup === 1) {
         ab = choice(listeFractionsFaciles)
@@ -137,20 +118,23 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
         ef = choice(listeFractions)
       }
 
-      [a, b] = ab;
-      [c, d] = cd;
-      [e, f] = ef
+      let [a, b] = ab
+      let [c, d] = cd
+      let [e, f] = ef
 
       if (this.sup2) {
         [a, b, c, d, e, f] = [a, b, c, d, e, f].map(e => e * randint(-1, 1, [0]))
       }
-
-      operation1 = randint(0, 1) // Pioche la soustraction (0) ou l'addition (1)
-      operation2 = this.sup3 ? randint(0, 1) : 1 // Si l'option est cochée, Pioche la division (0) ou la multiplication (1)
-      texteOperation1 = operation1 ? '+' : '-'
-      texteOperation2 = operation2 ? ' \\times ' : ' \\div '
+      let produit: [string, string, [number, number, number, number]]
+      const operation1 = randint(0, 1) // Pioche la soustraction (0) ou l'addition (1)
+      const operation2 = this.sup3 ? randint(0, 1) : 1 // Si l'option est cochée, Pioche la division (0) ou la multiplication (1)
+      const texteOperation1 = operation1 ? '+' : '-'
+      const texteOperation2 = operation2 ? ' \\times ' : ' \\div '
       texte = ''
-
+      let p: number
+      let k1: number
+      let k2: number
+      let reponse: FractionEtendue
       switch (typesDeQuestions) {
         case 1: // De la forme : « a⁄b ± c⁄d ×÷ e⁄f »
           if (piegeObligatoire) {
@@ -213,6 +197,7 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
           break
 
         case 2: // De la forme : « c⁄d ×÷ e⁄f ± a⁄b »
+        default:
           if (piegeObligatoire) {
             f = b
           }
@@ -323,6 +308,7 @@ export default class ExerciceAdditionnerFractionProduit extends Exercice {
               }
             ],
             reponse: {
+              // @ts-expect-error
               valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
               param: {
                 digits: 5,

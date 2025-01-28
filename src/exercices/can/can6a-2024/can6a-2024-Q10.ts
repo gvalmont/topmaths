@@ -30,7 +30,7 @@ export default class TrouverLongueur extends Exercice {
     const b = this.canOfficielle ? choix[a][1] : randint(choix[a][1] as number, choix[a][2] as number)
     const propositions2 = shuffle([[`$${b}$ ${choix[a][3]}`], [`$${b}$ ${choix[a][4]}`], [`$${b}$ ${choix[a][5]}`], [`$${b}$ ${choix[a][6]}`]])
     const propositions = choice([[`$${b}$ ${choix[a][3]}`, `$${b}$ ${choix[a][4]}`, `$${b}$ ${choix[a][5]}`, `$${b}$ ${choix[a][6]}`]])
-    this.reponse = propositions[0]
+    // this.reponse = propositions[0] Pas de this.reponse dans un qcm
     this.autoCorrection[0] = {
       options: { ordered: false },
       enonce: `La hauteur d'${choix[a][0]} est :`,

@@ -130,10 +130,10 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
                 style: 'fleches'
               })
             } else {
-              this.correction += this.correction.endsWith('\\end{tikzpicture}') ? '\n\n' : '<br>'
+              this.correction += this.correction.endsWith('\\end{tikzpicture}') ? '\n\n' : this.correction !== '' ? '<br>' : ''
             }
           } else {
-            this.correction += this.correction?.endsWith('\\end{tikzpicture}') ? '\n\n' : '<br>'
+            this.correction += this.correction?.endsWith('\\end{tikzpicture}') ? '\n\n' : this.correction !== '' ? '<br>' : ''
           }
           if (this.bonnesReponses) {
             const lesBonnesLettres = autoCorr.propositions.map((el, i) => Object.assign({}, { prop: el, index: i })).filter(obj => obj.prop.statut).map(obj => lettres[obj.index])

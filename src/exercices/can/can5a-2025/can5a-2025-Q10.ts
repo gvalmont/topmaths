@@ -24,9 +24,10 @@ export default class Can2025N5Q10 extends ExerciceCan {
       c = choice([15, 20, 25, 30, 35, 40])
       a = b * c
     }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = c
     this.question = `On répartit $${a}$ élèves dans $${b}$ groupes de même effectif.<br>
-    Le nombre d'élèves dans chaque groupe est `
+    Le nombre d'élèves dans chaque groupe est :`
     this.correction = `$${a}\\div ${b} = ${miseEnEvidence(String(c))}$<br>
     Donc, chaque groupe contient $${c}$ élèves.`
     this.canEnonce = this.question

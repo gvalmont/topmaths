@@ -33,18 +33,18 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const ad = codageAngleDroit(B, A, C)
     const am1 = afficheMesureAngle(A, B, C, 'black', 0.8)
     const am2 = afficheMesureAngle(B, C, A, 'black', 0.5, '?')
-
-    this.reponse = 90 - a
-    this.question = `${mathalea2d(Object.assign({ scale: 0.7, style: 'display: inline-block' }, fixeBordures([triangle1, ad, am1, am2], { rymin: 0 })), [triangle1, ad, am1, am2])}`
-    this.correction = `La somme des angles d'un triangle est égale à 180°, donc $90+${a}+\\text{ ? } =180^\\circ$<br>
-    Soit $?=180-90-${a}=90-${a}=${miseEnEvidence(`${90 - a}`)}^\\circ$.`
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.reponse = a > 45 ? a : 90 - a
+    this.question = `${mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures([triangle1, ad, am1, am2], { rymin: 0 })), [triangle1, ad, am1, am2])}`
+    this.correction = `La somme des angles d'un triangle est égale à $180$°, donc $90^\\circ+${a}^\\circ+\\text{ ? } =180^\\circ$<br>
+    Soit $?=180^\\circ-90^\\circ-${a > 45 ? `${90 - a}` : `${a}`}^\\circ=90^\\circ-${a > 45 ? `${90 - a}` : `${a}`}^\\circ=${miseEnEvidence(`${a > 45 ? `${a}` : `${90 - a}`}`)}^\\circ$.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$?=\\ldots^\\circ$'
     this.optionsChampTexte = { texteApres: '$^\\circ$' }
     if (this.interactif) {
-      this.question += '$?=$'
+      this.question += '<br>$?=$'
     } else if (context.isHtml) {
-      this.question += '$?=\\ldots^\\circ$'
+      this.question += '<br>$?=\\ldots^\\circ$'
     }
   }
 

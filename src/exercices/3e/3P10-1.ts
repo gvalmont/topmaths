@@ -22,6 +22,7 @@ export const refs = {
   'fr-ch': ['10FA4-6']
 }
 export default class CoefficientEvolution extends Exercice {
+  version = 1
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Déterminer le coefficient\n2 : Exprimer une variation en pourcentage\n3 : Mélange']
@@ -97,6 +98,7 @@ export default class CoefficientEvolution extends Exercice {
 
           break
         case 'taux-':
+        default:
           coeff = texNombre(1 - taux / 100, 2)
           texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire ` : `Multiplier par $${coeff}$ revient à `
           texteCorr = `Multiplier par $${coeff}$ revient à ${texteEnCouleurEtGras('diminuer de ', 'blue')} $${miseEnEvidence(`${taux}~\\%`, 'blue')}$ car $${coeff} = ${100 - taux}~\\% = 100~\\% ${miseEnEvidence(`- ${taux}~\\%`)}$.`

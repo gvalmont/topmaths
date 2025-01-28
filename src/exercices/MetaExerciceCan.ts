@@ -121,8 +121,9 @@ export default class MetaExercice extends Exercice {
             this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
           } else {
             if (Question.compare == null) {
-              if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse)
-              else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } })
+              const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
+              if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse, options)
+              else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, options } })
               // else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
             } else {
               const compare = Question.compare

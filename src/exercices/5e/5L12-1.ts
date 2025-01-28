@@ -110,7 +110,6 @@ export default class ReduireDinstinctionSommeProduit extends Exercice {
                 texte: texteCorr,
                 statut: 2, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                // @ts-expect-error
                 pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
               }
             ]

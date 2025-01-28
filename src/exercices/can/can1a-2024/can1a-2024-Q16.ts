@@ -29,7 +29,6 @@ export default class PointsCourbe extends Exercice {
     let A: number
     let B : number
     let AinterB: number
-    // this.reponse inutile dans le cas d'un qcm
     if (this.canOfficielle) {
       A = 0.2
       B = 0.9

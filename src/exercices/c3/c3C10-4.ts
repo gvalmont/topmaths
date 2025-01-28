@@ -18,6 +18,8 @@ export const refs = {
   'fr-fr': ['c3C10-4'],
   'fr-ch': []
 }
-export default function TablesAdditionsCycle3 () {
-  ExerciceTablesAdditions.call(this, 10)
+export default class TablesAdditionsCycle3 extends ExerciceTablesAdditions {
+  constructor () {
+    super(10)
+  }
 }

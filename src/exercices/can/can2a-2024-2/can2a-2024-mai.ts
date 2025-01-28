@@ -105,7 +105,7 @@ export default class nomExercice extends Exercice {
       this.listeQuestions[i] += '\\medskip'
     }
     this.listeQuestions[i] += '<br><br>Que renvoie $\\texttt{mystere(-5)}$ ?' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-    this.listeCorrections[i] = `$-5 \\lt 0 $ donc le script renvoie $-5 \\times 3 = ${miseEnEvidence('-15')}$.`
+    this.listeCorrections[i] = `$-5 < 0 $ donc le script renvoie $-5 \\times 3 = ${miseEnEvidence('-15')}$.`
     handleAnswers(this, i, { reponse: { value: '-15', options: { nombreDecimalSeulement: true } } })
 
     i = 10
@@ -121,7 +121,7 @@ export default class nomExercice extends Exercice {
     i = 12
     this.listeQuestions[i] = 'Comparer $0,7$ et $0,7^2$.<br>'
     this.listeQuestions[i] += '$0,7$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierCompare + ' ') + '$0,7^2$'
-    this.listeCorrections[i] = `$0,7 \\lt 1$ donc $0{,}7~${miseEnEvidence('\\gt')}~0{,}7^2 $`
+    this.listeCorrections[i] = `$0,7 < 1$ donc $0{,}7~${miseEnEvidence('>')}~0{,}7^2 $`
     handleAnswers(this, i, { reponse: { value: '>', options: { texteSansCasse: true } } })
 
     i = 13
@@ -133,7 +133,7 @@ export default class nomExercice extends Exercice {
     handleAnswers(this, i, { reponse: { value: '28', options: { nombreDecimalSeulement: true } } })
 
     i = 14
-    this.listeQuestions[i] = 'Quel est l\'intervalle de l\'ensemble des solutions de l\'équation $\\mid x-1 \\mid \\lt 2$ ?<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
+    this.listeQuestions[i] = 'Quel est l\'intervalle de l\'ensemble des solutions de l\'équation $\\rvert x-1 \\rvert < 2$ ?<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
     this.listeCorrections[i] = `$S=${miseEnEvidence(']-1\\;;\\;3[')}$`
     handleAnswers(this, i, {
       reponse: {
@@ -220,7 +220,7 @@ export default class nomExercice extends Exercice {
     objets.push(
       texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 0.5, 'black', context.isHtml ? 1 : 0.7),
       s1, s2, s3, s4, s5, s6, s7, s8)
-    this.listeQuestions[i] = '<br>' + mathalea2d({
+    this.listeQuestions[i] = mathalea2d({
       xmin,
       ymin,
       xmax,
@@ -230,7 +230,7 @@ export default class nomExercice extends Exercice {
       amplitude: 0.5,
       scale: 0.5,
       style: 'margin: auto'
-    }, objets) + '<br>Longueur de la ligne brisée en unités de longueur (u.l) :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
+    }, objets) + 'Longueur de la ligne brisée en unités de longueur (u.l) :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
     handleAnswers(this, i, { reponse: { value: '3', options: { nombreDecimalSeulement: true } } })
     this.listeCorrections[i] = `$L = ${miseEnEvidence('3')}$ u.l.`
 
@@ -321,7 +321,6 @@ export default class nomExercice extends Exercice {
       grilleSecondaireXMax: 6
     })
     const courbe1 = theSpline.courbe({
-      repere: repere1,
       epaisseur: 1.5,
       ajouteNoeuds: true,
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
@@ -330,8 +329,8 @@ export default class nomExercice extends Exercice {
     const objetsEnonce = [repere1, courbe1, textO]
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
     this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce)
-    this.listeQuestions[i] += '<br>Quels sont les antécédents de $0$ par $f$ ?<br>'
-    this.listeQuestions[i] += '<em>(Les séparer avec un point-virgule.)</em><br>'
+    this.listeQuestions[i] += 'Quels sont les antécédents de $0$ par $f$ ?<br>'
+    this.listeQuestions[i] += '(Les séparer avec un point-virgule.)<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
     this.listeCorrections[i] = `Les antécédents de $0$ par $f$ sont $${miseEnEvidence('-3\\;;\\;1')}$.`
     handleAnswers(this, i, { reponse: { value: '-3;1', options: { suiteDeNombres: true } } })
@@ -339,7 +338,7 @@ export default class nomExercice extends Exercice {
     i = 28
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
     this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce)
-    this.listeQuestions[i] += '<br>Quelle est l\'image de $0$ par la fonction $f$ ?<br>'
+    this.listeQuestions[i] += 'Quelle est l\'image de $0$ par la fonction $f$ ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `L'image de $0$ par la fonction $f$ est $${miseEnEvidence('1')}$.`
     handleAnswers(this, i, { reponse: { value: '1', options: { nombreDecimalSeulement: true } } })
@@ -347,7 +346,7 @@ export default class nomExercice extends Exercice {
     i = 29
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
     this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce)
-    this.listeQuestions[i] += '<br>Sur quel intervalle, $f$ est-elle positive ou nulle ?<br>'
+    this.listeQuestions[i] += 'Sur quel intervalle, $f$ est-elle positive ou nulle ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
     this.listeCorrections[i] = `La fonction $f$ est positive ou nulle sur $${miseEnEvidence('[-3;1]')}$.`
     handleAnswers(this, i, {

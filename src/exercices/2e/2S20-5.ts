@@ -154,8 +154,8 @@ export default class Quartiles extends Exercice {
         .buildCustom()
       const objets2d = [line, rep]
       const fig = mathalea2d(Object.assign({ pixelsParCm: 25, scale: 1 }, fixeBordures(objets2d)), objets2d)
-      const marque1 = lectureAntecedent(q1 * echelleX, 5, 1, 1, 'red', '25%', `${q1}`)
-      const marque3 = lectureAntecedent(q3 * echelleX, 15, 1, 1, 'red', '75%', `${q3}`)
+      const marque1 = lectureAntecedent(q1 * echelleX, 5, 1, 1, 'red', '25', `${q1}`)
+      const marque3 = lectureAntecedent(q3 * echelleX, 15, 1, 1, 'red', '75', `${q3}`)
       const offset = Math.log10(q1) * 0.2 + 0.5
       const ecartIQ = segment(point(q1 * echelleX + offset, -1.5), point(q3 * echelleX - offset, -1.5), 'red')
       ecartIQ.styleExtremites = '<->'

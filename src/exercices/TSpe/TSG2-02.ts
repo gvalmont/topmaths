@@ -8,6 +8,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ec
 import { rienSi1 } from '../../lib/outils/ecritures.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Déterminer une équation cartésienne d\'un plan'
 export const dateDePublication = '06/12/2024'
@@ -20,9 +21,8 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice : Déterminer une équation cartésienne d'un plan
+ * Déterminer une équation cartésienne d'un plan
  * @author Claire Rousset
- * Référence TSpeSG2-02
  */
 export default class EquationsLog extends Exercice {
   constructor () {
@@ -78,7 +78,7 @@ export default class EquationsLog extends Exercice {
       \\end{aligned}$`
       resultat = `${rienSi1(a)}x ${ecritureAlgebriqueSauf1(b)}y ${ecritureAlgebriqueSauf1(c)}z ${ecritureAlgebrique(-valeur)}=0`
 
-      texteCorr += '<br> Finalement, une équation cartésienne du plan $P$ est : &nbsp'
+      texteCorr += '<br> Finalement, une équation cartésienne du plan $P$ est : ' + sp()
       texteCorr += `$${miseEnEvidence(resultat)}$.`
 
       if (this.interactif) {

@@ -466,9 +466,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             texteCorr += this.sup4 !== 2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${miseEnEvidence(texNombre(troncature(L1 + L1 + L2 * Math.PI, this.sup3 - 1), 1))}${sp()}${texTexte('cm')}$.<br>` : ''
             texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${miseEnEvidence(texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1), 1))}${sp()}${texTexte('cm')}^2$.<br>` : ''
           }
-          // perimetre = arrondi(L1 + L1 + L2 * Math.PI, this.sup3 - 1)
-          // aire = arrondi(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1)
-          perimetreReponses = valeursApprochees(L1 + L1 + L2 * Math.PI / 2, this.sup3)
+          perimetreReponses = valeursApprochees(L1 + L1 + L2 * Math.PI, this.sup3)
           aireReponses = valeursApprochees(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3)
           break
         }

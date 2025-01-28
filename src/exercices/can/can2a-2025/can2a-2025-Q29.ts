@@ -45,7 +45,7 @@ export default class CoordonneesVecteurEgalite extends Exercice {
       $x_{\\vec{w}}=${xu}${ecritureAlgebriqueSauf1(coeff)}\\times ${xv}=${miseEnEvidence(xw)}$ et
         $y_{\\vec{w}}=${yu}${ecritureAlgebriqueSauf1(coeff)}\\times ${yv}=${miseEnEvidence(yw)}$.<br>
       Ainsi,  $\\vec{w}(${miseEnEvidence(`${xw}\\,;\\,${yw}`)})$.`
-
+    this.formatInteractif = 'fillInTheBlank'
     this.canEnonce = `Coordonnées de $\\vec{u}${ecritureAlgebriqueSauf1(coeff)}\\vec{v}$  où $\\vec{u}(${xu}\\,;\\,${yu})$ et $\\vec{v}(${xv}\\,;\\,${yv})$`
     this.canReponseACompleter = ''
   }

@@ -22,12 +22,14 @@ export default class Can2025N5Q25 extends ExerciceCan {
       b = randint(2, 6)
       c = randint(8, 12, 10) - b
     }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * (b + c)
     this.question = `Le produit de $${a}$ par la somme de $${b}$ et $${c}$`
-    this.correction = `On calcule : $${a}\\times (${b}+${c})=${a}\\times ${b + c}= ${miseEnEvidence(a * (b + c))}$`
+    this.correction = `On calcule : $${a}\\times (${b}+${c})=${a}\\times ${b + c}= ${miseEnEvidence(a * (b + c))}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    if (this.interactif) { this.question += '<br>' }
+    this.optionsChampTexte = { texteApres: '.' }
+    if (this.interactif) { this.question += ' est : ' }
   }
 
   nouvelleVersion () {

@@ -35,7 +35,6 @@ export default class PlusGrandNombre extends Exercice {
     const nbA = a / c
     const nbB = randint(2023, 2030, aa) / 10
 
-    this.reponse = nbA > nbB ? nbA : nbB
     this.correction = `$${texNombre(a, 0)}$ ${b} $=${texNombre(nbA, 3)}$ et ${nbA > nbB ? `$${texNombre(nbA, 3)}>${texNombre(nbB, 3)}$` : `$${texNombre(nbB, 3)}>${texNombre(nbA, 3)}$`}. Donc le plus grand nombre des deux est   ${nbA > nbB ? `$${miseEnEvidence(texNombre(a, 3))}$ ${texteEnCouleurEtGras(b)}` : `$${miseEnEvidence(texNombre(nbB, 1))}$`}.`
 
     this.autoCorrection[0] = {

@@ -55,7 +55,7 @@ export default class CalculerCaracteristiques extends Exercice {
       melange: 7,
       defaut: 7,
       nbQuestions: this.nbQuestions
-    })
+    }).map(Number)
     const typeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 1,
@@ -64,16 +64,17 @@ export default class CalculerCaracteristiques extends Exercice {
       defaut: 4,
       nbQuestions: 3,
       enleveDoublons: true
-    })
+    }).map(Number)
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
 
-    for (let i = 0, cpt = 0, texte, initAMC, texteAMC, reponsesAMC, approxAMC, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       const nbReponse = typeQuestions.length
-      texte = ''
-      texteCorr = ''
-      texteAMC = []
-      reponsesAMC = []
-      approxAMC = []
+      let texte = ''
+      let texteCorr = ''
+      let initAMC = ''
+      const texteAMC = []
+      const reponsesAMC = []
+      const approxAMC = []
       let repMoyenne, repMediane, repEtendue
       switch (questionsDisponibles[i]) {
         case 1: {
@@ -88,7 +89,7 @@ export default class CalculerCaracteristiques extends Exercice {
           }, 0) % 2 === 1
             ? 1
             : 2
-          const nombreFaces = choice([4, 6, 8, 10])
+          const nombreFaces = choice([4, 6, 8, 10]) as 4 | 6 | 8 | 10
           let nombreTirages
           if (listePairOuImpair[i] === 'pair') {
             nombreTirages = choice([50, 100, 200, 500, 1000, 2000])
@@ -433,7 +434,8 @@ export default class CalculerCaracteristiques extends Exercice {
           }
           break
         }
-        case 6 : {
+        case 6 :
+        default: {
           // les notes avec effectifs
           const notes = [
             [5 + randint(0, 2), randint(1, 3)],
@@ -511,7 +513,7 @@ export default class CalculerCaracteristiques extends Exercice {
           propositions: []
         }
         for (let ee = 0; ee < typeQuestions.length; ee++) {
-          this.autoCorrection[i].propositions.push(
+          this.autoCorrection[i].propositions!.push(
             {
               type: 'AMCNum',
               propositions: [{

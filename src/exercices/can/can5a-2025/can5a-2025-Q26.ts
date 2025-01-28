@@ -27,11 +27,12 @@ export default class Can2025N5Q26 extends ExerciceCan {
       coeff = randint(2, 7)
       c = question === 'num' ? b * coeff : a * coeff
     }
-    this.reponse = c * a / b
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    this.reponse = question === 'num' ? c * a / b : c * b / a
     this.question = `$\\dfrac{${a}}{${b}}=${question === 'num' ? `\\dfrac{?}{${c}}$` : `\\dfrac{${c}}{?}$`}`
     this.correction = question === 'num'
-      ? `On remarque que $${c}=${coeff}\\times ${b}$, donc $?=${coeff}\\times ${a}=${miseEnEvidence(coeff * a)}$`
-      : `On remarque que $${c}=${coeff}\\times ${a}$, donc $?=${coeff}\\times ${b}=${miseEnEvidence(coeff * b)}$`
+      ? `On remarque que $${c}=${coeff}\\times ${b}$, donc $?=${coeff}\\times ${a}=${miseEnEvidence(coeff * a)}$.`
+      : `On remarque que $${c}=${coeff}\\times ${a}$, donc $?=${coeff}\\times ${b}=${miseEnEvidence(coeff * b)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (this.interactif) {

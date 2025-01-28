@@ -211,7 +211,6 @@ export default class ListeDesDiviseurs5e extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + '\n',
-          // @ts-expect-error
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }
@@ -232,7 +231,6 @@ export default class ListeDesDiviseurs5e extends Exercice {
 /**
  * tire à pile ou face pour écrire ou non un texte
  * @param {string} texte
- * @author Sébastien Lozano
  */
 
 function texteOuPas (texte: string) {

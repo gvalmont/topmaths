@@ -4,8 +4,6 @@ export const interactifReady = false
 
 /**
  * Clone de 4G22 pour les 2nde
- *
- * @author Sébastien LOZANO
  */
 export const uuid = '109b1'
 

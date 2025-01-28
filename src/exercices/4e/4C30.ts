@@ -51,7 +51,7 @@ export default class PuissancesDeDix extends Exercice {
     this.correctionDetailleeDisponible = this.sup !== 2
     let typesDeQuestions
 
-    let typesDeQuestionsDisponibles = []
+    let typesDeQuestionsDisponibles : number[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3] // produit, quotient et exponentiation de puissances de 10
       if (this.nbQuestions > 30) {
@@ -59,21 +59,21 @@ export default class PuissancesDeDix extends Exercice {
       }
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [4, 5, 6, 7, 8, 9, 10, 11] // calculs première série
-    } else if (this.sup === 3) {
+    } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] // calculs deuxième série
     }
     const listeTypeDeQuestions = this.besoinFormulaireNumerique
       ? combinaisonListes(
-          typesDeQuestionsDisponibles,
-          this.nbQuestions
-        )
+        typesDeQuestionsDisponibles,
+        this.nbQuestions
+      )
       : gestionnaireFormulaireTexte({
-          nbQuestions: this.nbQuestions,
-          saisie: this.sup2,
-          max: 3,
-          melange: 4,
-          defaut: 4
-        })
+        nbQuestions: this.nbQuestions,
+        saisie: this.sup2,
+        max: 3,
+        melange: 4,
+        defaut: 4
+      }).map(Number)
 
     // pour pouvoir adapter les couleurs en cas de besoin
     const coul0 = 'red'
@@ -256,7 +256,7 @@ export default class PuissancesDeDix extends Exercice {
             texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${-1 * exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
             reponseInteractive = `10^{${exp[0] * exp[1]}}`
             texteCorr += `$${lettre}=\\dfrac{1}{10^{${exp[0]}\\times${-1 * exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[0] * exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
-          } else if (exp[0] < 0 && exp[1] < 0) {
+          } else {
             texteCorr += `$${lettre}=\\dfrac{1}{(10^{${exp[0]}})^{${-1 * exp[1]}}}$<br>`
             if (this.correctionDetaillee) {
               texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{\\dfrac{1}{${eclatePuissance(`(10^{${exp[0]}})`, -1 * exp[1], coul0)}}}_{${-1 * exp[1]}\\thickspace\\text{facteurs}}}$<br>`
@@ -403,6 +403,7 @@ export default class PuissancesDeDix extends Exercice {
           exposantAMC = [exp[0] + exp[1] + 1 - 2 * exp[2], exp[0] + exp[1] - 2 * exp[2], exp[0] + exp[1] + 1 - exp[2], exp[0] + exp[1] - exp[2]]
           break
         case 11:
+        default:
           exp = [randint(1, 7, [1])] // on a besoin de 1 exposant
           texte = `$${lettre}=\\dfrac{1000\\times 10}{100^${exp[0]}}$`
           texteCorr = `$${lettre}=\\dfrac{1000\\times 10}{100^${exp[0]}}`
@@ -450,7 +451,7 @@ export default class PuissancesDeDix extends Exercice {
           }
         ]
       }
-      if (this.questionJamaisPosee(i, exp, typesDeQuestions)) {
+      if (this.questionJamaisPosee(i, exp.map(String).join(), typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

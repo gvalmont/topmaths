@@ -88,7 +88,7 @@ export function simpNotPuissance (b: number, e: number) {
  * @param couleur
  * @author Sébastien Lozano
  */
-export function eclatePuissance (b: number, e: number, couleur: string) {
+export function eclatePuissance (b: number | string, e: number, couleur: string) {
   let str
   switch (e) {
     case 0:

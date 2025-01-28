@@ -104,11 +104,9 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
               const promise = test(page)
               if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
               result = await promise
-              if (!result) page = null // si le résultats n'est pas bon, on redémarrera un browser
               expect(result).toBe(true) // si le résultat n'est pas bon, ça lève une exception
             } catch (error: unknown) {
               result = false
-              if (!result) page = null // si le résultats n'est pas bon, on redémarrera un browser
               // faut attendre que l'écriture se termine (sinon on se retrouve en pause avant
               // d'avoir le message d'erreur et on sait pas pourquoi ça a planté)
               await logError(error)

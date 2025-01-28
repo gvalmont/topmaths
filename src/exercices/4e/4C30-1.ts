@@ -26,6 +26,7 @@ export const refs = {
   'fr-ch': ['9NO5-1']
 }
 export default class PuissancesEncadrement extends Exercice {
+  classe = 4
   constructor () {
     super()
     this.besoinFormulaireTexte = [
@@ -45,7 +46,7 @@ export default class PuissancesEncadrement extends Exercice {
       ? 'Encadrer le nombre suivant par deux puissances de 10 d\'exposants consécutifs.'
       : 'Encadrer les nombres suivants par deux puissances de 10 d\'exposants consécutifs.'
 
-    signeChange = this.level === 2
+    signeChange = this.classe === 2
 
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

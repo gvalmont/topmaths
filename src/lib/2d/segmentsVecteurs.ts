@@ -427,14 +427,12 @@ export class Segment extends ObjetMathalea2D {
         // si ça termine par > on rajoute une flèche en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
         const B1 = similitude(B, M, 90, 0.7)
-        const B1EE = pointSurSegment(B, rotation(B, M, 90), -0.5 / context.pixelsParCm)
         const B2 = similitude(B, M, -90, 0.7)
-        const B2EE = pointSurSegment(B, rotation(B, M, -90), 0.5 / context.pixelsParCm)
-        code += `<line x1="${B1EE.xSVG(coeff)}" y1="${B1EE.ySVG(
+        code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
           }" stroke-width="${this.epaisseur}" />`
-        code += `\n\t<line x1="${B2EE.xSVG(coeff)}" y1="${B2EE.ySVG(
+        code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
           coeff
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]}" stroke-width="${this.epaisseur}" />`
       }
@@ -492,15 +490,13 @@ export class Segment extends ObjetMathalea2D {
       if (debut === '<') {
         // si ça commence par < on rajoute une flèche en A
         const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const A1 = rotation(A, M, 90)
-        const A1EE = pointSurSegment(A, rotation(A, M, 90), -0.5 / context.pixelsParCm)
-        const A2 = rotation(A, M, -90)
-        const A2EE = pointSurSegment(A, rotation(A, M, -90), 0.5 / context.pixelsParCm)
-        code += `<line x1="${A1EE.xSVG(coeff)}" y1="${A1EE.ySVG(
+        const A1 = similitude(A, M, 90, 0.7)
+        const A2 = similitude(A, M, -90, 0.7)
+        code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
           }" stroke-width="${this.epaisseur}" />`
-        code += `\n\t<line x1="${A2EE.xSVG(coeff)}" y1="${A2EE.ySVG(
+        code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
           }" stroke-width="${this.epaisseur}" />`
@@ -508,8 +504,8 @@ export class Segment extends ObjetMathalea2D {
       if (debut === '>') {
         // si ça commence par > on rajoute une flèche inversée en A
         const M = pointSurSegment(A, B, -h / context.pixelsParCm)
-        const A1 = rotation(A, M, 90)
-        const A2 = rotation(A, M, -90)
+        const A1 = similitude(A, M, 90, 0.7)
+        const A2 = similitude(A, M, -90, 0.7)
         code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
           coeff
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]

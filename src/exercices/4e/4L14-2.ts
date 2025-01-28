@@ -9,6 +9,7 @@ export const refs = {
 export default class TesterSiUnNombreEstSolutionDUneEquationDeg2 extends TesterSiUnNombreEstSolutionDUneEquation {
   constructor () {
     super()
-    this.exo = '4L14-2'
+    this.sup2 = '9-6-7'
+    this.nbQuestions = 3
   }
 }

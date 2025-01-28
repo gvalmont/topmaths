@@ -19,7 +19,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export const uuid = '88241'
 
 export const refs = {
-  'fr-fr': ['TExC101'],
+  'fr-fr': ['TEM1-01'],
   'fr-ch': []
 }
 export default class nomExercice extends Exercice {
@@ -27,7 +27,7 @@ export default class nomExercice extends Exercice {
     super()
 
     this.consigne = 'On définit deux matrices $A$ et $B$. Si le produit $A \\times B$ est possible, effectuer le calcul. Faire de même pour $B \\times A$.'
-    this.nbQuestions = 3 // Nombre de questions par défaut
+    this.nbQuestions = 2 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   }

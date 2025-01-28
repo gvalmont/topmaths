@@ -3,8 +3,9 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -141,16 +142,20 @@ export default class ReciproquePythagore extends Exercice {
       c = triplet[2]
       if (listeTypeDeQuestions[i] === 'pas_rectangle') {
         c = randint(Math.max(c - 3, b + 1), c + 3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
-        while (a ** 2 + b ** 2 === c ** 2) {
+        let [c1, c2, c3] = [a, b, c].sort((a, b) => a - b)
+        let cptWhile = 0
+        while ((a ** 2 + b ** 2 === c ** 2 || c3 >= c1 + c2) && cptWhile++ < 50) {
           // si par hasard (est-ce possible ?) on retombe sur un triplet pythagoricien on change les valeurs
+          // ou si le triangle n'est pas constructible
           c = randint(Math.max(c - 3, b + 1), c + 3) // on modifie c en faisant attention à ce qu'il reste plus grand que b
+          ;[c1, c2, c3] = [a, b, c].sort((a, b) => a - b)
         }
       }
       if (a > 9 && choice([true, true, true, false])) {
         // le plus souvent on utilise des décimaux
-        a = calculANePlusJamaisUtiliser(a / 10)
-        b = calculANePlusJamaisUtiliser(b / 10)
-        c = calculANePlusJamaisUtiliser(c / 10)
+        a = arrondi(a / 10, 1)
+        b = arrondi(b / 10, 1)
+        c = arrondi(c / 10, 1)
       }
       ordreDesCotes = randint(1, 3)
       switch (ordreDesCotes) {
@@ -197,7 +202,6 @@ export default class ReciproquePythagore extends Exercice {
           [
             {
               type: 'AMCOpen',
-              // @ts-expect-error
               propositions: [{ texte: texteCorr, enonce: '<br>' + texte + '<br>', statut: 4, feedback: ' ' }]
             }
           ]

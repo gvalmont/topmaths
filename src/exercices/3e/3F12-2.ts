@@ -3,10 +3,12 @@ import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+
+export const dateDeModifImportante = '23/01/2025'
 
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction d\'après sa forme algébrique'
 export const interactifReady = true
@@ -23,6 +25,7 @@ export const amcType = 'AMCNum'
  * * Niveau 4 : (ax+b)(cx+d)
  * * Niveau 5 : Mélange
  * @author Rémi Angot
+ * Ajout du choix du type de question par Guillaume Valmont le 23/01/2025
  * 3F12-2
  */
 export const uuid = '082d7'
@@ -34,33 +37,53 @@ export const refs = {
 export default class ImageFonctionAlgebrique extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 
     this.nbQuestions = 5
 
-    this.sup = 5 // niveau de difficulté
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
+    this.sup = 5
+
+    this.besoinFormulaire2Texte = [
+      'Types de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Calculer f(x)',
+        '2 : Calculer l\'image de x par la fonction f'
+      ].join('\n')
+    ]
+    this.sup2 = '1'
   }
 
   nouvelleVersion () {
-    let typesDeQuestionsDisponibles = []
+    let situationsDisponibles: string[] = []
     if (this.sup === 1) {
-      typesDeQuestionsDisponibles = ['ax+b', 'ax-b', '-ax+b', '-ax-b']
+      situationsDisponibles = ['ax+b', 'ax-b', '-ax+b', '-ax-b']
     }
     if (this.sup === 2) {
-      typesDeQuestionsDisponibles = ['ax2+bx+c', 'ax2+c', 'ax2+bx', '-ax2+bx-c', '-ax2-bx-c', '-ax2-bx+c', '-ax2-bx']
+      situationsDisponibles = ['ax2+bx+c', 'ax2+c', 'ax2+bx', '-ax2+bx-c', '-ax2-bx-c', '-ax2-bx+c', '-ax2-bx']
     }
     if (this.sup === 3) {
-      typesDeQuestionsDisponibles = ['a/cx+d', 'ax+b/cx+d']
+      situationsDisponibles = ['a/cx+d', 'ax+b/cx+d']
     }
     if (this.sup === 4) {
-      typesDeQuestionsDisponibles = ['(ax+b)(cx+d)', '(ax+b)2']
+      situationsDisponibles = ['(ax+b)(cx+d)', '(ax+b)2']
     }
     if (this.sup === 5) {
-      typesDeQuestionsDisponibles = ['ax+b', 'ax-b', '-ax+b', 'ax2+bx+c', '-ax2+bx-c', '-ax2-bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2']
+      situationsDisponibles = ['ax+b', 'ax-b', '-ax+b', 'ax2+bx+c', '-ax2+bx-c', '-ax2-bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2']
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions)
     const signesDeX = combinaisonListes([true, false], this.nbQuestions)
+
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 2,
+      melange: 3,
+      defaut: 3,
+      nbQuestions: this.nbQuestions
+    })
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, a, b, c, d, expression, nomdef, x, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texteCorr = ''
       x = randint(1, 12)
       if (signesDeX[i]) {
         x = -1 * x
@@ -69,7 +92,7 @@ export default class ImageFonctionAlgebrique extends Exercice {
       b = randint(2, 11)
       c = randint(2, 11)
       nomdef = lettreMinusculeDepuisChiffre(6 + i) // on commence par f puis on continue dans l'ordre alphabétique
-      switch (listeTypeDeQuestions[i]) {
+      switch (listeSituations[i]) {
         case 'ax+b':
           expression = `${a}x+${b}`
           texteCorr = `$${nomdef}(${x})=${a}\\times ${ecritureParentheseSiNegatif(x)}+${b}=${a * x}+${b}=${a * x + b}$`
@@ -170,7 +193,12 @@ export default class ImageFonctionAlgebrique extends Exercice {
           break
       }
 
-      texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. Calculer $${nomdef}(${x})$.`
+      texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. `
+      if (listeTypeDeQuestions[i] === 1) {
+        texte += `Calculer $${nomdef}(${x})$.`
+      } else {
+        texte += `Calculer l'image de ${x} par la fonction $${nomdef}$.`
+      }
       texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

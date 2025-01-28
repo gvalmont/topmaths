@@ -1,7 +1,7 @@
 import Exercice from '../Exercice'
 import { choice } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -50,12 +50,12 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       const valeurB = B.base ** B.exp
       const valeurAfoisB = valeurA * valeurB
       const exprime = (A: { base: number, exp: number }) => `${A.base}^${A.exp}`
-      const intro = `Exprimer, en fonction de $${logString} \\left(${A.base}\\right)$ et $${logString} \\left(${B.base}\\right)$, le nombre suivant : &nbsp `
+      const intro = `Exprimer, en fonction de $${logString} \\left(${A.base}\\right)$ et $${logString} \\left(${B.base}\\right)$, le nombre suivant : ${sp()} `
       let texte: string
       let texteCorr = ''
-      const justification1mult = `car, pour tous réels a et b strictement positifs, &nbsp $${logString}\\left(a \\times b\\right)=${logString}\\left(a\\right)+${logString}\\left(b\\right)$. `
-      const justification1div = `car,  pour tous réels a et b strictement positifs, &nbsp $${logString}\\left( \\dfrac{a}{b}\\right)=${logString}\\left(a\\right)-${logString}\\left(b\\right)$. `
-      const justification2 = `De plus, pour tout réel a strictement positif et pour tout entier n, &nbsp $${logString}\\left(a^n\\right)=n \\times ${logString}\\left(a\\right)$ donc `
+      const justification1mult = `car, pour tous réels a et b strictement positifs, ${sp()} $${logString}\\left(a \\times b\\right)=${logString}\\left(a\\right)+${logString}\\left(b\\right)$. `
+      const justification1div = `car,  pour tous réels a et b strictement positifs, ${sp()} $${logString}\\left( \\dfrac{a}{b}\\right)=${logString}\\left(a\\right)-${logString}\\left(b\\right)$. `
+      const justification2 = `De plus, pour tout réel a strictement positif et pour tout entier n, ${sp()} $${logString}\\left(a^n\\right)=n \\times ${logString}\\left(a\\right)$ donc `
       const signe = listeTypeQuestions[i] === 1 ? '+' : '-'
       switch (listeTypeQuestions[i]) {
         case 1: // log(A*B)
@@ -66,7 +66,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
             texteCorr += `$${texte}=${logString}\\left(${exprime(A)}\\right)${signe}${logString}\\left(${exprime(B)}\\right)$ ${justification1mult} <br>`
             texteCorr += `${justification2} $${texte}=${miseEnEvidence(`${A.exp}${logString} \\left(${A.base}\\right)${signe}${B.exp}${logString} \\left(${B.base}\\right)`)}$.`
           } else {
-            texteCorr += `En décomposant $${valeurAfoisB}$ en facteurs premiers, on obtient : $${valeurAfoisB} = ${exprime(A)}\\times ${exprime(B)}$. &nbsp Ainsi : <br> `
+            texteCorr += `En décomposant $${valeurAfoisB}$ en facteurs premiers, on obtient : $${valeurAfoisB} = ${exprime(A)}\\times ${exprime(B)}$. ${sp()} Ainsi : <br> `
             texteCorr += `$${texte}=${logString}\\left(${exprime(A)}\\times ${exprime(B)}\\right)= ${logString}\\left(${exprime(A)}\\right)${signe}${logString}\\left(${exprime(B)}\\right)$ ${justification1mult} <br> `
             texteCorr += `${justification2}  $${texte}=${miseEnEvidence(`${A.exp}${logString} \\left(${A.base}\\right)${signe}${B.exp}${logString} \\left(${B.base}\\right)`)}$.`
           }
@@ -79,7 +79,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
             texteCorr += `$${texte}= ${logString}\\left(${exprime(A)}\\right)${signe}${logString}\\left(${exprime(B)}\\right)$ ${justification1div} <br> `
             texteCorr += `${justification2} $${texte}=${miseEnEvidence(`${A.exp}${logString} \\left(${A.base}\\right)${signe}${B.exp}${logString} \\left(${B.base}\\right)`)}$. `
           } else {
-            texteCorr += `En décomposant $${valeurA}$ et $${valeurB}$ en facteurs premiers, on obtient :  $\\dfrac{${valeurA}}{${valeurB}} = \\dfrac{${exprime(A)}}{${exprime(B)}}$. &nbsp Ainsi : <br> `
+            texteCorr += `En décomposant $${valeurA}$ et $${valeurB}$ en facteurs premiers, on obtient :  $\\dfrac{${valeurA}}{${valeurB}} = \\dfrac{${exprime(A)}}{${exprime(B)}}$. ${sp()} Ainsi : <br> `
             texteCorr += `$${texte}=${logString}\\left(\\dfrac{${exprime(A)}}{${exprime(B)}}\\right)= ${logString}\\left(${exprime(A)}\\right)${signe}${logString}\\left(${exprime(B)}\\right)$ ${justification1div} <br> `
             texteCorr += `${justification2} $${texte}=${miseEnEvidence(`${A.exp}${logString} \\left(${A.base}\\right)${signe}${B.exp}${logString} \\left(${B.base}\\right)`)}$.`
           }

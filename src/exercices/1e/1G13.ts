@@ -118,12 +118,15 @@ class EqCartDroite extends Exercice {
             xB = xB + randint(1, 2)
             yB = yB - randint(1, 2)
           }
-          this.nbQuestions === 1
-            ? this.consigne = `Dans un repère orthonormé du plan, on considère les points $A$ et $B$ de coordonnées respectives $(${xA}\\,;\\,${yA})$ et $(${xB}\\,;\\,${yB})$.<br>
+          if (this.nbQuestions === 1) {
+            texte = `Dans un repère orthonormé du plan, on considère les points $A$ et $B$ de coordonnées respectives $(${xA}\\,;\\,${yA})$ et $(${xB}\\,;\\,${yB})$.<br>
       Déterminer une équation cartésienne de la droite $(AB)$.`
-            : this.consigne = `Dans un repère orthonormé du plan, on considère les points $A$ et $B$.<br>
+            this.consigne = ''
+          } else {
+            this.consigne = `Dans un repère orthonormé du plan, on considère les points $A$ et $B$.<br>
       Déterminer une équation cartésienne de la droite $(AB)$ dans chacun des cas suivants.`
-          this.nbQuestions === 1 ? texte = '' : texte = `Avec $A(${xA}\\,;\\,${yA})$ et $B(${xB}\\,;\\,${yB})$.`
+            texte = `Avec $A(${xA}\\,;\\,${yA})$ et $B(${xB}\\,;\\,${yB})$.`
+          }
           texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme :'
           texteCorr += ' $ax+by+c=0$, avec $(a;b)\\neq (0\\,;\\,0)$.'
           if (lang === 'fr-CH') {
@@ -243,7 +246,7 @@ class EqCartDroite extends Exercice {
         texteCorr += `$${miseEnEvidence(reponse)}$.`
       }
 
-      texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: 'Équation cartésienne de la droite $(d)$ :' })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: 'Équation cartésienne de la droite $(d)$ :' })
       handleAnswers(this, i, { reponse: { value: reponse }, callback })
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte

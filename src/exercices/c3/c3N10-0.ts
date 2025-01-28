@@ -174,7 +174,7 @@ class DragAndDropNumerationEntiere extends Exercice {
             : `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
         }
       }
-      texte = `${texte.substring(0, texte.length - 1)}$`
+      // texte = `${texte.substring(0, texte.length - 1)}$`
       texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
       if (this.questionJamaisPosee(i, nombreStr)) {
         this.dragAndDrops.push(leDragAndDrop) // on stocke les instances de dragAndDrop dans l'exercice pour pouvoir accéder aux listeners à supprimer lors de la vérification.

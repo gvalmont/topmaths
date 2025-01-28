@@ -28,9 +28,10 @@ export default class Can2025N5Q20 extends ExerciceCan {
     }
     q = Math.floor(a / b)
     r = a - b * q
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = r
     this.question = `Détermine le reste de la division euclidienne de $${a}$ par $${b}$.`
-    this.correction = `$${a} = ${b}\\times${q}+${r}=${b * q}+${r}$, donc le reste est $${miseEnEvidence(texNombre(r, 0))}$`
+    this.correction = `$${a} = ${b}\\times${q}+${r}=${b * q}+${r}$, donc le reste est $${miseEnEvidence(texNombre(r, 0))}$.`
     this.canEnonce = this.question
     if (this.interactif) { this.question += '<br>' }
   }

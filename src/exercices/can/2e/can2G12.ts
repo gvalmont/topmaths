@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 export const titre = 'Reconnaître des vecteurs colinéaires (V/F)'
 export const interactifReady = true
@@ -201,6 +201,7 @@ export default class VecteursColineairesVF extends Exercice {
             Ils ne sont pas égaux, donc les vecteurs ne sont pas colinéaires.`, 'blue')
           break
         case 5 :
+        default:
           ux = randint(-3, 3, 0) * 2
           uy = randint(-3, 3, [0, ux / 2]) * 2
           k = choice([0.5, 1.5, 3, 2.5, 3.5]) * choice([-1, 1])
@@ -242,7 +243,7 @@ export default class VecteursColineairesVF extends Exercice {
             Ils ne sont pas égaux, donc les vecteurs ne sont pas colinéaires.`, 'blue')
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, ux, uy, vx, vy)) {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

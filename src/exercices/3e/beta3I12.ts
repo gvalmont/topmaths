@@ -40,10 +40,11 @@ export default class ExosScratch extends Exercice {
       const choix = i % 4
       const exo = new listeExos[choix]()
       const paramExo = choice(listeParams[choix]);
+      // @ts-expect-error Pas envie de typer ce truc
       [exo.sup, exo.sup2, exo.sup3, exo.sup4, exo.nbQuestions] = paramExo
       exo.nouvelleVersion()
 
-      if (this.questionJamaisPosee(i, choix, exo.listeQuestions[0])) {
+      if (this.questionJamaisPosee(i, choix, exo.listeCorrections[0])) {
         let questions = ''
         let corrections = ''
         for (let j = 0; j < exo.nbQuestions; j++) {

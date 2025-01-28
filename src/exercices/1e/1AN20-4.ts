@@ -191,8 +191,8 @@ export default class EtudeFctPoly3 extends Exercice {
               texteCorr += `$\\alpha_1=f\\Big(${p.texX1}\\Big)=${a}\\times ${p.texX1.startsWith('-') || p.texX1.startsWith('\\dfrac') ? `\\Big(${p.texX1}\\Big)^3` : `${p.texX1}^3`}${ecritureAlgebriqueSauf1(b)}\\times ${p.texX1.startsWith('-') || p.texX1.startsWith('\\dfrac') ? `\\Big(${p.texX1}\\Big)^2` : `${p.texX1}^2`}${ecritureAlgebriqueSauf1(c)}\\times ${p.texX1.startsWith('-') ? `\\Big(${p.texX1})\\Big` : `${p.texX1}`}${ecritureAlgebrique(d)}${egalOuApprox(fonction(Number(p.x1)), 2)}${texNombre(fonction(Number(p.x1)), 2)}$<br><br>
             $\\alpha_2=f\\Big(${p.texX2}\\Big)=${a}\\times ${p.texX2.startsWith('-') || p.texX2.startsWith('\\dfrac') ? `\\Big(${p.texX2}\\Big)^3` : `${p.texX2}^3`}${ecritureAlgebriqueSauf1(b)}\\times ${p.texX2.startsWith('-') || p.texX2.startsWith('\\dfrac') ? `\\Big(${p.texX2}\\Big)^2` : `${p.texX2}^2`}${ecritureAlgebriqueSauf1(c)}\\times ${p.texX2.startsWith('-') ? `\\Big(${p.texX2})\\Big` : `${p.texX2}`}${ecritureAlgebrique(d)}${egalOuApprox(fonction(Number(p.x2)), 2)}${texNombre(fonction(Number(p.x2)), 2)}$<br><br>`
               substituts = [{ antVal: -10, antTex: '$-\\infty$', imgTex: ' ' },
-                { antVal: valX1, antTex: texX1, imgVal: fonction(Number(p.x1)), imgTex: '\\alpha_1' },
-                { antVal: valX2, antTex: texX2, imgVal: fonction(Number(p.x2)), imgTex: '\\alpha_2' },
+                { antVal: valX1, antTex: texX1, imgVal: fonction(Number(p.x1)), imgTex: '$\\alpha_1$' },
+                { antVal: valX2, antTex: texX2, imgVal: fonction(Number(p.x2)), imgTex: '$\\alpha_2$' },
                 { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
             } else {
               texteCorr += ''

@@ -23,7 +23,7 @@ class ReperageEntierC3 extends ReperageEntiersOuDecimaux {
     this.sup = 5
     this.sup2 = false
     this.besoinFormulaireTexte = [
-      'Niveaux de difficultés ',
+      'Niveaux de difficulté ',
       'Nombres séparés par des tirets\n1 : 10 graduations secondaires\n2 : 2 graduations secondaires\n3 : 5 graduations secondaires\n4 : Pas secondaire plus compliqué\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
     this.correctionDetailleeDisponible = true

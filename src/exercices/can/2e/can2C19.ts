@@ -52,10 +52,9 @@ export default class CalculAstucePourcentage extends Exercice {
     this.correction += `  Prendre $${choix[0]}\\,\\%$ d'un nombre revient à ${choix[0] === 75 ? `le diviser par $${choix[2]}$ puis à multiplier par $3$ (c'est-à-dire en prendre les trois quarts)` : `le diviser par $${choix[2]}$`}.<br>
      ${choix[0] === 75 ? `$${choix[2] * choix[1]}\\div ${choix[2]}=${choix[1]}$ et $${choix[1]}\\times 3=${choix[1] * 3}$.<br>` : ''}
      Ainsi, $${choix[2] * choix[1]}\\,\\%$ de $${choix[0]}$ est égal à $${miseEnEvidence(this.reponse)}$.
-        
           `
     if (choix[0] === 5 && !Number.isInteger(choix[0] * (choix[1]) / 100)) {
-      this.correction += `<br>  ${texteGras('Remarque : ')} <br>
+      this.correction += `<br><br> ${texteGras('Remarque : ')} <br>
               Pour multiplier un nombre par $20$, on peut le multiplier par $10$, puis par $2$.
                 `
     }

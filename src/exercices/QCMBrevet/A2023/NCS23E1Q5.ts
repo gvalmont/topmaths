@@ -47,7 +47,7 @@ export default class NCDecembre23Exo1Q5 extends ExerciceQcmA {
     tracesPoints.style = '.'
     tracesPoints.taille = 2
     const labels = labelPoint(...nuage)
-    const marques1 = codageSegments('\\', 'black', nuage[0], nuage[5], nuage[5], nuage[3])
+    const marques1 = codageSegments('o', 'black', nuage[0], nuage[5], nuage[5], nuage[3])
     const marques2 = codageSegments('||', 'black', nuage[0], nuage[6], nuage[6], nuage[1])
     const objets = [parallelo, diag1, diag2, labels, tracesPoints, marques1, marques2]
     this.enonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1.5 }, fixeBordures(objets)), objets)

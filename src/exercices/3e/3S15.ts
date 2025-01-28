@@ -51,7 +51,8 @@ export default class CalculerEtendues extends Exercice {
           [min, max] = OutilsStats.computeEtendue(notes)
           texteCorr = OutilsStats.texteCorrEtendueNotes(min, max)
           break
-        case 'températures': {
+        case 'températures':
+        default:{
           const mois = randint(1, 12)
           const annee = randint(1980, 2019)
           const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]

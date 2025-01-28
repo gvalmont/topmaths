@@ -49,13 +49,6 @@ export default class DecompositionFacteursPremiers extends Exercice {
   nouvelleVersion () {
     let typesDeQuestions
 
-    /* From Sebastien Lozano
-        let typesDeQuestionsDisponibles = [1, 2, 3]
-        typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles) // on mélange l'ordre des questions
-
-        // let typesDeQuestionsDisponibles = [1];
-        const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-        */
     let stringRappel = 'Cette liste des nombres premiers inférieurs à 100 pourra être utile : <br>' + cribleEratostheneN(100)[0]
     for (let k = 1; k < cribleEratostheneN(100).length; k++) {
       stringRappel += ', ' + cribleEratostheneN(100)[k]

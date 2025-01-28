@@ -88,15 +88,15 @@ export default class DomaineDefFnLog extends Exercice {
           c = a
           d = b
           fonction = reduireAxPlusB(a, b)
-          correction = `$\\begin{aligned}${fonction}\\gt 0 &\\iff `
-          correction += `${rienSi1(a)}x\\gt ${-b}\\\\`
+          correction = `$\\begin{aligned}${fonction}> 0 &\\iff `
+          correction += `${rienSi1(a)}x> ${-b}\\\\`
           if (a !== 1) {
             frac1 = new FractionEtendue(-b, a).simplifie()
             if (a > 0) {
-              correction += `&\\iff x\\gt ${frac1.texFractionSimplifiee}`
+              correction += `&\\iff x> ${frac1.texFractionSimplifiee}`
               answer = `\\left]${frac1.texFractionSimplifiee};+\\infty\\right[`
             } else {
-              correction += `&\\iff x\\lt ${frac1.texFractionSimplifiee}`
+              correction += `&\\iff x< ${frac1.texFractionSimplifiee}`
               answer = `\\left]-\\infty;${frac1.texFractionSimplifiee}\\right[`
             }
             correction += '\\end{aligned}$'
@@ -381,7 +381,7 @@ export default class DomaineDefFnLog extends Exercice {
                   lgt: 8, // taille de la première colonne en cm
                   hauteurLignes: [12, 15]
                 })
-                correction += `le coefficient de $x^2$ étant négatif, $${fonction}\\gt 0$ pour $x\\in \\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[$.<br>`
+                correction += `le coefficient de $x^2$ étant négatif, $${fonction}> 0$ pour $x\\in \\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[$.<br>`
                 answer = `\\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[`
               }
             } else {

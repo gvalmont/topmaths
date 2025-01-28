@@ -63,13 +63,15 @@ export default class Can2025N5Q12 extends ExerciceCan {
     const bordures = fixeBordures([triangle1, sd, triangle2, nom])
     context.fenetreMathalea2d = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
     const labelD = latex2d('(d)', pointSd1.x - 0.6, pointSd1.y, { letterSize: 'footnotesize' })
-
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = c.toFixed(1)
     this.question = `Les deux triangles sont symétriques par rapport à la droite (d).<br>
     ${mathalea2d(Object.assign({ scale: 0.35 }, fixeBordures([triangle1, labelD, triangle2, nom, sd])), [triangle1, sd, l1, l2, l3, labelD, triangle2, nom])}`
-    this.correction = `La symétrie axiale conserve les longueurs, donc $CD=${miseEnEvidence(`${texNombre(c, 1)}\\text{ cm}`)}$.`
+    this.correction = `La symétrie axiale conserve les longueurs.<br>
+    Le segment symétrique du segment $[CD]$ est celui qui mesure $${texNombre(c, 1)}$ cm, donc $CD=${miseEnEvidence(`${texNombre(c, 1)}`)}$ cm.`
     this.canEnonce = this.question
-    this.canReponseACompleter = '$CD=\\ldots\\ldots$'
+    this.canReponseACompleter = '$CD=\\ldots$ cm'
+    this.optionsChampTexte = { texteApres: ' cm' }
     if (this.interactif) {
       this.question += '$CD=$'
     } else {

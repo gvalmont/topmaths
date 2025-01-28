@@ -37,7 +37,7 @@ export const refs = {
   'fr-ch': ['10NO2-11']
 }
 // une fonction pour des infos supp sur les exposants
-function remarquesPuissances (base, baseUtile, exposant) {
+function remarquesPuissances (base: number, baseUtile:number | string, exposant: number) {
   let sortie = ''
   if (base < 0 && exposant % 2 === 0) {
     sortie += '<br>'
@@ -57,9 +57,8 @@ function remarquesPuissances (base, baseUtile, exposant) {
  * @param e exposant
  * @param couleur1
  * @param couleur2
- * @author Sébastien Lozano
  */
-export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
+export function reorganiseProduitPuissance (b1:number | string, b2:number | string, e: number, couleur1: string, couleur2: string) {
   let str
   switch (e) {
     case 0:
@@ -76,6 +75,8 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
 }
 
 export default class PuissancesDunRelatif1 extends Exercice {
+  classe = 4
+
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange']
@@ -312,6 +313,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
           exposantInteractif = exp[0] * exp[1]
           break
         case 4: // produit de puissances de même exposant
+        default:
           base0 = randint(2, 8, [4, 6])
           base1 = randint(2, 8, [4, 6, base0])
           base = [base0, base1] // on choisit 2 bases différentes c'est mieux

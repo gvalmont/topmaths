@@ -1,11 +1,12 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { simpExp } from '../../lib/outils/puissance'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Effectuer des calculs avec des puissances et leurs règles de calculs'
 
@@ -20,7 +21,6 @@ export const amcType = 'AMCNum'
  * * Date initiale non renseignée
  * * Mise à jour le 2021-01-24
  * @author Sébastien Lozano
- * 4C33-3 initialement
  */
 export const uuid = 'c71da'
 
@@ -78,7 +78,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
                         exp[0] + 2 - exp[1] - exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
-            texteCorr += '=' + simpExp(base, exp[0] + 2 - exp[1] - exp[2])
+            // texteCorr += '=' + simpExp(base, exp[0] + 2 - exp[1] - exp[2])
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${exp[0] + 2 - exp[1] - exp[2]}}`
@@ -99,7 +99,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           texteCorr += ` = ${base}^{${exp[0] + 3 - exp[1]}}`
           if (exp[0] + 3 - exp[1] === 0 || exp[0] + 3 - exp[1] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
-            texteCorr += '=' + simpExp(base, exp[0] + 3 - exp[1])
+            // texteCorr += '=' + simpExp(base, exp[0] + 3 - exp[1])
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${exp[0] + 3 - exp[1]}}`
@@ -128,7 +128,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           texteCorr += `=${base}^{${1 + exp[0] - 2 * exp[1]}}`
           if (1 + exp[0] - 2 * exp[1] === 0 || 1 + exp[0] - 2 * exp[1] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
-            texteCorr += '=' + simpExp(base, 1 + exp[0] - 2 * exp[1])
+            // texteCorr += '=' + simpExp(base, 1 + exp[0] - 2 * exp[1])
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${1 + exp[0] - 2 * exp[1]}}`
@@ -148,7 +148,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           texteCorr += `=${base}^{${1 + exp[0] - 2 - 2}}`
           if (1 + exp[0] - 2 - 2 === 0 || 1 + exp[0] - 2 - 2 === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant 1 est évincé
-            texteCorr += '=' + simpExp(base, 1 + exp[0] - 2 - 2)
+            // texteCorr += '=' + simpExp(base, 1 + exp[0] - 2 - 2)
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${1 + exp[0] - 2 - 2}}`
@@ -207,7 +207,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
                         exp[0] + exp[1] + 1 - 2 * exp[2] === 1
           ) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
-            texteCorr += '=' + simpExp(base, exp[0] + exp[1] + 1 - 2 * exp[2])
+            // texteCorr += '=' + simpExp(base, exp[0] + exp[1] + 1 - 2 * exp[2])
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${exp[0] + exp[1] + 1 - 2 * exp[2]}}`
@@ -227,16 +227,17 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           texteCorr += `=${base}^{${3 + 1 - 2 * exp[0]}}`
           if (3 + 1 - 2 * exp[0] === 0 || 3 + 1 - 2 * exp[0] === 1) {
             // on ne teste l'exposant que pour la sortie puisque l'exposant est évincé
-            texteCorr += '=' + simpExp(base, 3 + 1 - 2 * exp[0])
+            // texteCorr += '=' + simpExp(base, 3 + 1 - 2 * exp[0])
           }
           texteCorr += '$'
           reponseInteractive = `${base}^{${3 + 1 - 2 * exp[0]}}`
           exposantInteractif = 3 + 1 - 2 * exp[0]
           break
       }
+
       if (this.interactif && !context.isAmc) {
         setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: sp(2) + '$=$' })
       }
       if (context.isAmc) {
         setReponse(this, i, reponseInteractive, {
@@ -245,6 +246,21 @@ export default class PuissancesDUnRelatif2 extends Exercice {
           exposantPuissance: exposantInteractif
         })
       }
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$.`
+
+      // Fin de cette uniformisation
+
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

@@ -11,7 +11,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '9c8d5'
 export const refs = {
-  'fr-fr': ['TEC-01'],
+  'fr-fr': ['TEC3-01'],
   'fr-ch': []
 }
 export const dateDePublication = '20/08/2024'
@@ -87,7 +87,7 @@ const listePourMoins2PiSur3 = listePour2PiSur3.map((el) =>
 export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 5
+    this.nbQuestions = 2
     this.spacingCorr = 3
     this.sup = '1'
     this.besoinFormulaireTexte = ['Type de questions', ' Nombres séparés par des tirets\n1 : algébrique vers trigonométrique\n2 : trigonométrique vers algébrique\n3 : algébrique vers $k.e^{i\\theta}$\n4 : $k.e^{i\\theta}$ vers algébrique\n5 : Mélange']

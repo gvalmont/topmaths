@@ -7,7 +7,6 @@ export const interactifType = 'qcm'
 
 /**
  * Clone de 5L10-2 pour les 2nde
- * @author Sébastien Lozano
  */
 
 export const uuid = '0a01e'

@@ -148,7 +148,7 @@ On rappelle la volume de formule :
         $\\sin(\\widehat{ABC}) ${egalOuApprox(hauteur / hypo, 3)} ${texNombre(hauteur / hypo, 3)}$<br>
         $\\widehat{ABC} \\approx ${texNombre(Math.asin(hauteur / hypo) * 180 / Math.PI, 1)}^{\\circ}$<br>
         Or ${Math.asin(hauteur / hypo) * 180 / Math.PI > 8.5
-        ? ' $\\widehat{ABC} \\gt 8,5°$, donc le surcoût des travaux est à prévoir.'
+        ? ' $\\widehat{ABC} > 8,5°$, donc le surcoût des travaux est à prévoir.'
 : ' $\\widehat{ABC} \\leq 8,5°$, donc il n\'y aura pas de surcoût.'}`,
         `Le volume du prisme droit $CBAFED$ est égal à l’aire de la base $ABC$ multipliée par la hauteur $CF$ du prisme.<br>
         $V = \\mathscr{A}_{ABC} \\times CF$<br>

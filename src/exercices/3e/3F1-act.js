@@ -35,7 +35,6 @@ export const refs = {
  * @param {string} texte
  * @param {string} titrePopup
  * @param {string} textePopup
- * @author Sébastien Lozano
  */
 export function katexPopup (texte, titrePopup, textePopup) {
   // ToDo afficher les dialog au survol sur le texte

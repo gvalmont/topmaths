@@ -5,7 +5,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import { numAlpha } from '../../lib/outils/outilString'
+import { numAlpha, sp } from '../../lib/outils/outilString'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -73,9 +73,9 @@ export default class EquationsLog extends Exercice {
         texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^{*}$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ doit être strictement positif.<br>`
         const f1 = new FractionEtendue(-b, a)
         const fracMoinsBsurA = f1.texFractionSimplifiee
-        texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(b)}\\gt 0 \\iff ${rienSi1(a)}x\\gt ${-b} \\iff x${a > 0 ? '\\gt ' : '\\lt '}${fracMoinsBsurA}$${a > 0 ? '' : ` (On inverse le signe car on divise chaque membre par $${a}$ qui est négatif)`}.<br>`
-        texteCorr += `$$Ainsi, &nbsp $ \\mathcal{D}_f=${miseEnEvidence(a > 0 ? `\\left]${fracMoinsBsurA};+\\infty\\right[` : `\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
-        texteCorr += `${numAlpha(1)} Ensuite,  on sait que pour tout $a$ et $b$ appartenant à $\\R_+^{*}, &nbsp$ $a=b \\iff ${logString} (a) = ${logString} (b)$. D'où : <br>`
+        texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(b)}> 0 \\iff ${rienSi1(a)}x> ${-b} \\iff x${a > 0 ? '> ' : '< '}${fracMoinsBsurA}$${a > 0 ? '' : ` (On inverse le signe car on divise chaque membre par $${a}$ qui est négatif)`}.<br>`
+        texteCorr += `Ainsi, ${sp()} $ \\mathcal{D}_f=${miseEnEvidence(a > 0 ? `\\left]${fracMoinsBsurA};+\\infty\\right[` : `\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
+        texteCorr += `${numAlpha(1)} Ensuite,  on sait que pour tout $a$ et $b$ appartenant à $\\R_+^{*}, ${sp()}$ $a=b \\iff ${logString} (a) = ${logString} (b)$. D'où : <br>`
         texteCorr += `
         $\\begin{aligned}
         ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${n} &\\iff ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${logString}(${base}^{${n}})\\\\
@@ -103,28 +103,28 @@ export default class EquationsLog extends Exercice {
         const f3 = new FractionEtendue(-d, c)
         const fracMoinsBsurA = f2.texFractionSimplifiee
         const fracMoinsDsurC = f3.texFractionSimplifiee
-        texteCorr += `D'une part, $${rienSi1(a)}x${ecritureAlgebrique(b)}\\gt 0 \\iff ${rienSi1(a)}x\\gt ${-b} 
-        \\iff x${a > 0 ? '\\gt ' : '\\lt'}${fracMoinsBsurA}$.<br>`
-        texteCorr += `D'autre part, $${rienSi1(c)}x${ecritureAlgebrique(d)}\\gt 0 \\iff ${rienSi1(c)}x\\gt ${-d} 
-        \\iff x${c > 0 ? '\\gt ' : '\\lt'}${fracMoinsDsurC}$.<br>`
+        texteCorr += `D'une part, $${rienSi1(a)}x${ecritureAlgebrique(b)}> 0 \\iff ${rienSi1(a)}x> ${-b} 
+        \\iff x${a > 0 ? '> ' : '<'}${fracMoinsBsurA}$.<br>`
+        texteCorr += `D'autre part, $${rienSi1(c)}x${ecritureAlgebrique(d)}> 0 \\iff ${rienSi1(c)}x> ${-d} 
+        \\iff x${c > 0 ? '> ' : '<'}${fracMoinsDsurC}$.<br>`
         if (a * c > 0) { // les signes sont dans le même sens, on a un intervalle inclus dans l'autre
           if (a > 0) { // le signe est > pour les deux, on cherche le plus grand des deux.
             if (-b / a > -d / c) {
-              texteCorr += `$${fracMoinsDsurC}\\lt${fracMoinsBsurA}\\lt x$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsBsurA};+\\infty\\right[`)}$.<br>`
+              texteCorr += `$${fracMoinsDsurC}<${fracMoinsBsurA}< x$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsBsurA};+\\infty\\right[`)}$.<br>`
               domaine = `\\left]${fracMoinsBsurA};+\\infty\\right[`
               intervalle = [f2, fracPlusInf]
             } else {
-              texteCorr += `$${fracMoinsBsurA}\\lt${fracMoinsDsurC}\\lt x$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsDsurC};+\\infty\\right[`)}$.<br>`
+              texteCorr += `$${fracMoinsBsurA}<${fracMoinsDsurC}< x$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsDsurC};+\\infty\\right[`)}$.<br>`
               domaine = `\\left]${fracMoinsDsurC};+\\infty\\right[`
               intervalle = [f3, fracPlusInf]
             }
           } else { // le signe est < on cherche le plus petit des deux
             if (-b / a < -d / c) {
-              texteCorr += `$x\\lt${fracMoinsBsurA}\\lt${fracMoinsDsurC}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
+              texteCorr += `$x<${fracMoinsBsurA}<${fracMoinsDsurC}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
               domaine = `\\left]-\\infty;${fracMoinsBsurA}\\right[`
               intervalle = [fracMoinsInf, f2]
             } else {
-              texteCorr += `$x\\lt${fracMoinsDsurC}\\lt${fracMoinsBsurA}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]-\\infty;${fracMoinsDsurC}\\right[`)}$.<br>`
+              texteCorr += `$x<${fracMoinsDsurC}<${fracMoinsBsurA}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]-\\infty;${fracMoinsDsurC}\\right[`)}$.<br>`
               domaine = `\\left]-\\infty;${fracMoinsDsurC}\\right[`
               intervalle = [fracMoinsInf, f3]
             }
@@ -133,21 +133,21 @@ export default class EquationsLog extends Exercice {
           if (-b / a < -d / c) { // -b/a<-d/c
             if (a > 0) { // -b/a<x -b/a<-d/c
               if (c > 0) { // -b/a<-d/c<x
-                texteCorr += `$${fracMoinsBsurA}\\lt${fracMoinsDsurC}\\lt x$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsDsurC};+\\infty\\right[`)}$.<br>`
+                texteCorr += `$${fracMoinsBsurA}<${fracMoinsDsurC}< x$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsDsurC};+\\infty\\right[`)}$.<br>`
                 domaine = `\\left]${fracMoinsDsurC};+\\infty\\right[`
                 intervalle = [f3, fracPlusInf]
               } else { // -b/a<x<-d/c
-                texteCorr += `$${fracMoinsBsurA}\\lt x\\lt${fracMoinsDsurC}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsBsurA};${fracMoinsDsurC}\\right[`)}$.<br>`
+                texteCorr += `$${fracMoinsBsurA}< x<${fracMoinsDsurC}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsBsurA};${fracMoinsDsurC}\\right[`)}$.<br>`
                 domaine = `\\left]${fracMoinsBsurA};${fracMoinsDsurC}\\right[`
                 intervalle = [f2, f3]
               }
             } else { // x<-b/a et -b/a<-d/c
               if (c > 0) { // x>-d/c donc ensemble vide
-                texteCorr += `$x\\lt${fracMoinsBsurA}$ et $x\\gt ${fracMoinsDsurC}$ ne peuvent être vérifiés en même temps car $${fracMoinsBsurA}\\lt${fracMoinsDsurC}$, donc $\\mathcal{D}_f=${miseEnEvidence('\\emptyset')}$.<br>`
+                texteCorr += `$x<${fracMoinsBsurA}$ et $x> ${fracMoinsDsurC}$ ne peuvent être vérifiés en même temps car $${fracMoinsBsurA}<${fracMoinsDsurC}$, donc $\\mathcal{D}_f=${miseEnEvidence('\\emptyset')}$.<br>`
                 domaine = '\\emptyset'
                 intervalle = [fracMoinsInf, fracMoinsInf]
               } else { // x<-d/c donc x<-b/a<-d/c
-                texteCorr += `$x\\lt${fracMoinsBsurA}\\lt${fracMoinsDsurC}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
+                texteCorr += `$x<${fracMoinsBsurA}<${fracMoinsDsurC}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
                 domaine = `\\left]-\\infty;${fracMoinsBsurA}\\right[`
                 intervalle = [fracMoinsInf, f2]
               }
@@ -155,21 +155,21 @@ export default class EquationsLog extends Exercice {
           } else { // -d/c<-b/a
             if (a > 0) { // -b/a<x -d/c<-b/a
               if (c > 0) { // -d/c<-b/a<x
-                texteCorr += `$x\\gt ${fracMoinsBsurA}\\gt ${fracMoinsDsurC}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsBsurA};+\\infty;\\right[`)}$.<br>`
+                texteCorr += `$x> ${fracMoinsBsurA}> ${fracMoinsDsurC}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsBsurA};+\\infty;\\right[`)}$.<br>`
                 domaine = `\\left]${fracMoinsBsurA};+\\infty;\\right[`
                 intervalle = [f2, fracPlusInf]
               } else { // x<-d/c et x>-b/a impossible car -d/c<-b/a
-                texteCorr += `$x\\gt ${fracMoinsBsurA}$ et $x\\lt${fracMoinsDsurC}$ ne peuvent être vérifiés en même temps car $${fracMoinsBsurA}\\gt ${fracMoinsDsurC}$, donc $\\mathcal{D}_f=${miseEnEvidence('\\emptyset')}$.<br>`
+                texteCorr += `$x> ${fracMoinsBsurA}$ et $x<${fracMoinsDsurC}$ ne peuvent être vérifiés en même temps car $${fracMoinsBsurA}> ${fracMoinsDsurC}$, donc $\\mathcal{D}_f=${miseEnEvidence('\\emptyset')}$.<br>`
                 domaine = '\\emptyset'
                 intervalle = [fracMoinsInf, fracMoinsInf]
               }
             } else {
               if (c > 0) { // -d/c<x<-b/a
-                texteCorr += `$${fracMoinsDsurC}\\lt x\\lt${fracMoinsBsurA}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsDsurC};${fracMoinsBsurA}\\right[`)}$.<br>`
+                texteCorr += `$${fracMoinsDsurC}< x<${fracMoinsBsurA}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]${fracMoinsDsurC};${fracMoinsBsurA}\\right[`)}$.<br>`
                 domaine = `\\left]${fracMoinsDsurC};${fracMoinsBsurA}\\right[`
                 intervalle = [f3, f2]
               } else { //  x<-d/c<-b/a
-                texteCorr += `$x\\lt ${fracMoinsDsurC}\\lt ${fracMoinsBsurA}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]-\\infty;${fracMoinsDsurC}\\right[`)}$.<br>`
+                texteCorr += `$x< ${fracMoinsDsurC}< ${fracMoinsBsurA}$ donc $\\mathcal{D}_f=${miseEnEvidence(`\\left]-\\infty;${fracMoinsDsurC}\\right[`)}$.<br>`
                 domaine = `\\left]-\\infty;${fracMoinsDsurC}\\right[`
                 intervalle = [fracMoinsInf, f3]
               }

@@ -29,6 +29,7 @@
   import CountDown from '../../display/can/presentationalComponents/CountDown.svelte'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
   import { buildMathAleaURL } from '../../../lib/components/urls'
+  import { notify } from '../../../bugsnag'
 
   const transitionSounds = {
     0: new Audio('assets/sounds/transition_sound_01.mp3'),
@@ -90,7 +91,11 @@
           vues: []
         }
         for (let idVue = 0; idVue < nbOfVues; idVue++) {
-          if (idVue > 0 && isIntegerInRange0to3(idVue)) reroll(exercise, idVue)
+          if (isIntegerInRange0to3(idVue)) {
+            reroll(exercise, idVue)
+          } else {
+            notify(`idVue ${idVue} is not an integer in range 0 to 3`, {})
+          }
           const consigne = mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.consigne + exercise.introduction) : '')
           const question = mathaleaFormatExercice(exercise.listeQuestions[i])
           const correction = mathaleaFormatExercice(exercise.listeCorrections[i])
@@ -122,7 +127,7 @@
   function reroll (exercise: Exercice, idVue?: 0 | 1 | 2 | 3) {
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
     const originalSeed = exercise.seed
-    if (idVue !== undefined && idVue > 0) exercise.seed = exercise.seed + Date.now() // Si on inclut un Math.random() ça met le bazar et on risque d'avoir plusieurs fois la même question malgré le this.questionJamaisPosee
+    if (idVue !== undefined && idVue > 0) exercise.seed = exercise.seed + String(idVue)
     if (exercise.typeExercice === 'simple') {
       mathaleaHandleExerciceSimple(exercise, false)
     } else {

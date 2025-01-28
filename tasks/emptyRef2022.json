@@ -212,9 +212,15 @@
       "TSG2": {}
           },
     "Terminale Expert": {
-      "TEC": {},
-      "TEA": {},
-      "TEM": {}
+      "TEC1": {},
+      "TEC2": {},
+      "TEC3": {},
+      "TEC4": {},
+      "TEA1": {},
+      "TEA2": {},
+      "TEA3": {},
+      "TEM1": {},
+      "TEM2": {}
     },
     "TermComplem": {},
     "TermTechno": {}

@@ -215,16 +215,16 @@ class ReperageEntiersOuDecimaux extends Exercice {
         ((nombreATrouver - premiereGraduation) * distanceGrossesGraduations) /
         pasPrincipal
       const abscisseATrouver = latex2d(
-        miseEnEvidence(texNombre(nombreATrouver, nbDecimales)),
+        texNombre(nombreATrouver, nbDecimales),
         xPoint,
         -1.2,
-        {}
+        { color: orangeMathalea }
       )
       const guide = segment(point(xPoint, -0.3), point(xPoint, -0.9))
       guide.styleExtremites = '->'
       guide.color = colorToLatexOrHTML(orangeMathalea)
       guide.epaisseur = 2
-      guide.pointilles = '2'
+      guide.pointilles = 2
       const pointATrouver = point(xPoint, 0, lettreDepuisChiffre(i + 1))
       const trace = tracePoint(pointATrouver)
       const label = labelPoint(pointATrouver)

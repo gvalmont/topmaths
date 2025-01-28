@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 export const titre = 'Résoudre un problème de vitesse'
 export const interactifReady = true
@@ -34,12 +34,12 @@ export default class ProblemesDeVitesse extends Exercice {
     this.question = `Une voiture roule à $${c}$ km/h. <br>
     
     Combien de kilomètres parcourt-elle en $${b}$ minutes ?`
-    this.correction = `La voiture parcourt ${c / a}$ km.`
+    this.correction = `La voiture parcourt $${miseEnEvidence(c / a)}$ km.`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     On cherche combien de "$${b}$ minutes" il y a dans $1$ heure soit $60$ minutes. Il y en a $${a}$,
     car $${a}\\times ${b}=60$.<br>
     Cela signifie qu'en $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
-    ${c / a}$ km.`)
+    ${c / a}$ km.`, 'blue')
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

@@ -30,6 +30,7 @@ export default class CompareDecimalFraction extends Exercice {
     let nbB: number
     let num: number
     let den: number
+    let reponse : string
     if (this.canOfficielle) {
       a = texNombre(3.4, 1)
       b = '\\dfrac{7}{3}'
@@ -37,7 +38,7 @@ export default class CompareDecimalFraction extends Exercice {
       nbB = 7 / 3
       num = 7
       den = 3
-      this.reponse = '3,4'
+      reponse = texNombre(3.4, 1)
       this.correction = `Le plus grand nombre est : $${miseEnEvidence(texNombre(3.4, 1))}$.`
     } else {
       do {
@@ -75,8 +76,8 @@ export default class CompareDecimalFraction extends Exercice {
 
     this.canEnonce = 'Entoure le plus grand nombre.'
     this.canReponseACompleter = `$${a}$ ${sp(7)} $${b}$`
-    this.reponse = nbA > nbB ? a : b
-    this.correction = `Le plus grand nombre est : $${miseEnEvidence(this.reponse)}$.<br><br>`
+    reponse = nbA > nbB ? a : b
+    this.correction = `Le plus grand nombre est : $${miseEnEvidence(reponse)}$.<br><br>`
     if (nbA > nbB) {
       if (Number.isInteger(num / den)) {
         this.correction += `En effet : $\\dfrac{${num}}{${den}}=${texNombre((num / den), 0)}$`

@@ -30,6 +30,7 @@ export const refs = {
   'fr-ch': ['11NO2-14']
 }
 export default class CalculProbaExperience2Epreuves3e extends Exercice {
+  niveau = '3eme'
   constructor () {
     super()
 
@@ -62,10 +63,8 @@ export default class CalculProbaExperience2Epreuves3e extends Exercice {
           question = unePieceDeuxUrnes(this, NoQuestion, this.sup2 && this.niveau === '2nde', false, true, this.niveau)
           break
         case 2:
+        default:
           question = urneDeuxTiragesAvecRemise(this, NoQuestion, this.sup2 && this.niveau === '2nde', false, this.niveau)
-          break
-        case 3: // EE : Suppression de ce cas car la fonction est erronée
-          // question = urneDeuxTiragesSansRemise(this, NoQuestion, this.sup2 && this.niveau === '2nde', false)
           break
       }
       if (this.questionJamaisPosee(i, ...question.alea)) {
@@ -81,7 +80,7 @@ export default class CalculProbaExperience2Epreuves3e extends Exercice {
 }
 
 // On Tire à pile ou face pour choisir une urne puis on tire une boule.
-function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecArbrePondere, repartitionDesBoules, niveau = '3ene') {
+function unePieceDeuxUrnes (exercice: Exercice, NoQuestion: number, avecArbreDansCorrection: boolean, avecArbrePondere: boolean, repartitionDesBoules: boolean, niveau = '3ene') {
   const p = []
   const choix1 = randint(0, 2)
   const choix2 = randint(0, 2, choix1)
@@ -106,7 +105,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecA
       racine: false,
       rationnel: true,
       nom: 'Pile',
-      proba: fraction(0.5),
+      proba: fraction(1, 2),
       visible: true,
       alter: '',
       enfants: []
@@ -115,7 +114,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecA
       racine: false,
       rationnel: true,
       nom: 'Face',
-      proba: fraction(0.5),
+      proba: fraction(1, 2),
       visible: true,
       alter: '',
       enfants: []
@@ -131,7 +130,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecA
       racine: false,
       rationnel: true,
       nom: 'Pile',
-      proba: fraction(0.5),
+      proba: fraction(1, 2),
       visible: false,
       alter: '',
       enfants: []
@@ -140,7 +139,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecA
       racine: false,
       rationnel: true,
       nom: 'Face',
-      proba: fraction(0.5),
+      proba: fraction(1, 2),
       visible: false,
       alter: '',
       enfants: []
@@ -174,7 +173,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecA
   omega.setTailles() // On calcule les tailles des arbres.
   const objets = omega.represente(0, 11, 0, avecArbrePondere ? 2.5 : 1.2, false, -1, 6) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
   for (let j = 0; j < 3; j++) {
-    p[j] = omega.getProba(B[j], true) // on calcule P(C) décimale.
+    p[j] = omega.getProba(B[j]) // on calcule P(C) décimale.
   }
   texte = 'On lance une pièce équilibrée.<br>'
   texte += 'Si la pièce tombe sur «Pile», on tire une boule dans une urne contenant '
@@ -241,7 +240,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecA
 }
 
 // On tire deux boules dans une urne avec remise
-function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrection, sup2, niveau = '2nde') { // tirage dans une urne avec remise
+function urneDeuxTiragesAvecRemise (exercice: Exercice, NoQuestion: number, avecArbreDansCorrection: boolean, avecUnArbre: boolean, niveau = '2nde') { // tirage dans une urne avec remise
   const [b1Color, b2Color] = shuffle(['bleue', 'rouge', 'verte', 'orange', 'noire', 'jaune']).splice(0, 2)
 
   const b1Char = premiereLettreEnMajuscule(b1Color.charAt(0))
@@ -260,7 +259,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrectio
       proba: fraction(1, card),
       visible: false,
       alter: '',
-      enfant: [],
+      enfants: [],
       racine: false
     }))
     for (let j = 0; j < nbBoule1; j++) {
@@ -270,7 +269,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrectio
         proba: fraction(1, card),
         visible: false,
         alter: '',
-        enfant: [],
+        enfants: [],
         racine: false
       }))
     }
@@ -281,7 +280,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrectio
         proba: fraction(1, card),
         visible: false,
         alter: '',
-        enfant: [],
+        enfants: [],
         racine: false
       }))
     }
@@ -294,7 +293,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrectio
       proba: fraction(1, card),
       visible: false,
       alter: '',
-      enfant: [],
+      enfants: [],
       racine: false
     }))
     for (let j = 0; j < nbBoule1; j++) {
@@ -304,7 +303,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrectio
         proba: fraction(1, card),
         visible: false,
         alter: '',
-        enfant: [],
+        enfants: [],
         racine: false
       }))
     }
@@ -315,7 +314,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrectio
         proba: fraction(1, card),
         visible: false,
         alter: '',
-        enfant: [],
+        enfants: [],
         racine: false
       }))
     }
@@ -340,8 +339,8 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrectio
   const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
 
   omega.setTailles() // On calcule les tailles des arbres.
-  const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.6, false, -1, 6) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-  const choix = choice([[nbBoule1, b1Color, b1Char], [nbBoule2, b2Color, b2Char]])
+  const objets = omega.represente(0, 12, 0, avecUnArbre ? 2.5 : 1.6, false, -1, 6) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+  const choix = choice([[nbBoule1, b1Color, b1Char], [nbBoule2, b2Color, b2Char]]) as [number, string, string]
   const probaChoix = fraction(choix[0] ** 2, card ** 2)
   const proba1 = fraction(nbBoule1 ** 2, card ** 2)
   const proba2 = fraction(nbBoule2 ** 2, card ** 2)

@@ -17,14 +17,13 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre = 'Calculer périmètre et aire de portions de disques'
-export const dateDeModifImportante = '20/11/2023'
+export const dateDeModifImportante = '23/01/2025'
 
 /**
  * 3 figures sont données, 1 quart de disque, un demi-disque et un 3-quarts de disque
  * * 1 : Calculer les périmètres
  * * 2 : Calculer les aires
  * * 3 : Calculer les périmètres et aires
- * Pas de version LaTeX
  * @author Rémi Angot
  */
 export const uuid = 'ff386'
@@ -69,7 +68,7 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
       texteCorr = ''
       const objetsEnonce = []
       const C = point(0, 0)
-      const r = randint(2, 10)
+      let r = randint(2, 10)
 
       const A = pointAdistance(C, listeTypeQuestions[i] === 3 ? 3 : 6, 0)
       const B1 = rotation(A, C, 90)
@@ -105,7 +104,9 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
             codageSegments('//', context.isHtml ? 'blue' : 'black', A, C, C, B1),
             placeLatexSurSegment(`${r}\\text{ cm}`, A, C))
           break
-        case 2:
+        case 2: {
+          const rayon = r
+          r = r / 2
           if (this.sup !== 2) {
             // si on ne demande pas les aires
             texteCorr = `La figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r
@@ -129,8 +130,9 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
             reponseA1 = this.sup === 1 ? 0 : arrondi(Math.trunc(r * r / 2 * Math.PI * 10) / 10)
             reponseA1bis = this.sup === 1 ? 0 : arrondi(reponseA1 + 0.1)
           }
-          objetsEnonce.push(demiDisque, placeLatexSurSegment(`${r}\\text{ cm}`, A, B2))
+          objetsEnonce.push(demiDisque, placeLatexSurSegment(`${rayon}\\text{ cm}`, A, B2))
           break
+        }
         case 3:
         default:
           if (this.sup !== 2) {
@@ -163,6 +165,7 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
         handleAnswers(this, this.sup === 3 ? 2 * i + 1 : i, { reponse: { value: [reponseA1!, reponseA1bis!], options: { nombreDecimalSeulement: true } } })
         texte += 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, '   ', { texteApres: ' $\\text{cm}^2$' })
       }
+
       if (this.questionJamaisPosee(i, r)) { // Si la question n'a jamais été posée, on en créé une autre
         const figure = mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objetsEnonce, { rymax: 0, rymin: -0.5 })), objetsEnonce)
         this.listeQuestions[i] = figure + texte

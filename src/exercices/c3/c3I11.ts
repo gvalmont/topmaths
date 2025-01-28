@@ -5,11 +5,11 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { createLink } from '../../lib/outils/modales'
 import { stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
-import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur'
+import { noteLaCouleur, plateau2dNLC, testInstruction, testSequence } from '../../modules/noteLaCouleur'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -34,6 +34,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class NoteLaCouleurC3 extends Exercice {
+  relatif = false
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
@@ -71,8 +72,8 @@ export default class NoteLaCouleurC3 extends Exercice {
     const echelleDessin = 0.75
 
     let j, test
-    let objetsEnonce = []
-    let objetsCorrection = []
+    let objetsEnonce: NestedObjetMathalea2dArray = []
+    let objetsCorrection: NestedObjetMathalea2dArray = []
     // const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 13, pixelsParCm: 30, scale: echelleDessin }
     const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 13, pixelsParCm: 20, scale: echelleDessin }
     let commandes_disponibles
@@ -81,17 +82,18 @@ export default class NoteLaCouleurC3 extends Exercice {
     let result
     let nb_couleurs
     let instruction
-    let couleurs
+    let couleurs: string[] = []
     let liste_instructions
 
     let lutin, lutindepart
     let angledepart
-    let xdepart
-    let ydepart
+    let xdepart = 10 + randint(1, 8) * 20
+    let ydepart = 10 + randint(1, 6) * 20
+
     context.unitesLutinParCm = 13.33
     // context.pixelsParCm = 30
     context.pixelsParCm = 20
-    let pion
+
     const lePlateauEnonce = plateau2dNLC({
       type: this.sup,
       melange: !this.sup4,
@@ -112,11 +114,21 @@ export default class NoteLaCouleurC3 extends Exercice {
       pas: 20,
       plateau: damier
     })
+    let pion = noteLaCouleur({
+      x: xdepart,
+      y: ydepart,
+      orientation: angledepart,
+      plateau: lePlateauCorr.plateauNLC,
+      relatif: this.relatif,
+      nx: 10,
+      ny: 8,
+      pas: 20
+    })
     for (let q = 0; q < this.nbQuestions;) {
       objetsCorrection = []
       objetsEnonce = []
-      objetsEnonce.push(lePlateauEnonce.plateau2d)
-      objetsCorrection.push(lePlateauCorr.plateau2d)
+      objetsEnonce.push(lePlateauEnonce.objets as NestedObjetMathalea2dArray)
+      objetsCorrection.push(lePlateauCorr.objets as NestedObjetMathalea2dArray)
       let reponseCouleur = []
       let texte = ''
       let texteCorr = ''
@@ -132,7 +144,7 @@ export default class NoteLaCouleurC3 extends Exercice {
         }
       }
       retour_a_la_case_depart = true
-      while (retour_a_la_case_depart) {
+      do {
         objetsEnonce.length = 1
         lutin = creerLutin()
         angledepart = choice([90, 0, -90, 180])
@@ -173,17 +185,17 @@ export default class NoteLaCouleurC3 extends Exercice {
         while (nb_couleurs > j && compteur_essais_sequence < 10) {
           compteur_essais_sequence = 0
           sequence = choice(sequences_disponibles)
-          test = pion.testSequence(sequence)
+          test = testSequence(sequence, pion)
           while (!test[0] && compteur_essais_sequence < 10) {
             compteur_essais_sequence++
             sequence = choice(sequences_disponibles)
-            test = pion.testSequence(sequence)
+            test = testSequence(sequence, pion)
           }
           if (compteur_essais_sequence < 10) {
             retour_a_la_case_depart = false
             for (let i = 0; i < sequence.length; i++) {
               instruction = sequence[i]
-              result = pion.testInstruction(instruction, lutin)
+              result = testInstruction(instruction, lutin, pion)
               if (instruction === 'NLC') {
                 liste_instructions.push(instruction)
                 couleurs.push(pion.nlc())
@@ -208,17 +220,17 @@ export default class NoteLaCouleurC3 extends Exercice {
             ydepart = 10 + randint(1, 6) * 20
           }
         }
-      }
+      } while (retour_a_la_case_depart)
       if (this.sup2) {
         objetsEnonce.push(tracePoint(point(xdepart * 0.075, ydepart * 0.075)))
         for (let i = 1; i < 10; i++) {
           if (i !== 1) {
-            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 0, 'black', 1.2, 'milieu', true, echelleDessin))
           }
         }
         for (let i = 1; i < 12; i++) {
           if (i !== 1) {
-            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 0, 'black', 1.2, 'milieu', true, echelleDessin))
           }
         }
       }
@@ -285,12 +297,12 @@ export default class NoteLaCouleurC3 extends Exercice {
       if (this.sup2) {
         for (let i = 1; i < 10; i++) {
           if (i !== 1) {
-            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 0, 'black', 1.2, 'milieu', true, echelleDessin))
           }
         }
         for (let i = 1; i < 12; i++) {
           if (i !== 1) {
-            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 0, 'black', 1.2, 'milieu', true, echelleDessin))
           }
         }
       }
@@ -298,12 +310,12 @@ export default class NoteLaCouleurC3 extends Exercice {
       if (this.correctionDetaillee) {
         for (let i = 1; i < 10; i++) {
           if (i !== 1) {
-            objetsCorrection.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsCorrection.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 0, 'black', 1.2, 'milieu', true, echelleDessin))
           }
         }
         for (let i = 1; i < 12; i++) {
           if (i !== 1) {
-            objetsCorrection.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsCorrection.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 0, 'black', 1.2, 'milieu', true, echelleDessin))
           }
         }
       }

@@ -3,7 +3,7 @@ import { texPrix } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -43,14 +43,11 @@ export default class EvolutionsEnPourcentage extends Exercice {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['finale']
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = ['evolution']
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = ['initiale']
-    }
-    if (this.sup === 4) {
+    } else {
       typesDeQuestionsDisponibles = ['finale', 'evolution', 'initiale']
     }
     const situationsDisponibles = ['prix', 'etablissement', 'facture', 'population']
@@ -64,11 +61,11 @@ export default class EvolutionsEnPourcentage extends Exercice {
       let texteCorr = ''
       switch (typesDeSituations[i]) {
         case 'prix':
-          depart = choice([calculANePlusJamaisUtiliser(randint(11, 99) / 10), randint(11, 99), randint(11, 99) * 10])
+          depart = choice([randint(11, 99) / 10, randint(11, 99), randint(11, 99) * 10])
           taux = choice([10, 20, 30, 40, 60])
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
-          arrive = calculANePlusJamaisUtiliser(depart * (1 + taux / 100))
+          arrive = depart * (1 + taux / 100)
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
               if (taux > 0) {
@@ -101,6 +98,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
               texteApres = ' €'
               break
             case 'evolution':
+            default:
               if (taux > 0) {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. Exprimer l'augmentation du prix en pourcentage.`
                 texteCorr = `$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
@@ -130,11 +128,12 @@ export default class EvolutionsEnPourcentage extends Exercice {
               taux = 5 * randint(1, 3)
               break
             case 3:
+            default:
               depart = 100 * randint(4, 12)
               taux = randint(1, 11)
               break
           }
-          arrive = calculANePlusJamaisUtiliser(depart * (1 + taux / 100))
+          arrive = depart * (1 + taux / 100)
           coeff = texNombre(1 + taux / 100)
           date = new Date()
           cetteAnnee = date.getFullYear()
@@ -172,6 +171,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
               texteApres = ' élèves'
               break
             case 'evolution':
+            default:
               texte = `En ${anneeDerniere}, il y avait $${texNombre(depart)}$ élèves dans un ${etablissement}. En ${cetteAnnee}, ils sont $${texNombre(arrive)}$. Exprimer la variation du nombre d'élèves de cet établissement en pourcentage.`
               if (taux > 0) {
                 texteCorr = `$${texNombre(arrive)}\\div ${texNombre(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
@@ -191,7 +191,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
           taux = randint(1, 12)
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
-          arrive = calculANePlusJamaisUtiliser(depart * (1 + taux / 100))
+          arrive = depart * (1 + taux / 100)
           facture = choice(["ma facture annuelle d'électricité", 'ma facture annuelle de gaz', "ma taxe d'habitation", 'mon ordinateur', 'mon vélo électrique'])
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
@@ -226,6 +226,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
               texteApres = ' €'
               break
             case 'evolution':
+            default:
               if (taux > 0) {
                 texte = `Le prix de ${facture} est passé de $${texPrix(depart)}$ € à $${texPrix(arrive)}$ €. Exprimer cette augmentation en pourcentage.`
                 texteCorr = `$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
@@ -241,11 +242,12 @@ export default class EvolutionsEnPourcentage extends Exercice {
           }
           break
         case 'population':
+        default:
           depart = choice([randint(11, 99) * 1000, randint(11, 99) * 10000])
           taux = randint(5, 35)
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
-          arrive = calculANePlusJamaisUtiliser(depart * (1 + taux / 100))
+          arrive = depart * (1 + taux / 100)
           nb = randint(5, 15)
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
@@ -279,6 +281,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
               texteApres = ' habitants'
               break
             case 'evolution':
+            default:
               if (taux > 0) {
                 texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart)}$ habitants à $${texNombre(arrive)}$. Exprimer cette augmentation en pourcentage.`
                 texteCorr = `$${texNombre(arrive)}\\div ${texNombre(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`

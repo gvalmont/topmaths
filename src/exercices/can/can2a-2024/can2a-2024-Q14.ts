@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
     const val1 = valeurs[0] + valeurs[0] * valeurs[1] / 100
     const question = `Un article à $${texNombre(valeurs[0])}$ € subit une hausse de $${valeurs[1]}\\,\\%$ puis une baisse de $${valeurs[1]}\\,\\%$.
         <br> Son nouveau prix est maintenant de : `
-    this.reponse = valeurs[2]
+    //  this.reponse = valeurs[2] Pas de this.reponse pour un qcm !
     this.autoCorrection[0] = {
       options: { ordered: false },
       enonce: question,

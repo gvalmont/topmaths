@@ -5,6 +5,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { texNombre } from '../../lib/outils/texNombre'
 import { choice } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Étude d\'une suite par récurrence'
 export const dateDePublication = '25/10/2024'
@@ -41,8 +42,8 @@ export default class EtudeSuiteRecurrence extends Exercice {
       case 'a + 1/un':
         {
           const u0 = randint(2, 10)
-          texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,&nbsp;&nbsp; $u_{n+1} = ${u0 - 1} + \\dfrac{1}{u_n}$. `
-          texte += `Démontrer par récurrence que, pour tout entier naturel $n$, &nbsp; $${u0 - 1} \\leqslant u_n \\leqslant ${u0}$.`
+          texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,${sp()};${sp()}; $u_{n+1} = ${u0 - 1} + \\dfrac{1}{u_n}$. `
+          texte += `Démontrer par récurrence que, pour tout entier naturel $n$, ${sp()}; $${u0 - 1} \\leqslant u_n \\leqslant ${u0}$.`
 
           texteCorr = `${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
           texteCorr += `<br><br>$u_0 = ${u0}$, on a bien $${u0 - 1} \\leqslant u_0 \\leqslant ${u0}$.`
@@ -69,8 +70,8 @@ export default class EtudeSuiteRecurrence extends Exercice {
           const l = a.multiplieEntier(-1).ajouteEntier(1).inverse().multiplieEntier(b)
           const u0 = randint(1, Math.ceil(l.toNumber()) - 1)
 
-          texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,&nbsp;&nbsp;$u_{n+1} = ${a.texFraction}u_n + ${b}$. `
-          texte += `<br>Démontrer par récurrence que, pour tout entier naturel $n$, &nbsp; $${u0} \\leqslant u_n \\leqslant u_{n+1} \\leqslant ${l.texFractionSimplifiee}$.`
+          texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,${sp()};${sp()};$u_{n+1} = ${a.texFraction}u_n + ${b}$. `
+          texte += `<br>Démontrer par récurrence que, pour tout entier naturel $n$, ${sp()}; $${u0} \\leqslant u_n \\leqslant u_{n+1} \\leqslant ${l.texFractionSimplifiee}$.`
 
           texteCorr = `${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
           texteCorr += `<br><br>$u_0 = ${u0}$ et $u_1 = ${a.texFraction} \\times u_0 + ${b} = ${a.multiplieEntier(u0).ajouteEntier(b).texFractionSimplifiee}$.`
@@ -99,8 +100,8 @@ export default class EtudeSuiteRecurrence extends Exercice {
           const l = a.multiplieEntier(-1).ajouteEntier(1).inverse().multiplieEntier(b)
           const u0 = randint(Math.floor(l.toNumber()) + 1, Math.floor(l.toNumber()) + 10)
 
-          texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,&nbsp;&nbsp;$u_{n+1} = ${a.texFraction}u_n + ${b}$. `
-          texte += `<br>Démontrer par récurrence que, pour tout entier naturel $n$, &nbsp; $${u0} \\geqslant u_n \\geqslant u_{n+1} \\geqslant ${l.texFractionSimplifiee}$.`
+          texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,${sp()};${sp()};$u_{n+1} = ${a.texFraction}u_n + ${b}$. `
+          texte += `<br>Démontrer par récurrence que, pour tout entier naturel $n$, ${sp()}; $${u0} \\geqslant u_n \\geqslant u_{n+1} \\geqslant ${l.texFractionSimplifiee}$.`
 
           texteCorr = `${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
           texteCorr += `<br><br>$u_0 = ${u0}$ et $u_1 = ${a.texFraction} \\times u_0 + ${b} = ${a.multiplieEntier(u0).ajouteEntier(b).texFractionSimplifiee}$.`
@@ -127,8 +128,8 @@ export default class EtudeSuiteRecurrence extends Exercice {
           const racine = (a + Math.sqrt(a ** 2 + 4 * b)) / 2
           const u0 = randint(Math.floor(racine) + 1, Math.floor(racine) + 10)
 
-          texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,&nbsp;&nbsp;$u_{n+1} = \\sqrt{${a}u_n + ${b}}$. `
-          texte += '<br>Démontrer par récurrence que, pour tout entier naturel $n$, &nbsp; $0 \\leqslant u_{n+1} \\leqslant u_{n}$.'
+          texte = `Soit $(u_n)$ la suite définie par $u_0 = ${u0}$ et pour tout $n\\in\\N$,${sp()};${sp()};$u_{n+1} = \\sqrt{${a}u_n + ${b}}$. `
+          texte += `<br>Démontrer par récurrence que, pour tout entier naturel $n$, ${sp()}; $0 \\leqslant u_{n+1} \\leqslant u_{n}$.`
 
           texteCorr = `${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
           texteCorr += `<br><br>$u_0 = ${u0}$ et $u_1 =\\sqrt{${a}u_0 + ${b}} \\approx ${texNombre(Math.sqrt(a * u0 + b), 2)}$.`
@@ -151,7 +152,6 @@ export default class EtudeSuiteRecurrence extends Exercice {
     }
 
     if (!context.isHtml) {
-      texte = texte.replaceAll('&nbsp;', ' ')
       texteCorr = texteCorr.replaceAll('forestgreen', 'black')
     }
     this.listeQuestions.push(texte)

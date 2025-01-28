@@ -41,7 +41,7 @@ export default class ExpressionsLogX extends Exercice {
     else this.version = 'log'
     const logString = this.version !== 'ln' ? '\\log' : '\\ln'
     const pluriel = this.nbQuestions > 1 ? 's' : ''
-    this.consigne = `Soit $x\\gt 0$,exprimer le${pluriel} nombre${pluriel} suivant${pluriel} en fonction de $${logString} x$.`
+    this.consigne = `Soit $x > 0$,exprimer le${pluriel} nombre${pluriel} suivant${pluriel} en fonction de $${logString} x$.`
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const [expA, expB, expC] = combinaisonListes(listeExposants, 3)

@@ -43,9 +43,11 @@ export default class Can2025CE2Q6 extends ExerciceCan {
       b = nb * a
     }
     this.reponse = Math.round(b / a)
-    this.question = `${premiereLettreEnMajuscule(objet.sing)} coûte $${a}$ €. ${quidam} a $${b}$ €.<br>
+    this.question = `${premiereLettreEnMajuscule(objet.sing)} coûte $${a}$ €. <br>
+    ${quidam} a $${b}$ €.<br>
     Combien de ${objet.plur} peut-${sexe === 'M' ? 'il' : 'elle'} acheter ?`
-    this.correction = `${quidam} peut acheter : $${b}\\div ${a}=${miseEnEvidence(Math.round(b / a))}$ ${objet.plur}.`
+    this.correction = ` $${b}\\div ${a}=${Math.round(b / a)}$.<br>
+    ${quidam} peut acheter $${miseEnEvidence(Math.round(b / a))}$ ${objet.plur}.`
     this.canEnonce = this.question
   }
 

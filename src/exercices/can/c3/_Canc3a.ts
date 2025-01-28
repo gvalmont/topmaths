@@ -33,7 +33,6 @@ export default class ClasseCan2023 {
    * @param {number} minFacteur1 min pour le second facteur
    * @param {number} maxFacteur1 max pour le second facteur
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   produitDeDeuxFacteurs (minFacteur0: number, maxFacteur0: number, minFacteur1: number, maxFacteur1: number) {
@@ -57,7 +56,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour ajouter une dizaine moins un
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   ajouterDizaineMoinsUn () {
@@ -84,7 +82,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour dénombrer les éléments d'un rectangle
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   denombrementProduit () {
@@ -114,7 +111,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour calucler la moitié ou le double
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   moitieDouble () {
@@ -145,7 +141,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour la lecture d'abscisse entière
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   lectureAbscisseEntiere () {
     const sortie = {
@@ -215,7 +210,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour déterminer deux facteurs d'un produit donné
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   trouverLesFacteursDUnProduit () {
@@ -281,7 +275,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour ajouter des durées
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   sommeDeDurees () {
@@ -326,7 +319,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour un calcul de partage
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   partages () {
@@ -371,7 +363,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour un ordre de grandeur
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   ordreDeGrandeur () {
@@ -414,7 +405,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour écrire un nombre en chiffres
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   ecrireUnNombreEnChiffres () {
@@ -466,7 +456,6 @@ export default class ClasseCan2023 {
    * Méthode pour de plus de moins
    * @param {string} type pour le type de problème
    * @returns {object}
-   * @author Sébastien LOZANO
    */
 
   dePlusDeMoins (type: 'billes' | 'ages') {
@@ -514,8 +503,7 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour demander l'écriture d'un produit d'un entier par un nombre entier de dixièmes/centièmes
   * @returns {object}
-  * @author Sébastien LOZANO
-  */
+ */
   ecritureDecimaleProduitEntierParDixiemesOuCentiemes () {
     const sortie = {
       texte: '',
@@ -548,7 +536,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour la lecture d'abscisse entière
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   lectureAbscisseEntiereOrigineZero () {
     const sortie = {
@@ -603,7 +590,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour déterminer un terme décimal inconnu
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   trouverUnTermeDecimalInconnu () {
     const sortie = {
@@ -629,7 +615,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour décomposer un nombre à 3 chiffres en ... dizaines et ... unités
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   decomposerUnNombreATroisChiffresEnDizainesUnites () {
     const sortie:{
@@ -660,7 +645,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour déterminer une fraction à partir d'une figure
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   determinerUneFractionAPartirDUneFigure () {
     const sortie = {
@@ -693,7 +677,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour déterminer un quotient
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   determinerUnQuotient () {
     const sortie = {
@@ -718,7 +701,6 @@ export default class ClasseCan2023 {
    * Méthode pour un calcul de proportionnalité par addition
    * @param {string} type type d'énoncé
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   proportionnaliteParAddition (type: 'pieces' | 'cahiers') {
     const sortie = {
@@ -760,7 +742,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour déterminer une longueur en unité de longueur donnée
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   determinerUnNombreDUnitesDeLongueur () {
     const sortie = {
@@ -880,7 +861,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour multiplier par 5
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   multiplierParCinq () {
     const sortie = {
@@ -904,7 +884,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour choisir une vitesse commune
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   vitesseCommune () {
     const sortie = {
@@ -928,7 +907,6 @@ export default class ClasseCan2023 {
    * @param {string} type premiere ou seconde question
    * @param {object} vitesseCommune éléments communs à deux questions liées
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   proportionnaliteEtVitesse (type: 'premiere' | 'seconde', vitesseCommune: { diviseurDeLHeure: number, vitesse: number, nombreDeMinutes: number }) {
     const sortie = {
@@ -965,7 +943,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour travailler la question clef de la division
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   dansNCombienDeFoisP () {
     const sortie = {
@@ -990,7 +967,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour décomposer un nombre à 3 chiffres en ... dizaines et ... unités
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   determinerUnNombreDeDizainesDansUnEntierATroisChiffres () {
     const sortie = {
@@ -1018,7 +994,6 @@ export default class ClasseCan2023 {
    * Méthode pour tracer une figure d'aire donnée en fonction d'une unité d'aire
    * @param {string} niveau Pour pouvoir être utilisé en 6e et en cm2
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   tracerUneFigureAireDonneeEnFonctionUniteAire (niveau: 'cm2' | '6e') {
     const sortie = {
@@ -1104,7 +1079,6 @@ export default class ClasseCan2023 {
   /**
    * Méthode pour déterminer le nombre de dixièmes dans un décimal
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   nombreDeDixiemesDansUnDecimal () {
     const sortie = {
@@ -1134,7 +1108,6 @@ export default class ClasseCan2023 {
    * Méthode pour déterminer le prix d'un diviseur d'une quantité donnée
    * @param {string} type pour le type d'énoncé
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   proportionnaliteEtDiviseur (type:'stylos' | 'cahiers') {
     const sortie = {
@@ -1173,7 +1146,6 @@ Combien coûtent $2$ cahiers ?`
    * Méthode pour trouver une dimension agrandie ou réduite
    * @param {string} type pour le type d'énoncé
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   trouverUneDimensionAgrandieOuReduite (type:'agrandissement' | 'reduction') {
     const sortie = {
@@ -1267,7 +1239,6 @@ Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}$ cm.
   /**
    * Méthode pour ajouter deux décimaux
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   ajouterDeuxDecimaux () {
     const sortie = {
@@ -1292,7 +1263,6 @@ Elle est donc égale à $${l}\\div 2=${miseEnEvidence(sortie.reponse)}$ cm.
    * Méthode pour déterminer un nombre de combinaisons différentes
    * @param {string} type type entrée/plat, entrée/plat/dessert
    * @returns {object}
-   * @author Sébastien LOZANO
    */
   nombreDeCombinaisons (type: 'platDessert' | 'entreePlatDessert') {
     const sortie = {

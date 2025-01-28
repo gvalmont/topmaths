@@ -49,47 +49,6 @@ async function load (name) {
 }
 
 /**
- * Attend que xcas soit chargé (max 60s), car giacsimple lance le chargement du wasm|js suivant les cas
- * Plus de xcas
- */
-// function waitForGiac () {
-/* global Module */
-/*
-  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') {
-    return Promise.reject(
-      Error('Le loader giac n’a pas été correctement appelé')
-    )
-  }
-  const timeout = 60 // en s
-  const tsStart = Date.now()
-  return new Promise((resolve, reject) => {
-    const monInterval = setInterval(() => {
-      const delay = Math.round((Date.now() - tsStart) / 1000)
-      if (Module.ready === true) {
-        clearInterval(monInterval)
-        resolve()
-      } else if (delay > timeout) {
-        clearInterval(monInterval)
-        reject(
-          UserFriendlyError(`xcas n’est toujours pas chargé après ${delay}s`)
-        )
-      }
-    }, 500)
-  })
-}
-*/
-/**
- * Charge giac
- */
-/* export async function loadGiac () {
-  await load('giac')
-  // attention, le load précédent résoud la promesse lorsque giacsimple est chargé,
-  // mais lui va charger le webAssembly ou js ensuite, d'où le besoin de waitForGiac
-  await waitForGiac()
-}
-  */
-
-/**
  * Charge une animation iep dans un élément
  * @param {HTMLElement} elt
  * @param {string} xml Le script xml de l'animation ou son url absolue
@@ -182,9 +141,14 @@ export async function loadMathLive (divExercice) {
         if (mf.getAttribute('data-space') === 'true') {
           mf.mathModeSpace = '\\,'
         }
-        if ('mathVirtualKeyboardPolicy' in mf) mf.mathVirtualKeyboardPolicy = 'manual'
-        if ('menuItems' in mf) mf.menuItems = []
-        if ('virtualKeyboardMode' in mf) mf.virtualKeyboardMode = 'manual'
+
+        if (mf.isConnected) {
+          // mf is already in the DOM. You can check if it's ready by accessing a property.
+          setMathfield(mf)
+        } else {
+          // Add a listener for the `mount` event in case it's not mounted yet.
+          mf.addEventListener('mount', setMathfield, { once: true })
+        }
       }
     }
     // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
@@ -240,4 +204,11 @@ function handleFocusOutMathField () {
       })
     }
   }, 200)
+}
+
+function setMathfield (mf) {
+  if ('mathVirtualKeyboardPolicy' in mf) mf.mathVirtualKeyboardPolicy = 'manual'
+  if ('menuItems' in mf) mf.menuItems = []
+  if ('virtualKeyboardMode' in mf) mf.virtualKeyboardMode = 'manual'
+  mf.removeEventListener('mount', setMathfield)
 }

@@ -46,6 +46,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
         case 1://
           {
             this.formatInteractif = 'qcm'
+            reponse = 'Vrai ou Faux'
             a = randint(3, 9)
             b = randint(0, 1)
             texte = `Un carré de côté $${a}$ cm a le même périmètre qu'un rectangle de largeur $${a - b}$ cm et de longueur $${a + 1}$ cm ?`
@@ -57,7 +58,6 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
 
             this.autoCorrection[i] = {
               enonce: texte,
-              options: { horizontal: true },
               propositions: [
                 {
                   texte: 'VRAI',
@@ -148,6 +148,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           break
         case 6:// agrandissement/réduction
+          a = 0
           N = choice(['a', 'b', 'c'])
           if (N === 'a') {
             a = randint(2, 7)// aire
@@ -207,6 +208,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           }
           break
         case 7:// longueur à trouver à partir d'une aire triangle rectangle
+        default:
           a = randint(2, 10)//
           b = randint(1, 5) * a
           A = point(0, 0, 'A', 'below')
@@ -235,7 +237,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, reponse)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

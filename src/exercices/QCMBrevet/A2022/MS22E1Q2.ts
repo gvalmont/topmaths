@@ -35,7 +35,7 @@ export default class MetropoleSep22Ex1Q2 extends ExerciceQcmA {
       `$${fracReduite3}$`
     ]
     this.enonce = `La fraction irréductible égale à $${fracDepart.texFraction}$ est :`
-    this.correction = ` $${fracDepart.texSimplificationAvecEtapes(true, orangeMathalea)}`
+    this.correction = ` $${fracDepart.texSimplificationAvecEtapes(true, orangeMathalea)}$`
   }
 
   versionOriginale: () => void = () => {

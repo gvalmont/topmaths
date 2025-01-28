@@ -15,9 +15,9 @@ export default mergeConfig(viteConfig, defineConfig({
   test: {
     include: ['./tests/console_errors/*.test.{js,ts}'],
     exclude: ['./tests/pdfexports/pdfexport.moule.test.ts'],
-    // on veut laisser le navigateur ouvert sur un plantage (10min)
-    hookTimeout: 100_000,
-    testTimeout: 100_000,
+    // on veut laisser le navigateur ouvert sur un plantage (3min)
+    hookTimeout: 120_000,
+    testTimeout: 1000_000,
     // describe.sequential() ne fonctionne que dans un describe.concurrent()
     // cf https://vitest.dev/api/#describe-sequential
     // pour lancer tous les tests en séquentiel, il faut préciser singleThread ou singleFork
@@ -31,8 +31,10 @@ export default mergeConfig(viteConfig, defineConfig({
     // et si un test s'arrête dans l'une les autres continuent de tourner rendant impossible
     // l'inspection du pb)
     // on le laisse et tant pis pour le wrap des tests dans webstorm
-    reporters: ['html', 'default'],
+    reporters: ['html', 'junit', 'json', 'default'],
     outputFile: {
+      junit: './logs/junit-report.xml',
+      json: './logs/json-report.json',
       html: './logs/testconsole.html'
     },
     poolOptions: {

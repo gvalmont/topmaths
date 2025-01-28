@@ -183,7 +183,8 @@ export default class BetaReperage2e extends Exercice {
           exercice: this,
           question: i * this.sup3 + k,
           typeInteractivite: 'remplisLesBlancs',
-          objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
+          // objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, champ2: { value: y[i][k].texFractionSimplifiee, options: { resultatSeulementEtNonOperation: true } }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
+          objetReponse: { champ1: { value: x[i][k].texFractionSimplifiee }, champ2: { value: y[i][k].texFractionSimplifiee }, bareme: (listePoints: number[]) => [Math.min(...listePoints), 1] },
           content: '(%{champ1}~~;~~%{champ2})'
         })}`).join('<br>')
       } else {

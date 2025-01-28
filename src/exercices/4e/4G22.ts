@@ -11,7 +11,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import Figure from 'apigeom'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
-export const dateDeModifImportante = '26/08/2024' // Ajout de l'interactivité par EE
+export const dateDeModifImportante = '26/01/2025'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
@@ -209,8 +209,8 @@ export default class ProblemesPythagore extends Exercice {
           texte += `Calculer $${B + C}$.`
           texte += this.interactif ? (sp(20) + `$${B + C} = $` + ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cm' })) : ''
           handleAnswers(this, i, { reponse: { value: b } })
-          texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits.`
-          texteCorr += RedactionPythagore(B, A, C, 2, b, a, c)[0]
+          texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits. `
+          texteCorr += RedactionPythagore(B, C, A, 2, b, a, c)[0]
           break
 
         case 'rectangle_diagonale_a_trouver':
@@ -219,7 +219,7 @@ export default class ProblemesPythagore extends Exercice {
           texte += `Calculer $${A + C}$.`
           texte += this.interactif ? (sp(20) + `$${A + C} = $` + ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' cm' })) : ''
           handleAnswers(this, i, { reponse: { value: c } })
-          texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits `
+          texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits. `
           texteCorr += RedactionPythagore(B, A, C, 1, b, a, c)[0]
           break
 

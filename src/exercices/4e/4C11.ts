@@ -87,7 +87,14 @@ export default class PrioritesEtRelatifs extends Exercice {
       listeQuestionsDisponibles,
       this.nbQuestions
     )
-    for (let i = 0, texte, texteCorr, a, b, c, d, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a:number
+      let b:number
+      let c:number
+      let d:number
+
       switch (listeTypeDeQuestions[i]) {
         case 1: // a+b*c
           a = randint(2, 11) * choice([-1, 1])
@@ -279,11 +286,11 @@ export default class PrioritesEtRelatifs extends Exercice {
         case 13: // (a+b)/c
           c = randint(2, 11) * choice([-1, 1])
           b = randint(11, 39) * choice([-1, 1])
-          a = c * randint(2, 9) * [choice([-1, 1])] - b
+          a = c * randint(2, 9) * choice([-1, 1]) - b
           while (a > 0 && b > 0 && c > 0) {
             c = randint(2, 11) * choice([-1, 1])
             b = randint(11, 39) * choice([-1, 1])
-            a = c * randint(2, 9) * [choice([-1, 1])] - b
+            a = c * randint(2, 9) * choice([-1, 1]) - b
           }
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}${ecritureAlgebrique(b)})\\div${ecritureParentheseSiNegatif(c)}=$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${miseEnEvidence(a + ecritureAlgebrique(b))})\\div${ecritureParentheseSiNegatif(c)}=${a + b
@@ -347,27 +354,25 @@ export default class PrioritesEtRelatifs extends Exercice {
                     )})=${a}\\times${ecritureParentheseSiNegatif(b / c + d)}=${a * (b / c + d)}$`
           setReponse(this, i, a * (b / c + d))
           break
-        case 18: // a*b/(c+d)
+        case 18:{ // a*b/(c+d)
           a = randint(2, 11)
           b = randint(2, 11)
           while (listeDesDiviseurs(a * b).length < 5) {
             a = randint(2, 11)
             b = randint(2, 11)
           }
-          // eslint-disable-next-line no-case-declarations
           const liste = listeDesDiviseurs(a * b)
           if (liste.length > 2) {
             liste.pop() // on supprime le plus grand diviseur qui est le produit
             enleveElement(liste, a) // on supprime a
             enleveElement(liste, b) // on supprime b
           }
-          // eslint-disable-next-line no-case-declarations
           const somme = choice(liste, [1]) * choice([-1, 1]) // la somme doit être un diviseur différent de 1
           c = randint(-30, 30, [0])
           d = somme - c
-
-          // eslint-disable-next-line no-unmodified-loop-condition
           while (a > 0 && b > 0 && c > 0 && d > 0) {
+            c = randint(-30, 30, [0])
+            d = somme - c
             a *= choice([-1, 1])
             b *= choice([-1, 1])
           }
@@ -376,6 +381,7 @@ export default class PrioritesEtRelatifs extends Exercice {
                         c + ecritureAlgebrique(d))})=${miseEnEvidence(a + '\\times' + ecritureParentheseSiNegatif(b))}\\div${ecritureParentheseSiNegatif(c + d)}=${a * b
                     }\\div${ecritureParentheseSiNegatif(c + d)}=${(a * b) / (c + d)}$`
           setReponse(this, i, (a * b) / (c + d))
+        }
           break
         case 19: // a-(b+c)
           a = randint(1, 9) * choice([-1, 1])
@@ -391,6 +397,7 @@ export default class PrioritesEtRelatifs extends Exercice {
           setReponse(this, i, a - b - c)
           break
         case 20: // (a+b+c)*d
+        default:
           a = randint(1, 9) * choice([-1, 1])
           b = randint(1, 9) * choice([-1, 1])
           c = randint(1, 9) * choice([-1, 1])
@@ -419,7 +426,7 @@ export default class PrioritesEtRelatifs extends Exercice {
           texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
         })
       }
-      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c, d)) {
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

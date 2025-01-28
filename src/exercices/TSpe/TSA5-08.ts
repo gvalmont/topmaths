@@ -3,7 +3,7 @@ import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -70,26 +70,26 @@ export default class ExerciceCalculsAvecLog extends Exercice {
       texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)}\\log(${texNombre(10 ** n)}) ${operation} ${rienSi1(c)}\\log(${texNombre(10 ** m)})$`
       texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)}\\log(10^{${n}}) ${operation} ${rienSi1(c)}\\log(10^{${m}})$`
       if (a === 1 && c !== 1) {
-        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} =  ${n} ${operation} ${rienSi1(c)}\\times ${ecritureParentheseSiNegatif(m)}$&nbsp; car, pour tout réel $x$, log$(10^x)=x.$`
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} =  ${n} ${operation} ${rienSi1(c)}\\times ${ecritureParentheseSiNegatif(m)}$${sp()}; car, pour tout réel $x$, log$(10^x)=x.$`
         texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} =  ${n} ${operation} ${ecritureParentheseSiNegatif(c * m)} $ `
       } else if (a === 1 && c === 1) {
-        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} =  ${n} ${operation} ${ecritureParentheseSiNegatif(m)}$&nbsp; car, pour tout réel $x$, log$(10^x)=x.$`
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} =  ${n} ${operation} ${ecritureParentheseSiNegatif(m)}$${sp()}; car, pour tout réel $x$, log$(10^x)=x.$`
       } else if (a === -1 && c !== 1) {
-        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)} ${ecritureParentheseSiNegatif(n)} ${operation} ${rienSi1(c)}\\times ${ecritureParentheseSiNegatif(m)}$&nbsp; car, pour tout réel $x$, log$(10^x)=x.$`
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)} ${ecritureParentheseSiNegatif(n)} ${operation} ${rienSi1(c)}\\times ${ecritureParentheseSiNegatif(m)}$${sp()}; car, pour tout réel $x$, log$(10^x)=x.$`
         texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)} ${ecritureParentheseSiNegatif(n)} ${operation} ${ecritureParentheseSiNegatif(c * m)}$ `
         if (operation === '-' && c * m < 0) {
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)} ${ecritureParentheseSiNegatif(n)} + ${Math.abs(c * m)}$`
         }
       } else if (a === -1 && c === 1) {
-        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)} ${ecritureParentheseSiNegatif(n)} ${operation} ${ecritureParentheseSiNegatif(m)}$&nbsp; car, pour tout réel $x$, log$(10^x)=x.$`
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)} ${ecritureParentheseSiNegatif(n)} ${operation} ${ecritureParentheseSiNegatif(m)}$${sp()}; car, pour tout réel $x$, log$(10^x)=x.$`
       } else if (a !== 1 && c === 1) {
-        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${a} \\times ${ecritureParentheseSiNegatif(n)} ${operation} ${ecritureParentheseSiNegatif(m)}$&nbsp; car, pour tout réel $x$, log$(10^x)=x.$`
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${a} \\times ${ecritureParentheseSiNegatif(n)} ${operation} ${ecritureParentheseSiNegatif(m)}$${sp()}; car, pour tout réel $x$, log$(10^x)=x.$`
         texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${a * n} ${operation} ${ecritureParentheseSiNegatif(m)}$ `
         if (operation === '-' && c * m < 0) {
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${a * n} + ${Math.abs(c * m)}$ `
         }
       } else {
-        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)} \\times ${ecritureParentheseSiNegatif(n)} ${operation} ${rienSi1(c)}\\times ${ecritureParentheseSiNegatif(m)}$&nbsp; car, pour tout réel $x$, log$(10^x)=x.$`
+        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${rienSi1(a)} \\times ${ecritureParentheseSiNegatif(n)} ${operation} ${rienSi1(c)}\\times ${ecritureParentheseSiNegatif(m)}$${sp()}; car, pour tout réel $x$, log$(10^x)=x.$`
         texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${a * n} ${operation} ${ecritureParentheseSiNegatif(c * m)}$ `
         if (operation === '-' && c * m < 0) {
           texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${a * n} + ${Math.abs(c * m)}$ `
@@ -98,7 +98,6 @@ export default class ExerciceCalculsAvecLog extends Exercice {
       texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(answer)}$`
 
       if (this.interactif) {
-        // @ts-expect-error problème typage
         handleAnswers(this, i, { reponse: { value: answer } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)

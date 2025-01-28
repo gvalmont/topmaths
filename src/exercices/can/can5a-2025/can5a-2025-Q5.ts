@@ -32,6 +32,7 @@ export default class Can2025N5Q5 extends ExerciceCan {
       absB = randint(1, nbPas - 1) * pas + min
     }
     const nbSauts = Math.round((absB - min) / pas)
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = absB
     const d = droiteGraduee({
       Min: 0,
@@ -47,7 +48,7 @@ export default class Can2025N5Q5 extends ExerciceCan {
     Le point $B$ est repéré par le nombre`
     this.correction = `Pour trouver l'abscisse du point $B$, on commence par calculer la différence entre $${max}$ et $${min}$ : $${max}-${min}=${max - min}$.<br>
     Puis on divise par le nombre de parties pour avoir la valeur d'une graduation, le pas : $${max - min}\\div${nbPas}=${pas}$.<br>
-    Enfin, on ajoute à $${min}$, $${nbSauts}$ fois le pas : $${min}+${nbSauts > 1 ? `${nbSauts}\\times ${pas}` : `${pas}`} =${miseEnEvidence(texNombre(absB, 0))}$`
+    À $${min}$, on ajoute  $${nbSauts}$ fois le pas : $${min}+${nbSauts > 1 ? `${nbSauts}\\times ${pas}` : `${pas}`} =${miseEnEvidence(texNombre(absB, 0))}$.`
     this.canEnonce = `${mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(d.objets!)), d.objets!)}`
     this.canReponseACompleter = 'Le point $B$ est repéré par le nombre $\\ldots$'
     this.optionsChampTexte = { texteApres: '.' }

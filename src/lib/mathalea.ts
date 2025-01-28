@@ -17,7 +17,7 @@ import renderScratch from './renderScratch'
 import { decrypt, isCrypted } from './components/urls'
 import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
-import { handleAnswers, setReponse, type MathaleaSVG } from './interactif/gestionInteractif'
+import { handleAnswers, setReponse, type MathaleaSVG, type Valeur } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
 import { fonctionComparaison } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
@@ -661,47 +661,51 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
-      if (compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
-        let reponse = {}
-        if (typeof exercice.reponse !== 'string' && typeof exercice.reponse !== 'number') {
-          if (exercice.reponse instanceof FractionEtendue) {
-            reponse = { reponse: { value: exercice.reponse.texFraction, compare, options } }
-          } else if (exercice.reponse instanceof Decimal) {
-            reponse = { reponse: { value: exercice.reponse.toString(), compare, options } }
-          } else if (exercice.reponse instanceof Grandeur) {
-            reponse = { reponse: { value: exercice.reponse, compare, options } }
-          } else if (typeof exercice.reponse === 'object') { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
-            reponse = exercice.reponse
-          } else if (Array.isArray(exercice.reponse)) {
-            reponse = { reponse: { value: exercice.reponse[0] } }
+      if (exercice.reponse != null) {
+        if (compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
+          let reponse = {}
+          if (typeof exercice.reponse !== 'string' && typeof exercice.reponse !== 'number') {
+            if (exercice.reponse instanceof FractionEtendue) {
+              reponse = { reponse: { value: exercice.reponse.texFraction, compare, options } }
+            } else if (exercice.reponse instanceof Decimal) {
+              reponse = { reponse: { value: exercice.reponse.toString(), compare, options } }
+            } else if (exercice.reponse instanceof Grandeur) {
+              reponse = { reponse: { value: exercice.reponse, compare, options } }
+            } else if (typeof exercice.reponse === 'object') { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
+              reponse = exercice.reponse
+            } else if (Array.isArray(exercice.reponse)) {
+              reponse = { reponse: { value: exercice.reponse[0] } }
+            } else {
+              window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
+              reponse = { reponse: { value: String(exercice.reponse), compare, options } }
+            }
           } else {
-            window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
-            reponse = { reponse: { value: String(exercice.reponse), compare, options } }
+            reponse = { reponse: { value: typeof exercice.reponse === 'number' ? String(exercice.reponse) : exercice.reponse, compare, options } }
           }
+          handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
+        } else if (exercice.reponse instanceof Object && exercice.reponse.reponse != null && exercice.reponse.reponse.value != null && typeof exercice.reponse.reponse.value === 'string') {
+          handleAnswers(exercice, i, exercice.reponse)
         } else {
-          reponse = { reponse: { value: typeof exercice.reponse === 'number' ? String(exercice.reponse) : exercice.reponse, compare, options } }
+          setReponse(exercice, i, String(exercice.reponse), { formatInteractif: exercice.formatInteractif ?? 'calcul' })
         }
-        handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
-      } else if (exercice.reponse instanceof Object && exercice.reponse.reponse != null && exercice.reponse.reponse.value != null && typeof exercice.reponse.reponse.value === 'string') {
-        handleAnswers(exercice, i, exercice.reponse)
       } else {
-        setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
+        if (exercice.formatInteractif !== 'qcm') window.notify('Un exercice simple doit avoir un this.reponse sauf si c\'est un qcm', { exercice: JSON.stringify(exercice) })
       }
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(
-            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte, exercice.optionsChampTexte || {})
+            exercice.question + ajouteChampTexteMathLive(exercice, i, String(exercice.formatChampTexte), exercice.optionsChampTexte || {})
           )
         } else {
           exercice.listeQuestions.push(exercice.question || '')
         }
       } else {
         // La question doit contenir une unique variable %{champ1} On est en fillInTheBlank
-        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte, '\\ldots'))
+        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, String(exercice.question), 'fillInTheBlank ' + exercice.formatChampTexte, '\\ldots'))
         if (typeof exercice.reponse === 'object' && 'champ1' in exercice.reponse) {
-          handleAnswers(exercice, i, exercice.reponse, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(exercice, i, exercice.reponse as Valeur, { formatInteractif: 'fillInTheBlank' })
         } else {
-          handleAnswers(exercice, i, { champ1: { value: exercice.reponse } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(exercice, i, { champ1: { value: exercice.reponse ?? '' } }, { formatInteractif: 'fillInTheBlank' })
         }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')

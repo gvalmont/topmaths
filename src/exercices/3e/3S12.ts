@@ -53,7 +53,7 @@ export default class CalculEffectifFrequence extends Exercice {
       const nbQuadri = 3
       const lstAnimauxExo = [] // liste des animaux uniquement cités dans l'exercice
       const lstNombresAnimaux = [] // liste des effectifs de chaque animal
-      let lstVal = [] // liste des valeurs à éviter pour les effectifs
+      let lstVal: number[] = [] // liste des valeurs à éviter pour les effectifs
       let N = 0
       let nom = ''
       let texte = ''

@@ -229,7 +229,7 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
           }],
           bottomBar: [{
             length: 8,
-            color: 'grey',
+            color: 'gray',
             content: '?'
           }]
          }).display()}<br><br>`
@@ -263,7 +263,7 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
           }],
           bottomBar: [{
             length: 14,
-            color: 'grey',
+            color: 'gray',
             content: `$${masseTotale * 1000}$`
           }]
          }).display()}<br><br>`

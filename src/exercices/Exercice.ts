@@ -1,10 +1,13 @@
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
-import type { AutoCorrection, clickFigures } from '../lib/interactif/gestionInteractif'
+import type { AutoCorrection, clickFigures, Valeur } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
 import { KeyboardType, type PartialKbType } from '../lib/interactif/claviers/keyboard'
+import type FractionEtendue from '../modules/FractionEtendue'
+import type Decimal from 'decimal.js'
+import type Hms from '../modules/Hms'
 
 /**
  *
@@ -36,7 +39,7 @@ export default class Exercice {
   listeCanReponsesACompleter: string[] = []
   listeCanEnonces: string[] = []
   question?: string // Seulement pour les exercices de type simple
-  reponse?: string | number | object// Seulement pour les exercices de type simple
+  reponse?: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[] | Valeur// Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple

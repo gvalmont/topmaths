@@ -12,7 +12,7 @@ import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
 import { clone } from 'mathjs'
@@ -264,13 +264,13 @@ export default class VocabulaireDuCercle extends Exercice {
         texte += numAlpha(j)
         texteCorr += numAlpha(j)
         if (question.sens === 'Un rayon est ...') {
-          enonce = `${premiereLettreEnMajuscule(question.nature)} du cercle est ` + (this.interactif ? ajouteChampTexteMathLive(this, i * questions.length + j, KeyboardType.alphanumericAvecEspace) : '...')
+          enonce = `${premiereLettreEnMajuscule(question.nature)} du cercle est ` + ((this.interactif && !this.sup2) ? ajouteChampTexte(this, i * questions.length + j, KeyboardType.alphanumericAvecEspace) : '...')
           texte += `${enonce}.`
           texteCorr += `${premiereLettreEnMajuscule(question.nature)} du cercle est ${texteEnCouleurEtGras(question.nom)}.<br>`
           if (question.nature === 'une corde') texteCorr += `${texteEnCouleurEtGras(nomDiametre)} étant un diamètre, c'est aussi une corde.<br>`
         }
         if (question.sens === '[AB] est ...') {
-          enonce = `${question.nom} est ` + (this.interactif ? ajouteChampTexteMathLive(this, i * questions.length + j, KeyboardType.alphanumericAvecEspace) : '...')
+          enonce = `${question.nom} est ` + ((this.interactif && !this.sup2) ? ajouteChampTexte(this, i * questions.length + j, KeyboardType.alphanumericAvecEspace) : '...')
           texte += `${enonce} du cercle.`
           texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}${question.nom === nomDiametre ? ' et aussi ' + texteEnCouleurEtGras('une corde') : ''} du cercle.<br>`
         }
@@ -346,6 +346,12 @@ export default class VocabulaireDuCercle extends Exercice {
 
           if (question.sens === '[AB] est ...') {
             reponses = [question.nature]
+            if (question.nature === 'un diamètre') {
+              reponses.push('un diametre') // Réponse provisoire (à supprimer)
+              reponses.push('une corde')
+            } else if (question.nature === 'le diamètre') {
+              reponses.push('le diametre') // Réponse provisoire (à supprimer)
+            }
           }
 
           handleAnswers(this, i * questions.length + j, { reponse: { value: reponses, options: { texteSansCasse: true } } })

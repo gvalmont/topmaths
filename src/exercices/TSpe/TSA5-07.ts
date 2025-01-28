@@ -5,6 +5,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Résolution d\'équations du type $x^a = b$'
 export const dateDePublication = '28/08/2024'
@@ -112,7 +113,7 @@ export default class EquationsLog extends Exercice {
         typeLog = '$ln$'
       }
 
-      const justification1 = `pour tout réel $a$ strictement positif et pour tout entier $n$, &nbsp $${typeLog}\\left(a^n\\right)=n \\times ${typeLog}\\left(a\\right)$`
+      const justification1 = `pour tout réel $a$ strictement positif et pour tout entier $n$, ${sp()} $${typeLog}\\left(a^n\\right)=n \\times ${typeLog}\\left(a\\right)$`
       texte = `$x^${a} = ${b}$`
 
       // Définition de answer
@@ -130,28 +131,28 @@ export default class EquationsLog extends Exercice {
           if (a === 2) {
             texteCorr += `<br> Ainsi, $x^${a} = ${b} \\iff x=- \\sqrt{${b}}$ ou $x=\\sqrt{${b}}$`
           } else {
-            texteCorr += `<br> Ainsi, &nbsp $x^${a} = ${b} \\iff x=-${racinenieme}$ ou $x= ${racinenieme}$`
+            texteCorr += `<br> Ainsi, ${sp()} $x^${a} = ${b} \\iff x=-${racinenieme}$ ou $x= ${racinenieme}$`
           }
-          texteCorr += result1 == null ? '' : `<br> Or, &nbsp $-${racinenieme} = - ${strResult1} $ et $ ${racinenieme}= ${strResult1} $`
-          texteCorr += `<br> D'où, &nbsp $S=${reponse}$`
+          texteCorr += result1 == null ? '' : `<br> Or, ${sp()} $-${racinenieme} = - ${strResult1} $ et $ ${racinenieme}= ${strResult1} $`
+          texteCorr += `<br> D'où, ${sp()} $S=${reponse}$`
         } else {
           texteCorr = 'Pour tous réels $a$ et $b$ strictement positifs, on sait que, si $a$ est impair, alors l\'équation $x^a=b$ admet une unique solution qui est $\\sqrt[a]{b}$.'
-          texteCorr += `<br> Ainsi, &nbsp $x^${a} = ${b} \\iff x=${racinenieme}$`
-          texteCorr += result1 == null ? '' : `<br> Or, &nbsp $${racinenieme} = ${strResult1}. $`
-          texteCorr += `<br> D'où, &nbsp $S=${reponse}$`
+          texteCorr += `<br> Ainsi, ${sp()} $x^${a} = ${b} \\iff x=${racinenieme}$`
+          texteCorr += result1 == null ? '' : `<br> Or, ${sp()} $${racinenieme} = ${strResult1}. $`
+          texteCorr += `<br> D'où, ${sp()} $S=${reponse}$`
         }
       } else {
-        texteCorr = `On sait que, pour tous réels $a$ et $b$ strictement positifs, $a=b$ si, et seulement si, $${typeLog}(a)=&nbsp ${typeLog}(b)$ et que ${justification1}.`
+        texteCorr = `On sait que, pour tous réels $a$ et $b$ strictement positifs, $a=b$ si, et seulement si, $${typeLog}(a)=${sp()} ${typeLog}(b)$ et que ${justification1}.`
         texteCorr += '<br>Ainsi, pour tout $x$ strictement positif, on a :'
-        texteCorr += `<br> $x^${a} = ${b} \\iff ${typeLog}(x^${a})=&nbsp ${typeLog}(${b})$`
-        texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff ${a} ${typeLog}(x) = &nbsp ${typeLog}(${b})$ `
+        texteCorr += `<br> $x^${a} = ${b} \\iff ${typeLog}(x^${a})=${sp()} ${typeLog}(${b})$`
+        texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff ${a} ${typeLog}(x) = ${sp()} ${typeLog}(${b})$ `
         texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff ${typeLog}(x) = \\dfrac{1}{${a}}${typeLog}(${b})$`
-        texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff ${typeLog}(x) = &nbsp ${typeLog}(${b}^{\\frac{1}{${a}}})$`
+        texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff ${typeLog}(x) = ${sp()} ${typeLog}(${b}^{\\frac{1}{${a}}})$`
         texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${b}^{\\frac{1}{${a}}}$`
         if (a === 2) {
-          texteCorr += result1 == null ? '' : `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$ &nbsp car &nbsp $${b}^{\\frac{1}{${a}}} = ${racinenieme} =${strResult1}$.`
+          texteCorr += result1 == null ? '' : `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$ ${sp()} car ${sp()} $${b}^{\\frac{1}{${a}}} = ${racinenieme} =${strResult1}$.`
         } else {
-          texteCorr += result1 == null ? '' : `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$ &nbsp car &nbsp $${b}^{\\frac{1}{${a}}} = ${strResult1}$.`
+          texteCorr += result1 == null ? '' : `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$ ${sp()} car ${sp()} $${b}^{\\frac{1}{${a}}} = ${strResult1}$.`
         }
         if (result1 === null && a === 2) {
           texteCorr += `<br> $\\phantom{x^${a} = ${b}} \\iff x = ${strResult1}$`
@@ -161,7 +162,7 @@ export default class EquationsLog extends Exercice {
         } else {
           texteCorr += `<br>De plus, $${a}$ est impair, donc l'équation admet une unique solution dans $\\R$ : $${strResult1}$. `
         }
-        texteCorr += `<br> D'où, &nbsp $S=${reponse}$`
+        texteCorr += `<br> D'où, ${sp()} $S=${reponse}$`
       }
 
       if (this.interactif) {

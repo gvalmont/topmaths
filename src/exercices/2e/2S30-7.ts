@@ -97,7 +97,6 @@ export default class ProbaConcret extends Exercice {
       texte = `Le personnel d’une entreprise est constitué de $${total}$ personnes qui se répartissent de
           la manière suivante :  <br>
             ${tableau}
-              <br>
                `
 
       texte += `Au cours de la fête de fin d’année, le comité d’entreprise offre un séjour à la
@@ -106,7 +105,7 @@ export default class ProbaConcret extends Exercice {
                On définit les évènements suivants : <br>
                C : « la personne choisie fait partie des cadres » ;
                F : « la personne choisie est une femme ».<br>
-               <br>${numAlpha(0)}  Calculer la probabilité de l'événement ${choix1 ? `$${EvInter[0]}$` : `: « ${EvInter[1]} »`}.<br>`
+               ${numAlpha(0)}  Calculer la probabilité de l'événement ${choix1 ? `$${EvInter[0]}$` : `: « ${EvInter[1]} »`}.<br>`
       texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBase) + '<br>'
       handleAnswers(this, index, { reponse: { value: EvInter[2] } })
       texte += `${numAlpha(1)}  Calculer la probabilité de l'événement ${choix2 ? `$${EvUnion[0]}$` : `: « ${EvUnion[7]} »`}.<br>`
