@@ -1,5 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import units from '../src/topmaths/json/built_units.json' assert { type: 'json' }
 import { spawn } from 'child_process'
 import { isStringGrade, type StringGrade } from '../src/topmaths/types/grade.js'
 import { isUnits, type UnitLessonPlan, type Unit, type UnitObjective, emptyUnitLessonPlan, emptyUnitObjective, emptyUnit } from '../src/topmaths/types/unit.js'
@@ -7,12 +8,6 @@ import { countLessonPlans } from './helpers/lesson_plans.js'
 import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { getTitle } from '../src/topmaths/services/string.js'
 import { isObjectiveReferences, type ObjectiveReference } from '../src/topmaths/types/objective.js'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-const units: Unit[] = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../src/topmaths/json/built_units.json'), 'utf-8'))
 
 const SOURCE_ROOT = './src/topmaths/typ'
 const LESSONS = 'cours'
