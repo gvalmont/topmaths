@@ -1009,7 +1009,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "6G20,s=3,n=4",
+                    "slug": "uuid=90e1a&id=6G20&n=4&d=10&s=3&s2=1-2-3-4-5-6-7&cd=1",
                     "description": ""
                   }
                 ],
@@ -1017,14 +1017,27 @@
                   {
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [
+                      "Tablettes",
                       "Carré découpé",
                       "Losange découpé",
                       "6G22_Presentation",
-                      "6G22_Poly_x1"
+                      "6G22_Poly-1_x1",
+                      "6G22_Poly-2_x4",
+                      "6G22_Poly-3_x1"
                     ],
                     "startSteps": [],
                     "segments": [
                       {
+                        "title": "Vocabulaire des polygones particuliers",
+                        "steps": [
+                          "Sonder la classe sur sa connaissance du vocabulaire des polygones particuliers",
+                          "S'ils connaissent, passer à l'étape suivante",
+                          "Sinon, lire les définitions au fur et à mesure et interroger des élèves au hasard dans les deux sens (demander comment s'appelle un triangle qui a 2 côtés de même longueur et demander c'est quoi un triangle isocèle) autant que nécessaire",
+                          "S'ils ont beaucoup de mal, Kahoot le reste de la séance : https://create.kahoot.it/share/6g22-connaitre-le-vocabulaire-des-polygones-particuliers/da8cb3ab-2ebf-4725-af11-2635f7b6e514"
+                        ]
+                      },
+                      {
+                        "title": "Différences et ressemblance entre losange, rectangle et carré",
                         "steps": [
                           "Montrer le carré et demander c’est quoi comme figure (ils devraient tous répondre un carré)",
                           "Le faire pivoter de 45°et reposer la question (certains répondront toujours un carré d’autres un losange)",
