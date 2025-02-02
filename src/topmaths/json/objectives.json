@@ -7547,6 +7547,73 @@
                     "slug": "uuid=58a64&id=3G24-2&n=3&d=10&cd=1",
                     "description": "Calculer des longueurs"
                   }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "Définition des triangles semblables",
+                        "steps": [
+                          "Dessiner deux triangles avec des codages sur chaque côté et demander s'ils sont égaux",
+                          "Rappeler la définition des triangles égaux",
+                          "Dessiner deux triangles avec des codages sur chaque andle et demander s'ils sont égaux",
+                          "Expliquer qu'ils ne sont pas forcément égaux car l'un peut être un agrandissement de l'autre",
+                          "Dessiner un exemple",
+                          "Dire qu'ils ne sont pas égaux mais sont semblables",
+                          "Pourquoi \"semblables\" ? Parce qu'ils se ressemblent",
+                          "Noter la définition des triangles semblables partie cours",
+                          "Entraînement à identifier des triangles semblables connaissant les 3 angles/codages"
+                        ]
+                      },
+                      {
+                        "title": "Somme des angles",
+                        "steps": [
+                          "Dessiner deux triangles semblables mais en ne montrant que des angles 40/60 et 80/40",
+                          "Demander s'ils sont semblables",
+                          "Révéler qu'ils le sont et de chercher comment le montrer",
+                          "Rappeler que la somme des angles dans un triangle fait 180°",
+                          "Calculer le 3e angle de chaque triangle et montrer qu'ils sont semblables",
+                          "Noter dans le cours la propriété de la somme des angles et qu'il suffit d'avoir 2 angles deux à deux de même mesure pour montrer que deux triangles sont semblables",
+                          "Entraînement sur https://topmaths.fr/?uuid=f4b7e&id=3G24-1&n=2&d=10&s=2&cd=1&v=exercise et noter deux corrections modèles partie cours (oui/non)"
+                        ]
+                      },
+                      {
+                        "title": "Somme des angles",
+                        "steps": [
+                          "Dessiner deux triangles semblables mais en ne montrant que des angles 40/60 et 80/40",
+                          "Demander s'ils sont semblables",
+                          "Révéler qu'ils le sont et de chercher comment le montrer",
+                          "Rappeler que la somme des angles dans un triangle fait 180°",
+                          "Calculer le 3e angle de chaque triangle et montrer qu'ils sont semblables",
+                          "Noter dans le cours la propriété de la somme des angles et qu'il suffit d'avoir 2 angles deux à deux de même mesure pour montrer que deux triangles sont semblables",
+                          "Entraînement sur https://topmaths.fr/?uuid=f4b7e&id=3G24-1&n=2&d=10&s=2&cd=1&v=exercise et noter une correction modèle partie cours",
+                          "Entraînement sur https://topmaths.fr/?uuid=f4b7e&id=3G24-1&n=2&d=10&s=2-4&cd=1&v=exercise"
+                        ]
+                      },
+                      {
+                        "title": "Montrer que deux triangles sont semblables à l'aide des longueurs des côtés",
+                        "steps": [
+                          "Si deux triangles sont égaux, alors ils sont identiques",
+                          "Si deux triangles sont semblables, est-ce qu'ils sont identiques eux-aussi ? Non mais ils sont ... proportionnels",
+                          "Noter dans le cours que si deux triangles sont semblables alors l’un est un agrandissement de l’autre et les longueurs de leurs côtés sont proportionnelles",
+                          "Entraînement sur https://topmaths.fr/?uuid=f4b7e&id=3G24-1&n=2&d=10&s=3&cd=1&v=exercise et noter une correction modèle partie cours"
+                        ]
+                      },
+                      {
+                        "title": "Montrer que deux triangles sont semblables à l'aide des longueurs des côtés",
+                        "steps": [
+                          "Si deux triangles sont égaux, alors ils sont identiques",
+                          "Si deux triangles sont semblables, est-ce qu'ils sont identiques eux-aussi ? Non mais ils sont ... proportionnels",
+                          "Noter dans le cours que si deux triangles sont semblables alors l’un est un agrandissement de l’autre et les longueurs de leurs côtés sont proportionnelles",
+                          "Entraînement sur https://topmaths.fr/?uuid=f4b7e&id=3G24-1&n=2&d=10&s=3&cd=1&v=exercise et noter une correction modèle partie cours"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
+                  }
                 ]
               },
               {
