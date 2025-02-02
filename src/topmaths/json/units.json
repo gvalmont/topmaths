@@ -1167,16 +1167,15 @@
         ]
       },
       {
-        "title": "Équations 2",
+        "title": "Calcul littéral 3",
         "objectives": [
           {
-            "reference": "3N23"
+            "reference": "3N20"
           },
           {
-            "reference": "3N24"
+            "reference": "3N21"
           }
-        ],
-        "assessmentExamSlug": "uuid=dnb_2024_05_ameriquenord_2&uuid=dnb_2024_07_metropole_2&uuid=dnb_2023_06_polynesie_4&uuid=dnb_2023_06_etrangers_3&uuid=dnb_2023_06_asie_3"
+        ]
       },
       {
         "title": "Proportionnalité en géométrie 3 (Théorème de Thalès)",
@@ -1214,13 +1213,10 @@
         ]
       },
       {
-        "title": "Calcul littéral 3",
+        "title": "Calcul littéral 4",
         "objectives": [
           {
-            "reference": "3N20"
-          },
-          {
-            "reference": "3N21"
+            "reference": "3N22"
           }
         ]
       },
@@ -1283,12 +1279,16 @@
         ]
       },
       {
-        "title": "Calcul littéral 4",
+        "title": "Équations 2",
         "objectives": [
           {
-            "reference": "3N22"
+            "reference": "3N23"
+          },
+          {
+            "reference": "3N24"
           }
-        ]
+        ],
+        "assessmentExamSlug": "uuid=dnb_2024_05_ameriquenord_2&uuid=dnb_2024_07_metropole_2&uuid=dnb_2023_06_polynesie_4&uuid=dnb_2023_06_etrangers_3&uuid=dnb_2023_06_asie_3"
       },
       {
         "title": "Fonctions linéaires 2",
