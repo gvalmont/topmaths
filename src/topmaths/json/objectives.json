@@ -7526,26 +7526,26 @@
                 "lessonSummaryImage": "",
                 "videos": [
                   {
-                    "title": "Cours",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=38DTCmRRvUs&vignette=https://i.ytimg.com/vi/38DTCmRRvUs/hqdefault.jpg&debut=0&fin=381&largeur=200&hauteur=113",
+                    "title": "À partir des angles",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=TAeQhd1r3QI&vignette=https://i.ytimg.com/vi/TAeQhd1r3QI/hqdefault.jpg&debut=0&fin=349&largeur=16&hauteur=9",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   },
                   {
-                    "title": "Exercice",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Z-G-9Q9Vezc&vignette=https://i.ytimg.com/vi/Z-G-9Q9Vezc/hqdefault.jpg&debut=0&fin=336&largeur=200&hauteur=113",
+                    "title": "À partir des longueurs",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=LoYKBLIrCdY&vignette=https://i.ytimg.com/vi/LoYKBLIrCdY/hqdefault.jpg&debut=0&fin=288&largeur=16&hauteur=9",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "uuid=f4b7e&id=3G24-1&n=2&d=10&s=2-3-4&cd=1",
-                    "description": "Reconnaître des triangles semblables"
+                    "slug": "uuid=f4b7e&id=3G24-1&n=1&d=10&s=2-2-2-4&cd=1",
+                    "description": "À partir des angles"
                   },
                   {
-                    "slug": "uuid=58a64&id=3G24-2&n=3&d=10&cd=1",
-                    "description": "Calculer des longueurs"
+                    "slug": "uuid=f4b7e&id=3G24-1&n=1&d=10&s=3&cd=1",
+                    "description": "À partir des longueurs"
                   }
                 ],
                 "lessonPlans": [
@@ -7716,6 +7716,41 @@
                   {
                     "slug": "uuid=6f383&id=3G13&n=3&d=10&s=12&s2=3&s3=3&s4=true",
                     "description": ""
+                  }
+                ]
+              },
+              {
+                "reference": "3G16",
+                "title": "Calculer des longueurs dans des triangles semblables",
+                "titleAcademic": "Utiliser la proportionnalité pour calculer des longueurs dans des triangles semblables",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
+                "videos": [
+                  {
+                    "title": "",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=h0tnW4JqQjQ&vignette=https://i.ytimg.com/vi/h0tnW4JqQjQ/hqdefault.jpg&debut=0&fin=532&largeur=16&hauteur=9",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercises": [
+                  {
+                    "slug": "uuid=58a64&id=3G24-2&n=1&d=10&cd=1",
+                    "description": "Calculer des longueurs"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "Définition des triangles semblables",
+                        "steps": []
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               }
