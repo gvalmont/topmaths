@@ -7607,15 +7607,6 @@
                           "Noter dans le cours que si deux triangles sont semblables alors l’un est un agrandissement de l’autre et les longueurs de leurs côtés sont proportionnelles",
                           "Entraînement sur https://topmaths.fr/?uuid=f4b7e&id=3G24-1&n=2&d=10&s=3&cd=1&v=exercise et noter une correction modèle partie cours"
                         ]
-                      },
-                      {
-                        "title": "Montrer que deux triangles sont semblables à l'aide des longueurs des côtés",
-                        "steps": [
-                          "Si deux triangles sont égaux, alors ils sont identiques",
-                          "Si deux triangles sont semblables, est-ce qu'ils sont identiques eux-aussi ? Non mais ils sont ... proportionnels",
-                          "Noter dans le cours que si deux triangles sont semblables alors l’un est un agrandissement de l’autre et les longueurs de leurs côtés sont proportionnelles",
-                          "Entraînement sur https://topmaths.fr/?uuid=f4b7e&id=3G24-1&n=2&d=10&s=3&cd=1&v=exercise et noter une correction modèle partie cours"
-                        ]
                       }
                     ],
                     "closureSteps": []
