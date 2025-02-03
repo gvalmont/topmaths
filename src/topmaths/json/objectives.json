@@ -2902,6 +2902,7 @@
               },
               {
                 "reference": "6N21",
+                "title": "Comparer, encadrer, intercaler, ranger des nombres décimaux",
                 "titleAcademic": "Comparer, ranger, encadrer, intercaler des nombres décimaux",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
@@ -2911,12 +2912,6 @@
                     "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=fr5GemewG4Q&vignette=https://i.ytimg.com/vi/fr5GemewG4Q/hqdefault.jpg&debut=0&fin=316&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
-                  },
-                  {
-                    "title": "Ranger",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=V5fOpdx53R4&vignette=https://i.ytimg.com/vi/V5fOpdx53R4/hqdefault.jpg&debut=0&fin=457&largeur=200&hauteur=113",
-                    "authorName": "jean-yves Labouche",
-                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   },
                   {
                     "title": "Encadrer",
@@ -2929,6 +2924,12 @@
                     "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=sXSS3Gmq3q4&vignette=https://i.ytimg.com/vi/sXSS3Gmq3q4/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
                     "authorName": "Yvan Monka",
                     "authorLink": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "title": "Ranger",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=V5fOpdx53R4&vignette=https://i.ytimg.com/vi/V5fOpdx53R4/hqdefault.jpg&debut=0&fin=457&largeur=200&hauteur=113",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercises": [
@@ -2943,6 +2944,10 @@
                   {
                     "slug": "6N31-4,n=4",
                     "description": "Intercaler"
+                  },
+                  {
+                    "slug": "uuid=15ece&id=6N31-7&n=1&d=10&s=3&s2=true&cd=1",
+                    "description": "Ranger"
                   }
                 ],
                 "lessonPlans": [
@@ -2954,9 +2959,22 @@
                     "startSteps": [],
                     "segments": [
                       {
+                        "title": "Comparer",
                         "steps": [
-                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N21",
+                          "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objective&ref=6N21",
                           "#link(\"https://create.kahoot.it/details/9fb1044c-1541-4336-9cd7-8fdc532df304\")[Kahoot]"
+                        ]
+                      },
+                      {
+                        "title": "Encadrer, intercaler",
+                        "steps": [
+                          "Apprentissage explicite du 2e et du 3e exercice de https://topmaths.fr/?v=objective&ref=6N21"
+                        ]
+                      },
+                      {
+                        "title": "Ranger",
+                        "steps": [
+                          "Apprentissage explicite du 4e exercice de https://topmaths.fr/?v=objective&ref=6N21"
                         ]
                       }
                     ],
