@@ -7746,8 +7746,11 @@
                     "startSteps": [],
                     "segments": [
                       {
-                        "title": "Définition des triangles semblables",
-                        "steps": []
+                        "title": "",
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?uuid=58a64&id=3G24-2&n=1&d=10&cd=1&v=exercise",
+                          "Noter une correction dans la partie cours en guise d'exemple"
+                        ]
                       }
                     ],
                     "closureSteps": []
