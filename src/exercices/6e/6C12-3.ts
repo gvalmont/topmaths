@@ -85,7 +85,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
           nb4 = randint(3, 10)
           nb5 = 10 * randint(20, 60)
           texte += `Dans une classe de ${nb1} élèves âgés de ${nb2}  à ${nb2 + 2}  ans,`
-          texte += ` un professeur distribue à chaque enfant ${nb4} livres pesant en moyenne ${nb5} g chacun.<br>`
+          texte += ` un professeur distribue à chaque enfant ${nb4} livres pesant ${nb5} g chacun.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -126,7 +126,7 @@ export default class ExerciceInformationsProblemes extends Exercice {
               ]
               break
             case 2:
-              texte += 'Quelle est la masse moyenne des livres distribués à chaque enfant ?'
+              texte += 'Quelle est la masse totale des livres distribués à chaque enfant ?'
               if (this.sup === 1) {
                 texteCorr += texteEnCouleurEtGras(nb5 + ' g')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' livres') + ' sont utiles pour la résolution du problème.<br>'

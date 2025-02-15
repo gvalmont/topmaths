@@ -26,8 +26,8 @@ export default class AnglesEtVocabulaire extends Exercice {
     super()
     this.nbQuestions = 5
     this.besoinFormulaireTexte = [
-      'Type de questions (nombre séparés par des tirets)',
-      '1 : Qcm vocabulaire\n2 : Calculer le complémentaire\n3 : Calculer le supplémentaire\n4 : Mélange'
+      'Type de questions',
+      'Nombres séparés par des tirets  :\n1 : Qcm vocabulaire\n2 : Calculer le complémentaire\n3 : Calculer le supplémentaire\n4 : Mélange'
     ]
     this.sup = '4'
   }

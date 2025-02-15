@@ -355,7 +355,6 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           bonneReponse = B
           break
         case 3:
-        default:
           bonneReponse = A
           break
       }
@@ -380,7 +379,6 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              // @ts-expect-error
               propositions: [{
                 texte: texteCorr,
                 enonce: texte + '<br>',
@@ -390,7 +388,6 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
             },
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [{
                 texte: '',
                 statut: '',

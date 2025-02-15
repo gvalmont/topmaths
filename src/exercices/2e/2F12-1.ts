@@ -46,7 +46,7 @@ export default class EquationsFonctionsRef extends Exercice {
 
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : x^2=k',
         '2 : sqrt(x)=k',
         '3 : 1/x=k',

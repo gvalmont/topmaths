@@ -29,7 +29,7 @@ export default class EtrangersJuin13Exo1Q1 extends ExerciceQcmA {
       `$${String(-s1)}$ et $${texNombre(-s2, 2)}$`,
       `$${String(s1)}$ et $${String(c - b)}$`
     ]
-    this.enonce = `Les solutions de l'équation  $(x+${String(a)})(${String(b)}x-${String(c)})$ ?`
+    this.enonce = `Les solutions de l'équation  $(x+${String(a)})(${String(b)}x-${String(c)})=0$ ?`
     this.correction = `Un produit de facteurs est nul si l'un des facteurs est nul , soit <br>
     $\\left\\{\\begin{array}{l c l}
     x+${String(a)}&=0\\\\
@@ -44,22 +44,6 @@ export default class EtrangersJuin13Exo1Q1 extends ExerciceQcmA {
       \\text{ou}&\\\\
        x&=${texNombre(s2, 2)}\\\\
         \\end{array}\\right.$.<br>`
-
-    /* 'Un produit est nul quand l\'un de ses facteurs est nul.<br>'
-    const contenuColonne1 = `Donc, soit $~\\begin{alignedat}{2}
-    &x+${String(a)}&=0\\\\
-    &x&=-${String(a)}\\\\
-    &x&=${String(s1)}\\\\
-    \\end{alignedat}$
-    `
-    const contenuColonne2 = `, soit $~\\begin{alignedat}{2}
-    ${String(b)}&x-${String(c)}&=0\\\\
-    ${String(b)}&x&=${String(c)}\\\\
-    &x&=${texNombre(s2, 2)}\\\\
-    \\end{alignedat}$
-    `
-    */
-    // this.correction += deuxColonnesResp(contenuColonne1, contenuColonne2, {})
 
     this.correction += `Donc, l'équation $(x+${String(a)})(${String(b)}x-${String(c)})=0$ a pour solutions $${miseEnEvidence(`x=${String(s1)} \\text{ et }x=${texNombre(s2, 2)}`)}$.`
   }

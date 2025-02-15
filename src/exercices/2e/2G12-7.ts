@@ -42,7 +42,7 @@ export default class BetaReperage2e extends Exercice {
     this.exoCustomResultat = true
 
     this.besoinFormulaireTexte = ['Type de repère', [
-      'Nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : Orthogonal',
       '2 : Normé',
       '3 : Quelconque',

@@ -56,7 +56,7 @@ export default class SuitesArithmeticoG extends Exercice {
         k = randint(-6, 6, [u0, 0])
         b = new Decimal(a).mul(-1).add(1).mul(k)
       }
-      this.autoCorrection[i] = {
+      this.autoCorrection[3 * i] = {
         enonce: texte,
         options: { vertical: true },
         propositions: [
@@ -78,7 +78,7 @@ export default class SuitesArithmeticoG extends Exercice {
           }
         ]
       }
-      const monQcm = propositionsQcm(this, i)
+      const monQcm = propositionsQcm(this, 3 * i)
       if (this.interactif) texte += monQcm.texte
 
       texte = `Soit $(${NomS}_n)$ la suite définie pour tout entier naturel $n$ par $${NomS}_{n+1}=${texNombre(a, 1)}${NomS}_n ${ecritureAlgebrique(b)}$ et $${NomS}_0=${texNombre(u0, 1)}$.`

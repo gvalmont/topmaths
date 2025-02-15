@@ -19,7 +19,6 @@ export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 * Répondre à des questions sur les fonctions.
 * 11/ 2021
 * @author Gilles Mora
-* 3F10-1
 */
 export const uuid = '36795'
 

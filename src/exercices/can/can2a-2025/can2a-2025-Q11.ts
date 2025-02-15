@@ -36,14 +36,14 @@ export default class CoordonneesMilieu extends Exercice {
     const ym = (ya + yb) / 2
 
     this.reponse = { bareme: toutPourUnPoint, champ1: { value: xm }, champ2: { value: ym } }
-    this.consigne = `Coordonnées du point $M$ milieu du segment $[AB]$ où $A(${xa}\\,;\\,${ya})$ et $B(${xb}\\,;\\,${yb})$<br>`
-    this.question = 'M(%{champ1};%{champ2})'
+    this.consigne = `Coordonnées du  milieu de $[AB]$ avec $A(${xa}\\,;\\,${ya})$ et $B(${xb}\\,;\\,${yb})$<br>`
+    this.question = '(%{champ1};%{champ2})'
 
-    this.correction = `Les coordonnées du milieu sont données par la moyenne des abscisses et la moyenne des ordonnées : <br>
+    this.correction = `Les coordonnées du milieu $M$ sont données par la moyenne des abscisses et la moyenne des ordonnées : <br>
       $x_M=\\dfrac{${xa}+${xb}}{2}=${miseEnEvidence(xm)}$ et $y_M=\\dfrac{${ya}+${yb}}{2}=${miseEnEvidence(ym)}$.<br>
       Ainsi,  $M(${miseEnEvidence(`${xm}\\,;\\,${ym}`)})$.`
 
-    this.canEnonce = `Coordonnées du  milieu du segment $[AB]$ où $A(${xa}\\,;\\,${ya})$ et $B(${xb}\\,;\\,${yb})$`
+    this.canEnonce = `Coordonnées du  milieu de $[AB]$ avec $A(${xa}\\,;\\,${ya})$ et $B(${xb}\\,;\\,${yb})$`
     this.canReponseACompleter = ''
   }
 }

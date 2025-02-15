@@ -159,7 +159,6 @@ export default class ExerciceDecomposerEnFacteursPremiers extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + '\n',
-          // @ts-expect-error
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }

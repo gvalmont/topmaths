@@ -5,6 +5,7 @@ import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 
 import { fraction } from '../../../modules/fractions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Réduire une expression avec une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +26,7 @@ export const refs = {
 export default class ReduireAvecFraction extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }

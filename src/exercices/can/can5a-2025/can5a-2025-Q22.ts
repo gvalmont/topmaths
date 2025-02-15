@@ -38,7 +38,7 @@ export default class Can2025N5Q14 extends ExerciceCan {
     On calcule le prix de $${a / 2}$ gommes :<br>
     $${b}\\div 2=${texPrix(b / 2)}$<br>
     Le prix de $${a / 2}$ gommes est $${texPrix(b / 2)}$ euros.<br>
-    Ainsi, le prix de $${c}$ gommes est $${coeff === 2.5 ? `2\\times ${b} + ${texPrix(b / 2)}` : `${b} + ${texPrix(b / 2)}`} =${miseEnEvidence(texPrix(b * coeff))}$.`
+    Ainsi, le prix de $${c}$ gommes est $${coeff === 2.5 ? `2\\times ${b} + ${texPrix(b / 2)}` : `${b} + ${texPrix(b / 2)}`} =${miseEnEvidence(texPrix(b * coeff))}$ euros.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ euros'
     this.optionsChampTexte = { texteApres: ' €' }

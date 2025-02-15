@@ -43,7 +43,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
     super()
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : n/100 = ...+.../10 + .../100',
         '2 : n/100 = ...+.../100 + .../10',
         '3 : .../100 = u + d/10 + c/100',

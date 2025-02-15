@@ -4,15 +4,12 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import {
-  expressionDeveloppeeEtNonReduiteCompare
-} from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Simplifier l\'écriture d\'une expression littérale'
 export const dateDePublication = '07/04/2022'
-export const dateDeModifImportante = '13/11/2023'
+export const dateDeModifImportante = '13/02/2025'
 /**
  * @author Guillaume Valmont
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
@@ -37,7 +34,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
 
   nouvelleVersion () {
     if (this.sup2) {
-      this.consigne = 'On a simplifié des écritures littérales.<br>Réécrire chaque expression en écrivant les symboles × qui sont sous-entendus.'
+      this.consigne = 'On a simplifié des écritures littérales.<br>Recopier l\'expression dans le même ordre et ajouter, si possible, les signes $\\times$ sous-entendus.'
     } else {
       this.consigne = 'Simplifier l\'écriture.'
     }
@@ -56,7 +53,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, texte, donnee, resultat, reponse, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, donnee, resultat, resultatBis, reponse, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(2, 9)
       const b = randint(2, 9, [a])
       const c = randint(2, 9, [a, b])
@@ -74,6 +71,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             donnee = `${a} \\times x`
           }
           resultat = `${a}x`
+          resultatBis = `${a}\\times x`
           break
         case 'ax+b':
           if (inverserFacteurs) {
@@ -82,6 +80,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             donnee = `${a} \\times x + ${b}`
           }
           resultat = `${a}x+${b}`
+          resultatBis = `${a}\\times x+${b}`
           break
         case 'b+ax':
           if (inverserFacteurs) {
@@ -90,14 +89,17 @@ export default class SimplifierEcritureLitterale extends Exercice {
             donnee = `${b} + ${a} \\times x`
           }
           resultat = `${b}+${a}x`
+          resultatBis = `${b}+${a}\\times x`
           break
         case 'a+x':
           donnee = `${a} + x`
           resultat = `${a}+x`
+          resultatBis = resultat
           break
         case 'x+a':
           donnee = `x + ${a}`
           resultat = `x+${a}`
+          resultatBis = resultat
           break
         case 'a(x+b)':
           if (inverserParentheses) {
@@ -106,6 +108,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             donnee = `${a} \\times (x + ${b})`
           }
           resultat = `${a}(x+${b})`
+          resultatBis = `${a}\\times(x+${b})`
           break
         case 'a(b+x)':
           if (inverserParentheses) {
@@ -114,6 +117,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             donnee = `${a} \\times (${b} + x)`
           }
           resultat = `${a}(${b}+x)`
+          resultatBis = `${a}\\times(${b}+x)`
           break
         case 'a(bx+c)':
           if (inverserParentheses) {
@@ -130,6 +134,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${a}(${b}x+${c})`
+          resultatBis = `${a}\\times(${b}\\times x+${c})`
           break
         case 'a(b+cx)':
           if (inverserParentheses) {
@@ -146,30 +151,37 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${a}(${b}+${c}x)`
+          resultatBis = `${a}\\times(${b}+${c}\\times x)`
           break
         case 'x²':
           donnee = 'x \\times x'
           resultat = 'x^2'
+          resultatBis = 'x\\times x'
           break
         case 'x³':
           donnee = 'x \\times x \\times x'
           resultat = 'x^3'
+          resultatBis = 'x\\times x\\times x'
           break
         case 'a+x²':
           donnee = `${a} + x \\times x`
           resultat = `${a}+x^2`
+          resultatBis = `${a}+x\\times x`
           break
         case 'x²+a':
           donnee = `x \\times x + ${a}`
           resultat = `x^2+${a}`
+          resultatBis = `x\\times x+${a}`
           break
         case 'a+x³':
           donnee = `${a} + x \\times x \\times x`
           resultat = `${a}+x^3`
+          resultatBis = `${a}+x\\times x\\times x`
           break
         case 'x³+a':
           donnee = `x \\times x \\times x + ${a}`
           resultat = `x^3+${a}`
+          resultatBis = `+x\\times x\\times x+${a}`
           break
         case 'ax²':
           if (inverserParentheses) {
@@ -186,6 +198,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${a}x^2`
+          resultatBis = `${a}\\times x\\times x`
           break
         case 'ax²+b':
           if (inverserParentheses) {
@@ -202,6 +215,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${a}x^2+${b}`
+          resultatBis = `${a}\\times x\\times x+${b}`
           break
         case 'b+ax²':
           if (inverserParentheses) {
@@ -218,6 +232,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${b}+${a}x^2`
+          resultatBis = `${b}+${a}\\times x\\times x`
           break
         case 'abx²':
           if (inverserParentheses) {
@@ -234,6 +249,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${a * b}x^2`
+          resultatBis = `${b * a}\\times x\\times x`
           break
         case 'ax³':
           if (inverserParentheses) {
@@ -250,6 +266,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${a}x^3`
+          resultatBis = `${a}\\times x\\times x \\times`
           break
         case 'ax³+b':
           if (inverserParentheses) {
@@ -266,6 +283,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${a}x^3+${b}`
+          resultatBis = `${a}\\times x\\times x\\times x+${b}`
           break
         case 'b+ax³':
           if (inverserParentheses) {
@@ -282,6 +300,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${b}+${a}x^3`
+          resultatBis = `${b}+${a}\\times x\\times x\\times x`
           break
         case 'abx³':
         default:
@@ -299,18 +318,20 @@ export default class SimplifierEcritureLitterale extends Exercice {
             }
           }
           resultat = `${a * b}x^3`
+          resultatBis = `${b * a}\\times x\\times x\\times x`
           break
       }
       if (this.sup2) {
         texte = `$${resultat}$`
-        reponse = rangerFacteurs(donnee)
-        texteCorr = `$${resultat} = `
+        // reponse = rangerFacteurs(donnee) // C'est ce qu'il y avait avant mais ça renvoie NaN
+        reponse = donnee // C'est la réponse attendue mais il y a des faux positifs sans ×
+        texteCorr = `$${resultat} = ${miseEnEvidence(donnee)}$`
       } else {
         texte = `$${donnee}$`
         reponse = resultat
         texteCorr = `$${donnee} = `
+        texteCorr += `${miseEnEvidence(reponse)}$`
       }
-      texteCorr += `${miseEnEvidence(reponse)}$`
       // On formate la réponse de façon à ce qu'elle corresponde exactement à celle attendue par MathLive
       reponse = reponse.replace(/\s/g, '') // En retirant les espaces
       reponse = reponse.replace(/\\timesx/g, '\\times x') // Et en les remettant entre les times et les x
@@ -320,7 +341,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
       if (!this.sup2) {
         handleAnswers(this, i, { reponse: { value: reponse } })
       } else {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
+        handleAnswers(this, i, { reponse: { value: resultatBis, options: { texteAvecCasse: true } } })
       }
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
@@ -338,7 +359,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
  * @param expressionLaTeX
  * @returns {string}
  */
-function rangerFacteurs (expressionLaTeX: string) {
+/* function rangerFacteurs (expressionLaTeX: string) {
   const facteurs = expressionLaTeX.split(' \\times ')
   const nombresConstants: number[] = []
   const variables = []
@@ -356,4 +377,4 @@ function rangerFacteurs (expressionLaTeX: string) {
   }
   facteursOrdonnes.push(...variables)
   return facteursOrdonnes.join(' \\times ')
-}
+} */

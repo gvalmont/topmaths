@@ -30,8 +30,7 @@ export default class PythonCalcul extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.question = 'Soit le script Python : <br>'
-      this.question += '$\\begin{array}{|l|}\n'
+      this.question = '$\\begin{array}{|l|}\n'
       this.question += '\\hline\n'
       this.question += '\\\n \\texttt{def mystere(a) :}  \\\n '
       this.question += `\\\\\n${sp(9)}\\texttt{b=2*a*a} \\\n`
@@ -42,10 +41,9 @@ export default class PythonCalcul extends Exercice {
       this.question += '<br>Que renvoie  $\\texttt{mystere(10)}$ ?'
       this.reponse = 205
       this.correction = `L'algorithme retourne $3\\times12=${miseEnEvidence('36')}$. `
-      this.canEnonce = 'Soit le script Python :<br>'
-      this.canEnonce += '\\medskip'
+      this.canEnonce = '\\medskip'
       this.canEnonce += '\\hspace*{10mm}\\fbox{'
-      this.canEnonce += '\\parbox{0.4\\linewidth}{'
+      this.canEnonce += '\\parbox{0.5\\linewidth}{'
       this.canEnonce += '\\setlength{\\parskip}{.5cm}'
       this.canEnonce += ' \\texttt{def mystere(a) :}\\newline'
       this.canEnonce += ' \\hspace*{7mm}\\texttt{b=2*a*a}\\newline'
@@ -54,8 +52,7 @@ export default class PythonCalcul extends Exercice {
       this.canEnonce += '}'
       this.canEnonce += '}\\newline'
       this.canEnonce += '\\medskip'
-
-      this.canReponseACompleter = 'Que renvoie  $\\texttt{mystere(10)}$ ?\\\\'
+      this.canEnonce += '<br>Que renvoie  $\\texttt{mystere(10)}$ ?'
       this.canReponseACompleter += '$\\ldots$'
     } else {
       const a = randint(1, 7)
@@ -63,8 +60,7 @@ export default class PythonCalcul extends Exercice {
       const coeff = randint(1, 3, a)
 
       if (context.isHtml) {
-        this.question = 'Soit le script Python : <br>'
-        this.question += '$\\begin{array}{|l|}\n'
+        this.question = '$\\begin{array}{|l|}\n'
         this.question += '\\hline\n'
         this.question += '\\\n \\texttt{def mystere(a) :}  \\\n '
         this.question += `\\\\\n${sp(9)} ${choix ? `\\texttt{b=${coeff}*a*a}` : `\\texttt{b=${coeff}+a}`} \\\n`
@@ -74,8 +70,7 @@ export default class PythonCalcul extends Exercice {
         this.question += '\\end{array}\n$'
         this.question += `<br>Que renvoie  $\\texttt{mystere(${a})}$ ?`
       } else {
-        this.question = 'Soit le script Python : <br><br>'
-        this.question += '\\medskip'
+        this.question = '\\medskip'
         this.question += '\\hspace*{10mm}\\fbox{'
         this.question += '\\parbox{0.5\\linewidth}{'
         this.question += '\\setlength{\\parskip}{.5cm}'
@@ -90,10 +85,10 @@ export default class PythonCalcul extends Exercice {
       }
       this.reponse = choix ? `${coeff * a * a + a}` : `${(coeff + a) * a}`
       this.correction = ` L'algorithme retourne ${choix ? `$(${coeff}\\times${a}\\times${a})+${a}=${miseEnEvidence(this.reponse)}$.` : `$(${coeff}+${a})\\times ${a}=${miseEnEvidence(this.reponse)}$.`} `
-      this.canEnonce = 'Soit le script Python : <br><br>'
-      this.canEnonce += '\\medskip'
+
+      this.canEnonce = '\\medskip'
       this.canEnonce += '\\hspace*{10mm}\\fbox{'
-      this.canEnonce += '\\parbox{0.5\\linewidth}{'
+      this.canEnonce += '\\parbox{0.6\\linewidth}{'
       this.canEnonce += '\\setlength{\\parskip}{.5cm}'
       this.canEnonce += ' \\texttt{def mystere(a) :}\\newline'
       this.canEnonce += ` \\hspace*{7mm}${choix ? `\\texttt{b=${coeff}*a*a}` : `\\texttt{b=${coeff}+a}`}\\newline`
@@ -101,8 +96,8 @@ export default class PythonCalcul extends Exercice {
       this.canEnonce += ' \\hspace*{7mm}\\texttt{return b}'
       this.canEnonce += '}'
       this.canEnonce += '}'
-      this.canReponseACompleter = `Que renvoie  $\\texttt{mystere(${a})}$ ?\\\\`
-      this.canReponseACompleter += '$\\ldots$'
+      this.canEnonce += `<br>Que renvoie  $\\texttt{mystere(${a})}$ ?`
+      this.canReponseACompleter = '$\\ldots$'
     }
     if (this.interactif) { this.question += '<br>' }
   }

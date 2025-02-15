@@ -31,7 +31,7 @@ export default class ProbaUnionInter extends Exercice {
     this.nbQuestions = 1
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : On cherche P(A union B)',
         '2 : On cherche P(A inter B)',
         '3 : On cherche P(A)',

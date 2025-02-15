@@ -31,7 +31,7 @@ export default class Rendreentier extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Dénominateur « racine de a »',
         '2 : Dénominateur « a + racine de b »',
         '3 : Dénominateur « a + b racine de x »',

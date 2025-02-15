@@ -22,7 +22,7 @@ export default class Can2025N4Q27 extends ExerciceCan {
       a = randint(4, 12) * 2
     }
     this.question = `Aire exacte du disque de diamètre $${a}$ m`
-    this.correction = `Le rayon du disque est : $r=${a}\\div 2=${a / 2}$.<br>L'aire du disque est : $\\pi r^2=\\pi\\times(${a / 2})^2=${miseEnEvidence(`${a * a / 4}\\pi\\text{ m}^2`)}$`
+    this.correction = `Le rayon du disque est : $r=${a}\\div 2=${a / 2}$.<br>L'aire du disque est : $\\pi r^2=\\pi\\times ${a / 2}^2=${miseEnEvidence(`${a * a / 4}\\pi`)}\\text{ m}^2$.`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ m$^2$'
     this.optionsChampTexte = { texteApres: '$\\text{ m}^2$' }

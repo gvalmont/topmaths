@@ -13,6 +13,8 @@ import { rangeMinMax } from '../outils/nombres'
 import { matrice } from './Matrice'
 import { stringNombre } from '../outils/texNombre'
 import type { Repere } from '../2d/reperes'
+import type Point from 'apigeom/src/elements/points/Point'
+import type Figure from 'apigeom/src/Figure'
 
 export type NoeudSpline = { x: number, y: number, deriveeGauche: number, deriveeDroit: number, isVisible: boolean }
 type OptionsNoeuds = {
@@ -257,15 +259,15 @@ export class Spline {
     return this.fonction
   }
 
-  get pointsOfSpline () {
-    const points = []
+  pointsOfSpline (figure: Figure) {
+    const points: Point[] = []
     const stepPoints = (this.x[this.x.length - 1] - this.x[0]) / this.nbPointsForApiGeom // on fait 50 points ça devrait suffir...
     let x = this.x[0]
     do {
-      points.push({ x, y: this.#image(x) })
+      points.push(figure.create('Point', { x, y: this.#image(x), isVisible: false }))
       x += stepPoints
     } while (x <= this.x[this.x.length - 1])
-    points.push({ x: this.x[this.x.length - 1], y: this.#image(this.x[this.x.length - 1]) })
+    points.push(figure.create('Point', { x: this.x[this.x.length - 1], y: this.#image(this.x[this.x.length - 1]), isVisible: false }))
     return points
   }
 

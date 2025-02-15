@@ -40,7 +40,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
     this.exoCustomResultat = true
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Doublement partagé avec origine visible',
         '2 : Triplement partagé avec origine visible',
         '3 : Quadruplement partagé avec origine visible',

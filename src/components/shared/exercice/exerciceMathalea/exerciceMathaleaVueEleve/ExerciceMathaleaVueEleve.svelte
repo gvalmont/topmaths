@@ -241,17 +241,15 @@
       const previousBestScore = $exercicesParams[exercise.numeroExercice]?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercise, divScore, buttonScore)
       const isThisTryBetter = numberOfPoints >= previousBestScore
-      // Attention Math.max(4, undefined) = Math.max(4, NaN) = NaN
       let bestScore = previousBestScore
+      // On ne met à jour resultsByExercice que si le score est meilleur
       if (isThisTryBetter) {
         bestScore = numberOfPoints
-      }
-      exercicesParams.update((l : InterfaceParams[]) => {
-        l[exercise.numeroExercice as number].bestScore = bestScore
-        return l
-      })
-      // On ne met à jour resultsByExercice que si le score est meilleur
-      isThisTryBetter && resultsByExercice.update((l : InterfaceResultExercice[]) => {
+        exercicesParams.update((l : InterfaceParams[]) => {
+          l[exercise.numeroExercice as number].bestScore = bestScore
+          return l
+        })
+        resultsByExercice.update((l : InterfaceResultExercice[]) => {
         l[exercise.numeroExercice as number] = {
           uuid: exercise.uuid,
           title: exercise.titre,
@@ -265,6 +263,7 @@
         }
         return l
       })
+      }
 
       if ($globalOptions.recorder === 'moodle') {
         const url = new URL(window.location.href)
@@ -276,7 +275,9 @@
           console.info('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
           return
         }
-        sendToCapytaleSaveStudentAssignment({ indiceExercice: exerciseIndex })
+        if (isThisTryBetter) {
+          sendToCapytaleSaveStudentAssignment({ indiceExercice: exerciseIndex })
+        }
       }
     }
   }
@@ -480,7 +481,7 @@
                 isCorrectionVisible={isCorrectVisible}
               />
             {/each}
-            <div bind:this={divScore} />
+            <div bind:this={divScore} id="divScoreEx{exerciseIndex}" />
           </ul>
         </div>
       </article>

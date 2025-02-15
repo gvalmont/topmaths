@@ -7,6 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
 export const interactifReady = true
@@ -158,7 +159,7 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
       }
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: reponse } })
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)) : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',

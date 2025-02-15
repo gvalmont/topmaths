@@ -1,16 +1,14 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import { cercle } from '../../../lib/2d/cercle'
-import { point } from '../../../lib/2d/points'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
-import { rotation } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { personne } from '../../../lib/outils/Personne'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
+import Horloge from '../../../lib/2d/horloge'
+import Hms from '../../../modules/Hms'
 export const titre = 'Lire une durée'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
@@ -49,9 +47,7 @@ export default class LireUneDuree extends Exercice {
         m1 = randint(1, 5) * 5
         h2 = h1 + randint(0, 1)
         m2 = m1 + randint(2 - h2 + h1, 6) * 5
-        enonce = `${quidam.prenom} ${choice(OccupationsMatinales)} ce matin. ${quidam.pronom} a noté l'heure de début et l'heure de fin.<br>
-        
-        `
+        enonce = `${quidam.prenom} ${choice(OccupationsMatinales)} ce matin. ${quidam.pronom} a noté l'heure de début et l'heure de fin.<br>`
         break
       case 'soir':
       default:
@@ -59,45 +55,16 @@ export default class LireUneDuree extends Exercice {
         m1 = randint(1, 5) * 5
         h2 = h1 + randint(0, 1)
         m2 = m1 + randint(2 - h2 + h1, 6) * 5
-        enonce = `${quidam.prenom} ${choice(occupationsNocturnes)} ce soir. ${quidam.pronom} a noté l'heure de début et l'heure de fin.<br>
-        
-        `
+        enonce = `${quidam.prenom} ${choice(occupationsNocturnes)} ce soir. ${quidam.pronom} a noté l'heure de début et l'heure de fin.<br>`
         break
     }
-    const alpha1 = 90 - h1 * 30 - m1 / 2
-    const beta1 = 90 - m1 * 6
-    const alpha2 = 90 - h2 * 30 - m2 / 2
-    const beta2 = 90 - m2 * 6
 
-    const horloge = []
-    const O = point(0, 0)
-    const C = cercle(O, 2)
-    horloge.push(C)
-    const s = segment(1.5, 0, 1.9, 0)
-    for (let i = 0; i < 4; i++) {
-      horloge.push(rotation(s, O, 90 * i))
-    }
-    const t = segment(1.7, 0, 1.9, 0)
-    for (let i = 0; i < 4; i++) {
-      horloge.push(rotation(t, O, 30 + i * 90), rotation(t, O, 60 + i * 90))
-    }
-    const grandeAiguille1 = rotation(segment(O, point(1.5, 0)), O, beta1)
-    const petiteAiguille1 = rotation(segment(O, point(1, 0)), O, alpha1)
-    const grandeAiguille2 = rotation(segment(O, point(1.5, 0)), O, beta2)
-    const petiteAiguille2 = rotation(segment(O, point(1, 0)), O, alpha2)
-
-    grandeAiguille1.color = colorToLatexOrHTML('red')
-    grandeAiguille1.epaisseur = 2
-    petiteAiguille1.color = colorToLatexOrHTML('green')
-    petiteAiguille1.epaisseur = 3
-    grandeAiguille2.color = colorToLatexOrHTML('red')
-    grandeAiguille2.epaisseur = 2
-    petiteAiguille2.color = colorToLatexOrHTML('green')
-    petiteAiguille2.epaisseur = 3
+    const horloge1 = new Horloge(0, 0, 2, new Hms({ hour: h1, minute: m1 }))
+    const horloge2 = new Horloge(0, 0, 2, new Hms({ hour: m2, minute: m2 }))
     this.question = enonce + (context.isHtml ? '<table><tr><td>' : '\\begin{multicols}{2}\n') +
-    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, style: 'margin: auto' }, horloge, grandeAiguille1, petiteAiguille1, texteParPosition('Heure de début', 0, -2.5)) +
+    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, style: 'margin: auto' }, horloge1, texteParPosition('Heure de début', 0, -2.5)) +
 (context.isHtml ? '</td><td>' : '') +
-    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, style: 'margin: auto' }, horloge, grandeAiguille2, petiteAiguille2, texteParPosition('Heure de fin', 0, -2.5)) +
+    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, style: 'margin: auto' }, horloge2, texteParPosition('Heure de fin', 0, -2.5)) +
     (context.isHtml ? '</td></tr></table>' : '\\end{multicols}\n') +
           'Combien de temps cela a-t-il duré ?'
     this.reponse = { reponse: { value: `${h2 - h1}h ${m2 - m1}`, options: { HMS: true } } }

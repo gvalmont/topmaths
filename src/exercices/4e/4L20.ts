@@ -39,7 +39,7 @@ export default class ExerciceEquation1 extends Exercice {
     super()
     this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
     this.besoinFormulaire2Texte = ["Type d'équations", [
-      'Nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : ax+b=0',
       '2 : ax+b=c',
       '3 : ax=b',

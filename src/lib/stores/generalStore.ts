@@ -68,6 +68,8 @@ export const capytaleMode = writable<
   'none' | 'create' | 'assignment' | 'review' | 'view'
 >('none')
 
+export const capytaleStudentAssignment = writable<InterfaceResultExercice[]>()
+
 // sauvegarde des résultats des exercices
 export const resultsByExercice = writable<InterfaceResultExercice[]>([])
 

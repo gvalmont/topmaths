@@ -591,9 +591,9 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `$${miseEnEvidence(a)} < \\dfrac{${n1}}{${d1}} < ${miseEnEvidence(a + 1)}$`
           texteCorr += `$\\quad$  car $\\quad ${a}=\\dfrac{${a * d1}}{${d1}}\\quad$ et $\\quad${a + 1}=\\dfrac{${(a + 1) * d1}}{${d1}}$ `
 
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
           if (this.interactif) {
-            texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'
+            texte += '<br>Écrire les entiers séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = 'Encadre la fraction par deux entiers consécutifs.'

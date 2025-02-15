@@ -1,7 +1,4 @@
 import Exercice from '../Exercice'
-
-import { context } from '../../modules/context'
-import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -13,8 +10,13 @@ import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 import Figure from 'apigeom'
+import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { segment } from '../../lib/2d/segmentsVecteurs'
+import { courbe } from '../../lib/2d/courbes'
+import { latex2d } from '../../lib/2d/textes'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { point } from '../../lib/2d/points'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -487,12 +489,12 @@ class resolutionEquationInequationGraphique extends Exercice {
     if (this.interactif) {
       M!.createSegmentToAxeX()
       M!.createSegmentToAxeY()
-      const textX = this.figureApiGeom.create('DynamicX', { point: M! })
-      const textY = this.figureApiGeom.create('DynamicY', { point: M! })
-      textX.dynamicText.maximumFractionDigits = 1
-      textY.dynamicText.maximumFractionDigits = 1
+      // const textX = this.figureApiGeom.create('DynamicX', { point: M! })
+      //  const textY = this.figureApiGeom.create('DynamicY', { point: M! })
+      //  textX.dynamicText.maximumFractionDigits = 1
+      // textY.dynamicText.maximumFractionDigits = 1
     }
-    if (f2Type === 'affine') {
+    /* if (f2Type === 'affine') {
       const a = fonction2.poly.monomes[1] as number
       const b = fonction2.poly.monomes[0] as number
       const B = this.figureApiGeom.create('Point', { x: xMin - 0.5, y: a * (xMin - 0.5) + b, isVisible: false })
@@ -519,7 +521,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     const p2B = this.figureApiGeom.create('Point', { x: xMin + 2, y: yMax - 2, isVisible: false })
     this.figureApiGeom.create('Segment', { point1: p1A, point2: p1B, color: 'blue', thickness: 2 })
     this.figureApiGeom.create('Segment', { point1: p2A, point2: p2B, color: 'red', thickness: 2 })
-
+*/
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     let enonce = `On considère les fonctions $${f1}$ et $${f2}$ définies sur $\\R$ et dont on a représenté ci-dessous une partie de leurs courbes respectives.<br><br>`
     // let diff
@@ -579,7 +581,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       texteCorr += `Pour trouver l'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] , on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, 'blue')}$ est située ${inferieur ? 'en dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
       texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$`
     }
-    this.figureApiGeom.setToolbar({ tools: ['DRAG'], position: 'top' })
+    /*  this.figureApiGeom.setToolbar({ tools: ['DRAG'], position: 'top' })
     this.figureApiGeom.isDynamic = true
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
 
@@ -594,52 +596,53 @@ class resolutionEquationInequationGraphique extends Exercice {
     } else {
       this.listeQuestions = [enonce + this.figureApiGeom.tikz()]
     }
-    /* const repere = new RepereBuilder({ xMin: xMin - 0.2, yMin: yMin - 0.2, xMax: xMax + 0.2, yMax: yMax + 0.2 })
-        .setGrille({
-          grilleX: {
-            dx: 1, xMin, xMax
-          },
-          grilleY: {
-            dy: 1, yMin, yMax
-          }
-        })
-        .setGrilleSecondaire({
-          grilleX: {
-            dx: 0.2, xMin, xMax
-          },
-          grilleY: { dy: 0.2, yMin, yMax: yMin + 12 }
-        })
-        .buildStandard()
-      let courbe1, courbe2
-      if (f1Type === 'constante' || f1Type === 'affine') {
-        courbe1 = segment(xMin, fonction1.func(xMin), xMax, fonction1.func(xMax), 'blue')
-      } else {
-        courbe1 = courbe(fonction1.func, { repere, xMin, xMax, color: 'blue' })
-      }
-      const nomCourbe1 = latex2d(`\\mathscr{C}_${f1}`, xMin + 0.5, yMax - 1, { color: 'blue', letterSize: 'normalsize', backgroundColor: '' })
-      const nomCourbe2 = latex2d(`\\mathscr{C}_${f2}`, xMin + 0.5, yMax - 2, { color: 'red', letterSize: 'normalsize', backgroundColor: '' })
-
-      courbe1.color = colorToLatexOrHTML('blue')
-
-      // @ts-expect-error
-      courbe1.epaisseur = 2
-      if (f2Type === 'affine') {
-        courbe2 = segment(xMin, fonction2.func(xMin), xMax, fonction2.func(xMax), 'red')
-      } else {
-        courbe2 = courbe(fonction2.func, { repere, xMin, xMax, color: 'red' })
-      }
-      const p1A = point(xMin + 1, yMax - 1)
-      const p1B = point(xMin + 2, yMax - 1)
-      const p2A = point(xMin + 1, yMax - 2)
-      const p2B = point(xMin + 2, yMax - 2)
-      const trait1 = segment(p1A, p1B, 'blue')
-      const trait2 = segment(p2A, p2B, 'red')
-      trait1.epaisseur = 2
-      trait2.epaisseur = 2
-      const courbes = [courbe1, courbe2, trait1, trait2, nomCourbe1, nomCourbe2]
-      this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...repere.objets, ...courbes])), ...repere.objets, ...courbes)]
-    }
 */
+    const repere = new RepereBuilder({ xMin: xMin - 0.2, yMin: yMin - 0.2, xMax: xMax + 2.5, yMax: yMax + 0.2 })
+      .setGrille({
+        grilleX: {
+          dx: 1, xMin, xMax: xMax + 2.5
+        },
+        grilleY: {
+          dy: 1, yMin, yMax
+        }
+      })
+      .setGrilleSecondaire({
+        grilleX: {
+          dx: 0.2, xMin, xMax: xMax + 2.5
+        },
+        grilleY: { dy: 0.2, yMin, yMax: yMin + 12 }
+      })
+      .setThickX({ xMin, xMax: xMax + 2.5, dx: 1 })
+      .setThickY({ yMin, yMax, dy: 1 })
+      .buildCustom()
+
+    let courbe1, courbe2
+    if (f1Type === 'constante' || f1Type === 'affine') {
+      courbe1 = segment(xMin, fonction1.func(xMin), xMax + 2.5, fonction1.func(xMax + 2.5), 'blue')
+    } else {
+      courbe1 = courbe(fonction1.func, { repere, xMin, xMax: xMax + 2.5, color: 'blue' })
+    }
+    const nomCourbe1 = latex2d(`\\mathscr{C}_${f1}`, xMin + 0.5, yMax - 1, { color: 'blue', letterSize: 'normalsize', backgroundColor: '' })
+    const nomCourbe2 = latex2d(`\\mathscr{C}_${f2}`, xMin + 0.5, yMax - 2, { color: 'red', letterSize: 'normalsize', backgroundColor: '' })
+
+    courbe1.color = colorToLatexOrHTML('blue')
+
+    courbe1.epaisseur = 2
+    if (f2Type === 'affine') {
+      courbe2 = segment(xMin, fonction2.func(xMin), xMax + 2.5, fonction2.func(xMax + 2.5), 'red')
+    } else {
+      courbe2 = courbe(fonction2.func, { repere, xMin, xMax: xMax + 2.5, color: 'red' })
+    }
+    const p1A = point(xMin + 1, yMax - 1)
+    const p1B = point(xMin + 2, yMax - 1)
+    const p2A = point(xMin + 1, yMax - 2)
+    const p2B = point(xMin + 2, yMax - 2)
+    const trait1 = segment(p1A, p1B, 'blue')
+    const trait2 = segment(p2A, p2B, 'red')
+    trait1.epaisseur = 2
+    trait2.epaisseur = 2
+    const courbes = [courbe1, courbe2, trait1, trait2, nomCourbe1, nomCourbe2]
+    this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...(repere.objets ?? []), ...courbes])), repere.objets ?? [], ...courbes)]
     // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
     const textCorrSplit = texteCorr.split(':')
     let aRemplacer = textCorrSplit[textCorrSplit.length - 1]

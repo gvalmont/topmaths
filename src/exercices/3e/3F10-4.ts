@@ -4,18 +4,17 @@ import { randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
 import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
-import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
-import type FractionEtendue from '../../modules/FractionEtendue'
 import { AddTabPropMathlive, type Icell } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import type Point from 'apigeom/src/elements/points/Point'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { Tableau } from '../../lib/2d/tableau'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
 
 import { lectureImage } from '../../lib/2d/courbes'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import PointOnPolyline from 'apigeom/src/elements/points/PointOnPolyline'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
@@ -24,7 +23,7 @@ export const interactifType = 'mathLive'
 
 /**
  * Lire une image sur une Spline
- * @author Jean-Claude Lhote (sur le modèle de 5R12-1 de Rémi Angot
+ * @author Jean-Claude Lhote (sur le modèle de 5R12-1 de Rémi Angot)
 
  */
 export const uuid = '6c6b3'
@@ -59,7 +58,7 @@ class LireImageParApiGeom extends Exercice {
 
   nouvelleVersion (): void {
     // on va chercher une spline aléatoire
-
+    if (context.isHtml) this.consigne = texteEnCouleurEtGras('N\'utilisez pas le zoom de l\'application sur cet exercice (bouton +), il entraîne une erreur du programme !<br>Nous travaillons à corriger ce bug.')
     const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
@@ -70,16 +69,22 @@ class LireImageParApiGeom extends Exercice {
     this.listeCorrections = ['']
 
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
-    const mesPoints = spline.pointsOfSpline
-    let mesPointsApiGeom: Point[] = []
-    if (mesPoints && Array.isArray(mesPoints)) {
-      mesPointsApiGeom = mesPoints.map(el => this.figure.create('Point', { x: el.x, y: el.y, isVisible: false }))
-    }
-    if (mesPointsApiGeom !== undefined) {
-      this.figure.create('Polyline', { points: mesPointsApiGeom })
-    }
+    const mesPoints = spline.pointsOfSpline(this.figure)
+    const polyline = this.figure.create('Polyline', { points: mesPoints })
+
     if (context.isHtml) {
-      const pointMobile = new PointOnSpline(this.figure, { spline, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
+      // Code alternatif : créer un objet GraphByParts, et voir si PointOnGraph est utilisable pour créer un point mobile
+      // Pour l'instant la classe GraphByParts n'est pas fonctionnelle.
+    /*  const parts: { expression: string, xMin: number, xMax: number }[] = []
+      for (let i = 0; i < spline.n - 1; i++) {
+        const pol = spline.polys[i].toMathExpr()
+        const xMin = spline.x[i]
+        const xMax = spline.x[i + 1]
+        parts.push({ expression: pol, xMin, xMax })
+      }
+      this.figure.create('GraphByParts', { parts })
+      */
+      const pointMobile = new PointOnPolyline(this.figure, { polyline, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
       pointMobile.draw()
       pointMobile.label = 'M'
       pointMobile.createSegmentToAxeX()
@@ -122,7 +127,7 @@ class LireImageParApiGeom extends Exercice {
     }
     for (let i = 0; i < this.nbImages; i++) {
     //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, '', { texteApres: '  ' }) + '<br>'
-      const image = spline.fonction(this.X[i]) as FractionEtendue
+      const image = spline.fonction(this.X[i])
       this.Y[i] = Math.round(10 * Number(image)) / 10
     }
 
@@ -142,7 +147,7 @@ class LireImageParApiGeom extends Exercice {
         enonce += tabMathlive.output
       } else {
         const tableauVideForLatex = new Tableau({ ligne1: ['x'].concat(xs).map(el => Object.assign({}, { texte: el, latex: true })), ligne2: ['f(x)', '', '', ''].map(el => el === '' ? Object.assign({}, { texte: el }) : Object.assign({}, { texte: el, latex: true })), largeurTitre: 1, nbColonnes: 4, hauteur: 1, largeur: 1 })
-        const tabVideTex = mathalea2d(Object.assign({}, fixeBordures(tableauVideForLatex)), tableauVideForLatex)
+        const tabVideTex = mathalea2d(Object.assign({}, fixeBordures([tableauVideForLatex])), tableauVideForLatex)
         enonce += tabVideTex
       }
     }
@@ -151,7 +156,7 @@ class LireImageParApiGeom extends Exercice {
     // const tabValeurTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs, 1, true, this.numeroExercice, 0)
     // contenu des cellules { texte: string, gras?: boolean, math?: boolean, latex?: boolean, color?: string }
     const tableauValeursForLatex = new Tableau({ ligne1: ['x'].concat(xs).map(el => Object.assign({}, { texte: el, latex: true })), ligne2: ['f(x)', ...yGrecs].map(el => el === '' ? Object.assign({}, { texte: el }) : Object.assign({}, { texte: el, latex: true })), largeurTitre: 1, nbColonnes: 4, hauteur: 1, largeur: 1 })
-    const tabValeurTex = mathalea2d(Object.assign({}, fixeBordures(tableauValeursForLatex)), tableauValeursForLatex)
+    const tabValeurTex = mathalea2d(Object.assign({}, fixeBordures([tableauValeursForLatex])), tableauValeursForLatex)
 
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')

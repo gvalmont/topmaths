@@ -37,7 +37,7 @@ export default class SuitesRaison extends Exercice {
     this.correctionDetailleeDisponible = true
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Suite arithmétique avec deux termes consécutifs',
         '2 : Suite arithmétique avec deux termes non consécutifs',
         '3 : Suite géométrique avec deux termes consécutifs',

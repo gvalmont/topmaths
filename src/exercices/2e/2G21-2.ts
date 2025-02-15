@@ -45,10 +45,10 @@ export default class SommeDeVecteurs extends Exercice {
     this.longueur = 10
     this.largeur = 10
     this.figureApig.forEach((fig: Figure) => {
-      fig.container.remove()
+      fig.container = document.createElement('div')
     })
     this.figureApigCorr.forEach((fig) => {
-      fig.container.remove()
+      fig.container = document.createElement('div')
     })
     this.figureApig = []
     this.figureApigCorr = []
@@ -118,8 +118,6 @@ export default class SommeDeVecteurs extends Exercice {
         xMin: -this.longueur + 0.1,
         axeX: true,
         axeY: true,
-        ldistancePointIntermediaireProjOrthogonalelX: true,
-        ldistancePointIntermediaireProjOrthogonalelY: true,
         repereOij: true
       })
 
@@ -131,8 +129,6 @@ export default class SommeDeVecteurs extends Exercice {
         xMin: -this.longueur + 0.1,
         axeX: true,
         axeY: true,
-        ldistancePointIntermediaireProjOrthogonalelX: true,
-        ldistancePointIntermediaireProjOrthogonalelY: true,
         repereOij: true
       })
 
@@ -266,30 +262,30 @@ export default class SommeDeVecteurs extends Exercice {
 
       let pointOrigineChoix2X = 0
       let pointOrigineChoix2Y = 0
-      let pointOrigineChoix2: Point
       if (choixU === 'origine') {
         this.figureApig[i].create('Vector', { origin: pointOrigine, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
         this.figureApigCorr[i].create('Vector', { origin: pointOrigine, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
       } else {
         pointOrigineChoix2X = choice(rangeMinMax(Math.max(-9, -9 - vecteur1.x), Math.min(9, 9 - vecteur1.x), xOrigin))
         pointOrigineChoix2Y = choice(rangeMinMax(Math.max(-9, -9 - vecteur1.y), Math.min(9, 9 - vecteur1.y), yOrigin))
-        pointOrigineChoix2 = this.figureApig[i].create('Point', { x: pointOrigineChoix2X, y: pointOrigineChoix2Y, isVisible: false })
+        const pointOrigineChoix2 = this.figureApig[i].create('Point', { x: pointOrigineChoix2X, y: pointOrigineChoix2Y, isVisible: false })
+        const pointOrigineChoix2Cor = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix2X, y: pointOrigineChoix2Y, isVisible: false })
         this.figureApig[i].create('Vector', { origin: pointOrigineChoix2, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
-        this.figureApigCorr[i].create('Vector', { origin: pointOrigineChoix2, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
+        this.figureApigCorr[i].create('Vector', { origin: pointOrigineChoix2Cor, x: vecteur1.x, y: vecteur1.y, color: 'blue', thickness: 3, label: '\\vec{u}', isSelectable: false })
       }
 
       let pointOrigineChoix3X = 0
       let pointOrigineChoix3Y = 0
-      let pointOrigineChoix3: Point
       if (choixV === 'origine') {
         this.figureApig[i].create('Vector', { origin: pointOrigine, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
         this.figureApigCorr[i].create('Vector', { origin: pointOrigine, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
       } else {
         pointOrigineChoix3X = choice(rangeMinMax(Math.max(-9, -9 - vecteur2.x), Math.min(9, 9 - vecteur2.x), xOrigin))
         pointOrigineChoix3Y = choice(rangeMinMax(Math.max(-9, -9 - vecteur2.y), Math.min(9, 9 - vecteur2.y), yOrigin))
-        pointOrigineChoix3 = this.figureApig[i].create('Point', { x: pointOrigineChoix3X, y: pointOrigineChoix3Y, isVisible: false })
+        const pointOrigineChoix3 = this.figureApig[i].create('Point', { x: pointOrigineChoix3X, y: pointOrigineChoix3Y, isVisible: false })
+        const pointOrigineChoix3Cor = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix3X, y: pointOrigineChoix3Y, isVisible: false })
         this.figureApig[i].create('Vector', { origin: pointOrigineChoix3, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
-        this.figureApigCorr[i].create('Vector', { origin: pointOrigineChoix3, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
+        this.figureApigCorr[i].create('Vector', { origin: pointOrigineChoix3Cor, x: vecteur2.x, y: vecteur2.y, color: 'blue', thickness: 3, label: '\\vec{v}', isSelectable: false })
       }
 
       pointOrigine = this.figureApig[i].create('Point', { x: xOrigin, y: yOrigin, label: nomOrigine, color: 'black', thickness: 3, isSelectable: false })
@@ -363,7 +359,6 @@ export default class SommeDeVecteurs extends Exercice {
           if (ee !== 10) vecteurAnimation[ee].hide()
         }
       }
-
       this.figureApigCorr[i].create('Vector', { origin: pointOrigineCorrection, x: xSomme[i], y: ySomme[i], color: orangeMathalea, thickness: 3 })
       this.figureApigCorr[i].create('Point', { x: this.pointExtremite[i].x, y: this.pointExtremite[i].y, colorLabel: orangeMathalea, color: orangeMathalea, label: this.nomExtremite[i] })
 

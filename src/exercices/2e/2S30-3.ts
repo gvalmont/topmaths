@@ -34,7 +34,7 @@ export default class ProbaUnionInter extends Exercice {
     this.nbQuestions = 1
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Probabilité de gagner/perdre un match',
         '2 : Probabilité et nombres premiers',
         '3 : Probabilité tirage dans une urne',

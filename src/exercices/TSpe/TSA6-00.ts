@@ -28,7 +28,7 @@ class EquaDiffs extends Exercice {
   constructor () {
     super()
 
-    this.besoinFormulaireTexte = ['Types d\'équations (nombre séparés par des tirets)', '1 : y\'= ay\n2 : y\'= ay + b\n3 : y\'= ay + f\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Types d\'équations ', 'Nombres séparés par des tirets\n1 : y\'= ay\n2 : y\'= ay + b\n3 : y\'= ay + f\n4 : Mélange']
     this.sup = '1'
     this.nbQuestions = 2
     this.correctionDetailleeDisponible = true

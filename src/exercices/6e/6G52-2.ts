@@ -77,10 +77,12 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
     }).map(Number)
     for (let i = 0; i < this.nbQuestions; i++) { // on a un tableau avec des strings : ['1', '1', '2']
       NumQuestionsDisponibles = contraindreValeur(1, 5, QuestionsDisponibles[i % QuestionsDisponibles.length], 4) - 1
-      typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
+      const liste1 = questionsParNiveau[NumQuestionsDisponibles]
+      const listeAEviter = typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles])
+      typesDeQuestionsDisponibles[i] = choice(liste1, listeAEviter) // Ce slice permet de gérer, par exemple, le mélange 1-1-2 pour 10 questions car il n'y a pas assez de choix différents pour le mélange 1.
       if (typesDeQuestionsDisponibles[i] === undefined) { // Dans le cas, on a épuisé tous les choix différents d'un mélange
         IndiceNew[NumQuestionsDisponibles] = i
-        typesDeQuestionsDisponibles[i] = choice(questionsParNiveau[NumQuestionsDisponibles], typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles]))
+        typesDeQuestionsDisponibles[i] = choice(liste1, typesDeQuestionsDisponibles.slice(IndiceNew[NumQuestionsDisponibles]))
       }
     }
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(

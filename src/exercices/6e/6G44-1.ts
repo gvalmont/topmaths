@@ -54,7 +54,7 @@ export default class ReconnaitreDesSolides extends Exercice {
     this.sup2 = false // qcm
     this.besoinFormulaireTexte = [
       'Type de solides', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Prisme',
         '2 : Pyramide',
         '3 : Cône',

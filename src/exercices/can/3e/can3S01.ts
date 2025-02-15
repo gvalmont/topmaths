@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
@@ -25,7 +26,7 @@ export default class CalculProbaSimple extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
   }
 

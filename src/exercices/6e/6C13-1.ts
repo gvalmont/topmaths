@@ -21,7 +21,7 @@ export default class VocabulaireSur4Operations extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Type de questions', [
-      'Nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : Addition (terme)',
       '2 : Addition (somme)',
       '3 : Addition (calcul)',

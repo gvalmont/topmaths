@@ -26,7 +26,7 @@ export default class Can2025N5Q9 extends ExerciceCan {
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * b / 100
     this.question = `$${a}\\,\\%$ de $${b}$`
-    this.correction = `$${a}\\,\\%$ de $${b}$, c'est $\\dfrac{${a}}{100} \\times ${b} = \\dfrac{${a}\\times ${b}}{100}=  \\dfrac{${a * b}}{100}=${miseEnEvidence(texNombre(a * b / 100, 2))}$.`
+    this.correction = `$${a}\\,\\%$ de $${b}$, c'est $\\dfrac{${a}}{100} \\times ${texNombre(b, 0)} = \\dfrac{${a}\\times ${texNombre(b, 0)}}{100}=  \\dfrac{${texNombre(a * b, 0)}}{100}=${miseEnEvidence(texNombre(a * b / 100, 2))}$.`
     this.canEnonce = this.question
     if (this.interactif) {
       this.question += ' est égal à '

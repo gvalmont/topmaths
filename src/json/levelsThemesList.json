@@ -164,8 +164,32 @@
   "can1S": {
     "titre": "Suites"
   },
-  "canTExC": {
-    "titre": "Nombres complexes"
+  "canTEC1": {
+    "titre": "Nombres complexes algèbre"
+  },
+  "canTEC2": {
+    "titre": "Nombres complexes géométrie"
+  },
+  "canTEC3": {
+    "titre": "Nombres complexes trigonométrie"
+  },
+  "canTEM1": {
+    "titre": "Matrices"
+  },
+  "canTEM2": {
+    "titre": "Graphes"
+  },
+  "canTEA1": {
+    "titre": "Divisibilité dans $\\mathbb Z$$"
+  },
+  "canTEA2": {
+    "titre": "Congruence"
+  },
+  "canTEA3": {
+    "titre": "Bezout et Gauss"
+  },
+  "canTEA4": {
+    "titre": "Nombres premiers"
   },
   "canTSpea": {
     "titre": "Sujets (annales/créations)"

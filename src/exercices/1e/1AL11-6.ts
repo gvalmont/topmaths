@@ -37,7 +37,7 @@ export default class SuitesExplicites extends Exercice {
     this.correctionDetailleeDisponible = true
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Suite arithmétique définie directement',
         '2 : Suite arithmétique définie par une relation de récurrence',
         '3 : Suite géométrique définie directement',
@@ -123,7 +123,8 @@ export default class SuitesExplicites extends Exercice {
           indice = this.sup2 ? randint(1, 10) : 0
 
           reponse = this.sup2 ? `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^{n-${indice}} ` : `${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(q)}^n`
-          handleAnswers(this, i, { reponse: { value: reponse, options: { nbFacteursIdentiquesFactorisation: true } } })
+          //  handleAnswers(this, i, { reponse: { value: reponse, options: { nbFacteursIdentiquesFactorisation: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, options: { fonction: true, variable: 'n', entier: true, domaine: [0, 10] } } })
           texte = `Soit $(${NomS}_n)$ une suite géométrique de raison $q=${texNombre(q, 1)}$ telle que $${NomS}_{${indice}}=${texNombre(a, 2)}$.<br>
         Donner l'expression de $${NomS}_n$ en fonction de $n$.`
           if (this.sup2) {

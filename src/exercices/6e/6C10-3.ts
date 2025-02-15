@@ -32,7 +32,7 @@ export default class ExerciceTablesMultiplicationsEtDecimaux extends Exercice {
     this.sup = tablesParDefaut
     this.besoinFormulaireTexte = [
       'Choix des tables (entre 2 et 9)',
-      'Nombres séparés par des tirets'
+      'Nombres séparés par des tirets  :'
     ] // Texte, tooltip
     this.consigne = 'Calculer.'
     this.spacing = 2

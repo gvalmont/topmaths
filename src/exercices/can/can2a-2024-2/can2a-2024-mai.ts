@@ -167,17 +167,9 @@ export default class nomExercice extends Exercice {
 
     i = 18
     this.listeQuestions[i] = 'Solutions de $x(x-3)=0$ :<br>'
-    if (this.interactif) {
-      this.listeQuestions[i] += '<em>(Écrire les solutions dans l\'ordre croissant.)</em><br>'
-      this.listeQuestions[i] += remplisLesBlancs(this, i, 'S=\\{%{champ1} \\;;\\; %{champ2}\\}\\text{.}', KeyboardType.clavierNumbers)
-    }
+    this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `Un produit est nul si et seulement si l'un au moins de ses facteurs est nul.<br>$S=${miseEnEvidence('\\{0\\;;\\;3\\}')}$`
-    handleAnswers(this, i, {
-      bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: '0', options: { nombreDecimalSeulement: true } },
-      champ2: { value: '3', options: { nombreDecimalSeulement: true } }
-    }
-    )
+    handleAnswers(this, i, { reponse: { value: '0;3', options: { suiteDeNombres: true } } })
 
     i = 19
     this.listeQuestions[i] = 'Valeur de $5x - 8$ pour $x=\\dfrac{4}{5}$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction) + '.'

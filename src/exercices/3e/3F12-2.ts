@@ -45,7 +45,7 @@ export default class ImageFonctionAlgebrique extends Exercice {
 
     this.besoinFormulaire2Texte = [
       'Types de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Calculer f(x)',
         '2 : Calculer l\'image de x par la fonction f'
       ].join('\n')

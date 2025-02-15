@@ -38,10 +38,11 @@ export default class ImageSpline extends Exercice {
   nouvelleVersion () {
     const r = repere({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
     let c
+    let pente: number
     const type = choice(['lineaire', 'affine'])
     switch (type) {
       case 'lineaire': {
-        const pente = (randint(-15, 15, 0)) / 5
+        pente = (randint(-15, 15, 0)) / 5
         const OrdX0 = 0
         c = droiteParPointEtPente(point(0, OrdX0), pente, '', 'blue')
         this.reponse = ['O', 'Oui', 'oui', 'o', 'OUI']
@@ -51,7 +52,7 @@ export default class ImageSpline extends Exercice {
         break
       case 'affine':
       default: {
-        const pente = (randint(-15, 15, 0)) / 5
+        pente = (randint(-15, 15, 0)) / 5
         this.lineaire = false
         const OrdX0 = randint(Math.round(-1 + pente), Math.round(1 + pente), [pente, 0])
         c = droiteParPointEtPente(point(0, OrdX0), pente, '', 'blue')
@@ -62,6 +63,7 @@ export default class ImageSpline extends Exercice {
         break
     }
 
+    this.correction += `<!-- Coefficient directeur de la droite : ${pente}-->` // Question jamais posée se base sur la correction, j'ajoute donc ce commentaire pour avoir plus de deux questions possibles
     this.question = `Ce graphique représente-t-il une situation de proportionnalité ?<br>
     
     ${mathalea2d({ xmin: -7, xmax: 7, ymin: -6, ymax: 6, pixelsParCm: 17, style: 'margin: auto', scale: 0.6 }, r, c)}`

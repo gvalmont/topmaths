@@ -344,9 +344,9 @@ export default class SujetCAN20213ieme extends Exercice {
             texteCorr = `Les diviseurs de $${a}$ sont : $1$, $3$, $11$ et $33$. `
             reponse = '1;3;11;33'
           }
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
           if (this.interactif) {
-            texte += 'Écrire les diviseurs dans l’ordre croissant, séparés par un point-virgule'
+            texte += 'Écrire les diviseurs séparés par un point-virgule'
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1

@@ -31,7 +31,7 @@ export default class EncadrerUnDecimal extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Encadrer à l\'unité',
         '2 : Encadrer au dixième',
         '3 : Encadrer au centième',

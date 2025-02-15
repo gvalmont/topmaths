@@ -21,21 +21,21 @@ export const refs = {
   'fr-ch': []
 }
 export default class QuatriemeProportionnelle extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple'
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(1, 6)
     const b = randint(4, 8, a) * 2
     const c = choice([2, 3, 4, 5])
     this.reponse = b * c
     switch (randint(0, 3)) {
       case 0:
-        this.question = `Complèter le tableau de proportionnalité.<br>
+        this.question = `Compléter le tableau de proportionnalité.<br>
         
         `
         this.question += tableau2x2({
@@ -54,7 +54,7 @@ export default class QuatriemeProportionnelle extends Exercice {
      Ainsi, le nombre manquant est donné par : $${b}\\times ${c}=${b * c}$.`)
         break
       case 1:
-        this.question = `Complèter le tableau de proportionnalité.<br>
+        this.question = `Compléter le tableau de proportionnalité.<br>
         
         `
         this.question += tableau2x2({
@@ -73,7 +73,7 @@ export default class QuatriemeProportionnelle extends Exercice {
          Ainsi, le nombre manquant est donné par : $${b}\\times ${c}=${b * c}$.`)
         break
       case 2:
-        this.question = `Complèter le tableau de proportionnalité.<br>
+        this.question = `Compléter le tableau de proportionnalité.<br>
         
         `
         this.question += tableau2x2({
@@ -92,7 +92,7 @@ export default class QuatriemeProportionnelle extends Exercice {
          Ainsi, le nombre manquant est donné par : $${b}\\times ${c}=${b * c}$.`)
         break
       case 3:
-        this.question = `Complèter le tableau de proportionnalité.<br>
+        this.question = `Compléter le tableau de proportionnalité.<br>
         
         `
         this.question += tableau2x2({

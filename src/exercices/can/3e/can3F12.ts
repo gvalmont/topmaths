@@ -6,6 +6,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const dateDePublication = '26/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,6 +29,8 @@ export default class AntecedentSpline extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.optionsDeComparaison = { suiteDeNombres: true }
+    this.formatChampTexte = KeyboardType.clavierEnsemble
   }
 
   nouvelleVersion () {
@@ -105,12 +108,12 @@ export default class AntecedentSpline extends Exercice {
       y1 = Math.round((bornes.yMin + bornes.yMax) / 2)
     }
     const solutions1 = theSpline.solve(y1)
-    const reponse1 = (!solutions1 || solutions1.length === 0) ? 'aucun' : `${solutions1.join(';')}`
+    const reponse1 = (!solutions1 || solutions1.length === 0) ? '\\emptyset' : `${solutions1.join(';')}`
     this.reponse = reponse1
     this.question = `Déterminer les antécédents éventuels de $${y1}$ par la fonction $f$.<br>` +
        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
     if (this.interactif) {
-      this.question += '<br>Écrire les antécédents rangés dans l\'ordre croissant séparés par des points-virgules (saisir "aucun" s\'il n\'y en a pas).<br>'
+      this.question += '<br>Écrire les antécédents séparés par des points-virgules (saisir $\\emptyset$ s\'il n\'y en a pas).<br>'
       this.question += 'Antécédent(s) : '
     }
 

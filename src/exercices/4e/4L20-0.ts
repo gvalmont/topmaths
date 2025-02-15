@@ -251,7 +251,6 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
 
       for (const enonce of this.listeQuestions) {
         this.listeCanEnonces.push('Résoudre l\'équation ' + enonce + '.')
-        this.listeCanReponsesACompleter.push('')
       }
     }
   }

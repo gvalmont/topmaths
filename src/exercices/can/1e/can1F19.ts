@@ -2,6 +2,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer une dérivée et écrire le résultat sous la forme d’un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,31 +26,27 @@ export const refs = {
 export default class CalculFonctionDeriveeQuotient extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
   nouvelleVersion () {
     let m; let p; let a
-    switch (choice([1, 2, 3, 4, 5, 6, 7])) {
+    switch (choice([1, 2, 3, 4, 5, 6, 7])) { //,
       case 1:// //mx+p+a/x
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : <br>
-
            $f(x)=${reduireAxPlusB(m, p)}+\\dfrac{${a}}{x}$.<br>
-
-            Déterminer $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
-        this.correction = `$f$est de la forme $u+v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
+            Déterminer $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).`
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
+        this.correction = `$f$ est de la forme $u+v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                  On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
           Ainsi,
-          $f'(x)= ${m}+\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}+\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2-${a}}{x^2}$.`
-
-        this.reponse = [`\\dfrac{${m}x^2-${a}}{x^2}`]
-
+          $f'(x)= ${m}+\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}+\\dfrac{${-a}}{x^2}=${miseEnEvidence(`\\dfrac{${m}x^2-${a}}{x^2}`)}$.`
+        this.reponse = `\\dfrac{${m}x^2-${a}}{x^2}`
         break
 
       case 2:// //mx+p-a/x
@@ -56,18 +54,14 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par :<br>
-
              $f(x)=${reduireAxPlusB(m, p)}-\\dfrac{${a}}{x}$. <br>
-
-              Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
-        this.correction = `$f$est de la forme $u-v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
+              Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).`
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
+        this.correction = `$f$ est de la forme $u-v$ avec $u(x)=${reduireAxPlusB(m, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                    On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
             Ainsi,
-            $f'(x)= ${m}-\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}-\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2+${a}}{x^2}$.`
-
-        this.reponse = [`\\dfrac{${m}x^2+${a}}{x^2}`]
-
+            $f'(x)= ${m}-\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}-\\dfrac{${-a}}{x^2}=${miseEnEvidence(`\\dfrac{${m}x^2+${a}}{x^2}`)}$.`
+        this.reponse = `\\dfrac{${m}x^2+${a}}{x^2}`
         break
 
       case 3:// //p+mx+a/x
@@ -75,16 +69,13 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : <br>
-
                $f(x)=${p}${ecritureAlgebrique(m)}x+\\dfrac{${a}}{x}$. <br>
-
-                Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
-        this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
+                Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).    `
+        if (this.interactif) { this.question += '<br> $f\'(x)=$' }
+        this.correction = `$f$ est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                      On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
               Ainsi,
-              $f'(x)= ${m}+\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}+\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2-${a}}{x^2}$.`
-
+              $f'(x)= ${m}+\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}+\\dfrac{${-a}}{x^2}=${miseEnEvidence(`\\dfrac{${m}x^2-${a}}{x^2}`)}$.`
         this.reponse = [`\\dfrac{${m}x^2-${a}}{x^2}`]
 
         break
@@ -93,17 +84,14 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : <br>
-
                   $f(x)=${p}${ecritureAlgebrique(m)}x-\\dfrac{${a}}{x}$. <br>
-
-                  Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
-        this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
+                  Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).`
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
+        this.correction = `$f$ est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                        On a $u'(x)=${m}$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
                 Ainsi,
-                $f'(x)= ${m}-\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}-\\dfrac{${-a}}{x^2}=\\dfrac{${m}x^2+${a}}{x^2}$.`
-
-        this.reponse = [`\\dfrac{${m}x^2+${a}}{x^2}`]
+                $f'(x)= ${m}-\\dfrac{-${a}}{x^2}=\\dfrac{${m}x^2}{x^2}-\\dfrac{${-a}}{x^2}=${miseEnEvidence(`\\dfrac{${m}x^2+${a}}{x^2}`)}$.`
+        this.reponse = `\\dfrac{${m}x^2+${a}}{x^2}`
 
         break
 
@@ -112,35 +100,28 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : <br>
-
             $f(x)=${reduirePolynomeDegre3(0, m, 0, p)}+\\dfrac{${a}}{x}$. <br>
-
-            Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
-        this.correction = `$f$est de la forme $u+v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
+            Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).`
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
+        this.correction = `$f$ est de la forme $u+v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                  On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
           Ainsi,
-          $f'(x)= ${2 * m}x+\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}+\\dfrac{${-a}}{x^2}=\\dfrac{${2 * m}x^3-${a}}{x^2}$.`
-
-        this.reponse = [`\\dfrac{${2 * m}x^3-${a}}{x^2}`]
-
+          $f'(x)= ${2 * m}x+\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}+\\dfrac{${-a}}{x^2}=${miseEnEvidence(`\\dfrac{${2 * m}x^3-${a}}{x^2}`)}$.`
+        this.reponse = `\\dfrac{${2 * m}x^3-${a}}{x^2}`
         break
       case 6:// //p+mx^2+a/x
         a = randint(1, 10)
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : <br>
-
          $f(x)=${p}${ecritureAlgebrique(m)}x^2+\\dfrac{${a}}{x}$. <br>
-
-          Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
-        this.correction = `$f$est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x^2$ et $v(x)=\\dfrac{${a}}{x}$.<br>
+          Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).`
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
+        this.correction = `$f$ est de la forme $u+v$ avec $u(x)=${p}${ecritureAlgebrique(m)}x^2$ et $v(x)=\\dfrac{${a}}{x}$.<br>
                On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
         Ainsi,
-        $f'(x)= ${2 * m}x+\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}+\\dfrac{${-a}}{x^2}=\\dfrac{${2 * m}x^3-${a}}{x^2}$.`
-
-        this.reponse = [`\\dfrac{${2 * m}x^3-${a}}{x^2}`]
+        $f'(x)= ${2 * m}x+\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}+\\dfrac{${-a}}{x^2}=${miseEnEvidence(`\\dfrac{${2 * m}x^3-${a}}{x^2}`)}$.`
+        this.reponse = `\\dfrac{${2 * m}x^3-${a}}{x^2}`
 
         break
 
@@ -149,18 +130,14 @@ export default class CalculFonctionDeriveeQuotient extends Exercice {
         m = randint(-10, 10, 0)
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : <br>
-
        $f(x)=${reduirePolynomeDegre3(0, m, 0, p)}-\\dfrac{${a}}{x}$.<br>
-
-        Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).<br>     `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
-        this.correction = `$f$est de la forme $u-v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
+        Déterminer  $f'(x)$ (écrire le résultat sous la forme d'un seul quotient).`
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
+        this.correction = `$f$ est de la forme $u-v$ avec $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $v(x)=\\dfrac{${a}}{x}$.<br>
              On a $u'(x)=${2 * m}x$ et $v'(x)=\\dfrac{-${a}}{x^2}$.<br>
       Ainsi,
-      $f'(x)= ${2 * m}x-\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}-\\dfrac{${-a}}{x^2}=\\dfrac{${2 * m}x^3+${a}}{x^2}$.`
-
-        this.reponse = [`\\dfrac{${2 * m}x^3+${a}}{x^2}`]
-
+      $f'(x)= ${2 * m}x-\\dfrac{-${a}}{x^2}=\\dfrac{${2 * m}x^3}{x^2}-\\dfrac{${-a}}{x^2}=${miseEnEvidence(`\\dfrac{${2 * m}x^3+${a}}{x^2}`)}$.`
+        this.reponse = `\\dfrac{${2 * m}x^3+${a}}{x^2}`
         break
     }
     this.canEnonce = this.question

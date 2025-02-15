@@ -58,7 +58,6 @@ export default class Can2025CE2Q13 extends ExerciceCan {
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce(70, 2, 50, 'Une paire de basckets') : this.enonce()
   }
 }

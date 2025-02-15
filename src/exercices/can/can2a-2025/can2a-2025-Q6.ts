@@ -28,7 +28,7 @@ export default class MultiplicationFractions extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.question = 'Écrire sous forme de fraction irréductible $\\dfrac{-5}{7}\\times \\dfrac{3}{5}$.'
+      this.question = 'Écrire sous forme d\'une fraction irréductible $\\dfrac{-5}{7}\\times \\dfrac{3}{5}$.'
       this.reponse = new FractionEtendue(-3, 7).simplifie().texFraction
       this.correction = `$\\begin{aligned}
      \\dfrac{-5}{7}\\times \\dfrac{3}{5}&=\\dfrac{-\\cancel{5}\\times 3}{7\\times \\cancel{5}}\\\\
@@ -47,12 +47,10 @@ export default class MultiplicationFractions extends Exercice {
       const f2 = new FractionEtendue(n2, d2)
       const frac = new FractionEtendue(n1 * n2, d1 * d2)
       this.reponse = f1.produitFraction(f2).simplifie().texFraction
-      this.question = `Écrire sous forme de fraction irréductible $${f1.texFraction}\\times ${f2.texFraction}$.`
+      this.question = `Écrire sous forme d'une fraction irréductible $${f1.texFraction}\\times ${f2.texFraction}$.`
 
       this.correction = `$${f1.texFraction}\\times ${f2.texFraction}${frac.texSimplificationAvecEtapes(false, '#f15929')}$`
     }
     if (this.interactif) { this.question += '<br>' }
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
   }
 }

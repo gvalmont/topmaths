@@ -21,7 +21,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonc
 import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
-export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
+export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const titre = 'Calculer des longueurs avec des triangles semblables'
@@ -39,10 +39,10 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 3
+    this.nbQuestions = 1
     this.sup = 3
     this.consigne = 'Dans cet exercice, les marques identiques désignent des angles égaux.'
-    this.besoinFormulaireTexte = ['Types de questions (nombre séparés par des tirets)', '1: Valeurs entières coefficient entier ou égal à 0,5\n2: Valeurs décimales coefficient entier\n3: Valeurs décimales coefficient décimal']
+    this.besoinFormulaireTexte = ['Types de questions ', 'Nombres séparés par des tirets\n1: Valeurs entières coefficient entier ou égal à 0,5\n2: Valeurs décimales coefficient entier\n3: Valeurs décimales coefficient décimal']
     //    this.besoinFormulaire2CaseACocher = ['Pour les tests,décoréler completement les deux triangles']
     //    this.sup2 = false
   }
@@ -213,7 +213,7 @@ export default class nomExercice extends Exercice {
           widthmincol2: '0px'
         })
         texte += '<br><br><em>Il ne faut pas saisir d\'unité.</em> <br>'
-        texte += remplisLesBlancs(this, i, `${D.nom}${F.nom} =  %{champ1}` + ' cm ' + `${E.nom}${F.nom} =  %{champ2}` + ' cm', KeyboardType.clavierNumbers, '\\ldots\\ldots')
+        texte += remplisLesBlancs(this, i, `${D.nom}${F.nom} =  %{champ1}` + '~\\text{cm} ' + `${E.nom}${F.nom} =  %{champ2}` + '~\\text{cm}', KeyboardType.clavierNumbers, '\\ldots\\ldots')
         handleAnswers(this, i, {
           bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
           champ1: { value: texNombre(longueurAC * coeff, 1) },

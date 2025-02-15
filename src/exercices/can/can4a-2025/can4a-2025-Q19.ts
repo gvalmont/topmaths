@@ -28,18 +28,21 @@ export default class Can2025N4Q19 extends ExerciceCan {
       items: [
         'Choisir un nombre ;',
         `Multiplier par $${a}$ ;`,
-        `Ajouter $${b}$.`
+        `Ajouter $${b}$.<br><br>`
       ],
       style: 'fleches'
     })
     this.question += `${liste}Quel nombre obtient-on si le nombre choisi est $${c}$ ?`
-    this.correction = `$${c}\\leadsto ${a} \\times (${c}) = ${a * c}\\leadsto ${a * c}+ ${b} = ${miseEnEvidence(a * c + b)}$.`
+    this.correction = `
+    On multiplie le nombre choisi par $${a}$, on obtient : $${a} \\times (${c}) = ${a * c}$.<br>
+    On ajoute $${b}$ au résultat précédent : $${a * c}+ ${b} = ${miseEnEvidence(a * c + b)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = String(a * c + b)
     if (this.interactif) {
       this.question += '<br>'
     }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

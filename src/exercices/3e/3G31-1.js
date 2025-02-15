@@ -6,7 +6,7 @@ import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { similitude } from '../../lib/2d/transformations'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { degres, radians } from '../../lib/mathFonctions/trigo'
+import { radToDeg, degToRad } from '../../lib/mathFonctions/trigo'
 import { choice } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -74,8 +74,8 @@ export default class CalculDAngleFigureComplexe extends Exercice {
       const BA = longueur(B, A)
       const AD = longueur(A, D, 1)
       const BAC = Math.round(angle(B, A, C))
-      let AC = BA / Math.cos(radians(BAC))
-      let ACD = Math.round(degres(Math.atan(AD / AC)))
+      let AC = BA / Math.cos(degToRad(BAC))
+      let ACD = Math.round(radToDeg(Math.atan(AD / AC)))
       let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '^\\circ')
       const a2 = afficheLongueurSegment(A, B)
       const a3 = afficheLongueurSegment(D, A)
@@ -152,8 +152,8 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           }
           break
         case 'BA-AD-ACB':
-          AC = BA / Math.sin(radians(ACB))
-          ACD = Math.round(degres(Math.atan(AD / AC)))
+          AC = BA / Math.sin(degToRad(ACB))
+          ACD = Math.round(radToDeg(Math.atan(AD / AC)))
           a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + '\\circ')
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)

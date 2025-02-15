@@ -80,7 +80,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           } else {
@@ -132,7 +131,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -180,7 +178,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 5:
@@ -410,7 +407,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 9:
@@ -423,7 +419,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -467,7 +462,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 11:
 
@@ -507,7 +501,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 12:
@@ -523,7 +516,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += '<br><br>' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -548,7 +540,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -571,7 +562,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -624,7 +614,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           texteCorr = `$${texNombre(a, 2)}-${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 3))}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -717,7 +706,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             }
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
         case 20:
@@ -817,7 +805,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -925,7 +912,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -1070,7 +1056,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
         case 25:
@@ -1255,7 +1240,6 @@ export default class SujetCAN2023Cinquieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }

@@ -21,7 +21,7 @@
   let clockAbled: boolean = false
 
   const original = 1 * 60 // TYPE NUMBER OF SECONDS HERE
-  let timer: Tweened<number>
+  const timer: Tweened<number> = tweened(original)
   const defaultengine = 'lualatex'
   const defaultreturn = 'pdfjs'
 
@@ -129,7 +129,7 @@
       formData.append('filename[]', imaUrl.split('/').slice(-1)[0])
     }
 
-    timer = tweened(original)
+    timer.set(original)
     clockAbled = true
     const timeValue = setInterval(() => {
       if ($timer > 0) {
@@ -142,7 +142,7 @@
     iframe2.addEventListener('load', function (this) {
       clockAbled = false
       clearInterval(timeValue)
-      timer = tweened(original)
+      timer.set(original)
     })
 
     submitFormToIframe(formData)

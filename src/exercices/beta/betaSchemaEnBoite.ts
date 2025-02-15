@@ -12,7 +12,7 @@ export default class BetaSchemaEnBoite extends Exercice {
     super()
     this.nbQuestions = 4
     this.besoinFormulaireTexte = ['Types de problèmes', [
-      'nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : Somme dont on cherche le résultat',
       '2 : Soustraction dont on cherche un terme',
       '3 : Multiplication dont on cherche le résultat',

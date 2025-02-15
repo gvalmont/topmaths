@@ -4,9 +4,12 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+
+export const dateDeModifImportante = '11/02/2025'
+
 /**
  *
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote et Rémi Angot
  */
 export const uuid = '7fa0e'
 
@@ -18,7 +21,7 @@ export default class MultiplierDecimauxPar101001000C3 extends MultiplierDecimaux
   constructor () {
     super()
     this.nbQuestions = 3
-    this.sup = 1
+    this.sup = '1'
     this.sup2 = false
   }
 }

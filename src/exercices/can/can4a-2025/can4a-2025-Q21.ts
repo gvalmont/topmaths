@@ -22,11 +22,12 @@ export default class Can2025N4Q21 extends ExerciceCan {
       b = randint(3, -a - 3)
     }
     this.question = `$${a} + ${b}$`
-    this.correction = `$${a} + ${b}= ${b}-${-a}=${miseEnEvidence(a + b)}$`
+    this.correction = `$${a} + ${b}=${miseEnEvidence(a + b)}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = String(a + b)
     this.question += this.interactif ? ' $=$' : ''
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

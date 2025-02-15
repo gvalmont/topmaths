@@ -1,4 +1,5 @@
 import { arrondi } from '../outils/nombres'
+import { texNombre } from '../outils/texNombre'
 
 /**
  * Convertit un angle de radian vers degrés et fonction inverse
@@ -6,11 +7,11 @@ import { arrondi } from '../outils/nombres'
  * // PI->180
  * @author Jean-Claude Lhote
  */
-export function degres (radians: number) {
+export function radToDeg (radians: number) {
   return radians * 180 / Math.PI
 }
 
-export function radians (degres: number) {
+export function degToRad (degres: number) {
   return degres * Math.PI / 180
 }
 
@@ -20,7 +21,7 @@ export function radians (degres: number) {
  * @author Jean-Claude Lhote
  */
 export function degCos (a: number) {
-  return Math.cos(radians(a))
+  return Math.cos(degToRad(a))
 }
 
 /**
@@ -29,7 +30,7 @@ export function degCos (a: number) {
  * @author Jean-Claude Lhote
  */
 export function degSin (a: number) {
-  return Math.sin(radians(a))
+  return Math.sin(degToRad(a))
 }
 
 /**
@@ -38,7 +39,7 @@ export function degSin (a: number) {
  * @author Jean-Claude Lhote
  */
 export function degTan (a: number) {
-  return Math.tan(radians(a))
+  return Math.tan(degToRad(a))
 }
 
 /**
@@ -47,7 +48,7 @@ export function degTan (a: number) {
  * @author Jean-Claude Lhote
  */
 export function degAcos (x: number) {
-  return arrondi(degres(Math.acos(x)), 1)
+  return arrondi(radToDeg(Math.acos(x)), 1)
 }
 
 /**
@@ -56,7 +57,7 @@ export function degAcos (x: number) {
  * @author Jean-Claude Lhote
  */
 export function degAsin (x: number) {
-  return arrondi(degres(Math.asin(x)), 1)
+  return arrondi(radToDeg(Math.asin(x)), 1)
 }
 
 /**
@@ -65,10 +66,10 @@ export function degAsin (x: number) {
  * @author Jean-Claude Lhote
  */
 export function degAtan (x: number) {
-  return arrondi(degres(Math.atan(x)), 1)
+  return arrondi(radToDeg(Math.atan(x)), 1)
 }
 
-function angleOppose (angle: Angle) { // retourne l'angle opposé d'un angle du premier cadrant (sinon, on pourrait avoir plusieurs signe '-' collés ensemble)
+export function angleOppose (angle: Angle) { // retourne l'angle opposé d'un angle du premier cadrant (sinon, on pourrait avoir plusieurs signe '-' collés ensemble)
   if (angle.degres === '0') {
     return angle
   } else {
@@ -82,7 +83,7 @@ function angleOppose (angle: Angle) { // retourne l'angle opposé d'un angle du 
   }
 }
 
-function complementaireRad (angleEnRadian: string) { // retourne la mesure en radians du complémentaire d'un angle du premier quadrant donné également en radians
+export function complementaireRad (angleEnRadian: string) { // retourne la mesure en radians du complémentaire d'un angle du premier quadrant donné également en radians
   switch (angleEnRadian) {
     case '\\dfrac{\\pi}{4}':
       return angleEnRadian
@@ -97,7 +98,7 @@ function complementaireRad (angleEnRadian: string) { // retourne la mesure en ra
   }
 }
 
-function supplementaireRad (angleEnRadian: string) { // retourne la mesure en radians du supplémentaire d'un angle du premier quadrant donné également en radians
+export function supplementaireRad (angleEnRadian: string) { // retourne la mesure en radians du supplémentaire d'un angle du premier quadrant donné également en radians
   switch (angleEnRadian) {
     case '\\dfrac{\\pi}{4}':
       return '\\dfrac{3\\pi}{4}'
@@ -112,7 +113,7 @@ function supplementaireRad (angleEnRadian: string) { // retourne la mesure en ra
   }
 }
 
-function inverseTan (angle: Angle) {
+export function inverseTan (angle: Angle) {
   switch (angle.tan) {
     case '\\infin':
     case '-\\infin':
@@ -126,7 +127,7 @@ function inverseTan (angle: Angle) {
   }
 }
 
-function angleComplementaire (angle: Angle) { // retourne l'angle complémentaire d'un angle du premier cadrant
+export function angleComplementaire (angle: Angle) { // retourne l'angle complémentaire d'un angle du premier cadrant
   return new Angle({
     degres: (90 - parseInt(angle.degres)).toString(),
     cos: angle.sin,
@@ -136,7 +137,7 @@ function angleComplementaire (angle: Angle) { // retourne l'angle complémentair
   })
 }
 
-function angleSupplementaire (angle: Angle) { // retourne l'angle supplémentaire d'un angle du premier cadrant
+export function angleSupplementaire (angle: Angle) { // retourne l'angle supplémentaire d'un angle du premier cadrant
   return new Angle({
     degres: (180 - parseInt(angle.degres)).toString(),
     cos: angle.cos === '0' ? '0' : opposeStringArray(angle.cos) as string,
@@ -146,7 +147,7 @@ function angleSupplementaire (angle: Angle) { // retourne l'angle supplémentair
   })
 }
 
-function opposeStringArray (value: string[] | string): string[] | string {
+export function opposeStringArray (value: string[] | string): string[] | string {
   if (Array.isArray(value)) {
     const result = []
     for (const e of value) {
@@ -154,6 +155,50 @@ function opposeStringArray (value: string[] | string): string[] | string {
     }
     return result
   } else return '-' + value
+}
+/**
+ *
+ * @param k Cette fonction intervient dans le calcul des parties réelles et imaginaires de k.e^{i.teta} = k.cos(teta) + i.k.sin(teta)
+ * elle retourne la valeur exacte en latex de k.cosOuSin
+ * @param cosOuSin
+ */
+export function kCosOuKSin (k:number, cosOuSin: string) {
+  function extractNumerator (latex: string): string | null {
+    const num = latex.split('\\dfrac{')[1].split('}{')[0]
+    return num
+  }
+  const signe = cosOuSin.startsWith('-') ? '-' : ''
+  if (signe === '-') cosOuSin = cosOuSin.slice(1)
+  if (cosOuSin.includes('{2}')) { // On a à faire à \\dfrac{1}{2} ou \\dfrac{\\sqrt{2}}{2}
+    if (Number.isInteger(k) && k % 2 === 0) { // k étant pair, on simplifie par 2
+      k /= 2
+      const num = extractNumerator(cosOuSin)
+      if (num === '1') return `${signe}${k}`
+      else return `${signe}${k !== 1 ? k : ''}${num}`
+    } else {
+      const num = extractNumerator(cosOuSin)
+      if (num === '1') return `${signe}\\dfrac{${k}}{2}`
+      return `${signe}\\dfrac{${k}${extractNumerator(cosOuSin)}}{2}`
+    }
+  } else { // Pas de dénominateur 2, on est sur un nombre décimal comme 0.5
+    const val = parseFloat(cosOuSin)
+    return `${signe}${texNombre(k * val)}`
+  }
+}
+
+function parenthesesSiNegatif (value: string): string {
+  if (value[0] === '-') {
+    return `\\left(${value}\\right)`
+  } else return value
+}
+export function parenthesesSiNegatifStrigArray (value: string[] | string): string[] | string {
+  if (Array.isArray(value)) {
+    const result = []
+    for (const e of value) {
+      result.push(parenthesesSiNegatif(e))
+    }
+    return result
+  } else return parenthesesSiNegatif(value)
 }
 
 /**
@@ -180,10 +225,10 @@ export class Angle {
 
   constructor ({
     degres,
-    cos = 'undefined',
-    sin = 'undefined',
-    tan = 'undefined',
-    radians = 'undefined'
+    cos = undefined,
+    sin = undefined,
+    tan = undefined,
+    radians = undefined
   }: {
     degres: string
     cos?: string | string[]
@@ -222,10 +267,10 @@ export class Angle {
       if (cos === undefined || sin === undefined || tan === undefined || radians === undefined) {
         window.notify('Il faut fournir les valeurs du cosinus, du sinus, de la tangente et de la mesure en radians', { cos, sin, tan, radians })
       }
-      this.cos = cos
-      this.sin = sin
-      this.tan = tan
-      this.radians = radians
+      this.cos = cos ?? ''
+      this.sin = sin ?? ''
+      this.tan = tan ?? ''
+      this.radians = radians ?? ''
     } else { // si l'angle en degré est fourni, on aura par défaut les valeurs de l'angle de base si les paramètres ne sont pas donnés
       this.cos = cos ?? angle.cos
       this.sin = sin ?? angle.sin
@@ -260,7 +305,7 @@ export const anglesDeBase = [
   }),
   new Angle({ degres: '0', cos: '1', sin: '0', tan: '0', radians: '0' })
 ]
-
+export
 function moduloDeg (angleEnDegre: string, k: number) {
   const coef = 360 / parseInt(angleEnDegre)
   if (angleEnDegre === '0') {
@@ -268,7 +313,7 @@ function moduloDeg (angleEnDegre: string, k: number) {
   } else return ((coef * k + 1) * parseInt(angleEnDegre)).toString()
 }
 
-function moduloRad (angleEnDegre: string, k: number) {
+export function moduloRad (angleEnDegre: string, k: number) {
   const coef = 360 / parseInt(angleEnDegre)
   if (angleEnDegre === '0') {
     return `${2 * k}\\pi`
@@ -281,7 +326,7 @@ function moduloRad (angleEnDegre: string, k: number) {
  * @param {number} k On part de l'objet angle et on ajoute 2 * k * pi
  * @returns {Angle}
  */
-function angleModulo (angle: Angle, k: number) {
+export function angleModulo (angle: Angle, k: number) {
   return new Angle({
     degres: moduloDeg(angle.degres, k),
     cos: angle.cos,

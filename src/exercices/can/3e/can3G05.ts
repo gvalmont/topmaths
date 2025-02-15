@@ -9,6 +9,7 @@ import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import Exercice from '../../Exercice'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Utiliser la trigonométrie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,7 +31,7 @@ export default class Trigo extends Exercice {
     super()
 
     this.typeExercice = 'simple'
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.nbQuestions = 1
   }
 

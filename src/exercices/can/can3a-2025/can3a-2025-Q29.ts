@@ -25,7 +25,8 @@ export default class PrixApresReduction extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
-    this.optionsChampTexte = { texteAvant: '<br>', texteApres: 'euros' }
+    this.optionsChampTexte = { texteAvant: '<br>', texteApres: 'euros.' }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

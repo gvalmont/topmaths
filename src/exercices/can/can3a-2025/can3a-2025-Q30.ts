@@ -24,6 +24,7 @@ export default class ProduitCalculNul extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
     this.optionsChampTexte = { texteAvant: '$=$', texteApres: '' }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

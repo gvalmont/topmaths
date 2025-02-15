@@ -42,7 +42,7 @@ export default class AdditionFractionVF extends Exercice {
     On les met au même dénominateur et on additionne alors les numérateurs en gardant le dénominateur commmun.<br>
     Réponse : ${texteEnCouleurEtGras('Faux')}`
     } else {
-      this.correction = `En mettant les fractions au même déominateur, on a bien $${a}+${b}=${c}$.<br>
+      this.correction = `En mettant les fractions au même dénominateur, on a bien $${a}+${b}=${c}$.<br>
     Réponse : ${texteEnCouleurEtGras('Vrai')}`
     }
 

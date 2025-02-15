@@ -280,7 +280,7 @@ class EquationSecondDegre {
   formeCanonique (): string {
     const alpha = this.coefficients[1].oppose().diviseFraction(this.coefficients[0].multiplieEntier(2).simplifie())
     const beta = this.polynomeFormeReduite().evaluer({ x: alpha }).simplifie()
-    return `\\left(${this.variable}${alpha.oppose().simplifie().texFractionSignee}\\right)^2${beta.texFractionSignee}`
+    return `${rienSi1(this.coefficients[0])}\\left(${this.variable}${alpha.oppose().simplifie().texFractionSignee}\\right)^2${beta.texFractionSignee}`
   }
 
   solutionFrac () : FractionEtendue[] | string {

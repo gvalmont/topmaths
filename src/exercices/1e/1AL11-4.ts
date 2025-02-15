@@ -36,7 +36,7 @@ export default class TermesSASG extends Exercice {
     this.correctionDetailleeDisponible = true
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Suite arithmétique avec premier terme u_0',
         '2 : Suite arithmétique avec premier terme u_1',
         '3 : Suite arithmétique avec premier terme u_p',

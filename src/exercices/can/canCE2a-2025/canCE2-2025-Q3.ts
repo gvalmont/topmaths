@@ -55,7 +55,6 @@ export default class Can2025NCE2Q3 extends ExerciceCan {
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce([280, 290, 300, 0, 0, 330]) : this.enonce()
   }
 }

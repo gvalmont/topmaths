@@ -32,8 +32,8 @@
   const foundResource = retrieveResourceFromUuid(allStaticReferentiels, uuid)
   if (isStaticWithoutPngUrl(foundResource)) {
     const examen = foundResource.uuid.split('_')[0]
-    foundResource.png = `static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
-    foundResource.pngCor = `static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
+    foundResource.png = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}.png`
+    foundResource.pngCor = `https://coopmaths.fr/alea/static/${examen}/${foundResource.annee}/tex/png/${foundResource.uuid}_cor.png`
   }
   const resourceToDisplay = isStaticType(foundResource) || isCrpeType(foundResource)
     ? { ...foundResource }

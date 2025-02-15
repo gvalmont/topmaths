@@ -38,12 +38,18 @@ export default class Exercice {
   listeCorrections: string[] = []
   listeCanReponsesACompleter: string[] = []
   listeCanEnonces: string[] = []
+  listeCanLiees: number[][] = []
+  listeCanNumerosLies: number[] = []
   question?: string // Seulement pour les exercices de type simple
   reponse?: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[] | Valeur// Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canOfficielle?: boolean = false
-  canEnonce?: string // Seulement pour les exercices de type simple
+  canEnonce?: string // Seulement pour les exercices de type simple ??? NON ! NOTE de Jena-claude Lhote du 2/02/2025 : et pourquoi ça ???
+  // On peut être amené à utiliser un Exercice non simple à une seule question dans une can, parce qu'il a 3 champs et une correction custom.
+  // Et vouloir un this.canEnonce sur cet exercice, pour le document CAN !
   canReponseACompleter: string = '' // Seulement pour les exercices de type simple
+  canNumeroLie: number = 0 //  Pour la sortie LaTeX des CAN dont les énoncés sont liées, cette variable contient le numéro de la question actuelle.
+  canLiee: number[] = [] //  Pour la sortie LaTeX des CAN dont les énoncés sont liées, cette variable contient, dans un tableau, les numéros des CAN liées à l'actuelle.
   formatChampTexte: string | undefined | PartialKbType = KeyboardType.clavierDeBase // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   // tailleDiaporama?: number // Pour fixer un zoom de base en mode diaporama

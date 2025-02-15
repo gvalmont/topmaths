@@ -65,7 +65,7 @@ export default class CalculsHomothetie extends Exercice {
 
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Calculer le rapport',
         '2 : Calculer une longueur image',
         '3 : Calculer une longueur antécédent',

@@ -82,7 +82,7 @@ export default class VocabulaireDuCercle extends Exercice {
     this.sup3 = '1-2-3-4-5-6'
     this.besoinFormulaire3Texte = [
       'Type de questions', [
-        'Au moins deux nombres séparés par des tirets',
+        'Au moins deux nombres séparés par des tirets :',
         '1 : Le rayon',
         '2 : Un rayon',
         '3 : Le diamètre',

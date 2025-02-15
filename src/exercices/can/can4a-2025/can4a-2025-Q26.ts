@@ -19,16 +19,23 @@ export const refs = {
 export default class Can2025N4Q26 extends ExerciceCan {
   enonce (a?:number) {
     if (a == null) {
-      a = randint(2, 4) + randint(2, 8) / 10
+      a = randint(1, 3) + randint(2, 8) / 10
     }
     const dp = a - Math.floor(a)
-    this.question = `$${texNombre(a, 1)}\\text{ h}$`
-    this.correction = `$${texNombre(a, 1)}\\text{ h}=${Math.floor(a)}\\times 60+${texNombre(dp, 1)}\\times 60 = ${Math.floor(a) * 60}+${texNombre(dp * 60, 0)}=${miseEnEvidence(texNombre(a * 60, 0))}$`
+    this.question = `$${texNombre(a, 1)}\\text{ h }$`
+    this.correction = `On décompose $${texNombre(a, 1)}\\text{ h }$ :<br>
+     $\\begin{aligned}
+     ${texNombre(a, 1)}\\text{ h }&=${texNombre(Math.floor(a), 0)} \\text{ h } +${texNombre(a - Math.floor(a), 1)}\\text{ h }\\\\
+     &=${Math.floor(a)}\\times 60 \\text{ min }+${texNombre(dp, 1)}\\times 60 \\text{ min }\\\\
+     &= ${Math.floor(a) * 60} \\text{ min } +${texNombre(dp * 60, 0)} \\text{ min }\\\\
+     &=${miseEnEvidence(texNombre(a * 60, 0))} \\text{ min }
+     \\end{aligned}$`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ min}$'
     this.reponse = Math.round(a * 60)
     this.optionsChampTexte = { texteApres: ' min' }
-    this.question += this.interactif ? ' $=$' : ''
+    this.question += this.interactif ? ' $=$' : '$=\\ldots$ min'
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

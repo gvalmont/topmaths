@@ -350,11 +350,9 @@ export default class SymetrieAxialeConservation1 extends Exercice {
           handleAnswers(this, i * this.sup3 + ii, { reponse: { value: reponse }, callback })
         }
         if (context.isAmc) {
-          // @ts-expect-error
-          this.autoCorrection[i].propositions.push(
+          this.autoCorrection[i].propositions!.push(
             {
               type: 'AMCOpen',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: ' ',
@@ -381,7 +379,6 @@ export default class SymetrieAxialeConservation1 extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'Pour chaque question ci-dessous, placer sur cette figure, l\'objet mathématique cité puis tracer son symétrique. Répondre ensuite à la question.<br>' + enonceAMC + '<br>'
         this.autoCorrection[i].enonceAvant = false
-        // @ts-expect-error
         this.autoCorrection[i].enonceAvantUneFois = true
       }
 

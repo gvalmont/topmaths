@@ -1,14 +1,15 @@
 import { milieu, point } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import { texteParPosition } from '../../../lib/2d/textes'
+import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +38,7 @@ export default class RechercheValeurPythagore extends Exercice {
   nouvelleVersion () {
     let a, A, B, C, objets, nom, pol
 
-    switch (choice(['a', 'b'])) {
+    switch (choice(['b'])) {
       case 'a':
         nom = creerNomDePolygone(3, ['QD'])
         a = randint(1, 5) * 2//
@@ -48,20 +49,21 @@ export default class RechercheValeurPythagore extends Exercice {
         objets = []
         objets.push(segment(A, B), segment(B, C), segment(A, C))
         objets.push(pol[0], pol[1])
-        objets.push(texteParPosition(`${texNombre(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, 0, 'black', 1, 'milieu', true),
-          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 0, 'black', 1, 'milieu', true),
-          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 0, 'black', 1, 'milieu', true))
+        objets.push(latex2d(`${texNombre(a)}`, milieu(B, C).x + 0.5 + 0, milieu(B, C).y, { letterSize: 'scriptsize' }),
+          latex2d('x', milieu(A, C).x - 0.5, milieu(A, C).y, { letterSize: 'scriptsize' }),
+          latex2d('x', milieu(A, B).x, milieu(A, B).y - 0.5, { letterSize: 'scriptsize' }))
+        this.question = `${mathalea2d(Object.assign({ scale: 0.7, style: 'margin: auto; display: block' }, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
         if (this.interactif) {
-          this.question = `Déterminer $x$ pour que le triangle soit rectangle.<br>
-      (donner le résultat sous la forme $\\sqrt{a}$)<br>`
+          this.question += `Déterminer $x$ pour que le triangle soit rectangle.<br>
+      (donner le résultat sous la forme $\\sqrt{a}$)<br>
+      $x=$`
         } else {
-          this.question = 'Déterminer $x$ pour que le triangle soit rectangle.<br>'
+          this.question += 'Déterminer $x$ pour que le triangle soit rectangle.'
         }
-        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+
         this.correction = ` Le plus grand côté est $${a}$ (autrement il y aurait deux hypoténuses). On cherche $x$ tel que $x^2+x^2=${a}^2$, soit $2x^2=${a * a}$.<br>
       En divisant par $2$ chacun des membres, on obtient : $x^2=${a * a / 2}$.<br>
-      Comme la valeur de $x$ cherchée est positive, on a  $x=\\sqrt{${texNombre(a ** 2 / 2)}}$.
-  <br>`
+      Comme la valeur de $x$ cherchée est positive, on a  $x=${miseEnEvidence(`\\sqrt{${texNombre(a ** 2 / 2)}}`)}$.`
 
         this.reponse = [`\\sqrt{${a ** 2 / 2}}`, `${Math.sqrt(a ** 2 / 2)}`]
         break
@@ -75,22 +77,22 @@ export default class RechercheValeurPythagore extends Exercice {
         objets = []
         objets.push(pol[0], pol[1])
         objets.push(segment(A, B), segment(B, C), segment(A, C))
-        objets.push(texteParPosition(`$\\sqrt{${a}}$`, milieu(B, C).x + 1, milieu(B, C).y),
-          texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 0, 'black', 1, 'milieu', true),
-          texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.5, 0, 'black', 1, 'milieu', true))
+        objets.push(latex2d(`\\sqrt{${a}}`, milieu(B, C).x + 1, milieu(B, C).y, { letterSize: 'scriptsize' }),
+          latex2d('x', milieu(A, C).x - 0.5, milieu(A, C).y, { letterSize: 'scriptsize' }),
+          latex2d('x', milieu(A, B).x, milieu(A, B).y - 0.5, { letterSize: 'scriptsize' }))
 
-        this.question = `Déterminer $x$ pour que le triangle soit rectangle.
-        
-        <br>
-        `
-        this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 5, pixelsParCm: 22, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+        this.question = `${mathalea2d(Object.assign({ scale: 0.7, style: 'margin: auto; display: block' }, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
+        if (this.interactif) {
+          this.question += `Déterminer $x$ pour que le triangle soit rectangle.<br>
+      $x=$`
+        } else {
+          this.question += 'Déterminer $x$ pour que le triangle soit rectangle.'
+        }
         this.correction = ` Le plus grand côté est $\\sqrt{${a}}$ (autrement il y aurait deux hypoténuses).
         On cherche $x$ tel que $x^2+x^2=\\sqrt{${a}}^2$, soit $2x^2=${a}$.<br>
       En divisant par $2$ chacun des membres, on obtient : $x^2=${a / 2}$.<br>
-      Comme la valeur de $x$ cherchée est positive, on a  $x=\\sqrt{${texNombre(a / 2)}}=${Math.sqrt(a / 2)}$.
-  `
-
-        this.reponse = [Math.sqrt(a / 2), `\\sqrt{${a / 2}}`]
+      Comme la valeur de $x$ cherchée est positive, on a  $x=\\sqrt{${texNombre(a / 2)}}=${miseEnEvidence(`${Math.sqrt(a / 2)}`)}$.`
+        this.reponse = `\\sqrt{${a / 2}}`
         break
     }
     this.canEnonce = this.question// 'Compléter'

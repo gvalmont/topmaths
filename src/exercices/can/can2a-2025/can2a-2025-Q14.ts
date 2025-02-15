@@ -27,7 +27,7 @@ export default class ResoudreGraphiquementEquation extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
     this.optionsDeComparaison = { ensembleDeNombres: true }
-    this.optionsChampTexte = { texteAvant: '$S=\\{$', texteApres: '$\\}$' }
+    this.optionsChampTexte = { texteAvant: ' $S=$' }
   }
 
   nouvelleVersion () {
@@ -48,32 +48,34 @@ export default class ResoudreGraphiquementEquation extends Exercice {
       }
     }
     const o = latex2d('\\text{O}', -0.3, -0.3, { color: 'black', letterSize: 'scriptsize' })
-
-    const r1 = new RepereBuilder({ xMin: -2.5, xMax: 3.5, yMin: -3, yMax: 4 })
+    const r1 = new RepereBuilder({ xMin: -2.5, xMax: 3.5, yMin: -3, yMax: 2.5 })
       .setUniteX(1.5)
       .setUniteY(1.5)
       .setLabelX({ xMin: -2.5, xMax: 2.5, dx: 1 })
       .setLabelY({ yMin: -3, yMax: 4, dy: 1 })
-      .setGrille({ grilleX: { dx: 1, xMin: -2.5, xMax: 2.5 }, grilleY: { dy: 1, yMin: -3, yMax: 4 } })
-      .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 0.5, yMin: -3, yMax: 4, style: undefined } })
+      .setGrille({ grilleX: { dx: 1, xMin: -2.5, xMax: 2.5 }, grilleY: { dy: 1, yMin: -3, yMax: 3 } })
       .setThickX({ xMin: -3, xMax: 3, dx: 1.5 })
-      .setThickY({ yMin: -3, yMax: 4, dy: 1.5 })
+      .setThickY({ yMin: -3, yMax: 3, dy: 1.5 })
       .buildStandard()
-
-    const courbef1 = latex2d('\\mathscr{C}_g', 2.5, 3, { color: 'blue' })
+    const courbef1 = latex2d('\\mathscr{C}_g', 2.5, 2.7, { color: 'blue' })
     const courbef2 = latex2d('\\mathscr{C}_f', -1.7, -1.8, { color: 'red' })
-
     const objets1 = [r1, o, courbef1, courbef2, courbe(f1, { repere: r1, color: 'blue', epaisseur: 2 }), courbe(f2, { repere: r1, color: 'red', epaisseur: 2 })]
-
-    const colonne1 = mathalea2d(Object.assign({}, fixeBordures(objets1)), objets1)
-    this.question = `Voici les courbes de deux fonctions $f$ et $g$ définies sur $[-2\\,;\\,3]$ : <br>${colonne1}\n
-    Donner l'ensemble $S$ des solutions de l'équation $f(x)=g(x)$.`
+    const colonne1 = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets1)), objets1)
+    this.question = `Courbes de deux fonctions $f$ et $g$<br>${colonne1}\n
+   Résoudre $f(x)>1$.`
     if (this.interactif) { this.question += '<br>' }
-    this.correction = `Les solutions sont les abscisses des pojnts d'intersection entre les deux courbes :<br>
-   $S=\\{${miseEnEvidence('-1\\,;\\,2')}\\}$ `
+    this.correction = `Les solutions de l'inéquation sont les abscisses des points de $\\mathscr{C}_f$ qui se trouvent au-dessus de la droite horizontale d'équation $y=1$.<br>
+    $S=${miseEnEvidence(']-1;-1[')}$ `
+    this.reponse = {
+      reponse: {
+        value: ']-1;1[',
+        options: { intervalle: true }
+      }
+    }
 
-    this.reponse = ['-1;2', '2;-1', '\\{-1;2\\}', '\\{2;-1\\}']
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canEnonce = `Courbes de deux fonctions $f$ et $g$ <br>${colonne1}`
+    this.canReponseACompleter = 'Résoudre $f(x)>1$<br>$\\dots$'
+    this.canNumeroLie = 14
+    this.canLiee = [13, 15]
   }
 }

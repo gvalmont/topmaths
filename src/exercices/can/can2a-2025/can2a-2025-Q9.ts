@@ -33,6 +33,7 @@ export default class FactoriserA2MoinsB2 extends Exercice {
     if (this.canOfficielle) {
       this.reponse = '(x-5)(x+5)'
       this.question = ' Factoriser  $x^2-25$.'
+      if (this.interactif) { this.question += '<br>$x^2-25=$' }
       this.correction = `On utilise l'égalité remarquable $${miseEnCouleur('a', 'red')}^2-${miseEnCouleur('b', 'blue')}^2=(${miseEnCouleur('a', 'red')}-${miseEnCouleur('b', 'blue')})(${miseEnCouleur('a', 'red')}+${miseEnCouleur('b', 'blue')})$ avec $a=${miseEnCouleur('x', 'red')}$  et $b=${miseEnCouleur('5', 'blue')}$.<br>
     $\\begin{aligned}x^2-25&=${miseEnCouleur('x', 'red')}^2-${miseEnCouleur('5', 'blue')}^2\\\\
     &=${miseEnEvidence(`(${miseEnCouleur('x', 'red')}-${miseEnCouleur('5', 'blue')})(${miseEnCouleur('x', 'red')}+${miseEnCouleur('5', 'blue')})`)}\\end{aligned}$<br>
@@ -41,9 +42,9 @@ export default class FactoriserA2MoinsB2 extends Exercice {
       const choix = choice([true, false])
       const a = randint(1, 10)
       this.reponse = choix ? `(${reduireAxPlusB(1, -a)})(${reduireAxPlusB(1, a)})` : `(${reduireAxPlusB(1, a)})(${reduireAxPlusB(-1, a)})`
-      this.question = ` Factoriser  ${choix ? `$x^2-${a * a}$` : `$${a * a}-x^2$`}.<br>`
-      this.correction = `On utilise l'égalité remarquable $${miseEnCouleur('a', 'red')}^2-${miseEnCouleur('b', 'blue')}^2=(${miseEnCouleur('a', 'red')}-${miseEnCouleur('b', 'blue')})(${miseEnCouleur('a', 'red')}+${miseEnCouleur('b', 'blue')})$ avec ${choix ? `$a=${miseEnCouleur('x', 'red')}$  et $b=${miseEnCouleur(`${a}`, 'blue')}$` : `$a=${miseEnCouleur(`${a}`, 'red')}$ et $b=${miseEnCouleur('x', 'blue')}$`}.<br>
-      `
+      this.question = ` Factoriser  ${choix ? `$x^2-${a * a}$` : `$${a * a}-x^2$`}.`
+      if (this.interactif) { this.question += `<br>${choix ? `$x^2-${a * a}=$` : `<br>$${a * a}-x^2=$`}` }
+      this.correction = `On utilise l'égalité remarquable $${miseEnCouleur('a', 'red')}^2-${miseEnCouleur('b', 'blue')}^2=(${miseEnCouleur('a', 'red')}-${miseEnCouleur('b', 'blue')})(${miseEnCouleur('a', 'red')}+${miseEnCouleur('b', 'blue')})$ avec ${choix ? `$a=${miseEnCouleur('x', 'red')}$  et $b=${miseEnCouleur(`${a}`, 'blue')}$` : `$a=${miseEnCouleur(`${a}`, 'red')}$ et $b=${miseEnCouleur('x', 'blue')}$`}.<br>`
       if (choix === true) {
         this.correction += `$\\begin{aligned}
  x^2-${a * a}&=\\underbrace{${miseEnCouleur('x', 'red')}^2-${miseEnCouleur(`${a}`, 'blue')}^2}_{a^2-b^2}\\\\

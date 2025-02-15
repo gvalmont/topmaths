@@ -26,7 +26,7 @@ export default class CalculLongueurGrille extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.optionsChampTexte = { texteApres: 'u.l.' }
   }
 
@@ -60,7 +60,7 @@ export default class CalculLongueurGrille extends Exercice {
     objets.push(a, s2, s1, Texte1)
     objetsC.push(a, s2, s1, s3, s4, Texte1, PositionPt, LabelsPt)
     this.reponse = `\\sqrt{${(C.x - A.x) ** 2 + (A.y - B.y) ** 2}}`
-    this.question = 'Longueur du segment.<br>' + mathalea2d({
+    this.question = 'Longueur du segment<br>' + mathalea2d({
       xmin,
       ymin,
       xmax,
@@ -73,7 +73,7 @@ export default class CalculLongueurGrille extends Exercice {
     }, objets)
     const hypo2 = (C.x - A.x) ** 2 + (A.y - B.y) ** 2
     const isCarre = Math.round(Math.sqrt(hypo2)) ** 2 === hypo2
-    this.correction = `On utilise le triangle rectangle représenté ci-dessous et on applique le théoème de Pythagore : <br>
+    this.correction = `On utilise le triangle rectangle représenté ci-dessous et on applique le théorème de Pythagore : <br>
     $\\begin{aligned}
          AB^2&=AC^2+BC^2\\\\
          AB^2&= ${C.x - A.x}^2+${A.y - B.y}^2\\\\
@@ -92,7 +92,7 @@ export default class CalculLongueurGrille extends Exercice {
     style: 'margin: auto'
   }, objetsC)
 
-    this.canEnonce = 'Longueur du segment.<br>' + mathalea2d({
+    this.canEnonce = 'Longueur du segment<br>' + mathalea2d({
       xmin,
       ymin,
       xmax,

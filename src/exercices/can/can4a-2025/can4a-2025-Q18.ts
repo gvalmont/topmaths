@@ -38,13 +38,14 @@ export default class Can2025N4Q18 extends ExerciceCan {
     const l2 = placeLatexSurSegment(`${b}\\text{ cm}`, C, B)
     const objets = [polygoneAvecNom(A, B, C), l1, l2]
     this.question = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5, display: 'inline-block' }, fixeBordures(objets)), objets)
-    this.question += `<br>Le périmètre de ce triangle est de ${a + b + c} cm.`
-    this.correction = `$AB=${a + b + c}\\text{ cm}-${a}\\text{ cm}-${b}\\text{ cm}=${miseEnEvidence(`${c}\\text{ cm}`)}$`
+    this.question += `<br>Le périmètre de ce triangle est de $${a + b + c}$ cm.`
+    this.correction = `$AB=${a + b + c}\\text{ cm}-${a}\\text{ cm}-${b}\\text{ cm}=${miseEnEvidence(`${c}`)}\\text{ cm}$`
     this.canEnonce = this.question
     this.optionsChampTexte = { texteApres: ' cm' }
     if (this.interactif) { this.question += '<br>$AB=$' } else { this.question += '<br>$AB=\\ldots$ cm' }
-    this.canReponseACompleter = '$AB=\\ldots\\ldots\\text{ cm}$'
+    this.canReponseACompleter = '$AB=\\ldots\\text{ cm}$'
     this.reponse = String(c)
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

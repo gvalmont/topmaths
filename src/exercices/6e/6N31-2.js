@@ -13,7 +13,6 @@ export const interactifType = 'mathLive'
 
 /**
  * * Ordre de grandeur d'une opération entre décimaux
- * * 6N31-2
  * @author Sébastien Lozano
  */
 
@@ -90,7 +89,7 @@ export default class OrdreDeGrandeurOperationsDecimaux extends Exercice {
   constructor () {
     super()
 
-    this.besoinFormulaireTexte = ['choix des opérations (nombre séparés par des tirets', '1 : Produit\n2 : Somme\n3 : Différence\n4 : multiplication par 0,1 ; 0,01 ; 0,001\n5 : Quotient\n6 : Mélange']
+    this.besoinFormulaireTexte = ['choix des opérations ', 'Nombres séparés par des tirets  :\n : Produit\n2 : Somme\n3 : Différence\n4 : multiplication par 0,1 ; 0,01 ; 0,001\n5 : Quotient\n6 : Mélange']
     this.besoinFormulaire2Numerique = ['Nombre de ligne dans le tableau', 5]
     this.nbQuestions = 1
 

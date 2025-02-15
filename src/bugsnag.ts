@@ -5,6 +5,7 @@ import { tropDeChiffres } from './modules/outils'
 import { showDialogForLimitedTime } from './lib/components/dialogs'
 import { get } from 'svelte/store'
 import { exercicesParams } from './lib/stores/generalStore'
+import { createURL } from './lib/mathalea'
 
 type Metadatas = Record<string, unknown>
 
@@ -13,14 +14,23 @@ if (typeof (BigInt) === 'undefined') {
   // @ts-expect-error
   window.BigInt = bigInt
 }
-async function handleBugsnag () {
+
+function handleBugsnag () {
   const fileName = '../_private/bugsnagApiKey'
-  const getBugsnagApiKey = await import(/* @vite-ignore */fileName)
-  const key = getBugsnagApiKey.default() || ''
-  Bugsnag.start(key)
+  // PROVISOIRE : MGU
+  const getBugsnagApiKey = '6f45f454e2366599256bddc91cd7000b' // await import(/* @vite-ignore */fileName)
+  const key = getBugsnagApiKey // .default() || ''
+  Bugsnag.start({
+    apiKey: key,
+    onError: function (event) {
+      event.addMetadata('Parametres Exos', get(exercicesParams))
+      event.addMetadata('Url Exos', { url: createURL(get(exercicesParams)).toString() })
+    }
+  })
 }
 
 if (document.location.hostname === 'coopmaths.fr') {
+  // Mgu supprime le await si pas de problème au chargement..
   handleBugsnag()
 }
 
@@ -59,11 +69,11 @@ export function notify (error: string | NotifiableError, metadatas: Metadatas) {
     error = Error(error).message
   }
 
-  // @ts-expect-error
-  if (window.Bugsnag) {
+  if (Bugsnag && !isDevMode()) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)
     Bugsnag.addMetadata('Paramètres des exercices', get(exercicesParams))
     Bugsnag.notify(error)
+    console.error(error)
   } else {
     const message = 'message qui aurait été envoyé à bugsnag s\'il avait été configuré'
     showDialogForLimitedTime('notifDialog', 5000, message + ' : <br>' + error.toString())

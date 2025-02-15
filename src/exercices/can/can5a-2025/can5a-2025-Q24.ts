@@ -64,17 +64,19 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const labels = labelPoint(A, B)
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = texNombre(a * c / b, 2)
-    this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30 }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: -0.2 })), [s, s2, codages, ps, labels, l])}`
+    this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30 }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: 0 })), [s, s2, codages, ps, labels, l])}`
     this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}$ cm.<br>`
     if (a === 1) {
       this.correction += `$\\begin{aligned}
-    \\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}&=\\dfrac{${texNombre(c, 1)}}{${b}}\\\\
+   AB&= \\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}\\\\
+   &=\\dfrac{${texNombre(c, 1)}}{${b}}\\\\
     &=${texNombre(c, 1)}\\div ${b}\\\\
     &=${miseEnEvidence(texNombre(a * c / b, 1))} \\text{ cm}
     \\end{aligned}$`
     } else {
       this.correction += `$\\begin{aligned}
-      \\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}&=${a}\\times\\dfrac{${texNombre(c, 1)}}{${b}}\\\\
+      AB&=\\dfrac{${a}}{${b}}\\times ${texNombre(c, 1)}\\\\
+      &=${a}\\times\\dfrac{${texNombre(c, 1)}}{${b}}\\\\
       &=${a}\\times ${texNombre(c / b, 1)}\\\\
       &=${miseEnEvidence(texNombre(a * c / b, 1))} \\text{ cm}
       \\end{aligned}$`

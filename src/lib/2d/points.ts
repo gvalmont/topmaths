@@ -3,7 +3,7 @@ import type { Point3d } from '../../modules/3d'
 
 import { context } from '../../modules/context'
 import { egal, inferieurouegal, randint, superieurouegal } from '../../modules/outils'
-import { radians } from '../mathFonctions/trigo'
+import { degToRad } from '../mathFonctions/trigo'
 import { arrondi } from '../outils/nombres'
 import { Cercle, cercle } from './cercle'
 import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites'
@@ -569,8 +569,8 @@ export function pointSurSegment (A: Point, B: Point, l?: number, nom = '', posit
  */
 export function pointSurCercle (c: Cercle, angle: number, nom: string, positionLabel = 'above'): Point {
   if (typeof angle !== 'number') angle = randint(-180, 180)
-  const x = c.centre.x + c.rayon * Math.cos(radians(angle))
-  const y = c.centre.y + c.rayon * Math.sin(radians(angle))
+  const x = c.centre.x + c.rayon * Math.cos(degToRad(angle))
+  const y = c.centre.y + c.rayon * Math.sin(degToRad(angle))
   return point(x, y, nom, positionLabel)
 }
 

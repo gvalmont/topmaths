@@ -202,11 +202,12 @@ async function getLatex (page: Page) {
 }
 
 function getLatexNumbers (latex: string, view: 'LaTeX' | 'AMC', model: LatexModel | AMCModel, questionsNb: number) {
-  const lineRegex: RegExp = view === 'LaTeX' ? model === 'Can' ? /\\thenbEx[^\r\n]*/g : /\\item[^\r\n]*/g : /\$ [^\r\n]*/g
+  const lineRegex: RegExp = view === 'LaTeX' ? model === 'Can' ? /\\CompteurTC\s+&[^\r\n]*/g : /\\item[^\r\n]*/g : /\$ [^\r\n]*/g
   const rawLines: string[] = latex.match(lineRegex) || []
   if (model === 'Can') {
     const rawNumbers = rawLines.map(line => line.replace(/\D/g, ''))
-    const cleanNumbers = rawNumbers.map(number => number.slice(1))
+    // const cleanNumbers = rawNumbers.map(number => number.slice(1))
+    const cleanNumbers = rawNumbers
     return cleanNumbers.map(number => number + number)
   } else {
     const numbersQuestionsAnswers = rawLines.map(line => line.replace(/\D/g, '') + line.replace(/\D/g, ''))

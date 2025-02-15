@@ -89,7 +89,7 @@ export function expTrinome (a, b, c) {
  * @param {{x:number,y:number}[]} listePoints
  * @return {Polynome}
  */
-export function interpolationDeLagrange (listePoints) {
+export function interpolationDeLagrange (listePoints: { x: number, y: number }[]): Polynome {
   // tout d'abord vérifier qu'il n'y a pas de doublons en x !
   const listeOrdonnee = listePoints.sort((el1, el2) => el1.x - el2.x)
   const setPoints = []
@@ -102,17 +102,17 @@ export function interpolationDeLagrange (listePoints) {
   if (setPoints.length < 2) throw Error('Pour une interpolation de Lagrange, il faut au moins deux points d\'abscisses différentes')
   const n = setPoints.length - 1
   // On initialise à zéro
-  let result = 0
+  let result: Polynome = new Polynome({ coeffs: [0] })
   for (let j = 0; j <= n; j++) {
     // pour un produit on initialise à 1
-    let prod = 1
+    let prod: number | Polynome = new Polynome({ coeffs: [1] })
     for (let i = 0; i <= n; i++) {
       if (j !== i) {
         const den = setPoints[j].x - setPoints[i].x
         prod = new Polynome({ coeffs: [-setPoints[i].x / den, 1 / den] }).multiply(prod)
       }
     }
-    prod = prod.multiply(setPoints[j].y)
+    prod = (prod as Polynome).multiply(setPoints[j].y)
     result = prod.add(result)
   }
   return result

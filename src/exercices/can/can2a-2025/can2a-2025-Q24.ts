@@ -60,7 +60,7 @@ export default class CoefficientDeColinearite extends Exercice {
       style: 'margin: auto'
     }, objets) + '<br>Compléter :'
     this.question = '\\overrightarrow{DE}={%{champ1}}\\overrightarrow{AB}'
-    this.correction = `Les vecteurs $\\overrightarrow{DE}$ et $\\overrightarrow{AB}$ sont colinéaires de sens contraires.<br>
+    this.correction = `Les vecteurs $\\overrightarrow{DE}$ et $\\overrightarrow{AB}$ sont colinéaires de sens contraire.<br>
    La norme du vecteur  $\\overrightarrow{DE}$ est deux fois plus grande que celle du vecteur  $\\overrightarrow{AB}$. <br>
     Ainsi, $\\overrightarrow{DE}=${miseEnEvidence('-2')}\\overrightarrow{AB}$.`
 

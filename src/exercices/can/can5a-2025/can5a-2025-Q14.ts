@@ -1,4 +1,3 @@
-import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
@@ -26,9 +25,10 @@ export default class Can2025N5Q14 extends ExerciceCan {
     }
     const liste = [a, b, c, '?'].map((el) => `$${el}$`).join(' ; ')
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
-    this.reponse = a + b * c
+    this.reponse = c + b - a
     this.question = `Complète la suite logique de nombres suivante : <br>${liste}`
-    this.correction = `La multiplication est prioritaire sur l'addition, donc :<br> $${a} + ${b}\\times ${c}=${a} + ${b * c} = ${miseEnEvidence(texNombre(a + b * c, 0))}$.`
+    this.correction = `On passe d'un nombre au suivant en ajoutant $${b - a}$.<br>
+    Ainsi, ? $=${c} + ${b - a}=${miseEnEvidence(c + b - a)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (this.interactif) {

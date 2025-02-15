@@ -26,6 +26,7 @@ export default class AppliquerPourcentage extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: ' $=$' }
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -43,9 +44,8 @@ export default class AppliquerPourcentage extends Exercice {
       this.question = `$${p}\\,\\%$ de $${a}$`
 
       this.correction = `$${p}\\,\\%$ de $${a} = ${miseEnEvidence(texNombre(this.reponse))}$`
-      this.correction += `<br> Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
-      Comme $10\\,\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\,\\%$  d'une quantité, on la divise par $10$), alors
-      $${p}\\,\\%$ de $${a}=${p / 10}\\times ${a / 10}=${this.reponse}$.
+      this.correction += `<br> Prendre $25\\,\\%$  de $${a}$ revient à prendre le quart de $${a}$.<br>
+      Ainsi, $25\\,\\%$ de $${a}$ est égal à $${a}\\div 4 =${a / 4}$.
      `
     }
     this.canEnonce = this.question

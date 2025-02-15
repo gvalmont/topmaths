@@ -6,6 +6,7 @@ import { point } from '../../../lib/2d/points'
 import { polygone, Polygone } from '../../../lib/2d/polygones'
 import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Déterminer une fraction d\'aire'
 export const interactifReady = true
@@ -25,6 +26,7 @@ export default class FractionDeRectangle extends Exercice {
     this.nbQuestions = 1
 
     this.canOfficielle = false
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion () {

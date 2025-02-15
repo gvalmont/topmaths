@@ -16,7 +16,7 @@ export default class Trinome {
   a: FractionEtendue
   b: FractionEtendue
   c: FractionEtendue
-  _discriminant: FractionEtendue | false | undefined
+  _discriminant: FractionEtendue | undefined // J'ai viré false le 06/02/2025 : il n'y a aucun cas où _discriminant serait false (JCL)
   /** Définit un trinôme de la forme ax^2 + bx + c */
   constructor (a: numberOrFraction, b: numberOrFraction, c: numberOrFraction) {
     if (typeof a === 'number') this.a = new FractionEtendue(a, 1)
@@ -133,7 +133,7 @@ export default class Trinome {
   }
 
   /** Discriminant du trinome */
-  get discriminant () {
+  get discriminant (): FractionEtendue {
     if (this._discriminant === undefined) {
       const b2 = this.b.produitFraction(this.b)
       let ac = this.a.produitFraction(this.c)

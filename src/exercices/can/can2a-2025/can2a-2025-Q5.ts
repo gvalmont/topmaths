@@ -21,7 +21,7 @@ export const refs = {
 export default class Mediane extends Exercice {
   constructor () {
     super()
-
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
@@ -31,8 +31,8 @@ export default class Mediane extends Exercice {
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = 9
-      this.question = `$12$ ${sp(1)};${sp(1)}$7$${sp(1)};${sp(1)}$8$${sp(1)};${sp(1)}$13$${sp(1)};${sp(1)}$9$<br>
-      La médiane de cette série est : `
+      this.question = 'Médiane de la série :<br>'
+      this.question += `$12$ ${sp(1)};${sp(1)}$7$${sp(1)};${sp(1)}$8$${sp(1)};${sp(1)}$13$${sp(1)};${sp(1)}$9$`
       this.correction = `On ordonne la série :  $7$ ${sp(1)};${sp(1)}$8$${sp(1)};${sp(1)}$9$${sp(1)};${sp(1)}$12$${sp(1)};${sp(1)}$13$.<br>
        La série comporte $5$ valeurs donc la médiane est la troisième valeur : $${miseEnEvidence(this.reponse)}$.`
     } else {
@@ -43,16 +43,13 @@ export default class Mediane extends Exercice {
       const val4 = randint(21, 25)
       const valeurs = shuffle([val1, val2, val3, val4, med])
       this.reponse = med
-
-      this.question = `$${valeurs[0]}$ ${sp(1)};${sp(1)}$${valeurs[1]}$${sp(1)};${sp(1)}$${valeurs[2]}$${sp(1)};${sp(1)}$${valeurs[3]}$${sp(1)};${sp(1)}$${valeurs[4]}$<br>
-      La médiane de cette série est : `
+      this.question = 'Médiane de la série :<br>'
+      this.question += `$${valeurs[0]}$ ${sp(1)};${sp(1)}$${valeurs[1]}$${sp(1)};${sp(1)}$${valeurs[2]}$${sp(1)};${sp(1)}$${valeurs[3]}$${sp(1)};${sp(1)}$${valeurs[4]}$ `
       this.correction = `On ordonne la série :  $${val1}$ ${sp(1)};${sp(1)}$${val2}$${sp(1)};${sp(1)}$${med}$${sp(1)};${sp(1)}$${val3}$${sp(1)};${sp(1)}$${val4}$.<br>
       La série comporte $5$ valeurs donc la médiane est la troisième valeur : $${miseEnEvidence(this.reponse)}$.`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    if (!this.interactif) {
-      this.question += ' $\\ldots$'
-    }
+    if (this.interactif) { this.question += '<br>' }
   }
 }

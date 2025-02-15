@@ -33,7 +33,7 @@ export default class ProblemesAvecSuitesE3C extends Exercice {
     this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Création d\'entreprises',
         '2 : Prix d\'un téléphone',
         '3 : Population d\'une commune',
@@ -458,7 +458,7 @@ Pour tout entier naturel $n$, on note $${NomS}_n$ la surface envahie par les cha
                        items: [
       `On considère la suite $(t_n)$, définie pour tout entier naturel $n$, par : $t_n = ${NomS}_n${ecritureAlgebrique(-b)}$.<br>
 Calculer $t_0$, puis montrer que la suite $(t_n)$ est géométrique de raison $q = ${texNombre(cm, 2)}$.`,
-`Pour tout entier naturel $n$, exprimer $t_n$ en fonction de $n$, puis montrer que $${NomS}_n = ${texNombre(new Decimal(u0).sub(k), 1)} \\times ${texNombre(cm, 2)}^n ${ecritureAlgebrique(b)}$`,
+`Pour tout entier naturel $n$, exprimer $t_n$ en fonction de $n$, puis montrer que $${NomS}_n = ${texNombre(new Decimal(u0).sub(b), 1)} \\times ${texNombre(cm, 2)}^n ${ecritureAlgebrique(b)}$`,
 `Est-il correct d'affirmer que la surface envahie par les chardons aura doublé au bout de $${nbreS}$ semaines ? Justifier la réponse.`],
                        style: 'alpha'
                      }

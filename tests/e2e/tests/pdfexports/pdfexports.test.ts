@@ -50,11 +50,51 @@ function getFilenameWithoutExtension (filename : string) {
 }
 
 async function getLatexFile (page: Page, urlExercice: string) {
+  // Coopmaths
+  // Classique
+  // ProfMaquette
+  // ProfMaquette avec QrCode
+  const resu0 = await getLatexFileStyle(page, urlExercice, 'Coopmaths')
+  if (resu0 === 'KO') {
+    return 'KO'
+  }
+  const resu1 = await getLatexFileStyle(page, urlExercice, 'Classique')
+  if (resu1 === 'KO') {
+    return 'KO'
+  }
+  const resu2 = await getLatexFileStyle(page, urlExercice, 'ProfMaquette')
+  if (resu2 === 'KO') {
+    return 'KO'
+  }
+  return 'OK'
+}
+
+async function getLatexFileStyle (page: Page, urlExercice: string, style: string) {
   log(urlExercice)
   page.setDefaultTimeout(100000)
 
   await page.goto(urlExercice)
-  // await page.reload()
+  await page.reload()
+  log('style=' + style)
+  let styleLocator = ''
+  switch (style) {
+    case 'Coopmaths' :
+      styleLocator = 'input#Style0'
+      break
+    case 'Classique' :
+      styleLocator = 'input#Style1'
+      break
+    case 'ProfMaquette' :
+      styleLocator = 'input#Style2'
+      break
+    case 'ProfMaquetteAvecQrCode' :
+      styleLocator = 'input#Style3'
+      break
+    default:
+      styleLocator = 'input#Style2'
+  }
+  await page.click(styleLocator)
+
   // await page.click('input#Style2') // style maquette
 
   await new Promise((resolve) => setTimeout(resolve, 2000))

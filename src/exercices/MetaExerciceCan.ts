@@ -28,6 +28,8 @@ export default class MetaExercice extends Exercice {
   nouvelleVersion (): void {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
+    this.listeCanLiees = []
+    this.listeCanNumerosLies = []
     this.nbQuestionsModifiable = this.sup3
     this.besoinFormulaire2Texte = false
     let listeTypeDeQuestions : (string | number)[]
@@ -95,10 +97,13 @@ export default class MetaExercice extends Exercice {
         if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
           const consigne = Question.consigne === '' ? '' : `${Question.consigne}<br>`
           this.listeCorrections[indexQuestion] = (Question.correction)
-          this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
-          this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
           const formatChampTexte = Question.formatChampTexte ?? ''
           const optionsChampTexte = Question.optionsChampTexte ?? {}
+          if (Question.canEnonce != null) this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
+          if (Question.canReponseACompleter != null) this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
+          this.listeCanLiees[indexQuestion] = Question.canLiee
+          this.listeCanNumerosLies[indexQuestion] = Question.canNumeroLie
+
           if (Question.formatInteractif === 'fillInTheBlank' || (typeof Question.reponse === 'object' && 'champ1' in Question.reponse)) {
             this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, formatChampTexte, '\\ldots')
             if (typeof Question.reponse === 'string') {
@@ -124,7 +129,6 @@ export default class MetaExercice extends Exercice {
               const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
               if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse, options)
               else handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, options } })
-              // else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
             } else {
               const compare = Question.compare
               const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
@@ -173,6 +177,7 @@ export default class MetaExercice extends Exercice {
           this.listeQuestions[indexQuestion] = Question.listeQuestions[0]
           this.listeCorrections[indexQuestion] = (Question.listeCorrections[0])
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+
           this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
           this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${indexQuestion}`)
 
@@ -187,13 +192,14 @@ export default class MetaExercice extends Exercice {
         if (Question?.autoCorrection[0]?.propositions != null) {
         // qcm
           const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML
-          this.listeCanReponsesACompleter[indexQuestion] = monQcm.texte
-          const consigne = (this.consigne === null || this.consigne === '') ? '' : `${this.consigne}<br>`
+          this.listeCanReponsesACompleter[indexQuestion] = Question.canReponseACompleter != null ? Question.canReponseACompleter : monQcm.texte
+          const consigne = (Question.consigne === null || Question.consigne === '') ? '' : `${Question.consigne}<br>`
           const objetReponse = this.autoCorrection[indexQuestion]
           const enonce = 'enonce' in objetReponse ? objetReponse.enonce : ''
           this.listeQuestions[indexQuestion] = consigne + enonce + monQcm.texte
           if (this.listeCorrections[indexQuestion] == null) this.listeCorrections[indexQuestion] = monQcm.texteCorr
         }
+
         indexQuestion++
       }
       numExo++

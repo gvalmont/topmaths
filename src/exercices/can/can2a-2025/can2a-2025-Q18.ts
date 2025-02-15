@@ -30,27 +30,27 @@ export default class CoeffMultiplicateur extends Exercice {
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.question = 'Multiplier par $0,8$ revientà faire une baisse de : '
-      this.correction = `Comme $0,8=1-0,2$, multiplier par $0,8$ revient à baisser de $${miseEnEvidence('20')}\\,\\%$. `
+      this.correction = `Comme $0,8=1-0,2=1-\\dfrac{20}{100}$, multiplier par $0,8$ revient à baisser de $${miseEnEvidence('20')}\\,\\%$. `
       this.reponse = 20
-      this.optionsChampTexte = { texteApres: '$\\%$' }
+      this.optionsChampTexte = { texteApres: '$\\%$.' }
       if (!this.interactif) {
         this.question += '$\\ldots\\,\\%$'
       }
-      this.canEnonce = 'Multiplier par $0,8$ revient à baisser de : '
+      this.canEnonce = 'Multiplier par $0,8$ revient à baisser de  '
       this.canReponseACompleter = '$\\ldots\\,\\%$'
     } else {
       const taux = new Decimal(randint(1, 29, [10, 20])).div(100)
       const Taux = taux.mul(100)
       const coeff = taux.add(1)
       if (choice([true, false])) {
-        this.question = `Multiplier par $${texNombre(coeff, 2)}$ revient à augmenter de : `
-        this.correction = `Comme $${texNombre(coeff, 2)}=1+${texNombre(taux, 2)}$, multiplier par $${texNombre(coeff, 2)}$ revient à augmenter de $${miseEnEvidence(texNombre(Taux, 0))}\\,\\%$. `
+        this.question = `Multiplier par $${texNombre(coeff, 2)}$ revient à augmenter de  `
+        this.correction = `Comme $${texNombre(coeff, 2)}=1+${texNombre(taux, 2)}=1+\\dfrac{${Taux}}{100}$, multiplier par $${texNombre(coeff, 2)}$ revient à augmenter de $${miseEnEvidence(texNombre(Taux, 0))}\\,\\%$. `
         this.reponse = new Decimal(taux).mul(100)
-        this.optionsChampTexte = { texteApres: '$\\%$' }
+        this.optionsChampTexte = { texteApres: '$\\%$.' }
         if (!this.interactif) {
           this.question += '$\\ldots\\,\\%$'
         }
-        this.canEnonce = `Multiplier par $${texNombre(coeff, 2)}$ revient à augmenter de : `
+        this.canEnonce = `Multiplier par $${texNombre(coeff, 2)}$ revient à augmenter de  `
         this.canReponseACompleter = '$\\ldots\\,\\%$'
       } else {
         this.question = `Augmenter de $${texNombre(Taux, 0)}\\,\\%$ revient à multiplier par : `
@@ -60,7 +60,7 @@ export default class CoeffMultiplicateur extends Exercice {
           this.question += '$\\ldots$'
         }
         this.reponse = coeff
-        this.canEnonce = `Augmenter de $${texNombre(Taux, 0)}\\,\\%$ revient à multiplier par : `
+        this.canEnonce = `Augmenter de $${texNombre(Taux, 0)}\\,\\%$ revient à multiplier par `
         this.canReponseACompleter = '$\\ldots$'
       }
     }

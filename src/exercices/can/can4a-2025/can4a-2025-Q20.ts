@@ -61,6 +61,7 @@ export default class Can2025N4Q20 extends ExerciceCan {
       : `Un ${solide} a $${miseEnEvidence(nbSommets)}$ sommets car il possède deux bases opposées à $${nbSommets / 2}$ sommets chacune.`
     this.canEnonce = this.question
     this.question += this.interactif ? '<br>' : ''
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

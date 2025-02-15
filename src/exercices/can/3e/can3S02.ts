@@ -1,6 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer la probabilité d’un évènement contraire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +24,7 @@ export default class ProbaEvenementContraire extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
   }
 

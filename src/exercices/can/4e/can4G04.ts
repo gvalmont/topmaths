@@ -1,14 +1,15 @@
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point, pointAdistance } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
-import { texteParPosition } from '../../../lib/2d/textes'
+import { latex2d } from '../../../lib/2d/textes'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer un côté avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +28,7 @@ export default class CalculCotePythagore extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.nbQuestions = 1
   }
 
@@ -41,20 +42,16 @@ export default class CalculCotePythagore extends Exercice {
     const C = pointAdistance(B, Math.sqrt(c2), 0, nom[2])
     const pol = polygoneAvecNom(A, B, C) // polygoneAvecNom s'occupe du placement des noms des sommets
     const objets = []
-    const xmin = Math.min(A.x, B.x, C.x) - 1
-    const ymin = Math.min(A.y, B.y, C.y) - 1
-    const xmax = Math.max(A.x, B.x, C.x) + 1
-    const ymax = Math.max(A.y, B.y, C.y) + 1
-
     const reduction = extraireRacineCarree(c2)
     const reductible = (reduction[0] !== 1)
 
     objets.push(pol[0], pol[1], codageAngleDroit(A, B, C)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-    objets.push(texteParPosition(`${texNombre(b)}`, milieu(C, A).x, milieu(C, A).y + 0.4),
-      texteParPosition(`${texNombre(a)}`, milieu(B, A).x - 0.3, milieu(B, A).y + 0.2)
+    objets.push(latex2d(`${texNombre(b)}`, milieu(C, A).x, milieu(C, A).y + 0.4, { letterSize: 'scriptsize' }),
+      latex2d(`${texNombre(a)}`, milieu(B, A).x - 0.3, milieu(B, A).y + 0.2, { letterSize: 'scriptsize' })
     )
-    this.question = `Sur cette figure, déterminer la valeur exacte de $${nom[1]}${nom[2]}$.<br>`
-    this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
+    this.question = `Déterminer la valeur exacte de $${nom[1]}${nom[2]}$.<br>`
+    this.question += `${mathalea2d(Object.assign({ scale: 0.5, style: 'margin: auto; display: block' }, fixeBordures([objets], { rxmin: 0, rxmax: 0, rymax: 0, rymin: 0.5 })), [objets])}`
+    this.optionsChampTexte = { texteAvant: `<br>$${nom[1]}${nom[2]}=$` }
     this.correction = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
       On obtient :<br><br>
       $\\begin{aligned}
@@ -64,7 +61,7 @@ export default class CalculCotePythagore extends Exercice {
         ${nom[1]}${nom[2]}^2&=${b ** 2}-${a ** 2}\\\\
         ${nom[1]}${nom[2]}^2&=${c2}\\\\
         ${nom[1]}${nom[2]}&=${miseEnEvidence('\\sqrt{' + c2 + '}')}
-        \\end{aligned}$
+        \\end{aligned}$<br>
         ${reductible ? `En simplifiant, on obtient : $${nom[1]}${nom[2]} = ${miseEnEvidence(texRacineCarree(c2))}$.` : ''}
         <br>`
     this.correction += texteEnCouleur(`Mentalement : <br>

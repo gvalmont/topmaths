@@ -27,7 +27,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
     this.sup = 4
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Affine',
         '2 : Second degré',
         '3 : Homographique',

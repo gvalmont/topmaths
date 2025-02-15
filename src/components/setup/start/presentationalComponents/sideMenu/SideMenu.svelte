@@ -12,12 +12,7 @@
   import ReferentielNode from './referentielNode/ReferentielNode.svelte'
   import SearchBlock from './searchBlock/SearchBlock.svelte'
   import SideMenuApps from './SideMenuApps.svelte'
-  import {
-    originalReferentiels,
-    originalReferentielsCH,
-    deepReferentielInMenuCopy,
-    referentiels
-  } from '../../../../../lib/stores/referentielsStore'
+
   import codeToLevelList from '../../../../../json/codeToLevelList.json'
   import { onDestroy, onMount } from 'svelte'
   import { applyFilters } from './filtersStore'
@@ -26,6 +21,7 @@
   import type { SvelteComponent } from 'svelte'
   import type { Language } from '../../../../../lib/types/languages'
   import { get } from 'svelte/store'
+  import { getReferentiels } from '../../../../../lib/stores/referentielsStore';
   interface SearchBlockType extends SvelteComponent {
     triggerUpdateFromSearchBlock: () => void
   }
@@ -36,26 +32,10 @@
   let searchBlock: SearchBlockType
 
   let referentielsForMenu: ReferentielInMenu[] = []
-  /**
-   * En fonction de la locale, on choisit le bon référentiel (français par défaut)
-   * @param {Language} value
-   */
-  const setCurrentReferentiels = (value: Language) => {
-    let current: ReferentielInMenu[]
-    switch (value) {
-      case 'fr-FR':
-        current = originalReferentiels
-        break
-      case 'fr-CH':
-        current = originalReferentielsCH
-        break
-      default:
-        current = originalReferentiels
-        break
-    }
-    return current
-  }
-  let currentReferentiels: ReferentielInMenu[] = setCurrentReferentiels(get(referentielLocale))
+
+  let localeValue: Language = get(referentielLocale)
+
+  let referentiels: ReferentielInMenu[] = getReferentiels(get(referentielLocale))
 
   /**
    * Souscription aux changements de langues.
@@ -65,9 +45,11 @@
    * -> mise à jour des entrées du menu
    */
   const unsubscribeToReferentielLocale = referentielLocale.subscribe((value) => {
-    currentReferentiels = setCurrentReferentiels(value)
-    referentiels.set(deepReferentielInMenuCopy(currentReferentiels))
-    updateRepositories()
+    if (localeValue !== value) {
+      localeValue = value
+      referentiels = getReferentiels(value)
+      updateRepositories()
+    }
   })
 
   onMount(() => {
@@ -79,9 +61,7 @@
 
   function updateRepositories () {
     const updatedRepositories: ReferentielInMenu[] = []
-    const repositoriesInMenu: ReferentielInMenu[] = deepReferentielInMenuCopy(
-      currentReferentiels
-    ).filter((e) => {
+    const repositoriesInMenu: ReferentielInMenu[] = referentiels.filter((e) => {
       return !excludedReferentiels.includes(e.name)
     })
     for (const repositoryInMenu of repositoriesInMenu) {

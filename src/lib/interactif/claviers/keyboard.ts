@@ -6,6 +6,7 @@ const KEYBOARD_CATEGORIES = [
   'lycee',
   'grecTrigo',
   'college6eme',
+  'complexes',
   'clavierDeBase',
   'clavierCompare',
   'clavierDeBaseAvecX',
@@ -102,6 +103,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'fullOperations', 'suite']
     case KeyboardType.clavierNumbers:
       return ['numbers']
+    case KeyboardType.complexes:
+      return ['complexes']
     case KeyboardType.numbersSpace:
       return ['numbersSpace']
     case KeyboardType.clavierFullOperations:
@@ -296,6 +299,10 @@ const shortcutsByKeyboards = {
     S: { mode: 'text', value: '{\\:\\text{s}\\:}' },
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' }
+  },
+
+  complexes: {
+    i: { mode: 'text', value: '{\\text{i}}' },
   },
 
   unit: {

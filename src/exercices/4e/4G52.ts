@@ -1,6 +1,6 @@
 import { tracePoint } from '../../lib/2d/points'
 import { labelPoint } from '../../lib/2d/textes'
-import { degSin, radians } from '../../lib/mathFonctions/trigo'
+import { degSin, degToRad } from '../../lib/mathFonctions/trigo'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
@@ -170,7 +170,7 @@ export default class ReperagePaveDroit extends Exercice {
         texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
         texteCorr = mathalea2d({
           xmin: -1,
-          xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)),
+          xmax: 1 + largeur + profondeur * Math.cos(degToRad(context.anglePerspective)),
           ymin: -1,
           ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
           scale: 0.6,
@@ -195,7 +195,7 @@ export default class ReperagePaveDroit extends Exercice {
         objetsAtracer.push(tracePoint(pointAplacer, 'blue'), labelPoint(pointAplacer.c2d))
         texteCorr = mathalea2d({
           xmin: -1,
-          xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)),
+          xmax: 1 + largeur + profondeur * Math.cos(degToRad(context.anglePerspective)),
           ymin: -1,
           ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
           scale: 0.6,
@@ -277,7 +277,7 @@ export default class ReperagePaveDroit extends Exercice {
     if (context.isAmc) {
       this.autoCorrection[0].enonce = mathalea2d({
         xmin: -1,
-        xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(radians(context.anglePerspective)),
+        xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(degToRad(context.anglePerspective)),
         ymin: -1,
         ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
         scale: 0.4
@@ -285,7 +285,7 @@ export default class ReperagePaveDroit extends Exercice {
     }
     this.introduction = (context.vue === 'diap' ? '<center>' : '') + mathalea2d({
       xmin: -1,
-      xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(radians(context.anglePerspective)),
+      xmax: 1 + largeur + (profondeur * context.coeffPerspective) * Math.cos(degToRad(context.anglePerspective)),
       ymin: -1,
       ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
       scale: 0.6,

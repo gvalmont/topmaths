@@ -19,7 +19,8 @@ export function toutAUnPoint (listePoints: number[]) {
  * @returns {{feedback: string, score: {nbBonnesReponses: (number|number), nbReponses: (number|number)}, isOk: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, resultat: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, isOk: string}|*|{feedback: string, score: {nbBonnesReponses: (number), nbReponses: number}, resultat: string}}
  */
 export function verifQuestionMathLive (exercice: Exercice, i: number, writeResult = true) {
-  if (exercice.autoCorrection[i].reponse == null) {
+  const getCustomFeedback = exercice.autoCorrection[i]?.reponse?.valeur?.feedback
+  if (exercice.autoCorrection[i]?.reponse == null) {
     throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.stringify({
             exercice,
             question: i,
@@ -61,7 +62,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
       return callback(exercice, i, variables, bareme)
     }
     if (variables.length > 1 || variables[0][0] !== 'reponse') {
-      if (variables[0][0].match(/L\dC\d/)) {
+      if (variables[0][0].match(/L\dC\d/)) { // un tableau avec Lignes (L) et Colonnes (L)
         // Je traîte le cas des tableaux à part : une question pour de multiples inputs mathlive !
         // on pourra faire d'autres formats interactifs sur le même modèle
         const points = []
@@ -132,7 +133,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
           let result
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (saisie == null || saisie === '') {
-            result = { isOk: false, feedback: `Pas de réponse dans la zone de saisie N°${key.charAt(key.length - 1)}.<br>` }
+            result = { isOk: false, feedback: `Pas de réponse dans la zone de saisie${variables.length > 1 ? ` N°${key.charAt(key.length - 1)}` : ''}.<br>` }
           } else {
             if (Array.isArray(reponse.value)) {
               let ii = 0
@@ -189,6 +190,10 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
       exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
     }
     const saisie = champTexte.value
+    let customFeedback = ''
+    if (getCustomFeedback != null) {
+      customFeedback = getCustomFeedback({ saisie })
+    }
     if (saisie == null || saisie === '') return { isOk: false, feedback: 'Vous devez saisir une réponse.', score: { nbBonnesReponses: 0, nbReponses: 1 } }
     let isOk = false
     let ii = 0
@@ -201,6 +206,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
     }
     const compareFunction = objetReponse.compare ?? fonctionComparaison
     const options = objetReponse.options ?? {}
+
     if (Array.isArray(objetReponse.value)) {
       while ((!isOk) && (ii < objetReponse.value.length)) {
         reponse = objetReponse.value[ii]
@@ -227,6 +233,9 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
     }
     if (spanReponseLigne != null) {
       spanReponseLigne.innerHTML = ''
+      if (customFeedback.length > 0) {
+        feedback = `${feedback} ${feedback.length > 0 ? '<br>' : ''} ${customFeedback}`
+      }
       if (isOk) {
         spanReponseLigne.innerHTML = '😎'
         spanReponseLigne.style.fontSize = 'large'

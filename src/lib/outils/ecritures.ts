@@ -144,7 +144,10 @@ export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) 
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
   else if (typeof a === 'number' || a instanceof Decimal) return ecritureAlgebrique(a)
-  else window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte', {})
+  else {
+    window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte', {})
+    return 'erreur type de valeur non prise en compte'
+  }
 }
 
 /**
@@ -465,4 +468,119 @@ export function lister (array: unknown[]): string {
   if (array.length > 1) str += ' et '
   str += array[array.length - 1]
   return str
+}
+
+/**
+ * Retourne le double développement de (ax+b)(cx+d) sous forme d'un tableau.
+ * La premier élément est le développement terme par terme.
+ * Le second élément est ce développement réduit terme par terme.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [a=1] Un entier actuellement uniquement (par défaut, c'est 1)
+ * @param {number} [b=1] Un entier actuellement uniquement (par défaut, c'est 1)
+ * @param {number} [c=1] Un entier actuellement uniquement(par défaut, c'est 1)
+ * @param {string} [x='x'] Le nom de la variable (par défaut, c'est 'x')
+ * @param {boolean} [sommeAGauche=true] Vrai si (ax+b)c, Faux si c(ax+b)
+ * @return {string[]}
+ * @author Eric Elter
+ * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4})[0] renvoie 5x*(-x)+5x*4+(-2)*(-x)+(-2)*4
+ * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4})[1] renvoie -5x^2+20x+2x+(-8)
+ * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4, variable:'y})[0] renvoie 5y*(-y)+5y*4+(-2)*(-y)+(-2)*4
+ * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4, variable:'y})[1] renvoie -5y^2+20y+2y+(-8)
+ */
+export function doubleDeveloppement ({ a = 1, b = 1, c = 1, d = 1, x = 'x' } = {}) {
+  if (a === 0) return [...simpleDeveloppement({ a: c, b: d, c: b, x, sommeAGauche: false })]
+  if (b === 0) return [...simpleDeveloppementAvecDoubleX({ a: c, b: d, c: a, x, sommeAGauche: false })]
+  if (c === 0) return [...simpleDeveloppement({ a, b, c: d, x })]
+  if (d === 0) return [...simpleDeveloppementAvecDoubleX({ a, b, c, x })]
+  return [`${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + x)} + 
+  ${ecritureParentheseSiMoins(rienSi1(a) + x)}\\times ${ecritureParentheseSiNegatif(d)} +
+  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}  +
+  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(d)}`,
+   `${rienSi1(a * c)}${x}^2 + 
+  ${ecritureParentheseSiMoins(rienSi1(a * d) + x)} +
+  ${ecritureParentheseSiMoins(rienSi1(b * c) + x)} +
+  ${ecritureParentheseSiNegatif(b * d)}`]
+}
+
+/**
+ * Retourne le simple développement de (ax+b)c ou c(ax+b) sous forme d'un tableau.
+ * La premier élément est le développement terme par terme.
+ * Le second élément est ce développement réduit terme par terme.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [a=1] Un entier actuellement uniquement (par défaut, c'est 1)
+ * @param {number} [b=1] Un entier actuellement uniquement (par défaut, c'est 1)
+ * @param {number} [c=1] Un entier actuellement uniquement(par défaut, c'est 1)
+ * @param {string} [x='x'] Le nom de la variable (par défaut, c'est 'x')
+ * @param {boolean} [sommeAGauche=true] Vrai si (ax+b)c, Faux si c(ax+b)
+ * @return {string[]}
+ * @author Eric Elter
+ * @example simpleDeveloppement({ a:5, b:-2, c:3})[0] renvoie 5x*3+(-2)*3
+ * @example simpleDeveloppement({ a:5, b:-2, c:3})[1] renvoie 15x+(-6)
+ * @example simpleDeveloppement({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[0] renvoie 3*5y+3*(-2)
+ * @example simpleDeveloppement({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[1] renvoie 15y+(-6)
+ */
+export function simpleDeveloppement ({ a = 1, b = 1, c = 1, x = 'x', sommeAGauche = true } = {}) {
+  if (a === 0) {
+    return [sommeAGauche
+      ? `${rienSi1(b)} \\times ${ecritureParentheseSiNegatif(c)}`
+      : `${rienSi1(c)} \\times ${ecritureParentheseSiNegatif(b)}`, `${rienSi1(b * c)}`]
+  }
+  if (b === 0) {
+    return [sommeAGauche
+      ? `${rienSi1(a)}${x}} \\times ${ecritureParentheseSiNegatif(c)}`
+      : `${rienSi1(c)} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)}`, `${rienSi1(a * c)}${x}`]
+  }
+  if (c === 0) {
+    return [0, 0]
+  }
+  return [sommeAGauche
+    ? `${rienSi1(a)}${x}\\times ${ecritureParentheseSiNegatif(c)} +
+    ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(c)}`
+    : `${rienSi1(c)} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
+      ${ecritureParentheseSiNegatif(c)} \\times ${ecritureParentheseSiNegatif(b)}`,
+     `${rienSi1(a * c)}${x} + 
+    ${ecritureParentheseSiMoins(rienSi1(b * c) ?? '')}`
+  ]
+}
+
+/**
+ * Retourne le simple développement de (ax+b)cx ou cx(ax+b) sous forme d'un tableau.
+ * La premier élément est le développement terme par terme.
+ * Le second élément est ce développement réduit terme par terme.
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number} [a=1] Un entier actuellement uniquement (par défaut, c'est 1)
+ * @param {number} [b=1] Un entier actuellement uniquement (par défaut, c'est 1)
+ * @param {number} [c=1] Un entier actuellement uniquement(par défaut, c'est 1)
+ * @param {string} [x='x'] Le nom de la variable (par défaut, c'est 'x')
+ * @param {boolean} [sommeAGauche=true] Vrai si (ax+b)c, Faux si c(ax+b) (par défaut, c'est vrai)
+ * @return {string[]}
+ * @author Eric Elter
+ * @example simpleDeveloppementAvecDoubleX({ a:5, b:-2, c:3})[0] renvoie 5x*3x+(-2)*3x
+ * @example simpleDeveloppementAvecDoubleX({ a:5, b:-2, c:3})[1] renvoie 15x^2+(-6x)
+ * @example simpleDeveloppementAvecDoubleX({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[0] renvoie 3y*5y+3y*(-2)
+ * @example simpleDeveloppementAvecDoubleX({ a:5, b:-2, c:3, variable:'y, sommeAGauche:false})[1] renvoie 15y^2+(-6y)
+ */
+export function simpleDeveloppementAvecDoubleX ({ a = 1, b = 1, c = 1, x = 'x', sommeAGauche = true, doubleX = true } = {}) {
+  const xCarre = doubleX ? (x + '^2') : x
+  const xSeul = doubleX ? x : ''
+  if (a === 0) {
+    return [sommeAGauche
+      ? `${rienSi1(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`
+      : `${rienSi1(c)}${x} \\times ${ecritureParentheseSiNegatif(b)}`, `${rienSi1(b * c)}${x}`]
+  }
+  if (b === 0) {
+    return [sommeAGauche
+      ? `${rienSi1(a)}${x}} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}`
+      : `${rienSi1(c)}${x} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)}`, `${rienSi1(a * c)}${x}`]
+  }
+  if (c === 0) {
+    return [0, 0]
+  }
+  return [sommeAGauche
+    ? `${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)} +
+    ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)}`
+    : `${rienSi1(c)}${xSeul} \\times ${ecritureParentheseSiMoins(rienSi1(a) + x)} +
+      ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)} \\times ${ecritureParentheseSiNegatif(b)}`,
+       `${rienSi1(a * c)}${xCarre} + 
+      ${ecritureParentheseSiMoins(rienSi1(b * c) + xSeul)}`]
 }

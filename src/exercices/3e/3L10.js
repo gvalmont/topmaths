@@ -7,6 +7,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printla
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Supprimer les parenthèses puis réduire l\'expression'
 export const interactifReady = true
@@ -181,7 +182,7 @@ export default class OpposeExpression extends Exercice {
 
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: reponse } })
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)) : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',

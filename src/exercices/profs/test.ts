@@ -6,6 +6,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ComputeEngine } from '@cortex-js/compute-engine'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Eric fait ses tests interactifs.'
 export const interactifReady = true
@@ -19,6 +20,8 @@ export const refs = {
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
+const result = fonctionComparaison('(2a-5)(-2-2a)', '(2a-2)(2a-5)', { factorisation: true })
+
 const expr1 = engine.parse('\\frac{-3+\\sqrt{41}}{4}', { canonical: true })
 const expr2 = engine.parse('-\\frac34+\\frac{\\sqrt{41}}{4}', { canonical: true })
 console.info(expr1.isEqual(expr2)) // -> false but should be true

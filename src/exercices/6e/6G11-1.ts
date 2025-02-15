@@ -48,7 +48,7 @@ export default class constructionPerpendiculaires extends Exercice {
     ]
     this.besoinFormulaire2Texte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Orthocentre (intérieur du triangle)',
         '2 : Orthocentre (extérieur du triangle)',
         '3 : Centre du cercle circonscrit  (intérieur du triangle)',

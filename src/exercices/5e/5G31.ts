@@ -68,7 +68,7 @@ export default class ExerciceAnglesTriangles extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Situations différentes', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Triangle quelconque avec deux angles aigus connus',
         '2 : Triangle rectangle avec un angle aigu connu',
         '3 : Triangle isocèle avec un angle à la base connu',

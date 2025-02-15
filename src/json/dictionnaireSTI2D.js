@@ -616,7 +616,7 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'mq2',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Dérivation', 'Tangente', 'Variations', 'Limites']
+    tags: ['Exponentielle', 'Dérivation', 'Tangente']
   },
   sti2d_2022_10_caledonie_mq3: {
     annee: '2022',
@@ -624,7 +624,31 @@ export const dictionnaireSTI2D = {
     mois: '10',
     numeroInitial: 'mq3',
     typeExercice: 'sti2d',
-    tags: ['Exponentielle', 'Python', 'Équation']
+    tags: ['Exponentielle', 'Variations']
+  },
+  sti2d_2022_10_caledonie_mq4: {
+    annee: '2022',
+    lieu: 'Nouvelle Calédonie',
+    mois: '10',
+    numeroInitial: 'mq4',
+    typeExercice: 'sti2d',
+    tags: ['Exponentielle', 'Limites']
+  },
+  sti2d_2022_10_caledonie_mq5: {
+    annee: '2022',
+    lieu: 'Nouvelle Calédonie',
+    mois: '10',
+    numeroInitial: 'mq5',
+    typeExercice: 'sti2d',
+    tags: ['Python']
+  },
+  sti2d_2022_10_caledonie_mq6: {
+    annee: '2022',
+    lieu: 'Nouvelle Calédonie',
+    mois: '10',
+    numeroInitial: 'mq6',
+    typeExercice: 'sti2d',
+    tags: ['Exponentielle', 'Équation']
   },
   sti2d_2022_10_caledonie_pcm: {
     annee: '2022',

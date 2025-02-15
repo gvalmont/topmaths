@@ -63,6 +63,11 @@
         })
       }
       // classement des entrées par années décroissantes
+      const key = pathToThisNode[pathToThisNode.length - 1] as keyof typeof codeToLevelList
+      if (codeToLevelList[key]?.includes("année")) {
+        return Object.entries(s).reverse()
+      }
+      // classement des entrées par années décroissantes
       if (pathToThisNode[pathToThisNode.length - 1].includes("année")) {
         return Object.entries(s).reverse()
       }

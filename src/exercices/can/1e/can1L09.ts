@@ -5,7 +5,8 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
 export const interactifReady = true
@@ -40,9 +41,11 @@ export default class EquationSecondDegreParticuliere extends Exercice {
       c = randint(-10, 10, 0)
       f = new FractionEtendue(-b, a)
       texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br> $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.`
+      handleAnswers(this, i, { reponse: { value: `\\{0;${f.texFSD}\\}`, options: { ensembleDeNombres: true } } })
       if (this.interactif) {
-        texte += '<br>Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=$'
-        texte += remplisLesBlancs(this, i, '\\bigg\\{ %{champ1}\\,;\\,  %{champ2} \\bigg\\}', KeyboardType.clavierDeBaseAvecFraction)
+        // texte += '<br>Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=$'
+        texte += '<br>$\\mathscr{S}=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
+        /* texte += remplisLesBlancs(this, i, '\\bigg\\{ %{champ1}\\,;\\,  %{champ2} \\bigg\\}', KeyboardType.clavierDeBaseAvecFraction)
         if (-b / a > 0) {
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
@@ -57,12 +60,13 @@ export default class EquationSecondDegreParticuliere extends Exercice {
             champ2: { value: 0, options: { fractionEgale: true } }
           }
           )
-        }
+        } */
       }
 
       texteCorr = `L'équation $${reduirePolynomeDegre3(0, a, b, c)}=${c}$ s'écrit $${reduirePolynomeDegre3(0, a, b, 0)}=0$.<br>
           En factorisant le premier membre (facteur commun $x$), on obtient $x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$.<br>
-          On reconnaît une équation produit nul dont les solutions sont : $0$ et $\\dfrac{${-b}}{${a}}${f.texSimplificationAvecEtapes()}$`
+          On reconnaît une équation produit nul dont les solutions sont : $0$ et $\\dfrac{${-b}}{${a}}${f.texSimplificationAvecEtapes()}$.<br>
+          $\\mathscr{S}=${miseEnEvidence(`\\{0;${new FractionEtendue(-b, a).texFractionSimplifiee}\\}`)}$`
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte

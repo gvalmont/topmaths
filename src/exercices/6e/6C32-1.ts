@@ -39,7 +39,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
     this.nbQuestions = 3
 
     this.besoinFormulaireTexte = ['Type de questions', [
-      'Nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : Régime alimentaire',
       '2 : Fromagerie',
       '3 : Programme de calcul',

@@ -93,7 +93,7 @@ export default class LectureGraphiqueTangente extends Exercice {
             .setGrille({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 1, yMin: -5, yMax: 8 } })
             .setGrilleSecondaire({ grilleX: { dx: 1, xMin: -3, xMax: 3 }, grilleY: { dy: 0.5, yMin: -5, yMax: 8, style: undefined } })
             .setThickX({ xMin: -3, xMax: 3, dx: 1.5 })
-            .setThickY({ yMin: -3, yMax: 12, dy: 1.5 })
+            .setThickY({ yMin: -3, yMax: 8, dy: 1.5 })
             .buildStandard()
 
           const courbef = latexParCoordonnees('\\Large \\cal C_f', 3, 10, 'blue', 1, 20, '', 8)

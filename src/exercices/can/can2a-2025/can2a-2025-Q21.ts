@@ -38,7 +38,7 @@ export default class MoyenneCalcul extends Exercice {
       coeff2 = this.canOfficielle ? 2 : randint(2, 3)
     } while ((a + b + coeff2 * c) % 20 !== 0)
     this.reponse = (a + b + coeff2 * c) / (coeff1 + coeff1 + coeff2)
-    this.question = `Maurice a eu deux notes ($${a}$ et $${b}$) coefficient $${coeff1}$ et une note de $${c}$ coefficient $${coeff2}$.<br>
+    this.question = `Sylvie a eu deux notes ($${a}$ et $${b}$) coefficient $${coeff1}$ et une note de $${c}$ coefficient $${coeff2}$.<br>
 Quelle est sa moyenne ?`
     if (this.interactif) { this.question += '<br>' }
     this.correction = `On calcule la moyenne $m$ en faisant le quotient de la somme des notes coefficientées par la somme des coefficients. <br>

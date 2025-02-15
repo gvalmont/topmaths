@@ -6,6 +6,7 @@ import { listeQuestionsToContenuSansNumero, printlatex, randint, gestionnaireFor
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Réduire une expression'
 export const interactifReady = true
@@ -32,7 +33,7 @@ export default class ReductionSiPossible extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
     this.besoinFormulaire3Texte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : ax+b',
         '2 : ax+bx',
         '3 : ax+bx²',
@@ -185,23 +186,23 @@ export default class ReductionSiPossible extends Exercice {
           constb = b
           break
       }
+      // EE : Permet en deux lignes de mettre toutes les réponses attendues en couleur
+      const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replace('$', '')) + '$'
+      texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur
+
       if (this.sup2) {
         // On découpe
         const etapes = texteCorr.split('=')
         texteCorr = ''
         etapes.forEach(function (etape) {
           etape = etape.replace('$', '')
-          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$<br>`
         })
       }
 
-      // EE : Permet en deux lignes de mettre toutes les réponses attendues en couleur
-      const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replace('$', '')) + '$'
-      texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur
-
       if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)) : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',

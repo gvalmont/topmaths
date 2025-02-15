@@ -33,7 +33,7 @@ export default class ArrondirUnDecimal extends Exercice {
 
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Valeur approchée à l\'unité',
         '2 : Valeur approchée au dixième',
         '3 : Valeur approchée au centième',

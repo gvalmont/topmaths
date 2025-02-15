@@ -51,10 +51,10 @@ export default class Can2025CE2Q4 extends ExerciceCan {
       options: { vertical: true }
     }
     this.formatInteractif = 'qcm'
-    this.question = `Le périmètre ${c} est proche de ...`
+    this.consigne = `Le périmètre ${c} est proche de ...`
     const monQcm = propositionsQcm(this, 0)
-    this.canEnonce = this.question
-    this.question += `<br>\n${monQcm.texte}`
+    this.canEnonce = this.consigne
+    this.question = `${monQcm.texte}`
     this.correction = monQcm.texteCorr + `${c.replace('de la', 'La')
     .replace('d\'une', 'Une')
     .replace('d\'un', 'Un')
@@ -64,7 +64,6 @@ export default class Can2025CE2Q4 extends ExerciceCan {
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce(40, 'm', 'de la salle de classe') : this.enonce()
   }
 }

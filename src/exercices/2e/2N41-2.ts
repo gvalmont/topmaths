@@ -29,7 +29,7 @@ export default class factorisationDifferenceCarres extends Exercice {
     this.correctionDetaillee = true
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : x²-a²',
         '2 : x²-a',
         '3 : a²x²-b²',

@@ -19,7 +19,7 @@ export const refs = {
 
 */
 export default class nombreEntreDeuxValeurs extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
@@ -27,7 +27,7 @@ export default class nombreEntreDeuxValeurs extends Exercice {
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const valInf = new Decimal(2025).div(choice([100, 1000]))
     const valSup = choice([valInf.add(0.01), valInf.add(0.001)])
     this.reponse = {
@@ -44,7 +44,7 @@ export default class nombreEntreDeuxValeurs extends Exercice {
     this.correction = `On complète avec un nombre strictement compris entre $${texNombre(valInf, 4)}$ et $${texNombre(valSup, 4)}$, comme 
      par exemple : $${miseEnEvidence(texNombre(valSup.add(valInf).div(2), 5))}$.`
 
-    this.canEnonce = 'Complèter par un nombre.'
+    this.canEnonce = 'Compléter par un nombre.'
     this.canReponseACompleter = `$${texNombre(valInf, 4)} < \\ldots < ${texNombre(valSup, 4)}$`
   }
 }

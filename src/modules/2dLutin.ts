@@ -6,7 +6,7 @@
 
 import { angleModulo } from '../lib/2d/angles'
 import { point } from '../lib/2d/points'
-import { radians } from '../lib/mathFonctions/trigo'
+import { degToRad } from '../lib/mathFonctions/trigo'
 import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites'
 import { context } from './context'
 
@@ -153,8 +153,8 @@ export function creerLutin () {
 export function avance (d: number, lutin: ObjetLutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   const xdepart = lutin.x
   const ydepart = lutin.y
-  lutin.x = lutin.x + d / context.unitesLutinParCm * Math.cos(radians(lutin.orientation))
-  lutin.y = lutin.y + d / context.unitesLutinParCm * Math.sin(radians(lutin.orientation))
+  lutin.x = lutin.x + d / context.unitesLutinParCm * Math.cos(degToRad(lutin.orientation))
+  lutin.y = lutin.y + d / context.unitesLutinParCm * Math.sin(degToRad(lutin.orientation))
   lutin.historiquePositions.push([lutin.x, lutin.y])
   if (lutin.crayonBaisse) {
     lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.stringColor, lutin.epaisseur, lutin.pointilles, lutin.opacite])

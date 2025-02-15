@@ -1,7 +1,7 @@
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -45,6 +45,12 @@ export default class RacinesPoly extends Exercice {
         $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>
       Déterminer les racines de $f$.`
       }
+      handleAnswers(this, i, { reponse: { value: `${Math.min(x1, x2)};${Math.max(x1, x2)}`, options: { suiteDeNombres: true } } })
+      if (this.interactif) {
+        texte += '<br>Écrire ces racines séparées par un point-virgule : '
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations) + '.'
+      }
+      /*
       if (this.interactif) {
         texte += '<br>Écrire ces racines dans l\'ordre croissant : '
         texte += remplisLesBlancs(this, i, ' %{champ1}  \\text{ et  }  %{champ2} ', KeyboardType.clavierDeBaseAvecFraction)
@@ -54,7 +60,7 @@ export default class RacinesPoly extends Exercice {
         champ1: { value: Math.min(x1, x2), options: { nombreDecimalSeulement: true } },
         champ2: { value: Math.max(x1, x2), options: { nombreDecimalSeulement: true } }
       }
-      )
+      ) */
       texteCorr = `$f$ est une fonction polynôme du second degré écrite sous forme factorisée $a(x-x_1)(x-x_2)$.<br>
       Les racines sont donc $x_1=${miseEnEvidence(x1)}$ et $x_2=${miseEnEvidence(x2)}$.`
       if (this.questionJamaisPosee(i, a, x1, x2)) {

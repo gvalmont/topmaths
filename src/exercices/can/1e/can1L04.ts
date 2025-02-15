@@ -3,7 +3,7 @@ import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { context } from '../../../modules/context'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -54,20 +54,23 @@ export default class ResoudreEquationSecondDegre extends Exercice {
       }
 
       texte = `$${reduirePolynomeDegre3(0, a, b, c)}=0$.<br>
-       Sachant que  $\\Delta=${d}$, donner les solutions de cette équation
-        `
+       Sachant que  $\\Delta=${d}$, donner les solutions de cette équation`
+      handleAnswers(this, i, { reponse: { value: `${Math.min(x1, x2)};${Math.max(x1, x2)}`, options: { suiteDeNombres: true } } })
+
       if (!this.interactif) {
         texte += '.'
       } else {
-        texte += 'dans l\'ordre croissant :<br>'
+        texte += ', séparées par un point-virgule : '
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
+        /* texte += 'dans l\'ordre croissant :<br>'
         texte += remplisLesBlancs(this, i, ' %{champ1}  \\text{ et  }  %{champ2} ', KeyboardType.clavierDeBaseAvecFraction)
+        handleAnswers(this, i, {
+          bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+          champ1: { value: Math.min(x1, x2), options: { nombreDecimalSeulement: true } },
+          champ2: { value: Math.max(x1, x2), options: { nombreDecimalSeulement: true } }
+        }
+        ) */
       }
-      handleAnswers(this, i, {
-        bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: Math.min(x1, x2), options: { nombreDecimalSeulement: true } },
-        champ2: { value: Math.max(x1, x2), options: { nombreDecimalSeulement: true } }
-      }
-      )
       texteCorr = context.isHtml ? '<br>' : '' + '$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
       texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b - Math.sqrt(d)) / (2 * a), 0))}$ et
        $x_2 = \\dfrac{${-b} +\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b + Math.sqrt(d)) / (2 * a), 0))}$`

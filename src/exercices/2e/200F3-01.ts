@@ -30,7 +30,7 @@ export default class LectureSigneAffine extends Exercice {
 
     this.nbQuestions = 1
     this.sup = '4'
-    this.besoinFormulaireTexte = ['type de fonction (nombre séparés par des tirets)', '1: Fonction constante\n2: Fonction affine\n3: Fonction linéaire\n4: Mélange']
+    this.besoinFormulaireTexte = ['type de fonction ', 'Nombres séparés par des tirets\n1: Fonction constante\n2: Fonction affine\n3: Fonction linéaire\n4: Mélange']
   }
 
   nouvelleVersion () {

@@ -471,8 +471,8 @@ export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 2
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes (produit vs produit,\n ... solution entière positive)\n6 : programmes (produit vs produit,\n ... solution entière négative)\n7 : programmes (somme vs produit,\n ... solution entière positive)\n8 : programmes (somme vs produit,\n ... solution entière négative)\n9 : tarifs\n10 : spectacle\n11 : isocèle\n12 : Thalès\n13 : Thalès2\n14 : Mélange']
-    this.sup = '14'
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes (produit vs produit,\n ... solution entière positive)\n6 : programmes (produit vs produit,\n ... solution entière négative)\n7 : tarifs\n8 : spectacle\n9 : isocèle\n10 : Thalès\n11 : Thalès2\n14 : Mélange']
+    this.sup = '12'
     this.besoinFormulaire2CaseACocher = ['Uniquement des nombres entiers']
     this.sup2 = false
     this.correctionDetaillee = true
@@ -482,8 +482,8 @@ export default class ProblemesEnEquation extends Exercice {
     const listeDeProblemes = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 12,
-      melange: 14,
+      max: 11,
+      melange: 12,
       defaut: 1,
       shuffle: true,
       nbQuestions: this.nbQuestions

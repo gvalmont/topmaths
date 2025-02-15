@@ -11,7 +11,6 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Justifier que deux triangles sont égaux'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
 

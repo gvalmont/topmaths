@@ -23,14 +23,14 @@ export default class MultiplierEnDistribuant extends Exercice {
     super()
     this.nbQuestions = 5
     this.besoinFormulaireTexte = ['Type de question', [
-      'Nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : avec des sommes',
       '2 : avec des différences',
       '3 : avec des sommes et des différences'
     ].join('\n')]
     this.sup = '3'
     this.besoinFormulaire2Texte = ['Sens de la distributivité', [
-      'Nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : développer',
       '2 : factoriser',
       '3 : Mélange'

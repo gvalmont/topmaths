@@ -37,10 +37,10 @@ export function obtenirListeFacteursPremiers (n: number) {
  * @author Jean-Claude Lhote
  */
 
-export function factorisation (n: number) {
+export function factorisation (n: number): [number, number][] {
   if (n === 1) return [[1, 1]]
   const liste = obtenirListeFacteursPremiers(n)
-  const facto = []
+  const facto: [number, number][] = []
   let index = 0
   for (let i = 0; i < liste.length;) {
     if (liste[i] === 0) i++

@@ -49,7 +49,7 @@ export default class ReduireUneExpressionLitterale extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
     this.besoinFormulaire3Texte = [
       'Type de questions ', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : ax+bx+c',
         '2 : ax+b+x+c',
         '3 : ax^2+bx+c+dx^2+x',

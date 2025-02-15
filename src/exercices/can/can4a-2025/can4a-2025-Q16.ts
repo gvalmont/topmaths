@@ -1,6 +1,5 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceCan from '../../ExerciceCan'
-import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 
@@ -20,10 +19,10 @@ export const refs = {
 export default class Can2025N4Q16 extends ExerciceCan {
   enonce (a?: number, b?: number, c?: number, d?: number) {
     if (a == null || b == null || c == null || d == null) {
-      b = choice([2, 3, 4])
+      b = choice([2, 3, 4, 5])
       d = 2 * b
-      c = randint(1, 5)
-      a = randint(c + 1, 2 * c - 1)
+      c = 1
+      a = 2 * b + 1
     }
     const f1 = new FractionEtendue(a, b)
     const f2 = new FractionEtendue(c, d)

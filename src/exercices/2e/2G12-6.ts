@@ -28,12 +28,12 @@ export const refs = {
  * On se propose de lire des coordonnées dans un repère orthogonal, normé ou quelconque.
  * Une version de cet exercice en sens inverse est disponible sous le titre "Repérage 2e" (bis).
  */
-export default class BetaReperage2e extends Exercice {
+export default class Reperage2e extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
     this.besoinFormulaireTexte = ['Type de repère', [
-      'Nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : Orthogonal',
       '2 : Normé',
       '3 : Quelconque',
@@ -107,9 +107,11 @@ export default class BetaReperage2e extends Exercice {
       const KPrime = homothetie(pointK, pointO, 3) as Point
       const INeg = rotation(IPrime, pointO, 180)
       const KNeg = rotation(KPrime, pointO, 180)
-      const OI = segment(INeg, IPrime)
+      const OI = segment(INeg, homothetie(IPrime, pointO, 1.05))
+      OI.epaisseur = 1.5
       OI.styleExtremites = '->'
-      const OK = segment(KNeg, KPrime)
+      const OK = segment(KNeg, homothetie(KPrime, pointO, 1.1))
+      OK.epaisseur = 1.5
       OK.styleExtremites = '->'
       const grid: (Point | Segment)[] = []
       /*
@@ -133,12 +135,27 @@ export default class BetaReperage2e extends Exercice {
             const pointH = point(...(matrice.multiply([4, yy]) as unknown as Matrix)!.toArray() as [number, number])
             if (Math.abs(yy) > 0.01) grid.push(segment(pointL, pointH))
           }
-          if (!this.sup4) {
-            grid.push(point(...(matrice.multiply([xx, yy]) as unknown as Matrix)!.toArray() as [number, number]))
+          if (!this.sup4) { // Si pas de grille, on fait des points et on ajoute des ticks sur les axes.
+            if (Math.abs(xx) > 0.1 && Math.abs(yy) > 0.1) {
+              grid.push(point(...(matrice.multiply([xx, yy]) as unknown as Matrix)!.toArray() as [number, number]))
+            } else {
+              const [x, y] = (matrice.multiply([xx, yy]) as unknown as Matrix)!.toArray() as [number, number]
+              if (Math.abs(x) < 0.1) { // On est sur l'axe des ordonnées
+                const s = segment(x - 0.1, y, x + 0.1, y)
+                s.epaisseur = 1.5
+                if (Math.abs(y) > 0.1) grid.push(s)
+              }
+              if (Math.abs(y) < 0.1) { // On est sur l'axe des abscisses
+                const s = segment(x, y - 0.1, x, y + 0.1)
+                s.epaisseur = 1.5
+                if (Math.abs(x) > 0.1) grid.push(s)
+              }
+            }
           }
         }
       }
-      const dots = this.sup4 ? grid : tracePoint(...(grid as Point[]))
+      const dots = this.sup4 ? grid : tracePoint(...(grid.filter(el => el instanceof Point) as Point[]))
+      const ticks = this.sup4 ? [] : grid.filter(el => el instanceof Segment)
       if (this.sup4) {
         for (const el of dots as Segment[]) {
           el.styleExtremites = '-'
@@ -174,7 +191,7 @@ export default class BetaReperage2e extends Exercice {
       traces.epaisseur = 2
       traces.color = colorToLatexOrHTML('black')
       const labels = labelPoint(pointO, pointI, pointK, ...points[i])
-      const objets = [traces, traceRep, labels, OI, OK, dots]
+      const objets = [traces, traceRep, labels, OI, OK, dots, ticks]
       let question = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
 
       question += `Quelles sont les coordonnées des points $${noms[i].join('$, $')}$ dans le repère $(${labelO},${labelI},${labelK})$ ?<br>`

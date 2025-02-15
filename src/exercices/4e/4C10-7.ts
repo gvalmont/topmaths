@@ -39,7 +39,7 @@ export default class ExerciceOperationsRelatifs extends Exercice {
     this.besoinFormulaireCaseACocher = ['Avec des écritures simplifiées']
     this.besoinFormulaire2Texte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : multiplication',
         '2 : division',
         '3 : addition',

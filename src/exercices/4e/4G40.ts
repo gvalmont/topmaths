@@ -22,6 +22,6 @@ export default class CalculDeLongueur4e extends CalculDeLongueur {
     this.level = 4
     this.sup = true
     this.sup2 = '3'
-    this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjacent (cosinus)\n2 : Hypoténuse (cosinus)\n3 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets  :\n1 : Côté adjacent (cosinus)\n2 : Hypoténuse (cosinus)\n3 : Mélange']
   }
 }

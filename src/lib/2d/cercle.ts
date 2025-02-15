@@ -10,7 +10,7 @@ import { pattern } from './polygones'
 import { longueur } from './segmentsVecteurs'
 import { rotation } from './transformations'
 import MainLevee from './MainLevee'
-import { radians } from '../mathFonctions/trigo'
+import { degToRad } from '../mathFonctions/trigo'
 
 /**
  * Construit le cercle (ou le disque) de centre O, de rayon r
@@ -113,7 +113,7 @@ export class Cercle extends ObjetMathalea2D {
       return (
         pattern({
           motif: this.hachures,
-          id: this.id,
+          id: Number(this.id),
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[0],
@@ -186,7 +186,7 @@ export class Cercle extends ObjetMathalea2D {
       tableauOptions.push(
         pattern({
           motif: this.hachures,
-          id: this.id,
+          id: Number(this.id),
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
@@ -470,7 +470,7 @@ export class Arc extends ObjetMathalea2D {
         return (
           pattern({
             motif: this.hachures,
-            id: this.id,
+            id: Number(this.id),
             distanceDesHachures: this.distanceDesHachures,
             epaisseurDesHachures: this.epaisseurDesHachures,
             couleurDesHachures: this.couleurDesHachures[0] ?? 'black',
@@ -578,7 +578,7 @@ export class Arc extends ObjetMathalea2D {
       tableauOptions.push(
         pattern({
           motif: this.hachures,
-          id: this.id,
+          id: Number(this.id),
           distanceDesHachures: this.distanceDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
           couleurDeRemplissage: this.couleurDeRemplissage[1],
@@ -598,8 +598,8 @@ export class Arc extends ObjetMathalea2D {
     const height = width
     const closed = this.rayons
     const A = point(this.centre.x + 1, this.centre.y)
-    const end = radians(angleOriente(this.pointDepart, this.centre, A))
-    const start = end - radians(this.angle)
+    const end = degToRad(angleOriente(this.pointDepart, this.centre, A))
+    const start = end - degToRad(this.angle)
     const mainLevee = MainLevee.create()
     if (mainLevee != null) {
       const code = mainLevee.arc(

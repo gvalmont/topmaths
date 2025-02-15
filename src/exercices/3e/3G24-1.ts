@@ -46,21 +46,17 @@ export const refs = {
 export default class TrianglesSemblables extends Exercice {
   constructor () {
     super()
-
-    this.nbQuestions = 3
-
+    this.nbQuestions = 1
+    if (context.isHtml) this.spacing = 3
     this.sup = 1
-
-    this.besoinFormulaireTexte = ['Types de questions (nombre séparés par des tirets)', '1 : Trouver angles et côtés homologues\n2 : Démontrer semblables avec les angles\n3 : Démontrer semblables avec les longueurs\n4 : Démontrer semblables avec des triangles rectangles imbriqués\n5 : Démontrer semblables avec des configurations type Thalès']
+    this.besoinFormulaireTexte = ['Types de questions ', 'Nombres séparés par des tirets\n1 : Trouver angles et côtés homologues\n2 : Démontrer semblables avec les angles\n3 : Démontrer semblables avec les longueurs\n4 : Démontrer semblables avec des triangles rectangles imbriqués\n5 : Démontrer semblables avec des configurations type Thalès']
   }
 
-  // c'est ici que commence le code de l'exercice cette méthode crée une copie de l'exercice
   nouvelleVersion () {
     const zoom = context.vue === 'diap' ? 0.5 : 1
     const typeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: this.nbQuestions })
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // Boucle principale où i+1 correspond au numéro de la question
       const listeDeNomsDePolygonesDejaPris: string[] = []
       let texte = ''
       let texteCorr = ''

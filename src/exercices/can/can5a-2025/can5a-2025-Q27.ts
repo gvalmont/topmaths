@@ -37,7 +37,7 @@ export default class Can2025N5Q27 extends ExerciceCan {
     this.question = `${p} achète ${patisserie} à $${a}$ euros et $${b}$ ${patisserie2} à $${c}$ centimes ${chaque}. <br>
     Il doit payer`
     this.correction = `Les $${b}$ ${patisserie2} coûtent : $${b}\\times ${c} = ${b * c}$ centimes, soit $${texPrix(b * c / 100)}$ euros.<br>
-    En tout, il devra donc payer : $${texPrix(b * c / 100)}+${a}=${miseEnEvidence(texPrix(a + b * c / 100))}$ euros.`
+    En tout, ${p} devra donc payer : $${texPrix(b * c / 100)}+${a}=${miseEnEvidence(texPrix(a + b * c / 100))}$ euros.`
     this.canEnonce = this.question
     this.optionsChampTexte = { texteApres: ' euros.' }
     this.canReponseACompleter = '$\\ldots $ euros'

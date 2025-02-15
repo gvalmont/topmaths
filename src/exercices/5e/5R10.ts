@@ -1,15 +1,18 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 
+export const dateDeModifImportante = '6/2/2024'
+// Passage à remplis les blancs avec feedback pour les parenthèses
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
@@ -36,7 +39,6 @@ export default class TermeInconnuDeSomme extends Exercice {
     this.sup = 1
     this.sup3 = 1
     this.sup2 = 20 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
-
     this.consigne = 'Calculer le terme manquant.'
     this.spacing = 2
     this.interactif = false
@@ -49,7 +51,6 @@ export default class TermeInconnuDeSomme extends Exercice {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let decimal
-    let inconnue
     if (this.sup === 1) {
       decimal = 1
     } else {
@@ -63,36 +64,29 @@ export default class TermeInconnuDeSomme extends Exercice {
         a = arrondi(randint(4 * decimal, 20 * decimal) / decimal, 1)
         b = arrondi(randint(2 * decimal, 20 * decimal) / decimal, 1)
       }
-      if (this.interactif) inconnue = ajouteChampTexteMathLive(this, i, ' ')
-      else if (this.sup3 === 1) {
-        inconnue = ' $\\ldots\\ldots$ '
-      } else {
-        inconnue = ` $${choice(['x', 'y', 'z', 'a', 't', 'n'])}$ `
-      }
 
+      let feedback
       switch (listeTypeDeQuestions[i]) {
         case 1:
-          texte = `$${texNombre(a)} + $` + inconnue + `$ = ${texNombre(b)}$`
+          if (a > b) feedback = feedbackNeedParentheses
+          texte = remplisLesBlancs(this, i, `${texNombre(a)} + %{champ1} = ${texNombre(b)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
           texteCorr = `$${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))} = ${texNombre(b)}$`
           break
 
         case 2:
-          texte = inconnue + `$ + ${texNombre(a)} = ${texNombre(b)}$`
+          texte = remplisLesBlancs(this, i, `%{champ1} + ${texNombre(a)} = ${texNombre(b)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
           texteCorr = `$${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)} = ${texNombre(b)}$`
           break
 
         case 3:
-          texte = `$${texNombre(b)} = $` + inconnue + `$ + ${texNombre(a)}$`
+          if (a > b) feedback = feedbackNeedParentheses
+          texte = remplisLesBlancs(this, i, `${texNombre(b)} = %{champ1} + ${texNombre(a)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
           texteCorr = `$${texNombre(b)}=${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)}$`
           break
 
         case 4:
         default:
-          if (this.interactif && !context.isAmc) {
-            texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexteMathLive(this, i, '')}`
-          } else {
-            texte = `$${texNombre(b)} = ${texNombre(a)} + $` + inconnue
-          }
+          texte = remplisLesBlancs(this, i, `${texNombre(b)} = ${texNombre(a)} + %{champ1}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
           texteCorr = `$${texNombre(b)}=${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))}$`
           break
       }
@@ -102,15 +96,30 @@ export default class TermeInconnuDeSomme extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        setReponse(this, i, arrondi(b - a, 2), {
-          signe: true,
-          digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(b - a)),
-          decimals: 0
-        })
+        if (this.interactif) {
+          handleAnswers(this, i, {
+            champ1: { value: arrondi(b - a, 2) },
+            feedback
+          })
+        } else if (context.isAmc) {
+          setReponse(this, i, arrondi(b - a, 2), {
+            signe: true,
+            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(b - a)),
+            decimals: 0
+          })
+        }
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
+}
+
+function feedbackNeedParentheses (input: Record<string, string>) {
+  const champ1 = input.champ1
+  if (champ1.length > 0 && !champ1.startsWith('\\lparen')) {
+    return 'On ne peut pas écrire « +- ». Il faudrait mettra la réponse entre parenthèses.'
+  }
+  return ''
 }

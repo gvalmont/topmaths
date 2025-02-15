@@ -84,7 +84,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 2:
           a = randint(1, 3)
@@ -132,7 +131,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 3:
           a = randint(14, 19)
@@ -177,7 +175,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 5:
@@ -399,7 +396,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 9:
@@ -416,7 +412,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 10:
@@ -455,7 +450,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 11:
 
@@ -485,7 +479,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 12:
 
@@ -510,7 +503,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 13:
 
@@ -628,7 +620,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
 
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 16:
@@ -654,7 +645,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 17: {
@@ -795,7 +785,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 20:
@@ -825,7 +814,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 21:
@@ -849,7 +837,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 22:
@@ -874,7 +861,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 23:
           lettre = choice(['a', 'b', 'x', 'y'])
@@ -899,7 +885,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 24:
@@ -951,7 +936,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 26:
@@ -988,7 +972,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 28:
@@ -1015,7 +998,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 29:
@@ -1112,7 +1094,6 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
       }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

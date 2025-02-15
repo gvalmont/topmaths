@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { egal } from '../../modules/outils'
-import { radians } from '../mathFonctions/trigo'
+import { degToRad } from '../mathFonctions/trigo'
 import { arc } from './cercle'
 import { Droite, droite } from './droites'
 import { Point, point } from './points'
@@ -393,7 +393,7 @@ export function affiniteOrtho<T extends Point | Droite | Segment | Polygone | Ve
  */
 export function similitude<T extends Point | Droite | Segment | Polygone | Vecteur> (A:T, O:Point, a:number, k:number, nom = '', positionLabel = 'above', color = 'black'): T {
   if (A instanceof Point) {
-    const ra = radians(a)
+    const ra = degToRad(a)
     const x = O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
     const y = O.y + k * (Math.cos(ra) * (A.y - O.y) + Math.sin(ra) * (A.x - O.x))
     return point(x, y, nom, positionLabel) as T

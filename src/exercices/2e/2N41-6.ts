@@ -31,7 +31,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
 
     this.besoinFormulaire2Texte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : (a+b)²',
         '2 : (a-b)²',
         '3 : (a+b)(a-b)',
@@ -212,7 +212,7 @@ export default class DevelopperIdentitesRemarquables2 extends Exercice {
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${new FractionEtendue(ns, ds).simplifie().texFraction}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
-          texteCorr += `$\\left(${frac}x+${a}\\right)^2=\\left(${frac}x\\right)^2+2 \\times ${frac}x \\times ${a} + ${a}^2=${frac2}x^2+${new FractionEtendue(ns * 2 * a, ds)}x+${a * a}$`
+          texteCorr += `$\\left(${frac}x+${a}\\right)^2=\\left(${frac}x\\right)^2+2 \\times ${frac}x \\times ${a} + ${a}^2=${frac2}x^2+${new FractionEtendue(ns * 2 * a, ds).texFraction}x+${a * a}$`
           handleAnswers(this, i, { reponse: { value: `${frac2}x^2+${dblProdFrac}x+${a * a}` } })
           break
         case 8:

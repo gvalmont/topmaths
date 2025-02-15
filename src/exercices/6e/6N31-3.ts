@@ -234,7 +234,7 @@ export default class ArrondirUneValeur6e extends Exercice {
           }
         ]
       }
-      if (!context.isAmc) { // Cette façon de faire est totalement désuette... propositionQcm factorise le qcm et sa correction
+      /* if (!context.isAmc) { // Cette façon de faire est totalement désuette... propositionQcm factorise le qcm et sa correction
         texte += '<br><br>Réponses possibles : <br>  '
         texteCorr = ''
         for (let i = 0; i < 6; i++) {
@@ -245,7 +245,7 @@ export default class ArrondirUneValeur6e extends Exercice {
             texteCorr += `$\\square\\;$ ${tabrep[i]}<br>`
           }
         }
-      }
+      } */
       if ((context.isAmc) && this.sup2 !== 1) {
         this.autoCorrection[i] = {
           enonce: 'On s en moque !',
@@ -253,7 +253,6 @@ export default class ArrondirUneValeur6e extends Exercice {
           propositions: [
             {
               type: 'AMCOpen',
-              // @ts-expect-error
               propositions: [{
                 enonce: 'Encadrer ' + texte + ' à l\'unité et entourer son arrondi à l\'unité.',
                 statut: 1
@@ -261,7 +260,6 @@ export default class ArrondirUneValeur6e extends Exercice {
             },
             {
               type: 'AMCOpen',
-              // @ts-expect-error
               propositions: [{
                 enonce: 'Encadrer ' + texte + ' au dixième et entourer son arrondi au dixième.',
                 statut: 1
@@ -269,7 +267,6 @@ export default class ArrondirUneValeur6e extends Exercice {
             },
             {
               type: 'AMCOpen',
-              // @ts-expect-error
               propositions: [{
                 enonce: 'Encadrer ' + texte + ' au centième et entourer son arrondi au centième.',
                 statut: 1

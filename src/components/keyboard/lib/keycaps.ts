@@ -34,9 +34,12 @@ const basicKeys = {
     insert: '\\frac{#@}{#1}'
   },
   SQRT: {
-
     display: '$\\sqrt{\\square}$',
     insert: '\\sqrt{#1}'
+  },
+  NORM: {
+    display: '$\\vert\\square\\vert$',
+    insert: '\\vert#0\\vert'
   },
   SQRTN: {
 
@@ -271,6 +274,7 @@ const basicKeys = {
   g: { display: 'g' },
   h: { display: 'h' },
   i: { display: 'i' },
+  iComplex: { display: 'i', insert: '\\text{i}' },
   j: { display: 'j' },
   k: { display: 'k' },
   l: { display: 'l' },

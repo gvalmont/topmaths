@@ -32,7 +32,7 @@ export default class EquationsLog extends Exercice {
     this.spacing = 1.5
     this.spacingCorr = 3
     this.sup = '1'
-    this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : log(ax+b)=n\n2 : log(ax+b)=log(cx+d)\n3 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question ', 'Nombres séparés par des tirets  :\n : log(ax+b)=n\n2 : log(ax+b)=log(cx+d)\n3 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.comment = 'Exercice de résolution d\'équations avec logarithme'
   }
@@ -70,12 +70,12 @@ export default class EquationsLog extends Exercice {
         texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${n}$.<br>`
         texte += `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.` + ajouteChampTexteMathLive(this, 2 * i, ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{D}_f=$' })
         texte += `<br>${numAlpha(1)} Donner la solution de cette équation.` + ajouteChampTexteMathLive(this, 2 * i + 1, ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
-        texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^{*}$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ doit être strictement positif.<br>`
+        texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^*$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ doit être strictement positif.<br>`
         const f1 = new FractionEtendue(-b, a)
         const fracMoinsBsurA = f1.texFractionSimplifiee
         texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(b)}> 0 \\iff ${rienSi1(a)}x> ${-b} \\iff x${a > 0 ? '> ' : '< '}${fracMoinsBsurA}$${a > 0 ? '' : ` (On inverse le signe car on divise chaque membre par $${a}$ qui est négatif)`}.<br>`
         texteCorr += `Ainsi, ${sp()} $ \\mathcal{D}_f=${miseEnEvidence(a > 0 ? `\\left]${fracMoinsBsurA};+\\infty\\right[` : `\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
-        texteCorr += `${numAlpha(1)} Ensuite,  on sait que pour tout $a$ et $b$ appartenant à $\\R_+^{*}, ${sp()}$ $a=b \\iff ${logString} (a) = ${logString} (b)$. D'où : <br>`
+        texteCorr += `${numAlpha(1)} Ensuite,  on sait que pour tout $a$ et $b$ appartenant à $\\R_+^*, ${sp()}$ $a=b \\iff ${logString} (a) = ${logString} (b)$. D'où : <br>`
         texteCorr += `
         $\\begin{aligned}
         ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${n} &\\iff ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${logString}(${base}^{${n}})\\\\
@@ -98,7 +98,7 @@ export default class EquationsLog extends Exercice {
         texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})$.<br>`
         texte += `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i, ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{D}_f=$' })
         texte += `${numAlpha(1)} Donner la solution de cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i + 1, ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
-        texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ et $${rienSi1(c)}x${ecritureAlgebrique(d)}$ doivent être strictement positifs.<br>`
+        texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^*$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ et $${rienSi1(c)}x${ecritureAlgebrique(d)}$ doivent être strictement positifs.<br>`
         const f2 = new FractionEtendue(-b, a)
         const f3 = new FractionEtendue(-d, c)
         const fracMoinsBsurA = f2.texFractionSimplifiee
@@ -177,7 +177,7 @@ export default class EquationsLog extends Exercice {
           }
         }
         if (domaine !== '\\emptyset') {
-          texteCorr += `<br>${numAlpha(1)} Ensuite, la fonction $${logString}$ étant une fonction strictement croissante de $\\R_+$ dans $\\R$, donc pour tout $a$ et $b$ appartenant à $\\R_+$, $a=b \\iff ${logString} a = ${logString} b$.<br>`
+          texteCorr += `<br>${numAlpha(1)} Ensuite, la fonction $${logString}$ étant une fonction strictement croissante de $\\R_+^*$ dans $\\R$, donc pour tout $a$ et $b$ appartenant à $\\R_+^*$, $a=b \\iff ${logString} a = ${logString} b$.<br>`
           texteCorr += `Ainsi, En mettant à la puissance de $${base}$ :<br>$
           \\begin{aligned} 
           ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})&\\iff ${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}\\\\`

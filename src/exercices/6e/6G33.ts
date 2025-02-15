@@ -36,7 +36,7 @@ export default class ReconnaitreQuadrilatereParticulier extends Exercice {
     this.sup = 4
     this.besoinFormulaireTexte = [
       'Type de quadrilatères', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Losange',
         '2 : Rectangle',
         '3 : Carré',

@@ -669,9 +669,9 @@ export default class SujetCAN20215ieme extends Exercice {
             texte = `Donne un encadrement au dixième près du nombre $${texNombre(nombre)}$ :<br>`
             texte += `$\\ldots \\leqslant ${texNombre(nombre)} \\leqslant \\ldots$`
             texteCorr = `Le chiffre des dixièmes est le premier chiffre après la virgule. <br>Ainsi : $${miseEnEvidence(texNombre(a + b - 0.1))} \\leqslant ${texNombre(nombre)} \\leqslant ${miseEnEvidence(texNombre(a + b))}$.`
-            setReponse(this, index, reponse, { formatInteractif: 'texte' })
+            handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
             if (this.interactif) {
-              texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'
+              texte += '<br>Écrire les entiers séparés par un point-virgule.'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
           } else {
@@ -685,9 +685,9 @@ export default class SujetCAN20215ieme extends Exercice {
             texte += `$\\ldots \\leqslant ${texNombre(nombre)} \\leqslant \\ldots$`
 
             texteCorr = `Le chiffre des centièmes est le deuxième chiffre après la virgule. <br>Ainsi : $${miseEnEvidence(texNombre(a + b + c - 0.01))} \\leqslant ${texNombre(nombre)} \\leqslant ${miseEnEvidence(texNombre(a + b + c))}$.`
-            setReponse(this, index, reponse, { formatInteractif: 'texte' })
+            handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
             if (this.interactif) {
-              texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'
+              texte += '<br>Écrire les entiers séparés par un point-virgule.'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
           }

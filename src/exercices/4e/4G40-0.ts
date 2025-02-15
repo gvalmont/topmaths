@@ -33,7 +33,7 @@ export default class VocabulaireTriangleRectangle extends Exercice {
     this.nbQuestions = 5
     this.spacingCorr = 3
     this.besoinFormulaireCaseACocher = ['Figure à main levée', true]
-    this.besoinFormulaire2Texte = ['Type de questions (nombre séparés par des tirets)', '1 : Donner le bon terme\n2 : Donner le bon côté\n3 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions ', 'Nombres séparés par des tirets\n1 : Donner le bon terme\n2 : Donner le bon côté\n3 : Mélange']
     this.sup = false
     this.sup2 = '3'
   }

@@ -688,7 +688,7 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesA.As,
             anglesA.Ax,
             anglesB.As,
-            anglesB.Ax,
+            anglesB.Ax/*,
             labelPoint('$' + anglesA.S + '$'),
             labelPoint('$' + anglesA.T + '$'),
             labelPoint('$' + anglesA.X + '$'),
@@ -696,7 +696,7 @@ export default class ExercicesAnglesAIC extends Exercice {
             labelPoint('$' + anglesB.T + '$'),
             labelPoint('$' + anglesB.OX + '$'),
             labelPoint('$' + anglesA.A + '$'),
-            labelPoint('$' + anglesB.A + '$')
+            labelPoint('$' + anglesB.A + '$') */
           )
           const paramsEnonce = fixeBordures([
             ...Object.keys(anglesA).map(key => { return anglesA[key] }),
@@ -706,7 +706,7 @@ export default class ExercicesAnglesAIC extends Exercice {
           objetsEnonce.forEach(objet => {
             objetsCorrection.push(objet)
           })
-          const angleCorrection = Object.assign({}, anglesB[b])
+          const angleCorrection = anglesB[b]
           angleCorrection.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('#f15929')
           objetsCorrection.push(angleCorrection)
           // ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
@@ -833,7 +833,7 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesA.As,
             anglesA.Ax,
             anglesB.As,
-            anglesB.Ax,
+            anglesB.Ax/*,
             labelPoint(anglesA.S),
             labelPoint(anglesA.T),
             labelPoint(anglesA.X),
@@ -841,7 +841,7 @@ export default class ExercicesAnglesAIC extends Exercice {
             labelPoint(anglesB.T),
             labelPoint(anglesB.OX),
             labelPoint(anglesA.A),
-            labelPoint(anglesB.A)
+            labelPoint(anglesB.A) */
           )
           const paramsEnonce = fixeBordures([
             ...Object.keys(anglesA).map(key => { return anglesA[key] }),

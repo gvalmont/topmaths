@@ -450,8 +450,8 @@ export function mathalea2d (
     `
   // code += codeTikz(...objets)
   codeTikz += ajouteCodeTikz(mainlevee, objets)
-  codeTikz += '\n\\end{tikzpicture}\n'
-  // if (style === 'display: block') codeTikz += '\\\\' Modification faite le 11/01/2025 par JC-Lhote : un \\ après un \end{tikzpicture} n'est pas normal.
+  codeTikz += '\n\\end{tikzpicture}'
+  if (style.includes('display: block'))codeTikz += '\\\\'
   if (context.isHtml) return codeHTML
   else return codeTikz
 }

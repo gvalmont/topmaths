@@ -187,7 +187,7 @@ export class Polynome {
   constructor ({ rand = false, deg = -1, coeffs, useFraction = false, useDecimal = false }: {
     rand?: boolean,
     deg?: number,
-    coeffs: CoeffType[],
+    coeffs?: CoeffType[],
     useFraction?: boolean,
     useDecimal?: boolean
   }) {
@@ -198,7 +198,7 @@ export class Polynome {
         coeffs.fill([10, true])
       }
       // Création de this.monomes
-      this.monomes = coeffs.map(function (el: unknown) {
+      this.monomes = coeffs!.map(function (el: unknown) {
         if (typeof el === 'number') {
           return el
         } else if (Array.isArray(el)) {
@@ -224,7 +224,7 @@ export class Polynome {
       })
     } else {
       // les coeffs sont fourni
-      this.monomes = coeffs.map(function (el) {
+      this.monomes = coeffs!.map(function (el) {
         if (el instanceof FractionEtendue) {
           if (useFraction) {
             return el

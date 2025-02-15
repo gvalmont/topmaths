@@ -15,7 +15,6 @@ export const refs = {
 */
 export default class Can2025NCE2Q2 extends Can2025N5Q1 {
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce(5, 7) : this.enonce()
   }
 }

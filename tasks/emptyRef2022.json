@@ -69,8 +69,16 @@
         "canTSpeS": {},
         "canTSpeE": {}
       },
-      "TEx": {
-        "canTExC": {}
+      "TE": {
+        "canTEC1": {},
+        "canTEC2": {},
+        "canTEC3": {},
+        "canTEM1": {},
+        "canTEM2": {},
+        "canTEA1": {},
+        "canTEA2": {},
+        "canTEA3": {},
+        "canTEA4": {}
       },
       "TermComplem": {},
       "TermTechno": {}

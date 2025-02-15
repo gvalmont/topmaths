@@ -24,10 +24,10 @@ export const updateReferentielLocaleFromURL = (
   const params = url.searchParams
   const lang = params.get('lang')
   if (lang) {
-    if (isLanguage(lang)) {
+    if (isLanguage(lang) && lang !== get(referentielLocale)) {
       referentielLocale.set(lang)
     }
-  } else {
+  } else if (get(referentielLocale) !== 'fr-FR') {
     referentielLocale.set('fr-FR')
   }
 }

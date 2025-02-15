@@ -42,7 +42,7 @@ class AgrandirReduireFigure extends Exercice {
 
     this.besoinFormulaireTexte = [
       'Type de figures', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Triangle équilatéral',
         '2 : Carré',
         '3 : Triangle avec coefficient de réduction ou d\'agrandissement',

@@ -22,6 +22,8 @@ export function exportedReinit (this: Exercice) {
   this.listeCorrections = []
   this.listeCanEnonces = []
   this.listeCanReponsesACompleter = []
+  this.listeCanLiees = []
+  this.listeCanNumerosLies = []
   this.listeArguments = []
   this.autoCorrection = []
   if (this.figures) {

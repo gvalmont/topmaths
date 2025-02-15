@@ -200,7 +200,7 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
       return exercice
     } catch (error) {
       attempts++
-      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
+      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}`, {})
       if (attempts === maxAttempts) {
         console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
         console.error(error)
@@ -387,18 +387,7 @@ function renderKatex (element: HTMLElement) {
   document.dispatchEvent(new window.Event('katexRendered'))
 }
 
-/**
- * Modifie l'url courante avec le store exercicesParams ou un tableau similaire
- * sauf si le store freezeUrl est à true (utile sur un site externe)
- */
-export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]) {
-  if (get(globalOptions).recorder === 'capytale') {
-    sendToCapytaleMathaleaHasChanged()
-  }
-  if (get(freezeUrl) === true) return
-  if (params === undefined) {
-    params = get(exercicesParams)
-  }
+export function createURL (params: InterfaceParams[]) {
   const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
   for (const ex of params) {
     url.searchParams.append('uuid', ex.uuid)
@@ -415,6 +404,21 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
     if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
     if (ex.alea != null) url.searchParams.append('alea', ex.alea)
   }
+  return url
+}
+/**
+ * Modifie l'url courante avec le store exercicesParams ou un tableau similaire
+ * sauf si le store freezeUrl est à true (utile sur un site externe)
+ */
+export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]) {
+  if (get(globalOptions).recorder === 'capytale') {
+    sendToCapytaleMathaleaHasChanged()
+  }
+  if (get(freezeUrl) === true) return
+  if (params === undefined) {
+    params = get(exercicesParams)
+  }
+  const url = createURL(params)
   updateURLFromReferentielLocale(url)
   updateGlobalOptionsInURL(url)
 }
@@ -476,92 +480,99 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let indiceExercice = -1
   const newExercisesParams: InterfaceParams[] = []
   let previousEntryWasUuid = false
-  for (const entry of entries) {
-    if (entry[0] === 'uuid') {
-      indiceExercice++
-      const uuid = entry[1]
-      const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
-        return currentRefToUuid[key] === uuid
-      })
-      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id }
-      newExercisesParams[indiceExercice].uuid = uuid // string
-      newExercisesParams[indiceExercice].id = id // string
-      newExercisesParams[indiceExercice].interactif = '0' // par défaut
-    } else if (entry[0] === 'id' && !previousEntryWasUuid) {
-      // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
-      indiceExercice++
-      const id = entry[1]
-      const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
-      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
-    } else if (entry[0] === 'n') {
-      newExercisesParams[indiceExercice].nbQuestions = parseInt(entry[1]) // int
-    } else if (entry[0] === 'd') {
-      newExercisesParams[indiceExercice].duration = parseInt(entry[1]) // int
-    } else if (entry[0] === 's') {
-      newExercisesParams[indiceExercice].sup = entry[1]
-    } else if (entry[0] === 's2') {
-      newExercisesParams[indiceExercice].sup2 = entry[1]
-    } else if (entry[0] === 's3') {
-      newExercisesParams[indiceExercice].sup3 = entry[1]
-    } else if (entry[0] === 's4') {
-      newExercisesParams[indiceExercice].sup4 = entry[1]
-    } else if (entry[0] === 's5') {
-      newExercisesParams[indiceExercice].sup5 = entry[1]
-    } else if (entry[0] === 'alea') {
-      newExercisesParams[indiceExercice].alea = entry[1]
-    } else if (entry[0] === 'cols') {
-      newExercisesParams[indiceExercice].cols = parseInt(entry[1])
-    } else if (entry[0] === 'i' && (entry[1] === '0' || entry[1] === '1')) {
-      newExercisesParams[indiceExercice].interactif = entry[1]
-    } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
-      newExercisesParams[indiceExercice].cd = entry[1]
-    } else if (entry[0] === 'v') {
-      v = convertVueType(entry[1])
-    } else if (entry[0] === 'recorder') {
-      if (entry[1] === 'capytale' || entry[1] === 'moodle' || entry[1] === 'labomep' || entry[1] === 'anki') {
-        recorder = entry[1]
+  try {
+    for (const entry of entries) {
+      if (entry[0] === 'uuid') {
+        indiceExercice++
+        const uuid = entry[1]
+        const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
+          return currentRefToUuid[key] === uuid
+        })
+        if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id }
+        newExercisesParams[indiceExercice].uuid = uuid // string
+        newExercisesParams[indiceExercice].id = id // string
+        newExercisesParams[indiceExercice].interactif = '0' // par défaut
+      } else if (entry[0] === 'id' && !previousEntryWasUuid) {
+        // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
+        indiceExercice++
+        const id = entry[1]
+        const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
+        if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
+      } else if (entry[0] === 'n') {
+        newExercisesParams[indiceExercice].nbQuestions = parseInt(entry[1]) // int
+      } else if (entry[0] === 'd') {
+        newExercisesParams[indiceExercice].duration = parseInt(entry[1]) // int
+      } else if (entry[0] === 's') {
+        newExercisesParams[indiceExercice].sup = entry[1]
+      } else if (entry[0] === 's2') {
+        newExercisesParams[indiceExercice].sup2 = entry[1]
+      } else if (entry[0] === 's3') {
+        newExercisesParams[indiceExercice].sup3 = entry[1]
+      } else if (entry[0] === 's4') {
+        newExercisesParams[indiceExercice].sup4 = entry[1]
+      } else if (entry[0] === 's5') {
+        newExercisesParams[indiceExercice].sup5 = entry[1]
+      } else if (entry[0] === 'alea') {
+        newExercisesParams[indiceExercice].alea = entry[1]
+      } else if (entry[0] === 'cols') {
+        newExercisesParams[indiceExercice].cols = parseInt(entry[1])
+      } else if (entry[0] === 'i' && (entry[1] === '0' || entry[1] === '1')) {
+        newExercisesParams[indiceExercice].interactif = entry[1]
+      } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
+        newExercisesParams[indiceExercice].cd = entry[1]
+      } else if (entry[0] === 'v') {
+        v = convertVueType(entry[1])
+      } else if (entry[0] === 'recorder') {
+        if (entry[1] === 'capytale' || entry[1] === 'moodle' || entry[1] === 'labomep' || entry[1] === 'anki') {
+          recorder = entry[1]
+        }
+      } else if (entry[0] === 'done' && entry[1] === '1') {
+        done = '1'
+      } else if (entry[0] === 'z') {
+        z = entry[1]
+      } else if (entry[0] === 'dGlobal') {
+        durationGlobal = parseInt(entry[1])
+      } else if (entry[0] === 'shuffle') {
+        shuffle = true
+      } else if (entry[0] === 'select') {
+        select = entry[1].split('-').map((e) => parseInt(e))
+      } else if (entry[0] === 'order') {
+        order = entry[1].split('-').map((e) => parseInt(e))
+      } else if (entry[0] === 'ds') {
+        ds = entry[1]
+      } else if (entry[0] === 'es') {
+        es = entry[1]
+      } else if (entry[0] === 'title') {
+        title = decodeURIComponent(entry[1])
+      } else if (entry[0] === 'iframe') {
+        iframe = entry[1]
+      } else if (entry[0] === 'answers') {
+        answers = entry[1]
+      } else if (entry[0] === 'beta') {
+        beta = true
+      } else if (entry[0] === 'canD') {
+        canDuration = parseInt(entry[1])
+      } else if (entry[0] === 'canT') {
+        canTitle = entry[1]
+      } else if (entry[0] === 'canSA') {
+        canSolAccess = entry[1] === '1'
+      } else if (entry[0] === 'canSM') {
+        canSolMode = entry[1]
+      } else if (entry[0] === 'canI') {
+        canIsInteractive = entry[1] === '1'
       }
-    } else if (entry[0] === 'done' && entry[1] === '1') {
-      done = '1'
-    } else if (entry[0] === 'z') {
-      z = entry[1]
-    } else if (entry[0] === 'dGlobal') {
-      durationGlobal = parseInt(entry[1])
-    } else if (entry[0] === 'shuffle') {
-      shuffle = true
-    } else if (entry[0] === 'select') {
-      select = entry[1].split('-').map((e) => parseInt(e))
-    } else if (entry[0] === 'order') {
-      order = entry[1].split('-').map((e) => parseInt(e))
-    } else if (entry[0] === 'ds') {
-      ds = entry[1]
-    } else if (entry[0] === 'es') {
-      es = entry[1]
-    } else if (entry[0] === 'title') {
-      title = decodeURIComponent(entry[1])
-    } else if (entry[0] === 'iframe') {
-      iframe = entry[1]
-    } else if (entry[0] === 'answers') {
-      answers = entry[1]
-    } else if (entry[0] === 'beta') {
-      beta = true
-    } else if (entry[0] === 'canD') {
-      canDuration = parseInt(entry[1])
-    } else if (entry[0] === 'canT') {
-      canTitle = entry[1]
-    } else if (entry[0] === 'canSA') {
-      canSolAccess = entry[1] === '1'
-    } else if (entry[0] === 'canSM') {
-      canSolMode = entry[1]
-    } else if (entry[0] === 'canI') {
-      canIsInteractive = entry[1] === '1'
-    }
 
-    if (entry[0] === 'uuid') previousEntryWasUuid = true
-    else previousEntryWasUuid = false
+      if (entry[0] === 'uuid') previousEntryWasUuid = true
+      else previousEntryWasUuid = false
+    }
+  } catch (error) {
+    // MOUCHARD SUR LES URLS FANTAISISTES
+    window.notify(`Erreur d'URL : ${error} `, { err: error, urlString, url: window.location.href.toString(), referrer: document.referrer })
+    console.error(error)
+    throw error
   }
 
-  exercicesParams.set(newExercisesParams)
+  exercicesParams.set(newExercisesParams.filter(e => e.uuid || e.id))
 
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
@@ -664,17 +675,17 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.reponse != null) {
         if (compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
           let reponse = {}
-          if (typeof exercice.reponse !== 'string' && typeof exercice.reponse !== 'number') {
+          if ((typeof exercice.reponse !== 'string') && (typeof exercice.reponse !== 'number')) {
             if (exercice.reponse instanceof FractionEtendue) {
               reponse = { reponse: { value: exercice.reponse.texFraction, compare, options } }
             } else if (exercice.reponse instanceof Decimal) {
               reponse = { reponse: { value: exercice.reponse.toString(), compare, options } }
             } else if (exercice.reponse instanceof Grandeur) {
               reponse = { reponse: { value: exercice.reponse, compare, options } }
-            } else if (typeof exercice.reponse === 'object') { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
+            } else if (typeof exercice.reponse === 'object' && !Array.isArray(exercice.reponse)) { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
               reponse = exercice.reponse
             } else if (Array.isArray(exercice.reponse)) {
-              reponse = { reponse: { value: exercice.reponse[0] } }
+              reponse = { reponse: { value: exercice.reponse, compare, options } }
             } else {
               window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
               reponse = { reponse: { value: String(exercice.reponse), compare, options } }
@@ -711,6 +722,9 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       exercice.listeCorrections.push(exercice.correction ?? '')
       exercice.listeCanEnonces?.push(exercice.canEnonce ?? '')
       exercice.listeCanReponsesACompleter?.push(exercice.canReponseACompleter ?? '')
+      exercice.listeCanLiees?.push(exercice.canLiee ?? '')
+      exercice.listeCanNumerosLies?.push(exercice.canNumeroLie ?? '')
+
       cptSecours = 0
       i++
     } else {
@@ -804,18 +818,6 @@ export function mathaleaGoToView (destinationView: '' | VueType) {
 
 export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
   for (const answer in answers) {
-    // La réponse correspond à un champs texte ?
-    const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
-    if (field !== null) {
-      if ('setValue' in field) {
-        // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
-        field.setValue(answers[answer])
-      } else {
-        // C'est un champ texte classique
-        field.value = answers[answer]
-      }
-      continue
-    }
     // La réponse correspond à une case à cocher qui doit être cochée ?
     const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
     if (checkBox !== null && answers[answer] === '1') {
@@ -873,6 +875,20 @@ export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: 
       } catch (error) {
         console.error('L\'exercice a été reconnu, sans doute à tort, comme un exercice de glisser-déposer')
       }
+    }
+    // La réponse correspond à un champs texte ?
+    const field = document.querySelector(`#champTexte${answer}`)
+    if (field !== null) {
+      if ('setValue' in field && typeof field.setValue === 'function') {
+        // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
+        field.setValue(answers[answer])
+      } else {
+        // C'est un champ texte classique
+        if (field instanceof HTMLInputElement) {
+          field.value = answers[answer]
+        }
+      }
+      continue
     }
   }
 }

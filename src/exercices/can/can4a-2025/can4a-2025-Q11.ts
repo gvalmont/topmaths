@@ -24,15 +24,15 @@ export default class Can2025N4Q11 extends ExerciceCan {
       a = fraction[0]
       b = fraction[1]
     }
-
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = texNombre(a * 60 / b, 0)
-    this.question = `$\\dfrac{${a}}{${b}}$ d'heure`
+    this.question = `$\\dfrac{${a}}{${b}}$ d'heure `
     this.correction = `$\\dfrac{${a}}{${b}} \\text{ d'heure }=\\dfrac{${a}}{${b}}\\times 60 \\text{ min }=${miseEnEvidence(this.reponse)}$ min`
     this.canEnonce = this.question
     if (this.interactif) { this.question += ' $=$' } else { this.question += '$=\\ldots$ min' }
     this.canEnonce = `$\\dfrac{${a}}{${b}}$ d'heure`
     this.canReponseACompleter = '$\\ldots$ min'
-    this.optionsChampTexte = { texteApres: 'min' }
+    this.optionsChampTexte = { texteApres: ' min' }
   }
 
   nouvelleVersion () {

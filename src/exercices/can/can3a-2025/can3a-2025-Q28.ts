@@ -28,7 +28,7 @@ export default class VolumeCylindre extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
-    this.optionsChampTexte = { texteAvant: '', texteApres: 'cm$^3$' }
+    this.optionsChampTexte = { texteAvant: '', texteApres: 'cm$^3$.' }
   }
 
   nouvelleVersion () {

@@ -33,7 +33,7 @@ export default class CalculsLog extends Exercice {
     this.consigne = 'Calculer.'
     this.spacingCorr = 3
     this.sup = '4'
-    this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : logarithme(a^n)\n2 : logarithme(1/a^n)\n3 : exponentiation\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question ', 'Nombres séparés par des tirets  :\n : logarithme(a^n)\n2 : logarithme(1/a^n)\n3 : exponentiation\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.comment = 'Exercice de calculs de logarithmes'
   }

@@ -197,7 +197,6 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error Trop compliqué à typer
                 propositions: [{
                   enonce: 'Poser et effectuer l\'opération suivante : ' + texte,
                   texte: texteCorr,
@@ -207,7 +206,6 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error Trop compliqué à typer
                 propositions: [{
                   texte: '',
                   statut: '',

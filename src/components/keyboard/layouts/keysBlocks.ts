@@ -15,6 +15,10 @@ const numbersCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'PI'],
   block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 'COMMA', 'PI']
 }
+const complexesCap: CompleteKeysList = {
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'iComplex', 'ADD', 'SUB', 'FRAC', 'POW', 'PI', 'COMMA', 'PARENTHESES', 'SQRT', 'e^', 'COS', 'SIN', 'THETA', 'NORM'],
+  block: [7, 8, 9, 'iComplex', 'FRAC', 'COS', 4, 5, 6, 'ADD', 'POW', 'SIN', 1, 2, 3, 'SUB', 'PI', 'THETA', 0, 'COMMA', 'PARENTHESES', 'SQRT', 'e^', 'NORM']
+}
 const numbersCaps2: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', '='],
   block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 'COMMA', '=']
@@ -202,6 +206,14 @@ export const specialKeys: KeyboardBlock = {
   title: 'Touches spéciales',
   isUnits: false
 }
+
+export const complexes: KeyboardBlock = {
+  keycaps: complexesCap,
+  cols: 6,
+  title: 'Nombres complexes',
+  isUnits: false
+}
+
 export const numbers: KeyboardBlock = {
   keycaps: numbersCaps,
   cols: 3,
@@ -452,6 +464,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   basicOperationsPlus,
   capacities,
   compare,
+  complexes,
   degre,
   degreCelsius,
   ensemble,

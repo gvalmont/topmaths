@@ -17,7 +17,7 @@ import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrre
 import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
 export const interactifReady = true
@@ -108,9 +108,8 @@ export default class CalculPointSurCourbe extends Exercice {
              $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. <br>Quelle est son ordonnée ?`
                 correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
               $${nom}(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(b)}=${ord}$.<br>
-              L'ordonnée du point $${point}$ est $${ord}$.`
-
-                setReponse(this, i, ord)
+              L'ordonnée du point $${point}$ est $${miseEnEvidence(ord)}$.`
+                handleAnswers(this, i, { reponse: { value: ord, options: { nombreDecimalSeulement: true } } })
               } else {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
@@ -139,8 +138,8 @@ export default class CalculPointSurCourbe extends Exercice {
                                           x&=${abs}
                                                                       \\end{aligned}$<br>`
                 }
-                correction += `L'abscisse du point $${point}$ est $${abs}$.`
-                setReponse(this, i, abs)
+                correction += `L'abscisse du point $${point}$ est $${miseEnEvidence(abs)}$.`
+                handleAnswers(this, i, { reponse: { value: abs, options: { nombreDecimalSeulement: true } } })
               }
 
               break
@@ -163,22 +162,21 @@ export default class CalculPointSurCourbe extends Exercice {
               $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${f.texFraction}$.<br>
                Quelle est son ordonnée ?
               `
-                correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
+                correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est l'image de son abscisse.<br>
                 $${nom}\\left(${f.texFraction}\\right)=$`
                 if (a === -1 || a === 1) {
                   correction += `$${rienSi1(a)}${f.texFraction}${ecritureAlgebrique(b)}=
                   ${rienSi1(a)}${f.texFraction}${fractionb.ecritureAlgebrique} =
                   \\dfrac{${rienSi1(a)}${f.n}${ecritureAlgebrique(b * f.d)}}{${f.d}}=
-               ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}$.<br>
-               L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
+               ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}$.<br>`
                 } else {
                   correction += `$${a}\\times ${f.texFraction}${ecritureAlgebrique(b)}=
                   ${a}\\times${f.texFraction}${fractionb.ecritureAlgebrique} =
                   \\dfrac{${a}\\times${f.n}${ecritureAlgebrique(b * f.d)}}{${f.d}}=
-               ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}$.<br>
-               L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
+               ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}$.<br>`
                 }
-                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
+                correction += `L'ordonnée du point $${point}$ est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
+                handleAnswers(this, i, { reponse: { value: f1 } })
               } else {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
                ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
@@ -212,8 +210,8 @@ export default class CalculPointSurCourbe extends Exercice {
                     x&=${fractionC.texFraction}${fractionC.texSimplificationAvecEtapes()}
                                                 \\end{aligned}$<br>`
                 }
-                correction += `L'abscisse du point $${point}$ est $${fractionC.texFractionSimplifiee}$.`
-                setReponse(this, i, fractionC, { formatInteractif: 'fractionEgale' })
+                correction += `L'abscisse du point $${point}$ est $${miseEnEvidence(fractionC.texFractionSimplifiee)}$.`
+                handleAnswers(this, i, { reponse: { value: fractionC } })
               }
 
               break
@@ -240,14 +238,13 @@ export default class CalculPointSurCourbe extends Exercice {
                 correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br> `
                 if (a !== 1) {
                   correction += `$${nom}(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}
-                =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}=${ord}$.<br>
-                L'ordonnée du point $${point}$ est $${ord}$.`
+                =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}=${ord}$.<br>`
                 } else {
                   correction += `$${nom}(${abs})= ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}
-                =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}=${ord}$.<br>
-                L'ordonnée du point $${point}$ est $${ord}$.`
+                =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}=${ord}$.<br>`
                 }
-                setReponse(this, i, ord)
+                correction += `L'ordonnée du point $${point}$ est $${miseEnEvidence(ord)}$.`
+                handleAnswers(this, i, { reponse: { value: ord, options: { nombreDecimalSeulement: true } } })
               } else {
                 a = randint(-10, 10, 0)
                 b = randint(-10, 10, 0)
@@ -267,7 +264,7 @@ ${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, 0, c)}$`)}
 On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
 Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord}$ ? <br>
 Si oui, quelles sont les abscisses possibles de ces points ?<br>
-Écrire les valeurs dans l'ordre croissant séparées par un point-virgule ou $\\emptyset$ s'il n'y en a pas.`
+Écrire les valeurs séparées par un point-virgule ou $\\emptyset$ s'il n'y en a pas.`
                 }
 
                 correction = ` Si un point de $\\mathscr{C}$ a pour ordonnée $${ord}$, son abscisse est un antécédent de $${ord}$.<br> `
@@ -276,25 +273,23 @@ Si oui, quelles sont les abscisses possibles de ces points ?<br>
                   On résout cette équation en isolant le carré, c'est-à-dire en l'écrivant $x^2=${abs}$. <br>`
                 if (abs === 0) {
                   correction += ` Cette équation n'a qu'une seule solution : $0$.<br>
- On en déduit qu'il existe un unique point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$ : son abscisse est $0$. `
-                  setReponse(this, i, 0)
-                }
-                if (abs < 0) {
+ On en déduit qu'il existe un unique point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$ : son abscisse est $${miseEnEvidence(0)}$. `
+                  handleAnswers(this, i, { reponse: { value: 0, options: { nombreDecimalSeulement: true } } })
+                } else if (abs < 0) {
                   correction += ` Cette équation n'a pas de solution.<br>
  On en déduit qu'il n'existe pas de point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$. `
-                  setReponse(this, i, '\\emptyset', { formatInteractif: 'texte' })
-                }
-                if (abs > 0) {
+                  handleAnswers(this, i, { reponse: { value: '\\emptyset', options: { ensembleDeNombres: true } } })
+                } else {
                   if (abs === 1 || abs === 4 || abs === 9 || abs === 16) {
                     correction += ` Cette équation a deux solutions : $-\\sqrt{${abs}}=-${Math.sqrt(abs)}$ et $\\sqrt{${abs}}=${Math.sqrt(abs)}$.<br>
                 On en déduit qu'il existe deux points de $\\mathscr{C}$ ayant pour ordonnée $${ord}$.<br>
-                Les  abscisses de ces points sont : $-${Math.sqrt(abs)}$ et $${Math.sqrt(abs)}$. `
-                    setReponse(this, i, [`-${Math.sqrt(abs)};${Math.sqrt(abs)}`])
+                Les  abscisses de ces points sont : $${miseEnEvidence(`-${Math.sqrt(abs)}`)}$ et $${miseEnEvidence(Math.sqrt(abs))}$. `
+                    handleAnswers(this, i, { reponse: { value: `-${Math.sqrt(abs)};${Math.sqrt(abs)}`, options: { suiteDeNombres: true } } })
                   } else {
                     correction += ` Cette équation a deux solutions : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$.<br>
 On en déduit qu'il existe deux points de $\\mathscr{C}$ ayant pour ordonnée $${ord}$.<br>
-Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
-                    setReponse(this, i, [`-\\sqrt{${abs}};\\sqrt{${abs}}`])
+Les  abscisses de ces points sont : $${miseEnEvidence(`-\\sqrt{${abs}}`)}$ et $${miseEnEvidence(`\\sqrt{${abs}}`)}$. `
+                    handleAnswers(this, i, { reponse: { value: `-\\sqrt{${abs}};\\sqrt{${abs}}`, options: { suiteDeNombres: true } } })
                   }
                 }
               }
@@ -347,8 +342,8 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                 `
                 }
               }
-              correction += `<br> L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
-              setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
+              correction += `<br> L'ordonnée du point $${point}$ est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
+              handleAnswers(this, i, { reponse: { value: f1 } })
               break
           }
 
@@ -376,13 +371,12 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                 $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. <br>
                 Quelle est son ordonnée ?`
 
-                correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
+                correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est l'image de son abscisse.<br>
                                 $${nom}(${abs})=\\dfrac{${a}}{${abs}}${ecritureAlgebrique(b)}
                 =${fa.texFractionSimplifiee}${ecritureAlgebrique(b)}
-                =${fa.texFractionSimplifiee}${fb.ecritureAlgebrique}=${f1.texFractionSimplifiee}$<br>
-  
-                L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
-                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
+                =${fa.texFractionSimplifiee}${fb.ecritureAlgebrique}=${f1.texFractionSimplifiee}$<br>`
+                correction += `L'ordonnée du point $${point}$ est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
+                handleAnswers(this, i, { reponse: { value: f1 } })
               } else {
                 a = randint(-10, 10, 0)
                 b = randint(-9, 9, 0)
@@ -409,8 +403,9 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                       x\\times${ecritureParentheseSiNegatif(ord - b)} &=${a} ${sp(4)}{\\text{(Produit en croix)}}\\\\
                       x&=${f1.texFraction}${f1.texSimplificationAvecEtapes()}\\\\
                                                 \\end{aligned}$<br>
-                                                Un seul point de $\\mathscr{C}$ a pour ordonnée  $${ord}$. Son abcsisse est $${f1.texFractionSimplifiee}$.`
-                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
+                                                Un seul point de $\\mathscr{C}$ a pour ordonnée $${ord}$. `
+                correction += `Son abcsisse est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
+                handleAnswers(this, i, { reponse: { value: f1 } })
               }
 
               break
@@ -440,9 +435,9 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
               =${a}\\times \\dfrac{${abs.d}}{${abs.n}}${ecritureAlgebrique(b)}=
               ${fa.texFractionSimplifiee}${ecritureAlgebrique(b)}
               =${f1.texFractionSimplifiee}
-              $<br>
-              L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
-                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
+              $<br>`
+                correction += `L'ordonnée du point $${point}$ est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
+                handleAnswers(this, i, { reponse: { value: f1 } })
               } else {
                 a = randint(-9, 9, 0)
                 b = randint(-9, 9, 0)
@@ -469,8 +464,9 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                       x\\times${ecritureParentheseSiNegatif(ord.n - b * ord.d)} &=${a}\\times ${ord.d} ${sp(4)}{\\text{(Produit en croix)}}\\\\
                       x&=${f1.texFraction}${f1.texSimplificationAvecEtapes()}
                                                 \\end{aligned}$<br>
-                                                Un seul point de $\\mathscr{C}$ a pour ordonnée  $${ord.texFraction}$. Son abcsisse est $${f1.texFractionSimplifiee}$.`
-                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
+                                                Un seul point de $\\mathscr{C}$ a pour ordonnée $${ord.texFraction}$. `
+                correction += `Son abcsisse est $${miseEnEvidence(f1.texFractionSimplifiee)}$.`
+                handleAnswers(this, i, { reponse: { value: f1 } })
               }
 
               break

@@ -153,23 +153,33 @@ function loadPreambuleCan () {
 
   \\newlength{\\Largeurcp}
   
-  % Structure globale pour les tableaux des livrets CAN
-  \\NewDocumentEnvironment{TableauCan}{b}{%
-    % #1 --> corps de tableau
-    \\setlength{\\Largeurcp}{0.35\\textwidth-8\\tabcolsep}
-    \\renewcommand*{\\arraystretch}{2.5}
-    \\begin{spacing}{1.1}
-      \\begin{longtable}{|>{\\columncolor{gray!20}\\centering}m{0.05\\textwidth}|>{\\centering}m{0.45\\textwidth}|>{\\centering}m{\\Largeurcp}|>{\\centering}p{0.1\\textwidth}|}%
-        \\hline
-        \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-        % \\endfirsthead
-        % \\hline
-        % \\rowcolor{gray!20}\\#&Énoncé&Réponse&Jury\\tabularnewline \\hline
-        % \\endhead
-        #1
-      \\end{longtable}
-    \\end{spacing}
-    \\renewcommand*{\\arraystretch}{1}
+  % Nouveau TableauCan
+  % Supprimer les headers et footer du longtblr
+  \\DefTblrTemplate{contfoot-text}{default}{}
+  \\DefTblrTemplate{conthead-text}{default}{}
+  \\DefTblrTemplate{caption}{default}{}
+  \\DefTblrTemplate{conthead}{default}{}
+  \\DefTblrTemplate{capcont}{default}{}
+  \\UseTblrLibrary{counter,varwidth}
+  % Compteur des questions
+  \\newcounter{CompteurTableauCan}
+  \\newcommand{\\CompteurTC}{\\stepcounter{CompteurTableauCan}\\arabic{CompteurTableauCan}}
+  % ENvironnement proprement dit
+  \\NewDocumentEnvironment{TableauCan}{+b}{%
+  % #1 --> corps de tableau
+  \\begin{longtblr}{%
+    width=\\textwidth,%
+    colspec={X[c,0.075]X[c,0.55]X[c,0.28]X[c,0.1]},%
+    vlines,hlines,,measure=vbox,%
+    vspan=even,%
+    stretch=2.5,%
+    column{1}={bg={gray!20},font={\\bfseries}},%
+    row{1}={bg={gray!20},font={\\bfseries},halign={c}},%
+    rows={valign={m}}%
+  }
+  \\#&Énoncé&Réponse&Jury\\\\
+  #1
+  \\end{longtblr}
   }{}
   `
 }

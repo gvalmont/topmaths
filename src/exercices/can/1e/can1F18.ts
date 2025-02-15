@@ -8,6 +8,8 @@ import {
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $a/u(x)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,8 +35,7 @@ export default class CalculFonctionDeriveeAsurU extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
-    this.compare = functionCompare
+    this.formatChampTexte = KeyboardType.clavierFullOperations
   }
 
   nouvelleVersion () {
@@ -44,12 +45,13 @@ export default class CalculFonctionDeriveeAsurU extends Exercice {
         a = randint(-3, 5, [0, 1])
         m = randint(-4, 6, 0)
         p = randint(-5, 5, 0)
-        this.question = `Soit $f$ la fonction définie  par  $f(x)=\\dfrac{${a}}{${reduireAxPlusB(m, p)}}$. `
-        if (this.interactif) { this.question += '<br>$f\'(x)=$' } else { this.question += '<br> Déterminer  $f\'(x)$.' }
+
+        this.question = `Soit $f$ la fonction définie  par  $f(x)=\\dfrac{${a}}{${reduireAxPlusB(m, p)}}$.<br> `
+        if (this.interactif) { this.question += 'f\'(x)=$' } else { this.question += 'Déterminer  $f\'(x)$.' }
         this.correction = `$f(x)=\\dfrac{${a}}{${reduireAxPlusB(m, p)}}=${a}\\times \\dfrac{1}{${reduireAxPlusB(m, p)}}$.<br>
           Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
-          On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>On en déduit $f'(x)=${a}\\times \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}$.`
-        this.reponse = { reponse: { value: `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`, options: { variable: 'x', domaine: [-100, 100] }, compare: functionCompare } }
+          On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>On en déduit $f'(x)=${a}\\times \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=${miseEnEvidence(`\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}`)}$.`
+        this.reponse = { reponse: { value: `\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}`, compare: functionCompare, options: { variable: 'x' } } }
         this.canEnonce = `Soit $f$ la fonction définie  par  $f(x)=\\dfrac{${a}}{${reduireAxPlusB(m, p)}}$. `
         this.canReponseACompleter = '$f\'(x)=\\ldots$'
         break
@@ -57,12 +59,12 @@ export default class CalculFonctionDeriveeAsurU extends Exercice {
         a = randint(-3, 5, [0, 1])
         m = randint(-4, 6, 0)
         p = randint(-5, 5, 0)
-        this.question = `Soit $f$ la fonction définie  par  $f(x)=\\dfrac{${a}}{${p}${ecritureAlgebriqueSauf1(m)}x}$.`
-        if (this.interactif) { this.question += '<br>$f\'(x)=$' } else { this.question += '<br> Déterminer  $f\'(x)$.' }
+        this.question = `Soit $f$ la fonction définie  par  $f(x)=\\dfrac{${a}}{${p}${ecritureAlgebriqueSauf1(m)}x}$.<br>`
+        if (this.interactif) { this.question += '$f\'(x)=$' } else { this.question += 'Déterminer  $f\'(x)$.' }
         this.correction = `$f(x)=\\dfrac{${a}}{${reduireAxPlusB(m, p)}}=${a}\\times \\dfrac{1}{${reduireAxPlusB(m, p)}}$.<br>
           Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
-          On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>On en déduit  $f'(x)=${a}\\times \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}$.`
-        this.reponse = { reponse: { value: `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`, options: { variable: 'x', domaine: [-100, 100] }, compare: functionCompare } }
+          On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>On en déduit  $f'(x)=${a}\\times \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=${miseEnEvidence(`\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}`)}$.`
+        this.reponse = { reponse: { value: `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`, compare: functionCompare, options: { variable: 'x' } } }
         this.canEnonce = `Soit $f$ la fonction définie  par  $f(x)=\\dfrac{${a}}{${p}${ecritureAlgebriqueSauf1(m)}x}$.`
         this.canReponseACompleter = '$f\'(x)=\\ldots$'
         break
@@ -71,13 +73,13 @@ export default class CalculFonctionDeriveeAsurU extends Exercice {
         a = randint(-3, 5, [0, 1])
         m = randint(-4, 5, 0)
         p = randint(-10, 10, 0)
-        this.question = `Soit $f$ la fonction définie  par : $f(x)=\\dfrac{${a}}{${reduirePolynomeDegre3(0, m, 0, p)}}$. `
-        if (this.interactif) { this.question += '<br>$f\'(x)=$' } else { this.question += '<br> Déterminer  $f\'(x)$.' }
+        this.question = `Soit $f$ la fonction définie  par : $f(x)=\\dfrac{${a}}{${reduirePolynomeDegre3(0, m, 0, p)}}$. <br>`
+        if (this.interactif) { this.question += '$f\'(x)=$' } else { this.question += 'Déterminer  $f\'(x)$.' }
         this.correction = `$f(x)=\\dfrac{${a}}{${reduirePolynomeDegre3(0, m, 0, p)}}=${a}\\times \\dfrac{1}{${reduirePolynomeDegre3(0, m, 0, p)}}$.<br>
                        Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
                 On a  $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $u'(x)=${2 * m}x$. On en déduit,
-                $f'(x)= ${a}\\times\\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}=\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}$.`
-        this.reponse = { reponse: { value: `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, options: { variable: 'x', domaine: [-100, 100] }, compare: functionCompare } }
+                $f'(x)= ${a}\\times\\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}=${miseEnEvidence(`\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`)}$.`
+        this.reponse = { reponse: { value: `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, compare: functionCompare, options: { variable: 'x' } } }
         this.canEnonce = `Soit $f$ la fonction définie  par : $f(x)=\\dfrac{${a}}{${reduirePolynomeDegre3(0, m, 0, p)}}$. `
         this.canReponseACompleter = '$f\'(x)=\\ldots$'
         break

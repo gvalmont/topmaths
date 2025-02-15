@@ -33,7 +33,7 @@ export default class NommerEtCoderDesPolygones extends Exercice {
     ]
     this.besoinFormulaire2Texte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Triangle isocèle',
         '2 : Triangle équilatéral',
         '3 : Triangle rectangle',

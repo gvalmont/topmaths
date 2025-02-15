@@ -52,8 +52,6 @@ export default class EncadrerRacineCarreeEntre2Entiers extends Exercice {
       let b: number = 0
       let c: number = 0
       let reponse = 0
-      let reponse1 = 0
-      let reponse2 = 0
       switch (listeTypeQuestions[i]) {
         case 'Encadrer1':
 

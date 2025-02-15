@@ -38,7 +38,7 @@ export default class EnsembleDeNombres extends Exercice {
     this.sup = 10
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Entier naturel',
         '2 : Entier relatif',
         '3 : Nombre décimal',

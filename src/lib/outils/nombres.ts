@@ -24,7 +24,7 @@ export function signe (a: number) { // + ou -
  * sommeDesChiffres(123)
  * // [ 6, '1+2+3']
  * @author Rémi Angot (Rajout Tableau par EE)
- */export function sommeDesChiffres (n: number): [number, string] {
+ */export function sommeDesChiffres (n: number | number[]): [number, string] {
   let nString
   if (Array.isArray(n)) nString = n.join('').toString()
   else nString = n.toString()

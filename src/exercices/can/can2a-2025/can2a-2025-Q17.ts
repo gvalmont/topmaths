@@ -38,12 +38,12 @@ export default class CoeffDirecteur extends Exercice {
     const d = xL - xK
 
     this.reponse = new FractionEtendue(n, d).simplifie().texFraction
-    this.question = `Déterminer le coefficient directeur de la droite $(KL)$ avec $K(${xK}\\,;\\,${yK})$ et $L(${xL}\\,;\\,${yL})$. `
+    this.question = `Coefficient directeur de la droite $(KL)$ avec $K(${xK}\\,;\\,${yK})$ et $L(${xL}\\,;\\,${yL})$. `
     if (this.canOfficielle || yK === yL) {
       this.correction = `On remarque que les points $K$ et $L$ ont les mêmes ordonnées. <br>
-    On en déduit que la droite $(KL)$ est horizotale et donc que son coefficient directeur est égal à $${miseEnEvidence('0')}$.`
+    On en déduit que la droite $(KL)$ est horizontale et donc que son coefficient directeur est égal à $${miseEnEvidence('0')}$.`
     } else {
-      this.correction = 'On sait d\'après le cours : $m=\\dfrac{y_L-y_K}{x_-x_A}$.'
+      this.correction = 'On sait d\'après le cours que le coefficient directeur $m$ est donné par : $m=\\dfrac{y_L-y_K}{x_-x_A}$.'
       this.correction += `<br>On applique avec les données de l'énoncé :
         $m=\\dfrac{${yL}-${ecritureParentheseSiNegatif(yK)}}{${xL}-${ecritureParentheseSiNegatif(xK)}}=
         ${miseEnEvidence(`${this.reponse}`)}$.`

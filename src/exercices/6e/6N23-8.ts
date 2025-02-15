@@ -31,7 +31,7 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
     super()
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Ecriture décimale -> fraction décimale',
         '2 : Fraction décimale -> écriture décimale',
         '3 : Mélange'

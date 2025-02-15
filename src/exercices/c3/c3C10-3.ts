@@ -5,12 +5,11 @@ export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-// Gestion de la date de publication initiale
 export const dateDePublication = '12/12/2021'
+export const dateDeModifImportante = '11/02/2025'
 
 /**
- * @author Eric Elter
-
+ * @author Eric Elter et Rémi Angot
  * Date décembre 2021
  */
 export const uuid = 'f92e1'
@@ -22,8 +21,7 @@ export const refs = {
 export default class MultiplierDecimauxPar101001000CM extends MultiplierDecimauxPar101001000 {
   constructor () {
     super()
-    this.sup = 1 // Par défaut, pas de fractions
+    this.sup = '1' // Par défaut, pas de fractions
     this.sup3 = false // Peu importe ici, car pas de décimaux par défaut
-    this.sup4 = true // Par défaut, que des entiers
   }
 }

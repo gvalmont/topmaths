@@ -36,7 +36,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
     this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Équations x²-a²=0 ou a²-x²=0',
         '2 : Équations x²-a=0',
         '3 : Équations x²+a²=0',

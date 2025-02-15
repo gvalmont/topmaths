@@ -1,155 +1,157 @@
 <script lang="ts">
-  import type { CanState } from "../../../lib/types/can";
-  import type TypeExercice from "../../../exercices/Exercice";
-  import { canOptions } from "../../../lib/stores/canStore";
-  import CountDown from "./presentationalComponents/CountDown.svelte";
-  import End from "./presentationalComponents/End.svelte";
-  import KickOff from "./presentationalComponents/KickOff.svelte";
-  import Race from "./presentationalComponents/Race.svelte";
-  import { onMount } from "svelte";
+  import type { CanState } from "../../../lib/types/can"
+  import type TypeExercice from "../../../exercices/Exercice"
+  import { canOptions } from "../../../lib/stores/canStore"
+  import CountDown from "./presentationalComponents/CountDown.svelte"
+  import End from "./presentationalComponents/End.svelte"
+  import KickOff from "./presentationalComponents/KickOff.svelte"
+  import Race from "./presentationalComponents/Race.svelte"
+  import { onMount } from "svelte"
   import {
     splitExercisesIntoQuestions,
     buildExercisesList,
-  } from "../../../lib/components/exercisesUtils";
-  import Solutions from "./presentationalComponents/Solutions.svelte";
-  import { verifQuestionMathLive } from "../../../lib/interactif/mathLive";
-  import { verifQuestionQcm } from "../../../lib/interactif/qcm";
-  import { verifQuestionListeDeroulante } from "../../../lib/interactif/questionListeDeroulante";
+  } from "../../../lib/components/exercisesUtils"
+  import Solutions from "./presentationalComponents/Solutions.svelte"
+  import { verifQuestionMathLive } from "../../../lib/interactif/mathLive"
+  import { verifQuestionQcm } from "../../../lib/interactif/qcm"
+  import { verifQuestionListeDeroulante } from "../../../lib/interactif/questionListeDeroulante"
   import {
     indexQuestionCliqueFigure,
     verifQuestionCliqueFigure,
-  } from "../../../lib/interactif/cliqueFigure";
+  } from "../../../lib/interactif/cliqueFigure"
   import {
     darkMode,
     exercicesParams,
     globalOptions,
     resultsByExercice,
-  } from "../../../lib/stores/generalStore";
+  } from "../../../lib/stores/generalStore"
   import {
     answersFromCapytale,
     assignmentDataFromCapytale,
     sendToCapytaleSaveStudentAssignment,
-  } from "../../../lib/handleCapytale";
-  import { millisecondToMinSec } from "../../../lib/components/time";
-  import { keyboardState } from "../../keyboard/stores/keyboardStore";
-  import type { InterfaceResultExercice } from "../../../lib/types";
-  import { context } from "../../../modules/context";
-  import { mathaleaUpdateUrlFromExercicesParams } from "../../../lib/mathalea";
-  import { get } from "svelte/store";
+  } from "../../../lib/handleCapytale"
+  import { millisecondToMinSec } from "../../../lib/components/time"
+  import { keyboardState } from "../../keyboard/stores/keyboardStore"
+  import type { InterfaceResultExercice } from "../../../lib/types"
+  import { context } from "../../../modules/context"
+  import { mathaleaUpdateUrlFromExercicesParams } from "../../../lib/mathalea"
+  import { get } from "svelte/store"
 
-  let state: CanState = "start";
-  let exercises: TypeExercice[] = [];
-  let questions: string[] = [];
-  let consignes: string[] = [];
-  let corrections: string[] = [];
-  let consignesCorrections: string[] = [];
-  let indiceExercice: number[] = [];
-  let indiceQuestionInExercice: number[] = [];
-  let resultsByQuestion: boolean[] = [];
-  let answers: string[] = [];
-  let recordedTimeFromCapytale: number;
+  let state: CanState = "start"
+  let exercises: TypeExercice[] = []
+  let questions: string[] = []
+  let consignes: string[] = []
+  let corrections: string[] = []
+  let consignesCorrections: string[] = []
+  let indiceExercice: number[] = []
+  let indiceQuestionInExercice: number[] = []
+  let resultsByQuestion: boolean[] = []
+  let answers: string[] = []
+  let recordedTimeFromCapytale: number
   onMount(async () => {
-    context.isDiaporama = true;
+    context.isDiaporama = true
     // force le mode interactif
     globalOptions.update((gOpt) => {
-      gOpt.setInteractive = "1";
-      return gOpt;
-    });
+      gOpt.setInteractive = "1"
+      return gOpt
+    })
     // reconstitution des exercices
-    exercises = await Promise.all(buildExercisesList());
+    exercises = await Promise.all(buildExercisesList())
     // met à jour la url avec la graine...
-    mathaleaUpdateUrlFromExercicesParams(get(exercicesParams));
+    mathaleaUpdateUrlFromExercicesParams(get(exercicesParams))
     // interactivité
     if ($canOptions.isInteractive) {
-      $keyboardState.isVisible = true;
+      $keyboardState.isVisible = true
       for (const param of exercises) {
-        param.interactif = true;
+        param.interactif = true
       }
     }
     // découpage des exerices en questions
-    const splitResults = splitExercisesIntoQuestions(exercises);
-    questions = [...splitResults.questions];
-    consignes = [...splitResults.consignes];
-    corrections = [...splitResults.corrections];
-    consignesCorrections = [...splitResults.consignesCorrections];
-    indiceExercice = [...splitResults.indiceExercice];
-    indiceQuestionInExercice = [...splitResults.indiceQuestionInExercice];
+    const splitResults = splitExercisesIntoQuestions(exercises)
+    questions = [...splitResults.questions]
+    consignes = [...splitResults.consignes]
+    corrections = [...splitResults.corrections]
+    consignesCorrections = [...splitResults.consignesCorrections]
+    indiceExercice = [...splitResults.indiceExercice]
+    indiceQuestionInExercice = [...splitResults.indiceQuestionInExercice]
     for (let i = 0; i < questions.length; i++) {
-      $canOptions.questionGetAnswer.push(false);
+      $canOptions.questionGetAnswer.push(false)
     }
-  });
+  })
 
   function checkAnswers() {
     for (let i = 0; i < questions.length; i++) {
-      const exercice = exercises[indiceExercice[i]];
+      const exercice = exercises[indiceExercice[i]]
       const type =
         exercice.autoCorrection?.[indiceQuestionInExercice[i]]?.reponse?.param
-          ?.formatInteractif;
+          ?.formatInteractif
       if (type === "mathlive" || type === "fillInTheBlank") {
         resultsByQuestion[i] = Boolean(
           verifQuestionMathLive(exercice, indiceQuestionInExercice[i])?.isOk,
-        );
+        )
 
         // Pour Capytale, on a besoin du score de l'exercice et non de la question
         // donc on sauvegarde le score dans l'exercice
         if (resultsByQuestion[i] && exercice.score !== undefined) {
-          exercice.score++;
+          exercice.score++
         }
         // récupération de la réponse
         answers.push(
           exercice.answers![
             `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
           ],
-        );
+        )
       } else if (type === "qcm") {
         resultsByQuestion[i] =
-          verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === "OK";
+          verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === "OK"
         if (resultsByQuestion[i] && exercice.score !== undefined) {
-          exercice.score++;
+          exercice.score++
         }
         // récupération de la réponse
         const propositions =
-          exercice.autoCorrection[indiceQuestionInExercice[i]].propositions;
-        const qcmAnswers: string[] = [];
+          exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
+        const qcmAnswers: string[] = []
         propositions!.forEach((proposition, indice: number) => {
           if (
             exercice.answers![
               `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}R${indice}`
             ] === "1"
           ) {
-            qcmAnswers.push(proposition.texte);
+            if (proposition.texte !== undefined) {
+              qcmAnswers.push(proposition.texte)
+            }
           }
-        });
-        answers.push(qcmAnswers.join(" ; "));
+        })
+        answers.push(qcmAnswers.join(" ; "))
       } else if (type === "listeDeroulante") {
         resultsByQuestion[i] =
           verifQuestionListeDeroulante(
             exercice,
             indiceQuestionInExercice[i],
-          ) === "OK";
+          ) === "OK"
       } else if (type === "cliqueFigure") {
         resultsByQuestion[i] =
           verifQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]) ===
-          "OK";
+          "OK"
         answers.push(
           indexQuestionCliqueFigure(exercice, indiceQuestionInExercice[i]),
-        );
+        )
       } else if (type === "custom") {
         // si le typ est `custom` on est sûr que `correctionInteractive` existe
         // d'où le ! après `correctionInteractive`
-        resultsByQuestion[i] = exercice.correctionInteractive!(i) === "OK";
+        resultsByQuestion[i] = exercice.correctionInteractive!(i) === "OK"
       }
     }
     // Désactiver l'interactivité avant l'affichage des solutions
     for (const param of exercises) {
-      param.interactif = false;
+      param.interactif = false
     }
-    const resultsByExerciceArray: InterfaceResultExercice[] = [];
+    const resultsByExerciceArray: InterfaceResultExercice[] = []
     for (let i = 0, ind = 0; i < exercises.length; i++) {
-      const exercise = exercises[i];
+      const exercise = exercises[i]
       for (let q = 0; q < exercise.nbQuestions; q++) {
-        const ans: { [key: string]: string } = {};
-        ans[`Ex${i}Q${q}`] = exercise.answers![`Ex${i}Q${q}`];
+        const ans: { [key: string]: string } = {}
+        ans[`Ex${i}Q${q}`] = exercise.answers![`Ex${i}Q${q}`]
         const quest: InterfaceResultExercice = {
           uuid: exercise.uuid,
           title: exercise.titre,
@@ -165,41 +167,69 @@
             $canOptions.durationInMinutes * 60 -
               $canOptions.remainingTimeInSeconds,
           ),
-        };
-        ind++;
-        resultsByExerciceArray.push(quest);
+        }
+        ind++
+        resultsByExerciceArray.push(quest)
       }
     }
     resultsByExercice.update((l) => {
-      l = resultsByExerciceArray;
-      return l;
-    });
+      l = resultsByExerciceArray
+      return l
+    })
     if ($globalOptions.recorder === "capytale") {
+      if (
+        getRecordedScore() > getScoreTotal() ||
+        (getRecordedScore() === getScoreTotal() &&
+          assignmentDataFromCapytale?.duration && assignmentDataFromCapytale?.duration  <
+            getDuration()
+      )) {
+        return
+      }
       sendToCapytaleSaveStudentAssignment({
         indiceExercice: "all",
         assignmentData: {
-          duration: Math.floor(
-            $canOptions.durationInMinutes * 60 -
-              $canOptions.remainingTimeInSeconds,
-          ),
+          duration: getDuration(),
           resultsByQuestion,
         },
-      });
+      })
     }
+  }
+
+  function getDuration(): number {
+    return Math.floor(
+      $canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds,
+    )
   }
 
   /**
    * Construit la chaîne qui sera affichée pour le score
    * nombre de points obtenu / nombre de questions
    */
-  function buildScore(): string {
-    let score = 0;
+  function buildStringScore(): string {
+    const score = getScoreTotal()
+    return score + "/" + resultsByQuestion.length
+  }
+
+  function getScoreTotal(): number {
+    let score = 0
     for (const result of resultsByQuestion) {
       if (result === true) {
-        score++;
+        score++
       }
     }
-    return score + "/" + resultsByQuestion.length;
+    return score
+  }
+
+  function getRecordedScore(): number {
+    let score = 0
+    if (assignmentDataFromCapytale?.resultsByQuestion !== undefined) {
+      for (const result of assignmentDataFromCapytale.resultsByQuestion) {
+        if (result === true) {
+          score++
+        }
+      }
+    }
+    return score
   }
 
   /**
@@ -208,44 +238,44 @@
   function buildTime(): string {
     const nbOfSeconds =
       recordedTimeFromCapytale ||
-      $canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds;
-    const time = millisecondToMinSec(nbOfSeconds * 1000);
+      $canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds
+    const time = millisecondToMinSec(nbOfSeconds * 1000)
     return [
       time.minutes.toString().padStart(2, "0"),
       time.seconds.toString().padStart(2, "0"),
-    ].join(":");
+    ].join(":")
   }
 
   // handleCapytale peut changer la valeur du store pour que le
   // professeur aille directement aux solutions de l'élève
   canOptions.subscribe((value) => {
-    if (value.state !== "solutions") return;
-    state = value.state;
+    if (value.state !== "solutions") return
+    state = value.state
     if (answersFromCapytale.length === 0) {
-      return;
+      return
     }
-    console.info("answersFromCapytale", answersFromCapytale);
+    console.info("answersFromCapytale", answersFromCapytale)
     for (const exercise of answersFromCapytale) {
       if (exercise.answers !== undefined) {
-        const answersOfExercise: string[] = [];
-        const keysAns = Object.keys(exercise.answers);
+        const answersOfExercise: string[] = []
+        const keysAns = Object.keys(exercise.answers)
         for (let i = 0; i < exercise.numberOfQuestions; i++) {
-          const numberQ = keysAns.findIndex((e) => e.endsWith(`Q${i}`));
+          const numberQ = keysAns.findIndex((e) => e.endsWith(`Q${i}`))
           if (numberQ < 0) {
-            answersOfExercise[i] = "";
+            answersOfExercise[i] = ""
           } else {
-            answersOfExercise[i] = exercise.answers[keysAns[numberQ]];
+            answersOfExercise[i] = exercise.answers[keysAns[numberQ]]
           }
         }
         // const answersOfExercise = Object.values(exercise.answers)
-        answers = answers.concat(answersOfExercise);
+        answers = answers.concat(answersOfExercise)
       }
     }
     if (assignmentDataFromCapytale?.resultsByQuestion !== undefined)
-      resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion;
+      resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
     if (assignmentDataFromCapytale?.duration !== undefined)
-      recordedTimeFromCapytale = assignmentDataFromCapytale.duration;
-  });
+      recordedTimeFromCapytale = assignmentDataFromCapytale.duration
+  })
 </script>
 
 <div
@@ -269,7 +299,7 @@
     />
   {/if}
   {#if state === "end"}
-    <End bind:state score={buildScore()} time={buildTime()} />
+    <End bind:state score={buildStringScore()} time={buildTime()} />
   {/if}
   {#if state === "solutions"}
     <Solutions
@@ -279,7 +309,7 @@
       {consignesCorrections}
       {answers}
       {resultsByQuestion}
-      score={buildScore()}
+      score={buildStringScore()}
       time={buildTime()}
     />
   {/if}

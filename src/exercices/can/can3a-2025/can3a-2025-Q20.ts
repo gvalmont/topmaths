@@ -24,6 +24,7 @@ export default class CalcuProbabilite extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.canOfficielle = true
+    this.optionsChampTexte = { texteApres: '.' }
   }
 
   nouvelleVersion () {

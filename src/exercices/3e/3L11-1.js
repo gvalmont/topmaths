@@ -31,14 +31,12 @@ export default class DoubleDistributivite extends Exercice {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
-    this.besoinFormulaire3CaseACocher = ['Sanctionner les formes non simplifiées', false]
 
     this.spacing = context.isHtml ? 3 : 2
     this.spacingCorr = context.isHtml ? 3 : 2
     this.nbQuestions = 5
     this.sup = 1
     this.sup2 = true
-    this.sup3 = false
 
     this.listeAvecNumerotation = false
   }
@@ -66,7 +64,7 @@ export default class DoubleDistributivite extends Exercice {
           b = randint(2, 10)
           d = randint(2, 12)
           texte = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})=x\\times x+x\\times ${d} + ${b}\\times x + ${b}\\times ${d}=x^2+${d}x+${b}x+${b * d}=x^2+${b + d}x+${b * d}$`
           reponse1 = 1
           reponse2 = b + d
           reponse3 = b * d
@@ -194,7 +192,7 @@ export default class DoubleDistributivite extends Exercice {
           ]
         }
       }
-      if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
+      if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

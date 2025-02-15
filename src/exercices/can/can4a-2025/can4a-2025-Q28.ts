@@ -34,7 +34,7 @@ export default class Can2025N4Q28 extends ExerciceCan {
       if (mfe == null) return { isOk: false, feedback: '', score: { nbBonnesReponses: 0, nbReponses: 0 } }
       const num = Number(mfe.getPromptValue('champ1') || 0)
       const den = Number(mfe.getPromptValue('champ2') || 0)
-      const isOk = (num * b === a * den)
+      const isOk = (num !== 0 && den !== 0 && num * b === a * den)
       if (isOk) {
         mfe.setPromptState('champ1', 'correct', true)
         mfe.setPromptState('champ2', 'correct', true)
@@ -51,10 +51,11 @@ export default class Can2025N4Q28 extends ExerciceCan {
     if (this.interactif) {
       this.question = '%{champ1}:%{champ2}'
     }
-    this.correction = `Le ratio entre le nombre de minimes et de cadets est de $${miseEnEvidence(`${partA}:${partB}`)}$ ou $${miseEnEvidence(`${a}:${b}`)}$`
+    this.correction = `Le ratio entre le nombre de minimes et de cadets est de $${miseEnEvidence(`${partA}`)}:${miseEnEvidence(`${partB}`)}$ ou $${miseEnEvidence(`${a}`)}:${miseEnEvidence(`${b}`)}$.`
     this.canEnonce = `Dans un club sportif de $${c}$ membres, il y a $${partA}$ minimes et $${partB}$ cadets.<br>
     Quel est le ratio entre le nombre de minimes et de cadets ?`
     this.canReponseACompleter = '$\\ldots:\\ldots$'
+    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

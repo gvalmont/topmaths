@@ -3,6 +3,7 @@ import { obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecat
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true
@@ -23,7 +24,7 @@ export const refs = {
 export default class SommeEntierEtFractionIrred extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 

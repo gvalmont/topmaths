@@ -1,0 +1,55 @@
+import Exercice from '../../Exercice'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { randint } from '../../../modules/outils'
+import { choice } from '../../../lib/outils/arrayOutils'
+export const titre = 'Calculer et convertir'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '37a4e'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+
+*/
+export default class Can2025N62Q13 extends Exercice {
+  constructor () {
+    super()
+
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.optionsChampTexte = { texteApres: 'g.' }
+  }
+
+  nouvelleVersion () {
+    const prefixes = ['km', 'hm', 'dam', 'm', 'dm', 'cm', 'mm']
+
+    const a = this.canOfficielle ? 25 : choice([3, 5, 7, 9, 11]) * 5
+    const b = 100 - a
+
+    const k = this.canOfficielle ? 6 : randint(3, 6)
+    const choix = this.canOfficielle ? 3 : randint(1, 3)
+    this.question = `Compléter : <br>
+            $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}= ${this.interactif ? '' : `\\ldots \\text{ ${prefixes[k - choix]}}`}$`
+    this.correction = `$${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=100 \\text{ ${prefixes[k]}}=`
+    if (choix === 1) {
+      this.reponse = 10
+    } else if (choix === 2) {
+      this.reponse = 1
+    } else {
+      this.reponse = 0.1
+    }
+    this.correction += `${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
+
+    this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k - choix]}}$` }
+
+    this.canEnonce = 'Compléte. '
+    this.canReponseACompleter = ` $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}= \\ldots \\text{ ${prefixes[k - choix]}}$`
+  }
+}

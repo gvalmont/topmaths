@@ -1,21 +1,22 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
+import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer un terme d’une suite explicite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '14/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '14/02/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '04/02/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gilles Mora (exercice en partie repris de Gaelle Morvan (1N10))
+ * @author Gilles Mora
 
 */
 export const uuid = '44c30'
@@ -33,32 +34,16 @@ export default class CalculTermeSuiteExp extends Exercice {
   }
 
   nouvelleVersion () {
-    let a, b, c, k, choix, listeFractions1, fraction1
-    switch (choice(['a', 'b', 'c', 'd'])) { //
+    let a, b, c, k, p, choix, listeFractions1, fraction1
+    switch (choice(['a', 'b', 'c', 'd'])) { //, 'b', 'c', 'd'
       case 'a':// fonction affine
-        a = randint(1, 7) * choice([-1, 1])
+        a = randint(-6, 7, 0)
         b = randint(1, 10) * choice([-1, 1])
-        k = randint(1, 10)
-
-        this.question = `Soit $(u_n)$ une suite définie par :<br>
-        
-        $u_n = `
-        if (a === 1) { this.question += 'n' } else if (a === -1) { this.question += '-n' } else { this.question += `${a}n` }
-        if (b > 0) { this.question += `+${b}$.` } else { this.question += `${b}$.` }
-        this.question += `<br>        
+        k = randint(2, 10)
+        this.question = `Soit $(u_n)$ une suite définie par : $u_n =${reduireAxPlusB(a, b, 'n')}$.<br>
         Calculer $u_{${k}}$.`
-
-        this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : $u_{${k}} =`
-        if (a === 1) {
-          this.correction += `${k} ${ecritureAlgebrique(b)}`
-        } else {
-          if (a === -1) {
-            this.correction += `-${k} ${ecritureAlgebrique(b)}`
-          } else {
-            this.correction += `${a} \\times ${k} ${ecritureAlgebrique(b)}`
-          }
-        }
-        this.correction += `=${a * k + b}$.`
+        this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : <br>
+        $u_{${k}} =${a === 1 || a === -1 ? `${a * k}` : `${a}\\times ${k}`}${ecritureAlgebrique(b)}=${miseEnEvidence(a * k + b)}$.`
         this.reponse = a * k + b
         break
       case 'b':// polynome second degré
@@ -66,50 +51,13 @@ export default class CalculTermeSuiteExp extends Exercice {
         b = randint(0, 3) * choice([-1, 1])
         c = randint(1, 9) * choice([-1, 1])
         k = randint(1, 5)
-
-        this.question = `Soit $(u_n)$ une suite définie  par :<br>
-        
-        $u_n = `
-        if (a === 1) {
-          this.question += `n^2$
-          `
-        } else {
-          if (a === -1) {
-            this.question += `-n^2$
-           `
-          } else {
-            this.question += `${a}n^2$
-            `
-          }
-        }
-        if (b === 1) { this.question += ' $+n$' }
-        if (b > 1) { this.question += `$+${b}n$` }
-        if (b === -1) { this.question += '$-n$' }
-        if (b < -1) { this.question += `$${b}n$` }
-        if (c > 0) { this.question += `$+${c}$` }
-        if (c < 0) { this.question += `$${c}$` }
-        this.question += `<br>
-        
+        p = reduirePolynomeDegre3(0, a, b, c, 'n')
+        this.question = `Soit $(u_n)$ une suite définie  par :
+        $u_n = ${p}$<br>
         Calculer $u_{${k}}$.`
 
-        this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
-        if (a === 1) { this.correction += `${k}^2` } else {
-          if (a === -1) { this.correction += `-${k}^2` } else {
-            this.correction += `${a}\\times ${k}^2`
-          }
-        }
-        if (b === 1) {
-          this.correction += `+${k}`
-        } else {
-          if (b === -1) {
-            this.correction += `-${k}`
-          } else {
-            if (b === 0) { this.correction += '' } else {
-              this.correction += `${ecritureAlgebrique(b)}\\times ${k}`
-            }
-          }
-        }
-        this.correction += `${ecritureAlgebrique(c)}=${a * k * k + b * k + c}$.`
+        this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br>`
+        if (a === 1) { this.correction += `$u_{${k}}=${k}^2${b === 0 ? '' : `${ecritureAlgebrique(b)}\\times ${k}`}${ecritureAlgebrique(c)}=${miseEnEvidence(a * k * k + b * k + c)}$.` } else if (a === -1) { this.correction += `$u_{${k}}=${k}^2${b === 0 ? '' : `${ecritureAlgebrique(b)}\\times ${k}`}${ecritureAlgebrique(c)}=${miseEnEvidence(a * k * k + b * k + c)}$.` } else { this.correction += `$u_{${k}}=${a}\\times ${k}^2${b === 0 ? '' : `${ecritureAlgebrique(b)}\\times ${k}`}${ecritureAlgebrique(c)}=${miseEnEvidence(a * k * k + b * k + c)}$.` }
         this.reponse = a * k * k + b * k + c
         break
       case 'c':// suite a+b/n
@@ -117,21 +65,15 @@ export default class CalculTermeSuiteExp extends Exercice {
         a = randint(1, 10) * choice([-1, 1])
         b = randint(1, 10)
         k = choice([1, 2, 4, 5, 10, 100])
-
-        this.question = `Soit $(u_n)$ une suite définie  par : <br>
-        
-        `
-        this.question += `$u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$.
-        
-        `
-        this.question += `<br>Calculer $u_{${k}}$ (résultat sous forme décimale).<br>
-         `
+        this.question = 'Soit $(u_n)$ une suite définie  par : '
+        this.question += `$u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$.`
+        this.question += `<br>Calculer $u_{${k}}$ (résultat sous forme décimale).`
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
         if (choix === true) {
-          this.correction += `${a}+\\dfrac{${b}}{${k}}=${a}+${texNombre(b / k)}=${texNombre(a + b / k)}$.`
+          this.correction += `${a}+\\dfrac{${b}}{${k}}=${a}+${texNombre(b / k)}=${miseEnEvidence(`${texNombre(a + b / k, 4)}`)}$.`
           this.reponse = a + b / k
         } else {
-          this.correction += `${a}-\\dfrac{${b}}{${k}}=${a}-${texNombre(b / k)}=${texNombre(a - b / k)}$.`
+          this.correction += `${a}-\\dfrac{${b}}{${k}}=${a}-${texNombre(b / k)}=${miseEnEvidence(`${texNombre(a + b / k, 4)}`)}$.`
           this.reponse = a - b / k
         }
 
@@ -145,27 +87,21 @@ export default class CalculTermeSuiteExp extends Exercice {
         b = fraction1[0]
         k = fraction1[1]
 
-        this.question = `Soit $(u_n)$ une suite définie  par : <br>
-        
-        `
-
-        this.question += `
-                $u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$.
-        
-        `
-        this.question += `<br> Calculer $u_{${k}}$ (résultat sous forme d'une fraction irréductible).<br>
-       `
+        this.question = 'Soit $(u_n)$ une suite définie  par : '
+        this.question += `$u_n =${a}${choix ? '+' : '-'}\\dfrac{${b}}{n}$.`
+        this.question += `<br> Calculer $u_{${k}}$ (résultat sous forme d'une fraction irréductible). `
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
         if (choix === true) {
-          this.correction += `${a}+\\dfrac{${b}}{${k}}=\\dfrac{${a}\\times ${k}}{${k}}+\\dfrac{${b}}{${k}}=\\dfrac{${a * k + b}}{${k}}$`
+          this.correction += `${a}+\\dfrac{${b}}{${k}}=\\dfrac{${a}\\times ${k}}{${k}}+\\dfrac{${b}}{${k}}=${miseEnEvidence(`\\dfrac{${a * k + b}}{${k}}`)}$`
           this.reponse = new FractionEtendue(a * k + b, k).simplifie()
         } else {
-          this.correction += `${a}-\\dfrac{${b}}{${k}}=\\dfrac{${a}\\times ${k}}{${k}}-\\dfrac{${b}}{${k}}=\\dfrac{${a * k - b}}{${k}}$`
+          this.correction += `${a}-\\dfrac{${b}}{${k}}=\\dfrac{${a}\\times ${k}}{${k}}-\\dfrac{${b}}{${k}}=${miseEnEvidence(`\\dfrac{${a * k - b}}{${k}}`)}$`
           this.reponse = new FractionEtendue(a * k - b, k).simplifie()
         }
         break
     }
+    if (this.interactif) { this.question += `<br>$u_{${k}}=$` }
     this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canReponseACompleter = `$u_{${k}}=\\ldots$`
   }
 }

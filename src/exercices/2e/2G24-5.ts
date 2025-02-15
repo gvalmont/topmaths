@@ -164,7 +164,7 @@ export default class Calculercoordonneesegalitevecteurs extends Exercice {
               texteCorr += `$\\Leftrightarrow\\begin{cases}${ux}=${xD - xC + xA}-x_B\\\\${uy}=${yD - yC + yA}-y_B\\end{cases}$ `
               texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xD - xC + xA}-${ecritureParentheseSiNegatif(ux)}\\\\y_B=${yD - yC + yA}-${ecritureParentheseSiNegatif(uy)}\\end{cases}$<br><br>`
             }
-            texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB}\\\\y_B=${yB}\\end{cases}$, soit $B(${miseEnEvidence(xB)}\\,;\\,${miseEnEvidence(yB)})$.`
+            texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB.texFraction}\\\\y_B=${yB.texFraction}\\end{cases}$, soit $B(${miseEnEvidence(xB)}\\,;\\,${miseEnEvidence(yB)})$.`
           }
         }
           break

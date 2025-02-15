@@ -24,7 +24,7 @@ export default class InverseOuOppose extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
 
-    this.optionsChampTexte = { texteAvant: 'est ' }
+    this.optionsChampTexte = { texteAvant: 'est ', texteApres: '.' }
     this.canOfficielle = true
   }
 

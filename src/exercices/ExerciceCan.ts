@@ -2,8 +2,8 @@ import Exercice from './Exercice'
 
 export default class ExerciceCan extends Exercice {
   canOfficielle?: boolean // propriétés qui ne devraient pas être déclarées sur Exercice
-  listeCanReponseACompleter?: string[]
-  listeCanEnonce?: string[]
+  // listeCanReponseACompleter?: string[]
+  // listeCanEnonce?: string[]
   constructor () {
     super()
     this.typeExercice = 'simple'

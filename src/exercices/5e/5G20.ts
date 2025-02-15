@@ -18,7 +18,7 @@ export default class ConstruireUnTriangleAvecCible5e extends ConstruireUnTriangl
     this.sup3 = 10
     this.besoinFormulaire3Texte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Triangle avec 3 longueurs',
         '2 : Triangle rectangle avec 2 longueurs',
         '3 : Triangle isocèle avec 2 longueurs',

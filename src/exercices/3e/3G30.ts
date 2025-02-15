@@ -61,13 +61,13 @@ export default class CalculDeLongueur extends Exercice {
       this.spacingCorr = 2
     }
     this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
-    this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjacent (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjacent (tangente)\n7 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Côté adjacent (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjacent (tangente)\n7 : Mélange']
     this.besoinFormulaire3Numerique = ['Types de correction', 2, '1 : Avec produit en croix\n2 : Sans produit en croix']
     this.level = 3
   }
 
   nouvelleVersion () {
-    let reponse
+    let reponse = ''
     let listeDeNomsDePolygones: string[] = []
     const typeQuestionsDisponibles = (this.level === 4)
       ? gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3, listeOfCase: ['cosinus', 'invCosinus'] })
@@ -411,14 +411,12 @@ export default class CalculDeLongueur extends Exercice {
           options: {
             multicols: false,
             barreseparation: true,
-            // @ts-expect-error
             multicolsAll: true,
             numerotationEnonce: true
           },
           propositions: [
             {
               type: 'qcmMono',
-              // @ts-expect-error
               enonce: numAlpha(0) + `Quel calcul effectuer pour calculer ${nomLongueur} ?`, // \\\\\n`,
               options: {
                 ordered: true
@@ -458,7 +456,6 @@ export default class CalculDeLongueur extends Exercice {
             },
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [
                 {
                   reponse: {

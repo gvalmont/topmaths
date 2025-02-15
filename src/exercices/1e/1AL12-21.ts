@@ -26,7 +26,7 @@ export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
     this.sup = 4
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Arithmétique',
         '2 : u_n+a*n',
         '3 : u_n+a*n+b',

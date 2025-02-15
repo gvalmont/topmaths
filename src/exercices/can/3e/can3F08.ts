@@ -10,6 +10,7 @@ import Exercice from '../../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites'
 import { randint, egal } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,13 +30,13 @@ export const refs = {
 export default class LectureGraphiqueFonctionAffine2 extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
   nouvelleVersion () {
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1, 'milieu', true)
     let s1, s2
     const a = randint(-5, 5, [0, 4]) // numérateut coefficient directeur non nul
     const b = randint(-2, 2) // ordonnée à l'origine
@@ -68,6 +69,8 @@ style: 'margin: auto'
     this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
     \\dfrac{${miseEnEvidence(a, 'blue')}}{${miseEnEvidence(d, 'green')}}$`)
     this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${miseEnEvidence(`${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}`)}$ .<br>`
+    s1 = segment(0, 0, 1, 0, 'black')
+    s2 = segment(0, 0, 1, 0, 'black')
     if (a > 0) {
       s1 = segment(0, b - a, -d, b - a, 'green')
       s2 = segment(0, b - a, 0, b, 'blue')

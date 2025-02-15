@@ -31,7 +31,7 @@ export default class SensVariationsSuitesAG extends Exercice {
     this.spacingCorr = 1.5
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Suite arithmétique',
         '2 : Suite q^n',
         '3 : Suite géométrique',

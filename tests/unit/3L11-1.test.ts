@@ -17,7 +17,6 @@ describe('DoubleDistributivite', () => {
     expect(exercice.nbQuestions).toBe(5)
     expect(exercice.sup).toBe(1)
     expect(exercice.sup2).toBe(true)
-    expect(exercice.sup3).toBe(false)
     expect(exercice.listeAvecNumerotation).toBe(false)
   })
 

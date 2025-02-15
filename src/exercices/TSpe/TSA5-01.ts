@@ -23,7 +23,7 @@ export default class InequationsLn extends InequationsLog {
     this.nbQuestions = 5
     this.spacingCorr = 3
     this.sup = '4'
-    this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : Borne rationnelle\n2 : Borne entière\n3 : Borne irrationnelle\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question ', 'Nombres séparés par des tirets  :\n : Borne rationnelle\n2 : Borne entière\n3 : Borne irrationnelle\n4 : Mélange']
     this.comment = 'Exercice de résolution d\'inéquation avec le logarithme népérien'
   }
 }

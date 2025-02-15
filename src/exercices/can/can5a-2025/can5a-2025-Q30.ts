@@ -46,9 +46,9 @@ export default class Can2025N5Q30 extends ExerciceCan {
     this.reponse = c
     this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6 }, fixeBordures([pav.c2d], { rxmin: -1.5, rxmax: 1.5, rymin: -1 })), [pav.c2d, la, lb, lc])}
     Le volume de ce pavé droit est de $${v}\\text{ m}^3$.<br>`
-    this.correction = `On a : $${a}\\times${b}\\times ?=${v}$<br>
-    soit $${a * b} \\times ? = ${v}$<br>
-    donc $?=${v}\\div${a * b}=${c}$ soit $${miseEnEvidence(c)}\\text{ m}$.`
+    this.correction = `On a : $${a}\\times ${b}~\\times~?=${v}$,<br>
+    soit $${a * b} ~\\times ? = ${v}$,<br>
+    donc $?=${v}\\div${a * b}=${miseEnEvidence(c)}\\text{ m}$.`
     this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.canEnonce = this.question
     this.canReponseACompleter = '$?=\\ldots\\text{ m}$'

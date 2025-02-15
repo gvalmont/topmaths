@@ -38,7 +38,7 @@ export default class ModeliserSuites extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Sans indication dans l\'énoncé']
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets  :',
         '1 : Les abeilles',
         '2 : La retenue d\'eau',
         '3 : Les vélos',

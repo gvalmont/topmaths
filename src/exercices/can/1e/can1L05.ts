@@ -3,7 +3,7 @@ import { ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { context } from '../../../modules/context'
 
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
@@ -53,10 +53,11 @@ export default class ResoudreEquationSecondDegre2 extends Exercice {
         d = b * b - 4 * a * c
       }
 
-      texte = `$${reduirePolynomeDegre3(0, a, b, c)}=0$<br>
+      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br> $${reduirePolynomeDegre3(0, a, b, c)}=${0}$.`
+      handleAnswers(this, i, { reponse: { value: `\\{${Math.min(x1, x2)};${Math.max(x1, x2)}\\}`, options: { ensembleDeNombres: true } } })
+      if (this.interactif) texte += '<br>$\\mathscr{S}=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
 
-       Donner les solutions de cette équation`
-      if (!this.interactif) {
+      /* if (!this.interactif) {
         texte += '.'
       } else {
         texte += ' dans l\'ordre croissant :<br>'
@@ -67,10 +68,13 @@ export default class ResoudreEquationSecondDegre2 extends Exercice {
         champ1: { value: Math.min(x1, x2), options: { nombreDecimalSeulement: true } },
         champ2: { value: Math.max(x1, x2), options: { nombreDecimalSeulement: true } }
       }
-      )
-      texteCorr = `${context.isHtml ? '<br>' : ''}$\\Delta = b^2-4ac=${ecritureParentheseSiNegatif(b)}^2-4\\times ${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(c)}=${d}>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$`
-      texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b - Math.sqrt(d)) / (2 * a), 0))}$ et
-       $x_2 = \\dfrac{${-b} +\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${miseEnEvidence(texNombre((-b + Math.sqrt(d)) / (2 * a), 0))}$`
+      ) */
+
+      texteCorr = `${context.isHtml ? '<br>' : ''}$\\Delta = b^2-4ac=${ecritureParentheseSiNegatif(b)}^2-4\\times ${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(c)}=${d}>0$ donc l'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}.$`
+      texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${texNombre((-b - Math.sqrt(d)) / (2 * a), 0)}$ et
+       $x_2 = \\dfrac{${-b} +\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${texNombre((-b + Math.sqrt(d)) / (2 * a), 0)}$<br>`
+      texteCorr += `$\\mathscr{S}=\\{${miseEnEvidence(`${texNombre((-b - Math.sqrt(d)) / (2 * a), 0)};${texNombre((-b + Math.sqrt(d)) / (2 * a), 0)}`)}\\}$`
+
       if (this.questionJamaisPosee(i, a, x1, x2)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

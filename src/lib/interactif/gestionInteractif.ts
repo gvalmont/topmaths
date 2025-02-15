@@ -93,11 +93,18 @@ export interface Valeur {
   rectangle7?: AnswerType
   rectangle8?: AnswerType
 
-  // on va aller jusque 6 pour l'instant, si besoin on en ajoutera
+  // on va aller jusque 8 pour l'instant, si besoin on en ajoutera
   L1C1?: AnswerType
   L1C2?: AnswerType
+  L1C3?: AnswerType
   L2C1?: AnswerType
-  L2C2?: AnswerType // idem on en ajoutera si besoin
+  L2C2?: AnswerType
+  L2C3?: AnswerType
+  L3C1?: AnswerType
+  L3C2?: AnswerType
+  L3C3?: AnswerType
+
+  // idem on en ajoutera si besoin
   callback?: (
     exercice: Exercice,
     question: number,
@@ -1023,6 +1030,61 @@ export function setReponse (
   }
 }
 
+// La solution est-elle un nombre ? Si oui, on force l'option nombreDecimalSeulement.
+function isValidNumber (value: any): boolean {
+  // Convertir la valeur en chaîne et remplacer les séparateurs de milliers (par exemple, '{,}')
+  const cleanedValue = String(value)
+    .replace(/{,}/g, '')  // Enlève les caractères '{,}' (séparateurs de milliers comme dans "1{,}5")
+    .replace(',', '.')   // Remplace la virgule par un point pour les décimales
+  // Vérifier que la chaîne ne contient que des chiffres et un seul séparateur décimal (point ou virgule)
+  // Ou un nombre javascript écrit dans tous les formats supportés
+  // const validNumberPattern = /^[+-]?(\d*(\.\d*)?([eE][+-]?\d*)?|0[xX][0-9a-fA-F]*|0[bB][01]*)$/
+  const validNumberPattern = /^[+-]?\d+(.\d+)?$/
+
+  // Vérifier si la chaîne nettoyée correspond à un nombre valide
+  return validNumberPattern.test(cleanedValue)
+}
+
+function handleDefaultValeur (reponse: Valeur): ValeurNormalized {
+  for (const [, val] of Object.entries(reponse)) {
+    if (val !== undefined) {
+      if (val?.value !== undefined) {
+        if (Array.isArray(val.value)) {
+          for (let i = 0; i < val.value.length; i++) {
+            if (typeof val.value[i] === 'string') continue
+            if (val.value[i] instanceof Decimal || val.value[i] instanceof Grandeur || val.value[i] instanceof Hms || typeof val.value[i] === 'number') {
+              val.value[i] = val.value[i].toString()
+            }
+            if (val.value[i] instanceof FractionEtendue) val.value[i] = val.value[i].texFraction
+          }
+        } else {
+          if (typeof val.value === 'string') continue
+          if (val.value instanceof Decimal || val.value instanceof Grandeur || val.value instanceof Hms || typeof val.value === 'number') {
+            val.value = val.value.toString()
+          }
+          if (val.value instanceof FractionEtendue) val.value = val.value.texFraction
+        }
+      }
+
+      if (val.compare === undefined) val.compare = fonctionComparaison
+      if (val.options === undefined || Object.keys(val.options).length === 0) {
+        let reponseAttendueEstUnNombre : boolean
+        if (Array.isArray(val.value)) {
+          reponseAttendueEstUnNombre = true
+          for (let ee = 0; ee < val.value.length; ee++) {
+            reponseAttendueEstUnNombre &&= isValidNumber(val.value[ee])
+          }
+        } else {
+          reponseAttendueEstUnNombre = isValidNumber(val.value)
+        }
+        const options = reponseAttendueEstUnNombre ? { nombreDecimalSeulement: true } : {}
+        val.options = options
+      }
+    }
+  }
+  return reponse as ValeurNormalized // La normalisation consiste à transformer toute value en string et c'est fait maintenant par cette fonction
+}
+
 /**
  * La fonction à privilégier à partir de maintenant.
  * @param {Exercice} exercice
@@ -1051,13 +1113,7 @@ export function handleAnswers (
       exercice: exercice.uuid
     })
   }
-  const url = new URL(window.location.href)
-  if (url.hostname === 'localhost' && url.searchParams.has('triche')) {
-    console.log(
-      `Réponses de l'exercice ${(exercice.numeroExercice ?? 0) + 1} - question ${question + 1} : `,
-      JSON.stringify(reponses)
-    )
-  }
+
   if (exercice.autoCorrection[question] === undefined) {
     exercice.autoCorrection[question] = {}
   }
@@ -1069,30 +1125,14 @@ export function handleAnswers (
     rep.param = params ?? { formatInteractif }
     if (formatInteractif === undefined) formatInteractif = 'mathlive'
     rep.param.formatInteractif = formatInteractif
-    rep.valeur = wrapperReponsesToString(reponses)
+    rep.valeur = handleDefaultValeur(reponses)
   }
-}
+  const url = new URL(window.location.href)
 
-function wrapperReponsesToString (reponses: Valeur): ValeurNormalized {
-  for (const [, val] of Object.entries(reponses)) {
-    if (Object.hasOwn(val, 'value')) {
-      const value = val.value
-      if (!Array.isArray(value)) {
-        if (typeof value === 'string') continue
-        if (value instanceof Decimal || value instanceof Grandeur || value instanceof Hms || typeof value === 'number') {
-          val.value = value.toString()
-        }
-        if (value instanceof FractionEtendue) val.value = value.texFraction
-      } else {
-        for (let i = 0; i < value.length; i++) {
-          if (typeof value[i] === 'string') continue
-          if (value[i] instanceof Decimal || value[i] instanceof Grandeur || value[i] instanceof Hms || typeof value[i] === 'number') {
-            value[i] = value[i].toString()
-          }
-          if (value[i] instanceof FractionEtendue) value[i] = value[i].texFraction
-        }
-      }
-    }
+  if (url.hostname === 'localhost' && url.searchParams.has('triche')) {
+    console.info(
+      `Réponses de l'exercice ${(exercice.numeroExercice ?? 0) + 1} - question ${question + 1} : `,
+      rep.valeur
+    )
   }
-  return reponses as ValeurNormalized
 }

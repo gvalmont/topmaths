@@ -24,7 +24,7 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/o
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'CAN 3e sujet 2023'
 export const interactifReady = true
@@ -80,7 +80,6 @@ export default class SujetCAN2023troisieme extends Exercice {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           } else {
@@ -132,7 +131,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -180,7 +178,6 @@ export default class SujetCAN2023troisieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 5:
@@ -410,7 +407,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
 
         case 9:
@@ -423,7 +419,6 @@ export default class SujetCAN2023troisieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
@@ -467,7 +462,6 @@ export default class SujetCAN2023troisieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           break
         case 11:
           if (choice([true, false])) {
@@ -555,7 +549,6 @@ export default class SujetCAN2023troisieme extends Exercice {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + '$°$'
           }
@@ -790,7 +783,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -808,7 +800,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
         case 18:
@@ -837,7 +828,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
         case 19:
@@ -862,7 +852,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -1018,7 +1007,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
         case 22:
@@ -1037,7 +1025,6 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -1240,9 +1227,9 @@ export default class SujetCAN2023troisieme extends Exercice {
           texteCorr = ` On cherche le carré parfait le plus proche de $${a}$ inférieur à $${a}$.<br>
          Comme $${Math.floor(Math.sqrt(a)) ** 2}=${Math.floor(Math.sqrt(a))}^2$, alors :
        $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          handleAnswers(this, index, { reponse: { value: reponse, options: { suiteDeNombres: true } } })
           if (this.interactif) {
-            texte += 'Écrire les entiers dans l’ordre croissant, séparés par un point-virgule'
+            texte += 'Écrire les entiers séparés par un point-virgule'
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push('Complète avec deux entiers consécutifs.')

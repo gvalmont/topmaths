@@ -34,7 +34,7 @@ export default class IntercalerDecimalEntre2Decimaux extends Exercice {
     this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
     this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
     this.besoinFormulaireTexte = ['Type de question', [
-      'Nombres séparés par des tirets',
+      'Nombres séparés par des tirets  :',
       '1 : b-a > 0,1',
       '2 : b-a = 0,1',
       '3 : b-a = 0,1, b entier',

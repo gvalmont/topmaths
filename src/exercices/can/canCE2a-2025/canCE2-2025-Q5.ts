@@ -25,15 +25,15 @@ export default class Can2025CE2Q5 extends ExerciceCan {
     const terme = a === 2 ? 'double' : 'triple'
     this.reponse = a * b
     this.question = `Le ${terme} de $${b}$`
-    this.correction = `Le ${terme} de $${b}$, c'est : $${a}\\times ${b}=${miseEnEvidence(a * b)}$`
+    this.correction = `Le ${terme} de $${b}$, c'est : $${a}\\times ${b}=${miseEnEvidence(a * b)}$.`
     this.canEnonce = this.question
     if (this.interactif) {
       this.question += ' est  : '
     }
+    this.optionsChampTexte = { texteApres: '.' }
   }
 
   nouvelleVersion () {
-    this.canOfficielle = this.sup
     this.canOfficielle ? this.enonce(2, 45) : this.enonce()
   }
 }

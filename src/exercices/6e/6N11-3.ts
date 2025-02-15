@@ -5,6 +5,7 @@ import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Encadrer un entier'
 export const interactifType = 'mathLive'
@@ -138,7 +139,7 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
           break
       }
       texte += '<br>'
-      texte += remplisLesBlancs(this, i, `%{champ1}<${texNombre(nombre, 0)}<%{champ2}`, 'fillInThBlank')
+      texte += remplisLesBlancs(this, i, `%{champ1}<${texNombre(nombre, 0)}<%{champ2}`, KeyboardType.clavierDeBase)
       texteCorr = `$${miseEnEvidence(texNombre(inf, 0))}<${texNombre(nombre, 0)}<${miseEnEvidence(texNombre(sup, 0))}$`
       handleAnswers(this, i, { champ1: { value: String(inf) }, champ2: { value: String(sup) } })
 
