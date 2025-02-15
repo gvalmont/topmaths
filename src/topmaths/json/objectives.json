@@ -136,10 +136,6 @@
                   {
                     "slug": "6C30-8,s=false,s2=true,s3=1,n=3",
                     "description": "Diviser par 10, 100, 1 000..."
-                  },
-                  {
-                    "slug": "6C30-8,s=false,s2=true,s3=4,n=6",
-                    "description": "Divisions à trou"
                   }
                 ],
                 "lessonPlans": [
