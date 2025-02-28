@@ -6759,6 +6759,30 @@
                     "description": "Avec des nombres relatifs"
                   }
                 ]
+              },
+              {
+                "reference": "4N23",
+                "titleAcademic": "Simplifier une fraction pour la rendre irréductible",
+                "lessonSummaryHTML": "",
+                "lessonSummaryImage": "",
+                "videos": [
+                  {
+                    "title": "Rendre une fraction irréductible",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=qZaTliAWkA0&vignette=https://i.ytimg.com/vi/qZaTliAWkA0/hqdefault.jpg&debut=0&fin=416&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  }
+                ],
+                "exercises": [
+                  {
+                    "slug": "uuid=1871d&id=3A11-0&n=3&d=10&s=2&s2=2-3-5-7-11&s3=1",
+                    "description": "Petits numérateurs et dénominateurs"
+                  },
+                  {
+                    "slug": "uuid=1871d&id=3A11-0&n=3&d=10&s=4&s2=2-3-5-7-11&s3=1",
+                    "description": "Grands numérateurs et dénominateurs"
+                  }
+                ]
               }
             ]
           },
@@ -6967,6 +6991,7 @@
                 "titleAcademic": "Décomposer un nombre entier en produit de facteurs premiers",
                 "lessonSummaryHTML": "Pour décomposer un nombre en un produit de facteurs premiers, on le divise autant que possible par des nombres premiers",
                 "lessonSummaryImage": "",
+                "isKey": true,
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -7922,30 +7947,6 @@
                 "exercises": [
                   {
                     "slug": "uuid=03d65&id=5A12-2&n=4&s2=true"
-                  }
-                ]
-              },
-              {
-                "reference": "3N11",
-                "titleAcademic": "Simplifier une fraction pour la rendre irréductible",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
-                "videos": [
-                  {
-                    "title": "Rendre une fraction irréductible",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=qZaTliAWkA0&vignette=https://i.ytimg.com/vi/qZaTliAWkA0/hqdefault.jpg&debut=0&fin=416&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "uuid=1871d&id=3A11-0&n=3&d=10&s=2&s2=2-3-5-7-11&s3=1",
-                    "description": "Petits numérateurs et dénominateurs"
-                  },
-                  {
-                    "slug": "uuid=1871d&id=3A11-0&n=3&d=10&s=4&s2=2-3-5-7-11&s3=1",
-                    "description": "Grands numérateurs et dénominateurs"
                   }
                 ]
               }

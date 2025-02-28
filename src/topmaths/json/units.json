@@ -841,13 +841,13 @@
         ]
       },
       {
-        "title": "Fractions 1",
+        "title": "Nombres premiers 1",
         "objectives": [
           {
-            "reference": "4N20"
+            "reference": "4N40"
           },
           {
-            "reference": "4N21"
+            "reference": "4N41"
           }
         ]
       },
@@ -882,13 +882,13 @@
         ]
       },
       {
-        "title": "Nombres premiers 1",
+        "title": "Fractions 1",
         "objectives": [
           {
-            "reference": "4N40"
+            "reference": "4N23"
           },
           {
-            "reference": "4N41"
+            "reference": "4N20"
           }
         ]
       },
@@ -920,10 +920,10 @@
         ]
       },
       {
-        "title": "Fractions 2",
+        "title": "Nombres premiers 2",
         "objectives": [
           {
-            "reference": "4N22"
+            "reference": "4N42"
           }
         ]
       },
@@ -960,10 +960,10 @@
         ]
       },
       {
-        "title": "Nombres premiers 2",
+        "title": "Fractions 2",
         "objectives": [
           {
-            "reference": "4N42"
+            "reference": "4N21"
           }
         ]
       },
@@ -1010,6 +1010,14 @@
           },
           {
             "reference": "4G32"
+          }
+        ]
+      },
+      {
+        "title": "Fractions 3",
+        "objectives": [
+          {
+            "reference": "4N22"
           }
         ]
       },
@@ -1312,7 +1320,7 @@
             "reference": "4N22"
           },
           {
-            "reference": "3N11"
+            "reference": "4N23"
           }
         ]
       },
