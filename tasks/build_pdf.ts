@@ -104,13 +104,16 @@ function copyImages (objective: Partial<UnitObjective>, unit: Unit): void {
 }
 
 function replaceImportedLessons (text: string, sequence: Unit): string {
-  const importedLessonReferences: ObjectiveReference[] = findImportedLessonReferences(text)
-  for (const reference of importedLessonReferences) {
-    const grade = buildGradeFromObjectiveReference(reference)
-    if (!isStringGrade(grade)) throw new Error(`Imported lesson reference incorrect: ${grade}`)
-    const importedLesson = fs.readFileSync(`${SOURCE_ROOT}/${LESSONS}/${OBJECTIVES}/${grade}/${reference}.typ`, 'utf8')
-    if (importedLesson.includes('image("')) copyImages({ grade, reference }, sequence)
-    text = text.replace(new RegExp(`##${reference}`, 'g'), importedLesson)
+  let importedLessonReferences: ObjectiveReference[] = findImportedLessonReferences(text)
+  while (importedLessonReferences.length > 0) {
+    for (const reference of importedLessonReferences) {
+      const grade = buildGradeFromObjectiveReference(reference)
+      if (!isStringGrade(grade)) throw new Error(`Imported lesson reference incorrect: ${grade}`)
+      const importedLesson = fs.readFileSync(`${SOURCE_ROOT}/${LESSONS}/${OBJECTIVES}/${grade}/${reference}.typ`, 'utf8')
+      if (importedLesson.includes('image("')) copyImages({ grade, reference }, sequence)
+      text = text.replace(new RegExp(`##${reference}`, 'g'), importedLesson)
+      importedLessonReferences = findImportedLessonReferences(text)
+    }
   }
   return text
 }
