@@ -112,7 +112,7 @@
 #let titre1(titre, numero: 0) = {
   let headingCount = 1
   if numero > 0 {
-    headingCount = [#numero]
+    headingCount = [#numberToRoman(numero)]
   } else {
     headingCount = context counter(heading).display("I")
   }
