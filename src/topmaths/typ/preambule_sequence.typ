@@ -83,21 +83,59 @@
   ]
 }
 
-#let titre1(titre) = {
+#let numberToRoman(number) = {
+  if number == 1 {
+    "I"
+  } else if number == 2 {
+    "II"
+  } else if number == 3 {
+    "III"
+  } else if number == 4 {
+    "IV"
+  } else if number == 5 {
+    "V"
+  } else if number == 6 {
+    "VI"
+  } else if number == 7 {
+    "VII"
+  } else if number == 8 {
+    "VIII"
+  } else if number == 9 {
+    "IX"
+  } else if number == 10 {
+    "X"
+  } else {
+    number
+  }
+}
+
+#let titre1(titre, numero: 0) = {
+  let headingCount = 1
+  if numero > 0 {
+    headingCount = [#numero]
+  } else {
+    headingCount = context counter(heading).display("I")
+  }
   block(
     text(
       underline(
-        text(red, font: "STIX Two Text", size: 1.05em, context counter(heading).display("I")) + " " + titre,
+        text(red, font: "STIX Two Text", size: 1.05em, headingCount) + " " + titre,
         stroke: 1pt + red, offset: 2pt
       ), weight: "regular", size: 1.02em
     )
   )
 }
 
-#let titre2(titre) = {
+#let titre2(titre, numero: 0) = {
+  let headingCount = 1
+  if numero > 0 {
+    headingCount = [#numero]
+  } else {
+    headingCount = context counter(heading).display().at(2)
+  }
   block(
     text(
-      text(size: 1.03em, context counter(heading).display().at(2)) + ". " + titre,
+      text(size: 1.03em, headingCount) + ". " + titre,
       black, weight: "regular", size: 1.02em
     )
   )
