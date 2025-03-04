@@ -6,8 +6,8 @@ function compile_pdfs() {
   local suffix="$3"
 
   # Clear the destination directory before compiling
-  rm -rf "$pdf_directory"/*  # This removes all files in the directory
-  mkdir -p "$pdf_directory"  # Recreate the directory structure if needed
+  rm -rf "$pdf_directory"/* # This removes all files in the directory
+  mkdir -p "$pdf_directory" # Recreate the directory structure if needed
 
   # Count the total number of .typ files
   local total_files=$(find "$typ_directory" -type f -name "*.typ" | wc -l | xargs)
