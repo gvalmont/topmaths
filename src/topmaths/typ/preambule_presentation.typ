@@ -1,4 +1,4 @@
-#import "@preview/polylux:0.3.1": *
+#import "@preview/polylux:0.4.0": *
 #import "./components/outils.typ": *
 
 #let mainColor = red
@@ -42,14 +42,8 @@
   align(right)[#line(stroke: 2pt + mainColor, length: 102%)]
 }
 
-#let slide(content) = {
-  polylux-slide()[
-    #content
-  ]
-}
-
 #let title-slide(titre: "", sous-titre: "") = {
-  polylux-slide()[
+  slide()[
     #align(horizon + right)[
       #box(width: 80%)[
         #align(left)[
