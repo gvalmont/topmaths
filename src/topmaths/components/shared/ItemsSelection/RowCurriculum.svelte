@@ -8,10 +8,13 @@
   export let isKey: boolean = false
   export let title: string
   export let goToView: (event: MouseEvent, view: View, reference: ObjectiveReference) => void
+  export let isLastRow: boolean
 
 </script>
 
-<div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(reference)}">
+<div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(reference)}
+  {isLastRow ? 'rounded-br-4xl md:rounded-br-5xl' : ''}"
+>
   <div class="w-2/12 flex items-center justify-center">
     {#if isKey}
       <Tooltip

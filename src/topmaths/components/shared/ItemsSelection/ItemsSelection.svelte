@@ -170,7 +170,7 @@
         {/each}
       {/if}
       {#if view === 'classroom'}
-        {#each Object.keys(curriculum.tout.unitsPerTerm).map(Number).map(termIndex => termIndex + 1).filter(term => $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length > 0) as term}
+        {#each Object.keys(curriculum.tout.unitsPerTerm).map(Number).map(termIndex => termIndex + 1).filter(term => $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length > 0) as term, termIndex}
           <h2 class="title
             text-xl md:text-3xl"
           >
@@ -184,7 +184,7 @@
               Objectifs
             </div>
           </div>
-          {#each $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term) as unit}
+          {#each $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term) as unit, unitIndex}
           <div class="flex flex-row border-t is-{unit.grade}
             text-sm md:text-base"
           >
@@ -208,12 +208,13 @@
             </div>
             <div class="flex flex-col justify-center items-center
               w-2/3">
-                {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)) as objective}
+                {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)) as objective, objectiveIndex}
                   <RowCurriculum
                     reference={objective.reference}
                     isKey={objective.isKey}
                     title={getTitle(objective)}
                     {goToView}
+                    isLastRow={termIndex === Object.keys(curriculum.tout.unitsPerTerm).map(Number).map(termIndex => termIndex + 1).filter(term => $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length > 0).length - 1 && unitIndex === $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length - 1 && objectiveIndex === unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)).length - 1}
                   />
                 {/each}
             </div>
