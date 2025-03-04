@@ -3,12 +3,12 @@
 ]
 
 #exemple()[
-  #tablex(
+  #table(
     columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
     inset: 0.6em,
     align: center + horizon,
-    colspanx(2, rowspanx(2)[$"km"^2$]), (), colspanx(2)[$"hm"^2$], (), colspanx(2)[$"dam"^2$], (), colspanx(2)[$" m "^2$], (), colspanx(2, rowspanx(2)[$"dm"^2$]), (), colspanx(2, rowspanx(2)[$"cm"^2$]), (), colspanx(2, rowspanx(2)[$"mm"^2$]), (),
-    (), (), colspanx(2)[$"hectare"$], (), colspanx(2)[$"are"$], (), colspanx(2)[$"centiare"$], (), (), (), (), (), (), (),
+    table.cell(colspan: 2, rowspan: 2,[$"km"^2$]), table.cell(colspan: 2, [$"hm"^2$]), table.cell(colspan: 2, [$"dam"^2$]), table.cell(colspan: 2, [$" m "^2$]), table.cell(colspan: 2, rowspan: 2,[$"dm"^2$]), table.cell(colspan: 2, rowspan: 2,[$"cm"^2$]), table.cell(colspan: 2, rowspan: 2,[$"mm"^2$]),
+    table.cell(colspan: 2, [$"hectare"$]), table.cell(colspan: 2, [$"are"$]), table.cell(colspan: 2, [$"centiare"$]),
     [\ ], [], [], [], [], [], [], [], [], [], [], [], [], [],
     [\ ], [], [], [], [], [], [], [], [], [], [], [], [], []
   )

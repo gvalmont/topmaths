@@ -49,18 +49,19 @@
     column-gutter: 2em,
     [
       #underline()[À la main :]
-      #tablex(
+      #table(
         columns: 3,
-        auto-lines: false,
         inset: 0.3em,
-        [], $97400$, vlinex(stroke: couleurPrincipale), $60$, hlinex(start: 2, end: 3, stroke: couleurPrincipale),
-        $-$, $60$, $1623$, hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        stroke: none,
+        align: left,
+        [], $97400$, table.vline(stroke: couleurPrincipale), $60$, table.hline(start: 2, end: 3, stroke: couleurPrincipale),
+        $-$, $60$, $1623$, table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], $374$, [],
-        $-$, $360$, [], hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        $-$, $360$, [], table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(0.5em)$140$], [],
-        $-$, [#h(0.5em)$120$], [], hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        $-$, [#h(0.5em)$120$], [], table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(1em)$200$], [],
-        $-$, [#h(1em)$180$], [], hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        $-$, [#h(1em)$180$], [], table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(1.5em)$20$], []
       )
     ],
@@ -84,14 +85,17 @@
   column-gutter: 2em,
   [
     #underline()[À la main :]
-    #tablex(
+    #table(
       columns: 3,
-      auto-lines: false,
       inset: 0.3em,
-      [], $1623$, vlinex(stroke: couleurPrincipale), $60$, hlinex(start: 2, end: 3, stroke: couleurPrincipale),
-      $-$, $120$, $27$, hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+      stroke: none,
+      align: left,
+      [], $1623$, table.vline(stroke: couleurPrincipale), $60$, table.hline(start: 2, end: 3, stroke: couleurPrincipale),
+      $-$, $120$, $27$,
+      table.hline(start: 0, end: 2, stroke: couleurPrincipale),
       [], [#h(0.5em)$423$], [],
-      $-$, [#h(0.5em)$420$], [], hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+      $-$, [#h(0.5em)$420$], [],
+      table.hline(start: 0, end: 2, stroke: couleurPrincipale),
       [], [#h(1.5em)$3$], []
     )
   ],
@@ -118,16 +122,17 @@ Donc $97400 "s " = 1623 "min" + 20 "s " = 27 "h " + 3 "min" + 20 "s "$
     column-gutter: 2em,
     [
       #underline()[À la main :]
-      #tablex(
+      #table(
         columns: 3,
-        auto-lines: false,
         inset: 0.3em,
-        [], $97438$, vlinex(stroke: couleurPrincipale), $24$, hlinex(start: 2, end: 3, stroke: couleurPrincipale),
-        $-$, $96$, $4059$, hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        stroke: none,
+        align: left,
+        [], $97438$, table.vline(stroke: couleurPrincipale), $24$, table.hline(start: 2, end: 3, stroke: couleurPrincipale),
+        $-$, $96$, $4059$, table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(0.5em)$143$], [],
-        $-$, [#h(0.5em)$120$], [], hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        $-$, [#h(0.5em)$120$], [], table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(1em)$238$], [],
-        $-$, [#h(1em)$216$], [], hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        $-$, [#h(1em)$216$], [], table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(1.5em)$22$], []
       )
     ],
@@ -148,16 +153,17 @@ Donc $97400 "s " = 1623 "min" + 20 "s " = 27 "h " + 3 "min" + 20 "s "$
     column-gutter: 2em,
     [
       #underline()[À la main :]
-      #tablex(
+      #table(
         columns: 3,
-        auto-lines: false,
         inset: 0.3em,
-        [], $4059$, vlinex(stroke: couleurPrincipale), $7$, hlinex(start: 2, end: 3, stroke: couleurPrincipale),
-        $-$, $35$, $579$, hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        stroke: none,
+        align: left,
+        [], $4059$, table.vline(stroke: couleurPrincipale), $7$, table.hline(start: 2, end: 3, stroke: couleurPrincipale),
+        $-$, $35$, $579$, table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(0.5em)$55$], [],
-        $-$, [#h(0.5em)$49$], [], hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        $-$, [#h(0.5em)$49$], [], table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(1em)$69$], [],
-        $-$, [#h(1em)$63$], [], hlinex(start: 0, end: 2, stroke: couleurPrincipale),
+        $-$, [#h(1em)$63$], [], table.hline(start: 0, end: 2, stroke: couleurPrincipale),
         [], [#h(1.5em)$6$], []
       )
     ],

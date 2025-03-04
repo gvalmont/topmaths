@@ -37,15 +37,16 @@
   )
   #place(
     dy: 3.2em,
-    line(length: 13em, stroke: couleurPrincipale + 0.4pt)
+    line(length: 13em, stroke: couleurPrincipale + 0.5pt)
   )
-  #tablex(
+  #table(
     columns: 6,
     column-gutter: 1em,
-    auto-lines: false,
     inset: 0.3em,
+    stroke: none,
     [], $4$, [h], $4$, $2$, [min],
-    $+$, $2$, [h], $3$, $7$, [min], hlinex(stroke: couleurPrincipale),
+    $+$, $2$, [h], $3$, $7$, [min],
+    table.hline(stroke: couleurPrincipale),
     $=$, $6$, [h], $7$, $9$, [min],
     $=$, $7$, [h], $1$, $9$, [min]
   )
@@ -83,16 +84,17 @@
   )
   #place(
     dy: 2em,
-    line(length: 13em, stroke: couleurPrincipale + 0.4pt)
+    line(length: 13em, stroke: couleurPrincipale + 0.5pt)
   )
-  #tablex(
+  #table(
     columns: 6,
     column-gutter: 1em,
-    auto-lines: false,
     inset: 0.3em,
+    stroke: none,
     [], $6$, [h], $9$, $2$, [min],
     [], $7$, [h], $3$, $2$, [min],
-    $-$, $4$, [h], $5$, $0$, [min], hlinex(stroke: couleurPrincipale),
+    $-$, $4$, [h], $5$, $0$, [min],
+    table.hline(stroke: couleurPrincipale),
     $=$, $2$, [h], $4$, $2$, [min]
   )
 ]

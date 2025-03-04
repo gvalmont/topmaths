@@ -3,11 +3,11 @@
 ]
 
 #exemple()[
-  #tablex(
+  #table(
     columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
     inset: 0.6em,
     align: center + horizon,
-    colspanx(3)[$"km"^3$], (), (), colspanx(3)[$"hm"^3$], (), (), colspanx(3)[$"dam"^3$], (), (), colspanx(3)[$" m "^3$], (), (), colspanx(3, $"dm"^3$), (), (), colspanx(3, $"cm"^3$), (), (), colspanx(3, $"mm"^3$), (), (),
+    table.cell(colspan: 3)[$"km"^3$], table.cell(colspan: 3)[$"hm"^3$], table.cell(colspan: 3)[$"dam"^3$], table.cell(colspan: 3)[$" m "^3$], table.cell(colspan: 3, $"dm"^3$), table.cell(colspan: 3, $"cm"^3$), table.cell(colspan: 3, $"mm"^3$),
     [\ ], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [],
     [\ ], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [],
     [\ ], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []
