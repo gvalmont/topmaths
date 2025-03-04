@@ -14,12 +14,12 @@
     #block(breakable: false)[
       #let yOffset = 0em
       #if nom != "" {
-       pad(bottom: -1em)[#underline(nom + " :", stroke: 1pt + couleur, offset: 2pt)]
-       yOffset = 0.5em
+        pad(bottom: -1em)[#underline(nom + " :", stroke: 1pt + couleur, offset: 2pt)]
+        yOffset = 0.5em
       }
       #block(stroke: (left: epaisseur + couleur), inset: (left: 0.5em, y: yOffset), width: 100%)[
         #texte
-    ]
+      ]
     ]
   ]
 }
@@ -120,9 +120,12 @@
     text(
       underline(
         text(red, font: "STIX Two Text", size: 1.05em, headingCount) + " " + titre,
-        stroke: 1pt + red, offset: 2pt
-      ), weight: "regular", size: 1.02em
-    )
+        stroke: 1pt + red,
+        offset: 2pt,
+      ),
+      weight: "regular",
+      size: 1.02em,
+    ),
   )
 }
 
@@ -136,8 +139,10 @@
   block(
     text(
       text(size: 1.03em, headingCount) + ". " + titre,
-      black, weight: "regular", size: 1.02em
-    )
+      black,
+      weight: "regular",
+      size: 1.02em,
+    ),
   )
 }
 
@@ -147,13 +152,14 @@
     stroke: none,
     align: horizon + center,
     if nbConditions > 1 [Conditions] else [Condition], [Donc], if nbConsequences > 1 [Conséquences] else [Conséquence],
-    normal(conditions), [=>], normal(consequences)
-  )}
+    normal(conditions), [=>], normal(consequences),
+  )
+}
 
 
 #let sequence(title: "", body) = {
   set document(author: "Guillaume Valmont", title: title)
-  set text(couleurPrincipale, font: "Source Sans Pro", weight: "medium",lang: "fr", hyphenate: false)
+  set text(couleurPrincipale, font: "Source Sans Pro", weight: "medium", lang: "fr", hyphenate: false)
   set page(footer: footerTopmaths(fonctionCouleurLiens: normal))
   set figure(supplement: none, numbering: none)
   show math.equation: eq => {
@@ -166,7 +172,7 @@
   set table(stroke: 0.5pt + rgb("#696969"))
   set list(marker: [--])
   set underline(offset: 2pt)
-  show link: l => {underline(bleu(l))}
+  show link: l => { underline(bleu(l)) }
   show heading: it => block(it.body)
   show heading.where(level: 1): it => {
     counter(heading).step(level: 1)
