@@ -5,7 +5,7 @@
 </script>
 
 <input
-  class="p-1 text-center is-link is-interactive
+  class="print-hidden p-1 text-center is-link is-interactive
     md:mb-4
     rounded-sm md-rounded
     text-sm md:text-2xl

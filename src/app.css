@@ -32,11 +32,14 @@ math-field.fillInTheBlanks {
 
 
 @media print {
-  body {
+  * {
     font-size: 10pt!important;
   }
   nav, aside, footer, .print-hidden {
     display: none!important;
+  }
+  .print-only {
+    display: block;
   }
 
   div {

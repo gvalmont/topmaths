@@ -117,7 +117,7 @@
   bind:searchString={$searchString}
 />
 {#if (view !== 'unit') && $isTeacherMode}
-<span class="absolute">
+<span class="print-hidden absolute">
   <InputCheckbox
     bind:isChecked={$isTitleAcademicPreferred}
   >

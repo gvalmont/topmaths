@@ -6,7 +6,7 @@
 
 </script>
 
-<div class="flex overflow-hidden overflow-x-auto
+<div class="print-hidden flex overflow-hidden overflow-x-auto
   mb-2 md:mb-4"
 >
   <ul class="flex flex-grow justify-center">

@@ -21,7 +21,7 @@
 
 <div
   id="exercise{exerciseIndex}"
-  class="flex flex-row flex-wrap content-center items-center justify-center my-3 h-10
+  class="print-hidden flex flex-row flex-wrap content-center items-center justify-center my-3 h-10
     text-xs md:text-base"
 >
   <a href="#exercise{exerciseIndex}">
@@ -132,6 +132,9 @@
       </div>
     </div>
   {/if}
+</div>
+<div class="print-only hidden text-coopmaths-action font-semibold">
+  Exercice {exerciseIndex + 1}
 </div>
 
 <style>

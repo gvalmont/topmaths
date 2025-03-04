@@ -16,7 +16,7 @@
     px-4 md:px-6`
 </script>
 
-<div class="is-flex is-justify-content-center overflow-auto mb-3 md:mb-8">
+<div class="print-hidden is-flex is-justify-content-center overflow-auto mb-3 md:mb-8">
   <button
     class="{classList}"
     class:is-active={selectedTerm === 0}
