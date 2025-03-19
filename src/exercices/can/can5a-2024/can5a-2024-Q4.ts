@@ -20,19 +20,14 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.formatInteractif = 'mathlive' // 'intervalleStrict'
+    this.optionsDeComparaison = { estDansIntervalle: true }
     this.canOfficielle = false
   }
 
   nouvelleVersion () {
     const valInf = this.canOfficielle ? 3 : randint(1, 10)
     const valSup = this.canOfficielle ? new Decimal(3.1) : choice([new Decimal(valInf).add(0.1), new Decimal(valInf).add(0.01)])
-    this.reponse = {
-      reponse: {
-        value: `]${valInf};${valSup}[`,
-        options: { estDansIntervalle: true }
-      }
-    }
+    this.reponse = `]${valInf};${valSup}[`
 
     this.question = 'Complète par un nombre. <br>'
     if (this.interactif) {

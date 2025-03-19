@@ -490,11 +490,14 @@ div[id^="title-lampeMessage"]{
 }
 /* aides */
 div[id^="aide-"] {
-  @apply inline-block
+  @apply inline
+    text-coopmaths-warn-dark dark:text-coopmathsdark-warn-light
 }
 
 div[id^="aide-trigger-"]{
-  @apply h-[1em] w-[1em] ml-1 inline-flex justify-center items-center rounded-full font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light
+  @apply h-[1em] w-[1em] inline-flex justify-center items-center rounded-full font-bold
+    text-coopmaths-canvas dark:text-coopmathsdark-canvas
+    bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light
 }
 
 div[id^="aide-content-"]{
@@ -545,22 +548,6 @@ i[id^="html-insert-info-"] {
 
 span.code {
   @apply font-mono bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-}
-
-h1[id="h1-xcas"] {
-  @apply mt-2 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-xl md:text-lg font-light
-}
-
-ul.xcas-help {
-  @apply pl-0 list-inside mb-4
-}
-
-ul.xcas-help li span[id^='list-item-description-'] {
-  @apply font-mono bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-}
-
-div[id^="xcas-results-"] {
-  @apply px-5 py-2
 }
 
 /* 

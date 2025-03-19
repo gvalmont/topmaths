@@ -2,7 +2,6 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-// import { lampeMessage } from '../../lib/format/message'
 import { abs, signe } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
@@ -10,7 +9,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Résoudre une équation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
@@ -112,7 +111,7 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
         texteCorr = texte
         if (this.interactif) {
           texte += '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
-          setReponse(this, i, new FractionEtendue(d - k * b, a * k - c), { formatInteractif: 'fractionEgale' })
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(d - k * b, a * k - c), options: { fractionEgale: true, nombreDecimalSeulement: true } } })
         }
         if (this.correctionDetaillee) {
           texteCorr += 'On développe le membre de gauche.<br>'
@@ -155,7 +154,7 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
         texteCorr = texte
         if (this.interactif) {
           texte += '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
-          setReponse(this, i, new FractionEtendue(k - b - d, a + c), { formatInteractif: 'fractionEgale' })
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(k - b - d, a + c), options: { fractionEgale: true, nombreDecimalSeulement: true } } })
         }
         if (this.correctionDetaillee) {
           texteCorr += 'On développe le membre de gauche.<br>'

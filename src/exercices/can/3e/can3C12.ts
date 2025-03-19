@@ -52,8 +52,8 @@ $${Math.floor(Math.sqrt(a))}^2< ${a} < ${Math.ceil(Math.sqrt(a))}^2$<br>`
 
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: `${Math.floor(Math.sqrt(a))}`, options: { nombreDecimalSeulement: true } },
-        champ2: { value: `${Math.ceil(Math.sqrt(a))}`, options: { nombreDecimalSeulement: true } }
+        champ1: { value: `${Math.floor(Math.sqrt(a))}` },
+        champ2: { value: `${Math.ceil(Math.sqrt(a))}` }
       }
       )
 

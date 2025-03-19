@@ -1,5 +1,7 @@
 import AdditionsSoustractionsMultiplicationsPosees from '../6e/6C10'
-export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
+export const titre = 'Poser additions, soustractions et multiplications de nombres entiers'
+
+export const dateDeModifImportante = '15/02/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

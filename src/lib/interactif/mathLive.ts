@@ -1,6 +1,7 @@
 import type { MathfieldElement } from 'mathlive'
 import type Exercice from '../../exercices/Exercice'
 import { fonctionComparaison } from './comparisonFunctions'
+import { sp } from '../outils/outilString'
 
 // Un barème qui ne met qu'un point si tout est juste
 export function toutPourUnPoint (listePoints: number[]): [number, number] {
@@ -123,6 +124,8 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
         const points = []
         const saisies: Record<string, string> = {}
         let feedback = ''
+        let compteurSaisiesVides = 0
+        let compteurBonnesReponses = 0
         for (let k = 0; k < variables.length; k++) {
           const [key, reponse] = variables[k]
           if (key === 'feedback' || key === 'bareme') continue
@@ -133,7 +136,9 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
           let result
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (saisie == null || saisie === '') {
-            result = { isOk: false, feedback: `Pas de réponse dans la zone de saisie${variables.length > 1 ? ` N°${key.charAt(key.length - 1)}` : ''}.<br>` }
+            compteurSaisiesVides++
+            result = { isOk: false, feedback: 'saisieVide' }
+            // result = { isOk: false, feedback: ` Pas de réponse dans la zone de saisie${variables.length > 1 ? ` N°${key.charAt(key.length - 1)}` : ''}.<br>` }
           } else {
             if (Array.isArray(reponse.value)) {
               let ii = 0
@@ -146,15 +151,24 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
             }
           }
           if (result.isOk) {
+            compteurBonnesReponses++
             points.push(1)
             mfe.setPromptState(key, 'correct', true)
           } else {
             points.push(0)
             mfe.setPromptState(key, 'incorrect', true)
+            if (result.feedback === 'saisieVide') result.feedback = null
+            else result = { isOk: false, feedback: ` Le résultat dans la zone de saisie${variables.length > 1 ? ` N°${key.charAt(key.length - 1)}` : ''}  est incorrect.<br>` + sp(7) }
           }
           mfe.classList.add('corrected')
           if (result.feedback != null) feedback += result.feedback
         }
+        if (compteurBonnesReponses === variables.length) feedback = ''
+        else if (compteurBonnesReponses === 0 && compteurSaisiesVides === 0) feedback = variables.length === 1 ? ' Le résultat n\'est pas correct.' : ' Aucun résultat n\'est correct.'
+
+        if (compteurSaisiesVides === 1) feedback += ` Il manque une réponse dans ${variables.length === 1 ? 'la' : 'une'} zone de saisie.<br>`
+        else if (compteurSaisiesVides > 1) feedback += ` Il manque une réponse dans ${compteurSaisiesVides} zones de saisie.<br>`
+
         if (typeof reponses.feedback === 'function') {
           feedback += reponses.feedback(saisies)
           const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${i}`)

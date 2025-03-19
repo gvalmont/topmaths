@@ -45,7 +45,7 @@ export default class Can2025NCE2Q3 extends ExerciceCan {
     this.reponse = a[0] + 4 * pas
     this.question = 'Complète la case grise.' + mathalea2d(Object.assign({ scale: 0.45 }, fixeBordures([d, caseGrise])), d, caseGrise)
     this.correction = `D'après les trois premiers nombres, on compte de $${pas}$ en $${pas}$ à partir de $${a[0]}$ :<br>
-    $${a[0]}$ ; $${a[1]}$ ; $${a[2]}$ ; $${a[2] + pas}$ ; $${miseEnEvidence(texNombre(this.reponse, 0))}$ ; $${a[2] + 3 * pas}$ ;.`
+    $${a[0]}$ ; $${a[1]}$ ; $${a[2]}$ ; $${a[2] + pas}$ ; $${miseEnEvidence(texNombre(this.reponse, 0))}$ ; $${a[2] + 3 * pas}$.`
     if (this.interactif) {
       this.question += 'Le nombre dans la case grise est :'
     }

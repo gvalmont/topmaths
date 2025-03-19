@@ -30,7 +30,7 @@ export default class MetropoleSep23Ex1Q3 extends ExerciceQcmA {
       `$${String(-(c ** 2) + a * c + b)}$`,
       `$${String(c * c - a * c + b)}$`
     ]
-    this.enonce = `Quelle est la valeur de l'expression<br>$x^2+${String(a)}x${ecritureAlgebrique(b)}$ pour $x=${c}$ ?`
+    this.enonce = `Quelle est la valeur de l'expression $x^2+${String(a)}x${ecritureAlgebrique(b)}$ pour $x=${c}$ ?`
     this.correction = ` $\\begin{aligned}
      x^2+${String(a)}x${ecritureAlgebrique(b)} &= (${String(c)})^2+${String(a)}\\times (${String(c)})${ecritureAlgebrique(b)} \\\\
                                                         &=${String(c * c)}${ecritureAlgebrique(a * c)}${ecritureAlgebrique(b)} \\\\

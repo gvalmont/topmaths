@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import generateFile from 'vite-plugin-generate-file'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,10 +13,13 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
+          console.log('id', id)
           // Pour les dépendances pnpm
           if (id.includes('.pnpm')) {
             // Extraire le vrai nom du package
-            const match = id.match(/.pnpm\/(.*?)@/)
+            const regex = /\.pnpm\/@?(.*?)(?=@)/
+            const match = id.match(regex)
+            // const match = id.match(/.pnpm\/(.*?)@/) // MGu : @cortex-js/compute-engine non géré ici!!!
             if (match && match[1]) {
               // Nettoyer le nom du package
               const pkgName = match[1]
@@ -48,6 +53,17 @@ export default defineConfig({
       compilerOptions: {
         dev: process.env.NODE_ENV !== 'production'
       }
-    })
+    }),
+    visualizer({
+      emitFile: true,
+      filename: 'stats.html',
+    }),
+    generateFile([{
+      type: 'json',
+      output: './version.txt',
+      data: {
+        version: '3.0.20230508.' + Date.now()
+      }
+    }])
   ]
 })

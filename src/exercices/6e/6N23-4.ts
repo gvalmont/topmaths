@@ -140,7 +140,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
       // Fin de cette uniformisation
 
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
-      handleAnswers(this, i, { reponse: { value: reponseAMC, options: { nombreDecimalSeulement: true } } })
+      handleAnswers(this, i, { reponse: { value: reponseAMC } })
 
       if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre

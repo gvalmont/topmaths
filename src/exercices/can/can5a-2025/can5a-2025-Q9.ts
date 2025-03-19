@@ -23,7 +23,6 @@ export default class Can2025N5Q9 extends ExerciceCan {
     if (b == null) {
       b = randint(2, 9) * 10 + randint(1, 9) + choice([0, 0, randint(1, 9)]) * 100
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * b / 100
     this.question = `$${a}\\,\\%$ de $${b}$`
     this.correction = `$${a}\\,\\%$ de $${b}$, c'est $\\dfrac{${a}}{100} \\times ${texNombre(b, 0)} = \\dfrac{${a}\\times ${texNombre(b, 0)}}{100}=  \\dfrac{${texNombre(a * b, 0)}}{100}=${miseEnEvidence(texNombre(a * b / 100, 2))}$.`

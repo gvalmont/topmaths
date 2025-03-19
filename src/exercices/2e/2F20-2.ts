@@ -19,7 +19,7 @@ import {
 } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
+export const titre = 'Calculer des coordonnées de points appartenant à une courbe connaissant l\'abscisse ou l\'ordonnée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '24/09/2022'
@@ -109,7 +109,7 @@ export default class CalculPointSurCourbe extends Exercice {
                 correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
               $${nom}(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(b)}=${ord}$.<br>
               L'ordonnée du point $${point}$ est $${miseEnEvidence(ord)}$.`
-                handleAnswers(this, i, { reponse: { value: ord, options: { nombreDecimalSeulement: true } } })
+                handleAnswers(this, i, { reponse: { value: ord } })
               } else {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
@@ -139,7 +139,7 @@ export default class CalculPointSurCourbe extends Exercice {
                                                                       \\end{aligned}$<br>`
                 }
                 correction += `L'abscisse du point $${point}$ est $${miseEnEvidence(abs)}$.`
-                handleAnswers(this, i, { reponse: { value: abs, options: { nombreDecimalSeulement: true } } })
+                handleAnswers(this, i, { reponse: { value: abs } })
               }
 
               break
@@ -244,7 +244,7 @@ export default class CalculPointSurCourbe extends Exercice {
                 =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}=${ord}$.<br>`
                 }
                 correction += `L'ordonnée du point $${point}$ est $${miseEnEvidence(ord)}$.`
-                handleAnswers(this, i, { reponse: { value: ord, options: { nombreDecimalSeulement: true } } })
+                handleAnswers(this, i, { reponse: { value: ord } })
               } else {
                 a = randint(-10, 10, 0)
                 b = randint(-10, 10, 0)
@@ -274,7 +274,7 @@ Si oui, quelles sont les abscisses possibles de ces points ?<br>
                 if (abs === 0) {
                   correction += ` Cette équation n'a qu'une seule solution : $0$.<br>
  On en déduit qu'il existe un unique point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$ : son abscisse est $${miseEnEvidence(0)}$. `
-                  handleAnswers(this, i, { reponse: { value: 0, options: { nombreDecimalSeulement: true } } })
+                  handleAnswers(this, i, { reponse: { value: 0 } })
                 } else if (abs < 0) {
                   correction += ` Cette équation n'a pas de solution.<br>
  On en déduit qu'il n'existe pas de point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$. `

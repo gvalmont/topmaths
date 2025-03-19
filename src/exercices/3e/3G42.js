@@ -84,7 +84,7 @@ export default class VolumeBoule extends Exercice {
 
         case 3:
           A = randint(2, 30)
-          texte += 'Calculer le volume' + (context.isAmc ? `, en ${choixUnites}` + texteExposant(3) + ',' : '') + ` d'une boule d'aire ${A} cm². Arrondir au dixième.`
+          texte += 'Calculer le volume' + (context.isAmc ? `, en ${choixUnites}` + texteExposant(3) + ',' : '') + ` d'une boule d'aire ${A} cm$^2$. Arrondir au dixième.`
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += 'Il faut donc trouver le rayon de la boule. <br>'
           texteCorr += 'L\'aire d\'une boule est donnée par la formule : $A = 4\\pi r^2$. <br>'

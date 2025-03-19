@@ -29,7 +29,7 @@ export default class AsieJuin21Exo1Q4 extends ExerciceQcmA {
       `$${texNombre(-2 * a * a, 2)}$ et $${texNombre(2 * a * a, 2)}$`,
       `$${texNombre(-a * a / 2, 3)}$ et $${texNombre(a * a / 2, 3)}$`
     ]
-    this.enonce = `Les solutions de l'équation $x^2=${texNombre(a ** 2, 2)}$ ?`
+    this.enonce = `Les solutions de l'équation $x^2=${texNombre(a ** 2, 2)}$ sont :`
     this.correction = `Nous cherchons les nombres dont le carré vaut $${texNombre(a ** 2, 2)}$.<br>
     Il y a $-\\sqrt{${texNombre(a ** 2, 2)}}$ et $\\sqrt{${texNombre(a ** 2, 2)}}$.<br>Soit $${miseEnEvidence(`${texNombre(-a, 1)}\\text{ et }${texNombre(a, 1)}`)}$`
   }

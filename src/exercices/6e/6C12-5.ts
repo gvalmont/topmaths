@@ -89,7 +89,7 @@ function agriculteur () {
   const [mr1, mr2, mr3, mr4] = [nbRangees + nbArbresParRangee, (nbRangees + nbArbresParRangee) * 2, nbRangees ** 2, nbArbresParRangee ** 2]
 
   return {
-    contexte: `Un agriculteur plante des arbres en rangées.<br>Il plante ${nbRangees} rangées d’arbres avec ${nbArbresParRangee} arbres par rangée.<br>`,
+    contexte: `Un agriculteur plante des arbres en rangées.<br>Il plante ${nbRangees} rangées d'arbres avec ${nbArbresParRangee} arbres par rangée.<br>`,
     question: 'Combien d\'arbres a-t-il plantés au total ?<br>',
     reponses: [nbArbres, mr1, mr2, mr3, mr4],
     reponseRedigee: `L'agriculteur a planté ${nbArbres} arbres, car  $${nbRangees}\\times ${nbArbresParRangee}=${nbArbres}$.<br>`

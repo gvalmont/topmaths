@@ -24,7 +24,6 @@ export default class Can2025N5Q7 extends ExerciceCan {
       a = randint(2, 9)
       b = choice([15, 30, 45])
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a + b / 60
     this.question = `$${a}$ min $${b}$ s`
     this.correction = `$${b}$ s $=${new FractionEtendue(b, 60).simplifie().texFraction}$ min $=${texNombre(b / 60, 2)}$ min.<br>

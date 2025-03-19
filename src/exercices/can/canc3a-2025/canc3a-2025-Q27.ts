@@ -4,7 +4,10 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
-export const titre = 'Convertir des fractions d\'heure en minutes'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+export const titre = 'Convertir des minutes en heures/minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '50cd1'
@@ -19,25 +22,21 @@ export const refs = {
 export default class Can2025CM2Q27 extends Exercice {
   constructor () {
     super()
-
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.optionsDeComparaison = { HMS: true }
-    this.formatChampTexte = KeyboardType.clavierHms
     this.optionsChampTexte = { texteAvant: ' $=$ ' }
+    this.formatInteractif = 'fillInTheBlank'
   }
 
   nouvelleVersion () {
     const h = this.canOfficielle ? 4 : randint(1, 5)
     const min = this.canOfficielle ? 10 : randint(1, 5) * 10
-    this.reponse = new Hms({ hour: h, minute: min })
-    this.question = `Complète ${this.interactif ? '(en heures/minutes)' : ''}. <br> `
-    this.question += `$${texNombre(h * 60 + min, 0)}$ min `
-
     this.correction = `Comme $1$ h $=60$ min, $${h}$ h $=${h}\\times 60 $ min $=${texNombre(h * 60, 0)}$ min.<br>
-    $${texNombre(h * 60 + min, 0)}$ h $=${miseEnEvidence(h)}$ h $${miseEnEvidence(min)}$ min.`
-    if (!this.interactif) { this.question += '$=\\ldots$ h $\\ldots$ min' }
+    $${texNombre(h * 60 + min, 0)}$ min $=${miseEnEvidence(h)}$ h $${miseEnEvidence(min)}$ min.`
+    this.reponse = { bareme: toutPourUnPoint, champ1: { value: h }, champ2: { value: min } }
+    this.consigne = 'Complète.'
+    this.question = `${h * 60 + min}\\text{ min  }= ~%{champ1} ~\\text{h}~%{champ2}~\\text{min}`
     this.canEnonce = 'Complète.'
-    this.canReponseACompleter = `$${texNombre(h * 60 + min, 0)}$ h $=\\ldots$ h $\\ldots$ min `
+    this.canReponseACompleter = `$${texNombre(h * 60 + min, 0)}$ min $=\\ldots$ h $\\ldots$ min `
   }
 }

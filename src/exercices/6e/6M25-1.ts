@@ -48,7 +48,7 @@ export default class PerimetresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{P}_\\text{carré} = 4 \\times ${texNombre(c)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{carré} = ${miseEnEvidence(texNombre(4 * c))}~\\text{cm}$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{carré} =$', texteApres: '$~\\text{cm}$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(4 * c), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(4 * c) } })
           }
           break
         case 'rectangle':
@@ -61,7 +61,7 @@ export default class PerimetresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = 2 \\times ${texNombre(L + l)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{P}_\\text{rectangle} = ${miseEnEvidence(texNombre(2 * (L + l)))}~\\text{cm}$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{P}_\\text{rectangle} =$', texteApres: '$~\\text{cm}$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(2 * L + 2 * l), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(2 * L + 2 * l) } })
           }
           break
         case 'cercleRayon':

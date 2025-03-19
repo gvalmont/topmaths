@@ -26,13 +26,13 @@ async function testEleveView () {
     '300',
     '6',
     '15',
-    '\\dfrac{5}{8}',
+    '\\dfrac{1}{3}',
     '\\overrightarrow{AB}=\\overrightarrow{B{\\placeholder[champ1]{G}}}', // 'F'
     '\\overrightarrow{DE}={\\placeholder[champ1]{-2}}\\overrightarrow{AB}',
     '30',
-    '\\dfrac{4}{3}',
+    '\\dfrac{2}{3}',
     '1',
-    '\\emptyset',
+    '\\{-\\sqrt3;\\sqrt3\\}',
     '4-12x+9x^2',
     '5'
 
@@ -52,7 +52,7 @@ async function testEleveView () {
   }
 
   const check1 = page.locator('#checkEx0Q15R1')
-  const check2 = page.locator('#checkEx0Q6R1')
+  const check2 = page.locator('#checkEx0Q6R0')
   await check1.click()
   await check2.click()
 
@@ -71,5 +71,5 @@ if (process.env.CI) {
   runTest(testEleveView, import.meta.url, { pauseOnError: false })
 } else {
   prefs.headless = false
-  runTest(testEleveView, import.meta.url, { pauseOnError: false })
+  runTest(testEleveView, import.meta.url, { pauseOnError: true })
 }

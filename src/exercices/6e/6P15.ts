@@ -269,7 +269,6 @@ export default class CalculerCoeffPropo extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -302,7 +301,6 @@ export default class CalculerCoeffPropo extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -320,7 +318,6 @@ export default class CalculerCoeffPropo extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',

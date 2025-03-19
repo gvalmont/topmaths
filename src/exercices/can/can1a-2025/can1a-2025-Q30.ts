@@ -5,6 +5,7 @@ import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { Arbre } from '../../../modules/arbres'
+import { context } from '../../../modules/context'
 export const titre = 'Calculer une probabilité avec un arbre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -45,7 +46,7 @@ export default class Can2025N5Q30 extends Exercice {
         new Arbre(
           {
             rationnel: false,
-            nom: 'A',
+            nom: 'A~',
             proba: pA,
             visible: true,
             alter: '',
@@ -68,7 +69,7 @@ export default class Can2025N5Q30 extends Exercice {
           }),
         new Arbre({
           rationnel: false,
-          nom: '\\overline{A}',
+          nom: '\\overline{A}~',
           proba: 1,
           visible: false,
           enfants: [new Arbre({
@@ -88,17 +89,22 @@ export default class Can2025N5Q30 extends Exercice {
       ]
     })
 
+    const arbreProfCollege = `\\[\\Proba[Arbre,Angle=40,Branche=3,Rayon=0.75,Incline=false]{A/$${pA}$,$\\overline{A}$/,B
+/$${pBsachantA}$,$\\overline{B}$/,B/$${pBsachantAbarre}$,$\\overline{B}$/}\\]`
+
     omega.setTailles() // On calcule les tailles des arbres.
     const objets = omega.represente(0, 7, 0, 2, true, 1, 6) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
     this.question = '$A$ et $B$ sont deux événements tels que :<br>'
-    this.question += mathalea2d({
-      xmin: -0.1,
-      xmax: 14,
-      ymin: -1,
-      ymax: 7,
-      style: 'inline',
-      scale: 0.5
-    }, ...objets)
+    this.question += (context.isHtml)
+      ? mathalea2d({
+          xmin: -0.1,
+          xmax: 14,
+          ymin: -1,
+          ymax: 7,
+          style: 'inline',
+          scale: 0.5
+        }, ...objets)
+      : arbreProfCollege
 
     if (this.interactif) {
       this.question += '$P(B)=$ '
@@ -113,7 +119,7 @@ export default class Can2025N5Q30 extends Exercice {
     &=${miseEnEvidence(this.reponse)}
               \\end{aligned}$
           `
-    this.canEnonce = '$A$ et $B$ sont deux événements tels que :<br>' + mathalea2d({
+    /* this.canEnonce = '$A$ et $B$ sont deux événements tels que :<br>' + mathalea2d({
       xmin: -0.1,
       xmax: 14,
       ymin: 0,
@@ -121,7 +127,15 @@ export default class Can2025N5Q30 extends Exercice {
       style: 'inline',
       scale: 0.6
     }, ...objets)
+*/
+    // Avec ProfCollege
+    this.canEnonce = '$A$ et $B$ sont deux événements tels que :<br>' + arbreProfCollege
 
+    /* Avec profCollege
+    this.canEnonce = '$A$ et $B$ sont deux événements tels que :<br>' +
+     `\\[\\Proba[Arbre,Branche=3,Rayon=0.75,Incline=false]{A/$0{,}2$,$\\overline{A}$/,B
+/$0{,}2$,$\\overline{B}$/,B/$0{,}2$,$\\overline{B}$/}\\]`
+*/
     this.canReponseACompleter = '$P(B)=\\ldots$'
   }
 }

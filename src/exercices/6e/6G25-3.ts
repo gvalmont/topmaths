@@ -1,10 +1,10 @@
 import { codageMediatrice } from '../../lib/2d/codages'
-import { Droite, droiteHorizontaleParPoint, droiteVerticaleParPoint, mediatrice } from '../../lib/2d/droites'
+import { Droite, droiteHorizontaleParPoint, droiteVerticaleParPoint, Mediatrice, mediatrice } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionDD, tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { symetrieAxiale } from '../../lib/2d/transformations'
-import { shuffle } from '../../lib/outils/arrayOutils'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
@@ -137,11 +137,11 @@ export default class PavageEtReflexion2d extends Exercice {
             return binomes
           }
       */
-    const refleccion = function (pavage: Pavage, d: Droite, numero: number) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
+    const refleccion = function (pavage: Pavage, d: Droite | Mediatrice, numero: number) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
       const poly = pavage.polygones[numero - 1]
       let pol
       const result = -1
-      const sympoly = symetrieAxiale(poly, d) as Polygone
+      const sympoly = symetrieAxiale(poly, d)
       for (let k = 0; k < pavage.polygones.length; k++) {
         pol = pavage.polygones[k]
         if (compare2polys(sympoly, pol)) {
@@ -180,13 +180,13 @@ export default class PavageEtReflexion2d extends Exercice {
     let fenetre: FenetreType = { xmin: 0, ymin: 0, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.5 }
     let texte = ''
     let texteCorr = ''
-    let typeDePavage = parseInt(this.sup)
+    let typeDePavage = this.sup3
     let nombreTentatives
     let nombrePavageTestes = 1
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
     } else {
-      typeDePavage = parseInt(this.sup3)
+      typeDePavage = this.sup3 % 8
     }
     while (couples.length < this.nbQuestions && nombrePavageTestes < 7) {
       nombreTentatives = 0
@@ -195,7 +195,7 @@ export default class PavageEtReflexion2d extends Exercice {
       Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
       Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
       monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
-      fenetre = monpavage.fenetre as FenetreType
+      fenetre = monpavage.fenetre
       context.fenetreMathalea2d = [fenetre.xmin, fenetre.ymin, fenetre.xmax, fenetre.ymax]
       while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) { // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
@@ -209,7 +209,7 @@ export default class PavageEtReflexion2d extends Exercice {
           A = monpavage.polygones[index1].listePoints[randint(0, 2)] // idem ci-dessus
           B = monpavage.polygones[index2].listePoints[randint(0, 2)] // mais à la sortie du While A!=B
         }
-        d = mediatrice(A, B, '', 'red') as Droite// l'axe sera la droite passant par ces deux points si ça fonctionne
+        d = mediatrice(A, B, '', 'red')// l'axe sera la droite passant par ces deux points si ça fonctionne
         d.epaisseur = 3
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = refleccion(monpavage, d, i)
@@ -237,6 +237,10 @@ export default class PavageEtReflexion2d extends Exercice {
     if (d.pente < 0 && d.pente > -10) {
       pt1 = pointIntersectionDD(d, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
       pt2 = pointIntersectionDD(d, droiteVerticaleParPoint(point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1])))
+      if (!(pt1 instanceof Point) || !(pt2 instanceof Point)) {
+        window.notify('pt1 ou pt2 n\'est pas un point', { pt1, pt2 })
+        return
+      }
       if (pt1.x > pt2.x) {
         objets.push(latexParCoordonnees('(d)', pt1.x, pt1.y - 2.5, 'red', 20, 10, '', 12))
       } else {
@@ -246,6 +250,10 @@ export default class PavageEtReflexion2d extends Exercice {
     } else if (d.pente >= 0 && d.pente < 10) {
       pt1 = pointIntersectionDD(d, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
       pt2 = pointIntersectionDD(d, droiteVerticaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
+      if (!(pt1 instanceof Point) || !(pt2 instanceof Point)) {
+        window.notify('pt1 ou pt2 n\'est pas un point', { pt1, pt2 })
+        return
+      }
       if (pt1.x < pt2.x) {
         objets.push(latexParCoordonnees('(d)', pt1.x - 0.75 * context.zoom, pt1.y - 2.5, 'red', 20, 10, '', 12))
       } else {
@@ -253,6 +261,10 @@ export default class PavageEtReflexion2d extends Exercice {
       }
     } else { // d est verticale
       pt1 = pointIntersectionDD(d, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
+      if (!(pt1 instanceof Point)) {
+        window.notify('pt1 n\'est pas un point', { pt1, pt2 })
+        return
+      }
       objets.push(latexParCoordonnees('(d)', pt1.x - 1, pt1.y - 1.5, 'red', 20, 10, '', 12))
     }
 
@@ -274,7 +286,7 @@ export default class PavageEtReflexion2d extends Exercice {
 
     texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte += '<br>'
-    const couleurs = ['green', 'red', 'blue']
+    const couleurs = combinaisonListes(['green', 'red', 'blue'], this.nbQuestions)
     for (let i = 0; i < this.nbQuestions; i++) {
       setReponse(this, i, couples[i][1])
       texte += numAlpha(i) + `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?` + ajouteChampTexteMathLive(this, i, '') + '<br>'

@@ -65,7 +65,7 @@ export default class ResoudreGraphiquementEquation extends Exercice {
    Résoudre $f(x)>1$.`
     if (this.interactif) { this.question += '<br>' }
     this.correction = `Les solutions de l'inéquation sont les abscisses des points de $\\mathscr{C}_f$ qui se trouvent au-dessus de la droite horizontale d'équation $y=1$.<br>
-    $S=${miseEnEvidence(']-1;-1[')}$ `
+    $S=${miseEnEvidence(']-1\\,;\\,1[')}$ `
     this.reponse = {
       reponse: {
         value: ']-1;1[',

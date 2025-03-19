@@ -22,7 +22,7 @@ export const refs = {
 export default class ProgrammeCalcul2 extends Exercice {
   constructor () {
     super()
-
+    this.optionsChampTexte = { texteAvant: '<br>' }
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 

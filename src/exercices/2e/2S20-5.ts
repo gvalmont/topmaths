@@ -79,9 +79,16 @@ const trouveQuartiles = function (yGrecs: number[], pts: Point[]): [number, numb
     const D1 = droiteHorizontaleParPoint(point(0, 5))
     const D2 = droiteHorizontaleParPoint(point(0, 10))
     const D3 = droiteHorizontaleParPoint(point(0, 15))
-    const q1 = pointIntersectionDD(d1, D1).x
-    const q2 = pointIntersectionDD(d2, D2).x
-    const q3 = pointIntersectionDD(d3, D3).x
+    const p1 = pointIntersectionDD(d1, D1)
+    const p2 = pointIntersectionDD(d2, D2)
+    const p3 = pointIntersectionDD(d3, D3)
+    if (!p1 || !p2 || !p3) {
+      window.notify('Erreur dans le calcul des quartiles', { p1, p2, p3 })
+      return [0, 0, 0]
+    }
+    const q1 = p1.x
+    const q2 = p2.x
+    const q3 = p3.x
     return [q1, q2, q3]
   } else return [0, 0, 0] // on ne devrait jamais arriver ici
 }

@@ -34,14 +34,11 @@ async function test5R211 (page: Page) {
   const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
   const urlExercice = hostname + '?uuid=f2db1&alea=1iCO&i=1' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
   const questions = await getQuestions(page, urlExercice)
-
   for (const question of questions) {
-    const mathField = question.mathField
-    const cleanMathField = mathField
-      .replace(' = (\\placeholder[champ1]{}) + (\\placeholder[champ2]{}) = (\\placeholder[champ3]{})', '')
-      .replaceAll('(', '')
-      .replaceAll(')', '')
-    const [stringA, stringB] = cleanMathField.split(' - ')
+    const innerText = question.innerText.replaceAll(' ', '').replaceAll('\n', '').split('=')[0]
+    let [stringA, stringB] = innerText.split(')-(')
+    stringA = stringA.replace('(', '')
+    stringB = stringB.replace(')', '')
     let a, b, c : number
     if (question.isCorrect) {
       a = Number(stringA)

@@ -50,25 +50,25 @@ export default class RepresenterUnSolide extends Exercice {
   nouvelleVersion () {
     let typeDeQuestionsDisponibles
 
-    if (this.sup === 3) { typeDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typeDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typeDeQuestionsDisponibles = [1, 2, 4, 6] } else { typeDeQuestionsDisponibles = [parseInt(this.sup)] }
-
-    const listeTypeDeQuestions = combinaisonListes(
-      typeDeQuestionsDisponibles,
-      this.nbQuestions
-    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-
     let Xmin, Xmax, Ymin, Ymax, ppc, sc
 
-    // sixième : cube et pavé droit
+    /* // sixième : cube et pavé droit
     if (this.classe === 6) {
       typeDeQuestionsDisponibles = [1, 2]
     } else if (this.classe === 5) { // cinquième : on ajoute le prisme
       typeDeQuestionsDisponibles = [1, 2, 4]
     } else if (this.classe === 4) { // Quatrième : on ajoute la pyramide
       typeDeQuestionsDisponibles = [1, 2, 4, 6]
-    }
+    } */
 
-    if (parseInt(this.sup2) === 1) { sc = 0.5 } else { sc = 0.8 }
+    if (this.sup === 3) { typeDeQuestionsDisponibles = [1, 2] } else if (this.sup === 5) { typeDeQuestionsDisponibles = [1, 2, 4] } else if (this.sup === 7) { typeDeQuestionsDisponibles = [1, 2, 4, 6] } else { typeDeQuestionsDisponibles = [this.sup] }
+
+    const listeTypeDeQuestions = combinaisonListes(
+      typeDeQuestionsDisponibles,
+      this.nbQuestions
+    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+
+    if (this.sup2 === 1) { sc = 0.5 } else { sc = 0.8 }
 
     let A; let B; let C; let D; let E; let F; let G; let H; let I
     let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH; let IA; let IB; let IE; let IF; let BD; let FH
@@ -350,7 +350,7 @@ export default class RepresenterUnSolide extends Exercice {
       }
 
       correction += mathalea2d(params, objetsCorrection)
-      if (this.questionJamaisPosee(i, A.x, A.y, B.x, B.y, C.x, C.y, D.x, D.y)) {
+      if (this.questionJamaisPosee(i, A.x, A.y, B.x, B.y, C.x, C.y, D.x, D.y, E.x, E.y)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = enonce + '<br>'
         this.listeCorrections[i] = correction + '<br>'

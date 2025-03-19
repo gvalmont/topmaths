@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
@@ -34,6 +34,7 @@ export default class NomExercice extends Exercice {
     const b = randint(-7, 7, 0)
 
     this.question = `Soit $z=${a}${ecritureAlgebriqueSauf1(b)}\\text{i}\\in\\mathbb{C}$. <br>`
+    this.question += 'Calculer le module de $z$.'
     this.correction = 'On sait que si $z=a+\\text{i}b$ alors $\\vert z\\vert=\\sqrt{a^2+b^2}$'
     this.correction += `<br>Il vient ici : $\\vert z\\vert=\\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}$,`
     this.correction += ` d'où $\\vert z\\vert=\\sqrt{${a * a}+${b * b}}=\\sqrt{${a * a + b * b}}$.`

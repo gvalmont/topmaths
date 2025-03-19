@@ -69,6 +69,10 @@ export default class constructionElementaire extends Exercice {
       const e = demiDroite(C, D, 'green', true)
       const f = segment(A, C, 'red')
       const E = pointIntersectionDD(droite(C, D), d, lettreDepuisChiffre(indLettre + 4), 'below right')
+      if (!E) {
+        window.notify('pointIntersectionDD n\'a pas renvoyé de point', {})
+        continue
+      }
       const F = pointSurSegment(B, A, -1, lettreDepuisChiffre(indLettre + 5), 'below')
       const T = tracePoint(A, B, C, D)
       const Tc = tracePoint(E, F, 'red')
@@ -114,14 +118,6 @@ export default class constructionElementaire extends Exercice {
         figure.options.labelAutomaticBeginsWith = E.nom
         figure.options.thickness = 2
         this.figures[i] = figure
-        /* if (this.sup < 3) { // Je l'ai enlevé car il n'existe pas les carreaux Seyes en interactif.
-          figure.create('Grid', {
-            axeX: false,
-            axeY: false,
-            labelX: false,
-            labelY: false
-          })
-        } */
         this.A = figure.create('Point', { x: A.x, y: A.y, label: A.nom, isFree: true })
         this.B = figure.create('Point', { x: B.x, y: B.y, label: B.nom, isFree: true })
         this.C = figure.create('Point', { x: C.x, y: C.y, label: C.nom, isFree: true })
@@ -189,7 +185,6 @@ export default class constructionElementaire extends Exercice {
         this.autoCorrection[i].propositions = [
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
@@ -201,7 +196,6 @@ export default class constructionElementaire extends Exercice {
           },
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
@@ -213,7 +207,6 @@ export default class constructionElementaire extends Exercice {
           },
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
@@ -225,7 +218,6 @@ export default class constructionElementaire extends Exercice {
           },
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,
@@ -237,7 +229,6 @@ export default class constructionElementaire extends Exercice {
           },
           {
             type: 'AMCOpen',
-            // @ts-expect-error Trop compliqué à typer
             propositions: [
               {
                 texte: correction,

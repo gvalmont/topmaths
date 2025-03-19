@@ -3,7 +3,7 @@ import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
 import { Point, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../lib/2d/points'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
@@ -12,11 +12,12 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
+import { arrondi } from '../../lib/outils/nombres'
 
-export const titre = 'Construire des parallélogrammes avec dispositif d\'auto-correction'
+export const titre = 'Construire des parallélogrammes'
 export const dateDeModifImportante = '18/04/2024'
 export const dateDePublication = '30/11/2020'
 export const amcReady = true
@@ -34,15 +35,21 @@ export const refs = {
   'fr-ch': ['9ES4-4']
 }
 export default class ConstructionsParallelogrammes extends Exercice {
+  /** Type de question */
+  sup: 1 | 2 | 3 | 4 | 5
+  /** Taille des cases de la grille */
+  sup2: number
+  /** Indique si la cible pour la correction est activée */
+  sup3: boolean
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Mélange']
     this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
-
+    this.besoinFormulaire3CaseACocher = ['Cibles pour la correction']
     this.nbQuestions = 1
-
     this.sup = 5
     this.sup2 = 2
+    this.sup3 = true
     this.spacingCorr = 2
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
@@ -50,12 +57,6 @@ export default class ConstructionsParallelogrammes extends Exercice {
 
   nouvelleVersion (numeroExercice: number) {
     const tailleGrille = 0.2 + this.sup2 * 0.2
-
-    // const typeQuestionsDisponibles = [1, 2, 3, 4]
-    //    if (this.sup < 5) typeQuestionsDisponibles = [parseInt(this.sup)]
-
-    //  const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -78,7 +79,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
       const objetsCorrection = []
       // Préparation de la figure aléatoire et des objets 2d utiles
       const O = point(0, 0, noms[4])
-      const A = rotation(pointAdistance(O, calculANePlusJamaisUtiliser(randint(50, 70) / 10)), O, randint(0, 179) * choice([-1, 1]), noms[0])
+      const A = rotation(pointAdistance(O, arrondi(randint(50, 70) / 10)), O, randint(0, 179) * choice([-1, 1]), noms[0])
       const C = rotation(A, O, 180, noms[2])
       const B = similitude(A, O, randint(50, 80) * choice([-1, 1]), randint(6, 7) * choice([-1, 1]) / 5, noms[1])
       const D = rotation(B, O, 180, noms[3])
@@ -96,6 +97,9 @@ export default class ConstructionsParallelogrammes extends Exercice {
       const cellule = celluleAlea(5)
       const cellule2 = celluleAlea(5)
       const cellule3 = celluleAlea(5)
+      const polygoneInvisible = polygone(A, B, C, D)
+      polygoneInvisible.opacite = 0 // Pour qu'il y ait la place du 4e sommet
+      objetsEnonce.push(polygoneInvisible)
 
       const result = dansLaCibleCarree(C.x, C.y, 5, tailleGrille, cellule)
       const result2 = dansLaCibleCarree(D.x, D.y, 5, tailleGrille, cellule2)
@@ -130,14 +134,19 @@ export default class ConstructionsParallelogrammes extends Exercice {
             texteCorr += '.<br>'
             texteCorr += `En voici une utilisant l'égalité des longueurs : $${noms[0] + noms[1]}=${noms[3] + noms[2]}$ et $${noms[2] + noms[1]}=${noms[3] + noms[0]}$.<br>`
           }
-          texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
 
           c1.styleExtremites = '-|'
           c4.styleExtremites = '|-'
           P = polygoneAvecNom(D, A, B)
-          objetsEnonce.push(c1, c4, P[1], cible)
-          objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codageSegments('||', 'red', A, B, D, C), codageSegments('///', 'blue', A, D, B, C))
+          objetsEnonce.push(c1, c4, P[1])
+          objetsCorrection.push(p[0], p[1], traceCompas(D, C, 30), traceCompas(B, C, 30), codageSegments('||', 'red', A, B, D, C), codageSegments('///', 'blue', A, D, B, C))
           animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
+          if (this.sup3) {
+            texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
+            objetsEnonce.push(cible)
+            objetsCorrection.push(cible)
+          }
+
           break
         case 2: // trois sommets consécutifs
           texte = `Construire le parallélogramme $${nom}$`
@@ -151,7 +160,6 @@ export default class ConstructionsParallelogrammes extends Exercice {
           } else {
             texteCorr += `En voici une utilisant l'égalité des longueurs : $${noms[0] + noms[1]}=${noms[3] + noms[2]}$ et $${noms[2] + noms[1]}=${noms[3] + noms[0]}$.<br>`
           }
-          texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
           P = polygoneAvecNom(D, A, B)
           animIEP.pointCreer(D, D.nom)
           animIEP.pointCreer(A, A.nom)
@@ -161,8 +169,13 @@ export default class ConstructionsParallelogrammes extends Exercice {
           animIEP.regleMasquer(0)
           animIEP.crayonMasquer(0)
           animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
-          objetsEnonce.push(tracePoint(A, B, D), P[1], cible)
-          objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codageSegments('||', 'red', A, B, D, C), codageSegments('///', 'blue', A, D, B, C))
+          objetsEnonce.push(tracePoint(A, B, D), P[1])
+          objetsCorrection.push(p[0], p[1], traceCompas(D, C, 30), traceCompas(B, C, 30), codageSegments('||', 'red', A, B, D, C), codageSegments('///', 'blue', A, D, B, C))
+          if (this.sup3) {
+            texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible.<br>`
+            objetsEnonce.push(cible)
+            objetsCorrection.push(cible)
+          }
 
           break
         case 3: // deux sommets consécutifs plus le centre
@@ -173,12 +186,16 @@ export default class ConstructionsParallelogrammes extends Exercice {
             texteCorr += `Le point $${noms[3]}$ est le symétrique du point $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
             texteCorr += `Le point $${noms[2]}$ est le symétrique du point $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
           }
-          texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
-          texteCorr += `Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
           P = polygoneAvecNom(O, A, B)
           animIEP.parallelogramme2sommetsConsecutifsCentre(A, B, O)
-          objetsEnonce.push(tracePoint(A, B, O), P[1], cible, cible2)
-          objetsCorrection.push(p[0], p[1], labelPoint(O), cible, cible2, d1, d2, d3, d4, codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
+          objetsEnonce.push(tracePoint(A, B, O), P[1])
+          objetsCorrection.push(p[0], p[1], labelPoint(O), d1, d2, d3, d4, codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
+          if (this.sup3) {
+            texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
+            texteCorr += `Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
+            objetsEnonce.push(cible, cible2)
+            objetsCorrection.push(cible, cible2)
+          }
 
           break
         case 4: // Un angle formé par deux demi-droites et le centre
@@ -192,15 +209,19 @@ export default class ConstructionsParallelogrammes extends Exercice {
             texteCorr += `La symétrique de la droite $(${noms[0] + noms[1]})$ par rapport à $${noms[4]}$ est la droite passant par $${noms[2]}$ parallèle à $(${noms[0] + noms[1]})$.<br>`
             texteCorr += `La symétrique de la droite $(${noms[0] + noms[3]})$ par rapport à $${noms[4]}$ est la droite passant par $${noms[2]}$ parallèle à $(${noms[0] + noms[3]})$.<br>`
           }
-          texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
-          texteCorr += `Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
-          texteCorr += `Le point $${noms[1]}$ se trouve dans la case ${cellule3} de la cible 3.<br>`
+
           animIEP.regleZoom(200)
           animIEP.equerreZoom(200)
           animIEP.parallelogrammeAngleCentre(D, A, B, O)
-          objetsEnonce.push(dd1, dd2, tracePoint(O), labelPoint(O, A), texteParPoint('x', pointIntersectionCC(cercleCentrePoint(A, D), cercle(D, 0.5), '', 1) as Point), texteParPoint('y', similitude(B, A, 4, 1.3)), cible, cible2, cible3)
-          objetsCorrection.push(dd1, dd2, dd3, dd4, p[0], p[1], tracePoint(O), labelPoint(O), cible, cible2, cible3, d1, d3, codageSegments('||', 'red', A, O, O, C))
-
+          objetsEnonce.push(dd1, dd2, tracePoint(O), labelPoint(O, A), texteParPoint('x', pointIntersectionCC(cercleCentrePoint(A, D), cercle(D, 0.5), '', 1) as Point), texteParPoint('y', similitude(B, A, 4, 1.3)))
+          objetsCorrection.push(dd1, dd2, dd3, dd4, p[0], p[1], tracePoint(O), labelPoint(O), d1, d3, codageSegments('||', 'red', A, O, O, C))
+          if (this.sup3) {
+            texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
+            texteCorr += `Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
+            texteCorr += `Le point $${noms[1]}$ se trouve dans la case ${cellule3} de la cible 3.<br>`
+            objetsEnonce.push(cible, cible2, cible3)
+            objetsCorrection.push(cible, cible2, cible3)
+          }
           break
       }
       let texteAMC = texte + '<br><br>'
@@ -232,7 +253,6 @@ export default class ConstructionsParallelogrammes extends Exercice {
 
         this.autoCorrection[i] = {}
         this.autoCorrection[i].options = {
-          // @ts-expect-error
           ordered: true, barreseparation: true, multicolsAll: true
         }
         this.autoCorrection[i].enonce = ''// texte
@@ -240,7 +260,6 @@ export default class ConstructionsParallelogrammes extends Exercice {
          [
            {
              type: 'AMCOpen',
-             // @ts-expect-error
              propositions: [{
                texte: texteCorr,
                enonce: texteAMC + '<br>' + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce),
@@ -250,7 +269,6 @@ export default class ConstructionsParallelogrammes extends Exercice {
            },
            {
              type: 'qcmMono',
-             // @ts-expect-error
              propositions: propositionsQcm1,
              enonce: (listeTypeQuestions[i] > 2 ? numAlpha(0) + 'Pour la cible 1 : <br>' : '') + 'Lettre de la case du sommet construit, dans la cible' + (listeTypeQuestions[i] > 2 ? ' 1' : '')
            },
@@ -273,7 +291,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
           const propositionsQcm4 = []
           for (let ee = 0; ee < 5; ee++) {
             propositionsQcm4.push({
-              texte: ee + 1,
+              texte: (ee + 1).toString(),
               statut: cellule2[1] === reponseChiffres[ee]
             })
           }
@@ -281,7 +299,6 @@ export default class ConstructionsParallelogrammes extends Exercice {
           this.autoCorrection[i].propositions.push(
             {
               type: 'qcmMono',
-              // @ts-expect-error
               propositions: propositionsQcm3,
               enonce: '\\vspace{1cm}' + numAlpha(1) + 'Pour la cible 2 : <br>Lettre de la case du sommet construit, dans la cible 2'
             },
@@ -304,7 +321,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
           const propositionsQcm6 = []
           for (let ee = 0; ee < 5; ee++) {
             propositionsQcm6.push({
-              texte: ee + 1,
+              texte: (ee + 1).toString(),
               statut: cellule3[1] === reponseChiffres[ee]
             })
           }
@@ -312,7 +329,6 @@ export default class ConstructionsParallelogrammes extends Exercice {
           this.autoCorrection[i].propositions.push(
             {
               type: 'qcmMono',
-              // @ts-expect-error
               propositions: propositionsQcm5,
               enonce: '\\vspace{1cm}' + numAlpha(2) + 'Pour la cible 3 : <br>Lettre de la case du sommet construit, dans la cible 3'
             },

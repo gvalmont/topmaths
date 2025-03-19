@@ -33,7 +33,7 @@ export const refs = {
 export const dateDePublication = '01/01/2024'
 
 export default class CourseAuxNombresSpeciale2024 extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = [
       'Niveau attendu de la CAN',
@@ -44,7 +44,7 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
     this.nbQuestions = 30
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     let niveauAttendu = this.sup === 0 ? 0 : !this.sup ? 8 : parseInt(this.sup) // Ce parseInt est nécessaire car le formulaire est un texte
     if (isNaN(niveauAttendu) || (niveauAttendu > 7)) {
       niveauAttendu = choice(range(7)) // Niveau au Hasard
@@ -156,7 +156,8 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
 
     // Pour test, si on ne veut que les question 73, 72 et 43 soient les premières questions, les mettre dans le tableau ci-dessous.
     // const typeQuestionsDisponibles = [73,72,43] autrement rien []
-    const typeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93]
+    // const typeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93]
+    const typeQuestionsDisponibles = []
 
     /// ///// Cette partie ci-dessous est destinée à afficher le tableau de répartition des différents niveaux de difficulté
     /// ///// Cette partie sera à commenter lors de la mise en production
@@ -1241,12 +1242,12 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
           const c = choice([13, 17, 19, 31])
           if (choice([true, false])) {
             reponse = 0
-            texte = `Utiliser l'égalité $ ${texNombre(2024)} = ${b} \\times  ${texNombre(2024 / b - 1, 0)} + ${b} $ pour donner le reste de la division euclidienne de $ ${texNombre(2024)} $ par $ ${b}$`
+            texte = `Utiliser l'égalité $ ${texNombre(2024)} = ${b} \\times  ${texNombre(2024 / b - 1, 0)} + ${b} $ pour donner le reste de la division euclidienne de $ ${texNombre(2024)} $ par $ ${b}$.`
             texteCorr = ` Comme $${b}$ n'est pas inférieur à $${b}$, l'égalité 
               $ ${texNombre(2024)} = ${b} \\times  ${texNombre(2024 / b - 1, 0)} + ${b} $ ne traduit pas directement la division euclidienne de $ ${texNombre(2024)} $ par ${b}. <br>
               Transformons cette égalité en :  $${texNombre(2024)}= ${texNombre(2024)} = ${b} \\times  ${texNombre(2024 / b - 1, 0)} + 1\\times ${b}=${b} \\times  ${texNombre(2024 / b, 0)} $  qui montre que le reste  de la division euclidienne de $ ${texNombre(2024)} $ par $ ${b} $ est $${miseEnEvidence(0)}$.`
           } else {
-            texte = `Utiliser l'égalité $ ${texNombre(2024)} = ${c} \\times ${Math.floor(2024 / c) - 1} + ${2024 - c * Math.floor(2024 / c) + c} $ pour donner le reste de la division euclidienne de $ ${texNombre(2024)} $ par $ ${c}$`
+            texte = `Utiliser l'égalité $ ${texNombre(2024)} = ${c} \\times ${Math.floor(2024 / c) - 1} + ${2024 - c * Math.floor(2024 / c) + c} $ pour donner le reste de la division euclidienne de $ ${texNombre(2024)} $ par $ ${c}$.`
             texteCorr = ` Comme $${2024 - c * Math.floor(2024 / c) + c}$ n'est pas inférieur à $${c}$, l'égalité 
               $ ${texNombre(2024)} = ${c} \\times ${Math.floor(2024 / c) - 1} + ${2024 - c * Math.floor(2024 / c) + c} $ ne traduit pas directement l'expression de la division euclidienne de $ ${texNombre(2024)} $ par ${c}. <br>
               Transformons cette égalité en :

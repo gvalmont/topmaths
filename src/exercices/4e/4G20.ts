@@ -61,9 +61,9 @@ export function pythagoreCompare (input: string, goodAnswer: string) {
         }
 
         // c'est la même longueur pour l'hypoténuse ?
-        if (ordreAlphabetique(inputHypo.ops![0].toString()) !== ordreAlphabetique(answerHypo.ops![0].toString())) return { isOk: false, feedback: 'Tu as mal identifié l\'hypoténuse.' }
+        if (ordreAlphabetique(inputHypo.ops![0].toString()) !== ordreAlphabetique(answerHypo.ops![0].toString())) return { isOk: false, feedback: 'L\'hypoténuse est mal identifiée.' }
         // l'élève a-t-il bien mis l'hypoténuse au carré ?
-        if (inputHypo.ops![1].toString() !== '2') return { isOk: false, feedback: 'Tu as oublié de mettre l\'hypoténuse au carré.' }
+        if (inputHypo.ops![1].toString() !== '2') return { isOk: false, feedback: 'L\'hypoténuse doit être mise au carré.' }
         if (inputSum.operator !== 'Add') return { isOk: false, feedback: 'Le carré de l\'hypoténuse est égal à la $somme$ des carrés des deux autres côtés.' }
         // le premier terme de la saisie est-il un carré ?
         if (!['Square', 'Power'].includes(inputT1.operator)) return { isOk: false, feedback: 'Il manque au moins un carré.' }

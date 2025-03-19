@@ -32,9 +32,10 @@ export default class EncadrerAvecFctRef extends Exercice {
       'Choix des questions ',
       'Nombres séparés par des tirets\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange'
     ]
+    this.besoinFormulaire2CaseACocher = ['Pas d\'inégalités doubles']
     this.nbQuestions = 3
-
     this.sup = 5
+    this.sup2 = false
     context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
     context.isHtml ? (this.spacingCorr = 2.2) : (this.spacingCorr = 1)
   }
@@ -71,7 +72,8 @@ export default class EncadrerAvecFctRef extends Exercice {
       ) {
         case 'carré':
           {
-            const N = choice([1, 2, 3, 4, 5])
+            let N = choice([1, 2, 3, 4, 5])
+            if (this.sup2) N = choice([1, 2])
             fonction = (x: number) => x ** 2
             derivee = (x: number) => 2 * x
             tolerance = 0.005
@@ -184,7 +186,8 @@ export default class EncadrerAvecFctRef extends Exercice {
           }
           break
         case 'inverse': {
-          const N = choice([1, 2, 3])
+          let N = choice([1, 2, 3])
+          if (this.sup2) N = 3
           fonction = (x: number) => 1 / x
           derivee = (x: number) => -1 / x / x
           tolerance = 0.000001
@@ -309,7 +312,8 @@ export default class EncadrerAvecFctRef extends Exercice {
         }
         case 'racine carrée': {
           const estParfait = (a: number) => Number.isInteger(Math.sqrt(a))
-          const N = choice([1, 2, 3])
+          let N = choice([1, 2, 3])
+          if (this.sup2) N = choice([1, 2])
           fonction = (x: number) => Math.sqrt(x)
           derivee = (x: number) => 1 / 2 / Math.sqrt(x)
           tolerance = 0.005
@@ -424,7 +428,8 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
         }
         case 'cube':
         default: {
-          const N = choice([1, 2])
+          let N = choice([1, 2])
+          if (this.sup2) N = 1
           fonction = (x: number) => x ** 3
           derivee = (x: number) => 3 * x ** 2
           tolerance = 0.005

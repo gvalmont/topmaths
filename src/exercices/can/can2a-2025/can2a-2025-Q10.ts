@@ -27,14 +27,15 @@ export default class SommeEntierFraction extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.optionsDeComparaison = { fractionEgale: true }
+    this.optionsDeComparaison = { fractionEgale: true, nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(2, 5).texFraction
       this.question = '$1-\\dfrac{3}{5}$ '
-      this.correction = `$\\begin{aligned}
+      this.correction = `On a : <br>
+      $\\begin{aligned}
       1-\\dfrac{3}{5} &= \\dfrac{5}{5} - \\dfrac{3}{5}\\\\
       &  =${miseEnEvidence('\\dfrac{2}{5}')}
       \\end{aligned}$`
@@ -49,7 +50,7 @@ export default class SommeEntierFraction extends Exercice {
       const d = new FractionEtendue(a * c - b, c).texFraction
       this.reponse = d
       this.question = `$${a}-${bSurC.texFraction}$ `
-      this.correction = `$\\begin{aligned}
+      this.correction = `On a : <br>$\\begin{aligned}
       ${a}+${bSurC.texFraction} &= \\dfrac{${a} \\times ${c}}{${c}} - ${bSurC.texFraction} \\\\
       &= \\dfrac{${a * c}}{${c}} - ${bSurC.texFraction}\\\\
       &  =${miseEnEvidence(d)}

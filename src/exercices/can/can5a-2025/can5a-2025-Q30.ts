@@ -49,7 +49,6 @@ export default class Can2025N5Q30 extends ExerciceCan {
     this.correction = `On a : $${a}\\times ${b}~\\times~?=${v}$,<br>
     soit $${a * b} ~\\times ? = ${v}$,<br>
     donc $?=${v}\\div${a * b}=${miseEnEvidence(c)}\\text{ m}$.`
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.canEnonce = this.question
     this.canReponseACompleter = '$?=\\ldots\\text{ m}$'
     this.compare = fonctionComparaison

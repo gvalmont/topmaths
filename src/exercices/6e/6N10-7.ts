@@ -187,7 +187,7 @@ export default class RecomposerEntierC3 extends Exercice {
         const nameProperty = `champ${k + 1}`
         listeReponses.push([
           nameProperty,
-          { value: morceaux[i][k], , options: { nombreDecimalSeulement: true } }
+          { value: morceaux[i][k],  }
         ])
       } */
       const trouveLeNombre = (nombre: Decimal, nombreDeChiffresDec: number) => {

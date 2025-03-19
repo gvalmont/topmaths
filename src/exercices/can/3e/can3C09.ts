@@ -1,6 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer avec une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,9 +21,10 @@ export const refs = {
 export default class CalculAvecRacineCarree1 extends Exercice {
   constructor () {
     super()
-
+    this.optionsChampTexte = { texteAvant: '<br>' }
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.optionsDeComparaison = { texteSansCasse: true }
   }
 
   nouvelleVersion () {
@@ -34,14 +36,14 @@ export default class CalculAvecRacineCarree1 extends Exercice {
     while (c === d) { d = randint(1, 10) }
     if (choice([true, false])) {
       this.question = `Calculer $${a}\\sqrt{${c ** 2}}+${b}\\sqrt{${d ** 2}}$.`
-      this.correction = `$\\sqrt{${c ** 2}}=${c}$ et $\\sqrt{${d ** 2}}=${d}$, ainsi:<br>
-       $${a}\\sqrt{${c ** 2}}+${b}\\sqrt{${d ** 2}}=${a}\\times ${c}+${b}\\times ${d}=${a * c + b * d}$`
-      this.reponse = a * c + b * d
+      this.correction = `$\\sqrt{${c ** 2}}=${c}$ et $\\sqrt{${d ** 2}}=${d}$<br>
+      Donc $${a}\\sqrt{${c ** 2}}+${b}\\sqrt{${d ** 2}}=${a}\\times ${c}+${b}\\times ${d}=${miseEnEvidence(a * c + b * d)}$.`
+      this.reponse = `${a * c + b * d}`
     } else {
       this.question = `Calculer $${a}\\sqrt{${c ** 2}}-${b}\\sqrt{${d ** 2}}$.`
-      this.correction = `$\\sqrt{${c ** 2}}=${c}$ et $\\sqrt{${d ** 2}}=${d}$, ainsi:<br>
-       $${a}\\sqrt{${c ** 2}}-${b}\\sqrt{${d ** 2}}=${a}\\times ${c}-${b}\\times ${d}=${a * c - b * d}$`
-      this.reponse = a * c - b * d
+      this.correction = `$\\sqrt{${c ** 2}}=${c}$ et $\\sqrt{${d ** 2}}=${d}$<br>
+     Donc  $${a}\\sqrt{${c ** 2}}-${b}\\sqrt{${d ** 2}}=${a}\\times ${c}-${b}\\times ${d}=${miseEnEvidence(a * c - b * d)}$.`
+      this.reponse = `${a * c - b * d}`
     }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

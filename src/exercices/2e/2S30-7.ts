@@ -94,12 +94,12 @@ export default class ProbaConcret extends Exercice {
         ['\\text{Cadres}', '\\text{Employés}', '\\text{Total}'],
         [`${nbFemmesEtCadres}`, `${nbHommesEtCadres}`, `${nbCadres}`, `${nbFemmesEtEmployees}`, `${nbHommesEtEmployes}`, `${nbEmployes}`, `${nbFemmes}`, `${nbHommes}`, `${total}`])
 
-      texte = `Le personnel d’une entreprise est constitué de $${total}$ personnes qui se répartissent de
+      texte = `Le personnel d'une entreprise est constitué de $${total}$ personnes qui se répartissent de
           la manière suivante :  <br>
             ${tableau}
                `
 
-      texte += `Au cours de la fête de fin d’année, le comité d’entreprise offre un séjour à la
+      texte += `Au cours de la fête de fin d'année, le comité d'entreprise offre un séjour à la
                montagne à une personne choisie au hasard parmi les $${total}$ personnes de cette
                entreprise.<br>
                On définit les évènements suivants : <br>

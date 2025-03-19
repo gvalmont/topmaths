@@ -29,7 +29,7 @@ export default class ResteDivisioEuclidienne extends Exercice {
 
   nouvelleVersion () {
     const a = this.canOfficielle ? 11 : choice([9, 12, 13])
-    const b = this.canOfficielle ? 6 : randint(5, a - 1)
+    const b = this.canOfficielle ? 4 : randint(5, a - 1)
     const c = this.canOfficielle ? 6 : randint(3, 6)
     const d = c * a + b
     this.question = `Le reste de la division euclidienne de $${d}$ par $${a}$`

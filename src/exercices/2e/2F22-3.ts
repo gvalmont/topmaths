@@ -189,9 +189,9 @@ export default class BetaModeleSpline extends Exercice {
 
       if (this.interactif) {
         if (choixInteractif === 0) {
-          texteCorrection += `<br>Le tableau de signe correspond, il fallait donc répondre ${texteEnCouleurEtGras('Oui')}.`
+          texteCorrection += `<br>Le tableau de signes correspond, il fallait donc répondre ${texteEnCouleurEtGras('Oui')}.`
         } else {
-          texteCorrection += `<br>Le tableau de signe ne correspond pas, il fallait donc répondre ${texteEnCouleurEtGras('Non')}.`
+          texteCorrection += `<br>Le tableau de signes ne correspond pas, il fallait donc répondre ${texteEnCouleurEtGras('Non')}.`
         }
       }
 

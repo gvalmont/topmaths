@@ -47,15 +47,14 @@ export default class Can2025N4Q28 extends ExerciceCan {
     }
     this.reponse = { bareme: toutPourUnPoint, callback }
     this.consigne = `Dans un club sportif de $${c}$ membres, il y a $${partA}$ minimes et $${partB}$ cadets.<br>
-    Quel est le ratio entre le nombre de minimes et de cadets ?`
+    Quel est le ratio entre le nombre de minimes et le nombre de cadets ?`
     if (this.interactif) {
       this.question = '%{champ1}:%{champ2}'
     }
-    this.correction = `Le ratio entre le nombre de minimes et de cadets est de $${miseEnEvidence(`${partA}`)}:${miseEnEvidence(`${partB}`)}$ ou $${miseEnEvidence(`${a}`)}:${miseEnEvidence(`${b}`)}$.`
+    this.correction = `Le ratio entre le nombre de minimes et le nombre de cadets est de $${miseEnEvidence(`${partA}`)}:${miseEnEvidence(`${partB}`)}$ ou $${miseEnEvidence(`${a}`)}:${miseEnEvidence(`${b}`)}$.`
     this.canEnonce = `Dans un club sportif de $${c}$ membres, il y a $${partA}$ minimes et $${partB}$ cadets.<br>
-    Quel est le ratio entre le nombre de minimes et de cadets ?`
-    this.canReponseACompleter = '$\\ldots:\\ldots$'
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    Quel est le ratio entre le nombre de minimes et le nombre de cadets ?`
+    this.canReponseACompleter = ''
   }
 
   nouvelleVersion () {

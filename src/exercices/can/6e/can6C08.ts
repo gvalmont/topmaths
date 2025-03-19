@@ -27,7 +27,6 @@ export default class QuartOuTiers extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 

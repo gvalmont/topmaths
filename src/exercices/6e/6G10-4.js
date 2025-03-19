@@ -98,7 +98,7 @@ export default class VocabulaireDuCercle extends Exercice {
 
   nouvelleVersion () {
     // typesDeQuestions nécessite d'avoir au moins deux valeurs
-    const typesDeQuestions = this.sup3.match(/[1-6]/g).length > 1 ? this.sup3 : this.besoinFormulaire3Texte[1]
+    const typesDeQuestions = String(this.sup3).match(/[1-6]/g).length > 1 ? this.sup3 : this.besoinFormulaire3Texte[1]
     this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
     if (context.isHtml) this.consigne += '<br>'
 

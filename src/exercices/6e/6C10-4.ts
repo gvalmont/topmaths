@@ -61,7 +61,7 @@ export default class ExerciceTablesAdditions extends Exercice {
         : `$ ${texNombre(a, 0)} + ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a + b, 0))} $`
 
       if (this.interactif) {
-        handleAnswers(this, i, { champ1: { value: String(listeTypeDeQuestions[i] === 'somme' ? a + b : b), options: { nombreDecimalSeulement: true } } })
+        handleAnswers(this, i, { champ1: { value: String(listeTypeDeQuestions[i] === 'somme' ? a + b : b) } })
       }
 
       if (context.isAmc) {

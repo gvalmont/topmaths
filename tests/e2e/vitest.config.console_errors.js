@@ -13,7 +13,7 @@ export default mergeConfig(viteConfig, defineConfig({
     }
   },
   test: {
-    include: ['./tests/console_errors/*oom.test.{js,ts}'],
+    include: ['./tests/console_errors/*.test.{js,ts}'],
     exclude: ['./tests/pdfexports/pdfexport.moule.test.ts'],
     // on veut laisser le navigateur ouvert sur un plantage (3min)
     hookTimeout: 120_000,

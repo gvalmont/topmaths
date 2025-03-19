@@ -1,6 +1,7 @@
 import EqCartDroite from '../1e/1G13'
 export const titre = 'Déterminer une équation cartésienne de droite à partir d\'un point et d\'un vecteur directeur'
-export const dateDeModifImportante = '07/07/2024'
+
+export const dateDeModifImportante = '03/03/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

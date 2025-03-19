@@ -20,12 +20,10 @@ const allStaticReferentiels: JSONReferentielObject = {
 }
 
 // on supprime les entrées par thème qui entraîne des doublons
-delete allStaticReferentiels['Brevet des collèges par thème - APMEP']
-delete allStaticReferentiels['BAC par thème - APMEP']
-delete allStaticReferentiels['CRPE (2015-2019) par thème - COPIRELEM']
-delete allStaticReferentiels['CRPE (2022-2023) par thème']
-delete allStaticReferentiels['E3C par thème - APMEP']
-delete allStaticReferentiels['EVACOM par thème']
+delete allStaticReferentiels['BrevetTags']
+delete allStaticReferentiels['EVACOMTags']
+delete allStaticReferentiels['E3CTags']
+delete allStaticReferentiels['crpeTags']
 
 /**
  * Construit la liste des exercices basée sur le contenu du store exercicesParams
@@ -147,7 +145,7 @@ export const splitExercisesIntoQuestions = (
       exercice.listeCorrections = []
     }
     for (let i = 0; i < exercice.listeQuestions.length; i++) {
-      consignes.push(exercice?.consigne + exercice?.introduction)
+      consignes.push(`${exercice?.consigne} ${exercice?.consigne && exercice?.introduction ? '<br>\n' : ''} ${exercice?.introduction}`)
       indiceExercice.push(k)
       indiceQuestionInExercice.push(i)
       if (exercice.consigneCorrection !== undefined) {

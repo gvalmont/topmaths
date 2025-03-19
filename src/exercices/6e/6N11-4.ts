@@ -121,12 +121,12 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
       texteCorr = `Les nombres rangés dans l'ordre ${texteEnCouleurEtGras(ordre)} :<br>$${nombresRanges.map((nb) => texNombre(nb, this.sup2 ? 8 : 0)).join(symboleCorr)}$`
       handleAnswers(this, i,
         {
-          champ1: { value: nombresRanges[0], options: { nombreDecimalSeulement: true } },
-          champ2: { value: nombresRanges[1], options: { nombreDecimalSeulement: true } },
-          champ3: { value: nombresRanges[2], options: { nombreDecimalSeulement: true } },
-          champ4: { value: nombresRanges[3], options: { nombreDecimalSeulement: true } },
-          champ5: { value: nombresRanges[4], options: { nombreDecimalSeulement: true } },
-          champ6: { value: nombresRanges[5], options: { nombreDecimalSeulement: true } }
+          champ1: { value: nombresRanges[0] },
+          champ2: { value: nombresRanges[1] },
+          champ3: { value: nombresRanges[2] },
+          champ4: { value: nombresRanges[3] },
+          champ5: { value: nombresRanges[4] },
+          champ6: { value: nombresRanges[5] }
         }
       )
 

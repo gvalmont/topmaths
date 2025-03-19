@@ -11,13 +11,13 @@ import { fraction } from '../../modules/fractions'
 
 export const dateDePublication = '28/01/2023'
 export const dateDeModifImportante = '08/06/2024'
-export const titre = 'Placer des points d’abscisses fractionnaires (niv 2)'
+export const titre = 'Placer des points d\'abscisses fractionnaires (niv 2)'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
-/** Placer des points d’abscisses fractionnaires avec des subdivisions
+/** Placer des points d'abscisses fractionnaires avec des subdivisions
  * @author Eric Elter // (sur la base de 6N21)
  */
 export const uuid = '778c0'
@@ -203,7 +203,6 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           propositions: [
             {
-              // @ts-expect-error typage de AMC
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [
                 {
@@ -237,6 +236,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
     if (this == null) return ['KO']
     if (this.figures == null) return ['KO']
     if (this.figures[i] == null) return ['KO']
+    if (!(this.figures[i] instanceof Figure)) return ['KO']
     this.answers[this.figures[i].id] = this.figures[i].json
     const result: ('OK' | 'KO')[] = []
     const figure = this.figures[i]

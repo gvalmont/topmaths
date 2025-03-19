@@ -22,19 +22,19 @@ export default class Can2025CM2Q28 extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsChampTexte = { texteAvant: '$=$' }
+    this.optionsChampTexte = { texteApres: 'unités' }
   }
 
   nouvelleVersion () {
     const a = this.canOfficielle ? 3 : randint(3, 9)
     const b = this.canOfficielle ? 8 : randint(6, 9)
     this.reponse = texNombre(a * b / 10, 1)
-    this.question = `$${a}\\times ${b}$  dixièmes `
-
+    this.question = `$${a}\\times ${b}$  dixièmes $=$`
+    if (!this.interactif) { this.question += '$\\ldots$ unités' }
     this.correction = `$${b}$  dixièmes $= ${texNombre(b / 10, 1)}$<br>
      $${a}\\times ${b}$  dixièmes $=${a}\\times ${texNombre(b / 10, 1)}=${miseEnEvidence(texNombre(a * b / 10, 1))}$`
 
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canEnonce = `$${a}\\times ${b}$  dixièmes $=$`
+    this.canReponseACompleter = '$\\ldots$ unités'
   }
 }

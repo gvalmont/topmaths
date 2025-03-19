@@ -9,7 +9,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embell
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
@@ -716,7 +716,7 @@ export default class SujetCAN20215ieme extends Exercice {
           texte = `Une montre affiche  $${a}$ h $${b}$ min.<br>
           Quelle heure affichera-t-elle $1$ h $${c}$ plus tard ?`
 
-          texteCorr = ` $${a}$ h $${b}$ min + $1$ h $${c}$ min est égal à $${miseEnEvidence(a + 2)}$ h $${miseEnEvidence(b + c - 60)}$ min.`
+          texteCorr = ` $${a}$ h $${b}$ min + $1$ h $${c}$ min est égal à $${miseEnEvidence(a + 2)}$ h $${miseEnEvidence(formatMinute(b + c - 60))}$ min.`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
@@ -731,14 +731,14 @@ export default class SujetCAN20215ieme extends Exercice {
             b = randint(2, 6)
             truc = randint(2, 5)
             c = a + b + truc
-            texte = `VRAI/FAUX<br>
+            texte = `Vrai/Faux<br>
           L' égalité $${a}x+${b}=${c}$ est vérifiée pour $x=${truc}$.<br>`
             texteCorr = `Pour $x=${truc}$, $${a}x+${b}=${a}\\times ${truc}+${b}=${a * truc + b}$.<br>
           Donc l'égalité n'est pas vérifiée (${texteEnCouleurEtGras('F')}).`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
 
             if (this.interactif) {
-              texte += 'Pour VRAI, écrire V et pour FAUX : F'
+              texte += 'Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, ' ')
             }
           } else {
@@ -746,13 +746,13 @@ export default class SujetCAN20215ieme extends Exercice {
             b = randint(2, 6)
             truc = randint(2, 5)
             c = b + a * truc
-            texte = `VRAI/FAUX<br>
+            texte = `Vrai/Faux<br>
           L' égalité $${a}x+${b}=${c}$ est vérifiée pour $x=${truc}$.<br>`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             texteCorr = `Pour $x=${truc}$, $${a}x+${b}=${a}\\times ${truc}+${b}=${a * truc + b}$.<br>
           Donc l'égalité est vérifiée (${texteEnCouleurEtGras('V')}).`
             if (this.interactif) {
-              texte += 'Pour VRAI, écrire V et pour FAUX : F'
+              texte += 'Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, ' ')
             }
           }

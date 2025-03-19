@@ -121,7 +121,7 @@ export default class DiffentesEcrituresProportions extends Exercice {
             }
           }
           texteCorr = `$${texNombre(dec, 4)}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}=${miseEnEvidence(texNombre(pourc, 3))} \\,\\%$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4), options: { nombreDecimalSeulement: true } }, champ2: { value: String(100), options: { nombreDecimalSeulement: true } }, champ3: { value: pourc.toFixed(4), options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4) }, champ2: { value: String(100) }, champ3: { value: pourc.toFixed(4) } })
           break
 
         case 'Pourcentage':
@@ -142,7 +142,7 @@ export default class DiffentesEcrituresProportions extends Exercice {
             }
           }
           texteCorr = `$${texNombre(pourc, 3)}\\,\\%=${miseEnEvidence(texNombre(dec, 4))}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], champ1: { value: dec.toFixed(4), options: { nombreDecimalSeulement: true } }, champ2: { value: pourc.toFixed(4), options: { nombreDecimalSeulement: true } }, champ3: { value: String(100), options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], champ1: { value: dec.toFixed(4) }, champ2: { value: pourc.toFixed(4) }, champ3: { value: String(100) } })
 
           break
         case 'Fraction':
@@ -164,7 +164,7 @@ export default class DiffentesEcrituresProportions extends Exercice {
           }
 
           texteCorr = `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${miseEnEvidence(texNombre(f, 4))}=${miseEnEvidence(texNombre(f * 100, 4))}\\,\\%$`
-          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], champ1: { value: f.toFixed(4), options: { nombreDecimalSeulement: true } }, champ2: { value: (f * 100).toFixed(4), options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], champ1: { value: f.toFixed(4) }, champ2: { value: (f * 100).toFixed(4) } })
           break
       }
 

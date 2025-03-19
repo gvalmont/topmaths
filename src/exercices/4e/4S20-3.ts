@@ -23,7 +23,7 @@ export const refs = {
 export default class ExerciceProba extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.'
+    this.consigne = 'Classer les événéments selon qu\'ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     this.nbQuestions = 5
 
     this.besoinFormulaireNumerique = ['Notions testées', 2, '1 : Contraires-Non contraires\n2 : Compatibles-Incompatibles-Contraires']
@@ -37,7 +37,7 @@ export default class ExerciceProba extends Exercice {
   }
 
   nouvelleVersion () {
-    this.consigne = this.sup === 1 ? 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.' : 'Classer les événéments selon qu’ils sont compatibles, incompatibles, ou contraires.<br>On tire une carte dans un jeu de 32 cartes.'
+    this.consigne = this.sup === 1 ? 'Classer les événéments selon qu\'ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.' : 'Classer les événéments selon qu\'ils sont compatibles, incompatibles, ou contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     if (context.isHtml && this.sup2) {
       const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
       this.consigne += imageCartes

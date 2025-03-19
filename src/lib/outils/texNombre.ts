@@ -476,3 +476,15 @@ export function decimalToScientifique (nbDecimal: number) {
     return [mantisseNb.toNumber(), -1 * exposant]
   } else return [nbDecimal, 0]
 }
+
+/**
+ * Fonction qui renvoie une chaine avec un O pour chiffre des dizaines si celui-ci n'en contient pas.
+ * @param nbDecimal
+ *
+ * @example
+
+ * @author Rémi Angot
+ */
+export function formatMinute (minute: number): string {
+  return minute < 10 ? `0${minute}` : minute.toString()
+}

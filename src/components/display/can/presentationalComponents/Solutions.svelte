@@ -38,19 +38,42 @@
       const content = answersContents[i] as HTMLDivElement
       mathaleaRenderDiv(content)
     }
+    const exercicesAffiches = new window.Event('exercicesAffiches', {
+      bubbles: true
+    })
+    document.dispatchEvent(exercicesAffiches)
   })
 
   function removeMF (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
     if (text.includes('placeholder')) return cleanFillInTheBlanks(text, removeDollar)
+    if (text.includes('interactive-clock')) return removeInteractiveClock(text)
+    if (text.includes('<select')) return cleanSelect(text)
     const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
     return text.replace(regex, ' ... ')
+  }
+
+  function cleanSelect(text: string) {
+    const regex = /<select[^>]*>[^]*?<\/select>/g
+    return text.replace(regex, '')
   }
 
   function cleanFillInTheBlanks (text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
     if (removeDollar) text = text.replace(/\$/g, '')
-    return text.replace(/\\placeholder(\[[^\]]*\])+/g, '')
+    return text.replace(/\\placeholder(\[[^\]]*\])+/g, '...')
+  }
+  
+  function cleanFillInTheBlanksForAnswers (text: string, removeDollar: boolean = true) {
+    if (typeof text !== 'string') return ''
+    if (removeDollar) text = text.replace(/\$/g, '')
+    return text.replace(/\\placeholder(\[[^\]]*\])+/g, '').replace(/\{\}/g, '{...}')
+  }
+
+  function removeInteractiveClock (text: string) {
+    if (typeof text !== 'string') return ''
+    const regex = /<interactive-clock[^>]*\/>/g
+    return text.replace(regex, '')
   }
 </script>
 
@@ -120,7 +143,7 @@
       {#if $canOptions.isInteractive}
         <div
           id="score"
-          class="text-normal text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light"
+          class="text-normal text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light"
         >
           Score : <span
             class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
@@ -130,27 +153,29 @@
       {/if}
       <div
         id="score"
-        class="text-normal text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light"
+        class="text-normal text-center text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light"
       >
         Temps : <span
           class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
           >{time}</span
         >
       </div>
-      <ButtonToggle
-        bind:value={displayCorrection}
-        titles={[
-          'Correction uniquement des mauvaises réponses',
-          'Correction de toutes les questions'
-        ]}
-      />
+      <div class="flex justify-center text-center">
+        <ButtonToggle
+          bind:value={displayCorrection}
+          titles={[
+            'Correction uniquement des mauvaises réponses',
+            'Correction de toutes les questions'
+          ]}
+        />
+      </div>
     </div>
     <ol
-      class="w-full list-none list-inside text-base columns-1 md:columns-3 p-4 md:p-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      class="w-full list-none list-inside text-base flex flex-row flex-wrap p-4 md:p-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       id="can-solutions"
     >
       {#each [...Array(numberOfQuestions).keys()] as i}
-        <li class="break-inside-avoid-column">
+        <li class="break-inside-avoid-column mx-2 min-w-[32%]">
           <div class="flex flex-row items-center justify-start">
             <div
               class="text-lg text-coopmaths-struct dark:text-coopmathsdark-struct font-bold"
@@ -204,7 +229,7 @@
                 id="answer-{i}"
                 class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
               >
-                {answers[i] === undefined ? 'aucune' : '$' + cleanFillInTheBlanks(answers[i]) + '$'}
+                {answers[i] === undefined ? 'aucune' : '$' + cleanFillInTheBlanksForAnswers(answers[i]) + '$'}
               </span>
             </div>
           </div>

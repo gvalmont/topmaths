@@ -253,25 +253,25 @@ export function propositionsQcm (exercice: Exercice, i: number, options: { style
   }
   if (context.isHtml) {
     const formateQ = (format: string, rep:number) => {
-      if (format == null || format === 'case') return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">`
+      if (format == null || format === 'case') return `<input type="checkbox" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}">`
       if (format === 'lettre') {
         return `<label ${classCss} >${texteGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
-      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}"><label ${classCss} >${lettreDepuisChiffre(rep + 1)}.</label>`
+      return `<input type="checkbox" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" id="checkEx${exercice.numeroExercice}Q${i}R${rep}"><label ${classCss} >${lettreDepuisChiffre(rep + 1)}.</label>`
     }
     const formateRV = (format: string, rep:number) => {
       if (format == null || format === 'case') return '<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked>'
       if (format === 'lettre') {
         return `<label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
       }
-      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked><label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
+      return `<input type="checkbox" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default" checked><label ${classCss} >${texteEnCouleurEtGras(lettreDepuisChiffre(rep + 1))}.</label>`
     }
     const formateRF = (format: string, rep:number) => {
       if (format == null || format === 'case') return '<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default">'
       if (format === 'lettre') {
         return `<label ${classCss} >${texteGras(`${barreTexte(lettreDepuisChiffre(rep + 1))}`)}.</label>`
       }
-      return `<input type="checkbox" tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default"><label ${classCss} >$${miseEnEvidence(`\\cancel{${lettreDepuisChiffre(rep + 1)}}`, 'black')}$.</label>`
+      return `<input type="checkbox" ${exercice.interactif ? '' : 'disabled'} tabindex="0" style="height: 1rem; width: 1rem;" class="disabled:cursor-default"><label ${classCss} >$${miseEnEvidence(`\\cancel{${lettreDepuisChiffre(rep + 1)}}`, 'black')}$.</label>`
     }
 
     texte = '<div class="my-3">'
@@ -296,6 +296,10 @@ export function propositionsQcm (exercice: Exercice, i: number, options: { style
     }
     texte += `</div><div class="m-2" id="resultatCheckEx${exercice.numeroExercice}Q${i}"></div>`
     texteCorr += '</div><div class="m-2"></div>'
+  }
+  if (!context.isHtml) {
+    texte = '\\\\' + texte
+    texteCorr = '\\\\' + texteCorr
   }
   return { texte, texteCorr, indexes }
 }

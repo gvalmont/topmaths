@@ -1,0 +1,170 @@
+import { type Browser, chromium, expect, type Page } from '@playwright/test'
+import { afterAll, beforeAll, describe, test, afterEach } from 'vitest'
+import prefs from '../../helpers/prefs.js'
+
+describe('playwright meets vitest', () => {
+  let page: Page
+  let browser: Browser
+
+  if (process.env.CI) {
+    // utiliser pour les tests d'intégration
+    prefs.headless = true
+  } else {
+    prefs.headless = false
+    prefs.slowMo = 0
+  }
+
+  beforeAll(async () => {
+    browser = await chromium.launch({ headless: prefs.headless, slowMo: prefs.slowMo })
+    const context = await browser.newContext()
+    page = await context.newPage()
+  })
+
+  afterAll(async () => {
+    await browser.close()
+  })
+
+  afterEach(async () => {
+    // await page.pause()
+  })
+
+  test('Test CAN QCM - CLOCK - APIGEOM - cliquefigure - DRAGANDDROP - MATHFIED - LISTEDEROULANTE', async () => {
+    // Mock the api call before navigating
+    await page.route(`http://localhost:${process.env.CI ? '80' : '5173'}/parent`, async route => {
+      await route.fulfill({
+        contentType: 'text/html',
+        body: `<html>
+        <body>
+        bonjour
+        <div style='height: 90%;'>
+        <iframe id='iframe' width="100%" height="100%" allowfullscreen="" src='http://localhost:${process.env.CI ? '80' : '5173'}/alea/?recorder=capytale'></iframe>
+        </div>
+        <script src='modulemock.js' type='module'></script>
+        </body></html>`
+      })
+    })
+    await page.route(`http://localhost:${process.env.CI ? '80' : '5173'}/modulemock.js`, async route => {
+      await route.fulfill({
+        contentType: 'text/javascript',
+        path: require('path').resolve(__dirname, '../../mock/mock.capytale.save.can.module.js')
+      })
+    })
+
+    // Go to the page
+    const hostname = `http://localhost:${process.env.CI ? '80' : '5173'}/parent`
+
+    await page.goto(hostname)
+
+    await expect(page.getByText('bonjour')).toBeVisible()
+
+    await page.locator('#iframe').contentFrame().getByRole('button', { name: ' Démarrer' }).click()
+    await page.locator('#iframe').contentFrame().locator('#time-display-1').waitFor({ state: 'visible' })
+    // question 1
+    const box = await page.locator('#iframe').contentFrame().locator('.minute-hand').boundingBox()
+    const box2 = await page.locator('#iframe').contentFrame().locator('#clockEx0Q0 > div > div > svg > text:nth-child(5)').boundingBox()
+    if (box !== null && box2 !== null) {
+      await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2)
+      await page.mouse.down()
+      await page.mouse.move(box2.x + box2.width / 2, box2.y + box2.height / 2)
+      await page.mouse.up()
+    } else {
+      console.log('Box/Box2 is null')
+    }
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 2
+    await page.locator('#iframe').contentFrame().getByRole('checkbox').first().check()
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 3
+    await page.locator('#iframe').contentFrame().getByRole('button', { name: '6' }).click()
+    await page.locator('#iframe').contentFrame().getByRole('button', { name: '0' }).click()
+    await page.locator('#iframe').contentFrame().getByRole('button', { name: '0' }).click()
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 4
+    await page.locator('#iframe').contentFrame().getByRole('img', { name: 'Disque centre-rayon' }).click()
+    await page.locator('#iframe').contentFrame().locator('#divFigure line').nth(1).click()
+    await page.locator('#iframe').contentFrame().getByRole('textbox').fill('5')
+    await page.locator('#iframe').contentFrame().getByRole('button', { name: 'Valider' }).click()
+    await page.locator('#iframe').contentFrame().getByRole('img', { name: 'Déplacer les points' }).click()
+    const box3 = await page.locator('#iframe').contentFrame().locator('#divFigure line').nth(1).boundingBox()
+    if (box3 !== null) {
+      await page.mouse.click(box3.x + box3.width / 2, box3.y + box3.height / 2)
+    } else {
+      console.log('Box3 is null')
+    }
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 5
+    await page.locator('#iframe').contentFrame().getByText('Q R').nth(2).click()
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 6
+    await page.locator('#iframe').contentFrame().getByText('P Q').nth(1).click()
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 7
+    await page.locator('#iframe').contentFrame().getByRole('combobox').selectOption('différence')
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 8
+    await page.locator('#iframe').contentFrame().getByRole('combobox').selectOption('différence')
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 9
+    await page.locator('#iframe').contentFrame().getByRole('combobox').selectOption('différence')
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 10
+    await page.locator('#iframe').contentFrame().getByRole('combobox').selectOption('différence')
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    // question 11
+    await page.locator('#iframe').contentFrame().locator('#etiquetteEx6Q0I20').dragTo(page.locator('#iframe').contentFrame().locator('#rectangleEx6Q0R1'))
+    await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
+
+    await page.locator('#iframe').contentFrame().getByRole('button', { name: 'Rendre la copie' }).click()
+    await page.waitForTimeout(500)
+    await page.locator('#iframe').contentFrame().getByRole('button', { name: 'Terminer' }).click()
+    await page.locator('#iframe').contentFrame().getByRole('button', { name: 'Accéder aux solutions' }).click()
+
+    const valueString = await page.evaluate(() => localStorage.getItem('saveStudentAssignment'))
+    const value = JSON.parse(valueString ?? '')
+    await expect(value).not.toBe(null)
+    await expect(value.studentAssignment.length).toEqual(11)
+    const responses = [
+      { clockEx0Q0: '12h15' },
+      { Ex1Q0R0: '1', Ex1Q0R1: '0', Ex1Q0R2: '0', Ex1Q0R3: '0', Ex1Q0R4: '0', Ex1Q0: '$20\\,000\\,000\\,000$' },
+      { Ex2Q0: '600' },
+      { apigeomEx3F06GXX0: '{\n  "apiGeomVersion": "3.0.20230508",\n  "options": {\n    "animationStepInterval": 3000,\n    "automaticUserMessage": true,\n    "borderSize": 0.2,\n    "color": "currentColor",\n    "colorPointPolygon": "none",\n    "changeColorChangeActionToSetOptions": true,\n    "discFillOpacity": 0.2,\n    "displayGrid": false,\n    "distanceWithoutNewPoint": 0.2,\n    "fillColor": "none",\n    "fillColorAndBorderColorAreSame": true,\n    "fillOpacity": 0.2,\n    "gridWithTwoPointsOnSamePosition": true,\n    "fontSize": "1em",\n    "isDashed": false,\n    "labelDxInPixels": 15,\n    "labelDyInPixels": 15,\n    "latexHeight": 12,\n    "labelIsVisible": true,\n    "latexWidth": 18,\n    "limitNumberOfElement": {},\n    "mark": "||",\n    "moveTextGrid": 15,\n    "pointDescriptionWithCoordinates": true,\n    "pointSize": 5,\n    "thickness": 1,\n    "shape": "x",\n    "shapeForPolygon": "x",\n    "thicknessForPoint": 2,\n    "tmpColor": "gray",\n    "tmpFillColor": "rgba(241, 89, 41, 0.5)",\n    "tmpFillOpacity": 0.2,\n    "tmpIsDashed": true,\n    "tmpThickness": 1,\n    "tmpShape": "x"\n  },\n  "point1": {\n    "color": "currentColor",\n    "id": "point1",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "B",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": 1,\n    "y": 2\n  },\n  "point2": {\n    "color": "currentColor",\n    "id": "point2",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "S",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": -3,\n    "y": 2\n  },\n  "element0": {\n    "color": "currentColor",\n    "id": "element0",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": true,\n    "opacity": 1,\n    "thickness": 1,\n    "type": "Circle",\n    "fillColor": "currentColor",\n    "fillOpacity": 0.2,\n    "idCenter": "point1",\n    "radius": "5"\n  }\n}' },
+      { cliquefigure2Ex4Q0: '1' },
+      { cliquefigure0Ex4Q1: '1' },
+      { ex5Q0: 'différence' },
+      { ex5Q1: 'différence' },
+      { ex5Q2: 'différence' },
+      { ex5Q3: 'différence' },
+      { rectangleDNDEx6Q0R1: 'etiquetteEx6Q0I20-clone-1741033348514', texteDNDEx6Q0R1: 'deux', Ex6Q0: 'deux' }
+    ]
+    console.log(value.studentAssignment)
+    // await page.pause()
+    value.studentAssignment.forEach((assignment: any, i: number) => {
+      const keys = Object.keys(assignment.answers)
+      const keysRep = Object.keys(responses[i])
+      expect(keys.length).toEqual(keysRep.length)
+      keys.forEach((key: string, j: number) => {
+        console.log('Question:', i)
+        console.log('Response:', j)
+        console.log('Key:', assignment.answers[key])
+        expect(keysRep[j]).toEqual(key)
+        if (key.includes('rectangleDND')) {
+          expect(assignment.answers[key].split('-')[0]).toEqual((responses[i] as any)[key].split('-')[0])
+        } else {
+          expect(assignment.answers[key]).toEqual((responses[i] as any)[key])
+        }
+      })
+    })
+  })
+})
+
+// pnpm vitest --config tests/e2e/vitest.config.view.js --run tests\e2e\tests\view\view.capytale.save.can.test.ts

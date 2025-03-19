@@ -40,12 +40,9 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
     super()
     this.sup = 20
     this.sup4 = false // nombres décimaux
-    this.consigne = 'Calculer.'
     this.spacing = 0.5
     this.modeQcm = false
     this.sup3 = false
-    this.nbCols = 3
-    this.nbColsCorr = 3
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
     this.besoinFormulaire2Numerique = ['Type de questions', 3, 'Tous les nombres entre parenthèses \n2 : Seul le 2e terme négatif est entre parenthèses \n3 : Écriture simplifiée']
     this.sup2 = 1 // écriture simplifiée
@@ -61,6 +58,9 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
     } else if (this.sup2 === true) {
       this.sup2 = 3
     }
+    this.consigne = this.sup3 ? 'Calculer puis cocher la case correspondante.' : 'Calculer.'
+    this.nbCols = this.sup3 ? 2 : 3
+    this.nbColsCorr = this.sup3 ? 2 : 3
 
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     const partieDecimaleAUnChiffre = combinaisonListes([true, true, false], this.nbQuestions)
@@ -86,13 +86,13 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
         }
       }
       if (this.sup2 === 1) {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' =$'
+        texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + '$'
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b, { color: orangeMathalea }) + ' $'
       } else if (this.sup2 === 2) {
-        texte = `$ ${texNombre(a)} + ${ecritureParentheseSiNegatif(b)} =$`
+        texte = `$ ${texNombre(a)} + ${ecritureParentheseSiNegatif(b)}$`
         texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)} = ${miseEnEvidence(texNombre(a + b))} $`
       } else {
-        texte = `$ ${texNombre(a)}${ecritureAlgebrique(b)} =$`
+        texte = `$ ${texNombre(a)}${ecritureAlgebrique(b)}$`
         texteCorr = `$ ${a}${ecritureAlgebrique(b)} = ${miseEnEvidence(texNombre(a + b))} $`
       }
       this.autoCorrection[i] = {}
@@ -101,22 +101,18 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: `$${texNombre(a + b)}$`,
-          // @ts-expect-error problème typage handleAnswers
           statut: true
         },
         {
           texte: `$${texNombre(a - b)}$`,
-          // @ts-expect-error problème typage handleAnswers
           statut: false
         },
         {
           texte: `$${texNombre(-a + b)}$`,
-          // @ts-expect-error problème typage handleAnswers
           statut: false
         },
         {
           texte: `$${texNombre(-a - b)}$`,
-          // @ts-expect-error problème typage handleAnswers
           statut: false
         }
       ]
@@ -127,7 +123,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
           texteCorr += qcm.texteCorr
         }
       } else {
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: ' $=$' })
         handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), options: { resultatSeulementEtNonOperation: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {

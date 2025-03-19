@@ -486,7 +486,7 @@ export default class SujetCAN2022Seconde extends Exercice {
          Le volume d'un cube est proportionnel à la longueur de son arête.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
-              texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+              texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `Le volume d'un cube d'arête $c$ est donné par $c^3$. <br>
@@ -497,7 +497,7 @@ export default class SujetCAN2022Seconde extends Exercice {
          L'aire d'un disque est proportionnelle à son rayon.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
-              texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+              texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `L'aire d'un disque de rayon $r$ est donnée par : $\\pi\\times r^2$. <br>
@@ -508,7 +508,7 @@ export default class SujetCAN2022Seconde extends Exercice {
          L'aire d'un rectangle de largeur constante est proportionnelle à sa longueur.`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             if (this.interactif) {
-              texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+              texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `L'aire d'un rectangle de largeur constante $l$ et de longueur $L$ est donnée par : $L\\times l$. <br>
@@ -523,7 +523,7 @@ export default class SujetCAN2022Seconde extends Exercice {
          Le prix et le nombre d'entrées à la piscine sont proportionnels.`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             if (this.interactif) {
-              texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+              texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé est $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k$).<br>
@@ -538,7 +538,7 @@ export default class SujetCAN2022Seconde extends Exercice {
          Le prix et le nombre d'entrées à la piscine sont proportionnels.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
-              texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+              texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé n'est  pas $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k +${b}$).<br>
@@ -548,7 +548,7 @@ export default class SujetCAN2022Seconde extends Exercice {
          Le périmètre d'un rectangle est proportionnel à la longueur de de ce rectangle.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
-              texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+              texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `Le périmètre d'un rectangle de largeur $l$ et de longueur $L$ est donnée par : $2\\times (L+ l)$. <br>
@@ -559,7 +559,7 @@ export default class SujetCAN2022Seconde extends Exercice {
          Le périmètre d'un carré  est proportionnel à la longueur de son côté.`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             if (this.interactif) {
-              texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+              texte += '<br>Pour Vrai, écrire V et pour Faux : F'
               texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `Le périmètre d'un carré de côté $c$ est donné par : $4\\times c$.<br>

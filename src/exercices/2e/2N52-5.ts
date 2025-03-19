@@ -5,6 +5,7 @@ import { sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const dateDePublication = '02/05/2023'
 export const titre = 'Résoudre des équations avec un quotient'
 
@@ -97,7 +98,7 @@ x&= ${texFractionReduite(-b, a)}
 \\end{aligned}$<br>`
           }
 
-          texteCorr += ` $${texFractionReduite(-b, a)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $\\mathscr{S}=\\left\\{${texFractionReduite(-b, a)}\\right\\}$.`
+          texteCorr += ` $${texFractionReduite(-b, a)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${texFractionReduite(-b, a)}\\right\\}`)}$.`
           break
         case 2:// (ax^2+/-b)/(cx+d)=0
           a = randint(1, 4)
@@ -129,14 +130,14 @@ x&= ${texFractionReduite(-b, a)}
            `
             if (-k2 === k1 || k2 === k1) {
               if (-k2 === k1) {
-                texteCorr += `  $${k1}$ est une valeur interdite, donc l'ensemble des solutions de cette équation est  $\\mathscr{S}=\\left\\{${-k1}\\right\\}$.
+                texteCorr += `  $${k1}$ est une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${-k1}\\right\\}`)}$.
         `
               } else {
-                texteCorr += `  $${-k1}$ est une valeur interdite, donc l'ensemble des solutions de cette équation est  $\\mathscr{S}=\\left\\{${k1}\\right\\}$.
+                texteCorr += `  $${-k1}$ est une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${k1}\\right\\}`)}$.
         `
               }
             } else {
-              texteCorr += `  $${-k1}$ et $${k1}$ ne sont pas des valeurs interdites, donc l'ensemble des solutions de cette équation est  $\\mathscr{S}=\\left\\{${-k1}\\,;\\,${k1}\\right\\}$.
+              texteCorr += `  $${-k1}$ et $${k1}$ ne sont pas des valeurs interdites, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${-k1}\\,;\\,${k1}\\right\\}`)}$.
         `
             }
           } else {
@@ -156,7 +157,7 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
   x^2&=-${k1 * k1}
  \\end{aligned}$<br>
  `
-            texteCorr += `Puisque $-${k1 * k1}<0$, cette équation n'a pas de solution, donc l'ensemble des solutions est  $\\mathscr{S}=\\varnothing$.
+            texteCorr += `Puisque $-${k1 * k1}<0$, cette équation n'a pas de solution, donc l'ensemble des solutions est  $${miseEnEvidence('\\mathscr{S}=\\emptyset')}$.
 `
           }
 
@@ -192,8 +193,8 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
             \\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}&=${e}\\\\
             ${reduireAxPlusB(a, b)}&=${e}\\times(${reduireAxPlusB(c, d)})${sp(7)} \\text{ car les produits en croix sont égaux.}\\\\
             ${reduireAxPlusB(a, b)}&= ${reduireAxPlusB(e * c, e * d)}\\\\
-           ${a - e * c}x&= ${e * d - b}\\\\
-           x&=${texFractionReduite(e * d - b, a - e * c)}
+           ${rienSi1(a - e * c)}x&= ${e * d - b} ${a - e * c === 1 ? '' : '\\\\'}
+          ${a - e * c === 1 ? '' : `x&=${texFractionReduite(e * d - b, a - e * c)}`} 
            \\end{aligned}$<br>`
           } else {
             texteCorr += `
@@ -201,28 +202,28 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
            ${choix ? `\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}&=${e}` : `\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${reduireAxPlusB(c, d)}}&=${e}`}\\\\
             ${choix ? `${reduireAxPlusB(a, b)}&=${e}\\times(${reduireAxPlusB(c, d)})` : `${b}${ecritureAlgebriqueSauf1(a)}x&=${e}\\times(${reduireAxPlusB(c, d)})`}${sp(7)}\\text{ car les produits en croix sont égaux.}\\\\
             ${reduireAxPlusB(a, b)}&= ${reduireAxPlusB(e * c, e * d)}\\\\
-            ${a - e * c}x&= ${e * d - b}\\\\
+            ${rienSi1(a - e * c)}x&= ${e * d - b}\\\\
            x&=${texFractionReduite(e * d - b, a - e * c)}
            \\end{aligned}$<br>`
           }
 
           if (-d * (a - e * c) - c * (e * d - b) === 0) {
-            texteCorr += `$${texFractionReduite(e * d - b, a - e * c)}$ est  une valeur interdite, donc l'ensemble des solutions de cette équation est  $\\mathscr{S}=\\varnothing$.`
-          } else { texteCorr += `$${texFractionReduite(e * d - b, a - e * c)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $\\mathscr{S}=\\left\\{${texFractionReduite(e * d - b, a - e * c)}\\right\\}$.` }
+            texteCorr += `$${texFractionReduite(e * d - b, a - e * c)}$ est  une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence('\\mathscr{S}=\\emptyset')}$.`
+          } else { texteCorr += `$${texFractionReduite(e * d - b, a - e * c)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${texFractionReduite(e * d - b, a - e * c)}\\right\\}`)}$.` }
           break
 
         case 4:// e/(ax+b)=f/(cx+d)
         default:
           a = randint(-3, 9, 0)
           b = randint(-9, 9)
-          c = randint(-5, 9, 0)
+          c = randint(-2, 9, [0, a])
           d = randint(-9, 9)
           e = randint(-9, 9, 0)
           f = randint(-9, 9, 0)
           while ((c * (f * b - a * d) === -d * (e * c - f * a)) || (a * (f * b - a * d) === -b * (e * c - f * a))) { // pas de VI sol enfin normalement :-)
             a = randint(-3, 9, 0)
             b = randint(-9, 9)
-            c = randint(-5, 9, 0)
+            c = randint(-2, 9, [0, a])
             d = randint(-9, 9)
             e = randint(-9, 9, 0)
             f = randint(-9, 9, 0)
@@ -238,18 +239,21 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
             texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent les dénominateurs des quotients, puisque la division par $0$ n\'existe pas.<br>'
           }
           texteCorr += `Or $${reduireAxPlusB(a, b)}=0$ si et seulement si  $x=${texFractionReduite(-b, a)}$ et $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${texFractionReduite(-d, c)}$. <br>
-          Donc l'ensemble des valeurs interdites est  $\\left\\{${-d / c < -b / a ? `${texFractionReduite(-d, c)}\\,;\\,${texFractionReduite(-b, a)}` : `${texFractionReduite(-b, a)}\\,;\\,${texFractionReduite(-d, c)}`}\\right\\}$. <br>`
+          Donc l'ensemble des valeurs interdites est  
+          ${-a * d + b * c === 0 ? `$\\left\\{${texFractionReduite(-d, c)}\\right\\}$` : `$\\left\\{${-d / c < -b / a ? `${texFractionReduite(-d, c)}\\,;\\,${texFractionReduite(-b, a)}` : `${texFractionReduite(-b, a)}\\,;\\,${texFractionReduite(-d, c)}`}\\right\\}$.`} <br>`
 
-          texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-d / c < -b / a ? `${texFractionReduite(-d, c)}\\,;\\,${texFractionReduite(-b, a)}` : `${texFractionReduite(-b, a)}\\,;\\,${texFractionReduite(-d, c)}`}\\right\\}$,<br>
+          texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus$ ${-a * d + b * c === 0 ? `$\\left\\{${texFractionReduite(-d, c)}\\right\\}$` : `$\\left\\{${-d / c < -b / a ? `${texFractionReduite(-d, c)}\\,;\\,${texFractionReduite(-b, a)}` : `${texFractionReduite(-b, a)}\\,;\\,${texFractionReduite(-d, c)}`}\\right\\}$`},<br>
  $\\begin{aligned}
  \\dfrac{${e}}{${reduireAxPlusB(a, b)}}&=\\dfrac{${f}}{${reduireAxPlusB(c, d)}}\\\\
  ${f}\\times (${reduireAxPlusB(a, b)})&=${e}\\times (${reduireAxPlusB(c, d)})${sp(7)} \\text{ car les produits en croix sont égaux.}\\\\
  ${reduireAxPlusB(f * a, f * b)}&=${reduireAxPlusB(e * c, e * d)}\\\\
-${-e * c + f * a}x&= ${e * d - f * b}\\\\
-x&=${texFractionReduite(-e * d + f * b, e * c - f * a)}
+${rienSi1(-e * c + f * a)}x&= ${e * d - f * b}${-e * c + f * a === 1 ? '' : '\\\\'}
+          ${-e * c + f * a === 1 ? '' : `x&=${texFractionReduite(-e * d + f * b, e * c - f * a)}`} 
 \\end{aligned}$<br>`
 
-          texteCorr += ` $${texFractionReduite(-e * d + f * b, e * c - f * a)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $\\mathscr{S}=\\left\\{${texFractionReduite(-e * d + f * b, e * c - f * a)}\\right\\}$.`
+          if (-b * (e * c - f * a) === a * (-e * d + f * b)) {
+            texteCorr += ` $${texFractionReduite(-e * d + f * b, e * c - f * a)}$ est  une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence('\\mathscr{S}=\\emptyset')}$.`
+          } else { texteCorr += ` $${texFractionReduite(-e * d + f * b, e * c - f * a)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${texFractionReduite(-e * d + f * b, e * c - f * a)}\\right\\}`)}$.` }
           break
       }
       if (this.questionJamaisPosee(i, a, b, c, d)) {

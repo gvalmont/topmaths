@@ -55,7 +55,7 @@
 </script>
 
 <div
-  class="w-full h-full flex flex-col justify-between items-center overflow-y-hidden bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  class="w-full h-full flex flex-col justify-between items-center overflow-y-auto bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
   <div class="w-full flex flex-col">
     <Timer

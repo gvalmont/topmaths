@@ -13,7 +13,10 @@
 \definecolor{correction}{cmyk}{.63,.23,.93,.06}
 \arrayrulecolor{couleur_theme} % Couleur des filets des tableaux
 
-\usepackage[most]{tcolorbox}
+\usepackage{ProfCollege} % EE : Pour pouvoir utiliser les arbres
+\usepackage{tabularray} % EE : Pour pouvoir utiliser tableauCAN
+
+%\usepackage[most]{tcolorbox} % Supprimé à cause de conflits avec ProfCollege
 \tcbuselibrary{documentation}
 
 %%%%%%%% Modification paramétrage pour footnotes
@@ -39,7 +42,6 @@
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{tabularx}
-\usepackage{tabularray}
 
 \setlength{\parindent}{0mm}
 \renewcommand{\arraystretch}{1.5}
@@ -246,8 +248,5 @@
     \end{tikzpicture}
   }
 }
-
-%EE: Pour la gestion de verb (police Python)
-\usepackage{fvextra}
 
 \usepackage[french]{babel}

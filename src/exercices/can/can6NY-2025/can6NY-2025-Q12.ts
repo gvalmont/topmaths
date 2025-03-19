@@ -25,7 +25,6 @@ export default class ageATrouver extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: ' ans' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

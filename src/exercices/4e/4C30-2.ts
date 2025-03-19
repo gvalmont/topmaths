@@ -74,7 +74,7 @@ export default class EcritureDecimalePuissanceDe10 extends Exercice {
           texte = this.interactif
             ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, ' ')
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
-          handleAnswers(this, i, { reponse: { value: texNombre(Decimal.pow(10, -n), n), options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { reponse: { value: texNombre(Decimal.pow(10, -n), n) } })
           if (context.isHtml) {
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10, -n), n))}$`
           } else {

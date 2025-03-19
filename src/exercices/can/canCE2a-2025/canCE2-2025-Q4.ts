@@ -51,9 +51,9 @@ export default class Can2025CE2Q4 extends ExerciceCan {
       options: { vertical: true }
     }
     this.formatInteractif = 'qcm'
-    this.consigne = `Le périmètre ${c} est proche de ...`
+    this.consigne = `Le périmètre ${c} est proche de :`
     const monQcm = propositionsQcm(this, 0)
-    this.canEnonce = this.consigne
+    this.canEnonce = 'Coche la bonne réponse.<br>' + this.consigne
     this.question = `${monQcm.texte}`
     this.correction = monQcm.texteCorr + `${c.replace('de la', 'La')
     .replace('d\'une', 'Une')

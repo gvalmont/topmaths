@@ -53,7 +53,7 @@ export function loadFonts (latexFileInfos: LatexFileInfos) {
 % Une valeur d'environ 1.2em à 1.5em est couramment conseillée. Cela crée un espace plus ample entre les mots, ce qui peut aider à réduire la fatigue visuelle et à améliorer la fluidité de la lecture.
 }{
 % POLICE STANDARD
-\\usepackage{fontenc}
+\\usepackage[T1]{fontenc} 
 \\usepackage[scaled=1]{helvet}
 \\usepackage[fontsize=${latexFileInfos.tailleFontOption}]{scrextend}
 }`
@@ -190,7 +190,7 @@ export const logPDF = (str: string) => {
 }
 
 export function loadProfCollegeIfNeed (contents: contentsType) {
-  testIfLoaded(['\\Engrenages[', '\\Propor[', '\\Fraction[', '\\Reperage[', '\\Pythagore', '\\Prix', '\\SquarO[', 'begin{Scratch}', 'begin{Tableur}', '\\pointilles'], '\\usepackage{ProfCollege}', contents)
+  testIfLoaded(['\\Engrenages[', '\\Proba[', '\\Propor[', '\\Fraction[', '\\Reperage[', '\\Pythagore', '\\Prix', '\\SquarO[', 'begin{Scratch}', 'begin{Tableur}', '\\pointilles'], '\\usepackage{ProfCollege}', contents)
 }
 
 function testIfLoaded (values : string[], valueToPut : string, contents: contentsType, display? : string) {
@@ -236,6 +236,7 @@ export function loadPackagesFromContent (contents: contentsType) {
     if (!contents.preamble.includes('definecolor{nombres}')) contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
   }
   testIfLoaded(['\\begin{axis}'], '\\usepackage{pgfplots}', contents)
+  testIfLoaded(['pgfmathsetmacro'], '\\usetikzlibrary{decorations,decorations.text}', contents)
   testIfLoaded(['decorate,decoration=', 'decorate, decoration='], '\\usetikzlibrary{decorations.pathmorphing}', contents)
   testIfLoaded(['decoration=brace', 'decoration={brace}', 'decoration={brace,'], '\\usetikzlibrary {decorations.pathreplacing}', contents)
   testIfLoaded(['\\tkzText'], '\\usepackage{tkz-fct}', contents)
@@ -246,6 +247,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\begin{Scratch}'], '\\usepackage{unicode-math}\n\\newfontfamily\\myfontScratch[]{FreeSans}', contents)
   testIfLoaded(['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'], '\\usepackage[french]{babel}', contents)
   testIfLoaded(['\\degree'], '\\usepackage{gensymb}', contents)
+  testIfLoaded(['\\tblr'], '\\usepackage{tabularray}', contents)
   testIfLoaded(['\\multirow{'], '\\usepackage{multirow}', contents)
   testIfLoaded(['\\dotfills'], '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}', contents)
 

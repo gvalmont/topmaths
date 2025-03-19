@@ -138,7 +138,7 @@ export default class NotationScientifique extends Exercice {
               decimals: Math.max(0, listeTypeDeQuestions[i] - exp)
             })
           } else {
-            handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: reponse } })
           }
         }
 

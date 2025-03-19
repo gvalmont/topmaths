@@ -3,7 +3,8 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-export const titre = 'Calculer avec une racine carrée (définition)'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+export const titre = 'Calculer/déterminer une racine carrée (phrase ou calcul)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '19/09/2022'
@@ -23,9 +24,11 @@ export const refs = {
 export default class CalculAvecRacineDef extends Exercice {
   constructor () {
     super()
-
+    this.optionsChampTexte = { texteAvant: '<br>' }
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.optionsDeComparaison = { texteSansCasse: true }
   }
 
   nouvelleVersion () {
@@ -125,7 +128,7 @@ export default class CalculAvecRacineDef extends Exercice {
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $${miseEnEvidence('-')} ${miseEnEvidence(`\\sqrt{${a}}`)}$.`}`
         }
 
-        this.reponse = choix ? [`\\sqrt{${a}}`, Math.sqrt(a)] : [`-\\sqrt{${a}}`, -Math.sqrt(a)]
+        this.reponse = choix ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`] : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
 
         break
 
@@ -154,7 +157,7 @@ export default class CalculAvecRacineDef extends Exercice {
           this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $${miseEnEvidence('-')} ${miseEnEvidence(`\\sqrt{${a}}`)}$.`}`
         }
-        this.reponse = choix ? [`\\sqrt{${a}}`, Math.sqrt(a)] : [`-\\sqrt{${a}}`, -Math.sqrt(a)]
+        this.reponse = choix ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`] : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
         break
       case 8 :
         a = randint(1, 12)

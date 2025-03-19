@@ -1,15 +1,13 @@
-import identitesCalculs from '../3e/3L11-5'
+import DistributiviteSimpleDoubleReduction from '../3e/3L11-3'
+export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Calcul mental et calcul littéral'
-export const uuid = '74c5a'
+export const amcType = 'AMCHybride'
+export const amcReady = true
+export const uuid = '60cc5'
 export const refs = {
   'fr-fr': ['2N40-6'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-7']
 }
-export default class IdentitesCalculs2e extends identitesCalculs {
-  constructor () {
-    super()
-    this.sup = 4
-  }
+export default class DistributiviteSimpleDoubleReduction2e extends DistributiviteSimpleDoubleReduction {
 }

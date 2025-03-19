@@ -25,7 +25,6 @@ export default class CalculDivers extends Exercice {
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

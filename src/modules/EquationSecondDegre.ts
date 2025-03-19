@@ -298,6 +298,9 @@ class EquationSecondDegre {
             numDen1 = [Number(this.solutionsListeTex[j]), Number('1')]
           } else if (this.solutionsListeTex[j].includes('\\dfrac')) {
             numDen1 = [Number(this.solutionsListeTex[j].match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)[0]), Number(this.solutionsListeTex[j].match(/\\dfrac{(\d+)}{(\d+)}/)?.slice(1)[1])]
+            if (this.solutionsListeTex[j].includes('-')) {
+              numDen1[0] = -numDen1[0]
+            }
           }
           solution = new FractionEtendue(Number(numDen1[0]), Number(numDen1[1]))
           solListe.push(solution)

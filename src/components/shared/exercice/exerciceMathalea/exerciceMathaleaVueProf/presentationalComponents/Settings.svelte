@@ -128,6 +128,7 @@
 </script>
 
 <div
+  id="settings{exerciceIndex}"
   class="relative bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark {isVisible
     ? 'visible lg:w-1/4'
     : 'hidden lg:w-0'} flex flex-col duration-500"
@@ -157,7 +158,7 @@
         </span>
         <input
           type="number"
-          id="settings-nb-questions-{exercice.uuid}"
+          id="settings-nb-questions-{exerciceIndex}"
           min="1"
           max="100"
           bind:value={nbQuestions}
@@ -170,16 +171,16 @@
       <div class="container">
         <label
           class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-          for="settings-check1-{exercice.uuid}"
+          for="settings-check1-{exerciceIndex}"
         >
           {#if typeof exercice.besoinFormulaireCaseACocher !== 'boolean'}
             {exercice.besoinFormulaireCaseACocher[0]} :
           {/if}
         </label>
         <input
-          name="settings-check1-{exercice.uuid}"
+          name="settings-check1"
           type="checkbox"
-          id="settings-check1-{exercice.uuid}"
+          id="settings-check1-{exerciceIndex}"
           class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={sup}
           on:change={dispatchNewSettings}

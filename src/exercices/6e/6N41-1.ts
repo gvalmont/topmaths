@@ -120,7 +120,6 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
           propositions: [
             {
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-              // @ts-expect-error
               propositions: [
                 {
                   texte: texteCorr,

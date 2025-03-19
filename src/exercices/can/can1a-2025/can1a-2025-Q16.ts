@@ -24,6 +24,7 @@ export default class Can2025N5Q16 extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: ' Sa raison $q$ est ', texteApres: '.' }
     this.canOfficielle = true
+    this.optionsDeComparaison = { fractionEgale: true, nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

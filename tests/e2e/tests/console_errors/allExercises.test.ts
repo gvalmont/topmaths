@@ -4,6 +4,7 @@ import { logError as lgE, log as lg, getFileLogger } from '../../helpers/log'
 import prefs from '../../helpers/prefs.js'
 import { findStatic, findUuid } from '../../helpers/filter.js'
 import { createIssue } from '../../helpers/issue.js'
+import { checkEachCombinationOfParams } from '../../helpers/testAllViews'
 
 const logConsole = getFileLogger('exportConsole', { append: true })
 
@@ -22,6 +23,41 @@ function logDebug (...args: unknown[]) {
     if ((process.env.DEBUG as string).replaceAll(' ', '') === 'DEBUG') {
       log(args)
     }
+  }
+}
+
+async function action (page: Page, description: string) {
+  logDebug(`Test avec les paramètres ${description}`)
+  // clic sur nouvel énoncé 3 fois
+  const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé ' })
+  logDebug('Actualier (nouvel énoncé) 3 fois')
+  await buttonNewData.click({ clickCount: 3 })
+  logDebug('fin Actualier (nouvel énoncé) 3 fois')
+  // Active le mode interactif
+  const activateInteractivityButton = page.getByRole('button', { name: 'Rendre interactif' })
+  if (await activateInteractivityButton.isVisible()) {
+    await activateInteractivityButton.click()
+    logDebug('Active le mode interactif')
+    // selectionne les questions
+    const questionSelector = 'li[id^="exercice0Q"]'
+    await page.waitForSelector(questionSelector)
+    log('new URL (mode interactif): ' + page.url())
+    const locators = await page.locator(questionSelector).all()
+    log('nbre de questions:' + locators.length)
+    // => TODOS à poursuivre
+    // Cliquer sur vérifier les données
+    const buttonVerifier = page.locator('#verif0')
+    logDebug('Vérifier les réponses')
+    await buttonVerifier.click()
+    await page.waitForSelector('article + div')
+    const buttonResult = await page.locator('article + div').innerText()
+    log(buttonResult)
+    logDebug('Actualier (nouvel énoncé) 3 fois')
+    await buttonNewData.click({ clickCount: 3 })
+    logDebug('fin Actualier (nouvel énoncé) 3 fois')
+  } else {
+    // MGu : obligé car parfois on rate l'exception car trop rapide
+    // await new Promise((resolve) => setTimeout(resolve, 1000)) // GV : Si on attend 1 seconde après chaque cas, il va falloir 1 an si on veut tester toutes les possibilités
   }
 }
 
@@ -65,6 +101,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
 
     logDebug('On charge la page')
     await page.goto(urlExercice)
+    await page.waitForLoadState('networkidle')
     logDebug('fin : On charge la page')
 
     // Correction
@@ -72,56 +109,13 @@ async function getConsoleTest (page: Page, urlExercice: string) {
     logDebug('On cherche les questions')
     await page.waitForSelector('div.mb-5>ul>div#consigne0-0')
     logDebug('fin : On cherche les questions')
-    // on clique sur nouvel énoncé
-    const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé ' })
-    logDebug('Actualier (nouvel énoncé)')
-    await buttonNewData.click()
-    logDebug('fin Actualier (nouvel énoncé)')
+    // Pour chaque combinaison de paramètres, on clique sur nouvel énoncé 3 fois, active le mode interactif et reclique sur nouvel énoncé 3 fois
+    await checkEachCombinationOfParams(page, action, { isFullViews: true })
     // Paramètres ça va les refermer puisqu'ils sont ouverts par défaut
     const buttonParam = page.getByRole('button', { name: 'Changer les paramètres de l\'' })
     logDebug('Ferme les paramètres ')
     if (await buttonParam.isVisible()) {
       await buttonParam.click()
-    }
-    // Actualier (nouvelle énoncé)
-    const buttonRefresh = page.locator('i.bx-refresh').nth(1)
-    await buttonRefresh.highlight()
-    logDebug('Actualier (nouvelle énoncé x 3fois)')
-    await buttonRefresh.click({ clickCount: 3 })
-    // const url = new URL(urlExercice)
-    // const aleaValue = url.searchParams.get('alea')
-    // await page.waitForURL((url: URL) => {
-    //   const newAleaValue = url.searchParams.get('alea')
-    //   log(`Valeur de alea: ${newAleaValue}`)
-    //   if (newAleaValue !== aleaValue) {
-    //     log('new URL : ' + url.href)
-    //     return true
-    //   }
-    //   return false
-    // })
-    logDebug('Actualier (fin : nouvelle énoncé x 3fois)')
-    // activer l'interactif
-    const buttonInteractif = page.getByRole('button', { name: 'Rendre interactif' })
-    if (await buttonInteractif.isVisible()) {
-      await buttonInteractif.click()
-      logDebug('Active le mode interactif')
-      // selectionne les questions
-      const questionSelector = 'li[id^="exercice0Q"]'
-      await page.waitForSelector(questionSelector)
-      log('new URL (mode interactif): ' + page.url())
-      const locators = await page.locator(questionSelector).all()
-      log('nbre de questions:' + locators.length)
-      // => TODOS à poursuivre
-      // Cliquer sur vérifier les données
-      const buttonVerifier = page.locator('#verif0')
-      logDebug('Vérifier les réponses')
-      await buttonVerifier.click()
-      await page.waitForSelector('article + div')
-      const buttonResult = await page.locator('article + div').innerText()
-      log(buttonResult)
-    } else {
-      // MGu : obligé car parfois on rate l'exception car trop rapide
-      await new Promise((resolve) => setTimeout(resolve, 1000))
     }
     if (messages.length > 0) {
       logError(messages)
@@ -181,6 +175,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   testRunAllLots(filter)
 } else {
   // prefs.headless = true
+  // prefs.slowMo = 100
   // testRunAllLots('can')
   // testRunAllLots('6e')
   // testRunAllLots('5e')
@@ -197,6 +192,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  // testRunAllLots('4e/4C32.js')
-  testRunAllLots('2e/2G30-3')
+  testRunAllLots('2e/2G12-6')
 }

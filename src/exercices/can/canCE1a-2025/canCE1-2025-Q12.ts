@@ -25,7 +25,6 @@ export default class Can2025CE1Q12 extends ExerciceCan {
     }
 
     this.reponse = a - b
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.question = `Arthur a préparé $${a}$ gâteaux pour le goûter. <br>$${b}$ gâteaux ont été mangés.<br>
     Combien en reste-il ?`
     this.correction = `On effectue une soustraction pour déterminer le nombre de gâteaux restants :<br>

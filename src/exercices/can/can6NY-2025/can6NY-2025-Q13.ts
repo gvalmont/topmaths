@@ -30,7 +30,6 @@ export default class SommeDeProduitsCompleter extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: ' cm' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

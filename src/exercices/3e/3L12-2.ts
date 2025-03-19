@@ -27,7 +27,6 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Factoriser au maximum les expressions suivantes' : 'Factoriser au maximum l\'expression suivante'
-
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 - Mise en évidence\n2 - Identité remarquable (sans somme-produit)\n3 - Mise en évidence puis identité (sans somme-produit)\n4 - Identité remarquable (somme-produit)\n5 - Mise en évidence puis identité (somme-produit)\n6 - Identité remarquable (somme-produit avec degré > 0)\n7 - Mise en évidence puis identité (somme-produit avec degré > 0)\n8 - Mélange']
     this.besoinFormulaire2Numerique = ['Degré maximum du monôme en évidence ou du monôme de l\'identité', 3, '1\n2\n3']
     this.besoinFormulaire3Numerique = ['Degré maximum du facteur restant', 5, '1\n2\n3\n4\n5']
@@ -49,7 +48,7 @@ export default class nomExercice extends Exercice {
       min: 1,
       max: 7,
       melange: 8,
-      defaut: 2,
+      defaut: 1,
       nbQuestions: this.nbQuestions
 
     })
@@ -58,8 +57,10 @@ export default class nomExercice extends Exercice {
       let texte, texteCorr: string
       texte = ''
       texteCorr = ''
+      const degreMaxMonomeRestant = this.sup3
+      const degreMaxMonomeEvid = min(this.sup3 - 1, this.sup2)
       const variables = ['x', 'y', 'z', 'r', 's', 't']
-      let variablesSelect = getRandomSubarray(variables, this.sup4)
+      const variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeofCoeff = ['entier']
       let p1: PolynomePlusieursVariables
       let p2: PolynomePlusieursVariables
@@ -69,11 +70,11 @@ export default class nomExercice extends Exercice {
         case 1:{
           do {
             do {
-              p1 = PolynomePlusieursVariables.createRandomPolynome(0, this.sup2, 1, choice(typeofCoeff), variablesSelect)
+              p1 = PolynomePlusieursVariables.createRandomPolynome(0, degreMaxMonomeEvid, 1, choice(typeofCoeff), variablesSelect)
             }
             while (p1.toString() === '1')
             do {
-              p2 = PolynomePlusieursVariables.createRandomPolynome(1, this.sup3, randint(2, 3), choice(typeofCoeff), variablesSelect)
+              p2 = PolynomePlusieursVariables.createRandomPolynome(min(1, degreMaxMonomeRestant), degreMaxMonomeRestant, randint(2, min(3, degreMaxMonomeRestant) + 1), choice(typeofCoeff), variablesSelect)
             }
             while (p2.miseEnFacteurCommun().toString() !== '1')
           }
@@ -115,9 +116,6 @@ export default class nomExercice extends Exercice {
         case 6:
         case 7:
         {
-          if (this.sup4 === 1 && (listeDeQuestions[i] === 6 || listeDeQuestions[i] === 7)) {
-            variablesSelect = getRandomSubarray(variables, this.sup4 + 1)
-          }
           let pSP1: MonomePlusieursVariables
           let pSP2: MonomePlusieursVariables
           pSP1 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
@@ -147,7 +145,7 @@ export default class nomExercice extends Exercice {
               do {
                 p1 = PolynomePlusieursVariables.createPolynomeFromMonome(MonomePlusieursVariables.createRandomMonome(randint(1, max(1, this.sup3)), choice(typeofCoeff), variablesSelect))
               } while (p1.contientCarre())
-              pSP1 = MonomePlusieursVariables.createRandomMonome(randint(1, min(p1.monomes[0].degre, 2)), 'entier', variablesSelect)
+              pSP1 = MonomePlusieursVariables.createRandomMonome(randint(0, min(p1.monomes[0].degre, 2)), 'entier', variablesSelect)
               pSP2 = MonomePlusieursVariables.createMonomeFromPartieLitterale('entier', pSP1.partieLitterale)
             } while (pSP2.coefficient.num === pSP1.coefficient.num || pSP2.coefficient.num === -pSP1.coefficient.num || pgcd(p1.monomes[0].coefficient.num, pSP1.coefficient.num) !== 1 || pgcd(p1.monomes[0].coefficient.num, pSP2.coefficient.num) !== 1 || p1.somme(pSP1).miseEnFacteurCommun().toString() !== '1')
           }

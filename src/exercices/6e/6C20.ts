@@ -6,7 +6,7 @@ import Operation from '../../modules/operations'
 import { context } from '../../modules/context'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
@@ -96,8 +96,8 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
 
     let grilletxt
     if (this.sup2 < 3) {
-      const g = (this.sup2 < 3 ? grille(0, 0, 5, 5, 'gray', 0.7) : '')
-      const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 5) : '')
+      const g = (this.sup2 < 3 ? grille(0, 0, 5, 5, 'gray', 0.7) : vide2d())
+      const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 5) : vide2d())
       const sc = (this.sup2 === 2 ? 0.8 : 0.5)
       const params = { xmin: 0, ymin: 0, xmax: 5, ymax: 5, pixelsParCm: 20, scale: sc }
       grilletxt = '<br>' + mathalea2d(params, g, carreaux)

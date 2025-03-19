@@ -12,7 +12,7 @@ import { fraction } from '../../modules/fractions'
 
 export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '03/05/2024'
-export const titre = 'Placer des points d’abscisses fractionnaires'
+export const titre = 'Placer des points d\'abscisses fractionnaires'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -126,7 +126,6 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           propositions: [
             {
-              // @ts-expect-error typage de AMC
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [
                 {

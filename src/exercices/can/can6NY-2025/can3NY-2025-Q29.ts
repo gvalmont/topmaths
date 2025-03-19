@@ -45,8 +45,8 @@ export default class ComparerFractions extends Exercice {
         this.correction = `$f(${miseEnEvidence(texNombre(a, 0))}) =${miseEnEvidence(texNombre(b, 0))}$`
         handleAnswers(this, 0, {
           bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-          champ1: { value: String(a), options: { nombreDecimalSeulement: true } },
-          champ2: { value: String(b), options: { nombreDecimalSeulement: true } }
+          champ1: { value: String(a) },
+          champ2: { value: String(b) }
         }
         )
         this.reponse = { bareme: toutPourUnPoint, champ1: { value: String(a) }, champ2: { value: String(b) } }

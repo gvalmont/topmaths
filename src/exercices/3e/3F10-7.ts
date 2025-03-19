@@ -26,13 +26,13 @@ export default class AsieJuin21Exo1Q2 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b:number): void {
     this.reponses = [
       `$f(0)=${String(b)}$`,
-      `$0$ est un antécédent de $${String(b)}$ par $f$`,
-      `$${String(b)}$ est l'image de $0$ par $f$`,
+      `$0$ est un antécédent de $${String(b)}$ par $f$.`,
+      `$${String(b)}$ est l'image de $0$ par $f$.`,
       `$f(${String(b)})=0$`,
-      `l'image de $${String(-b)}$ par $f$ est $${String(b)}$`
+      `l'image de $${String(-b)}$ par $f$ est $${String(b)}$.`
     ]
     this.bonnesReponses = [true, true, true, false, false]
-    this.enonce = `On considère la fonction $f$ définie par $${rienSi1(a)}x^2${ecritureAlgebrique(b)}$ ?`
+    this.enonce = `On considère la fonction $f$ définie par $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(b)}$.`
     this.corrections = [
       `$${miseEnEvidence(`f(0)=${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}0^2${ecritureAlgebrique(b)}=${texNombre(b, 0)}`)}$.`,
       `$${miseEnEvidence(`0\\text{ est un antécédent de }${b}\\text{ par }f`)}$, car $f(0)=${b}$.`,

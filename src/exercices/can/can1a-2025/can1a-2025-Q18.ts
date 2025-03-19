@@ -33,7 +33,7 @@ export default class Can2025N5Q18 extends Exercice {
     this.reponse = beta
     this.question = `Quel est l'extremum sur $\\mathbb{R}$ de  $x\\longmapsto ${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$ ?  `
     if (this.interactif) { this.question += '<br>' }
-    this.correction = `On recoannaît la forme canonique d'une fonction polynôme du second degré $f(x)=a(x-\\alpha)^2+\\beta$ où $\\beta$ est l'extremum.<br>
+    this.correction = `On reconnaît la forme canonique d'une fonction polynôme du second degré :\\[f(x)=a(x-\\alpha)^2+\\beta\\] où $\\beta$ est l'extremum.<br>
     L'extremum de $f$ est $${miseEnEvidence(beta)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''

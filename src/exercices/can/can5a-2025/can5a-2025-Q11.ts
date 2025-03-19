@@ -29,7 +29,6 @@ export default class Can2025N5Q11 extends ExerciceCan {
       aa = categA === 'dizaines' ? 10 : categA === 'centaines' ? 100 : 1000
       bb = categB === 'dixièmes' ? 0.1 : categB === 'centièmes' ? 0.01 : 0.001
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * aa + b * bb
     this.question = `Écriture décimale du nombre $${a}$ ${categA} et $${b}$ ${categB}`
     this.correction = `$${a}$ ${categA} et $${b}$ ${categB} est égal à : <br>

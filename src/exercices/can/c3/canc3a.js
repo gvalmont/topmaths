@@ -73,12 +73,6 @@ export default class CourseAuxNombresCM extends Exercice {
   }
 
   nouvelleVersion () {
-    if (this.interactif) {
-      this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
-    } else {
-      this.consigne = ''
-    }
-
     let a, b, c, d, resultat, objets, A, B, C
 
     const listeIndex = gestionnaireFormulaireTexte({

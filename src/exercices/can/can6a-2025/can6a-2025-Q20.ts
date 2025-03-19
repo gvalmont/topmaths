@@ -31,12 +31,12 @@ export default class Can2025N6Q20 extends Exercice {
     const a = this.canOfficielle ? 120 : choice([randint(1, 9) * 30, randint(2, 9) * 3])
     this.reponse = texNombre(2 * a / 3, 0)
     this.question = `Deux tiers de  $${a}$ g est égal à   `
+    this.canEnonce = this.question
     if (!this.interactif) { this.question += '$\\ldots$ g.' }
     this.correction = `Pour prendre les deux tiers d'un nombre, on commence à en prendre le tiers en le divisant par $3$, puis on multiplie le résultat par $2$.<br>
      $${a}\\div 3 =${texNombre(a / 3, 0)}$<br>
      $${texNombre(a / 3, 0)}\\times 2= ${miseEnEvidence(texNombre(2 * a / 3, 0))}$ g.`
 
-    this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ g'
   }
 }

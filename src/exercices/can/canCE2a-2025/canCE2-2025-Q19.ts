@@ -27,11 +27,11 @@ export default class Can2025CE2Q19 extends ExerciceCan {
     this.autoCorrection[0] = {
       propositions: [
         {
-          texte: `$${Math.round(a / 10) * 10 * b}$`,
+          texte: `$${texNombre(Math.round(a / 10) * 10 * b)}$`,
           statut: true
         },
         {
-          texte: `$${b * 100 + a}$`,
+          texte: `$${texNombre(b * 100 + a)}$`,
           statut: false
         },
         {
@@ -43,10 +43,10 @@ export default class Can2025CE2Q19 extends ExerciceCan {
     }
     const monQcm = propositionsQcm(this, 0)
     this.formatInteractif = 'qcm'
-    this.question = `Quel est le nombre le plus proche de $${a}\\times ${b}$ ?`
-    this.correction = `$${a}$ est proche de $${Math.round(a / 10) * 10}$, donc $${a}\\times ${b}$ est proche de $${Math.round(a / 10) * 10}\\times ${b}$ soit $${miseEnEvidence(texNombre(Math.round(a / 10) * 10 * b, 0))}$.`
-    this.canEnonce = this.question
-    this.question += `<br>\n${monQcm.texte}`
+    this.consigne = `Quel est le nombre le plus proche de $${a}\\times ${b}$ ?`
+    this.correction = `$${a}$ est proche de $${Math.round(a / 10) * 10}$, donc $${a}\\times ${b}$ est proche de $${Math.round(a / 10) * 10}\\times ${b}$, soit $${miseEnEvidence(texNombre(Math.round(a / 10) * 10 * b, 0))}$.`
+    this.canEnonce = this.consigne
+    this.question = `<br>\n${monQcm.texte}`
   }
 
   nouvelleVersion () {

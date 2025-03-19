@@ -35,7 +35,7 @@ export default class YohakuCan6b extends Exercice {
     this.reponse = yohaku1.cellules[laCase]
     // On blanchit la case inconnue avant la représentation
     yohaku1.cellulesPreremplies = [...yohaku1.cellules.map((el, i) => i === laCase ? '' : el)]
-    this.listeQuestions[0] = 'Les nombres en bout de ligne ou de colonne sont les sommes des nombres contenus dans la ligne ou la colonne.<br>'
+    this.listeQuestions[0] = 'Les nombres en bout de ligne ou de colonne sont les produits des nombres contenus dans la ligne ou la colonne.<br>'
     this.listeQuestions[0] += `Donner la valeur de la case vide.
     <br>${yohaku1.representation({ numeroExercice: this.numeroExercice ?? 0, question: 0, isInteractif: this.interactif, classes: 'college6e' })}`
     yohaku1.solution = true

@@ -32,7 +32,7 @@ export default class Can2025N6Q30 extends Exercice {
     this.question = `Complète.<br>
       Le reste de la division de $${d}$ par $${a}$ est `
     if (!this.interactif) { this.question += '$\\ldots$' }
-    this.correction += `Le plus grand multiple de $${a}$ inférieur à $${d}$ est $${a * c}$  et $${d}=${a * c} + ${b}$ donc le reste de la division de $${d}$ par $${a}$ est $${miseEnEvidence(b)}$.`
+    this.correction = `Le plus grand multiple de $${a}$ inférieur à $${d}$ est $${a * c}$  et $${d}=${a * c} + ${b}$ donc le reste de la division de $${d}$ par $${a}$ est $${miseEnEvidence(b)}$.`
 
     this.reponse = b
     this.canEnonce = 'Complète.'

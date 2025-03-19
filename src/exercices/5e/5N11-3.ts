@@ -67,7 +67,7 @@ export default class FractionVersPourcentage extends Exercice {
         } else {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${den / 100}}}{${den}{\\color{blue}\\div${den / 100}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         }
-        handleAnswers(this, i, { champ1: { value: den }, champ2: { value: num }, champ3: { value: String(percenti) }, champ4: { value: String(percenti) } }, { formatInteractif: 'fillInTheBlank', digits: 3, decimals: 0 })
+        handleAnswers(this, i, { champ1: { value: den }, champ2: { value: num }, champ3: { value: String(percenti) }, champ4: { value: String(percenti) } }, { formatInteractif: 'custom', digits: 3, decimals: 0 })
       } else {
         this.interactifType = 'mathLive'
         texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, ' clavierDeBaseAvecFraction', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
@@ -106,7 +106,6 @@ export default class FractionVersPourcentage extends Exercice {
       let test1: boolean = true
       let test1Bis: boolean = true
       if (num1 !== '' && den1 !== '') {
-      // const test1 = ce.parse(`\\frac{${num1.replace(',', '.')}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
         test1 = (num1.includes('\\times')
           ? ce.parse(`\\frac{${Number(num1.split('\\times')[0]) * (Number(num1.split('\\times')[1]) ?? 1)}}{${Number(den1.split('\\times')[0]) * (Number(den1.split('\\times')[1]) ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))
           : ce.parse(`\\frac{${Number(num1.split('\\div')[0]) * (Number(num1.split('\\div')[1]) ?? 1)}}{${Number(den1.split('\\div')[0]) * (Number(den1.split('\\div')[1]) ?? 1)}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{100}`))) ?? false

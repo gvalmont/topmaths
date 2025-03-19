@@ -4,6 +4,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer un nombre connaissant son inverse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +28,7 @@ export default class NombreInverse extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
   }
 
@@ -56,6 +57,7 @@ export default class NombreInverse extends Exercice {
         Ainsi $${Nom}=${miseEnEvidence(`${e.inverse().texFraction}`)}$.`
       this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}-${texFractionFromString(b, c)}$`// 'Compléter'
       this.canReponseACompleter = `$${Nom}=\\ldots$`
+      this.optionsChampTexte = { texteAvant: `<br>$${Nom}=$` }
     }
   }
 }

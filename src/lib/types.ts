@@ -14,20 +14,40 @@ export type RecursivePartial<T> = T extends string ? string | undefined : {
  */
 export type ReplaceDateWithString<T> = {
   [K in keyof T]: T[K] extends Date ? string : T[K] extends string ? string : T[K] extends object ? ReplaceDateWithString<T[K]> : T[K];
-};
+}
 
 /*
 Code inspiré de Sylvain, merci!
 https://stackoverflow.com/questions/55020193/is-it-possible-to-create-a-typescript-type-from-an-array
 */
-const VueTypeArray = <const>['exercise', 'diaporama', 'can', 'eleve', 'latex', 'confeleve', 'amc', 'anki', 'moodle', 'l', 'l2', 'overview', 'start']
+const VueTypeArray = <const>[
+  'exercise',
+  'start',
+  'alacarte',
+  'diaporama',
+  'can',
+  'eleve',
+  'latex',
+  'confeleve',
+  'amc',
+  'anki',
+  'moodle',
+  'l',
+  'l2',
+  'overview',
+  'myriade',
+  'indices',
+  ''
+]
 type VueTypeArrayType = typeof VueTypeArray
 export type VueType = VueTypeArrayType[number] // equiv to diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'anki' | 'moodle' | 'l' | 'l2' | 'overview'
 
 // export type VueType = 'diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'anki' | 'moodle' | 'l' | 'l2' | 'overview'
 
-export const convertVueType = (type : string) : VueType | undefined => {
-  return VueTypeArray.indexOf(type as VueType) < 0 ? undefined : VueTypeArray[VueTypeArray.indexOf(type as VueType)]
+export const convertVueType = (type: string): VueType | undefined => {
+  return VueTypeArray.indexOf(type as VueType) < 0
+    ? undefined
+    : VueTypeArray[VueTypeArray.indexOf(type as VueType)]
 }
 
 /**
@@ -50,16 +70,16 @@ export interface InterfaceGlobalOptions {
   order?: number[]
   manualMode?: boolean
   es?: string
-  title: string
-  presMode:
+  title?: string
+  presMode?:
     | 'liste_exos'
     | 'un_exo_par_page'
     | 'liste_questions'
     | 'une_question_par_page'
     | 'recto'
     | 'verso'
-    // | 'cartes'
-  setInteractive: string
+  // | 'cartes'
+  setInteractive?: string
   isSolutionAccessible?: boolean
   isTitleDisplayed?: boolean
   isInteractiveFree?: boolean
@@ -69,14 +89,14 @@ export interface InterfaceGlobalOptions {
   answers?: string
   iframe?: string
   twoColumns?: boolean
-  beta: boolean
+  beta?: boolean
   isDataRandom?: boolean
   canD?: string
   canT?: string
   canSA?: boolean
   canSM?: CanSolutionsMode
   canI?: boolean
-  lang: Language
+  lang?: Language
 }
 
 export interface InterfaceParams extends Partial<Record<string, string | number>> {
@@ -93,7 +113,7 @@ export interface InterfaceParams extends Partial<Record<string, string | number>
   nbQuestions?: number
   duration?: number
   cols?: number
-  type?: 'mathalea' | 'static' | 'app',
+  type?: 'mathalea' | 'static' | 'app'
   bestScore?: number
 }
 
@@ -118,8 +138,8 @@ export interface InterfaceResultExercice {
   indice?: number
   state?: 'done'
   type?: 'mathalea' | 'static' | 'app'
-  bestScore?: number,
-  duration?: number,
+  bestScore?: number
+  duration?: number
   resultsByQuestion?: boolean[]
 }
 
@@ -208,22 +228,21 @@ export type NumericRange<
   acc extends number = never
 > = arr['length'] extends end
   ? acc | start | end
-  : NumericRange<
-      start,
-      end,
-      [...arr, 1],
-      arr[start] extends undefined ? acc : acc | arr['length']
-  >
+  : NumericRange<start, end, [...arr, 1], arr[start] extends undefined ? acc : acc | arr['length']>
 // autre type pour intervalle de nombre
 // source : https://github.com/type-challenges/type-challenges/issues/9230
-export type NumberRange<L extends number, H extends number, Out extends number[] = [], Flag extends boolean = false> =
-    Out['length'] extends L
-      ? NumberRange<L, H, [...Out, L], true>
-      : Flag extends true
-        ? Out['length'] extends H
-          ? [...Out, Out['length']][number]
-          : NumberRange<L, H, [...Out, Out['length']], Flag>
-        : NumberRange<L, H, [...Out, never], Flag>
+export type NumberRange<
+  L extends number,
+  H extends number,
+  Out extends number[] = [],
+  Flag extends boolean = false
+> = Out['length'] extends L
+  ? NumberRange<L, H, [...Out, L], true>
+  : Flag extends true
+    ? Out['length'] extends H
+      ? [...Out, Out['length']][number]
+      : NumberRange<L, H, [...Out, Out['length']], Flag>
+    : NumberRange<L, H, [...Out, never], Flag>
 // type pour les chips des exercices
 export type ChipContentType = { ref: string; title: string; key: string }
 
@@ -249,6 +268,14 @@ export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
   types: 'Types'
 }
 
-export type interactivityType = 'qcm' | 'mathlive' | 'remplisLesBlancs' | 'tableauMathlive' | 'texte' | 'cliqueFigure' | 'dnd' | 'listeDeroulante'
+export type interactivityType =
+  | 'qcm'
+  | 'mathlive'
+  | 'remplisLesBlancs'
+  | 'tableauMathlive'
+  | 'texte'
+  | 'cliqueFigure'
+  | 'dnd'
+  | 'listeDeroulante'
 
 export type TableauMathliveType = 'doubleEntree' | 'proportionnalite'

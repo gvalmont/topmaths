@@ -24,15 +24,14 @@ export default class Can2025N4Q13 extends ExerciceCan {
       a = randint(1, 9) / 10 + choice([0, 1]) * randint(1, 9) / 1000
     }
     this.reponse = (a * 100).toFixed(1)
-    this.question = 'Compléter : <br>'
+    this.question = 'Compléter : '
     this.correction = `$1\\text{ m} = 100\\text{ cm}$, donc $${texNombre(a, 3)}\\text{ m} =${miseEnEvidence(`${texNombre(a * 100, 1)}`)} \\text{ cm}$.`
-    this.canEnonce = this.question
+    this.canEnonce = 'Compléter.'
     this.canReponseACompleter = `$${texNombre(a, 3)}\\text{ m}=\\ldots\\ldots$ cm`
     this.optionsChampTexte = { texteApres: ' $\\text{cm}$', texteAvant: ` $${texNombre(a, 3)}\\text{ m}=$` }
     if (context.isHtml && !this.interactif) {
       this.question += ` $${texNombre(a, 3)}\\text{ m}=\\ldots\\text{ cm}$`
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

@@ -33,12 +33,12 @@ export default class Can2025N5Q26 extends Exercice {
 
     this.reponse = texNombre((1 - coeffmul ** 2) * 100, 2)
     this.question = `Deux diminutions successives de  $${dim}\\,\\%$ correspondent à une diminution globale de `
+    this.canEnonce = this.question
     if (!this.interactif) { this.question += ' $\\ldots \\,\\%$.' }
     this.correction = ` Le coefficient multiplicateur  associé à une baisse de $${dim}\\,\\%$ est $${texNombre(coeffmul, 2)}$.<br>
     Le coefficient multiplicateur global associé à ces deux diminutions est $${texNombre(coeffmul, 2)}\\times ${texNombre(coeffmul, 2)}= ${texNombre(coeffmul ** 2, 2)}$.<br>
     On en déduit que le taux d'évolution globale est $${texNombre(coeffmul ** 2, 2)}-1=${texNombre(coeffmul ** 2 - 1, 2)}$.<br>
     La diminution globale est donc de $${miseEnEvidence(this.reponse)} \\,\\%$.`
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canReponseACompleter = ' $\\ldots \\,\\%$.'
   }
 }

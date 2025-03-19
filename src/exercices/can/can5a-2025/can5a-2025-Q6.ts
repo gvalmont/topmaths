@@ -23,7 +23,6 @@ export default class Can2025N5Q6 extends ExerciceCan {
       b = randint(2, 9 - a)
       c = randint(2, 5)
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a + b * c
     this.question = `$${a} + ${b}\\times ${c}$`
     this.correction = `La multiplication est prioritaire sur l'addition, donc :<br> $${a} + ${b}\\times ${c}=${a} + ${b * c} = ${miseEnEvidence(texNombre(a + b * c, 0))}$.`

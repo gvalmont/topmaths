@@ -27,7 +27,7 @@ export default class EtrangersJuin13Exo1Q4 extends ExerciceQcmA {
       `$${String(a - b)}x^2$`,
       `$(${String(a2)}-${String(b2)}x)^2$`
     ]
-    this.enonce = `La forme factorisée de $${String(a)}-${String(b)}x^2$ est ...`
+    this.enonce = `La forme factorisée de $${String(a)}-${String(b)}x^2$ est :`
     this.correction = `$\\begin{aligned}${String(a)}-${String(b)}x^2&=${String(a2)}^2-${String(b2)}^2x^2\\\\
     &=${String(a2)}^2-(${String(b2)}x)^2\\\\
     &=${miseEnEvidence(`(${String(a2)}-${String(b2)}x)(${String(a2)}+${String(b2)}x)`)}

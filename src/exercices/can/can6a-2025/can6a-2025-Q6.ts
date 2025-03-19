@@ -4,6 +4,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import Hms from '../../../modules/Hms'
+import { formatMinute } from '../../../lib/outils/texNombre'
 export const titre = 'Ajouter une demi-heure'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +38,7 @@ export default class Can2025N62Q6 extends Exercice {
     Dans une demi-heure, quelle heure sera-t-il ?`
 
     this.correction = `Une demi-heure est égale à $30$ minutes. <br>
-    Ainsi $${h}$ h $${min}$ min + $30$ min est égal à $${miseEnEvidence(h + 1)}$ h $${miseEnEvidence(min - 30)}$ min.`
+    Ainsi $${h}$ h $${min}$ min + $30$ min est égal à $${miseEnEvidence(h + 1)}$ h $${miseEnEvidence(formatMinute(min - 30))}$ min.`
 
     handleAnswers(this, 0, { reponse: { value: new Hms({ hour: h + 1, minute: min - 30 }).toString(), options: { HMS: true } } })
     this.canEnonce = this.question

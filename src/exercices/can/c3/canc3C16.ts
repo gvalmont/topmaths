@@ -46,8 +46,8 @@ Ainsi le double du plus petit nombre est $${n1 + n2 - 1}$.<br>
 
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: `${n1}`, options: { nombreDecimalSeulement: true } },
-        champ2: { value: `${n2}`, options: { nombreDecimalSeulement: true } }
+        champ1: { value: `${n1}` },
+        champ2: { value: `${n2}` }
       }
       )
       this.canEnonce = texte

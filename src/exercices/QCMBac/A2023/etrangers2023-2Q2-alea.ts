@@ -3,7 +3,7 @@ import { randint } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
-export const uuid = 'QCME2023_Q2'
+export const uuid = '79c98'
 export const refs = {
   'fr-fr': ['TSP1-QCM04'],
   'fr-ch': []
@@ -12,7 +12,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac centres étrangers 2023 : binomiale'
+export const titre = 'Centres étrangers 03/23 : binomiale'
 export const dateDePublication = '08/11/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**

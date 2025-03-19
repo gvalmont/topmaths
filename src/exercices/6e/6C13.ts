@@ -170,7 +170,7 @@ export default class VocabulaireEtOperations extends Exercice {
           texte += `${expf}.`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, '')
-            handleAnswers(this, i, { reponse: { value: resultat, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: resultat } })
           }
           expf = 'L' + String(expf).substring(1)
           texteCorr += numAlpha(i) + `${expf} s'écrit ${expn}.<br>`

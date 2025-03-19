@@ -18,7 +18,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Métropole septembre 2021 : convéxité et point d\'inflexion.'
+export const titre = 'Métropole 09/21 : point d\'inflexion'
 export const dateDePublication = '08/11/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**

@@ -54,7 +54,7 @@ export default class Exercice3L14DNB1 extends ExerciceBrevetA {
     })
     let texteScratch = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n`
     texteScratch += `\\blockinit{quand \\greenflag est cliqué}
-\\blocksensing{demander \\ovalnum{Choisir un nombre}~ et attendre}
+\\blockmove{demander \\ovalnum{Choisir un nombre} et attendre}
 \\blockvariable{mettre \\selectmenu{nombre choisi} à \\ovalsensing{réponse}}
 \\blockvariable{mettre \\selectmenu{Résultat 1} à \\ovaloperator{\\ovalvariable{Nombre choisi} + \\ovalnum{${x1}} }}
 \\blockvariable{mettre \\selectmenu{Résultat 2} à \\ovaloperator{\\ovalvariable{Nombre choisi} - \\ovalnum{${x2}} }}

@@ -29,7 +29,6 @@ import Question28 from '../can6NY-2025/can6NY-2025-Q28'
 import Question29 from '../can6NY-2025/can6NY-2025-Q29'
 import Question30 from '../can6NY-2025/canc3NY-2025-Q30'
 import MetaExercice from '../../MetaExerciceCan'
-import Exercice from '../../Exercice'
 
 export const titre = 'CAN Spéciale année 2025'
 export const interactifReady = true
@@ -45,7 +44,7 @@ export const dateDePublication = '08/12/2024'
  * @author
 */
 
-const exercices = [
+const questions = [
   Question1,
   Question2,
   Question3,
@@ -76,9 +75,7 @@ const exercices = [
   Question28,
   Question29,
   Question30
-] as unknown
-
-const questions = exercices as Exercice[]
+]
 
 export default class Can6aNY2025 extends MetaExercice {
   constructor () {

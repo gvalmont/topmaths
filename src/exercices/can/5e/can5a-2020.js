@@ -12,7 +12,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embell
 import { sp } from '../../../lib/outils/outilString'
 import { prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -197,7 +197,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texte = `${prenom} part à  $${a}$ h $${b}$ min et son trajet dure  $${c}$ h $${d}$ min.<br>
           À quelle heure arrive-t-il ?`
           texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${c}$  ${c > 1 ? ' heures' : ' heure '}
-          et $${d - 60 + b}$ min, soit une arrivée à  $${miseEnEvidence(a + c + 1)}$ h $${miseEnEvidence(b + d - 60)}$ min.`
+          et $${d - 60 + b}$ min, soit une arrivée à  $${miseEnEvidence(a + c + 1)}$ h $${miseEnEvidence(formatMinute(b + d - 60))}$ min.`
 
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
@@ -618,7 +618,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           somme = new Decimal(a).add(b)
           c = randint(10, 15)
           propositions = shuffle([`$${texNombre(a)}$`, `$${texNombre(b)}$`, `$${texNombre(c)}$`])
-          texte = `VRAI/FAUX<br>
+          texte = `Vrai/Faux<br>
           On peut construire un triangle (non aplati) dont les trois côtés ont pour longueur :<br>`
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           if (somme > c) {
@@ -633,7 +633,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           L'affirmation est donc fausse (${texteEnCouleurEtGras('F')}).`
           }
           if (this.interactif) {
-            texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
+            texte += '<br>Pour Vrai, écrire V et pour Faux : F'
             texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
 

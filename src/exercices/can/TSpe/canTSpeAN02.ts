@@ -21,7 +21,7 @@ export const refs = {
 
 /**
  *
- * @autor  Jean-Claude Lhote
+ * @author  Jean-Claude Lhote
 
  */
 export default class CalculsLog extends Exercice {
@@ -33,7 +33,7 @@ export default class CalculsLog extends Exercice {
     this.consigne = 'Calculer.'
     this.spacingCorr = 3
     this.sup = '4'
-    this.besoinFormulaireTexte = ['Type de question ', 'Nombres séparés par des tirets  :\n : logarithme(a^n)\n2 : logarithme(1/a^n)\n3 : exponentiation\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question ', 'Nombres séparés par des tirets  :\n1 : Logarithme(a^n)\n2 : Logarithme(1/a^n)\n3 : Exponentiation\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.comment = 'Exercice de calculs de logarithmes'
   }
@@ -83,11 +83,12 @@ export default class CalculsLog extends Exercice {
               texteCorr = `$${texte}=${logString}(${base}^{${-n}})=${-n}${logString} ${base}=${-n}$`
             } else {
               if (base === 'e') {
-                texte = `${logString}(${base}^${-n})`
+                texte = `${logString}(\\mathrm{e}^{${-n}})`
+                texteCorr = `$${texte}=${-n}${logString} (\\mathrm{e})=${-n}$`
               } else {
                 texte = `${logString}(${texNombre(10 ** (-n), 5)})`
+                texteCorr = `$${texte}=${logString}(${base}^{${-n}})=${-n}${logString} ${base}=${-n}$`
               }
-              texteCorr = `$${texte}=${logString}(${base}^{${-n}})=${-n}${logString} ${base}=${-n}$`
             }
             answer = String(-n)
           } else {

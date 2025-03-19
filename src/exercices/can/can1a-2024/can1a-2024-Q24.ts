@@ -67,6 +67,6 @@ export default class equationAxeSymetrie extends Exercice {
     this.canEnonce = `Soit $f\\,:\\,x\\longmapsto ${x2 === 0 ? `x(${reduireAxPlusB(1, -x1)})` : `(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})`} $<br>
     La représentation graphique $\\mathscr{C}_f$ a pour axe de symétrie la droite d’équation :`
 
-    this.canReponseACompleter = `$\\Box$ $x=${axe}$ <br>$\\Box$ $x=${x1}$<br>$\\Box$ $x=${x2}$ `
+    this.canReponseACompleter = `\\faSquare[regular] $x=${axe}$ <br>\\faSquare[regular] $x=${x1}$<br>\\faSquare[regular] $x=${x2}$ `
   }
 }

@@ -41,7 +41,8 @@ export default class Can2025N5Q29 extends Exercice {
        Le sommet de la parabole a pour abscisse $-\\dfrac{b}{2a}$.<br>
            L'axe de symétrie a donc pour équation $x=-\\dfrac{b}{2a}$. <br>
        On obtient alors  $x=-\\dfrac{${b}}{2\\times ${ecritureParentheseSiNegatif(a)}}$, soit $x=\\dfrac{${-b}}{${2 * a}}$ ou encore  $x=${miseEnEvidence(`${texNombre(-b / (2 * a), 2)}`)}$.`
-    this.canEnonce = this.question
+    this.canEnonce = `$f(x)=${reduirePolynomeDegre3(0, a, b, c)}$ <br>
+           La représentation graphique $\\mathscr{C}_f$ de la fonction $f$ a pour axe de symétrie la droite d'équation :`
     this.canReponseACompleter = '$x=\\ldots$'
   }
 }

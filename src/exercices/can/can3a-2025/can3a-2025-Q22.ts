@@ -25,13 +25,12 @@ export default class CalculMoyenne extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
     this.optionsChampTexte = { texteApres: '.' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
     const a = this.canOfficielle ? -3 : randint(-5, -2)
-    const b = this.canOfficielle ? 5 : randint(6, 10)
-    const d = this.canOfficielle ? 12 : randint(3, 7) * 3
+    const b = this.canOfficielle ? 8 : randint(6, 10)
+    const d = this.canOfficielle ? 15 : randint(3, 7) * 3
 
     const c = d - a - b
     this.reponse = d / 3
@@ -41,7 +40,7 @@ export default class CalculMoyenne extends Exercice {
                    La moyenne est donc $\\dfrac{${d}}{3}=${miseEnEvidence(this.reponse)}$.`
 
     this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canReponseACompleter = '$\\ldots$'
     if (!this.interactif) {
       this.question += ' $\\ldots$'
     }

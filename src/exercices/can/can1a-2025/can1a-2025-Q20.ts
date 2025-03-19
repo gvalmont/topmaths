@@ -38,11 +38,11 @@ export default class Can2025N5Q20 extends Exercice {
       enonce: question,
       propositions: [
         {
-          texte: 'VRAI',
+          texte: 'Vrai',
           statut: coeffy === coeffx
         },
         {
-          texte: 'FAUX',
+          texte: 'Faux',
           statut: coeffy !== coeffx
         }
       ]
@@ -54,6 +54,6 @@ export default class Can2025N5Q20 extends Exercice {
     ${coeffy === -coeffx ? `On a $x_{\\vec{v}}=${coeffx}\\times x_{\\vec{u}}$ mais $y_{\\vec{v}}\\neq ${coeffx}\\times y_{\\vec{u}}$, donc les vecteurs n'ont pas la même direction.` : `On a $\\vec{v}=${coeffx}\\times \\vec{u}$, donc les vecteurs ont la même direction. `}`
 
     this.canEnonce = `$\\vec{u}\\begin{pmatrix}${xu} \\\\${yu}\\end{pmatrix}$ et $\\vec{u}\\begin{pmatrix}${xu * coeffx} \\\\ ${yu * coeffy}\\end{pmatrix}$ ont la même direction.`
-    this.canReponseACompleter = `Coche la bonne réponse : <br>$\\Box$ VRAI ${sp(2)}$\\Box$ FAUX`
+    this.canReponseACompleter = `Coche la bonne réponse : <br>\\faSquare[regular] Vrai ${sp(2)}\\faSquare[regular] Faux`
   }
 }

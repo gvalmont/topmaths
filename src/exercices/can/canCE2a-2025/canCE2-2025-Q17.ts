@@ -21,17 +21,16 @@ export default class Can2025NCE2Q17 extends ExerciceCan {
     if (a == null) {
       a = randint(2, 29, [10, 20]) * 10
     }
-    this.reponse = { champ1: { value: a } }
-    this.consigne = 'Complète : '
-    this.formatInteractif = 'fillInTheBlank'
-    this.correction = `$10 \\times ${miseEnEvidence(texNombre(a, 0))} = ${a * 10}$.`
-    this.canEnonce = this.consigne
+    this.reponse = a
+    this.correction = `$10 \\times ${miseEnEvidence(texNombre(a, 0))} = ${texNombre(a * 10)}$`
+    this.canEnonce = 'Complète.'
     if (this.interactif) {
-      this.question = `10 \\times %{champ1} = ${a * 10}`
+      this.question = '$10 \\times $'
+      this.optionsChampTexte = { texteApres: `$= ${texNombre(a * 10)}$` }
     } else {
-      this.question = `10 \\times \\ldots\\ldots = ${a * 10}`
+      this.question = `$10 \\times \\ldots\\ldots = ${texNombre(a * 10)}$`
     }
-    this.canReponseACompleter = `$10 \\times \\ldots\\ldots = ${a * 10}$`
+    this.canReponseACompleter = `$10 \\times \\ldots\\ldots = ${texNombre(a * 10)}$`
   }
 
   nouvelleVersion () {

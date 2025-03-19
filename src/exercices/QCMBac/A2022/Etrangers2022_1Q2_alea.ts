@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac centres étrangers 2022 : convexité'
+export const titre = 'Centres étrangers 05/22 : convexité'
 export const dateDePublication = '08/11/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 /**

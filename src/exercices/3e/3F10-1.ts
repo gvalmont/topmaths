@@ -37,8 +37,6 @@ export default class VocabulaireNotationsFonctions extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ['Avec éventuellement un graphique', false]
     this.sup = 2
-    this.correctionDetailleeDisponible = true
-    this.correctionDetaillee = false
     this.spacing = 2
     this.nbQuestions = 3
     this.consigne = 'Cocher toutes les réponses correctes.'
@@ -92,7 +90,7 @@ export default class VocabulaireNotationsFonctions extends Exercice {
           break
 
         case 'notations':
-          if (this.sup2 && sousChoix[i] === 3) sousChoix[i] = choice([0, 1, 2, 4])
+          if (!this.sup2 && sousChoix[i] === 3) sousChoix[i] = choice([0, 1, 2, 4])
           switch (sousChoix[i]) {
             case 0:
               enonce = `On sait que $f(${x})=${y}$, alors pour la fonction $f$ :`

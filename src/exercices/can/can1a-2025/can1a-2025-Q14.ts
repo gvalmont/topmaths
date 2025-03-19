@@ -23,7 +23,6 @@ export default class Can2025N5Q14 extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
 
     this.canOfficielle = true
   }
@@ -44,7 +43,7 @@ P(A\\cap B)&=${miseEnEvidence(this.reponse)}
 \\end{aligned}$
   `
 
-    // this.canEnonce = this.question
+    this.canEnonce = `$A$ et $B$ sont des événements indépendants tels que $P(A)=${texNombre(a, 1)}$ et $P(B)=${texNombre(b, 1)}$.`
     this.canReponseACompleter = '$P(A\\cap B)=\\ldots$'
     if (!this.interactif) {
       this.question += '<br> $P(A\\cap B)=\\ldots$.'

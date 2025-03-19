@@ -24,7 +24,6 @@ export default class MultiplierEntierDecimal extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.canOfficielle = true
   }

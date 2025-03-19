@@ -76,7 +76,7 @@ const locations: [string, number, number, number][] = [
   ['des rollers', 7, 2, 5],
   ['un char à voile', 12, 2, 4]
 ]
-const cours : [string, number][] = [
+const cours: [string, number][] = [
   ['de piano', 20],
   ['de maths', 25],
   ['de yoga', 5],
@@ -125,7 +125,7 @@ const vitesses: [string, number, number, number][] = [
   ['à pied', 2, 4, 5]
 ] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h]
 export default class ProblemesGrandeursComposees extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Type des grandeurs',
@@ -135,11 +135,11 @@ export default class ProblemesGrandeursComposees extends Exercice {
     this.nbQuestions = 3
 
     context.isHtml ? (this.spacing = 3) : (this.spacing = 1.5)
-    context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 2)
     this.sup = ''
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion(numeroExercice: number) {
     // let listeIndex_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)
@@ -157,26 +157,26 @@ export default class ProblemesGrandeursComposees extends Exercice {
 
     for (
       let i = 0,
-        j,
-        index,
-        index1,
-        index2,
-        duree,
-        quidam,
-        nbheures,
-        nbminutes,
-        nbsecondes,
-        vitesseMoy,
-        distance,
-        masse,
-        masse2,
-        masse3,
-        prix1,
-        prix2,
-        prix3,
-        texte,
-        texteCorr,
-        cpt = 0;
+      j,
+      index,
+      index1,
+      index2,
+      duree,
+      quidam,
+      nbheures,
+      nbminutes,
+      nbsecondes,
+      vitesseMoy,
+      distance,
+      masse,
+      masse2,
+      masse3,
+      prix1,
+      prix2,
+      prix3,
+      texte,
+      texteCorr,
+      cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -234,7 +234,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             puissance / 1000
           )}\\text{ kW}\\times${texNombre(duree)}\\text{ h}=${texNombre(
             puissance * duree * 0.001
-          , 3)}\\text{ kWh}$<br>`
+            , 3)}\\text{ kWh}$<br>`
           texteCorr +=
             numAlpha(1) +
             ` Le prix de cette énergie consommée est : $${texPrix(
@@ -440,7 +440,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             ) +
             ` dans un jardin d'enfant. Le siège est situé à $${texNombre(
               distance
-            , 1)}$ m du pivot central de la balançoire (bras de levier).<br>`
+              , 1)}$ m du pivot central de la balançoire (bras de levier).<br>`
           texte +=
             numAlpha(0) +
             ' Calculer le ' +
@@ -469,11 +469,11 @@ export default class ProblemesGrandeursComposees extends Exercice {
           index1 = masse * 9.81 * distance // pour éviter d'avoir trop de variable, je recycle #antipattern !
           texteCorr += `$${masse}\\text{ kg} \\times 9,81 \\text{m.s}^{-2} \\times ${texNombre(
             distance
-          , 1)} \\text{ m} = ${texNombre(
-            index1
-          , 3)}\\text{ kg.m}^2\\text{.s}^{-2}=${texNombre(
-            index1
-          )}\\text{ J}$.<br>`
+            , 1)} \\text{ m} = ${texNombre(
+              index1
+              , 3)}\\text{ kg.m}^2\\text{.s}^{-2}=${texNombre(
+                index1
+              )}\\text{ J}$.<br>`
           texteCorr +=
             numAlpha(1) +
             ` Afin d'équilibrer le trébuchet, le père de ${quidam} doit se placer de façon que le moment de son poids sur son point d'assise par rapport au pivot central du trébuchet soit égal à celui de ${quidam}, on obtient l'équation suivante où $${miseEnEvidence(
@@ -489,8 +489,8 @@ export default class ProblemesGrandeursComposees extends Exercice {
             'black'
           )}\\text{ m} = \\dfrac{${texNombre(
             index1
-          , 3)}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${texNombre(
-            index1 / (9.81 * index), 2)}\\text{ m}.$`
+            , 3)}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${texNombre(
+              index1 / (9.81 * index), 2)}\\text{ m}.$`
           break
         case 5: // problème de trafic de voyageurs.
           d1 = randint(3, 6)
@@ -584,23 +584,23 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(1) +
                 ` Si ${quidam} veut parcourir $${texNombre(
                   distance
-                , 2)}\\text{ km}$ à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
+                  , 2)}\\text{ km}$ à cette vitesse, combien de temps durera le trajet ? Donner le résultat en heures, minutes et secondes.`
               texteCorr =
                 numAlpha(0) +
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
                 } en $${duree}$ h à la vitesse de $${vitesseMoy}\\text{ m/s}$ est :<br>`
               texteCorr += `$${texNombre(
                 vitesseMoy
-              , 0)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${texNombre(
-                vitesseMoy
-             , 0)}\\text{ m}}{1 \\text{ s}}\\times ${duree}\\times ${texNombre(
-                3600
-              , 0)}\\text{ s}`
+                , 0)}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${texNombre(
+                  vitesseMoy
+                  , 0)}\\text{ m}}{1 \\text{ s}}\\times ${duree}\\times ${texNombre(
+                    3600
+                    , 0)}\\text{ s}`
               texteCorr += `=${texNombre(
                 vitesseMoy * 3600 * duree
-              , 0)}\\text{ m}=${texNombre(
-                vitesseMoy * 3.6 * duree
-              )}\\text{ km}$.<br>`
+                , 0)}\\text{ m}=${texNombre(
+                  vitesseMoy * 3.6 * duree
+                )}\\text{ km}$.<br>`
               texteCorr +=
                 numAlpha(1) +
                 ` Pour parcourir $${texNombre(
@@ -611,9 +611,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
               )}\\text{ km}}{\\mathcal{t}\\text{ h}}$.<br>`
               texteCorr += `Rendons les unités homogènes : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${stringNombre(
                 distance * 1000
-              , 0)}\\text{ m}}{\\mathcal{t}\\text{ h}\\times ${stringNombre(
-                3600
-              , 0)}\\text{ s/h}}$.<br>`
+                , 0)}\\text{ m}}{\\mathcal{t}\\text{ h}\\times ${stringNombre(
+                  3600
+                  , 0)}\\text{ s/h}}$.<br>`
               texteCorr += `Appliquons l'égalité des produits en croix : ${produitsEnCroix(
                 [
                   [`${vitesseMoy}\\text{ m}`, '1 \\text{ s}'],
@@ -625,16 +625,16 @@ export default class ProblemesGrandeursComposees extends Exercice {
               )}.<br>`
               texteCorr += `D'où : $\\mathcal{t}=\\dfrac{1 \\text{ s}\\times${stringNombre(
                 distance * 1000
-              , 0)}\\text{ m}}{${vitesseMoy}\\text{ m}\\times${texNombre(
-                3600
-              )}\\text{ s/h}}$ ($t$ est le nombre décimal d'heures : les mètres et les secondes disparaissent car ils sont, tous deux, présents au numérateur et au dénominateur).<br>`
+                , 0)}\\text{ m}}{${vitesseMoy}\\text{ m}\\times${texNombre(
+                  3600
+                )}\\text{ s/h}}$ ($t$ est le nombre décimal d'heures : les mètres et les secondes disparaissent car ils sont, tous deux, présents au numérateur et au dénominateur).<br>`
               texteCorr += `Soit : $\\mathcal{t}=${texNombre(
                 (distance * 1000) / vitesseMoy / 3600
                 , 1)}\\times ${stringNombre(
-                3600
-                , 0)}\\text{ s}=${texNombre(
-                (distance * 1000) / vitesseMoy, 0
-              )}\\text{ s}=`
+                  3600
+                  , 0)}\\text{ s}=${texNombre(
+                    (distance * 1000) / vitesseMoy, 0
+                  )}\\text{ s}=`
               nbheures = Math.floor((distance * 1000) / vitesseMoy / 3600) // conversion en h min s
               nbminutes = Math.floor(
                 (Math.floor((distance * 1000) / vitesseMoy) % 3600) / 60
@@ -687,16 +687,16 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 duree
               )}\\times 1\\text{ s}}=\\dfrac{${texNombre(
                 duree * 340
-              , 0)}\\text{ m}}{${duree}\\text{ s}}$<br>`
+                , 0)}\\text{ m}}{${duree}\\text{ s}}$<br>`
               texteCorr += `La distance à laquelle l'éclair est tombé est donc de $${texNombre(
                 duree * 340
-              , 0)}\\text{ m}$.<br>`
+                , 0)}\\text{ m}$.<br>`
               texteCorr +=
                 numAlpha(1) +
                 ' Avec les données de l\'énoncé, nous pouvons écrire :<br>'
               texteCorr += `$\\dfrac{340\\text{ m}}{1\\text{ s}}=\\dfrac{${texNombre(
                 distance
-              , 0)}\\text{ m}}{\\mathcal{T}\\text{ s}}$.<br>`
+                , 0)}\\text{ m}}{\\mathcal{T}\\text{ s}}$.<br>`
               texteCorr += `Soit grâce à l'égalité des produits en croix : $\\mathcal{T}\\text{ s}=${quatriemeProportionnelle(
                 '340 \\text{ m}',
                 '1 \\text{ s}',
@@ -835,20 +835,20 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(2) +
                 ` Si elle court $${texNombre(21.0975, 4)}\\text{ km}$ à cette vitesse moyenne de $${texNombre(
                   vitesseMoy
-                , 1)}\\text{ km/h}$, ${quidam} mettra :<br>`
+                  , 1)}\\text{ km/h}$, ${quidam} mettra :<br>`
               duree = Number((21.0975 / vitesseMoy).toFixed(4))
               texteCorr += `$\\dfrac{${texNombre(
                 21.0975
               )} \\text{ km}}{${texNombre(
                 vitesseMoy
-              , 1)} \\text{ km.h}^{-1}}\\approx${texNombre(duree, 4)}\\text{ h}$, soit `
+                , 1)} \\text{ km.h}^{-1}}\\approx${texNombre(duree, 4)}\\text{ h}$, soit `
               nbheures = Math.floor(duree)
               texteCorr += `$${texNombre(
                 duree, 4)}\\times ${stringNombre(
-                3600
-                , 0)}\\text{ s}\\approx${texNombre(
-                duree * 3600, 0
-              )}\\text{ s}=`
+                  3600
+                  , 0)}\\text{ s}\\approx${texNombre(
+                    duree * 3600, 0
+                  )}\\text{ s}=`
               duree = (Number(duree.toFixed(4)) - nbheures) * 60
               nbminutes = Math.floor(duree)
               duree = Math.round((Number(duree.toFixed(3)) - nbminutes) * 60)
@@ -931,9 +931,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
             ` ${quidam} a pris des leçons particulières ${cours[index2][0]
             }. En tout, ce mois-ci, elle a eu $${stringNombre(
               prix2 / cours[index2][1]
-            , 0)}$ heures de cours pour $${texPrix(
-              prix2
-            )}$ €. Combien demande son professeur pour une heure de cours ?<br>`
+              , 0)}$ heures de cours pour $${texPrix(
+                prix2
+              )}$ €. Combien demande son professeur pour une heure de cours ?<br>`
           texteCorr =
             numAlpha(0) +
             ` ${quidam} va dépenser pour sa location d'${locations[index1][0]} : $${texNombre(
@@ -958,7 +958,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
               villes[index1][1]
             )}$ habitants pour une superficie de $${texNombre(
               villes[index1][2] * 100
-            , 0)}\\text{ ha}$.<br> Calculer la densité de population en $\\text{hab/km}^2$ arrondi à l'unité.<br>`
+              , 0)}\\text{ ha}$.<br> Calculer la densité de population en $\\text{hab/km}^2$ arrondi à l'unité.<br>`
           texte +=
             numAlpha(1) +
             ' La même année, la ' +
@@ -971,7 +971,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             ) +
             ` de ${villes[index2][0]} était de $${texNombre(villes[index2][1] / villes[index2][2], 0)}\\text{ hab/km}^2$ pour une superficie de $${texNombre(
               villes[index2][2] * 100
-            , 0)}\\text{ ha}$.<br> Calculer le nombre d'habitants de ${villes[index2][0]
+              , 0)}\\text{ ha}$.<br> Calculer le nombre d'habitants de ${villes[index2][0]
             } à cette date.<br>`
           texteCorr =
             numAlpha(0) +
@@ -992,13 +992,13 @@ export default class ProblemesGrandeursComposees extends Exercice {
             ` À cette date, le nombre d'habitants de ${villes[index2][0]
             } était de :<br> $${texNombre(
               villes[index2][1] / villes[index2][2]
-            , 0)}\\text{ hab/km}^2\\times ${texNombre(
-              villes[index2][2] * 100
-            , 0)}\\text{ ha}=${texNombre(
-              villes[index2][1] / villes[index2][2]
-            , 0)}\\text{ hab/km}^2\\times ${texNombre(
-              villes[index2][2]
-            , 1)}\\text{ km}^{2}\\approx${texNombre(villes[index2][1], 0)}\\text{ hab}$.`
+              , 0)}\\text{ hab/km}^2\\times ${texNombre(
+                villes[index2][2] * 100
+                , 0)}\\text{ ha}=${texNombre(
+                  villes[index2][1] / villes[index2][2]
+                  , 0)}\\text{ hab/km}^2\\times ${texNombre(
+                    villes[index2][2]
+                    , 1)}\\text{ km}^{2}\\approx${texNombre(villes[index2][1], 0)}\\text{ hab}$.`
           break
         case 11: // problème de masse volumique
           index1 = randint(0, 14)
@@ -1033,23 +1033,23 @@ export default class ProblemesGrandeursComposees extends Exercice {
             ` La masse de cette pièce ${materiaux[index2][3]}${materiaux[index1][0]
             } est de :<br>$${texNombre(
               materiaux[index1][1]
-            , 0)}\\text{ kg/m}^3\\times ${texNombre(
-              v1
-           , 0)}\\text{ cm}^3=${texNombre(
-              materiaux[index1][1]
-            , 0)}\\text{ kg/m}^3\\times ${texNombre(
-              v1 / 1000000
-            , 6)}\\text{ m}^3=${texNombre(masse, 6)}\\text{ kg}${egalOuApprox(masse * 1000, 0)}${texNombre(masse * 1000, 0)}$ g.<br>`
+              , 0)}\\text{ kg/m}^3\\times ${texNombre(
+                v1
+                , 0)}\\text{ cm}^3=${texNombre(
+                  materiaux[index1][1]
+                  , 0)}\\text{ kg/m}^3\\times ${texNombre(
+                    v1 / 1000000
+                    , 6)}\\text{ m}^3=${texNombre(masse, 6)}\\text{ kg}${egalOuApprox(masse * 1000, 0)}${texNombre(masse * 1000, 0)}$ g.<br>`
           texteCorr +=
             numAlpha(1) +
             ` Le volume de cette pièce ${materiaux[index2][3]}${materiaux[index2][0]
             } est de :<br>$${texNombre(masse2, 0)}\\text{ kg}\\div ${texNombre(
               materiaux[index2][1]
-           , 0)}\\text{ kg/m}^3${egalOuApprox(v2, 6)}${texNombre(
-              v2
-            , 6)}\\text{ m}^3${egalOuApprox(round(v2, 6) * 1000000, 0)}${texNombre(
-              v2 * 1000000
-            , 0)}\\text{ cm}^3$.<br>`
+              , 0)}\\text{ kg/m}^3${egalOuApprox(v2, 6)}${texNombre(
+                v2
+                , 6)}\\text{ m}^3${egalOuApprox(round(v2, 6) * 1000000, 0)}${texNombre(
+                  v2 * 1000000
+                  , 0)}\\text{ cm}^3$.<br>`
           break
         case 12: // problème de concentration massique
           index1 = randint(0, 4)
@@ -1071,27 +1071,27 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(1) +
             ` On dispose de $${texNombre(
               volume2
-            , 1)}$ litres de solution aqueuse de ${solutes[index2][0]
+              , 1)}$ litres de solution aqueuse de ${solutes[index2][0]
             } à $${texNombre(
               concentration2
-            , 1)}\\text{ g/L}$.<br>Quelle masse de ${solutes[index2][0]
+              , 1)}\\text{ g/L}$.<br>Quelle masse de ${solutes[index2][0]
             } a été dissous dans l'eau ?`
           texteCorr =
             numAlpha(0) +
             ` La concentration en ${solutes[index1][0]} de cette solution aqueuse est de :<br>`
           texteCorr += ` $\\dfrac{${texNombre(masse, 1)}\\text{ g}}{${texNombre(
             volume1
-          , 1)}\\text{ L}}=${texNombre(
-            masse / volume1
-          , 1)}\\text{ g/L}.$<br>`
+            , 1)}\\text{ L}}=${texNombre(
+              masse / volume1
+              , 1)}\\text{ g/L}.$<br>`
           texteCorr +=
             numAlpha(1) +
             ` La masse de ${solutes[index2][0]} dissous est de :<br>`
           texteCorr += `$${texNombre(volume2, 1)}\\text{ L}\\times ${texNombre(
             concentration2
-          , 1)}\\text{ g/L}=${texNombre(
-            volume2 * concentration2
-          , 2)}\\text{ g}.$`
+            , 1)}\\text{ g/L}=${texNombre(
+              volume2 * concentration2
+              , 2)}\\text{ g}.$`
           break
 
         case 13: // problème de débit
@@ -1141,7 +1141,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             vMax
           )}\\text{ m}^3}{${texNombre(3600)}\\text{ s}}=${texNombre(
             vMax / 3600
-          , 0)}\\text{ m}^3\\text{/s}$.<br>`
+            , 0)}\\text{ m}^3\\text{/s}$.<br>`
 
           break
         case 14: // problème de vitesse de téléchargement
@@ -1171,7 +1171,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
             numAlpha(1) +
             ` ${quidam} veut télécharger un fichier de $${texNombre(
               masse
-            , 1)}\\text{ Go}$. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de $${vitesseMoy}$ $\\text{${unites[index]
+              , 1)}\\text{ Go}$. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de $${vitesseMoy}$ $\\text{${unites[index]
             }/s}$ ?<br>`
           texteCorr =
             numAlpha(0) + ' La taille du fichier téléchargé est :<br>'
@@ -1190,12 +1190,12 @@ export default class ProblemesGrandeursComposees extends Exercice {
           if (index === 0) {
             texteCorr += `$${texNombre(masse, 1)}\\times ${texNombre(
               10 ** 6
-            , 0)} \\text{ ko} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$ `
+              , 0)} \\text{ ko} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$ `
             tailleFichier = masse * 10 ** 6
           } else {
             texteCorr += `$${texNombre(masse, 1)}\\times ${texNombre(
               10 ** 3
-           , 0)} \\text{ Mo} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$`
+              , 0)} \\text{ Mo} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$`
             tailleFichier = masse * 10 ** 3
           }
           texteCorr += `$${sp(2)}=\\dfrac{${texNombre(tailleFichier, 0)}}{${vitesseMoy}}\\text{ s}`

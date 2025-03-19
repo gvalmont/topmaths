@@ -10,18 +10,18 @@ import { max, min } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Résoudre des problèmes (plus complexes)'
 export const dateDePublication = '27/11/2022'
-export const dateDeModifImportante = '14/05/2023' // par EE : Décoquillage et passage en interactif
+export const dateDeModifImportante = '17/02/2025'
 
 /**
  * Résoudre des problèmes (plus complexes)
  * @author Mikael Guironnet
  * Relecture typographique par Rémi Angot
-
  */
 export const uuid = 'e906e'
 
@@ -61,7 +61,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
       defaut: 11,
       melange: 11,
       nbQuestions: this.nbQuestions,
-      shuffle: false, // A GARDER POUR DEBUGGAGE
+      // shuffle: false, // A GARDER POUR DEBUGGAGE
       saisie: this.sup
     })
 
@@ -87,12 +87,12 @@ export default class ExerciceProblemesComplexes extends Exercice {
                    Aujourd'hui, ${personnage.pronom} a mangé le repas suivant :<br>
                    une côtelette d'agneau de $${quaAgneau}$ g,<br> $${quaEpinards}$ g d'épinards,<br> $${quaFro}$ g de fromage blanc <br> et une pomme de $${quaPom}$ g. <br>
                    <br>On sait que $1$ g d'agneau fournit $${texNombre(calAgneau)}$ calories, <br> $1$ g d'épinards fournit $${texNombre(calEpinards)}$ calories, <br> $1$ g de fromage blanc fournit $${texNombre(calFro)}$ calories <br> et $1$ g de pomme $${texNombre(calPom)}$ calories.<br>`
-          texteCorr += `Agneau : $${quaAgneau}\\times ${texNombre(calAgneau)} =   ${texNombre(calAgneau * quaAgneau)}$ calories. <br>
-                        Epinards : $${quaEpinards}\\times ${texNombre(calEpinards)} =   ${texNombre(calEpinards * quaEpinards)}$ calories. <br>
-                        Fromage blanc : $${quaFro}\\times ${texNombre(calFro)} =   ${texNombre(calFro * quaFro)}$ calories. <br>
-                        Pomme : $${quaPom}\\times ${texNombre(calPom)} =   ${texNombre(calPom * quaPom)}$ calories. <br>
+          texteCorr += `Agneau : $${quaAgneau}\\times ${texNombre(calAgneau)} =   ${miseEnEvidence(texNombre(calAgneau * quaAgneau))}$ calories. <br>
+                        Epinards : $${quaEpinards}\\times ${texNombre(calEpinards)} =   ${miseEnEvidence(texNombre(calEpinards * quaEpinards))}$ calories. <br>
+                        Fromage blanc : $${quaFro}\\times ${texNombre(calFro)} =   ${miseEnEvidence(texNombre(calFro * quaFro))}$ calories. <br>
+                        Pomme : $${quaPom}\\times ${texNombre(calPom)} =   ${miseEnEvidence(texNombre(calPom * quaPom))}$ calories. <br>
                         Cela fait un total de : $${texNombre(calAgneau * quaAgneau)} + ${texNombre(calEpinards * quaEpinards)} + ${texNombre(calFro * quaFro)} + ${texNombre(calPom * quaPom)} =  ${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} $ calories.<br>
-                        ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? `${personnage.Pronom} respecte son règime` : `${personnage.Pronom} ne respecte pas son règime`}
+                        ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? `${prenomFP} ${texteEnCouleurEtGras('respecte')}  son règime` : `${prenomFP} ${texteEnCouleurEtGras('ne respecte pas')} son règime`}
                         car $${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? '< 700' : '> 700'}$.`
           if (this.interactif) {
             texte += '<br>' + numAlpha(0) + `Combien de calories fournit une côtelette d'agneau de $${quaAgneau}$ g ?`
@@ -129,19 +129,21 @@ export default class ExerciceProblemesComplexes extends Exercice {
           const total = quaFro1 * masseFro1 + quaFro2 * masseFro2
           questionParametre = [2, quaFro1, masseFro1, quaFro2, masseFro2, total]
           texte += `Le livreur d'une fromagerie charge $${quaFro1}$ fromages pesant chacun $${texNombre(masseFro1)}$ kg <br>
-                                  et $${quaFro2}$ autres pesant chacun $${texNombre(masseFro2)}$ kg dans une voiture pouvant transporter $550$ kg.<br>
+                                  et $${quaFro2}$ autres pesant chacun $${texNombre(masseFro2)}$ kg dans une voiture pouvant transporter $700$ kg de fromage.<br>
                                   Le véhicule est-il en surcharge ?`
-          handleAnswers(this, indiceInteractif, { reponse: { value: (total > 550) ? 'Oui' : 'Non', options: { texteSansCasse: true } } })
+          handleAnswers(this, indiceInteractif, { reponse: { value: (total > 700) ? 'Oui' : 'Non', options: { texteSansCasse: true } } })
           texte += ajouteChampTexteMathLive(this, indiceInteractif, KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
 
           texte += '<br>Si oui, de combien ? Si non, combien reste-t-il ?'
-          handleAnswers(this, indiceInteractif + 1, { reponse: { value: (total > 550 ? (total - 550).toFixed(2) : (550 - total).toFixed()) } })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: (total > 700 ? (total - 700).toFixed(2) : (700 - total).toFixed()) } })
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, KeyboardType.clavierDeBase, { texteApres: ' kg' })
 
           texteCorr += `Première sorte de fromage : $${quaFro1}\\times ${texNombre(masseFro1)}${sp()}\\text{kg} =   ${texNombre(quaFro1 * masseFro1)}${sp()}\\text{kg}$. <br>
                         Deuxième sorte de fromage : $${quaFro2}\\times ${texNombre(masseFro2)}${sp()}\\text{kg} =   ${texNombre(quaFro2 * masseFro2)}${sp()}\\text{kg}$. <br>
                         Cela fait un total de $${texNombre(quaFro1 * masseFro1)}${sp()}\\text{kg} + ${texNombre(quaFro2 * masseFro2)}${sp()}\\text{kg} = ${texNombre(quaFro1 * masseFro1 + quaFro2 * masseFro2)}${sp()}\\text{kg}$.<br>
-                        ${total > 550 ? `La surcharge est de : $${texNombre(total)}${sp()}\\text{kg} - 550${sp()}\\text{kg} = ${texNombre(total - 550)}${sp()}\\text{kg}$.` : `Il n'y a pas de surcharge et il reste : $550${sp()}\\text{kg} - ${texNombre(total)}${sp()}\\text{kg} = ${texNombre(550 - total)}${sp()}\\text{kg}$.`}`
+                        ${total > 700
+                          ? `${texteEnCouleurEtGras('Le véhicule est en surcharge')} et la surcharge est de : $${texNombre(total)}${sp()}\\text{kg} - 700${sp()}\\text{kg} = ${miseEnEvidence(texNombre(total - 700))}${sp()}\\text{kg}$.`
+                          : `${texteEnCouleurEtGras('Le véhicule n\'est pas en surcharge')} et il reste : $700${sp()}\\text{kg} - ${texNombre(total)}${sp()}\\text{kg} = ${miseEnEvidence(texNombre(700 - total))}${sp()}\\text{kg}$.`}`
 
           indiceInteractif += 2
 
@@ -169,12 +171,15 @@ export default class ExerciceProblemesComplexes extends Exercice {
             handleAnswers(this, indiceInteractif + 1, { reponse: { value: (n2 * k1 * k2).toFixed(2) } })
             texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, KeyboardType.clavierDeBase)
           }
-          texteCorr += `${numAlpha(0)} Si le nombre est $${n1}$ :<br>
+          const correction1 = `Si le nombre est $${n1}$ :<br>
                         • $${n1} \\times ${texNombre(k1)} = ${texNombre(n1 * k1)}$ ;<br>
-                        • $${texNombre(n1 * k1)} \\times ${texNombre(k2)} = ${texNombre(n1 * k1 * k2)}$.<br>
-                        Si le nombre est $${n2}$ :<br>
+                        • $${texNombre(n1 * k1)} \\times ${texNombre(k2)} = ${miseEnEvidence(texNombre(n1 * k1 * k2))}$.<br>`
+          const correction2 = `Si le nombre est $${n2}$ :<br>
                         • $${n2} \\times ${texNombre(k1)} = ${texNombre(n2 * k1)}$ ;<br>
-                        • $${texNombre(n2 * k1)} \\times ${texNombre(k2)} = ${texNombre(n2 * k1 * k2)}$.<br>
+                        • $${texNombre(n2 * k1)} \\times ${texNombre(k2)} = ${miseEnEvidence(texNombre(n2 * k1 * k2))}$.<br>`
+          texteCorr = (this.interactif)
+            ? `${numAlpha(0)} ${correction1} ${numAlpha(1)} ${correction2}`
+            : `${numAlpha(0)} ${correction1} ${correction2}
                         ${numAlpha(1)} Le programme de calcul se résume par cette expression :<br>
                         « nombre de départ $\\times ${texNombre(k1)} \\times ${texNombre(k2)}$ » <br>
                         C'est une expression avec uniquement des multiplications, il n'y a pas priorité, <br>
@@ -182,7 +187,6 @@ export default class ExerciceProblemesComplexes extends Exercice {
                         Donc le programme peut être le suivant : <br>
                         • Choisir un nombre.<br>
                         • Multiplier ce nombre par $${texNombre(k1 * k2)}$.<br>`
-
           indiceInteractif += 2
 
           break
@@ -208,11 +212,11 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texteCorr += `${numAlpha(0)} $${range} \\times ${fauteuils} =${fauteuils * range}$<br>
                         Il y a $${fauteuils * range}$ places dans la salle.<br>
                         $${fauteuils * range} \\times ${texPrix(prix)} = ${texPrix(fauteuils * range * prix)}$<br>
-                        La somme d'argent perçue est $${texPrix(fauteuils * range * prix)}$ €.<br>
+                        La somme d'argent perçue est $${miseEnEvidence(texPrix(fauteuils * range * prix))}$ €.<br>
                         ${numAlpha(1)} $${n1} \\times ${fauteuils} =${fauteuils * n1}$<br>
                         Il y a $${fauteuils * n1}$ places occupées dans la salle.<br>
                         $${fauteuils * n1} \\times ${texNombre(prix)} = ${texNombre(fauteuils * n1 * prix)}$<br>
-                        La somme d'argent perçue est $${texPrix(fauteuils * n1 * prix)}$ €.<br>`
+                        La somme d'argent perçue est $${miseEnEvidence(texPrix(fauteuils * n1 * prix))}$ €.<br>`
 
           indiceInteractif += 2
 
@@ -252,24 +256,24 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 5, KeyboardType.clavierDeBase, { texteApres: ' images' })
 
           texteCorr += `${numAlpha(0)} $${nombreP}${sp()}\\text{ pellicules} \\times 600${sp()}\\text{m} = ${texNombre(nombreP * 600)}${sp()}\\text{m}$<br>
-                        La longueur totale du film est de $${texNombre(nombreP * 600)}$ mètres.<br>
+                        La longueur totale du film est de $${miseEnEvidence(texNombre(nombreP * 600))}$ mètres.<br>
                         ${numAlpha(1)} $30${sp()}\\text{m} \\times 20 = 600${sp()}\\text{m}$ donc une pellicule de $600$ m représente $1${sp()}\\text{min} \\times 20 = 20${sp()}\\text{min}$.<br>
                         $${nombreP}${sp()}\\text{pellicules} \\times 20${sp()}\\text{min} = ${texNombre(nombreP * 20)}${sp()}\\text{min}$<br>
-                        La durée totale du film est de $${texNombre(nombreP * 20)}$ minutes.<br>
+                        La durée totale du film est de $${miseEnEvidence(texNombre(nombreP * 20))}$ minutes.<br>
                         ${numAlpha(2)} $${60 + min}${sp()}\\text{min} \\times 30${sp()}\\text{m}= ${texNombre((60 + min) * 30)}${sp()}\\text{m}$<br>
-                        La longueur totale en mètres d'un film de $1${sp()}\\text{h}${sp()}${min}$ est de $${texNombre((60 + min) * 30)}$ mètres.<br>
+                        La longueur totale en mètres d'un film de $1${sp()}\\text{h}${sp()}${min}$ est de $${miseEnEvidence(texNombre((60 + min) * 30))}$ mètres.<br>
                         ${numAlpha(3)} $${texNombre(Math.floor(((60 + min) * 30) / 600))} \\times 600${sp()}\\text{m} = ${texNombre(Math.floor(((60 + min) * 30) / 600) * 600)}${sp()}\\text{m}$`
           texteCorr += ((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600 !== 0
             ? ` et $${texNombre(1 + Math.floor(((60 + min) * 30) / 600))} \\times 600${sp()}\\text{m} = ${texNombre((1 + Math.floor(((60 + min) * 30) / 600)) * 600)}${sp()}\\text{m}$.`
             : ''
-          texteCorr += `<br>Donc il faut $${texNombre(Math.floor(((60 + min) * 30) / 600))}$ bobines de $600$ mètres`
+          texteCorr += `<br>Donc il faut $${miseEnEvidence(texNombre(Math.floor(((60 + min) * 30) / 600)))}$ bobines de $600$ mètres`
 
           texteCorr += ((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600 !== 0 ? ` (et $1$ bobine de  $${texNombre(((60 + min) * 30) - Math.floor(((60 + min) * 30) / 600) * 600)}$ mètres).<br>` : '.<br>'
           texteCorr += `${numAlpha(4)} $${texNombre(Math.floor(longueur / 30))} \\times 30${sp()}\\text{m} = ${texNombre(longueur)}$ m<br>
-                        Donc la durée de la pellicule est de $${texNombre(Math.floor(longueur / 30))}$ minutes.<br>
+                        Donc la durée de la pellicule est de $${miseEnEvidence(texNombre(Math.floor(longueur / 30)))}$ minutes.<br>
                         ${numAlpha(5)} $${texNombre(Math.floor(longueur / 30))} \\times 60 = ${texNombre(Math.floor(longueur / 30) * 60)}$ secondes<br>
                         $${texNombre(Math.floor(longueur / 30) * 60)}${sp()}\\text{secondes} \\times 24${sp()}\\text{images} = ${texNombre(Math.floor(longueur / 30) * 60 * 24)}${sp()}\\text{images}$<br>
-                         Il y a $${texNombre(Math.floor(longueur / 30) * 60 * 24)}${sp()}\\text{images}$ dans la pellicule.`
+                         Il y a $${miseEnEvidence(texNombre(Math.floor(longueur / 30) * 60 * 24))}${sp()}\\text{images}$ dans la pellicule.`
 
           indiceInteractif += 6
 
@@ -295,7 +299,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
                         $${texNombre(nbBo * prixBo, 2)} + ${texNombre(nbSch * prixSch, 2)} =${texNombre(nbBo * prixBo + nbSch * prixSch, 2)}$<br>
                         Le prix total à payer est $${texPrix(nbBo * prixBo + nbSch * prixSch)}$ €.<br>
                         $50 -  (${texNombre(nbBo * prixBo)} + ${texNombre(nbSch * prixSch, 2)}) = ${texNombre(50 - (nbBo * prixBo + nbSch * prixSch), 2)}$<br>
-                        Le caissier va rendre la somme de $${texPrix(50 - (nbBo * prixBo + nbSch * prixSch))}$ €.<br>`
+                        Le caissier va rendre la somme de $${miseEnEvidence(texPrix(50 - (nbBo * prixBo + nbSch * prixSch)))}$ €.<br>`
 
           indiceInteractif++
 
@@ -311,7 +315,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
                     $${texNombre(kgOranges)}$ kg d'oranges et coûte $${texPrix(prixOranges)}$ €.<br>
                     Le commerçant revend les oranges $${texPrix(prixOrangesKg)}$ € le kilogramme.<br>
                     Quel est son bénéfice s'il réussit à tout vendre ?`
-          handleAnswers(this, indiceInteractif, { reponse: { value: (50 - (nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)).toFixed(2) } })
+          handleAnswers(this, indiceInteractif, { reponse: { value: (nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges).toFixed(2) } })
           texte += ajouteChampTexteMathLive(this, indiceInteractif, KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `$${nbCagettes} \\times ${texNombre(kgOranges)} =${texNombre(nbCagettes * kgOranges)}$<br>
@@ -321,7 +325,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
                         $${texNombre(nbCagettes * kgOranges)} \\times ${texNombre(prixOrangesKg)} =${texNombre(nbCagettes * kgOranges * prixOrangesKg)}$<br>
                         S'il revend tout, il va gagner $${texPrix(nbCagettes * kgOranges * prixOrangesKg)}$ €.<br>
                         $${texNombre(nbCagettes * kgOranges * prixOrangesKg)} - ${texNombre(nbCagettes * prixOranges)} = ${texNombre(nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)}$<br>
-                        Le bénéfice sera alors de $${texPrix(nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)}$ €.<br>`
+                        Le bénéfice sera alors de $${miseEnEvidence(texPrix(nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges))}$ €.<br>`
 
           indiceInteractif++
 
@@ -345,7 +349,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             handleAnswers(this, indiceInteractif + 1, { reponse: { value: (nbDix).toFixed(2) } })
             texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, KeyboardType.clavierDeBase, { texteApres: ' billets de 10 €' })
           }
-          texteCorr += `Après plusieurs essais, on trouve qu'elle a $${nbDix}$ billets de 10 € et $${nbCinq}$ billets de 5 €.`
+          texteCorr += `Après plusieurs essais, on trouve qu'elle a $${miseEnEvidence(nbDix)}$ billets de 10 € et $${miseEnEvidence(nbCinq)}$ billets de 5 €.`
           texteCorr += `<br><br>Vérification :<br>
                     Nombre de billets : $${nbDix} \\text{ billets de 10 €} +  ${nbCinq} \\text{ billets de 5 €} =${texNombre(nbDix + nbCinq)}${sp()}\\text{billets}$.<br>
                     Somme d'argent : $${nbDix} \\times 10${sp()}\\text{€} +  ${nbCinq} \\times 5${sp()}\\text{€} =${texNombre(nbDix * 10 + nbCinq * 5)}${sp()}\\text{€}$.`
@@ -377,7 +381,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
                         $${texNombre(nbBarquettesMy * gBarquettesMy)}${sp()}\\text{g} \\div 1${sp()}000 = ${texNombre(nbBarquettesMy * gBarquettesMy * 0.001)}${sp()}\\text{kg}$ de myrtilles.<br>
                         $${texNombre(nbBarquettesMy * gBarquettesMy * 0.001)}${sp()}\\text{kg} \\times ${texNombre(prixMy)}${sp()}\\text{€/kg} =${texNombre(nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)}$ € pour les myrtilles.<br>
                         $${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr)} + ${texNombre(nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)} = ${texNombre(nbBarquettesFr * gBarquettesFr * 0.001 * prixFr + nbBarquettesMy * gBarquettesMy * 0.001 * prixMy)}$<br>
-                        Cette vente va lui rapporter ${isEnviron} $${texPrix(prixFinal)}$ €.<br>`
+                        Cette vente va lui rapporter ${isEnviron} $${miseEnEvidence(texPrix(prixFinal))}$ €.<br>`
 
           indiceInteractif++
 
@@ -401,12 +405,12 @@ export default class ExerciceProblemesComplexes extends Exercice {
             handleAnswers(this, indiceInteractif, { reponse: { value: (min(nbP, nbD)).toFixed(2) } })
             texte += ajouteChampTexteMathLive(this, indiceInteractif, KeyboardType.clavierDeBase)
 
-            texte += 'Quel est le plus grand de ces deux nombres ?'
+            texte += '<br>Quel est le plus grand de ces deux nombres ?'
             handleAnswers(this, indiceInteractif + 1, { reponse: { value: (max(nbP, nbD)).toFixed(2) } })
             texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, KeyboardType.clavierDeBase)
           }
 
-          texteCorr += `Par essais-erreurs, on trouve ${nbP} et ${nbD}.<br>
+          texteCorr += `Par essais-erreurs, on trouve $${miseEnEvidence(nbP)}$ et $${miseEnEvidence(nbD)}$.<br>
                         Vérification :<br>
                         $${nbP} ${opP === 1 ? '+' : opP === 2 ? '-' : '\\times'} ${nbD} = ${opP === 1 ? texNombre(nbP + nbD) : opP === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$<br>
                         $${nbP} ${opD === 1 ? '+' : opD === 2 ? '-' : '\\times'} ${nbD} = ${opD === 1 ? texNombre(nbP + nbD) : opD === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$<br>

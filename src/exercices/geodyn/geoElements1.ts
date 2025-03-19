@@ -141,25 +141,33 @@ class ConstructionSegmentRayLine extends Exercice {
     let feedback = ''
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`)
     const resultatCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
-    for (const trait of this.traits) {
-      const { isValid, result } = trait.checkExist(this.figure)
-      if (isValid) {
-        resultat.push('OK')
-        result[0].color = 'green'
-      } else {
-        resultat.push('KO')
-        feedback += trait.wrongFeedback + '<br><br>'
+    const points = [...this.figure.elements.values()].filter(element => element instanceof Point && element.type !== 'pointer') as Point[]
+    const pointsA = points.filter(point => point.label === this.nameA)
+    const pointsB = points.filter(point => point.label === this.nameB)
+    const pointsC = points.filter(point => point.label === this.nameC)
+    if (pointsA.length > 1 || pointsB.length > 1 || pointsC.length > 1) {
+      feedback = 'Il ne doit pas y avoir plusieurs points avec le même nom'
+      resultat.push('KO', 'KO', 'KO')
+    } else {
+      for (const trait of this.traits) {
+        const { isValid, result } = trait.checkExist(this.figure)
+        if (isValid) {
+          resultat.push('OK')
+          result[0].color = 'green'
+        } else {
+          resultat.push('KO')
+          feedback += trait.wrongFeedback + '<br><br>'
+        }
       }
     }
+
     if (divFeedback) {
       divFeedback.innerHTML = feedback || 'Bravo !'
     }
     if (resultatCheck) {
       resultatCheck.innerHTML = resultat.every(r => r === 'OK') ? '😎' : '☹️'
     }
-    this.figure.isDynamic = false
-    this.figure.divButtons.style.display = 'none'
-    this.figure.divUserMessage.style.display = 'none'
+    this.figure.setToolbar({ position: 'top', tools: ['DRAG', 'DESCRIPTION'] })
     return resultat
   }
 }

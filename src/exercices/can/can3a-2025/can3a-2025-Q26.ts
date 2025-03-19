@@ -37,7 +37,7 @@ export default class convertirLitres extends Exercice {
     this.correction = `$1$ cm$^3 = 0,001 $dm$^3$ et $1$ dm$^3 = 1$ L.<br>
              $${a} \\text{ cm}^3 = ${a}\\times 0,001 \\text{ dm}^3=${miseEnEvidence(`${texNombre(reponse, 3)}`)}$ L.`
     if (!this.interactif) { this.question += ' $\\ldots$ L' }
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ L'
+    this.canEnonce = 'Compléter.'
+    this.canReponseACompleter = this.question
   }
 }

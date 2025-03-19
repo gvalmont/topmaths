@@ -9,6 +9,7 @@ import { texTexte } from '../../lib/format/texTexte'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -45,7 +46,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
   }
 
   nouvelleVersion () {
-    this.consigne = context.isDiaporama ? 'Convertir' : 'Compléter : '
+    this.consigne = context.isDiaporama ? 'Convertir ' : 'Compléter '
     const reponses = []
     const typeDeGrandeur = gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 2, defaut: 1, melange: 3, nbQuestions: this.nbQuestions })
     const prefixeMulti = [
@@ -128,7 +129,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
             ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
             : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
-          `$ ${texNombre(a)}${texTexte(prefixeMulti[k][0] + unite)} =  ${texNombre(a)}\\times${prefixeMulti[k][1]}${texTexte(unite)} = ${texNombre(resultat)}${texTexte(unite)}$`
+          `$ ${texNombre(a)}${texTexte(prefixeMulti[k][0] + unite)} =  ${texNombre(a)}\\times${prefixeMulti[k][1]}${texTexte(unite)} = ${miseEnEvidence(texNombre(resultat))}${texTexte(unite)}$`
         if (this.sup3 && context.vue === 'diap') {
           texte += `<br>${buildTab('0', '', '0', '', 2, true)}`
         }
@@ -144,7 +145,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
             ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
             : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
-          `$ ${texNombre(a)}${texTexte(prefixeDiv[k][0] + unite)} =  ${texNombre(a)}\\div${texTexte(String(prefixeDiv[k][1]))}${texTexte(unite)} = ${texNombre(resultat)}${texTexte(unite)}$`
+          `$ ${texNombre(a)}${texTexte(prefixeDiv[k][0] + unite)} =  ${texNombre(a)}\\div${texTexte(String(prefixeDiv[k][1]))}${texTexte(unite)} = ${miseEnEvidence(texNombre(resultat))}${texTexte(unite)}$`
         if (this.sup3 && context.vue === 'diap') {
           texte += `<br>${buildTab('0', '', '0', '', 2, true)}`
         }
@@ -172,13 +173,13 @@ export default class ExerciceConversionsLongueurs extends Exercice {
               ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(listeUnite[unite1])}$` })}`
               : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
-            `$ ${texNombre(a)}${texTexte(listeUnite[unite2])} =  ${texNombre(a)}\\times${texNombre(10 ** ecart)}${texTexte(listeUnite[unite1])} = ${texNombre(resultat)}${texTexte(listeUnite[unite1])}$`
+            `$ ${texNombre(a)}${texTexte(listeUnite[unite2])} =  ${texNombre(a)}\\times${texNombre(10 ** ecart)}${texTexte(listeUnite[unite1])} = ${miseEnEvidence(texNombre(resultat))}${texTexte(listeUnite[unite1])}$`
           if (this.sup3 && context.vue === 'diap') {
             texte += `<br>${buildTab('0', '', '0', '', 2, true)}`
           }
           if (this.sup3) {
             texteCorr +=
-              `<br>${buildTab(String(a), listeUnite[unite2], String(resultat), listeUnite[unite1])}`
+              `<br>${buildTab(String(a), listeUnite[unite2], String(arrondi(resultat, 7)), listeUnite[unite1])}`
           }
         } else {
           resultat = a / 10 ** ecart
@@ -188,20 +189,20 @@ export default class ExerciceConversionsLongueurs extends Exercice {
               ? `$${ajouteChampTexteMathLive(this, i, '', { texteApres: `${sp()}$${texTexte(listeUnite[unite2])}$` })}`
               : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
           texteCorr =
-            `$ ${texNombre(a)}${texTexte(listeUnite[unite1])} =  ${texNombre(a)}\\div${texNombre(10 ** ecart)}${texTexte(listeUnite[unite2])} = ${texNombre(resultat)}${texTexte(listeUnite[unite2])}$`
+            `$ ${texNombre(a)}${texTexte(listeUnite[unite1])} =  ${texNombre(a)}\\div${texNombre(10 ** ecart)}${texTexte(listeUnite[unite2])} = ${miseEnEvidence(texNombre(resultat))}${texTexte(listeUnite[unite2])}$`
           if (this.sup3 && context.vue === 'diap') {
             texte += `<br>${buildTab('0', '', '0', '', 2, true)}`
           }
           if (this.sup3) {
             texteCorr +=
-              `<br>${buildTab(String(a), listeUnite[unite1], String(resultat), listeUnite[unite2])}`
+              `<br>${buildTab(String(a), listeUnite[unite1], String(arrondi(resultat, 7)), listeUnite[unite2])}`
           }
         }
       }
 
       if (this.questionJamaisPosee(i, resultat)) {
         reponses[i] = resultat
-        setReponse(this, i, resultat.toString().replace('.', ','))
+        setReponse(this, i, arrondi(resultat, 7))
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfills', '~\\text{en}')
@@ -219,10 +220,9 @@ export default class ExerciceConversionsLongueurs extends Exercice {
     }
 
     listeQuestionsToContenu(this)
-    this.introduction = ''
     if (context.vue === 'latex' && this.sup3) {
-      this.introduction = "en s'aidant du tableau ci-dessous :\n\n"
-      this.introduction += buildTab(
+      this.consigne += "en s'aidant du tableau ci-dessous :\n\n"
+      this.consigne += buildTab(
         '0',
         '',
         '0',
@@ -231,8 +231,8 @@ export default class ExerciceConversionsLongueurs extends Exercice {
         true
       )
     } else if (context.vue !== 'diap' && context.isHtml && this.sup3) {
-      this.introduction = "en s'aidant du tableau ci-dessous :<br>"
-      this.introduction += buildTab(
+      this.consigne += "en s'aidant du tableau ci-dessous :<br><br>"
+      this.consigne += buildTab(
         '0',
         '',
         '0',
@@ -240,7 +240,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
         Math.min(10, this.nbQuestions),
         true
       )
-    }
+    } else this.consigne += ':'
   }
 }
 
@@ -292,7 +292,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
       case 'km':
         for (let i = 0; i <= 10; i++) {
           res[i] =
-            (2 - i === 0 ? '\\color{red}{' : '') +
+            (2 - i === 0 ? '\\color{blue}{' : '') +
             getDigitFromNumber(nbre, Decimal.pow(10, 2 - i).toNumber()) +
             (2 - i === 0
               ? new Decimal(nbre).decimalPlaces() === 0
@@ -304,7 +304,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
       case 'hm':
         for (let i = 0; i <= 10; i++) {
           res[i] =
-            (3 - i === 0 ? '\\color{red}{' : '') +
+            (3 - i === 0 ? '\\color{blue}{' : '') +
             getDigitFromNumber(nbre, Decimal.pow(10, 3 - i).toNumber()) +
             (3 - i === 0
               ? new Decimal(nbre).decimalPlaces() === 0
@@ -316,7 +316,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
       case 'dam':
         for (let i = 0; i <= 10; i++) {
           res[i] =
-            (4 - i === 0 ? '\\color{red}{' : '') +
+            (4 - i === 0 ? '\\color{blue}{' : '') +
             getDigitFromNumber(nbre, Decimal.pow(10, 4 - i).toNumber()) +
             (4 - i === 0
               ? new Decimal(nbre).decimalPlaces() === 0
@@ -328,7 +328,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
       case 'm':
         for (let i = 0; i <= 10; i++) {
           res[i] =
-            (5 - i === 0 ? '\\color{red}{' : '') +
+            (5 - i === 0 ? '\\color{blue}{' : '') +
             getDigitFromNumber(nbre, Decimal.pow(10, 5 - i).toNumber()) +
             (5 - i === 0
               ? new Decimal(nbre).decimalPlaces() === 0
@@ -340,7 +340,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
       case 'dm':
         for (let i = 0; i <= 10; i++) {
           res[i] =
-            (6 - i === 0 ? '\\color{red}{' : '') +
+            (6 - i === 0 ? '\\color{blue}{' : '') +
             getDigitFromNumber(nbre, Decimal.pow(10, 6 - i).toNumber()) +
             (6 - i === 0
               ? new Decimal(nbre).decimalPlaces() === 0
@@ -352,7 +352,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
       case 'cm':
         for (let i = 0; i <= 10; i++) {
           res[i] =
-            (7 - i === 0 ? '\\color{red}{' : '') +
+            (7 - i === 0 ? '\\color{blue}{' : '') +
             getDigitFromNumber(nbre, Decimal.pow(10, 7 - i).toNumber()) +
             (7 - i === 0
               ? new Decimal(nbre).decimalPlaces() === 0
@@ -364,7 +364,7 @@ function buildTab (a: string, uniteA: string, r: string, uniteR: string, ligne =
       case 'mm':
         for (let i = 0; i <= 10; i++) {
           res[i] =
-            (8 - i === 0 ? '\\color{red}{' : '') +
+            (8 - i === 0 ? '\\color{blue}{' : '') +
             getDigitFromNumber(nbre, Decimal.pow(10, 8 - i).toNumber()) +
             (8 - i === 0
               ? new Decimal(nbre).decimalPlaces() === 0

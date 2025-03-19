@@ -37,15 +37,20 @@ export default class Can2025N62Q13 extends Exercice {
     const choix = this.canOfficielle ? 3 : randint(1, 3)
     this.question = `Compléter : <br>
             $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}= ${this.interactif ? '' : `\\ldots \\text{ ${prefixes[k - choix]}}`}$`
-    this.correction = `$${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=100 \\text{ ${prefixes[k]}}=`
+    this.correction = `$${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=100 \\text{ ${prefixes[k]}}$ <br>`
     if (choix === 1) {
       this.reponse = 10
+      this.correction += `Puisque  $1\\text{ ${prefixes[k]}} =0,1\\text{ ${prefixes[k - choix]}}$, on divise par $10$.<br>
+      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
     } else if (choix === 2) {
       this.reponse = 1
+      this.correction += `Puisque  $1\\text{ ${prefixes[k]}} =0,01\\text{ ${prefixes[k - choix]}}$, on divise par $100$.<br>
+      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
     } else {
       this.reponse = 0.1
+      this.correction += `Puisque  $1\\text{ ${prefixes[k]}} =${texNombre(0.001, 3)}\\text{ ${prefixes[k - choix]}}$, on divise par $${texNombre(1000, 0)}$.<br>
+      Ainsi, $${a}\\text{ ${prefixes[k]}}+${b}\\text{ ${prefixes[k]}}=${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
     }
-    this.correction += `${miseEnEvidence(`${texNombre(this.reponse)}`)} \\text{ ${prefixes[k - choix]}}$`
 
     this.optionsChampTexte = { texteApres: `$\\text{ ${prefixes[k - choix]}}$` }
 

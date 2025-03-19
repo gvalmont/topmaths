@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Calculer un antécédent par fonction affine'
@@ -34,11 +35,10 @@ export default class CalculAntecedentAffine extends Exercice {
     const y = randint(-9, 9, [x, 0])
     const nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
     this.question = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${m}x${ecritureAlgebrique(y)}$.<br>
-        
         Quel est l'antécédent de $${m * x + y}$ par la fonction $${nomF}$ ?`
-    this.correction = `L'antécédent de $${m * x + y}$ est le nombre $x$ qui a pour image $${m * x + y}$. On cherche donc $x$ tel que : <br>
-    
-   $${m}x${ecritureAlgebrique(y)}=${m * x + y}$ <br>Soit $x=\\dfrac{${m * x + y}${ecritureAlgebrique(-y)}}{${m}}=${x}$.`
+    this.correction = `L'antécédent de $${m * x + y}$ est le nombre $x$ qui a pour image $${m * x + y}$.<br>
+     On cherche donc $x$ tel que : <br>
+   $${m}x${ecritureAlgebrique(y)}=${m * x + y}$ <br>On obtient $x=\\dfrac{${m * x + y}${ecritureAlgebrique(-y)}}{${m}}=${miseEnEvidence(x)}$.`
     this.reponse = x
 
     this.canEnonce = this.question

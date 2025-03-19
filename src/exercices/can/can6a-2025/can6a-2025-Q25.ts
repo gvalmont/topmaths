@@ -4,6 +4,7 @@ import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { sp } from '../../../lib/outils/outilString'
 export const titre = 'Déterminer le résultat d\'un produit'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -33,7 +34,7 @@ export default class Can2025N6Q25 extends Exercice {
 
     this.autoCorrection[0] = {
       options: { ordered: true },
-      enonce: `Coche la réponse du calcul $${texNombre(a, 0)}\\times ${b}$.`,
+      enonce: `Coche le résultat du calcul $${texNombre(a, 0)}\\times ${b}$.`,
       propositions: [
         {
           texte: `$${texNombre(a * b, 0)}$`,
@@ -53,10 +54,11 @@ export default class Can2025N6Q25 extends Exercice {
     const qcm = propositionsQcm(this, 0)
 
     this.question += `${qcm.texte}`
-    this.canEnonce = 'Entoure le plus grand nombre.'
+    this.canEnonce = `Coche le résultat du calcul $${texNombre(a, 0)}\\times ${b}$.`
     this.canReponseACompleter = qcm.texte
     this.reponse = a * b// C'est juste pour pas faire planter mathaleaHandleExerciceSimple, cette réponse ne sera pas utilisée.
-    this.correction = qcm.texteCorr + `Le résultat est proche de $${texNombre(a, 0)}\\times 100= ${texNombre(a * 100, 0)}$. <br>
+    this.correction = qcm.texteCorr + `<br>Le résultat est proche de $${texNombre(a, 0)}\\times 100= ${texNombre(a * 100, 0)}$. <br>
     Il s'agit du nombre $${miseEnEvidence(texNombre(a * b, 0))}$.`
+    this.canReponseACompleter = `\\raggedright $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b, 0)}$ <br> $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b / 10, 0)}$ <br> $${sp(5)}$ \\faSquare[regular] $${texNombre(a * b * 10, 0)}$`
   }
 }

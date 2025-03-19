@@ -20,5 +20,6 @@ export default class SymetriqueD1Point extends Transformations {
   constructor () {
     super()
     this.sup = 2
+    this.can = true
   }
 }

@@ -11,6 +11,7 @@ import { getLang } from '../../lib/stores/languagesStore'
 import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Déterminer une équation cartésienne avec un point et un vecteur normal'
 export const dateDePublication = '04/07/2024'
+export const dateDeModifImportante = '03/03/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -50,7 +51,7 @@ class EqCartDroite extends Exercice {
           yn = -1
           constante = -m * xA + yA
           texte = `Dans un repère orthonormé du plan, on considère le point $A(${xA}\\,;\\,${yA})$.`
-          texte += `<br>Déterminer une équation cartésienne de la droite $(d)$ passant par le point $A$ et ayant pour ${lang === 'fr-CH' ? 'une pente égale à' : 'coefficent directeur'} $${m}$.`
+          texte += `<br>Déterminer une équation cartésienne de la droite $(d)$ passant par le point $A$ et ayant ${lang === 'fr-CH' ? 'une pente égale à' : 'pour coefficent directeur'} $${m}$`
           texteCorr = ''
           if (lang === 'fr-CH') {
             texteCorr = 'On sait que si une droite $(d)$ possède une pente égale à un réel $m$, alors elle peut s\'écrire sous la forme $y=mx+p$. On veut écrire cette équation sous la forme $ax+by+c=0$.'
@@ -67,7 +68,7 @@ class EqCartDroite extends Exercice {
           texteCorr += `, d'où $c=${-m * xA + yA}$.`
 
           break
-        case 3: // 2G30-4 Pint et vecteur directeur
+        case 3: // 2G30-4 Point et vecteur directeur
           xA = randint(-5, 5)
           yA = randint(-5, 5)
           do {
@@ -78,7 +79,7 @@ class EqCartDroite extends Exercice {
           yn = -xu
           constante = -xA * yu + yA * xu
           texte = `Dans un repère orthonormé du plan, on considère la droite $(d)$ qui passe par le point $A$ de coordonnées $(${xA}\\,;\\,${yA})$ et qui a le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.<br>
-    Déterminer une équation cartésienne de la droite $(d)$.`
+    Déterminer une équation cartésienne de la droite $(d)$`
           if (this.sup === 1) {
             texte += '<br><i>On demande une rédaction utilisant un résultat de cours.</i>'
             texteCorr = 'On sait, d\'après le cours, que si une droite $(d)$ admet un vecteur directeur de coordonnées :'
@@ -120,7 +121,7 @@ class EqCartDroite extends Exercice {
           }
           if (this.nbQuestions === 1) {
             texte = `Dans un repère orthonormé du plan, on considère les points $A$ et $B$ de coordonnées respectives $(${xA}\\,;\\,${yA})$ et $(${xB}\\,;\\,${yB})$.<br>
-      Déterminer une équation cartésienne de la droite $(AB)$.`
+      Déterminer une équation cartésienne de la droite $(AB)$`
             this.consigne = ''
           } else {
             this.consigne = `Dans un repère orthonormé du plan, on considère les points $A$ et $B$.<br>
@@ -162,7 +163,7 @@ class EqCartDroite extends Exercice {
           yn = randint(-5, 5, 0)
           constante = -xA * xn - yA * yn
           texte = `La droite $(d)$ passe par le point $A$ de coordonnées $(${xA}\\,;\\,${yA})$ et a le vecteur $\\vec n \\begin{pmatrix}${xn}\\\\${yn}\\end{pmatrix}$ comme vecteur normal.<br>
-          Déterminer une équation cartésienne de $(d)$.`
+          Déterminer une équation cartésienne de $(d)$`
           texteCorr = 'On sait, d\'après le cours, que si une droite $(d)$ admet un vecteur normal de coordonnées :'
           texteCorr += ' $\\vec {n} \\begin{pmatrix}a\\\\b\\end{pmatrix}$, '
           texteCorr += 'alors une équation cartésienne de la droite $(d)$ est de la forme $ax+by+c=0$. '
@@ -204,6 +205,10 @@ class EqCartDroite extends Exercice {
             }
             let isOk = true
             for (let k = 0; k < 8; k++) {
+              if (isNaN(Math.abs(results[k]))) { // Cela peut arriver si un des termes de l'équation de droite est une lettre autre que x et y
+                isOk = false
+                break
+              }
               if (Math.abs(results[k] - results[k + 1]) > 1e-8) {
                 isOk = false
                 break
@@ -242,11 +247,12 @@ class EqCartDroite extends Exercice {
         texteCorr += 'équation cartésienne de la droite $(d)$ est donc de la forme : '
         texteCorr += `$${miseEnEvidence(reponse)}$.`
       } else {
-        texteCorr += `<br>Une équation cartésienne de la droite ${lang === 'fr-CH' ? '$(AB)$' : '$(d)$'} est donc de la forme : `
+        texteCorr += `<br>Une équation cartésienne de la droite ${this.version === 2 ? '$(AB)$' : '$(d)$'} est donc de la forme : `
         texteCorr += `$${miseEnEvidence(reponse)}$.`
       }
 
-      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: 'Équation cartésienne de la droite $(d)$ :' })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: this.nbQuestions > 1 ? (` Équation cartésienne de la droite ${this.version === 2 ? '$(AB)$' : '$(d)$'} : `) : ' : ' })
+      texte += '.'
       handleAnswers(this, i, { reponse: { value: reponse }, callback })
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte

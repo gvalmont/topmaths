@@ -76,11 +76,6 @@ export default class CourseAuxNombres6e extends Exercice {
   }
 
   nouvelleVersion () {
-    if (this.interactif) {
-      this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
-    } else {
-      this.consigne = ''
-    }
     let a, b, c, d, resultat, propositions
 
     const listeIndex = gestionnaireFormulaireTexte({

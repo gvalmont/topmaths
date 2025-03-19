@@ -68,6 +68,7 @@ export default class FonctionsProbabilite2 extends Exercice {
     qualites[4] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
     qualites[5] = ['rouges', 'verts', 'bleus', 'noirs', 'blancs']
     qualites[6] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
+    let iInteractif = 0
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let quidame = prenomF()
       let quidam = prenomM()
@@ -103,11 +104,11 @@ export default class FonctionsProbabilite2 extends Exercice {
           texte += createList(
             {
               items: [
-                  `Combien d'issues possède cette experience aléatoire ?${this.interactif ? ' ' + ajouteChampTexteMathLive(this, 6 * i) : ''} Donner un exemple d'issue.${this.interactif ? ' ' + ajouteChampTexteMathLive(this, 6 * i + 1, '', { texteAvant: `<br>On donnera la réponse sous la forme $(X,Y)$ avec $X,Y$ deux lettres parmi $${Initiale[p]}$, $${Initiale[q]}$ et $${Initiale[r]}$ : ` }) : ''}`,
-                  'Est-ce une expérience en situation d\'équiprobabilité ?' + (!this.interactif ? ' Justifier.' : choixDeroulant(this, 6 * i + 2, ['oui', 'non', 'je sais pas'], 'une réponse')),
-                  `Calculer la probabilité que ${quidame} et ${quidam} aient choisi tous les deux un yaourt ${qualites[0][p]}.` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 3) : ''),
-                  ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums identiques.' + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 4) : ''),
-                  ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums différents.' + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 5) : '')
+                  `Combien d'issues possède cette experience aléatoire ?${this.interactif ? ' ' + ajouteChampTexteMathLive(this, iInteractif) : ''} Donner un exemple d'issue.${this.interactif ? ' ' + ajouteChampTexteMathLive(this, iInteractif + 1, '', { texteAvant: `<br>On donnera la réponse sous la forme $(X,Y)$ avec $X,Y$ deux lettres parmi $${Initiale[p]}$, $${Initiale[q]}$ et $${Initiale[r]}$ : ` }) : ''}`,
+                  'Est-ce une expérience en situation d\'équiprobabilité ?' + (!this.interactif ? ' Justifier.' : choixDeroulant(this, iInteractif + 2, ['oui', 'non', 'je sais pas'], 'une réponse')),
+                  `Calculer la probabilité que ${quidame} et ${quidam} aient choisi tous les deux un yaourt ${qualites[0][p]}.` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 3) : ''),
+                  ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums identiques.' + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 4) : ''),
+                  ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums différents.' + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 5) : '')
               ],
               style: 'alpha'
             }
@@ -163,8 +164,8 @@ export default class FonctionsProbabilite2 extends Exercice {
           const den = probaMemeSaveur.den
           texteCorr += `La probabilité de cet événement est donc : $1-${probaMemeSaveur.texFraction}=${fraction(den, den).texFraction}-${probaMemeSaveur.texFraction}=${fraction(den - num, den).texFraction}${probaContraire.texSimplificationAvecEtapes()}$.`
           // question a
-          handleAnswers(this, 6 * i, { reponse: { value: 9, options: { nombreDecimalSeulement: true } } })
-          /* handleAnswers(this, 6 * i + 1, {
+          handleAnswers(this, iInteractif, { reponse: { value: 9 } })
+          /* handleAnswers(this, iInteractif + 1, {
             reponse: {
               value: 9,
               compare: (input, _goodAnswer) => {
@@ -175,12 +176,12 @@ export default class FonctionsProbabilite2 extends Exercice {
               }
             }
           }) */
-          handleAnswers(this, 6 * i + 1, { reponse: { value: issues.split(' '), options: { texteSansCasse: true } } })
+          handleAnswers(this, iInteractif + 1, { reponse: { value: issues.split(' '), options: { texteSansCasse: true } } })
           // questions b, c, d, e
-          handleAnswers(this, 6 * i + 2, { reponse: { value: 'non', options: { texteSansCasse: true } } })
-          handleAnswers(this, 6 * i + 3, { reponse: { value: probaMemeSaveurParticuliere.texFraction, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 4, { reponse: { value: probaMemeSaveur.texFraction, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 5, { reponse: { value: probaContraire.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 2, { reponse: { value: 'non', options: { texteSansCasse: true } } })
+          handleAnswers(this, iInteractif + 3, { reponse: { value: probaMemeSaveurParticuliere.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 4, { reponse: { value: probaMemeSaveur.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 5, { reponse: { value: probaContraire.texFraction, options: { fractionEgale: true } } })
           break
         }
         case 1:
@@ -193,9 +194,9 @@ export default class FonctionsProbabilite2 extends Exercice {
           texte += 'Partie 1 : On effectue le tirage de la deuxième carte après remise de la première dans le jeu.<br>'
           texte += createList({
             items: [
-              'Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire) ?' + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i) : ''),
-              ` Quelle est la probabilité de tirer 2 ${Initiale[r]}${Initiale[r] === 'valet' || Initiale[r] === 'roi' ? 's' : ''} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 1) : ''),
-              ` Quelle est la probabilité de tirer 2 cartes de ${qualites[1][p]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 2) : '')
+              'Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire) ?' + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif) : ''),
+              ` Quelle est la probabilité de tirer 2 ${Initiale[r]}${Initiale[r] === 'valet' || Initiale[r] === 'roi' ? 's' : ''} ?` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 1) : ''),
+              ` Quelle est la probabilité de tirer 2 cartes de ${qualites[1][p]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 2) : '')
             ],
             style: 'alpha'
           })
@@ -205,9 +206,9 @@ export default class FonctionsProbabilite2 extends Exercice {
           } else {
             texte += createList({
               items: [
-                'Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire) ?' + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 3) : ''),
-              ` Quelle est la probabilité de tirer 2 ${Initiale[r]}${Initiale[r] === 'valet' || Initiale[r] === 'roi' ? 's' : ''} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 4) : ''),
-              ` Quelle est la probabilité de tirer 2 cartes de ${qualites[1][p]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 6 * i + 5) : '')
+                'Quelle est la probabilité de tirer 2 cartes de la même couleur (Rouge/Rouge ou Noire/Noire) ?' + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 3) : ''),
+              ` Quelle est la probabilité de tirer 2 ${Initiale[r]}${Initiale[r] === 'valet' || Initiale[r] === 'roi' ? 's' : ''} ?` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 4) : ''),
+              ` Quelle est la probabilité de tirer 2 cartes de ${qualites[1][p]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 5) : '')
               ],
               style: 'alpha'
             })
@@ -258,13 +259,13 @@ export default class FonctionsProbabilite2 extends Exercice {
           texteCorr += `    La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${fraction(q / 4 - 1, q - 1).texFraction}$.`
           if (q === 52) { texteCorr += `$=${fraction(4, 17).texFraction}$<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${fraction(1, 4).texFraction}\\times${fraction(4, 17).texFraction}=${fraction(1, 17).texFraction}$.` } else { texteCorr += `<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${quart.texFraction}\\times${fraction(7, 31).texFractionSimplifiee}=${fraction(7, 124).texFraction}$.` }
           // Partie 1
-          handleAnswers(this, 6 * i + 0, { reponse: { value: fraction(1, 2).texFraction, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 1, { reponse: { value: quatreCartes.produitFraction(quatreCartes).texFraction, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 2, { reponse: { value: quart.produitFraction(quart).texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 0, { reponse: { value: fraction(1, 2).texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 1, { reponse: { value: quatreCartes.produitFraction(quatreCartes).texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 2, { reponse: { value: quart.produitFraction(quart).texFraction, options: { fractionEgale: true } } })
           // Partie 2
-          handleAnswers(this, 6 * i + 3, { reponse: { value: memeCouleur.texFraction, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 4, { reponse: { value: quatreCartes.produitFraction(troisCartes).texFractionSimplifiee, options: { fractionEgale: true } } })
-          handleAnswers(this, 6 * i + 5, { reponse: { value: fraction(7, 124).texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 3, { reponse: { value: memeCouleur.texFraction, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 4, { reponse: { value: quatreCartes.produitFraction(troisCartes).texFractionSimplifiee, options: { fractionEgale: true } } })
+          handleAnswers(this, iInteractif + 5, { reponse: { value: fraction(7, 124).texFraction, options: { fractionEgale: true } } })
           break }
         case 2:
           { n[0] = randint(2, 5); m[0] = randint(2, 5)
@@ -493,6 +494,8 @@ export default class FonctionsProbabilite2 extends Exercice {
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
+        if (listeIndex[i] - 1 < 2) iInteractif = iInteractif + 6
+        else if (listeIndex[i] - 1 === 2) iInteractif = iInteractif + 3
         i++
       }
       cpt++

@@ -23,19 +23,18 @@ export default class Can2025N5Q19 extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierEnsemble
-    this.optionsChampTexte = { texteAvant: '<br>$S=$' }
+    this.optionsChampTexte = { texteAvant: '<br>$S=$ {', texteApres: '}' }
     this.canOfficielle = true
-    this.optionsDeComparaison = { ensembleDeNombres: true }
+    this.optionsDeComparaison = { suiteDeNombres: true }
   }
 
   nouvelleVersion () {
     const a = this.canOfficielle ? 20 : randint(1, 9, 2) * 10
 
-    this.reponse = [`${-a};${a}`, `\\{${-a};${a}\\}`, `${a};${-a}`, `\\{${a};${-a}\\}`]
+    this.reponse = `${-a};${a}`
     this.question = `Solution(s) de l'équation  $x^2-${texNombre(a ** 2, 0)}=0$`
+
     this.correction = `Puisque $${a ** 2}>0$, l'équation a deux solutions :  $-\\sqrt{${texNombre(a ** 2, 0)}}$ et $\\sqrt{${texNombre(a ** 2, 0)}}$, soit $${-a}$ et $${a}$.<br>
     Ainsi, $S=${miseEnEvidence(`\\{${-a}\\,;\\,${a}\\}`)}$.`
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
   }
 }

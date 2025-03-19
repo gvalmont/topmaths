@@ -43,7 +43,6 @@ export default class Can2025N4Q12 extends ExerciceCan {
     const l3 = placeLatexSurSegment(texNombre(b, 0), A, C, { distance: -1, letterSize: 'footnotesize' })
     const objets = [s, s2, labels, l1, l2, l3, sB]
     this.reponse = b - a
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.question = mathalea2d(Object.assign({ pixelsParCm: 25, scale: 0.6 }, fixeBordures(objets)), objets) + '<br>'
 
     this.correction = `$x=${b}-${a}=${miseEnEvidence(b - a)}$`

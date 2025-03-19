@@ -51,7 +51,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       case 'rectangle': {
         texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
-        \\blockpen{stylo en position d’écriture}
+        \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
         {
         \\blockmove{avancer de \\ovalnum{${av}} pas}
@@ -79,7 +79,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       case 'carré': {
         texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
-        \\blockpen{stylo en position d’écriture}
+        \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
         {
         \\blockmove{avancer de \\ovalnum{${av}} pas}
@@ -107,7 +107,7 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       default:{
         texteScratch1 = `\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
         \\initmoreblocks{définir \\namemoreblocks{${figure}}}
-        \\blockpen{stylo en position d’écriture}
+        \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{2} fois}
         {
         \\blockmove{avancer de \\ovalnum{${av}} pas}
@@ -171,8 +171,8 @@ export default class Exercice3I1DNB0 extends ExerciceBrevetA {
       objets5.push(translation(poly, vecteur(i * av2 / 5, 0)))
     }
     const fig4 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets5)), objets5)
-    let enonce = `Dans cet exercice, aucune justification n’est attendue pour les réponses apportées aux questions 1 et 2.<br>
-À l’aide d’un logiciel de programmation, on définit un bloc ${premiereLettreEnMajuscule(figure)} pour construire un ${figure}.<br>
+    let enonce = `Dans cet exercice, aucune justification n'est attendue pour les réponses apportées aux questions 1 et 2.<br>
+À l'aide d'un logiciel de programmation, on définit un bloc ${premiereLettreEnMajuscule(figure)} pour construire un ${figure}.<br>
 ${deuxColonnesResp(`${centrage(texteEnCouleurEtGras(`Bloc «${figure}»`, 'black'))}
 ${scratchblock(texteScratch1)}`, `${centrage(texteEnCouleurEtGras(`${premiereLettreEnMajuscule(figure)} obtenu`, 'black'))}
 ${figure1}`, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', eleId: '' })}
@@ -206,7 +206,7 @@ ${figure1}`, { largeur1: 50, widthmincol1: '100px', widthmincol2: '100px', eleId
         `Voici un script du bloc «Motif B» :<br>
         ${scratchblock(`\\begin{scratch}[${context.isHtml ? 'print,' : ''}fill,blocks,scale=0.8]\n
         \\initmoreblocks{définir \\namemoreblocks{Motif B}}
-        \\blockpen{stylo en position d’écriture}
+        \\blockpen{stylo en position d'écriture}
         \\blockrepeat{répéter \\ovalnum{${rep2}} fois}
         {
            \\blockmoreblocks{${figure}}

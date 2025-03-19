@@ -1,6 +1,6 @@
 import ExerciceQcm from '../../ExerciceQcm'
 
-export const uuid = 'Z2024E5Q5'
+export const uuid = '002b6'
 export const refs = {
   'fr-fr': ['TSP1-QCM03'],
   'fr-ch': []
@@ -9,13 +9,18 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Bac Sujet zéro 2024 : loi binomiale.'
+export const titre = 'Sujet zéro 2024 : binomiale.'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
  * Il est interactif et dispose d'un export AMC d'office
+ */
+/**
+ *
+ * @author Stéphane Guyon
+ *
  */
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {

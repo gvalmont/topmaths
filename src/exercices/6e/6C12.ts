@@ -8,7 +8,7 @@ import Exercice from '../Exercice'
 import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Operation from '../../modules/operations'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -227,8 +227,8 @@ export default class QuestionsPrix extends Exercice {
           texteCorr += correctionAMC
         }
         if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 8 * i + kk, KeyboardType.clavierDeBase, { texteApres: ' €' }) + '<br><br>'
-          setReponse(this, 8 * i + kk, reponseAMC)
+          texte += ajouteChampTexteMathLive(this, typesDeQuestionsDisponibles.length * i + kk, KeyboardType.clavierDeBase, { texteApres: ' €' }) + '<br><br>'
+          handleAnswers(this, typesDeQuestionsDisponibles.length * i + kk, { reponse: { value: reponseAMC } })
         }
         if (context.isAmc) {
           if (kk === 0) enonceAMC = enonceAMCInit + enonceAMC
@@ -255,9 +255,9 @@ export default class QuestionsPrix extends Exercice {
                               {
                                 texte: (this.sup4 === 1) ? correctionAMC : '',
                                 statut: '',
-                                alignement: alignementAMC,
                                 reponse:
                                         {
+                                          alignement: alignementAMC,
                                           texte: (this.sup4 === 1) ? enonceAMC : '',
                                           valeur: [reponseAMC],
                                           param:
@@ -284,7 +284,6 @@ export default class QuestionsPrix extends Exercice {
       if (this.questionJamaisPosee(i, PrixUnitaire)) {
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            // @ts-expect-error Trop compliqué à typer
             propositions: propositionsAMC,
             enonceAvant: false
           }

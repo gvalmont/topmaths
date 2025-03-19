@@ -49,7 +49,7 @@ export default class MetropoleJuin24Exo4Q4 extends ExerciceQcmA {
     const xMax = 6.5
     const yMin = -6.5
     const yMax = 6.5
-    this.enonce = `Quel est l'antécédent de ${image} par la fonction $f$ ?`
+    this.enonce = `Quel est l'antécédent de $${image}$ par la fonction $f$ ?`
     const theRepere = new RepereBuilder({ xMin, xMax, yMin, yMax })
       .setGrille({ grilleX: { dx: 1, xMin, xMax }, grilleY: { yMin: yMin + 0.5, yMax, dy: 1 } })
       .setThickX({ xMin, xMax, dx: 1 })

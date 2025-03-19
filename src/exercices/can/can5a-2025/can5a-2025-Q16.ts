@@ -30,7 +30,6 @@ export default class Can2025N5Q14 extends ExerciceCan {
     }
     coeff = a / c
     d = b / coeff
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = d
     const [L0C0, L0C1, L1C0, L1C1] = [a, b, c, '?'].map((el) => Object.assign({}, { content: `${el}`, latex: true, }))
     const tableau = tableau2x2({ L0C0, L0C1, L1C0, L1C1 }, this.numeroExercice ?? 0, 0, false, 'tableauMathlive')

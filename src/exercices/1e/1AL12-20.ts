@@ -2,10 +2,10 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fraction } from '../../modules/fractions'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre = 'Etudier le sens de variation d\'une suite définie de façon explicite'
 export const interactifType = 'mathLive'
@@ -21,13 +21,13 @@ export const refs = {
 export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
   constructor () {
     super()
-
+    this.titre = titre
     // this.consigne = 'Une suite étant donnée, étudier son sens de variation.'
     this.nbQuestions = 3
     this.sup = 4
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets  :',
+        'Nombres séparés par des tirets',
         '1 : Affine',
         '2 : Second degré',
         '3 : Homographique',
@@ -37,6 +37,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
   }
 
   nouvelleVersion () {
+    this.autoCorrection = []
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -46,10 +47,12 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
       nbQuestions: this.nbQuestions
     })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    this.listeQuestions = [] // Vide la liste de questions
+    this.listeCorrections = [] // Vide la liste de questions corrigées
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte:string, texteCorr:string, cpt = 0, alea1:number, alea2:number; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte: string, texteCorr: string, cpt = 0, alea1: number, alea2: number; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) { // listeTypeDeQuestions[i]
         case 1: { // fonction affine avec Entiers Relatifs (m*x+p)
           const m = randint(1, 99) * choice([-1, 1])
@@ -59,7 +62,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
 
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n =${rienSi1(m)}n${ecritureAlgebrique(p)}$. `
           texte += '<br><br>'
-          texte += 'Etudier le sens de variation de la suite $(u_n)$'
+          texte += 'Etudier le sens de variation de la suite $(u_n)$.'
           texteCorr = 'Deux manières d\'étudier le sens de variation de $(u_n)$ sont possibles.'
           texteCorr += '<br><br>'
           texteCorr += 'Méthode 1  : en étudiant le signe de $u_{n+1} - u_n$ :'
@@ -76,14 +79,15 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
           texteCorr += '<br><br>'
           texteCorr += `Méthode 2 : en utilisant le sens de variation de la fonction associée : <br> Pour tout $n\\in\\mathbb{N}$ on a $(u_n) = f(n)$ où $f$ est la fonction définie sur $[0;+\\infty[$ par $f(x) = ${rienSi1(m)}x ${ecritureAlgebrique(p)}$`
           texteCorr += '<br>'
-          texteCorr += '$f$ est une fonction affine et le sens de variation d’une fonction affine dépend du signe de a :'
+          texteCorr += '$f$ est une fonction affine et le sens de variation d\'une fonction affine dépend du signe de a :'
           texteCorr += '<br>'
           if (m >= 0) {
             texteCorr += `Or $a=${m}>0$, la fonction $f$ est donc croissante sur $[0;+\\infty[$. <br> On en déduit que la suite $(u_n)$ est croissante sur $\\mathbb{N}$.`
           } else {
             texteCorr += `Or $a=${m}<0$, la fonction $f$ est donc décroissante sur $[0;+\\infty[$. <br> On en déduit que la suite $(u_n)$ est décroissante sur $\\mathbb{N}$.`
           }
-          break }
+          break
+        }
 
         case 2: { // fonction polynome de degré 2 (a*x²+b*x+c)
           const a = randint(1, 9) * choice([-1, 1])
@@ -96,7 +100,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
 
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par ${b === 0 ? `$u_n = ${rienSi1(a)}n^2 ${ecritureAlgebrique(c)}$` : `$u_n = ${rienSi1(a)}n^2 ${ecritureAlgebriqueSauf1(b)}n ${ecritureAlgebrique(c)}$`}.`
           texte += '<br><br>'
-          texte += 'Etudier le sens de variation de la suite $(u_n)$'
+          texte += 'Etudier le sens de variation de la suite $(u_n)$.'
           texteCorr = `Dans ce cas, l'étude du sens de variation de la fonction est plus simple que d'étudier le signe de $u_{n+1}-u_{n}$. <br> On a $(u_n) = f(n)$ avec $f(x) = $${b === 0 ? `$${rienSi1(a)}x^2 ${ecritureAlgebrique(c)}$` : `$ ${rienSi1(a)}x^2 ${ecritureAlgebriqueSauf1(b)}x ${ecritureAlgebrique(c)}$`}.`
           texteCorr += '<br>'
           texteCorr += 'Pour les suites définies de manière explicite, le sens de variation de la fonction $f$ donne le sens de variation de la la suite $u$. <br> On étudie donc le sens de variation de la fonction $f$.'
@@ -122,7 +126,8 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
               texteCorr += 'On en déduit que la suite $(u_n)$ est décroissante sur $\\mathbb{N}$.'
             }
           }
-          break }
+          break
+        }
 
         // case 3:{ // fonction homographique (num_a*x+num_b)/(denom_c*x+denom_d)
         default: {
@@ -132,40 +137,59 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
             numB = randint(1, 9) * choice([-1, 1])
             denomC = randint(1, 9)
             denomD = randint(1, 9) * choice([-1, 1])
-          } while (numA + numB === 0)
+          } while (numA + numB === 0 || denomD + denomC === 0 || denomD + 2 * denomC === 0 || denomD + 3 * denomC === 0 || denomD + 4 * denomC === 0 || denomD + 5 * denomC === 0 || denomD + 6 * denomC === 0 || denomD + 7 * denomC === 0 || denomD + 8 * denomC === 0 || denomD + 9 * denomC === 0)
           alea1 = numA
           alea2 = numB
           const numerateur = (numA + numB) * denomD - numB * (denomC + denomD)
-          const maFonction = (x: number) => (numA * denomD - numB * denomC) / ((denomC * x + denomD + denomC) * (denomC * x + denomD))
-          const monTableau = tableauSignesFonction(
-            maFonction,
-            -denomD / denomC - 2,
-            -denomD / denomC + 1,
-            {
-              substituts: [{ antVal: -denomD / denomC - 2, antTex: '-\\infty', imgVal: -100, imgTex: '-\\infty' },
-                { antVal: -denomD / denomC + 1, antTex: '+\\infty', imgVal: 100, imgTex: '+\\infty' }
-              ],
-              step: 0.001,
-              tolerance: 0.005,
-              nomVariable: 'n',
-              // @ts-expect-error nomFonction
-              nomFonction: '$u_{n+1}-u_n$'
-            }
+          const Tableau = tableauColonneLigne(
+            ['n', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+            ['u_n'],
+            [new FractionEtendue(numB, denomD).texFractionSimplifiee,
+              new FractionEtendue(numA + numB, denomC + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 2 + numB, denomC * 2 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 3 + numB, denomC * 3 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 4 + numB, denomC * 4 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 5 + numB, denomC * 5 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 6 + numB, denomC * 6 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 7 + numB, denomC * 7 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 8 + numB, denomC * 8 + denomD).texFractionSimplifiee,
+              new FractionEtendue(numA * 9 + numB, denomC * 9 + denomD).texFractionSimplifiee]
           )
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$.`
           texte += '<br><br>'
-          texte += 'Etudier le sens de variation de la suite $(u_n)$'
+          texte += 'Etudier le sens de variation de la suite $(u_n)$.'
           if (numA * denomD === numB * denomC) {
             texteCorr = `On remarque que $u_n = \\dfrac{${numA}}{${denomC}} \\times \\dfrac{n ${ecritureAlgebrique(fraction(numB, numA))}}{n ${ecritureAlgebrique(fraction(denomD, denomC))}}$`
             texteCorr += '<br>'
             texteCorr += `$u_n = ${new FractionEtendue(numA, denomC).texFractionSimplifiee} \\times \\dfrac{n ${ecritureAlgebrique(fraction(numB, numA).simplifie())}}{n ${ecritureAlgebrique(fraction(denomD, denomC).simplifie())}}$`
             texteCorr += '<br><br>'
             texteCorr += `Alors $u_n = ${new FractionEtendue(numA, denomC).texFractionSimplifiee}$`
-            texteCorr += '<br>'
-            texteCorr += 'La suite $u_n$ est constante sur $\\mathbb{N}$'
+            texteCorr += '<br><br>'
+            texteCorr += 'La suite $(u_n)$ est constante sur $\\mathbb{N}$'
           } else {
-            texteCorr = 'On calcule la différence entre deux termes consécutifs :'
+            texteCorr = '<br>'
+            texteCorr += `Remarque : $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}=0 \\iff n= ${new FractionEtendue(-denomD, denomC).texFractionSimplifiee}$. Or $${new FractionEtendue(-denomD, denomC).texFractionSimplifiee} \\notin \\mathbb{N}$, c'est pourquoi $(u_n)$ est définie pour tout $n \\in \\mathbb{N}$`
             texteCorr += '<br>'
+            texteCorr += 'Voici les premiers termes de la suite $(u_n)$ :'
+            texteCorr += '<br>'
+            texteCorr += Tableau
+            texteCorr += '<br>'
+            if (-denomD / denomC >= 0) {
+              if (numerateur >= 0) {
+                texteCorr += `On peut conjecturer que la suite $(u_n)$ est croissante pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$.`
+              } else {
+                texteCorr += `On peut conjecturer que la suite $(u_n)$ est décroissante à partir du rang $${texNombre(Math.ceil(-denomD / denomC))}$.`
+              }
+            } else {
+              if (numerateur >= 0) {
+                texteCorr += 'On peut conjecturer que la suite $(u_n)$ est croissante sur $\\mathbb{N}$.'
+              } else {
+                texteCorr += 'On peut conjecturer que la suite $(u_n)$ est décroissante sur $\\mathbb{N}$.'
+              }
+            }
+            texteCorr += '<br><br>'
+            texteCorr += 'Soit $n \\in \\mathbb{N}$, calculons la différence entre deux termes consécutifs :'
+            texteCorr += '<br><br>'
             texteCorr += `$u_{n+1} - u_n = \\dfrac{${rienSi1(numA)}(n+1) ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}(n+1) ${ecritureAlgebrique(denomD)}} - \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$`
             texteCorr += '<br><br>'
             texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numA)} ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomC)} ${ecritureAlgebrique(denomD)}} - \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$`
@@ -200,18 +224,28 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
               texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${((numA + numB) * denomD - numB * (denomC + denomD))}}{(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}) (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
             }
-            texteCorr += 'Nous allons maintenant étudier le signe de $u_{n+1} - u_n$ :'
-            texteCorr += '<br><br>'
-            if (denomC >= 0) {
-              texteCorr += `$${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$ si et seulement si $n > ${new FractionEtendue(-(denomD + denomC), denomC).texFractionSimplifiee}$`
+            if (denomC + denomD > 0 && denomD > 0) {
+              texteCorr += `Comme $n\\in\\mathbb{N}$, $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$ et $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$.`
             } else {
-              texteCorr += `$${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$ si et seulement si $n < ${new FractionEtendue(-(denomD + denomC), denomC).texFractionSimplifiee}$`
-            }
-            texteCorr += '<br>'
-            if (denomC >= 0) {
-              texteCorr += `$${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$ si et seulement si $n > ${new FractionEtendue(-denomD, denomC).texFractionSimplifiee}$`
-            } else {
-              texteCorr += `$${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$ si et seulement si $n < ${new FractionEtendue(-denomD, denomC).texFractionSimplifiee}$`
+              if (denomC + denomD > 0 || denomD > 0) {
+                if (denomC + denomD > 0) {
+                  texteCorr += `Comme $n\\in\\mathbb{N}$, $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$.`
+                } else {
+                  texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC)}$ , soit  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)} \\geqslant ${texNombre(Math.ceil((-denomD / denomC)) * denomC + denomD + denomC)}$. On a donc $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$.`
+                }
+                texteCorr += '<br>'
+                if (denomD > 0) {
+                  texteCorr += `Comme $n\\in\\mathbb{N}$, $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$.`
+                } else {
+                  texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC)}$ , soit  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)} \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC + denomD)}$. On a donc $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$.`
+                }
+              } else {
+                texteCorr += `Pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$ on a $${rienSi1(denomC)}n \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC)}$.`
+                texteCorr += '<br>'
+                texteCorr += `On alors  $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)} \\geqslant ${texNombre(Math.ceil((-denomD / denomC)) * denomC + denomD + denomC)}$ et $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)} \\geqslant ${texNombre(Math.ceil(-denomD / denomC) * denomC + denomD)}$.`
+                texteCorr += '<br>'
+                texteCorr += `On a donc $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$ et $${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$.`
+              }
             }
             texteCorr += '<br>'
             if (numerateur >= 0) {
@@ -219,9 +253,6 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
             } else {
               texteCorr += `De plus : $${(numA + numB) * denomD - numB * (denomC + denomD)}<0$`
             }
-            texteCorr += '<br>'
-            texteCorr += 'On peut alors en déduire le tableau de signe suivant :'
-            texteCorr += '<br>' + monTableau
             texteCorr += '<br>'
             if (-denomD / denomC >= 0) {
               if (numerateur >= 0) {
@@ -247,12 +278,13 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
               }
             }
           }
-          break }
+          break
+        }
       }
 
       if (this.questionJamaisPosee(i, alea1, alea2)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
+        this.listeCorrections.push(texteCorr) // On fait pareil pour la correction
         i++ // On passe à la question suivante
       }
       cpt++ // Sinon on incrémente le compteur d'essai pour avoir une question nouvelle

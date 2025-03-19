@@ -1,26 +1,18 @@
 {
-    "video": {
-      "id": "video",
-      "uuid": "video",
-      "titre": "Vidéo",
-      "typeExercice" : "html",
-      "url": "ressources/video.ts",
-      "tags": {}
-    },
-    "iframe": {
-      "id": "iframe",
-      "uuid": "iframe",
-      "titre": "Iframe",
-      "typeExercice" : "html",
-      "url": "ressources/iframe.ts",
-      "tags": {}
-    },
-    "xcas": {
-      "id": "xcas",
-      "uuid": "xcas",
-      "titre": "XCas",
-      "typeExercice" : "html",
-      "url": "ressources/xcas.ts",
-      "tags": {}
-    }
+  "video": {
+    "id": "video",
+    "uuid": "video",
+    "titre": "Vidéo",
+    "typeExercice": "html",
+    "url": "ressources/video.ts",
+    "tags": {}
+  },
+  "iframe": {
+    "id": "iframe",
+    "uuid": "iframe",
+    "titre": "Iframe",
+    "typeExercice": "html",
+    "url": "ressources/iframe.ts",
+    "tags": {}
   }
+}

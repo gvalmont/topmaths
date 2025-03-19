@@ -24,7 +24,6 @@ export default class Somme4EntiersQuiSeMarient extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.nbQuestions = 1
   }

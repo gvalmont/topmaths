@@ -9,6 +9,7 @@ const KEYBOARD_CATEGORIES = [
   'complexes',
   'clavierDeBase',
   'clavierCompare',
+  'clavierCompareAvecNombres',
   'clavierDeBaseAvecX',
   'clavierDeBaseAvecFraction',
   'clavierDeBaseAvecFractionPuissanceCrochets',
@@ -81,6 +82,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'hms']
     case KeyboardType.clavierCompare:
       return ['compare']
+    case KeyboardType.clavierCompareAvecNombres:
+      return ['numbers', 'compare', 'basicOperations']
     case KeyboardType.clavierFonctionsTerminales:
       return ['clavierFonctionsTerminales']
     case KeyboardType.lycee:

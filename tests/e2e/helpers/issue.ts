@@ -1,11 +1,26 @@
 // false : pas de connexion à la base des tickets
 // true : création des tickets
-const connection = true
+// Si variable d'environnement : CI_TEST_TICKETS = CREATE alors on crée des tickets
+const connection = false
+
+const tickets = {
+  nombreMax: 10,
+  nombreInitial: 0
+}
 
 export async function createIssue (urlExercice : string, messages : string[], labels : string[], log : (...args: unknown[]) => void) {
-  if (!connection) {
+  if (process.env.CI && process.env.CI_TEST_TICKETS !== null && process.env.CI_TEST_TICKETS !== undefined && process.env.CI_TEST_TICKETS === 'CREATE') {
+    log('Création des tickets')
+  } else if (!connection) {
     // pas de création de tickets
+    log('Pas de création de tickets à la base des tickets')
     return
+  }
+  if (tickets.nombreInitial >= tickets.nombreMax) {
+    log('Nombre de tickets max atteint')
+    return
+  } else {
+    tickets.nombreInitial++
   }
 
   const idPath = (new URL(urlExercice)).searchParams.get('id')

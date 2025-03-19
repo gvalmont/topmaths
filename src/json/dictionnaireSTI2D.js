@@ -157,7 +157,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'maths',
+    numeroInitial: 'J1 - maths',
     typeExercice: 'sti2d',
     tags: ['Logarithme népérien', 'Tangente', 'Équation', 'Exponentielle', 'Dérivation', 'Variations', 'Limites', 'Équations différentielles', 'Intégration', 'Trigonométrie']
   },
@@ -165,7 +165,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq1',
+    numeroInitial: 'J1 - mq1',
     typeExercice: 'sti2d',
     tags: ['Logarithme népérien', 'Tangente', 'Équation']
   },
@@ -173,7 +173,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq2',
+    numeroInitial: 'J1 - mq2',
     typeExercice: 'sti2d',
     tags: ['Exponentielle', 'Équation']
   },
@@ -181,7 +181,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq3',
+    numeroInitial: 'J1 - mq3',
     typeExercice: 'sti2d',
     tags: ['Logarithme népérien', 'Dérivation', 'Variations', 'Limites']
   },
@@ -189,7 +189,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq4',
+    numeroInitial: 'J1 - mq4',
     typeExercice: 'sti2d',
     tags: ['Équations différentielles']
   },
@@ -197,7 +197,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq5',
+    numeroInitial: 'J1 - mq5',
     typeExercice: 'sti2d',
     tags: ['Exponentielle', 'Dérivation', 'Intégration']
   },
@@ -205,7 +205,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq6',
+    numeroInitial: 'J1 - mq6',
     typeExercice: 'sti2d',
     tags: ['Trigonométrie']
   },
@@ -213,7 +213,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'pcm',
+    numeroInitial: 'J1 - pcm',
     typeExercice: 'sti2d',
     tags: ['Logarithme décimal']
   },
@@ -221,7 +221,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'maths',
+    numeroInitial: 'J2 - maths',
     typeExercice: 'sti2d',
     tags: ['Logarithme népérien', 'Dérivation', 'Tangente', 'Variations', 'Nombres complexes', 'Exponentielle', 'Géométrie repérée', 'Intégration', 'Trigonométrie']
   },
@@ -229,7 +229,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq1',
+    numeroInitial: 'J2 - mq1',
     typeExercice: 'sti2d',
     tags: ['Logarithme népérien', 'Dérivation', 'Tangente']
   },
@@ -237,7 +237,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq2',
+    numeroInitial: 'J2 - mq2',
     typeExercice: 'sti2d',
     tags: ['Logarithme népérien', 'Dérivation', 'Variations']
   },
@@ -245,7 +245,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq3',
+    numeroInitial: 'J2 - mq3',
     typeExercice: 'sti2d',
     tags: ['Exponentielle', 'Équation']
   },
@@ -253,7 +253,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq4',
+    numeroInitial: 'J2 - mq4',
     typeExercice: 'sti2d',
     tags: ['Nombres complexes', 'Géométrie repérée']
   },
@@ -261,7 +261,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq5',
+    numeroInitial: 'J2 - mq5',
     typeExercice: 'sti2d',
     tags: ['Exponentielle', 'Géométrie repérée', 'Intégration']
   },
@@ -269,7 +269,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'mq6',
+    numeroInitial: 'J2 - mq6',
     typeExercice: 'sti2d',
     tags: ['Trigonométrie']
   },
@@ -277,7 +277,7 @@ export const dictionnaireSTI2D = {
     annee: '2021',
     lieu: 'Métropole',
     mois: '06',
-    numeroInitial: 'pcm',
+    numeroInitial: 'J2 - pcm',
     typeExercice: 'sti2d',
     tags: ['Exponentielle', 'Limites', 'Équations différentielles', 'Équation']
   },

@@ -32,7 +32,7 @@ export default class Can2025N62Q9 extends Exercice {
 
     this.reponse = texNombre(b, 0)
     this.consigne = 'Complète. '
-    this.correction = `$${a} \\times ${miseEnEvidence(this.reponse)}=${a * b}$`
+    this.correction = `$1 +\\dfrac{${a}}{10} =\\dfrac{10}{10}+ \\dfrac{${a}}{10}=\\dfrac{${miseEnEvidence(this.reponse)}}{10}$`
     this.question = `1 +\\dfrac{${a}}{10} =\\dfrac{%{champ1}}{10}`
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$1 +\\dfrac{${a}}{10} =\\dfrac{\\ldots}{10}$ `

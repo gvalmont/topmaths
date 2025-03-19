@@ -23,7 +23,7 @@ export default class Can2025N5Q17 extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.canOfficielle = true
     this.optionsChampTexte = { texteAvant: ' <br>$f\'(x)=$' }
   }

@@ -45,6 +45,7 @@
     {buildStringScore()}
   </div>
   <div class="pt-10">
+    {#if state === 'start'}
     <ButtonTextAction
       class="py-3 px-6 text-3xl rounded-xl flex flex-row-reverse items-center space-x-6 font-bold animate-pulse"
       text="Démarrer"
@@ -53,6 +54,7 @@
         state = "countdown"
       }}
     />
+    {/if}
   </div>
   <slot />
 </div>

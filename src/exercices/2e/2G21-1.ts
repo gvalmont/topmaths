@@ -3,7 +3,7 @@ import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude, translation } from '../../lib/2d/transformations'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -36,10 +36,17 @@ export default class SommeDeVecteurs extends Exercice {
   nouvelleVersion (numeroExercice: number) {
     let choix = 1
     let u, v, A, B, C, xU, yU, xV, yV, p, U, V, M, N, UU, VV, posLabelA
+    let questionsDisponibles  = [1, 2]
+    if (this.sup === 1) {
+      questionsDisponibles = [1]
+    } else if (this.sup === 2) {
+      questionsDisponibles = [2]
+    }
+    const typesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
-      choix = parseInt(this.sup) === 3 ? randint(1, 2) : parseInt(this.sup)
+      choix = typesDeQuestions[i]
       const anim = new Alea2iep()
       xU = randint(0, 8) * 0.5
       yU = randint(Math.round(4 - xU), 8, Math.round(xU)) * choice([-0.5, 0.5])

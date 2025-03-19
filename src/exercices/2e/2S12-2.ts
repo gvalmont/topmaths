@@ -5,7 +5,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Déterminer un taux d\'évolution global'
@@ -116,7 +116,7 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
           texteCorr += `<br><br><br>Le prix de l'article a subi une ${nom} globale de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$.`
-          setReponse(this, i, taux)
+          handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
           break
         case 2 :
           taux1 = randint(-20, 20, 0)
@@ -177,7 +177,7 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
           texteCorr += `<br><br>Le nombre d'habitants de cette ville a ${nom} de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$ entre $2021$ et $2022$.`
-          setReponse(this, i, taux)
+          handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
           break
         case 3 :
           taux1 = randint(-40, 40, 0)
@@ -237,7 +237,7 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
           texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom} de $${miseEnEvidence(texNombre(Math.abs(taux), 2))}~\\%$ entre $2020$ et $2022$.`
-          setReponse(this, i, taux)
+          handleAnswers(this, i, { reponse: { value: texNombre(taux) } })
           break
 
         case 4 :
@@ -306,7 +306,7 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `<br>Or $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1= - ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
           }
           texteCorr += `<br><br>Le prix de l'article a subi une ${nom2}  $${miseEnEvidence(texNombre(t2))}~\\%$  lors de la deuxième évolution.`
-          setReponse(this, i, t2)
+          handleAnswers(this, i, { reponse: { value: texNombre(t2) } })
           break
 
         case 5 :
@@ -378,7 +378,7 @@ export default class EvolutionsSuccesives extends Exercice {
             texteCorr += `<br>Or  $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1=  - ${texNombre(Math.abs(p2), 2)} $ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
           }
           texteCorr += `<br><br>En $2022$, le nombre d'habitants de cette ville a ${nom2} de $${miseEnEvidence(texNombre(t2, 2))}\\,\\%$.`
-          setReponse(this, i, t2)
+          handleAnswers(this, i, { reponse: { value: texNombre(t2) } })
           break
 
         case 6 :
@@ -455,7 +455,7 @@ export default class EvolutionsSuccesives extends Exercice {
           }
           texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom2} de $${miseEnEvidence(texNombre(t2, 2))}\\,\\%$ en $2022$.`
 
-          setReponse(this, i, t2)
+          handleAnswers(this, i, { reponse: { value: texNombre(t2) } })
           break
       }
       if (this.questionJamaisPosee(i, taux1, taux2)) {

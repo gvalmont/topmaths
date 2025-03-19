@@ -85,7 +85,7 @@ export default class CoordonneesSommetParabole extends Exercice {
         par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.`
         this.canReponseACompleter = ''
       }
-      handleAnswers(this, i, { champ1: { value: String(-b), options: { nombreDecimalSeulement: true } }, champ2: { value: String(c), options: { nombreDecimalSeulement: true } } })
+      handleAnswers(this, i, { champ1: { value: String(-b) }, champ2: { value: String(c) } })
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte

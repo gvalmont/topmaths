@@ -1,4 +1,6 @@
 import ParalleleEtPerpendiculaires from './6G12-1'
+
+export const dateDeModifImportante = '17/02/2025'
 export const titre = 'Tracer des perpendiculaires'
 export const interactifReady = false
 export const amcReady = true
@@ -7,7 +9,6 @@ export const amcType = 'AMCOpen'
 /**
  * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021)
  * @ Loïc Geeraerts (Refactoring (ES6))
-
  */
 export const uuid = '7ff97'
 
@@ -18,7 +19,6 @@ export const refs = {
 export default class TracerDesPerpendiculaires extends ParalleleEtPerpendiculaires {
   constructor () {
     super()
-
     this.sup = 1
     this.type = 1
   }

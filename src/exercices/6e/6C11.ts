@@ -123,15 +123,13 @@ export default class DivisionsEuclidiennes extends Exercice {
       texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierNumbers, { texteAvant: `<br>Quel est le quotient de la division euclidienne de $${texNombre(a)}$ par $${b}$ ?` })
       handleAnswers(this, 2 * i, {
         reponse: {
-          value: `${q}`,
-          options: { nombreDecimalSeulement: true }
+          value: `${q}`
         }
       })
       texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierNumbers, { texteAvant: `<br>Quel est le reste de la division euclidienne de $${texNombre(a)}$ par $${b}$ ?` })
       handleAnswers(this, 2 * i + 1, {
         reponse: {
-          value: `${r}`,
-          options: { nombreDecimalSeulement: true }
+          value: `${r}`
         }
       })
       if (this.questionJamaisPosee(i, a, b)) {

@@ -26,7 +26,6 @@ export default class PrixApresReduction extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
     this.optionsChampTexte = { texteAvant: '<br>', texteApres: 'euros.' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {
@@ -34,10 +33,10 @@ export default class PrixApresReduction extends Exercice {
 
     const b = this.canOfficielle ? 20 : choice([20, 30, 40])
     this.question = `Une veste coûte $${a}$ €.<br>Son prix baisse de $${b}\\,\\%$ pendant les soldes.<br>
-             Le nouveau prix est `
+             Le nouveau prix est de `
     this.optionsChampTexte = { texteApres: '€' }
     this.correction = `
-             Le nouveau prix est :  $ ${texNombre(a - (b * a) / 100)} $ €.`
+             Le nouveau prix est de  $ ${texNombre(a - (b * a) / 100)} $ €.`
 
     this.correction = ` 
         On calcule d'abord le montant de la réduction. <br>
@@ -45,7 +44,7 @@ export default class PrixApresReduction extends Exercice {
         par $10$ :<br> $10\\,\\%$  de $${a}$ est égal à $${a}\\div 10=${texNombre(a / 10, 0)}$.<br>
         $${b}\\,\\%$  de $${a}$ est donc égal à $ ${texNombre(a / 10, 0)}\\times ${texNombre(b / 10, 0)}=${texNombre((a * b) / 100, 2)}$.<br>
                      La réduction est donc de : $${texPrix(b * a / 100)}$ €.<br>
-             Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${miseEnEvidence(texPrix(a - (b * a) / 100))}$  €.`
+             Le nouveau prix est de  $${a}-${texNombre(b * a / 100)}= ${miseEnEvidence(texPrix(a - (b * a) / 100))}$  €.`
 
     this.reponse = (a - (b * a) / 100)
     this.canEnonce = this.question

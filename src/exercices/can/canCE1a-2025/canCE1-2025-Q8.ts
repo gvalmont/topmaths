@@ -2,6 +2,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import ExerciceCan from '../../ExerciceCan'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Ordre de grandeur'
 export const interactifReady = true
@@ -30,7 +31,7 @@ export default class Can2025CE1Q8 extends ExerciceCan {
     if (a == null || b == null || c == null) {
       [a, b, c] = choice(duree)
     }
-    this.question = `Coche la durée ${c}.`
+    this.question = `Coche la durée possible ${c}.`
     this.autoCorrection[0] = {
       enonce: this.question,
       propositions: [
@@ -54,10 +55,7 @@ export default class Can2025CE1Q8 extends ExerciceCan {
     const monQcm = propositionsQcm(this, 0)
     this.canEnonce = this.question
     this.question += `${monQcm.texte}`
-    this.correction = monQcm.texteCorr + `${c.replace('de la', 'La')
-      .replace('d\'une', 'Une')
-      .replace('d\'un', 'Un')
-      .replace('du', 'Un')} dure environ $${texNombre(a, 1)}$ ${b}.`
+    this.correction = monQcm.texteCorr + `La durée possible ${c} est de $${miseEnEvidence(texNombre(a, 1))}$ ${b}.`
     this.canReponseACompleter = monQcm.texte
   }
 

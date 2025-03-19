@@ -39,15 +39,15 @@ export default class Can2025N5Q27 extends Exercice {
     const ym = (ya + yb) / 2
     this.reponse = { bareme: toutPourUnPoint, champ1: { value: xm }, champ2: { value: ym } }
     this.consigne = `$A(${texNombre(xa, 0)}\\,;\\,${texNombre(ya, 0)})$ et $B(${texNombre(xb, 0)}\\,;\\,${texNombre(yb, 0)})$<br>
-         Déterminer les coordonnées du milieu de $[AB]$.`
-    this.question = '(%{champ1};%{champ2})'
+         Déterminer les coordonnées de $M$, milieu de $[AB]$.`
+    this.question = 'M(%{champ1};%{champ2})'
 
     this.correction = `Les coordonnées du milieu sont données par la moyenne des abscisses et la moyenne des ordonnées : <br>
          $x_M=\\dfrac{${texNombre(xa, 0)}+${texNombre(xb, 0)}}{2}=${miseEnEvidence(texNombre(xm, 0))}$ et $y_M=\\dfrac{${texNombre(ya, 0)}+${texNombre(yb, 0)}}{2}=${miseEnEvidence(texNombre(ym, 0))}$.<br>
          Ainsi,  $M(${miseEnEvidence(`${texNombre(xm, 0)}\\,;\\,${texNombre(ym, 0)}`)})$.`
 
     this.canEnonce = `$A(${texNombre(xa, 0)}\\,;\\,${texNombre(ya, 0)})$ et $B(${texNombre(xb, 0)}\\,;\\,${texNombre(yb, 0)})$<br>
-         Déterminer les coordonnées du milieu de $[AB]$.`
-    this.canReponseACompleter = '$(\\ldots\\,;\\,\\ldots)$'
+         Déterminer les coordonnées de $M$,<br> milieu de $[AB]$.`
+    this.canReponseACompleter = '$M(\\ldots\\,;\\,\\ldots)$'
   }
 }

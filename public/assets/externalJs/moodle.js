@@ -1,4 +1,4 @@
-import 'https://unpkg.com/mathlive?module'
+import 'https://cdn.jsdelivr.net/npm/mathlive/+esm'
 window.mathVirtualKeyboard.targetOrigin = '*'
 if (typeof window.iMathAlea === 'undefined') {
   // Normalement ce script ne devrait être chargé qu'une unique fois car appelé en module
@@ -138,7 +138,7 @@ if (typeof window.iMathAlea === 'undefined') {
         // fin compatibilité moodle 3.5
 
         if (questionDiv === null) {
-          shadow.appendChild(document.createTextNode('[Erreur de détection de la l’environnement moodle]'))
+          shadow.appendChild(document.createTextNode('[Erreur de détection de la l\'environnement moodle]'))
           return
         }
       }

@@ -163,25 +163,25 @@ export default class ProbaUnionInter extends Exercice {
             const c = choice([2, 3, 11, 12])
             const choix = choice(['a', 'b', 'c', 'd'])
             if (choix === 'a') {
-              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’événement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l'événement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $3$ issues qui comportent au moins une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{3}{4}')}$.`
               reponse = new FractionEtendue(3, 4).texFraction
             }
             if (choix === 'b') {
-              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’événement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l'événement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $3$ issues qui comportent au plus une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{3}{4}')}$.`
               reponse = new FractionEtendue(3, 4).texFraction
             }
 
             if (choix === 'c') {
-              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’événement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l'événement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $2$ issues qui comportent une seule fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{1}{2}')}$.`
               reponse = new FractionEtendue(1, 2).texFraction
             } else { // if (choix === 'd') {
-              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’événement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l'événement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $1$ issue qui comporte deux fois ${c ? 'piles' : 'faces'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{1}{4}')}$.`
               reponse = new FractionEtendue(1, 4).texFraction
@@ -201,11 +201,11 @@ export default class ProbaUnionInter extends Exercice {
 
           texte = `Dans une urne contenant des boules vertes et des boules bleues, on tire au hasard
           une boule et on regarde sa couleur. <br>
-          La probabilité d’obtenir une boule verte est $${proba1}$.<br>
-          Déterminer le nombre de boules bleues dans cette urne sachant qu’il y a $${nbBoulesV}$
+          La probabilité d'obtenir une boule verte est $${proba1}$.<br>
+          Déterminer le nombre de boules bleues dans cette urne sachant qu'il y a $${nbBoulesV}$
           boules vertes`
           texte += this.interactif ? ' : ' : '.'
-          texteCorr = `La probabilité d’obtenir une boule verte est $${proba1}$, soit $\\dfrac{${k * choixProba[0]}}{${k * choixProba[1]}}$.<br>
+          texteCorr = `La probabilité d'obtenir une boule verte est $${proba1}$, soit $\\dfrac{${k * choixProba[0]}}{${k * choixProba[1]}}$.<br>
           Il y a donc $${k * choixProba[1]}$ boules au total dans l'urne et donc $${k * choixProba[1]}-${k * choixProba[0]}=${miseEnEvidence(reponse)}$ boules bleues.`
 
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(), texteApres: 'boules bleues' })

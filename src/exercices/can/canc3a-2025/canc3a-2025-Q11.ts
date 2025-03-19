@@ -30,11 +30,12 @@ export default class Can2025CM2Q11 extends Exercice {
     const a = this.canOfficielle ? 1234 : randint(1201, 1299)
     const b = this.canOfficielle ? 'dixièmes' : choice(['dixièmes', 'centièmes'])
 
-    this.reponse = b === 'dixièmes' ? texNombre(a / 10, 1) : texNombre(a / 100, 2)
-    this.question = `$${texNombre(a, 0)}$ ${b} est égal à `
-    if (!this.interactif) { this.question += '$\\ldots$ unités.' }
-    this.correction = `$${texNombre(a, 0)}$ ${b}  est égal à $ ${b === 'dixièmes' ? `${texNombre(a, 0)}\\div 10` : `${texNombre(a, 0)}\\div 100`} = ${miseEnEvidence(this.reponse)}$ unités`
+    this.reponse = b === 'dixièmes' ? [`${texNombre(a / 10, 1)}`, `${Math.floor(a / 10)}`] : [`${texNombre(a / 100, 2)}`, `${Math.floor(a / 100)}`]
+    this.question = `Le nombre $${texNombre(a, 0)}$ ${b} est égal à `
     this.canEnonce = this.question
+    if (!this.interactif) { this.question += '$\\ldots$ unités.' }
+    this.correction = `$${texNombre(a, 0)}$ ${b}  est égal à $ ${b === 'dixièmes' ? `${texNombre(a, 0)}\\div 10` : `${texNombre(a, 0)}\\div 100`} = 
+    ${b === 'dixièmes' ? ` ${miseEnEvidence(`${texNombre(a / 10, 1)}`)}` : ` ${miseEnEvidence(`${texNombre(a / 100, 2)}`)}`}$ unités.`
     this.canReponseACompleter = '$\\ldots$ unités'
   }
 }

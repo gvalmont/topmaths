@@ -59,7 +59,7 @@ export default class ExerciceProbleme005 extends Exercice {
           enonce += `$${texNombre(volume.mul(1000), 0)}$ mL d'eau. On ajoute ${fractionEnLettres(frac)} litre d'eau dans la bouteille.<br>`
           enonce += createList({
             items: [
-              `Compléter avec une écriture décimale : « ${fractionEnLettres(frac)} litre d’eau = ${this.interactif
+              `Compléter avec une écriture décimale : « ${fractionEnLettres(frac)} litre d'eau = ${this.interactif
               ? ajouteQuestionMathlive({
                 exercice: this,
                 question: i * 2,
@@ -68,7 +68,7 @@ export default class ExerciceProbleme005 extends Exercice {
                 objetReponse: { reponse: { value: texNombre(frac.multiplieEntier(1000).valeurDecimale, 0) } }
               })
               : '$\\ldots$ mL'} ».`,
-              'Quel volume d’eau la bouteille contient-elle maintenant ?' + ajouteQuestionMathlive({
+              'Quel volume d\'eau la bouteille contient-elle maintenant ?' + ajouteQuestionMathlive({
                 exercice: this,
                 question: i * 2 + 1,
                 typeInteractivite: 'mathlive',
@@ -83,9 +83,9 @@ export default class ExerciceProbleme005 extends Exercice {
             items: [
               `${this.correctionDetaillee
               ? `On sait que $1$ litre d'eau = $1000$ mL et que $${frac.texFraction}=${texNombre(frac.valeurDecimale, 2)}$.<br>
-              ${fractionEnLettres(frac)} litre d’eau = $${texNombre(frac.valeurDecimale, 2)}\\times ${texNombre(1000, 0)} = ${texNombre(frac.multiplieEntier(1000).valeurDecimale, 0)}$ mL.<br>`
-              : `${fractionEnLettres(frac)} litre d’eau = $${texNombre(frac.valeurDecimale, 2)}\\times ${texNombre(1000, 0)} = ${texNombre(frac.multiplieEntier(1000).valeurDecimale, 0)}$ mL.<br>`}`,
-              `Volume total d’eau dans la bouteille : $${texNombre(volume.mul(1000), 0)}$ mL $+${texNombre(frac.multiplieEntier(1000).valeurDecimale, 0)}$ mL $=${miseEnEvidence(texNombre(volume.mul(1000).plus(frac.multiplieEntier(1000).valeurDecimale), 0))}$ mL.`
+              ${fractionEnLettres(frac)} litre d'eau = $${texNombre(frac.valeurDecimale, 2)}\\times ${texNombre(1000, 0)} = ${texNombre(frac.multiplieEntier(1000).valeurDecimale, 0)}$ mL.<br>`
+              : `${fractionEnLettres(frac)} litre d'eau = $${texNombre(frac.valeurDecimale, 2)}\\times ${texNombre(1000, 0)} = ${texNombre(frac.multiplieEntier(1000).valeurDecimale, 0)}$ mL.<br>`}`,
+              `Volume total d'eau dans la bouteille : $${texNombre(volume.mul(1000), 0)}$ mL $+${texNombre(frac.multiplieEntier(1000).valeurDecimale, 0)}$ mL $=${miseEnEvidence(texNombre(volume.mul(1000).plus(frac.multiplieEntier(1000).valeurDecimale), 0))}$ mL.`
             ],
             style: 'nombres'
           })
@@ -109,7 +109,7 @@ export default class ExerciceProbleme005 extends Exercice {
               question: i * 2 + 1,
               typeInteractivite: 'mathlive',
               texteApres: ' cL',
-              texteAvant: 'Quel est le volume total d’eau dans la bouteille ?',
+              texteAvant: 'Quel est le volume total d\'eau dans la bouteille ?',
               objetReponse: { reponse: { value: texNombre(volume.mul(100).plus(frac.multiplieEntier(100).valeurDecimale), 0) } },
               classe: KeyboardType.vFON
             })}`
@@ -118,9 +118,9 @@ export default class ExerciceProbleme005 extends Exercice {
              ${texteEnCouleurEtGras('Justification :', 'black')}<br>
             ${this.correctionDetaillee
             ? `On sait que $1$ litre d'eau = $100$ cL et que $${frac.texFraction}=${texNombre(frac.valeurDecimale, 2)}$.<br>
-            ${fractionEnLettres(frac)} litre d’eau = $${texNombre(frac.valeurDecimale, 2)}\\times ${texNombre(100, 0)} = ${texNombre(frac.multiplieEntier(100).valeurDecimale, 0)}$ cL.<br>`
-            : `${fractionEnLettres(frac)} litre d’eau = $${texNombre(frac.valeurDecimale, 2)}\\times ${texNombre(100, 0)} = ${texNombre(frac.multiplieEntier(100).valeurDecimale, 0)}$ cL.<br>`}
-             Volume total d’eau dans la bouteille : $${texNombre(volume.mul(100), 0)}$ cL $+${texNombre(frac.multiplieEntier(100).valeurDecimale, 0)}$ cL $=${miseEnEvidence(texNombre(volume.mul(100).plus(frac.multiplieEntier(100).valeurDecimale), 0))}$ cL.<br>
+            ${fractionEnLettres(frac)} litre d'eau = $${texNombre(frac.valeurDecimale, 2)}\\times ${texNombre(100, 0)} = ${texNombre(frac.multiplieEntier(100).valeurDecimale, 0)}$ cL.<br>`
+            : `${fractionEnLettres(frac)} litre d'eau = $${texNombre(frac.valeurDecimale, 2)}\\times ${texNombre(100, 0)} = ${texNombre(frac.multiplieEntier(100).valeurDecimale, 0)}$ cL.<br>`}
+             Volume total d'eau dans la bouteille : $${texNombre(volume.mul(100), 0)}$ cL $+${texNombre(frac.multiplieEntier(100).valeurDecimale, 0)}$ cL $=${miseEnEvidence(texNombre(volume.mul(100).plus(frac.multiplieEntier(100).valeurDecimale), 0))}$ cL.<br>
             $${texNombre(volume.mul(100).plus(frac.multiplieEntier(100).valeurDecimale), 0)}$ cL ${volume.mul(100).plus(frac.multiplieEntier(100).valeurDecimale).greaterThan(100) ? 'est' : 'n\'est pas'} supérieur à 100 cL.`
 
           break
@@ -128,7 +128,7 @@ export default class ExerciceProbleme005 extends Exercice {
           enonce += `$${texNombre(volume, 1)}$ L d'eau. On ajoute ${fractionEnLettres(frac)} litre d'eau dans la bouteille.<br>`
           enonce += createList({
             items: [
-              `Compléter avec une écriture décimale : « ${fractionEnLettres(frac)} litre d’eau = ${this.interactif
+              `Compléter avec une écriture décimale : « ${fractionEnLettres(frac)} litre d'eau = ${this.interactif
               ? ajouteQuestionMathlive({
                 exercice: this,
                 question: i * 2,
@@ -137,7 +137,7 @@ export default class ExerciceProbleme005 extends Exercice {
                 objetReponse: { reponse: { value: texNombre(frac.valeurDecimale, 2) } }
               })
               : '$\\ldots$'} ».`,
-              'Quel volume d’eau la bouteille contient-elle maintenant ?' + ajouteQuestionMathlive({
+              'Quel volume d\'eau la bouteille contient-elle maintenant ?' + ajouteQuestionMathlive({
                 exercice: this,
                 question: i * 2 + 1,
                 typeInteractivite: 'mathlive',
@@ -151,9 +151,9 @@ export default class ExerciceProbleme005 extends Exercice {
             items: [
               `${this.correctionDetaillee
               ? `On sait que $1$ litre d'eau = $1$ L et que $${frac.texFraction}=${texNombre(frac.valeurDecimale, 2)}$.<br>
-              ${fractionEnLettres(frac)} litre d’eau = $${texNombre(frac.valeurDecimale, 2)}$ L.<br>`
-              : `${fractionEnLettres(frac)} litre d’eau = $${miseEnEvidence(texNombre(frac.valeurDecimale, 2))}$ L.<br>`}`,
-              `Volume total d’eau dans la bouteille : $${texNombre(volume, 1)}$ L $+${texNombre(frac.valeurDecimale, 2)}$ L $=${miseEnEvidence(texNombre(volume.plus(frac.valeurDecimale), 2))}$ L.`
+              ${fractionEnLettres(frac)} litre d'eau = $${texNombre(frac.valeurDecimale, 2)}$ L.<br>`
+              : `${fractionEnLettres(frac)} litre d'eau = $${miseEnEvidence(texNombre(frac.valeurDecimale, 2))}$ L.<br>`}`,
+              `Volume total d'eau dans la bouteille : $${texNombre(volume, 1)}$ L $+${texNombre(frac.valeurDecimale, 2)}$ L $=${miseEnEvidence(texNombre(volume.plus(frac.valeurDecimale), 2))}$ L.`
             ],
             style: 'nombres'
           })

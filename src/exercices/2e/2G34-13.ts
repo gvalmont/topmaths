@@ -28,7 +28,7 @@ export default class IntersectionDroitesPoints extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Avec des fractions']
     this.besoinFormulaire3Numerique = ['Type de courbes', 1, '1 : Deux droites\n2 : Une droite et une parabole\n3 : Deux paraboles\n4 : Mélange']
     this.sup2 = false
-    this.sup = 4
+    this.sup = 3
   }
 
   nouvelleVersion () {
@@ -96,13 +96,13 @@ export default class IntersectionDroitesPoints extends Exercice {
           eqSeqDeg = EquationSecondDegre.aPartirDesCoefficients(differenceCourbe.monomes[0].coefficient, differenceCourbe.monomes[1].coefficient, differenceCourbe.monomes[2].coefficient, new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1), { variable: 'x', format: 'reduit' })
           differenceCourbe = differenceCourbe.reduire()
         } while ((listeTypeDeQuestions[i] === 'aucune' && eqSeqDeg.delta.signe === 1) ||
-        (listeTypeDeQuestions[i] === 'unOuDeux' && eqSeqDeg.delta.signe === -1) || (listeTypeDeQuestions[i] === 'unOuDeux' && eqSeqDeg.solutionsListeTex[0].includes('sqrt')))
+        (listeTypeDeQuestions[i] === 'unOuDeux' && eqSeqDeg.delta.signe === -1) || ((listeTypeDeQuestions[i] === 'unOuDeux') && (eqSeqDeg.solutionsListeTex[0].includes('sqrt') || eqSeqDeg.solutionsListeTex[0].includes(','))))
         if (typesDeCourbes[i] === 'droitePara') {
-          texte += `Soit la droite $(d)$ d'équation $y=${courbeChoix1.toString()}$ et la parabole $\\mathcal{C}$ d'équation $y=${courbeChoix2.toString()}$. Déterminer l'ensemble des points d'intersection de $(d)$ et $\\mathcal{C}$.`
+          texte += `Soit la droite $(d)$ d'équation $y=${courbeChoix1.toString()}$ et la parabole $\\mathcal{C}$ d'équation $y=${courbeChoix2.toString()}$.<br> Déterminer l'ensemble des points d'intersection de $(d)$ et $\\mathcal{C}$.`
           texteCorr += 'Afin de déterminer les points d\'intersection de $(d)$ et $\\mathcal{C}$, on cherche les solutions de l\'équation '
         }
         if (typesDeCourbes[i] === 'paraPara') {
-          texte += `Soit la courbe $\\mathcal{C_1}$ d'équation $y=${courbeChoix2.toString()}$ et la parabole $\\mathcal{C_2}$ d'équation $y=${courbeChoix1.toString()}$. Déterminer l'ensemble des points d'intersection de $\\mathcal{C_1}$ et $\\mathcal{C_2}$.`
+          texte += `Soit la parabole $\\mathcal{C_1}$ d'équation $y=${courbeChoix2.toString()}$ et la parabole $\\mathcal{C_2}$ d'équation $y=${courbeChoix1.toString()}$. <br>Déterminer l'ensemble des points d'intersection de $\\mathcal{C_1}$ et $\\mathcal{C_2}$.`
           texteCorr += 'Afin de déterminer les points d\'intersection de $\\mathcal{C_1}$ et $\\mathcal{C_2}$, on cherche les solutions de l\'équation '
         }
         texteCorr += `\\[${courbeChoix2.toString()}=${courbeChoix1.toString()}\\]

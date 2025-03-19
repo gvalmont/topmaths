@@ -142,7 +142,7 @@ export default class TrouverOppose extends Exercice {
           const ligne = Math.floor(i / (6))
           const colonne = i % (6)
           const ref = `L${ligne + 1}C${colonne + 1}`
-          const valeur = Object.assign({}, { value: `${enonces[0].tabLinesCorr[i]}`, options: { nombreDecimalSeulement: true } })
+          const valeur = Object.assign({}, { value: `${enonces[0].tabLinesCorr[i]}` })
           const cellule = Object.fromEntries([[ref, valeur]])
           objetReponse = Object.assign(objetReponse, cellule)
         }

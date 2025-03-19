@@ -60,20 +60,25 @@
   function handleMathfieldElement(this: HTMLElement, ev: Event) {
     /* ca peut venir du clavier vituel ou du clavier physique */
     if ((this as MathfieldElement).value !== '') {
-      $canOptions.questionGetAnswer[index] = true
+      if ($canOptions.questionGetAnswer[index] !== true) {
+        $canOptions.questionGetAnswer[index] = true
+      }
     } else {
-      $canOptions.questionGetAnswer[index] = false
+      if ($canOptions.questionGetAnswer[index] !== false) {
+        $canOptions.questionGetAnswer[index] = false
+      }
     }
   }
 
   function updateInteractivity() {
     if (questionContainer) {
-      const mf = questionContainer?.querySelector(
-        'math-field'
-      ) as MathfieldElement
+      const mf = questionContainer?.querySelector('math-field') as MathfieldElement
       if (mf) {
-        mf.addEventListener('keyup', handleKeyUp)
-        mf.addEventListener('input', handleMathfieldElement)
+        if (!mf.dataset.listenerAdded) {
+          mf.dataset.listenerAdded = 'true' // Marquer comme ajouté
+          mf.addEventListener('keyup', handleKeyUp)
+          mf.addEventListener('input', handleMathfieldElement)
+        }
         $keyboardState.idMathField = mf.id
         window.setTimeout(() => {
           mf.focus()
@@ -81,15 +86,16 @@
           // Mgu je n'ai pas reproduit le problème ...
           // $keyboardState.isVisible = true
         }, 0)
-      } else {
-        // on n'a pas trouvé de math-field, c'est pas du mathlive !
-        const figureCliquables = questionContainer?.querySelectorAll(
-          '[id^="cliquefigure"]'
-        )
-        if (figureCliquables.length > 0) {
-          $keyboardState.isVisible = false
-          for (const figureCliquable of figureCliquables) {
-            questionCliqueFigure(figureCliquable)
+        return 
+      }
+      
+      const figureCliquables = questionContainer?.querySelectorAll<HTMLInputElement>('[id^="cliquefigure"]')
+      if (figureCliquables.length > 0) {
+        $keyboardState.isVisible = false
+        for (const figureCliquable of figureCliquables) {
+          questionCliqueFigure(figureCliquable)
+          if (!figureCliquable.dataset.listenerAdded) {
+            figureCliquable.dataset.listenerAdded = 'true' // Marquer comme ajouté
             figureCliquable.addEventListener('click', () => {
               const val = Array.from(figureCliquables).reduce((acc, b) => {
                 if ((b as any).etat) {
@@ -97,33 +103,117 @@
                 }
                 return acc
               }, false)
-              $canOptions.questionGetAnswer[index] = val
+              // au moins une figure cochée
+              if ($canOptions.questionGetAnswer[index] !== val) {
+                $canOptions.questionGetAnswer[index] = val
+              }
             })
           }
-        } else {
-          const qcm = questionContainer?.querySelectorAll('input')
-          if (qcm.length < 2) {
-            window.notify(
-              'Question.svelte vérifie un qcm qui n\'a pas 2 inputs minimum ou alors, il n\'y a pas d\'input',
-              { qcm: JSON.stringify(qcm) }
-            )
-            $canOptions.questionGetAnswer[index] = false
-          } else {
-            $keyboardState.isVisible = false
-            for (const box of qcm) {
-              box.addEventListener('click', () => {
-                const val = Array.from(qcm).reduce((acc, b) => {
-                  if (b.checked) {
-                    acc = true
-                  }
-                  return acc
-                }, false)
-                // au moins 1 coché
-                $canOptions.questionGetAnswer[index] = val
-              })
+        }
+        return
+      }
+        
+      const clocks = questionContainer?.querySelectorAll<HTMLInputElement>('[id^="clockEx"]')
+      if (clocks.length > 0) {
+        $keyboardState.isVisible = false
+        if (!clocks[0].dataset.listenerAdded) {
+          clocks[0].dataset.listenerAdded = 'true' // Marquer comme ajouté
+          clocks[0].addEventListener('click', () => {
+            if ($canOptions.questionGetAnswer[index] !== true) {
+              $canOptions.questionGetAnswer[index] = true
             }
+          })
+        }
+        return
+      }
+      
+      const qcm = questionContainer?.querySelectorAll<HTMLInputElement>('input[id^="checkEx"]')
+      if (qcm.length > 0 ){
+        $keyboardState.isVisible = false
+        for (const box of qcm) {
+          if (!box.dataset.listenerAdded) {
+            box.dataset.listenerAdded = 'true' // Marquer comme ajouté
+            box.addEventListener('click', () => {
+              const val = Array.from(qcm).reduce((acc, b) => {
+                if (b.checked) {
+                  acc = true
+                }
+                return acc
+              }, false)
+              // au moins 1 coché
+              if ($canOptions.questionGetAnswer[index] !== val) {
+                $canOptions.questionGetAnswer[index] = val
+              }
+            })
           }
         }
+        return
+      }
+
+      const apigeoms = questionContainer?.querySelectorAll<HTMLElement>('[id^="apigeom"]')
+      if (apigeoms.length > 0) {
+        $keyboardState.isVisible = false
+        if (!apigeoms[0].dataset.listenerAdded) {
+          apigeoms[0].dataset.listenerAdded = 'true'; // Marquer comme ajouté
+          
+          function handleApigeomClick(this: HTMLElement, ev : Event) {
+            // MGu: il faudrait faire mieux mais bon...
+            // Un click sur la figure ne fonctionne pas car dans apigeom, il ne se propage pas...
+            // donc on surveille mouseleave ou touchend est suffisant pour valider la question
+            if ($canOptions.questionGetAnswer[index] !== true) {
+               $canOptions.questionGetAnswer[index] = true
+            }
+          }
+          apigeoms[0].querySelector('#divFigure > svg')?.addEventListener('pointerleave', handleApigeomClick)
+        }
+        return
+      }
+
+      const selects = questionContainer?.querySelectorAll<HTMLSelectElement>('select[id^="ex"]')
+      if (selects.length > 0) {
+        $keyboardState.isVisible = false
+        for (const select of selects) {
+          if (!select.dataset.listenerAdded) {
+            select.dataset.listenerAdded = 'true'; // Marquer comme ajouté
+            select.addEventListener('change', function () {
+              if (select.selectedIndex > 0 ) {
+                if ($canOptions.questionGetAnswer[index] !== true) {
+                  $canOptions.questionGetAnswer[index] = true
+                }
+              } else {
+                if ($canOptions.questionGetAnswer[index] !== false) {
+                  $canOptions.questionGetAnswer[index] = false
+                }
+              }
+            })
+          }
+        }
+        return
+      }
+
+      const rectangles = questionContainer?.querySelectorAll<HTMLInputElement>('[id^="rectangle"].rectangleDND')
+      if (rectangles.length > 0) {
+        $keyboardState.isVisible = false
+        for (const rectangle of rectangles) {
+          if (!rectangle.dataset.listenerAdded) {
+            rectangle.dataset.listenerAdded = 'true'; // Marquer comme ajouté
+            const onHoverEnd = function () {
+              const divCount = rectangle.querySelectorAll(":scope > div").length
+              if (divCount > 0) {
+                if ($canOptions.questionGetAnswer[index] !== true) {
+                  $canOptions.questionGetAnswer[index] = true
+                }
+              } else {
+                if ($canOptions.questionGetAnswer[index] !== false) {
+                  $canOptions.questionGetAnswer[index] = false
+                }
+              }
+            }
+            rectangle.addEventListener("mouseleave", onHoverEnd);
+            rectangle.addEventListener('touchend', onHoverEnd)
+          }
+        }
+        return
       }
     }
   }
@@ -137,7 +227,7 @@
   bind:this={questionContainer}
 >
   {#if mode === 'display' || mode === 'correction'}
-    <div style='padding:15px;' class='flex overflow-x-auto overflow-y-auto'>
+    <div style='padding:15px;' class='flex flex-col overflow-x-auto overflow-y-auto'>
       <div class='text-pretty'>
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html consigne}

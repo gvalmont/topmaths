@@ -24,7 +24,6 @@ export default class CalculPuissance extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

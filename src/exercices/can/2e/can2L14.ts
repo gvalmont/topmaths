@@ -26,7 +26,7 @@ export default class EquationsCarree extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.lycee
+    this.formatChampTexte = KeyboardType.clavierEnsemble
 
     this.optionsDeComparaison = { ensembleDeNombres: true }
   }

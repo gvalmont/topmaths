@@ -13,7 +13,7 @@ import {
   pointIntersectionDD,
   tracePoint
 } from '../../lib/2d/points'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { demiDroite, longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
@@ -51,12 +51,13 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
       '1 : Figure facile 1\n2 : Figure facile 2 (3 sommets à placer)\n3 : Figure facile 3 \n4 : Figure moins facile 1\n5 : Figure moins facile 2\n6 : Figure moins facile 3\n7 : Figure moins facile 4\n8 : Une des figures faciles choisie au hasard\n9 : Une des figures moins faciles choisie au hasard\n10 : Une de toutes ces figures choisie au hasard'
     ]
     this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
-
+    this.besoinFormulaire3CaseACocher = ['Cibles pour la correction']
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
 
     this.sup = 8
     this.sup2 = 2
+    this.sup3 = true
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
   }
@@ -330,6 +331,9 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
     texteAMC += ' la lettre et le chiffre correspondants à la case dans laquelle se trouve le sommet construit.'
 
     const p = polygoneAvecNom(A, B, C, D)
+    const polygoneInvisible = polygone(A, B, C, D)
+    polygoneInvisible.opacite = 0 // Pour qu'il y ait la place du 4e sommet
+    objetsEnonce.push(polygoneInvisible)
 
     const cellule1 = celluleAlea(5)
     const cellule2 = celluleAlea(5)
@@ -348,52 +352,70 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
     switch (typeDeQuestion) {
       case 1:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, t1!, t2!, tri![0], tri![1], afficheLongueurSegment(D, B)) + '<br>'
-        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t3)
-        objetsCorrection.push(cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheLongueurSegment(O, B))
+        objetsCorrection.push(dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheLongueurSegment(O, B))
+        if (this.sup3) {
+          objetsEnonce.push(cible1, cible2)
+          objetsCorrection.push(cible1, cible2)
+        }
         break
       case 2:
         // if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codageSegments('||', 'red', A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C)) + '<br>'
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codageSegments('||', 'red', A, O, O, C), dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C)) + '<br>'
-        objetsEnonce.push(cible3, cible2, cible1)
         // objetsCorrection.push(p[0], p[1], t3, afficheLongueurSegment(O, D))
         objetsCorrection.push(p[0], p[1], afficheLongueurSegment(O, D))
-        objetsCorrection.push(cible3, cible2, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'))
-
+        objetsCorrection.push(dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'))
+        if (this.sup3) {
+          objetsEnonce.push(cible3, cible2, cible1)
+          objetsCorrection.push(cible3, cible2, cible1)
+        }
         break
       case 3:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri![0], tri![1], codageAngleDroit(D, A, B)) + '<br>'
-        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t1, t3)
-        objetsCorrection.push(cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('||', 'red', B, O, O, D))
-
+        objetsCorrection.push(dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('||', 'red', B, O, O, D))
+        if (this.sup3) {
+          objetsEnonce.push(cible1, cible2)
+          objetsCorrection.push(cible1, cible2)
+        }
         break
       case 4:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri![0], tri![1], afficheLongueurSegment(D, B), t2!, traceCompas(A, B, 60), traceCompas(A, D, 60)) + '<br>'
-        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t3, afficheLongueurSegment(O, B))
-        objetsCorrection.push(codageAngleDroit(A, O, D), cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
+        objetsCorrection.push(codageAngleDroit(A, O, D), dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
+        if (this.sup3) {
+          objetsEnonce.push(cible1, cible2)
+          objetsCorrection.push(cible1, cible2)
+        }
         break
       case 5:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, tri![0], tri![1], demiDroite(A, B), demiDroite(A, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '^\\circ'), afficheLongueurSegment(A, B), afficheLongueurSegment(A, D)) + '<br>'
-        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t3)
-        objetsCorrection.push(cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '^\\circ'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
-
+        objetsCorrection.push(dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '^\\circ'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
+        if (this.sup3) {
+          objetsEnonce.push(cible1, cible2)
+          objetsCorrection.push(cible1, cible2)
+        }
         break
       case 6:
         // if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2, t5) + '<br>'
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri![0], tri![1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1!, t2!) + '<br>'
-        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t3, t4)
         objetsCorrection.push(cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
+        if (this.sup3) {
+          objetsEnonce.push(cible1, cible2)
+          objetsCorrection.push(cible1, cible2)
+        }
         break
       case 7:
       default:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri![0], tri![1], afficheLongueurSegment(C, O), afficheLongueurSegment(O, A), labelPoint(O), t5!, codageSegments('||', 'red', A, O, O, C)) + '<br>'
-        objetsEnonce.push(cible3, cible1)
         objetsCorrection.push(p[0], p[1], t3)
-        objetsCorrection.push(cible3, t1, t2, t3, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(O, A, D, 'red', 1, texNombre(c3!) + '^\\circ'), afficheMesureAngle(O, C, D, 'blue', 1, texNombre(c2!) + '^\\circ'))
+        objetsCorrection.push(t1, t2, t3, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(O, A, D, 'red', 1, texNombre(c3!) + '^\\circ'), afficheMesureAngle(O, C, D, 'blue', 1, texNombre(c2!) + '^\\circ'))
+        if (this.sup3) {
+          objetsEnonce.push(cible3, cible1)
+          objetsCorrection.push(cible3, cible1)
+        }
         break
     }
     texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce)
@@ -439,7 +461,6 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
 
       this.autoCorrection[0] = {}
       this.autoCorrection[0].options = {
-        // @ts-expect-error
         ordered: true, barreseparation: true, multicolsAll: true
       }
       this.autoCorrection[0].enonce = ''// texte
@@ -447,7 +468,6 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
          [
            {
              type: 'AMCOpen',
-             // @ts-expect-error
              propositions: [{
                texte: texteCorr,
                enonce: texteAMC,
@@ -457,7 +477,6 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
            },
            {
              type: 'qcmMono',
-             // @ts-expect-error
              propositions: propositionsQcm1,
              enonce: numAlpha(0) + 'Pour la cible 1 : <br>Lettre de la case du sommet construit, dans la cible 1'
            },
@@ -469,7 +488,6 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
            },
            {
              type: 'qcmMono',
-             // @ts-expect-error
              propositions: propositionsQcm3,
              enonce: '\\vspace{1cm}' + numAlpha(1) + 'Pour la cible 2 : <br>Lettre de la case du sommet construit, dans la cible 2'
            },
@@ -500,12 +518,12 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         this.autoCorrection[0].propositions.push(
           {
             type: 'qcmMono',
-            // @ts-expect-error
             propositions: propositionsQcm3,
             enonce: '\\vspace{1cm}' + numAlpha(2) + 'Pour la cible 3 : <br>Lettre de la case du sommet construit, dans la cible 3'
           },
           {
             type: 'qcmMono',
+            // @ts-expect-error
             propositions: propositionsQcm4,
             enonce: 'Chiffre de la case du sommet construit, dans la cible 3'
           }

@@ -14,7 +14,6 @@ import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils
 import { labelPoint, latexParCoordonnees, LatexParCoordonnees } from '../../lib/2d/textes'
 import { projectionOrtho, symetrieAxiale } from '../../lib/2d/transformations'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { context } from '../../modules/context'
 import Figure from 'apigeom'
@@ -23,6 +22,7 @@ import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 import { codageMilieu } from '../../lib/2d/codages'
 import type Line from 'apigeom/src/elements/lines/Line'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 
 export const titre = 'Construire des symétriques de points'
 export const dateDePublication = '07/01/2024'
@@ -68,19 +68,6 @@ function deletePoints (points: { x: number, y: number }[], type : number) {
 }
 
 /**
- * fonction pour verifier qu'on est dans le cadre
- * @param points
- */
-// function checkDistance (points: { x: number, y: number }[]) {
-//   for (const point of points) {
-//     if (point.x < -7.5 || point.x > 7.5 || point.y < -7.5 || point.y > 7.5 || point.x === point.y || point.x === -point.y) {
-//       return false
-//     }
-//   }
-//   return true
-// }
-
-/**
  * Construction interactive de symétriques de points
  * @author Jean-Claude Lhote
  */
@@ -95,7 +82,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     super()
     this.exoCustomResultat = true
     this.nbQuestions = 1
-    this.besoinFormulaireNumerique = ['Choix de l\'axe', 5, 'Axe horizontal\nAxe vertical\nAxe oblique /\nAxe oblique \\\nMélange']
+    this.besoinFormulaireNumerique = ['Choix de l\'axe', 5]
     this.besoinFormulaire2Numerique = [
       'Type d\'aide',
       4,
@@ -176,7 +163,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       } while (nuageSaved.length < this.nbPoints)
       nuageSaved = shuffle(nuageSaved)
       nuage = nuageSaved.slice(0, this.nbPoints)
-      this.labels[i] = Array.from(choisitLettresDifferentes(nuage.length, 'Q', true))
+      this.labels[i] = creerNomDePolygone(nuage.length).split('')
+      // Rémi : avant les lettre étaient au hasard avec Array.from(choisitLettresDifferentes(nuage.length, 'Q', true))
+      // Maintenant, je les mets dans l'ordre alphabétique pour faciliter l'interactivité
 
       // Les antécédents sont des points nommés
       antecedents = shuffle(nuage).map((el, k) => point(el.x, el.y, this.labels[i][k])) // on mélange et on ne prendra que les nbPoints premiers
@@ -266,19 +255,24 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       if (this.sup2 === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
         this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
+        this.figuresApiGeom[i].options.labelAutomaticBeginsWith = this.labels[i][0] + '\''
         this.figuresApiGeom[i].scale = 0.5
-        this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'SHAKE', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
+        this.figuresApiGeom[i].setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'DRAG', 'NAME_POINT', 'SHAKE', 'UNDO', 'REDO', 'REMOVE'], nbCols: 6, position: 'top' })
         const O = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
         let pointB
         if (choixDeLaxe[i] === 1) {
-          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: 0, isVisible: false })
+          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: 0 })
         } else if (choixDeLaxe[i] === 2) {
-          pointB = this.figuresApiGeom[i].create('Point', { x: 0, y: 7, isVisible: false })
+          pointB = this.figuresApiGeom[i].create('Point', { x: 0, y: 7 })
         } else if (choixDeLaxe[i] === 3) {
-          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: 7, isVisible: false })
+          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: 7 })
         } else {
-          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: -7, isVisible: false })
+          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: -7 })
         }
+        pointB.isVisible = false
+        // L'axe de symétrie est fixe
+        pointB.isFree = false
+        O.isFree = false
         this.d[i] = this.figuresApiGeom[i].create('Line', { point1: O, point2: pointB }) as Line
         this.d[i].color = 'blue'
         this.d[i].thickness = 2
@@ -287,7 +281,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         this.figuresApiGeom[i].create('TextByPosition', { text: '$(d)$', x: labelX, y: labelY })
         this.antecedents[i] = []
         for (let k = 0; k < this.nbPoints; k++) {
-          (this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
+          (this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isSelectable: true, isFree: false, label: antecedents[k].nom })
         }
         if (this.sup2 === 1) {
           this.figuresApiGeom[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
@@ -307,8 +301,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
             })
           }
         }
-        this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
-        const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i] })
+        // this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
+        const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], defaultAction: 'POINT' })
         this.listeQuestions[i] = enonce + '<br><br>' + emplacementPourFigure
       } else {
         this.listeQuestions[i] = enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets)
@@ -352,12 +346,16 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           sym.color = 'green'
           sym.thickness = 2
           sym.colorLabel = 'red'
-          feedback += `Tu as bien construit le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ mais tu ne l'as pas nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
+          feedback += `Le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ est bien construit mais il n'est pas nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
         } else {
           feedback += `Il n'y a pas de point symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ et il n'y a pas de point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
         }
         resultat.push('KO')
       }
+    }
+    if (this.sup2 !== 1) {
+      this.figuresApiGeom[i].shake()
+      feedback = 'On « secoue » la figure pour voir si les points sont bien définis.<br>' + feedback
     }
     if (divFeedback) divFeedback.innerHTML = feedback
     this.figuresApiGeom[i].isDynamic = false

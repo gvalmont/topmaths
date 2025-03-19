@@ -386,7 +386,7 @@ export function verifDragAndDrop (
       )
       if (rectangle) {
         const goodAnswer = reponses.find(([key]) => key === `rectangle${k}`)
-        const etiquettesDedans = rectangle.querySelectorAll('.etiquette')
+        const etiquettesDedans = rectangle.querySelectorAll<HTMLElement>('.etiquette')
         if (goodAnswer && !goodAnswer[1]?.options?.multi) { // Ici, il ne doit y avoir qu'une seule étiquette dans le rectangle
           etiquettesMalPlacees += etiquettesDedans.length - 1
           const etiquetteDedans = etiquettesDedans[0]
@@ -429,15 +429,18 @@ export function verifDragAndDrop (
           }
         } else { // Ici, il y a plus d'une étiquette dans le rectangle ! l'option multi est true
           const etiquettesIds = []
+          const etiquettesTxts = []
           for (const etiquette of etiquettesDedans) {
             const id = etiquette.id
             // const etiquetteId = id.split('-')[0].split('I')[1] // on débarasse du nom du clone et de ce qui est avant I pour récupérer juste l'Id
             etiquettesIds.push(id) // On doit mettre l'id complète pour mathaleaWriteStudentPreviousAnswers()... qui devra gérer le clonage à son tour
+            etiquettesTxts.push(etiquette.innerText.replace('\nx', ''))
           }
           exercice.answers = Object.assign(
             exercice.answers,
             Object.fromEntries([
-              [`rectangleDNDEx${numeroExercice}Q${question}R${k}`, etiquettesIds.join(';')]
+              [`rectangleDNDEx${numeroExercice}Q${question}R${k}`, etiquettesIds.join(';')],
+              [`texteDNDEx${numeroExercice}Q${question}R${k}`, etiquettesTxts.join(' ')]
             ])
           )
           const goodAnswer = reponses.find(([key]) => key === `rectangle${k}`)

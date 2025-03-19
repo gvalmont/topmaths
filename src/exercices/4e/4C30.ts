@@ -43,11 +43,10 @@ export default class PuissancesDeDix extends Exercice {
     this.sup3 = false
     this.besoinFormulaireNumerique = false // Voir 2N31-5 pour voir besoinFormulaireNumerique à true
     this.besoinFormulaire2Texte = ['Type de calculs', 'Nombres séparés par des tirets\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
-    this.besoinFormulaire3CaseACocher = ['Avec des puissances négatives']
   }
 
   nouvelleVersion () {
-    this.sup3 = Boolean(this.sup3)
+    this.besoinFormulaire3CaseACocher = this.sup !== 2 ? ['Avec des puissances négatives'] : false
     this.correctionDetailleeDisponible = this.sup !== 2
     let typesDeQuestions
 

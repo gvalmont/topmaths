@@ -622,8 +622,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           } else {
             texte += ' ....  œufs.'
           }
-
-          this.canEnonce = `Le tiers de $${a}$ œufs`
+          this.canEnonce = `Le tiers de $${a}$ œufs est`
           this.canReponseACompleter = '$\\ldots$ œufs'
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)

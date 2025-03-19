@@ -7,7 +7,7 @@ import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
@@ -317,7 +317,7 @@ export default class SujetCAN2022Sixieme extends Exercice {
           texte = `Un film commence à $${a}$ h $${b}$ et se termine à $${c}$ h $${d}$.<br>
           Combien de temps a duré le film ?`
 
-          texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - b}$ min, et il faut ajouter $1$ heure et $${d}$ min pour arriver à $${c}$ h $${d}$, soit au total $${miseEnEvidence(1)}$ h $${miseEnEvidence(60 - b + d)}$ min.`
+          texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - b}$ min, et il faut ajouter $1$ heure et $${d}$ min pour arriver à $${c}$ h $${d}$, soit au total $${miseEnEvidence(1)}$ h $${miseEnEvidence(formatMinute(60 - b + d))}$ min.`
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }

@@ -29,15 +29,15 @@ export default class Can2025CE2Q15 extends ExerciceCan {
     this.autoCorrection[0] = {
       propositions: [
         {
-          texte: `Il y a ${quotient} fois ${b} et il reste ${reste}`,
+          texte: `Il y a $${quotient}$ fois $${b}$ et il reste $${reste}$.`,
           statut: true
         },
         {
-          texte: `Il y a ${quotient} fois ${b} et il reste ${quotient}`,
+          texte: `Il y a $${quotient}$ fois $${b}$ et il reste $${quotient}$.`,
           statut: false
         },
         {
-          texte: `Il y a ${reste} fois ${b} et il reste ${quotient}`,
+          texte: `Il y a $${reste}$ fois $${b}$ et il reste $${quotient}$.`,
           statut: false
         },
       ],
@@ -45,11 +45,12 @@ export default class Can2025CE2Q15 extends ExerciceCan {
     }
     const monQcm = propositionsQcm(this, 0)
     this.formatInteractif = 'qcm'
-    this.question = `Coche la bonne réponse pour $${a}\\div ${b}$.<br>`
-    this.canEnonce = this.question
+    this.consigne = `Coche la bonne réponse pour $${a}\\div ${b}$.`
+    this.canEnonce = this.consigne
     this.question += `<br>\n${monQcm.texte}`
     this.correction = `On peut faire $${a} = ${quotient} \\times ${b} + ${reste}$.<br>
-    La bonne réponse était : ${texteEnCouleurEtGras(`Il y a ${quotient} fois ${b} et il reste ${reste}`)}`
+    La bonne réponse était : ${texteEnCouleurEtGras(`Il y a ${quotient} fois ${b} et il reste ${reste}`)}.`
+    this.canReponseACompleter = monQcm.texte
   }
 
   nouvelleVersion () {

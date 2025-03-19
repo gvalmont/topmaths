@@ -33,10 +33,10 @@ export default class Can2025CE2Q6 extends ExerciceCan {
           statut: true
         },
         {
-          texte: `$${a - 5}$`,
+          texte: `$${a - 9}$`,
           statut: false
         }, {
-          texte: `$${b + 7}$`,
+          texte: `$${b + 80}$`,
           statut: false
         }
       ],

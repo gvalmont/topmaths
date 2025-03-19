@@ -6,10 +6,11 @@ import { abs } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Déterminer une fonction affine'
 export const interactifReady = true
@@ -18,7 +19,6 @@ export const dateDeModifImportante = '14/05/2023'
 /**
  * Déterminer une fonction affine à partir de deux images
  * @author Stéphane Guyon et Gilles Mora
- * 2F20
  */
 export const uuid = 'ef897'
 
@@ -215,10 +215,20 @@ export default class Determinerfonctionaffine extends Exercice {
         }
           break
       }
-      handleAnswers(this, i, { champ1: { value: reponse, options: { variable: 'x' }, compare: functionCompare } })
-      if (this.interactif) {
-        texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
       }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer.slice(0, -1))}$` + '.' // Gestion du point final
+      // Fin de cette uniformisation
+
+      handleAnswers(this, i, { reponse: { value: reponse, options: { fonction: true, variable: 'x' } } })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: '$f(x)=$' })
       variables.push(typesDeQuestions)
       if (this.questionJamaisPosee(i, variables.map(String).join(';'))) {
         // Si la question n'a jamais été posée, on en créé une autre

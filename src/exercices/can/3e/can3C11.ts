@@ -42,7 +42,7 @@ export default class calculsRacinesCarresPafaits extends Exercice {
           if (this.interactif) {
             handleAnswers(this, i,
               {
-                champ1: { value: reponse, options: { nombreDecimalSeulement: true } }
+                champ1: { value: reponse }
 
               }
             )

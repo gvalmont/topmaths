@@ -150,7 +150,7 @@ export class MarqueAngle extends ObjetMathalea2D {
         marque.epaisseur = 2
         this.objets.push(
           marque,
-          marque1,
+          marque1
         )
       }
         break
@@ -248,42 +248,42 @@ export class Rapporteur extends ObjetMathalea2D {
       if (avecNombre !== '') {
         if (avecNombre === 'deuxSens') {
           if (i === 0) {
-            numero = texteParPoint(String(arcPlein), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, 2), -depart, color)
+            numero = texteParPoint(String(arcPlein), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, 2), -depart, color, 0.65)
             numero.contour = true
             this.objets.push(numero)
           }
           if (i === nbDivisions - 1) {
-            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, arcPlein / nbDivisions - 2), -depart, color)
+            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
             numero.contour = true
             this.objets.push(numero)
           } else if ((arcPlein - (1 + i) * 10) % stepGraduation === 0) {
-            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color)
+            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.78)
             numero.contour = true
             this.objets.push(numero)
           }
         }
         if (i === 0) {
-          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9) as Point, centre, 2), -depart, color)
+          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9) as Point, centre, 2), -depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         }
         if (i === nbDivisions - 1) {
-          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as Point, centre, arcPlein / nbDivisions - 2), -depart, color)
+          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as Point, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         } else if ((i + 1) * 10 % stepGraduation === 0) {
-          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as Point, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color)
+          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as Point, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         }
       }
       for (let s = 1, r; s < 10; s++) {
         if (s === 5 && precisionAuDegre < 10) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color, 0.65)
           r.opacite = 0.6
           this.objets.push(r)
         } else if (precisionAuDegre === 1) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color, 0.65)
           r.opacite = 0.6
           this.objets.push(r)
         }
@@ -742,7 +742,7 @@ export function cercleTrigo (angle: Angle, cosOrSin = 'cos') {
   sMy.pointilles = 5
   const texteAngle = latexParPoint(tAngle ?? '0', M2)
   const Rx = point(M.x, (M.y < 0) ? 1.5 : -1.5)
-  const Ry = point((M.x < 0) ? 0.75 : -1.5, M.y)
+  const Ry = point((M.x < 0) ? 0.65 : -1.5, M.y)
   const texteCosinus = latexParPoint(tCos ?? '0', Rx)
   const texteSinus = latexParPoint(tSin ?? '0', Ry)
   const sCos = segment(O, point(M.x, 0))

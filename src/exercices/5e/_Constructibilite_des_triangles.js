@@ -112,8 +112,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           })
           texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
           texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
-          texteCorr += `<br> On constate que ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} > ${currentTriangle[2].longueur}.`
-          texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle $${triangle.getNom()}$ est constructible`)}.`
+          texteCorr += `<br> On constate que  ${currentTriangle[2].longueur} < ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur}.`
+          texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} est constructible`)}.`
           break
         case 2: // 3 longueurs plat
           while (!triangle.isPlatTriangleLongueurs()) {
@@ -168,8 +168,8 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           })
           texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
           texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
-          texteCorr += `<br> On constate que ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} < ${currentTriangle[2].longueur}.`
-          texteCorr += `<br> L'inégalité triangulaire n'est pas vérifiée donc ${texteEnCouleurEtGras(`le triangle $${triangle.getNom()}$ n'est pas constructible`)}.`
+          texteCorr += `<br> On constate que  ${currentTriangle[2].longueur} > ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur}.`
+          texteCorr += `<br> L'inégalité triangulaire n'est pas vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} n'est pas constructible`)}.`
 
           break
         case 4: // 2 longueurs et le périmètre
@@ -196,7 +196,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           texteCorr += `<br> Donc, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
           texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
           texteCorr += `<br> On constate que ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} > ${currentTriangle[2].longueur}`
-          texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle $${triangle.getNom()}$ est constructible`)}.`
+          texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} est constructible`)}.`
           break
         case 5: // 3 angles constructible
           while (!triangle.isTrueTriangleAngles()) {

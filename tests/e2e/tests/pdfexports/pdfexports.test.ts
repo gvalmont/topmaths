@@ -54,14 +54,14 @@ async function getLatexFile (page: Page, urlExercice: string) {
   // Classique
   // ProfMaquette
   // ProfMaquette avec QrCode
-  const resu0 = await getLatexFileStyle(page, urlExercice, 'Coopmaths')
-  if (resu0 === 'KO') {
-    return 'KO'
-  }
-  const resu1 = await getLatexFileStyle(page, urlExercice, 'Classique')
-  if (resu1 === 'KO') {
-    return 'KO'
-  }
+  // const resu0 = await getLatexFileStyle(page, urlExercice, 'Coopmaths')
+  // if (resu0 === 'KO') {
+  //   return 'KO'
+  // }
+  // const resu1 = await getLatexFileStyle(page, urlExercice, 'Classique')
+  // if (resu1 === 'KO') {
+  //   return 'KO'
+  // }
   const resu2 = await getLatexFileStyle(page, urlExercice, 'ProfMaquette')
   if (resu2 === 'KO') {
     return 'KO'

@@ -453,7 +453,7 @@ export default class Transformations extends Exercice {
             objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codageSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
             break
         }
-
+        if (this.can) texte = texte.replaceAll(numAlpha(0), '')
         handleAnswers(this, i, { reponse: { value: String(images[i]) } })
         texte += ajouteChampTexteMathLive(this, i, '')
       }

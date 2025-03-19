@@ -5,6 +5,7 @@ import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
 import { rienSi1, reduireAxPlusB } from '../../../lib/outils/ecritures'
 
 import { abs } from '../../../lib/outils/nombres'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Retrouver un polynôme du second degré à partir de son tableau de signes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,6 +25,7 @@ export default class PolyTableauSignes extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
 
     this.spacingCorr = 2
   }

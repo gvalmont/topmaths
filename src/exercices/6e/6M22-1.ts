@@ -168,12 +168,10 @@ export default class PerimetreAireDisques extends Exercice {
           } else {
             this.autoCorrection[i] = {
               enonce: '',
-              // @ts-expect-error
               options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -191,7 +189,6 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -215,21 +212,19 @@ export default class PerimetreAireDisques extends Exercice {
           if (context.isHtml && this.interactif) {
             if (choixValeurExacte) {
               setReponse(this, this.sup3 === 4 ? 2 * i : i, [stringNombre(reponseA1) + '\\pi', stringNombre(reponseA1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseA1)], { formatInteractif: 'texte' })
-              texte += 'Valeur exacte de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i : i, ' ', { texteApres: ' cm²' })
+              texte += 'Valeur exacte de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i : i, ' ', { texteApres: ' cm$^2$' })
             }
             if (choixValeurApprochee) {
               setReponse(this, this.sup3 === 4 ? 2 * i + 1 : i, [reponseA2, reponseA2bis], { formatInteractif: 'calcul' })
-              texte += (this.sup3 === 4 ? '<br>' : '') + 'Valeur approchée de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i + 1 : i, '   ', { texteApres: ' cm²' })
+              texte += (this.sup3 === 4 ? '<br>' : '') + 'Valeur approchée de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i + 1 : i, '   ', { texteApres: ' cm$^2$' })
             }
           } else {
             this.autoCorrection[i] = {
               enonce: '',
-              // @ts-expect-error
               options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -247,7 +242,6 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -279,21 +273,19 @@ export default class PerimetreAireDisques extends Exercice {
             }
             if (choixValeurExacte) {
               setReponse(this, this.sup3 === 4 ? 4 * i + 2 : 2 * i + 1, [stringNombre(reponseA1) + '\\pi', stringNombre(reponseA1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseA1)], { formatInteractif: 'texte' })
-              texte += '<br>Valeur exacte de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 2 : 2 * i + 1, ' ', { texteApres: ' cm²' })
+              texte += '<br>Valeur exacte de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 2 : 2 * i + 1, ' ', { texteApres: ' cm$^2$' })
             }
             if (choixValeurApprochee) {
               setReponse(this, this.sup3 === 4 ? 4 * i + 3 : i, [reponseA2, reponseA2bis], { formatInteractif: 'calcul' })
-              texte += '<br>Valeur approchée de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 3 : 2 * i + 1, ' ', { texteApres: ' cm²' })
+              texte += '<br>Valeur approchée de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 3 : 2 * i + 1, ' ', { texteApres: ' cm$^2$' })
             }
           } else {
             this.autoCorrection[i] = {
               enonce: '',
-              // @ts-expect-error
               options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -311,7 +303,6 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -330,7 +321,6 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [
                     {
                       texte: texteCorr,
@@ -348,8 +338,6 @@ export default class PerimetreAireDisques extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
-
                   propositions: [
                     {
                       texte: texteCorr,

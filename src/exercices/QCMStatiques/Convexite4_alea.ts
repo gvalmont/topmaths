@@ -4,7 +4,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
 import ExerciceQcm from '../ExerciceQcm'
 
-export const uuid = 'TSconvexite4'
+export const uuid = 'a594f'
 export const refs = {
   'fr-fr': ['TSA2-QCM05'],
   'fr-ch': []
@@ -20,6 +20,11 @@ export const dateDePublication = '03/11/2024'
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
  * Il est interactif et dispose d'un export AMC d'office
+ */
+/**
+ *
+ * @author Stéphane Guyon
+ *
  */
 export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
   versionOriginale: () => void = () => {

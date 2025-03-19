@@ -23,7 +23,6 @@ export default class Can2025N5Q13 extends ExerciceCan {
       [a, c] = choice([[2, 5], [2, 50], [4, 25], [5, 20], [4, 250], [5, 200], [8, 125], [2, 500]])
       b = randint(2, 9) * 10 + randint(1, 9)
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * b * c
     this.question = `$${a}\\times ${b}\\times ${c}$`
     this.correction = `$\\begin{aligned}${a}\\times ${b}\\times ${c} &= (${a}\\times ${c})\\times ${b}\\\\

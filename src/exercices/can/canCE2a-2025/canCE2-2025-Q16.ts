@@ -25,9 +25,9 @@ export default class Can2025CE2Q16 extends ExerciceCan {
     }
     this.reponse = a * b
     this.question = `Le ${a === 2 ? 'double' : 'triple'} de $${b}$ est : `
-    this.correction = `$${a}\\times ${b}=(${a}\\times ${b - 5}) + (${a}\\times ${5}) = ${a * (b - 5)} + ${a * 5}=${miseEnEvidence(texNombre(a * b, 0))}$.`
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots\\ldots$'
+    this.correction = `$${a}\\times ${b}=(${a}\\times ${b - 5}) + (${a}\\times ${5}) = ${a * (b - 5)} + ${a * 5}=${miseEnEvidence(texNombre(a * b, 0))}$`
+    this.canReponseACompleter = '$\\ldots$'
+    this.optionsChampTexte = { texteApres: '.' }
   }
 
   nouvelleVersion () {

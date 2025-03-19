@@ -74,9 +74,7 @@ class ConstructionParallelogramme extends Exercice {
       resultat.push('KO', 'KO', 'KO')
     }
     if (divFeedback) divFeedback.innerHTML = feedback
-    this.figure.isDynamic = false
-    this.figure.divButtons.style.display = 'none'
-    this.figure.divUserMessage.style.display = 'none'
+    this.figure.setToolbar({ position: 'top', tools: ['DRAG', 'DESCRIPTION'] })
     return resultat
   }
 }

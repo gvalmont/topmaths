@@ -21,7 +21,6 @@ export default class Can2025N5Q26 extends ExerciceCan {
     if (a == null) {
       a = randint(1, 9) / 10
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * 1000
     this.question = `$${texNombre(a, 1)}$ L $=$ `
     this.correction = `$1\\text{ L}=${texNombre(1, 0)}\\text{ dm}^3=${texNombre(1000, 0)}\\text{ cm}^3$<br>

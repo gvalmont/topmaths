@@ -33,8 +33,8 @@ export default class Can2025CE2Q10 extends ExerciceCan {
     ]
     this.reponse = Math.max(...nombres)
     const nombresOrd = [a, b, c].sort((x, y) => y - x)
-    this.question = `Quel est le plus grand nombre que je peux former avec les chiffres ${shuffle([a, b, c]).join(' ; ')} ?`
-    this.correction = `Pour former le plus grand nombre, il faut placer le chiffre le plus grand en premier, puis le deuxième plus grand, et enfin le plus petit.<br>
+    this.question = `Quel est le plus grand nombre que je peux former avec  les chiffres  : $${shuffle([a, b, c]).join(' ; ')}$ en ne les utilisant qu'une fois ?`
+    this.correction = `Pour former le plus grand nombre de trois chiffres avec tous ces chiffres, il faut placer le chiffre le plus grand en premier, puis le deuxième plus grand, et enfin le plus petit.<br>
     Soit : $${miseEnEvidence(nombresOrd.join(''))}$.`
     this.canEnonce = this.question
   }

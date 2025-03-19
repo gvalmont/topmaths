@@ -5,7 +5,7 @@
  * @author Rémi Angot
  */
 
-import type { Droite } from '../lib/2d/droites'
+import type { Droite, Mediatrice } from '../lib/2d/droites'
 import type { Point } from '../lib/2d/points'
 import type { Polygone } from '../lib/2d/polygones'
 import type { DemiDroite, Segment, Vecteur } from '../lib/2d/segmentsVecteurs'
@@ -386,11 +386,11 @@ export function homothetieAnimee (p: Polygone,
  */
 export class SymetrieAnimee extends ObjetMathalea2D {
   p: Polygone
-  d: Droite
+  d: Droite | Mediatrice
   animation: string
   constructor (
     p: Polygone,
-    d: Droite,
+    d: Droite | Mediatrice,
     animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
   ) {
     super()
@@ -419,7 +419,7 @@ export class SymetrieAnimee extends ObjetMathalea2D {
   }
 }
 export function symetrieAnimee (p: Polygone,
-  d: Droite,
+  d: Droite | Mediatrice,
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
   return new SymetrieAnimee(p, d, animation)
 }

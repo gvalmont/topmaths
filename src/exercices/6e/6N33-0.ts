@@ -135,8 +135,6 @@ export default class FractionDuneQuantite extends Exercice {
         case 4:
         default:
           nbreponse = 2
-          den = choixdenh[i]
-          num = randint(2, den - 1)
           longueur = choice([120, 180, 240, 300])
           denIrred = choixdenb[i]
           numIrred = randint(1, denIrred - 1)
@@ -161,8 +159,8 @@ export default class FractionDuneQuantite extends Exercice {
             texteApres: ' m'
           }) + '<br>'
 
-          setReponse(this, index, Math.max(numIrred * longueur / 100 / denIrred, longueur / 100 - numIrred * longueur / 100 / denIrred))
-          setReponse(this, index + 1, Math.min(numIrred * longueur / 100 / denIrred, longueur / 100 - numIrred * longueur / 100 / denIrred))
+          setReponse(this, index, Math.max(arrondi(numIrred * longueur / 100 / denIrred, 3), arrondi(longueur / 100 - numIrred * longueur / 100 / denIrred, 3)))
+          setReponse(this, index + 1, Math.min(arrondi(numIrred * longueur / 100 / denIrred, 3), arrondi(longueur / 100 - numIrred * longueur / 100 / denIrred, 3)))
           if (this.sup2) {
             texte += 'Ce bâton est représenté ci-dessous :<br>'
             const figure = frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${stringNombre(longueur / 100)}`)

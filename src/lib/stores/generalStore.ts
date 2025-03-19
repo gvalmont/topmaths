@@ -50,7 +50,7 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   v: undefined,
   z: '1',
   title: 'Évaluation',
-  presMode: 'un_exo_par_page',
+  presMode: 'liste_exos',
   setInteractive: '2',
   isSolutionAccessible: true,
   isInteractiveFree: true,
@@ -64,9 +64,7 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
-export const capytaleMode = writable<
-  'none' | 'create' | 'assignment' | 'review' | 'view'
->('none')
+export const capytaleMode = writable<'none' | 'create' | 'assignment' | 'review' | 'view'>('none')
 
 export const capytaleStudentAssignment = writable<InterfaceResultExercice[]>()
 
@@ -87,8 +85,7 @@ export const previousView = writable<undefined | '' | VueType>(undefined)
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
-export const bibliothequeDisplayedContent =
-  writable<Record<string, JSONReferentielEnding>>()
+export const bibliothequeDisplayedContent = writable<Record<string, JSONReferentielEnding>>()
 export const bibliothequePathToSection = writable<string[]>([])
 
 /**
@@ -127,7 +124,7 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('dGlobal')
   }
-  if (options.v === 'eleve') {
+  if (options.v === 'eleve' || options.v === 'myriade' || options.v === 'indices') {
     if (options.title != null && options.title.length > 0) {
       url.searchParams.append('title', options.title)
     } else {
@@ -148,7 +145,7 @@ export function updateGlobalOptionsInURL (url: URL) {
       if (options.presMode != null) {
         es = presModeId.indexOf(options.presMode).toString()
       } else es = '1'
-      es += options.setInteractive
+      es += options.setInteractive ?? '2'
       es += options.isSolutionAccessible ? '1' : '0'
       es += options.isInteractiveFree ? '1' : '0'
       es += options.oneShot ? '1' : '0'
@@ -185,7 +182,12 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
   if (options.v === 'diaporama' || options.v === 'overview') {
     url.searchParams.append('ds', buildDsParams())
-    if (options.select !== undefined && options.select !== undefined && options.select.length > 0 && options.select.length < get(exercicesParams).length) {
+    if (
+      options.select !== undefined &&
+      options.select !== undefined &&
+      options.select.length > 0 &&
+      options.select.length < get(exercicesParams).length
+    ) {
       url.searchParams.append('select', options.select.join('-'))
     }
     if (options.order !== undefined && options.order.length > 0 && options.shuffle) {

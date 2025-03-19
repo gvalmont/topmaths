@@ -3,7 +3,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
@@ -34,7 +34,12 @@ export default class NatureSuiteEx extends Exercice {
   }
 
   nouvelleVersion () {
-    let texte, texteCorr, a, b, d, props
+    let texte = ''
+    let texteCorr = ''
+    let a: number
+    let b: number
+    let d: number
+    let props: { texte: string, texteCorr: string }
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -47,7 +52,7 @@ export default class NatureSuiteEx extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+            options: { vertical: false },
             propositions: [
               {
                 texte: `arithmétique de raison $${a}$`,
@@ -72,7 +77,7 @@ export default class NatureSuiteEx extends Exercice {
           }
 
           texteCorr = `L'expression est de la forme $${s}_n=${s}_0+nr$ avec $${s}_0=${b}$ et $r=${a}$.<br>
-        On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite arithmétique de raison')} $${miseEnEvidence(a)}$ et de premier terme $${s}_0=${a}$.`
+        On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite arithmétique de raison')} $${miseEnEvidence(a)}$ et de premier terme $${s}_0=${b}$.`
 
           break
         case 2 :// suite arithmétique avec fraction
@@ -84,7 +89,7 @@ export default class NatureSuiteEx extends Exercice {
           Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+            options: { vertical: false },
             propositions: [
               {
                 texte: `arithmétique de raison $${texNombre(a / d)}$`,
@@ -122,7 +127,7 @@ export default class NatureSuiteEx extends Exercice {
 <br>Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+            options: { vertical: false },
             propositions: [
               {
                 texte: `géométrique de raison $${b}$`,
@@ -164,7 +169,7 @@ export default class NatureSuiteEx extends Exercice {
          <br>Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { horizontal: true },
+            options: { vertical: false },
             propositions: [
               {
                 texte: `géométrique de raison $\\dfrac{1}{${b}}$`,
@@ -193,7 +198,7 @@ export default class NatureSuiteEx extends Exercice {
           break
       }
 
-      if (this.questionJamaisPosee(i, a)) {
+      if (this.questionJamaisPosee(i, texteCorr)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

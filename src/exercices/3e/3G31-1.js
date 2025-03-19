@@ -134,9 +134,9 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           texteCorr += `La somme des angles d'un triangle est égale à $180^\\circ$.<br> Donc $\\widehat{${B.nom + C.nom + A.nom}}=180^\\circ-90^\\circ-${BAC}^\\circ=${miseEnEvidence(90 - BAC)}^\\circ$.<br>`
           texteCorr += `De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.<br>`
           if (this.interactif) {
-            handleAnswers(this, 3 * i, { reponse: { value: String(ACD), options: { nombreDecimalSeulement: true } } })
-            handleAnswers(this, 3 * i + 1, { reponse: { value: String(90 - BAC), options: { nombreDecimalSeulement: true } } })
-            handleAnswers(this, 3 * i + 2, { reponse: { value: String(90 - ACD), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, 3 * i, { reponse: { value: String(ACD) } })
+            handleAnswers(this, 3 * i + 1, { reponse: { value: String(90 - BAC) } })
+            handleAnswers(this, 3 * i + 2, { reponse: { value: String(90 - ACD) } })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, ' ', {
               texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
               texteApres: '$^\\circ$'
@@ -203,9 +203,9 @@ export default class CalculDAngleFigureComplexe extends Exercice {
           texteCorr += `<br><br>La somme des angles d'un triangle est égale à $180^\\circ$. <br> Donc $\\widehat{${B.nom + A.nom + C.nom}}=180^\\circ-90^\\circ-${ACB}^\\circ=${miseEnEvidence(90 - ACB)}^\\circ$.`
           texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${miseEnEvidence(90 - ACD)}^\\circ$.`
           if (this.interactif) {
-            handleAnswers(this, 3 * i, { reponse: { value: String(ACD), options: { nombreDecimalSeulement: true } } })
-            handleAnswers(this, 3 * i + 1, { reponse: { value: String(90 - ACB), options: { nombreDecimalSeulement: true } } })
-            handleAnswers(this, 3 * i + 2, { reponse: { value: String(90 - ACD), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, 3 * i, { reponse: { value: String(ACD) } })
+            handleAnswers(this, 3 * i + 1, { reponse: { value: String(90 - ACB) } })
+            handleAnswers(this, 3 * i + 2, { reponse: { value: String(90 - ACD) } })
             texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, ' ', {
               texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
               texteApres: '$^\\circ$'

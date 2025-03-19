@@ -12,7 +12,7 @@ export const refs = {
   'fr-ch': ['10NO2-9']
 }
 /**
- * Pour typer ce fichier, il faut déjà tper 4C30 ce qui n'est pas encore fait.
+ *
  */
 export default class PuissancesDeDix2 extends PuissancesDeDix {
   constructor () {
@@ -24,6 +24,6 @@ export default class PuissancesDeDix2 extends PuissancesDeDix {
       3,
       '1 : Calculs de base\n2 : Calculs plus complexes\n3 : Mélange'
     ]
-    this.besoinFormulaire2Texte = []
+    this.besoinFormulaire2Texte = false
   }
 }

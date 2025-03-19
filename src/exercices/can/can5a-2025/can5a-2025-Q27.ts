@@ -32,7 +32,6 @@ export default class Can2025N5Q27 extends ExerciceCan {
       b = randint(3, 6)
       c = randint(4, 7) * 10
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a + b * c / 100
     this.question = `${p} achète ${patisserie} à $${a}$ euros et $${b}$ ${patisserie2} à $${c}$ centimes ${chaque}. <br>
     Il doit payer`

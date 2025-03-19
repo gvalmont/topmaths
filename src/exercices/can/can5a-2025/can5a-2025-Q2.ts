@@ -22,7 +22,6 @@ export default class Can2025N5Q2 extends ExerciceCan {
       a = randint(2, 5) * 0.1 + randint(1, 9) * 0.01
       b = randint(1, 4) * 0.1
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = (a + b).toFixed(2)
     this.question = `$${texNombre(a, 2)} + ${texNombre(b, 2)}$ `
     this.correction = `$${texNombre(a, 2)} + ${texNombre(b, 2)}=${miseEnEvidence(texNombre(a + b, 2))}$`

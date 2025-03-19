@@ -36,12 +36,12 @@ export default class nomExercice extends Exercice {
     let i = 0
     this.listeQuestions[i] = '$8 \\times 1,25 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$8 \\times 1,25 = ${miseEnEvidence('10')}$`
-    handleAnswers(this, 0, { reponse: { value: '10', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, 0, { reponse: { value: '10' } })
 
     i = 1
     this.listeQuestions[i] = '$42 - 55 + 5 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$42 - 55 + 5 = ${miseEnEvidence('-8')}$`
-    handleAnswers(this, i, { reponse: { value: '-8', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '-8' } })
 
     i = 2
     this.listeQuestions[i] = 'Développer et réduire l\'expression suivante.<br><br>$(2x-5)^2= $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets)
@@ -56,27 +56,27 @@ export default class nomExercice extends Exercice {
     i = 4
     this.listeQuestions[i] = '$30~\\%~\\text{de}~20 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$\\dfrac{30}{100} \\times 20 = 0,3 \\times 20 = ${miseEnEvidence('6')} $`
-    handleAnswers(this, i, { reponse: { value: '6', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '6' } })
 
     i = 5
     this.listeQuestions[i] = '$0{,}2 \\times 0{,}4 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$0{,}2 \\times 0{,}4 = ${miseEnEvidence('0{,}08')} $`
-    handleAnswers(this, i, { reponse: { value: '0.08', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '0.08' } })
 
     i = 6
     this.listeQuestions[i] = 'Augmenter une quantité de $17~\\%$ revient à la multiplier par ' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$1 + 17~\\% = \\dfrac{117}{100} = 1{,}17$ <br>  Augmenter une quantité de $17~\\%$ revient à la multiplier par $${miseEnEvidence('1{,}17')}$.`
-    handleAnswers(this, i, { reponse: { value: '1.17', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '1.17' } })
 
     i = 7
     this.listeQuestions[i] = 'Médiane de la série ;<br>$15\\;;\\;2\\;;\\;12\\;;\\;10\\;;\\;7$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `Série ordonnée : $2\\;;\\;7\\;;\\;10\\;;\\;12\\;;\\;15$<br>L'effectif total est 5 donc la médiane est la 3e valeur : $${miseEnEvidence('10')}$.`
-    handleAnswers(this, i, { reponse: { value: '10', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '10' } })
 
     i = 8
     this.listeQuestions[i] = '$\\sqrt{0{,}36} = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$\\sqrt{0{,}36} = ${miseEnEvidence('0{,}6')} $`
-    handleAnswers(this, i, { reponse: { value: '0.6', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '0.6' } })
 
     i = 9
     this.listeQuestions[i] = 'Soit le script Python :<br> '
@@ -106,17 +106,17 @@ export default class nomExercice extends Exercice {
     }
     this.listeQuestions[i] += '<br><br>Que renvoie $\\texttt{mystere(-5)}$ ?' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$-5 < 0 $ donc le script renvoie $-5 \\times 3 = ${miseEnEvidence('-15')}$.`
-    handleAnswers(this, i, { reponse: { value: '-15', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '-15' } })
 
     i = 10
     this.listeQuestions[i] = 'Si je parcours $1{,}5~\\text{km}$ en $10~\\text{min}$, quelle est ma vitesse moyenne en $\\text{km/h}$ ?<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$1{,}5~\\text{km}$ en $10~\\text{min}$ donc $1{,}5~\\text{km} \\times 6 = 9~\\text{km}$ en une heure.<br>Ma vitesse moyenne est donc de $${miseEnEvidence('9')}~\\text{km/h}$.`
-    handleAnswers(this, i, { reponse: { value: '9', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '9' } })
 
     i = 11
     this.listeQuestions[i] = 'Simplifier.<br> $\\Big(2\\sqrt{3}\\Big)^2 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$\\Big(2\\sqrt{3}\\Big)^2 = 4 \\times 3 =  ${miseEnEvidence('12')} $`
-    handleAnswers(this, i, { reponse: { value: '12', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '12' } })
 
     i = 12
     this.listeQuestions[i] = 'Comparer $0,7$ et $0,7^2$.<br>'
@@ -130,7 +130,7 @@ export default class nomExercice extends Exercice {
       this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) + ' cm'
     }
     this.listeCorrections[i] = `L'aire est de $49~\\text{cm}^2$ donc c'est un carré de $7~\\text{cm}$ de côté.<br> Son périmètre est : $4 \\times 7~\\text{cm} =  ${miseEnEvidence('28')}~\\text{cm}$`
-    handleAnswers(this, i, { reponse: { value: '28', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '28' } })
 
     i = 14
     this.listeQuestions[i] = 'Quel est l\'intervalle de l\'ensemble des solutions de l\'équation $\\rvert x-1 \\rvert < 2$ ?<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
@@ -150,8 +150,8 @@ export default class nomExercice extends Exercice {
     }
     handleAnswers(this, i, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: '2', options: { nombreDecimalSeulement: true } },
-      champ2: { value: '-6', options: { nombreDecimalSeulement: true } }
+      champ1: { value: '2' },
+      champ2: { value: '-6' }
     }
     )
 
@@ -174,7 +174,7 @@ export default class nomExercice extends Exercice {
     i = 19
     this.listeQuestions[i] = 'Valeur de $5x - 8$ pour $x=\\dfrac{4}{5}$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction) + '.'
     this.listeCorrections[i] = `$5\\times\\dfrac{4}{5} - 8 = 4 - 8 =   ${miseEnEvidence('-4')}$`
-    handleAnswers(this, i, { reponse: { value: '-4', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '-4' } })
 
     i = 20
     const objets = []
@@ -223,7 +223,7 @@ export default class nomExercice extends Exercice {
       scale: 0.5,
       style: 'margin: auto'
     }, objets) + 'Longueur de la ligne brisée en unités de longueur (u.l) :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-    handleAnswers(this, i, { reponse: { value: '3', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '3' } })
     this.listeCorrections[i] = `$L = ${miseEnEvidence('3')}$ u.l.`
 
     i = 21
@@ -252,8 +252,8 @@ export default class nomExercice extends Exercice {
     this.listeCorrections[i] = `$M\\Big( \\dfrac{x_A + x_B}{2}  \\;;\\;  \\dfrac{y_A + y_B}{2}\\Big) \\iff M\\Big( \\dfrac{-2 + 2}{2}  \\;;\\;  \\dfrac{3 + 7}{2}\\Big) \\iff M\\Big(${miseEnEvidence('0\\;;\\;5')}\\Big)$`
     handleAnswers(this, i, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: '0', options: { nombreDecimalSeulement: true } },
-      champ2: { value: '5', options: { nombreDecimalSeulement: true } }
+      champ1: { value: '0' },
+      champ2: { value: '5' }
     }
     )
 
@@ -333,7 +333,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] += 'Quelle est l\'image de $0$ par la fonction $f$ ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `L'image de $0$ par la fonction $f$ est $${miseEnEvidence('1')}$.`
-    handleAnswers(this, i, { reponse: { value: '1', options: { nombreDecimalSeulement: true } } })
+    handleAnswers(this, i, { reponse: { value: '1' } })
 
     i = 29
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'

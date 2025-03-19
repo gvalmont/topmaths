@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0bd00'
 
 export const refs = {
-  'fr-fr': ['2N41-7a'],
+  'fr-fr': ['2N41-7'],
   'fr-ch': ['11FA3-5']
 }
 
@@ -150,7 +150,7 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      handleAnswers(this, i, { reponse: { value: reponseAttendue, options: { factorisation: true } } })
+      handleAnswers(this, i, { reponse: { value: reponseAttendue, options: { exclusifFactorisation: true } } })
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

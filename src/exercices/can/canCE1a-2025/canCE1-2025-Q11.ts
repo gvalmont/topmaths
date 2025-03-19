@@ -22,7 +22,6 @@ export default class Can2025CE1Q11 extends ExerciceCan {
     }
     this.formatInteractif = 'fillInTheBlank'
     this.reponse = { champ1: { value: (a + 2 * k).toString() } }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.consigne = 'Complète cette suite logique.'
     this.question = `${a}~;~${a + k}~;~{%{champ1}}~;~${a + 3 * k}~;~${a + 4 * k}`
     this.correction = `On constate que l'on passe d'un nombre au suivant en ajoutant $${k}$.<br>

@@ -1,10 +1,8 @@
 import loadjs from 'loadjs'
 
-// import JSON uuidsRessources
 import renderMathInElement from 'katex/contrib/auto-render'
 import Exercice from '../exercices/Exercice'
 import type TypeExercice from '../exercices/Exercice'
-// import context from '../modules/context'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore'
 import { get } from 'svelte/store'
@@ -18,7 +16,6 @@ import { decrypt, isCrypted } from './components/urls'
 import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale'
 import { handleAnswers, setReponse, type MathaleaSVG, type Valeur } from './interactif/gestionInteractif'
-import type { MathfieldElement } from 'mathlive'
 import { fonctionComparaison } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
 import Grandeur from '../modules/Grandeur'
@@ -29,6 +26,8 @@ import { contraindreValeur } from '../modules/outils'
 import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange'
 import { resizeContent } from './components/sizeTools'
 import Decimal from 'decimal.js'
+import { checkForServerUpdate } from './components/version'
+import { showDialogForLimitedTime, showPopupAndWait } from './components/dialogs'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -86,7 +85,6 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
   }
   let attempts = 0
   const maxAttempts = 3
-
   while (attempts < maxAttempts) {
     try {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
@@ -112,12 +110,6 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-      /*  if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
-        animationLoading(true)
-        await loadGiac()
-        animationLoading(false)
-      }
-        */
       return exercice
     } catch (error) {
       attempts++
@@ -151,7 +143,6 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
   }
   let attempts = 0
   const maxAttempts = 3
-
   while (attempts < maxAttempts) {
     try {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
@@ -189,18 +180,14 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
-      /* Plus de xcas
-
-     if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
-        animationLoading(true)
-        await loadGiac()
-        animationLoading(false)
-      }
-        */
       return exercice
     } catch (error) {
       attempts++
-      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}`, {})
+      const serverUpdated = await checkForServerUpdate()
+      if (serverUpdated) {
+        await showPopupAndWait()
+      }
+      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois: uuid:${uuid} ,filename: ${directory}/${filename}, serverUpdated: ${serverUpdated}`, {})
       if (attempts === maxAttempts) {
         console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
         console.error(error)
@@ -469,13 +456,13 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   try {
     url = new URL(urlString)
   } catch (error) {
-    return {} // @fixme null n'est vraiment pas compatible avec la signature de la fonction, mais il faudrait sans doute traîter l'erreur mieux que ça
+    return {}
   }
   // let url = new URL(urlString)
   if (isCrypted(url)) {
     urlNeedToBeFreezed = true
+    url = decrypt(url)
   }
-  url = decrypt(url)
   const entries = url.searchParams.entries()
   let indiceExercice = -1
   const newExercisesParams: InterfaceParams[] = []
@@ -569,7 +556,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     // MOUCHARD SUR LES URLS FANTAISISTES
     window.notify(`Erreur d'URL : ${error} `, { err: error, urlString, url: window.location.href.toString(), referrer: document.referrer })
     console.error(error)
-    throw error
+    showDialogForLimitedTime('notifUrlIncorrecte', 5000, 'L\'URL présente une erreur. Veuillez réessayer et nous contacter si le problème persiste.')
+    return {}
   }
 
   exercicesParams.set(newExercisesParams.filter(e => e.uuid || e.id))
@@ -712,8 +700,11 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         }
       } else {
         // La question doit contenir une unique variable %{champ1} On est en fillInTheBlank
+        // Ou bien, on fait appel à un callback
         exercice.listeQuestions.push(remplisLesBlancs(exercice, i, String(exercice.question), 'fillInTheBlank ' + exercice.formatChampTexte, '\\ldots'))
-        if (typeof exercice.reponse === 'object' && 'champ1' in exercice.reponse) {
+        if (typeof exercice.reponse === 'object' && 'callback' in exercice.reponse) { // Cas d'un callback dans un exercice simple
+          handleAnswers(exercice, i, exercice.reponse)
+        } else if (typeof exercice.reponse === 'object' && 'champ1' in exercice.reponse) {
           handleAnswers(exercice, i, exercice.reponse as Valeur, { formatInteractif: 'fillInTheBlank' })
         } else {
           handleAnswers(exercice, i, { champ1: { value: exercice.reponse ?? '' } }, { formatInteractif: 'fillInTheBlank' })
@@ -816,165 +807,184 @@ export function mathaleaGoToView (destinationView: '' | VueType) {
   })
 }
 
-export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
-  for (const answer in answers) {
-    // La réponse correspond à une case à cocher qui doit être cochée ?
-    const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-    if (checkBox !== null && answers[answer] === '1') {
-      checkBox.checked = true
-      continue
+/**
+ * On attend un élément ou des éléments du DOM en fonction d'un selecteur
+ * @param elementId selecteur
+ * @param timeWait temps en secondes
+ * @returns une promise sur l'élément ou les éléments en question
+ */
+const waitForElement = async (elementId: string, timeWait = 4) : Promise<NodeListOf<HTMLElement>> => {
+  return new Promise((resolve, reject) => {
+    const ele = document.querySelectorAll<HTMLElement>(elementId)
+    if (ele.length) {
+      // pas besoin d'attendre
+      resolve(ele)
+      return
     }
-    // La réponse correspond à une liste déroulante ?
-    const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-    if (select !== null) {
-      select.value = answers[answer]
-      continue
-    }
-    if (answer.includes('apigeom')) {
-      // La réponse correspond à une figure apigeom
-      const event = new CustomEvent(answer, { detail: answers[answer] })
-      document.dispatchEvent(event)
-      continue
-    }
-    if (answer.includes('cliquefigure')) {
-      // La réponse correspond à une figure cliquefigures
-      const ele = document.querySelector(`#${answer}`) as MathaleaSVG
-      if (ele) {
-        ele.etat = true
-        ele.style.border = '3px solid #f15929'
-        continue
+
+    let tempTime = 0
+    const timeWait1000 = timeWait * 10
+    const checkExist = setInterval(function () {
+      const ele = document.querySelectorAll<HTMLElement>(elementId)
+      if (ele.length) {
+        // console.log(`Exists ${elementId}`)
+        clearInterval(checkExist)
+        resolve(ele)
+      } else if (ele.length === 0 && tempTime > timeWait1000) {
+        // console.log('Doesn\'t exist...')
+        clearInterval(checkExist)
+        reject(new Error(`Element not found ${elementId}`))
+      } else {
+        tempTime++
+        console.log(`Waiting for ${elementId}`, tempTime)
       }
-    }
-    if (answer.includes('rectangleDND')) {
-      // ATTENTION le test est-il assez spécifique ? Une réponse "rectangle", une figure apigeom avec un texte rectangle...
-      try {
-        // On n'est pas sûr que la chaine `div#${answer}` soit un sélecteur valide
-        const rectangle = document.querySelector(`div#${answer}`)
-        if (rectangle !== null) {
-          const listeOfIds = answers[answer].split(';')
-          for (const id of listeOfIds) {
-            // attention ! on a peut-être à faire à des clones ! qu'il faut recréer !
-            if (!id.includes('-clone-')) { // Non, c'est un original
-              const etiquette = document.querySelector(`div#${id}`)
-              if (etiquette !== null) {
-                // Remet l'étiquette à la bonne réponse
-                rectangle.appendChild(etiquette)
-              }
-            } else { // Là, on doit recloner l'original !
-              const idOriginalAndDate = id.split('-clone-')
-              const etiquetteOriginale = document.querySelector(`div#${idOriginalAndDate[0]}`)
-              if (etiquetteOriginale != null) {
-                const clonedEtiquette = etiquetteOriginale.cloneNode(true) as HTMLDivElement
-                clonedEtiquette.id = `${idOriginalAndDate[0]}-clone-${idOriginalAndDate[1]}`
-                rectangle.appendChild(clonedEtiquette)
+    }, 100) // check every 100ms
+  })
+}
+
+function log (message: string) {
+  // console.log(message)
+}
+
+export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) : Promise<Boolean>[] {
+  const promiseAnswers: Promise<Boolean>[] = []
+  const starttime = window.performance.now()
+  for (const answer in answers) {
+    if (answer.includes('apigeom') || answers[answer].includes('apiGeomVersion')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement('#' + answer).then(() => {
+          // La réponse correspond à une figure apigeom
+          const event = new CustomEvent(answer, { detail: answers[answer] })
+          document.dispatchEvent(event)
+          const time = window.performance.now()
+          log(`duration ${answer}: ${(time - starttime)}`)
+          resolve(true)
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
+        })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('cliquefigure')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement('#' + answer).then(() => {
+          // La réponse correspond à une figure cliquefigures
+          const ele = document.querySelector(`#${answer}`) as MathaleaSVG
+          if (ele) {
+            ele.etat = true
+            ele.style.border = '3px solid #f15929'
+            const time = window.performance.now()
+            log(`duration ${answer}: ${(time - starttime)}`)
+            resolve(true)
+          }
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
+        })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('rectangleDND')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement(`div#${answer.replace('DND', '')}`).then(() => {
+          const rectangle = document.querySelector(`div#${answer.replace('DND', '')}`)
+          if (rectangle !== null) {
+            const listeOfIds = answers[answer].split(';')
+            for (const id of listeOfIds) {
+              // attention ! on a peut-être à faire à des clones ! qu'il faut recréer !
+              if (!id.includes('-clone-')) { // Non, c'est un original
+                const etiquette = document.querySelector(`div#${id}`)
+                if (etiquette !== null) {
+                  // Remet l'étiquette à la bonne réponse
+                  rectangle.appendChild(etiquette)
+                }
+              } else { // Là, on doit recloner l'original !
+                const idOriginalAndDate = id.split('-clone-')
+                const etiquetteOriginale = document.querySelector(`div#${idOriginalAndDate[0]}`)
+                if (etiquetteOriginale != null) {
+                  const clonedEtiquette = etiquetteOriginale.cloneNode(true) as HTMLDivElement
+                  clonedEtiquette.id = `${idOriginalAndDate[0]}-clone-${idOriginalAndDate[1]}`
+                  rectangle.appendChild(clonedEtiquette)
+                }
               }
             }
+            const time = window.performance.now()
+            log(`duration ${answer}: ${(time - starttime)}`)
+            resolve(true)
           }
-          continue
-        }
-      } catch (error) {
-        console.error('L\'exercice a été reconnu, sans doute à tort, comme un exercice de glisser-déposer')
-      }
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
+        })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('clockEx')) {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement('#' + answer).then(() => {
+          // La réponse correspond à une horloge
+          const clock = document.querySelector(`#${answer}`)
+          if (clock !== null) {
+            const [hour, minute] = answers[answer].split('h')
+            clock.setAttribute('hour', hour)
+            clock.setAttribute('minute', minute)
+            if ('updateHandHour' in clock && typeof clock.updateHandHour === 'function') {
+              clock.updateHandHour()
+            }
+            if ('updateHandMinute' in clock && typeof clock.updateHandMinute === 'function') {
+              clock.updateHandMinute()
+            }
+            const time = window.performance.now()
+            log(`duration ${answer}: ${(time - starttime)}`)
+            resolve(true)
+          }
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
+        })
+      })
+      promiseAnswers.push(p)
+    } else {
+      const p = new Promise<Boolean>((resolve) => {
+        waitForElement(`[id$='${answer}']`).then((eles) => {
+          eles.forEach((ele) => {
+            if (ele.tagName === 'SELECT') {
+              // La réponse correspond à un select
+              (ele as HTMLSelectElement).value = answers[answer]
+              const time = window.performance.now()
+              log(`duration ${answer}: ${(time - starttime)}`)
+              resolve(true)
+            } else if (ele.id.includes('check')) {
+              // La réponse correspond à une case à cocher qui doit être cochée
+              (ele as HTMLInputElement).checked = (answers[answer] === '1')
+              const time = window.performance.now()
+              log(`duration ${answer}: ${(time - starttime)}`)
+              resolve(true)
+            } else if (ele.tagName === 'MATH-FIELD' && 'setValue' in ele && typeof (ele as any).setValue === 'function') {
+              // La réponse correspond à un champs texte
+              (ele as any).setValue(answers[answer])
+              const time = window.performance.now()
+              log(`duration ${answer}: ${(time - starttime)}`)
+              resolve(true)
+            } else if (ele.tagName === 'INPUT') {
+              (ele as HTMLInputElement).value = answers[answer]
+              const time = window.performance.now()
+              log(`duration ${answer}: ${(time - starttime)}`)
+              resolve(true)
+            }
+          })
+        }).catch((reason) => {
+          console.error(reason)
+          window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+          resolve(true)
+        })
+      })
+      promiseAnswers.push(p)
     }
-    // La réponse correspond à un champs texte ?
-    const field = document.querySelector(`#champTexte${answer}`)
-    if (field !== null) {
-      if ('setValue' in field && typeof field.setValue === 'function') {
-        // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
-        field.setValue(answers[answer])
-      } else {
-        // C'est un champ texte classique
-        if (field instanceof HTMLInputElement) {
-          field.value = answers[answer]
-        }
-      }
-      continue
-    }
   }
-}
-
-/**
- * Nos applis prédéterminées avec la liste des fichiers à charger
- */
-const apps = {
-  giac: './assets/externalJs/giacsimple.js',
-  mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js'
-  // prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css'],
-  // scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js',
-  // slick: ['/assets/externalJs/semantic-ui/semantic.min.css', '/assets/externalJs/semantic-ui/semantic.min.js', '/assets/externalJs/semantic-ui/components/state.min.js']
-}
-
-/**
- * Charge une appli listée dans apps (pour mutualiser l'appel de loadjs)
- * @private
- * @param {string} name
- * @return {Promise<undefined, Error>} promesse de chargement
- */
-async function load (name: 'giac' | 'mathgraph') {
-  // on est dans une fct async, si l'une de ces deux lignes plantent ça va retourner une promesse rejetée avec l'erreur
-  if (!apps[name]) throw Error(`application ${name} inconnue`)
-  // cf https://github.com/muicss/loadjs
-  try {
-    if (!loadjs.isDefined(name)) await loadjs(apps[name], name, { returnPromise: true })
-  } catch (error) {
-    console.error(error)
-    throw new Error(`Le chargement de ${name} a échoué`)
-  }
-  // loadjs.ready veut une callback, on emballe ça dans une promesse
-  return new Promise((resolve, reject) => {
-    loadjs.ready(name, {
-      // @ts-expect-error : on ne peut pas typé correctement les callbacks de loadjs
-      success: resolve,
-      // si le chargement précédent a réussi on voit pas trop comment on pourrait arriver là, mais ça reste plus prudent de gérer l'erreur éventuelle
-      error: () => reject(new Error(`Le chargement de ${name} a échoué`))
-    })
-  })
-}
-
-/**
- * Attend que xcas soit chargé (max 60s), car giacsimple lance le chargement du wasm|js suivant les cas
- * @return {Promise<undefined,Error>} rejette en cas de timeout // On n'utilise plus xcas (giacsimple)
- */
-// function waitForGiac () {
-/* global Module */
-// @ts-expect-error : Module est défini par giacsimple
-/*  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
-  const timeout = 60 // en s
-  const tsStart = Date.now()
-  return new Promise((resolve, reject) => {
-    const monInterval = setInterval(() => {
-      const delay = Math.round((Date.now() - tsStart) / 1000)
-      // @ts-expect-error : Module est défini par giacsimple
-      if (Module.ready === true) {
-        clearInterval(monInterval)
-        // @ts-expect-error : Module est défini par giacsimple
-        resolve()
-      } else if (delay > timeout) {
-        clearInterval(monInterval)
-        reject(Error(`xcas n’est toujours pas chargé après ${delay}s`))
-      }
-    }, 500)
-  })
-}
-  */
-
-/**
- * Charge giac
- */
-/* Plus de xcas
-export async function loadGiac () {
-  await load('giac')
-  // attention, le load précédent résoud la promesse lorsque giacsimple est chargé,
-  // mais lui va charger le webAssembly ou js ensuite, d'où le besoin de waitForGiac
-  await waitForGiac()
-}
-*/
-function animationLoading (state: boolean) {
-  if (state) {
-    document.getElementById('loading')?.classList.remove('hidden')
-  } else {
-    document.getElementById('loading')?.classList.add('hidden')
-  }
+  return promiseAnswers
 }
 
 export async function getExercisesFromExercicesParams () {

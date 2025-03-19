@@ -11,7 +11,7 @@ export const titre = 'Lecture graphique du signe d\'une fonction affine'
 // export const interactifType = 'mathLive'
 
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '18/02/2025'
 export const uuid = 'e39b8'
 
 export const refs = {
@@ -30,7 +30,7 @@ export default class LectureSigneAffine extends Exercice {
 
     this.nbQuestions = 1
     this.sup = '4'
-    this.besoinFormulaireTexte = ['type de fonction ', 'Nombres séparés par des tirets\n1: Fonction constante\n2: Fonction affine\n3: Fonction linéaire\n4: Mélange']
+    this.besoinFormulaireTexte = ['Type de fonction ', 'Nombres séparés par des tirets\n1: Fonction constante\n2: Fonction affine\n3: Fonction linéaire\n4: Mélange']
   }
 
   nouvelleVersion () {
@@ -72,7 +72,15 @@ export default class LectureSigneAffine extends Exercice {
             { antVal: 6, antTex: '+\\infty' }
           ]
         })
-      const repere = new RepereBuilder({ xMin: -6, xMax: 6, yMin: -6, yMax: 6 }).buildStandard()
+      const repere = new RepereBuilder({
+        xMin: -6,
+        xMax: 6,
+        yMin: -6,
+        yMax: 6
+      }).setGrille({ grilleX: { dx: 1, xMin: -6, xMax: 6 }, grilleY: { dy: 1, yMin: -6, yMax: 6 } })
+        .setThickX({ xMin: -6, xMax: 6, dx: 1 })
+        .setThickY({ yMin: -6, yMax: 6, dy: 1 })
+        .buildStandard()
       const d = droite(a, -1, b)
       if (this.questionJamaisPosee(i, listeTypeDeQuestion[i], a, b)) {
         this.listeQuestions[i] = 'Dresser le tableau de signes de la fonction représentée ci-dessous.<br>' + mathalea2d(Object.assign({}, fixeBordures([repere, d])), [repere, d])

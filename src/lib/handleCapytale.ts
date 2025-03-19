@@ -4,6 +4,7 @@ import { mathaleaGoToView, mathaleaWriteStudentPreviousAnswers } from './mathale
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
 import { canOptions as canOptionsStore } from './stores/canStore'
+import type { CanState } from './types/can'
 
 interface AssignmentData {
   duration?: number
@@ -42,6 +43,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // On récupère les paramètres de l'activité
   currentMode = mode
   capytaleMode.set(mode)
+  const canOptions = get(canOptionsStore)
   if (activity === null || activity === undefined) return
   const [newExercicesParams, newGlobalOptions, newCanOptions] = [activity.exercicesParams, activity.globalOptions, activity.canOptions]
   // On met à jour les paramètres des exercices
@@ -55,6 +57,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     return l
   })
   canOptionsStore.update((l) => {
+    newCanOptions.state = 'canHomeScreen'
     Object.assign(l, newCanOptions)
     l.isInteractive = newGlobalOptions.setInteractive === '1'
     return l
@@ -98,7 +101,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       })
     }
     // En vue CAN, on efface la graine pour que l'élève ne recommence pas le même exercice
-    if (newCanOptions?.isChoosen) {
+    if (newCanOptions?.isChoosen && (newGlobalOptions.isDataRandom === undefined || newGlobalOptions.isDataRandom === true)) {
       exercicesParams.update((l) => {
         for (const param of l) {
           if (param.alea !== undefined) {
@@ -120,23 +123,28 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   if (studentAssignment != null) {
     answersFromCapytale = studentAssignment
     console.info('Réponses à charger', studentAssignment)
-    for (const exercice of studentAssignment) {
-      if (exercice == null) continue
-      if (exercice != null && exercice.answers != null) {
-        if (exercice.type === 'app') {
-          // On prévient les apps avec un message
-          if (exercice != null) {
-            const message = { type: 'mathaleaHasScore', score: exercice?.numberOfPoints, numeroExercice: exercice?.indice, numberOfQuestions: exercice?.numberOfQuestions, finalState: exercice?.answers }
-            window.postMessage(message, '*')
+    if (!newCanOptions.isChoosen) {
+      // On charge les réponses de l'élève (si ce n'est pas la CAN)
+      for (const exercice of studentAssignment) {
+        if (exercice == null) continue
+        if (exercice != null && exercice.answers != null) {
+          if (exercice.type === 'app') {
+            // On prévient les apps avec un message
+            if (exercice != null) {
+              const message = { type: 'mathaleaHasScore', score: exercice?.numberOfPoints, numeroExercice: exercice?.indice, numberOfQuestions: exercice?.numberOfQuestions, finalState: exercice?.answers }
+              window.postMessage(message, '*')
+            }
+          } else {
+            const starttime = window.performance.now()
+            await Promise.all(mathaleaWriteStudentPreviousAnswers(exercice.answers))
+            const time = window.performance.now()
+            console.log(`duration exercice ${exercice.uuid}: ${(time - starttime)}`)
           }
-        } else {
-          mathaleaWriteStudentPreviousAnswers(exercice.answers)
         }
       }
     }
     await new Promise((resolve) => setTimeout(resolve, 500))
     // On attend 500 ms pour que les champs texte soient bien remplis
-    const canOptions = get(canOptionsStore)
     console.info(studentAssignment)
     if (!canOptions.isChoosen) {
       console.info('Maintenant que les réponses sont chargées, clic sur les boutons score', studentAssignment)
@@ -154,11 +162,29 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
           console.info(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)
         }
       }
-    } else if (canOptions.isChoosen && (mode === 'review' || workflow !== 'current')) {
-      console.info('On charge les réponses pour le CAN')
+    }
+  }
+
+  // Gestion du state de la CAN
+  if (canOptions.isChoosen) {
+    if (canOptions.state !== 'canHomeScreen') return
+    let newState: CanState = 'start'
+    if (mode === 'review') {
+      // Un prof regarde une copie
+      newState = 'solutions'
+    }
+    if (mode === 'assignment' && studentAssignment != null) {
+      // Un élève fait une copie mais a déjà été évalué
+      if (workflow === 'current') {
+        newState = get(globalOptions).oneShot ? 'canHomeScreen' : 'start'
+      } else {
+        newState = canOptions.solutionsAccess ? 'solutions' : 'canHomeScreen'
+      }
+    }
+    if (newState !== 'canHomeScreen') {
       canOptionsStore.update((l) => {
-        l.solutionsMode = 'gathered'
-        l.state = 'solutions'
+        l.state = newState
+        l.solutionsMode = 'gathered' // Faut-il en faire une option par défaut ?
         return l
       })
     }

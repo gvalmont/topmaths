@@ -105,7 +105,7 @@ export default class MultiplierDecimaux extends Exercice {
       texteCorr += Operation({ operande1: b.toNumber(), operande2: a.toNumber(), type: 'multiplication', style: 'display: inline' })
       texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: '$~=$' })
       if (context.isAmc) setReponse(this, i, reponse)
-      else handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
+      else handleAnswers(this, i, { reponse: { value: reponse } })
       this.autoCorrection[i].options = {
         digits: 0,
         decimals: 0,

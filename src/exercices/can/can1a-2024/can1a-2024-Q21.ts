@@ -58,6 +58,6 @@ export default class SommeTermesSG extends Exercice {
 
     this.canEnonce = `$q\\neq 1$ <br>
     ${premierTerme === '1' ? `$1+q+q^2+\\ldots+q^{${n}}=$ ` : `$q+q^2+\\ldots+q^{${n}}=$ `}`
-    this.canReponseACompleter = `$\\Box$ $\\dfrac{1-q^{${n + 1}}}{1-q}$ <br>$\\Box$ $\\dfrac{q-q^{${n + 1}}}{1-q}$`
+    this.canReponseACompleter = `\\faSquare[regular] $\\dfrac{1-q^{${n + 1}}}{1-q}$ <br>\\faSquare[regular] $\\dfrac{q-q^{${n + 1}}}{1-q}$`
   }
 }

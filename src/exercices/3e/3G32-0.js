@@ -1289,7 +1289,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
           break
       }
       if (context.isAmc) {
-        // enonceAMC = this.nbQuestions > 1 ? '\\begin{Large}\\textbf{Problème n° ' + (i + 1) + '}\\end{Large}' : 'Peu importe'
         this.autoCorrection[i] = {
           // enonce: enonceAMC,
           enonce: '',

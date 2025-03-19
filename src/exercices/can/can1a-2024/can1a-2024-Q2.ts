@@ -32,9 +32,9 @@ export default class PointsCourbe extends Exercice {
     // ça sert à rien c'est un qcm, les réponses sont gérées par les cases à cocher.
     /*
     if (this.canOfficielle) {
-      this.reponse = 'VRAI'
+      this.reponse = 'Vrai'
     } else {
-      this.reponse = ord === abs ** 2 + a ? 'VRAI' : 'FAUX'
+      this.reponse = ord === abs ** 2 + a ? 'Vrai' : 'Faux'
     }
      */
     this.correction = `Le point $A$ est sur la parabole si son ordonnée est égale à l'image de son abscisse. <br>
@@ -44,7 +44,7 @@ export default class PointsCourbe extends Exercice {
         \\end{aligned}$
         <br>
         ${abs ** 2 + a === ord
-? `Le point $A$ est bien sur la parabole.<br> L'affirmation est ${texteEnCouleurEtGras('VRAIE')}`
+? `Le point $A$ est bien sur la parabole.<br> L'affirmation est ${texteEnCouleurEtGras('VraiE')}`
         : `Puisque $${abs ** 2 + a} \\neq ${ord}$, le point $A$ n'est pas sur la parabole. <br>L'affirmation est ${texteEnCouleurEtGras('FAUSSE')}`}`
 
     this.question = `Affirmation : <br>
@@ -55,11 +55,11 @@ export default class PointsCourbe extends Exercice {
       enonce: this.question,
       propositions: [
         {
-          texte: 'VRAI ',
+          texte: 'Vrai ',
           statut: ord === abs ** 2 + a
         },
         {
-          texte: 'FAUX',
+          texte: 'Faux',
           statut: ord !== abs ** 2 + a
         }
       ]
@@ -70,6 +70,6 @@ export default class PointsCourbe extends Exercice {
 
     this.canEnonce = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
-    this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+    this.canReponseACompleter = '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
   }
 }

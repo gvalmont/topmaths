@@ -25,7 +25,6 @@ export default class resoudreUnProbleme extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: '€' }
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

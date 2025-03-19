@@ -260,7 +260,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           sym.color = 'green'
           sym.thickness = 2
           sym.colorLabel = 'red'
-          feedback += `Tu as bien construit le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ mais tu ne l'as pas nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
+          feedback += `Le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ est bien construit mais il n'est pas nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
         } else {
           feedback += `Il n'y a pas de point symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ et il n'y a pas de point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
         }

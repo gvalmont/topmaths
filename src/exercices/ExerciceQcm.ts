@@ -59,9 +59,9 @@ export default class ExerciceQcm extends Exercice {
     if (this.sup2) {
       this.consigne = this.bonnesReponses == null
         ? `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
-${this.interactif || context.isAmc ? 'Cocher la case correspondante' : 'Donner la lettre correspondante'}${this.sup4 ? ', ou choisir "Je ne sais pas".' : '.'}`
+${this.interactif || context.isAmc ? 'Cocher la case correspondante' : 'Donner la lettre correspondante'}${this.sup4 ? ', ou choisir « Je ne sais pas ».' : '.'}`
         : `Parmi les ${this.reponses.length} réponses ci-dessous, il peut y avoir plusieurs bonnes réponses.<br>
-${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(s)' : 'Donner la (ou les) lettre(s) correspondante(s)'}${this.sup4 ? ', ou choisir "Je ne sais pas".' : '.'}`
+${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(s)' : 'Donner la (ou les) lettre(s) correspondante(s)'}${this.sup4 ? ', ou choisir « Je ne sais pas ».' : '.'}`
     } else {
       this.consigne = ''
     }
@@ -104,7 +104,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
           }
           const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
           const monQcm = propositionsQcm(this, i, { style: 'margin:0 3px 0 3px;', format: this.interactif ? 'case' : 'lettre' })
-          texte += `<br><br>${monQcm.texte}`
+          texte += `<br>${monQcm.texte}`
           let messageBonnesReponses: string
           if (this.corrections && autoCorr.propositions != null) {
             this.correction = ''

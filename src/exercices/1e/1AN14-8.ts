@@ -1,4 +1,3 @@
-import Exercice from '../Exercice'
 import Derivees1 from './1AN14-1'
 import Derivees3 from './1AN14-3'
 import Derivees4 from './1AN14-4'
@@ -16,7 +15,7 @@ export const refs = {
   'fr-ch': []
 }
 export const dateDePublication = '18/04/2024'
-const exercices = [Derivees1, Derivees3, Derivees4, Derivees5, Derivees6, Derivees7] as unknown[]
+const questions = [Derivees1, Derivees3, Derivees4, Derivees5, Derivees6, Derivees7]
 /**
  * Un exercice bilan pour les regrouper tous (les exos de dérivation)
  * @author Jean-Claude Lhote
@@ -24,7 +23,7 @@ const exercices = [Derivees1, Derivees3, Derivees4, Derivees5, Derivees6, Derive
  */
 class DerivationBilan extends MetaExercice {
   constructor () {
-    super(exercices as Exercice[])
+    super(questions)
     this.besoinFormulaireCaseACocher = false
     this.nbQuestions = 6
     this.correctionDetailleeDisponible = true

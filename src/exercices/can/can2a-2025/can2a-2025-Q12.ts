@@ -40,7 +40,7 @@ export default class PythonCalcul extends Exercice {
       this.question += '\\end{array}\n$'
       this.question += '<br>Que renvoie  $\\texttt{mystere(10)}$ ?'
       this.reponse = 205
-      this.correction = `L'algorithme retourne $3\\times12=${miseEnEvidence('36')}$. `
+      this.correction = `L'algorithme retourne $(2\\times 10\\times 10)+5=${miseEnEvidence('205')}$. `
       this.canEnonce = '\\medskip'
       this.canEnonce += '\\hspace*{10mm}\\fbox{'
       this.canEnonce += '\\parbox{0.5\\linewidth}{'
@@ -57,7 +57,7 @@ export default class PythonCalcul extends Exercice {
     } else {
       const a = randint(1, 7)
       const choix = choice([true, false])
-      const coeff = randint(1, 3, a)
+      const coeff = randint(2, 3, a)
 
       if (context.isHtml) {
         this.question = '$\\begin{array}{|l|}\n'

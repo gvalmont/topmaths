@@ -33,7 +33,6 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const ad = codageAngleDroit(B, A, C)
     const am1 = afficheMesureAngle(A, B, C, 'black', 0.8)
     const am2 = afficheMesureAngle(B, C, A, 'black', 0.5, '?')
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a > 45 ? a : 90 - a
     this.question = `${mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures([triangle1, ad, am1, am2], { rymin: 0 })), [triangle1, ad, am1, am2])}`
     this.correction = `La somme des angles d'un triangle est égale à $180$°, donc $90^\\circ+${a}^\\circ+\\text{ ? } =180^\\circ$<br>

@@ -21,7 +21,7 @@
   import type { SvelteComponent } from 'svelte'
   import type { Language } from '../../../../../lib/types/languages'
   import { get } from 'svelte/store'
-  import { getReferentiels } from '../../../../../lib/stores/referentielsStore';
+  import { deepReferentielInMenuCopy, getReferentiels } from '../../../../../lib/stores/referentielsStore';
   interface SearchBlockType extends SvelteComponent {
     triggerUpdateFromSearchBlock: () => void
   }
@@ -61,7 +61,7 @@
 
   function updateRepositories () {
     const updatedRepositories: ReferentielInMenu[] = []
-    const repositoriesInMenu: ReferentielInMenu[] = referentiels.filter((e) => {
+    const repositoriesInMenu: ReferentielInMenu[] = deepReferentielInMenuCopy(referentiels).filter((e) => {
       return !excludedReferentiels.includes(e.name)
     })
     for (const repositoryInMenu of repositoriesInMenu) {
@@ -103,11 +103,44 @@
     refList: ReferentielInMenu[]
   ): ResourceAndItsPath[] => {
     let result: ResourceAndItsPath[] = []
-    for (const item of refList) {
+    const refList2 = deepReferentielInMenuCopy(refList)
+    for (const item of refList2) {
       if (item.searchable) {
-        result = [...result, ...getAllEndings(item.referentiel)]
+        if (item.referentiel.BrevetTags) {
+          delete item.referentiel.BrevetTags
+        }
+        if (item.referentiel.E3CTags) {
+          delete item.referentiel.E3CTags
+        }
+        if (item.referentiel.crpeTags) {
+          delete item.referentiel.crpeTags
+        }
+        result.push(...getAllEndings(item.referentiel))
       }
     }
+    const clavier : ResourceAndItsPath = {
+      resource: {
+        uuid: 'clavier',
+        url: 'clavier',
+        id: 'clavier',
+        titre: 'clavier',
+        typeExercice: 'outil',
+        tags: []
+      },
+      pathToResource: ['ClavierTest']
+    }
+    const version : ResourceAndItsPath = {
+      resource: {
+        uuid: 'version',
+        url: 'version',
+        id: 'version',
+        titre: 'version',
+        typeExercice: 'outil',
+        tags: []
+      },
+      pathToResource: ['Version']
+    }
+    result.push(clavier, version)
     return result
   }
 </script>

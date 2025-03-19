@@ -3,7 +3,7 @@ import { sp } from '../../lib/outils/outilString'
 import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 
-export const titre = 'Lister tous les diviseurs d’un entier'
+export const titre = 'Lister tous les diviseurs d\'un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

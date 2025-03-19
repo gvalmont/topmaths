@@ -5,7 +5,7 @@
   import seedrandom from 'seedrandom'
   import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../../lib/interactif/gestionInteractif'
   import { loadMathLive } from '../../../../../modules/loaders'
-  import { mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../../lib/mathalea'
+  import { mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams, mathaleaWriteStudentPreviousAnswers } from '../../../../../lib/mathalea'
   import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
   import type { MathfieldElement } from 'mathlive'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
@@ -70,28 +70,13 @@
         $globalOptions.answers = objAnswers
       }
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-      for (const answer in objAnswers) {
-        // La réponse correspond à un champs texte
-        const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
-        if (field != null) {
-          if (typeof field.setValue === 'function') field.setValue(objAnswers[answer])
-          else {
-            // Problème à régler pour ts. mais window.notify() existe bien au chargement en ce qui nous concerne.
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            window.notify('Il y a un problème avec l\'input de cet exercice, il ne semble pas être un MathfieldElement, en tout cas ne possède pas de méthode setValue()', { exercice: JSON.stringify(exercise) })
-            field.value = objAnswers[answer]
-          }
+      Promise.all(mathaleaWriteStudentPreviousAnswers(objAnswers)).then(() => {
+        // une fois que les réponses sont chargées et on en est sûr, on clique...
+        if (buttonScore) {
+          exercise.isDone = true
+          buttonScore.click()
         }
-        // La réponse correspond à une case à cocher qui doit être cochée
-        const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-        if (checkBox !== null && objAnswers[answer] === '1') {
-          checkBox.checked = true
-        }
-      }
-      if (buttonScore) {
-        exercise.isDone = true
-        buttonScore.click()
-      }
+      })
     }
   }
 

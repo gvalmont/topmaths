@@ -1,4 +1,4 @@
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction'
 import { choice } from '../../../lib/outils/arrayOutils'
 
@@ -6,7 +6,8 @@ import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lire les extremums dans un tableau de variations'
 export const interactifReady = true
@@ -16,7 +17,7 @@ export const amcType = 'AMCHybride'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '21/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '10/03/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -71,17 +72,14 @@ export default class ExtremumsTableau extends Exercice {
         // tabLines ci-dessous contient les autres lignes du tableau.
         tabLines: [ligne1],
         colorBackground: '',
-        espcl: 3, // taille en cm entre deux antécédents
+        espcl: 4, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 2, // taille de la première colonne en cm
-        scale: context.isHtml ? 1 : 0.4// ceci est l'échelle du texte
+        scale: context.isHtml ? 1 : 0.5// ceci est l'échelle du texte
       }) + '<br>'
       this.canEnonce = texte
       if (choice([true, false])) {
-        texte += '   Le maximum de $f$ est  : '
-        texte += ajouteChampTexteMathLive(this, 2 * i, '')
-        texte += '<br> Il est atteint en $x=$ '
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
+        texte += remplisLesBlancs(this, i, '\\text{ Le maximum de } f \\text{ est  : } %{champ1}. \\text{ Il est atteint en } x=  %{champ2}', KeyboardType.clavierDeBase)
         // this.canEnonce += 'Déterminer le maximum de $f$ et la valeur en laquelle il est atteint.'
         this.canReponseACompleter = `Le maximum de $f$ est $\\ldots$. <br>
         Il est atteint en $x=\\ldots$`
@@ -91,8 +89,12 @@ export default class ExtremumsTableau extends Exercice {
       Ainsi, le maximum de $f$ est $${miseEnEvidence(y1)}$.<br>Il est atteint en $x=${miseEnEvidence(x1)}$.`
 
             if (!context.isAmc) {
-              setReponse(this, 2 * i, y1)
-              setReponse(this, 2 * i + 1, x1)
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                champ1: { value: y1 },
+                champ2: { value: x1 }
+              }
+              )
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -139,8 +141,12 @@ export default class ExtremumsTableau extends Exercice {
       Ainsi, le maximum de $f$ est $${miseEnEvidence(y3)}$.<br>Il est atteint en $x=${miseEnEvidence(x3)}$.  `
 
             if (!context.isAmc) {
-              setReponse(this, 2 * i, y3)
-              setReponse(this, 2 * i + 1, x3)
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                champ1: { value: y3 },
+                champ2: { value: x3 }
+              }
+              )
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -188,8 +194,12 @@ export default class ExtremumsTableau extends Exercice {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${-y2}$, c'est-à-dire  $f(x)\\leqslant f(${x2})$.<br>
         Ainsi, le maximum de $f$ est $${miseEnEvidence(-y2)}$.<br>Il est atteint en $x=${miseEnEvidence(x2)}$. `
             if (!context.isAmc) {
-              setReponse(this, 2 * i, -y2)
-              setReponse(this, 2 * i + 1, x2)
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                champ1: { value: -y2 },
+                champ2: { value: x2 }
+              }
+              )
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -235,8 +245,12 @@ export default class ExtremumsTableau extends Exercice {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\leqslant ${-y4}$, c'est-à-dire  $f(x)\\leqslant f(${x4})$.<br>
         Ainsi, le maximum de $f$ est $${miseEnEvidence(-y4)}$.<br>Il est atteint en $x=${miseEnEvidence(x4)}$.  `
             if (!context.isAmc) {
-              setReponse(this, 2 * i, -y4)
-              setReponse(this, 2 * i + 1, x4)
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                champ1: { value: -y4 },
+                champ2: { value: x4 }
+              }
+              )
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -281,23 +295,23 @@ export default class ExtremumsTableau extends Exercice {
           }
         }
       } else {
-        texte += 'Le minimum de $f$ est  : '
         // this.canEnonce += 'Déterminer le minimum de $f$ et la valeur en laquelle il est atteint.'
         // this.canReponseACompleter = 'Min $=\\ldots$ atteint en $x=\\ldots$'
         this.canReponseACompleter = `Le minimum de $f$ est $\\ldots$. <br>
         Il est atteint en $x=\\ldots$`
-        texte += ajouteChampTexteMathLive(this, 2 * i, '')
-        texte += '<br> Il est atteint en $x=$ '
-
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
+        texte += remplisLesBlancs(this, i, '\\text{ Le minimum de } f \\text{ est  : } %{champ1}. \\text{ Il est atteint en } x=  %{champ2}', KeyboardType.clavierDeBase)
 
         if (choix === 1) {
           if (m === y2) {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${y2}$, c'est-à-dire  $f(x)\\geqslant f(${x2})$.<br>
           Ainsi, le minimum de $f$ est $${miseEnEvidence(y2)}$.<br>Il est atteint en $x=${miseEnEvidence(x2)}$.`
             if (!context.isAmc) {
-              setReponse(this, 2 * i, y2)
-              setReponse(this, 2 * i + 1, x2)
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                champ1: { value: y2 },
+                champ2: { value: x2 }
+              }
+              )
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -343,8 +357,12 @@ export default class ExtremumsTableau extends Exercice {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${y4}$, c'est-à-dire  $f(x)\\geqslant f(${x4})$.<br>
           Ainsi, le minimum de $f$ est $${miseEnEvidence(y4)}$.<br>Il est atteint en $x=${miseEnEvidence(x4)}$.  `
             if (!context.isAmc) {
-              setReponse(this, 2 * i, y4)
-              setReponse(this, 2 * i + 1, x4)
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                champ1: { value: y4 },
+                champ2: { value: x4 }
+              }
+              )
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -392,8 +410,12 @@ export default class ExtremumsTableau extends Exercice {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${-y1}$, c'est-à-dire  $f(x)\\geqslant f(${x1})$.<br>
           Ainsi, le minimum de $f$ est $${miseEnEvidence(-y1)}$.<br>Il est atteint en $x=${miseEnEvidence(x1)}$. `
             if (!context.isAmc) {
-              setReponse(this, 2 * i, -y1)
-              setReponse(this, 2 * i + 1, x1)
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                champ1: { value: -y1 },
+                champ2: { value: x1 }
+              }
+              )
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -439,8 +461,12 @@ export default class ExtremumsTableau extends Exercice {
             texteCorr = `Pour tout réel $x$ de $[${x1}\\,;\\,${x4}]$, on a  $f(x)\\geqslant ${-y3}$, c'est-à-dire  $f(x)\\geqslant f(${x3})$.<br>
           Ainsi, le minimum de $f$ est $${miseEnEvidence(-y3)}$.<br>Il est atteint en $x=${miseEnEvidence(x3)}$.  `
             if (!context.isAmc) {
-              setReponse(this, 2 * i, -y3)
-              setReponse(this, 2 * i + 1, x3)
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+                champ1: { value: -y3 },
+                champ2: { value: x3 }
+              }
+              )
             } else {
               this.autoCorrection[i] = {
                 enonce: texte,
@@ -485,10 +511,9 @@ export default class ExtremumsTableau extends Exercice {
           }
         }
       }
-      if (this.questionJamaisPosee(i, x1, x2, x3, x4)) {
+      if (this.questionJamaisPosee(i, x1, y1, x2, y2)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-
         this.listeCanEnonces.push(this.canEnonce)
         this.listeCanReponsesACompleter.push(this.canReponseACompleter)
         i++

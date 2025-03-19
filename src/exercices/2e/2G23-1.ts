@@ -121,9 +121,10 @@ export default class ImagePtParTranslation extends Exercice {
       let LabelsPt = labelPoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R)
       const Grille = grille(0, 0, 10, 4)
       let xSOL = 100; let xPtArrivSeg = 100; let xPt2Triangle = 100
+      let PtDepart
       switch (listeTypeDeQuestions[i]) {
         case 'point': { // À partir d'un point
-          const PtDepart = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
+          PtDepart = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
           let OrigVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepart])
           let ExtrVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepart, OrigVec])
           xSOL = PtDepart.x + ExtrVec.x - OrigVec.x
@@ -149,7 +150,7 @@ export default class ImagePtParTranslation extends Exercice {
           texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 5, pixelsParCm: 20, scale: 0.5, zoom: 1.75 }, objets) // On trace le graphique de la solution
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du point $${nomPD}$ est :` })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du point $${nomPD}$ est :`, texteApres: '.' })
           }
 
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
@@ -179,6 +180,7 @@ export default class ImagePtParTranslation extends Exercice {
 
         case 'segment': { // À partir d'un segment
           const PtDepartSeg = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
+          PtDepart = PtDepartSeg
           xPtArrivSeg = PtDepartSeg.x + choice([-2, 0, 2])
           let yPtArrivSeg = PtDepartSeg.y + choice([-2, 0, 2])
           while (xPtArrivSeg < 0 || xPtArrivSeg > 10 || yPtArrivSeg < 0 || yPtArrivSeg > 4 || (xPtArrivSeg === PtDepartSeg.x && yPtArrivSeg === PtDepartSeg.y)) {
@@ -238,7 +240,7 @@ export default class ImagePtParTranslation extends Exercice {
           texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 5, pixelsParCm: 20, scale: 0.5, zoom: 1.75 }, objets) // On trace le graphique de la solution
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du segment $[${nomPDSeg}${nomPASeg}]$ est :` })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du segment $[${nomPDSeg}${nomPASeg}]$ est :`, texteApres: '.' })
           }
 
           const nomVecDepl = VecDepl.representantNomme(PtDepartSeg, nomOR + nomEXT, 1, 'green') // Affiche le nom du vecteur déplacement
@@ -280,6 +282,7 @@ export default class ImagePtParTranslation extends Exercice {
         case 'triangle':
         default: { // À partir d'un triangle
           const Pt1Triangle = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
+          PtDepart = Pt1Triangle
           xPt2Triangle = Pt1Triangle.x + choice([-2, 0, 2])
           let yPt2Triangle = Pt1Triangle.y + choice([-2, 0, 2])
           let xPt3Triangle: number = -1 // j'initialise avec une valeur bidon, c'est assigné dans le while.
@@ -388,7 +391,7 @@ export default class ImagePtParTranslation extends Exercice {
           texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 5, pixelsParCm: 20, scale: 0.5, zoom: 1.75 }, objets) // On trace le graphique de la solution
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ est :` })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ est :`, texteApres: '.' })
           }
 
           // Vecteur natif
@@ -449,7 +452,7 @@ export default class ImagePtParTranslation extends Exercice {
         }
           break
       }
-      if (this.questionJamaisPosee(i, xSOL, xPtArrivSeg, xPt2Triangle)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, xSOL, xPtArrivSeg, xPt2Triangle, PtDepart.nom)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

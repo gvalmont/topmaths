@@ -6,8 +6,8 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer un taux d\'évolution réciproque'
 export const interactifReady = true
@@ -203,7 +203,7 @@ export default class EvolutionsSuccesives extends Exercice {
           }
           break
       }
-      setReponse(this, i, tauxr)
+      handleAnswers(this, i, { reponse: { value: texNombre(tauxr, 2) } })
       if (this.questionJamaisPosee(i, taux)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

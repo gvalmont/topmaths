@@ -15,13 +15,18 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM Bac Polynésie juin 2024 : équations différentielles'
+export const titre = 'Polynésie 06/2024 : équa. diff.'
 export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
  * Il utilise la classe ExerciceQcmA qui définit les contours de l'exo (avec une version aléatoire : voir la méthode aleatoire ci-dessous)
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam hérité de ExerciceQcm.
  * Il est interactif et dispose d'un export AMC d'office
+ */
+/**
+ *
+ * @author Stéphane Guyon
+ *
  */
 export default class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
   versionOriginale: () => void = () => {

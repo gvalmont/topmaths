@@ -39,7 +39,8 @@ export default class AdditionFractionVF extends Exercice {
     const c = `\\dfrac{${choix[4]}}{${choix[5]}}`
     if (this.canOfficielle || choix === fracNON) {
       this.correction = `On n'additionne pas les numérateurs et dénominateurs pour additionner des fractions. <br>
-    On les met au même dénominateur et on additionne alors les numérateurs en gardant le dénominateur commmun.<br>
+    On les met au même dénominateur et on additionne alors les numérateurs en gardant le dénominateur commmun.<br><br>
+    $\\dfrac{${choix[0]}}{${choix[1]}}+\\dfrac{${choix[2]}}{${choix[3]}}=\\dfrac{${choix[0]}\\times ${choix[3]}}{${choix[1]}\\times ${choix[3]}}+\\dfrac{${choix[2]}\\times ${choix[1]}}{${choix[3]}\\times ${choix[1]}}=\\dfrac{${choix[0] * choix[3] + choix[2] * choix[1]}}{${choix[1] * choix[3]}}$<br><br>
     Réponse : ${texteEnCouleurEtGras('Faux')}`
     } else {
       this.correction = `En mettant les fractions au même dénominateur, on a bien $${a}+${b}=${c}$.<br>
@@ -69,7 +70,7 @@ export default class AdditionFractionVF extends Exercice {
       this.question = 'Entoure la bonne réponse. ' + qcm.texte
     }
 
-    this.canEnonce = `Vrai ou faux ? <br> $${a}+${b}=${c}$`
-    this.canReponseACompleter = `Vrai ${sp(7)} Faux`
+    this.canEnonce = `Vrai ou faux ? <br> \\vspace{2mm} $${a}+${b}=${c}$`
+    this.canReponseACompleter = `\\faSquare[regular] Vrai ${sp(4)} \\faSquare[regular] Faux`
   }
 }

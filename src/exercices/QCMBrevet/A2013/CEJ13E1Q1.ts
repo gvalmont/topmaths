@@ -29,7 +29,7 @@ export default class EtrangersJuin13Exo1Q1 extends ExerciceQcmA {
       `$${String(-s1)}$ et $${texNombre(-s2, 2)}$`,
       `$${String(s1)}$ et $${String(c - b)}$`
     ]
-    this.enonce = `Les solutions de l'équation  $(x+${String(a)})(${String(b)}x-${String(c)})=0$ ?`
+    this.enonce = `Les solutions de l'équation  $(x+${String(a)})(${String(b)}x-${String(c)})=0$ sont :`
     this.correction = `Un produit de facteurs est nul si l'un des facteurs est nul , soit <br>
     $\\left\\{\\begin{array}{l c l}
     x+${String(a)}&=0\\\\

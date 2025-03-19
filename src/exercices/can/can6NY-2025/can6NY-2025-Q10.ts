@@ -23,7 +23,6 @@ export default class SommeDeProduitsCompleter extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 

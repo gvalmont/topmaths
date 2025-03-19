@@ -152,7 +152,7 @@ export default class RepresenterUneFraction extends Exercice {
     } else {
       if (divCheck) divCheck.innerHTML = '☹️'
       const p = document.createElement('p')
-      p.innerText = `Tu as colorié $\\dfrac{${diagramme.numerator}}{${diagramme.denominator}}$.`
+      p.innerText = `$\\dfrac{${diagramme.numerator}}{${diagramme.denominator}}$ a été colorié.`
       if (divFeedback) {
         divFeedback.innerHTML = ''
         divFeedback.appendChild(p)

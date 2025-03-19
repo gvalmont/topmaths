@@ -95,7 +95,7 @@ export default class Signefonctionaffine extends Exercice {
           const a = randint(1, 5) * choice([-1, 1])
           const b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
           const zero = new FractionEtendue(-b, a).simplifie()
-          texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$.`
+          texte = `Dresser le tableau de signes de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$.`
           if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
           if (this.sup2 === 1) {
             texteCorr += `$f(x)$ est de la forme $ax+b$, $f$ est donc une fonction affine avec pour coefficient directeur  $a=${a}$ ${a < 0 ? ' (négatif).' : ' (positif).'}<br>
@@ -187,7 +187,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
           const a = new FractionEtendue(ns, ds).simplifie()
           const aInverse = new FractionEtendue(ns, ds).simplifie().inverse()
           const zero = new FractionEtendue(-b * ds, ns).simplifie()
-          texte = `Dresser le tableau de signe de la fonction $f$ définie sur $\\mathbb R$ par ${b === 0 ? `$f(x)=${a.texFSD}x$` : `$f(x)=${a.texFSD}x${ecritureAlgebrique(b)}$`}. <br>`
+          texte = `Dresser le tableau de signes de la fonction $f$ définie sur $\\mathbb R$ par ${b === 0 ? `$f(x)=${a.texFSD}x$` : `$f(x)=${a.texFSD}x${ecritureAlgebrique(b)}$`}. <br>`
           if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
           if (this.sup2 === 1) {
             texteCorr += `$f(x)$ est de la forme $ax+b$, $f$ est donc une fonction affine avec pour coefficient directeur  $a=${a.texFSD}$ ${a.valeurDecimale < 0 ? ' (négatif).' : ' (positif).'}<br>

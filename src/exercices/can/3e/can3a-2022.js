@@ -5,7 +5,7 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
@@ -17,6 +17,8 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { prenomM } from '../../../lib/outils/Personne'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'CAN 3e sujet 2022'
 export const interactifReady = true
@@ -796,33 +798,32 @@ export default class SujetCAN2022troisieme extends Exercice {
           }
           nbChamps = 1
           break
-        case 27:
+        case 27:{
           a = randint(7, 10)
           b = choice([25, 30, 35, 40, 45])
           c = randint(36, 58)
+          const Benoît = prenomM()
           if (!this.interactif) {
-            texte = `Benoît prend le départ d'un marathon à $${a}$h $${b}$. <br>
+            texte = `${Benoît} prend le départ d'un marathon à $${a}$h $${b}$. <br>
             Il parcourt la distance en $3$ h  $${c}$ min. <br>
             À quelle heure arrive-t-il ?<br>
              .....  h ..... min`
-            texteCorr = `On ajoute $3$ h à $${a}$h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
-            On complète l'heure avec $60-${b}$ soit $${60 - b}$ min. Il reste $${c}-${60 - b}$ soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
-            Benoît arrive  à $${a + 4}$h $${c - 60 + b}$.`
           } else {
-            texte = `Benoît prend le départ d'un marathon à $${a}$h $${b}$. <br>
+            texte = `${Benoît} prend le départ d'un marathon à $${a}$h $${b}$. <br>
             Il parcourt la distance en $3$ h  $${c}$ min. <br>
             À quelle heure arrive-t-il ?<br>`
-            texteCorr = `On ajoute $3$ h à $${a}$h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
-            On complète l'heure avec $60-${b}$ min soit $${60 - b}$. Il reste $${c}-${60 - b}$ soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
-            Benoît arrive  à $${a + 4}$h $${c - 60 + b}$.`
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
 
             handleAnswers(this, index, { reponse: { value: new Hms({ hour: a + 4, minute: c - 60 + b }).toString(), options: { HMS: true } } })
 
             nbChamps = 1
           }
-          break
+          texteCorr = `On ajoute $3$ h à $${a}$h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
+          On complète l'heure avec $60-${b}$ min soit $${60 - b}$. Il reste $${c}-${60 - b}$ soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
+          ${Benoît} arrive  à $${a + 4}$h $${miseEnEvidence(formatMinute(c - 60 + b))}$.`
 
+          break
+        }
         case 28:
 
           a = choice([10, 20, 25, 50])

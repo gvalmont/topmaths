@@ -115,7 +115,6 @@ export default class FractionsDunite extends Exercice {
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           propositions: [
             {
-              // @ts-expect-error Problème typage
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [
                 {
@@ -152,7 +151,14 @@ export default class FractionsDunite extends Exercice {
     let result = false
     figure.elements.forEach((ele) => {
       if (ele.type === 'LineFractionDiagram' && ele instanceof LineFractionDiagram) {
-        result = (ele.numerator === this.goodAnswers[i] && ele.numerator === ele.indiceLastInColor)
+        // result = (ele.numerator === this.goodAnswers[i] && ele.numerator === ele.indiceLastInColor) // On n'impose plus que le segment soit colorié depuis le début
+        const bonNombreDeCasesColoriees = ele.numerator === this.goodAnswers[i]
+        const indicesArray = Array.from(ele.indicesRectanglesInColor)
+        const firstElement = indicesArray[0]
+        const lastElement = indicesArray[indicesArray.length - 1]
+        const difference = lastElement - firstElement
+        const segmentEnUnSeulBloc = difference === indicesArray.length - 1
+        result = (bonNombreDeCasesColoriees && segmentEnUnSeulBloc)
       }
     })
     if (divFeedback != null) {

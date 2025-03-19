@@ -2,7 +2,7 @@ import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules
 import { egal } from '../../modules/outils'
 import { degToRad } from '../mathFonctions/trigo'
 import { arc } from './cercle'
-import { Droite, droite } from './droites'
+import { Droite, droite, Mediatrice } from './droites'
 import { Point, point } from './points'
 import { Polygone, polygone } from './polygones'
 import { Segment, segment, Vecteur, vecteur } from './segmentsVecteurs'
@@ -235,7 +235,7 @@ export function homothetie<T extends Point | Droite | Segment | Polygone | Vecte
  * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Jean-Claude Lhote
  */
-export function symetrieAxiale<T extends Point | Droite | Segment | Polygone | Vecteur> (A:T, d:Droite, nom = '', positionLabel = 'above', color = 'black'):T {
+export function symetrieAxiale<T extends Point | Droite | Segment | Polygone | Vecteur> (A:T, d:Droite | Mediatrice, nom = '', positionLabel = 'above', color = 'black'):T {
   let x, y
   const a = d.a
   const b = d.b

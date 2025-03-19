@@ -66,7 +66,7 @@ export default class TrouverLongueur extends Exercice {
 
     this.canEnonce = `Coche la réponse possible.<br>
     La hauteur d'${choix[a][0]} est : `
-    this.canReponseACompleter = ''
+    this.canReponseACompleter = qcm.texte
     this.correction = `La hauteur d'${choix[a][0]} est $${miseEnEvidence(b)}$ ${choix[a][3]}.`
   }
 }

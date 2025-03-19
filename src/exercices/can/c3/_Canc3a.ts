@@ -8,7 +8,7 @@ import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellisseme
 import { sp } from '../../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { context } from '../../../modules/context'
@@ -295,22 +295,20 @@ export default class ClasseCan2023 {
     if (choice([true, false])) {
       b = choice([35, 40, 45, 50, 55])
       c = choice([30, 35, 40, 45])
-      sortie.texte = context.isHtml ? `$${b}\\text{ min }+${c} \\text{ min }= \\ldots \\text{ h } \\ldots \\text{ min }$` : `\\Temps{;;;;${b};}+ \\Temps{;;;;${c};}`
-      sortie.reponse = String(b + c - 60)
     } else {
       b = choice([20, 25, 30, 35])
       c = choice([45, 50, 55])
-      sortie.texte = context.isHtml ? `$${b}\\text{ min }+${c} \\text{ min }=\\ldots \\text{ h } \\ldots \\text{ min }$` : `\\Temps{;;;;${b};}+ \\Temps{;;;;${c};}`
-      sortie.reponse = String(b + c - 60)
     }
+    sortie.texte = context.isHtml ? `$${b}\\text{ min }+${c} \\text{ min }=\\ldots \\text{ h } \\ldots \\text{ min }$` : `\\Temps{;;;;${b};}+ \\Temps{;;;;${c};}`
+    sortie.reponse = String(b + c - 60)
     if (b > c) {
       sortie.texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
-        On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(sortie.reponse)}$ min.`
+        On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(formatMinute(Number(sortie.reponse)))}$ min.`
     } else {
       sortie.texteCorr = `De $${c} \\text{ min }$ pour aller à $1$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
-        On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(sortie.reponse)}$ min.`
+        On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(formatMinute(Number(sortie.reponse)))}$ min.`
     }
-
+    sortie.reponse = String(sortie.reponse)
     sortie.canEnonce = sortie.texte
     sortie.canReponseACompleter = '\\ldots{} h \\ldots{} min'
     return sortie

@@ -464,11 +464,11 @@ const basicKeys = {
     display: '$\\overline{\\square}$',
     insert: '$$\\overline{#0}$$'
   },
-  VRAI: {
+  Vrai: {
     display: '$\\text{Vrai}$',
     insert: '\\text{Vrai}'
   },
-  FAUX: {
+  Faux: {
     display: '$\\text{Faux}$',
     insert: '\\text{Faux}'
   },

@@ -39,7 +39,6 @@ export default class Can2025N4Q17 extends ExerciceCan {
     this.optionsChampTexte = { texteAvant: '<br>Le lutin a avancé de ', texteApres: ' pas.' }
     this.canReponseACompleter = '$\\ldots$ pas'
     this.reponse = String(a * b)
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

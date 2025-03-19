@@ -30,7 +30,6 @@ export default class SommeSuiteArithmetique extends Exercice {
     this.consigneCorrection = 'Rappel : $1 + 2 + 3 + ... + n = \\dfrac{n(n + 1)}{2}$'
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

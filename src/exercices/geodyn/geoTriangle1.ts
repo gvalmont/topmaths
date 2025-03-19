@@ -144,9 +144,9 @@ class ConstructionTriangle extends Exercice {
     }))
     if (message) feedback += `${message}<br>`
     resultat.push(isValid ? 'OK' : 'KO')
-    const isPolygoneDrawn = this.figure.checkPolygonByLabels({
-      labels: [labelA, labelB, labelC]
-    }).isValid
+    const isPolygoneDrawn = true // this.figure.checkPolygonByLabels({
+    //   labels: [labelA, labelB, labelC]
+    // }).isValid
     if (resultat.every((r) => r === 'OK')) {
       resultat.push('OK')
     } else {
@@ -166,9 +166,7 @@ class ConstructionTriangle extends Exercice {
     if (divFeedback) divFeedback.innerHTML = feedback
     // Comme c'est asynchrone, il faut forcer le rendu LaTeX
     mathaleaRenderDiv(divFeedback)
-    this.figure.isDynamic = false
-    this.figure.divButtons.style.display = 'none'
-    this.figure.divUserMessage.style.display = 'none'
+    this.figure.setToolbar({ position: 'top', tools: ['DRAG', 'DESCRIPTION'] })
     this.figure.buttons.get('SHAKE')?.click()
     return resultat
   }

@@ -25,11 +25,15 @@ export default class Can2025N6Q2 extends ExerciceCan {
       produit = a * b
     }
     this.reponse = String(b)
-    this.question = `${a}\\times %{champ1}=${produit}`
+    if (this.interactif) {
+      this.question = `$${a}\\times $ `
+      this.optionsChampTexte = { texteApres: ` $ = ${produit}$` }
+    } else {
+      this.question = `$${a}\\times \\ldots=${produit}$`
+    }
     this.correction = `$${produit}\\div${a}=${miseEnEvidence(b)}$`
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$${a}\\times \\ldots=${produit}$`
-    this.formatInteractif = 'fillInTheBlank'
   }
 
   nouvelleVersion () {

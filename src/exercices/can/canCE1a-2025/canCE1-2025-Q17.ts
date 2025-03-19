@@ -21,7 +21,6 @@ export default class Can2025CE1Q17 extends ExerciceCan {
     }
 
     this.reponse = 4 * a
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.question = `Dans un champ, il y a $${a}$ vaches.<br>
     Combien comptes-tu de pattes ?`
     this.correction = `Une vache a $4$ pattes.<br>

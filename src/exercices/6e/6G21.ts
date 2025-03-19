@@ -102,7 +102,7 @@ export default class ConstruireUnTriangle extends Exercice {
       if (!this.sup2) {
         texte = 'Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>'
       }
-      texteCorr = 'Voici la construction que tu devais réaliser.<br>'
+      texteCorr = 'Voici la construction qu\'il fallait réaliser.<br>'
       nom = creerNomDePolygone(4, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
       sommets = []

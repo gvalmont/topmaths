@@ -9,7 +9,8 @@ import { context } from '../../modules/context'
 export function creerModal (numeroExercice: number, contenu: string, labelBouton: string, icone: string) {
   if (context.isHtml) {
     let HTML = ''
-    HTML = `${labelBouton}<div id="aide-${numeroExercice}" class="group">
+    HTML = `<div id="aide-${numeroExercice}" class="group">
+      ${labelBouton} 
       <div id="aide-trigger-${numeroExercice}">?</div>
       <div id="aide-content-${numeroExercice}">
       ${contenu}

@@ -1,6 +1,6 @@
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
-import type { AutoCorrection, clickFigures, Valeur } from '../lib/interactif/gestionInteractif'
+import type { AutoCorrection, clickFigures } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
@@ -8,6 +8,11 @@ import { KeyboardType, type PartialKbType } from '../lib/interactif/claviers/key
 import type FractionEtendue from '../modules/FractionEtendue'
 import type Decimal from 'decimal.js'
 import type Hms from '../modules/Hms'
+
+type Reponse = string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[]
+type Bareme = (listePoints: number[]) => [number, number]
+type CallbackReponse = (exercice: Exercice, question: number) => { isOk: boolean, feedback: string, score: { nbBonnesReponses: number, nbReponses: number } }
+type ReponseComplexe = Reponse | { champ1?: { value: Reponse }, champ2?: { value: Reponse }, bareme?: Bareme, callback?: CallbackReponse }
 
 /**
  *
@@ -41,7 +46,7 @@ export default class Exercice {
   listeCanLiees: number[][] = []
   listeCanNumerosLies: number[] = []
   question?: string // Seulement pour les exercices de type simple
-  reponse?: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[] | Valeur// Seulement pour les exercices de type simple
+  reponse?: ReponseComplexe // Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple ??? NON ! NOTE de Jena-claude Lhote du 2/02/2025 : et pourquoi ça ???
@@ -206,7 +211,7 @@ export default class Exercice {
     // this.dimensionsDivMg32 = [500, 450] // Dimensions du SVG créé par MathGraph32.
 
     // this.typeExercice = 'Scratch' // Pour charger Scratchblocks.
-    // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
+    // this.typeExercice = 'dnb' // Ce n'est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
     // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
@@ -227,7 +232,7 @@ export default class Exercice {
 
   correctionInteractive? (i: number): string | string[]
 
-  nouvelleVersion (numeroExercice?: number): void {
+  nouvelleVersion (numeroExercice?: number, numeroQuestion?: number): void {
     console.info(numeroExercice)
   }
 

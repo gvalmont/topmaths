@@ -5,8 +5,8 @@ import CryptoJS from 'crypto-js'
 import type Decimal from 'decimal.js'
 type EventListener = (evt: Event) => void
 
-export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?: number): void {
-  const signature = [this.seed, this.sup, this.sup2, this.sup3, this.sup4, this.sup5, this.correctionDetaillee, this.interactif, this.nbQuestions].map(String).join('')
+export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?: number, numeroQuestion?: number): void {
+  const signature = [this.seed, this.sup, this.sup2, this.sup3, this.sup4, this.sup5, this.correctionDetaillee, this.interactif, this.nbQuestions, numeroExercice, numeroQuestion].map(String).join('')
   if (this.lastCallback === signature) {
     // identique
     // pas de recalcul à faire
@@ -14,7 +14,7 @@ export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?:
   }
   this.lastCallback = signature
   this.reinit()
-  this.nouvelleVersion(numeroExercice)
+  this.nouvelleVersion(numeroExercice, numeroQuestion)
 }
 
 export function exportedReinit (this: Exercice) {

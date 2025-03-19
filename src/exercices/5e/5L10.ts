@@ -102,12 +102,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$2+${x}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et produit.'
+              feedback: 'Confusion entre somme et produit.'
             },
             {
               texte: `$${x}^2$`,
               statut: false,
-              feedback: 'Tu as confondu le double et le carré.'
+              feedback: 'Confusion entre le double et le carré.'
             },
             {
               texte: `$${x}2$`,
@@ -138,12 +138,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$3+${x}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et produit.'
+              feedback: 'Confusion entre somme et produit.'
             },
             {
               texte: `$${x}^3$`,
               statut: false,
-              feedback: 'Tu as confondu le triple et le cube.'
+              feedback: 'Confusion entre le triple et le cube.'
             },
             {
               texte: `$${x}3$`,
@@ -174,12 +174,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${x}-2$`,
               statut: false,
-              feedback: 'Tu as confondu quotient et différence.'
+              feedback: 'Confusion entre quotient et différence.'
             },
             {
               texte: `$\\dfrac{1}{2}+${x}$`,
               statut: false,
-              feedback: 'Tu as confondu muliplier par $\\dfrac{1}{2}$ et ajouter $\\dfrac{1}{2}$.'
+              feedback: 'Confusion entre muliplier par $\\dfrac{1}{2}$ et ajouter $\\dfrac{1}{2}$.'
             },
             {
               texte: `$${x}\\div 0,5$`,
@@ -210,12 +210,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${x}-\\dfrac{1}{4}$`,
               statut: false,
-              feedback: 'Tu as confondu quotient et différence.'
+              feedback: 'Confusion entre quotient et différence.'
             },
             {
               texte: `$\\dfrac{1}{4}+${x}$`,
               statut: false,
-              feedback: 'Tu as confondu muliplier par $\\dfrac{1}{4}$ et ajouter $\\dfrac{1}{4}$.'
+              feedback: 'Confusion entre muliplier par $\\dfrac{1}{4}$ et ajouter $\\dfrac{1}{4}$.'
             },
             {
               texte: `$${x}\\div 0,25$`,
@@ -251,7 +251,7 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${x}-1$`,
               statut: false,
-              feedback: 'Tu as confondu suivant et précédent.'
+              feedback: 'Confusion entre suivant et précédent.'
             },
             {
               texte: `$${x}2$`,
@@ -287,12 +287,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$-1${x}$`,
               statut: false,
-              feedback: 'Tu as confondu multiplier et ajouter.'
+              feedback: 'Confusion entre multiplier et ajouter.'
             },
             {
               texte: `$${x}+1$`,
               statut: false,
-              feedback: 'Tu as confondu précédent et suivant.'
+              feedback: 'Confusion entre précédent et suivant.'
             }
           ]
           break
@@ -323,12 +323,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$2${x}$`,
               statut: false,
-              feedback: 'Tu as confondu le carré et le double.'
+              feedback: 'Confusion entre le carré et le double.'
             },
             {
               texte: `$${x}+2$`,
               statut: false,
-              feedback: 'Tu as confondu somme et puissance.'
+              feedback: 'Confusion entre somme et puissance.'
             }
           ]
           break
@@ -359,12 +359,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$3${x}$`,
               statut: false,
-              feedback: 'Tu as confondu le cube et le triple.'
+              feedback: 'Confusion entre le cube et le triple.'
             },
             {
               texte: `$${x}+3$`,
               statut: false,
-              feedback: 'Tu as confondu somme et puissance.'
+              feedback: 'Confusion entre somme et puissance.'
             }
           ]
           break
@@ -385,12 +385,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${x}-1$`,
               statut: false,
-              feedback: 'Tu as confondu multiplication et addition.'
+              feedback: 'Confusion entre multiplication et addition.'
             },
             {
               texte: `$\\dfrac{1}{${x}}$`,
               statut: false,
-              feedback: 'Tu as confondu opposé et inverse.'
+              feedback: 'Confusion entre opposé et inverse.'
             },
             {
               texte: `$${x}$`,
@@ -416,17 +416,17 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$-1\\times ${x}$`,
               statut: false,
-              feedback: 'Tu as confondu inverse et opposé.'
+              feedback: 'Confusion entre inverse et opposé.'
             },
             {
               texte: `$${x}-1$`,
               statut: false,
-              feedback: 'Tu as confondu division et soustraction.'
+              feedback: 'Confusion entre division et soustraction.'
             },
             {
               texte: `$-${x}$`,
               statut: false,
-              feedback: 'Tu as confondu inverse et opposé.'
+              feedback: 'Confusion entre inverse et opposé.'
             },
             {
               texte: `$${x}$`,
@@ -436,7 +436,7 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$1-${x}$`,
               statut: false,
-              feedback: 'Tu as confondu division et soustraction.'
+              feedback: 'Confusion entre division et soustraction.'
             }
           ]
           break
@@ -457,7 +457,7 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${k}${x}$`,
               statut: false,
-              feedback: 'Tu as confondu addition et multiplication.'
+              feedback: 'Confusion entre addition et multiplication.'
             },
             {
               texte: `$${x}${k}$`,
@@ -467,12 +467,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${x}-${k}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et différence.'
+              feedback: 'Confusion entre somme et différence.'
             },
             {
               texte: `$${k}\\times ${x}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et produit.'
+              feedback: 'Confusion entre somme et produit.'
             }
           ]
           break
@@ -493,7 +493,7 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${k}+${x}$`,
               statut: false,
-              feedback: 'Tu as confondu addition et multiplication.'
+              feedback: 'Confusion entre addition et multiplication.'
             },
             {
               texte: `$${x}${k}$`,
@@ -503,12 +503,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${x}+${k}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et produit.'
+              feedback: 'Confusion entre somme et produit.'
             },
             {
               texte: `$${x}-${k}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et produit.'
+              feedback: 'Confusion entre somme et produit.'
             }
           ]
           break
@@ -539,12 +539,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${x}+${k}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et quotient.'
+              feedback: 'Confusion entre somme et quotient.'
             },
             {
               texte: `$${x}-${k}$`,
               statut: false,
-              feedback: 'Tu as confondu différence et quotient.'
+              feedback: 'Confusion entre différence et quotient.'
             }
           ]
           break
@@ -570,17 +570,17 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${k}\\times ${x}$`,
               statut: false,
-              feedback: 'Tu as confondu produit et quotient.'
+              feedback: 'Confusion entre produit et quotient.'
             },
             {
               texte: `$${x}\\times ${k}$`,
               statut: false,
-              feedback: 'Tu as confondu produit et quotient.'
+              feedback: 'Confusion entre produit et quotient.'
             },
             {
               texte: `$${k}-${x}$`,
               statut: false,
-              feedback: 'Tu as confondu différence et quotient.'
+              feedback: 'Confusion entre différence et quotient.'
             }
           ]
           break
@@ -606,17 +606,17 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${x}+${y}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et produit.'
+              feedback: 'Confusion entre somme et produit.'
             },
             {
               texte: `$${y}+${x}$`,
               statut: false,
-              feedback: 'Tu as confondu somme et produit.'
+              feedback: 'Confusion entre somme et produit.'
             },
             {
               texte: `$${x}-${y}$`,
               statut: false,
-              feedback: 'Tu as confondu différence et produit.'
+              feedback: 'Confusion entre différence et produit.'
             }
           ]
           break
@@ -710,12 +710,12 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$${k}+n$`,
               statut: false,
-              feedback: 'Tu as confondu produit et somme.'
+              feedback: 'Confusion entre produit et somme.'
             },
             {
               texte: `$${k}-n$`,
               statut: false,
-              feedback: 'Tu as confondu produit et différence.'
+              feedback: 'Confusion entre produit et différence.'
             },
             {
               texte: `$\\dfrac{${k}}{n}$`,
@@ -725,7 +725,7 @@ export default class ÉcrireUneExpressionLitterale extends Exercice {
             {
               texte: `$n-${k}$`,
               statut: false,
-              feedback: 'Tu as confondu produit et différence.'
+              feedback: 'Confusion entre produit et différence.'
             }
           ]
           break

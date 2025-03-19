@@ -10,11 +10,12 @@ import { enleveDoublonNum, shuffleLettres } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d\'un angle en fonction des côtés du triangle'
 export const amcReady = true
@@ -22,7 +23,7 @@ export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '16/01/2021'
-export const dateDeModifImportante = '21/08/2024'
+export const dateDeModifImportante = '03/03/2025'
 /**
  * @author Rémi Angot
  * Donner un rapport trigonométrique en fonction des longueurs des côtés (pas de valeurs numériques)
@@ -30,6 +31,7 @@ export const dateDeModifImportante = '21/08/2024'
  * * Un triangle est donné, on demande les 6 rapports
  * * Un triangle rectangle et une hauteur, il faut exprimer un rapport de deux manières différentes
  * Rendu interactif et AMC par EE (Mars 2022)
+ * Passage en remplisLesBlancs par EE (Mars 2025)
  */
 export const uuid = '0d1f7'
 
@@ -48,7 +50,7 @@ export default class ExprimerCosSinTan extends Exercice {
     this.sup = 1
     this.sup2 = '4'
     if (context.isHtml) {
-      this.spacing = 2
+      this.spacing = 3
       this.spacingCorr = 3
     } else {
       this.spacing = 2
@@ -170,6 +172,24 @@ export default class ExprimerCosSinTan extends Exercice {
         texte += '\n\\end{minipage}\n'
         texte += '\\begin{minipage}{.6\\linewidth}\n'
       }
+      const correctionTrigoRLB = [[], // RLB pour Remplis les Blancs
+        [ // cosinus angle et sinus de son complémentaire
+          [`${A.nom + B.nom}`, `${B.nom + A.nom}`],
+          [`${C.nom + B.nom}`, `${B.nom + C.nom}`]
+        ],
+        [ // sinus angle et cosinus de son complémentaire
+          [`${A.nom + C.nom}`, `${C.nom + A.nom}`],
+          [`${C.nom + B.nom}`, `${B.nom + C.nom}`]
+        ],
+        [ // tangente angle
+          [`${A.nom + C.nom}`, `${C.nom + A.nom}`],
+          [`${A.nom + B.nom}`, `${B.nom + A.nom}`]
+        ],
+        [ // tangente angle complémentaire
+          [`${A.nom + B.nom}`, `${B.nom + A.nom}`],
+          [`${C.nom + A.nom}`, `${A.nom + C.nom}`]
+        ]
+      ]
 
       const correctionTrigo = [[],
         [ // cosinus angle et sinus de son complémentaire
@@ -197,6 +217,7 @@ export default class ExprimerCosSinTan extends Exercice {
           `\\dfrac{${B.nom + A.nom}}{${C.nom + A.nom}}`
         ]
       ]
+
       const correctionTrigoPointH = [[],
         [ // cosinus angle et sinus de son complémentaire
             `\\dfrac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
@@ -221,6 +242,25 @@ export default class ExprimerCosSinTan extends Exercice {
           `\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}`,
           `\\dfrac{${A.nom + B.nom}}{${C.nom + A.nom}}`,
           `\\dfrac{${B.nom + A.nom}}{${C.nom + A.nom}}`
+        ]
+      ]
+
+      const correctionTrigoPointHRLB = [[], // RLB pour Remplis les Blancs
+        [ // cosinus angle et sinus de son complémentaire
+          [`${H.nom + B.nom}`, `${B.nom + H.nom}`],
+          [`${A.nom + B.nom}`, `${B.nom + A.nom}`]
+        ],
+        [ // sinus angle et cosinus de son complémentaire
+          [`${H.nom + A.nom}`, `${A.nom + H.nom}`],
+          [`${A.nom + B.nom}`, `${B.nom + A.nom}`]
+        ],
+        [ // tangente angle
+          [`${H.nom + A.nom}`, `${A.nom + H.nom}`],
+          [`${H.nom + B.nom}`, `${B.nom + H.nom}`]
+        ],
+        [ // tangente angle complémentaire
+          [`${A.nom + B.nom}`, `${B.nom + A.nom}`],
+          [`${A.nom + C.nom}`, `${C.nom + A.nom}`]
         ]
       ]
       const propositionsAMCTrigo = [[],
@@ -458,10 +498,15 @@ export default class ExprimerCosSinTan extends Exercice {
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
           texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
           if (!context.isAmc) {
-            // texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + ee, KeyboardType.alphanumeric)
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + ee, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
-            setReponse(this, fonctionsTrigonometriques.length * i + ee, correctionTrigo[fonctionsTrigonometriques[ee]],
-              { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, fonctionsTrigonometriques.length * i + ee, '\\dfrac{%{champ1}}{%{champ2}}', KeyboardType.alphanumeric, '\\ldots')
+            handleAnswers(
+              this,
+              fonctionsTrigonometriques.length * i + ee,
+              {
+                champ1: { value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0] },
+                champ2: { value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][1] }
+              },
+              { options: { texteAvecCasse: true } })
           } else {
             propositionsAMC[ee] =
                         {
@@ -477,14 +522,27 @@ export default class ExprimerCosSinTan extends Exercice {
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
           if (!context.isAmc) {
             texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * fonctionsTrigonometriques.length * i + ee * 2, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
-            setReponse(this, 2 * fonctionsTrigonometriques.length * i + ee * 2, correctionTrigo[fonctionsTrigonometriques[ee]],
-              { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, 2 * (fonctionsTrigonometriques.length * i + ee), '\\dfrac{%{champ1}}{%{champ2}}', KeyboardType.alphanumeric, '\\ldots')
+            handleAnswers(
+              this,
+              2 * (fonctionsTrigonometriques.length * i + ee),
+              {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1], 2],
+                champ1: { value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0] },
+                champ2: { value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][1] }
+              },
+              { options: { texteAvecCasse: true } })
 
             texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * fonctionsTrigonometriques.length * i + ee * 2 + 1, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
-            setReponse(this, 2 * fonctionsTrigonometriques.length * i + ee * 2 + 1, correctionTrigo[fonctionsTrigonometriques[ee] === 3 ? 4 : fonctionsTrigonometriques[ee] === 1 ? 2 : 1],
-              { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, 2 * (fonctionsTrigonometriques.length * i + ee) + 1, '\\dfrac{%{champ1}}{%{champ2}}', KeyboardType.alphanumeric, '\\ldots')
+            handleAnswers(
+              this,
+              2 * (fonctionsTrigonometriques.length * i + ee) + 1,
+              {
+                champ1: { value: correctionTrigoRLB[fonctionsTrigonometriques[ee] === 3 ? 4 : fonctionsTrigonometriques[ee] === 1 ? 2 : 1][0] },
+                champ2: { value: correctionTrigoRLB[fonctionsTrigonometriques[ee] === 3 ? 4 : fonctionsTrigonometriques[ee] === 1 ? 2 : 1][1] }
+              },
+              { options: { texteAvecCasse: true } })
           } else {
             propositionsAMC[ee * 2] =
                         {
@@ -503,17 +561,31 @@ export default class ExprimerCosSinTan extends Exercice {
       } else {
         texteInit = texte
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
+          texte += ee > 0 ? '<br>' : ''
           texte += `Exprimer $${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}(\\widehat{${A.nom + B.nom + C.nom}})$ de deux manières différentes.`
           if (!context.isAmc) {
             texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + 2 * ee, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
-            setReponse(this, fonctionsTrigonometriques.length * i + 2 * ee, correctionTrigo[fonctionsTrigonometriques[ee]],
-              { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, fonctionsTrigonometriques.length * i + 2 * ee, '\\dfrac{%{champ1}}{%{champ2}}', KeyboardType.alphanumeric, '\\ldots')
+            handleAnswers(
+              this,
+              fonctionsTrigonometriques.length * i + 2 * ee,
+              {
+                champ1: { value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][0] },
+                champ2: { value: correctionTrigoRLB[fonctionsTrigonometriques[ee]][1] }
+              },
+              { options: { texteAvecCasse: true } })
+
             texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + 2 * ee + 1, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
+            texte += remplisLesBlancs(this, fonctionsTrigonometriques.length * i + 2 * ee + 1, '\\dfrac{%{champ1}}{%{champ2}}', KeyboardType.alphanumeric, '\\ldots')
+            handleAnswers(
+              this,
+              fonctionsTrigonometriques.length * i + 2 * ee + 1,
+              {
+                champ1: { value: correctionTrigoPointHRLB[fonctionsTrigonometriques[ee]][0] },
+                champ2: { value: correctionTrigoPointHRLB[fonctionsTrigonometriques[ee]][1] }
+              },
+              { options: { texteAvecCasse: true } })
             texte += '<br>'
-            setReponse(this, fonctionsTrigonometriques.length * i + 2 * ee + 1, correctionTrigoPointH[fonctionsTrigonometriques[ee]],
-              { formatInteractif: 'texte' })
           } else {
             propositionsAMC[ee * 2] =
                         {
@@ -550,21 +622,21 @@ export default class ExprimerCosSinTan extends Exercice {
 
       if (this.sup === 1) {
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
-          texteCorr += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=${correctionTrigo[fonctionsTrigonometriques[ee]][0]}$`
-          texteCorr += ee === fonctionsTrigonometriques.length - 1 ? '.' : ' ;'
+          texteCorr += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=${miseEnEvidence(correctionTrigo[fonctionsTrigonometriques[ee]][0])}$`
+          // texteCorr += ee === fonctionsTrigonometriques.length - 1 ? '.' : ''
         }
       } else if (this.sup === 2) {
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
-          texteCorr += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=${correctionTrigo[fonctionsTrigonometriques[ee]][0]}$ ;`
-          texteCorr += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=${correctionTrigo[fonctionsTrigonometriques[ee] === 3 ? 4 : fonctionsTrigonometriques[ee] === 1 ? 2 : 1][0]}$`
-          texteCorr += ee === fonctionsTrigonometriques.length - 1 ? '.' : ' ;'
+          texteCorr += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=${miseEnEvidence(correctionTrigo[fonctionsTrigonometriques[ee]][0])}$ ;`
+          texteCorr += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=${miseEnEvidence(correctionTrigo[fonctionsTrigonometriques[ee] === 3 ? 4 : fonctionsTrigonometriques[ee] === 1 ? 2 : 1][0])}$`
+          // texteCorr += ee === fonctionsTrigonometriques.length - 1 ? '.' : ''
         }
       } else if (this.sup === 3) {
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
           texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
-          texteCorr += `$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=${correctionTrigo[fonctionsTrigonometriques[ee]][0]}$.`
+          texteCorr += `$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=${miseEnEvidence(correctionTrigo[fonctionsTrigonometriques[ee]][0])}$.`
           texteCorr += `<br>$${A.nom + B.nom + H.nom}$ est rectangle en $${H.nom}$ donc `
-          texteCorr += `$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=${correctionTrigoPointH[fonctionsTrigonometriques[ee]][0]}$.`
+          texteCorr += `$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=${miseEnEvidence(correctionTrigoPointH[fonctionsTrigonometriques[ee]][0])}$.`
         }
       }
 

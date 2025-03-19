@@ -30,7 +30,7 @@ export default class DesChocolatsDansDesBoites extends Exercice {
   constructor () {
     super()
 
-    this.introduction = 'D’après Brevet des Collège - Centres étrangers - Juin 2022'
+    this.introduction = 'D\'après Brevet des Collèges - Centres étrangers - Juin 2022'
 
     context.isHtml ? this.spacing = 1 : this.spacing = 2
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2

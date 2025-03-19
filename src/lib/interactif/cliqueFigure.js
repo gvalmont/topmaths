@@ -66,6 +66,9 @@ export function verifQuestionCliqueFigure (exercice, i) {
     const eltExercice = get(`exercice${exercice.numeroExercice}`)
     eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
   }
+  if (exercice.answers === undefined) {
+    exercice.answers = {}
+  }
   setStyles(eltFeedback, 'marginBottom: 20px')
   if (eltFeedback) eltFeedback.innerHTML = ''
   let erreur = false // Aucune erreur détectée
@@ -77,6 +80,7 @@ export function verifQuestionCliqueFigure (exercice, i) {
     eltFigure.removeEventListener('click', mouseSvgClick)
     eltFigure.hasMathaleaListener = false
     if (eltFigure.etat) nbFiguresCliquees++
+    if (eltFigure.etat) exercice.answers[objetFigure.id] = '1'
     if (eltFigure.etat !== objetFigure.solution) erreur = true
   }
   if (nbFiguresCliquees > 0 && !erreur) {

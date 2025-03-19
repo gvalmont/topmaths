@@ -25,7 +25,7 @@ export default class PolynesieJuin13Exo1Q4 extends ExerciceQcmA {
       `$${String(a ** 2)}x^2-${String(b ** 2)}$`,
       `$${String(a ** 2)}x^2-${String(2 * a * b)}x-${String(b ** 2)}$`
     ]
-    this.enonce = `La forme développée de $(${String(a)}x-${String(b)})^2$ est ...`
+    this.enonce = `La forme développée de $(${String(a)}x-${String(b)})^2$ est :`
     this.correction = `$\\begin{aligned}(${String(a)}x-${String(b)})^2&=(${String(a)}x-${String(b)})(${String(a)}x-${String(b)})\\\\
     &=${String(a)}x\\times ${String(a)}x-${String(a)}x\\times ${String(b)}-${String(b)}\\times ${String(a)}x+${String(b)}\\times ${String(b)}\\\\
     &=${String(a ** 2)}x^2-${String(a * b)}x-${String(a * b)}x+${b * b}\\\\

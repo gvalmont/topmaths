@@ -30,6 +30,7 @@ import { verifDragAndDrop } from './DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
 import { afficheScore, type ResultOfExerciceInteractif } from './afficheScore'
 import Hms from '../../modules/Hms'
+import MetaExercice from '../../exercices/MetaExerciceCan'
 export interface ReponseParams {
   digits?: number
   decimals?: number
@@ -294,7 +295,14 @@ export function exerciceInteractif (
     const format = exercice.autoCorrection[i]?.reponse?.param?.formatInteractif
     let resultat: string
     switch (format) {
-      case 'dnd':{
+      case 'custom': {
+        if (exercice instanceof MetaExercice) {
+          const result = exercice.correctionInteractives[i](i)
+          result === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
+        }
+        break
+      }
+      case 'dnd': {
         const result = verifDragAndDrop(exercice, i)
         nbQuestionsValidees += result.score.nbBonnesReponses
         nbQuestionsNonValidees +=
@@ -313,26 +321,25 @@ export function exerciceInteractif (
             )
           }
         }
-      }
         break
+      }
       case 'qcm':
         resultat = verifQuestionQcm(exercice, i)
         resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
         break
-      case 'listeDeroulante':
-        {
-          const selects = document.querySelectorAll(
-            `select[id^="ex${exercice.numeroExercice}Q${i}"]`
-          )
-          if (selects) {
-            for (const select of selects) {
-              (select as HTMLSelectElement).disabled = true
-            }
+      case 'listeDeroulante': {
+        const selects = document.querySelectorAll(
+          `select[id^="ex${exercice.numeroExercice}Q${i}"]`
+        )
+        if (selects) {
+          for (const select of selects) {
+            (select as HTMLSelectElement).disabled = true
           }
-          resultat = verifQuestionListeDeroulante(exercice, i)
-          resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
         }
+        resultat = verifQuestionListeDeroulante(exercice, i)
+        resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
         break
+      }
       case 'cliqueFigure':
         resultat = verifQuestionCliqueFigure(exercice, i)
         resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++

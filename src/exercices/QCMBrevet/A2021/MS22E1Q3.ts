@@ -53,10 +53,10 @@ export default class MetropoleSeptembre21Exo1Q3 extends ExerciceQcmA {
     const objets3 = [traceO, label, fleche, flecheF2]
     const objets4 = [traceO, label, fleche, flecheV, flecheAnimee]
     this.enonce = `Sur quelle figure a-t-on représenté une flèche et son image par une rotation de centre $O$ et d'angle $${Math.abs(angle1)}^\\circ$ ?`
-    const fig1 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1.5 }, fixeBordures(objets1)), objets1)
-    const fig2 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1.5 }, fixeBordures(objets2)), objets2)
-    const fig3 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1.5 }, fixeBordures(objets3)), objets3)
-    const fig4 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1.5 }, fixeBordures(objets4)), objets4)
+    const fig1 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1, style: 'display: inline-block' }, fixeBordures(objets1)), objets1)
+    const fig2 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1, style: 'display: inline-block' }, fixeBordures(objets2)), objets2)
+    const fig3 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1, style: 'display: inline-block' }, fixeBordures(objets3)), objets3)
+    const fig4 = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1, style: 'display: inline-block' }, fixeBordures(objets4)), objets4)
 
     this.correction = fig4
     this.reponses = [
@@ -75,8 +75,8 @@ export default class MetropoleSeptembre21Exo1Q3 extends ExerciceQcmA {
     do {
       const azimut = randint(0, 7) * 45
       const angle1 = choice([90, -90, 45, -45])
-      const angle2 = choice([45, -45, 90, -90, 180], [angle1])
-      const angle3 = choice([45, -45, 90, -90, 180], [angle1, angle2])
+      const angle2 = choice([45, -45, 90, -90, 180], [angle1, -angle1])
+      const angle3 = choice([45, -45, 90, -90, 180], [angle1, -angle1, angle2])
       this.appliquerLesValeurs(azimut, angle1, angle2, angle3)
     } while (nombreElementsDifferents(this.reponses) < n)
   }

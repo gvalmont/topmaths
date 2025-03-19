@@ -28,7 +28,6 @@ export default class Can2025N4Q25 extends ExerciceCan {
     this.canEnonce = this.question
     this.reponse = a + b
     this.question += this.interactif ? ' $=$' : ''
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

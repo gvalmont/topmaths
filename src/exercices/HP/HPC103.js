@@ -1,6 +1,6 @@
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { randint, listeQuestionsToContenu } from '../../modules/outils'
+import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { matrice } from '../../lib/mathFonctions/Matrice'
 import { choice } from '../../lib/outils/arrayOutils'
 import { index, range } from 'mathjs'
@@ -9,15 +9,16 @@ export const titre = 'Produit de matrices'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '04/03/2025' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
- *
+ * Description didactique de l'exercice
  * @author Maxime Nguyen
-
+ * Référence HPC103
+ * Multiplication de matrices : on teste les produits possibles ou non et on réalise le calcul.
 */
 export const uuid = 'a868f'
-
+export const ref = 'HPC103'
 export const refs = {
   'fr-fr': ['HPC103'],
   'fr-ch': []
@@ -25,14 +26,18 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-
+    this.titre = titre
     this.consigne = 'On définit deux matrices $A$ et $B$. Si le produit $A \\times B$ est possible, effectuer le calcul. Faire de même pour $B \\times A$.'
     this.nbQuestions = 3 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.video = '' // Id YouTube ou url
   }
 
   nouvelleVersion () {
+    this.autoCorrection = []
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const matrices = [] // vecteur qui stocke les matrices
       const matricesprint = [] // vecteur qui stocke les matrices écrites en LaTeX
@@ -96,12 +101,21 @@ export default class nomExercice extends Exercice {
         const l1 = matrices[0].subset(index(nblignes[0] - 1, range(0, nbcolonnes[0])))
         const c1 = matrices[1].subset(index(range(0, nblignes[1]), nbcolonnes[1] - 1))
         let detail = `c_{${nblignes[0]}, ${nbcolonnes[1]}}  = `
-        for (let i = 0; i < nbcolonnes[0]; i++) {
-          if (typeof l1 === 'number') {
-            window.notify('l1 n\'est pas une matrice !, on ne peut pas faire subset dessus, il manque donc le détail des calculs', { l1 })
+        // Vérification si l1 est un nombre ou un objet sans dimension
+        if (typeof l1 === 'number' || l1.size === undefined || l1.size()[0] === undefined) {
+          // Cas où l1 est un nombre scalaire
+          for (let i = 0; i < nbcolonnes[0]; i++) {
+            const valeurL1 = (typeof l1 === 'number') ? l1 : l1.subset(index(0))
+            const valeurC1 = (typeof c1 === 'number') ? c1 : c1.subset(index(i, 0))
+            detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(valeurL1.toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(valeurC1.toString()) + '}'
+            if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
           }
-          if (typeof l1 !== 'number') detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
-          if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
+        } else {
+          // Cas normal où l1 est un vecteur ou une matrice
+          for (let i = 0; i < nbcolonnes[0]; i++) {
+            detail += '\\textcolor{red}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{blue}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
+            if (i < nbcolonnes[0] - 1) { detail += '+' } else { detail += ' = ' }
+          }
         }
         detail += `${produit.subset(index(nblignes[0] - 1, nbcolonnes[1] - 1))}`
         texteCorr += `<br> Le détail du calcul de $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ où $c_{${nblignes[0]}, ${nbcolonnes[1]}}$ est le coefficient de la $${nblignes[0]}$-ème ligne et de la $${nbcolonnes[1]}$-ème colonne de la matrice $C = AB$ donne : <br> $${detail}$.`
@@ -117,9 +131,21 @@ export default class nomExercice extends Exercice {
         const l1 = matrices[1].subset(index(nblignes[1] - 1, range(0, nbcolonnes[1])))
         const c1 = matrices[0].subset(index(range(0, nblignes[0]), nbcolonnes[0] - 1))
         let detail = `c_{${nblignes[1]}, ${nbcolonnes[0]}} = `
-        for (let i = 0; i < nbcolonnes[1]; i++) {
-          detail += '\\textcolor{blue}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{red}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}.'
-          if (i < nbcolonnes[1] - 1) { detail += '+' } else { detail += ' = ' }
+        // Vérification si l1 est un nombre ou un objet sans dimension
+        if (typeof l1 === 'number' || l1.size === undefined || l1.size()[0] === undefined) {
+          // Cas où l1 est un nombre scalaire
+          for (let i = 0; i < nbcolonnes[1]; i++) {
+            const valeurL1 = (typeof l1 === 'number') ? l1 : l1.subset(index(0))
+            const valeurC1 = (typeof c1 === 'number') ? c1 : c1.subset(index(i, 0))
+            detail += '\\textcolor{blue}{' + ecritureParentheseSiMoins(valeurL1.toString()) + '} \\times \\textcolor{red}{' + ecritureParentheseSiMoins(valeurC1.toString()) + '}'
+            if (i < nbcolonnes[1] - 1) { detail += '+' } else { detail += ' = ' }
+          }
+        } else {
+          // Cas normal où l1 est un vecteur ou une matrice
+          for (let i = 0; i < nbcolonnes[1]; i++) {
+            detail += '\\textcolor{blue}{' + ecritureParentheseSiMoins(l1.subset(index(0, i)).toString()) + '} \\times \\textcolor{red}{' + ecritureParentheseSiMoins(c1.subset(index(i, 0)).toString()) + '}'
+            if (i < nbcolonnes[1] - 1) { detail += '+' } else { detail += ' = ' }
+          }
         }
         detail += `${produit.subset(index(nblignes[1] - 1, nbcolonnes[0] - 1))}`
         texteCorr += `<br> Le détail du calcul de $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ où $c_{${nblignes[1]}, ${nbcolonnes[0]}}$ est le coefficient de la $${nblignes[1]}$-ème ligne et de la $${nbcolonnes[0]}$-ème colonne de la matrice $C = BA$ donne : <br> $${detail}$.`
@@ -129,8 +155,8 @@ export default class nomExercice extends Exercice {
       }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, matrices)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c, d...)
-        this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++

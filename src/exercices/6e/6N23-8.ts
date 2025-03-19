@@ -80,7 +80,7 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
       switch (typesDeQuestions) {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
-          handleAnswers(this, i, { reponse: { value: texNombre(n, 3), options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { reponse: { value: texNombre(n, 3) } })
           texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, '')
           texteCorr = '$ ' + texFraction(String(a), String(b)) + ' = ' + texNombre(n, 3) + ' $'
           // @ts-expect-error
@@ -111,7 +111,7 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
           }
           handleAnswers(this, i, {
             bareme: (listePoints) => [listePoints[0], 1],
-            champ1: { value: String(a), options: { nombreDecimalSeulement: true } }
+            champ1: { value: String(a) }
           }
           )
 

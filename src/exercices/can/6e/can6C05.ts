@@ -28,7 +28,6 @@ export default class MultiplierAstucieusement extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.besoinFormulaireCaseACocher = ['Permettre des facteurs au dixième, au millième', false]
   }

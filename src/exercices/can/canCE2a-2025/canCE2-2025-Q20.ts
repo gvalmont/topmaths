@@ -25,13 +25,14 @@ export default class Can2025CE2Q20 extends ExerciceCan {
     }
     this.reponse = a + b + c
     this.question = 'Calcule : '
-    this.correction = `$${a} + ${b} + ${c} = (${a} +${c}) + ${b} = 100 + ${b} = ${miseEnEvidence(a + b + c)}$.`
+    this.correction = `$${a} + ${b} + ${c} = (${a} +${c}) + ${b} = 100 + ${b} = ${miseEnEvidence(a + b + c)}$`
     this.canEnonce = this.question
     this.question += `$${a} + ${b} + ${c}$`
     if (this.interactif) {
       this.question += ' $ = $'
     }
-    this.canReponseACompleter = `$${a} + ${b} + ${c} = \\ldots\\ldots$`
+    this.canEnonce = 'Calcule.'
+    this.canReponseACompleter = `$${a} + ${b} + ${c} = \\ldots$`
   }
 
   nouvelleVersion () {

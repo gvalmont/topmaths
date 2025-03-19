@@ -26,7 +26,7 @@ export async function getFraction (question: Question) {
  * @param {string} text
  * @return {string[]} les strings LaTeX contenues dans le texte (sans les $), tableau vide si y'en avait pas
  */
-export function getLatex (text: string) {
+export function getLatexFromText (text: string) {
   return text.match(/\$(.*?)\$/g) ?? []
 }
 

@@ -10,6 +10,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { sp } from '../../../lib/outils/outilString'
 
 export const titre = 'Calculer une aire'
 export const interactifReady = true
@@ -66,7 +67,7 @@ export default class NomExercice extends Exercice {
       }, poly,
       codageAngleDroit(E, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A),
       code1, code2, code3, d, e, segmentED, segmentEA, polygone([A, B, C, E]))
-      this.question += 'Quelle est l\'aire de la figure grisée est ? '
+      this.question += 'Quelle est l\'aire de la figure grisée ? '
       this.correction = `L'aire du rectangle  est : $8\\text{ cm}\\times 4\\text{ cm}=32$ cm$^2$.<br>
       L'aire du triangle  est : $\\dfrac{4\\text{ cm}\\times 4\\text{ cm}}{2}=8$ cm$^2$.<br>
       On en déduit que l'aire du polygone grisé est : $32\\text{ cm}^2-8\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}$ cm$^2$.`
@@ -91,9 +92,9 @@ export default class NomExercice extends Exercice {
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ cm$^2$'
     if (this.interactif) {
-      this.optionsChampTexte = { texteApres: 'cm$^2$.' }
+      this.optionsChampTexte = { texteApres: 'cm$^2$' }
     } else {
-      this.question += ' $\\ldots $ cm$^2$.'
+      this.question += sp(5) + ' $\\ldots $ cm$^2$'
     }
   }
 }

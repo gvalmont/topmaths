@@ -47,7 +47,7 @@ export default class Can2025N6Q19 extends Exercice {
     const qcm = propositionsQcm(this, 0)
 
     this.question += `${qcm.texte}`
-    this.canEnonce = 'Entoure le plus grand nombre.'
+    this.canEnonce = 'Coche le plus grand nombre.'
     this.canReponseACompleter = qcm.texte
     this.reponse = num1// C'est juste pour pas faire planter mathaleaHandleExerciceSimple, cette réponse ne sera pas utilisée.
     this.correction = qcm.texteCorr + `Comme $\\dfrac{${num1}}{10}=\\dfrac{${num1 * 10}}{100}$, le plus grand nombre est :  ${num1 * 10 > num2 ? `$${miseEnEvidence(`\\dfrac{${num1}}{10}`)}$` : `$${miseEnEvidence(`\\dfrac{${num2}}{100}`)}$`}.`

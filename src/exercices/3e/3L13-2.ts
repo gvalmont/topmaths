@@ -187,7 +187,7 @@ $${inc}=${miseEnEvidence(texNombre(b * a / c, 4))}$`,
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br> $${inc} =$ ` })
       reponse = new FractionEtendue(Number(correctionInteractif) * 10000, 10000).simplifie()
       if (context.isAmc) setReponse(this, i, reponse)
-      else handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true } } })
+      else handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true, nombreDecimalSeulement: true } } })
 
       if (this.questionJamaisPosee(i, nbAlea.join(';'))) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte

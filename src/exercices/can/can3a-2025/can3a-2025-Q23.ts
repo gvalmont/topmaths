@@ -25,7 +25,6 @@ export default class ResoudreEquation extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canOfficielle = true
     this.optionsChampTexte = { texteAvant: '<br> $x=$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

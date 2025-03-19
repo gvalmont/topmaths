@@ -2,6 +2,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceCan from '../../ExerciceCan'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Différence de fracion'
 export const interactifReady = true
@@ -34,7 +35,7 @@ export default class Can2025N4Q16 extends ExerciceCan {
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = reponse.texFraction
-    this.formatChampTexte = 'fraction'
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     if (this.interactif) {
       this.question += '$=$'
     }

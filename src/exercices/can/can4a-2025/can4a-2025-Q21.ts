@@ -27,7 +27,6 @@ export default class Can2025N4Q21 extends ExerciceCan {
     this.canReponseACompleter = ''
     this.reponse = String(a + b)
     this.question += this.interactif ? ' $=$' : ''
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

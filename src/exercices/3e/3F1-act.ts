@@ -648,7 +648,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
 
           texteCorr += ' ; Cette liste compte ' + listeDesDiviseurs(25).length + ' nombres, '
           texteCorr += 'donc 25 est un antécédent de 3 par la fonction d.<br>'
-          texteCorr += 'Tu peux en trouver d\'autres, qu\'ont ils de commun ?'
+          texteCorr += 'Il en existe d\'autres, qu\'ont ils de commun ?'
           if (!context.isHtml) {
             texte += '\\end{enumerate}'
             texteCorr += '\\end{enumerate}'

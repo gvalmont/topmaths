@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Calculer une image par une fonction affine'
@@ -39,7 +40,12 @@ export default class CalculImageParFonctionAffine extends Exercice {
         this.question = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=${m}x+${n}$.<br>
         
         Quelle est l'image de $${x}$ par la fonction $${nomF}$ ?`
-        this.correction = `$${nomF}(x)=${m}x+${n}$ donc ici on a : $${nomF}(${x})=${m}\\times ${ecritureParentheseSiNegatif(x)}+${n}=${m * x}+${n}=${m * x + n}$.`
+        this.correction = `Comme $${nomF}(x)=${m}x+${n}$, on a  :<br>
+         $\\begin{aligned}
+         ${nomF}(${x})&=${m}\\times ${ecritureParentheseSiNegatif(x)}+${n}\\\\
+         &=${m * x}+${n}\\\\
+         &=${miseEnEvidence(m * x + n)}
+         \\end{aligned}$`
         this.reponse = m * x + n
         break
       case 2:
@@ -48,10 +54,15 @@ export default class CalculImageParFonctionAffine extends Exercice {
         m = randint(2, 6, [n, n * 2, n * 3])
         y = randint(-9, 9, [x, 0])
         nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-        this.question = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$.<br>
-            
+        this.question = `Soit $${nomF}$ la fonction définie par : $${nomF}(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$.<br>        
             Quelle est l'image de $${n * x}$ par la fonction $${nomF}$ ?`
-        this.correction = `$${nomF}(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$ donc ici on a : $${nomF}(${n * x})=\\dfrac{${m}}{${n}}\\times ${ecritureParentheseSiNegatif(n * x)}${ecritureAlgebrique(y)}=${m}\\times \\dfrac{${n * x}}{${n}}${ecritureAlgebrique(y)}=${m * x}${ecritureAlgebrique(y)}=${m * x + y}$.`
+        this.correction = `Comme $${nomF}(x)=\\dfrac{${m}}{${n}}x${ecritureAlgebrique(y)}$, on a :<br>
+        $\\begin{aligned}
+        ${nomF}(${n * x})&=\\dfrac{${m}}{${n}}\\times ${ecritureParentheseSiNegatif(n * x)}${ecritureAlgebrique(y)}\\\\
+        &=${m}\\times \\dfrac{${n * x}}{${n}}${ecritureAlgebrique(y)}\\\\
+        &=${m * x}${ecritureAlgebrique(y)}\\\\
+        &=${miseEnEvidence(m * x + y)}
+        \\end{aligned}$`
         this.reponse = m * x + y
         break
     }

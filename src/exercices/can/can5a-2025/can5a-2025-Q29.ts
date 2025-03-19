@@ -23,7 +23,6 @@ export default class Can2025N5Q29 extends ExerciceCan {
       b = randint(3, 6)
       c = randint(5, 9)
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = 0
     this.question = `$(${n}\\times${a}+${b})\\times(${c}-${c})$`
     this.correction = `Étant donné que $${c}-${c}=0$, le résultat est $${miseEnEvidence(0)}$ quelle que soit la valeur du premier facteur.`

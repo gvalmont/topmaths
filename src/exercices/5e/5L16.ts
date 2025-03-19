@@ -181,7 +181,7 @@ export default class SimplifierEcritureLitterale extends Exercice {
         case 'x³+a':
           donnee = `x \\times x \\times x + ${a}`
           resultat = `x^3+${a}`
-          resultatBis = `+x\\times x\\times x+${a}`
+          resultatBis = `x\\times x\\times x+${a}`
           break
         case 'ax²':
           if (inverserParentheses) {

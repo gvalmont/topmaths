@@ -160,7 +160,7 @@ export default class SuitesRaison extends Exercice {
           if (this.correctionDetaillee) {
             texteCorr = 'Si $(u_n)$ est une suite géométrique de raison $q$, alors pour tout entier naturel $n$ et $p$, on a $u_n=u_p\\times q^{n-p}$.<br>'
           } else { texteCorr = '' }
-          texteCorr += `$(${NomS}_n)$ est une suite géométrique, alors $${NomS}_{${indiceP}}=${NomS}_{${indice}}+(${indiceP}-${indice})\\times r$. <br>
+          texteCorr += `$(${NomS}_n)$ est une suite géométrique, alors $${NomS}_{${indiceP}}=${NomS}_{${indice}}\\times q^{${indiceP}-${indice}}$. <br>
             Ainsi : <br>
             $\\begin{aligned}
             ${NomS}_{${indiceP}}&=${NomS}_{${indice}}\\times q^{${indiceP}-${indice}}\\\\

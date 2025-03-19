@@ -34,11 +34,9 @@ export default class TermeInconnuDeSomme extends Exercice {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Nombres entiers\n2 : Nombres décimaux']
     this.besoinFormulaire2Numerique = ['Valeur maximale', 9999]
-    this.besoinFormulaire3Numerique = ["Type d'égalités", 2, '1 : Égalités à trou\n2 : Équations']
     this.nbQuestions = 5
     this.sup = 1
-    this.sup3 = 1
-    this.sup2 = 20 // additions|additions à trous|soustractions|soustractions à trous|mélange sans trou|mélange avec trou
+    this.sup2 = 20
     this.consigne = 'Calculer le terme manquant.'
     this.spacing = 2
     this.interactif = false
@@ -48,6 +46,7 @@ export default class TermeInconnuDeSomme extends Exercice {
   }
 
   nouvelleVersion () {
+    this.besoinFormulaire3CaseACocher = this.interactif ? ['Parenthèses inutiles dans la réponse', false] : false
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let decimal
@@ -67,26 +66,25 @@ export default class TermeInconnuDeSomme extends Exercice {
 
       let feedback
       switch (listeTypeDeQuestions[i]) {
-        case 1:
+        case 1: // a + .... = b
           if (a > b) feedback = feedbackNeedParentheses
-          texte = remplisLesBlancs(this, i, `${texNombre(a)} + %{champ1} = ${texNombre(b)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
+          texte = remplisLesBlancs(this, i, `${texNombre(a)} + %{champ1} = ${texNombre(b)}`, KeyboardType.clavierDeBase, '\\ldots')
           texteCorr = `$${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))} = ${texNombre(b)}$`
           break
 
-        case 2:
-          texte = remplisLesBlancs(this, i, `%{champ1} + ${texNombre(a)} = ${texNombre(b)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
+        case 2: // .... + a = b
+          texte = remplisLesBlancs(this, i, `%{champ1} + ${texNombre(a)} = ${texNombre(b)}`, KeyboardType.clavierDeBase, '\\ldots')
           texteCorr = `$${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)} = ${texNombre(b)}$`
           break
 
-        case 3:
-          if (a > b) feedback = feedbackNeedParentheses
-          texte = remplisLesBlancs(this, i, `${texNombre(b)} = %{champ1} + ${texNombre(a)}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
+        case 3: // b = .... + a
+          texte = remplisLesBlancs(this, i, `${texNombre(b)} = %{champ1} + ${texNombre(a)}`, KeyboardType.clavierDeBase, '\\ldots')
           texteCorr = `$${texNombre(b)}=${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)}$`
           break
 
-        case 4:
-        default:
-          texte = remplisLesBlancs(this, i, `${texNombre(b)} = ${texNombre(a)} + %{champ1}`, KeyboardType.clavierDeBase, '\\ldots', { espaceDevant: true })
+        default: // b = a + ....
+          if (a > b) feedback = feedbackNeedParentheses
+          texte = remplisLesBlancs(this, i, `${texNombre(b)} = ${texNombre(a)} + %{champ1}`, KeyboardType.clavierDeBase, '\\ldots')
           texteCorr = `$${texNombre(b)}=${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))}$`
           break
       }
@@ -95,10 +93,14 @@ export default class TermeInconnuDeSomme extends Exercice {
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-
+        const tableauReponse = ['(' + arrondi(b - a, 2) + ')']
+        if (this.sup3) tableauReponse.push(String(arrondi(b - a, 2)))
         if (this.interactif) {
           handleAnswers(this, i, {
-            champ1: { value: arrondi(b - a, 2) },
+            champ1: {
+              value: tableauReponse,
+              options: { texteSansCasse: true }
+            },
             feedback
           })
         } else if (context.isAmc) {
@@ -119,7 +121,7 @@ export default class TermeInconnuDeSomme extends Exercice {
 function feedbackNeedParentheses (input: Record<string, string>) {
   const champ1 = input.champ1
   if (champ1.length > 0 && !champ1.startsWith('\\lparen')) {
-    return 'On ne peut pas écrire « +- ». Il faudrait mettra la réponse entre parenthèses.'
+    return 'On ne peut pas écrire les signes + et - côte à côte. Il faudrait mettre la réponse entre parenthèses.'
   }
   return ''
 }

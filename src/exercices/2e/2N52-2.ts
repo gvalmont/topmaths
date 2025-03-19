@@ -12,7 +12,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Trinome from '../../modules/Trinome'
-export const titre = 'Résoudre des équations avec un carré'
+export const titre = 'Résoudre une équation avec un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '12/10/2024'
@@ -28,12 +28,14 @@ export const refs = {
   'fr-ch': ['11FA10-6']
 }
 export default class FactoriserIdentitesRemarquables2 extends Exercice {
+  can: boolean
   constructor () {
     super()
     this.nbQuestions = 1
     this.sup = '8'
     this.spacing = 1.5
     this.spacingCorr = 1.5
+    this.can = false
     this.besoinFormulaireTexte = [
       'Type de questions', [
         'Nombres séparés par des tirets  :',
@@ -78,42 +80,54 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
         Résoudre l'équation revient à résoudre `
       const CorrCarre2 = `On isole le carré pour se ramener à une équation du type $X^2=k$.<br>
         Résoudre l'équation revient à résoudre `
-      const texteInteractif = '<br>Écrire les solutions sous la forme la plus simple possible.'
+      // const texteInteractif = '<br>Écrire les solutions sous la forme la plus simple possible.'
       const CorrNegatif = ` est strictement négatif, l'équation n'a pas de solution.<br>
           Ainsi, $S=${miseEnEvidence('\\emptyset')}$.`
       const CorrPositif = ' est strictement positif, l\'équation a deux solutions : '
       const choix = choice([true, false])
-      this.consigne = this.nbQuestions === 1 ? 'Résoudre dans $\\mathbb{R}$ l\'équation suivante.' : 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
+      if (!this.can) { this.consigne = 'Résoudre dans $\\mathbb{R}$ :' }
       switch (listeTypeDeQuestions[i]) {
         case 1:
           a = randint(1, 9)
           b = randint(2, 19, [4, 8, 9, 12, 16])
-          texte = `${choix ? `$x^{2}-${a * a}=0$` : `$${a * a}-x^2=0$`} `// x²-a²=0
+          if (this.can) {
+            texte = 'Résoudre dans $\\mathbb{R}$ :<br>'
+            texte += `${choix ? `$x^{2}-${a * a}=0$` : `$${a * a}-x^2=0$`} `
+          } else {
+            texte = `${choix ? `$x^{2}-${a * a}=0$` : `$${a * a}-x^2=0$`} `
+          }// x²-a²=0
           reponse = `\\{-${a};${a}\\}`
           handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
-          texteCorr = `${texteGras('Méthode 1 :')}<br>` + CorrIdentite + `$a=${choix ? 'x' : `${a}`}$ et $b=${choix ? `${a}` : 'x'}$.<br>
+          if (!this.can) {
+            texteCorr = `${texteGras('Méthode 1 :')}<br>` + CorrIdentite + `$a=${choix ? 'x' : `${a}`}$ et $b=${choix ? `${a}` : 'x'}$.<br>
          Résoudre l'équation revient à résoudre ${choix ? `$(x-${a})(x+${a})=0$` : `$(${a}-x)(${a}+x)=0$`} (on reconnaît une équation produit nul).<br>  
         ${choix ? `$x-${a}=0$` : `$${a}-x=0$`} ou ${choix ? `$x+${a}=0$` : `$${a}+x=0$`}<br>
         $x=${a}$ ou $x=-${a}$<br>`
-          texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-${a};${a}\\}`)}$.`
-          texteCorr += `<br>${texteGras('Méthode 2 :')}<br>` + CorrCarre + ` $x^2=${a * a}$.<br>  
+            texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-${a};${a}\\}`)}$.
+            <br>${texteGras('Méthode 2 :')}<br>`
+          } else { texteCorr = '' }
+          texteCorr += CorrCarre + ` $x^2=${a * a}$.<br>  
         Puisque $${a * a}$` + CorrPositif
           texteCorr += `$-\\sqrt{${a * a}}=-${a}$ et $\\sqrt{${a * a}}=${a}$.<br>`
           texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-${a}\\,;\\,${a}\\}`)}$.`
-          if (this.interactif) { texte += '' + texteInteractif }
           break
         case 2:
           b = randint(2, 35, [4, 9, 16, 25])
           reduction = extraireRacineCarree(b)
           reponse = [`\\{-${reduction[0]}\\sqrt{${reduction[1]}};${reduction[0]}\\sqrt{${reduction[1]}}\\}`, `\\{-\\sqrt{${b}};\\sqrt{${b}}\\}`]
-          texte = `$x^{2}-${b}=0$` // x²-b=0
-
-          texteCorr = `${texteGras('Méthode 1 :')}<br>` + CorrIdentite + ` $ a=x$ et $b=\\sqrt{${b}}$.<br>
+          if (this.can) {
+            texte = 'Résoudre dans $\\mathbb{R}$ :<br>'
+            texte += `$x^{2}-${b}=0$`
+          } else { texte = `$x^{2}-${b}=0$` }// x²-b=0
+          if (!this.can) {
+            texteCorr = `${texteGras('Méthode 1 :')}<br>` + CorrIdentite + ` $ a=x$ et $b=\\sqrt{${b}}$.<br>
          Résoudre l'équation revient à résoudre $(x-\\sqrt{${b}})(x+\\sqrt{${b}})=0$ (on reconnaît une équation produit nul).<br>  
         $x-\\sqrt{${b}}=0$ ou $x+\\sqrt{${b}}=0$<br>
-        $x=\\sqrt{${b}}$ ou $x=-\\sqrt{${b}}$<br>`
-          texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${b}}\\,;\\,\\sqrt{${b}}\\}`)}$.`
-          texteCorr += `<br>${texteGras('Méthode 2 :')}<br>` + CorrCarre + ` $x^2=${b}$.<br>  
+        $x=\\sqrt{${b}}$ ou $x=-\\sqrt{${b}}$<br>
+        <br>${texteGras('Méthode 2 :')}<br>`
+            texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${b}}\\,;\\,\\sqrt{${b}}\\}`)}$.`
+          } else { texteCorr = '' }
+          texteCorr += CorrCarre + ` $x^2=${b}$.<br>  
         Puisque $${b}$` + CorrPositif
           texteCorr += ` $-\\sqrt{${b}}$ et $\\sqrt{${b}}$.<br>`
           texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${b}}\\,;\\,\\sqrt{${b}}\\}`)}$.`
@@ -124,7 +138,10 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           a = randint(1, 9)
           b = randint(2, 19, [4, 8, 9, 12, 16])
           reponse = '\\emptyset'
-          texte = `$x^{2}+${a * a}=0$` // x²+a²=0
+          if (this.can) {
+            texte = 'Résoudre dans $\\mathbb{R}$ :<br>'
+            texte += `$x^{2}+${a * a}=0$`
+          } else { texte = `$x^{2}+${a * a}=0$` } // x²+a²=0
           texteCorr += `On isole le carré. L'équation s'écrit $x^{2}=-${a * a}$.<br>
           Comme  $-${a * a}$` + CorrNegatif
           handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
@@ -136,7 +153,11 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
             case 'a':
               a = randint(-24, 24, [0, 1, 4, 9, 16])
               reduction = extraireRacineCarree(a)
-              texte = `$x^{2}=${a}$`
+              if (this.can) {
+                texte = 'Résoudre dans $\\mathbb{R}$ :<br>'
+                texte += `$x^{2}=${a}$`
+              } else { texte = `$x^{2}=${a}$` } // x²=a
+
               reponse = a > 0 ? [`\\{-\\sqrt{${a}};\\sqrt{${a}}\\}`, `\\{-${reduction[0]}\\sqrt{${reduction[1]}};${reduction[0]}\\sqrt{${reduction[1]}}\\}`] : '\\emptyset'
 
               texteCorr = ` On reconnaît une équation du type $x^2=k$ avec $k=${a}$.<br>`
@@ -152,7 +173,10 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
             case 'b' :
               b = randint(1, 12)
               a = b ** 2 * choice([-1, 1])
-              texte = `$x^{2}=${a}$`
+              if (this.can) {
+                texte = 'Résoudre dans $\\mathbb{R}$ :<br>'
+                texte += `$x^{2}=${a}$`
+              } else { texte = `$x^{2}=${a}$` }
               texteCorr = ` On reconnaît une équation du type $x^2=k$ avec $k=${a}$.<br>`
               if (a > 0) {
                 texteCorr += `Puisque $${a}$ ` + CorrPositif
@@ -171,7 +195,10 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           a = randint(2, 9)
           k = randint(-7, 17, [0, 1, 4, 9])
           b = a * k
-          texte = `${choix ? `$${a}x^{2}${ecritureAlgebrique(-b)}=0$` : `$${-b}${ecritureAlgebrique(a)}x^{2}=0$`}` //
+          if (this.can) {
+            texte = 'Résoudre dans $\\mathbb{R}$ :<br>'
+            texte += `${choix ? `$${a}x^{2}${ecritureAlgebrique(-b)}=0$` : `$${-b}${ecritureAlgebrique(a)}x^{2}=0$`}`
+          } else { texte = `${choix ? `$${a}x^{2}${ecritureAlgebrique(-b)}=0$` : `$${-b}${ecritureAlgebrique(a)}x^{2}=0$`}` }
           texteCorr = '' + CorrCarre + ` $x^2=${k}$.<br>  `
           if (k < 0) {
             reponse = '\\emptyset'
@@ -197,7 +224,11 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           frac = new FractionEtendue(-beta, a)
           frac1 = new FractionEtendue(-beta1, a1)
           reponse = [`\\{${p.texX1};${p.texX2}\\}`, `\\{${texNombre((alpha * a1 + beta1) / a1, 1)};${texNombre((a1 * alpha - beta1) / a1, 1)}\\}`]
-          texte = `$${p.texFormeCanonique}=0$`
+          if (this.can) {
+            texte = 'Résoudre dans $\\mathbb{R}$ :<br>'
+            texte += `$${p.texFormeCanonique}=0$`
+          } else { texte = `$${p.texFormeCanonique}=0$` }
+
           if (beta < 0) {
             texteCorr = `${texteGras('Méthode 1 :')}<br> ` + CorrIdentite + ` $a=${rienSi1(a1)}(x${ecritureAlgebrique(-alpha)})$ et $b=${beta1}$.<br>
          Résoudre l'équation revient à résoudre $(${rienSi1(a1)}(x${ecritureAlgebrique(-alpha)})-${beta1})(${rienSi1(a1)}(x${ecritureAlgebrique(-alpha)})+${beta1})=0$ ou encore 
@@ -216,7 +247,6 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
             texteCorr += `Puisque $${frac.texFractionSimplifiee}$ ` + CorrNegatif
           }
 
-          if (this.interactif) { texte += '' + texteInteractif }
           handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
           break
 
@@ -228,8 +258,11 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
           p = new Trinome(a, -2 * a * alpha, a * alpha ** 2 + beta)
           p.defFormeCanonique(a, alpha, beta)
           frac = new FractionEtendue(-beta, a)
+          if (this.can) {
+            texte = 'Résoudre dans $\\mathbb{R}$ :<br>'
+            texte += `$${p.texFormeCanonique}=0$`
+          } else { texte = `$${p.texFormeCanonique}=0$` }
 
-          texte = `$${p.texFormeCanonique}=0$`
           texteCorr = '' + CorrCarre2 + ` $(x${ecritureAlgebrique(-alpha)})^2=${frac.texFractionSimplifiee}$.<br> `
           if (beta * a < 0) {
             reponse = `\\{${p.texX1};${p.texX2}\\}`
@@ -243,7 +276,6 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
             reponse = '\\emptyset'
           }
 
-          if (this.interactif) { texte += '' + texteInteractif }
           handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
           break
       }

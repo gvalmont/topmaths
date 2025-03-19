@@ -35,7 +35,7 @@ export default class EvolutionPourcentages extends Exercice {
     $${b}\\,\\%$ est $${texNombre(1 - b / 100, 2)}$.<br> 
     Le coefficient multiplicateur gobal est  $${texNombre(1 + a / 100, 2)}\\times ${texNombre(1 - b / 100, 2)}$ dans un cas ou $${texNombre(1 - b / 100, 2)}\\times ${texNombre(1 + a / 100, 2)}$ dans l'autre cas, ce qui revient strictement au même. 
     <br>
-  L'affirmation est donc  ${texteEnCouleurEtGras('VRAIE')}.`
+  L'affirmation est donc  ${texteEnCouleurEtGras('VraiE')}.`
       question = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
     diminuer de $${b}\\,\\%$  puis à l’augmenter $${a}\\,\\%$.`
       this.autoCorrection[0] = {
@@ -43,11 +43,11 @@ export default class EvolutionPourcentages extends Exercice {
         enonce: question,
         propositions: [
           {
-            texte: 'VRAI ',
+            texte: 'Vrai ',
             statut: true
           },
           {
-            texte: 'FAUX',
+            texte: 'Faux',
             statut: false
           }
         ]
@@ -59,7 +59,7 @@ export default class EvolutionPourcentages extends Exercice {
 
       this.canEnonce = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
     diminuer de $${b}\\,\\%$  puis à l’augmenter $${a}\\,\\%$.`
-      this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+      this.canReponseACompleter = '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
     } else {
       question = `Un prix augmente de $${a}\\,\\%$. <br>Pour retrouver son prix initial, il suffit de lui appliquer une baisse  de $${a}\\,\\%$. `
       this.correction = `Une augmentation de $${a}\\,\\%$ n'est pas compensée par une baisse de $${a}\\,\\%$.<br>
@@ -70,11 +70,11 @@ export default class EvolutionPourcentages extends Exercice {
         enonce: question,
         propositions: [
           {
-            texte: 'VRAI ',
+            texte: 'Vrai ',
             statut: false
           },
           {
-            texte: 'FAUX',
+            texte: 'Faux',
             statut: true
           }
         ]
@@ -85,7 +85,7 @@ export default class EvolutionPourcentages extends Exercice {
       this.question = question + qcm.texte
 
       this.canEnonce = `Un prix augmente de $${a}\\,\\%$. <br>Pour retrouver son prix initial, il suffit de lui appliquer une baisse  de $${b}\\,\\%$. `
-      this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+      this.canReponseACompleter = '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
     }
   }
 }

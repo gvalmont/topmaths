@@ -79,12 +79,12 @@ export default class ModeliserSuites extends Exercice {
           reponse1 = String(a)
           reponse2 = `${cm.toFixed(2)}\\times c_{n}${ecritureAlgebrique(b)}`
           texte = `Un apiculteur souhaite étendre son activité de production de miel à une nouvelle région.<br>
-         En juillet $2024$, il achète $${a}$ colonies d’abeilles qu'il installe dans cette région.<br>
+         En juillet $2024$, il achète $${a}$ colonies d'abeilles qu'il installe dans cette région.<br>
         Après renseignements pris auprès des services spécialisés, il s'attend à perdre $${p}$ % des colonies durant
         l'hiver. <br>Pour maintenir son activité et la développer, il a prévu d'installer $${b}$ nouvelles colonies chaque
         printemps.<br>`
           if (!this.sup2 || this.interactif) {
-            texte += `On modélise l'évolution du nombre de colonies par une suite $(c_n)$, le terme $c_n$ donnant une estimation du nombre de colonies pendant l’année $2024 + n$.<br>
+            texte += `On modélise l'évolution du nombre de colonies par une suite $(c_n)$, le terme $c_n$ donnant une estimation du nombre de colonies pendant l'année $2024 + n$.<br>
             Préciser la valeur de $c_0$, puis exprimer pour tout entier $n$, le terme $c_{n+1}$ en fonction de $c_n$.`
           } else {
             texte += 'Modéliser l\'évolution du nombre de colonies par une suite $(c_n)$ à partir de 2024.'
@@ -121,7 +121,7 @@ La chaleur provoque dans la retenue une évaporation de $${p}\\,\\%$  du volume 
 De plus, chaque soir, on doit libérer de la retenue $${abs(b)}$ m$^3$ pour l'irrigation des cultures aux alentours.<br>
 `
           if (!this.sup2 || this.interactif) {
-            texte += `On modélise l'évolution du  volume d'eau dans la retenue par une suite $(u_n)$, le terme $u_n$ donnant une estimation du volume d’eau en m$^3$ au matin du $n$-ième jour
+            texte += `On modélise l'évolution du  volume d'eau dans la retenue par une suite $(u_n)$, le terme $u_n$ donnant une estimation du volume d'eau en m$^3$ au matin du $n$-ième jour
 qui suit le 1er juillet 2024.<br>
             Préciser la valeur de $u_0$, puis exprimer pour tout entier $n$, le terme $u_{n+1}$ en fonction de $u_n$.`
           } else {
@@ -194,9 +194,9 @@ au 1er janvier de l'année $2022 + n$.<br>
           reponse1 = String(a)
           reponse2 = `${cm.toFixed(2)}\\times c_{n}-${b}`
           texte = `${choix} place $${texNombre(a)}$ € dans une banque le 1er janvier $2023$ au taux annuel de $${p}\\,\\%$.<br>
-           À la fin de chaque année, les intérêts sont ajoutés au capital, mais les frais de gestion s’élèvent à $${b}$ € ( par an).<br>`
+           À la fin de chaque année, les intérêts sont ajoutés au capital, mais les frais de gestion s'élèvent à $${b}$ € ( par an).<br>`
           if (!this.sup2 || this.interactif) {
-            texte += `On modélise l'évolution du capital de ${choix} par une suite $(c_n)$, le terme $c_n$ donnant le capital au 1er janvier de l’année $2023 + n$.<br>
+            texte += `On modélise l'évolution du capital de ${choix} par une suite $(c_n)$, le terme $c_n$ donnant le capital au 1er janvier de l'année $2023 + n$.<br>
             Préciser la valeur de $c_0$, puis exprimer pour tout entier $n$, le terme $c_{n+1}$ en fonction de $c_n$.`
           } else {
             texte += `Modéliser l'évolution  du capital de ${choix} par une suite $(c_n)$ à partir de $2023$.`
@@ -212,9 +212,9 @@ au 1er janvier de l'année $2022 + n$.<br>
           },
           { formatInteractif: 'fillInTheBlank' }
           )
-          texteCorr = `$c_n$ est le capital 1er janvier de l’année $2023 + n$.<br>
+          texteCorr = `$c_n$ est le capital 1er janvier de l'année $2023 + n$.<br>
             À la fin de chaque année, les intérêts sont ajoutés au capital. Cela signifie que le capital est multiplié par $${texNombre(cm, 2)}$. <br>
-          De plus, les frais de gestion s’élèvent à $${b}$ €.<br>
+          De plus, les frais de gestion s'élèvent à $${b}$ €.<br>
           Ainsi, la suite $(c_n)$ est définie par : 
           $\\begin{cases}c_0=${miseEnEvidence(`${texNombre(a, 0)}`)}\\\\
           c_{n+1}=${miseEnEvidence(`${texNombre(cm, 2)}\\times c_n-${b}`)} \\text{ pour tout entier naturel }n.
@@ -231,7 +231,7 @@ au 1er janvier de l'année $2022 + n$.<br>
           texte = `Dans une ville, un opéra décide de proposer à partir de $2024$ un abonnement annuel pour ses spectacles.<br>
 Le directeur de l'opéra  prévoit que $${p}\\,\\%$ des personnes abonnées renouvelleront leur abonnement l'année suivante et
 qu'il y aura chaque année $${b}$ nouveaux abonnés.<br>
-Pour l’année $2024$, il y a $${a}$ abonnés.<br>`
+Pour l'année $2024$, il y a $${a}$ abonnés.<br>`
           if (!this.sup2 || this.interactif) {
             texte += `L'évolution du nombre d'abonnés d'une année à la suivante est donnée par une suite $(u_n)$, le terme $u_n$ donnant le nombre d'abonnés pour l'année  $2024 + n$.<br>
             Préciser la valeur de $u_0$, puis exprimer pour tout entier $n$, le terme $u_{n+1}$ en fonction de $u_n$.`

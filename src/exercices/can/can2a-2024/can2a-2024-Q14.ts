@@ -66,6 +66,6 @@ Le prix final est donc inférieur au prix initial (car on multiplie par un nombr
         `
     this.canEnonce = `Un article à $${texNombre(valeurs[0])}$ € subit une hausse de $${texNombre(valeurs[1])}\\,\\%$ puis une baisse de $${texNombre(valeurs[1])}\\,\\%$.<br>
         Son nouveau prix est maintenant de :`
-    this.canReponseACompleter = `$\\Box$ $${texNombre(valeurs[2], 2)}$ € <br>$\\Box$ $${texNombre(valeurs[0], 2)}$ €<br>$\\Box$ $${texNombre(valeurs[3], 2)}$ € `
+    this.canReponseACompleter = `\\faSquare[regular] $${texNombre(valeurs[2], 2)}$ € <br>\\faSquare[regular] $${texNombre(valeurs[0], 2)}$ €<br>\\faSquare[regular] $${texNombre(valeurs[3], 2)}$ € `
   }
 }

@@ -240,12 +240,10 @@ export default class Thales2D extends Exercice {
           this.autoCorrection[i] = {
             enonce: '',
             enonceAvant: false,
-            // @ts-expect-error
             options: { multicolsAll: true },
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [{
                   enonce: texte,
                   texte: texteCorr,
@@ -255,7 +253,6 @@ export default class Thales2D extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',
@@ -274,7 +271,6 @@ export default class Thales2D extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',

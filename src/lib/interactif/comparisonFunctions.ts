@@ -1785,7 +1785,7 @@ function unitsCompare (
     return {
       isOk: false,
       feedback:
-        "La réponse est correcte mais tu as oublié de préciser l'unité."
+        "La réponse est correcte mais l'unité n'a pas été précisée."
     }
   }
   if (inputNumber !== 0) {

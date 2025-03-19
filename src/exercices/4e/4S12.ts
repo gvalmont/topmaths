@@ -56,12 +56,21 @@ export default class MoyenneEtMediane extends Exercice {
       const sortedList = temperatures.sort((a, b) => a - b)
       const n = sortedList.length
       if (n % 2 === 0) {
-        handleAnswers(this, 1, {
-          reponse: {
-            value: `]${sortedList[n / 2 - 1]};${sortedList[n / 2]}[`,
-            options: { estDansIntervalle: true }
-          }
-        })
+        if (sortedList[n / 2 - 1] !== sortedList[n / 2]) {
+          handleAnswers(this, 1, {
+            reponse: {
+              value: `]${sortedList[n / 2 - 1]};${sortedList[n / 2]}[`,
+              options: { estDansIntervalle: true }
+            }
+          })
+        } else {
+          handleAnswers(this, 1, {
+            reponse: {
+              value: mediane,
+              options: { resultatSeulementEtNonOperation: true }
+            }
+          })
+        }
       } else {
         handleAnswers(this, 1, { reponse: { value: mediane, options: { resultatSeulementEtNonOperation: true } } })
       }

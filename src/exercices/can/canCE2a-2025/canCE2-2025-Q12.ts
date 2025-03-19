@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { sp } from '../../../lib/outils/outilString'
 
 export const titre = 'Mulitiplier des mutiples de dix'
 export const interactifReady = true
@@ -31,9 +32,10 @@ export default class Can2025CE2Q12 extends ExerciceCan {
     this.canEnonce = this.question
     this.question += `$${a}\\times ${b}$`
     if (this.interactif) {
-      this.question += '$ = $'
+      this.question += `$${sp()} = $`
     }
-    this.canReponseACompleter = `$${a}\\times ${b}=\\ldots\\ldots$`
+    this.canReponseACompleter = `$${a}\\times ${b}=\\ldots$`
+    this.canEnonce = 'Calcule.'
   }
 
   nouvelleVersion () {

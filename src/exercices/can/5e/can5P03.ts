@@ -46,30 +46,28 @@ export default class PoucentageP2 extends Exercice {
         c = randint(2, 8) // nombre de kg première valeur
         d = randint(3, 6, c) // nombre de kg supplémentaires
         this.reponse = d * b
-        this.question = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br>
-        
-        $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>
-        
+        this.question = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br>        
+        $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>        
         Combien coûtent ${d} kg de ces ${fruits[a][0]} ?`
         this.correction = `$${texPrix((c + d) * b)} € - ${texPrix(c * b)} € =${texPrix(this.reponse)} €$`
         if (this.interactif) { this.optionsChampTexte = { texteApres: '€' } }
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ €'
         break
+
       case 2:// proportionnalité débit
         a = choice([50, 100])
         b = choice([10, 20, 30])
         c = choice([150, 250, 300, 350])
-
         this.reponse = (c / a) * b
-        this.question = `Le débit d’un robinet est de $${a}$ L en $${b}$ min.<br>
-        
+        this.question = `Le débit d’un robinet est de $${a}$ L en $${b}$ min.<br>        
         Combien de temps (en minutes) faut-il pour remplir un réservoir de $${c}$ L ?`
         this.correction = `$\\dfrac{${c}}{${a}}\\times ${b}=${this.reponse}$. Il faut donc $${this.reponse}$ minutes pour remplir le réservoir.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: 'min' } }
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ min'
         break
+
       case 3:// proportionnalité plats
         c = randint(0, 4) // index du plat
         b = randint(12, 15)
@@ -101,7 +99,6 @@ export default class PoucentageP2 extends Exercice {
         ${b} & ${c} ${context.isHtml ? '\\\\' : '\\tabularnewline'}
          \\hline
         \\end{array}$`
-
           this.correction = `On passe de la première ligne à la deuxième en multipliant par $${n}$, ainsi, ?$=\\dfrac{${b}}{${n}}=${b / n}$`
         } else {
           a = randint(1, 9)
@@ -120,19 +117,18 @@ export default class PoucentageP2 extends Exercice {
         ${texNombre(c)} &${texNombre(d)} & ${texNombre(c + d)} ${context.isHtml ? '\\\\' : '\\tabularnewline'}
          \\hline
          \\end{array}$`
-
           this.correction = `La valeur cherchée est donnée par la somme $${a}+${b}=${a + b}$.`
         }
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''
         break
+
       case 5:// proportionnalité 6iemJC
         a = choice([2, 3, 4, 5]) // choix du coefficient
         b = randint(3, 10) // donnée 1
         c = randint(2, 10, b) // donnée 2
         d = choice([['un train électrique', 'il'], ['une voiture électrique', 'elle'], ['un manège', 'il']])
-        this.question = `En ${a * b} minutes, ${d[0]} fait ${a * c} tours.<br>
-        
+        this.question = `En ${a * b} minutes, ${d[0]} fait ${a * c} tours.<br>        
         En ${b} minutes ${d[1]} fait ${this.interactif ? '' : '$\\ldots \\ldots$ tours.'}`
         this.correction = `En ${a} fois moins de temps, ${d[1]} fait ${a} fois moins de tours, soit : $${a * c} \\div ${a}=${c}$ tours.`
         this.optionsChampTexte = { texteApres: ' tours.' }

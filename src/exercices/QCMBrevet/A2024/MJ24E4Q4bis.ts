@@ -62,7 +62,7 @@ export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
     const poly = polygone((rosa[0] as Polygone).listePoints)
     poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
     const polyAnim = rotationAnimee([poly], point(0, 0), angleRot * nbSecteursRot * (sens ? 1 : -1))
-    const lab = latex2d('O', -0.5, -0.5, { color: 'black', backgroundColor: 'white', letterSize: 'normalsize' })
+    const lab = latex2d('O', -0.5, -0.5, { color: 'black', letterSize: 'normalsize' })
     if (!this.sup3) {
       this.enonce = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, lab])), rosa, lab)
     } else this.enonce = ''

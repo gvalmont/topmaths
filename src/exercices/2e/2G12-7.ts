@@ -147,13 +147,7 @@ export default class BetaReperage2e extends Exercice {
           }
         }
       }
-      /*
-      const figureCorrection = fig.copy()
-      figureCorrection.isDynamic = false
-      figureCorrection.width = 300
-      figureCorrection.height = 300
-      figureCorrection.scale = 0.5
-*/
+
       const figureCorrection = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300, scale: 0.5 }))
       figureCorrection.options.latexHeight = 20
       figureCorrection.options.labelDxInPixels = 20

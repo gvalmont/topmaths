@@ -30,7 +30,7 @@ export const dateDeModifImportante = '26/10/2024'
  * @author Jean-Claude Lhote
 */
 
-const exercices = [
+const questions = [
   Question1,
   Question2,
   Question3,
@@ -40,9 +40,7 @@ const exercices = [
   Question7,
   Question8,
   Question9
-] as unknown
-
-const questions = exercices as Exercice[]
+]
 
 export default class LimitesSuites extends Exercice {
   constructor () {
@@ -55,7 +53,6 @@ export default class LimitesSuites extends Exercice {
     const exos = combinaisonListes(questions, this.nbQuestions)
     for (let i = 0, index = 0; i < this.nbQuestions;) {
       const Exo = exos[index]
-      // @ts-expect-error : le constructeur de Exo est bien un Exercice
       const question = new Exo()
       question.nouvelleVersion()
       const texte = question.question as string

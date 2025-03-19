@@ -305,7 +305,7 @@ export default class SommeFractionsDecimales extends Exercice {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
               champ1: { value: fractionResultat, options: { fractionDecimale: true } },
               //  champ2: { value: stringNombre(reponseAMC, 3), options: { avecFractions: false } }
-              champ2: { value: stringNombre(reponseAMC, 3), options: { nombreDecimalSeulement: true } }
+              champ2: { value: stringNombre(reponseAMC, 3) }
             })
           }
           break

@@ -30,7 +30,7 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
       `$${texNombre(a + c + b, 0)}$`,
       `$${texNombre(a * c - b)}$`
     ]
-    this.enonce = `On considère la fonction $f$ définie par $${reduireAxPlusB(a, b)}$.<br>
+    this.enonce = `On considère la fonction $f$ définie par $f(x)=${reduireAxPlusB(a, b)}$.<br>
     Quelle est l'image de $${String(c)}$ par cette fonction ?`
     this.correction = `l'image de $${String(c)}$ par $f$ est : $${rienSi1(a)}${Math.abs(a) !== 1 ? '\\times ' : ''}${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(b)}=${miseEnEvidence(texNombre(a * c + b, 0))}$.<br>`
   }

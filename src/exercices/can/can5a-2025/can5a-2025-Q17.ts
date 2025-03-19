@@ -25,7 +25,6 @@ export default class Can2025N5Q17 extends ExerciceCan {
       b = choice([1000, 100, 10])
     }
     const prefixe = b === 1000 ? 'k' : b === 100 ? 'h' : 'da'
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * b
     this.question = `$${texNombre(a, 1)}$ ${prefixe}m $=$`
     this.correction = `$1\\text{ ${prefixe}m} = ${texNombre(b, 0)}\\text{ m}$, 

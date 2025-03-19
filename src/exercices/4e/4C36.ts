@@ -88,22 +88,22 @@ export default class nomExercice extends Exercice {
       {
         intitule: 'le volume d\'une bouteille d\'eau',
         puissanceDe10: 0,
-        unite: 'dm³'
+        unite: 'dm$^3$'
       },
       {
         intitule: 'le volume d\'une bouteille d\'eau',
         puissanceDe10: -3,
-        unite: 'm³'
+        unite: 'm$^3$'
       },
       {
         intitule: 'le volume d\'une bouteille d\'eau',
         puissanceDe10: 3,
-        unite: 'mm³'
+        unite: 'mm$^3$'
       },
       {
         intitule: 'la surface d\'une table',
         puissanceDe10: 0,
-        unite: 'm²'
+        unite: 'm$^2$'
       }
     ]
     const problemesDePuissances = [

@@ -25,7 +25,6 @@ export default class Can2025N5Q19 extends ExerciceCan {
     }
     const nbStr = Array.from(a.toFixed(3))
     const index = b === 'centièmes' ? 5 : b === 'dixièmes' ? 4 : b === 'centaines' ? 0 : 1
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = nbStr[index]
     this.question = `Le chiffre des ${b} dans le nombre $${texNombre(a, 3)}$ est `
     this.correction = `Le chiffre des ${b} dans le nombre $${texNombre(a, 3)}$ est $${miseEnEvidence(`${nbStr[index]}`)}$.`

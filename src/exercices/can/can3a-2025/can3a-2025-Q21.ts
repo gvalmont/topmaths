@@ -71,12 +71,10 @@ export default class CalculLongueurThales extends Exercice {
     this.correction = `Le triangle $ISR$ est un agrandissement du triangle $ITQ$. Le coefficient d'agrandissement est donné par : $\\dfrac{IS}{IT}=\\dfrac{${b}}{${a}}=${texNombre(k, 0)}$.<br>
              On obtient donc la longueur $IR$ en multipliant par $${k}$ la longueur $IQ$.<br>
              $IR=${c}\\times ${k}=${miseEnEvidence(d)}$ cm.<br>`
-
-    if (this.interactif) {
-      this.question += '<br>$IR=$'
-    } else { this.question += '$IR=\\ldots$ cm' }
-
     this.canEnonce = this.question
-    this.canReponseACompleter = ''
+
+    this.question += this.interactif ? '<br>$IR=$' : '$IR=\\ldots$ cm'
+
+    this.canReponseACompleter = '$IR=\\ldots$ cm'
   }
 }

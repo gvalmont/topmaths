@@ -24,7 +24,6 @@ export default class Can2025N5Q21 extends ExerciceCan {
       const c = randint(1, 8)
       b = c * 10 + randint(1, 8, c)
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * b
     this.question = `$${texNombre(a, 0)} \\times ${b}$ `
     this.correction = `On décompose le calcul : <br>

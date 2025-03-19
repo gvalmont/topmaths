@@ -10,9 +10,6 @@
     freezeUrl,
     globalOptions,
     isInIframe,
-    isMenuNeededForExercises,
-    resultsByExercice
-
   } from '../lib/stores/generalStore'
   import { context } from '../modules/context'
   import {
@@ -33,56 +30,40 @@
   import type { CanSolutionsMode } from '../lib/types/can'
   import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
   import Alacarte from './setup/alacarte/Alacarte.svelte'
+  import { fetchServerVersion } from '../lib/components/version'
+  import Popup from './shared/modal/Popup.svelte'
+  import { checkBrowserVersion } from '../lib/components/browserVersion'
+  import { vendor } from '../lib/stores/vendorStore'
 
   let isInitialUrlHandled = false
 
-  context.versionMathalea = 3
-  if (customElements.get('alea-instrumenpoche') === undefined) {
-    customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-    customElements.define(
-      'alea-buttoninstrumenpoche',
-      ElementButtonInstrumenpoche
-    )
+  let showPopup = false
+  let popupMessage = ''
+
+  function handlePopupClose() {
+    // console.log('Popup has been closed');
+    showPopup = false
   }
 
-  // resultsByExercice.subscribe(value => {
-  //   console.log('resultsByExercice updated')
-  //   console.log(JSON.stringify(value))
-  // })
+  onMount(() => {
+    handleInitialUrl()
 
-  // isMenuNeededForExercises.subscribe(value => {
-  //   console.log('isMenuNeededForExercises updated')
-  //   console.log(JSON.stringify(value))
-  // })
+    const version = checkBrowserVersion()
+    if (version.popupMessage.length > 0) {
+      showPopup = true
+      popupMessage = version.popupMessage
+    }
+  })
 
-  // let globalOptionsParams : any
-  // globalOptions.subscribe(value => {
-  //   console.log('globalOptions updated')
-  //   if (globalOptionsParams){
-  //     if (JSON.stringify(globalOptionsParams) !== JSON.stringify(value)){
-  //       console.log('globalOptionsParams updated and difference')
-  //       console.log(JSON.stringify(globalOptionsParams))
-  //     }
-  //     globalOptionsParams = value
-  //   } else {
-  //     globalOptionsParams = value
-  //   }
-  //   console.log(JSON.stringify(value))
-  // })
-  // let InterfaceExercicesParams : any
-  // exercicesParams.subscribe(value => {
-  //   console.log('exercicesParams updated')
-  //   if (InterfaceExercicesParams){
-  //     if (JSON.stringify(InterfaceExercicesParams) !== JSON.stringify(value)){
-  //       console.log('exercicesParams updated and difference')
-  //       console.log(JSON.stringify(InterfaceExercicesParams))
-  //     }
-  //     InterfaceExercicesParams = value
-  //   } else {
-  //     InterfaceExercicesParams = value
-  //   }
-  //   console.log(JSON.stringify(value))
-  // })
+  if (customElements.get('alea-instrumenpoche') === undefined) {
+    customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
+    customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
+  }
+
+  // charge le numéro de version du serveur
+  fetchServerVersion()
+
+  
 
   // Gestion des recorders (Moodle, Capytale, etc. )
   // Lorsque la page d'accueil est dans un iFrame, l'URL est bloquée et les boutons d'exports cachés
@@ -117,8 +98,6 @@
     $canOptions.isInteractive = canIsInteractive === 'true'
   }
 
-  onMount(handleInitialUrl)
-
   $: {
     // if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     context.isDiaporama = $globalOptions.v === 'diaporama'
@@ -139,6 +118,19 @@
     } else {
       context.isAmc = false
     }
+    // initialisation du vendor pour l'intégration de la bannière dans la vue élève
+    if ($globalOptions.v === 'myriade') {
+      $vendor.product = {
+        name: 'indices',
+        logoPath: 'assets/images/vendors/bordas/myriade-bordas-logo.png'
+      }
+    }
+    if ($globalOptions.v === 'indices') {
+      $vendor.product = {
+        name: 'indices',
+        logoPath: 'assets/images/vendors/bordas/indices-bordas-logo.png'
+      }
+    }
     context.vue = ''
     if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
     if ($globalOptions.v === 'latex') context.vue = 'latex' // for compatibility
@@ -147,7 +139,7 @@
     context.isInEditor = false
   }
 
-  function handleInitialUrl () {
+  function handleInitialUrl() {
     updateReferentielLocaleFromURL()
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
@@ -156,18 +148,19 @@
     isInitialUrlHandled = true
   }
 
-  function isDevMode () {
+  function isDevMode() {
     return window.location.href.startsWith('http://localhost')
   }
-
 </script>
 
 <div id="appComponent" class="antialiased">
-  {#if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
+  {#if showPopup}
+    <Popup message={popupMessage} visible={showPopup} onClose={handlePopupClose} />
+  {:else if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />
   {:else if $globalOptions.v === 'can'}
     <Can />
-  {:else if $globalOptions.v === 'eleve'}
+  {:else if $globalOptions.v === 'eleve' || $globalOptions.v === 'indices' || $globalOptions.v === 'myriade'}
     <Eleve />
   {:else if $globalOptions.v === 'latex'}
     <Latex />

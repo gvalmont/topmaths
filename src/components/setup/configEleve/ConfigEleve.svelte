@@ -61,6 +61,14 @@
   $: $canOptions.isInteractive = $globalOptions.setInteractive === '1'
   type LinkFormat = keyof typeof availableLinkFormats
   let currentLinkFormat: LinkFormat = 'clear'
+  let setInteractive: string = $globalOptions.setInteractive ?? '2'
+  let presMode:
+    | 'liste_exos'
+    | 'un_exo_par_page'
+    | 'liste_questions'
+    | 'une_question_par_page'
+    | 'recto'
+    | 'verso' = $globalOptions.presMode ?? 'liste_exos'
 
   /**
    * Construit l'URL correspondant aux choix de la page de configuration et bascule sur cette page
@@ -210,7 +218,8 @@
               </div>
               <FormRadio
                 title="présentation"
-                bind:valueSelected={$globalOptions.presMode}
+                bind:valueSelected={presMode}
+                on:newvalue={() => $globalOptions.presMode = presMode}
                 labelsValues={[
                   {
                     label: 'Tous les exercices sur une page',
@@ -255,7 +264,8 @@
               </div>
               <FormRadio
                 title="Interactif"
-                bind:valueSelected={$globalOptions.setInteractive}
+                bind:valueSelected={setInteractive}
+                on:newvalue={() => $globalOptions.setInteractive = setInteractive}
                 labelsValues={[
                   { label: 'Laisser tel quel', value: '2' },
                   { label: 'Tout interactif', value: '1' },

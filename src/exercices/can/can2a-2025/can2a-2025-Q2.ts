@@ -24,7 +24,6 @@ export default class PrioriteMultiplication extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.canOfficielle = true
   }
 

@@ -15,12 +15,11 @@ import Question14 from '../canCE1a-2025/canCE1-2025-Q14'
 import Question15 from '../canCE1a-2025/canCE1-2025-Q15'
 import Question16 from '../canCE1a-2025/canCE1-2025-Q16'
 import Question17 from '../canCE1a-2025/canCE1-2025-Q17'
-import Question18 from '../canCE1a-2025/canCE1-2025-Q18'
+import Question18 from '../c3/canc3D04'
 import Question19 from '../canCE1a-2025/canCE1-2025-Q19'
 import Question20 from '../canCE1a-2025/canCE1-2025-Q20'
 
 import MetaExercice from '../../MetaExerciceCan'
-import Exercice from '../../Exercice'
 
 export const titre = 'CAN CE1 sujet 2025'
 export const interactifReady = true
@@ -37,7 +36,7 @@ export const dateDePublication = '01/02/2025'
  * @author Jean-Claude Lhote
 */
 
-const exercices = [
+const questions = [
   Question1,
   Question2,
   Question3,
@@ -58,10 +57,7 @@ const exercices = [
   Question18,
   Question19,
   Question20
-
-] as unknown
-
-const questions = exercices as Exercice[]
+]
 
 export default class Can5CE12025 extends MetaExercice {
   constructor () {

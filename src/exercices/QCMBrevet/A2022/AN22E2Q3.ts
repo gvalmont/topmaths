@@ -30,7 +30,7 @@ export default class AmeriqueNordJuin22Ex1Q3 extends ExerciceQcmA {
         `$f(x)=x-\\dfrac{${c.toString()}}{${b.toString()}}x$`
     ]
 
-    this.enonce = `La fonction linéaire $f$ telle que $f(\\dfrac{${a.toString()}}{${b.toString()}})=${c.toString()}$ est :`
+    this.enonce = `La fonction linéaire $f$ telle que $f\\left(\\dfrac{${a.toString()}}{${b.toString()}}\\right)=${c.toString()}$ est :`
     this.correction = `Une fonction linéaire est de la forme $f(x)=ax$.<br>
     Donc,<br>$\\begin{aligned}
      a\\times \\dfrac{${a.toString()}}{${b.toString()}}&=${c.toString()}\\\\

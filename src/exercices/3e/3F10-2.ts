@@ -35,7 +35,7 @@ export default class CalculsImagesFonctions extends Exercice {
       'Choix des questions', 'Nombres séparés par des tirets\n1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
     ]
     this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
-    this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Avec des entiers relatifs\n3 : Avec des fractions dans les coefficients (antécédents positifs)\n4 : Avec des antécédents tous négatifs (pas de fraction)\n5 : Mélange']
+    this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Que des entiers négatifs\n3 : Avec des entiers relatifs\n4 : Avec des fractions positives dans les coefficients (uniquement pour linéaire et affine)\n5 : Avec des antécédents tous négatifs (pas de fraction)\n6 : Mélange']
 
     this.sup = 2
     this.sup2 = 1
@@ -48,53 +48,53 @@ export default class CalculsImagesFonctions extends Exercice {
   nouvelleVersion () {
     const listeTypeDeQuestions = this.fonctions === 'affinesOuLineaires'
       ? gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        min: 1,
+        max: 2,
+        defaut: 3,
+        melange: 3,
+        nbQuestions: this.nbQuestions,
+        listeOfCase: ['linéaire', 'affine']
+      })
+      : this.fonctions === 'polynomialesOuRationnelles'
+        ? gestionnaireFormulaireTexte({
           saisie: this.sup,
           min: 1,
           max: 2,
           defaut: 3,
           melange: 3,
           nbQuestions: this.nbQuestions,
-          listeOfCase: ['linéaire', 'affine']
+          listeOfCase: ['polynôme', 'fraction']
         })
-      : this.fonctions === 'polynomialesOuRationnelles'
-        ? gestionnaireFormulaireTexte({
-            saisie: this.sup,
-            min: 1,
-            max: 2,
-            defaut: 3,
-            melange: 3,
-            nbQuestions: this.nbQuestions,
-            listeOfCase: ['polynôme', 'fraction']
-          })
         : gestionnaireFormulaireTexte({
-            saisie: this.sup,
-            min: 1,
-            max: 4,
-            defaut: 5,
-            melange: 5,
-            nbQuestions: this.nbQuestions,
-            listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction']
-          })
+          saisie: this.sup,
+          min: 1,
+          max: 4,
+          defaut: 5,
+          melange: 5,
+          nbQuestions: this.nbQuestions,
+          listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction']
+        })
 
     let sousChoix
     if (this.sup2 === 1) { // Pour paramétrer plus finement le type de question pour les questions
-      if (this.sup3 !== 3) {
+      if (this.sup3 !== 4) {
         sousChoix = combinaisonListes([0], this.nbQuestions)
       } else {
         sousChoix = combinaisonListes([1], this.nbQuestions)
       }
     } else if (this.sup2 === 2) { // Que pour les fonctions affines et linéaires
-      if (this.sup3 < 3 || this.sup3 === 4) {
+      if (this.sup3 < 4 || this.sup3 === 5) {
         sousChoix = combinaisonListes([2, 3], this.nbQuestions)
-      } else if (this.sup3 === 3) {
+      } else if (this.sup3 === 4) {
         sousChoix = combinaisonListes([4], this.nbQuestions)
       } else {
         sousChoix = combinaisonListes([2, 3, 4], this.nbQuestions)
       }
-    } else { // Que pour les fonctions affines et linéaires
-      if (this.sup3 < 3 || this.sup3 === 4) {
+    } else { // Que pour les fonctions non affines
+      if (this.sup3 < 4 || this.sup3 === 5) {
         sousChoix = combinaisonListes([0, 2, 3], this.nbQuestions)
-      } else if (this.sup3 === 3) {
+      } else if (this.sup3 === 4) {
         sousChoix = combinaisonListes([1, 4], this.nbQuestions)
       } else {
         sousChoix = combinaisonListes([0, 1, 2, 3, 4], this.nbQuestions)
@@ -104,19 +104,24 @@ export default class CalculsImagesFonctions extends Exercice {
       // on ne choisit que des nombres compris entre 1 et 20
       texte = ''
       texteCorr = ''
-      if (this.sup3 > 2 && this.fonctions === 'polynomialesOuRationnelles') this.sup3++
+      if (this.sup3 > 3 && this.fonctions === 'polynomialesOuRationnelles') this.sup3++
       if (this.sup3 === 1) {
         x = randint(2, 9)
         y = randint(-9, 9, [x, 0])
         n = choice([2, 4, 5])
         m = randint(2, 6, [n, n * 2, n * 3])
       } else if (this.sup3 === 2) {
-        x = randint(-9, 9, [0, 1, -1])
+        x = randint(-9, -2)
+        y = randint(-9, 9, [x, 0])
+        n = choice([2, 4, 5])
+        m = randint(2, 6, [n, n * 2, n * 3])
+      } else if (this.sup3 === 3) {
+        x = randint(-9, 0, [0, 1, -1])
         y = randint(-9, 9, [x, 0])
         n = choice([2, 4, 5])
         m = randint(2, 6, [n, n * 2, n * 3])
       } else {
-        if (this.sup3 === 3) {
+        if (this.sup3 === 4) {
           x = randint(2, 9)
         } else {
           x = randint(-9, 9, [0, 1, -1])
@@ -125,7 +130,7 @@ export default class CalculsImagesFonctions extends Exercice {
         n = choice([2, 4, 5])
         m = randint(2, 6, [n, n * 2, n * 3])
       }
-      if (this.sup3 === 4) {
+      if (this.sup3 === 5) {
         x = -Math.abs(x)
       }
       tagImage = true

@@ -29,7 +29,6 @@ export default class SommeSuite extends Exercice {
     this.spacingCorr = 2
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

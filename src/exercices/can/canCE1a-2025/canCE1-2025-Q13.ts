@@ -22,7 +22,6 @@ export default class Can2025CE1Q13 extends ExerciceCan {
 
     this.reponse = (a / 2).toString()
     this.optionsChampTexte = { texteApres: '.' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.question = `La moitié de  $${a}$ est : `
     this.correction = `La moitié de $${a}$ est $${miseEnEvidence(a / 2)}$ car $2\\times ${a / 2}=${a}$.`
 

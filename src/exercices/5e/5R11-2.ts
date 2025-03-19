@@ -92,7 +92,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
-          // @ts-expect-error typage de AMC
           propositions: [{ texte: texteCorr, statut: 0, feedback: '' }]
         }
       }
@@ -100,6 +99,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       const { figure, latex } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
+      figure.options.distanceWithoutNewPoint = 0.00001
       this.figures[i] = figure
 
       const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step, points: this.goodAnswers[i] })
@@ -132,7 +132,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: this.consigne + '<br>' + texte + '<br>',
-          // @ts-expect-error typage de AMC
           propositions: [{ statut: 3, sanscadre: true }]
         }
       }

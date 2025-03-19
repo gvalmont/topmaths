@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice'
-import { texNombre } from '../../../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
@@ -28,17 +28,17 @@ export default class Can2025CM2Q26 extends Exercice {
 
   nouvelleVersion () {
     const a1 = 0
-    const a2 = 2
+    const a2 = 1.75
 
     const x = this.canOfficielle ? 6 : randint(1, 7, 4)
     this.reponse = { reponse: { value: `\\frac{${x}}{4}` } } // this.reponse = String(x)
-    const drGrad = new DroiteGraduee({ Unite: 4, Min: a1, Max: a2, thickSec: true, thickSecDist: 0.25, labelsPrincipaux: true, pointListe: [[x / 4, 'A']] })
+    const drGrad = new DroiteGraduee({ Unite: 4, Min: a1, Max: a2, thickSec: true, thickSecDist: 0.25, labelListe: [[1, `${stringNombre(1)}`], [0, `${stringNombre(0)}`]], labelsPrincipaux: false, pointListe: [[x / 4, 'A']] })
     const objets = [drGrad]
     this.question = 'Quel nombre repère le point $A$ ?<br>'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.correction = `L'unité est partagée en $4$. Ainsi, chaque part correspond à $0,25$.<br>
-       Le point $A$ est repère $${miseEnEvidence(texNombre(x / 4, 2))}$.`
+       Le point $A$ repère $${miseEnEvidence(texNombre(x / 4, 2))}$.`
   }
 }

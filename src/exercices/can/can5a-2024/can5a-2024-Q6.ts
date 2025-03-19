@@ -5,6 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF } from '../../../lib/outils/Personne'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { formatMinute } from '../../../lib/outils/texNombre'
 
 export const titre = 'Calculer une durée en minutes'
 export const interactifReady = true
@@ -43,7 +44,7 @@ export default class NomExercice extends Exercice {
           Quelle est la durée de son trajet ?`
       this.correction = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${d}$
            min pour atteindre $${a + 1}$ h $${d}$ min. <br>
-           Son trajet aura  duré  $${miseEnEvidence(60 - b + d)}$ min.`
+           Son trajet aura  duré  $${miseEnEvidence(formatMinute(60 - b + d))}$ min.`
     }
     if (this.interactif) {
       this.optionsChampTexte = { texteApres: 'min.' }

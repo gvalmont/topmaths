@@ -183,6 +183,7 @@
     const newParams: InterfaceParams[] = []
     for (const exercice of newExercises) {
       newParams.push({
+        cd: exercice.correctionDetaillee ? '1' : '0',
         uuid: exercice.uuid,
         id: exercice.id,
         alea: exercice.seed?.substring(0, 4),

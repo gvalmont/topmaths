@@ -8,6 +8,7 @@ import { context } from './context'
  * Si le contexte est !isHtml alors elle retourne la chaine passée en argument.
  * http://mirrors.ctan.org/macros/latex/contrib/scratch3/scratch3-fr.pdf
  * https://scratchblocks.github.io
+ * https://github.com/iremlp/c2it-article-scratchblocks/blob/master/res/scratchblocks.txt
  * @author Jean-Claude Lhote.
  */
 
@@ -44,6 +45,10 @@ export function scratchblock (stringLatex: string) {
             texte = translatex(chaine, index + taille + 1, compteAccolades)
             texte2 = translatex(chaine, texte[1], texte[2])
             resultat = [`${texte[0]} ${texte2[0]} `, texte2[1], texte2[2]]
+            break
+          case 'look':
+            texte = translatex(chaine, index + taille + 1, compteAccolades)
+            resultat = [texte[0], texte[1], texte[2]]
             break
           case 'move':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
@@ -169,11 +174,14 @@ export function scratchblock (stringLatex: string) {
         switch (string) {
           case 'num':
             texte = translatex(chaine, index + taille + 1, compteAccolades)
+            resultat = [`[${texte[0]}]`, texte[1] + 1, texte[2] - 1] // Indispensable pour 3L14DNB-1
+            /*
             if (Number.isNaN(texte[0]) && texte[0].indexOf(regex3.source)) {
               resultat = [`[${texte[0]}]`, texte[1] + 1, texte[2] - 1]
             } else {
               resultat = [`(${texte[0]})`, texte[1] + 1, texte[2] - 1]
             }
+            */
             break
           case 'moreblocks':
             texte = translatex(chaine, index + taille + 1, compteAccolades)

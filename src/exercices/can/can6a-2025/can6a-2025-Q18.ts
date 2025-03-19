@@ -58,7 +58,7 @@ export default class Can2025N6Q18 extends Exercice {
     La longueur du côté est égale à `
     if (!this.interactif) { this.question += '$\\ldots$ cm.' }
     this.canEnonce = `Le périmètre de ce carré est égal à $${perimetre}$ cm.<br>
-    complète. `
+    Complète. `
     this.canReponseACompleter = mathalea2d(Object.assign({ scale: 0.5, style: 'display: block', pixelsParCm: 25 }, fixeBordures(objets)), objets)
     this.reponse = texNombre(perimetre / 4, 1)
     this.correction = `La longueur du côté du carré est  : $${perimetre}\\div 4= ${miseEnEvidence(this.reponse)}$ cm.`

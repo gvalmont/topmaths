@@ -54,6 +54,6 @@ export default class SignePuissance extends Exercice {
      Comme  $${ecritureParentheseSiNegatif(valeurs[0])}^{${puiss}}$ est  ${valeurs[0] < 0 && valeurs[1] % 2 !== 0 ? 'négatif (puissance impaire d\'un nombnre négatif)' : 'positif (puissance paire d\'un nombre négatif)'}, on en déduit que  $\\dfrac{1}{${ecritureParentheseSiNegatif(valeurs[0])}^{${puiss}}}$ est ${valeurs[0] < 0 && valeurs[1] % 2 !== 0 ? 'négatif' : 'positif'}.<br>
     Ainsi, $${ecritureParentheseSiNegatif(valeurs[0])}^{-${puiss}}$ est ${valeurs[0] < 0 && valeurs[1] % 2 !== 0 ? `${texteEnCouleurEtGras('négatif')}` : `${texteEnCouleurEtGras('positif')}`}.`
     this.canEnonce = `Signe de  $${ecritureParentheseSiNegatif(valeurs[0])}^{-${puiss}}$`
-    this.canReponseACompleter = '$\\box$Positif <br> $\\box$Négatif'
+    this.canReponseACompleter = ''
   }
 }

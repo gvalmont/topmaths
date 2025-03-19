@@ -24,7 +24,6 @@ export default class Can2025CE1Q7 extends ExerciceCan {
     }
 
     this.reponse = (chiffreC + 1) * 100 + b * 10 + c
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.question = `Écris le nombre qui a $${b}$ pour chiffre des dizaines, $${c}$ pour chiffre des unités et qui vient après $${a}$.`
     this.correction = `Puisque le chiffre des dizaines est $${b}$ et celui des unités est $${c}$, le nombre cherché se termine par $${b}${c}$.<br>
     Le nombre doit être supérieur à $${a}$, c'est donc $${miseEnEvidence((chiffreC + 1) * 100 + b * 10 + c)}$.`

@@ -24,7 +24,6 @@ export default class Can2025N5Q15 extends ExerciceCan {
     }
     const largeur = Math.min(a, b)
     const longueur = Math.max(a, b)
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = (a + b) * 2
     this.question = `Périmètre d'un rectangle de longueur $${longueur}$ cm et de largeur $${largeur}$ cm`
     this.correction = `Le périmètre d'un rectangle de longueur $${longueur}$ cm et de largeur $${largeur}$ cm est $2\\times (${longueur}+${largeur})=2\\times ${longueur + largeur}=${miseEnEvidence(texNombre((longueur + largeur) * 2, 0))}$ cm.`

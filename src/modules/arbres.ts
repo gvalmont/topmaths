@@ -209,7 +209,8 @@ export class Arbre {
       ? yOrigine
       : yOrigine - sens * 5
     )
-    const labelA = latexParCoordonnees(this.nom, A.x + (vertical ? 0.5 * sens : 0), A.y + (vertical ? 0 : 0.5 * sens), 'black', 15 * this.nom.length, 20, 'white', tailleCaracteres)
+    // const labelA = latexParCoordonnees(this.nom, A.x + (vertical ? 0.5 * sens : 0), A.y + (vertical ? 0 : 0.5 * sens), 'black', 15 * this.nom.length, 20, 'white', tailleCaracteres)
+    const labelA = latexParCoordonnees(this.nom, A.x + (vertical ? 0.1 * sens : 0), A.y + (vertical ? 0 : 0.5 * sens), 'black', 15 * this.nom.length, 20, 'white', tailleCaracteres)
     const positionProba = vertical ? homothetie(A, B, 0.7, '', 'center') : translation(homothetie(A, B, 0.6), vecteur(A.x > B.x ? 0.5 : -0.5, 0), '', 'center') // Proba au 2/5 de [AB] en partant de A.
     positionProba.positionLabel = 'center'
     const probaA = this.visible

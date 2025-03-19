@@ -106,8 +106,8 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const figure2 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets2)), objets2)
     context.anglePerspective = 30
     // enoncé
-    let enonce = `On dispose d’un terrain en pente sur lequel on souhaite construire une maison.<br>
-    Il faut pour cela enlever de la terre afin d’obtenir un terrain horizontal.<br>
+    let enonce = `On dispose d'un terrain en pente sur lequel on souhaite construire une maison.<br>
+    Il faut pour cela enlever de la terre afin d'obtenir un terrain horizontal.<br>
 On dispose des informations suivantes :<br><br>
 
   ${deuxColonnesResp(`${centrage(texteEnCouleurEtGras('Vue en coupe du terrain', 'black'))}${figure}`, `La maison sera construite sur le terrain horizontal représenté par le segment $[BC]$.<br>
@@ -122,20 +122,20 @@ On dispose des informations suivantes :<br><br>
     enonce += createList({
       items: [
   `Justifier que la longueur $CB$ est égale à $${texNombre(base, 2)}$ m.`,
-`Le coût des travaux pour enlever la terre dépend de la mesure de l’angle $\\widehat{ABC}$.<br>
-Si la mesure de l’angle $\\widehat{ABC}$ est supérieure à $8,5°$, cela entraînera un surcoût des travaux (c'est-à-dire que les traveaux pour enlever la terre coûteront plus cher).<br>
+`Le coût des travaux pour enlever la terre dépend de la mesure de l'angle $\\widehat{ABC}$.<br>
+Si la mesure de l'angle $\\widehat{ABC}$ est supérieure à $8,5°$, cela entraînera un surcoût des travaux (c'est-à-dire que les traveaux pour enlever la terre coûteront plus cher).<br>
 Est-ce le cas pour ce terrain ?`,
 `On admet que le volume de terre enlevée correspond au prisme droit $CBAFED$ de hauteur $[CF]$ et de bases $ABC$ et $DEF$comme représenté ci-dessous.<br>
  On rappelle que les longueurs CF et AD sont égales.<br>${figure2}\n
  Déterminer le volume de terre à enlever en m$^3$.<br>
 On rappelle la volume de formule :
- ${centrage(`Volume d’un prisme droit = ${texteItalique('aire d’une base du prisme × hauteur du prisme')}.`)}`
+ ${centrage(`Volume d'un prisme droit = ${texteItalique('aire d\'une base du prisme × hauteur du prisme')}.`)}`
       ],
       style: 'nombres'
     })
     const correction = createList({
       items: [
-        `Le triangle $ABC$ est rectangle en $C$ donc d’après le théorème de Pythagore :<br>
+        `Le triangle $ABC$ est rectangle en $C$ donc d'après le théorème de Pythagore :<br>
         $AB^2 = AC^2 + BC^2$<br>
         En remplaçant par les valeurs numériques, on a :<br>
         $${texNombre(hypo, 2)}^2 = ${texNombre(hauteur, 2)}^2 + BC^2$, soit : $${texNombre(hypo ** 2, 4)} = ${texNombre(hauteur ** 2, 4)} + BC^2$.<br>
@@ -150,7 +150,7 @@ On rappelle la volume de formule :
         Or ${Math.asin(hauteur / hypo) * 180 / Math.PI > 8.5
         ? ' $\\widehat{ABC} > 8,5°$, donc le surcoût des travaux est à prévoir.'
 : ' $\\widehat{ABC} \\leq 8,5°$, donc il n\'y aura pas de surcoût.'}`,
-        `Le volume du prisme droit $CBAFED$ est égal à l’aire de la base $ABC$ multipliée par la hauteur $CF$ du prisme.<br>
+        `Le volume du prisme droit $CBAFED$ est égal à l'aire de la base $ABC$ multipliée par la hauteur $CF$ du prisme.<br>
         $V = \\mathscr{A}_{ABC} \\times CF$<br>
         $V = \\dfrac{AC \\times BC}{2} \\times CF$<br>
         $V = \\dfrac{${texNombre(hauteur, 2)} \\times ${texNombre(base, 2)}}{2} \\times ${texNombre(profondeur, 1)}$<br>

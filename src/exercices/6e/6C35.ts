@@ -90,7 +90,8 @@ export default class ModelisationProblemes extends Exercice {
       this.consigne = 'Associer chaque problème avec sa modélisation.'
     }
 
-    let colorA, colorB
+    let colorA : string = 'black'
+    let colorB : string = 'black'
     const schemas = []
     let brouilleLesCartes
     let typesDeQuestionsDisponibles
@@ -489,7 +490,7 @@ export default class ModelisationProblemes extends Exercice {
       if (this.correctionDetaillee) {
         texteCorr += colonne1 + '<br><br>'
       }
-
+      if (listeTypeDeQuestions[i] === 5) texteCorr += `Puisque le partage se fait avec mes $${c3 - 1}$ amis, la partage se fait donc entre $${c3}$ personnes (mes $${c3 - 1}$ amis et moi). <br><br>`
       if (this.sup3 === 1) {
         handleAnswers(this, i, { reponse: { value: correctionSansSchema, options: { operationSeulementEtNonResultat: true } } })
         texteCorr += "L'opération qui peut résoudre le problème est : "

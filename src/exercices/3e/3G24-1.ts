@@ -291,7 +291,7 @@ export default class TrianglesSemblables extends Exercice {
           } else {
             texteCorr += `Les angles du triangle ${B.nom + C.nom + A.nom} mesurent  ${angleA}°, ${angleB}° et ${angleC}°.<br>`
             texteCorr += `Les angles du triangle ${D.nom + E.nom + F.nom} mesurent  ${angleA}°, ${angleE}° et ${angleF}°.<br>`
-            texteCorr += 'Les deux triangles ABE et ACD n’ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ne sont pas semblables.<br>'
+            texteCorr += 'Les deux triangles ABE et ACD n\'ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ne sont pas semblables.<br>'
           }
           break
         }

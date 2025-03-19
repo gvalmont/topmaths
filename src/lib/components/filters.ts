@@ -349,8 +349,7 @@ export function idCriterion (idToMatch: string): Criterion<ResourceAndItsPath> {
           isExerciceItemInReferentiel(item.resource) ||
           isTool(item.resource)
         ) {
-          // Toutes les références sont en majuscules sauf can qui est écrit en minuscule
-          return item.resource.id.includes(idToMatch.toUpperCase().replaceAll('CAN', 'can'))
+          return item.resource.id.toLowerCase().includes(idToMatch.toLowerCase())
         } else {
           return false
         }

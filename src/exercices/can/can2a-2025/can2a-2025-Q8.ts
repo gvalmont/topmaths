@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 
 export const titre = 'Calculer avec une puissance'
 export const interactifReady = true
@@ -47,8 +48,8 @@ export default class ProprietePuissances extends Exercice {
           this.reponse = { champ1: { value: s.toString() } }
           this.question = `${a}^{${n}}\\times ${a}^{${p}}=${a}^{%{champ1}}`
           this.correction = `On utilise la formule $a^n\\times a^m=a^{n+m}$ avec $a=${a}$, $n=${n}$ et $p=${p}$.<br>
-            $${a}^{${n}}\\times ${a}^{${p}}=${a}^{${n}+${p}}=${a}^{${miseEnEvidence(s)}}$`
-          this.canEnonce = `${a}^{${n}}\\times ${a}^{${p}}`
+            $${a}^{${n}}\\times ${a}^{${p}}=${a}^{${n}+${ecritureParentheseSiNegatif(p)}}=${a}^{${miseEnEvidence(s)}}$`
+          this.canEnonce = `$${a}^{${n}}\\times ${a}^{${p}}$`
           this.canReponseACompleter = `$${a}^{\\ldots}$`
           break
 

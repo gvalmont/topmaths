@@ -29,7 +29,7 @@ export default class Can2025N4Q15 extends ExerciceCan {
       precision = choice(['dixième', 'centième'])
     }
 
-    this.question = `Arrondi de $${texNombre(val, 3)}$ au ${precision} près`
+    this.question = `Arrondi de $${texNombre(val, 3)}$ au ${precision} `
     if (precision === 'dixième') {
       this.correction = `Le chiffre des centièmes est ${b > 5 ? 'supérieur' : 'inférieur'} à $5$, donc l'arrondi au dixième de $${texNombre(val, 3)}$ est $${miseEnEvidence(texNombre(arrondi(val, 1), 1))}$`
       this.reponse = val.toFixed(1)
@@ -42,7 +42,6 @@ export default class Can2025N4Q15 extends ExerciceCan {
     if (this.interactif) {
       this.question += '<br>'
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

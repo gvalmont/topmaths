@@ -5,6 +5,7 @@ import { point, tracePoint } from '../../../lib/2d/points'
 import { labelPoint } from '../../../lib/2d/textes'
 import { grille } from '../../../lib/2d/reperes'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { sp } from '../../../lib/outils/outilString'
 
 export const titre = 'Déterminer un coefficient de colinéarité'
 export const interactifReady = true
@@ -75,6 +76,8 @@ export default class CoefficientDeColinearite extends Exercice {
       scale: 0.5,
       style: 'margin: auto'
     }, objets)
-    this.canReponseACompleter = 'Compléter : <br>$\\overrightarrow{DE}=\\ldots\\overrightarrow{AB}$'
+    this.canReponseACompleter = `Compléter : <br>$\\overrightarrow{DE}=\\ldots${sp()}\\overrightarrow{AB}$`
+    this.canNumeroLie = 24
+    this.canLiee = [23]
   }
 }

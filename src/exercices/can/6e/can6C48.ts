@@ -25,7 +25,6 @@ export default class problemeEconomie extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: '€' }
     this.canOfficielle = true
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 

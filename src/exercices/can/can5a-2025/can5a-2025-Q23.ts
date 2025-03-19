@@ -23,7 +23,6 @@ export default class Can2025N5Q23 extends ExerciceCan {
     }
     const ent = Math.floor(a / b)
     const f = a % b
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = ent + 1
     this.question = `Le plus petit entier supérieur à $\\dfrac{${a}}{${b}}$`
     this.correction = `$\\dfrac{${a}}{${b}}=\\dfrac{${ent * b}}{${b}}+\\dfrac{${f}}{${b}}=${ent}+\\dfrac{${f}}{${b}}$<br>

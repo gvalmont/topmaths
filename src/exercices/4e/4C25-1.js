@@ -194,7 +194,7 @@ export default class ProblemesMultiplicatifsFractions extends Exercice {
         //= ===== énoncé indice 0 la bouteille d'eau  ======
         //= =====================================================
 
-        pb3f[0].enonce += `Ce matin, ${pb3f[0].prenoms[0]} a ouvert une bouteille d’eau. Elle a bu $${pb3f[0].fractions[0].texFraction}$ de la bouteille.`
+        pb3f[0].enonce += `Ce matin, ${pb3f[0].prenoms[0]} a ouvert une bouteille d'eau. Elle a bu $${pb3f[0].fractions[0].texFraction}$ de la bouteille.`
         pb3f[0].enonce += `<br>Puis à midi, elle a bu $${pb3f[0].fractions[8].texFraction}$ du reste. `
 
         //= =====================================================

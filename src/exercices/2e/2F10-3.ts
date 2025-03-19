@@ -36,7 +36,6 @@ export default class Representerfonctionaffine extends Exercice {
   level: 3 | 2 = 2
   constructor () {
     super()
-    this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 || context.isDiaporama ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
     this.nbQuestions = 3 // On complète le nb de questions
     this.sup = 1
     this.sup2 = 1
@@ -45,6 +44,7 @@ export default class Representerfonctionaffine extends Exercice {
   }
 
   nouvelleVersion () {
+    this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 || context.isDiaporama ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
     this.figures = []
     this.coefficients = []
 

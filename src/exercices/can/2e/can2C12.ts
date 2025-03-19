@@ -4,13 +4,15 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
+import { arrondi } from '../../../lib/outils/nombres'
+
 export const titre = 'Déterminer un taux global d’évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '19/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '19/12/2021'
+export const dateDeModifImportante = '18/03/2025'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -30,13 +32,13 @@ export default class TauxGlobal extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    this.optionsChampTexte = { texteApres: ' $\\%$' }
+    this.optionsChampTexte = { texteAvant: '<br>Taux d\'évolution global : ', texteApres: ' $\\%$' }
   }
 
   nouvelleVersion () {
     let a, b, coeffG
     let listeCalculs = []
-
+    this.reponse = 0
     switch (choice(['a', 'b', 'c', 'd'])) {
       case 'a':// augmente puis diminue
         a = randint(1, 9) * 10
@@ -140,7 +142,8 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
         this.reponse = (coeffG - 1) * 100
         break
     }
-    this.canEnonce = this.question// 'Compléter'
-    this.canReponseACompleter = ''
+    this.reponse = arrondi(this.reponse, 0)
+    this.canEnonce = this.question
+    this.canReponseACompleter = '\\ldots %'
   }
 }

@@ -8,13 +8,14 @@ import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Lecture graphique de domaine de définition'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '11/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '18/02/2025'
 export const uuid = 'e46e6'
 
 export const refs = {
@@ -23,7 +24,7 @@ export const refs = {
 }
 
 /**
- * trois niveaux, trouver les signes d'une fonction affine
+ * Trois niveaux, trouver les signes d'une fonction affine
  * @author Jean-Claude Lhote
  */
 export default class LectureEnsebleDef extends Exercice {
@@ -84,7 +85,11 @@ export default class LectureEnsebleDef extends Exercice {
           xMax: xMax + 2,
           yMin: yMin - 2,
           yMax: yMax + 2
-        }).setGrille({ grilleX: { dx: 1, xMax, xMin }, grilleY: { dy: 1, yMax, yMin } }).buildStandard()
+        }).setGrille({ grilleX: { dx: 1, xMin: xMin - 2, xMax: xMax + 2 }, grilleY: { dy: 1, yMin: yMin - 2, yMax: yMax + 2 } })
+          .setThickX({ xMin, xMax, dx: 1 })
+          .setThickY({ yMin, yMax, dy: 1 })
+          .buildStandard()
+
         ouvertGauche = Math.random() < 0.5
         ouvertDroit = Math.random() < 0.5
 
@@ -119,7 +124,10 @@ export default class LectureEnsebleDef extends Exercice {
           xMax: 5,
           yMin: -5,
           yMax: 5
-        }).setGrille({ grilleX: { dx, xMax: 5, xMin: -5 }, grilleY: { dy, yMax: 5, yMin: -5 } }).buildStandard()
+        }).setGrille({ grilleX: { dx: 1, xMin: -5, xMax: 5 }, grilleY: { dy: 1, yMin: -5, yMax: 5 } })
+          .setThickX({ xMin: -5, xMax: 5, dx: 1 })
+          .setThickY({ yMin: -5, yMax: 5, dy: 1 })
+          .buildStandard()
         if (choice([true, false])) {
           xmin = -dx - 1
           xmax = '+\\infty'
@@ -150,7 +158,10 @@ export default class LectureEnsebleDef extends Exercice {
           xMax: 5,
           yMin: -5,
           yMax: 5
-        }).setGrille({ grilleX: { dx, xMax: 5, xMin: -5 }, grilleY: { dy, yMax: 5, yMin: -5 } }).buildStandard()
+        }).setGrille({ grilleX: { dx: 1, xMin: -5, xMax: 5 }, grilleY: { dy: 1, yMin: -5, yMax: 5 } })
+          .setThickX({ xMin: -5, xMax: 5, dx: 1 })
+          .setThickY({ yMin: -5, yMax: 5, dy: 1 })
+          .buildStandard()
         xmin = '-\\infty'
         xmax = '+\\infty'
         ouvertGauche = true
@@ -161,7 +172,7 @@ export default class LectureEnsebleDef extends Exercice {
     }
 
     this.question = mathalea2d(Object.assign({}, fixeBordures([repere])), [repere, courbeAvecTrace]) + 'Quel est l\'ensemble de définition de la fonction représentée ci-dessus ?'
-    this.correction = `L'ensemble de définition de la fonction est $${ouvertGauche ? ']' : '['}${xmin};${xmax}${ouvertDroit ? '[' : ']'}$.`
+    this.correction = `L'ensemble de définition de la fonction est $${miseEnEvidence(`${ouvertGauche ? ']' : '['}${xmin};${xmax}${ouvertDroit ? '[' : ']'}`)}$.`
     this.reponse = {
       reponse: {
         value: `${ouvertGauche ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${ouvertDroit ? '\\right\\lbrack' : '\\right\\rbrack'}`,

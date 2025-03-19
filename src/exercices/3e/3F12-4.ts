@@ -81,7 +81,7 @@ export default class ImageGraphique extends Exercice {
         b = a * x1 - fx1
         f = (x : number):number => a * x - b
 
-        texte += `Déterminer par lecture graphique les images de $${x1}$ et de $${x2}$ par cette fonction $f$.<br>`
+        texte += `Déterminer par lecture graphique les images respectives de $${x1}$ et de $${x2}$ par cette fonction $f$.<br>`
         texteCorr = `L'image de $${x1}$ est $${fx1}$, on note $f(${x1})=${fx1}$.<br>`
         texteCorr += `L'image de $${x2}$ est $${fx2}$, on note $f(${x2})=${fx2}$.`
       }
@@ -128,7 +128,7 @@ export default class ImageGraphique extends Exercice {
       }
 
       if (this.sup === 2 || this.sup === 3) {
-        texte += `Déterminer par lecture graphique les images de $${x1}$, de $${x2}$ et de $${x3}$ par cette fonction $f$.<br>`
+        texte += `Déterminer par lecture graphique les images respectives de $${x1}$, de $${x2}$ et de $${x3}$ par cette fonction $f$.<br>`
         texteCorr = `L'image de $${x1}$ est $${fx1}$, on note $f(${x1})=${fx1}$.<br>`
         texteCorr += `L'image de $${x2}$ est $${fx2}$, on note $f(${x2})=${fx2}$.<br>`
         texteCorr += `L'image de $${x3}$ est $${fx3}$, on note $f(${x3})=${fx3}$.<br>`

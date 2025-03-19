@@ -22,7 +22,6 @@ export default class Can2025N5Q1 extends ExerciceCan {
       a = choice([6, 7, 8, 9])
       b = choice([6, 7, 8, 9], [a])
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = a * b
     this.question = `$${a} \\times ${b}$ `
     this.correction = `$${a}\\times${b}=${miseEnEvidence(texNombre(this.reponse, 0))}$`

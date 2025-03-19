@@ -130,7 +130,7 @@ export function buildMathAleaURL (options: {
       url.addParam('order', global.order.join('-'))
     }
   } else {
-    url.addParam('title', global.title)
+    url.addParam('title', global.title ?? 'Évaluation')
   }
   if (global.beta) {
     url.addParam('beta', '1')
@@ -157,8 +157,8 @@ export function buildEsParams (
   ])
   let es = ''
   // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed
-  es += presentationMode.get(mode !== undefined ? mode : options.presMode)
-  es += options.setInteractive
+  es += presentationMode.get(mode !== undefined ? mode : options.presMode ?? 'liste_exos')
+  es += options.setInteractive ?? '2'
   es += options.isSolutionAccessible ? '1' : '0'
   es += options.isInteractiveFree ? '1' : '0'
   es += options.oneShot ? '1' : '0'

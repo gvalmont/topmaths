@@ -29,7 +29,7 @@ export default class CoeffMultiplicateur extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.question = 'Multiplier par $0,8$ revientà faire une baisse de : '
+      this.question = 'Multiplier par $0,8$ revient à faire une baisse de : '
       this.correction = `Comme $0,8=1-0,2=1-\\dfrac{20}{100}$, multiplier par $0,8$ revient à baisser de $${miseEnEvidence('20')}\\,\\%$. `
       this.reponse = 20
       this.optionsChampTexte = { texteApres: '$\\%$.' }

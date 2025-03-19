@@ -14,7 +14,7 @@ export const refs = {
   'fr-fr': ['3F14DNB-1'],
   'fr-ch': []
 }
-export const titre = 'Fonctions, tableur et équation produit nul'
+export const titre = 'Résoudre un exercice DNB : fonction, tableur et équation produit nul'
 export const dateDePublication = '06/12/2024'
 /**
  * @Author Jean-Claude Lhote
@@ -66,8 +66,8 @@ export default class Exercice3F14DNB1 extends ExerciceBrevetA {
       items: [
         `Montrer que l'image de $${x0}$ par la fonction $f$ est $${y0}$.`,
         `Déterminer l'antécédent de $${y1}$ par la fonction $g$.`,
-        `Pour calculer des images de nombres par les fonctions $f$ et $g$, on utilise un tableau et on obtient la copie d’écran suivante :<br> ${tableauValeurs}
- À l’aide des informations précédentes, citer deux antécédents de $${f(x0)}$ par la fonction $f$.`,
+        `Pour calculer des images de nombres par les fonctions $f$ et $g$, on utilise un tableur et on obtient la copie d'écran suivante :<br> ${tableauValeurs}
+ À l'aide des informations précédentes, citer deux antécédents de $${f(x0)}$ par la fonction $f$.`,
         `Quelle formule a-t-on pu saisir dans la cellule B2 avant de l'étirer vers la droite jusqu'à la cellule  ${lettreDepuisChiffre(1 + listeX.length)}2 ?`,
         'Existe-t-il un nombre qui a la même image par la fonction $f$ et par la fonction $g$ ?'
 

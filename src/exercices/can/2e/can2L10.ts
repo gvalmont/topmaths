@@ -4,6 +4,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Simplifier un quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,6 +28,7 @@ export default class SimplifierQuotient extends Exercice {
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion () {

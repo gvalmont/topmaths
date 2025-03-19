@@ -65,8 +65,8 @@ export default class ResoudreEquationSecondDegre2 extends Exercice {
       }
       handleAnswers(this, i, {
         bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-        champ1: { value: Math.min(x1, x2), options: { nombreDecimalSeulement: true } },
-        champ2: { value: Math.max(x1, x2), options: { nombreDecimalSeulement: true } }
+        champ1: { value: Math.min(x1, x2) },
+        champ2: { value: Math.max(x1, x2) }
       }
       ) */
 

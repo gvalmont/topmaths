@@ -32,7 +32,6 @@ export default class Can2025N5Q5 extends ExerciceCan {
       absB = randint(1, nbPas - 1) * pas + min
     }
     const nbSauts = Math.round((absB - min) / pas)
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = absB
     const d = droiteGraduee({
       Min: 0,

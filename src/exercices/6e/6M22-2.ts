@@ -158,11 +158,11 @@ export default class PerimetreAireEtPortionsDeDisques extends Exercice {
           break
       }
       if (this.sup !== 2) {
-        handleAnswers(this, this.sup === 3 ? 2 * i : i, { reponse: { value: [reponseL1!, reponseL1bis!], options: { nombreDecimalSeulement: true } } })
+        handleAnswers(this, this.sup === 3 ? 2 * i : i, { reponse: { value: [reponseL1!, reponseL1bis!] } })
         texte = 'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i : i, '   ', { texteApres: ' $\\text{cm}$' }) + '<br>'
       }
       if (this.sup !== 1) {
-        handleAnswers(this, this.sup === 3 ? 2 * i + 1 : i, { reponse: { value: [reponseA1!, reponseA1bis!], options: { nombreDecimalSeulement: true } } })
+        handleAnswers(this, this.sup === 3 ? 2 * i + 1 : i, { reponse: { value: [reponseA1!, reponseA1bis!] } })
         texte += 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, '   ', { texteApres: ' $\\text{cm}^2$' })
       }
 

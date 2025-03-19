@@ -57,7 +57,7 @@ export default class Can2025CE1Q20 extends Exercice {
       style: 'margin: auto'
     }, d)
     this.question += 'Quel nombre est repéré par la croix ? '
-    this.correction = `Entre $${valMin}$ et $${valMin + 100}$, , il y a $100$ unités. <br>
+    this.correction = `Entre $${valMin}$ et $${valMin + 100}$, il y a $100$ unités. <br>
     Ces $100$ unités sont partagées en $10$ parts.<br>
       Chaque part correspond  à $10$ unités car $10\\times 10=100$.<br>
       Ainsi, la croix repère le nombre $${miseEnEvidence(texNombre(absSol))}$.`
@@ -68,7 +68,7 @@ export default class Can2025CE1Q20 extends Exercice {
       ymin: -1.5,
       xmax: 12.2,
       ymax: 1.5,
-      scale: 0.4,
+      scale: 0.38,
       style: 'margin: auto'
     }, d)
     if (this.interactif) {

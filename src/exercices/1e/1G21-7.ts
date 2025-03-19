@@ -42,7 +42,7 @@ class EqCartVectNormal extends Exercice {
       const yA = (b / a) * xA - (b / a) * xH + yH// pour que A soit sur la pendiculaire à d passant par A
       const constante = -xH * a - yH * b // pour que H soit sur d
       texte = `Dans un repère $(O\\,;\\, \\vec{i}\\,,\\,\\vec{j})$, on considère la droite 
-         $d$ d’équation 
+         $d$ d'équation 
          $${reduireAxPlusByPlusC(a, b, constante)}=0$ et le point $A(${xA}\\,;\\,${yA})$. <br>
          Déterminer les coordonnées du point $H$ projeté orthogonal de $A$ sur $d$.
           `

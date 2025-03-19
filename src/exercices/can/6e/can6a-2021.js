@@ -8,7 +8,7 @@ import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
@@ -212,14 +212,13 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte = `Il est $${a}$ h $${b}$ min.<br>
             Dans une demi-heure, quelle heure sera-t-il ?`
             reponse = b - 30
-            texteCorr = `Une demi-heure est égale à $30$ minutes. Ainsi $${a}$ h $${b}$ min + $30$ min est égal à $${miseEnEvidence(a + 1)}$ h $${miseEnEvidence(b - 30)}$ min.`
-          }
-          if (choix === 'b') {
+            texteCorr = `Une demi-heure est égale à $30$ minutes. Ainsi $${a}$ h $${b}$ min + $30$ min est égal à $${miseEnEvidence(a + 1)}$ h $${miseEnEvidence(formatMinute(b - 30))}$ min.`
+          } else {
             b = choice([50, 55])
             texte = `Il est $${a}$ h $${b}$ min.<br>
           Dans un quart d'heure, quelle heure sera-t-il ?`
             reponse = b - 45
-            texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${miseEnEvidence(a + 1)}$ h $${miseEnEvidence(b - 45)}$ min.`
+            texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${miseEnEvidence(a + 1)}$ h $${miseEnEvidence(formatMinute(b - 45))}$ min.`
           }
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)

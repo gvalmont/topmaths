@@ -52,8 +52,8 @@ export default class EncadrerDizaine extends Exercice {
             correction1 = `$${miseEnEvidence(`${texNombre(um + c + d)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + d + 10)}`)}$ `
             handleAnswers(this, i, {
               bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-              champ1: { value: `${um + c + d}`, options: { nombreDecimalSeulement: true } },
-              champ2: { value: `${um + c + d + 10}`, options: { nombreDecimalSeulement: true } }
+              champ1: { value: `${um + c + d}` },
+              champ2: { value: `${um + c + d + 10}` }
             }
             )
             this.canEnonce = question1
@@ -77,8 +77,8 @@ export default class EncadrerDizaine extends Exercice {
             }
             handleAnswers(this, i, {
               bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-              champ1: { value: `${um + c}`, options: { nombreDecimalSeulement: true } },
-              champ2: { value: `${um + c + 100}`, options: { nombreDecimalSeulement: true } }
+              champ1: { value: `${um + c}` },
+              champ2: { value: `${um + c + 100}` }
             }
             )
             correction1 = `$${miseEnEvidence(`${texNombre(um + c)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + 100)}`)}$ `

@@ -4,7 +4,8 @@ import bigInt from 'big-integer'
 import { tropDeChiffres } from './modules/outils'
 import { showDialogForLimitedTime } from './lib/components/dialogs'
 import { get } from 'svelte/store'
-import { exercicesParams } from './lib/stores/generalStore'
+import { capytaleMode, capytaleStudentAssignment, exercicesParams, globalOptions } from './lib/stores/generalStore'
+import { canOptions } from './lib/stores/canStore'
 import { createURL } from './lib/mathalea'
 
 type Metadatas = Record<string, unknown>
@@ -16,7 +17,7 @@ if (typeof (BigInt) === 'undefined') {
 }
 
 function handleBugsnag () {
-  const fileName = '../_private/bugsnagApiKey'
+  // const fileName = '../_private/bugsnagApiKey'
   // PROVISOIRE : MGU
   const getBugsnagApiKey = '6f45f454e2366599256bddc91cd7000b' // await import(/* @vite-ignore */fileName)
   const key = getBugsnagApiKey // .default() || ''
@@ -24,13 +25,13 @@ function handleBugsnag () {
     apiKey: key,
     onError: function (event) {
       event.addMetadata('Parametres Exos', get(exercicesParams))
+      event.addMetadata('Parametres: ', { globalOptions: get(globalOptions), canOptions: get(canOptions), capytaleMode: get(capytaleMode), studentAssignment: get(capytaleStudentAssignment) })
       event.addMetadata('Url Exos', { url: createURL(get(exercicesParams)).toString() })
     }
   })
 }
 
 if (document.location.hostname === 'coopmaths.fr') {
-  // Mgu supprime le await si pas de problème au chargement..
   handleBugsnag()
 }
 
@@ -68,6 +69,10 @@ export function notify (error: string | NotifiableError, metadatas: Metadatas) {
     }
     error = Error(error).message
   }
+  // console.error(error)
+  // if (metadatas) console.info('Avec les metadatas:', metadatas)
+  // console.info('Paramètres des exercices:', get(exercicesParams))
+  // return
 
   if (Bugsnag && !isDevMode()) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)

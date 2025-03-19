@@ -44,7 +44,7 @@ export default class YohakuCan6a extends Exercice {
     this.listeCorrections[0] = `La valeur de la case vide est : $${miseEnEvidence(this.reponse)}$.<br>`
     // On remet la valeur de la case avant de représenter le tableau pour la correction
     yohaku1.cellules[laCase] = this.reponse
-    const reponse = [`L${1 + Math.floor(laCase / 2)}C${1 + laCase % 2}`, { value: this.reponse, options: { nombreDecimalSeulement: true } }]
+    const reponse = [`L${1 + Math.floor(laCase / 2)}C${1 + laCase % 2}`, { value: this.reponse }]
     handleAnswers(this, 0, Object.fromEntries([reponse]))
     this.listeCorrections[0] += yohaku1.representation({ numeroExercice: this.numeroExercice ?? 0, question: 0, isInteractif: this.interactif, classes: 'college6e' })
     this.canEnonce = this.listeQuestions[0]

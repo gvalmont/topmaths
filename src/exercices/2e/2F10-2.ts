@@ -5,18 +5,18 @@ import { Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { Latex2d, latexParPoint, texteParPosition } from '../../lib/2d/textes'
 import { homothetie, translation } from '../../lib/2d/transformations'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison, functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Déterminer graphiquement l\'expression d\'une fonction affine'
 export const interactifReady = true
@@ -40,24 +40,18 @@ export default class Lecturefonctionaffine extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Coefficient directeur entier\n2 :Coefficient directeur fractionnaire\n3 :Mélange']
-
     this.nbQuestions = 1// On complète le nb de questions
     this.sup = 1
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
+    this.spacing = 2
   }
 
   nouvelleVersion () {
-    let typeDeQuestionsDisponibles
-    if (this.sup === 1) {
-      typeDeQuestionsDisponibles = ['typeE1']
-    } else {
-      if (this.sup === 2) {
-        typeDeQuestionsDisponibles = ['typeE2']
-      } else {
-        typeDeQuestionsDisponibles = ['typeE1', 'typeE2']
-      }
-    }
+    const typeDeQuestionsDisponibles = []
+    if (this.sup !== 2) typeDeQuestionsDisponibles.push('typeE1')
+    if (this.sup !== 1) typeDeQuestionsDisponibles.push('typeE2')
+
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
     const listeFractions = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [3, 5], [4, 7], [1, 5], [4, 5], [3, 4], [1, 4], [2, 5], [5, 3], [6, 5], [1, 6], [5, 6], [1, 7]]
@@ -66,7 +60,7 @@ export default class Lecturefonctionaffine extends Exercice {
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       let texte = ''
       let texteCorr = ''
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (listeTypeQuestions[i]) { // Suivant le type de questions, le contenu sera différent
         case 'typeE1':{ // coeff entier
           const r = repere({
             xMin: -4,
@@ -151,9 +145,10 @@ export default class Lecturefonctionaffine extends Exercice {
               ]
             }
           } else if (this.interactif) {
-            handleAnswers(this, i, { champ1: { value: `${reduireAxPlusB(a, b)}`, options: { variable: 'x' }, compare: functionCompare } })
-            texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
-          }
+            handleAnswers(this, i, { reponse: { value: `${reduireAxPlusB(a, b)}`, options: { fonction: true, variable: 'x' } } })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: '$f(x)=$' })
+          } else texte += '$f(x)=\\ldots$'
+
           texteCorr = 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
           if (a === 0) {
             texteCorr += `La droite est horizontale. Elle représente une fonction affine constante ($a=0$).<br>
@@ -171,7 +166,7 @@ export default class Lecturefonctionaffine extends Exercice {
           <br> `
             }
             texteCorr += ' On peut en déduire que l\'expression de la fonction $f$ est '
-            texteCorr += `$f(x)=${reduireAxPlusB(a, b)}$.<br>`
+            texteCorr += `$f(x)=${miseEnEvidence(reduireAxPlusB(a, b))}$.<br>`
             let s1: Segment
             let s2: Segment
             let labs: Latex2d
@@ -274,10 +269,22 @@ export default class Lecturefonctionaffine extends Exercice {
           }
           texteCorr += ' On peut en déduire que l\'expression de la fonction $f$ est '
           if (b === 0) {
-            texteCorr += `$f(x)=${texFractionReduite(a, d)}x$.<br>`
+            texteCorr += `$f(x)=${texFractionReduite(a, d)}x$`
           } else {
-            texteCorr += `$f(x)=${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}$.<br>`
+            texteCorr += `$f(x)=${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}$`
           }
+          // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+          const textCorrSplit = texteCorr.split('=')
+          let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+          aRemplacer = aRemplacer.replace('$', '')
+
+          texteCorr = ''
+          for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+            texteCorr += textCorrSplit[ee] + '='
+          }
+          texteCorr += `$ $${miseEnEvidence(aRemplacer)}$` + '.<br>'
+          // Fin de cette uniformisation
+
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: texte,
@@ -335,10 +342,10 @@ export default class Lecturefonctionaffine extends Exercice {
                 }
               ]
             }
-          } else if (this.interactif && !context.isAmc) {
-            handleAnswers(this, i, { champ1: { value: `${new FractionEtendue(a, d).texFractionSimplifiee}x${ecritureAlgebrique(b)}`, options: { fonction: true, variable: 'x' }, compare: fonctionComparaison } })
-            texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
-          }
+          } else if (this.interactif) {
+            handleAnswers(this, i, { reponse: { value: `${new FractionEtendue(a, d).texFractionSimplifiee}x${ecritureAlgebrique(b)}`, options: { fonction: true, variable: 'x' } } })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: '$f(x)=$' })
+          } else texte += '$f(x)=\\ldots$'
 
           let s1: Segment
           let s2: Segment

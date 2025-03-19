@@ -345,24 +345,6 @@ if (!Object.fromEntries) {
 }
 
 /**
- *
- * @param {'string | array'} expression ou tableau d'expressions à évaluer avec XCas
- * @returns string
- * @author Rémi Angot
- */
-export function xcas (expression) {
-  const sortie = (txt) => UI.caseval(`latex(${txt})`).replaceAll('\\cdot ', '~').replaceAll('\\frac', '\\dfrac').replaceAll('"', '')
-  if (typeof expression === 'string') return sortie(expression)
-  else {
-    const result = []
-    for (const txt of expression) {
-      result.push(sortie(txt))
-    }
-    return result
-  }
-}
-
-/**
  * @deprecated !!! Utiliser la class Decimal pour faire des calculs sur les décimaux exacts :
  * Cette fonction ne règle en rien le problème des flottants
  * `calcul(0.3)` retourne le même 0.3 qui en fait est 0.299999999999999989

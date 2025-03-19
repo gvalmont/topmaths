@@ -15,7 +15,6 @@ export const titre = 'Étudier graphiquement la parité d\'une fonction'
 /**
  * Reconnaître la parité d'une fonction
 * @author Stéphane Guyon
-* 2F20
 */
 export const uuid = '6e82d'
 
@@ -363,7 +362,7 @@ export default class EtudierGraphiqueParite extends Exercice {
             grilleSecondaireXMin: -6,
             grilleSecondaireXMax: 6
           })
-          const x = randint(-3, 3, [-b / a, 0, 1, -1])
+          const x = randint(-3, 3, [-b / a, b / a, 0, 1, -1])
 
           const f = (x:number) => 1 / (a * x + b)
           const C = courbe(f, { repere: r, step: 0.01, color: 'blue' })

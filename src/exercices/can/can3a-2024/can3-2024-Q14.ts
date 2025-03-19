@@ -31,16 +31,16 @@ export default class NomExercice extends Exercice {
       this.reponse = 9
       if (context.isHtml) {
         this.question = 'Nombre de départ <br>'
-        this.question += '$\\downarrow$<br>'
+        this.question += `${sp(15)}$\\downarrow$<br>`
         this.question += '$\\begin{array}{|l|}\n'
         this.question += '\\hline\n'
         this.question += '\\\n \\text{Soustraire } 5 \\\n'
         this.question += '\\\\\n \\text{Prendre son carré } \\\\\n '
         this.question += '\\hline\n'
         this.question += '\\end{array}\n$<br>'
-        this.question += `$\\downarrow$<br>
+        this.question += `${sp(15)}$\\downarrow$<br>
        `
-        this.question += 'Résultat<br>'
+        this.question += `${sp(7)}Résultat<br>`
       } else {
         this.question = `${sp(2)}\\texttt{Nombre de départ}`
         this.question += `<br>${sp(8)}$\\downarrow$<br>`
@@ -70,7 +70,7 @@ export default class NomExercice extends Exercice {
           this.question += '\\end{array}\n$<br>'
           this.question += `${sp(15)}$\\downarrow$<br>
          `
-          this.question += `${sp(8)}Résultat<br><br>`
+          this.question += `${sp(7)}Résultat<br>`
         } else {
           this.question = `${sp(2)}\\texttt{Nombre de départ}`
           this.question += `<br>${sp(8)}$\\downarrow$<br>`
@@ -100,7 +100,8 @@ export default class NomExercice extends Exercice {
           this.question += '\\end{array}\n$<br>'
           this.question += `${sp(15)}$\\downarrow$<br>
          `
-          this.question += `${sp(8)}Résultat<br><br>`
+          this.question += `${sp(8)}Résultat`
+          this.question += '<br>'
         } else {
           this.question = `${sp(2)}\\texttt{Nombre de départ}`
           this.question += `<br>${sp(8)}$\\downarrow$<br>`

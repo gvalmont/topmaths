@@ -34,9 +34,8 @@ export default class Can2025CE2Q7 extends ExerciceCan {
           : randint(1, 9 - a) * 10 + randint(1, 7) * 100 + randint(1, 7)
     }
     this.reponse = c + b * a
-    this.question = `Si j'ajoute $${a}$ ${classes[b]} à $${texNombre(c, 0)}$, j'obtiens combien ?`
+    this.question = `Si j'ajoute $${a}$ ${classes[b]} à $${texNombre(c, 0)}$, combien est-ce que j'obtiens ?`
     this.correction = `J'obtiens : $${texNombre(c, 0)}+${texNombre(a * b, 0)}=${miseEnEvidence(c + b * a)}$.`
-    this.canEnonce = this.question
   }
 
   nouvelleVersion () {

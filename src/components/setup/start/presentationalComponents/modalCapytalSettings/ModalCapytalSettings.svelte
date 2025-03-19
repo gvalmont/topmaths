@@ -26,6 +26,10 @@
     params.canOptions = canOptions
   }
 
+  function setInteractivity (value: string) {
+    params.globalOptions.setInteractive = value
+  }
+
 </script>
 
 <BasicClassicModal
@@ -42,7 +46,9 @@
   >
     <div class="pb-2">
       <ModalCapytalSettingsInteractivity
-        bind:globalOptions={params.globalOptions}
+        setInteractive={params.globalOptions.setInteractive ?? '2'}
+        {setInteractivity}
+        bind:oneShot={params.globalOptions.oneShot}
         bind:isDisabled={params.canOptions.isChoosen}
       />
     </div>

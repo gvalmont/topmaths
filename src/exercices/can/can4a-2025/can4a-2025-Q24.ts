@@ -40,7 +40,6 @@ $${c}-${texNombre(c / parts, 0)}=${texNombre(c - c / parts, 0)}$<br>
     this.reponse = `${Math.round(reste * c / parts)}`
     this.optionsChampTexte = { texteApres: ' L' }
     this.question += this.interactif ? '<br>' : ''
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

@@ -42,7 +42,6 @@ export default class Can2025N4Q19 extends ExerciceCan {
     if (this.interactif) {
       this.question += '<br>'
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

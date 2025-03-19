@@ -27,7 +27,6 @@ export default class FSomme2Decimaux extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.nbQuestions = 1
   }

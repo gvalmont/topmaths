@@ -42,7 +42,7 @@
   <HeaderExerciceVueEleve
     {...headerExerciceProps}
     isMenuNeededForExercises={$isMenuNeededForExercises}
-    presMode={$globalOptions.presMode}
+    presMode={$globalOptions.presMode ?? 'liste_exos'}
   />
 {:else}
   <HeaderExerciceVueProf {...headerExerciceProps} on:exerciseRemoved/>

@@ -153,6 +153,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
                     )} = ${miseEnEvidence(typesDeResultats[i] !== 3 ? texNombre(a * Math.pow(10, b)) : fractionSolution)}$`
           reponse = new FractionEtendue(aEntier * Math.pow(10, b), choixPuissance10).texFraction
           reponseAMC = a * Math.pow(10, b)
+          // Important laisser ici les deux options de comparaison
           handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true, nombreDecimalSeulement: true } } })
 
           break
@@ -349,7 +350,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
           reponse = Math.pow(10, b)
           reponseAMC = Math.pow(10, b)
 
-          handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse } })
 
           break
         case 8: // case 4 avec un trou sur l'entier
@@ -381,7 +382,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
           reponse = Math.pow(10, b)
           reponseAMC = Math.pow(10, b)
 
-          handleAnswers(this, i, { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse } })
 
           break
         case 9: // case 3 avec trou sur la fraction
@@ -432,7 +433,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
           reponse = choixPuissance10
           reponseAMC = reponse
 
-          handleAnswers(this, i, { champ1: { value: reponse, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { champ1: { value: reponse } })
 
           break
         default: // case 4 avec trou sur la fraction
@@ -461,7 +462,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
           reponse = choixPuissance10
           reponseAMC = reponse
 
-          handleAnswers(this, i, { champ1: { value: reponse, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { champ1: { value: reponse } })
           break
       }
 

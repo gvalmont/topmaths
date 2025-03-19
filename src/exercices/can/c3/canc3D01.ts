@@ -63,7 +63,7 @@ export default class LireHeure extends Exercice {
     
     ` +
 
-    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
+    mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, style: 'margin: auto' }, horloge)
     this.reponse = { reponse: { value: `${h}h ${m}`, options: { HMS: true } } }
     this.correction = `$${miseEnEvidence(h)}$ ${texteEnCouleurEtGras('h')} $${miseEnEvidence(m === 0 ? '' : m === 5 ? '0' + m : m)}$`
     if (context.isAmc) {
@@ -73,7 +73,6 @@ export default class LireHeure extends Exercice {
           propositions: [
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: this.correction,
@@ -91,7 +90,6 @@ export default class LireHeure extends Exercice {
             },
             {
               type: 'AMCNum',
-              // @ts-expect-error
               propositions: [
                 {
                   texte: '',

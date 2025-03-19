@@ -54,7 +54,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
         '8 : Mélange'
       ].join('\n')
     ]
-    this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l’écriture décimale.'
+    this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l\'écriture décimale.'
     this.spacing = 2
     this.spacingCorr = 2
     this.nbCols = 2
@@ -93,10 +93,10 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              champ1: { value: u, options: { nombreDecimalSeulement: true } },
-              champ2: { value: d, options: { nombreDecimalSeulement: true } },
-              champ3: { value: c, options: { nombreDecimalSeulement: true } },
-              champ4: { value: arrondi(u + d / 10 + c / 100, 2), options: { nombreDecimalSeulement: true } }
+              champ1: { value: u },
+              champ2: { value: d },
+              champ3: { value: c },
+              champ4: { value: arrondi(u + d / 10 + c / 100, 2) }
             }
             )
           } else {
@@ -108,7 +108,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -126,7 +126,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -144,7 +144,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -162,7 +162,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -193,10 +193,10 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              champ1: { value: u, options: { nombreDecimalSeulement: true } },
-              champ3: { value: d, options: { nombreDecimalSeulement: true } },
-              champ2: { value: c, options: { nombreDecimalSeulement: true } },
-              champ4: { value: arrondi(u + d / 10 + c / 100, 2), options: { nombreDecimalSeulement: true } }
+              champ1: { value: u },
+              champ3: { value: d },
+              champ2: { value: c },
+              champ4: { value: arrondi(u + d / 10 + c / 100, 2) }
             }
             )
           } else {
@@ -210,7 +210,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -228,7 +228,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -246,7 +246,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -264,7 +264,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -296,9 +296,9 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-              champ1: { value: n, options: { nombreDecimalSeulement: true } },
-              champ2: { value: 100, options: { nombreDecimalSeulement: true } },
-              champ3: { value: arrondi(u + d / 10 + c / 100, 2), options: { nombreDecimalSeulement: true } }
+              champ1: { value: n },
+              champ2: { value: 100 },
+              champ3: { value: arrondi(u + d / 10 + c / 100, 2) }
             }
             )
           } else {
@@ -312,7 +312,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -330,7 +330,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -357,7 +357,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
-              champ1: { value: u * 10, options: { nombreDecimalSeulement: true } }
+              champ1: { value: u * 10 }
             }
             )
           } else {
@@ -367,7 +367,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -395,7 +395,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
-              champ1: { value: u * 100, options: { nombreDecimalSeulement: true } }
+              champ1: { value: u * 100 }
             }
             )
           } else {
@@ -405,7 +405,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -433,10 +433,10 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              champ1: { value: u * 10 + d, options: { nombreDecimalSeulement: true } },
-              champ2: { value: c, options: { nombreDecimalSeulement: true } },
-              champ3: { value: 0, options: { nombreDecimalSeulement: true } },
-              champ4: { value: arrondi(u * 10 + d + c / 10, 2), options: { nombreDecimalSeulement: true } }
+              champ1: { value: u * 10 + d },
+              champ2: { value: c },
+              champ3: { value: 0 },
+              champ4: { value: arrondi(u * 10 + d + c / 10, 2) }
             }
             )
           } else {
@@ -447,7 +447,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -466,7 +466,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -484,7 +484,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -502,7 +502,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',
@@ -531,8 +531,8 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-              champ1: { value: n, options: { nombreDecimalSeulement: true } },
-              champ2: { value: arrondi(u + d / 10, 1), options: { nombreDecimalSeulement: true } }
+              champ1: { value: n },
+              champ2: { value: arrondi(u + d / 10, 1) }
             }
             )
           } else {
@@ -543,7 +543,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
               propositions: [
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: texteCorr,
@@ -561,7 +561,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error
+
                   propositions: [
                     {
                       texte: '',

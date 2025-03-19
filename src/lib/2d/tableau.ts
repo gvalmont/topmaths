@@ -324,7 +324,7 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
         }
       }
       tableauCL += '\\\\\n'
-      tableauCL += '\\hline\n'
+      tableauCL += '\\hline\n \\rule[-2ex]{0pt} {6ex}\\ '
     }
     // on construit toutes les lignes
     for (let k = 0; k < nbLignes; k++) {
@@ -353,7 +353,8 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
         }
       }
       tableauCL += '\\\\\n'
-      tableauCL += '\\hline\n'
+      tableauCL += '\\hline\n '
+      tableauCL += k === nbLignes - 1 ? '' : '\\rule[-2ex]{0pt} {6ex}\\ '
     }
     tableauCL += '\\end{array}\n'
 

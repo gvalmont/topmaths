@@ -346,7 +346,7 @@
   >
     <span slot="header">Attention !</span>
     <ul class="list-inside list-disc text-left text-base" slot="content">
-      <li>Le fichier sortit d’Overleaf ne constitue qu’un aperçu.</li>
+      <li>Le fichier sorti d'Overleaf ne constitue qu'un aperçu.</li>
       <li>
         Le fichier doit être compilé sous AMC impérativement pour que le fichier
         soit fonctionnel.

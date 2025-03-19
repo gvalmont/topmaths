@@ -8,7 +8,9 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
+export const dateDeModifImportante = '15/02/2025'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
@@ -95,13 +97,13 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
                         randint(1, 9)
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9)
           texte = `$${texNombre(a, 0)}+${b}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif) texte += '=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = a + b
           texteCorr = String(Operation({ options: { colore, solution: true }, operande1: a, operande2: b, type: 'addition' }))
           if (this.sup3) {
-            texte = String(Operation({ operande1: a, operande2: b, type: 'addition', options: { solution: false, colore } }))
+            texte = String(Operation({ operande1: a, operande2: b, type: 'addition', options: { solution: false, colore } })) + (this.interactif ? '<br>' + texte : '')
           }
           break
         case 2: // abc0 - efg
@@ -114,13 +116,13 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           x = a * 1000 + b * 100 + c * 10
           y = e * 100 + f * 10 + g
           texte = `$${texNombre(x, 0)}-${y}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif) texte += '=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x - y
           texteCorr = String(Operation({ operande1: x, operande2: y, type: 'soustraction', options: { solution: true, colore } }))
           if (this.sup3) {
-            texte = String(Operation({ operande1: x, operande2: y, type: 'soustraction', options: { solution: false, colore } }))
+            texte = String(Operation({ operande1: x, operande2: y, type: 'soustraction', options: { solution: false, colore } })) + (this.interactif ? '<br>' + texte : '')
           }
           break
         case 3: // 1abc - def
@@ -133,13 +135,13 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           x = 1000 + a * 100 + b * 10 + c
           y = d * 100 + e * 10 + f
           texte = `$${texNombre(x, 0)}-${y}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif) texte += '=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x - y
           texteCorr = String(Operation({ operande1: x, operande2: y, type: 'soustraction', options: { solution: true, colore } }))
           if (this.sup3) {
-            texte = String(Operation({ operande1: x, operande2: y, type: 'soustraction', options: { solution: false, colore } }))
+            texte = String(Operation({ operande1: x, operande2: y, type: 'soustraction', options: { solution: false, colore } })) + (this.interactif ? '<br>' + texte : '')
           }
           break
         case 4: // abc * d0e tables de 2 à 5
@@ -151,13 +153,13 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           x = 100 * a + 10 * b + c
           y = d * 100 + e
           texte = `$${texNombre(x, 0)}\\times${y}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif) texte += '=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x * y
           texteCorr = String(Operation({ operande1: x, operande2: y, type: 'multiplication', options: { solution: true, colore } }))
           if (this.sup3) {
-            texte = String(Operation({ operande1: x, operande2: y, type: 'multiplication', options: { solution: false, colore } }))
+            texte = String(Operation({ operande1: x, operande2: y, type: 'multiplication', options: { solution: false, colore } })) + (this.interactif ? '<br>' + texte : '')
           }
           break
         case 5: // abc * de tables de 5 à 9
@@ -170,13 +172,13 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
           x = 100 * a + 10 * b + c
           y = 10 * d + e
           texte = `$${x}\\times${y}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif) texte += '=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x * y
           texteCorr = String(Operation({ operande1: x, operande2: y, type: 'multiplication', options: { solution: true, colore } }))
           if (this.sup3) {
-            texte = String(Operation({ operande1: x, operande2: y, type: 'multiplication', options: { solution: false, colore } }))
+            texte = String(Operation({ operande1: x, operande2: y, type: 'multiplication', options: { solution: false, colore } })) + (this.interactif ? '<br>' + texte : '')
           }
           break
       }

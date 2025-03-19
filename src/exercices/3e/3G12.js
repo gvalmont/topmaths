@@ -41,7 +41,7 @@ export default class PavageEtRotation2D extends Exercice {
     this.besoinFormulaireNumerique = ['Taille du pavage (la grande est automatique au-delà de 5 questions)', 2, ' 1 : Taille modeste\n 2 : Grande taille']
     this.besoinFormulaire2CaseACocher = ['Montrer les centres']
     this.besoinFormulaire3Numerique = ['Choix du pavage', 8, '1 : Triangles équilatéraux\n2 : Carrés\n3 : Hexagones réguliers\n4 : Carrés et triangles équilatéraux\n5 : Octogones et carrés\n 6 : Losanges (pavage hexagonal d\'écolier)\n7 : Hexagones et triangles équilatéraux\n8 : Un des sept pavages au hasard']
-    this.besoinFormulaire4CaseACocher = ['Ignorer l\'angle de 180°']
+    this.besoinFormulaire4CaseACocher = ['Ignorer l\'angle de 180$^\\circ$']
     this.nbQuestions = 3
 
     this.correctionDetailleeDisponible = true
@@ -236,13 +236,13 @@ export default class PavageEtRotation2D extends Exercice {
       objets.push(monpavage.polygones[i])
     }
     texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
-    texte += `<br>Soit la rotation de centre $A$ et d'angle ${alpha}° dans le sens `
+    texte += `<br>Soit la rotation de centre $A$ et d'angle ${alpha}$^\\circ$ dans le sens `
     if (sensdirect === 1) {
       texte += 'contraire des aiguilles d\'une montre.<br>'
     } else {
       texte += 'des aiguilles d\'une montre.<br>'
     }
-    texteCorr += `Soit la rotation de centre $A$ et d'angle ${alpha}° dans le sens `
+    texteCorr += `Soit la rotation de centre $A$ et d'angle ${alpha}$^\\circ$ dans le sens `
     if (sensdirect === 1) {
       texteCorr += 'contraire des aiguilles d\'une montre. <br>'
     } else {

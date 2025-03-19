@@ -35,7 +35,6 @@ export default class Can2025N4Q26 extends ExerciceCan {
     this.reponse = Math.round(a * 60)
     this.optionsChampTexte = { texteApres: ' min' }
     this.question += this.interactif ? ' $=$' : '$=\\ldots$ min'
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

@@ -52,8 +52,9 @@ export default class Can2025CE1Q18 extends Exercice {
     handleAnswers(this, 0, { reponse: { value: String(hour - 12) } })
     handleAnswers(this, 1, { reponse: { value: String(hour - 11) } })
     handleAnswers(this, 2, { reponse: { value: String(minute / 5) } })
-    this.listeQuestions[0] = texte
-    this.listeCorrections[0] = texteCorr
+    this.question = texte
+    this.correction = texteCorr
+    this.reponse = ''
     this.canEnonce = `Dessine les deux aiguilles de la pendule pour indiquer $${hour}$ h $${minute}$.`
     this.canReponseACompleter = mathalea2d(Object.assign({ scale: 0.7, style: 'margin: auto; display: block' }, fixeBordures(objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0.5 })), horloge)
   }

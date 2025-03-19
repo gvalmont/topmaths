@@ -30,15 +30,14 @@ export default class Can2025CE1Q4 extends ExerciceCan {
     this.reponse = a + b - c
     this.question = `${quidam} est sur la case $${a}$ de la piste.<br>
 Elle avance de $${b}$ cases et tombe sur « recule de $${c}$ cases ».<br>
-Elle doit alors aller sur la case`
+${quidam}  doit alors aller sur la case`
     if (!this.interactif) { this.question += ' $\\ldots$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.optionsChampTexte = { texteApres: '.' }
     this.correction = `$${a}+${b}-${c}=${a + b - c}$<br>
-    Elle arrive donc sur la case $${miseEnEvidence(a + b - c)}$.`
+    ${quidam}  arrive donc sur la case $${miseEnEvidence(a + b - c)}$.`
     this.canEnonce = `${quidam} est sur la case $${a}$ de la piste.<br>
 Elle avance de $${b}$ cases et tombe sur «recule de $${c}$ cases».`
-    this.canReponseACompleter = 'Elle doit alors aller sur la case $\\ldots$'
+    this.canReponseACompleter = `${quidam} doit alors aller sur la case $\\ldots$`
   }
 
   nouvelleVersion () {

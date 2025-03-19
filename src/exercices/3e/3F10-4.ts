@@ -1,5 +1,4 @@
 import Exercice from '../Exercice'
-import Figure from 'apigeom'
 import { randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
@@ -14,7 +13,8 @@ import { toutAUnPoint } from '../../lib/interactif/mathLive'
 
 import { lectureImage } from '../../lib/2d/courbes'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import PointOnPolyline from 'apigeom/src/elements/points/PointOnPolyline'
+import PointOnPolyLine from '../../lib/mathFonctions/PointOnPolyLine'
+import Figure from 'apigeom'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
@@ -84,7 +84,7 @@ class LireImageParApiGeom extends Exercice {
       }
       this.figure.create('GraphByParts', { parts })
       */
-      const pointMobile = new PointOnPolyline(this.figure, { polyline, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
+      const pointMobile = new PointOnPolyLine(this.figure, { polyline, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
       pointMobile.draw()
       pointMobile.label = 'M'
       pointMobile.createSegmentToAxeX()

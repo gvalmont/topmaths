@@ -5,7 +5,7 @@ import { point } from '../../lib/2d/points'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, translation } from '../../lib/2d/transformations'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -15,7 +15,8 @@ import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outil
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { abs } from '../../lib/outils/nombres'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
-export const dateDeModifImportante = '21/01/2024'
+export const dateDePublication = '15/01/2022'
+export const dateDeModifImportante = '20/02/2025'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
@@ -31,8 +32,6 @@ function aleaName (names = [], n = names.length, result = []) {
     return aleaName(names, n, result)
   }
 }
-
-export const dateDePublication = '15/01/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 function anglesSecantes (A, rot = { O: 60, A: 0 }) {
   const s = rotation(translation(A, vecteur(1, 0)), A, rot.A)
@@ -65,6 +64,7 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
     labeld: texteSurArc((180 - (rot.O - rot.A)) % 180 + '°', Ox, s, 180 - (rot.O - rot.A), 'black', 0.7, true)
   }
 }
+
 /**
  * Effectuer des liens entre angles et parallélisme
  * @author Frédéric PIOU
@@ -110,7 +110,7 @@ export default class ExercicesAnglesAIC extends Exercice {
       defaut: 8,
       melange: 8,
       nbQuestions: this.nbQuestions,
-      shuffle: false
+      shuffle: true
     })
 
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -120,16 +120,6 @@ export default class ExercicesAnglesAIC extends Exercice {
         case 1: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
-          /* const param = aleaVariables(
-            {
-              O: 'randomInt(0,90)',
-              A: 'randomInt(-90,90)',
-              B: 'randomInt(-90,90)',
-              r1: 'pickRandom([1.5,2])',
-              r2: 'pickRandom([1.5,2])',
-              test: 'O-A>30 and O-B>30'
-            }
-          ) */
           let param
           do {
             const createVariables = (O, A, B) => ({
@@ -142,11 +132,10 @@ export default class ExercicesAnglesAIC extends Exercice {
 
             param = createVariables(
               randint(0, 90),
-              randint(-90, 90),
-              randint(-90, 90)
+              randint(-90, 0),
+              randint(-90, 0)
             )
-          } while (!(param.O - param.A > 30 && param.O - param.B > 30))
-
+          } while (!(abs(param.O - abs(param.A)) > 30 && abs(param.O - abs(param.B)) > 30))
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
@@ -173,6 +162,7 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesA['label' + a],
             anglesB['label' + b]
           )
+
           const paramsEnonce = fixeBordures([
             ...Object.keys(anglesA).map(key => { return anglesA[key] }),
             ...Object.keys(anglesB).map(key => { return anglesB[key] })
@@ -572,7 +562,8 @@ export default class ExercicesAnglesAIC extends Exercice {
             ...Object.keys(anglesA).map(key => { return anglesA[key] }),
             ...Object.keys(anglesB).map(key => { return anglesB[key] })
           ])
-          let texte = 'Sachant que les droites rouges sont parallèles, en déduire la mesure de l\'angle bleu. Justifier.<br>'
+          let texte = 'Sachant que les droites rouges sont parallèles, en déduire la mesure de l\'angle bleu.'
+          texte += this.interactif ? '<br>' : ' Justifier.<br>'
           const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection) +
           `Les angles rouge et vert sont ${texteGras(angles)} et formés par des droites ${texteGras('parallèles')}.<br>
           Donc ils sont ${texteGras('de même mesure')}.<br>De plus,
@@ -674,8 +665,7 @@ export default class ExercicesAnglesAIC extends Exercice {
           for (const i of ['a', 'b', 'c', 'd']) {
             anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.4
-            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
-            anglesB[i].opaciteDeRemplissage = 0.4
+            anglesB[i].opaciteDeRemplissage = 0.7
           }
           const ab = choice([
             choice(['aa', 'bb', 'cc', 'dd']),
@@ -689,14 +679,14 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesA.Ax,
             anglesB.As,
             anglesB.Ax/*,
-            labelPoint('$' + anglesA.S + '$'),
-            labelPoint('$' + anglesA.T + '$'),
-            labelPoint('$' + anglesA.X + '$'),
-            labelPoint('$' + anglesB.S + '$'),
-            labelPoint('$' + anglesB.T + '$'),
-            labelPoint('$' + anglesB.OX + '$'),
-            labelPoint('$' + anglesA.A + '$'),
-            labelPoint('$' + anglesB.A + '$') */
+            labelPoint(anglesA.S),
+            labelPoint(anglesA.T),
+            labelPoint(anglesA.X),
+            labelPoint(anglesB.S),
+            labelPoint(anglesB.T),
+            labelPoint(anglesB.OX),
+            labelPoint(anglesA.A),
+            labelPoint(anglesB.A) */
           )
           const paramsEnonce = fixeBordures([
             ...Object.keys(anglesA).map(key => { return anglesA[key] }),
@@ -709,6 +699,11 @@ export default class ExercicesAnglesAIC extends Exercice {
           const angleCorrection = anglesB[b]
           angleCorrection.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('#f15929')
           objetsCorrection.push(angleCorrection)
+          const couleurAngles = shuffle(['green', 'red', 'blue', 'gray'])
+          anglesB['a'].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML(couleurAngles[0])
+          anglesB['b'].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML(couleurAngles[1])
+          anglesB['c'].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML(couleurAngles[2])
+          anglesB['d'].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML(couleurAngles[3])
           // ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
           let reponse
           if (a === b) {
@@ -833,7 +828,7 @@ export default class ExercicesAnglesAIC extends Exercice {
             anglesA.As,
             anglesA.Ax,
             anglesB.As,
-            anglesB.Ax/*,
+            anglesB.Ax,
             labelPoint(anglesA.S),
             labelPoint(anglesA.T),
             labelPoint(anglesA.X),
@@ -841,7 +836,7 @@ export default class ExercicesAnglesAIC extends Exercice {
             labelPoint(anglesB.T),
             labelPoint(anglesB.OX),
             labelPoint(anglesA.A),
-            labelPoint(anglesB.A) */
+            labelPoint(anglesB.A)
           )
           const paramsEnonce = fixeBordures([
             ...Object.keys(anglesA).map(key => { return anglesA[key] }),

@@ -34,7 +34,7 @@ export default class Can2025N62Q11 extends Exercice {
     this.question = `$100\\times ${a}$ ${b} est égal à `
     if (!this.interactif) { this.question += '$\\ldots$ unités.' }
     this.correction = `$100\\times ${a}$ ${b} est égal à $100\\times ${b === 'dixièmes' ? `${texNombre(a / 10, 1)}` : `${texNombre(a / 100, 2)}`} = ${miseEnEvidence(this.reponse)}$.`
-    this.canEnonce = this.question
+    this.canEnonce = `$100\\times ${a}$ ${b} est égal à `
     this.canReponseACompleter = '$\\ldots$ unités'
   }
 }

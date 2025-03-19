@@ -27,7 +27,6 @@ export default class Can2025N5Q26 extends ExerciceCan {
       coeff = randint(2, 7)
       c = question === 'num' ? b * coeff : a * coeff
     }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = question === 'num' ? c * a / b : c * b / a
     this.question = `$\\dfrac{${a}}{${b}}=${question === 'num' ? `\\dfrac{?}{${c}}$` : `\\dfrac{${c}}{?}$`}`
     this.correction = question === 'num'

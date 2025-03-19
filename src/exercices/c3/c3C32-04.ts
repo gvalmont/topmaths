@@ -78,9 +78,9 @@ export default class ExerciceProbleme004 extends Exercice {
       const resteAPayer = sommeTotale - aides
       let listePrincipale: string
       let listeCorrections: string
-      listePrincipale = `Un spectacle ${showType} avec ${nombreEnLettres(nbArtistes)} ${artiste} est proposé au directeur d’une école.<br>
+      listePrincipale = `Un spectacle ${showType} avec ${nombreEnLettres(nbArtistes)} ${artiste} est proposé au directeur d'une école.<br>
       Il faut payer les ${artiste} $${payeArtiste}$ euros chacun.<br>
-      Il faut aussi payer leur déplacement, soit $${fraisDeplacement}$ euros au total. Il n’y a pas d’autres frais.<br>
+      Il faut aussi payer leur déplacement, soit $${fraisDeplacement}$ euros au total. Il n'y a pas d'autres frais.<br>
        La mairie accorde une aide de $${aideMairie}$ euros.`
       // dépense Totale
       const correction1 = `${this.correctionDetaillee ? 'La dépense totale est la somme des cachets des artistes et des frais de déplacement :<br>' : ''}
@@ -131,11 +131,11 @@ La somme totale restant à payer par les familles est de $${this.sup !== 3 ? mis
           style: 'alpha'
         })
       } else if (this.sup === 2) {
-        listePrincipale = `  Un spectacle ${showType} avec $${nbArtistes}$ ${artiste} est proposé au directeur d’une école.<br>
+        listePrincipale = `  Un spectacle ${showType} avec $${nbArtistes}$ ${artiste} est proposé au directeur d'une école.<br>
         Il faut payer les ${artiste} $${payeArtiste}$ euros chacun.<br>
-        Il faut aussi payer leur déplacement, soit $${fraisDeplacement}$ euros au total. Il n’y a pas d’autres frais.<br>
+        Il faut aussi payer leur déplacement, soit $${fraisDeplacement}$ euros au total. Il n'y a pas d'autres frais.<br>
         La mairie accorde une aide de $${aideMairie}$ euros.<br>
-        L’association de parents d’élèves donne une aide de $${aideParents}$ euros.<br>`
+        L'association de parents d'élèves donne une aide de $${aideParents}$ euros.<br>`
         listePrincipale += createList({
           items: [
             'Quel est le montant total de la dépense ?' + ajouteQuestionMathlive({ exercice: this, question: 3 * i, objetReponse: { reponse: { value: String(sommeTotale) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' }),
@@ -161,10 +161,10 @@ La somme totale restant à payer par les familles est de $${this.sup !== 3 ? mis
       } else {
         const age = randint(7, 11)
         const distance = randint(41, 49)
-        listePrincipale = `  Un spectacle ${showType} avec cinq ${artiste} est proposé au directeur d’une école, pour une classe d’enfants de $${age}$ ans.<br>
+        listePrincipale = `  Un spectacle ${showType} avec cinq ${artiste} est proposé au directeur d'une école, pour une classe d'enfants de $${age}$ ans.<br>
         Il faut payer les ${artiste} $${payeArtiste}$ euros chacun.<br>
-        Il faut aussi payer leur déplacement de $${distance}$ km, soit $${fraisDeplacement}$ euros au total. Il n’y a pas d’autres frais.<br>
-        L’association de parents d’élèves donne une aide de $${aideParents}$ euros et la mairie accorde une autre aide de $${aideMairie}$ euros.<br>
+        Il faut aussi payer leur déplacement de $${distance}$ km, soit $${fraisDeplacement}$ euros au total. Il n'y a pas d'autres frais.<br>
+        L'association de parents d'élèves donne une aide de $${aideParents}$ euros et la mairie accorde une autre aide de $${aideMairie}$ euros.<br>
         Si les $${nbEleves}$ élèves de cette école assistent au spectacle, quelle participation financière doit être demandée à chaque élève pour payer la dépense restante ?<br>` + ajouteQuestionMathlive({ exercice: this, question: i, objetReponse: { reponse: { value: String(participation) } }, typeInteractivite: 'mathlive', texteApres: ' euros.' })
         listeCorrections = createList({
           items: [

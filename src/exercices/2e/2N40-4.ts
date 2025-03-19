@@ -1,13 +1,27 @@
-import DistributiviteSimpleDoubleReduction from '../3e/3L11-3'
-export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
+import SimpleDistributivite from '../3e/3L11-0'
+
+export const titre = 'Effectuer la simple distributivité'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcType = 'AMCHybride'
-export const amcReady = true
-export const uuid = '60cc5'
+
+// Gestion de la date de publication initiale
+export const dateDePublication = '20/02/2025'
+/**
+ * Clone de 3L11-0 pour les secondes
+ *
+ * @author Gilles Mora
+ */
+export const uuid = '0c61c'
+
 export const refs = {
   'fr-fr': ['2N40-4'],
-  'fr-ch': ['11FA2-7']
+  'fr-ch': []
 }
-export default class DistributiviteSimpleDoubleReduction2e extends DistributiviteSimpleDoubleReduction {
+export default class SimpleDistributiviteSeconde extends SimpleDistributivite {
+  constructor () {
+    super()
+    this.sup = '5'
+    this.sup2 = true
+  }
 }

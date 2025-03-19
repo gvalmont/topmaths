@@ -1551,6 +1551,7 @@ export class Repere extends ObjetMathalea2D {
   grilleXMax: number
   grilleYMin: number
   grilleYMax: number
+  objets: ObjetMathalea2D[]
 
   constructor ({
     xUnite = 1,

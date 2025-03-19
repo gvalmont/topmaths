@@ -92,12 +92,12 @@ class Latex {
 
           for (let i = 0; i < exercice.listeQuestions.length; i++) {
             // Enoncé de la question
-            const enonce = (exercice.listeCanEnonces != null && exercice.listeCanEnonces[i] !== undefined)
+            const enonce = (exercice.listeCanEnonces != null && exercice.listeCanEnonces[i] !== undefined && exercice.listeCanEnonces[i].length !== 0)
               ? exercice.listeCanEnonces[i]
               : exercice.listeQuestions[i]
 
             // Ne fonctionne que pour les CAN
-            if (exercice.listeCanLiees != null && exercice.listeCanLiees.length !== 0) {
+            if (exercice.listeCanLiees != null && !exercice.listeCanLiees.every(subTab => subTab.length === 0)) {
               // Recherche si la question est liée à la suivante et aux prochaines
               if (exercice.listeCanLiees != null && exercice.listeCanLiees[i].length !== 0 && !(questionLiee[i].dejaLiee)) { // Recherche d'une question liée à d'autres
                 let j = i + 1
@@ -122,7 +122,10 @@ class Latex {
              exercice.listeCanReponsesACompleter[i]
               )} }`
             }
-            content += '&\\stepcounter{nbEx}\\\\ \n'
+            content += '&\\stepcounter{nbEx}\\\\'
+
+            if (i + 1 < exercice.listeQuestions.length && questionLiee[i + 1].dejaLiee) content += '*' // Cette étoile permet de gérer les sauts de page malencontreux
+            content += '\n'
           }
           for (const correction of exercice.listeCorrections) {
             contentCorr += `\n\\item ${format(correction)}`
@@ -178,13 +181,17 @@ class Latex {
           }
           contentCorr += '\n\\end{EXO}\n'
           content += `\n% @see : ${getUrlFromExercice(exercice)}`
-          content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${String(exercice.id).replace('.js', '')}}\n`
+          content += `\n\\begin{EXO}{${format(exercice.consigne, false)}}{${String(exercice.id).replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
           content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
           content += '\n\\end{EXO}\n'
         }
       }
     }
+    content = content.replaceAll('œ', '\\oe ')
+    contentCorr = contentCorr.replaceAll('œ', '\\oe ')
+    content = content.replaceAll('°', '$^\\circ$ ')
+    contentCorr = contentCorr.replaceAll('°', '$^\\circ$')
     return { content, contentCorr }
   }
 
@@ -257,7 +264,8 @@ Correction
         content += '\n\\end{Solution}\n'
       }
     }
-    return content
+    return content.replaceAll('œ', '\\oe ')
+    content = content.replaceAll('°', '$^\\circ$ ')
   }
 
   async getContents (latexFileInfos : LatexFileInfos): Promise<contentsType> {
@@ -302,6 +310,7 @@ Correction
           contents.contentCorr += `\n\\version{${i}}`
           if (i > 1 && latexFileInfos.style === 'Can') {
             contents.content += '\n\\setcounter{nbEx}{1}'
+            contents.content += '\n\\setcounter{CompteurTableauCan}{0}'
             contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
           }
         }
@@ -311,9 +320,11 @@ Correction
       if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
       if (latexFileInfos.style === 'Can') {
         contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
+        contents.preamble += '% Pour les carrés des cases à cocher\n\\usepackage{fontawesome5}\n\n'
         contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
+        contents.intro += '\n\\setcounter{CompteurTableauCan}{0}'
         contents.intro += '\n\\pageDeGardeCan{nbEx}'
         contents.intro += '\n\\clearpage'
       } else {
@@ -322,6 +333,11 @@ Correction
         contents.intro += '\n\\begin{document}\n'
       }
     }
+    contents.content = contents.content.replaceAll('œ', '\\oe ')
+    contents.contentCorr = contents.contentCorr.replaceAll('œ', '\\oe ')
+    contents.content = contents.content.replaceAll('°', '$^\\circ$ ')
+    contents.contentCorr = contents.contentCorr.replaceAll('°', '$^\\circ$')
+
     return contents
   }
 
@@ -329,6 +345,7 @@ Correction
     contents.preamble = `% @see : ${window.location.href}`
     contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
     loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
+    contents.preamble += '\n\\usepackage{xcolor}'
     contents.preamble += '\n\\usepackage{ProfMaquette}'
     contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
     contents.preamble += loadFonts(latexFileInfos)
@@ -338,6 +355,8 @@ Correction
     contents.preamble += '\n\\usetikzlibrary{calc}'
     contents.preamble += '\n\\usepackage{fancyhdr}'
     contents.preamble += '\n\\pagestyle{fancy}'
+    contents.preamble += '\n\\usepackage{fvextra} %EE: Pour la gestion de verb (police Python)'
+    contents.preamble += '\n\\usepackage{tabularray} %EE: Pour la gestion des tableaux tblr'
     contents.preamble += '\n\\renewcommand\\headrulewidth{0pt}'
     contents.preamble += '\n\\setlength{\\headheight}{18pt}'
     contents.preamble += '\n\\fancyhead[R]{\\href{https://coopmaths.fr/alea}{Mathaléa}}'
@@ -618,14 +637,17 @@ export function makeImageFilesUrls (exercices: TypeExercice[]) {
 /**
  * Pour les exercices Mathalea on a des conventions pour les sauts de ligne qui fonctionnent en HTML comme en LaTeX
  * * `<br>` est remplacé par un saut de paragraphe
- * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+ * * `<br><br>` est remplacé par un saut de paragraphe et un medskip (si AvecLesDoublesEspaces est vrai). Dans this.consigne, il ne faut pas sinon cela fait planter la sortie LaTeX.
  *  Le \\euro mange l'espace qui vient après lui, d'où la nécessité d'insérer un espace insécable s'il y en avait un avant le replacement.
  */
-export function format (text: string): string {
+export function format (text: string, AvecLesDoublesEspaces:boolean = true): string {
   if (text === undefined) return ''
   const lang = getLang()
-  let formattedText = text
-    .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
+  let formattedText = AvecLesDoublesEspaces
+    ? text.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
+    : text
+
+  formattedText = formattedText
     .replace(/(\d+)\s*°/g, '\\ang{$1}')
     .replace(/<br>/g, '\\\\')
     .replace(/( )?€( )/g, '\\,\\euro{}~')

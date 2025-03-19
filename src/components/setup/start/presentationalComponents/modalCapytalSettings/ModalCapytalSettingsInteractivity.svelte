@@ -1,10 +1,11 @@
 <script lang="ts">
-  import type { InterfaceGlobalOptions } from '../../../../../lib/types'
   import ButtonToggle from '../../../../shared/forms/ButtonToggle.svelte'
   import FormRadio from '../../../../shared/forms/FormRadio.svelte'
 
-  export let globalOptions: InterfaceGlobalOptions
+  export let setInteractive: string = '2'
+  export let oneShot: boolean = false
   export let isDisabled: boolean
+  export let setInteractivity: (value: string) => void
 
 </script>
 
@@ -15,8 +16,9 @@
 </div>
 <FormRadio
   title="Interactif"
-  bind:valueSelected={globalOptions.setInteractive}
+  bind:valueSelected={setInteractive}
   {isDisabled}
+  on:newvalue={() => setInteractivity(setInteractive)}
   labelsValues={[
     { label: 'Laisser tel quel', value: '2' },
     { label: 'Tout interactif', value: '1' },
@@ -29,6 +31,6 @@
       'Les élèves peuvent répondre une seule fois',
       'Les élèves peuvent répondre plusieurs fois'
     ]}
-    bind:value={globalOptions.oneShot}
+    bind:value={oneShot}
   />
 </div>

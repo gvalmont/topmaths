@@ -62,7 +62,6 @@ export default class Can2025N5Q18 extends ExerciceCan {
     const codages = codageSegments('//', 'black', ...pts)
     codages.echelle = 0.6
     const labels = labelPoint(A, B)
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.reponse = texNombre(a * c / b, 2)
     this.question = `${mathalea2d(Object.assign({ pixelsParCm: 30 }, fixeBordures([s, s2, codages, ps, labels, l], { rymin: 0 })), [s, s2, codages, ps, labels, l])}`
     this.correction = `Le segment $[AB]$ mesure $\\dfrac{${a}}{${b}}$ de $${texNombre(c, 1)}$ cm.<br>`

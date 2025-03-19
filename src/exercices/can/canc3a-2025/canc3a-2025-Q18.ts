@@ -43,15 +43,15 @@ export default class Can2025CM2Q18 extends Exercice {
     const horizontale = segment(point(0, -0.7), point(4, -0.7))
     horizontale.styleExtremites = '<->'
 
-    const longueur = latex2d('\\ldots \\text{ cm}', 2, -1, { letterSize: 'normalsize' })
+    const longueur = latex2d('\\ldots \\text{ cm}', 2, -1.5, { letterSize: 'normalsize' })
     const objets = [triangle, horizontale, longueur, codage]
 
     this.question = mathalea2d(Object.assign({ scale: 0.5, style: 'display: block', pixelsParCm: 25 }, fixeBordures(objets)), objets)
     this.question += `Le périmètre de ce triangle équilatéral est de  $${perimetre}$ cm.<br>
     La longueur du côté est égale à `
     if (!this.interactif) { this.question += '$\\ldots$ cm.' }
-    this.canEnonce = `Le périmètre de ce carré est égal à $${perimetre}$ cm.<br>
-    complète. `
+    this.canEnonce = `Le périmètre de ce triangle équilatéral est de  $${perimetre}$ cm.<br>
+    Complète. `
     this.canReponseACompleter = mathalea2d(Object.assign({ scale: 0.5, style: 'display: block', pixelsParCm: 25 }, fixeBordures(objets)), objets)
     this.reponse = texNombre(perimetre / 3, 0)
     this.correction = `La longueur du côté du triangle équilatéral est  : $${perimetre}\\div 3= ${miseEnEvidence(this.reponse)}$ cm.`

@@ -143,7 +143,7 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           break
       }
       if (context.isAmc) setReponse(this, i, somme)
-      else handleAnswers(this, i, { reponse: { value: texPrix(somme), options: { nombreDecimalSeulement: true } } })
+      else handleAnswers(this, i, { reponse: { value: texPrix(somme) } })
 
       if (this.questionJamaisPosee(i, m, somme)) {
         // Si la question n'a jamais été posée, on en crée une autre

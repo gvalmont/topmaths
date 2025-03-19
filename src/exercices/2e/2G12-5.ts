@@ -155,7 +155,7 @@ export default class ParallélogrammeSommet extends Exercice {
           texte += ` $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.<br>
        `
           texte += `Déterminer les coordonnées du point $${D.nom}$ tel que $${A.nom}${B.nom}${C.nom}${D.nom}$ soit un parallélogramme. Justifier.`
-          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse }, champ2: { value: ordReponse } })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `${D.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`)
           }
@@ -280,7 +280,7 @@ export default class ParallélogrammeSommet extends Exercice {
               yLabelDistance: 2,
               xLabelDistance: 2
             }))
-            handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse }, champ2: { value: ordReponse } })
             if (this.interactif) {
               texte += '<br>' + remplisLesBlancs(this, i, `${D.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`)
             }
@@ -375,8 +375,8 @@ export default class ParallélogrammeSommet extends Exercice {
 
           texte = `${pre} a retrouvé un vieux plan dans son grenier. La maison se situe au point $M$, la grange au point $G$ et
           les écuries au point $E$.<br>
-          Au dos, il est inscrit le texte suivant : « Pour trouver le trésor, il suffit de creuser à l’endroit bien précis $T$ tel que $TEGM$ soit un parallélogramme ».<br>
-          Déterminer précisément, par le calcul, l’emplacement de ce trésor.<br><br>`
+          Au dos, il est inscrit le texte suivant : « Pour trouver le trésor, il suffit de creuser à l'endroit bien précis $T$ tel que $TEGM$ soit un parallélogramme ».<br>
+          Déterminer précisément, par le calcul, l'emplacement de ce trésor.<br><br>`
           const E = latexParCoordonnees(`E(${stringNombre(xA)};${stringNombre(yA)})`, xA, yA - 0.5, 'black', 0, 0, '')
           const G = latexParCoordonnees(`G(${stringNombre(xB)};${stringNombre(yB)})`, xB, yB - 0.5, 'black', 0, 0, '')
           const M = latexParCoordonnees(`M(${stringNombre(xC)};${stringNombre(yC)})`, xC, yC - 0.5, 'black', 0, 0, '')
@@ -396,7 +396,7 @@ export default class ParallélogrammeSommet extends Exercice {
             yLabelDistance: 15,
             xLabelDistance: 15
           }))
-          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse, options: { nombreDecimalSeulement: true } }, champ2: { value: ordReponse, options: { nombreDecimalSeulement: true } } })
+          handleAnswers(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], champ1: { value: absReponse }, champ2: { value: ordReponse } })
 
           texte += mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: 25, scale: 0.6 }, objets, E, G, M)
           if (this.interactif) {

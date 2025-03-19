@@ -31,7 +31,6 @@ export default class MultiplierParPuissanceDixNeg extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.besoinFormulaireNumerique = ['Multiplier ou diviser', 3, '1 : Multiplier\n2 : Diviser\n3 : Mélange']
     this.sup = 3

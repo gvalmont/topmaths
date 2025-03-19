@@ -34,7 +34,6 @@ export default class SommeSuiteGeometrique extends Exercice {
     this.correctionDetailleeDisponible = true
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '<br>$S=$' }
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

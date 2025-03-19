@@ -9,7 +9,7 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 
-export const titre = 'Comparer deux périmètres'
+export const titre = 'Calculer la longueur d\'un segment par comparaison'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '29736'

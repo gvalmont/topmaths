@@ -80,9 +80,7 @@ class ConstructionRectangleDimensions extends Exercice {
       feedback += 'Bravo !'
     }
     if (divFeedback) divFeedback.innerHTML = feedback
-    this.figure.isDynamic = false
-    this.figure.divButtons.style.display = 'none'
-    this.figure.divUserMessage.style.display = 'none'
+    this.figure.setToolbar({ position: 'top', tools: ['DRAG', 'DESCRIPTION'] })
     this.figure.buttons.get('SHAKE')?.click()
     return resultat
   }

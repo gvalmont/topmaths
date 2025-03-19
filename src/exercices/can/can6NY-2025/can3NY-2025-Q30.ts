@@ -24,7 +24,6 @@ export default class ComparerFractions extends Exercice {
     this.nbQuestions = 1
     this.optionsChampTexte = { texteApres: ' bouteilles' }
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
   }
 
   nouvelleVersion () {

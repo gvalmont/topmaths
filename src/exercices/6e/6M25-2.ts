@@ -47,7 +47,7 @@ export default class AiresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{A}_\\text{carré} = ${texNombre(c)}~\\text{cm}  \\times ${texNombre(c)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{A}_\\text{carré} = ${miseEnEvidence(texNombre(c * c))}~\\text{cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{A}_\\text{carré} =$', texteApres: '$~\\text{cm}^2$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(c * c), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(c * c) } })
           }
           break
         case 'rectangle':
@@ -59,7 +59,7 @@ export default class AiresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{A}_\\text{rectangle} = ${texNombre(L)}~\\text{cm} \\times ${texNombre(l)}~\\text{cm}$`
             texteCorr += `<br>$\\mathcal{A}_\\text{rectangle} = ${miseEnEvidence(texNombre(L * l))}~\\text{cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{A}_\\text{rectangle} =$', texteApres: '$~\\text{cm}^2$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(L * l), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(L * l) } })
           }
           break
         case 'triangle':
@@ -72,7 +72,7 @@ export default class AiresCalculMental extends Exercice {
             texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = ${texNombre(b * h)}~\\text{cm}^2 \\div 2$`
             texteCorr += `<br>$\\mathcal{A}_\\text{triangle} = ${miseEnEvidence(texNombre(b * h / 2))}~\\text{cm}^2$`
             texteInteractif += ajouteChampTexteMathLive(this, i, KeyboardType.college6eme, { texteAvant: '$\\mathcal{A}_\\text{triangle} =$', texteApres: '$~\\text{cm}^2$' })
-            handleAnswers(this, i, { reponse: { value: texNombre(b * h / 2), options: { nombreDecimalSeulement: true } } })
+            handleAnswers(this, i, { reponse: { value: texNombre(b * h / 2) } })
           }
           break
         case 'disqueRayon':

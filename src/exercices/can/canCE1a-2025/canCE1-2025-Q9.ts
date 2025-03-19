@@ -28,7 +28,7 @@ export default class Can2025CE1Q9 extends ExerciceCan {
     this.question = `Écris en chiffres : 
                              ${context.isHtml ? `<i>cent-${chiffre[a][0]}-${chiffre2[b][0]} </i>` : `\\textit{cent-${chiffre[a][0]}-${chiffre2[b][0]}} `}`
     this.reponse = 100 + chiffre[a][1] + chiffre2[b][1]
-    this.correction = ` $\\textit{cent-${chiffre[a][0]}-${chiffre2[b][0]}}=100 + ${chiffre[a][1]} + ${chiffre2[b][1]} =
+    this.correction = ` ${context.isHtml ? `<i>cent-${chiffre[a][0]}-${chiffre2[b][0]} </i>` : `\\textit{cent-${chiffre[a][0]}-${chiffre2[b][0]}} `} $=
                              ${miseEnEvidence(100 + chiffre[a][1] + chiffre2[b][1])}$ `
 
     this.canEnonce = this.question

@@ -37,9 +37,9 @@ export default class nomExercice extends Exercice {
     for (let i = 0, texte, rep, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'issues':
-          texte = 'Les résultats possibles d’une expérience aléatoire s’appellent les ...' // Le LateX entre deux symboles $, les variables dans des ${ }
+          texte = 'Les résultats possibles d\'une expérience aléatoire s\'appellent les ...' // Le LateX entre deux symboles $, les variables dans des ${ }
           rep = 'issues'
-          texteCorr = 'Les résultats possibles d’une expérience aléatoire s’appellent les issues.'
+          texteCorr = 'Les résultats possibles d\'une expérience aléatoire s\'appellent les issues.'
           break
         case 'imp':
           texte = 'Un événement qui ne se réalise jamais est un événement ...'
@@ -47,9 +47,9 @@ export default class nomExercice extends Exercice {
           texteCorr = 'Un événement qui ne se réalise jamais est un événement impossible.'
           break
         case 'equiprob':
-          texte = 'Lorsque toutes les issues ont la même probabilité de se produire, on dit qu’il y a …'
+          texte = 'Lorsque toutes les issues ont la même probabilité de se produire, on dit qu\'il y a …'
           rep = 'équiprobabilité'
-          texteCorr = 'Lorsque toutes les issues ont la même probabilité de se produire, on dit qu’il y a équiprobabilité.'
+          texteCorr = 'Lorsque toutes les issues ont la même probabilité de se produire, on dit qu\'il y a équiprobabilité.'
           break
         case 'alea':
           texte = 'Une expérience liée au hasard est une expérience …'
@@ -58,9 +58,9 @@ export default class nomExercice extends Exercice {
           break
         case 'certain':
         default:
-          texte = 'Un événement qui se réalise quelle que soit l’issue est un événement …'
+          texte = 'Un événement qui se réalise quelle que soit l\'issue est un événement …'
           rep = 'certain'
-          texteCorr = 'Un événement qui se réalise quelle que soit l’issue est un événement certain.'
+          texteCorr = 'Un événement qui se réalise quelle que soit l\'issue est un événement certain.'
           break
       }
       if (this.interactif) {

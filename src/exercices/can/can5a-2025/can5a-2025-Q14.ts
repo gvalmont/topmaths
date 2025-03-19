@@ -23,16 +23,19 @@ export default class Can2025N5Q14 extends ExerciceCan {
       const liste1: [number, number, number] = choice([[2, 3, 4], [1, 2, 3], [3, 4, 5]]) as [number, number, number]
       [a, b, c] = liste1.map((x:number) => x * facteur)
     }
-    const liste = [a, b, c, '?'].map((el) => `$${el}$`).join(' ; ')
-    this.optionsDeComparaison = { nombreDecimalSeulement: true }
+    const liste = [a, b, c, '$\\ldots$'].map((el) => `$${el}$`).join(' ; ')
     this.reponse = c + b - a
-    this.question = `Complète la suite logique de nombres suivante : <br>${liste}`
+    this.question = 'Complète cette suite logique de nombres : '
+    this.canEnonce = this.question
+    this.question += liste
     this.correction = `On passe d'un nombre au suivant en ajoutant $${b - a}$.<br>
     Ainsi, ? $=${c} + ${b - a}=${miseEnEvidence(c + b - a)}$.`
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
+    this.canReponseACompleter = `$${a}$ ; $${b}$ ; <br> $${c}$ ; $\\ldots$`
     if (this.interactif) {
-      this.question += '<br> ? $=$'
+      this.question = this.question.replace('$\\ldots$', '')
+      this.optionsChampTexte = { texteApres: '.' }
+    } else {
+      this.question += '.'
     }
   }
 

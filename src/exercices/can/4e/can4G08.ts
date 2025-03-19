@@ -60,11 +60,11 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
               enonce: texte,
               propositions: [
                 {
-                  texte: 'VRAI',
+                  texte: 'Vrai',
                   statut: b !== 0
                 },
                 {
-                  texte: 'FAUX',
+                  texte: 'Faux',
                   statut: b === 0
                 }
               ]
@@ -73,7 +73,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
             if (this.interactif) texte += monQcm.texte
 
             this.canEnonce = texte// 'Compléter'
-            this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+            this.canReponseACompleter = '\\faSquare[regular] Vrai <br>\\faSquare[regular] Faux'
             this.listeCanEnonces.push(this.canEnonce)
             this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           }

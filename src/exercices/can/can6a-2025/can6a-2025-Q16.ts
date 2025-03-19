@@ -6,6 +6,7 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { latex2d } from '../../../lib/2d/textes'
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 
 export const titre = 'Comparer deux aires'
 export const interactifReady = true
@@ -54,10 +55,27 @@ export default class Can2025N6Q16 extends Exercice {
     const objets = [grille, poly1, poly2, figureA, figureB]
     this.question = 'Quelle figure a la plus grande aire ?'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
-    /*
-    this.canEnonce = this.question
-    this.canReponseACompleter = 'Figure $\\ldots$'
-    */
+
+    if (this.interactif) {
+      this.autoCorrection[0] = {
+        enonce: this.question,
+        options: { vertical: false, ordered: true },
+        propositions: [
+          {
+            texte: 'Figure $A$',
+            statut: true
+          },
+          {
+            texte: 'Figure $B$',
+            statut: false
+          }
+        ]
+      }
+      this.formatInteractif = 'qcm'
+
+      const monQcm = propositionsQcm(this, 0)
+      this.question += this.interactif ? `${monQcm.texte}` : ''
+    }
     this.canEnonce = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     this.canReponseACompleter = 'Quelle figure a la plus grande aire ? $\\ldots$'
     this.reponse = 'A'

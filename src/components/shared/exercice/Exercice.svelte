@@ -37,12 +37,12 @@
     }
   })
 
-  function isSvelte (uuid: string) {
+  function isSvelte(uuid: string) {
     const urlExercice = uuidToUrl[uuid as keyof typeof uuidToUrl]
     return urlExercice && urlExercice.includes('.svelte')
   }
 
-  async function getExercise (paramsExercice: InterfaceParams): Promise<Exercice> {
+  async function getExercise(paramsExercice: InterfaceParams): Promise<Exercice> {
     const exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
     exercise.numeroExercice = indiceExercice
     mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
@@ -50,11 +50,14 @@
     return exercise
   }
 
-  async function getExerciseType (exercise: Exercice): Promise<ExerciseType> {
+  async function getExerciseType(exercise: Exercice): Promise<ExerciseType> {
     if (exercise.typeExercice && exercise.typeExercice.includes('html')) {
       return 'html'
     } else {
-      if ($globalOptions.v === 'eleve') {
+      if (
+        $globalOptions.v === 'eleve' ||
+        ($globalOptions.v === 'myriade' || $globalOptions.v === 'indices')
+      ) {
         return 'mathaleaVueEleve'
       } else {
         return 'mathaleaVueProf'
@@ -81,29 +84,25 @@
     on:exerciseRemoved
   />
 {:else if exerciseType === 'svelte'}
-  <svelte:component
-    this={ComponentExercice}
-    {indiceExercice}
-    {indiceLastExercice}
-  />
+  <svelte:component this={ComponentExercice} {indiceExercice} {indiceLastExercice} />
 {:else if exerciseType === 'mathaleaVueEleve'}
-<ExerciceMathalea
-  vue='eleve'
-  {exercise}
-  exerciseIndex={indiceExercice}
-  {indiceLastExercice}
-  {isCorrectionVisible}
-  on:exerciseRemoved
-/>
+  <ExerciceMathalea
+    vue="eleve"
+    {exercise}
+    exerciseIndex={indiceExercice}
+    {indiceLastExercice}
+    {isCorrectionVisible}
+    on:exerciseRemoved
+  />
 {:else if exerciseType === 'mathaleaVueProf'}
-<ExerciceMathalea
-  vue='prof'
-  {exercise}
-  exerciseIndex={indiceExercice}
-  {indiceLastExercice}
-  {isCorrectionVisible}
-  on:exerciseRemoved
-/>
+  <ExerciceMathalea
+    vue="prof"
+    {exercise}
+    exerciseIndex={indiceExercice}
+    {indiceLastExercice}
+    {isCorrectionVisible}
+    on:exerciseRemoved
+  />
 {/if}
 
 <style>

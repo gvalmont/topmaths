@@ -21,8 +21,7 @@ export default class InverseOppose extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    // this.optionsDeComparaison = { nombreDecimalSeulement: true } // Car on attend fraction ou décimal
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction // Car on attend fraction ou décimal
   }
 
   nouvelleVersion () {
