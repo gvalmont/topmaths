@@ -10,16 +10,14 @@
 }
 
 #let blocDeCours(texte, nom, couleur, epaisseur) = {
-  par()[
-    #block(breakable: false)[
-      #let yOffset = 0em
-      #if nom != "" {
-        pad(bottom: -1em)[#underline(nom + " :", stroke: 1pt + couleur, offset: 2pt)]
-        yOffset = 0.5em
-      }
-      #block(stroke: (left: epaisseur + couleur), inset: (left: 0.5em, y: yOffset), width: 100%)[
-        #texte
-      ]
+  block(breakable: false)[
+    #let yOffset = 0em
+    #if nom != "" {
+      pad(bottom: -1em)[#underline(nom + " :", stroke: 1pt + couleur, offset: 2pt)]
+      yOffset = 0.5em
+    }
+    #block(stroke: (left: epaisseur + couleur), inset: (left: 0.5em, y: yOffset), width: 100%)[
+      #texte
     ]
   ]
 }
