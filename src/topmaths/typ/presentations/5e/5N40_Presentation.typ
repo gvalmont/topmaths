@@ -20,11 +20,11 @@ entier")
 #slide()[
   #remarques()[
     Quand #vert()[on multiplie] un nombre, on obtient #noir()[un #uncover((2, 3))[multiple]].\
-    Quand #vert()[on divise] un nombre, on obtient #noir()[un #uncover((2, 3))[diviseur]].
+    Si un nombre #vert()[divise] entièrement (sans laisser de reste), c'est #noir()[un #uncover((2, 3))[diviseur]].
   ]
 
   #definitions()[
     Les nombres entiers divisibles par 2 sont appelés #motDefini()[nombres #uncover(3)[pairs]].\
     Les nombres entiers qui ne sont pas divisibles par 2 sont appelés #motDefini()[nombres #uncover(3)[impairs]].
   ]
-  ]
+]

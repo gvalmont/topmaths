@@ -5122,7 +5122,7 @@
                 "reference": "5N40",
                 "titleAcademic": "Déterminer si un nombre entier est ou n'est pas multiple ou diviseur d'un autre nombre entier",
                 "title": "Connaître le vocabulaire des multiples et diviseurs",
-                "lessonSummaryHTML": "Quand on <i><b>multiplie</b></i> un nombre, on obtient un <i><b>multiple</b></i>.<br>Quand on <i><b>divise</b></i> un nombre, on obtient un <i><b>diviseur</b></i>.",
+                "lessonSummaryHTML": "Quand on <i><b>multiplie</b></i> un nombre, on obtient un <i><b>multiple</b></i>.<br>Si un nombre <i><b>divise</b></i> entièrement <i>(sans laisser de reste)</i>, c'est un <i><b>diviseur</b></i>.",
                 "lessonSummaryImage": "",
                 "videos": [
                   {

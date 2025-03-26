@@ -1,20 +1,20 @@
 #exemple()[
   #set text(couleurPrincipale)
-Division euclidienne de 185 par 7.
+  Division euclidienne de 185 par 7.
 
-#h(1.5cm)Calcul posé
-#place(left, dx:20%)[
-  #v(0.5em)
+  #h(1.5cm)Calcul posé
+  #place(left, dx: 20%)[
+    #v(0.5em)
     #noir()[dividende]\
     #bleu()[diviseur]\
     #vert()[quotient]\
     #rouge()[reste]
-]
-#image("5N40-1.png", width: 18%)
+  ]
+  #image("5N40-1.png", width: 18%)
 
-#noir()[185] = (#vert()[26] $times$ 7) + #rouge()[3] et #rouge()[3] < 7.\
-Le dividende est #noir()[185] et le diviseur est 7.\
-Le quotient est #vert()[26] et le reste est #rouge()[3].
+  #noir()[185] = (#vert()[26] $times$ 7) + #rouge()[3] et #rouge()[3] < 7.\
+  Le dividende est #noir()[185] et le diviseur est 7.\
+  Le quotient est #vert()[26] et le reste est #rouge()[3].
 ]
 
 
@@ -33,7 +33,7 @@ Le quotient est #vert()[26] et le reste est #rouge()[3].
 
 #remarques()[
   Quand #vert()[on multiplie] un nombre, on obtient #noir()[un multiple].\
-  Quand #vert()[on divise] un nombre, on obtient #noir()[un diviseur].
+  Si un nombre #vert()[divise] entièrement (sans laisser de reste), c'est #noir()[un diviseur]
 ]
 
 #definitions()[
