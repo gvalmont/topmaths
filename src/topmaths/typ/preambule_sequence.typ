@@ -10,7 +10,7 @@
 }
 
 #let blocDeCours(texte, nom, couleur, epaisseur) = {
-  block(breakable: false)[
+  block(breakable: true)[
     #let yOffset = 0em
     #if nom != "" {
       pad(bottom: -1em)[#underline(nom + " :", stroke: 1pt + couleur, offset: 2pt)]
