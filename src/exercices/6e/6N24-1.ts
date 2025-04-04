@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
 export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
 
@@ -52,7 +52,7 @@ export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 exten
           '$ ' +
           texFractionFromString(texNombre(a), texNombre(b)) +
           ' = ' +
-          texNombre(calculANePlusJamaisUtiliser(a / b)) +
+          texNombre((a / b)) +
           ' $'
       } else {
         texte =
@@ -63,7 +63,7 @@ export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 exten
           '\\times' +
           texNombre(b) +
           ' = ' +
-          texNombre(calculANePlusJamaisUtiliser(a * b)) +
+          texNombre((a * b)) +
           ' $'
       }
 

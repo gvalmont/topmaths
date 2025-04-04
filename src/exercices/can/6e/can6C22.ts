@@ -1,11 +1,12 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
 import Exercice from '../../Exercice'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Déterminer la valeur décimale d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,7 +36,7 @@ export default class ValeursDecimalesFractions extends Exercice {
     switch (choice([1, 2, 3, 4])) {
       case 1:
         a = randint(1, 9, 5)
-        this.reponse = calculANePlusJamaisUtiliser(a / 5)
+        this.reponse = arrondi(a / 5)
         this.question = `Donner la valeur décimale de  $\\dfrac{${a}}{5}$.`
         this.correction = `$\\dfrac{${a}}{5}=${miseEnEvidence(texNombre(this.reponse))}$<br>`
         if (a === 2 || a === 3 || a === 4) {
@@ -52,7 +53,7 @@ export default class ValeursDecimalesFractions extends Exercice {
       case 2:
         b = choice([1, 3, 5, 7, 9, 11])
         this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{4}$.`
-        this.reponse = calculANePlusJamaisUtiliser(b / 4)
+        this.reponse = arrondi(b / 4)
         this.correction = `$\\dfrac{${b}}{4}=${miseEnEvidence(texNombre(this.reponse))}$<br>`
         if (b === 5 || b === 7) {
           this.correction += texteEnCouleur(`
@@ -70,7 +71,7 @@ export default class ValeursDecimalesFractions extends Exercice {
       case 3:
         b = choice([1, 3, 5, 7, 9, 11, 13, 17, 19])
         this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{10}$.`
-        this.reponse = calculANePlusJamaisUtiliser(b / 10)
+        this.reponse = arrondi(b / 10)
         this.correction = `$\\dfrac{${b}}{10}=${miseEnEvidence(texNombre(this.reponse))}$<br>`
         if (b > 1) {
           this.correction += texteEnCouleur(`
@@ -82,7 +83,7 @@ export default class ValeursDecimalesFractions extends Exercice {
       case 4:
         b = choice([3, 5, 7, 9, 11, 13, 17, 19])
         this.question = `Donner la valeur décimale de  $\\dfrac{${b}}{2}$.`
-        this.reponse = calculANePlusJamaisUtiliser(b / 2)
+        this.reponse = arrondi(b / 2)
 
         this.correction = `$\\dfrac{${b}}{2}=${miseEnEvidence(texNombre(this.reponse))}$<br>`
         this.correction += texteEnCouleur(`

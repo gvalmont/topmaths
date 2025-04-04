@@ -3,7 +3,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Encadrer un décimal par deux entiers consécutifs'
 
@@ -46,21 +47,21 @@ export default class EncadrerUnDecimalParDeuxEntiersConsecutifs extends Exercice
       // for (let k=0;k<3;k++) {
       enonces.push({
         enonce: `
-          $\\ldots < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))} < \\ldots$`,
+          $\\ldots < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))} < \\ldots$`,
         question: '',
-        correction: `$${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))} < ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + 1))}$`
+        correction: `$${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01 + mi * 0.001))} < ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + 1))}$`
       })
       enonces.push({
         enonce: `
-          $\\ldots < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01))} < \\ldots$`,
+          $\\ldots < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01))} < \\ldots$`,
         question: '',
-        correction: `$${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01))} < ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + 1))}$`
+        correction: `$${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1 + ci * 0.01))} < ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + 1))}$`
       })
       enonces.push({
         enonce: `
-          $\\ldots < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1))} < \\ldots$`,
+          $\\ldots < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1))} < \\ldots$`,
         question: '',
-        correction: `$${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1))} < ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + 1))}$`
+        correction: `$${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + arrondi(di * 0.1))} < ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + 1))}$`
       })
 
       texte = `${enonces[listeTypeDeQuestions[i]].enonce}`

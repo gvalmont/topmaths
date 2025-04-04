@@ -1,9 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Quotient de deux entiers relatifs'
 export const interactifReady = true
@@ -61,8 +62,8 @@ export default class ExerciceQuotientsRelatifs extends Exercice {
           break
       }
       texte = `$\\dfrac{${a}}{${b}}$`
-      texteCorr = `$\\dfrac{${a}}{${b}}=${calculANePlusJamaisUtiliser(a / b)}$`
-      setReponse(this, i, calculANePlusJamaisUtiliser(a / b))
+      texteCorr = `$\\dfrac{${a}}{${b}}=${arrondi(a / b)}$`
+      setReponse(this, i, arrondi(a / b))
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre

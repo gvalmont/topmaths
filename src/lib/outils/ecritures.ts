@@ -222,7 +222,7 @@ export function ecritureParentheseSiMoins (expr: string | number | FractionEtend
   else {
     // avant on passait ici quand c'était un string sans signe - devant... c'était une mauvaise idée !
     window.notify('ecritureParentheseSiMoins() n\'accepte pas ce type d\'argument.', { argument: expr })
-    return expr
+    return String(expr)
   }
 }
 

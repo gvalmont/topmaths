@@ -6,6 +6,13 @@ import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import FractionEtendue from '../../modules/FractionEtendue'
+export const interactifReady = true
+export const interactifType = 'mathlive'
 export const dateDePublication = '02/05/2023'
 export const titre = 'Résoudre des équations avec un quotient'
 
@@ -21,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class ResoudreEquationsQuotient extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Type d\'équations', 3, '1 : A(x)/B(x)=0\n 2 : A(x)/B(x)=a ou a/A(x)=b/B(x)\n 3 : Mélange']
 
@@ -29,7 +36,7 @@ export default class ResoudreEquationsQuotient extends Exercice {
     this.sup = 3
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2]
@@ -52,6 +59,11 @@ export default class ResoudreEquationsQuotient extends Exercice {
       let f: number
       const typesDeQuestions = listeTypeDeQuestions[i]
       const consigne1 = 'Préciser les valeurs interdites éventuelles, puis résoudre l\'équation : '
+      let ensValeursInterdites: string
+      let ensSolutions: string
+      let valInterdite: FractionEtendue
+      let valInterdite2: FractionEtendue
+      let valSolution: FractionEtendue
       switch (typesDeQuestions) {
         case 1:// (ax+b)/(cx+d)=0
           a = randint(-3, 9, 0)
@@ -80,25 +92,31 @@ export default class ResoudreEquationsQuotient extends Exercice {
               texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
             }
           }
-          texteCorr += `Or $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${texFractionReduite(-d, c)}$. <br>
-          Donc l'ensemble des valeurs interdites est  $\\left\\{${texFractionReduite(-d, c)}\\right\\}$. <br>`
+          // Constantes utiles
+          valInterdite = new FractionEtendue(-d, c)
+          valSolution = new FractionEtendue(-b, a)
+          ensValeursInterdites = `\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}`
+          ensSolutions = `\\left\\{${valSolution.texFractionSimplifiee}\\right\\}`
+
+          texteCorr += `Or $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${valInterdite.texFractionSimplifiee}$. <br>
+          Donc l'ensemble des valeurs interdites est  $${ensValeursInterdites}$. <br>`
           if (b === 0) {
-            texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${texFractionReduite(-d, c)}\\right\\}$, <br>
+            texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}$, <br>
  $\\begin{aligned}
  \\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}&=0 \\\\
  ${reduireAxPlusB(a, b)}&=0 ${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text { si et seulement si } A(x)=0 \\text { et } B(x)\\neq 0\\\\
-x&= ${texFractionReduite(-b, a)}
+x&= ${valSolution.texFractionSimplifiee}
 \\end{aligned}$<br>`
           } else {
-            texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${texFractionReduite(-d, c)}\\right\\}$,<br>
+            texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}$,<br>
  $\\begin{aligned}
  ${choix ? `\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}&=0` : `\\dfrac{${b}${ecritureAlgebriqueSauf1(a)}x}{${reduireAxPlusB(c, d)}}&=0`}\\\\
  ${choix ? `${reduireAxPlusB(a, b)}&=0` : `${b}${ecritureAlgebriqueSauf1(a)}x&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text { si et seulement si } A(x)=0 \\text { et } B(x)\\neq 0\\\\
-x&= ${texFractionReduite(-b, a)}
+x&= ${valSolution.texFractionSimplifiee}
 \\end{aligned}$<br>`
           }
 
-          texteCorr += ` $${texFractionReduite(-b, a)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${texFractionReduite(-b, a)}\\right\\}`)}$.`
+          texteCorr += ` $${valSolution.texFractionSimplifiee}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.`
           break
         case 2:// (ax^2+/-b)/(cx+d)=0
           a = randint(1, 4)
@@ -110,6 +128,7 @@ x&= ${texFractionReduite(-b, a)}
 
           choix = choice([true, false])
           texte = consigne1
+          // WARN: c'est quoi cette condition alors qu'on déclare choix juste au dessus ?
           if (choice([true, false])) {
             texte += `${choix ? `$\\dfrac{${rienSi1(a)}x^2-${b}}{${reduireAxPlusB(c, d)}}=0$` : `$\\dfrac{${b}-${rienSi1(a)}x^2}{${reduireAxPlusB(c, d)}}=0$`}.`
             if (context.isDiaporama) {
@@ -117,9 +136,13 @@ x&= ${texFractionReduite(-b, a)}
             } else {
               texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
             }
-            texteCorr += `Or $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${-k2}$. <br>
-          Donc l'ensemble des valeurs interdites est  $\\left\\{${-k2}\\right\\}$.<br>
-          Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
+            // Constantes utiles
+            valInterdite = new FractionEtendue(-k2, 1)
+            ensValeursInterdites = `\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}`
+
+            texteCorr += `Or $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${valInterdite.texFractionSimplifiee}$. <br>
+          Donc l'ensemble des valeurs interdites est  $${ensValeursInterdites}$.<br>
+          Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
             $\\begin{aligned}
             ${choix ? `\\dfrac{${rienSi1(a)}x^2-${b}}{${reduireAxPlusB(c, d)}}&=0` : `\\dfrac{${b}-${rienSi1(a)}x^2}{${reduireAxPlusB(c, d)}}&=0`}\\\\
             ${choix ? `${rienSi1(a)}x^2-${b}&=0` : `${b}-${rienSi1(a)}x^2&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text { si et seulement si } A(x)=0 \\text { et } B(x)\\neq 0\\\\
@@ -130,14 +153,17 @@ x&= ${texFractionReduite(-b, a)}
            `
             if (-k2 === k1 || k2 === k1) {
               if (-k2 === k1) {
-                texteCorr += `  $${k1}$ est une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${-k1}\\right\\}`)}$.
+                ensSolutions = `\\left\\{${-k1}\\right\\}`
+                texteCorr += `  $${k1}$ est une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.
         `
               } else {
-                texteCorr += `  $${-k1}$ est une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${k1}\\right\\}`)}$.
+                ensSolutions = `\\left\\{${k1}\\right\\}`
+                texteCorr += `  $${-k1}$ est une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.
         `
               }
             } else {
-              texteCorr += `  $${-k1}$ et $${k1}$ ne sont pas des valeurs interdites, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${-k1}\\,;\\,${k1}\\right\\}`)}$.
+              ensSolutions = `\\left\\{${-k1}\\,;\\,${k1}\\right\\}`
+              texteCorr += `  $${-k1}$ et $${k1}$ ne sont pas des valeurs interdites, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.
         `
             }
           } else {
@@ -147,9 +173,13 @@ x&= ${texFractionReduite(-b, a)}
             } else {
               texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
             }
+            // Constantes utiles
+            ensValeursInterdites = `\\left\\{${-k2}\\right\\}`
+            ensSolutions = '\\emptyset'
+
             texteCorr += `Or $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${-k2}$. <br>
-Donc l'ensemble des valeurs interdites est  $\\left\\{${-k2}\\right\\}$.<br>
-Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
+Donc l'ensemble des valeurs interdites est  $${ensValeursInterdites}$.<br>
+Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$, <br>
   $\\begin{aligned}
   ${choix ? `\\dfrac{${rienSi1(a)}x^2+${b}}{${reduireAxPlusB(c, d)}}&=0` : `\\dfrac{${b}+${rienSi1(a)}x^2}{${reduireAxPlusB(c, d)}}&=0`}\\\\
   ${choix ? `${rienSi1(a)}x^2+${b}&=0` : `${b}+${rienSi1(a)}x^2&=0`}${sp(7)} \\text{ car }\\dfrac{A(x)}{B(x)}=0 \\text { si et seulement si } A(x)=0 \\text { et } B(x)\\neq 0\\\\
@@ -157,8 +187,7 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
   x^2&=-${k1 * k1}
  \\end{aligned}$<br>
  `
-            texteCorr += `Puisque $-${k1 * k1}<0$, cette équation n'a pas de solution, donc l'ensemble des solutions est  $${miseEnEvidence('\\mathscr{S}=\\emptyset')}$.
-`
+            texteCorr += `Puisque $-${k1 * k1}<0$, cette équation n'a pas de solution, donc l'ensemble des solutions est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.`
           }
 
           break
@@ -184,9 +213,12 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
           } else {
             texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent le dénominateur du quotient, puisque la division par $0$ n\'existe pas.<br>'
           }
-          texteCorr += `Or $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${texFractionReduite(-d, c)}$. <br>
-          Donc l'ensemble des valeurs interdites est  $\\left\\{${texFractionReduite(-d, c)}\\right\\}$. <br>
-          Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${texFractionReduite(-d, c)}\\right\\}$,<br>`
+          valInterdite = new FractionEtendue(-d, c)
+          ensValeursInterdites = `\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}`
+          valSolution = new FractionEtendue(e * d - b, a - e * c)
+          texteCorr += `Or $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${valInterdite.texFractionSimplifiee}$. <br>
+          Donc l'ensemble des valeurs interdites est  $${ensValeursInterdites}$. <br>
+          Pour tout $x\\in \\mathbb{R}\\smallsetminus${ensValeursInterdites}$,<br>`
           if (b === 0) {
             texteCorr += `
             $\\begin{aligned}
@@ -194,7 +226,7 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
             ${reduireAxPlusB(a, b)}&=${e}\\times(${reduireAxPlusB(c, d)})${sp(7)} \\text{ car les produits en croix sont égaux.}\\\\
             ${reduireAxPlusB(a, b)}&= ${reduireAxPlusB(e * c, e * d)}\\\\
            ${rienSi1(a - e * c)}x&= ${e * d - b} ${a - e * c === 1 ? '' : '\\\\'}
-          ${a - e * c === 1 ? '' : `x&=${texFractionReduite(e * d - b, a - e * c)}`} 
+          ${a - e * c === 1 ? '' : `x&=${valSolution.texFractionSimplifiee}`} 
            \\end{aligned}$<br>`
           } else {
             texteCorr += `
@@ -203,13 +235,17 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
             ${choix ? `${reduireAxPlusB(a, b)}&=${e}\\times(${reduireAxPlusB(c, d)})` : `${b}${ecritureAlgebriqueSauf1(a)}x&=${e}\\times(${reduireAxPlusB(c, d)})`}${sp(7)}\\text{ car les produits en croix sont égaux.}\\\\
             ${reduireAxPlusB(a, b)}&= ${reduireAxPlusB(e * c, e * d)}\\\\
             ${rienSi1(a - e * c)}x&= ${e * d - b}\\\\
-           x&=${texFractionReduite(e * d - b, a - e * c)}
+           x&=${valSolution.texFractionSimplifiee}
            \\end{aligned}$<br>`
           }
 
           if (-d * (a - e * c) - c * (e * d - b) === 0) {
-            texteCorr += `$${texFractionReduite(e * d - b, a - e * c)}$ est  une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence('\\mathscr{S}=\\emptyset')}$.`
-          } else { texteCorr += `$${texFractionReduite(e * d - b, a - e * c)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${texFractionReduite(e * d - b, a - e * c)}\\right\\}`)}$.` }
+            ensSolutions = '\\emptyset'
+            texteCorr += `$${valSolution.texFractionSimplifiee}$ est  une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.`
+          } else {
+            ensSolutions = `\\left\\{${valSolution.texFractionSimplifiee}\\right\\}`
+            texteCorr += `$${valSolution.texFractionSimplifiee}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.`
+          }
           break
 
         case 4:// e/(ax+b)=f/(cx+d)
@@ -238,24 +274,57 @@ Pour tout $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-k2}\\right\\}$, <br>
           } else {
             texteCorr = 'Déterminer les valeurs interdites revient à déterminer les valeurs qui annulent les dénominateurs des quotients, puisque la division par $0$ n\'existe pas.<br>'
           }
-          texteCorr += `Or $${reduireAxPlusB(a, b)}=0$ si et seulement si  $x=${texFractionReduite(-b, a)}$ et $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x=${texFractionReduite(-d, c)}$. <br>
-          Donc l'ensemble des valeurs interdites est  
-          ${-a * d + b * c === 0 ? `$\\left\\{${texFractionReduite(-d, c)}\\right\\}$` : `$\\left\\{${-d / c < -b / a ? `${texFractionReduite(-d, c)}\\,;\\,${texFractionReduite(-b, a)}` : `${texFractionReduite(-b, a)}\\,;\\,${texFractionReduite(-d, c)}`}\\right\\}$.`} <br>`
+          valInterdite = new FractionEtendue(-d, c)
+          valInterdite2 = new FractionEtendue(-b, a)
+          valSolution = new FractionEtendue(-e * d + f * b, e * c - f * a)
+          if (-a * d + b * c === 0) {
+            ensValeursInterdites = `\\left\\{${valInterdite.texFractionSimplifiee}\\right\\}`
+          } else {
+            // on ordonne les valeurs interdites par ordre croissant
+            if (-d / c < -b / a) {
+              ensValeursInterdites = `\\left\\{${valInterdite.texFractionSimplifiee}\\,;\\,${valInterdite2.texFractionSimplifiee} \\right\\}`
+            } else {
+              ensValeursInterdites = `\\left\\{${valInterdite2.texFractionSimplifiee} \\, ; \\,${valInterdite.texFractionSimplifiee}\\right\\}`
+            }
+          }
+          texteCorr += `Or $${reduireAxPlusB(a, b)}=0$ si et seulement si  $x = ${valInterdite2.texFractionSimplifiee}$ et $${reduireAxPlusB(c, d)}=0$ si et seulement si  $x = ${valInterdite.texFractionSimplifiee} $. <br>Donc l'ensemble des valeurs interdites est $${ensValeursInterdites}$. <br>`
 
-          texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus$ ${-a * d + b * c === 0 ? `$\\left\\{${texFractionReduite(-d, c)}\\right\\}$` : `$\\left\\{${-d / c < -b / a ? `${texFractionReduite(-d, c)}\\,;\\,${texFractionReduite(-b, a)}` : `${texFractionReduite(-b, a)}\\,;\\,${texFractionReduite(-d, c)}`}\\right\\}$`},<br>
+          texteCorr += `Pour tout $x\\in \\mathbb{R}\\smallsetminus ${ensValeursInterdites}$,<br>
  $\\begin{aligned}
  \\dfrac{${e}}{${reduireAxPlusB(a, b)}}&=\\dfrac{${f}}{${reduireAxPlusB(c, d)}}\\\\
  ${f}\\times (${reduireAxPlusB(a, b)})&=${e}\\times (${reduireAxPlusB(c, d)})${sp(7)} \\text{ car les produits en croix sont égaux.}\\\\
  ${reduireAxPlusB(f * a, f * b)}&=${reduireAxPlusB(e * c, e * d)}\\\\
 ${rienSi1(-e * c + f * a)}x&= ${e * d - f * b}${-e * c + f * a === 1 ? '' : '\\\\'}
-          ${-e * c + f * a === 1 ? '' : `x&=${texFractionReduite(-e * d + f * b, e * c - f * a)}`} 
+          ${-e * c + f * a === 1 ? '' : `x&=${valSolution.texFractionSimplifiee}`} 
 \\end{aligned}$<br>`
 
           if (-b * (e * c - f * a) === a * (-e * d + f * b)) {
-            texteCorr += ` $${texFractionReduite(-e * d + f * b, e * c - f * a)}$ est  une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence('\\mathscr{S}=\\emptyset')}$.`
-          } else { texteCorr += ` $${texFractionReduite(-e * d + f * b, e * c - f * a)}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=\\left\\{${texFractionReduite(-e * d + f * b, e * c - f * a)}\\right\\}`)}$.` }
+            ensSolutions = '\\emptyset'
+            texteCorr += ` $${valSolution.texFractionSimplifiee}$ est  une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.`
+          } else {
+            ensSolutions = `\\left\\{${valSolution.texFractionSimplifiee}\\right\\}`
+            texteCorr += ` $${valSolution.texFractionSimplifiee}$ n'est pas une valeur interdite, donc l'ensemble des solutions de cette équation est  $${miseEnEvidence(`\\mathscr{S}=${ensSolutions}`)}$.`
+          }
           break
       }
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierEnsemble, { texteAvant: '<br>Ensemble des valeurs interdites : ' })
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierEnsemble, { texteAvant: '<br>Ensemble des solutions : ' })
+      }
+      handleAnswers(this, 2 * i, {
+        reponse: {
+          value: ensValeursInterdites,
+          compare: fonctionComparaison,
+          options: { ensembleDeNombres: true }
+        }
+      })
+      handleAnswers(this, 2 * i + 1, {
+        reponse: {
+          value: ensSolutions,
+          compare: fonctionComparaison,
+          options: { ensembleDeNombres: true }
+        }
+      })
       if (this.questionJamaisPosee(i, a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

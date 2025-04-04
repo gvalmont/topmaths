@@ -210,7 +210,6 @@ export default class LireUneAbscisseAvecZoom extends Exercice {
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
-        // texteCorr = `L'abscisse de $${noms[1]} $est : $${texNombre(x1)}=${texNombre(x1.floor())} + ${texFractionFromString(calculANePlusJamaisUtiliser(10 * (x1 - x1.floor())), 10)}=${texFractionFromString(calculANePlusJamaisUtiliser(x1 * 10), 10)}$.<br>`
 
         const partent = Math.floor(x1)
         const pardec = x1 - partent

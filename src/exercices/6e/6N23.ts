@@ -3,9 +3,10 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
 export const interactifReady = true
@@ -54,7 +55,7 @@ export default class ExerciceEcritureDecimaleApartirDeFractionDecimale extends E
       )
       // X, XX, X0X, X00X,XXX
       b = choice([10, 100, 1000])
-      setReponse(this, i, calculANePlusJamaisUtiliser(a / b))
+      setReponse(this, i, arrondi(a / b))
       // @ts-expect-error
       this.autoCorrection[i].reponse.param.digits = 6
       // @ts-expect-error
@@ -66,7 +67,7 @@ export default class ExerciceEcritureDecimaleApartirDeFractionDecimale extends E
                 '$ ' +
                 texFractionFromString(texNombre(a), texNombre(b)) +
                 ' = ' +
-                texNombre(calculANePlusJamaisUtiliser(a / b)) +
+                texNombre(arrondi(a / b)) +
                 ' $'
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre

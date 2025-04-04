@@ -2,11 +2,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { OutilsStats } from '../../modules/outilsStat'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Déterminer des médianes'
 export const interactifReady = true
@@ -108,7 +109,7 @@ export default class DeterminerDesMedianes extends Exercice {
       if (Array.isArray(repInteractive)) {
         setReponse(this, i, repInteractive, {
           decimals: 1,
-          milieuIntervalle: calculANePlusJamaisUtiliser((repInteractive[0] + repInteractive[1]) / 2),
+          milieuIntervalle: arrondi((repInteractive[0] + repInteractive[1]) / 2),
           approx: 'intervalleStrict',
           formatInteractif: 'intervalleStrict'
         })

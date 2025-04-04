@@ -1,8 +1,8 @@
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
-import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
@@ -60,36 +60,36 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
       // for (let k=0;k<3;k++) {
       enonces.push({
         enonce: `
-            Sachant que $${calculANePlusJamaisUtiliser(situations[0].d1 * 10 + situations[0].u1)}\\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)} = ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}$,
-            calculer $${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)}$.
+            Sachant que $${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}$,
+            calculer $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}$.
             `,
         question: '',
         correction: `
-          $${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)} = ${calculANePlusJamaisUtiliser(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)} = ${calculANePlusJamaisUtiliser(situations[0].d1 * 10 + situations[0].u1)}\\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)} =  ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)} = ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calculANePlusJamaisUtiliser(10 ** situations[0].p1))}$
+          $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)} =  ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p1))}$
           `,
-        reponse: calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p1)
+        reponse: arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p1)
       })
       enonces.push({
         enonce: `
-          Sachant que $${calculANePlusJamaisUtiliser(situations[0].d1 * 10 + situations[0].u1)}\\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)} = ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}$,
-          calculer $${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1)))}\\times ${texNombre(calculANePlusJamaisUtiliser((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))}$.
+          Sachant que $${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}$,
+          calculer $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1)))}\\times ${texNombre(arrondi((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))}$.
             `,
         question: '',
         correction: `
-          $${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1)))}\\times ${texNombre(calculANePlusJamaisUtiliser((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${calculANePlusJamaisUtiliser(situations[0].d1 * 10 + situations[0].u1)}\\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calculANePlusJamaisUtiliser(10 ** situations[0].p2))}$
+          $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1)))}\\times ${texNombre(arrondi((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p2))}$
           `,
-        reponse: calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p2)
+        reponse: arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p2)
       })
       enonces.push({
         enonce: `
-          Sachant que $${calculANePlusJamaisUtiliser(situations[0].d1 * 10 + situations[0].u1)}\\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)} = ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}$,
-          calculer $${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${texNombre(calculANePlusJamaisUtiliser((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))}$.
+          Sachant que $${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}$,
+          calculer $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${texNombre(arrondi((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))}$.
           `,
         question: '',
         correction: `
-          $${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${texNombre(calculANePlusJamaisUtiliser((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${calculANePlusJamaisUtiliser(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${calculANePlusJamaisUtiliser(situations[0].d1 * 10 + situations[0].u1)}\\times ${calculANePlusJamaisUtiliser(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calculANePlusJamaisUtiliser(10 ** situations[0].p1) * calculANePlusJamaisUtiliser(10 ** situations[0].p2))}$
+          $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${texNombre(arrondi((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p1) * arrondi(10 ** situations[0].p2))}$
           `,
-        reponse: calculANePlusJamaisUtiliser((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p1 * 10 ** situations[0].p2)
+        reponse: arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p1 * 10 ** situations[0].p2)
       })
 
       // };

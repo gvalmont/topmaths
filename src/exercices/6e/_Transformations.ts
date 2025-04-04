@@ -25,6 +25,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
+export const dateDeModifImportante = '31/03/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -33,8 +34,6 @@ export const amcType = 'AMCHybride'
 /**
  * Transformations : trouver un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
  * @author Jean-Claude Lhote
- *
- * Relecture : Novembre 2021 par EE
  */
 export default class Transformations extends Exercice {
   can: boolean
@@ -84,7 +83,7 @@ export default class Transformations extends Exercice {
     const xuPossibles = combinaisonListes(rangeMinMax(-3, 3), 1)
     const yuPossibles = combinaisonListes(rangeMinMax(-3, 3), 1)
 
-    for (let ee = 0, texte, texteCorr, xu, yu, pointMLettre, pointM, pointN, numPointN, croix, aEviter, mauvaisAntecedents, longueurBoucle, objetsEnonce, objetsCorrection, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
+    for (let indiceQuestion = 0, texte, texteCorr, xu, yu, pointMLettre, pointM, pointN, numPointN, croix, aEviter, mauvaisAntecedents, longueurBoucle, objetsEnonce, objetsCorrection, cpt = 0; indiceQuestion < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
       objetsEnonce = []
@@ -453,9 +452,13 @@ export default class Transformations extends Exercice {
             objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codageSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
             break
         }
-        if (this.can) texte = texte.replaceAll(numAlpha(0), '')
-        handleAnswers(this, i, { reponse: { value: String(images[i]) } })
-        texte += ajouteChampTexteMathLive(this, i, '')
+        if (this.can) {
+          texte = texte.replaceAll(numAlpha(0), '')
+          texteCorr = texteCorr.replaceAll(numAlpha(0), '')
+        }
+
+        handleAnswers(this, indiceQuestion * 3 + i, { reponse: { value: String(images[i]) } })
+        texte += ajouteChampTexteMathLive(this, indiceQuestion * 3 + i, '')
       }
       const graphique = mathalea2d({
         xmin: -4.5,
@@ -571,16 +574,16 @@ export default class Transformations extends Exercice {
         }
       }
 
-      if (this.questionJamaisPosee(ee, antecedents.map(String).join(''))) {
-        this.listeQuestions[ee] = texte
-        this.listeCorrections[ee] = texteCorr
+      if (this.questionJamaisPosee(indiceQuestion, antecedents.map(String).join(''))) {
+        this.listeQuestions[indiceQuestion] = texte
+        this.listeCorrections[indiceQuestion] = texteCorr
 
         if (!context.isHtml) {
           this.canEnonce = this.listeQuestions[0]
           this.correction = this.listeCorrections[0]
           this.canReponseACompleter = ''
         }
-        ee++
+        indiceQuestion++
       }
       cpt++
     }

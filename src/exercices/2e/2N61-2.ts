@@ -12,6 +12,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -724,7 +725,7 @@ export default class ExerciceInequationProduit extends Exercice {
       }
       if (this.interactif && !context.isAmc) {
         texte += `<br> ${texteGras('Saisir S, l\'ensemble des solutions de cette inéquation.')}${sp(10)}`
-        texte += ajouteChampTexteMathLive(this, i, ' lycee  ', { texteAvant: '<br>S = ' })
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '<br>S = ' })
         handleAnswers(this, i, {
           reponse: {
             value: correctionInteractif,

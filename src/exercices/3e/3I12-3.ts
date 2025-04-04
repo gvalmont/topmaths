@@ -98,6 +98,7 @@ export default class CompleterScriptDiviseurs extends Exercice {
     })
 
     briquesATrouver.push(...range1(10))
+    // @ts-expect-error
     briquesATrouver = enleveDoublonNum(briquesATrouver).slice(0, nbBriquesATrouver)
 
     const choixLigne2a = compteOccurences(briquesATrouver, 1) > 0
@@ -237,10 +238,12 @@ export default class CompleterScriptDiviseurs extends Exercice {
       texteSansTrou.push('}\n\\end{scratch}')
 
       texteScratch += texteSansTrou[7]
-      texteScratch = scratchblock(texteScratch)
 
-      texte = texteScratch
-      texteCorr = scratchblock(texteSansTrou.join(''))
+      const texteScratchSuivantContexte = scratchblock(texteScratch)
+      texte = (typeof texteScratchSuivantContexte === 'string') ? texteScratchSuivantContexte : 'problème avec texteScratch'
+
+      const texteSansTrouSuivantContexte = scratchblock(texteSansTrou.join(''))
+      texteCorr = (typeof texteSansTrouSuivantContexte === 'string') ? texteSansTrouSuivantContexte : 'problème avec texteCorr'
 
       if (context.isAmc) {
         this.autoCorrection = [{

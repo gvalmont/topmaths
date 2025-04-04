@@ -24,14 +24,12 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
     super()
     this.besoinFormulaireNumerique = ['Nombres de chiffres de l\'entier de la question 5', 20]
     this.besoinFormulaire2Numerique = ['Nombre maximum de diviseurs de l\'entier de la question 5', 20]
-    // context.isHtml ? this.spacing = 3 : this.spacing = 2;
     context.isHtml ? this.spacing = 1 : this.spacing = 2
-    // context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
     this.nbQuestions = 5
 
-    this.sup = '3'
-    this.sup2 = '10'
+    this.sup = 3
+    this.sup2 = 10
     this.sup3 = 13
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
@@ -39,9 +37,8 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
 
   nouvelleVersion () {
     this.sup3 = contraindreValeur(2, 16, this.sup3, 10)
-    let nbChiffresMax = contraindreValeur(1, 5, this.sup, 2)
+    const nbChiffresMax = contraindreValeur(1, 5, this.sup, 2)
     const nbDiviseursMax = contraindreValeur(2, this.sup3, this.sup2, 6)
-
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
@@ -201,14 +198,15 @@ export default class DivisionEuclidienneMultiplesDiviseursCriteres extends Exerc
           break }
         case 5:
         default :
-          if (nbDiviseursMax > 10) { // les nombres de 2 chiffres ayant plus de 10 diviseurs étant peu nombreux, on force au moins 3 chiffres.
+          /* if (nbDiviseursMax > 10) { // les nombres de 2 chiffres ayant plus de 10 diviseurs étant peu nombreux, on force au moins 3 chiffres.
             nbChiffresMax = Math.max(nbChiffresMax, 3)
-          }
+          } */
           do {
             M = randint(10 ** (nbChiffresMax - 1), 10 ** nbChiffresMax - 1)
             listeDiviseursM = listeDesDiviseurs(M)
             nbDiviseursM = listeDiviseursM.length
-          } while (nbDiviseursM < Math.max(2, nbDiviseursMax - 3) || nbDiviseursM > nbDiviseursMax)
+            // } while (nbDiviseursM < Math.max(2, nbDiviseursMax - 3) || nbDiviseursM > nbDiviseursMax)
+          } while (nbDiviseursM > nbDiviseursMax)
           texte = `Écrire la liste de tous les diviseurs de ${M}.`
           texteCorr = `Pour trouver la liste des diviseurs de ${M}, on cherche tous les produits de deux facteurs qui donnent ${M}, en écrivant toujours le plus petit facteur en premier.<br>`
           texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré est inférieur à ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times$${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`

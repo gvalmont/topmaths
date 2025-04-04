@@ -1,6 +1,11 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice'
-import { randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Développer avec les égalités remarquables'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,54 +25,98 @@ export const refs = {
 export default class DevelopperEgalitesRemarquables extends Exercice {
   constructor () {
     super()
-
-    this.typeExercice = 'simple'
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    //  this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
   nouvelleVersion () {
-    const inconnue = choice(['x', 'y'])
-    const a = randint(1, 9)
-    const b = randint(2, 5)
-    switch (choice([1, 2, 3, 4, 5, 6])) {
-      case 1 :
-        this.question = ` Développer $(${inconnue}+${a})^2$.` // (x+a)²
-        this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
-      $(${inconnue}+${a})^2=${inconnue}^2+2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2+${2 * a}${inconnue}+${a * a}$`
-        this.reponse = [`${inconnue}^2+${2 * a}${inconnue}+${a * a}`]
-        break
-      case 2 :
-        this.question = ` Développer $(${inconnue}-${a})^2$.` // (x-a)²
-        this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
-      $(${inconnue}-${a})^2=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2=${inconnue}^2-${2 * a}${inconnue}+${a * a}$`
-        this.reponse = [`${inconnue}^2-${2 * a}${inconnue}+${a * a}`]
-        break
-      case 3 :
-        this.question = `Développer $(x-${a})(x+${a})$.` // (x-a)(x+a)
-        this.correction = `On utilise l'égalité remarquable $(a+b)(a-b)=a^2-b^2$ avec $a=x$ et $b=${a}$.<br>
-      $(x-${a})(x+${a})=x^2-${a}^2=x^2-${a * a}$.`
-        this.reponse = [`x^2-${a * a}`]
-        break
-      case 4 :
-        this.question = `Développer $(${b}x+${a})^2$.` // (bx+a)²  b>1
-        this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=${b}x$ et $b=${a}$.<br>
-      $(${b}x+${a})^2=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2+${2 * b * a}x+${a * a}$`
-        this.reponse = [`${b * b}x^2+${2 * b * a}x+${a * a}`]
-        break
-      case 5 :
-        this.question = `Développer $(${b}x-${a})^2$.` // (bx-a)² b>1
-        this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2-2ab+b^2$ avec $a=${b}x$ et $b=${a}$.<br>
-      $(${b}x-${a})^2=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2-${2 * b * a}x+${a * a}$`
-        this.reponse = [`${b * b}x^2-${2 * b * a}x+${a * a}`]
-        break
-      case 6 :
-        this.question = `Développer $(${b}x-${a})(${b}x+${a})$.` // (bx-a)(bx+a) b>1
-        this.correction = `On utilise l'égalité remarquable $(a+b)(a-b)=a^2-b^2$ avec $a=${b}x$ et $b=${a}$.<br>
-      $(${b}x-${a})(${b}x+${a})=(${b}x)^2-${a}^2=${b * b}x^2-${a * a}$`
-        this.reponse = [`${b * b}x^2-${a * a}`]
-        break
+    let a, b, texte, texteCorr, inconnue
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      inconnue = choice(['x', 'y', 'a'])
+      a = randint(1, 9)
+      b = randint(2, 5)
+      switch (randint(1, 6)) { //, 'b'
+        case 1 :
+          texte = `Développer $(${inconnue}+${a})^2$.` // (x+a)²
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)
+          texteCorr = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
+$\\begin{aligned}
+           (${inconnue}+${a})^2&=${inconnue}^2+2 \\times ${a} \\times ${inconnue}+${a}^2\\\\
+            &=${miseEnEvidence(`${inconnue}^2+${2 * a}${inconnue}+${a * a}`)}
+            \\end{aligned}$`
+          handleAnswers(this, i, { reponse: { value: reduirePolynomeDegre3(0, 1, 2 * a, a ** 2, inconnue), options: { developpementEgal: true } } })
+          break
+        case 2 :
+          texte = ` Développer $(${inconnue}-${a})^2$.` // (x-a)²
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)
+          texteCorr = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
+      $\\begin{aligned}
+            (${inconnue}-${a})^2&=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2\\\\
+            &=${miseEnEvidence(`${inconnue}^2-${2 * a}${inconnue}+${a * a}`)}
+            \\end{aligned}$`
+          handleAnswers(this, i, { reponse: { value: reduirePolynomeDegre3(0, 1, -2 * a, a ** 2, inconnue), options: { developpementEgal: true } } })
+          break
+
+        case 3 :
+          texte = `Développer $(${inconnue}-${a})(${inconnue}+${a})$.` // (x-a)(x+a)
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)
+
+          texteCorr = `On utilise l'égalité remarquable $(a+b)(a-b)=a^2-b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
+ $\\begin{aligned}
+           (${inconnue}-${a})(${inconnue}+${a})&=${inconnue}^2-${a}^2\\\\
+            &=${miseEnEvidence(`${inconnue}^2-${a * a}`)}
+            \\end{aligned}$`
+          handleAnswers(this, i, { reponse: { value: reduirePolynomeDegre3(0, 1, 0, -1 * a ** 2, inconnue), options: { developpementEgal: true } } })
+
+          break
+
+        case 4 :
+          texte = `Développer $(${b}${inconnue}+${a})^2$.` // (bx+a)²  b>1
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)
+          texteCorr = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=${b}${inconnue}$ et $b=${a}$.<br>
+ $\\begin{aligned}
+         (${b}${inconnue}+${a})^2&=(${b}${inconnue})^2+2 \\times ${b}${inconnue} \\times ${a} + ${a}^2\\\\
+            &=${miseEnEvidence(`${b * b}${inconnue}^2+${2 * b * a}${inconnue}+${a * a}`)}
+            \\end{aligned}$`
+          handleAnswers(this, i, { reponse: { value: reduirePolynomeDegre3(0, b ** 2, 2 * a * b, a ** 2, inconnue), options: { developpementEgal: true } } })
+          break
+
+        case 5 :
+
+          texte = `Développer $(${b}${inconnue}-${a})^2$.` // (bx-a)² b>1
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)
+          texteCorr = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${b}${inconnue}$ et $b=${a}$.<br>
+        $\\begin{aligned}
+         (${b}${inconnue}-${a})^2&=(${b}${inconnue})^2-2 \\times ${b}${inconnue} \\times ${a} + ${a}^2\\\\
+            &=${miseEnEvidence(`${b * b}${inconnue}^2-${2 * b * a}${inconnue}+${a * a}`)}
+            \\end{aligned}$`
+          handleAnswers(this, i, { reponse: { value: reduirePolynomeDegre3(0, b ** 2, -2 * a * b, a ** 2, inconnue), options: { developpementEgal: true } } })
+
+          break
+
+        case 6 :
+        default:
+          texte = `Développer $(${b}${inconnue}-${a})(${b}${inconnue}+${a})$.` // (bx-a)(bx+a) b>1
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable)
+
+          texteCorr = `On utilise l'égalité remarquable $(a+b)(a-b)=a^2-b^2$ avec $a=${b}${inconnue}$ et $b=${a}$.<br>
+   $\\begin{aligned}
+             (${b}${inconnue}-${a})(${b}${inconnue}+${a})&=(${b}${inconnue})^2-${a}^2\\\\
+              &=${miseEnEvidence(`${b ** 2}${inconnue}^2-${a * a}`)}
+              \\end{aligned}$`
+          handleAnswers(this, i, { reponse: { value: reduirePolynomeDegre3(0, b ** 2, 0, -1 * a ** 2, inconnue), options: { developpementEgal: true } } })
+
+          break
+      }
+      if (this.questionJamaisPosee(i, a)) {
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+
+        i++
+      }
+      cpt++
     }
-    this.canEnonce = this.question// 'Compléter'
-    this.canReponseACompleter = ''
+    listeQuestionsToContenu(this)
   }
 }

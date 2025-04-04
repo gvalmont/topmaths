@@ -29,8 +29,6 @@ export const dateDePublication = '02/11/2021'
  * Chacune de ces questions indépendantes trouve de l'intérêt par le choix de l'opération à effectuer
  * et donc à donner du sens à chacune des opérations.
  * @author Eric Elter
-
- * Date octobre 2021
  */
 
 export const uuid = '4e2b2'
@@ -68,6 +66,7 @@ export default class QuestionsMasses extends Exercice {
         enleveDoublons: true
       }).map(Number)
 
+      const nbCas = typesQuestionsDisponibles.length
       const Chiffres = range(9, [0])
       const TabPrixUnitaire: number[] = []
       const TabAutrePrix: number[] = []
@@ -215,8 +214,8 @@ export default class QuestionsMasses extends Exercice {
           texteCorr += correctionAMC
         }
         if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 8 * i + kk, KeyboardType.clavierDeBase, { texteApres: ' €' }) + '<br><br>'
-          setReponse(this, 8 * i + kk, reponseAMC)
+          texte += ajouteChampTexteMathLive(this, nbCas * i + kk, KeyboardType.clavierDeBase, { texteApres: ' €' }) + '<br><br>'
+          setReponse(this, nbCas * i + kk, reponseAMC)
         }
         if (context.isAmc) {
           if (kk === 0) enonceAMC = enonceAMCInit + enonceAMC
@@ -272,7 +271,6 @@ export default class QuestionsMasses extends Exercice {
       if (this.questionJamaisPosee(i, PrixUnitaire)) {
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            // @ts-expect-error Trop compliqué à typer
             propositions: propositionsAMC,
             enonceAvant: false
           }

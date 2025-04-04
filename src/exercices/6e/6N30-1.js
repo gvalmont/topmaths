@@ -5,7 +5,7 @@ import { stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -121,9 +121,9 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
       x22 = randint(1, pas2 - 1)
       x33 = randint(1, pas2 - 1)
 
-      xA = calculANePlusJamaisUtiliser(x1 + x11 / pas2)
-      xB = calculANePlusJamaisUtiliser(x2 + x22 / pas2)
-      xC = calculANePlusJamaisUtiliser(x3 + x33 / pas2)
+      xA = arrondi(x1 + x11 / pas2)
+      xB = arrondi(x2 + x22 / pas2)
+      xC = arrondi(x3 + x33 / pas2)
 
       thick1 = randint(0, 2)
       thick2 = randint(2, 6, thick1)
@@ -138,7 +138,7 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[thick1, `${stringNombre(calculANePlusJamaisUtiliser(abs0 + thick1 / pas1))}`], [thick2, `${stringNombre(calculANePlusJamaisUtiliser(abs0 + thick2 / pas1))}`]],
+        labelListe: [[thick1, `${stringNombre(arrondi(abs0 + thick1 / pas1))}`], [thick2, `${stringNombre(arrondi(abs0 + thick2 / pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
       d[2 * i + 1] = droiteGraduee({
@@ -153,9 +153,9 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
         thickSecDist: 1 / pas2,
         labelListe: [
           [0, `${stringNombre(abs0)}`],
-          [xA, stringNombre(calculANePlusJamaisUtiliser(xA / pas1 + abs0))],
-          [xB, stringNombre(calculANePlusJamaisUtiliser(xB / pas1 + abs0))],
-          [xC, stringNombre(calculANePlusJamaisUtiliser(xC / pas1 + abs0))]
+          [xA, stringNombre(arrondi(xA / pas1 + abs0))],
+          [xB, stringNombre(arrondi(xB / pas1 + abs0))],
+          [xC, stringNombre(arrondi(xC / pas1 + abs0))]
         ],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
 
@@ -165,9 +165,9 @@ export default class LireAbscisseDecimaleBis2d extends Exercice {
       texteCorr = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
-        setReponse(this, 3 * i, calculANePlusJamaisUtiliser(xA / pas1 + abs0))
-        setReponse(this, 3 * i + 1, calculANePlusJamaisUtiliser(xB / pas1 + abs0))
-        setReponse(this, 3 * i + 2, calculANePlusJamaisUtiliser(xC / pas1 + abs0))
+        setReponse(this, 3 * i, arrondi(xA / pas1 + abs0))
+        setReponse(this, 3 * i + 1, arrondi(xB / pas1 + abs0))
+        setReponse(this, 3 * i + 2, arrondi(xC / pas1 + abs0))
         texte += l1 + ajouteChampTexteMathLive(this, 3 * i)
         texte += l2 + ajouteChampTexteMathLive(this, 3 * i + 1)
         texte += l3 + ajouteChampTexteMathLive(this, 3 * i + 2)

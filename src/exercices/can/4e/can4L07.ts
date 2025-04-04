@@ -4,12 +4,15 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3,
-  rienSi1
+  rienSi1,
+  ecritureAlgebriqueSauf1
 } from '../../../lib/outils/ecritures'
 import { signe } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { randint, printlatex } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
@@ -35,6 +38,8 @@ export default class ReduireExp extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecX
+    this.optionsChampTexte = { texteAvant: '<br>' }
   }
 
   nouvelleVersion () {
@@ -47,28 +52,37 @@ export default class ReduireExp extends Exercice {
           a = randint(1, 10)
           b = randint(1, 10)
           c = randint(1, 10)
-          this.question = `Écrire le plus simplement possible : <br>
-          
+          this.question = `Écrire le plus simplement possible : <br>  
           $${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}$.`
-          this.correction = `$${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}=(${a}+${b})x+${c}=${texNombre(a + b)}x+${texNombre(c)}$`
+          this.correction = `En regroupant les termes en $x$, on obtient : <br>
+        $\\begin{aligned}
+        ${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}&=(${a}+${b})x+${c}\\\\
+        &=${miseEnEvidence(`${texNombre(a + b)}x+${texNombre(c)}`)}
+        \\end{aligned}$`
         } else if (choix === 2) {
           a = randint(1, 5)
           b = randint(1, 5)
           c = randint(1, 5)
           this.question = `Écrire le plus simplement possible : <br>
-          
           $${rienSi1(b)}x+${texNombre(c)}+${rienSi1(a)}x$.`
-          this.correction = `$${rienSi1(b)}x+${texNombre(c)}+${rienSi1(a)}x=(${a}+${b})x+${c}=${texNombre((a + b))}x+${texNombre(c)}$`
+          this.correction = `En regroupant les termes en $x$, on obtient : <br>
+        $\\begin{aligned}
+        ${rienSi1(b)}x+${texNombre(c)}+${rienSi1(a)}x&=(${a}+${b})x+${c}\\\\
+        &=${miseEnEvidence(`${texNombre((a + b))}x+${texNombre(c)}`)}
+        \\end{aligned}$`
         } else {
           a = randint(-4, -1)
           b = randint(-4, -1)
           c = randint(1, 10)
           this.question = `Écrire le plus simplement possible : <br>
-          
           $${rienSi1(b)}x+${texNombre(c)}${rienSi1(a)}x$.`
-          this.correction = `$${rienSi1(b)}x+${texNombre(c)}${rienSi1(a)}x=(${a}${b})x+${c}=${texNombre((a + b))}x+${texNombre(c)}$`
+          this.correction = `En regroupant les termes en $x$, on obtient : <br>
+          $\\begin{aligned}
+          ${rienSi1(b)}x+${texNombre(c)}${rienSi1(a)}x&=(${a}${b})x+${c}\\\\
+          &=${miseEnEvidence(`${texNombre((a + b))}x+${texNombre(c)}`)}
+          \\end{aligned}$`
         }
-        reponse = reduireAxPlusB(a + b, c, 'x')
+        reponse = `${reduireAxPlusB(a + b, c, 'x')}`
 
         break
 
@@ -82,12 +96,19 @@ export default class ReduireExp extends Exercice {
           a = randint(1, 4, d)
           this.question = `Écrire le plus simplement possible : <br>
           $${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2${signe(e)}x$.`
-
           if (b + e === 0) {
-            this.correction = `$${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}=${texNombre((a + d))}x^2+${texNombre(c)}$`
-            reponse = printlatex(`${texNombre(a + d)}x^2+${texNombre(c)}`)
+            this.correction = `En regroupant les termes en $x$ et les termes en $x^2$, on obtient : <br>
+            $\\begin{aligned}
+            ${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x&=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}\\\\
+            &=${miseEnEvidence(`${rienSi1((a + d))}x^2+${texNombre(c)}`)}
+            \\end{aligned}$`
+            reponse = `${texNombre(a + d)}x^2+${texNombre(c)}`
           } else {
-            this.correction = `$${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}=${texNombre((a + d))}x^2+${texNombre((b + e))}x+${texNombre(c)}$`
+            this.correction = `En regroupant les termes en $x$ et les termes en $x^2$, on obtient : <br>
+            $\\begin{aligned}
+            ${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x&=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}\\\\
+            &=${miseEnEvidence(`${rienSi1((a + d))}x^2+${rienSi1((b + e))}x+${texNombre(c)}`)}
+            \\end{aligned}$`
           }
         } else {
           b = randint(-5, -2)
@@ -99,18 +120,21 @@ export default class ReduireExp extends Exercice {
           $${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2${signe(e)}x$.`
 
           if (a + d === 0) {
-            this.correction = `$${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x=
-            (${a}${ecritureAlgebrique(d)})x^2+(${b}${ecritureAlgebrique(e)})x${ecritureAlgebrique(c)}=
-            ${ecritureAlgebrique(b + e)}x+${texNombre(c)}$`
-            reponse = printlatex(`${texNombre(b + e)}x+${texNombre(c)}`)
+            this.correction = `En regroupant les termes en $x$ et les termes en $x^2$, on obtient : <br>
+            $\\begin{aligned}
+            ${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x&=
+            (${a}${ecritureAlgebrique(d)})x^2+(${b}${ecritureAlgebrique(e)})x${ecritureAlgebrique(c)}\\\\
+            &=${miseEnEvidence(`${ecritureAlgebrique(b + e)}x+${texNombre(c)}`)}\\end{aligned}$`
+            reponse = `${rienSi1(b + e)}x+${texNombre(c)}`
           } else {
-            this.correction = `$${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x=
-            (${a}${ecritureAlgebrique(d)})x^2+(${b}${ecritureAlgebrique(e)})x${ecritureAlgebrique(c)}=
-            ${rienSi1(a + d)}x^2${ecritureAlgebrique(b + e)}x+${texNombre(c)}$`
+            this.correction = `En regroupant les termes en $x$ et les termes en $x^2$, on obtient : <br>
+            $\\begin{aligned}
+            ${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x&=(${a}${ecritureAlgebrique(d)})x^2+(${b}${ecritureAlgebrique(e)})x${ecritureAlgebrique(c)}\\\\
+            &=${miseEnEvidence(`${rienSi1(a + d)}x^2${ecritureAlgebriqueSauf1(b + e)}x+${texNombre(c)}`)}
+            \\end{aligned}$`
           }
         }
-        reponse = reduirePolynomeDegre3(0, a + d, b + e, c, 'x')
-
+        reponse = `${reduirePolynomeDegre3(0, a + d, b + e, c, 'x')}`
         break
 
       case 3: // ax*bx ou ax*b
@@ -123,20 +147,31 @@ export default class ReduireExp extends Exercice {
             this.question = `Écrire le plus simplement possible : <br> 
             $${rienSi1(a)}x\\times${b}x$.`
           } else { this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x\\times(${b}x)$.` }
-          if (b > 0) { this.correction = `$${rienSi1(a)}x\\times${b}x=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2=${texNombre(a * b)}x^2$` } else { this.correction = `$${rienSi1(a)}x\\times (${b}x)=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2=${texNombre((a * b))}x^2$` }
-          reponse = reduirePolynomeDegre3(0, a * b, 0, 0, 'x')
+          if (b > 0) {
+            this.correction = `On a : <br>
+            $\\begin{aligned}
+            ${rienSi1(a)}x\\times${b}x&=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2\\\\
+            &=${miseEnEvidence(`${texNombre(a * b)}x^2`)}
+            \\end{aligned}$`
+          } else {
+            this.correction = `On a : <br>
+              $\\begin{aligned}
+              ${rienSi1(a)}x\\times (${b}x)&=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2\\\\
+              &=${miseEnEvidence(`${texNombre((a * b))}x^2`)}\\end{aligned}$`
+          }
+          reponse = `${reduirePolynomeDegre3(0, a * b, 0, 0, 'x')}`
         }
         if (choix === 2) {
           a = randint(-9, 9, 0)
           b = randint(-9, 9, [0, -1, 1])
           this.question = `Écrire le plus simplement possible : <br>
           $${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}$.`
-          this.correction = `$${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}=${texNombre(a * b)}x$`
-          reponse = reduireAxPlusB(a * b, 0, 'x')
+          this.correction = `$${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(`${texNombre(a * b)}x`)}$`
+          reponse = `${reduireAxPlusB(a * b, 0, 'x')}`
         }
         break
     }
-    this.reponse = { reponse: { value: reponse } }
+    this.reponse = reponse
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

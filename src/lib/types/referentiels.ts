@@ -6,7 +6,7 @@ import referentielsActivationList from '../../json/referentielsActivation.json'
 //    Types des bouts de chaînes des référentiels (les données des exercices)
 //
 // ===========================================================================
-export const EXAMS = ['dnb', 'bac', 'crpe', 'e3c', 'evacom']
+export const EXAMS = ['dnb', 'dnbpro', 'bac', 'crpe', 'e3c', 'evacom']
 export type Level = keyof typeof codeList | 'alea'
 export type ActivationName = keyof typeof referentielsActivationList
 /**
@@ -67,6 +67,7 @@ export interface AppTierceGroup {
 export type ExerciseType =
   | 'alea'
   | 'dnb'
+  | 'dnbpro'
   | 'crpe'
   | 'bac'
   | 'simple'
@@ -125,7 +126,7 @@ export interface StaticItemInreferentiel extends BaseItemInReferentiel {
   pngCor: string
   tex: string
   texCor: string
-  typeExercice: 'static' | 'dnb' | 'bac' | 'e3c' | 'evacom'
+  typeExercice: 'static' | 'dnb' | 'dnbpro' | 'bac' | 'e3c' | 'evacom'
 }
 
 /**
@@ -143,7 +144,7 @@ export interface ExamItemInReferentiel extends StaticItemInreferentiel {
   lieu: string
   numeroInitial: string
   jour?: 'J1' | 'J2'
-  typeExercice: 'dnb' | 'bac'
+  typeExercice: 'dnb' | 'dnbpro' | 'bac'
 }
 
 /**
@@ -325,7 +326,7 @@ export const isStaticWithoutPngUrl = (obj: any): obj is ExamItemInReferentiel =>
   Object.keys(obj).includes('typeExercice') &&
   obj.annee !== undefined &&
   obj.lieu !== undefined &&
-  (obj.typeExercice === 'sti2d' || obj.typeExercice === 'dnb' || obj.typeExercice === 'bac')
+  (obj.typeExercice === 'sti2d' || obj.typeExercice === 'dnb' || obj.typeExercice === 'dnbpro' || obj.typeExercice === 'bac')
 
 /**
  * Détecte si la terminaison d'un référentiel est un exercice de géométrie dynamique ou pas.

@@ -3,6 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +26,7 @@ export const refs = {
 export default class CalculFonctionDeriveeFctRef extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }

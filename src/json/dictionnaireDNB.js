@@ -5558,7 +5558,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['Arithmétique', 'Aires et périmètres', 'Calcul littéral', 'Ratio', 'Statistiques']
+    tags: ['Arithmétique', 'Aires et périmètres', 'Calcul littéral', 'Ratio', 'Statistiques', 'QCM']
   },
   dnb_2024_06_asie_2: {
     annee: '2024',

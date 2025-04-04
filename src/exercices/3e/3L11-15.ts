@@ -87,9 +87,9 @@ export default class nomExercice extends Exercice {
         }
       }
       if (listeDeQuestions[i] === 5 || listeDeQuestions[i] === 6 || listeDeQuestions[i] === 7 || listeDeQuestions[i] === 8) {
-        p1 = MonomePlusieursVariables.createRandomMonome(randint(1, max(1, degMax)), choice(typeofCoeff), variablesSelect)
+        p1 = MonomePlusieursVariables.createRandomMonome(randint(0, max(1, degMax)), choice(typeofCoeff), variablesSelect)
         do {
-          p2 = MonomePlusieursVariables.createRandomMonome(randint(1, max(1, degMax)), choice(typeofCoeff), variablesSelect)
+          p2 = MonomePlusieursVariables.createRandomMonome(randint(0, max(1, degMax)), choice(typeofCoeff), variablesSelect)
         }
         while (p2.estSemblable(p1))
         pSP1 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)

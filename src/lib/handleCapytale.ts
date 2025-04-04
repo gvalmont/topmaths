@@ -56,9 +56,14 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     Object.assign(l, newGlobalOptions)
     return l
   })
+
+  if (newCanOptions === null || newCanOptions === undefined) {
+    window.notify('Aucun paramètre CAN trouvé', { mode, activity, workflow, studentAssignment, assignmentData })
+  }
   canOptionsStore.update((l) => {
-    newCanOptions.state = 'canHomeScreen'
+    if (newCanOptions) newCanOptions.state = 'canHomeScreen'
     Object.assign(l, newCanOptions)
+    l.state = 'canHomeScreen'
     l.isInteractive = newGlobalOptions.setInteractive === '1'
     return l
   })
@@ -123,7 +128,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   if (studentAssignment != null) {
     answersFromCapytale = studentAssignment
     console.info('Réponses à charger', studentAssignment)
-    if (!newCanOptions.isChoosen) {
+    if (!newCanOptions?.isChoosen) {
       // On charge les réponses de l'élève (si ce n'est pas la CAN)
       for (const exercice of studentAssignment) {
         if (exercice == null) continue

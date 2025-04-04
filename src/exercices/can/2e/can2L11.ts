@@ -4,6 +4,7 @@ import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,8 +24,9 @@ export const refs = {
 export default class ExprimerVariable extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
     this.typeExercice = 'simple'
+
     this.nbQuestions = 1
   }
 
@@ -43,8 +45,7 @@ export default class ExprimerVariable extends Exercice {
 
       if (choice([true, false])) {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
-        
-        Exprimer $${var1}$ en fonction de $${var2}$.<br>`
+        Exprimer $${var1}$ en fonction de $${var2}$. ${this.interactif ? `<br>$${var1}=$` : '.'}`
         if (a === 1) {
           this.correction = `${corr1}`
         } else if (a > 0) {
@@ -57,11 +58,11 @@ export default class ExprimerVariable extends Exercice {
           this.correction += a === -1 ? `${-c}${ecritureAlgebriqueSauf1(b)}${var2}$.` : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(b)}${var2}}{${-a}}$`
         }
         // 08/06/2024 : customCanonical empêche actuellement d'accepter (3x+5)/6 pour (-3x-5)/(-6). Qd ce sera fait, on enlevera un des deux cas ci-dessous (qui seront équivalents).
-        this.reponse = { reponse: { value: a < 0 ? `${var1}=${`\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}`}` : `${var1}=${`\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`}`, options: { egaliteExpression: true } } }
+        this.reponse = a < 0 ? `\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-a}}` : `\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`
       } else {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
         
-        Exprimer $${var2}$ en fonction de $${var1}$.<br>`
+        Exprimer $${var2}$ en fonction de $${var1}$${this.interactif ? `<br>$${var2}=$` : '.'}`
         if (b === 1) {
           this.correction = `${corr3}`
         } else if (b > 0) {
@@ -74,7 +75,7 @@ export default class ExprimerVariable extends Exercice {
           this.correction += a === -1 ? `${-c}${ecritureAlgebriqueSauf1(a)}${var1}$.` : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(a)}${var1}}{${-b}}$`
         }
         // 08/06/2024 : customCanonical empêche actuellement d'accepter (3x+5)/6 pour (-3x-5)/(-6). Qd ce sera fait, on enlevera un des deux cas ci-dessous (qui seront équivalents).
-        this.reponse = { reponse: { value: b < 0 ? `${var2}=${`\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}`}` : `${var2}=${`\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`}`, options: { egaliteExpression: true } } }
+        this.reponse = b < 0 ? `\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}` : `\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`
       }
     }
     // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras

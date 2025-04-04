@@ -2,6 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Écrire avec un seul quotient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +23,8 @@ export const refs = {
 export default class ÉcrireUnQuotient extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.optionsChampTexte = { texteAvant: '<br> ', texteApres: ' ' }
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }

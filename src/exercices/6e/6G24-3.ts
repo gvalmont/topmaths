@@ -12,7 +12,8 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
 
 /**
@@ -61,21 +62,21 @@ export default class ConstruireSymetriquePoint6e extends Exercice {
     let xMin, yMin, xMax, yMax
     [xMin, yMin, xMax, yMax] = [0, 0, 0, 0]
     for (let i = 0; i < nbpoints; i++) { // On place les cibles.
-      N.push(point(calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10), noms[i] + "'"))
+      N.push(point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[i] + "'"))
       nontrouve = true
       while (distancePointDroite(N[i], d) < 3 || nontrouve) {
         nontrouve = true
         if (distancePointDroite(N[i], d) < 3) {
-          N[i].x = calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10)
-          N[i].y = calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10)
+          N[i].x = arrondi(randint(-80, 80, 0) / 10)
+          N[i].y = arrondi(randint(-80, 80, 0) / 10)
         } else {
           assezloin = true
           for (let j = 0; j < i; j++) {
             if (longueur(N[i], N[j]) < 4.5) assezloin = false
           }
           if (assezloin === false) { // éloigner les points donc les grilles
-            N[i].x = calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10)
-            N[i].y = calculANePlusJamaisUtiliser(randint(-80, 80, 0) / 10)
+            N[i].x = arrondi(randint(-80, 80, 0) / 10)
+            N[i].y = arrondi(randint(-80, 80, 0) / 10)
           } else nontrouve = false
         }
       }

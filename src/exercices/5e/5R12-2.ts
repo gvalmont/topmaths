@@ -6,12 +6,13 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser, contraindreValeur } from '../../modules/outils'
+import { listeQuestionsToContenuSansNumero, randint, contraindreValeur } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
 export const interactifReady = true
@@ -63,10 +64,10 @@ export default class ReperagePointDuPlan extends Exercice {
       xmin = -5; ymin = -5; xmax = 5; ymax = 5
     }
     const listeAbs = []; const listeOrd = []
-    for (let i = calculANePlusJamaisUtiliser(xmin + 1 / k); i < calculANePlusJamaisUtiliser(xmax - (this.sup - 1) / k); i = calculANePlusJamaisUtiliser(i + 1 / k)) {
+    for (let i = arrondi(xmin + 1 / k); i < arrondi(xmax - (this.sup - 1) / k); i = arrondi(i + 1 / k)) {
       listeAbs.push(i)
     }
-    for (let i = calculANePlusJamaisUtiliser(ymin + 1 / k); i < calculANePlusJamaisUtiliser(ymax - (this.sup - 1) / k); i = calculANePlusJamaisUtiliser(i + 1 / k)) {
+    for (let i = arrondi(ymin + 1 / k); i < arrondi(ymax - (this.sup - 1) / k); i = arrondi(i + 1 / k)) {
       listeOrd.push(i)
     }
     let X0 = false; let Y0 = false

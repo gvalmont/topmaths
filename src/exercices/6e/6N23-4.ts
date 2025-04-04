@@ -1,9 +1,9 @@
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -62,27 +62,27 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
       switch (listeTypeDeQuestions[i]) {
         case 1: // 3 unités, 5 dixièmes et 8 centièmes
           texte = `${a} unités, ${b} dixièmes et ${c} centièmes`
-          reponseAMC = calculANePlusJamaisUtiliser(a + b / 10 + c / 100)
+          reponseAMC = arrondi(a + b / 10 + c / 100)
           texteCorr = `$${a}+${texFractionFromString(b, 10)}+${texFractionFromString(c, 100)}=${texNombre(reponseAMC)}$`
           break
         case 2: // 3 unités et 5 centièmes
           texte = `${a} unités et ${c} centièmes`
-          reponseAMC = calculANePlusJamaisUtiliser(a + c / 100)
+          reponseAMC = arrondi(a + c / 100)
           texteCorr = `$${a}+${texFractionFromString(c, 100)}=${texNombre(reponseAMC)}$`
           break
         case 3: // 5 dixièmes / centièmes ou millièmes
           choix = randint(1, 3)
           if (choix === 1) {
             texte = `${a} dixièmes`
-            reponseAMC = calculANePlusJamaisUtiliser(a / 10)
+            reponseAMC = arrondi(a / 10)
             texteCorr = `$${texFractionFromString(a, 10)}=${texNombre(reponseAMC)}$`
           } else if (choix === 2) {
             texte = `${a} centièmes`
-            reponseAMC = calculANePlusJamaisUtiliser(a / 100)
+            reponseAMC = arrondi(a / 100)
             texteCorr = `$${texFractionFromString(a, 100)}=${texNombre(reponseAMC)}$`
           } else {
             texte = `${a} millièmes`
-            reponseAMC = calculANePlusJamaisUtiliser(a / 1000)
+            reponseAMC = arrondi(a / 1000)
             texteCorr = `$${texFractionFromString(a, 1000)}=${texNombre(reponseAMC)}$`
           }
           break
@@ -91,15 +91,15 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
           choix = randint(1, 3)
           if (choix === 1) {
             texte = `$${texFractionFromString(n, 10)}$`
-            reponseAMC = calculANePlusJamaisUtiliser(n / 10)
+            reponseAMC = arrondi(n / 10)
             texteCorr = `$${texFractionFromString(n, 10)}=${texNombre(reponseAMC)}$`
           } else if (choix === 2) {
             texte = `$${texFractionFromString(n, 100)}$`
-            reponseAMC = calculANePlusJamaisUtiliser(n / 100)
+            reponseAMC = arrondi(n / 100)
             texteCorr = `$${texFractionFromString(n, 100)}=${texNombre(reponseAMC)}$`
           } else {
             texte = `$${texFractionFromString(n, 1000)}$`
-            reponseAMC = calculANePlusJamaisUtiliser(n / 1000)
+            reponseAMC = arrondi(n / 1000)
             texteCorr = `$${texFractionFromString(n, 1000)}=${texNombre(reponseAMC)}$`
           }
           break
@@ -108,11 +108,11 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
           choix = randint(1, 2)
           if (choix === 1) {
             texte = `$${a}+${texFractionFromString(b, 100)}+${texFractionFromString(c, 100)}$`
-            reponseAMC = calculANePlusJamaisUtiliser(a + (b + c) / 100)
+            reponseAMC = arrondi(a + (b + c) / 100)
             texteCorr = `$${a}+${texFractionFromString(b, 100)}+${texFractionFromString(c, 100)}=${a}+${texFractionFromString(b + c, 100)}=${texNombre(reponseAMC)}$`
           } else {
             texte = `$${a}+${texFractionFromString(b, 10)}+${texFractionFromString(c, 10)}$`
-            reponseAMC = calculANePlusJamaisUtiliser(a + (b + c) / 10)
+            reponseAMC = arrondi(a + (b + c) / 10)
             texteCorr = `$${a}+${texFractionFromString(b, 10)}+${texFractionFromString(c, 10)}=${a}+${texFractionFromString(b + c, 10)}=${a}+${texNombre((b + c) / 10)}=${texNombre(reponseAMC)}$`
           }
           break

@@ -305,6 +305,8 @@ export default class ReconnaitreQuadrilatereParticulier extends Exercice {
       }
       cpt++
     }
+    this.nbQuestions = this.listeQuestions.length // MGu ici car il y a au maximum 8 questions différentes...
+    this.autoCorrection = this.autoCorrection.slice(0, this.nbQuestions)
     listeQuestionsToContenu(this)
   }
 }

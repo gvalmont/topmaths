@@ -9,6 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -793,7 +794,7 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac').replace('bigcup', 'cup')
       }
       if (this.interactif && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: '<br>S = ' })
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '<br>S = ' })
         handleAnswers(this, i, {
           reponse: {
             value: correctionInteractif,

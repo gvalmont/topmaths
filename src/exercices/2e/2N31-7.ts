@@ -2,9 +2,9 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { rangeMinMax } from '../../lib/outils/nombres'
+import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Trouver l\'exposant manquant dans des nombres écrits avec des puissances de 10'
 export const dateDePublication = '08/09/2023'
@@ -55,15 +55,15 @@ export default class CalculsAvecPuissancesDeDixBis extends Exercice {
           break
         case 1:
           decalage = randint(-2, 2, 0)
-          mantisse = calculANePlusJamaisUtiliser(randint(11, 99) / 10)
+          mantisse = arrondi(randint(11, 99) / 10)
           exp = (!this.sup2)
             ? randint(decalage - 3, decalage + 3, [decalage, 0])
             : choice(rangeMinMax(decalage - 9, decalage + 9), rangeMinMax(decalage - 3, decalage + 3))
           break
         case 2:
           decalage = randint(-3, 3, 0)
-          if (randint(0, 1) === 1) mantisse = calculANePlusJamaisUtiliser(randint(111, 999) / 100)
-          else mantisse = calculANePlusJamaisUtiliser((randint(1, 9) * 100 + randint(1, 9)) / 100)
+          if (randint(0, 1) === 1) mantisse = arrondi(randint(111, 999) / 100)
+          else mantisse = arrondi((randint(1, 9) * 100 + randint(1, 9)) / 100)
           exp = (!this.sup2)
             ? randint(decalage - 3, decalage + 3, [decalage, 0])
             : choice(rangeMinMax(decalage - 10, decalage + 10), rangeMinMax(decalage - 4, decalage + 4))
@@ -76,7 +76,7 @@ export default class CalculsAvecPuissancesDeDixBis extends Exercice {
           break */
       }
       // nombre = calcul(mantisse * 10 ** exp)
-      const mantisse1 = calculANePlusJamaisUtiliser(mantisse * 10 ** decalage)
+      const mantisse1 = arrondi(mantisse * 10 ** decalage)
       const exp1 = exp - decalage
 
       // decimalstring = `${texNombre(mantisse1)} \\times 10^{${exp1}}`

@@ -5,12 +5,13 @@ import { context } from '../../modules/context'
 import Hms from '../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { minToHoraire } from '../../lib/outils/dateEtHoraires'
 import Exercice from '../Exercice'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true
@@ -50,7 +51,7 @@ export default class ConversionHeuresMinutesOuMinutesEtSecondes extends Exercice
     for (let i = 0, cpt = 0, a, b, d, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 4)
       b = randint(10, 59)
-      d = calculANePlusJamaisUtiliser(a * 60 + b)
+      d = arrondi(a * 60 + b)
       if (listeTypeQuestions[i] === 'min vers h et min') {
         texte = `Convertir $${d}$ minutes en heures (h) et minutes (min).` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierHms)
         this.canEnonce = `Convertir $${d}$ minutes en heures et minutes.`

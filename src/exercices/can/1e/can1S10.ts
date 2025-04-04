@@ -3,8 +3,9 @@ import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Trouver le sens de variation d’une suite (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -884,7 +885,7 @@ export default class SensVariationSuite extends Exercice {
               if (q > 0) { texteCorr += `Comme $${q}>1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $${q}<0$, la suite $(${s}_n)$ est ni croissante, ni décroissante. ` }
             } else if (choix === 6) { // suite recurrente u(n+1)=q*u(n) avec 0<q<1
               const a = randint(-10, 10, [-1, 0, 1])
-              const q = calculANePlusJamaisUtiliser(randint(1, 9) / 10)
+              const q = arrondi(randint(1, 9) / 10)
 
               texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texNombre(q)}${s}_n$.<br>
        

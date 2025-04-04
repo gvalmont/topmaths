@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import { Tableau } from '../../lib/2d/tableau'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
@@ -87,7 +87,7 @@ export default class CalculerCoeffPropo extends Exercice {
                 visible: colonne === colonneReference ? true : contenuVisible
               }
               deuxiemeLigne[colonne] = {
-                nombre: premiereLigne[colonne].nombre * Number(coefficient),
+                nombre: arrondi(premiereLigne[colonne].nombre * Number(coefficient)),
                 visible: colonne === colonneReference ? true : !contenuVisible
               }
             }
@@ -101,7 +101,7 @@ export default class CalculerCoeffPropo extends Exercice {
                 visible: colonne === colonneReference ? true : contenuVisible
               }
               deuxiemeLigne[colonne] = {
-                nombre: coefficient * premiereLigne[colonne].nombre,
+                nombre: arrondi(coefficient * premiereLigne[colonne].nombre),
                 visible: colonne === colonneReference ? true : !contenuVisible
               }
             }
@@ -127,7 +127,7 @@ export default class CalculerCoeffPropo extends Exercice {
                   visible: colonne === colonneReference ? true : contenuVisible
                 }
                 deuxiemeLigne[colonne] = {
-                  nombre: premiereLigne[colonne].nombre * coefficient.valeurDecimale,
+                  nombre: arrondi(premiereLigne[colonne].nombre * coefficient.valeurDecimale),
                   visible: colonne === colonneReference ? true : !contenuVisible
                 }
               }

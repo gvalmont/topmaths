@@ -20,12 +20,13 @@ import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
 import { min, round } from 'mathjs'
 import Hms from '../../../modules/Hms'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { arrondi } from '../../../lib/outils/nombres'
 
 export const titre = 'CAN 5e sujet 2020'
 export const interactifReady = true
@@ -656,7 +657,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
 
         case 23:
           a = randint(11, 24, 20)
-          reponse = calculANePlusJamaisUtiliser(101 * a)
+          reponse = arrondi(101 * a)
           texte = `$${a}\\times 101=$`
           texteCorr = `$${a}\\times 101 = ${texNombre(101 * a)}$<br>`
 

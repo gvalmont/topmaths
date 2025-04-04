@@ -64,6 +64,8 @@ export default class FactoriserUneExpression3e extends Exercice {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, a, b, c, d, e, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte = ''
+      texteCorr = ''
       a = randint(1, 3)
       b = randint(1, 5) * choice([-1, 1])
       c = randint(2, 5)

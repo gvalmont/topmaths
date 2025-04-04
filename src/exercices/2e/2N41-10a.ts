@@ -9,23 +9,28 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
-import { obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 import engine from '../../lib/interactif/comparisonFunctions'
+import type { BoxedExpression } from '@cortex-js/compute-engine'
 
-export const titre = 'Développer puis réduire des expressions littérales complexes (avec fractions)'
+export const titre = 'Développer puis réduire des expressions littérales complexes'
 export const dateDePublication = '20/04/2024'
+// export const dateDeModifImportante =
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
+
+/* export const amcType = 'AMCHybride'
+export const amcReady = true
+*/
 
 /**
  * Développer puis réduire une expression littérale.
  *
  * @author Matthieu DEVILLERS refactorisé par Jean-Claude Lhote
  */
-export const uuid = '1f3da'
+export const uuid = '889ef'
 export const refs = {
-  'fr-fr': ['2N41-9b'],
+  'fr-fr': ['2N41-10a'],
   'fr-ch': []
 }
 
@@ -70,7 +75,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
               ? 'Développer puis réduire les expressions littérales suivantes.'
               : 'Développer puis réduire l\'expression littérale suivante.'
 
-    const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z', 't']
+    const lettresPossibles = ['x', 'y', 'z', 't']
 
     let listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -88,8 +93,7 @@ export default class DevelopperReduireExprComplexe extends Exercice {
     for (
       let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       const isColored = this.sup4
-      const level = (this.sup3 - 1) as 0 | 1 | 2
-      const rationnels = true
+      const level: 0 | 1 | 2 = (this.sup3 - 1) as 0 | 1 | 2
       const isPositif = this.sup2
       // Initialisation des variables didactiques en fonction du type de question voulu
       let ope = '+' // valeur par défaut
@@ -131,74 +135,76 @@ export default class DevelopperReduireExprComplexe extends Exercice {
       }
       // initialisation des coefficients
       let c, d, g, h
-      const fractions = combinaisonListes(obtenirListeFractionsIrreductiblesFaciles(), 8)
-      const a = fractions[0].multiplieEntier(isPositif ? 1 : choice([1, -1]))
-
+      const a = randint(isPositif ? 1 : -5, 5, 0)
       const b = randint(isPositif ? 1 : -5, 5, 0)
       if (prod1Remarquable) {
-        c = a.multiplieEntier(1)
+        c = a
         d = -b
       } else if (!factsProd1Diff) {
-        c = a.multiplieEntier(1)
+        c = a
         d = b
       } else {
-        c = fractions[2].multiplieEntier(isPositif ? 1 : choice([1, -1]))
+        c = randint(isPositif ? 1 : -5, 5, [0, a])
         d = randint(isPositif ? 1 : -5, 5, [0, b])
       }
-      const e = fractions[4].multiplieEntier(isPositif ? 1 : choice([1, -1]))
+      const e = randint(isPositif ? 1 : -5, 5, 0)
       const f = randint(isPositif ? 1 : -5, 5, 0)
       if (!factsProd2Diff) {
-        g = e.multiplieEntier(1)
+        g = e
         h = f
       } else {
-        g = fractions[6].multiplieEntier(isPositif ? 1 : choice([1, -1]))
+        g = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, e])
         h = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, f])
       }
-      const aS = `${a.num}/${a.den}`
+      const aS = String(a)
       const bS = String(b)
-      const cS = `${c.num}/${c.den}`
+      const cS = String(c)
       const dS = String(d)
-      const eS = `${e.num}/${e.den}`
+      const eS = String(e)
       const fS = String(f)
-      const gS = `${g.num}/${g.den}`
+      const gS = String(g)
       const hS = String(h)
       const choixLettre = choice(lettresPossibles)
       const expression1 = factsProd1Diff
-        ? printlatex(`(${aS}*${choixLettre}+(${bS}))*(${cS}*${choixLettre}+(${dS}))`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
-        : printlatex(`(${aS}*${choixLettre}+(${bS}))^2`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
+        ? printlatex(`(${aS}*${choixLettre}+(${bS}))*(${cS}*${choixLettre}+(${dS}))`).replaceAll(' ', '')
+        : printlatex(`(${aS}*${choixLettre}+(${bS}))^2`).replaceAll(' ', '')
       const expression2 = factsProd2Diff
-        ? printlatex(`(${eS}*${choixLettre}+(${fS}))*(${gS}*${choixLettre}+(${hS}))`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
-        : printlatex(`(${eS}*${choixLettre}+(${fS}))^2`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
+        ? printlatex(`(${eS}*${choixLettre}+(${fS}))*(${gS}*${choixLettre}+(${hS}))`).replaceAll(' ', '')
+        : printlatex(`(${eS}*${choixLettre}+(${fS}))^2`).replaceAll(' ', '')
       const expressionDeveloppee1 = developpe(expression1, { isColored, colorOffset: 0, level })
       const expressionDeveloppee2 = developpe(expression2, { isColored, colorOffset: 4, level })
-      const devExpr1 = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex
-      // const devExpr1 = engine.box(['ExpandAll', engine.parse(expression1.replaceAll('\\dfrac', '\\frac'))]).evaluate().latex
-      const devExpr2 = engine.parse(developpe(expression2, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex
+      const parsedExp1: BoxedExpression = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac'))
+      const devExpr1 = parsedExp1 != null ? parsedExp1.latex : ''
+      if (devExpr1 === '') {
+        window.notify('Erreur dans le développement de l\'expression 1', { expression1 })
+      }
+      const parsedExp2 = engine.parse(developpe(expression2, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac'))
+      const devExpr2 = parsedExp2 != null ? parsedExp2.latex : ''
+      if (devExpr2 === '') {
+        window.notify('Erreur dans le développement de l\'expression 2', { expression2 })
+      }
       const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, { isColored })
       const sansParenthesesNetB = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, { isColored: false })
       const expression = `${expression1}${ope}${expression2}`
       const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, { isColored })
       const coeffX2 = ope === '-'
-        ? a.produitFraction(c).differenceFraction(e.produitFraction(g)).simplifie().texFSD
-        : a.produitFraction(c).sommeFraction(e.produitFraction(g)).simplifie().texFSD
+        ? a * c - e * g
+        : a * c + e * g
       const coeffX = ope === '-'
-        ? a.produitFraction(d).sommeFraction(c.multiplieEntier(b)).differenceFraction(e.produitFraction(h)).differenceFraction(g.multiplieEntier(f)).simplifie().texFSD
-        : a.produitFraction(d).sommeFraction(c.multiplieEntier(b)).sommeFraction(e.produitFraction(h)).sommeFraction(g.multiplieEntier(f)).simplifie().texFSD
+        ? a * d + b * c - e * h - f * g
+        : a * d + b * c + e * h + f * g
       const coeffConst = String(ope === '-' ? b * d - f * h : b * d + f * h)
-      const reponse = rationnels
-        ? `${coeffX2}${choixLettre}^2${coeffX.startsWith('-') ? coeffX : ('+' + coeffX)}${choixLettre}${coeffConst.startsWith('-') ? coeffConst : ('+' + coeffConst)}`
-        : `${reduirePolynomeDegre3(0, coeffX2, coeffX, Number(coeffConst), choixLettre)}`
+      const reponse = `${reduirePolynomeDegre3(0, coeffX2, coeffX, Number(coeffConst), choixLettre)}`
       let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
       let texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=${expression}\\\\`
       // ici on va rédiger la correction détaillée
       if (this.correctionDetaillee) {
         // La correction dans le texte pour tester
-        texteCorr += `&=\\left(${expressionDeveloppee1}\\right)${ope}\\left(${expressionDeveloppee2}\\right)\\\\`
-        // texteCorr += `&=${miseEnEvidence(`(${devExpr1})${ope}(${devExpr2})`, 'black')}\\\\`
-        texteCorr += `&=${sansParentheses}\\\\`
-        texteCorr += `&=${expressionOrdonnee}\\\\`
+        texteCorr += `&=\\left(${expressionDeveloppee1}\\right)${ope}\\left(${expressionDeveloppee2}\\right)\\\\ \n`
+        texteCorr += `&=${sansParentheses}\\\\ \n`
+        texteCorr += `&=${expressionOrdonnee}\\\\ \n`
       } else {
-        texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
+        texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\ \n`
       }
 
       texteCorr += `&=${miseEnEvidence(reponse)}\\end{aligned}$`

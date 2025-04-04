@@ -2,11 +2,12 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
 import Exercice from '../../Exercice'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Multiplier ou diviser par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -40,14 +41,14 @@ export default class MultiplierParPuissanceDixNeg extends Exercice {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, b)
-    const facteur = calculANePlusJamaisUtiliser(a * 100 + b * 10 + c)
+    const facteur = arrondi(a * 100 + b * 10 + c)
 
     let typeQuestionsDisponibles = ['multiplier', 'diviser']
     if (this.sup === 1) typeQuestionsDisponibles = ['multiplier']
     else if (this.sup === 2) typeQuestionsDisponibles = ['diviser']
     const typeQuestion = choice(typeQuestionsDisponibles)
     const d = choice([0.1, 0.01, 0.001])
-    this.reponse = calculANePlusJamaisUtiliser(facteur * d)
+    this.reponse = arrondi(facteur * d)
     let operateurLaTeX = '\\times'
     let operateurLateXContraire = '\\div'
     let verbeOperation = 'multipli'
@@ -55,7 +56,7 @@ export default class MultiplierParPuissanceDixNeg extends Exercice {
     let participePresentOperation = 'multipliant'
     let petitOuGrand = 'petit'
     if (typeQuestion === 'diviser') {
-      this.reponse = calculANePlusJamaisUtiliser(facteur / d)
+      this.reponse = arrondi(facteur / d)
       operateurLaTeX = '\\div'
       verbeOperation = 'divis'
       verbeOperationContraire = 'multipli'

@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
-import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { randint } from '../../modules/outils'
 
 /**
  * Chosis aléatoirement une expressions numérique parmi de nombreuses variantes.
@@ -51,7 +51,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           break
         case 3: // quotient de deux nombres
         default:
-          a = calculANePlusJamaisUtiliser(Math.round(a) * b)
+          a = arrondi(Math.round(a) * b)
           repNum = arrondi(a / b)
           expf = `Le quotient de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)}`
           expn = `$${texNombre(a)} \\div ${texNombre(b)}$`
@@ -74,7 +74,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(a * (b + c))
           break
         case 1: // a(b-c)
-          if (b <= c) { b = calculANePlusJamaisUtiliser(b + c) } // b-c positif
+          if (b <= c) { b = arrondi(b + c) } // b-c positif
           if (calculMental) {
             a = choice([2, 3, 4])
             c = randint(1, 5)
@@ -86,7 +86,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(a * (b - c))
           break
         case 2: // a/(b+c)
-          a = calculANePlusJamaisUtiliser(a * (b + c)) // on s'assure que le quotient tombe juste...
+          a = arrondi(a * (b + c)) // on s'assure que le quotient tombe juste...
           if (calculMental) {
             b = randint(1, 5)
             c = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) - b
@@ -98,8 +98,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(a / (b + c))
           break
         case 3: // a/(b-c)
-          if (b <= c) { b = calculANePlusJamaisUtiliser(b + c) } // b-c positif
-          a = calculANePlusJamaisUtiliser(a * (b - c)) // on s'assure que le quotient tombe juste
+          if (b <= c) { b = arrondi(b + c) } // b-c positif
+          a = arrondi(a * (b - c)) // on s'assure que le quotient tombe juste
           if (calculMental) {
             c = randint(1, 5)
             b = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) + c
@@ -111,8 +111,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(a / (b - c))
           break
         case 4: // (a+b)/c
-          a = calculANePlusJamaisUtiliser(a * c)
-          b = calculANePlusJamaisUtiliser(b * c) // on s'assure que le quotient tombe juste
+          a = arrondi(a * c)
+          b = arrondi(b * c) // on s'assure que le quotient tombe juste
           if (calculMental) {
             c = choice([2, 3, 4, 5])
             a = randint(1, 5) * c
@@ -124,9 +124,9 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi((a + b) / c)
           break
         case 5: // (a-b)/c
-          if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) } // a-b positif
-          a = calculANePlusJamaisUtiliser(a * c)
-          b = calculANePlusJamaisUtiliser(b * c) // on s'assure que le quotient tombe juste
+          if (a <= b) { a = arrondi(a + b) } // a-b positif
+          a = arrondi(a * c)
+          b = arrondi(b * c) // on s'assure que le quotient tombe juste
           if (calculMental) {
             c = choice([2, 3, 4, 5])
             b = randint(1, 5) * c
@@ -149,7 +149,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(a + b * c)
           break
         case 7: // a - bc
-          a = calculANePlusJamaisUtiliser(a + b * c)
+          a = arrondi(a + b * c)
           if (calculMental) {
             c = choice([2, 3, 4, 5])
             b = randint(2, 9)
@@ -161,7 +161,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           repNum = arrondi(a - b * c)
           break
         case 8: // a + b/c
-          b = calculANePlusJamaisUtiliser(b * c)
+          b = arrondi(b * c)
           if (calculMental) {
             c = choice([2, 3, 4, 5])
             b = randint(2, 6) * c
@@ -174,8 +174,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           break
         case 9: // a - b/c
         default:
-          a = calculANePlusJamaisUtiliser(a + b)
-          b = calculANePlusJamaisUtiliser(b * c)
+          a = arrondi(a + b)
+          b = arrondi(b * c)
           if (calculMental) {
             c = choice([2, 3, 4, 5])
             b = randint(2, 6) * c
@@ -210,7 +210,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             d = randint(1, 6, [a, b])
             c = randint(2, 10 - d, [a - d, b - d]) + d
           } else {
-            if (c <= d) { c = calculANePlusJamaisUtiliser(c + d) }
+            if (c <= d) { c = arrondi(c + d) }
           }
           expf = `Le produit de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence entre ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombre(a)}+${texNombre(b)})${signex}(${texNombre(c)}-${texNombre(d)})$`
@@ -224,7 +224,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             c = randint(1, 6, [a, b])
             d = randint(1, 10 - c, [a, b, c])
           } else {
-            if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) }
+            if (a <= b) { a = arrondi(a + b) }
           }
           expf = `Le produit de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombre(a)}-${texNombre(b)})${signex}(${texNombre(c)}+${texNombre(d)})$`
@@ -238,8 +238,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             d = randint(1, 6, [a, b])
             c = randint(2, 10 - d, [a - d, b - d]) + d
           } else {
-            if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) }
-            if (c <= d) { c = calculANePlusJamaisUtiliser(c + d) }
+            if (a <= b) { a = arrondi(a + b) }
+            if (c <= d) { c = arrondi(c + d) }
           }
           expf = `Le produit de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence entre ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombre(a)}-${texNombre(b)})${signex}(${texNombre(c)}-${texNombre(d)})$`
@@ -250,16 +250,16 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           if (calculMental) { // Objectif : Le numérateur est un multiple du dénominateur (plus petit que 12), entre 2 et 5 fois plus.
             c = randint(1, 10)
             d = randint(1, 11 - c, [c])
-            a = randint(1, calculANePlusJamaisUtiliser(2 * (c + d) - 1), [c, d, calculANePlusJamaisUtiliser(c + d)]) // a est un nb petit entre 1 et le double du dénominateur pour faciliter les calculs.
+            a = randint(1, arrondi(2 * (c + d) - 1), [c, d, arrondi(c + d)]) // a est un nb petit entre 1 et le double du dénominateur pour faciliter les calculs.
             if (randint(1, 2) === 1) { // Pour ne pas que a soit toujours le nombre le plus petit entre a et b.
-              b = calculANePlusJamaisUtiliser(randint(2, 5) * (c + d) - a)
+              b = arrondi(randint(2, 5) * (c + d) - a)
             } else {
               b = a
-              a = calculANePlusJamaisUtiliser(randint(2, 5) * (c + d) - a)
+              a = arrondi(randint(2, 5) * (c + d) - a)
             }
           } else {
-            a = calculANePlusJamaisUtiliser(a * (c + d))
-            b = calculANePlusJamaisUtiliser(b * (c + d))
+            a = arrondi(a * (c + d))
+            b = arrondi(b * (c + d))
           }
           expf = `Le quotient de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombre(a)}+${texNombre(b)}) \\div (${texNombre(c)}+${texNombre(d)})$ ou $\\dfrac{${texNombre(a)}+${texNombre(b)}}{${texNombre(c)}+${texNombre(d)}}$`
@@ -271,11 +271,11 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             c = randint(1, 10)
             d = randint(1, 11 - c, [c])
             b = randint(1, 11, [c, d])
-            a = calculANePlusJamaisUtiliser(randint(2, 5) * (c + d) + b)
+            a = arrondi(randint(2, 5) * (c + d) + b)
           } else {
-            a = calculANePlusJamaisUtiliser(a * (c + d))
-            b = calculANePlusJamaisUtiliser(b * (c + d))
-            if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) }
+            a = arrondi(a * (c + d))
+            b = arrondi(b * (c + d))
+            if (a <= b) { a = arrondi(a + b) }
           }
           expf = `Le quotient de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombre(a)}-${texNombre(b)}) \\div (${texNombre(c)}+${texNombre(d)})$ ou $\\dfrac{${texNombre(a)}-${texNombre(b)}}{${texNombre(c)}+${texNombre(d)}}$`
@@ -286,17 +286,17 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           if (calculMental) {
             d = randint(1, 9)
             c = randint(2, 12 - d) + d
-            a = randint(1, calculANePlusJamaisUtiliser(2 * (c - d) - 1), [c, d])
+            a = randint(1, arrondi(2 * (c - d) - 1), [c, d])
             if (randint(1, 2) === 1) {
-              b = calculANePlusJamaisUtiliser(randint(2, 5) * (c - d) - a)
+              b = arrondi(randint(2, 5) * (c - d) - a)
             } else {
               b = a
-              a = calculANePlusJamaisUtiliser(randint(2, 5) * (c - d) - a)
+              a = arrondi(randint(2, 5) * (c - d) - a)
             }
           } else {
-            if (c <= d) { c = calculANePlusJamaisUtiliser(c + d) }
-            a = calculANePlusJamaisUtiliser(a * (c - d))
-            b = calculANePlusJamaisUtiliser(b * (c - d))
+            if (c <= d) { c = arrondi(c + d) }
+            a = arrondi(a * (c - d))
+            b = arrondi(b * (c - d))
           }
           expf = `Le quotient de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence entre ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombre(a)}+${texNombre(b)}) \\div (${texNombre(c)}-${texNombre(d)})$ ou $\\dfrac{${texNombre(a)}+${texNombre(b)}}{${texNombre(c)}-${texNombre(d)}}$`
@@ -310,10 +310,10 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             b = randint(1, 11, [c, d])
             a = randint(2, 5) * (c - d) + b
           } else {
-            if (c <= d) { c = calculANePlusJamaisUtiliser(c + d) }
-            if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) }
-            a = calculANePlusJamaisUtiliser(a * (c - d))
-            b = calculANePlusJamaisUtiliser(b * (c - d))
+            if (c <= d) { c = arrondi(c + d) }
+            if (a <= b) { a = arrondi(a + b) }
+            a = arrondi(a * (c - d))
+            b = arrondi(b * (c - d))
           }
           expf = `Le quotient de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence entre ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombre(a)}-${texNombre(b)}) \\div (${texNombre(c)}-${texNombre(d)})$ ou $\\dfrac{${texNombre(a)}-${texNombre(b)}}{${texNombre(c)}-${texNombre(d)}}$`
@@ -339,8 +339,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             a = randint(1, 5, [c, d])
             b = Math.floor(c * d / a) + randint(1, 2) // On s'arrange avec b pour que la différence ne soit pas difficile.
           } else {
-            if (a * b < d * c) { a = calculANePlusJamaisUtiliser(a + c) }
-            if (a * b < d * c) { b = calculANePlusJamaisUtiliser(b + d) }
+            if (a * b < d * c) { a = arrondi(a + c) }
+            if (a * b < d * c) { b = arrondi(b + d) }
           }
           expf = `La différence entre le produit de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et le produit de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombre(a)} \\times ${texNombre(b)}-${texNombre(c)} \\times ${texNombre(d)}$`
@@ -354,7 +354,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             d = randint(2, 5, [a, b])
             c = randint(2, 5) * d
           } else {
-            c = calculANePlusJamaisUtiliser(c * d)
+            c = arrondi(c * d)
           }
           expf = `La somme du produit de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et du quotient de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombre(a)} \\times ${texNombre(b)}+${texNombre(c)} \\div ${texNombre(d)}$ ou $${texNombre(a)} \\times ${texNombre(b)}+\\dfrac{${texNombre(c)}}{${texNombre(d)}}$`
@@ -369,8 +369,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             b = Math.floor((c / d) / a) + randint(1, 4) //  On s'arrange toujours avec b pour que la différence ne soit pas difficile.
           } else {
             c = c * d
-            if (a * b < c / d) { a = calculANePlusJamaisUtiliser(a * c) }
-            if (a * b < c / d) { b = calculANePlusJamaisUtiliser(b * c) }
+            if (a * b < c / d) { a = arrondi(a * c) }
+            if (a * b < c / d) { b = arrondi(b * c) }
           }
           expf = `La différence entre le produit de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et le quotient de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombre(a)} \\times ${texNombre(b)}-${texNombre(c)} \\div ${texNombre(d)}$ ou $${texNombre(a)} \\times ${texNombre(b)}-\\dfrac{${texNombre(c)}}{${texNombre(d)}}$`
@@ -384,8 +384,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             d = randint(2, 5, [a, b])
             c = randint(2, 5) * d
           } else {
-            a = calculANePlusJamaisUtiliser(a * b)
-            c = calculANePlusJamaisUtiliser(c * d)
+            a = arrondi(a * b)
+            c = arrondi(c * d)
           }
           expf = `La somme du quotient de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et du quotient de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombre(a)} \\div ${texNombre(b)}+${texNombre(c)} \\div ${texNombre(d)}$ ou $\\dfrac{${texNombre(a)}}{${texNombre(b)}}+\\dfrac{${texNombre(c)}}{${texNombre(d)}}$`
@@ -400,10 +400,10 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 5, [c, d])
             a = (Math.floor(c / d) + randint(1, 5)) * b // a multiple de b mais au maximum de 10 fois.
           } else {
-            a = calculANePlusJamaisUtiliser(a * b)
-            c = calculANePlusJamaisUtiliser(c * d)
-            if (a / b < c / d) { a = calculANePlusJamaisUtiliser(a * c) }
-            if (a / c < c / d) { a = calculANePlusJamaisUtiliser(a * d) }
+            a = arrondi(a * b)
+            c = arrondi(c * d)
+            if (a / b < c / d) { a = arrondi(a * c) }
+            if (a / c < c / d) { a = arrondi(a * d) }
           }
           expf = `La différence entre le quotient de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et le quotient de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombre(a)} \\div ${texNombre(b)}-${texNombre(c)} \\div ${texNombre(d)}$ ou $\\dfrac{${texNombre(a)}}{${texNombre(b)}}-\\dfrac{${texNombre(c)}}{${texNombre(d)}}$`
@@ -435,8 +435,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
               a = randint(2, 5) * c - b
             }
           } else {
-            a = calculANePlusJamaisUtiliser(a * c)
-            b = calculANePlusJamaisUtiliser(b * c)
+            a = arrondi(a * c)
+            b = arrondi(b * c)
           }
           expf = `Le triple du quotient de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$3${signex}(${texNombre(a)}+${texNombre(b)}) \\div ${texNombre(c)}$ ou $3 \\times \\dfrac{${texNombre(a)}+${texNombre(b)}}{${texNombre(c)}}$`
@@ -448,9 +448,9 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             b = randint(2, 10)
             a = randint(2, 5) * 3 + b
           } else {
-            if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) }
-            a = calculANePlusJamaisUtiliser(3 * a)
-            b = calculANePlusJamaisUtiliser(3 * b)
+            if (a <= b) { a = arrondi(a + b) }
+            a = arrondi(3 * a)
+            b = arrondi(3 * b)
           }
           expf = `Le tiers de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
           expn = `$(${texNombre(a)}-${texNombre(b)}) \\div  3$ ou $\\dfrac{${texNombre(a)}-${texNombre(b)}}{3}$`
@@ -464,9 +464,9 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             c = randint(1, 5)
             d = randint(1, 5, [c, b, a])
           } else {
-            if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) }
-            a = calculANePlusJamaisUtiliser(3 * a)
-            b = calculANePlusJamaisUtiliser(3 * b)
+            if (a <= b) { a = arrondi(a + b) }
+            a = arrondi(3 * a)
+            b = arrondi(3 * b)
           }
           expf = `Le produit du tiers de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par le double de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$\\left((${texNombre(a)}-${texNombre(b)}) \\div  3\\right) \\times  2${signex}(${texNombre(c)}+${texNombre(d)})$`
@@ -480,7 +480,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             a = randint(1, 5, [c, d])
             b = Math.floor((c + d) * 2 / 3) + 3 - a
           } else {
-            if (3 * (a + b) < 2 * (c + d)) { a = calculANePlusJamaisUtiliser(a + c + d) }
+            if (3 * (a + b) < 2 * (c + d)) { a = arrondi(a + c + d) }
           }
           expf = `La différence entre le triple de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et le double de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$3${signex}(${texNombre(a)}+${texNombre(b)})-2${signex}(${texNombre(c)}+${texNombre(d)})$`
@@ -495,7 +495,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             c = randint(2, 10, [a, b])
             d = randint(2, 15 - c, [a, b, c])
           } else {
-            if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) }
+            if (a <= b) { a = arrondi(a + b) }
           }
           expf = `La somme du double de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et du triple de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$2${signex}(${texNombre(a)}-${texNombre(b)})+3${signex}(${texNombre(c)}+${texNombre(d)})$`
@@ -519,8 +519,8 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
               a = choice([1, 2, 10]) * c * (d + e) - b
             }
           } else {
-            a = calculANePlusJamaisUtiliser(a * c * (d + e))
-            b = calculANePlusJamaisUtiliser(b * c * (d + e))
+            a = arrondi(a * c * (d + e))
+            b = arrondi(b * c * (d + e))
           }
           expf = `Le quotient de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par le produit de ${nombreAvecEspace(c)} par la somme de ${nombreAvecEspace(d)} et ${nombreAvecEspace(e)}`
           expn = `$(${texNombre(a)}+${texNombre(b)}) \\div (${texNombre(c)}${signex}(${texNombre(d)}+${texNombre(e)}))$ ou $\\dfrac{${texNombre(a)}+${texNombre(b)}}{${texNombre(c)}${signex}(${texNombre(d)}+${texNombre(e)})}$`
@@ -535,7 +535,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             e = randint(2, 5, [a, b, d])
             c = randint(2, 30 - d * e, [a, b, d, e])
           } else {
-            if (a <= b) { a = calculANePlusJamaisUtiliser(a + b) }
+            if (a <= b) { a = arrondi(a + b) }
           }
           expf = `Le produit de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et du produit de ${nombreAvecEspace(d)} par ${nombreAvecEspace(e)}`
           expn = `$(${texNombre(a)}-${texNombre(b)})${signex}(${texNombre(c)}+${texNombre(d)} \\times ${texNombre(e)})$`
@@ -551,7 +551,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
             c = randint(2, 5, [a, b]) * e
             d = randint(2, 6, [a, b, e, c])
           } else {
-            c = calculANePlusJamaisUtiliser(c * e)
+            c = arrondi(c * e)
           }
           expf = `La somme du produit de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et du quotient du produit de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)} par ${nombreAvecEspace(e)}`
           expn = `$${texNombre(a)} \\times ${texNombre(b)}+${texNombre(c)} \\times ${texNombre(d)} \\div ${texNombre(e)}$ ou $${texNombre(a)} \\times ${texNombre(b)}+\\dfrac{${texNombre(c)} \\times ${texNombre(d)}}{${texNombre(e)}}$`

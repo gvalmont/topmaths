@@ -3,8 +3,9 @@ import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Donner la nature d’une suite (formule de récurrence)*'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -157,7 +158,7 @@ export default class NatureSuiteRec extends Exercice {
           break
 
         case 4 :// suite géo u_{n+1}-u_n=au_n
-          a = calculANePlusJamaisUtiliser(randint(2, 99) * choice([-1, 1])) / 100
+          a = arrondi(randint(2, 99) * choice([-1, 1])) / 100
           u = randint(1, 10) * choice([-1, 1])
 
           texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n $.<br>

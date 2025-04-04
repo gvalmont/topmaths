@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { Labyrinthe, labyrinthe } from '../../modules/Labyrinthe'
 import Exercice from '../Exercice'
@@ -31,12 +31,13 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
     this.besoinFormulaireNumerique = ['Liste des nombres premiers ', 3, '1 : Inférieurs à 30\n2 : Inférieurs à 100\n3 : Inférieurs à 200']
     this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
     this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
-    this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+    this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 3 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
     this.nbQuestions = 3
     this.sup = 3
     this.sup2 = 6
     this.sup3 = 1
     this.sup4 = 1
+    this.comment = 'Malgré le choix du nombre de colonnes et de lignes, pour une question de puissance de calculs, le nombre de cases est limité à 60.'
   }
 
   nouvelleVersion () {
@@ -64,8 +65,19 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
     let monChemin
 
     for (let q = 0; q < this.nbQuestions;) {
-      const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
-      const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
+      let nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3)
+      let nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4)
+      let indiceDiminution = 0
+      while (nbL * nbC > 60) {
+        indiceDiminution++
+        if (choice([true, false])) {
+          nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3 - 1 - indiceDiminution % 2)
+          nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4 - indiceDiminution % 2)
+        } else {
+          nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3 - indiceDiminution % 2)
+          nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4 - 1 - indiceDiminution % 2)
+        }
+      }
       laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
       laby.niveau = this.sup2
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
@@ -98,4 +110,4 @@ export default class ExerciceLabyrinthePremiers3e extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
-} // Fin de l'exercice.
+}

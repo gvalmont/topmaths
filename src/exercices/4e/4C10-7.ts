@@ -5,9 +5,9 @@ import {
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
@@ -95,7 +95,7 @@ export default class ExerciceOperationsRelatifs extends Exercice {
         case 1: // multiplications
           if (this.sup) {
             texte = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)}$`
-            texteCorr = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)} = ${calculANePlusJamaisUtiliser(a * b)} $`
+            texteCorr = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)} = ${arrondi(a * b)} $`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)}  \\times ${ecritureNombreRelatif(b)}$`
             texteCorr = `$ ${ecritureNombreRelatifc(a)} \\times ${ecritureNombreRelatifc(b)}  = ${ecritureNombreRelatifc(a * b, { color: '#f15929' })} $`
@@ -109,12 +109,12 @@ export default class ExerciceOperationsRelatifs extends Exercice {
         case 2: // quotients
           if (this.sup) {
             texte = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)}$`
-            texteCorr = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)} = ${calculANePlusJamaisUtiliser(a / b)}$`
+            texteCorr = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)} = ${arrondi(a / b)}$`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)}  \\div ${ecritureNombreRelatif(b)}$`
             texteCorr = `$ ${ecritureNombreRelatifc(a)}  \\div ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a / b, { color: '#f15929' })}$`
           }
-          setReponse(this, i, calculANePlusJamaisUtiliser(a / b), {
+          setReponse(this, i, arrondi(a / b), {
             signe: true,
             digits: 1,
             decimals: 0
@@ -123,7 +123,7 @@ export default class ExerciceOperationsRelatifs extends Exercice {
         case 3: // additions
           if (this.sup) {
             texte = `$ ${a} + ${ecritureParentheseSiNegatif(b)} $`
-            texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  = ${calculANePlusJamaisUtiliser(a + b)} $`
+            texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  = ${arrondi(a + b)} $`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(b)} $`
             texteCorr = `$  ${ecritureNombreRelatifc(a)} + ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a + b, { color: '#f15929' })} $`

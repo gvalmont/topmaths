@@ -5,7 +5,8 @@ import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix, texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs'
 
@@ -88,10 +89,10 @@ export default class ProblemesAdditifsRelatifs5e extends Exercice {
       }
 
       let bilan
-      if (isBilanPositif(calculANePlusJamaisUtiliser((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calculANePlusJamaisUtiliser(gainMultiple / 10)) + calculANePlusJamaisUtiliser(nombreDeGainsUnitaires * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)) - calculANePlusJamaisUtiliser(nombreDePertes * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)))) {
-        bilan = ['Globalement, le montant des gains', 'est supérieur au montant des pertes', `${texteEnCouleur('Le bilan est donc positif.')}`, 'a gagné', texPrix(calculANePlusJamaisUtiliser((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calculANePlusJamaisUtiliser(gainMultiple / 10)) + calculANePlusJamaisUtiliser(nombreDeGainsUnitaires * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)) - calculANePlusJamaisUtiliser(nombreDePertes * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)))]
+      if (isBilanPositif(arrondi((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * arrondi(gainMultiple / 10)) + arrondi(nombreDeGainsUnitaires * arrondi(gainPerteUnitaire / 10)) - arrondi(nombreDePertes * arrondi(gainPerteUnitaire / 10)))) {
+        bilan = ['Globalement, le montant des gains', 'est supérieur au montant des pertes', `${texteEnCouleur('Le bilan est donc positif.')}`, 'a gagné', texPrix(arrondi((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * arrondi(gainMultiple / 10)) + arrondi(nombreDeGainsUnitaires * arrondi(gainPerteUnitaire / 10)) - arrondi(nombreDePertes * arrondi(gainPerteUnitaire / 10)))]
       } else {
-        bilan = ['Globalement, le montant des gains', 'est inférieur au montant des pertes', `${texteEnCouleur('Le bilan est donc négatif.')}`, 'a perdu', texPrix((-1) * (calculANePlusJamaisUtiliser((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * calculANePlusJamaisUtiliser(gainMultiple / 10)) + calculANePlusJamaisUtiliser(nombreDeGainsUnitaires * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10)) - calculANePlusJamaisUtiliser(nombreDePertes * calculANePlusJamaisUtiliser(gainPerteUnitaire / 10))))]
+        bilan = ['Globalement, le montant des gains', 'est inférieur au montant des pertes', `${texteEnCouleur('Le bilan est donc négatif.')}`, 'a perdu', texPrix((-1) * (arrondi((nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes) * arrondi(gainMultiple / 10)) + arrondi(nombreDeGainsUnitaires * arrondi(gainPerteUnitaire / 10)) - arrondi(nombreDePertes * arrondi(gainPerteUnitaire / 10))))]
       }
       // pour les situations
       const situations = [
@@ -100,9 +101,9 @@ export default class ProblemesAdditifsRelatifs5e extends Exercice {
           nb_gains_unitaires: nombreDeGainsUnitaires,
           nb_pertes: nombreDePertes,
           nb_gains: nombreTotalDeLancers - nombreDeGainsUnitaires - nombreDePertes,
-          perte: calculANePlusJamaisUtiliser(gainPerteUnitaire / 10),
-          gain_unitaire: calculANePlusJamaisUtiliser(gainPerteUnitaire / 10),
-          gain_multiple: calculANePlusJamaisUtiliser(gainMultiple / 10),
+          perte: arrondi(gainPerteUnitaire / 10),
+          gain_unitaire: arrondi(gainPerteUnitaire / 10),
+          gain_multiple: arrondi(gainMultiple / 10),
           enonce_1: 'lancer une balle sur des quilles.',
           enonce_2: '- Si la balle touche plusieurs quilles, le joueur gagne ',
           enonce_3: '- Si la balle ne touche qu\'une quille, le joueur gagne ',

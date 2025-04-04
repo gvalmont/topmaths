@@ -58,7 +58,11 @@ export default class ExerciceEquations extends Exercice {
     })
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, indiceQ = 0, fracReponse, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let increment
+      texte = ''
+      texteCorr = ''
+      a = 0
+      b = 0
+      let increment = 0
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'ax2+bx':
           a = this.sup2 ? randint(2, 9) : randint(-9, 9, [0, -1, 1]) // Le cas 1 (ou -1) est traité ensuite
@@ -256,7 +260,7 @@ export default class ExerciceEquations extends Exercice {
   // this.besoinFormulaireTexte = ["Type d'équations", "Nombres séparés par des tirets : \n1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
 }
 
-function ax2plusbx (a, b) {
+function ax2plusbx (a:number, b:number) {
   const texte = `$ ${rienSi1(a)} x^2 ${ecritureAlgebriqueSauf1(b)} x=0$`
   let texteCorr = `$ ${rienSi1(a)} x^2 ${ecritureAlgebriqueSauf1(b)} x=0$`
   texteCorr += '<br>'

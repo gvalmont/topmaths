@@ -26,7 +26,7 @@ export default class FatorisationEgR extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
   }
 
   nouvelleVersion () {

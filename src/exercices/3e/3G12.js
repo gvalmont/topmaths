@@ -18,7 +18,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
 export const dateDePublication = '16/12/2020'
-export const dateDeModifImportante = '29/01/2023' //  Par EE
+export const dateDeModifImportante = '01/04/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -56,19 +56,16 @@ export default class PavageEtRotation2D extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = Number(this.sup)
-    this.sup3 = Number(this.sup3)
     const videcouples = function (tableau) {
       for (let k = 0; k < tableau.length; k++) {
         if (tableau[k][0] === tableau[k][1]) {
           tableau.splice(k, 1)
         }
-        for (let j = k + 1; j < tableau.length; j++) {
-          // eslint-disable-next-line no-empty
+        /* for (let j = k + 1; j < tableau.length; j++) {
           if (tableau[k][1] === tableau[j][0]) {
 
           }
-        }
+        } */
       }
       return tableau
     }
@@ -170,8 +167,7 @@ export default class PavageEtRotation2D extends Exercice {
       Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
       monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
       fenetre = monpavage.fenetre
-      // fenetreMathalea2d = [fenetre.xmin, fenetre.ymin, fenetre.xmax, fenetre.ymax];
-      while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) { // On cherche d pour avoir suffisamment de couples
+      while (couples.length < this.nbQuestions + 2 && nombreTentatives < 30) { // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
 
         index1 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3)) // On choisit 1 point dans un des polygones
@@ -194,7 +190,7 @@ export default class PavageEtRotation2D extends Exercice {
         label = labelPoint(A, 'red')
         trace.epaisseur = 3
         trace.taille = 4
-        // alpha = alphas[typeDePavage - 1][randint(0, alphas[typeDePavage - 1].length - 1)]
+
         alpha = choice(alphas[typeDePavage - 1], this.sup4 ? 180 : 0)
         sensdirect = choice([1, -1])
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
@@ -214,7 +210,7 @@ export default class PavageEtRotation2D extends Exercice {
       }
     }
     if (couples.length < this.nbQuestions) {
-      console.error('Trop de questions, augmentez la taille du pavage !')
+      console.error(`Trop de questions (${this.nbQuestions} questions pour ${couples.length} couple(s) trouvé(s) seulement), augmentez la taille du pavage !`)
       return
     }
 
@@ -296,7 +292,6 @@ export default class PavageEtRotation2D extends Exercice {
           P3.epaisseur = 2
           objetsCorrection.push(P3)
         }
-        //  objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codageAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3)
         objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codageAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2)
       }
     }

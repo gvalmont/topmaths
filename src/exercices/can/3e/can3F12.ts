@@ -23,6 +23,13 @@ export const refs = {
   'fr-fr': ['can3F12'],
   'fr-ch': []
 }
+type Noeud = {
+  x: number;
+  y: number;
+  deriveeGauche: number;
+  deriveeDroit: number;
+  isVisible: boolean;
+}
 export default class AntecedentSpline extends Exercice {
   constructor () {
     super()
@@ -34,7 +41,7 @@ export default class AntecedentSpline extends Exercice {
   }
 
   nouvelleVersion () {
-    const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+    const noeuds1: Noeud[] = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -44,7 +51,7 @@ export default class AntecedentSpline extends Exercice {
       { x: 4, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: 5, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
     ]
-    const noeuds2 = [{ x: -4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+    const noeuds2: Noeud[] = [{ x: -4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -56,13 +63,13 @@ export default class AntecedentSpline extends Exercice {
       { x: 6, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
     ]
     const mesFonctions = [noeuds1, noeuds2]//, noeuds2
-    function aleatoiriseCourbe (listeFonctions) {
+    function aleatoiriseCourbe (listeFonctions: Noeud[][]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-2, +2) // translations
       const deltaY = randint(-1, 1)// randint(-2, +2)
       const choix = choice(listeFonctions)
-      return choix.map((noeud) => Object({
+      return choix.map((noeud: Noeud) => Object({
         x: (noeud.x + deltaX) * coeffX,
         y: (noeud.y + deltaY) * coeffY,
         deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
@@ -70,8 +77,8 @@ export default class AntecedentSpline extends Exercice {
         isVisible: noeud.isVisible
       }))
     }
-    let bornes = {}
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+    let bornes = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
+    const o = texteParPosition('O', -0.3, -0.3, 1, 'black', 1, 'milieu')
     const nuage = aleatoiriseCourbe(mesFonctions)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -104,8 +111,12 @@ export default class AntecedentSpline extends Exercice {
     const nombreAntecedentCherches1 = choice([randint(1, nbAntecedentsEntiersMaximum), randint(0, nbAntecedentsEntiersMaximum), randint(1, nbAntecedentsEntiersMaximum)])
     let y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
     if (y1 == null) {
-      window.notify('Dans can3F12, Spline.trouveYPourNAntecedent fait encore des siennes je choisis une valeur intermédiaire')
+      window.notify('Dans can3F12, Spline.trouveYPourNAntecedent fait encore des siennes je choisis une valeur intermédiaire', {})
       y1 = Math.round((bornes.yMin + bornes.yMax) / 2)
+    }
+    if (y1 === false) {
+      window.notify('Dans can3F12 trouveYPourNAntecedents n\'a pas trouvé d\'antécédent', {})
+      return
     }
     const solutions1 = theSpline.solve(y1)
     const reponse1 = (!solutions1 || solutions1.length === 0) ? '\\emptyset' : `${solutions1.join(';')}`

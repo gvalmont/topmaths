@@ -16,6 +16,6 @@ export default class UneEquationDifficile extends ExerciceEquationASolutionEntie
     this.correctionDetaillee = false
     this.sup = false
     this.sup2 = 3
-    this.consigne = 'Résoudre l’équation :'
+    this.consigne = 'Résoudre l\'équation :'
   }
 }

@@ -6,7 +6,7 @@ import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, egal } from '../../modules/outils'
+import { listeQuestionsToContenu, randint, egal } from '../../modules/outils'
 import { PointCliquable, pointCliquable } from '../../modules/2dinteractif'
 import { context } from '../../modules/context'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
@@ -111,7 +111,7 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, `${texNombre(abs0, 0)}`], [1, `${texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))}`]]
+        labelListe: [[0, `${texNombre(abs0, 0)}`], [1, `${texNombre((abs0 + pas1))}`]]
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -121,7 +121,6 @@ export default class PlacerUnPointAbscisseEntiere2d extends Exercice {
         pointTaille: 5,
         pointStyle: 'x',
         labelsPrincipaux: false,
-        // labelListe: [[0, `${texNombre(abs0, 0)}`], [1, `${texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))}`]],
         labelListe: [
           [x1, `\\boldsymbol{${texNombre(x11, 0)}}`],
           [x2, `\\boldsymbol{${texNombre(x22, 0)}}`],

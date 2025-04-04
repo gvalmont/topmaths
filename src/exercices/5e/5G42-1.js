@@ -1017,7 +1017,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
       const qcm = propositionsQcm(this, i)
       texte += qcm.texte
       if (!this.interactif || !context.isHtml) {
-        texteCorr = qcm.texteCorr + texteCorr
+        texteCorr += qcm.texteCorr
       }
       if (this.sup2 === false) {
         texte = texte.replaceAll(' non croisé', '')

@@ -11,7 +11,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
 import Decimal from 'decimal.js'
 import { min, round } from 'mathjs'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -19,6 +19,7 @@ import { handleAnswers, setReponse } from '../../../lib/interactif/gestionIntera
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { prenomM } from '../../../lib/outils/Personne'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { arrondi } from '../../../lib/outils/nombres'
 
 export const titre = 'CAN 3e sujet 2022'
 export const interactifReady = true
@@ -485,7 +486,7 @@ export default class SujetCAN2022troisieme extends Exercice {
         case 17:
           a = randint(1, 5)
           b = choice([new Decimal('0.25'), new Decimal('0.5'), new Decimal('0.75')])
-          d = calculANePlusJamaisUtiliser(b.mul(60))
+          d = arrondi(b.mul(60))
           if (!this.interactif) {
             texte = `Convertir en heures/minutes : <br>$${texNombre(b.plus(a), 2)}$ h $=$ .....  h ..... min`
             texteCorr = `$${texNombre(b.plus(a), 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${texNombre(d, 0)}$ min`
@@ -870,7 +871,7 @@ export default class SujetCAN2022troisieme extends Exercice {
             b = randint(1, 9)
             c = randint(0, 9)
             d = randint(0, 9, [b, c])
-            a = calculANePlusJamaisUtiliser(b * 100 + c * 10 + d)
+            a = arrondi(b * 100 + c * 10 + d)
             reponse = a % 3
             texte = `Quel est le reste de la division euclidienne de $${a}$ par $3$ ?`
             if (a % 3 === 0) {
@@ -903,7 +904,7 @@ export default class SujetCAN2022troisieme extends Exercice {
             b = randint(1, 9)
             c = randint(0, 9)
             d = randint(0, 9, [b, c])
-            a = calculANePlusJamaisUtiliser(b * 100 + c * 10 + d)
+            a = arrondi(b * 100 + c * 10 + d)
             reponse = a % 2
             texte = `Quel est le reste de la division euclidienne de $${a}$ par $2$ ?`
             if (a % 2 === 0) {

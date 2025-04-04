@@ -7,6 +7,7 @@
 import fs from 'fs'
 import { dictionnaireCrpeCoop } from '../src/json/dictionnaireCrpeCoop.js'
 import { dictionnaireDNB } from '../src/json/dictionnaireDNB.js'
+import { dictionnaireDNBPRO } from '../src/json/dictionnaireDNBPRO.js'
 import { dictionnaireBAC } from '../src/json/dictionnaireBAC.js'
 import { dictionnaireSTI2D } from '../src/json/dictionnaireSTI2D.js'
 import { dictionnaireE3C } from '../src/json/dictionnaireE3C.js'
@@ -26,6 +27,12 @@ for (const ex in dictionnaireDNB) {
   })
 }
 
+for (const ex in dictionnaireDNBPRO) {
+  dictionnaireDNBPRO[ex].tags.forEach(e => {
+    setTagsDNB.add(e)
+  })
+}
+
 const tagsDNB = [...setTagsDNB].sort((a, b) => { return a.localeCompare(b) })
 for (const annee of ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
   referentielFR.Brevet[annee] = {}
@@ -36,11 +43,24 @@ for (const annee of ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '20
   }
 }
 
+for (const annee of ['2024', '2023']) {
+  for (const ex in dictionnaireDNBPRO) {
+    if (dictionnaireDNBPRO[ex].annee === annee) {
+      referentielFR.Brevet[annee][ex] = { uuid: ex, ...dictionnaireDNBPRO[ex] }
+    }
+  }
+}
+
 for (const tag of tagsDNB) {
   referentielFR.BrevetTags[tag] = {}
   for (const ex in dictionnaireDNB) {
     if (dictionnaireDNB[ex].tags.includes(tag)) {
       referentielFR.BrevetTags[tag][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
+    }
+  }
+  for (const ex in dictionnaireDNBPRO) {
+    if (dictionnaireDNBPRO[ex].tags.includes(tag)) {
+      referentielFR.BrevetTags[tag][ex] = { uuid: ex, ...dictionnaireDNBPRO[ex] }
     }
   }
 }
@@ -196,19 +216,6 @@ for (const tag of tagsEVACOM) {
     }
   }
 }
-
-// On renomme les clés à la racine du référentiel
-// delete Object.assign(referentielFR, { 'Brevet des collèges par thème - APMEP': referentielFR.BrevetTags }).DNBTags
-// delete Object.assign(referentielFR, { 'Brevet des collèges par année - APMEP': referentielFR.Brevet }).DNB
-// delete Object.assign(referentielFR, { 'BAC par thème - APMEP': referentielFR.BACTags }).BACTags
-// delete Object.assign(referentielFR, { 'BAC par année - APMEP': referentielFR.BAC }).BAC
-// delete Object.assign(referentielFR, { 'CRPE par thème': referentielFR.crpeTags }).crpeTags
-// delete Object.assign(referentielFR, { 'CRPE par année': referentielFR.crpe }).crpe
-// delete Object.assign(referentielFR, { 'E3C par thème': referentielFR.E3CTags }).E3CTags
-// delete Object.assign(referentielFR, { 'E3C par année': referentielFR.E3C }).E3C
-
-// delete Object.assign(referentielCH, { 'EVACOM par thème': referentielCH.EVACOMTags }).EVACOMTags
-// delete Object.assign(referentielCH, { 'EVACOM par année': referentielCH.EVACOM }).EVACOM
 
 // Move referentielFR.BAC to referentielFR.Bac.BacTerminaleSpecialite
 referentielFR.Bac = {}

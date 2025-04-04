@@ -56,7 +56,7 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       const noms = shuffle(['(d_1)', '(d_2)', '(d_3)', '(d_4)', '(d_5)', '(d_6)', '(d_7)'])
       const couleurs = shuffle(['black', 'blue', 'green', '#2471A3', 'purple', 'red', 'brown'])
       const couleur = (indice: number) => { // La fonction permet d'ajouter facilement une condition en fonction du contexte si besoin
-        return couleurs[indice]
+        return context.isHtml ? couleurs[indice] : 'black'
       }
       const x: number[] = []
       const y: number[] = []
@@ -94,44 +94,44 @@ export default class TracerCarresRectangleslongueurDonnees extends Exercice {
       const ymax = Math.max(P03.y, P13.y, P23.y, P43.y, P53.y, P63.y) + 4
 
       context.fenetreMathalea2d = [xmin, ymin, xmax, ymax] // important pour la position des labels
-      const d5nom = labelOnLine(d5, noms[5], { color: couleurs[5], letterSize: 'footnotesize' })
+      const d5nom = labelOnLine(d5, noms[5], { color: couleur(5), letterSize: 'footnotesize' })
       if (!(d5nom instanceof Latex2d)) {
         window.notify('d5nom n\'est pas une instance de Latex2d', { d5nom })
         continue
       }
-      const d6nom = labelOnLine(d6, noms[6], { color: couleurs[6], letterSize: 'footnotesize', usedPosition: [d5nom] })
+      const d6nom = labelOnLine(d6, noms[6], { color: couleur(6), letterSize: 'footnotesize', usedPosition: [d5nom] })
       if (!(d6nom instanceof Latex2d)) {
         window.notify('d6nom n\'est pas une instance de Latex2d', { d6nom })
         continue
       }
-      const d0nom = labelOnLine(d0, noms[0], { color: couleurs[0], letterSize: 'footnotesize', usedPosition: [d5nom, d6nom] })
+      const d0nom = labelOnLine(d0, noms[0], { color: couleur(0), letterSize: 'footnotesize', usedPosition: [d5nom, d6nom] })
       if (!(d0nom instanceof Latex2d)) {
         window.notify('d0nom n\'est pas une instance de Latex2d', { d0nom })
         continue
       }
-      const d1nom = labelOnLine(d1, noms[1], { color: couleurs[1], letterSize: 'footnotesize', usedPosition: [d5nom, d6nom, d0nom] })
+      const d1nom = labelOnLine(d1, noms[1], { color: couleur(1), letterSize: 'footnotesize', usedPosition: [d5nom, d6nom, d0nom] })
       if (!(d1nom instanceof Latex2d)) {
         window.notify('d1nom n\'est pas une instance de Latex2d', { d1nom })
         continue
       }
-      const d2nom = labelOnLine(d2, noms[2], { color: couleurs[2], letterSize: 'footnotesize', usedPosition: [d5nom, d6nom, d0nom, d1nom] })
+      const d2nom = labelOnLine(d2, noms[2], { color: couleur(2), letterSize: 'footnotesize', usedPosition: [d5nom, d6nom, d0nom, d1nom] })
       if (!(d2nom instanceof Latex2d)) {
         window.notify('d2nom n\'est pas une instance de Latex2d', { d2nom })
         continue
       }
-      const d4nom = labelOnLine(d4, noms[4], { color: couleurs[4], letterSize: 'footnotesize', usedPosition: [d5nom, d6nom, d0nom, d1nom, d2nom] })
+      const d4nom = labelOnLine(d4, noms[4], { color: couleur(4), letterSize: 'footnotesize', usedPosition: [d5nom, d6nom, d0nom, d1nom, d2nom] })
       if (!(d4nom instanceof Latex2d)) {
         window.notify('d4nom n\'est pas une instance de Latex2d', { d4nom })
         continue
       }
-      const d3nom = labelOnLine(d3, noms[3], { color: couleurs[3], letterSize: 'footnotesize', usedPosition: [d5nom, d6nom, d0nom, d1nom, d2nom, d4nom] })
+      const d3nom = labelOnLine(d3, noms[3], { color: couleur(3), letterSize: 'footnotesize', usedPosition: [d5nom, d6nom, d0nom, d1nom, d2nom, d4nom] })
 
       objetsEnonce.push(d0nom, d1nom, d2nom, d3nom, d4nom, d5nom, d6nom)
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
       const texDroiteEnonce = (indice: number) => {
-        return `$${miseEnEvidence(noms[indice], couleurs[indice])}$`
+        return `$${miseEnEvidence(noms[indice], couleur(indice))}$`
       }
       texte = `Les droites ${texDroiteEnonce(0)} et ${texDroiteEnonce(1)} sont parallèles.<br>`
       switch (listeTypeDeQuestions[i]) {

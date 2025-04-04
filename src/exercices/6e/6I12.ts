@@ -8,7 +8,7 @@ import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import {
   allerA,
@@ -23,6 +23,7 @@ import {
 } from '../../modules/2dLutin'
 import { scratchblock } from '../../modules/scratchblock'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 interface Fig extends HTMLOrSVGElement {
   etat: boolean
@@ -46,7 +47,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
   constructor () {
     super()
     this.exoCustomResultat = false
-    this.besoinFormulaireNumerique = ["Nombre d'instructions (limité à 20)", 20] // gestion des paramètres supplémentaires
+    this.besoinFormulaireNumerique = ["Nombre d'instructions (entre 2 et 20)", 20] // gestion des paramètres supplémentaires
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.typeExercice = 'Scratch'
@@ -77,6 +78,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
       ['tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer']
     ]
     let erreursDeDeplacement = [0, 1, 0]
+    this.sup = contraindreValeur(2, 20, this.sup, 9)
     erreursDeDeplacement = combinaisonListesSansChangerOrdre(erreursDeDeplacement, this.sup)
     const choix = randint(0, 11) // On va choisir une des 12 sequences
     const commandes = combinaisonListesSansChangerOrdre(sequences[choix], this.sup) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
@@ -240,7 +242,7 @@ export default class AlgoTortue extends Exercice { // ça c'est la classe qui pe
     }
     this.indiceBonneFigure = ordreLutins.indexOf(0)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
-    texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
+    texteCorr += `La bonne figure est la figure ${texteEnCouleurEtGras(this.indiceBonneFigure + 1)}.<br>`
 
     texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
     this.listeQuestions.push(texte) // on met à jour la liste des questions

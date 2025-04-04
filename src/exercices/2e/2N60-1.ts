@@ -25,7 +25,7 @@ export const interactifType = 'mathLive'
 
 export const titre = 'Modéliser un problème par une inéquation'
 export const dateDePublication = '14/02/2023'
-export const dateDeModifImportante = '07/06/2024'
+export const dateDeModifImportante = '03/04/2025'
 /**
  *
  * @author Gilles Mora
@@ -140,7 +140,7 @@ export default class ModeliseInequations extends Exercice {
           { const PB = randint(7, 25, [10, 20]) / 2// prix billet
             const EM = randint(70, 150) // nombre entrée matin
             const RT = randint(200, 400) * 10 // recette totale
-            texte = ` À la mi-journée la recette d'un musée s'élève à $${texNombre(PB * EM, 2)}$ € pour $${EM}$ entrées. Le prix de l'entrée est unique.<br>
+            texte = ` À la mi-journée, la recette d'un musée s'élève à $${texNombre(PB * EM, 2)}$ € pour $${EM}$ entrées. Le prix de l'entrée est unique.<br>
                 Quel doit être le minimum d'entrées en deuxième partie de journée pour que la recette de la journée soit au moins égale à  $${texNombre(RT)}$ € ?<br>
                 Résoudre ce problème en écrivant et résolvant une inéquation modélisant la situation.
                                        `
@@ -159,7 +159,7 @@ export default class ModeliseInequations extends Exercice {
                             `
             reponse = Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? texNombre((RT - PB * EM) / PB, 0) : texNombre(Math.floor((RT - PB * EM) / PB) + 1, 0)
 
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: '€' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: 'entrées' })
             handleAnswers(this, i, { reponse: { value: reponse } }) }
           break
 

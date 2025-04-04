@@ -1,4 +1,4 @@
-import OpposeExpression from '../3e/3L10'
+import OpposeExpression from './3L10'
 
 export const titre = 'Supprimer les parenthèses puis réduire l\'expression (niveau 2)'
 export const interactifReady = true

@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Exprimer une fraction sous la forme d\'une valeur approchée d\'un pourcentage'
 export const interactifReady = true
@@ -59,24 +59,32 @@ export default class ValeurApprocheeDePourcentages extends Exercice {
       }
       texte = `$\\dfrac{${num}}{${den}}\\approx$`
       texte += remplisLesBlancs(this, i, '%{champ1}\\text{ soit environ }%{champ2}\\%', '', '\\ldots\\ldots\\ldots')
-      // this.interactif ? '$' : '\\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$'
-      // texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' %' })
+
+      const reponseTab1:string[] = []
+      for (let ee = 0; ee < 12; ee++) { // Il faut accepter valeurs approchées par défaut et par excès
+        reponseTab1.push((Math.floor(num / den * Math.pow(10, ee)) / Math.pow(10, ee)).toFixed(ee))
+        reponseTab1.push((Math.ceil(num / den * Math.pow(10, ee)) / Math.pow(10, ee)).toFixed(ee))
+      }
 
       if (this.sup === 1) {
         texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 2)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 0))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 2)}=\\dfrac{${arrondi(num / den * 100, 0)}}{100}\\right)$.`
-        // setReponse(this, i, arrondi(num / den * 100, 0))
+        const reponseTab2:string[] = []
+        reponseTab2.push(Math.floor(num / den * Math.pow(10, 2)).toFixed(0)) // Il faut accepter valeurs approchées par défaut
+        reponseTab2.push(Math.ceil(num / den * Math.pow(10, 2)).toFixed(0)) // Il faut accepter valeurs approchées par excès
         handleAnswers(this, i, {
           bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-          champ1: { value: (num / den).toFixed(3), options: { tolerance: 0.01 }, compare: approximatelyCompare },
-          champ2: { value: (100 * num / den).toFixed(0), options: { tolerance: 1 }, compare: approximatelyCompare }
+          champ1: { value: reponseTab1, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+          champ2: { value: reponseTab2, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
         }, { formatInteractif: 'fillInTheBlank' })
       } else {
         texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 3)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 3)}=\\dfrac{${arrondi(num / den * 100, 1)}}{100}\\right)$.`
-        // setReponse(this, i, arrondi(num / den * 100, 0))
+        const reponseTab2:string[] = []
+        reponseTab2.push((Math.floor(num / den * Math.pow(10, 3)) / 10).toFixed(1))
+        reponseTab2.push((Math.ceil(num / den * Math.pow(10, 3)) / 10).toFixed(1))
         handleAnswers(this, i, {
           bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-          champ1: { value: (num / den).toFixed(3), options: { tolerance: 0.001 }, compare: approximatelyCompare },
-          champ2: { value: (100 * num / den).toFixed(1), options: { tolerance: 0.1 }, compare: approximatelyCompare }
+          champ1: { value: reponseTab1, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } },
+          champ2: { value: reponseTab2, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
         }, { formatInteractif: 'fillInTheBlank' })
       }
 

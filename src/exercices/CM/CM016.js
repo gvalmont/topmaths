@@ -1,9 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Diviser un entier par 10, 100 ou 1000'
 export const amcReady = true
@@ -43,7 +44,7 @@ export default class DiviserPar101001000 extends Exercice {
       texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(
                 a / b
             )}$`
-      setReponse(this, i, calculANePlusJamaisUtiliser(a / b))
+      setReponse(this, i, arrondi(a / b))
       if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
 
       if (this.listeQuestions.indexOf(texte) === -1) {

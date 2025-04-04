@@ -360,7 +360,7 @@ function texteCorrMedianeNotes (notes:number[], medianeCorr: number, scoresMedia
     ['note', '', '', ''],
     ['température', ' $\\mathbf{^\\circ\\text{C}}$', '', '']
   ]
-  const noteStr = data.find(el => el[0] === 'note') || ['', '', '', '']
+  const noteStr = data.find(el => el[0] === note) || ['', '', '', '']
   let texteCorr = `Au total, il y a $${notes.length}$ ${noteStr[0]}s. `
   if (notes.length % 2 === 0) {
     texteCorr += `Le nombre de ${noteStr[0]}s est pair.<br>`
@@ -423,7 +423,7 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages: number, medianeCorr: 
     ['salaire', 'M', 'le salaire médian', ' €', `Dans l'entreprise, le nombre de salariés est $${nombreTirages}$.`, ['Catégorie', 'Salaire en €', 'Effectif', 'Effectif cumulé']],
     ['pointure', 'M', 'la pointure médiane', '', `Le nombre de pointures relevées est $${nombreTirages}$.`, ['', 'Pointure', 'Effectif', 'Effectif cumulé']]
   ]
-  const salairesStr = data.find(el => el[0] === 'salaire') ?? ['', '', '', '', '', '']
+  const salairesStr = data.find(el => el[0] === salaire) ?? ['', '', '', '', '', '']
 
   let texteCorr = salairesStr[4] + '<br>'
   if (nombreTirages % 2 === 0) {

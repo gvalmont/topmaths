@@ -5,13 +5,13 @@ import Exercice from '../Exercice'
 import {
   listeQuestionsToContenu,
   randint,
-  calculANePlusJamaisUtiliser,
   gestionnaireFormulaireTexte
 } from '../../modules/outils'
 import { fraction } from '../../modules/fractions'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const dateDePublication = '10/03/2021'
 export const amcReady = true
@@ -161,11 +161,11 @@ export default class SensDeLaFraction extends Exercice {
           }
           f = fraction(a, b)
 
-          texte = `Le nombre $${texNombre2(calculANePlusJamaisUtiliser(a / b))}$ peut s'écrire en écriture fractionnaire : $${texFractionFromString(
+          texte = `Le nombre $${texNombre2(arrondi(a / b))}$ peut s'écrire en écriture fractionnaire : $${texFractionFromString(
             '\\dots',
             '\\dots'
           )}$`
-          texteCorr = `Le nombre $${texNombre2(calculANePlusJamaisUtiliser(a / b))}$ peut s'écrire  $${miseEnEvidence(f.fractionDecimale().texFraction)}$`
+          texteCorr = `Le nombre $${texNombre2(arrondi(a / b))}$ peut s'écrire  $${miseEnEvidence(f.fractionDecimale().texFraction)}$`
           if (f.fractionDecimale().texFraction !== f.texFractionSimplifiee) {
             texteCorr += ` ou $${miseEnEvidence(f.texFractionSimplifiee)}$.`
           } else texte += '.'
@@ -189,7 +189,7 @@ export default class SensDeLaFraction extends Exercice {
               statut: false
             },
             {
-              texte: `$${texFractionFromString(Math.floor(a / b), fraction(calculANePlusJamaisUtiliser((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().n)}$`,
+              texte: `$${texFractionFromString(Math.floor(a / b), fraction(arrondi((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().n)}$`,
               statut: false
             }
           ]

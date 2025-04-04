@@ -1,9 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import Exercice from '../Exercice'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -61,16 +62,16 @@ export default class PlacerLaVirgule extends Exercice {
       } else {
         exposant = 0
       }
-      nombreentier = calculANePlusJamaisUtiliser(randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
-      nombre = calculANePlusJamaisUtiliser(nombreentier * 10 ** exposant)
-      resultat = calculANePlusJamaisUtiliser(nombre * 10 ** coef)
-      texte = `$${texNombre2(nombre)} \\times ${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))}$`
+      nombreentier = arrondi(randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
+      nombre = arrondi(nombreentier * 10 ** exposant)
+      resultat = arrondi(nombre * 10 ** coef)
+      texte = `$${texNombre2(nombre)} \\times ${texNombre2(arrondi(10 ** coef))}$`
       if (!this.interactif) {
         texte += `$~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
       }
-      texteCorr = `Quand on multiplie par $${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))}=${texFractionFromString(1, calculANePlusJamaisUtiliser(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre(10 ** (-coef))}$ fois plus petite.<br>`
+      texteCorr = `Quand on multiplie par $${texNombre2(arrondi(10 ** coef))}=${texFractionFromString(1, arrondi(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre(10 ** (-coef))}$ fois plus petite.<br>`
       texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-      texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))} = ${texNombre2(resultat)}$`// ${texNombre(Math.floor(resultat))}${miseEnEvidence(',')}${texNombre(resultat-Math.floor(resultat)).replace('0,','')}$`
+      texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(arrondi(10 ** coef))} = ${texNombre2(resultat)}$`// ${texNombre(Math.floor(resultat))}${miseEnEvidence(',')}${texNombre(resultat-Math.floor(resultat)).replace('0,','')}$`
 
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
@@ -80,15 +81,15 @@ export default class PlacerLaVirgule extends Exercice {
           statut: true
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(resultat / 10))}$`,
+          texte: `$${texNombre2(arrondi(resultat / 10))}$`,
           statut: false
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(resultat * 10))}$`,
+          texte: `$${texNombre2(arrondi(resultat * 10))}$`,
           statut: false
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(resultat / 100))}$`,
+          texte: `$${texNombre2(arrondi(resultat / 100))}$`,
           statut: false
         }
       ]

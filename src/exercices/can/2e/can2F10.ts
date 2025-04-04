@@ -6,8 +6,9 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/ou
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Résoudre une équation avec une fonction de référence*'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -42,7 +43,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
         case 1 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
-          k = calculANePlusJamaisUtiliser(c - b)
+          k = arrondi(c - b)
           texte = `L'ensemble des solutions $S$ de l'équation $x^2${ecritureAlgebrique(b)}=${c}$ est :
                  `
           if (k > 0) {
@@ -230,7 +231,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
         case 2 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
-          k = calculANePlusJamaisUtiliser(b - c)
+          k = arrondi(b - c)
           texte = `L'ensemble des solutions $S$ de l'équation $-x^2${ecritureAlgebrique(b)}=${c}$ est :
            `
           if (k > 0) {
@@ -423,7 +424,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
         case 3 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5)
-          k = calculANePlusJamaisUtiliser(c - b)
+          k = arrondi(c - b)
           texte = `L'ensemble des solutions $S$ de l'équation $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$ est :
                        `
           if (k > 0) {
@@ -553,7 +554,7 @@ export default class ResoudreEquationsFonctionDeReference2 extends Exercice {
         case 4 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5)
-          k = calculANePlusJamaisUtiliser(b - c)
+          k = arrondi(b - c)
           texte = `L'ensemble des solutions $S$ de l'équation $${b}-\\sqrt{x}=${c}$ est :
                            `
           if (k > 0) {

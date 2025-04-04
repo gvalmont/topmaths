@@ -106,14 +106,14 @@ export default class ProbaConcret extends Exercice {
                C : « la personne choisie fait partie des cadres » ;
                F : « la personne choisie est une femme ».<br>
                ${numAlpha(0)}  Calculer la probabilité de l'événement ${choix1 ? `$${EvInter[0]}$` : `: « ${EvInter[1]} »`}.<br>`
-      texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBase) + '<br>'
+      texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecFraction) + '<br>'
       handleAnswers(this, index, { reponse: { value: EvInter[2] } })
       texte += `${numAlpha(1)}  Calculer la probabilité de l'événement ${choix2 ? `$${EvUnion[0]}$` : `: « ${EvUnion[7]} »`}.<br>`
-      texte += ajouteChampTexteMathLive(this, index + 1, KeyboardType.clavierDeBase) + '<br>'
+      texte += ajouteChampTexteMathLive(this, index + 1, KeyboardType.clavierDeBaseAvecFraction) + '<br>'
       handleAnswers(this, index + 1, { reponse: { value: EvUnion[8] } })
       texte += `${numAlpha(2)}  On sait que la personne choisie  ${EvCond[0]}.<br>
           Quelle est la probabilité ${EvCond[1]} ?`
-      texte += '<br>' + ajouteChampTexteMathLive(this, index + 2, KeyboardType.clavierDeBase)
+      texte += '<br>' + ajouteChampTexteMathLive(this, index + 2, KeyboardType.clavierDeBaseAvecFraction)
       handleAnswers(this, index + 2, { reponse: { value: EvCond[4] } })
       texteCorr = `${numAlpha(0)} La probabilité est donnée par : <br>
           $P(${EvInter[0]})=\\dfrac{\\text{Nombre ${EvInter[3]}}}{\\text{Effectif total}}=${miseEnEvidence(EvInter[2])}$.

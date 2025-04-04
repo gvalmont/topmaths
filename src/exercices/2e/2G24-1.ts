@@ -172,8 +172,8 @@ export default class Calculercoordonneesvecteurs extends Exercice {
         champ2: { value: yABFraction.texFraction }
       })
       if (this.interactif) {
-        texte += '<br>' + remplisLesBlancs(this, i,
-          `\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}`,
+        texte += `<br>$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$` + remplisLesBlancs(this, i,
+          '\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}',
           KeyboardType.clavierDeBaseAvecFraction
         )
       }

@@ -49,7 +49,7 @@ export default class ModeliserSuites extends Exercice {
         '8 : La salle de sport (forme explicite) ',
         '9 : Location de voiture (forme explicite)',
         '10 : Budget d\'une association (forme explicite)',
-        '11 : mélange'
+        '11 : Mélange'
       ].join('\n')
     ]
   }

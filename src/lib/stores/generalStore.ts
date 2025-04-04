@@ -205,6 +205,10 @@ export function updateGlobalOptionsInURL (url: URL) {
   if (currentUrl.searchParams.has('triche')) {
     url.searchParams.append('triche', '1')
   }
+  const logParam = currentUrl.searchParams.get('log')
+  if (logParam !== null && /^[0-9]$/.test(logParam)) {
+    url.searchParams.append('log', logParam)
+  }
   urlToWrite = url
   // On ne met à jour l'url qu'une fois toutes les 0,5 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds

@@ -5,6 +5,8 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { scratchblock } from '../../modules/scratchblock'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Trouver la position d\'un lutin grâce à des instructions conditionnelles (scratch)'
@@ -13,7 +15,7 @@ export const dateDeModifImportante = '02/01/2025'
 
 /**
  * * Instructions conditionnelles
- * @author Erwan Duplessy (rendu interactif par Eric Elter)
+ * @author Erwan Duplessy (rendu interactif par Eric Elter)(TS et sortie PDF par Olivier Mimeau)
  */
 export const uuid = '8cbd6'
 
@@ -29,29 +31,26 @@ export default class InstructionConditionnelle extends Exercice {
     this.nbQuestions = 1
     this.consigne = 'Donner les coordonnées de la position finale du lutin.'
     this.typeExercice = 'Scratch'
-    this.nbCols = 2
+    // this.nbCols = 2
     this.nbQuestionsModifiable = false
   }
 
   nouvelleVersion () {
-    function scratchblocksTikz (codeSvg, codeTikz) {
-      if (context.isHtml) {
-        return codeSvg
-      } else {
-        return codeTikz
-      }
-    }
-
+    let txtintroscratch = ''
+    txtintroscratch = `\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill blocks,scale=0.8]\n`
+    txtintroscratch += '\\blockvariable{\\ovalvariable{var}}' // refuse d'afficher si '\\ovalvariable{var}' seul
+    // txtintroscratch += '\\blockmoreblocks{\\ovalvariable{var}}'
+    txtintroscratch += '\\end{scratch}'
     let texte = "La position initiale d'un lutin dans un repère est (0,0).<br> Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>" // texte de l'énoncé
-    texte += 'Une variable a été créée, elle s\'appelle <code class="b">(var) :: ring</code>. <br>'
+    texte += 'Une variable a été créée, elle s\'appelle'
+    texte += scratchblock(txtintroscratch)
+    texte += '. <br>'
     let texteCorr = ' ' // texte du corrigé
     let codeTikz = '' // code pour dessiner les blocs en tikz
-    let codeSvg = '' // code pour dessiner les blocs en svg
     let xLutin = 0
     let yLutin = 0
 
-    codeTikz += '\\medskip \\\\ \\begin{scratch} <br>'
-    codeSvg += '<pre class=\'blocks\'>'
+    codeTikz += `\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill blocks,scale=0.8]\n` // \n est impératif pour l'affichage HTML
 
     const n1 = randint(1, 10)
     const n2 = randint(1, 10)
@@ -62,30 +61,25 @@ export default class InstructionConditionnelle extends Exercice {
     const yLutin1 = randint(1, 10) * 10
     const yLutin2 = randint(1, 10) * 10
 
-    codeTikz += '\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}'
-    codeSvg += 'quand le drapeau vert pressé <br>'
-    codeSvg += 'Aller à x:(0) y:(0) <br>'
-    codeSvg += `mettre (var) à (${n1}) <br>`
-    codeSvg += ` si <(var) < [${n2}]> alors <br>`
-    codeSvg += ` ajouter (${xLutin1}) à x <br>`
+    codeTikz += '\\blockinit{quand \\greenflag est cliqué}\n' // \n est impératif pour l'affichage HTML
+    codeTikz += '\\blockmove{aller à x: \\ovalnum{0} y: \\ovalnum{0}}\n'
+    codeTikz += `\\blockvariable{mettre \\selectmenu{var} à \\ovalnum{${n1}}}\n`
+    codeTikz += `\\blockifelse{si \\booloperator{\\ovalvariable{var} < \\ovalnum{${n2}}} alors}\n`
+    codeTikz += `{\\blockmove{ajouter \\ovalnum{${xLutin1}} à x}\n`
     if (this.sup > 1) {
-      codeSvg += ` si <(var) > [${n3}]> alors <br>`
-      codeSvg += ` ajouter (${xLutin2}) à x <br>`
-      codeSvg += ' fin <br>'
+      codeTikz += `\\blockif{si \\booloperator{\\ovalvariable{var} > \\ovalnum{${n3}}} alors}\n`
+      codeTikz += `{\\blockmove{ajouter \\ovalnum{${xLutin2}} à x}\n}\n` // attention aux /n qui marque la fin des chacun des blocs (blockmove et block si)
     }
-    codeSvg += ' sinon <br>'
-    codeSvg += ` ajouter (${yLutin1}) à y <br>`
+    codeTikz += '}\n' // fin du si
+    codeTikz += `{\\blockmove{ajouter \\ovalnum{${yLutin1}} à y}\n`// `{sinon \\blockmove{ajouter \\ovalnum{${yLutin1}} à y}\n`
     if (this.sup > 2) {
-      codeSvg += ` si <(var) > [${n4}]> alors <br>`
-      codeSvg += ` ajouter (${yLutin2}) à y <br>`
-      codeSvg += ' fin <br>'
+      codeTikz += `\\blockif{si \\booloperator{\\ovalvariable{var} > \\ovalnum{${n4}}} alors}\n`
+      codeTikz += `{\\blockmove{ajouter \\ovalnum{${yLutin2}} à y}\n}\n`// attention aux /n qui marque la fin des chacun des blocs (blockmove et block si)
     }
-    codeSvg += ' fin <br>'
-
-    codeSvg += '</pre>'
+    codeTikz += '}\n' // fin du sinon ?
     codeTikz += '\\end{scratch}'
 
-    texte += scratchblocksTikz(codeSvg, codeTikz)
+    texte += scratchblock(codeTikz)
     if (n1 < n2) {
       texteCorr += `Comme l'inégalité "${n1} < ${n2}" est vraie, alors on ajoute ${xLutin1} à l'abscisse du lutin. <br>`
       xLutin += xLutin1

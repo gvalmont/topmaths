@@ -2,9 +2,9 @@ import { point } from '../../lib/2d/points'
 import { droiteGraduee } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { troncature } from '../../lib/outils/nombres'
+import { arrondi, troncature } from '../../lib/outils/nombres'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { calculANePlusJamaisUtiliser, randint } from '../../modules/outils'
+import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre = 'Droites graduées avec zoom'
@@ -110,8 +110,8 @@ export default class FeuilleDeZooms extends Exercice {
         x1 = xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001
         x2 = troncature(x1, 1)
         x21 = troncature(x1, 2)
-        x3 = calculANePlusJamaisUtiliser(x2 + 0.1)
-        x31 = calculANePlusJamaisUtiliser(x21 + 0.01)
+        x3 = arrondi(x2 + 0.1)
+        x31 = arrondi(x21 + 0.01)
         xmin = Math.floor(x2)
         xmax = xmin + 1
         const thickOff = 0.001

@@ -13,6 +13,7 @@ export const refs = {
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '09/12/2024'
+export const dateDeModifImportante = '03/04/2025'
 
 /**
  * @author Jean-Claude LHOTE
@@ -47,6 +48,7 @@ export default class MultiplierEnDistribuant extends Exercice {
         ? 'Calculer les produits suivants en utilisant la distributivité de la multiplication sur l\'addition ou la soustraction.'
         : 'Calculer le produit suivant en utilisant la distributivité de la multiplication sur l\'addition ou la soustraction.'
     }
+    if (this.interactif) this.consigne += '<br>Écrire seulement le résultat sous forme d\'un nombre entier.'
 
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3 })
     const sensDesQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3 })
@@ -102,18 +104,16 @@ export default class MultiplierEnDistribuant extends Exercice {
               texteCorr = `$\\begin{aligned}${a} \\times ${b}-${a} \\times ${c} &= ${a}\\times (${b} - ${c})\\\\ &= ${a} \\times ${b - c}\\\\ &=${a * (b - c)}\\end{aligned}$`
               break
           }
-          reponse = String(a * (b + c))
+          reponse = String(a * (b - c))
           break
         }
       }
-
       texte += ajouteQuestionMathlive({
         exercice: this,
         question: i,
-        objetReponse: { reponse: { value: reponse } },
+        objetReponse: { reponse: { value: reponse, options: { nombreDecimalSeulement: true } } },
         typeInteractivite: 'mathlive',
-        texteAvant: ' $=$ ',
-        texteApres: ' (écrire seulement le résultat sous forme d\'un nombre entier)'
+        texteAvant: ' $=$ '
       })
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] = texte

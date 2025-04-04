@@ -1,7 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomM } from '../../../lib/outils/Personne'
 import Exercice from '../../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Dénombrer dans une situation concrète'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +38,7 @@ export default class Denombrement extends Exercice {
         Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
         this.optionsChampTexte = { texteApres: '' }
         this.correction = `On peut avoir : $${a}\\times ${b}\\times ${c} =${a * b * c}$ menus différents.`
-        this.reponse = calculANePlusJamaisUtiliser(a * b * c)
+        this.reponse = arrondi(a * b * c)
         break
       case 'b' :
         a = randint(2, 8)
@@ -47,7 +48,7 @@ export default class Denombrement extends Exercice {
         De combien de manières différentes peut-il composer son costume ?`
         this.optionsChampTexte = { texteApres: '' }
         this.correction = `Il a : $${a}\\times ${b} =${a * b}$ manières de composer son costume.`
-        this.reponse = calculANePlusJamaisUtiliser(a * b)
+        this.reponse = arrondi(a * b)
         break
     }
     this.canEnonce = this.question// 'Compléter'

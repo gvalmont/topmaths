@@ -137,7 +137,8 @@ export default class ComprendreScriptMultiples extends Exercice {
         [`\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`, `Quand la touche ${touchePressee} est pressée`],
         ['\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n', "Quand n'importe quelle touche est pressée"]
       ]
-      colonne1 += choixBriqueInitiale[briqueInitiale[i] - 1][0]
+      const nbBriqueInitiale = briqueInitiale[i]
+      colonne1 += (typeof nbBriqueInitiale === 'number') ? choixBriqueInitiale[nbBriqueInitiale - 1][0] : ''
       colonne1 += '\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n'
       colonne1 += `\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalsensing{réponse}}\n`
       colonne1 += '\\blockmove{demander \\ovalnum{Donne-moi un second nombre entier.} et attendre}\n'
@@ -161,7 +162,8 @@ export default class ComprendreScriptMultiples extends Exercice {
           break
       }
       colonne1 += '\\end{scratch}'
-      colonne1 = scratchblock(colonne1)
+      const colonne1SuivantContexte = scratchblock(colonne1)
+      colonne1 = (typeof colonne1SuivantContexte === 'string') ? colonne1SuivantContexte : 'problème avec scratchblock'
 
       const nb02 = choice([2, 3, 5, 9, 10])
       const nb01 = choice(rangeMinMax(5, 15)) * nb02
@@ -178,7 +180,7 @@ export default class ComprendreScriptMultiples extends Exercice {
         [`Si les nombres saisis sont d'abord ${diviseurEnPremier ? nb02 : nb03} puis ensuite ${diviseurEnPremier ? nb03 : nb02}, que dit précisément le lutin au final ?`,
       `${choixScript[i] === 1 ? nb03 + ' n\'est pas un multiple de ' + nb02 : choixScript[i] === 2 ? nb02 + ' ne divise pas ' + nb03 : nb02 + ' n\'est pas un diviseur de ' + nb03}.`, 1],
         ['Quelle action initiale permet de déclencher ce script ?',
-          choixBriqueInitiale[briqueInitiale[i] - 1][1] + '.', 1]
+          (typeof nbBriqueInitiale === 'number') ? choixBriqueInitiale[nbBriqueInitiale - 1][1] : '' + '.', 1]
       ]
 
       let choixQuestions = []
@@ -232,6 +234,7 @@ export default class ComprendreScriptMultiples extends Exercice {
           texteCorr += numAlpha(i) + choixQuestions[i][1] + '<br>'
         }
         if (context.isAmc) {
+          // @ts-expect-error
           this.autoCorrection[0].propositions[i] = {
             type: 'AMCOpen',
             propositions: [

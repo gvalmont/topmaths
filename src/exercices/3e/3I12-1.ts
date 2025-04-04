@@ -148,7 +148,7 @@ export default class CompleterScriptMultiple extends Exercice {
       saisie: this.sup3
     })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte:string, texteCorr :string, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const diviseurEnPremier = this.sup4 === 3 ? choice([true, false]) : this.sup4 === 2
 
       const tableauTouches = []
@@ -245,10 +245,19 @@ export default class CompleterScriptMultiple extends Exercice {
       }
       texteSansTrou.push('\\end{scratch}')
       texteScratch += texteSansTrou[7]
-      texteScratch = scratchblock(texteScratch)
-
+      const texteScratchSuivantContexte = scratchblock(texteScratch)
+      if (typeof texteScratchSuivantContexte === 'string') {
+        texteScratch = texteScratchSuivantContexte
+      } else {
+        texteScratch = 'Il y a un problème avec texteScratch' // Provide a default string value
+      }
       texte = texteScratch
-      texteCorr = scratchblock(texteSansTrou.join(''))
+      const texteSansTrouSuivantContexte = scratchblock(texteSansTrou.join(''))
+      if (typeof texteSansTrouSuivantContexte === 'string') {
+        texteCorr = texteSansTrouSuivantContexte
+      } else {
+        texteCorr = 'Il y a un problème avec texteSansTrou' // Provide a default string value
+      }
       if (context.isAmc) {
         this.autoCorrection = [{
           enonce: this.consigne + '<br>' + texteScratch + '<br>',

@@ -1,5 +1,5 @@
 import { runSeveralTests } from '../../helpers/run.js'
-import type { Page } from 'playwright'
+import type { Page, Locator } from 'playwright'
 import { logError as lgE, log as lg, getFileLogger } from '../../helpers/log'
 import prefs from '../../helpers/prefs.js'
 import { findStatic, findUuid } from '../../helpers/filter.js'
@@ -26,6 +26,30 @@ function logDebug (...args: unknown[]) {
   }
 }
 
+async function waitForExercicesAffiches (page: Page, buttonZoom: Locator) {
+  const waitForEvent = page.evaluate(() => {
+    return new Promise<void>((resolve) => {
+      const listener = () => {
+        document.removeEventListener('exercicesAffiches', listener)
+        resolve()
+      }
+      document.addEventListener('exercicesAffiches', listener)
+    })
+  })
+  await buttonZoom.click()
+  // Attendre que l'événement exercicesAffiches soit déclenché
+  const eventDetected = await Promise.race([
+    waitForEvent,
+    new Promise((resolve, reject) => setTimeout(() => reject(new Error('Timeout: L\'événement exercicesAffiches n\'a pas été détecté')), 5000)
+    ),
+  ])
+  if (eventDetected instanceof Error) {
+    logError(eventDetected.message)
+  } else {
+    logDebug('Événement exercicesAffiches détecté')
+  }
+}
+
 async function action (page: Page, description: string) {
   logDebug(`Test avec les paramètres ${description}`)
   // clic sur nouvel énoncé 3 fois
@@ -33,6 +57,11 @@ async function action (page: Page, description: string) {
   logDebug('Actualier (nouvel énoncé) 3 fois')
   await buttonNewData.click({ clickCount: 3 })
   logDebug('fin Actualier (nouvel énoncé) 3 fois')
+  const buttonZoom = page.locator('#setupButtonsBar > div > div:nth-child(2) > button')
+  await buttonZoom.highlight()
+  log('Zoom')
+  await waitForExercicesAffiches(page, buttonZoom)
+  log('Fin zoom')
   // Active le mode interactif
   const activateInteractivityButton = page.getByRole('button', { name: 'Rendre interactif' })
   if (await activateInteractivityButton.isVisible()) {
@@ -192,5 +221,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  testRunAllLots('2e/2G12-6')
+  testRunAllLots('5e/5G30-2')
 }

@@ -200,7 +200,7 @@ class EqCartDroite extends Exercice {
             for (const x of [aa, bb, cc]) {
               for (const y of [A, B, C]) {
                 const vars = Object.fromEntries([['x', x], ['y', y]])
-                results.push(fxy(vars))
+                results.push(Number(fxy(vars)))
               }
             }
             let isOk = true

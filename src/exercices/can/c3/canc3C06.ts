@@ -1,7 +1,8 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Trouver le nombre manquant dans une somme'
 export const interactifReady = true
@@ -32,15 +33,15 @@ export default class ComplementAuDixiemeOuALaDizaine extends Exercice {
   nouvelleVersion () {
     let a, b
     if (choice([true, false])) { // décimal ou entier ?
-      a = calculANePlusJamaisUtiliser((randint(1, 5) * 10 + randint(1, 9) / 10))
+      a = arrondi((randint(1, 5) * 10 + randint(1, 9) / 10))
       b = Math.ceil(a)
-      this.reponse = calculANePlusJamaisUtiliser(b - a)
+      this.reponse = arrondi(b - a)
       this.question = `Compléter : $${texNombre(a)}+\\dots=${b}$`
       this.correction = `On doit compléter les dixièmes du nombre $${texNombre(a)}$ pour obtenir une unité de plus.<br>Il faut donc ajouter $${texNombre(this.reponse)}$.`
       this.canEnonce = 'Compléter.'
       this.canReponseACompleter = `$${texNombre(a)}+\\dots=${b}$`
     } else {
-      a = calculANePlusJamaisUtiliser((randint(2, 5) * 100 + randint(1, 9) * 10 + randint(1, 9)))
+      a = arrondi((randint(2, 5) * 100 + randint(1, 9) * 10 + randint(1, 9)))
       b = Math.ceil(a / 10) * 10
       this.reponse = b - a
       this.question = `Compléter : $${a}+\\dots=${b}$`

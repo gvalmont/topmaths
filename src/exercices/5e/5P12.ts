@@ -3,6 +3,12 @@ import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
 import { objet } from '../6e/6C35'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Partager une quantité en deux ou trois parts selon un ratio donné'
 
@@ -46,6 +52,7 @@ export default class PartagerSelonUnRatio extends Exercice {
         total = (quantite1 + quantite2) * facteur
         texte = `${prenom1} et ${prenom2} veulent se partager leurs $${total}$ ${objet1} en deux parts selon le ratio $${quantite1} : ${quantite2}$. <br>`
         texte += `Combien chacun recevra-t-il de ${objet1} ?`
+
         texteCorr = ''
         if (this.correctionDetaillee) {
           texteCorr += `À chaque fois que ${prenom1} en reçoit $${quantite1}$, ${prenom2} en reçoit $${quantite2}$. Ce qui fait $${quantite1} + ${quantite2} = ${miseEnEvidence(quantite1 + quantite2)}$. <br>`
@@ -69,6 +76,7 @@ export default class PartagerSelonUnRatio extends Exercice {
         total = (quantite1 + quantite2 + quantite3) * facteur
         texte = `${prenom1}, ${prenom2} et ${prenom3} veulent se partager leurs $${total}$ ${objet1} en trois parts selon le ratio $${quantite1} : ${quantite2} : ${quantite3}$. <br>`
         texte += `Combien chacun recevra-t-il de ${objet1} ?`
+
         texteCorr = ''
         if (this.correctionDetaillee) {
           texteCorr += `À chaque fois que ${prenom1} en reçoit $${quantite1}$, ${prenom2} en reçoit $${quantite2}$ et ${prenom3} en reçoit $${quantite3}$. Ce qui fait $${quantite1} + ${quantite2} + ${quantite3} = ${miseEnEvidence(quantite1 + quantite2 + quantite3)}$. <br>`
@@ -89,7 +97,28 @@ export default class PartagerSelonUnRatio extends Exercice {
         }
         texteCorr += `<br>${prenom1} recevra $${quantite1 * facteur}$ ${objet1}, ${prenom2} en recevra $${quantite2 * facteur}$ et ${prenom3} en recevra $${quantite3 * facteur}$.`
       }
-
+      if (this.interactif) {
+        if (this.sup.toString() === '1') { // Partage en deux parts
+          texte += '<BR>' + remplisLesBlancs(this, i, `\\text{${prenom1} recevra  }%{champ1}\\text{ ${objet1} et ${prenom2} en recevra  } %{champ2}.`, KeyboardType.clavierNumbers)
+          handleAnswers(this, i, {
+            bareme: (listePoints : number[]) => [Math.min(listePoints[0], listePoints[1]), 1], // 0 ou 1 point
+            champ1: { value: String(quantite1 * facteur) },
+            champ2: { value: String(quantite2 * facteur) }
+          },
+          { formatInteractif: 'fillInTheBlank' }
+          )
+        } else { // Partage en trois parts
+          texte += '<BR>' + remplisLesBlancs(this, i, `\\text{${prenom1} recevra  }%{champ1}\\text{ ${objet1}, ${prenom2} en recevra }%{champ2}\\text{ et ${prenom3} en recevra }%{champ3}.`, KeyboardType.clavierNumbers)
+          handleAnswers(this, i, {
+            bareme: (listePoints : number[]) => [Math.min(listePoints[0], listePoints[1], listePoints[2]), 1],  // 0 ou 1 point
+            champ1: { value: String(quantite1 * facteur) },
+            champ2: { value: String(quantite2 * facteur) },
+            champ3: { value: String(quantite3 * facteur) }
+          },
+          { formatInteractif: 'fillInTheBlank' }
+          )
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte

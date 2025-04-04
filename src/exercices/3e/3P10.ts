@@ -1,11 +1,11 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
-import { abs } from '../../lib/outils/nombres'
+import { abs, arrondi } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Variations en pourcentage'
@@ -297,7 +297,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
           }
           break
       }
-      setReponse(this, i, reponse)
+      handleAnswers(this, i, { reponse: { value: arrondi(reponse) } })
+
       texte += ajouteChampTexteMathLive(this, i, '', { texteApres })
       if (this.questionJamaisPosee(i, reponse)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte

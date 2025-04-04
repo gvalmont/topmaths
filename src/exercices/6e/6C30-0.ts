@@ -1,10 +1,11 @@
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Operation from '../../modules/operations'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -59,7 +60,7 @@ export default class MultiplierDecimaux extends Exercice {
       b = this.sup2 === 1 ? randint(2, 9) : 10 * randint(Math.pow(10, nbChiffresb - 2) + 1, Math.pow(10, nbChiffresb - 1) - 1) + randint(1, 9)
       b = b / Math.pow(10, parseInt(this.sup4))
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
-      reponse = calculANePlusJamaisUtiliser(a * b)
+      reponse = arrondi(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
       texteCorr += '$\\phantom{espace}$' + Operation({
         operande1: b,

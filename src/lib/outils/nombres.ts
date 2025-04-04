@@ -50,7 +50,7 @@ export function signe (a: number) { // + ou -
  * @param {number} precision
  * @return {number}
  */
-export function arrondi (nombre: number, precision = 2) {
+export function arrondi (nombre: number, precision = 6) {
   if (isNaN(nombre)) {
     window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
     return NaN

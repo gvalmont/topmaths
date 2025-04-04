@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
@@ -142,7 +142,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
             }
           }
           fractionSolution = new FractionEtendue(aEntier, choixPuissance10 / Math.pow(10, b)).texFraction
-          a = calculANePlusJamaisUtiliser(aEntier / choixPuissance10)
+          a = arrondi(aEntier / choixPuissance10)
 
           texte = `$${texNombre(a)}\\times${texNombre(Math.pow(10, b))}=$`
 
@@ -175,7 +175,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
             }
           }
           fractionSolution = new FractionEtendue(aEntier, choixPuissance10 / Math.pow(10, b)).texFraction
-          a = calculANePlusJamaisUtiliser(aEntier / choixPuissance10)
+          a = arrondi(aEntier / choixPuissance10)
 
           texteCorr = `$${texNombre(b)} \\times ${texNombre(
                         a
@@ -275,7 +275,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
             }
           }
           fractionSolution = new FractionEtendue(aEntier * Math.pow(10, b), choixPuissance10).texFraction
-          a = calculANePlusJamaisUtiliser(aEntier / choixPuissance10)
+          a = arrondi(aEntier / choixPuissance10)
 
           texte += `$\\times${texNombre(Math.pow(10, b))} = ${typesDeResultats[i] !== 3 ? texNombre(a * Math.pow(10, b)) : fractionSolution}$`
           if (this.interactif) texte = ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: texte })
@@ -306,7 +306,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
             }
           }
           fractionSolution = new FractionEtendue(aEntier, choixPuissance10 / Math.pow(10, b)).texFraction
-          a = calculANePlusJamaisUtiliser(aEntier / choixPuissance10)
+          a = arrondi(aEntier / choixPuissance10)
 
           reponse = a
 

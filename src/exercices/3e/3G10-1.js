@@ -356,7 +356,7 @@ export default class TransformationsDuPlanEtCoordonnees extends Exercice {
             texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90$^\\circ$ dans le sens anti-horaire a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
-          case 6: // rotation de 90$^\\circ$
+          case 6: // rotation de 90°
 
             t[6] = 1
             if (i === 0) {

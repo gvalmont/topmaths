@@ -28,6 +28,10 @@ export type LatexFileInfos = {
   title: string
   reference: string
   subtitle: string
+  dysTailleFontOption: number
+  tailleFontOption: number
+  durationCanOption: string
+  titleOption: string
   style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
   nbVersions: number
   fontOption: 'StandardFont' | 'DysFont'

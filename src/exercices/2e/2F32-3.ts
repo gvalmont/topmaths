@@ -75,7 +75,7 @@ export default class LireUnTableauDevariations extends Exercice {
             // tabLines ci-dessous contient les autres lignes du tableau.
             tabLines: [ligne1],
             colorBackground: '',
-            espcl: 3, // taille en cm entre deux antécédents
+            espcl: 4, // taille en cm entre deux antécédents
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm,
             scale: 0.6
@@ -153,7 +153,7 @@ export default class LireUnTableauDevariations extends Exercice {
             // tabLines ci-dessous contient les autres lignes du tableau.
             tabLines: [ligne1],
             colorBackground: '',
-            espcl: 3, // taille en cm entre deux antécédents
+            espcl: 4, // taille en cm entre deux antécédents
             deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
             lgt: 3, // taille de la première colonne en cm
             scale: 0.6

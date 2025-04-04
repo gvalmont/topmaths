@@ -191,6 +191,7 @@ function cleanParentheses (str: string): string {
     .replaceAll(/\\lparen(\+?-?\d+,?\.?\d*)\\rparen/g, '($1)')
     .replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '($1)')
     .replaceAll(/\\lparen(\+?-?\d+)\\rparen/g, '($1)')
+    .replaceAll(/\\left\\{(.*?)\\right\\}/g, '\\{$1\\}')
     .replaceAll('\\lparen', '(')
     .replaceAll('\\rparen', ')')
     .replaceAll('\\left\\lbrack', '[')
@@ -1331,7 +1332,14 @@ function scientifiqueCompare (input: string, goodAnswer: string): ResultType {
  * @return ResultType
  */
 function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
-  const cleaner = generateCleaner(['parentheses', 'mathrm', 'fractions'])
+  const cleaner = generateCleaner(['parentheses', 'mathrm', 'fractions', 'virgules'])
+
+  // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S30-5
+  input = input.replace(/\\lparen\s*([^{}]+)\s*\{,\}\s*([^{}]+)\s*\\rparen/g, '($1,$2)')
+
+  // Ligne ci-dessous utile si la réponse est P(A\cap B) comme dans 1P10-1
+  input = input.replace(/\\lparen\s*/g, '(').replace(/\\rparen/g, ')')
+
   let localInput = cleaner(input)
   const localGoodAnswer = cleaner(goodAnswer)
   const clean = generateCleaner([
@@ -1399,9 +1407,7 @@ export function upperCaseCompare (input: string, goodAnswer: string): ResultType
 function texteSansCasseCompare (input: string, goodAnswer: string): ResultType {
   const localInput = input.toLowerCase()
   const localGoodAnswer = goodAnswer.toLowerCase()
-  // Ligne ci-dessous utile si la réponse est (B,F) comme dans 2S30-5
-  const cleanInput = localInput.replace(/\\lparen\s*([^{}]+)\s*\{,\}\s*([^{}]+)\s*\\rparen/g, '($1,$2)')
-  return texteAvecCasseCompare(cleanInput, localGoodAnswer)
+  return texteAvecCasseCompare(localInput, localGoodAnswer)
 }
 
 /**
@@ -1547,6 +1553,7 @@ export function ensembleNombres (input: string, goodAnswer: string, {
 = {}): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
   const cleanInput = clean(input)
+  goodAnswer = clean(goodAnswer)
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer) return { isOk: true }
   if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset')) return { isOk: false, feedback: 'Résultat incorrect car $\\emptyset doit être écrit seul.' }
   let splitInput: string[]
@@ -1853,9 +1860,9 @@ export function consecutiveCompare (
   const [entierInf, valeurInter, entierSup] = input.includes('<')
     ? input.split('<').map((el) => Number(engine.parse(el).numericValue))
     : input
-        .split('>')
-        .map((el) => Number(engine.parse(el).numericValue))
-        .sort((a: number, b: number) => a - b)
+      .split('>')
+      .map((el) => Number(engine.parse(el).numericValue))
+      .sort((a: number, b: number) => a - b)
   if (
     !(
       Number.isInteger(Number(entierSup)) && Number.isInteger(Number(entierInf))
@@ -1867,9 +1874,9 @@ export function consecutiveCompare (
   const [goodAnswerEntierInf, , goodAnswerEntierSup] = goodAnswer.includes('<')
     ? goodAnswer.split('<').map((el) => Number(engine.parse(el).numericValue))
     : goodAnswer
-        .split('>')
-        .map((el) => Number(engine.parse(el).numericValue))
-        .sort((a: number, b: number) => a - b)
+      .split('>')
+      .map((el) => Number(engine.parse(el).numericValue))
+      .sort((a: number, b: number) => a - b)
   const diff = Number(
     engine.box(['Subtract', String(entierSup), String(entierInf)]).N()
       .numericValue

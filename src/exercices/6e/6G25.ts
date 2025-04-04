@@ -10,7 +10,8 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const dateDePublication = '30/11/2020'
 export const dateDeModifImportante = '06/09/2024'
@@ -61,8 +62,8 @@ export default class ConstruireMediatrices6e extends Exercice {
       const dB = droiteParPointEtPerpendiculaire(B, medB)
       medA.color = colorToLatexOrHTML('blue')
       medB.color = colorToLatexOrHTML('green')
-      const cA = cercle(A, calculANePlusJamaisUtiliser(randint(25, 40) / 20))
-      const cB = cercle(B, calculANePlusJamaisUtiliser(randint(45, 60) / 20))
+      const cA = cercle(A, arrondi(randint(25, 40) / 20))
+      const cB = cercle(B, arrondi(randint(45, 60) / 20))
       const A1 = pointIntersectionLC(dA, cA, noms[0], 1) as Point
       const A2 = symetrieAxiale(A1, medA, noms[1]) as Point
       const B1 = pointIntersectionLC(dB, cB, noms[2], 1) as Point

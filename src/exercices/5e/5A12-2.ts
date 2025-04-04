@@ -1,7 +1,7 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { listeNombresPremiersStrictJusqua, premiersEntreBornes } from '../../lib/outils/primalite'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeNombresPremiersStrictJusqua, obtenirListeNombresPremiers, premiersEntreBornes } from '../../lib/outils/primalite'
 import { egalOuApprox, lister } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -29,25 +29,32 @@ export default class ReconnaitreNombrePremier extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.besoinFormulaireNumerique = ['Maximum', 10000]
+    this.besoinFormulaireNumerique = ['Maximum', 10000] // 10000 car listeNombresPremiersStrictJusqua renvoie un tableau de premiers inférieurs à 10000
     this.sup = 500
     this.besoinFormulaire2CaseACocher = ['Avec calcul de la racine carrée']
     this.sup2 = false
+    this.comment = 'Maximum : Il s\'agit du nombre maximum utilisé dans les questions. Si il est trop petit, ce nombre est adapté au nombre de questions.'
   }
 
   nouvelleVersion () {
     const typeQuestionsDisponibles = ['premier', 'non premier']
-
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-
+    // Il faut qu'il y ait nbQuestions / 2 nombres premiers strictement inférieurs au max
+    const premiers = obtenirListeNombresPremiers() // (this.nbQuestions) inutile la function revoit de toute facon la liste jusqu'à 297
+    const max = contraindreValeur(premiers[Math.floor((this.nbQuestions + 1) / 2)], 10000, this.sup, 500) /* Math.max(maxp, 11) */
+    // on est certain qu'il y a  la moitié des questions qui sont de type 'premier', le but est d'eviter le randint de a = listePremiers...
+    const listePremiersDansLordre = listeNombresPremiersStrictJusqua(max + 1)
+    const listePremiers = shuffle(listePremiersDansLordre)
+    let indexPremiers = 0
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texteCorr = ''
-      const max = Number(this.sup)
-      const listePremiers = listeNombresPremiersStrictJusqua(max)
+      let texte = ''
       let a = 0
       switch (listeTypeQuestions[i]) {
         case 'premier':
-          a = listePremiers[randint(0, listePremiers.length - 1)]
+          // a = listePremiers[randint(0, listePremiers.length - 1)]
+          a = listePremiers[indexPremiers]
+          indexPremiers++
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `Le nombre $${texNombre(a)}$ est-il un nombre premier ?`
           this.autoCorrection[i].propositions = [
@@ -62,7 +69,7 @@ export default class ReconnaitreNombrePremier extends Exercice {
           ]
           break
         case 'non premier':
-          a = randint(2, max, listePremiers)
+          a = randint(1, max - 1, listePremiers)
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `Le nombre $${texNombre(a)}$ est-il un nombre premier ?`
           this.autoCorrection[i].propositions = [
@@ -80,7 +87,7 @@ export default class ReconnaitreNombrePremier extends Exercice {
           }
           break
       }
-      let texte = this.interactif ? `Le nombre $${texNombre(a)}$ est-il un nombre premier ?` : `Vérifier si $${texNombre(a)}$ est un nombre premier.`
+      texte += this.interactif ? `Le nombre $${texNombre(a)}$ est-il un nombre premier ?` : `Vérifier si $${texNombre(a)}$ est un nombre premier.`
       texteCorr = rediger(a, this.sup2)
       const monQcm = propositionsQcm(this, i)
       if (this.interactif) {
@@ -88,7 +95,7 @@ export default class ReconnaitreNombrePremier extends Exercice {
         texteCorr += monQcm.texteCorr
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, a)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
@@ -100,6 +107,9 @@ export default class ReconnaitreNombrePremier extends Exercice {
 }
 
 function rediger (a: number, avecCalculDeRacine: boolean): string {
+  if (a === 1) {
+    return '1 n\'est pas un nombre premier (il n\'a qu\'un seul diviseur).'
+  }
   if (premiersEntreBornes(2, 30).includes(a)) {
     return `$${texNombre(a)}$ est un nombre premier. Il fait partie des nombres premiers à connaître : ${lister(premiersEntreBornes(2, 30).map(t => `$${t}$`))}.`
   }

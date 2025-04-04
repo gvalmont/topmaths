@@ -126,7 +126,7 @@ export default class ProblemesFractions6e extends Exercice {
       melange: 4,
       shuffle: false,
       defaut: 4,
-      nbQuestions: this.sup2.slice('-').length
+      nbQuestions: Math.max(this.sup2.toString().slice('-').length, 1)
     })
     const nombreDeQuestionsDispo :number[] = enleveDoublonNum(nombreDeQuestionsDisponibles.map(element => Number(element)))
     nombreDeQuestionsDispo.sort()
@@ -342,10 +342,10 @@ export default class ProblemesFractions6e extends Exercice {
       reponsesPb[i][2] = nbIndirect.toString()
 
       for (let ee = 0; ee < nombreDeQuestionsDispo.length; ee++) {
-        texte += '<br>' + numAlpha(ee) + liste3Questions[i][nombreDeQuestionsDispo[ee] - 1]
+        texte += '<br>' + (nombreDeQuestionsDispo.length > 1 ? numAlpha(ee) : '') + liste3Questions[i][nombreDeQuestionsDispo[ee] - 1]
         texte += ajouteChampTexteMathLive(this, i * nombreDeQuestionsDispo.length + ee, KeyboardType.clavierDeBaseAvecFraction)
         handleAnswers(this, i * nombreDeQuestionsDispo.length + ee, { reponse: { value: reponsesPb[i][ee] } })
-        texteCorr += numAlpha(ee) + liste3Corrections[i][nombreDeQuestionsDispo[ee] - 1] + '<br>'
+        texteCorr += (nombreDeQuestionsDispo.length > 1 ? numAlpha(ee) : '') + liste3Corrections[i][nombreDeQuestionsDispo[ee] - 1] + '<br>'
       }
       if (this.questionJamaisPosee(i, nbDirect, nbInitial, nbIndirect)) {
         // Si la question n'a jamais été posée, on en crée une autre

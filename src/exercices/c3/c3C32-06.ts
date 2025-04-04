@@ -5,8 +5,9 @@ import { prenoms } from './c3C32-02'
 import Operation from '../../modules/operations'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { nombreEnLettres } from '../../modules/nombreEnLettres'
+import { texNombre } from '../../lib/outils/texNombre'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-
 export const uuid = 'c7954'
 export const refs = {
   'fr-fr': ['c3C32-06'],
@@ -16,8 +17,9 @@ export const titre = 'Problèmes de billes'
 export const dateDePublication = '30/11/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true
+
 /**
- * @Author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (rendu interactif par Lydie El Halougi)
  * Sources (eduscol) : https://eduscol.education.fr/ressources/numerique/2020/2020-exercices-mathematiques-6e
  * Ces exercices seront proposés systématiquement pour 3 niveaux de difficulté afin de différentier autour d'un même problème
  */
@@ -38,6 +40,7 @@ export default class ExerciceProbleme006 extends Exercice {
     ].join('\n')]
     this.sup2 = '1'
     this.besoinFormulaire3CaseACocher = ['Opération posée dans la correction', false]
+    this.interactif = true
     this.sup3 = false
 
     this.correctionDetailleeDisponible = true
@@ -61,7 +64,15 @@ export default class ExerciceProbleme006 extends Exercice {
             case 1:
               nb1 = randint(3, 17)
               nb2 = randint(3, 17)
-              enonce = `${prenom1} avait $${nb1}$ billes et ${prenom2} lui en a donné $${nb2}$.<br>Quel est le nombre de billes que possède ${prenom1} maintenant ?`
+              enonce = `${prenom1} avait $${nb1}$ billes et ${prenom2} lui en a donné $${nb2}$.<br>Quel est le nombre de billes que possède ${prenom1} maintenant ?${this.interactif
+                ? ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    typeInteractivite: 'mathlive',
+                    texteApres: ' billes',
+                    objetReponse: { reponse: { value: texNombre(nb1 + nb2), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
           ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : `$${nb1} + ${nb2} = ${nb1 + nb2}$<br>`}
           ${prenom1} a maintenant $${miseEnEvidence(String(nb1 + nb2))}$ billes.`
@@ -69,7 +80,15 @@ export default class ExerciceProbleme006 extends Exercice {
             case 2:
               nb2 = randint(10, 20)
               nb1 = nb2 + randint(10, 30)
-              enonce = `${prenom1} avait $${nb1}$ billes et elle en a donné $${nb2}$ à ${prenom2}.<br>Quel est le nombre de billes que possède ${prenom1} maintenant ?`
+              enonce = `${prenom1} avait $${nb1}$ billes et elle en a donné $${nb2}$ à ${prenom2}.<br>Quel est le nombre de billes que possède ${prenom1} maintenant ?${this.interactif
+                ? ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    typeInteractivite: 'mathlive',
+                    texteApres: ' billes',
+                    objetReponse: { reponse: { value: texNombre(nb1 - nb2), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
           ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'soustraction' }) : `$${nb1} - ${nb2} = ${nb1 - nb2}$<br>`}
           ${prenom1} a maintenant $${miseEnEvidence(String(nb1 - nb2))}$ billes.`
@@ -77,7 +96,16 @@ export default class ExerciceProbleme006 extends Exercice {
             default:
               nb2 = randint(10, 20)
               nb1 = nb2 + randint(10, 30)
-              enonce = `${prenom1} a donné $${nb2}$ billes à ${prenom2}. Elle en a maintenant $${nb1 - nb2}$.<br>Quel est le nombre de billes que possèdait ${prenom1} avant ?`
+              enonce = `${prenom1} a donné $${nb2}$ billes à ${prenom2}. Elle en a maintenant $${nb1 - nb2}$.<br>Quel est le nombre de billes que possèdait ${prenom1} avant ?${this.interactif
+                ? ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    typeInteractivite: 'mathlive',
+                    texteApres: ' billes',
+                    objetReponse: { reponse: { value: texNombre(nb1), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
+
               correction = `${this.correctionDetaillee ? `Nombres de billes qu'avait ${prenom1} avant : ` : ''}
           ${this.sup3 ? Operation({ operande1: nb1 - nb2, operande2: nb2, type: 'addition' }) : ` $${nb1 - nb2} + ${nb2} = ${nb1}$<br>`}
          ${prenom1} avait $${miseEnEvidence(String(nb1))}$ billes.`
@@ -90,7 +118,15 @@ export default class ExerciceProbleme006 extends Exercice {
             case 1:
               nb1 = randint(3, 17)
               nb2 = randint(3, 17)
-              enonce = `${prenom1} a $${nb1}$ billes et ${prenom2} en a $${nb2}$.<br>Quel est le nombre de billes que possèdent ensemble ${prenom1} et ${prenom2} ?`
+              enonce = `${prenom1} a $${nb1}$ billes et ${prenom2} en a $${nb2}$.<br>Quel est le nombre de billes que possèdent ensemble ${prenom1} et ${prenom2} ?${this.interactif
+                ? ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    typeInteractivite: 'mathlive',
+                    texteApres: ' billes',
+                    objetReponse: { reponse: { value: texNombre(nb1 + nb2), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
               correction = `${this.correctionDetaillee ? `On ajoute le nombre de billes de ${prenom1} et de ${prenom2} : ` : ''}
         ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : ` $${nb1} + ${nb2} = ${nb1 + nb2}$<br>`}
        Ensemble ${prenom1} et ${prenom2} ont $${miseEnEvidence(String(nb1 + nb2))}$ billes.`
@@ -98,7 +134,15 @@ export default class ExerciceProbleme006 extends Exercice {
             case 2:
               nb2 = randint(10, 20)
               nb1 = nb2 + randint(10, 30)
-              enonce = `${prenom1} et  ${prenom2} ont ensemble $${nb1}$ billes. ${prenom2} en a $${nb2}$.<br>Quel est le nombre de billes que possède ${prenom1} ?`
+              enonce = `${prenom1} et  ${prenom2} ont ensemble $${nb1}$ billes. ${prenom2} en a $${nb2}$.<br>Quel est le nombre de billes que possède ${prenom1} ?${this.interactif
+                ? ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    typeInteractivite: 'mathlive',
+                    texteApres: ' billes',
+                    objetReponse: { reponse: { value: texNombre(nb1 - nb2), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
         ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'soustraction' }) : `$${nb1} - ${nb2} = ${nb1 - nb2}$<br>`}
         ${prenom1} a $${miseEnEvidence(String(nb1 - nb2))}$ billes.`
@@ -106,10 +150,18 @@ export default class ExerciceProbleme006 extends Exercice {
             default:
               nb2 = randint(10, 20)
               nb1 = nb2 + randint(10, 30)
-              enonce = `${prenom2} a $${nb2}$ billes. ${prenom1} en a $${nb1 - nb2}$ de plus.<br>Quel est le nombre de billes que possèdent ensemble ${prenom1} et ${prenom2} ?`
+              enonce = `${prenom2} a $${nb2}$ billes. ${prenom1} en a $${nb1 - nb2}$ de plus.<br>Quel est le nombre de billes que possèdent ensemble ${prenom1} et ${prenom2} ?${this.interactif
+                ? ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    typeInteractivite: 'mathlive',
+                    texteApres: ' billes',
+                    objetReponse: { reponse: { value: texNombre(nb1 + nb2), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : $${nb1 - nb2} + ${nb2}=${nb1}$.<br>Nombre de billes total : $${nb1}+${nb2}=${nb1 + nb2}$.<br>` : ''}
         ${this.sup3
-? deuxColonnesResp((this.correctionDetaillee ? '' : `Nombre de billes de ${prenom1} :<br>`) + String(Operation({ operande1: nb1 - nb2, operande2: nb2, type: 'addition' })), (this.correctionDetaillee ? '' : 'Nombre de billes total :<br>') + String(Operation({ operande1: nb1, operande2: nb2, type: 'addition' })), {
+? deuxColonnesResp((this.correctionDetaillee ? '' : `Nombre de billes de ${prenom1} :<br>`) + String(Operation({ operande1: nb1 - nb2, operande2: nb2, type: 'addition' })), (this.correctionDetaillee ? '' : 'Nombre de billes total :<br>') + String(Operation({ operande1: nb1, operande2: nb2, type: 'addition' }).toString()), {
           eleId: '',
           largeur1: 20,
           widthmincol1: '40px',
@@ -127,7 +179,15 @@ export default class ExerciceProbleme006 extends Exercice {
             case 1:
               nb1 = randint(3, 17)
               nb2 = randint(3, 17) + nb1
-              enonce = `${prenom1} a $${nb1}$ billes et ${prenom2} en a $${nb2 - nb1}$ de plus.<br>Quel est le nombre de billes que possède ${prenom2} ?`
+              enonce = `${prenom1} a $${nb1}$ billes et ${prenom2} en a $${nb2 - nb1}$ de plus.<br>Quel est le nombre de billes que possède ${prenom2} ?${this.interactif
+                ? ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    typeInteractivite: 'mathlive',
+                    texteApres: ' billes',
+                    objetReponse: { reponse: { value: texNombre(nb2), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom2} : ` : ''}
         ${this.sup3 ? Operation({ operande1: nb2 - nb1, operande2: nb1, type: 'addition' }) : `$${nb2 - nb1} + ${nb1} = ${nb2}$<br>`}
         ${prenom2} a $${miseEnEvidence(String(nb2))}$ billes.`
@@ -135,7 +195,15 @@ export default class ExerciceProbleme006 extends Exercice {
             case 2:
               nb2 = randint(20, 30)
               nb1 = nb2 + randint(10, nb2 - 5)
-              enonce = `${prenom2} a $${nb2}$ billes, c'est $${nb1 - nb2}$ de moins que ${prenom1}.<br>Quel est le nombre de billes que possède ${prenom1} ?`
+              enonce = `${prenom2} a $${nb2}$ billes, c'est $${nb1 - nb2}$ de moins que ${prenom1}.<br>Quel est le nombre de billes que possède ${prenom1} ?${this.interactif
+                ? ajouteQuestionMathlive({
+                    exercice: this,
+                    question: i,
+                    typeInteractivite: 'mathlive',
+                    texteApres: ' billes',
+                    objetReponse: { reponse: { value: texNombre(nb1), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
         ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : `$${nb1} + ${nb2} = ${nb1}$<br>`}
         ${prenom1} a $${miseEnEvidence(String(nb1))}$ billes.`
@@ -144,7 +212,15 @@ export default class ExerciceProbleme006 extends Exercice {
             default:
               nb2 = randint(20, 30)
               nb1 = nb2 + randint(10, nb2 - 5)
-              enonce = `${prenom2} a $${nb2}$ billes, c'est $${nb1 - nb2}$ de moins que ${prenom1}.<br>Quel est le nombre de billes que possèdent ${prenom1} et ${prenom2} ensemble ?`
+              enonce = `${prenom2} a $${nb2}$ billes, c'est $${nb1 - nb2}$ de moins que ${prenom1}.<br>Quel est le nombre de billes que possèdent ${prenom1} et ${prenom2} ensemble ?${this.interactif
+                ? ajouteQuestionMathlive({
+                  exercice: this,
+                  question: i,
+                  typeInteractivite: 'mathlive',
+                  texteApres: ' billes',
+                  objetReponse: { reponse: { value: texNombre(nb1 + nb2), options: { nombreDecimalSeulement: true } } }
+                  })
+                : ''}`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : $${nb1 - nb2} + ${nb2}=${nb1}$.<br>Nombre de billes total : $${nb1}+${nb2}=${nb1 + nb2}$.<br>` : ''}
         ${this.sup3
 ? deuxColonnesResp((this.correctionDetaillee ? '' : `Nombre de billes de ${prenom1} :<br>`) + String(Operation({ operande1: nb1 - nb2, operande2: nb2, type: 'addition' })), (this.correctionDetaillee ? '' : 'Nombre de billes total :<br>') + String(Operation({ operande1: nb1, operande2: nb2, type: 'addition' })), {
@@ -168,7 +244,15 @@ export default class ExerciceProbleme006 extends Exercice {
               case 1:
                 nb1 = randint(3, 17)
                 nb2 = nbFois * nb1
-                enonce = `${prenom1} a $${nb1}$ billes et ${prenom2} en a $${nbFois}$ fois plus.<br>Quel est le nombre de billes que possède ${prenom2} ?`
+                enonce = `${prenom1} a $${nb1}$ billes et ${prenom2} en a $${nbFois}$ fois plus.<br>Quel est le nombre de billes que possède ${prenom2} ?${this.interactif
+                  ? ajouteQuestionMathlive({
+                      exercice: this,
+                      question: i,
+                      typeInteractivite: 'mathlive',
+                      texteApres: ' billes',
+                      objetReponse: { reponse: { value: texNombre(nb1 * nbFois), options: { nombreDecimalSeulement: true } } }
+                    })
+                  : ''}`
                 correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom2} : ` : ''}
                       ${this.sup3 ? Operation({ operande1: nb1, operande2: nbFois, type: 'multiplication' }) : `$${nb1}\\times ${nbFois} = ${nb1 * nbFois}$<br>`}
       ${prenom2} a $${miseEnEvidence(String(nb1 * nbFois))}$ billes.`
@@ -176,7 +260,15 @@ export default class ExerciceProbleme006 extends Exercice {
               case 2:
                 nb1 = randint(3, 17)
                 nb2 = nbFois * nb1
-                enonce = `${prenom2} a $${nb2}$ billes, c'est $${nbFois}$ fois plus que ${prenom1}.<br>Quel est le nombre de billes que possède ${prenom1} ?`
+                enonce = `${prenom2} a $${nb2}$ billes, c'est $${nbFois}$ fois plus que ${prenom1}.<br>Quel est le nombre de billes que possède ${prenom1} ?${this.interactif
+                  ? ajouteQuestionMathlive({
+                      exercice: this,
+                      question: i,
+                      typeInteractivite: 'mathlive',
+                      texteApres: ' billes',
+                      objetReponse: { reponse: { value: texNombre(nb1), options: { nombreDecimalSeulement: true } } }
+                    })
+                  : ''}`
                 correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
       ${this.sup3 ? Operation({ operande1: nb2, operande2: nbFois, type: 'division' }) : `$${nb2} \\div ${nbFois} = ${nb1}$<br>`}
       ${prenom1} a $${miseEnEvidence(String(nb1))}$ billes.`
@@ -185,7 +277,15 @@ export default class ExerciceProbleme006 extends Exercice {
                 nbFois = randint(3, 6)
                 nb1 = randint(3, 17)
                 nb2 = (nbFois - 1) * nb1
-                enonce = `${prenom1} a $${nb1}$ billes, ${prenom1} et ${prenom2} en possèdent ensemble ${nbFois} fois plus.<br>Quel est le nombre de billes que possède ${prenom2} ?`
+                enonce = `${prenom1} a $${nb1}$ billes, ${prenom1} et ${prenom2} en possèdent ensemble ${nbFois} fois plus.<br>Quel est le nombre de billes que possède ${prenom2} ?${this.interactif
+                  ? ajouteQuestionMathlive({
+                      exercice: this,
+                      question: i,
+                      typeInteractivite: 'mathlive',
+                      texteApres: ' billes',
+                      objetReponse: { reponse: { value: texNombre(nb2), options: { nombreDecimalSeulement: true } } }
+                    })
+                  : ''}`
                 correction = `${this.correctionDetaillee ? `Nombre de billes total : $${nb1} \\times ${nbFois}=${nb1 * nbFois}$.<br>Nombre de billes de ${prenom2} : $${nb1 * nbFois} -  ${nb1}=${nb2}$.<br>` : ''}
       ${this.sup3
 ? deuxColonnesResp((this.correctionDetaillee ? '' : 'Nombre de billes total :<br>') + String(Operation({ operande1: nb1, operande2: nbFois, type: 'multiplication' })), (this.correctionDetaillee ? '' : `Nombre de billes de ${prenom2} :<br>`) + String(Operation({ operande1: nb1 * nbFois, operande2: nb1, type: 'soustraction' })), {

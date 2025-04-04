@@ -26,7 +26,6 @@ export const dateDeModifImportante = '24/9/2024'
  * Additionner deux relatifs inférieurs à la valeur maximale en paramètre qui est par défaut à 20.
  * Paramètre supplémentaire ; utilisation des écritures simplifiées / utilisation de nombres décimaux
  * @author Rémi Angot
- * 5R20
  */
 export const uuid = 'cbc26'
 
@@ -58,7 +57,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
     } else if (this.sup2 === true) {
       this.sup2 = 3
     }
-    this.consigne = this.sup3 ? 'Calculer puis cocher la case correspondante.' : 'Calculer.'
+    this.consigne = this.sup3 ? 'Calculer puis cocher la case correspondante.' : this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Calculer.'
     this.nbCols = this.sup3 ? 2 : 3
     this.nbColsCorr = this.sup3 ? 2 : 3
 

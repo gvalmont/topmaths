@@ -47,6 +47,12 @@ export default class CarreDoubleDistributivite extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']
     for (let i = 0, texte, texteCorr, reponse, reponse1, reponse2, reponse3, choixLettre, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte = ''
+      texteCorr = ''
+      reponse = ''
+      reponse1 = 0
+      reponse2 = 0
+      reponse3 = 0
       a = randint(1, 11, 0)
       b = randint(1, 11, 0)
       choixLettre = choice(lettresPossibles)

@@ -2,7 +2,7 @@ import { droiteGraduee } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -90,9 +90,9 @@ export default class LireAbscisseDecimale extends Exercice {
       x11 = randint(1, 9)
       x22 = randint(1, 9)
       x33 = randint(1, 9)
-      xA = calculANePlusJamaisUtiliser(x1 + x11 / pas2)
-      xB = calculANePlusJamaisUtiliser(x2 + x22 / pas2)
-      xC = calculANePlusJamaisUtiliser(x3 + x33 / pas2)
+      xA = arrondi(x1 + x11 / pas2)
+      xB = arrondi(x2 + x22 / pas2)
+      xC = arrondi(x3 + x33 / pas2)
       thick1 = randint(0, 3)
       thick2 = randint(2, 6, thick1)
       d[2 * i] = droiteGraduee({

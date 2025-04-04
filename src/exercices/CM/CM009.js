@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { range1 } from '../../lib/outils/nombres'
+import { arrondi, range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -57,7 +57,7 @@ export default class Moitie extends Exercice {
           texte = `$\\text{La moitié de }${a * 2 + 1}$`
           texteCorr = `$\\text{La moitié de }${a * 2 + 1
                     } \\text{ est } ${texNombre(a + 5 / 10)}$`
-          setReponse(this, i, calculANePlusJamaisUtiliser(a + 5 / 10))
+          setReponse(this, i, arrondi(a + 5 / 10))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
         case 3: // Table de 200
@@ -87,7 +87,7 @@ export default class Moitie extends Exercice {
           texteCorr = `$\\text{La moitié de }${texNombre(
                         a * 2 + (b * 2) / 100
                     )} \\text{ est } ${texNombre(a + b / 100)}$`
-          setReponse(this, i, calculANePlusJamaisUtiliser(a + b / 100))
+          setReponse(this, i, arrondi(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
         case 6: // 1xx avec xx un nombre pair

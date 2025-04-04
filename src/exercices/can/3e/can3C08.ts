@@ -3,7 +3,8 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,10 +32,10 @@ export default class ProgrammeCalcul extends Exercice {
   }
 
   nouvelleVersion () {
-    const a = calculANePlusJamaisUtiliser(randint(2, 9) * 5)
-    const b = calculANePlusJamaisUtiliser(randint(2, 9) * 4)
-    const c = calculANePlusJamaisUtiliser(randint(2, 9) * 3)
-    const d = calculANePlusJamaisUtiliser(randint(2, 9) * 6)
+    const a = arrondi(randint(2, 9) * 5)
+    const b = arrondi(randint(2, 9) * 4)
+    const c = arrondi(randint(2, 9) * 3)
+    const d = arrondi(randint(2, 9) * 6)
     const e = randint(2, 9, [a / 5, b / 4, c / 3, d / 6])
     const N = choice(['quart', 'tiers', 'cinquième', 'sixième'])
 

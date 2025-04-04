@@ -11,6 +11,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -56,7 +57,7 @@ export default class ResoudreEquationDegre2Entiers extends Exercice {
         texteCorr += '<br>$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
         texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
-        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${x1} ; ${x2}\\right\\}$.`
+        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=${miseEnEvidence(`\\left\\{${x1} ; ${x2}\\right\\}`)}$.`
         answer = `\\{${x1};${x2}\\}`
       } else if (listeTypeDeQuestions[i] === 'solutionUnique') {
         // k(x-x1)(x-x1)
@@ -70,7 +71,7 @@ export default class ResoudreEquationDegre2Entiers extends Exercice {
         texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
         texteCorr += '<br>$\\Delta=0$ donc l\'équation admet une unique solution : $x_1 = \\dfrac{-b}{2a}$'
         texteCorr += `<br>$x_1 =\\dfrac{${-b}}{${2 * a}}=${x1}$`
-        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${x1}\\right\\}$.`
+        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=${miseEnEvidence(`\\left\\{${x1}\\right\\}`)}$.`
         answer = `\\{${x1}\\}`
       } else {
         k = randint(1, 5)
@@ -91,15 +92,16 @@ export default class ResoudreEquationDegre2Entiers extends Exercice {
         }
         texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
         texteCorr += '<br>$\\Delta<0$ donc l\'équation n\'admet pas de solution.'
-        texteCorr += '<br>$\\mathcal{S}=\\emptyset$'
+        texteCorr += `<br>$\\mathcal{S}=${miseEnEvidence('\\emptyset')}$`
         answer = '\\emptyset'
       }
+
       if (this.interactif) {
         handleAnswers(this, i, { reponse: { value: answer, options: { ensembleDeNombres: true } } })
         texte += '<br>'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '$S=$' })
       }
-      //      if (this.listeQuestions.indexOf(texte) === -1) {
+
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

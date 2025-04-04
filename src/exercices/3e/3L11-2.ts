@@ -78,7 +78,11 @@ export default class ReductionSiPossible extends Exercice {
     })
 
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, reponse, coeffa, constb, a, b, c, d, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, reponse, coeffa, constb, a, b, c, d, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      coeffa = 0
+      constb = 0
       a = randint(-11, 11, 0)
       b = randint(-11, 11, [0, a])
       c = randint(-11, 11, [0])
@@ -187,8 +191,13 @@ export default class ReductionSiPossible extends Exercice {
           break
       }
       // EE : Permet en deux lignes de mettre toutes les réponses attendues en couleur
-      const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replace('$', '')) + '$'
-      texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur
+      // const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replace('$', '')) + '$'
+      // texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur
+      const lastPart = texteCorr.split('=').pop()
+      if (lastPart !== undefined) {
+        const aMettreEnCouleur = miseEnEvidence(lastPart.replace('$', '')) + '$'
+        texteCorr = texteCorr.replace(lastPart, '') + aMettreEnCouleur
+      }
 
       if (this.sup2) {
         // On découpe

@@ -333,9 +333,11 @@ function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points, step = 1, stepBi
     const labelA = points[0].label
     const labelB = points[1].label
     const labelC = points[2].label
-    latex += `\n\\tkzText[above=2mm](${xA},0){${labelA}}
-    \n\\tkzText[above=2mm](${xB},0){${labelB}}
-    \n\\tkzText[above=2mm](${xC},0){${labelC}}
+    // EE : les labels ci-dessous sont maintenant encadrés de dollars.
+    // C'est indispensable pour pouvoir afficher le point A_1 par exemple.
+    latex += `\n\\tkzText[above=2mm](${xA},0){$${labelA}$}
+    \n\\tkzText[above=2mm](${xB},0){$${labelB}$}
+    \n\\tkzText[above=2mm](${xC},0){$${labelC}$}
     \n\\tkzDrawPoint[shape=cross out, size=5pt, thick](${xA},0)
     \n\\tkzDrawPoint[shape=cross out, size=5pt, thick](${xB},0)
     \n\\tkzDrawPoint[shape=cross out, size=5pt, thick](${xC},0)`

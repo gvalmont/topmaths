@@ -2,11 +2,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Lier calcul avec des puissances de 10 et les préfixes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -44,7 +45,7 @@ export default class ConversionsPuissancesDe10 extends Exercice {
 
     let correctionDetail
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const a = choice([calculANePlusJamaisUtiliser(randint(1, 9) + randint(1, 9) / 10), calculANePlusJamaisUtiliser(randint(11, 99) + randint(1, 9) / 10 + randint(1, 9) / 100), calculANePlusJamaisUtiliser(randint(11, 999) + randint(1, 9) / 10)], calculANePlusJamaisUtiliser(randint(10000, 99999) / 100))
+      const a = choice([arrondi(randint(1, 9) + randint(1, 9) / 10), arrondi(randint(11, 99) + randint(1, 9) / 10 + randint(1, 9) / 100), arrondi(randint(11, 999) + randint(1, 9) / 10)], arrondi(randint(10000, 99999) / 100))
       let texte = ''
       let texteCorr = ''
       let n = 0

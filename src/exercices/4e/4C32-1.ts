@@ -2,9 +2,9 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { rangeMinMax } from '../../lib/outils/nombres'
+import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique'
 export const dateDeModifImportante = '08/09/2023'
@@ -56,14 +56,14 @@ export default class CalculsAvecPuissancesDeDix extends Exercice {
         case 1:
           decalage = randint(-2, 2, 0)
           decalage = this.sup2 === 1 ? Math.abs(decalage) : this.sup2 === 2 ? -Math.abs(decalage) : decalage
-          mantisse = calculANePlusJamaisUtiliser(randint(11, 99) / 10)
+          mantisse = arrondi(randint(11, 99) / 10)
           break
         case 2:
         default:
           decalage = randint(-3, 3, 0)
           decalage = this.sup2 === 1 ? Math.abs(decalage) : this.sup2 === 2 ? -Math.abs(decalage) : decalage
-          if (randint(0, 1) === 1) mantisse = calculANePlusJamaisUtiliser(randint(111, 999) / 100)
-          else mantisse = calculANePlusJamaisUtiliser((randint(1, 9) * 100 + randint(1, 9)) / 100)
+          if (randint(0, 1) === 1) mantisse = arrondi(randint(111, 999) / 100)
+          else mantisse = arrondi((randint(1, 9) * 100 + randint(1, 9)) / 100)
           break
 /*        case 3:
           decalage = randint(-4, 4, 0)
@@ -75,7 +75,7 @@ export default class CalculsAvecPuissancesDeDix extends Exercice {
       exp = this.classe === 4
         ? (this.sup3 === 1 ? randint(decalage + 1, decalage + 3, 0) : this.sup3 === 2 ? randint(decalage - 3, decalage - 1, 0) : randint(decalage - 3, decalage + 3, [decalage, 0]))
         : (this.sup3 === 1 ? randint(decalage + 3 + this.sup - 1, decalage + 8 + this.sup - 1, 0) : this.sup3 === 2 ? randint(decalage - 8 - (this.sup - 1), decalage - 2 - (this.sup - 1), [0, decalage]) : choice(rangeMinMax(decalage - 8 - (this.sup - 1), decalage + 8 + this.sup - 1), rangeMinMax(decalage - 2 - (this.sup - 1), decalage + 2 + this.sup - 1)))
-      mantisse1 = calculANePlusJamaisUtiliser(mantisse * 10 ** decalage)
+      mantisse1 = arrondi(mantisse * 10 ** decalage)
       exp1 = exp - decalage
 
       decimalstring = `${texNombre(mantisse1)} \\times 10^{${exp1}}`

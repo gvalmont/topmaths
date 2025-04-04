@@ -91,7 +91,8 @@ export default class ComparerImagesTableau extends Exercice {
          On sait que si une fonction est strictement ${a > 0 ? `${choix ? 'décroissante' : 'croissante'}` : `${choix ? 'croissante' : 'décroissante'}`} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
          ${a > 0 ? `${choix ? 'l\'ordre inverse' : 'le même ordre'}` : `${choix ? 'le même ordre' : 'l\'ordre inverse'}`}.
          <br>
-         Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${choix ? '$f(x_1) < f(x_2)$' : '$f(x_1) > f(x_2)$'}. <br><br>
+         Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? `${choix ? '$f(x_1) > f(x_2)$' : '$f(x_1) < f(x_2)$'}` : `${choix ? '$f(x_1) < f(x_2)$' : '$f(x_1) > f(x_2)$'}`}
+         <br>
           Par conséquent, comme $${x1}<${x2}$, alors ${a > 0 ? `${choix ? `${texteEnCouleurEtGras(`$f(${x1}) > f(${x2})$`)}.` : `${texteEnCouleurEtGras(`$f(${x1}) < f(${x2})$`)}.`}` : `${choix ? `${texteEnCouleurEtGras(`$f(${x1}) < f(${x2})$`)}.` : `${texteEnCouleurEtGras(`$f(${x1}) > f(${x2})$`)}.`}`}
           `
                 this.autoCorrection[i] = {
@@ -159,7 +160,7 @@ export default class ComparerImagesTableau extends Exercice {
          On sait que si une fonction est strictement ${a > 0 ? 'croissante' : 'décroissante'} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
          ${a > 0 ? 'le même ordre' : 'l\'ordre inverse'}.
          <br>
-         Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? '$f(x_1) < f(x_2)$' : '$f(x_1) > f(x_2)$'}. <br><br>
+         Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? '$f(x_1) < f(x_2)$' : '$f(x_1) > f(x_2)$'}. <br>
           Par conséquent, comme $${x1}<${x2}$, alors ${a > 0 ? `${texteEnCouleurEtGras(`$f(${x1}) < f(${x2})$`)}.` : `${texteEnCouleurEtGras(`$f(${x1}) > f(${x2})$`)}.`}`
                 }
                 if (choixIntervalle === 2) { // corr dans le cas ou x1 et x2 sont dans l'intervalle 2
@@ -171,7 +172,7 @@ export default class ComparerImagesTableau extends Exercice {
                    On sait que si une fonction est strictement ${a > 0 ? 'décroissante' : 'croissante'} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
                    ${a > 0 ? 'l\'ordre inverse' : 'le même ordre'}.
                    <br>
-                   Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? '$f(x_1) > f(x_2)$' : '$f(x_1) < f(x_2)$'}. <br><br>
+                   Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? '$f(x_1) > f(x_2)$' : '$f(x_1) < f(x_2)$'}. <br>
                     Par conséquent, comme $${x1}<${x2}$, alors ${a > 0 ? `${texteEnCouleurEtGras(`$f(${x1}) > f(${x2})$`)}.` : `${texteEnCouleurEtGras(`$f(${x1}) < f(${x2})$`)}.`}`
                 }
 

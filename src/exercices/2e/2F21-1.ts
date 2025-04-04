@@ -464,8 +464,20 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const Cg = droiteParPointEtPente(point(0, 5), 0, '', 'red')
             Cg.epaisseur = 2
             const s0 = antecedentParDichotomie(0, 7, fprime, 0, 0.01)
+            if (s0 === false) {
+              window.notify('antecedentParDichotomie n\'a pas trouvé d\'antécédent', { s0 })
+              continue
+            }
             const s1 = antecedentParDichotomie(0, s0 * 1.5, f, 0.5, 0.01)
+            if (s1 === false) {
+              window.notify('antecedentParDichotomie n\'a pas trouvé d\'antécédent', { s0, s1 })
+              continue
+            }
             const s2 = antecedentParDichotomie(s0 * 1.5, 6 * 1.5, f, 0.5, 0.01)
+            if (s2 === false) {
+              window.notify('antecedentParDichotomie n\'a pas trouvé d\'antécédent', { s0, s1, s2 })
+              continue
+            }
             const r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -853,7 +865,7 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
             const conso2 = randint(60, 80)
             const fac2 = new Decimal(p).mul(conso2).add(abo)
             texte = ` Dans une région de France, le tarif de l'eau est le suivant : <br>
-            un abonnement annuel et $${texNombre(p, 2, 2)}$ € par mètre cube consommé. 
+            un abonnement annuel et $${texNombre(p, 2, true)}$ € par mètre cube consommé. 
             `
 
             texte += createList(
@@ -879,18 +891,18 @@ Calculer sa vitesse de rotation au bout de $1$ minute.`,
                 items: [`La facture s'élève à $${texNombre(fac, 3)}$ € pour une consommation de $${n}$ m$^3$.<br>
                  En notant $a$ le montant de l'abonnement, on obtient : <br>
                  $\\begin{aligned}
-                 a+${texNombre(p, 2, 2)}\\times ${n} &=${texNombre(fac, 3)}\\\\
+                 a+${texNombre(p, 2, true)}\\times ${n} &=${texNombre(fac, 3)}\\\\
                  a+${texNombre(new Decimal(p).mul(n), 3)}&=${texNombre(fac, 3)}\\\\
                  a&=${texNombre(fac, 3)}-${texNombre(new Decimal(p).mul(n), 3)}\\\\
                  a&=${texNombre(abo, 2)}
                  \\end{aligned}$<br>
-                 Le montant de l'abonnement est donc $${texNombre(abo, 2, 2)}$ €.
+                 Le montant de l'abonnement est donc $${texNombre(abo, 2, true)}$ €.
                  `,
 
                 createList({
                   items: [
                       `Le tarif est composé du montant de l'abonnement et $${texNombre(p, 2, true)}$ € par mètre cube consommé, on en déduit que : <br>
-                      $f(x)=${texNombre(abo, 2, 2)}+${texNombre(p, 2, true)}x$.`,
+                      $f(x)=${texNombre(abo, 2, true)}+${texNombre(p, 2, true)}x$.`,
                       `Le prix payé par un ménage consommant $${conso}$ m$^3$ d'eau par an est donné par $f(${conso})$.<br>
                      $f(${conso})=${texNombre(abo, 2, true)}+${texNombre(p, 2, true)}\\times ${conso}=${texNombre(new Decimal(p).mul(conso).add(abo), 2)}$.<br>
                      Le ménage devra payer  $${texNombre(new Decimal(p).mul(conso).add(abo), 2, true)}$ €.`,

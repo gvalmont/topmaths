@@ -6,6 +6,7 @@ import { rienSi1, reduireAxPlusB } from '../../../lib/outils/ecritures'
 
 import { abs } from '../../../lib/outils/nombres'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import type FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Retrouver un polynôme du second degré à partir de son tableau de signes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,7 +35,13 @@ export default class PolyTableauSignes extends Exercice {
     const a = randint(-9, 9, 0)// coefficient a
     const b = randint(-9, 9) // racine1
     const c = randint(-9, 9, b) // racine2
-    const fonction = (x:number) => a * (x - b) * (x - c)
+    const fonction = (x: number | FractionEtendue) => {
+      if (typeof x !== 'number') {
+        window.notify('La fonction de can1F27 n\'accepte que des numbers et a reçu un x qui n\'en est pas', x)
+        return 0
+      }
+      return a * (x - b) * (x - c)
+    }
     const tableau = tableauSignesFonction(fonction,
       -10,
       10,

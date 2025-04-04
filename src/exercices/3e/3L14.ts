@@ -301,7 +301,6 @@ export default class ResoudreUneEquationProduitNul extends Exercice {
                     enonce: '',
                     sanscadre: false,
                     pointilles: true,
-                    // @ts-expect-error
                     sanslignes: true // facultatif. Permet d'enlever les lignes dans AMCOpen.
                   }]
               },

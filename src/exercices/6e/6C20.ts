@@ -1,10 +1,10 @@
 import { grille, seyes } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Operation from '../../modules/operations'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -110,9 +110,9 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
       switch (typesDeQuestions) {
         case 1: // xxx-xx,x ou xx,x-xx,x ou xx,x-x,xx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
-          if (aleaTermes > 1) a = calculANePlusJamaisUtiliser(a / 10)
-          b = calculANePlusJamaisUtiliser(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10)
-          if (aleaTermes > 2) b = calculANePlusJamaisUtiliser(b / 10)
+          if (aleaTermes > 1) a = arrondi(a / 10)
+          b = arrondi(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10)
+          if (aleaTermes > 2) b = arrondi(b / 10)
           if (a < b) {
             const temp = a
             a = b
@@ -120,7 +120,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           }
           texte = `$${texNombre(a)}-${texNombre(b)}$`
           texte += grilletxt
-          reponse = calculANePlusJamaisUtiliser(a - b)
+          reponse = arrondi(a - b)
           texteCorr = Operation({
             operande1: a,
             operande2: b,
@@ -137,14 +137,14 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           break
         case 2: // xxx-xx,xx ou xx,xx-xx,xx ou xx,xx-x,xxx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
-          if (aleaTermes > 1) a = calculANePlusJamaisUtiliser((a + randint(1, 4) * 1000) / 100)
-          b = calculANePlusJamaisUtiliser(
+          if (aleaTermes > 1) a = arrondi((a + randint(1, 4) * 1000) / 100)
+          b = arrondi(
             randint(5, 9) * 10 +
                         randint(6, 9) +
                         randint(1, 9) / 10 +
                         randint(1, 9) / 100
           )
-          if (aleaTermes > 2) b = calculANePlusJamaisUtiliser(b / 10)
+          if (aleaTermes > 2) b = arrondi(b / 10)
           if (a < b) {
             const temp = a
             a = b
@@ -152,7 +152,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           }
           texte = `$${texNombre(a)}-${texNombre(b)}$`
           texte += grilletxt
-          reponse = calculANePlusJamaisUtiliser(a - b)
+          reponse = arrondi(a - b)
           texteCorr = Operation({
             operande1: a,
             operande2: b,
@@ -168,14 +168,14 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           })
           break
         case 3: // xxx,x-xxx ou xxx,x-xxx,x ou xxx,x-xx,xx
-          a = calculANePlusJamaisUtiliser(
+          a = arrondi(
             randint(5, 9) * 100 +
                         randint(2, 5) * 10 +
                         randint(1, 9) +
                         randint(1, 9) / 10
           )
           b = randint(1, 4) * 100 + randint(6, 9) * 10 + randint(1, 9)
-          if (aleaTermes > 1) b = calculANePlusJamaisUtiliser((b + randint(1, 4) * 1000) / Math.pow(10, aleaTermes - 1))
+          if (aleaTermes > 1) b = arrondi((b + randint(1, 4) * 1000) / Math.pow(10, aleaTermes - 1))
           if (a < b) {
             const temp = a
             a = b
@@ -183,7 +183,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           }
           texte = `$${texNombre(a)}-${texNombre(b)}$`
           texte += grilletxt
-          reponse = calculANePlusJamaisUtiliser(a - b)
+          reponse = arrondi(a - b)
           texteCorr = Operation({
             operande1: a,
             operande2: b,
@@ -199,13 +199,13 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           })
           break
         case 4: // x0x-xx9,x ou x0x,x-xx9,x ou x0x,x-x9,xx
-          a = calculANePlusJamaisUtiliser(randint(5, 9) * 100 + randint(1, 5))
-          if (aleaTermes > 1) a = calculANePlusJamaisUtiliser((a + randint(1, 9) / 10))
-          b = calculANePlusJamaisUtiliser(randint(1, 4) * 100 + randint(1, 9) * 10 + 9 + randint(1, 9) / 10)
-          if (aleaTermes > 2) b = calculANePlusJamaisUtiliser(randint(1, 9) * 10 + 9 + randint(1, 9) / 10 + randint(1, 9) / 100)
+          a = arrondi(randint(5, 9) * 100 + randint(1, 5))
+          if (aleaTermes > 1) a = arrondi((a + randint(1, 9) / 10))
+          b = arrondi(randint(1, 4) * 100 + randint(1, 9) * 10 + 9 + randint(1, 9) / 10)
+          if (aleaTermes > 2) b = arrondi(randint(1, 9) * 10 + 9 + randint(1, 9) / 10 + randint(1, 9) / 100)
           texte = `$${texNombre(a)}-${texNombre(b)}$`
           texte += grilletxt
-          reponse = calculANePlusJamaisUtiliser(a - b)
+          reponse = arrondi(a - b)
           texteCorr = Operation({
             operande1: a,
             operande2: b,
@@ -222,9 +222,9 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           break
         case 5: // xxx+xx,x ou xx,x+xx,x ou xx,x+x,xx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
-          if (aleaTermes > 1) a = calculANePlusJamaisUtiliser(a / 10)
-          b = calculANePlusJamaisUtiliser(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10)
-          if (aleaTermes > 2) b = calculANePlusJamaisUtiliser(b / 10)
+          if (aleaTermes > 1) a = arrondi(a / 10)
+          b = arrondi(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10)
+          if (aleaTermes > 2) b = arrondi(b / 10)
           if (a < b) {
             const temp = a
             a = b
@@ -232,7 +232,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           }
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texte += grilletxt
-          reponse = calculANePlusJamaisUtiliser(a + b)
+          reponse = arrondi(a + b)
           texteCorr = Operation({
             operande1: a,
             operande2: b,
@@ -242,14 +242,14 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           break
         case 6: // xxx+xx,xx ou xx,xx+xx,xx ou xx,xx+x,xxx
           a = randint(1, 4) * 100 + randint(2, 5) * 10 + randint(1, 9)
-          if (aleaTermes > 1) a = calculANePlusJamaisUtiliser((a + randint(1, 4) * 1000) / 100)
-          b = calculANePlusJamaisUtiliser(
+          if (aleaTermes > 1) a = arrondi((a + randint(1, 4) * 1000) / 100)
+          b = arrondi(
             randint(5, 9) * 10 +
                         randint(6, 9) +
                         randint(1, 9) / 10 +
                         randint(1, 9) / 100
           )
-          if (aleaTermes > 2) b = calculANePlusJamaisUtiliser(b / 10)
+          if (aleaTermes > 2) b = arrondi(b / 10)
           if (a < b) {
             const temp = a
             a = b
@@ -257,7 +257,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           }
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texte += grilletxt
-          reponse = calculANePlusJamaisUtiliser(a + b)
+          reponse = arrondi(a + b)
           texteCorr = Operation({
             operande1: a,
             operande2: b,
@@ -266,14 +266,14 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           })
           break
         case 7: // xxx,x+xxx ou xxx,x+xxx,x ou xxx,x+xx,xx
-          a = calculANePlusJamaisUtiliser(
+          a = arrondi(
             randint(5, 9) * 100 +
                         randint(2, 5) * 10 +
                         randint(1, 9) +
                         randint(1, 9) / 10
           )
           b = randint(1, 4) * 100 + randint(6, 9) * 10 + randint(1, 9)
-          if (aleaTermes > 1) b = calculANePlusJamaisUtiliser((b + randint(1, 4) * 1000) / Math.pow(10, aleaTermes - 1))
+          if (aleaTermes > 1) b = arrondi((b + randint(1, 4) * 1000) / Math.pow(10, aleaTermes - 1))
           if (a < b) {
             const temp = a
             a = b
@@ -281,7 +281,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           }
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texte += grilletxt
-          reponse = calculANePlusJamaisUtiliser(a + b)
+          reponse = arrondi(a + b)
           texteCorr = Operation({
             operande1: a,
             operande2: b,
@@ -291,13 +291,13 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           break
         case 8: // x0x+xx9,x ou x0x,x+xx9,x ou x0x,x+x9,xx
         default:
-          a = calculANePlusJamaisUtiliser(randint(5, 9) * 100 + randint(1, 5))
-          if (aleaTermes > 1) a = calculANePlusJamaisUtiliser((a + randint(1, 9) / 10))
-          b = calculANePlusJamaisUtiliser(randint(1, 4) * 100 + randint(1, 9) * 10 + 9 + randint(1, 9) / 10)
-          if (aleaTermes > 2) b = calculANePlusJamaisUtiliser(randint(1, 9) * 10 + 9 + randint(1, 9) / 10 + randint(1, 9) / 100)
+          a = arrondi(randint(5, 9) * 100 + randint(1, 5))
+          if (aleaTermes > 1) a = arrondi((a + randint(1, 9) / 10))
+          b = arrondi(randint(1, 4) * 100 + randint(1, 9) * 10 + 9 + randint(1, 9) / 10)
+          if (aleaTermes > 2) b = arrondi(randint(1, 9) * 10 + 9 + randint(1, 9) / 10 + randint(1, 9) / 100)
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texte += grilletxt
-          reponse = calculANePlusJamaisUtiliser(a + b)
+          reponse = arrondi(a + b)
           texteCorr = Operation({
             operande1: a,
             operande2: b,

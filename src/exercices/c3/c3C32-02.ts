@@ -317,15 +317,15 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
       enonce += listeQuestions.length === 1
         ? listeQuestions[0]
         : createList({
-            items: listeQuestions,
-            style: 'alpha'
-          })
+          items: listeQuestions,
+          style: 'alpha'
+        })
       correction = listeCorrections.length === 1
         ? listeCorrections[0]
         : createList({
-            items: listeCorrections,
-            style: 'alpha'
-          })
+          items: listeCorrections,
+          style: 'alpha'
+        })
       if (this.questionJamaisPosee(i, [quantiteFruit1, quantiteFruit2, quantiteFruit3].map(el => JSON.stringify(el)).join(''))) {
         this.listeQuestions[i] = enonce
         this.listeCorrections[i] = correction

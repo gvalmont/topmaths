@@ -1,5 +1,5 @@
 import { runSeveralTests } from '../../helpers/run.js'
-import type { Page } from 'playwright'
+import type { Page, Locator } from 'playwright'
 import { logError as lgE, log as lg, getFileLogger } from '../../helpers/log'
 import prefs from '../../helpers/prefs.js'
 import { findStatic, findUuid } from '../../helpers/filter.js'
@@ -88,24 +88,12 @@ async function getConsoleTest (page: Page, urlExercice: string) {
     await buttonRefresh.highlight()
     logDebug('Actualier (nouvelle énoncé x 3fois)')
     await buttonRefresh.click({ clickCount: 3 })
-    // const url = new URL(urlExercice)
-    // const aleaValue = url.searchParams.get('alea')
-    // await page.waitForURL((url: URL) => {
-    //   const newAleaValue = url.searchParams.get('alea')
-    //   log(`Valeur de alea: ${newAleaValue}`)
-    //   if (newAleaValue !== aleaValue) {
-    //     log('new URL : ' + url.href)
-    //     return true
-    //   }
-    //   return false
-    // })
     logDebug('Actualier (fin : nouvelle énoncé x 3fois)')
 
     const buttonZoom = page.locator('#setupButtonsBar > div > div:nth-child(2) > button')
     await buttonZoom.highlight()
     log('Zoom')
-    await buttonZoom.click()
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await waitForExercicesAffiches(page, buttonZoom)
     log('Fin zoom')
 
     // activer l'interactif
@@ -122,7 +110,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
 
       log('Zoom 2')
       await buttonZoom.click()
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      await waitForExercicesAffiches(page, buttonZoom)
       log('Fin zoom 2')
 
       log('new URL (mode interactif): ' + page.url())
@@ -159,6 +147,30 @@ async function getConsoleTest (page: Page, urlExercice: string) {
     return 'KO'
   }
   return 'OK'
+}
+
+async function waitForExercicesAffiches (page: Page, buttonZoom: Locator) {
+  const waitForEvent = page.evaluate(() => {
+    return new Promise<void>((resolve) => {
+      const listener = () => {
+        document.removeEventListener('exercicesAffiches', listener)
+        resolve()
+      }
+      document.addEventListener('exercicesAffiches', listener)
+    })
+  })
+  await buttonZoom.click()
+  // Attendre que l'événement exercicesAffiches soit déclenché
+  const eventDetected = await Promise.race([
+    waitForEvent,
+    new Promise((resolve, reject) => setTimeout(() => reject(new Error('Timeout: L\'événement exercicesAffiches n\'a pas été détecté')), 5000)
+    ),
+  ])
+  if (eventDetected instanceof Error) {
+    logError(eventDetected.message)
+  } else {
+    logDebug('Événement exercicesAffiches détecté')
+  }
 }
 
 async function testRunAllLots (filter: string) {

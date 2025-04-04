@@ -1,12 +1,11 @@
 import { droiteGraduee } from '../../lib/2d/reperes'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import {
-  calculANePlusJamaisUtiliser,
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils'
@@ -111,12 +110,12 @@ export default class LireAbscisseEntiere2d extends Exercice {
           pas1 = 0.00001
           break
       }
-      x1 = calculANePlusJamaisUtiliser(randint(1, 27, [10, 20]) / 10)
-      x2 = calculANePlusJamaisUtiliser(randint(33, 47, 40) / 10)
-      x3 = calculANePlusJamaisUtiliser(randint(53, 67, 60) / 10)
-      reponse1 = calculANePlusJamaisUtiliser(x1 / pas1 + abs0)
-      reponse2 = calculANePlusJamaisUtiliser(x2 / pas1 + abs0)
-      reponse3 = calculANePlusJamaisUtiliser(x3 / pas1 + abs0)
+      x1 = arrondi(randint(1, 27, [10, 20]) / 10)
+      x2 = arrondi(randint(33, 47, 40) / 10)
+      x3 = arrondi(randint(53, 67, 60) / 10)
+      reponse1 = arrondi(x1 / pas1 + abs0)
+      reponse2 = arrondi(x2 / pas1 + abs0)
+      reponse3 = arrondi(x3 / pas1 + abs0)
       d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,

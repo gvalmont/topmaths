@@ -10,10 +10,11 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Calculer l\'aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
@@ -143,15 +144,15 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           break
         case 2 :
           texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}.`
-          texteCorr += `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calculANePlusJamaisUtiliser((a * b) / 2))}~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(calculANePlusJamaisUtiliser((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
+          texteCorr += `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(((a * b) / 2))}~\\text{cm}^2$`
+          setReponse(this, i, new Grandeur(arrondi((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm en cm${texteExposant(2)}`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
-                valeur: calculANePlusJamaisUtiliser((a * b) / 2),
+                valeur: arrondi((a * b) / 2),
                 param: {
                   digits: 2,
                   decimals: 0,

@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
 import { mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
@@ -7,6 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Déterminer le volume de pavés droit par dénombrement'
 export const interactifReady = true
@@ -48,14 +49,15 @@ export default class VolumesPavesParDenombrement extends Exercice {
       barres = []
       plaques = []
 
-      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit.<br>' + mathalea2d({
+      texte = 'Donner le nombre de petits cubes qui constituent ce pavé droit'
+      texte += this.interactif ? (' : ' + ajouteChampTexteMathLive(this, q, KeyboardType.clavierNumbers) + '.') : '.'
+      texte += '<br>' + mathalea2d({
         xmin: -1,
         ymin: -1,
         xmax: l + 0.9 * p,
         ymax: h + 0.6 * p,
         scale: context.isHtml ? 1 : 0.6
       }, ...monPave.c2d)
-      if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, '')
       for (let i = 0; i < h - 1; i++) {
         plaques.push(...plaque3d(0, 0, i * 1.5, 1, l, p).c2d)
       }
@@ -85,10 +87,12 @@ export default class VolumesPavesParDenombrement extends Exercice {
         texteCorr += mathalea2d({ xmin: -1, xmax: l * 1.5 + 2, ymin: -0.5, ymax: 1.5 + p * 0.3 }, barres)
         texteCorr += `<br>Enfin, il y a ${h} plaques empilées :<br>`
         texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5 + h * 1.4 }, plaques)
-        texteCorr += `<br>Il y a donc $${l} \\times ${p} \\times ${h} = ${h * l * p}$ cubes.<br>`
+        texteCorr += `<br>Il y a donc $${l} \\times ${p} \\times ${h} = ${miseEnEvidence(h * l * p)}$ cubes.<br>`
       } else {
-        for (let i = 0; i < l * p; i++) objetsAtracer.push(...pavesCorr[l * p - 1 - i])
-        texteCorr = `La face de devant est composée de ${texteEnCouleur(String(l), 'blue')} $\\times$ ${texteEnCouleur(String(h), 'red')} cubes, soit ${l * h} cubes.<br>Donc le nombre de cubes de ce pavé droit est ${l * h} $\\times$ ${texteEnCouleur(String(p), 'green')} cubes, soit ${l * h * p} cubes.`
+        for (let i = 0; i < h * p; i++) {
+          objetsAtracer.push(...pavesCorr[h * p - 1 - i])
+        }
+        texteCorr = `La face de devant est composée de ${texteEnCouleur(String(l), 'blue')} $\\times$ ${texteEnCouleur(String(h), 'red')} cubes, soit ${l * h} cubes.<br>Donc le nombre de cubes de ce pavé droit est ${l * h} $\\times$ ${texteEnCouleur(String(p), 'green')} cubes, soit ${texteEnCouleurEtGras(l * h * p)} cubes.`
         texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: (l + p) * 1.5, ymax: h * 2 + p * 0.2 }, objetsAtracer)
       }
       if (dimensions.indexOf([l, p, h]) === -1) {

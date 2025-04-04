@@ -116,8 +116,9 @@ export default class ComprendreScriptListeMultiples extends Exercice {
       saisie: this.sup3
     })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte : string, texteCorr : string, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const tableauTouches = []
+
       for (let i = 1; i < 27; i++) tableauTouches.push(String.fromCharCode(64 + i).toLowerCase())
       for (let i = 0; i < 10; i++) tableauTouches.push(i)
       tableauTouches.push('espace')
@@ -136,7 +137,8 @@ export default class ComprendreScriptListeMultiples extends Exercice {
         [`\\blockinit{quand la touche \\selectmenu{${touchePressee}} est pressée}\n`, `Quand la touche ${touchePressee} est pressée`],
         ['\\blockinit{quand la touche \\selectmenu{n\'importe laquelle} est pressée}\n', "Quand n'importe quelle touche est pressée"]
       ]
-      texteScratch += choixBriqueInitiale[briqueInitiale[i] - 1][0]
+      const nbbriqueInitiale = briqueInitiale[i]
+      texteScratch += (typeof nbbriqueInitiale === 'number') ? choixBriqueInitiale[nbbriqueInitiale - 1][0] : 'problème briqueInitiale'
       texteScratch += `\\blockvariable{mettre \\selectmenu{${var1}} à \\ovalnum{1}}\n`
       texteScratch += '\\blockmove{demander \\ovalnum{Donne-moi un nombre entier.} et attendre}\n'
       texteScratch += '\\blockrepeat{répéter \\ovalsensing{réponse} fois}\n{\n'
@@ -157,7 +159,8 @@ export default class ComprendreScriptListeMultiples extends Exercice {
 
       texteScratch += '}\n\\end{scratch}'
 
-      texte = scratchblock(texteScratch)
+      const texteScratchSuivantContexte = scratchblock(texteScratch)
+      texte = (typeof texteScratchSuivantContexte === 'string') ? texteScratchSuivantContexte : 'problème avec texteScratch'
 
       const nb01 = choice([2, 3, 5, 7])
       const nb02 = choice([2, 3, 5, 7], [nb01])
@@ -173,7 +176,7 @@ export default class ComprendreScriptListeMultiples extends Exercice {
       ${choixScript[i] === 1 ? nb03 + ' est un multiple de ' + max(nb01, nb02) : choixScript[i] === 2 ? max(nb01, nb02) + ' divise ' + nb03 : max(nb01, nb02) + ' est un diviseur de ' + nb03}.<br>
       ${choixScript[i] === 1 ? nb03 + ' est un multiple de ' + nb03 : choixScript[i] === 2 ? nb03 + ' divise ' + nb03 : nb03 + ' est un diviseur de ' + nb03}.`, 1],
         ['Quelle action initiale permet de déclencher ce script ?',
-          choixBriqueInitiale[briqueInitiale[i] - 1][1] + '.', 1],
+          (typeof nbbriqueInitiale === 'number') ? choixBriqueInitiale[nbbriqueInitiale - 1][1] : 'probleme briqueInitiale' + '.', 1],
         [`Pourquoi, dans ce script, faut-il ajouter 1 à ${var1} ?`,
         `Cet ajout, grâce à la boucle, permet à ${var1} de valoir, tour à tour, tous les nombres de 1 jusqu'au nombre choisi par l'utilisateur.`, 2]
       ]
@@ -212,13 +215,14 @@ export default class ComprendreScriptListeMultiples extends Exercice {
       let enonceAMC = ''
       for (let i = 0; i < min(choixQuestions.length, nbDeQuestions[0]); i++) {
         if (min(choixQuestions.length, nbDeQuestions[0]) === 1) {
-          enonceAMC = choixQuestions[0][0]
+          enonceAMC = (typeof choixQuestions[0][0] === 'string') ? choixQuestions[0][0] : 'problème choixQuestions[0][0]'
           texteCorr = choixQuestions[0][1] + '<br>'
         } else {
           enonceAMC = numAlpha(i) + choixQuestions[i][0]
           texteCorr += numAlpha(i) + choixQuestions[i][1] + '<br>'
         }
         if (context.isAmc) {
+          // @ts-expect-error
           this.autoCorrection[0].propositions[i] = {
             type: 'AMCOpen',
             propositions: [

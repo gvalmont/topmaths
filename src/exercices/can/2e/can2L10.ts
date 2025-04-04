@@ -25,10 +25,10 @@ export const refs = {
 export default class SimplifierQuotient extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.optionsChampTexte = { texteAvant: '<br> ', texteApres: ' ' }
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion () {

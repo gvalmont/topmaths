@@ -3,9 +3,10 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const dateDeModifImportante = '01/06/2024'
 export const titre = 'Reconnaître des tableaux de proportionnalité'
@@ -44,7 +45,7 @@ function justificationsOK (n1, n2, n3, coeff, sens) {
 function justificationsKO (n1, n2, n3, coeff, operation, sens) {
   let sortie
   const isEq = function (n1, n2, coeff) {
-    if (calculANePlusJamaisUtiliser(n1 / (n1 + coeff), 8) === calculANePlusJamaisUtiliser(n2 / (n2 + coeff), 8)) {
+    if (arrondi(n1 / (n1 + coeff), 8) === arrondi(n2 / (n2 + coeff), 8)) {
       return '='
     } else {
       return '\\neq'

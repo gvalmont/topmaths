@@ -5,7 +5,8 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Calculer l’abscisse d’un milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +34,7 @@ export default class MilieuEntre1EtFraction extends Exercice {
   nouvelleVersion () {
     const a = randint(1, 5)
     const c = randint(1, 9)
-    const b = calculANePlusJamaisUtiliser(a + c + randint(1, 9, 5) / 5)
+    const b = arrondi(a + c + randint(1, 9, 5) / 5)
     const A = point(0, 0, '1', 'below')
     const B = point(4, 0, 'M', 'below')
     const C = point(8, 0)

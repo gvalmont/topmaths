@@ -53,7 +53,13 @@ export default class DoubleDistributivite extends Exercice {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, reponse, reponse1, reponse2, reponse3, cpt = 0, a, b, c, d, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0, a, b, c, d, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let reponse = ''
+      let reponse1 = 0
+      let reponse2 = 0
+      let reponse3 = 0
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(2, 9)
       b = randint(2, 9)

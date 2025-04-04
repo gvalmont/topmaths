@@ -4,6 +4,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import { range1 } from '../../lib/outils/nombres'
 
 export const titre = 'Compléter une phrase par la définition ou une propriété d\'un parallélogramme'
 export const interactifReady = true
@@ -42,11 +43,14 @@ export default class ProprietesDesParallelogrammes extends Exercice {
       : 'compléter les phrases suivantes'
     this.consigne += this.interactif || context.isAmc ? ' en choisissant ce qui convient.' : '.'
 
-    const typeQuestionsDisponibles = this.sup === 1 ? [1, 2, 3, 4] : [5, 6, 7, 8, 9]
+    const typeQuestionsDisponibles = this.sup === 1 ? [1, 2, 3, 4] : this.sup === 2 ? [5, 6, 7, 8, 9] : range1(9)
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      this.introduction = 'Dans cet exercice, on supposera que tous les quadrilatères sont non croisés.'
+      this.introduction = 'Dans cet exercice, on supposera que'
+      this.introduction += this.nbQuestions === 1
+        ? ' le quadrilatère est non croisé.'
+        : ' tous les quadrilatères sont non croisés.'
 
       switch (listeTypeQuestions[i]) {
         case 1:

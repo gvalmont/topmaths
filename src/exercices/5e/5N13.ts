@@ -108,9 +108,9 @@ export default class Exercice_fractions_simplifier extends Exercice {
                 '$ ' +
                 fractionInitale +
                 ' = ' +
-                texFractionFromString('\\phantom{00000000000000}', '') +
+                texFractionFromString('\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots') +
                 ' = ' +
-                texFractionFromString('\\phantom{0000}', '') +
+                texFractionFromString('\\ldots\\ldots', '\\ldots\\ldots') +
                 ' $'
       }
       texteCorr = ''
@@ -209,7 +209,7 @@ export default class Exercice_fractions_simplifier extends Exercice {
         if (this.amcType === 'AMCOpen') this.autoCorrection[i] = { enonce: `Simplfier $${fractionInitale}$ en détaillant la simplification.`, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
         if (this.amcType === 'AMCNum' && context.isAmc) texte = `Simplifier, de façon maximale, $${fractionInitale}$.`
       }
-      if ((this.interactif && context.isHtml) || this.sup3) texte = texte.replace(' \\dfrac{\\phantom{00000000000000}}{} = \\dfrac{\\phantom{0000}}{}', '')
+      if ((this.interactif && context.isHtml) || this.sup3) texte = texte.replace(' \\dfrac{\\ldots\\ldots\\ldots\\ldots}{\\ldots\\ldots\\ldots\\ldots} = \\dfrac{\\ldots\\ldots}{\\ldots\\ldots}', '')
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

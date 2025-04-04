@@ -66,7 +66,13 @@ export default class OpposeExpression extends Exercice {
     })
 
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, a, b, c, d, e, f, choixLettre, reponse, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (let i = 0, a, b, c, d, e, f, choixLettre, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+      let texte = ''
+      let texteCorr = ''
+      let reponse = ''
+      let reponse1 = 0
+      let reponse2 = 0
+      let reponse3 = 0
       a = randint(-9, 9, 0)
       b = randint(-9, 9, 0)
       c = randint(-11, 11, 0)

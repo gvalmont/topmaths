@@ -83,7 +83,7 @@ def newEntry(file:str,dicoType:str)->list:
         * Un tableau avec deux strings [un objet pour le dico, le nom du fichier traité]   
     
     """
-    pass    
+    pass  
     # On récupère le nom du fichier sans l'extension
     filename = os.path.splitext(file)[0]
     filename = filename.lower()
@@ -93,7 +93,7 @@ def newEntry(file:str,dicoType:str)->list:
     newLines = ''
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
     if filename[-4:] != '_cor' and  extension == ".tex" :
-        if 'mathalea' in filename: # EE : Pas encore trouvé à quel occasion cela l'était
+        if 'mathalea' in filename: # EE : Pas encore trouvé à quelle occasion cela l'était
             numeroInitial = filename.split('_')[6]
         else: # EE : Ici, on considère que c'est le cas général
             numeroInitial = filename.split('_')[4]
@@ -171,6 +171,15 @@ def newEntry(file:str,dicoType:str)->list:
                 urlcor: 'static/{dicoType}/{filename[8:12]}/tex/{filename}_cor.tex',
                 tags: ['']
             }},\n'''    
+        elif ('dnbpro' in filename): # EE : Ici, on considère que c'est les DNBPRO
+            newLines = f'''  {filename}: {{
+                annee: '{filename[7:11]}',
+                lieu: '{locationName(filename.split('_')[3])}',
+                mois: '{monthName(filename[12:14])}',
+                numeroInitial: '{numeroInitial}',
+                typeExercice: '{dicoType}',
+                tags: ['']
+            }},\n'''    
         else: # Cette partie concerne le DNB et le bac avant 2022
             newLines = f'''  {filename}: {{
                 annee: '{filename[4:8]}',
@@ -235,7 +244,7 @@ def insertNewEntries(pathName:str,dicoPath:str,dicoType:str):
 
     # On ouvre le dico en ajout
     content = open(dicoPath, 'a')
-    print()
+    
     # On ajoute les nouvelles entrées
     for (dirpath, dirnames, filenames) in os.walk(pathName):
         # Parcourt tout le répertoire
@@ -315,12 +324,13 @@ def main():
     while choiceDico not in ['1','2','3','4','5','6']:
         choiceDico = input("""Quel dictionnaire faut-il synchroniser/générer ?
         ---> 1 : DNB
-        ---> 2 : BAC
-        ---> 3 : E3C
-        ---> 4 : CRPE
-        ---> 5 : FlashBAC
-        ---> 6 : STI2D  
-Taper 1, 2, 3, 4, 5 ou 6 pour lancer le script --> """)
+        ---> 2 : DNB PRO
+        ---> 3 : BAC
+        ---> 4 : E3C
+        ---> 5 : CRPE
+        ---> 6 : FlashBAC
+        ---> 7 : STI2D  
+Taper 1, 2, 3, 4, 5, 6 ou 7 pour lancer le script --> """)
     # Une variable pour le chemin vers le dico à synchroniser/générer        
     dicoPath = ''
     # Une variable pour le type de dico à synchroniser/générer        
@@ -330,18 +340,21 @@ Taper 1, 2, 3, 4, 5 ou 6 pour lancer le script --> """)
         dicoPath = '../../src/json/dictionnaireDNB.js'
         dicoType = 'dnb'
     elif (choiceDico == '2'):
+        dicoPath = '../../src/json/dictionnaireDNBPRO.js'
+        dicoType = 'dnbpro'
+    elif (choiceDico == '3'):
         dicoPath = '../../src/json/dictionnaireBAC.js'
         dicoType = 'bac'
-    elif (choiceDico == '3'):
+    elif (choiceDico == '4'):
         dicoPath = '../../src/json/dictionnaireE3C.js'
         dicoType = 'e3c'
-    elif (choiceDico == '4'):
+    elif (choiceDico == '5'):
         dicoPath = '../../src/json/dictionnaireCrpeCoop.js'
         dicoType = 'crpe'
-    elif (choiceDico == '5'):
+    elif (choiceDico == '6'):
         dicoPath = '../../src/json/dictionnaireFlashBac.js'
         dicoType = 'flashbac'
-    elif (choiceDico == '6'):
+    elif (choiceDico == '7'):
         dicoPath = '../../src/json/dictionnaireSTI2D.js'
         dicoType = 'sti2d'
 

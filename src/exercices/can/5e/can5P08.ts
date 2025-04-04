@@ -3,6 +3,8 @@ import { texPrix } from '../../../lib/format/style'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Résoudre un problème de proportionnalité**'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,6 +29,7 @@ export default class Proportionnalite3 extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion () {
@@ -53,7 +56,7 @@ export default class Proportionnalite3 extends Exercice {
         Donner la valeur exacte de cette masse.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' kg' } }
           this.correction = `La masse que l'on peut acheter avec $1$ € est $\\dfrac{5}{${prix1}}$ kg. <br>
-        Ainsi, pour payer $${texPrix(prix2)}$ €, il faut acheter $\\dfrac{5\\times ${prix2}}{${prix1}}=\\dfrac{ ${5 * prix2}}{${prix1}}${frac.texSimplificationAvecEtapes()}$ kg.
+        Ainsi, pour payer $${texPrix(prix2)}$ €, il faut acheter $\\dfrac{5\\times ${prix2}}{${prix1}}=${miseEnEvidence(`\\dfrac{ ${5 * prix2}}{${prix1}}`)}${frac.texSimplificationAvecEtapes(true, '#f15929')}$ kg.
        
         `
         } else {
@@ -62,13 +65,11 @@ export default class Proportionnalite3 extends Exercice {
           fruits = choice(listefruits1)
           frac = new FractionEtendue(3 * prix2, prix1)
           this.question = `$3$ ${fruits[0]} coûtent $${texPrix(prix1)}$ €.<br>
-
         Quelle masse de ${fruits[0]} faut-il acheter pour payer $${texPrix(prix2)}$ € ?<br>
-
         Donner la valeur exacte de cette masse.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: 'kg' } }
+          if (this.interactif) { this.optionsChampTexte = { texteAvant: '<br>', texteApres: 'kg' } }
           this.correction = `La masse que l'on peut acheter avec $1$ € est $\\dfrac{3}{${prix1}}$ kg. <br>
-        Ainsi, pour payer $${texPrix(prix2)}$ €, il faut acheter $\\dfrac{3\\times ${prix2}}{${prix1}}=\\dfrac{ ${3 * prix2}}{${prix1}}${frac.texSimplificationAvecEtapes()}$ kg.
+        Ainsi, pour payer $${texPrix(prix2)}$ €, il faut acheter $\\dfrac{3\\times ${prix2}}{${prix1}}=${miseEnEvidence(`\\dfrac{ ${3 * prix2}}{${prix1}}`)}${frac.texSimplificationAvecEtapes(true, '#f15929')}$ kg.
        
         `
         }
@@ -89,33 +90,33 @@ export default class Proportionnalite3 extends Exercice {
       Combien faut-il acheter de  ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>
 
       Donner la valeur exacte de ce nombre.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: `  de ${fruits2[0]}.` } }
+          if (this.interactif) { this.optionsChampTexte = { texteAvant: '<br>', texteApres: `  de ${fruits2[0]}.` } }
           this.correction = `La quantité de ${fruits2[0]} par kg est $\\dfrac{3}{${poids1}}$ de ${fruits2[1]}. <br>
-      Ainsi, pour obtenir une masse de $${texPrix(poids2)}$ kg, il faut acheter $\\dfrac{3\\times ${poids2}}{${poids1}}=\\dfrac{ ${3 * poids2}}{${poids1}}${frac.texSimplificationAvecEtapes()}$ de ${fruits2[0]}.
+      Ainsi, pour obtenir une masse de $${texPrix(poids2)}$ kg, il faut acheter $\\dfrac{3\\times ${poids2}}{${poids1}}=${miseEnEvidence(`\\dfrac{ ${3 * poids2}}{${poids1}}`)}${frac.texSimplificationAvecEtapes(true, '#f15929')}$ de ${fruits2[0]}.
       `
         } else if (choix === 'b') {
           poids1 = randint(3, 7)// masse de 2 fruits
           poids2 = poids1 - 1// 2ième masse
           fruits2 = choice(listefruits2)
           frac = new FractionEtendue(2 * poids2, poids1)
-          this.question = `$2$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
+          this.question = `$2$ ${fruits2[0]} (identiques) ont une masse de $${poids1}$ kg.<br>
         Combien faut-il acheter  de ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>
         Donner la valeur exacte de ce nombre.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: `  de ${fruits2[0]}.` } }
+          if (this.interactif) { this.optionsChampTexte = { texteAvant: '<br>', texteApres: `  de ${fruits2[0]}.` } }
           this.correction = `La quantité de ${fruits2[0]} par kg est $\\dfrac{2}{${poids1}}$ de ${fruits2[1]}. <br>
-        Ainsi, pour obtenir une masse de $${texPrix(poids2)}$ kg, il faut acheter $\\dfrac{2\\times ${poids2}}{${poids1}}=\\dfrac{ ${2 * poids2}}{${poids1}}${frac.texSimplificationAvecEtapes()}$ de ${fruits2[0]}.
+        Ainsi, pour obtenir une masse de $${texPrix(poids2)}$ kg, il faut acheter $\\dfrac{2\\times ${poids2}}{${poids1}}=${miseEnEvidence(`\\dfrac{ ${2 * poids2}}{${poids1}}`)}${frac.texSimplificationAvecEtapes(true, '#f15929')}$ de ${fruits2[0]}.
         `
         } else {
           poids1 = randint(9, 14, 10)// masse de 5 fruit
           poids2 = poids1 - randint(1, 4)// 2ième masse
           fruits2 = choice(listefruits2)
           frac = new FractionEtendue(5 * poids2, poids1)
-          this.question = `$5$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
+          this.question = `$5$ ${fruits2[0]} (identiques) ont une masse de $${poids1}$ kg.<br>
             Combien faut-il acheter de  ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>
             Donner la valeur exacte de ce nombre.`
-          if (this.interactif) { this.optionsChampTexte = { texteApres: `  de ${fruits2[0]}.` } }
+          if (this.interactif) { this.optionsChampTexte = { texteAvant: '<br>', texteApres: `  de ${fruits2[0]}.` } }
           this.correction = `La quantité de ${fruits2[0]} par kg est $\\dfrac{5}{${poids1}}$ de ${fruits2[1]}. <br>
-            Ainsi, pour obtenir une masse de $${texPrix(poids2)}$ kg, il faut acheter $\\dfrac{2\\times ${poids2}}{${poids1}}=\\dfrac{ ${5 * poids2}}{${poids1}}${frac.texSimplificationAvecEtapes()}$ de ${fruits2[0]}.
+            Ainsi, pour obtenir une masse de $${texPrix(poids2)}$ kg, il faut acheter $\\dfrac{2\\times ${poids2}}{${poids1}}=${miseEnEvidence(`\\dfrac{ ${5 * poids2}}{${poids1}}`)}${frac.texSimplificationAvecEtapes(true, '#f15929')}$ de ${fruits2[0]}.
             `
         }
         this.reponse = frac

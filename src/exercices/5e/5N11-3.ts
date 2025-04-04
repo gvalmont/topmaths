@@ -61,7 +61,11 @@ export default class FractionVersPourcentage extends Exercice {
       percenti = Math.round(num * 100 / den)
       if (this.sup === 1) {
         this.interactifType = 'custom'
-        texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{champ1}}{%{champ2}}=\\dfrac{%{champ3}}{100}=%{champ4}\\%`, 'clavierDeBase', '\\ldots\\ldots')
+        if (this.interactif) {
+          texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{champ1}}{%{champ2}}=\\dfrac{%{champ3}}{100}=%{champ4}\\%`, 'clavierDeBase', '\\ldots\\ldots')
+        } else {
+          texte = `$\\dfrac{${num}}{${den}}=~\\dfrac{\\ldots\\ldots\\ldots\\ldots\\ldots}{\\ldots\\ldots\\ldots\\ldots\\ldots}=\\dfrac{\\ldots\\ldots}{100}~=~{\\ldots\\ldots}~\\%$`
+        }
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${100 / den}}}{${den}{\\color{blue}\\times${100 / den}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {

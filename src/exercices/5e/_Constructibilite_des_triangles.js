@@ -3,9 +3,10 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { texNombre } from '../../lib/outils/texNombre'
 import { Triangle } from '../../modules/Triangle'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -111,7 +112,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
             return a.valeur - b.valeur
           })
           texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
           texteCorr += `<br> On constate que  ${currentTriangle[2].longueur} < ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur}.`
           texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} est constructible`)}.`
           break
@@ -119,7 +120,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           while (!triangle.isPlatTriangleLongueurs()) {
             l1 = randint(lMin, lMax)
             l2 = randint(lMin, lMax)
-            l3 = calculANePlusJamaisUtiliser(l1 + l2)
+            l3 = arrondi(l1 + l2)
             triangle.l1 = l1
             triangle.l2 = l2
             triangle.l3 = l3
@@ -167,7 +168,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
             return a.valeur - b.valeur
           })
           texteCorr = `${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
           texteCorr += `<br> On constate que  ${currentTriangle[2].longueur} > ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur}.`
           texteCorr += `<br> L'inégalité triangulaire n'est pas vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} n'est pas constructible`)}.`
 
@@ -194,7 +195,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           })
           texteCorr = `Puisque le périmètre vaut $${triangle.getPerimetre()}$ cm alors la troisième longueur vaut ${triangle.getLongueurs()[2]} = $${triangle.getPerimetre()}$ cm - $${triangle.l1}$ cm - $${triangle.l2}$ cm = $${triangle.l3}$ cm.`
           texteCorr += `<br> Donc, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
           texteCorr += `<br> On constate que ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} > ${currentTriangle[2].longueur}`
           texteCorr += `<br> L'inégalité triangulaire est vérifiée donc ${texteEnCouleurEtGras(`le triangle ${triangle.getNom()} est constructible`)}.`
           break
@@ -202,7 +203,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           while (!triangle.isTrueTriangleAngles()) {
             a1 = randint(aMin, aMax, [0, 180])
             a2 = randint(aMin, aMax, [0, 180])
-            a3 = calculANePlusJamaisUtiliser(180 - a1 - a2)
+            a3 = arrondi(180 - a1 - a2)
             triangle.a1 = a1
             triangle.a2 = a2
             triangle.a3 = a3
@@ -219,7 +220,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
-          texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
+          texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
           texteCorr += '<br> On constate que la somme des trois angles vaut bien $180^\\circ$.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           break
@@ -227,7 +228,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           while (!triangle.isPlatTriangleAngles()) {
             a1 = randint(aMin, aMax)
             a2 = randint(aMin, aMax)
-            a3 = calculANePlusJamaisUtiliser(180 - a1 - a2)
+            a3 = arrondi(180 - a1 - a2)
             triangle.a1 = a1
             triangle.a2 = a2
             triangle.a3 = a3
@@ -244,7 +245,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
-          texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
+          texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
           texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180^\\circ$.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           texteCorr += '<br> Deux des trois angles du triangle valent $0^\\circ$, ' + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` + texteEnCouleurEtGras(' est donc un triangle plat.')
@@ -275,7 +276,7 @@ export default class ConstructibiliteDesTriangles extends Exercice {
           currentTriangle.sort(function (a, b) {
             return a.valeur - b.valeur
           })
-          texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
+          texteCorr = `${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${arrondi(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
           texteCorr += '<br> Si le triangle était constructible, la somme des trois angles vaudrait $180^\\circ$,'
           texteCorr += ' or ce n\'est pas le cas.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On ne peut donc pas construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1) + '.')}$`

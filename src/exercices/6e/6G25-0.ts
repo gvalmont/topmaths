@@ -6,8 +6,8 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import type Point from 'apigeom/src/elements/points/Point'
 import { numAlpha } from '../../lib/outils/outilString'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import checkLine from 'apigeom/src/check/checkLine'
 import Element2D from 'apigeom/src/elements/Element2D'
+import { context } from '../../modules/context'
 
 export const titre = 'Construire des médiatrices'
 
@@ -221,7 +221,7 @@ export default class nomExercice extends Exercice {
               color: this.mediatrices[ee].couleurMed.couleurHTML,
               thickness: 2
             })
-            this.figuresApiGeom[i].setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'DRAG', 'SHAKE', 'REMOVE', 'SET_OPTIONS'] })
+            this.figuresApiGeom[i].setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'LINE', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'DRAG', 'SHAKE', 'REMOVE', 'SET_OPTIONS'] })
             this.figuresApiGeom[i].options.changeColorChangeActionToSetOptions = true
 
             break
@@ -269,6 +269,10 @@ export default class nomExercice extends Exercice {
         }
       }
 
+      if (!context.isHtml) {
+        texte += this.figuresApiGeom[i].tikz()
+        texteCorr += this.figuresApiGeomCorr[i].tikz()
+      }
       texte += figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], idAddendum: '6G25' + i, defaultAction: 'DRAG' })
       texteCorr += figureApigeom({ exercice: this, i, figure: this.figuresApiGeomCorr[i], idAddendum: '6G25Cor' + i })
       this.figuresApiGeomCorr[i].isDynamic = false
@@ -316,12 +320,7 @@ export default class nomExercice extends Exercice {
         resultat[ee] = 'KO'
         feedbackUneQuestion = 'L\'élement en ' + this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais + ' n\'est pas une droite.'
       } else {
-        const verif = checkLine({
-          figure: this.figuresApiGeom[i],
-          point1: this.ensembleDesQuestions[i].mediatrice[ee].pointMed1,
-          point2: this.ensembleDesQuestions[i].mediatrice[ee].pointMed2,
-          color: this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurHTML
-        })
+        const verif = this.figuresApiGeom[i].checkPerpendicularBisector({ label1: this.mediatrices[ee].pointSeg1.label, label2: this.mediatrices[ee].pointSeg2.label, color: this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurHTML })
         resultat[ee] = verif.isValid ? 'OK' : 'KO'
         if (!verif.isValid) feedbackUneQuestion = `La droite en ${this.ensembleDesQuestions[i].mediatrice[ee].couleurMed.couleurFrancais} n'est pas la médiatrice de $[${this.ensembleDesQuestions[i].mediatrice[ee].pointSeg1.label}${this.ensembleDesQuestions[i].mediatrice[ee].pointSeg2.label}]$.`
       }

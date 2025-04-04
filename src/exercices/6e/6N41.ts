@@ -99,18 +99,15 @@ export default class EgalitesEntreFractions extends Exercice {
 
         switch (choix) {
           case 0 :
-            texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction('\\ldots\\ldots', d)}$`
             if (this.interactif && context.isHtml) {
-              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}`
-              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}`, 'fillInTheBlank', '\\ldots')
               handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
                 champ1: { value: `${a}\\times ${k}` },
                 champ2: { value: `${b}\\times ${k}` },
                 champ3: { value: String(c) }
               })
-            } else {
-              texte += `$${stringTexFraction('\\phantom{0000}', d)}$`
             }
             texteCorr = `$${stringTexFraction(a, b)} = ${stringTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${stringTexFraction(c, d)}$`
             if (context.isAmc) {
@@ -141,7 +138,7 @@ export default class EgalitesEntreFractions extends Exercice {
             break
           case 1 :
           default:
-            texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction(c, '\\ldots\\ldots')}$`
             if (this.interactif && context.isHtml) {
               const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
               texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
@@ -151,8 +148,6 @@ export default class EgalitesEntreFractions extends Exercice {
                 champ2: { value: `${b}\\times ${k}` },
                 champ3: { value: String(d) }
               })
-            } else {
-              texte += `$${stringTexFraction(c, '\\phantom{0000}')}$`
             }
             texteCorr = `$${stringTexFraction(a, b)} = ${stringTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${stringTexFraction(c, d)}$`
             if (context.isAmc) {
@@ -261,7 +256,7 @@ export default class EgalitesEntreFractions extends Exercice {
                 callback
               })
             } else {
-              texte = `$${a} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${stringTexFraction('\\phantom{0000}', d)}$`
+              texte = `$${a} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction('\\ldots\\ldots', d)}$`
             }
             if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`
@@ -295,7 +290,7 @@ export default class EgalitesEntreFractions extends Exercice {
             break
           case 1 :
           default:
-            texte = `$${a} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            texte = `$${a} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction(c, '\\ldots\\ldots\\ldots\\ldots')}$`
             if (this.interactif && context.isHtml) {
               const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
               texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
@@ -306,8 +301,6 @@ export default class EgalitesEntreFractions extends Exercice {
                 champ3: { value: String(d) },
                 callback
               })
-            } else {
-              texte += `$${stringTexFraction(c, '\\phantom{0000}')}$`
             }
             if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`

@@ -297,8 +297,8 @@ export default class RepresenterUnSolide4e extends Exercice {
       if (listeTypeDeQuestions[i] === 8) {
         const centre = milieu(A, F)
         const sommet = I
-        const hauteur = segment(centre, sommet, 'red')
-        hauteur.pointilles = 5
+        const hauteurDuCone = segment(centre, sommet, 'red')
+        hauteurDuCone.pointilles = 5
         const milieuBF = milieu(B, F)
         const rayon = segment(centre, milieuBF, 'red')
         rayon.pointilles = 5
@@ -306,7 +306,9 @@ export default class RepresenterUnSolide4e extends Exercice {
         const rx = longueur(centre, milieuBF)
         const ry = longueur(A, E) / 3
         objetsEnonce.push(tracePoint(sommet), g, carreaux)
-        objetsCorrection.push(tracePoint(sommet), cone({ centre, rx, hauteur: 1.5 * rx }), g, carreaux)
+        //     objetsCorrection.push(tracePoint(sommet), cone({ centre, rx, hauteur: 1.5 * rx }), g, carreaux) //pourquoi  1.5 * rx ?
+        //  objetsCorrection.push(tracePoint(sommet), cone({ centre, rx, hauteur: hauteurDuCone.longueur }), g, carreaux)
+
         switch (choice(['hemisphere nord', 'hemisphere sud'])) {
           case 'hemisphere nord':
             objetsEnonce.push(semiEllipse({ centre, rx, ry, hemisphere: 'nord', pointilles: 5 }))
@@ -316,7 +318,8 @@ export default class RepresenterUnSolide4e extends Exercice {
             break
         }
 
-        objetsCorrection.push(tracePoint(sommet), hauteur, rayon, angleDroit, cone({ centre, rx, hauteur: 1.5 * rx }),
+        //       objetsCorrection.push(tracePoint(sommet), hauteurDuCone, rayon, angleDroit, cone({ centre, rx, hauteur: 1.5 * rx }),
+        objetsCorrection.push(tracePoint(sommet), hauteurDuCone, rayon, angleDroit, cone({ centre, rx, hauteur: hauteurDuCone.longueur }),
           g,
           carreaux
         )

@@ -1,4 +1,3 @@
-/* globals UI */
 import Algebrite from 'algebrite'
 import { round } from 'mathjs'
 import {
@@ -342,17 +341,6 @@ if (!Object.fromEntries) {
       return o
     }
   })
-}
-
-/**
- * @deprecated !!! Utiliser la class Decimal pour faire des calculs sur les décimaux exacts :
- * Cette fonction ne règle en rien le problème des flottants
- * `calcul(0.3)` retourne le même 0.3 qui en fait est 0.299999999999999989
- * Si c'est pour arrondir, utiliser arrondi(nombre, précision) qui ne règle pas plus le problème des flottants.
- * @author Rémi Angot modifié par Jean-Claude Lhote mais en vain !
- */
-export function calculANePlusJamaisUtiliser (x) {
-  return arrondi(x, 6)
 }
 
 /*

@@ -12,13 +12,19 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
+export const interactifReady = true
+export const interactifType = 'mathlive'
 export const titre = 'Résoudre graphiquement une inéquation avec une fonction de référence'
 export const dateDePublication = '14/02/2023'
 /**
  *
  * @author Gilles Mora
-
  */
 export const uuid = '277d3'
 
@@ -27,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class ResoudreGraphFonctionRef extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Avec la fonction carré\n2 : Avec la fonction inverse\n3 : Avec la fonction racine carrée\n4 : Mélange']
 
@@ -38,7 +44,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
     this.spacing = 1.5 // Interligne des questions
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2']
@@ -57,10 +63,17 @@ export default class ResoudreGraphFonctionRef extends Exercice {
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      const choix = choice([true, false])
+      const estInegStrict = choice([true, false])
+      let ensembleSolutions: string
+      function intervalleLaTex(borneGauche: string | number, borneDroite: string | number, ouvertGauche: boolean, ouvertDroite: boolean): string {
+        const delimGauche = ouvertGauche ? '\\left]' : '\\left['
+        const delimDroite = ouvertDroite ? '\\right[' : '\\right]'
+        return `${delimGauche}${borneGauche} ; ${borneDroite}${delimDroite}`
+      }
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'typeE1':// x^2<k
           {
+            const signeInegalité = estInegStrict ? '<' : ' \\leqslant '
             const a = randint(1, 30)
             const A = point(1.73, 3)
             const Ax = point(A.x, 0)
@@ -74,7 +87,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             sBBx.pointilles = 5
             const sAxBx = segment(Bx, Ax, 'red')
             sAxBx.epaisseur = 2
-            sAxBx.styleExtremites = choix ? ']-[' : '[-]'
+            sAxBx.styleExtremites = estInegStrict ? ']-[' : '[-]'
             sAxBx.tailleExtremites = 6
             const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.7, 'green', 0, 0, '')
             const Texte2 = latexParCoordonnees('y=x^2', 3, 4.5, 'blue', 0, 0, '')
@@ -97,7 +110,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = (x:number) => Number(x) ** 2
+            const f = (x: number) => Number(x) ** 2
             const Cg = droite(point(-3, 3), point(3, 3), '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
@@ -120,8 +133,8 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }), Cg
-            , r1, o, sAAx, sBBx, sAxBx, Texte1, Texte2, Texte3, Texte4)
-            texte = `Résoudre graphiquement l'inéquation : $x^2${choix ? '<' : ' \\leqslant '}${a}$.<br>`
+              , r1, o, sAAx, sBBx, sAxBx, Texte1, Texte2, Texte3, Texte4)
+            texte = `Résoudre graphiquement l'inéquation : $x^2${signeInegalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
               texte += `    ${graphique}`
@@ -129,20 +142,25 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la parabole d'équation $y=x^2$. <br>
             $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la parabole en $-\\sqrt{${a}}$ et $\\sqrt{${a}}$. <br>
-            $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
+            $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             texteCorr += `${graphiqueC}<br>`
 
             if (a === 1 || a === 4 || a === 9 || a === 16 || a === 25) {
-              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$ et que $\\sqrt{${a}}=${arrondi(Math.sqrt(a), 0)}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a}$ est :
-            ${choix ? `$S=]-${arrondi(Math.sqrt(a), 0)}\\,;\\,${arrondi(Math.sqrt(a), 0)}[$.` : `$S=[-${arrondi(Math.sqrt(a), 0)}\\,;\\,${arrondi(Math.sqrt(a), 0)}]$.`} `
+              const borne = arrondi(Math.sqrt(a), 0)
+              ensembleSolutions = intervalleLaTex(-borne, borne, estInegStrict, estInegStrict)
+              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$ et que $\\sqrt{${a}}=${borne}$, l'ensemble des solutions de l'inéquation $x^2${signeInegalité}${a}$ est :
+             `
             } else {
-              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a}$ est : ${choix ? `$S=]-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}[$` : `$S=[-\\sqrt{${a}}\\,;\\,\\sqrt{${a}}]$`}.`
+              const borne = `\\sqrt{${a}}`
+              ensembleSolutions = intervalleLaTex('-' + borne, borne, estInegStrict, estInegStrict)
+              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$, l'ensemble des solutions de l'inéquation $x^2${signeInegalité}${a}$ est : `
             }
           }
           break
 
         case 'typeE2':// x^2>k
           {
+            const signeInegalité = estInegStrict ? '>' : ' \\geqslant '
             const a = randint(1, 30)
             const A = point(1.73, 3)
             const Ax = point(A.x, 0)
@@ -157,7 +175,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             const BxI = point(-4, 0)
             const sBxBxI = segment(BxI, Bx, 'red')
             sBxBxI.epaisseur = 2
-            sBxBxI.styleExtremites = choix ? '-[' : '-]'
+            sBxBxI.styleExtremites = estInegStrict ? '-[' : '-]'
             sBxBxI.tailleExtremites = 6
             const AxI = point(4, 0)
             const sAxAxI = segment(Ax, AxI, 'red')
@@ -184,7 +202,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               xLabelListe: [-6],
               yLabelListe: [-6]
             })
-            const f = (x:number) => Number(x) ** 2
+            const f = (x: number) => Number(x) ** 2
             const Cg = droite(point(-6, 3), point(6, 3), '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
@@ -207,9 +225,9 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-            Cg
-            , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, Texte1, Texte2, Texte3, Texte4)
-            texte = `Résoudre graphiquement l'inéquation : $x^2${choix ? '>' : ' \\geqslant '}${a}$.<br>`
+              Cg
+              , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, Texte1, Texte2, Texte3, Texte4)
+            texte = `Résoudre graphiquement l'inéquation : $x^2${signeInegalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
               texte += `    ${graphique}`
@@ -217,14 +235,19 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la parabole d'équation $y=x^2$. <br>
             $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. <br>
-            $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement au dessus de' : ' sur ou au dessus de '} la droite.<br>`
+            $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement au dessus de' : ' sur ou au dessus de '} la droite.<br>`
             texteCorr += `${graphiqueC}<br>`
 
             if (a === 1 || a === 4 || a === 9 || a === 16 || a === 25) {
-              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$ et que $\\sqrt{${a}}=${arrondi(Math.sqrt(a), 0)}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '>' : ' \\geqslant '}${a}$ est :
-            ${choix ? `$S=]-\\infty\\,;\\,-${arrondi(Math.sqrt(a), 0)}[\\cup ]${arrondi(Math.sqrt(a), 0)}\\,;\\, +\\infty[$.` : `$S=]-\\infty\\,;\\,-${arrondi(Math.sqrt(a), 0)}]\\cup [${arrondi(Math.sqrt(a), 0)}\\,;\\, +\\infty[$.`} `
+              const borne = arrondi(Math.sqrt(a), 0)
+              ensembleSolutions = intervalleLaTex('-\\infty', -borne, true, estInegStrict) +
+                '\\cup' + intervalleLaTex(borne, '+\\infty', estInegStrict, true)
+              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$ et que $\\sqrt{${a}}=${borne}$, l'ensemble des solutions de l'inéquation $x^2${signeInegalité}${a}$ est : `
             } else {
-              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$, l'ensemble des solutions de l'inéquation $x^2${choix ? '>' : ' \\geqslant '}${a}$ est : ${choix ? `$S=]-\\infty\\,;\\,-\\sqrt{${a}}[\\cup ]\\sqrt{${a}}\\,;\\, +\\infty[$` : `$S=]-\\infty\\,;\\,-\\sqrt{${a}}]\\cup [\\sqrt{${a}}\\,;\\, +\\infty[$`}.`
+              const borne = `\\sqrt{${a}}`
+              ensembleSolutions = intervalleLaTex('-\\infty', '-' + borne, true, estInegStrict) +
+                '\\cup' + intervalleLaTex(borne, '+\\infty', estInegStrict, true)
+              texteCorr += `Comme la fonction carré est définie sur $\\mathbb{R}$, l'ensemble des solutions de l'inéquation $x^2${signeInegalité}${a}$ est : `
             }
           }
           break
@@ -247,11 +270,11 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             const sAxIAx = segment(AxI, Ax, 'red')
             sAxIAx.epaisseur = 2
             sAxIAx.tailleExtremites = 6
-            sAxIAx.styleExtremites = choix ? ']-' : '[-'
+            sAxIAx.styleExtremites = estInegStrict ? ']-' : '[-'
             const sA2xO = segment(A2x, O, 'red')
             sA2xO.epaisseur = 2
             sA2xO.tailleExtremites = 6
-            sA2xO.styleExtremites = choix ? ']-[' : '[-['
+            sA2xO.styleExtremites = estInegStrict ? ']-[' : '[-['
             const sAxIO = segment(AxI, O, 'red')
             sAxIO.epaisseur = 2
             sAxIO.styleExtremites = '-['
@@ -260,12 +283,12 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             const sAxI2Ax = segment(Ax, AxI2, 'red')
             sAxI2Ax.epaisseur = 2
             sAxI2Ax.tailleExtremites = 6
-            sAxI2Ax.styleExtremites = choix ? ']-' : '[-'
-            const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.3, 'green', 0, 0, '')
-            const Texte1B = latexParCoordonnees(`y=${a}`, 4, -1.3, 'green', 0, 0, '')
+            sAxI2Ax.styleExtremites = estInegStrict ? ']-' : '[-'
+            const Texte1 = latexParCoordonnees(`y = ${a} `, 4, 2.3, 'green', 0, 0, '')
+            const Texte1B = latexParCoordonnees(`y = ${a} `, 4, -1.3, 'green', 0, 0, '')
             const Texte2 = latexParCoordonnees('y=\\dfrac{1}{x}', 1.2, 3, 'blue', 0, 0, '')
-            const Texte3 = latexParCoordonnees(`\\dfrac{1}{${a}}`, 0.5, -1, 'red', 0, 0, '')
-            const Texte3B = latexParCoordonnees(`-\\dfrac{1}{${-a}}`, -1.2, 1, 'red', 0, 0, '')
+            const Texte3 = latexParCoordonnees(`\\dfrac{ 1 } {${a} } `, 0.5, -1, 'red', 0, 0, '')
+            const Texte3B = latexParCoordonnees(`-\\dfrac{ 1 } {${-a} } `, -1.2, 1, 'red', 0, 0, '')
 
             const r1 = repere({
               xMin: -4,
@@ -284,7 +307,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = (x:number) => 1 / Number(x)
+            const f = (x: number) => 1 / Number(x)
             const Cg1 = droiteParPointEtPente(point(0, 2), 0, '', 'green')
             Cg1.epaisseur = 2
             const Cg2 = droiteParPointEtPente(point(0, -1), 0, '', 'green')
@@ -310,8 +333,8 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-            Cg1
-            , r1, o, sAAx, sAxIO, sAxI2Ax, Texte1, Texte2, Texte3)
+              Cg1
+              , r1, o, sAAx, sAxIO, sAxI2Ax, Texte1, Texte2, Texte3)
 
             const graphiqueC2 = mathalea2d({ // 1/x<k avec k<0
               xmin: -6,
@@ -325,26 +348,28 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-            Cg2
-            , r1, o, sA2A2x, sA2xO, Texte1B, Texte2, Texte3B)
+              Cg2
+              , r1, o, sA2A2x, sA2xO, Texte1B, Texte2, Texte3B)
 
-            texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$.<br>`
+            const signeInégalité = estInegStrict ? ' < ' : ' \\leqslant '
+            texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${signeInégalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
               texte += `    ${graphique}`
             }
+            const borne = a > 0 ? `\\dfrac{1}{${a}}` : `-\\dfrac{1}{${-a}}`
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : ${a > 0 ? `$\\dfrac{1}{${a}}$` : `$-\\dfrac{1}{${-a}}$`}.<br>
-            $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : $${borne}$.<br>
+            $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             if (a > 0) {
+              ensembleSolutions = intervalleLaTex('-\\infty', 0, true, estInegStrict) + '\\cup' + intervalleLaTex(borne, '+\\infty', estInegStrict, true)
               texteCorr += `${graphiqueC1}<br>`
-              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$ est :
-            ${choix ? `$S=]-\\infty\\,;\\,0[\\cup\\left]\\dfrac{1}{${a}}\\,;\\,+\\infty\\right[$.` : `$S=]-\\infty\\,;\\,0[\\cup\\left[\\dfrac{1}{${a}}\\,;\\,+\\infty\\right[$.`} `
+              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${signeInégalité}${a}$ est : `
             } else {
+              ensembleSolutions = intervalleLaTex(borne, 0, estInegStrict, true)
               texteCorr += `${graphiqueC2}<br>`
-              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '<' : ' \\leqslant '}${a}$ est :
-              ${choix ? `$S=\\left]-\\dfrac{1}{${-a}}\\,;\\,0\\right[$.` : `$S=\\left[-\\dfrac{1}{${-a}}\\,;\\,0\\right[$.`} `
+              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${signeInégalité}${a}$ est : `
             }
           }
 
@@ -368,7 +393,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             const sAxIAx = segment(Ax, AxI, 'red')
             sAxIAx.epaisseur = 2
             sAxIAx.tailleExtremites = 6
-            sAxIAx.styleExtremites = choix ? ']-' : '[-'
+            sAxIAx.styleExtremites = estInegStrict ? ']-' : '[-'
             const AxIP = point(4, 0)
             const sAxIPAx = segment(AxIP, O, 'red')
             sAxIPAx.epaisseur = 2
@@ -377,15 +402,15 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             const sAxIA2x = segment(AxI, A2x, 'red')
             sAxIA2x.epaisseur = 2
             sAxIA2x.tailleExtremites = 2
-            sAxIA2x.styleExtremites = choix ? '-[' : '-]'
+            sAxIA2x.styleExtremites = estInegStrict ? '-[' : '-]'
             const sA2xO = segment(A2x, O, 'red')
             sA2xO.epaisseur = 2
             sA2xO.tailleExtremites = 6
-            sA2xO.styleExtremites = choix ? ']-[' : '[-['
+            sA2xO.styleExtremites = estInegStrict ? ']-[' : '[-['
             const sAxO = segment(Ax, O, 'red')
             sAxO.epaisseur = 2
             sAxO.tailleExtremites = 6
-            sAxO.styleExtremites = choix ? ']-[' : '[-['
+            sAxO.styleExtremites = estInegStrict ? ']-[' : '[-['
             const Texte1 = latexParCoordonnees(`y=${a}`, 4, 2.3, 'green', 0, 0, '')
             const Texte1B = latexParCoordonnees(`y=${a}`, 4, -1.3, 'green', 0, 0, '')
             const Texte2 = latexParCoordonnees('y=\\dfrac{1}{x}', 1.2, 3, 'blue', 0, 0, '')
@@ -408,7 +433,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = (x:number) => 1 / Number(x)
+            const f = (x: number) => 1 / Number(x)
             const Cg1 = droiteParPointEtPente(point(0, 2), 0, '', 'green')
             Cg1.epaisseur = 2
             const Cg2 = droiteParPointEtPente(point(0, -1), 0, '', 'green')
@@ -434,7 +459,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-            Cg1, r1, o, sAAx, sAxO, Texte1, Texte2, Texte3)
+              Cg1, r1, o, sAAx, sAxO, Texte1, Texte2, Texte3)
 
             const graphiqueC2 = mathalea2d({ // 1/x>k avec a<0
               xmin: -6,
@@ -448,24 +473,26 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-            Cg2, r1, o, sA2A2x, sAxIA2x, sAxIPAx, Texte1B, Texte2, Texte3B)
-            texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$.<br>`
+              Cg2, r1, o, sA2A2x, sAxIA2x, sAxIPAx, Texte1B, Texte2, Texte3B)
+            const signeInégalité = estInegStrict ? '>' : ' \\geqslant '
+            texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${signeInégalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
               texte += `    ${graphique}`
             }
+            const borne = a > 0 ? `\\dfrac{1}{${a}}` : `-\\dfrac{1}{${-a}}`
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : ${a > 0 ? `$\\dfrac{1}{${a}}$` : `$-\\dfrac{1}{${-a}}$`}. <br>
-            $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement au dessus de' : ' sur ou au dessus de '} la droite.<br>`
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : ${borne}. <br>
+            $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement au dessus de' : ' sur ou au dessus de '} la droite.<br>`
             if (a > 0) {
+              ensembleSolutions = intervalleLaTex(0, borne, true, estInegStrict)
               texteCorr += `${graphiqueC1}<br>`
-              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
-            ${choix ? `$S=\\left]0\\,;\\,\\dfrac{1}{${a}}\\right[$.` : `$S=\\left]0\\,;\\,\\dfrac{1}{${a}}\\right]$.`} `
+              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${signeInégalité}${a}$ est : `
             } else {
+              ensembleSolutions = intervalleLaTex('-\\infty', borne, true, estInegStrict) + '\\cup' + intervalleLaTex(0, '+\\infty', true, true)
               texteCorr += `${graphiqueC2}<br>`
-              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
-              ${choix ? `$S=\\left]-\\infty\\,;\\,-\\dfrac{1}{${-a}}\\right[\\cup ]0\\,;\\,+\\infty[$.` : `$S=\\left]-\\infty\\,;\\,-\\dfrac{1}{${-a}}\\right]\\cup ]0\\,;\\,+\\infty[$.`} `
+              texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${signeInégalité}${a}$ est : `
             }
           }
 
@@ -482,7 +509,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             const sAxBx = segment(O, Ax, 'red')
             sAxBx.epaisseur = 2
             sAxBx.tailleExtremites = 6
-            sAxBx.styleExtremites = choix ? '[-[' : '[-]'
+            sAxBx.styleExtremites = estInegStrict ? '[-[' : '[-]'
             const Texte1 = latexParCoordonnees(`y=${a}`, 4, 1.2, 'green', 0, 0, '')
             const Texte2 = latexParCoordonnees('y=\\sqrt{x}', 3, 2.3, 'blue', 0, 0, '')
             const Texte3 = latexParCoordonnees(`${a ** 2}`, 2.25, -0.6, 'red', 0, 0, '')
@@ -503,7 +530,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = (x:number) => Math.sqrt(Number(x))
+            const f = (x: number) => Math.sqrt(Number(x))
             const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
@@ -526,20 +553,22 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-            Cg
-            , r1, o, sAAx, sAxBx, Texte1, Texte2, Texte3)
-            texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${choix ? '<' : ' \\leqslant '}${a}$.<br>`
+              Cg
+              , r1, o, sAAx, sAxBx, Texte1, Texte2, Texte3)
+            const signeInégalité = estInegStrict ? '<' : ' \\leqslant '
+            texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${signeInégalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
               texte += `    ${graphique}`
             }
+            const borne = a ** 2
+            ensembleSolutions = intervalleLaTex(0, borne, false, estInegStrict)
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$. <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${a ** 2}$. <br>
-            $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${borne}$. <br>
+            $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             texteCorr += `${graphiqueC}<br>`
-            texteCorr += `Comme la fonction racine carrée est définie sur $[0\\,;\\,+\\infty[$, l'ensemble des solutions de l'inéquation $\\sqrt{x}${choix ? '<' : ' \\leqslant '}${a}$ est :
-            ${choix ? `$S=[0\\,;\\,${a ** 2}[$.` : `$S=[0\\,;\\,${a ** 2}]$.`} `
+            texteCorr += `Comme la fonction racine carrée est définie sur $[0\\,;\\,+\\infty[$, l'ensemble des solutions de l'inéquation $\\sqrt{x}${signeInégalité}${a}$ est : `
           }
           break
         case 'typeE6':// sqrt(x)>k
@@ -555,11 +584,11 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             const sAxBx = segment(Ax, O, 'red')
             sAxBx.epaisseur = 2
             sAxBx.tailleExtremites = 6
-            sAxBx.styleExtremites = choix ? ']-[' : '[-['
+            sAxBx.styleExtremites = estInegStrict ? ']-[' : '[-['
             const sAxAInf = segment(Ax, AInf, 'red')
             sAxAInf.epaisseur = 2
             sAxAInf.tailleExtremites = 6
-            sAxAInf.styleExtremites = choix ? ']-' : '[-'
+            sAxAInf.styleExtremites = estInegStrict ? ']-' : '[-'
             const Texte1 = latexParCoordonnees(`y=${a}`, 4, 1.2, 'green', 0, 0, '')
             const Texte2 = latexParCoordonnees('y=\\sqrt{x}', 3, 2.3, 'blue', 0, 0, '')
             const Texte3 = latexParCoordonnees(`${a ** 2}`, 2.25, -0.6, 'red', 0, 0, '')
@@ -580,7 +609,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               yLabelListe: [-6]
 
             })
-            const f = (x:number) => Math.sqrt(x)
+            const f = (x: number) => Math.sqrt(x)
             const Cg = droiteParPointEtPente(point(0, 1.5), 0, '', 'green')
             Cg.epaisseur = 2
             const graphique = mathalea2d({
@@ -603,23 +632,37 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-            Cg
-            , r1, o, sAAx, sAxAInf, Texte1, Texte2, Texte3)
-            texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$.<br>`
+              Cg
+              , r1, o, sAAx, sAxAInf, Texte1, Texte2, Texte3)
+
+            const signeInégalité = estInegStrict ? '>' : ' \\geqslant '
+            texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${signeInégalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
               texte += `    ${graphique}`
             }
+            const borne = a ** 2
+            ensembleSolutions = intervalleLaTex(borne, '+\\infty', estInegStrict, true)
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace la courbe d'équation $y=\\sqrt{x}$. <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${a ** 2}$. <br>
-            $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${choix ? 'strictement au dessus de' : ' sur ou au dessus de'} la droite.<br>`
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe la courbe en $${a}^2=${borne}$. <br>
+            $\\bullet$  Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement au dessus de' : ' sur ou au dessus de'} la droite.<br>`
             texteCorr += `${graphiqueC}<br>`
-            texteCorr += `Comme la fonction racine carrée est définie sur $[0\\,;\\,+\\infty[$, l'ensemble des solutions de l'inéquation $\\sqrt{x}${choix ? '>' : ' \\geqslant '}${a}$ est :
-            ${choix ? `$S=]${a ** 2}\\,;\\,+\\infty[$.` : `$S=[${a ** 2}\\,;\\,+\\infty[$.`} `
+            texteCorr += `Comme la fonction racine carrée est définie sur $[0\\,;\\,+\\infty[$, l'ensemble des solutions de l'inéquation $\\sqrt{x}${signeInégalité}${a}$ est : `
           }
           break
       }
+      texteCorr += `$${miseEnEvidence(ensembleSolutions)}$`
+      if (this.interactif) {
+        texte += '<br>$S=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
+      }
+      handleAnswers(this, i, {
+        reponse: {
+          value: ensembleSolutions,
+          compare: fonctionComparaison,
+          options: { intervalle: true }
+        }
+      }, { formatInteractif: 'calcul' })
       if (this.questionJamaisPosee(i, texteCorr)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte

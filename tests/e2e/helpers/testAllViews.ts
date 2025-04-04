@@ -215,6 +215,7 @@ export async function checkEachCombinationOfParams (page: Page, action: (page: P
   if (options?.isFullCombinations) {
     await fullTest(page, form1, form2, form3, form4, form5, action, options?.isFullViews || false)
   } else {
+    console.log('Testing simpleTest')
     await simpleTest(page, form1, form2, form3, form4, form5, action, options?.isFullViews || false)
   }
 }
@@ -306,7 +307,15 @@ async function setParam (page: Page, form: Form, value: string | number | boolea
     await form.locator.selectOption({ value: value.toString() })
   }
   if (form.type === 'text') {
-    await page.locator('#settings-nb-questions-0').fill(value.toString().split('-').length.toString())
+    const locator = page.locator('#settings-nb-questions-0')
+    if (await locator.count() > 0) {
+      // L'élément existe, effectuer une action
+      await locator.fill(value.toString().split('-').length.toString())
+      console.log('L\'élément #settings-nb-questions-0 a été trouvé et rempli.')
+    } else {
+      // L'élément n'existe pas, gérer le cas
+      console.log('L\'élément #settings-nb-questions-0 n\'existe pas.')
+    }
     await form.locator.fill(value.toString())
   }
 }

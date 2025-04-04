@@ -1,8 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import Exercice from '../Exercice'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -51,29 +52,29 @@ export default class MultiplicationMentalDecimaux extends Exercice {
           a = 10 * randint(1, 9) + randint(1, 9)
           b = 10 * randint(1, 9) + randint(1, 9)
           texte += `Calcul : $${a} + ${b}$.`
-          texteCorr += `$${a} + ${b}=${texNombre2(calculANePlusJamaisUtiliser(a + b))}$`
+          texteCorr += `$${a} + ${b}=${texNombre2(arrondi(a + b))}$`
 
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(a + b))}$`,
+              texte: `$${texNombre2(arrondi(a + b))}$`,
               statut: true
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b))}$`,
+              texte: `$${texNombre2(arrondi(a * b))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a + b) / 10))}$`,
+              texte: `$${texNombre2(arrondi((a + b) / 10))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 * (a + b)))}$`,
+              texte: `$${texNombre2(arrondi(10 * (a + b)))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(a + b + 1))}$`,
+              texte: `$${texNombre2(arrondi(a + b + 1))}$`,
               statut: false
             }
           ]
@@ -87,7 +88,7 @@ export default class MultiplicationMentalDecimaux extends Exercice {
           a = 10 * randint(1, 9) + randint(1, 9)
           b = 10 * randint(1, 9) + randint(1, 9)
           texte += `Calcul : $${a} \\times ${b}$.`
-          texteCorr += `$${a} \\times ${b}=${texNombre2(calculANePlusJamaisUtiliser(a * b))}$`
+          texteCorr += `$${a} \\times ${b}=${texNombre2(arrondi(a * b))}$`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -122,28 +123,28 @@ export default class MultiplicationMentalDecimaux extends Exercice {
           a = 1000 * randint(1, 9) + 100 * randint(0, 9, [3, 4, 5, 6, 7]) + 10 * randint(0, 9) + randint(0, 9)
           b = 1000 * randint(1, 9) + 100 * randint(0, 9, [3, 4, 5, 6, 7]) + 10 * randint(0, 9) + randint(0, 9)
           texte += `Calcul : $${texNombre2(a / 100)} + ${texNombre2(b / 100)}$.`
-          texteCorr += ` $${texNombre2(a / 100)} + ${texNombre2(b / 100)}=${texNombre2(calculANePlusJamaisUtiliser(a / 100 + b / 100))}$.`
+          texteCorr += ` $${texNombre2(a / 100)} + ${texNombre2(b / 100)}=${texNombre2(arrondi(a / 100 + b / 100))}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a + b) / 100))}$`,
+              texte: `$${texNombre2(arrondi((a + b) / 100))}$`,
               statut: true
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a * b) / 100))}$`,
+              texte: `$${texNombre2(arrondi((a * b) / 100))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a + b) / 1000))}$`,
+              texte: `$${texNombre2(arrondi((a + b) / 1000))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 * (a + b) / 100))}$`,
+              texte: `$${texNombre2(arrondi(10 * (a + b) / 100))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a + b + 1) / 100))}$`,
+              texte: `$${texNombre2(arrondi((a + b + 1) / 100))}$`,
               statut: false
             }
           ]
@@ -159,28 +160,28 @@ export default class MultiplicationMentalDecimaux extends Exercice {
           a = 1000 * randint(1, 9) + 100 * randint(1, 9, [3, 4, 5, 6, 7]) + 10 * randint(1, 9) + randint(0, 9, [2, 5]) // on évite le 2*5 avec les derniers chiffres
           b = 1000 * randint(1, 9) + 100 * randint(1, 9, [3, 4, 5, 6, 7]) + 10 * randint(1, 9) + randint(0, 9)
           texte += `Calcul : $${texNombre2(a / 100)} \\times ${texNombre2(b / 100)}$.`
-          texteCorr += `$${texNombre2(a / 100)} \\times ${texNombre2(b / 100)}=${texNombre2(calculANePlusJamaisUtiliser(a * b / 10000))}$.`
+          texteCorr += `$${texNombre2(a / 100)} \\times ${texNombre2(b / 100)}=${texNombre2(arrondi(a * b / 10000))}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a * b) / 10000))}$`,
+              texte: `$${texNombre2(arrondi((a * b) / 10000))}$`,
               statut: true
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((10 * a * b) / 10000))}$`,
+              texte: `$${texNombre2(arrondi((10 * a * b) / 10000))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a * b) / 100000))}$`,
+              texte: `$${texNombre2(arrondi((a * b) / 100000))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a + b) / 100))}$`,
+              texte: `$${texNombre2(arrondi((a + b) / 100))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser((a * b + 1) / 10000))}$`,
+              texte: `$${texNombre2(arrondi((a * b + 1) / 10000))}$`,
               statut: false
             }
           ]

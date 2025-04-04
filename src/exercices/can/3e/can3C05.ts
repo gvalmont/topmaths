@@ -1,7 +1,8 @@
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Calculer avec une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,13 +31,13 @@ export default class CalculPuissance10 extends Exercice {
 
   nouvelleVersion () {
     const a = randint(1, 6)
-    const n = calculANePlusJamaisUtiliser(2 * randint(1, 6) + 1) / 2
-    const N = calculANePlusJamaisUtiliser(2 * randint(1, 6, a) + 1) / 2
+    const n = arrondi(2 * randint(1, 6) + 1) / 2
+    const N = arrondi(2 * randint(1, 6, a) + 1) / 2
     const c = randint(1, 3)
     const d = randint(1, 3)
     this.question = `Calculer sous forme décimale $B=${texNombre(n)}\\times 10^{${rienSi1(c)}}+${texNombre(N)}\\times 10^{${rienSi1(d)}}$.`
     this.correction = `$B=${texNombre(n)}\\times 10^{${rienSi1(c)}}+${texNombre(N)}\\times 10^{${rienSi1(d)}}=${texNombre(n * 10 ** c)}+${texNombre(N * 10 ** d)}=${texNombre(n * 10 ** c + N * 10 ** d)}$.`
-    this.reponse = calculANePlusJamaisUtiliser(n * 10 ** c + N * 10 ** d)
+    this.reponse = arrondi(n * 10 ** c + N * 10 ** d)
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

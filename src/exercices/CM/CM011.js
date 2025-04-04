@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { range1 } from '../../lib/outils/nombres'
+import { arrondi, range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -57,7 +57,7 @@ export default class Quart extends Exercice {
           texte = `$\\text{Le quart de }${a * 4 + b}$`
           texteCorr = `$\\text{Le quart de }${a * 4 + b
                     } \\text{ est } ${texNombre(a + b / 4)}$`
-          setReponse(this, i, calculANePlusJamaisUtiliser(a + b / 4))
+          setReponse(this, i, arrondi(a + b / 4))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
         case 3: // Table de 400
@@ -85,7 +85,7 @@ export default class Quart extends Exercice {
           texteCorr = `$\\text{Le quart de }${texNombre(
                         a * 4 + (b * 4) / 100
                     )} \\text{ est } ${texNombre(a + b / 100)}$`
-          setReponse(this, i, calculANePlusJamaisUtiliser(a + b / 100))
+          setReponse(this, i, arrondi(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
       }

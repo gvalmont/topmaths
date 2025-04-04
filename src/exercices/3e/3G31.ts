@@ -91,7 +91,7 @@ export default class CalculDAngle extends Exercice {
 
   nouvelleVersion () {
     let listChoixRapportTrigo: string[] = []
-    for (let i = 0; i < this.nbQuestions; i++) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nom = creerNomDePolygone(3, 'QD')
       let texte = ''
       let texteCorr = ''
@@ -106,7 +106,6 @@ export default class CalculDAngle extends Exercice {
         listChoixRapportTrigo = shuffle(listChoixRapportTrigo)
         choixRapportTrigo = listChoixRapportTrigo.pop() ?? 'Acos'
       }
-
       switch (choixRapportTrigo) {
         case 'Acos': // AB=BCxcos(B)
           bc = arrondi(randint(100, 150) / 10, 1)
@@ -369,7 +368,9 @@ export default class CalculDAngle extends Exercice {
       if (this.questionJamaisPosee(i, nom, choixRapportTrigo)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
+        i++
       }
+      cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }

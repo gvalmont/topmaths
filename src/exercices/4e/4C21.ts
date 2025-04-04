@@ -6,11 +6,12 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Exercice from '../Exercice'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -138,21 +139,21 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
       // a/b(+ou-)c/d = num/den (résultat non simplifié)
       if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
         texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plusOuMoins}${texFractionFromString(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
-        num = calculANePlusJamaisUtiliser(a * k1 + plusOuMoinsUn * c * k2)
+        num = arrondi(a * k1 + plusOuMoinsUn * c * k2)
         den = b * k1
         texteCorr += `=${texFractionFromString(a * k1 + plusOuMoins + ecritureParentheseSiNegatif(c * k2), den)}`
       }
 
       if (typesDeQuestions === 'd_multiple_de_b') {
         texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plusOuMoins}${texFractionFromString(c, d)}`
-        num = calculANePlusJamaisUtiliser(a * k + plusOuMoinsUn * c)
+        num = arrondi(a * k + plusOuMoinsUn * c)
         den = b * k
         texteCorr += `=${texFractionFromString(a * k + plusOuMoins + ecritureParentheseSiNegatif(c), den)}`
       }
 
       if (typesDeQuestions === 'b_multiple_de_d') {
         texteCorr += `=${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
-        num = calculANePlusJamaisUtiliser(a + plusOuMoinsUn * c * k)
+        num = arrondi(a + plusOuMoinsUn * c * k)
         den = b
         texteCorr += `=${texFractionFromString(a + plusOuMoins + ecritureParentheseSiNegatif(c * k), den)}`
       }
@@ -174,7 +175,7 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
           texte = texteCorr + '$'
           texteCorr += `=${texFractionFromString(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFractionFromString(a, b)}`
           texteCorr += `=${texFractionFromString(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
-          num = calculANePlusJamaisUtiliser(n * b + plusOuMoinsUn * a)
+          num = arrondi(n * b + plusOuMoinsUn * a)
         } else {
           // a/b +-n
           if (!this.sup2 && plusOuMoins === '-' && n > a / b) {
@@ -186,7 +187,7 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
           texte += '$'
           texteCorr += `=${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
           texteCorr += `=${texFractionFromString(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
-          num = calculANePlusJamaisUtiliser(a + plusOuMoinsUn * n * b)
+          num = arrondi(a + plusOuMoinsUn * n * b)
         }
         den = b
       }

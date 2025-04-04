@@ -30,10 +30,7 @@
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type { InterfaceParams } from '../../../../../lib/types'
   import { get } from 'svelte/store'
-  import { uuidToLocaleRef } from '../../../../../lib/components/languagesUtils'
-  import { referentielLocale } from '../../../../../lib/stores/languagesStore'
-  import type { Language } from '../../../../../lib/types/languages'
-    import { countMathField } from '../../countMathField';
+  import { countMathField } from '../../countMathField'
 
   export let exercise: Exercice
   export let exerciseIndex: number
@@ -43,29 +40,24 @@
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
-  let interfaceParams: InterfaceParams = get(exercicesParams)[exerciseIndex]
+  /*
+  * MGu Attention interfaceParams est un objet qui est une copie du store, 
+  * donc le mettre à jour directement met à jour le store sans le signaler au subscriber
+  * DE PLUS, si on change l'ordre des exercices OU si on supprime un exercice, exerciseIndex
+  * va devenir faux mais cela n'est pas génant car l'exercice va être destroy...
+  * Cependant, avant un DESTROY, il y aura un beforeupdate et un afterupdate, donc cette variable
+  * peut devenir UNDEFINED ou ERRONEE
+  */
+  let interfaceParams: InterfaceParams | undefined = get(exercicesParams)[exerciseIndex]
   let exercicesNumber: number = get(exercicesParams).length
 
-  // Pour une raison que je n'ai pas su identifier, interfaceParams?.id
-  // est parfois undefined : donc le code qui suit renvoie parfois une chaîne vide
-  //
-  // let id: string = interfaceParams?.id
-  //   ? exercise.id
-  //     ? exercise.id.replace('.js', '').replace('.ts', '')
-  //     : '<foo>'
-  //   : '<bar>'
-  //
-  // Avec la fonction uuidToLocaleRef, on va chercher dans le référentiel de la locale
-  // (ou dans le référentiel français si on ne trouver pas dans le local)
-  // la référence correspondant à l'uuid qui elle ne semble pas undefined
-  // (si c'est le cas, on aura une chaîne vide)
-  const locale: Language = get(referentielLocale)
-  let id: string = uuidToLocaleRef(interfaceParams.uuid, locale)
+  let id : string = (interfaceParams && interfaceParams.id) ? interfaceParams.id : (exercise.id ?? '')
 
-  const subscribeExercicesParamsStore = exercicesParams.subscribe((value) => {
-    if (
-      JSON.stringify(value[exerciseIndex]) !== JSON.stringify(interfaceParams)
-    ) {
+  const subscribeExercicesParamsStore = exercicesParams.subscribe((value) => {   
+    log('new interface') 
+    if (value[exerciseIndex] !== interfaceParams) {
+      // MGu c'est une comparaison par référence
+      log('new interfaceParams subscribe:' + JSON.stringify(interfaceParams))
       interfaceParams = value[exerciseIndex]
     }
     if (exercicesNumber !== value.length) {
@@ -81,6 +73,8 @@
   const interactifReady = exercise.interactifReady
   const exerciceHasNoSettings =
     !exercise.nbQuestionsModifiable &&
+    !exercise.correctionDetailleeDisponible &&
+    !exercise.seed &&
     !exercise.besoinFormulaireCaseACocher &&
     !exercise.besoinFormulaireNumerique &&
     !exercise.besoinFormulaireTexte &&
@@ -122,26 +116,10 @@
 
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
-    if ($globalOptions.v === 'eleve') {
-      headerProps.settingsReady = false
-      headerProps.isSortable = false
-      headerProps.isDeletable = false
-      headerProps.isHidable = false
-      if ($globalOptions.setInteractive === '1') {
-        setAllInteractif()
-      } else if ($globalOptions.setInteractive === '0') {
-        removeAllInteractif()
-      }
-      if (!$globalOptions.isSolutionAccessible) {
-        headerProps.correctionReady = false
-        headerProps.randomReady = false
-      }
-    } else {
-      headerProps.settingsReady = !exerciceHasNoSettings
-      headerProps.isSortable = true
-      headerProps.isDeletable = true
-      headerProps.isHidable = true
-    }
+    headerProps.settingsReady = !exerciceHasNoSettings
+    headerProps.isSortable = true
+    headerProps.isDeletable = true
+    headerProps.isHidable = true
     headerProps.id = id
     headerProps.isInteractif = isInteractif
     headerProps.correctionExists = exercise.listeCorrections.length > 0
@@ -167,23 +145,22 @@
   }
 
   function log (str: string) {
-    const debug = false
+    const debug = new URL(window.location.href).searchParams.get('log') === '1'
     if (debug) {
-      console.info(exerciseIndex)
+      console.info(exerciseIndex, exercise.id)
       console.info(str)
     }
   }
 
   beforeUpdate(async () => {
     log('beforeUpdate:' + exercise.id)
-    numberOfAnswerFields = countMathField(exercise)
-    if (
-      JSON.stringify(get(exercicesParams)[exerciseIndex]) !==
-      JSON.stringify(interfaceParams)
-    ) {
+    if (numberOfAnswerFields !== countMathField(exercise)){
+      numberOfAnswerFields = countMathField(exercise)
+    }
+    if (get(exercicesParams)[exerciseIndex] !== interfaceParams) {
       // interface à changer car un exercice a été supprimé au dessus...
       interfaceParams = get(exercicesParams)[exerciseIndex]
-      log('new interfaceParams:' + interfaceParams)
+      log('new interfaceParams beforeUpdate:' + JSON.stringify(interfaceParams))
       // obliger de charger l'exercice car son numéro à changer, et il faut gérer les id correctement des HTMLElements
       await updateDisplay()
     }
@@ -208,10 +185,7 @@
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
     document.addEventListener('updateAsyncEx', forceUpdate)
-    document.addEventListener(
-      'languageHasChanged',
-      updateExerciceAfterLanguageChange
-    )
+    document.addEventListener('languageHasChanged', updateExerciceAfterLanguageChange)
     await updateDisplay()
   })
 
@@ -226,10 +200,7 @@
     document.removeEventListener('setAllInteractif', setAllInteractif)
     document.removeEventListener('removeAllInteractif', removeAllInteractif)
     document.removeEventListener('updateAsyncEx', forceUpdate)
-    document.removeEventListener(
-      'languageHasChanged',
-      updateExerciceAfterLanguageChange
-    )
+    document.removeEventListener('languageHasChanged', updateExerciceAfterLanguageChange)
     unsubscribeToChangesStore()
     subscribeExercicesParamsStore()
   })
@@ -242,7 +213,7 @@
         await loadMathLive()
         if (exercise?.interactifType === 'cliqueFigure' && !isCorrectionVisible) {
           prepareExerciceCliqueFigure(exercise)
-        }
+        }        
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
         if (
           isLocalStorageAvailable() &&
@@ -258,7 +229,6 @@
       mathaleaRenderDiv(divExercice)
       if (exerciceHasNoSettings) {
         isSettingsVisible = false
-        // headerProps.settingsReady = false
       }
     }
     // Evènement indispensable pour pointCliquable par exemple
@@ -269,6 +239,7 @@
   })
 
   async function newData () {
+    log('newData' + exercise.id)
     if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
       if (
@@ -300,6 +271,9 @@
 
   function handleNewSettings (event: CustomEvent) {
     log('handleNewSettings:' + JSON.stringify(event.detail))
+    if (!interfaceParams) {
+      return
+    }
     if (event.detail.nbQuestions) {
       exercise.nbQuestions = event.detail.nbQuestions
       interfaceParams.nbQuestions = exercise.nbQuestions
@@ -337,7 +311,7 @@
       interfaceParams.cd = exercise.correctionDetaillee ? '1' : '0'
     }
     exercicesParams.update((list) => {
-      list[exerciseIndex] = interfaceParams
+      // interfaceParams a été mis à jour donc le store est à jour
       return list
     })
     if (isExerciceChecked) {
@@ -352,7 +326,7 @@
 
   async function updateDisplay (withNewVersion = true) {
     log('updateDisplay:' + exercise.id)
-    if (exercise == null) return
+    if (exercise === null || interfaceParams === undefined || exercise.uuid !== interfaceParams.uuid) return
     if (
       exercise.seed === undefined &&
       typeof exercise.applyNewSeed === 'function'
@@ -364,35 +338,38 @@
       mathaleaHandleExerciceSimple(exercise, Boolean(isInteractif))
     }
     exercise.interactif = isInteractif
-    if (!interfaceParams) {
-      // MGU normalement impossible d'être indéfini...
-      // et pourtant d'après bugsnag ca arrive ici!
-      window.notify('Erreur : interfaceParams non défini', {exercicesParams: get(exercicesParams), exerciseIndex, exercise, interfaceParams})
-    }
     if (interfaceParams.alea !== exercise.seed && exercise.seed !== undefined) {
       // on met à jour le storer seulement si besoin
+      interfaceParams.alea = exercise.seed
+      log('interfaceParams.alea updated' + interfaceParams.alea)
       exercicesParams.update((list) => {
-        list[exerciseIndex].alea = exercise.seed
+        // interfaceParams a été mis à jour donc le store est à jour
         return list
       })
     }
     if (interfaceParams.interactif !== (isInteractif ? '1' : '0')) {
       // on met à jour le storer seulement si besoin
+      interfaceParams.interactif = (isInteractif ? '1' : '0')
+      log('interfaceParams.interactif updated' + interfaceParams.interactif)
       exercicesParams.update((list) => {
-        list[exerciseIndex].interactif = isInteractif ? '1' : '0'
+        // interfaceParams a été mis à jour donc le store est à jour
         return list
       })
     }
     if (interfaceParams.cols !== columnsCount) {
       // on met à jour le storer seulement si besoin
       if (columnsCount === 1 && interfaceParams.cols !== undefined) {
+        interfaceParams.cols = undefined
+        log('interfaceParams.cols updated' + interfaceParams.cols)
         exercicesParams.update((list) => {
-          list[exerciseIndex].cols = undefined
+          // interfaceParams a été mis à jour donc le store est à jour
           return list
         })
       } else if (columnsCount > 1 && interfaceParams.cols !== columnsCount) {
+        interfaceParams.cols = columnsCount
+        log('interfaceParams.cols updated' + interfaceParams.cols)
         exercicesParams.update((list) => {
-          list[exerciseIndex].cols = columnsCount
+          // interfaceParams a été mis à jour donc le store est à jour
           return list
         })
       }
@@ -671,7 +648,7 @@
               class="{exercise.listeQuestions.length === 1 ||
               !exercise.listeAvecNumerotation
                 ? 'list-none'
-                : 'numbered-list'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+                : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercise.listeQuestions as item, i (i + '_' + (exercise.seed || ''))}
                 <div

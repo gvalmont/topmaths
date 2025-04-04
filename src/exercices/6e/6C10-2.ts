@@ -3,10 +3,11 @@ import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import Exercice from '../Exercice'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -99,22 +100,22 @@ export default class ExerciceTablesMultiplicationsEtMultiplesDe10 extends Exerci
           feedback: 'Correct !'
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b / 10))}$`,
+          texte: `$${texNombre2(arrondi(a * b / 10))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b * 10))}$`,
+          texte: `$${texNombre2(arrondi(a * b * 10))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b / 100))}$`,
+          texte: `$${texNombre2(arrondi(a * b / 100))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b * 100))}$`,
+          texte: `$${texNombre2(arrondi(a * b * 100))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         }

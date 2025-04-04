@@ -20,7 +20,6 @@ async function test (page: Page) {
     console.log('No screenshots folder to delete')
   }
   await testAllViews(page, { params: `id=${id}` }, callback)
-  await testNanUndefined(page)
   console.warn(`Les captures d'écran sont dans le dossier screenshots/${id}`)
   console.warn('N\'oubliez pas de tester les différents paramètres de votre exercice avec et sans interactivité !')
   return true
@@ -76,6 +75,9 @@ const callback = async (page: Page, description: string, view: View, variation: 
       await compileLaTeX(page, description, view, variation, latex)
     } else {
       await displayCorrection(page, scenario, 0)
+      if (view === 'apercu') {
+        await testNanUndefined(page)
+      }
       await action(page, description, view, variation)
     }
   }
@@ -262,12 +264,12 @@ async function runShellCommand (command: string): Promise<void> {
 
 async function testNanUndefined (page: Page) {
   for (let i = 0; i < 10; i++) {
-    const NaNLocators = await page.locator('text=NaN').all()
-    const undefinedLocators = await page.locator('text=undefined').all()
+    const NaNLocators = await page.locator('text=/\\bNaN\\b/').all()
+    const undefinedLocators = await page.locator('text=/\\bundefined\\b/').all()
     if (NaNLocators.length > 0 || undefinedLocators.length > 0) {
-      await action(page, `NanUndefined ${getTimeStamp()}`, 'start', '', `NaN-undefined-${i + 1}`)
+      await action(page, `${getTimeStamp()}`, 'apercu', '', `testNaNUndefined-${i + 1}`)
     }
-    await page.locator('.bx-refresh.text-3xl').click()
+    await page.locator('.bx-refresh').click()
   }
 }
 

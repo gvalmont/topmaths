@@ -378,7 +378,7 @@ export default class DomaineDeDefinition extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case '1/q':
           {
-            const domLatexP = this.convertDomainToLatex(this.computeDomainePolynome('sqrt', p, racinesP))
+            const domLatexQ = this.convertDomainToLatex(this.computeDomainePolynome('inverse', q, racinesQ))
 
             texte += `\\dfrac{1}{${stringQ}}$`
             texteCorr += `La condition sur le domaine de définition est la suivante \\[${stringQ}\\neq 0,\\] car le dénominateur d'une fraction ne peut pas valoir $0$. `
@@ -388,7 +388,7 @@ export default class DomaineDeDefinition extends Exercice {
               texteCorr += `La valeur qui annule $${stringQ}$ est $${racinesQ.map(item => item.texFractionSimplifiee).join(',')}.$ `
             }
             texteCorr += `Ainsi, le domaine de définition est donné par
-          \\[D_f=${miseEnEvidence(domLatexP)}\\]` }
+          \\[D_f=${miseEnEvidence(domLatexQ)}\\]` }
           break
         case 'p/q':{
           const domLatexQ = this.convertDomainToLatex(this.computeDomainePolynome('inverse', q, racinesQ))

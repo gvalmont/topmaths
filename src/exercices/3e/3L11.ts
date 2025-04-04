@@ -87,7 +87,12 @@ export default class ExerciceDevelopper extends Exercice {
 
     const couleurCorrection = this.sup2 === 1 ? ['#f15929', 'blue'] : ['blue', '#f15929']
 
-    for (let i = 0, texte, texteCorr, reponse, reponseDev, reponseRed, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse:string, reponseDev:string, reponseRed:string, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      texte = ''
+      texteCorr = ''
+      reponse = ''
+      reponseDev = ''
+      reponseRed = ''
       const typesDeQuestions = listeTypeDeQuestions[i]
       const k = randint(2, 11) * (this.sup === 3 ? choice([-1, 1]) : 1)
       const a = randint(1, 9, [Math.abs(k)]) * (this.sup >= 2 ? choice([-1, 1]) : 1)
@@ -153,7 +158,7 @@ export default class ExerciceDevelopper extends Exercice {
       }
       texteCorr = texte + '<br>'
       texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(reponseDev, couleurCorrection[0])}$`
-      reponse = this.sup2 === 1 ? reponseDev : reponseRed
+      if (this.sup2 === 1) { reponse = reponseDev } else { reponse = reponseRed }
 
       if (this.sup2 === 1) {
         texteCorr += '<br>Ce n\'est pas demandé, ici, mais si on voulait réduire l\'expression, on obtiendrait : <br>'

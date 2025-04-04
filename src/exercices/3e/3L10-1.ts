@@ -50,12 +50,14 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, reponse1, reponse2, reponse3, choixLettre, a, b, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, reponse1, reponse2, reponse3, choixLettre, a, b, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       k = randint(-11, 11, 0)
       a = randint(-9, 9, 0)
       b = randint(-9, 9, 0)
       choixLettre = choice(lettresPossibles)
-      let reponse
+      let reponse = ''
+      let texte = ''
+      let texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
         case 1:
           // k-(ax+b)

@@ -5,12 +5,13 @@ import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
 import FractionEtendue from '../../../modules/FractionEtendue'
 import Grandeur from '../../../modules/Grandeur'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../../lib/outils/nombres'
 
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
@@ -135,7 +136,7 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q2':
           a = randint(2, 50) + 100
           b = randint(50, 99)
-          resultat = calculANePlusJamaisUtiliser(a + b)
+          resultat = arrondi(a + b)
           texte = `$${b} + ${a}$`
           texteCorr = `$${b} + ${a}=${a + b}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -143,7 +144,7 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q3':
           a = randint(2, 50) + 100
           b = randint(50, 99)
-          resultat = calculANePlusJamaisUtiliser(a - b)
+          resultat = arrondi(a - b)
           texte = `$${a} - ${b}$`
           texteCorr = `$${a} - ${b}=${a - b}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -153,7 +154,7 @@ export default class CourseAuxNombres5e extends Exercice {
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
           d = randint(1, 9, [a, b, c])
-          resultat = calculANePlusJamaisUtiliser(10 + (b + d) * 0.1 + c * 0.01)
+          resultat = arrondi(10 + (b + d) * 0.1 + c * 0.01)
           texte = `$${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}$`
           texteCorr = `$${texNombre(a + b * 0.1 + c * 0.01)}+${texNombre(10 - a + d * 0.1)}=${texNombre(10 + (b + d) * 0.1 + c * 0.01)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -163,7 +164,7 @@ export default class CourseAuxNombres5e extends Exercice {
           b = randint(1, 9, a)
           c = randint(3, 7) * 10
           d = randint(10, 15) * 10 - c
-          resultat = calculANePlusJamaisUtiliser(2 * (c + d))
+          resultat = arrondi(2 * (c + d))
           texte = `$${c - a} + ${d + b} + ${c + a} + ${d - b}$`
           texteCorr = `$${c - a} + ${d + b} + ${c + a} + ${d - b} = ${2 * c} + ${2 * d} = ${2 * (c + d)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -172,7 +173,7 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q6':
           a = randint(2, 4)
           b = randint(10, 59)
-          d = calculANePlusJamaisUtiliser(a * 60 + b)
+          d = arrondi(a * 60 + b)
           texte = `Convertir $${d}$ minutes en heures(h) et minutes(min) :`
           texteCorr = `$${d} = ${a} \\times 60 + ${b}$ donc $${d}$ minutes = ${a}h ${b}min`
           setReponse(this, i, `${a}h${b}min`)
@@ -180,31 +181,31 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q7':
           a = randint(1, 10) * 2
           texte = `Le triple d'un nombre vaut ${3 * a}, combien vaut sa moitié ?`
-          texteCorr = `Le nombre est ${a}, sa moitié est ${calculANePlusJamaisUtiliser(a / 2)}.`
-          setReponse(this, i, calculANePlusJamaisUtiliser(a / 2), { formatInteractif: 'calcul' })
+          texteCorr = `Le nombre est ${a}, sa moitié est ${arrondi(a / 2)}.`
+          setReponse(this, i, arrondi(a / 2), { formatInteractif: 'calcul' })
           break
         case 'q8':
           a = randint(1, 9)
           b = randint(1, 9, a)
           c = randint(1, 9, [a, b])
-          d = calculANePlusJamaisUtiliser(a + b * 0.1 + c * 0.01)
-          resultat = calculANePlusJamaisUtiliser(100 * d)
+          d = arrondi(a + b * 0.1 + c * 0.01)
+          resultat = arrondi(100 * d)
           switch (choice([1, 2, 3, 4])) {
             case 1:
               texte = `$4 \\times ${texNombre(d)}\\times 25$`
-              texteCorr = `$4 \\times ${texNombre(d)}\\times 25 = 100 \\times ${texNombre(d)} = ${calculANePlusJamaisUtiliser(100 * d)}$`
+              texteCorr = `$4 \\times ${texNombre(d)}\\times 25 = 100 \\times ${texNombre(d)} = ${arrondi(100 * d)}$`
               break
             case 2:
               texte = `$2 \\times ${texNombre(d)}\\times 50$`
-              texteCorr = `$2 \\times ${texNombre(d)}\\times 50 = 100 \\times ${texNombre(d)} = ${calculANePlusJamaisUtiliser(100 * d)}$`
+              texteCorr = `$2 \\times ${texNombre(d)}\\times 50 = 100 \\times ${texNombre(d)} = ${arrondi(100 * d)}$`
               break
             case 3:
               texte = `$25 \\times ${texNombre(d)}\\times 4$`
-              texteCorr = `$25 \\times ${texNombre(d)}\\times 4 = 100 \\times ${texNombre(d)} = ${calculANePlusJamaisUtiliser(100 * d)}$`
+              texteCorr = `$25 \\times ${texNombre(d)}\\times 4 = 100 \\times ${texNombre(d)} = ${arrondi(100 * d)}$`
               break
             case 4:
               texte = `$50 \\times ${texNombre(d)}\\times 2$`
-              texteCorr = `$50 \\times ${texNombre(d)}\\times 2 = 100 \\times ${texNombre(d)} = ${calculANePlusJamaisUtiliser(100 * d)}$`
+              texteCorr = `$50 \\times ${texNombre(d)}\\times 2 = 100 \\times ${texNombre(d)} = ${arrondi(100 * d)}$`
               break
           }
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -247,7 +248,7 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q13':
           a = randint(2, 4)
           b = randint(10, 59)
-          d = calculANePlusJamaisUtiliser(a * 60 + b)
+          d = arrondi(a * 60 + b)
           texte = `$${a}$ heures et ${b} minutes font combien de minutes ?`
           texteCorr = `$${a}h ${b}min = ${a} \\times 60 + ${b}= ${d}$ donc $${d}$ minutes`
           setReponse(this, i, d)
@@ -256,7 +257,7 @@ export default class CourseAuxNombres5e extends Exercice {
           b = randint(1, 9)
           c = randint(0, 9)
           d = randint(0, 9, [b, c])
-          a = calculANePlusJamaisUtiliser(b * 100 + c * 10 + d)
+          a = arrondi(b * 100 + c * 10 + d)
           resultat = a % 3
           texte = `Quel est le reste de la division de $${a}$ par $3$ ?`
           texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}.`
@@ -274,7 +275,7 @@ export default class CourseAuxNombres5e extends Exercice {
           a = randint(5, 9)
           b = randint(2, 8)
           c = randint(1, 3)
-          resultat = calculANePlusJamaisUtiliser(a * 10 + b + c * 10 + 9)
+          resultat = arrondi(a * 10 + b + c * 10 + 9)
           texte = `$${a * 10 + b} + ${c * 10 + 9}$`
           texteCorr = `$${a * 10 + b} + ${c * 10 + 9}=${a * 10 + b}+${(c + 1) * 10} - 1 = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -293,22 +294,22 @@ export default class CourseAuxNombres5e extends Exercice {
           c = randint(1, 5)
           d = randint(1, 4)
           resultat = d * 10 + b
-          texte = `$${c * 10 + a} + \\dots = ${calculANePlusJamaisUtiliser((c + d) * 10 + b + a)}$`
-          texteCorr = `$${calculANePlusJamaisUtiliser((c + d) * 10 + b + a)} - ${c * 10 + a} = ${resultat}$`
+          texte = `$${c * 10 + a} + \\dots = ${arrondi((c + d) * 10 + b + a)}$`
+          texteCorr = `$${arrondi((c + d) * 10 + b + a)} - ${c * 10 + a} = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q19':
           a = randint(11, 24) * 2 + 1
-          resultat = calculANePlusJamaisUtiliser(a * 5)
+          resultat = arrondi(a * 5)
           texte = `$${a}\\times 5$`
-          texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${calculANePlusJamaisUtiliser(a / 2)}\\times 10 =${resultat}$`
+          texteCorr = `$${a}\\times 5 = ${a} \\div 2 \\times 10 = ${arrondi(a / 2)}\\times 10 =${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
           break
         case 'q20':
           a = randint(0, 7)
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
-          resultat = calculANePlusJamaisUtiliser(c / 50 * b)
+          resultat = arrondi(c / 50 * b)
           texte = `$${texNombre(c / 100)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 100 * b)}$ €, combien coûtent $${texNombre(c / 50)}$ kg de ${fruits[a][0]} ?`
           texteCorr = `$${texNombre(c / 100 * b)} \\times 2 = ${texNombre(resultat)}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -318,7 +319,7 @@ export default class CourseAuxNombres5e extends Exercice {
           b = randint(2, 9)
           c = randint(1, 9)
           d = randint(5, 9) * choice([10, 100])
-          resultat = calculANePlusJamaisUtiliser((a * 100 + b * 10 + c) * d)
+          resultat = arrondi((a * 100 + b * 10 + c) * d)
           texte = `$${texNombre(a * 100 + b * 10 + c)}\\times ${d}$<br> Choisis la bonne réponse sans effectuer précisément le calcul<br>`
           propositions = shuffle([`$${texNombre(resultat)}$`, `$${texNombre(d * 1000 + a * 100 + b * 10 + c)}$`, `$${texNombre((a * 1000 + b * 100 + c) * d)}$`])
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
@@ -328,11 +329,11 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q22':
           a = randint(11, 24) * 10 + randint(0, 9)
           if (choice([true, false])) {
-            resultat = calculANePlusJamaisUtiliser(a / 100)
+            resultat = arrondi(a / 100)
             texte = `Convertir $${a}$ cm en m.`
             texteCorr = `$${a}$ cm $= ${a} / 100$m $=${texNombre(resultat)}$ m`
           } else {
-            resultat = calculANePlusJamaisUtiliser(a / 1000)
+            resultat = arrondi(a / 1000)
             texte = `Convertir $${a}$ mm en m.`
             texteCorr = `$${a}$ mm $= ${a} / 1000$m $=${texNombre(resultat)}$ m`
           }
@@ -341,8 +342,8 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q23':
           a = randint(4, 5)
           c = randint(2, 3)
-          resultat = calculANePlusJamaisUtiliser(randint(2, 9) * 10)
-          b = calculANePlusJamaisUtiliser(resultat * a)
+          resultat = arrondi(randint(2, 9) * 10)
+          b = arrondi(resultat * a)
 
           texte = `$\\dfrac{${c}}{${a}} \\text{ de } ${b} \\text{ L} = \\dots \\text{ L}$`
           texteCorr = `$\\dfrac{${c}}{${a}}$ de $${b}$ L = $${c}\\times \\dfrac{${b}}{${a}}=${c}\\times ${resultat}=${resultat * c}$ L`
@@ -370,7 +371,7 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q26':
           a = randint(2, 9) * 5
           b = randint(2, 9, a) * 10
-          resultat = calculANePlusJamaisUtiliser(a * b / 100)
+          resultat = arrondi(a * b / 100)
           texte = `$${a}\\%$ de $${b}$`
           texteCorr = `$${a}\\%$ de $${b} = ${resultat}$`
           setReponse(this, i, resultat, { formatInteractif: 'calcul' })
@@ -378,9 +379,9 @@ export default class CourseAuxNombres5e extends Exercice {
         case 'q27':
           a = randint(3, 6) * 15
           b = randint(1, 3)
-          resultat = calculANePlusJamaisUtiliser(a * (b + 0.25))
+          resultat = arrondi(a * (b + 0.25))
           texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 20 min`
-          texteCorr = `$${a}\\times ${calculANePlusJamaisUtiliser(b + 0.5)} = ${resultat}$`
+          texteCorr = `$${a}\\times ${arrondi(b + 0.5)} = ${resultat}$`
           setReponse(this, i, new Grandeur(resultat, 'km'), { formatInteractif: 'unites' })
           break
         case 'q28':
@@ -399,7 +400,7 @@ export default class CourseAuxNombres5e extends Exercice {
           a = randint(3, 5) // dénominateur
           b = randint(2, a * 4 - 1) // numérateur
           c = new FractionEtendue(b, a)
-          resultat = calculANePlusJamaisUtiliser(b / a)
+          resultat = arrondi(b / a)
 
           texte = 'Déterminer l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({
             xmin: -1,
@@ -432,10 +433,10 @@ export default class CourseAuxNombres5e extends Exercice {
           break
         case 'q30':
           a = randint(0, 7) // index du fruit
-          b = calculANePlusJamaisUtiliser(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
+          b = arrondi(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
           c = Math.round(randint(fruits[a][2], fruits[a][3]) / 10) // nombre de kg première valeur
           d = randint(2, 6) // nombre de kg supplémentaires
-          resultat = calculANePlusJamaisUtiliser(d * b)
+          resultat = arrondi(d * b)
           texte = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br> $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>Combien coûtent ${d} kg de ces ${fruits[a][0]} ?`
           texteCorr = `$${texPrix((c + d) * b)} € - ${texPrix(c * b)} € =${texPrix(resultat)} €$`
           setReponse(this, i, texPrix(resultat) + '€')

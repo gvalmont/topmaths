@@ -5,8 +5,9 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Calculer une proportion ou appliquer un pourcentage'
 export const interactifReady = true
@@ -108,7 +109,7 @@ export default class Proportions extends Exercice {
                   texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme $${taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont mineures, le nombre de personnes mineures est donné par :`
                   texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
                   texteCorr += `<br>Il y a donc $${miseEnEvidence(texNombre(sous))}$ personnes mineures dans le public.`
-                  reponse = sous
+                  reponse = arrondi(sous)
                   break
                 case 2:
                   texte = `$${texNombre(totale, 0)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes majeures dans le public.`
@@ -117,7 +118,7 @@ export default class Proportions extends Exercice {
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
                   texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(1 - p, 4)} \\times ${texNombre(totale, 0)} = ${texNombre(sous2, 2)}$`
                   texteCorr += `<br>Il y a donc $${miseEnEvidence(texNombre(sous2, 2))}$ personnes majeures dans le public.`
-                  reponse = sous2
+                  reponse = arrondi(sous2)
                   break
               }
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // on mets 4 chiffres même si la plupart des réponses n'en ont que 3 pour ne pas contraindre les réponses
@@ -132,7 +133,7 @@ export default class Proportions extends Exercice {
               x &= ${texNombre(totale, 0)}
               \\end{aligned}$`
               texteCorr += `<br>Il y avait donc $${miseEnEvidence(texNombre(totale, 0))}$ spectateurs.`
-              reponse = totale
+              reponse = arrondi(totale)
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // Le nombre attendu a bien 4 chiffres maxi
               break
             case 'proportion':
@@ -140,7 +141,7 @@ export default class Proportions extends Exercice {
               texte = `Parmi les $${texNombre(totale, 0)}$ spectateurs d'un concert, $${texNombre(sous, 2)}$ ont moins de $18$ ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${miseEnEvidence(taux)}~\\%$ de personnes mineures dans le public.`
-              reponse = taux
+              reponse = arrondi(taux)
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
           }
@@ -171,7 +172,7 @@ export default class Proportions extends Exercice {
               texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme ma participation représente $${taux}~\\%$ de $${texPrix(totale)}$, j'ai donné :`
               texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
               texteCorr += `<br>Ma participation au cadeau est de $${miseEnEvidence(texPrix(sous))}$ €.`
-              reponse = sous
+              reponse = arrondi(sous)
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 } // la participation n'a que 2 chiffres mais on ne contraint pas la réponse
               break
             case 'population-totale':
@@ -184,7 +185,7 @@ export default class Proportions extends Exercice {
               x &= ${texPrix(totale)}
               \\end{aligned}$`
               texteCorr += `<br>Le cadeau coûte $${miseEnEvidence(texPrix(totale))}$ €.`
-              reponse = totale
+              reponse = arrondi(totale)
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
               break
             case 'proportion':
@@ -192,7 +193,7 @@ export default class Proportions extends Exercice {
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion en pourcentage de ma participation sur le prix total du cadeau.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. J'ai donc donné $${miseEnEvidence(taux)}~\\%$ du montant total du cadeau.`
-              reponse = taux
+              reponse = arrondi(taux)
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
           }
@@ -224,7 +225,7 @@ export default class Proportions extends Exercice {
               texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme les ${espèces} représentent $${taux}~\\%$ de $${texNombre(totale, 0)}$, leur nombre est donné par :`
               texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
               texteCorr += `<br>Il y a $${miseEnEvidence(texNombre(sous, 2))}$ ${espèces} dans la réserve.`
-              reponse = sous
+              reponse = arrondi(sous)
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // on mets 4 chiffres même si la plupart des réponses n'en ont que 3 pour ne pas contraindre les réponses
 
               break
@@ -238,7 +239,7 @@ export default class Proportions extends Exercice {
                 x &= ${texNombre(totale, 0)}
                 \\end{aligned}$`
               texteCorr += `<br>Il y a $${miseEnEvidence(texNombre(totale, 0))}$ oiseaux dans la réserve.`
-              reponse = totale
+              reponse = arrondi(totale)
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // population à 4 chiffres (souvent)
 
               break
@@ -247,7 +248,7 @@ export default class Proportions extends Exercice {
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${texNombre(sous, 2)}$ ${espèces}. <br>Calculer la proportion en pourcentage de ${espèces} dans la réserve.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${miseEnEvidence(taux)}~\\%$.`
-              reponse = taux
+              reponse = arrondi(taux)
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
           }
@@ -279,7 +280,7 @@ export default class Proportions extends Exercice {
               texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme il y a  $${taux}\\,\\%$ des $${texNombre(totale, 0)}$ salariés qui sont cadres, le nombre de cadres est donné par :`
               texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
               texteCorr += `<br>Il y a donc  $${miseEnEvidence(texNombre(sous))}$  cadres dans cette entreprise.`
-              reponse = sous
+              reponse = arrondi(sous)
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 } // la participation n'a que 2 chiffres mais on ne contraint pas la réponse
               break
             case 'population-totale':
@@ -292,7 +293,7 @@ export default class Proportions extends Exercice {
                 x &= ${texNombre(totale, 2)}
                 \\end{aligned}$`
               texteCorr += `<br>Le nombre total de salariés dans l'entreprise est $${miseEnEvidence(texNombre(totale))}$.`
-              reponse = totale
+              reponse = arrondi(totale)
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
               break
             case 'proportion':
@@ -300,21 +301,22 @@ export default class Proportions extends Exercice {
               texte = `Dans une entreprise, il y a $${texNombre(totale)}$ salariés au total. Parmi eux, on dénombre  $${texNombre(sous)}$ cadres. <br>Calculer la proportion en pourcentage de cadres dans cette entreprise.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${miseEnEvidence(taux)}\\,\\%$ de cadres dans cette entreprise.`
-              reponse = taux
+              reponse = arrondi(taux)
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 }
               break
           }
           break
       }
-      setReponse(this, i, reponse, paramAMC)
+      if (context.isAmc) setReponse(this, i, reponse, paramAMC)
+      else handleAnswers(this, i, { reponse: { value: reponse.toString() } })
       if (context.isAmc && listeTypeDeQuestions[i] === 'proportion') {
         // @ts-expect-error
         this.autoCorrection[i].reponse.textePosition = 'left'
         // @ts-expect-error
         this.autoCorrection[i].reponse.texte = '\\\\En \\% : '
       }
-      texte += ajouteChampTexteMathLive(this, i, '', { texteApres: listeTypeDeQuestions[i] === 'proportion' ? ' %' : '' })
-      // à cause de ajouteChampTexteMathLive qui inclus un Id unique, toutes les questions sont différentes, comparer les textes ne suffit plus
+      texte += ajouteChampTexteMathLive(this, i, '', { texteApres: listeTypeDeQuestions[i] === 'proportion' ? ' %' : (typesDeSituations[i] === 'cadeau' && listeTypeDeQuestions[i] !== 'proportion' ? '€' : '') })
+
       if (this.questionJamaisPosee(i, taux, totale, sous)) { // on utilise donc cette fonction basée sur les variables aléatoires pour éviter les doublons
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

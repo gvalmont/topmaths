@@ -60,7 +60,7 @@ export default class ExerciceAdditionsSoustractionRelatifsV2 extends Exercice {
     } else if (this.sup2 === true) {
       this.sup2 = 4
     }
-    this.consigne = this.interactif ? 'Calculer.' : 'Calculer, en détaillant les calculs.'
+    this.consigne = this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Calculer, en détaillant les calculs.'
     let relatifs
     let sommesSignees
     for (let i = 0, a, b, c, d, e, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles

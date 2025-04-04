@@ -17,6 +17,6 @@ export default class ExercicePourcentage5e extends ExercicePourcentage {
     super()
 
     this.sup = 1
-    this.besoinFormulaireNumerique = []
+    this.besoinFormulaireNumerique = false
   }
 }

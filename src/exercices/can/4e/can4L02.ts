@@ -16,6 +16,6 @@ export default class UneEquationMoyenne extends ExerciceEquationASolutionEntiere
     this.correctionDetaillee = false
     this.sup = false
     this.sup2 = 2
-    this.consigne = 'Résoudre l’équation :'
+    this.consigne = 'Résoudre l\'équation :'
   }
 }

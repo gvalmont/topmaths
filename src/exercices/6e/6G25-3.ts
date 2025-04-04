@@ -122,21 +122,7 @@ export default class PavageEtReflexion2d extends Exercice {
         return true
       } else return false
     }
-    /*     let associesommets=function(poly1,poly2,d){ //Pour chercher les indices des symétriques dans leur polygone respectif
-            let binomes=[],P,M
-            for (let k=0;k<poly1.listePoints.length;k++) { // afin éventuellement de faire clignoter ces paires de points lors de la correction
-              P=symetrieAxiale(poly1.listePoints[k],d)
-              for (let l=0;l<poly2.listePoints.length;l++) {
-                M=poly2.listePoints[l]
-                if (compare2sommets(M,P)) {
-                  binomes.push([k,l])
-                  break
-                }
-              }
-            }
-            return binomes
-          }
-      */
+
     const refleccion = function (pavage: Pavage, d: Droite | Mediatrice, numero: number) { // retourne le numero du polygone symétrique ou -1 si il n'existe pas
       const poly = pavage.polygones[numero - 1]
       let pol
@@ -210,15 +196,17 @@ export default class PavageEtReflexion2d extends Exercice {
           B = monpavage.polygones[index2].listePoints[randint(0, 2)] // mais à la sortie du While A!=B
         }
         d = mediatrice(A, B, '', 'red')// l'axe sera la droite passant par ces deux points si ça fonctionne
-        d.epaisseur = 3
-        for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
-          image = refleccion(monpavage, d, i)
-          if (image !== -1) { // si l'image du polygone i existe, on ajoute le couple à la liste
-            couples.push([i, image])
+        if (!isNaN(d.pente) && d.pente !== 0) {
+          d.epaisseur = 3
+          for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
+            image = refleccion(monpavage, d, i)
+            if (image !== -1) { // si l'image du polygone i existe, on ajoute le couple à la liste
+              couples.push([i, image])
+            }
           }
+          couples = videcouples(couples) // supprime tous les couples en double (x,y)=(y,x)
+          nombreTentatives++
         }
-        couples = videcouples(couples) // supprime tous les couples en double (x,y)=(y,x)
-        nombreTentatives++
       }
       if (couples.length < this.nbQuestions) {
         if (this.sup3 === 7) {

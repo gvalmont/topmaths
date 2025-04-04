@@ -2,6 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
+import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Calculer astucieusement avec une factorisation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -42,7 +43,7 @@ ${texNombre(b)}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}&=${texNombre(
 &=${texNombre(a)}\\times 100\\\\
 &=${texNombre(100 * a)}
 \\end{aligned}$`
-        this.reponse = 100 * a
+        this.reponse = arrondi(100 * a)
         break
 
       case 'b':
@@ -75,7 +76,7 @@ ${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=$
 &=${texNombre(a)}\\times ${d}\\\\
 &=${texNombre(d * a)}
 \\end{aligned}$`
-        this.reponse = d * a
+        this.reponse = arrondi(d * a)
         break
       case 'd':
         a = randint(5, 99) / 100
@@ -90,7 +91,7 @@ ${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=$
             &=${texNombre(a)}\\times 10\\\\
             &=${texNombre(10 * a)}
             \\end{aligned}$`
-        this.reponse = 10 * a
+        this.reponse = arrondi(10 * a)
         break
       case 'e':
         a = randint(1, 12) * 10

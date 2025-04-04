@@ -49,7 +49,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
     this.sup2 = false // écriture simplifiée
     this.sup3 = false // nombres décimaux
 
-    this.consigne = 'Calculer.'
+    this.consigne = this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Calculer.'
     this.nbCols = 3
     this.nbColsCorr = 2
     this.correctionDetailleeDisponible = true

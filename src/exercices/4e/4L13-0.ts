@@ -2,18 +2,19 @@ import { afficheCoteSegment, codageCarre, codageSegments } from '../../lib/2d/co
 import { point } from '../../lib/2d/points'
 import { nommePolygone, polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne'
 import Exercice from '../Exercice'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
+export const dateDeModifImportante = '28/03/2025'
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue afin de mettre en équation un problème
  * à partir de figure géométriques élémentaires
- * @author Sébastien Lozano
+ * @author Sébastien Lozano (EE : Rajout de paramètres, aléatoirisation des sommets, meilleure colorisation de la correction...)
  */
 export const uuid = '5a6f2'
 
@@ -32,61 +33,73 @@ const myPolyName = function (n: number) {
     case 3:
       sortie.article = 'du '
       sortie.name = 'triangle équilatéral'
-      sortie.nameParSommets = 'ABC'
       break
     case 4:
       sortie.article = 'du '
       sortie.name = 'carré'
-      sortie.nameParSommets = 'ABCD'
       break
     case 5:
       sortie.article = 'du '
       sortie.name = 'pentagone régulier'
-      sortie.nameParSommets = 'ABCDE'
       break
     case 6:
       sortie.article = 'de l\''
       sortie.name = 'hexagone régulier'
-      sortie.nameParSommets = 'ABCDEF'
       break
     case 7:
       sortie.article = 'de l\''
       sortie.name = 'heptagone régulier'
-      sortie.nameParSommets = 'ABCDEFG'
       break
     case 8:
     default:
       sortie.article = 'de l\''
       sortie.name = 'octogone régulier'
-      sortie.nameParSommets = 'ABCDEFGH'
       break
   }
+  sortie.nameParSommets = creerNomDePolygone(n, ['O', 'Q', 'X'])
   return sortie
 }
 
 export default class MettreEnEquationSansResoudre extends Exercice {
   constructor () {
     super()
+    this.besoinFormulaireTexte = [
+      'Type de polygones', [
+        'Nombres séparés par des tirets  :',
+        '1 : Triangle',
+        '2 : Quadrilatère',
+        '3 : Pentagone',
+        '4 : Hexagone',
+        '5 : Heptagone',
+        '6 : Octogone',
+        '7 : Mélange'
+      ].join('\n')
+    ]
 
-    this.sup = 1
+    this.sup = 7
     this.nbQuestions = 2
 
     this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2]
-
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 6,
+      melange: 7,
+      defaut: 7,
+      nbQuestions: this.nbQuestions
+    })
 
     const variables = ['t', 'u', 'v', 'w', 'y', 'z']
     const unites = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour dire le nom du polygone
 
       // on choisit le nombre de côtés su polygone
-      const n = randint(3, 8)
+      const n = Number(typesDeQuestionsDisponibles[i]) + 2
       // on choisit un nom pour la variable
       const inc = variables[randint(0, variables.length - 1)]
       // on choisit une unité
@@ -142,42 +155,16 @@ export default class MettreEnEquationSansResoudre extends Exercice {
         Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
         D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ ${polygone.unite}.<br>
         L'équation suivante permet donc de résoudre le problème : <br>
-        ${texteEnCouleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
+        $${miseEnEvidence(`${polygone.nb_cotes}\\times ${polygone.let_cote} = ${polygone.perimetre}`)}$.`
       })
-      // pour être sûr d'avoir deux figures différentes
-      const p = randint(3, 8, [n])
-      polygone.nb_cotes = p
-      enonces.push({
-        enonce: `On considère la figure suivante où l'unité est le ${polygone.unite}.<br>${prenom()} se demande pour quelle valeur de $${polygone.let_cote}$, exprimée en ${polygone.unite}, le périmètre ${polygone.article}${polygone.nom} est égal à $${polygone.perimetre}$ ${polygone.unite} .<br> ${polygone.fig}`,
-        question: '',
-        correction: `La figure est un ${polygone.nom}, il a donc ${polygone.nb_cotes} côtés de même longueur.<br>
-        Cette longueur est notée ${polygone.let_cote}, le périmètre de la figure, exprimé en fonction de ${polygone.let_cote}, vaut donc $${polygone.nb_cotes}\\times$ ${polygone.let_cote}.<br>
-        D'après l'énoncé, ce périmètre vaut $${polygone.perimetre}$ ${polygone.unite}.<br>
-        L'équation suivante permet donc de résoudre le problème : <br>
-        ${texteEnCouleur(`$${polygone.nb_cotes}\\times$ ${polygone.let_cote} $= ${polygone.perimetre}$.`)}`
-      })
-
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          texteCorr = `${enonces[0].correction}`
-          break
-        case 2:
-        default:
-          texte = `${enonces[1].enonce}`
-          texteCorr = `${enonces[1].correction}`
-          break
-      }
 
       if (this.questionJamaisPosee(i, n, inc)) { // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
+        this.listeQuestions[i] = `${enonces[0].enonce}`
+        this.listeCorrections[i] = `${enonces[0].correction}`
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }
