@@ -21,14 +21,18 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 
 @mixin interactive($main-color, $dark-color, $filter, $dark-filter: $filter) {
   color: $main-color;
+
   .is-icon {
     filter: $filter;
   }
+
   .dark & {
     color: $dark-color;
+
     .is-icon {
       filter: $dark-filter;
     }
+
     &:hover,
     &:focus {
       filter: drop-shadow(0 0 0.7rem $dark-color);
@@ -39,65 +43,81 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 @mixin theme-style($class-name, $main-color, $light-color, $filter, $dark-color: $main-color) {
   $main-color-transparent: mix(rgba($main-color, 0), $main-color, 85%);
   $dark-color-transparent: mix(rgba($dark-color, 0), $dark-color, 85%);
+
   .#{$class-name} {
     border-color: $main-color;
+
     .dark & {
       border-color: $dark-color;
     }
+
     .is-interactive,
     &.is-interactive {
       @include interactive($main-color, $dark-color, $filter);
     }
+
     .title {
       color: white;
       background-color: $main-color;
       font-weight: 600;
       padding: 1rem 1rem 0.5rem;
+
       .is-interactive {
         @include interactive(white, $dark-color, $white-filter, $filter);
       }
+
       .dark & {
         color: $dark-color;
         background-color: $dark-color-transparent;
       }
     }
+
     .subtitle {
       color: white;
       background-color: $main-color;
       font-weight: 550;
       padding: 0.5rem 1rem;
+
       .is-interactive {
         @include interactive(white, $dark-color, $white-filter, $filter);
       }
+
       .dark & {
         color: $dark-color;
         background: linear-gradient(to top, $topmathsdark-canvas-default -40%, $dark-color-transparent 100%);
       }
     }
+
     .tooltiptext {
       color: $main-color;
       background-color: $light-color;
       border: 1px solid $main-color;
+
       .dark & {
         color: $dark-color;
         background-color: $topmathsdark-canvas-default;
         border: 1px solid $dark-color;
       }
     }
+
     &.grade-container {
       background-color: $light-color;
+
       .dark & {
         background-color: $topmathsdark-canvas-default;
         border: 1px solid $dark-color;
       }
     }
+
     &.button {
       color: $main-color;
+
       &:focus,
       &:hover,
       &.is-active {
         color: white;
         background-color: $main-color;
+
         .dark & {
           color: $dark-color;
           border-color: $dark-color;
@@ -106,22 +126,28 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
           filter: drop-shadow(0 0 0.15em $dark-color) drop-shadow(0 0 0.3em $dark-color);
         }
       }
+
       &.is-light {
         background-color: $light-color;
+
         &:focus,
         &:hover,
         &.is-active {
           background-color: $main-color;
         }
+
         .dark & {
           background-color: $topmathsdark-canvas-default;
         }
       }
+
       img {
         filter: $filter;
       }
+
       &.is-active img {
         filter: $white-filter;
+
         .dark & {
           filter: $filter drop-shadow(0 0 0.4em $main-color);
         }
