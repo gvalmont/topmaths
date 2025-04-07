@@ -1,17 +1,17 @@
 #vocabulaire()[
-  Pour écrire un nombre entier, on dispose de dix chiffres : 0, 1, 2, 3, 4, 5, 6, 7, 8 et 9.#linebreak()
+  Pour écrire un nombre entier, on dispose de dix chiffres : 0, 1, 2, 3, 4, 5, 6, 7, 8 et 9.\
   C'est pour cela que notre système de numération est appelé système décimal (déci veut dire 10).
 ]
 #exemple()[
   Les nombres 2020 et 2002 sont écrits avec les mêmes chiffres (0 et 2) mais dans un ordre différent.
 ]
 #remarque()[
-  #attention() Attention à ne pas confondre chiffre et nombre !]#linebreak()
-  Ce sont les nombres qu’on additionne, qu’on soustrait, qu’on multiplie, qu’on divise, qu’on range etc. #rouge()[Les chiffres ne sont que des symboles] qui servent à les écrire !#linebreak()
-  Par exemple on peut écrire le même calcul avec des chiffres arabes, des chiffres romains ou encore des sinogrammes (symboles chinois) :#linebreak()
-  $1 + 2 = 3$#linebreak()
-  #text(font: "STIX Two Text")[I + II = III]#linebreak()
-  一 + 二 = 三#linebreak()
+  #attention() Attention à ne pas confondre chiffre et nombre !\
+  Ce sont les nombres qu’on additionne, qu’on soustrait, qu’on multiplie, qu’on divise, qu’on range etc. #rouge()[Les chiffres ne sont que des symboles] qui servent à les écrire !\
+  Par exemple on peut écrire le même calcul avec des chiffres arabes, des chiffres romains ou encore des sinogrammes (symboles chinois) :\
+  $1 + 2 = 3$\
+  #text(font: "STIX Two Text")[I + II = III]\
+  一 + 二 = 三\
   Ce sont les mêmes calculs écrits avec les mêmes nombres mais avec des chiffres différents. Ils se lisent de la même façon : un plus deux égale trois.
 ]
 #regle()[
@@ -37,5 +37,5 @@
   - 200 s’écrit deux-cen#rouge()[ts] mais 201 s’écrit deux-cen#rouge()[t]-un.
   - 3000 s’écrit trois-mill#rouge()[e] et 3900 s’écrit trois-mill#rouge()[e]-neuf-cents.
   - 1 000 000 s’écrit un million, 2 000 000 s’écrit deux-million#rouge()[s] et 3 000 100 s’écrit trois-million#rouge()[s]-cent.
-  - 3 000 000 000 s’écrit Trois-milliard#rouge()[s]	3 400 000 000 s’écrit Trois-milliard#rouge()[s]-quatre-cent-millions.
+  - 3 000 000 000 s’écrit Trois-milliard#rouge()[s] 3 400 000 000 s’écrit Trois-milliard#rouge()[s]-quatre-cent-millions.
 ]
