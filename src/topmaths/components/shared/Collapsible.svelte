@@ -52,7 +52,7 @@
 </div>
 
 <style lang="scss">
-  @import '../../styles/tailwind-colors.scss';
+  @use '../../styles/tailwind-colors.scss';
 
   .collapsible {
     cursor: pointer;
@@ -77,7 +77,7 @@
     transform: rotate(0deg);
     transition: transform 0.3s ease-out;
     :global(.dark) & {
-      filter: $topmathsdark-filter;
+      filter: tailwind-colors.$topmathsdark-filter;
     }
   } button.active img {
       transform: rotate(135deg);

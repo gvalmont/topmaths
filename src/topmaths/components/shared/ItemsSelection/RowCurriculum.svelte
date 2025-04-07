@@ -45,20 +45,20 @@
 </div>
 
 <style lang="scss">
-  @import '../../../styles/tailwind-colors.scss';
+  @use '../../../styles/tailwind-colors.scss';
 
   @mixin theme-style($class-name, $main-color, $light-color) {
     .#{$class-name} {
       background-color: #{$light-color};
         a {
-          color: $topmaths-corpus-default;
+          color: tailwind-colors.$topmaths-corpus-default;
           text-decoration: underline;
           :global(.dark) & {
             color: #{$main-color};
           }
         }
       :global(.dark) & {
-        background-color: $topmathsdark-canvas-default;
+        background-color: tailwind-colors.$topmathsdark-canvas-default;
         color: #{$main-color};
       }
     }

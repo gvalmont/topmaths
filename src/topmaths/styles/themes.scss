@@ -1,4 +1,5 @@
-@import './tailwind-colors.scss';
+@use "sass:color";
+@use 'tailwind-colors.scss';
 
 $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
 
@@ -41,8 +42,8 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 }
 
 @mixin theme-style($class-name, $main-color, $light-color, $filter, $dark-color: $main-color) {
-  $main-color-transparent: mix(rgba($main-color, 0), $main-color, 85%);
-  $dark-color-transparent: mix(rgba($dark-color, 0), $dark-color, 85%);
+  $main-color-transparent: color.mix(rgba($main-color, 0), $main-color, 85%);
+  $dark-color-transparent: color.mix(rgba($dark-color, 0), $dark-color, 85%);
 
   .#{$class-name} {
     border-color: $main-color;
@@ -84,7 +85,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 
       .dark & {
         color: $dark-color;
-        background: linear-gradient(to top, $topmathsdark-canvas-default -40%, $dark-color-transparent 100%);
+        background: linear-gradient(to top, tailwind-colors.$topmathsdark-canvas-default -40%, $dark-color-transparent 100%);
       }
     }
 
@@ -95,7 +96,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 
       .dark & {
         color: $dark-color;
-        background-color: $topmathsdark-canvas-default;
+        background-color: tailwind-colors.$topmathsdark-canvas-default;
         border: 1px solid $dark-color;
       }
     }
@@ -104,7 +105,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
       background-color: $light-color;
 
       .dark & {
-        background-color: $topmathsdark-canvas-default;
+        background-color: tailwind-colors.$topmathsdark-canvas-default;
         border: 1px solid $dark-color;
       }
     }
@@ -121,7 +122,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
         .dark & {
           color: $dark-color;
           border-color: $dark-color;
-          background-color: $topmathsdark-canvas-default;
+          background-color: tailwind-colors.$topmathsdark-canvas-default;
           text-shadow: 0 0 0.7rem $dark-color;
           filter: drop-shadow(0 0 0.15em $dark-color) drop-shadow(0 0 0.3em $dark-color);
         }
@@ -137,7 +138,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
         }
 
         .dark & {
-          background-color: $topmathsdark-canvas-default;
+          background-color: tailwind-colors.$topmathsdark-canvas-default;
         }
       }
 
@@ -158,23 +159,23 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 
 // Keep $class-name in sync with src/topmaths/types/grade.ts StringGrade
 // Keep $main-color in sync with index.html .spinner div:nth-child()
-@include theme-style('is-6e', $is-6e-default, $is-6e-light, $is-6e-filter);
-@include theme-style('is-5e', $is-5e-default, $is-5e-light, $is-5e-filter);
-@include theme-style('is-4e', $is-4e-default, $is-4e-light, $is-4e-filter);
-@include theme-style('is-3e', $is-3e-default, $is-3e-light, $is-3e-filter);
-@include theme-style('is-tout', $is-tout-default, $is-tout-light, $is-tout-filter);
+@include theme-style('is-6e', tailwind-colors.$is-6e-default, tailwind-colors.$is-6e-light, tailwind-colors.$is-6e-filter);
+@include theme-style('is-5e', tailwind-colors.$is-5e-default, tailwind-colors.$is-5e-light, tailwind-colors.$is-5e-filter);
+@include theme-style('is-4e', tailwind-colors.$is-4e-default, tailwind-colors.$is-4e-light, tailwind-colors.$is-4e-filter);
+@include theme-style('is-3e', tailwind-colors.$is-3e-default, tailwind-colors.$is-3e-light, tailwind-colors.$is-3e-filter);
+@include theme-style('is-tout', tailwind-colors.$is-tout-default, tailwind-colors.$is-tout-light, tailwind-colors.$is-tout-filter);
 // end of sync
 
 // Keep $class-name in sync src/topmaths/types/color.ts ButtonColor
-@include theme-style('is-topmaths', $topmaths-default, $topmaths-light, $topmaths-filter, $topmathsdark-default);
-@include theme-style('is-sponsor', $is-sponsor-default, $is-sponsor-light, $is-sponsor-filter);
-@include theme-style('is-fuchsia', $is-fuchsia-default, $is-fuchsia-light, $is-fuchsia-filter);
-@include theme-style('is-green', $is-green-default, $is-green-light, $is-green-filter);
-@include theme-style('is-link', $is-link-default, $is-link-light, $is-link-filter);
-@include theme-style('is-info', $is-info-default, $is-info-light, $is-info-filter);
-@include theme-style('is-warning', $is-warning-default, $is-warning-light, $is-warning-filter);
-@include theme-style('is-danger', $is-danger-default, $is-danger-light, $is-danger-filter);
-@include theme-style('is-purple', $is-purple-default, $is-purple-light, $is-purple-filter);
-@include theme-style('is-info-darker', $is-info-darker-default, $is-info-darker-default, $is-info-darker-filter);
-@include theme-style('is-coopmaths', $is-coopmaths-default, $is-coopmaths-light, $is-coopmaths-filter);
+@include theme-style('is-topmaths', tailwind-colors.$topmaths-default, tailwind-colors.$topmaths-light, tailwind-colors.$topmaths-filter, tailwind-colors.$topmathsdark-default);
+@include theme-style('is-sponsor', tailwind-colors.$is-sponsor-default, tailwind-colors.$is-sponsor-light, tailwind-colors.$is-sponsor-filter);
+@include theme-style('is-fuchsia', tailwind-colors.$is-fuchsia-default, tailwind-colors.$is-fuchsia-light, tailwind-colors.$is-fuchsia-filter);
+@include theme-style('is-green', tailwind-colors.$is-green-default, tailwind-colors.$is-green-light, tailwind-colors.$is-green-filter);
+@include theme-style('is-link', tailwind-colors.$is-link-default, tailwind-colors.$is-link-light, tailwind-colors.$is-link-filter);
+@include theme-style('is-info', tailwind-colors.$is-info-default, tailwind-colors.$is-info-light, tailwind-colors.$is-info-filter);
+@include theme-style('is-warning', tailwind-colors.$is-warning-default, tailwind-colors.$is-warning-light, tailwind-colors.$is-warning-filter);
+@include theme-style('is-danger', tailwind-colors.$is-danger-default, tailwind-colors.$is-danger-light, tailwind-colors.$is-danger-filter);
+@include theme-style('is-purple', tailwind-colors.$is-purple-default, tailwind-colors.$is-purple-light, tailwind-colors.$is-purple-filter);
+@include theme-style('is-info-darker', tailwind-colors.$is-info-darker-default, tailwind-colors.$is-info-darker-default, tailwind-colors.$is-info-darker-filter);
+@include theme-style('is-coopmaths', tailwind-colors.$is-coopmaths-default, tailwind-colors.$is-coopmaths-light, tailwind-colors.$is-coopmaths-filter);
 // end of sync

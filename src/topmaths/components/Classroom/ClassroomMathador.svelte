@@ -428,7 +428,7 @@
 </audio>
 
 <style lang="scss">
-  @import '../../styles/tailwind-colors.scss';
+  @use '../../styles/tailwind-colors.scss';
   .carte {
     width: 35px;
     height: 45px;
@@ -456,10 +456,10 @@
   }
 
   #points-info-background {
-    background-color: $topmaths-canvas-default;
+    background-color: tailwind-colors.$topmaths-canvas-default;
     opacity: 0%;
     :global(.dark) & {
-      background-color: $topmathsdark-canvas-default;
+      background-color: tailwind-colors.$topmathsdark-canvas-default;
     }
   }
 

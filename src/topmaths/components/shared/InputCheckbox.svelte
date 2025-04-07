@@ -22,10 +22,10 @@
 </label>
 
 <style lang="scss">
-  @import '../../styles/tailwind-colors.scss';
+  @use '../../styles/tailwind-colors.scss';
   .custom-checkbox {
     input:checked + span {
-      background-color: $is-link-default;
+      background-color: tailwind-colors.$is-link-default;
 
       &::after {
         display: block;
