@@ -299,7 +299,7 @@ export function regroupeTermesMemeDegre (exp, options) {
  * @param {{isColored: boolean, colorOffset: number, level: 0|1}} options
  * @return {string}
  */
-export function developpe (expr: string, options:{ isColored: boolean, colorOffset: number, level: 0 | 1 | 2 }): string {
+export function developpe (expr: string, options:{ isColored: boolean, colorOffset?: number, level?: 0 | 1 | 2 }): string {
   const isColored = options?.isColored
   const colorOffset = options.colorOffset ?? 0
   const level = options?.level ?? 0

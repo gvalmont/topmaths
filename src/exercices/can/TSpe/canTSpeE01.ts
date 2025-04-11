@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 
 /**
  *
- * @author
+ * @author Stéphane Guyon
 */
 
 export const uuid = '8977b'

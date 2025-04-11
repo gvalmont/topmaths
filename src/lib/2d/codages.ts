@@ -7,7 +7,7 @@ import { arc } from './cercle'
 import { Droite, droite, mediatrice } from './droites'
 import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs'
-import { Latex2d, latex2d, latexParCoordonnees, TexteParPoint, texteParPoint, type LetterSizeType } from './textes'
+import { Latex2d, latex2d, latexParCoordonnees, tailleDeNbVersLatex, TexteParPoint, texteParPoint, type LetterSizeType } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import type { Polygone } from './polygones'
 
@@ -942,7 +942,7 @@ export class CodageAngle extends ObjetMathalea2D {
     const P = rotation(depart, this.centre, this.angle / 2)
     const M = pointSurSegment(this.centre, P, this.taille + 0.6 * 20 / context.pixelsParCm)
     const d = droite(this.centre, P)
-    const mesure = arrondi(Math.abs(this.angle), this.angleArrondi) + '°'
+    const mesure = arrondi(Math.abs(this.angle), this.angleArrondi) + '^\\circ'
     const arcangle = arc(depart, this.centre, this.angle, couleurDeRemplissage !== 'none', couleurDeRemplissage, color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
@@ -953,13 +953,12 @@ export class CodageAngle extends ObjetMathalea2D {
       this.objets.push(t)
     }
     if (mesureOn && texteACote === '') {
-      const t = texteParPoint(mesure, M, 0, color, this.tailleTexte)
+      const t = latex2d(mesure, M.x + 0.2, M.y, { color, letterSize: tailleDeNbVersLatex(this.taille) })
       this.objets.push(t)
     } else if (texteACote !== '') {
       if (texteACote.includes('$')) {
         M.positionLabel = 'center'
         const label = latex2d(texteACote.substring(1, texteACote.length - 1), M.x, M.y, { color, backgroundColor: 'none' })
-        //  label.colorBackground = colorToLatexOrHTML('transparent') // transparent
         this.objets.push(label)
       } else this.objets.push(texteParPoint(texteACote, M, 0, color, this.tailleTexte))
     }

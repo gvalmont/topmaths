@@ -14,7 +14,7 @@ export const titre = 'Affirmations sur les primitives'
 export const dateDePublication = '26/03/2025'
 
 /*
-* @author
+ @author Stéphane Guyon
 */
 export default class VraiFauxSuites extends ExerciceVraiFaux {
   constructor () {
@@ -62,7 +62,7 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
         correction: 'Faux. Une primitive de $\\dfrac{1}{u^2}$ sur $I$ est $-\\dfrac1u$.'
       },
       {
-        texte: 'Soit $u$ une fonction dérivable sur $I$. Une primitive de $u\'u^{n}}$ avec $n\\in \\mathbb N^{*}$ sur $I$ est $\\dfrac{1}{n+1}u^{n+1}$.',
+        texte: 'Soit $u$ une fonction dérivable sur $I$. Une primitive de $u\'u^{n}$ avec $n\\in \\mathbb N^{*}$ sur $I$ est $\\dfrac{1}{n+1}u^{n+1}$.',
         statut: true,
         correction: 'Vrai. C\'est une formule de cours à connaître..'
       },
@@ -84,7 +84,7 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
       {
         texte: 'L\'ensemble des primitives de $x\\mapsto \\sin(x)$ sur $\\mathbb{R}$ est $x\\mapsto \\cos(x)+C ~|~ C\\in\\mathbb{R}$.',
         statut: false,
-        correction: 'Faux. Les primitives de $\\sin$ sont sous la forme $-\\sin(x)+CC\\in\\mathbb{R}}$ .'
+        correction: 'Faux. Les primitives de $\\sin$ sont sous la forme $-\\sin(x)+C\\in\\mathbb{R}$ .'
       },
 
       {

@@ -54,7 +54,7 @@ export default class VraiFaux extends Exercice {
         propositions
       }
       const monQcm = propositionsQcm(this, i)
-      if (!context.isAmc) {
+      if (!context.isAmc && this.interactif) {
         texte += monQcm.texte
       }
       let correction = `L'affirmation est ${texteEnCouleurEtGras(this.affirmations[i].statut ? 'vraie' : 'fausse')}.<br>`

@@ -214,9 +214,11 @@ export async function checkEachCombinationOfParams (page: Page, action: (page: P
   }
   if (options?.isFullCombinations) {
     await fullTest(page, form1, form2, form3, form4, form5, action, options?.isFullViews || false)
+    console.log(page.url())
   } else {
     console.log('Testing simpleTest')
     await simpleTest(page, form1, form2, form3, form4, form5, action, options?.isFullViews || false)
+    console.log(page.url())
   }
 }
 

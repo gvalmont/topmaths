@@ -12,11 +12,11 @@ import { fraction } from '../../modules/fractions'
 import { texNombre } from '../../lib/outils/texNombre'
 import { sp } from '../../lib/outils/outilString'
 
-export const dateDeModifImportante = '25/03/2024'
+export const dateDeModifImportante = '09/04/2025'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = ['qcm', 'mathLive']
 
 export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
 
@@ -43,12 +43,15 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
     this.sup = 11 // Correspond au facteur commun
     this.sup2 = 3 // Si 1 alors il n'y aura pas de soustraction
     this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
+    this.sup4 = true
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 5
     this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
     this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Additions\n2 : Soustractions\n3 : Mélange']
     this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
+    this.besoinFormulaire4CaseACocher = ['QCM pour l\'interactif']
+
     this.level = 5
   }
 
@@ -72,6 +75,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
     } else {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
+    this.interactifType = this.sup4 ? 'qcm' : 'mathLive'
     for (let i = 0, a, b, c, d, k, s, ordreDesFractions, texte, texteCorr; i < this.nbQuestions;) {
       this.autoCorrection[i] = {}
       texte = ''
@@ -158,12 +162,14 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
             texteCorr += `$=\\dfrac{${(a * k + c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((a * k + c) / s, d / s).texFractionSimplifiee}$`
           }
         }
-        if (!context.isAmc || (this.interactif && this.interactifType === 'qcm')) {
-          const props = propositionsQcm(this, i)
-          texte += '<br>' + props.texte
-        }
-        if (this.interactifType === 'mathLive') {
-          handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d + c * b, b * d).toLatex(), options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+        if (!context.isAmc) {
+          if (this.interactif && this.interactifType === 'qcm') {
+            const props = propositionsQcm(this, i)
+            texte += '<br>' + props.texte
+          } else if (this.interactifType === 'mathLive') {
+            texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+            handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d + c * b, b * d).toLatex(), options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+          }
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
@@ -233,16 +239,16 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
             texteCorr += `$=\\dfrac{${Math.abs(a * k - c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((Math.abs(a * k - c) / s), d / s).texFractionSimplifiee}$`
           }
         }
-        if (!context.isAmc || (this.interactif && this.interactifType === 'qcm')) {
-          const props = propositionsQcm(this, i)
-          texte += '<br>' + props.texte
-        }
-
-        if (this.interactifType === 'mathLive') {
-          handleAnswers(this, i, { reponse: { value: reponse, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+        if (!context.isAmc) {
+          if (this.interactif && this.interactifType === 'qcm') {
+            const props = propositionsQcm(this, i)
+            texte += '<br>' + props.texte
+          } else if (this.interactifType === 'mathLive') {
+            texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+            handleAnswers(this, i, { reponse: { value: reponse, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
+          }
         }
       }
-      texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       texte = texte.replaceAll('$$', ' ')
 
       texteCorr = texteCorr.replaceAll('$$', ' ')

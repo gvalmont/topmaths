@@ -228,8 +228,8 @@ export default class SujetCAN2023Cinquieme extends Exercice {
               style: 'margin: auto'
             }, objets)
             texte += context.isHtml ? '<br>? $=$' : ''
-            texteCorr = `Un angle plat a une mesure de  $180°$.<br>
-                 Ainsi, ? $=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
+            texteCorr = `Un angle plat a une mesure de  $180^\\circ$.<br>
+                 Ainsi, ? $=180-${ang1}=${miseEnEvidence(180 - ang1)}^\\circ$.`
           } else {
             ang1 = choice([30, 40, 60, 70, 110, 120, 130, 140, 150, 160])
             A = point(0, 0, 'A', 'below')
@@ -767,7 +767,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           }, objets)
           texte += '? $=$'
           texteCorr = `Dans un triangle, la somme des angles vaut $180°$.<br>
-         ?$=180-${a}-${b}=${miseEnEvidence(180 - a - b)}°$.`
+         ?$=180-${a}-${b}=${miseEnEvidence(180 - a - b)}^\\circ$.`
           this.listeCanEnonces.push('On donne la figure suivante :<br>' + mathalea2d({
             xmin,
             ymin,
@@ -785,7 +785,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + '°'
           } else {
-            texte += ' $\\ldots °$'
+            texte += ' $\\ldots ^\\circ$'
           }
           nbChamps = 1
           break

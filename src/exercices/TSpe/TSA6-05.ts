@@ -16,7 +16,9 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM : Tester une solution d\'une équation différentielle'
 export const dateDePublication = '26/03/2025'
-
+/*
+ @author Stéphane Guyon
+*/
 export default class EquaDiff extends ExerciceQcm {
   versionOriginale: () => void = () => {
     const a = randint(-5, 5, [-3,0,3])

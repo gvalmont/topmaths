@@ -3,7 +3,9 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcm from '../ExerciceQcm'
-
+/*
+ @author Stéphane Guyon
+*/
 export const uuid = 'ed974'
 export const refs = {
   'fr-fr': ['TSA6-03'],

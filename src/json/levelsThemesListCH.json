@@ -200,49 +200,52 @@
   "1-ES3": {
     "titre": "Transformations du plan"
   },
-  "1CL1" : {
-    "titre" : "Généralités"
+  "1CL1": {
+    "titre": "Généralités"
   },
-  "1CL2" : {
-    "titre" : "Factorisation"
+  "1CL2": {
+    "titre": "Factorisation"
   },
-  "1CL3" : {
-    "titre" : "Équations du premier degré"
+  "1CL3": {
+    "titre": "Équations du premier degré"
   },
-  "1CL4" : {
-    "titre" : "Equations du second degré"
+  "1CL4": {
+    "titre": "Equations du second degré"
   },
-  "1CL5" : {
-    "titre" : "Systèmes d'équations"
+  "1CL5": {
+    "titre": "Systèmes d'équations"
   },
-  "1E" : {
-    "titre" : "Ensembles et intervalles"
+  "1E": {
+    "titre": "Ensembles et intervalles"
   },
-  "1CN" : {
-    "titre" : "Rappels de calcul numérique"
+  "1CN": {
+    "titre": "Rappels de calcul numérique"
   },
-  "1F1" : {
-    "titre" : "Fonctions, généralités"
+  "1F1": {
+    "titre": "Fonctions, généralités"
   },
-  "1F2" : {
-    "titre" : "Fonctions affines et droites"
+  "1F2": {
+    "titre": "Fonctions affines et droites"
   },
-  "1F3" : {
-    "titre" : "Fonctions quadratiques et paraboles"
+  "1F3": {
+    "titre": "Fonctions quadratiques et paraboles"
   },
-  "1F4" : {
-    "titre" : "Fonctions racine, inverse, cubique"
+  "1F4": {
+    "titre": "Fonctions racine, inverse, cubique"
   },
-  "1Thales" : {
-    "titre" : "Théorème de Thalès"
+  "1G1": {
+    "titre": "Les angles"
   },
-  "1P" : {
-    "titre" : "Théorème de Pythagore"
+  "1G2": {
+    "titre": "Théorème de Pythagore"
   },
-  "1A" : {
-    "titre" : "Les angles"
+  "1G3": {
+    "titre": "Théorème de Thalès"
   },
-  "1Trigo" : {
-    "titre" : "Trigonométrie"
+  "1G4": {
+    "titre": "Cercle"
+  },
+  "1T": {
+    "titre": "Trigonométrie"
   }
 }

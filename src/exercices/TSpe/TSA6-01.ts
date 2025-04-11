@@ -3,7 +3,9 @@ import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 import ExerciceQcm from '../ExerciceQcm'
-
+/*
+ @author Stéphane Guyon
+*/
 export const uuid = 'afbe8'
 export const refs = {
   'fr-fr': ['TSA6-01'],

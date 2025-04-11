@@ -55,7 +55,8 @@ export default class TrianglesSemblables extends Exercice {
   nouvelleVersion () {
     const zoom = context.vue === 'diap' ? 0.5 : 1
     const typeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: this.nbQuestions })
-
+    let indiceChampReponse = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
+    let nbDeChampsReponse = 0
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeDeNomsDePolygonesDejaPris: string[] = []
       let texte = ''
@@ -185,35 +186,35 @@ export default class TrianglesSemblables extends Exercice {
           const objetsAAfficher1 = [p1, codeAngleA, codeAngleB, nommeP1]
           const objetsAAfficher2 = [p2, codeAngleD, codeAngleE, nommeP2]
           const [colonne1, colonne2] = definiColonnes(objetsAAfficher1, objetsAAfficher2, scaleDessin)
-          texte += `Ci-dessous les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ sont semblables.<br>`
+          texte += `Ci-dessous, les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ sont semblables.<br>`
 
           if (this.interactif) {
-            texte += `$[${A.nom + B.nom}]$ et ` + choixDeroulant(this, 6 * i, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
-            handleAnswers(this, 6 * i, { reponse: { value: repCote[0] } }, { formatInteractif: 'listeDeroulante' })
-            texte += `$[${A.nom + C.nom}]$ et ` + choixDeroulant(this, 6 * i + 1, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
-            handleAnswers(this, 6 * i + 1, { reponse: { value: repCote[1] } }, { formatInteractif: 'listeDeroulante' })
-            texte += `$[${B.nom + C.nom}]$ et ` + choixDeroulant(this, 6 * i + 2, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
-            handleAnswers(this, 6 * i + 2, { reponse: { value: repCote[2] } }, { formatInteractif: 'listeDeroulante' })
-            texte += `Les sommets ${A.nom} et ` + choixDeroulant(this, 6 * i + 3, auChoixSommet, 'le bon objet') + ' sont homologues.<br>'
-            handleAnswers(this, 6 * i + 3, { reponse: { value: repSommet[0] } }, { formatInteractif: 'listeDeroulante' })
-            texte += `Les sommets ${B.nom} et ` + choixDeroulant(this, 6 * i + 4, auChoixSommet, 'le bon objet') + ' sont homologues.<br>'
-            handleAnswers(this, 6 * i + 4, { reponse: { value: repSommet[1] } }, { formatInteractif: 'listeDeroulante' })
-            texte += `Les sommets ${C.nom} et ` + choixDeroulant(this, 6 * i + 5, auChoixSommet, 'le bon objet') + ' sont homologues.<br>'
-            handleAnswers(this, 6 * i + 5, { reponse: { value: repSommet[2] } }, { formatInteractif: 'listeDeroulante' })
+            texte += `$[${A.nom + B.nom}]$ et ` + choixDeroulant(this, indiceChampReponse, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
+            handleAnswers(this, indiceChampReponse, { reponse: { value: repCote[0] } }, { formatInteractif: 'listeDeroulante' })
+            texte += `$[${A.nom + C.nom}]$ et ` + choixDeroulant(this, indiceChampReponse + 1, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
+            handleAnswers(this, indiceChampReponse + 1, { reponse: { value: repCote[1] } }, { formatInteractif: 'listeDeroulante' })
+            texte += `$[${B.nom + C.nom}]$ et ` + choixDeroulant(this, indiceChampReponse + 2, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
+            handleAnswers(this, indiceChampReponse + 2, { reponse: { value: repCote[2] } }, { formatInteractif: 'listeDeroulante' })
+            texte += `Les sommets ${A.nom} et ` + choixDeroulant(this, indiceChampReponse + 3, auChoixSommet, 'le bon objet') + ' sont homologues.<br>'
+            handleAnswers(this, indiceChampReponse + 3, { reponse: { value: repSommet[0] } }, { formatInteractif: 'listeDeroulante' })
+            texte += `Les sommets ${B.nom} et ` + choixDeroulant(this, indiceChampReponse + 4, auChoixSommet, 'le bon objet') + ' sont homologues.<br>'
+            handleAnswers(this, indiceChampReponse + 4, { reponse: { value: repSommet[1] } }, { formatInteractif: 'listeDeroulante' })
+            texte += `Les sommets ${C.nom} et ` + choixDeroulant(this, indiceChampReponse + 5, auChoixSommet, 'le bon objet') + ' sont homologues.<br>'
+            handleAnswers(this, indiceChampReponse + 5, { reponse: { value: repSommet[2] } }, { formatInteractif: 'listeDeroulante' })
           } else if (context.isAmc) {
             const options = { ordered: true, vertical: true }
             texte += `$[${A.nom + B.nom}]$ et ............ sont homologues.<br>`
-            listeDeroulanteToQcm(this, 6 * i, auChoixCote, repCote[0], options)
+            listeDeroulanteToQcm(this, indiceChampReponse, auChoixCote, repCote[0], options)
             texte += `$[${B.nom + C.nom}]$ et ............ sont homologues.<br>`
-            listeDeroulanteToQcm(this, 6 * i + 1, auChoixCote, repCote[1], options)
+            listeDeroulanteToQcm(this, indiceChampReponse + 1, auChoixCote, repCote[1], options)
             texte += `$[${C.nom + A.nom}]$ et ............ sont homologues.<br>`
-            listeDeroulanteToQcm(this, 6 * i + 2, auChoixCote, repCote[2], options)
+            listeDeroulanteToQcm(this, indiceChampReponse + 2, auChoixCote, repCote[2], options)
             texte += `$\\widehat{${A.nom + B.nom + C.nom}}$ et ...................... sont homologues.<br>`
-            listeDeroulanteToQcm(this, 6 * i + 4, auChoixSommet, repSommet[1], options)
+            listeDeroulanteToQcm(this, indiceChampReponse + 4, auChoixSommet, repSommet[1], options)
             texte += `$\\widehat{${C.nom + A.nom + B.nom}}$ et ...................... sont homologues.<br>`
-            listeDeroulanteToQcm(this, 6 * i + 3, auChoixSommet, repSommet[0], options)
+            listeDeroulanteToQcm(this, indiceChampReponse + 3, auChoixSommet, repSommet[0], options)
             texte += `$\\widehat{${B.nom + C.nom + A.nom}}$ et ...................... sont homologues.<br>`
-            listeDeroulanteToQcm(this, 6 * i + 5, auChoixSommet, repSommet[2], options)
+            listeDeroulanteToQcm(this, indiceChampReponse + 5, auChoixSommet, repSommet[2], options)
           } else {
             texte += 'Compléter les phrases suivantes.<br>'
             texte += `$[${A.nom + B.nom}]$ et ............ sont homologues.<br>`
@@ -241,6 +242,7 @@ export default class TrianglesSemblables extends Exercice {
             texteCorr += `$\\widehat{${C.nom + A.nom + B.nom}}$ et $\\widehat{${F.nom + D.nom + E.nom}}$ sont homologues.<br>`
             texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ et $\\widehat{${E.nom + F.nom + D.nom}}$ sont homologues.<br>`
           }
+          nbDeChampsReponse += 6
           break
         }
         case 2: {
@@ -265,12 +267,12 @@ export default class TrianglesSemblables extends Exercice {
           const [colonne1, colonne2] = definiColonnes(objetsAAfficher1, objetsAAfficher2, scaleDessin)
           texte += `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
           if (this.interactif) {
-            texte += choixDeroulant(this, i, ['sont semblables', 'ne sont semblables'], 'la proposition qui convient') + '.'
-            handleAnswers(this, i, { reponse: { value: repSemblables } }, { formatInteractif: 'listeDeroulante' })
+            texte += choixDeroulant(this, indiceChampReponse, ['sont semblables', 'ne sont semblables'], 'la proposition qui convient') + '.'
+            handleAnswers(this, indiceChampReponse, { reponse: { value: repSemblables } }, { formatInteractif: 'listeDeroulante' })
           } else if (context.isAmc) {
             const options = { ordered: true, vertical: true }
 
-            listeDeroulanteToQcm(this, i, ['sont semblables', 'ne sont semblables'], repSemblables, options)
+            listeDeroulanteToQcm(this, indiceChampReponse, ['sont semblables', 'ne sont semblables'], repSemblables, options)
           } else {
             texte += ' sont-ils semblables? Justifier.<br>'
           }
@@ -293,6 +295,7 @@ export default class TrianglesSemblables extends Exercice {
             texteCorr += `Les angles du triangle ${D.nom + E.nom + F.nom} mesurent  ${angleA}°, ${angleE}° et ${angleF}°.<br>`
             texteCorr += 'Les deux triangles ABE et ACD n\'ont donc pas deux de leurs angles deux à deux de même mesure. Donc, les deux triangles ne sont pas semblables.<br>'
           }
+          nbDeChampsReponse++
           break
         }
         case 3: {
@@ -313,12 +316,12 @@ export default class TrianglesSemblables extends Exercice {
           const [colonne1, colonne2] = definiColonnes(objetsAAfficher1, objetsAAfficher2, scaleDessin)
           texte += `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
           if (this.interactif) {
-            texte += choixDeroulant(this, i, ['sont semblables', 'ne sont semblables'], 'la proposition qui convient') + '.'
-            handleAnswers(this, i, { reponse: { value: repSemblables } }, { formatInteractif: 'listeDeroulante' })
+            texte += choixDeroulant(this, indiceChampReponse, ['sont semblables', 'ne sont semblables'], 'la proposition qui convient') + '.'
+            handleAnswers(this, indiceChampReponse, { reponse: { value: repSemblables } }, { formatInteractif: 'listeDeroulante' })
           } else if (context.isAmc) {
             const options = { ordered: true, vertical: true }
 
-            listeDeroulanteToQcm(this, i, ['sont semblables', 'ne sont semblables'], repSemblables, options)
+            listeDeroulanteToQcm(this, indiceChampReponse, ['sont semblables', 'ne sont semblables'], repSemblables, options)
           } else {
             texte += ' sont-ils semblables? Justifier.<br>'
           }
@@ -335,6 +338,7 @@ export default class TrianglesSemblables extends Exercice {
           texteCorr += `$${texNombre(cotes1[1], 1)} \\div  ${texNombre(cotes2[1], 1)} = ${new FractionEtendue(arrondi(cotes1[1], 1), arrondi(cotes2[1], 1)).texFractionSimplifiee}$.<br>`
           texteCorr += `$${texNombre(cotes1[2], 1)} \\div  ${texNombre(cotes2[2], 1)} = ${new FractionEtendue(arrondi(cotes1[2], 1), arrondi(cotes2[2], 1)).texFractionSimplifiee}$.<br>`
           texteCorr += sontSemblables ? 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>' : 'Les longueurs ne sont pas proportionnelles deux à deux donc les deux triangles ne sont pas semblables.<br>'
+          nbDeChampsReponse++
           break
         }
         case 4: {
@@ -358,12 +362,12 @@ export default class TrianglesSemblables extends Exercice {
           const objets = [p1, p2, codeAB, codeDE, codeBC, codeEF, codeAC, codeDF, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, labelPoint(p2.listePoints[2])]
           texte += `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
           if (this.interactif) {
-            texte += choixDeroulant(this, i, ['sont semblables', 'ne sont semblables'], 'la proposition qui convient') + '.'
-            handleAnswers(this, i, { reponse: { value: repSemblables } }, { formatInteractif: 'listeDeroulante' })
+            texte += choixDeroulant(this, indiceChampReponse, ['sont semblables', 'ne sont semblables'], 'la proposition qui convient') + '.'
+            handleAnswers(this, indiceChampReponse, { reponse: { value: repSemblables } }, { formatInteractif: 'listeDeroulante' })
           } else if (context.isAmc) {
             const options = { ordered: true, vertical: true }
 
-            listeDeroulanteToQcm(this, i, ['sont semblables', 'ne sont semblables'], repSemblables, options)
+            listeDeroulanteToQcm(this, indiceChampReponse, ['sont semblables', 'ne sont semblables'], repSemblables, options)
           } else {
             texte += ' sont-ils semblables? Justifier.<br>'
           }
@@ -380,6 +384,7 @@ export default class TrianglesSemblables extends Exercice {
           texteCorr += 'On a donc deux paires d\'angles égales donc la troisième paire aussi grâce à la règle des 180° dans un triangle (la somme des angles est égale à 180°). <br>'
           texteCorr += `$\\widehat{${B.nom + C.nom + A.nom}}$ = $\\widehat{${F.nom + D.nom + E.nom}}$.<br>`
           texteCorr += 'Les 3 paires d\'angles sont égales. Comme les angles sont égaux deux à deux, les deux triangles sont semblables.<br>'
+          nbDeChampsReponse++
           break
         }
         case 5: {
@@ -414,12 +419,12 @@ export default class TrianglesSemblables extends Exercice {
           const objets = [p1, p2, codeAB, codeDE, codeBC, codeEF, codeAC, codeDF, coteDF, coteDE, nommeP1, labelPoint(p2.listePoints[2]), labelPoint(p2.listePoints[1])]
           texte += `Les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ `
           if (this.interactif) {
-            texte += choixDeroulant(this, i, ['sont semblables', 'ne sont semblables'], 'la proposition qui convient') + '.'
-            handleAnswers(this, i, { reponse: { value: repSemblables } }, { formatInteractif: 'listeDeroulante' })
+            texte += choixDeroulant(this, indiceChampReponse, ['sont semblables', 'ne sont semblables'], 'la proposition qui convient') + '.'
+            handleAnswers(this, indiceChampReponse, { reponse: { value: repSemblables } }, { formatInteractif: 'listeDeroulante' })
           } else if (context.isAmc) {
             const options = { ordered: true, vertical: true }
 
-            listeDeroulanteToQcm(this, i, ['sont semblables', 'ne sont semblables'], repSemblables, options)
+            listeDeroulanteToQcm(this, indiceChampReponse, ['sont semblables', 'ne sont semblables'], repSemblables, options)
           } else {
             texte += ' sont-ils semblables? Justifier.<br>'
           }
@@ -434,6 +439,7 @@ export default class TrianglesSemblables extends Exercice {
           texteCorr += `$${texNombre(cotes1[1], 1)} \\div  ${texNombre(cotes2[1], 1)} = ${new FractionEtendue(arrondi(cotes1[1], 1), arrondi(cotes2[1], 1)).texFractionSimplifiee}$.<br>`
           texteCorr += `$${texNombre(cotes1[2], 1)} \\div  ${texNombre(cotes2[2], 1)} = ${new FractionEtendue(arrondi(cotes1[2], 1), arrondi(cotes2[2], 1)).texFractionSimplifiee}$.<br>`
           texteCorr += sontSemblables ? 'Les longueurs sont proportionnelles deux à deux donc les deux triangles sont semblables.<br>' : 'Les longueurs ne sont pas proportionnelles deux à deux donc les deux triangles ne sont pas semblables.<br>'
+          nbDeChampsReponse++
           break
         }
       }
@@ -442,6 +448,7 @@ export default class TrianglesSemblables extends Exercice {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
+        indiceChampReponse += nbDeChampsReponse
         i++
       }
       cpt++

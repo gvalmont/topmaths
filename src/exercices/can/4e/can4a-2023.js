@@ -223,8 +223,8 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               style: 'margin: auto'
             }, objets)
             texte += context.isHtml ? '? $=$' : ''
-            texteCorr = `Un angle plat a une mesure de  $180°$.<br>
-             Ainsi, ?$=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
+            texteCorr = `Un angle plat a une mesure de  $180^\\circ$.<br>
+             Ainsi, ?$=180-${ang1}=${miseEnEvidence(180 - ang1)}^\\circ$.`
           } else {
             ang1 = choice([30, 40, 60, 70, 110, 120, 130, 140, 150, 160])
             A = point(0, 0, 'A', 'below')

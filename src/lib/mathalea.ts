@@ -148,10 +148,21 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
     // L'extension doit-être visible donc on l'enlève avant de la remettre...
       let module
       if (isCan === 'can') {
+        // D'après ChatGPT, avec vite, il faudrait comme ça pour charger les modules dynamiquement
+        // un import direct avec safari plante aléatoirement, et je ne sais pas pourquoi
+        const modules = import.meta.glob('../exercices/can/**/*.{ts,js}')
         if (filename != null && filename.includes('.ts')) {
-          module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
+          const path = `../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`
+          const loader = modules[path]
+          if (!loader) throw new Error(`Module "${path}" introuvable`)
+          module = await loader()
+          // module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
         } else if (filename != null) {
-          module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+          const path = `../exercices/can/${directory}/${filename.replace('.js', '')}.js`
+          const loader = modules[path]
+          if (!loader) throw new Error(`Module "${path}" introuvable`)
+          module = await loader()
+          // module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
         }
       } else if (isCan === 'QCMBrevet') {
         if (filename != null && filename.includes('.ts')) {

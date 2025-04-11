@@ -39,6 +39,7 @@ export default class ConstruireParSymetrie extends Exercice {
     this.sup = 1
     this.sup2 = 1
     this.sup3 = 1
+    this.sup4 = false
     this.figure = false
     this.version = 6
 
@@ -49,6 +50,8 @@ export default class ConstruireParSymetrie extends Exercice {
       ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
     ]
     this.besoinFormulaire3Numerique = ['Niveau de difficulté pour la symétrie axiale', 5, '1 : Tous les points du même côté de l\'axe\n2 : Deux points du même côté et le troisième sur l\'axe\n3 : Un point sur l\'axe et un de chaque côté\n4 : Deux points d\'un côté de l\'axe et le troisième de l\'autre côté\n5 : Mélange']
+    this.besoinFormulaire4CaseACocher = ['Avec les quadrillages, décentrer l\'axe ou le centre', false]
+    this.comment = 'Décentrer l\'axe ou le centre, permt d\'éviter les stratégies de comptage à partir du bord du quadrillage'
   }
 
   // La fonction qui suit va chercher 3 points au hasard placés par rapport à la droite d de la façon demandée
@@ -182,7 +185,8 @@ export default class ConstruireParSymetrie extends Exercice {
     let correction
     let g
     let carreaux
-    let k
+    let k // k sert pour la pente de la droite cas 45°
+    let axeHorizontal = false
     const objetsEnonce = []
     const objetsCorrection = []
     let p1; let p2; let p1nom
@@ -198,13 +202,13 @@ export default class ConstruireParSymetrie extends Exercice {
         case 0: // symétrie d'axe horizontal ou vertical de points
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
-          k = choice([true, false]) // k = true axe horizontal sinon vertical
+          axeHorizontal = choice([true, false]) // axeHorizontal = true axe horizontal sinon vertical
           A = point(0, 0)
-          if (k) d = droiteHorizontaleParPoint(A)
+          if (axeHorizontal) d = droiteHorizontaleParPoint(A)
           else d = droiteVerticaleParPoint(A)
           B = pointSurDroite(d, 6, '')
           d.epaisseur = 2
-          if (!k) {
+          if (!axeHorizontal) {
             if (this.sup3 === 1) lieux = choice([['gauche', 'gauche', 'gauche'], ['droite', 'droite', 'droite']])
             else if (this.sup3 === 2) lieux = choice([['gauche', 'sur', 'gauche'], ['droite', 'droite', 'sur']])
             else if (this.sup3 === 3) lieux = choice([['sur', 'gauche', 'droite'], ['gauche', 'sur', 'droite']])
@@ -374,12 +378,12 @@ export default class ConstruireParSymetrie extends Exercice {
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
           A = point(0, 0, `${p1nom[0]}`, 'above')
-          k = choice([true, false]) // si k est true alors d est horizontale sinon elle est verticale
-          if (k) d = droiteHorizontaleParPoint(A)
+          axeHorizontal = choice([true, false]) // si axeHorizontal est true alors d est horizontale sinon elle est verticale
+          if (axeHorizontal) d = droiteHorizontaleParPoint(A)
           else d = droiteVerticaleParPoint(A)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
 
-          if (!k) {
+          if (!axeHorizontal) {
             if (this.sup3 === 1) lieux = choice([['gauche', 'gauche', 'gauche'], ['droite', 'droite', 'droite']])
             else if (this.sup3 === 2) lieux = choice([['gauche', 'sur', 'gauche'], ['droite', 'droite', 'sur']])
             else if (this.sup3 === 3) lieux = choice([['sur', 'gauche', 'droite'], ['gauche', 'sur', 'droite']])
@@ -443,13 +447,12 @@ export default class ConstruireParSymetrie extends Exercice {
           listeDeNomsDePolygones.push(p1nom)
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([-1, 1])
-
           d = droiteParPointEtPente(A, k)
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
-          if (k === 2) {
+          /*           if (k === 2) {  // inutile ici  ? K sert à autre chose et vaut 1 ou -1
             A.positionLabel = 'above'
             B.positionLabel = 'above'
-          }
+          }  */
           d.epaisseur = 2;
           [C, D, E] = this._choisi3Points(d, lieux)
           C.nom = p1nom[2]
@@ -632,6 +635,20 @@ export default class ConstruireParSymetrie extends Exercice {
         positionLabelDroite = translation(pointSurDroite(d, d.b === 0 ? Ymin + 1 : Xmin + 1, ''), homothetie(vecteur(d.a, d.b), A, 0.5 / norme(vecteur(d.a, d.b))) as Vecteur)
         objetsEnonce.push(texteParPoint('(d)', positionLabelDroite, 0, 'black', 1.5, 'milieu', true))
         objetsCorrection.push(texteParPoint('(d)', positionLabelDroite, 0, 'black', 1.5, 'milieu', true))
+      }
+      if (this.sup4 && (this.sup2 !== 3)) { // listeTypeDeQuestions[i] voir case au dessus seuls 1 et 3 sont à axe horizontal ou vertical
+        const DeltaX = randint(1, 3)
+        const DeltaY = randint(1, 3, [DeltaX])
+        if (listeTypeDeQuestions[i] === 0 || listeTypeDeQuestions[i] === 3) {
+          if (choice([0, 1]) === 0) {
+            if (!axeHorizontal) { Xmin = Xmin - DeltaX } else { Ymin = Ymin - DeltaY }
+          } else {
+            if (!axeHorizontal) { Xmax = Xmax + DeltaX } else { Ymax = Ymax + DeltaY }
+          }
+        } else {
+          if (choice([0, 1]) === 0) { Xmin = Xmin - DeltaX } else { Xmax = Xmax + DeltaX }
+          if (choice([0, 1]) === 0) { Ymin = Ymin - DeltaY } else { Ymax = Ymax + DeltaY }
+        }
       }
       const params = {
         xmin: Xmin,

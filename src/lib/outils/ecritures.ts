@@ -474,12 +474,13 @@ export function lister (array: unknown[]): string {
  * Retourne le double développement de (ax+b)(cx+d) sous forme d'un tableau.
  * La premier élément est le développement terme par terme.
  * Le second élément est ce développement réduit terme par terme.
+ * Si reduire est vrai, et qu'il y a des parenthèses encadrant les termes négatifs, on renvoie aussi le développement réduit en somme algébrique.
  * @param {Object} parametres À saisir entre accolades
  * @param {number} [a=1] Un entier actuellement uniquement (par défaut, c'est 1)
  * @param {number} [b=1] Un entier actuellement uniquement (par défaut, c'est 1)
  * @param {number} [c=1] Un entier actuellement uniquement(par défaut, c'est 1)
  * @param {string} [x='x'] Le nom de la variable (par défaut, c'est 'x')
- * @param {boolean} [sommeAGauche=true] Vrai si (ax+b)c, Faux si c(ax+b)
+ * @param {boolean} [reduire=false] Vrai si on veut réduire le développement en somme algébrique
  * @return {string[]}
  * @author Eric Elter
  * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4})[0] renvoie 5x*(-x)+5x*4+(-2)*(-x)+(-2)*4
@@ -487,19 +488,26 @@ export function lister (array: unknown[]): string {
  * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4, variable:'y})[0] renvoie 5y*(-y)+5y*4+(-2)*(-y)+(-2)*4
  * @example doubleDeveloppement({ a:5, b:-2, c:-1, d:4, variable:'y})[1] renvoie -5y^2+20y+2y+(-8)
  */
-export function doubleDeveloppement ({ a = 1, b = 1, c = 1, d = 1, x = 'x' } = {}) {
+export function doubleDeveloppement ({ a = 1, b = 1, c = 1, d = 1, x = 'x', reduire = false } = {}) {
   if (a === 0) return [...simpleDeveloppement({ a: c, b: d, c: b, x, sommeAGauche: false })]
   if (b === 0) return [...simpleDeveloppementAvecDoubleX({ a: c, b: d, c: a, x, sommeAGauche: false })]
   if (c === 0) return [...simpleDeveloppement({ a, b, c: d, x })]
   if (d === 0) return [...simpleDeveloppementAvecDoubleX({ a, b, c, x })]
-  return [`${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + x)} + 
+  const expression1 = `${rienSi1(a)}${x}\\times ${ecritureParentheseSiMoins(rienSi1(c) + x)} + 
   ${ecritureParentheseSiMoins(rienSi1(a) + x)}\\times ${ecritureParentheseSiNegatif(d)} +
   ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiMoins(rienSi1(c) + x)}  +
-  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(d)}`,
-   `${rienSi1(a * c)}${x}^2 + 
+  ${ecritureParentheseSiNegatif(b)} \\times ${ecritureParentheseSiNegatif(d)}`
+  const expression2 = `${rienSi1(a * c)}${x}^2 + 
   ${ecritureParentheseSiMoins(rienSi1(a * d) + x)} +
   ${ecritureParentheseSiMoins(rienSi1(b * c) + x)} +
-  ${ecritureParentheseSiNegatif(b * d)}`]
+  ${ecritureParentheseSiNegatif(b * d)}`
+  const expression3 = `${rienSi1(a * c)}${x}^2
+  ${ecritureAlgebriqueSauf1(a * d)}${x}
+  ${ecritureAlgebriqueSauf1(b * c)}${x}
+  ${ecritureAlgebrique(b * d)}`
+  return (reduire && expression2 !== expression3)
+    ? [expression1, expression2, expression3]
+    : [expression1, expression2]
 }
 
 /**

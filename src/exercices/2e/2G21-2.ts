@@ -380,7 +380,7 @@ export default class SommeDeVecteurs extends Exercice {
   correctionInteractive = (i: number) => {
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.figureApig[i].json] = this.figureApig[i].json
+    this.answers[this.figureApig[i].id] = this.figureApig[i].json
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`
     ) as HTMLDivElement

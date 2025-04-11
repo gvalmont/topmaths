@@ -6,7 +6,9 @@ import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import ExerciceQcm from '../ExerciceQcm'
-
+/*
+ @author Stéphane Guyon
+*/
 export const uuid = 'c1209'
 export const refs = {
   'fr-fr': ['TSA6-04'],

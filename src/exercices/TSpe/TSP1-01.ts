@@ -2,7 +2,9 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { randint } from '../../modules/outils'
 import ExerciceQcm from '../ExerciceQcm'
-
+/*
+ @author Stéphane Guyon
+*/
 export const uuid = 'ed6a5'
 export const refs = {
   'fr-fr': ['TSP1-01'],

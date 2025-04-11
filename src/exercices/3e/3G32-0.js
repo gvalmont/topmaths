@@ -209,7 +209,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 2,
                                         enonce: enonceInit + enonceAMC,
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -241,7 +241,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 2,
                                         enonce: enonceAMC,
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -289,7 +289,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                     texte: '',
                                     statut: this.sup ? 2 : 5,
                                     enonce: this.sup ? enonceAMC : enonceInit + '<br>' + enonceAMC,
-                                    sanslignes: true
+                                    pointilles: false
                                   }
                                 ]
             }
@@ -414,7 +414,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                     texte: '',
                                     statut: 5,
                                     enonce: enonceAMC,
-                                    sanslignes: true
+                                    pointilles: false
                                   }
                                 ]
             }
@@ -495,7 +495,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 2,
                                         enonce: enonceInit + enonceAMC,
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -562,7 +562,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 2,
                                         enonce: enonceAMC,
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -606,7 +606,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 6,
                                         enonce: enonceInit + '<br>' + enonceAMC + '<br>',
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -732,7 +732,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 3,
                                         enonce: enonceInit + '<br>' + enonceAMC,
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -769,7 +769,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 3,
                                         enonce: enonceAMC,
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -804,7 +804,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 2,
                                         enonce: enonceAMC,
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -830,7 +830,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                         texte: '',
                                         statut: 6,
                                         enonce: enonceInit + '<br>' + enonceAMC,
-                                        sanslignes: true
+                                        pointilles: false
                                       }
                                     ]
               }
@@ -972,7 +972,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                         texte: '',
                         statut: 2,
                         enonce: enonceInit + '<br>' + enonceAMC,
-                        sanslignes: true
+                        pointilles: false
                       }
                     ]
               }
@@ -995,7 +995,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                         texte: '',
                         statut: 2,
                         enonce: enonceAMC,
-                        sanslignes: true
+                        pointilles: false
                       }
                     ]
               }
@@ -1014,7 +1014,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                       texte: '',
                       statut: this.sup ? 2 : 4,
                       enonce: this.sup ? enonceAMC : enonceInit + '<br>' + enonceAMC,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
             }
@@ -1043,7 +1043,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                       texte: '',
                       statut: 2,
                       enonce: enonceAMC,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
             }
@@ -1074,7 +1074,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                       texte: '',
                       statut: 2,
                       enonce: enonceAMC,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
             }
@@ -1122,7 +1122,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                       texte: '',
                       statut: 5,
                       enonce: enonceAMC,
-                      sanslignes: true
+                      pointilles: false
                     }
                   ]
             }
@@ -1252,7 +1252,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                     texte: '',
                                     statut: 5,
                                     enonce: enonceAMC,
-                                    sanslignes: true
+                                    pointilles: false
                                   }
                                 ]
             }

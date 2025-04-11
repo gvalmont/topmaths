@@ -228,8 +228,8 @@ export default class SujetCAN2023troisieme extends Exercice {
               style: 'margin: auto'
             }, objets)
             texte += context.isHtml ? '<br>? $=$' : ''
-            texteCorr = `Un angle plat a une mesure de  $180°$.<br>
-               Ainsi, ? $=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
+            texteCorr = `Un angle plat a une mesure de  $180^\\circ$.<br>
+               Ainsi, ? $=180-${ang1}=${miseEnEvidence(180 - ang1)}^\\circ$.`
           } else {
             ang1 = choice([30, 40, 60, 70, 110, 120, 130, 140, 150, 160])
             A = point(0, 0, 'A', 'below')
@@ -282,7 +282,7 @@ export default class SujetCAN2023troisieme extends Exercice {
               }, objets)
               texte += context.isHtml ? '<br>? $=$' : ''
               texteCorr = `
-                 ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}°$.`
+                 ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}^\\circ$.`
             } else {
               objets.push(texteParPosition('?', -0.15, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
                 texteParPosition(`${stringNombre(ang1)}°`, 1, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7))
@@ -301,11 +301,11 @@ export default class SujetCAN2023troisieme extends Exercice {
                 style: 'margin: auto'
               }, objets)
               texte += context.isHtml ? '<br>? $=$' : ''
-              texteCorr = `? $=${ang1}-90=${miseEnEvidence(ang1 - 90)}°$.  `
+              texteCorr = `? $=${ang1}-90=${miseEnEvidence(ang1 - 90)}^\\circ$.  `
             }
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('? $=\\ldots °$')
+          this.listeCanReponsesACompleter.push('? $=\\ldots ^\\circ$')
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + '°'
@@ -471,7 +471,7 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte = `Quelle est la mesure de $\\widehat{${nom[0]}${nom[2]}${nom[1]}}$ ? <br>
           `
             texteCorr = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
-          Ainsi $\\widehat{${nom[0]}${nom[2]}${nom[1]}}=180°-2\\times ${a}°=${miseEnEvidence(texNombre(180 - 2 * a, 0))}°$.
+          Ainsi $\\widehat{${nom[0]}${nom[2]}${nom[1]}}=180^\\circ-2\\times ${a}=${miseEnEvidence(texNombre(180 - 2 * a, 0))}^\\circ$.
       <br>`
             reponse = 180 - 2 * a
 
@@ -512,7 +512,7 @@ export default class SujetCAN2023troisieme extends Exercice {
             texte = `Quelle est la mesure de $\\widehat{${nom[2]}${nom[0]}${nom[1]}}$ ? <br>
           `
             texteCorr = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
-          Ainsi $\\widehat{${nom[2]}${nom[0]}${nom[1]}}=(180-${a})\\div 2=${miseEnEvidence(texNombre((180 - a) / 2, 0))}°$.
+          Ainsi $\\widehat{${nom[2]}${nom[0]}${nom[1]}}=(180-${a})\\div 2=${miseEnEvidence(texNombre((180 - a) / 2, 0))}^\\circ$.
       <br>`
             reponse = arrondi((180 - a) / 2)
 
@@ -1268,7 +1268,7 @@ export default class SujetCAN2023troisieme extends Exercice {
           a = randint(3, 6)
           b = choice([a ** 2 + 1, a ** 2 - 1])
           reponse = new FractionEtendue(b, a)// .simplifie()
-          texte = 'Quelle  fraction repère le point d’interrogation ?<br>' + mathalea2d({
+          texte = 'Quelle fraction repère le point d\'interrogation ?<br>' + mathalea2d({
             xmin: -0.2,
             ymin: -1.3,
             xmax: 21,

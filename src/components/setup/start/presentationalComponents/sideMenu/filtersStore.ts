@@ -56,9 +56,15 @@ export const allFilters = writable<
       isSelected: false,
       clicked: 0
     },
-    Ex: {
+    'Terminale Expert': {
       title: 'Terminale Expert',
-      values: ['Ex'],
+      values: ['Terminale Expert'],
+      isSelected: false,
+      clicked: 0
+    },
+    'Terminale Spé': {
+      title: 'Terminale Spécialité',
+      values: ['Terminale Spé'],
       isSelected: false,
       clicked: 0
     },
@@ -70,7 +76,7 @@ export const allFilters = writable<
     },
     lycee: {
       title: 'Lycée',
-      values: ['2e', '1e', 'techno1', 'Ex', 'HP'],
+      values: ['2e', '1e', 'techno1', 'Terminale Spé', 'Terminale Expert', 'HP'],
       isSelected: false,
       clicked: 0
     }

@@ -14,7 +14,7 @@ export const titre = 'Affirmations sur les logarithmes'
 export const dateDePublication = '1/3/2025'
 
 /*
-* @author
+* @author Stéphane Guyon
 */
 export default class VraiFauxSuites extends ExerciceVraiFaux {
   constructor () {

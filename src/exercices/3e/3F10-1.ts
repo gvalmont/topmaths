@@ -136,7 +136,7 @@ export default class VocabulaireNotationsFonctions extends Exercice {
       monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
         texte = enonce + monQcm.texte
-        texteCorr = monQcm.texteCorr
+        texteCorr = enonce + monQcm.texteCorr
       } else {
         texte = enonce
         texteCorr = ''

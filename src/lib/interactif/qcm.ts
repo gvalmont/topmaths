@@ -298,8 +298,12 @@ export function propositionsQcm (exercice: Exercice, i: number, options: { style
     texteCorr += '</div><div class="m-2"></div>'
   }
   if (!context.isHtml) {
-    texte = '\\\\' + texte
-    texteCorr = '\\\\' + texteCorr
+    texte = ` 
+    
+    ` + texte
+    texteCorr = ` 
+    
+    ` + texteCorr
   }
   return { texte, texteCorr, indexes }
 }

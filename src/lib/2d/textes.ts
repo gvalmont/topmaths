@@ -821,3 +821,25 @@ export function latex2d (latex: string, x: number, y: number, { color, backgroun
   opacity = opacity ?? 1
   return new Latex2d(latex, x, y, { color, backgroundColor, letterSize, orientation, opacity })
 }
+
+export function tailleDeNbVersLatex (taille: number): LetterSizeType {
+  if (taille > 1.9) {
+    return 'huge'
+  } else if (taille > 1.6) {
+    return 'LARGE'
+  } else if (taille > 1.3) {
+    return 'Large'
+  } else if (taille > 1.1) {
+    return 'large'
+  } else if (taille < 0.6) {
+    return 'tiny'
+  } else if (taille < 0.8) {
+    return 'scriptsize'
+  } else if (taille < 0.9) {
+    return 'footnotesize'
+  } else if (taille < 1) {
+    return 'small'
+  } else {
+    return 'normalsize'
+  }
+}

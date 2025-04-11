@@ -2,15 +2,15 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Déterminer le nombre de km avec une vitesse'
+export const titre = 'Déterminer une distance avec une vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDePublication = '01/08/2021'
 
 /**
  * @author Jean-Claude Lhote
- * Créé pendant l'été 2021
 
  */
 export const uuid = 'b0f1a'

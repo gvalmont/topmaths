@@ -30,11 +30,15 @@ export const dateDeModifImportante = '03/04/2025'
  * Trouver comment agrandir ou réduire des longueurs d'une figure et construire la figure demandée
  * @author Eric Elter
  */
-export const uuid = 'e4d13'
+export const uuid = '4c6e2'
+
+// Cet exercice n'est pas référencé car le nombre de champs n'est identique selon les questions
+// et donc n'est pas Capytale-compatible.
+// Il est maintenu dans MathALÉA car certains profs l'utilisent peut-être encore.
 
 export const refs = {
-  'fr-fr': ['6P14'],
-  'fr-ch': ['9FA3-17']
+  'fr-fr': [],
+  'fr-ch': []
 }
 class AgrandirReduireFigure extends Exercice {
   constructor () {
@@ -58,6 +62,7 @@ class AgrandirReduireFigure extends Exercice {
     this.nbQuestions = 4
 
     this.spacing = 2
+    this.comment = 'Parce que, selon les questions, le nombre de réponses attendu n\'est pas identique, cet exercice ne doit pas être utilisé sous Capytale sous peine de ne pas avoir le même nombre de champs réponse par élève et un problème dana le bilan numérique.'
   }
 
   nouvelleVersion () {
@@ -70,10 +75,13 @@ class AgrandirReduireFigure extends Exercice {
     })
     const longueurMaximum = Math.max(5, Number(this.sup2))
     const texteAgrandissementOuReduction = [[' agrandissement', 'e réduction'], ['l\'agrandissement demandé', 'la réduction demandée']] // Ne pas supprimer le 'e'
+    let indiceChampReponse = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
+    let nbDeChampsReponse = 0
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
       let texte, texteCorr, absBFinal, coeffFinal, longueurMax
       do {
+        nbDeChampsReponse = 0
         texte = ''
         texteCorr = ''
         const propositionsAMC = []
@@ -114,10 +122,11 @@ class AgrandirReduireFigure extends Exercice {
               pixelsParCm: 20,
               scale: 0.5
             }, fixeBordures(objets)), objets)
+            texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, '')
-              texte += enonceAMC
-              handleAnswers(this, i, { reponse: { value: reponse } })
+              texte += ajouteChampTexteMathLive(this, indiceChampReponse, '')
+              handleAnswers(this, indiceChampReponse, { reponse: { value: reponse } })
+              nbDeChampsReponse++
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
               texte += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
@@ -205,10 +214,11 @@ class AgrandirReduireFigure extends Exercice {
               pixelsParCm: 20,
               scale: 0.5
             }, fixeBordures(objets)), objets)
+            texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, '')
-              texte += enonceAMC
-              handleAnswers(this, i, { reponse: { value: reponse } })
+              texte += ajouteChampTexteMathLive(this, indiceChampReponse, '')
+              handleAnswers(this, indiceChampReponse, { reponse: { value: reponse } })
+              nbDeChampsReponse++
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du carré ${nom}.`
               texte += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
@@ -287,7 +297,10 @@ class AgrandirReduireFigure extends Exercice {
             const numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
             const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
             const nom = lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)
-
+            // const numACorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
+            // const numBCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr])
+            // const numCCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr])
+            // const nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr)
             objets.push(polygoneInit, nommePolygone(polygoneInit, nom))
             objets.push(afficheLongueurSegment(angleOriente(C, A, B) > 0 ? A : B, angleOriente(C, A, B) > 0 ? B : A, 'blue', 0.5, '', true))
             objets.push(afficheLongueurSegment(angleOriente(A, B, C) > 0 ? B : C, angleOriente(A, B, C) > 0 ? C : B, 'blue', 0.5, '', true))
@@ -297,44 +310,34 @@ class AgrandirReduireFigure extends Exercice {
               pixelsParCm: 20,
               scale: 0.5
             }, fixeBordures(objets)), objets)
-            let correctionParticularite = ''
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              switch (choice([1, 2, 3])) {
-                case 1 :
-                  texte += '<br> Dans le nouveau triangle, la plus petite longueur sera :' + ajouteChampTexteMathLive(this, i, '')
-                  handleAnswers(this, i, { reponse: { value: min(reponse, reponse1, reponse2) } })
-                  correctionParticularite += 'Dans le nouveau triangle, la plus petite longueur sera $' + miseEnEvidence(texNombre(min(reponse, reponse1, reponse2))) + '$.'
-                  break
-                case 2:
-                  texte += '<br> Dans le nouveau triangle, la plus grande longueur sera :' + ajouteChampTexteMathLive(this, i, '')
-                  handleAnswers(this, i, { reponse: { value: max(reponse, reponse1, reponse2) } })
-                  correctionParticularite += 'Dans le nouveau triangle, la plus grande longueur sera $' + miseEnEvidence(texNombre(min(reponse, reponse1, reponse2))) + '$.'
-                  break
-                case 3: {
-                  texte += '<br> Dans le nouveau triangle, la longueur, qui n\'est ni la plus petite, ni la plus grande, sera :' + ajouteChampTexteMathLive(this, i, '')
-                  let derniereReponse
-                  // Trouver la valeur minimale et la valeur maximale
-                  const minValue = Math.min(reponse, reponse1, reponse2)
-                  const maxValue = Math.max(reponse, reponse1, reponse2)
+              texte += '<br> Dans le nouveau triangle, la plus petite longueur sera :' + ajouteChampTexteMathLive(this, indiceChampReponse, '')
+              handleAnswers(this, indiceChampReponse, { reponse: { value: min(reponse, reponse1, reponse2) } })
+              nbDeChampsReponse++
+              texte += '<br> Dans le nouveau triangle, la plus grande longueur sera :' + ajouteChampTexteMathLive(this, indiceChampReponse + nbDeChampsReponse, '')
+              handleAnswers(this, indiceChampReponse + nbDeChampsReponse, { reponse: { value: max(reponse, reponse1, reponse2) } })
+              nbDeChampsReponse++
+              texte += '<br> Dans le nouveau triangle, la dernière longueur sera :' + ajouteChampTexteMathLive(this, indiceChampReponse + nbDeChampsReponse, '')
+              let derniereReponse
+              // Trouver la valeur minimale et la valeur maximale
+              const minValue = Math.min(reponse, reponse1, reponse2)
+              const maxValue = Math.max(reponse, reponse1, reponse2)
 
-                  // Cas où toutes les valeurs sont égales
-                  if (minValue === maxValue) {
-                    derniereReponse = minValue // ou maxValue, c'est la même chose ici
-                  } else {
-                    // Filtrer les valeurs pour récupérer celle qui n'est ni min ni max
-                    const values = [reponse, reponse1, reponse2]
-                    const middleValues = values.filter(value => value !== minValue && value !== maxValue)
+              // Cas où toutes les valeurs sont égales
+              if (minValue === maxValue) {
+                derniereReponse = minValue // ou maxValue, c'est la même chose ici
+              } else {
+              // Filtrer les valeurs pour récupérer celle qui n'est ni min ni max
+                const values = [reponse, reponse1, reponse2]
+                const middleValues = values.filter(value => value !== minValue && value !== maxValue)
 
-                    // Retourner la valeur intermédiaire
-                    derniereReponse = middleValues[0]
-                  }
-                  handleAnswers(this, i, { reponse: { value: derniereReponse } })
-                  correctionParticularite += 'Dans le nouveau triangle, la longueur, qui n\'est ni la plus petite, ni la plus grande, sera $' + miseEnEvidence(texNombre(derniereReponse)) + '$.'
-                  break
-                }
+                // Retourner la valeur intermédiaire
+                derniereReponse = middleValues[0]
               }
+              handleAnswers(this, indiceChampReponse + nbDeChampsReponse, { reponse: { value: derniereReponse } })
+              nbDeChampsReponse++
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
               texte += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
@@ -426,8 +429,7 @@ class AgrandirReduireFigure extends Exercice {
               texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1)}$`
               texteCorr += `${sp(10)}$${absD} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse2)}$`
             }
-            texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${(texNombre(reponse))}$ ; $${(texNombre(reponse1))}$ et $${(texNombre(reponse2))}$.`
-            texteCorr += '<br>' + correctionParticularite
+            texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ ; $${miseEnEvidence(texNombre(reponse1))}$ et $${miseEnEvidence(texNombre(reponse2))}$.`
             texteCorr += '<br>En voici, une réalisation ci-dessous.'
             objets.push(polygoneCorr)
             objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
@@ -458,6 +460,10 @@ class AgrandirReduireFigure extends Exercice {
             const numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
             const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
             const nom = lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)
+            const numACorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
+            const numBCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr])
+            const numCCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr])
+            const nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr)
             objets.push(polygoneInit, nommePolygone(polygoneInit, nom))
             objets.push(afficheLongueurSegment(angleOriente(C, A, B) > 0 ? A : B, angleOriente(C, A, B) > 0 ? B : A, 'blue', 0.5, '', true))
             objets.push(afficheLongueurSegment(angleOriente(A, B, C) > 0 ? B : C, angleOriente(A, B, C) > 0 ? C : B, 'blue', 0.5, '', true))
@@ -467,22 +473,15 @@ class AgrandirReduireFigure extends Exercice {
               pixelsParCm: 20,
               scale: 0.5
             }, fixeBordures(objets)), objets)
-            let correctionParticularite = ''
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              switch (choice([1, 2])) {
-                case 1 :
-                  texte += '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' + ajouteChampTexteMathLive(this, i, '')
-                  handleAnswers(this, i, { reponse: { value: min(reponse, reponse1) } })
-                  correctionParticularite += 'Dans le nouveau triangle, la plus petite longueur à trouver sera $' + miseEnEvidence(texNombre(min(reponse, reponse1))) + '$.'
-                  break
-                case 2 :
-                  texte += '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' + ajouteChampTexteMathLive(this, i, '')
-                  handleAnswers(this, i, { reponse: { value: max(reponse, reponse1) } })
-                  correctionParticularite += 'Dans le nouveau triangle, la plus grande longueur à trouver sera $' + miseEnEvidence(texNombre(max(reponse, reponse1))) + '$.'
-                  break
-              }
+              texte += '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' + ajouteChampTexteMathLive(this, indiceChampReponse, '')
+              handleAnswers(this, indiceChampReponse, { reponse: { value: min(reponse, reponse1) } })
+              nbDeChampsReponse++
+              texte += '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' + ajouteChampTexteMathLive(this, indiceChampReponse + nbDeChampsReponse, '')
+              handleAnswers(this, indiceChampReponse + nbDeChampsReponse, { reponse: { value: max(reponse, reponse1) } })
+              nbDeChampsReponse++
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.`
               texte += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
@@ -555,10 +554,9 @@ class AgrandirReduireFigure extends Exercice {
               texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse)}$`
               texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1)}$`
             }
-            texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${texNombre(reponse2)}$ ; $${(texNombre(reponse1))}$ et $${(texNombre(reponse))}$.`
-            texteCorr += '<br>' + correctionParticularite
+            texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${texNombre(reponse2)}$ ; $${miseEnEvidence(texNombre(reponse1))}$ et $${miseEnEvidence(texNombre(reponse))}$.`
             texteCorr += '<br>En voici, une réalisation ci-dessous.'
-            objets.push(polygoneCorr)
+            objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
             objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
             objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
             objets.push(afficheLongueurSegment(angleOriente(BCorr, CCorr, A) > 0 ? CCorr : A, angleOriente(BCorr, CCorr, A) > 0 ? A : CCorr, 'red', 0.5, '', true))
@@ -586,6 +584,11 @@ class AgrandirReduireFigure extends Exercice {
             const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
             const numD = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
             const nom = lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC) + lettreDepuisChiffre(numD)
+            const numACorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
+            const numBCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr])
+            const numCCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr])
+            const numDCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr, numCCorr])
+            const nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr) + lettreDepuisChiffre(numDCorr)
             objets.push(polygoneInit, nommePolygone(polygoneInit, nom))
             objets.push(codageSegments('||', 'red', A, B, C, D))
             objets.push(codageSegments('X', 'red', B, C, D, A))
@@ -597,22 +600,15 @@ class AgrandirReduireFigure extends Exercice {
               pixelsParCm: 20,
               scale: 0.5
             }, fixeBordures(objets)), objets)
-            let correctionParticularite = ''
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              switch (choice([1, 2])) {
-                case 1 :
-                  texte += '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur :' + ajouteChampTexteMathLive(this, i, '')
-                  handleAnswers(this, i, { reponse: { value: min(reponse, reponse1) } })
-                  correctionParticularite += 'Dans le nouveau triangle, le côté le moins long aura pour longueur $' + miseEnEvidence(texNombre(min(reponse, reponse1))) + '$.'
-                  break
-                case 2 :
-                  texte += '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur :' + ajouteChampTexteMathLive(this, i, '')
-                  handleAnswers(this, i, { reponse: { value: max(reponse, reponse1) } })
-                  correctionParticularite += 'Dans le nouveau triangle, le côté le moins long aura pour longueur $' + miseEnEvidence(texNombre(max(reponse, reponse1))) + '$.'
-                  break
-              }
+              texte += '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur : ' + ajouteChampTexteMathLive(this, indiceChampReponse, '')
+              handleAnswers(this, indiceChampReponse, { reponse: { value: min(reponse, reponse1) } })
+              nbDeChampsReponse++
+              texte += '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur : ' + ajouteChampTexteMathLive(this, indiceChampReponse + nbDeChampsReponse, '')
+              handleAnswers(this, indiceChampReponse + nbDeChampsReponse, { reponse: { value: max(reponse, reponse1) } })
+              nbDeChampsReponse++
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}.`
               texte += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
@@ -683,10 +679,9 @@ class AgrandirReduireFigure extends Exercice {
               texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse)}$`
               texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1)}$`
             }
-            texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${(texNombre(reponse))}$ et $${(texNombre(reponse1))}$.`
-            texteCorr += '<br>' + correctionParticularite
+            texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ et $${miseEnEvidence(texNombre(reponse1))}$.`
             texteCorr += '<br>En voici, une réalisation ci-dessous.'
-            objets.push(polygoneCorr)
+            objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
             objets.push(codageSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
             objets.push(codageSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
             objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
@@ -734,9 +729,10 @@ class AgrandirReduireFigure extends Exercice {
             }, fixeBordures(objets)), objets)
             if (this.interactif) {
               texte = enonceInit
-              texte += ajouteChampTexteMathLive(this, i, '')
+              texte += ajouteChampTexteMathLive(this, indiceChampReponse, '')
               texte += enonceAMC
-              handleAnswers(this, i, { reponse: { value: reponse1 } })
+              handleAnswers(this, indiceChampReponse, { reponse: { value: reponse1 } })
+              nbDeChampsReponse++
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}] mesurera $${texNombre(reponse)}$.`
               texte += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
@@ -816,6 +812,7 @@ class AgrandirReduireFigure extends Exercice {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
+        indiceChampReponse += nbDeChampsReponse
         i++
       }
       cpt++

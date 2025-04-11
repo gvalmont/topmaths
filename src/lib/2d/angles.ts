@@ -279,12 +279,14 @@ export class Rapporteur extends ObjetMathalea2D {
       }
       for (let s = 1, r; s < 10; s++) {
         if (s === 5 && precisionAuDegre < 10) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color, 0.65)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color)
           r.opacite = 0.6
+          r.tailleExtremites = 0.65
           this.objets.push(r)
         } else if (precisionAuDegre === 1) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color, 0.65)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color)
           r.opacite = 0.6
+          r.tailleExtremites = 0.65
           this.objets.push(r)
         }
       }

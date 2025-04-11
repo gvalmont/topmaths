@@ -291,6 +291,8 @@ export function levelCriterion (
         if (considerCAN && item.pathToResource[0] === 'CAN') {
           // cas où on veut des exercices CAN, on regarde le 2e élément du chemin
           return item.pathToResource[1] === level
+        } else if (['1e', 'Terminale'].includes(item.pathToResource[0])) {
+          return item.pathToResource[1] === level
         } else {
           // dans l'autre cas, le niveau est dans le 1er élément du chemin
           return item.pathToResource[0] === level

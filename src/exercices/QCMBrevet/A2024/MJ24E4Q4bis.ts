@@ -66,7 +66,7 @@ export default class MetropoleJuin24Exo4BisQ4 extends ExerciceQcmA {
     if (!this.sup3) {
       this.enonce = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures([rosa, lab])), rosa, lab)
     } else this.enonce = ''
-    this.enonce += `Quel est l'image du motif gris par la rotation de centre $O$ et d'angle $${angleRot * nbSecteursRot}^\\circ$ dans le sens ${sens
+    this.enonce += `Quelle est l'image du motif gris par la rotation de centre $O$ et d'angle $${angleRot * nbSecteursRot}^\\circ$ dans le sens ${sens
       ? 'antihoraire'
       : 'horaire'
       } ?`

@@ -11,10 +11,10 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = 'fb6e0'
 export const refs = {
-  'fr-fr': ['3F14DNB-1'],
+  'fr-fr': ['3F14DNB-1', '3Z1DNB-05'],
   'fr-ch': []
 }
-export const titre = 'Résoudre un exercice DNB : fonction, tableur et équation produit nul'
+export const titre = 'Préparation DNB : Fonctions, tableur et équation produit nul'
 export const dateDePublication = '06/12/2024'
 /**
  * @Author Jean-Claude Lhote

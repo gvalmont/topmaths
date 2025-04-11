@@ -50,7 +50,7 @@ export default class Alignementdetroispoints extends Exercice {
           yA = randint(-5, 5)
           xB = randint(-5, 5, xA)
           yB = randint(-5, 5)
-          xC = randint(-5, 5, xA)
+          xC = randint(-5, 5, [xA, xB])
           yC = randint(-5, 5)
           n1 = yB - yA
           d1 = xB - xA

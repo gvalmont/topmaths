@@ -186,7 +186,7 @@ export default class RepresenterUneFraction extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const probleme = listeDeProblemes[i]
       const { contexte, question, reponses, reponseRedigee } = probleme()
-      let texte = `${contexte}<br>${question}<br>`
+      let texte = `${contexte}<br>${question}`
       this.autoCorrection[i] = {
         enonce: '',
         propositions: [

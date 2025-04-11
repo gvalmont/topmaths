@@ -104,6 +104,7 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
               const promise = test(page)
               if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
               result = await promise
+              logError('last URL: ' + page.url())
               expect(result).toBe(true) // si le résultat n'est pas bon, ça lève une exception
             } catch (error: unknown) {
               result = false

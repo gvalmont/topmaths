@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 
@@ -17,7 +18,6 @@ export const dateDePublication = '30/10/2024'
 /**
  *
  * @author Jean-Claude LHOTE
- * jean-claude.lhote@ac-nancy-metz.fr
  */
 export default class PolynesieJuin13Exo1Q2 extends ExerciceQcmA {
   private appliquerLesValeurs (d: number, v: number): void {
@@ -30,9 +30,9 @@ export default class PolynesieJuin13Exo1Q2 extends ExerciceQcmA {
       `$${String(m)}$ min $${String(s + 8)}$ s`,
       `$${String(m)}$ min $${String(s - 10)}$ s`
     ]
-    this.enonce = `Combien faut-il de temps pour parcourir $${d}$ m à la vitesse moyenne de $${v}$ km/h ?`
-    this.correction = `Une vitesse de $${v}$ km/h permet de parcourir $${v}$km en $1$h, soit $${v * 1000}$m en $3600$s ou encore $${v}$m en $3{,}6$s.<br>`
-    this.correction += `Donc, pour parcourir $${d}$ m, il faut $\\dfrac{${d}\\text{ m}}{${v}\\text{ m}}\\times 3{,}6\\text{ s}=${t.toString()}$ s, soit $${miseEnEvidence(`${m.toString()} \\text{ min } ${s.toString()} \\text{ s }`)}$.`
+    this.enonce = `Combien faut-il de temps pour parcourir $${texNombre(d)}$ m à la vitesse moyenne de $${v}$ km/h ?`
+    this.correction = `Une vitesse de $${v}$ km/h permet de parcourir $${v}$ km en $1$h, soit $${texNombre(v * 1000)}$ m en $${texNombre(3600)}$ s ou encore $${v}$ m en $3{,}6$ s.<br>`
+    this.correction += `Donc, pour parcourir $${texNombre(d)}$ m, il faut $\\dfrac{${texNombre(d)}\\text{ m}}{${v}\\text{ m}}\\times 3{,}6\\text{ s}=${t.toString()}$ s, soit $${miseEnEvidence(`${m.toString()} \\text{ min } ${s.toString()} \\text{ s }`)}$.`
   }
 
   versionOriginale: () => void = () => {
