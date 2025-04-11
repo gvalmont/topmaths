@@ -42,7 +42,7 @@
     "build": "npm run makeJson && npm run build:pdf && NODE_OPTIONS=\"--max-old-space-size=8192\" vite build",
     "build:json": "node tasks/build_prepare.js && tsc -p tsconfig-tasks.json && node tmp/tasks/build_json.js",
     "build:pdf": "npm run build:json && tsc -p tsconfig-tasks.json && node tmp/tasks/build_pdf.js && node tmp/tasks/build_json.js",
-    "update:upstream": "git fetch upstream && git checkout main && git merge upstream/main && pnpm i && pnpm addDNB",
+    "update:upstream": "git fetch upstream && git checkout main && git merge upstream/main && pnpm i",
     "start": "npm run makeJson && vite",
     "dev": "npm run makeJson && vite",
     "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenuInternational",
@@ -111,7 +111,7 @@
     "sortablejs": "^1.15.6",
     "svelte-gestures": "^4.0.0",
     "ts-import": "5.0.0-beta.0",
-    "tw-elements": "^1.1.0",    
+    "tw-elements": "^1.1.0",
     "xstate": "^4.38.3",
     "ua-parser-js": "^2.0.1"
   },
