@@ -37,7 +37,7 @@
 <div class="flex items-center">
   <div class="flex-1 md:max-w-screen-lg mx-auto">
     {#if resourceToDisplay}
-      <img src="static/dnb/{resourceToDisplay.uuid.split('_')[1]}/tex/png/{resourceToDisplay.uuid}.png" style="width: calc(100% * {zoomFactor}" alt="énoncé" />
+      <img src="https://coopmaths.fr/alea/static/{resourceToDisplay.uuid.split('_')[0]}/{resourceToDisplay.uuid.split('_')[1]}/tex/png/{resourceToDisplay.uuid}.png" style="width: calc(100% * {zoomFactor}" alt="énoncé" />
     {/if}
     {#if isCorrectionVisible}
       <div
@@ -47,7 +47,7 @@
         <div class="container">
           {#if resourceToDisplay}
               <img
-                src="static/dnb/{resourceToDisplay.uuid.split('_')[1]}/tex/png/{resourceToDisplay.uuid}_cor.png"
+                src="https://coopmaths.fr/alea/static/{resourceToDisplay.uuid.split('_')[0]}/{resourceToDisplay.uuid.split('_')[1]}/tex/png/{resourceToDisplay.uuid}_cor.png"
                 class="p-2"
                 style="width: calc(100% * {zoomFactor}"
                 alt="correction"
