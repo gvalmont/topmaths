@@ -1224,7 +1224,8 @@
           {
             "reference": "3G20"
           }
-        ]
+        ],
+        "assessmentExamSlug": "uuid=dnb_2024_09_polynesie_3&uuid=dnb_2023_12_caledonie_3&uuid=dnb_2019_07_polynesie_5&uuid=dnb_2019_07_metropole_2&uuid=dnb_2018_05_pondichery_7"
       },
       {
         "title": "Calcul littéral 4",
@@ -1246,7 +1247,8 @@
           {
             "reference": "3S42"
           }
-        ]
+        ],
+        "assessmentExamSlug": "uuid=dnbpro_2023_06_polynesie_4&uuid=dnbpro_2023_09_metropole_3&uuid=dnb_2022_06_polynesie_2&uuid=dnb_2021_11_ameriquesud_2&uuid=dnb_2020_12_caledonie_7"
       },
       {
         "title": "Puissances",
