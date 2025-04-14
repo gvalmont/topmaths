@@ -8039,15 +8039,11 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "2N41-6,s=1,n=3",
-                    "description": "Développer niveau 1"
-                  },
-                  {
                     "slug": "2N41-6,s=2,n=3",
-                    "description": "Développer niveau 2"
+                    "description": "Développer"
                   },
                   {
-                    "slug": "3L12,s=2,n=4",
+                    "slug": "3L12,s=2,n=2",
                     "description": "Factoriser"
                   }
                 ]
