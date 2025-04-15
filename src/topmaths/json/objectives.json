@@ -8371,7 +8371,12 @@
                     "authorLink": "https://www.youtube.com/channel/UCKBe8LjK0lStt4doSADrDBg"
                   }
                 ],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=aeb5a&id=3F20&n=2&d=10&s=1&s2=7&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "3S41",
@@ -8403,7 +8408,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=aeb5a&id=3F20&n=2&d=10&s=1&s2=4&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "3S43",
