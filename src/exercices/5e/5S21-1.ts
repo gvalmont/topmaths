@@ -18,7 +18,7 @@ export const interactifType = 'mathLive'
 export const uuid = '850b0'
 
 export const refs = {
-  'fr-fr': ['5S21-1'],
+  'fr-fr': ['5S21-1', 'BP2FLUC14'],
   'fr-ch': ['11NO2-7']
 }
 export default class ProbabilitesSimples extends Exercice {

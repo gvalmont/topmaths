@@ -1,13 +1,7 @@
 import { context } from '../../modules/context'
 
 // const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
-const orderedListTypes: string[] = [
-  'nombres',
-  'alpha',
-  'Alpha',
-  'roman',
-  'Roman'
-]
+const orderedListTypes: string[] = ['nombres', 'alpha', 'Alpha', 'roman', 'Roman']
 
 const labelsByStyle = new Map([
   ['puces', '$\\bullet$'],
@@ -62,7 +56,7 @@ export type List<T> = {
   introduction?: string
 }
 
-interface NestedList extends List<NestedList> { }
+interface NestedList extends List<NestedList> {}
 
 /**
  * Vérifier si le type d'un objet est bien `DescriptionItem`
@@ -71,28 +65,32 @@ interface NestedList extends List<NestedList> { }
  * @param item Objet à controller
  * @returns `true` si l'objet est de type `DescriptionItem`
  */
-export function isDescriptionItem (
-  item: DescriptionItem | NestedList
-): item is DescriptionItem {
+export function isDescriptionItem(item: DescriptionItem | NestedList): item is DescriptionItem {
   return (item as DescriptionItem).description !== undefined
 }
 
 /**
  * Contruit une liste formattée suivant un style à partir d'un tableau de chaînes de caractères comme entrées.
  * @param {NestedList} list Objet décrivant la liste
+ * @param {number} startWith Numéro de départ pour les listes numérotées
  * @returns {string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
  * @author sylvain, Jean-Léon Henry
  * @link https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Numérotation-et-listes
  */
-export function createList (
+export function createList(
   list: NestedList,
-  shift: string = ''
+  shift: string = '',
+  startWith: number = 1,
+  nestedLevel: number = 0
 ): string {
   const isOrdered: boolean = orderedListTypes.includes(list.style)
   let lineStart = list.style === 'none' ? '' : '\t\\item '
   let lineEnd = list.style === 'none' ? '\\par' : ''
   const lineBreak: string = '\n'
   const label: string = labelsByStyle.get(list.style) ?? '' // only used in latex output
+  const HTMLCorrection: string = startWith > 1 ? ` start='${startWith}'` : ''
+  const LaTeXCorrection: string =
+    startWith > 1 ? ` \\setcounter{enum${'i'.repeat(nestedLevel + 1)}}{${startWith - 1}}` : ''
   let openingTagOrdered = '\\begin{enumerate}'
   let openingTagUnordered = '\\begin{itemize}'
   let closingTagOrdered = '\\end{enumerate}'
@@ -108,7 +106,7 @@ export function createList (
     if (classOptionsFormatted !== '') {
       classOptionsFormatted = ' ' + classOptionsFormatted
     }
-    openingTagOrdered = `<ol class='${list.style}${classOptionsFormatted}'>`
+    openingTagOrdered = `<ol class='${list.style}${classOptionsFormatted}'${HTMLCorrection}>`
     openingTagUnordered = `<ul class='${list.style}${classOptionsFormatted}'>`
     closingTagOrdered = '</ol>'
     closingTagUnordered = '</ul>'
@@ -120,16 +118,19 @@ export function createList (
   const closingTagLine = shift + closingTag + lineBreak
 
   if (!context.isHtml && label.length !== 0) {
-    openingTagLine += `[label=${label}]`
+    openingTagLine += `[label=${label}]` + LaTeXCorrection
+  } else {
+    openingTagLine += !context.isHtml ? LaTeXCorrection : ''
   }
 
   openingTagLine += lineBreak
   output += openingTagLine
 
-  function lineFactory (
+  function lineFactory(
     inside: string,
     before: string = shift + lineStart,
-    after: string = lineEnd + lineBreak) {
+    after: string = lineEnd + lineBreak
+  ) {
     return before + inside + after
   }
 
@@ -146,7 +147,7 @@ export function createList (
       liContent = span + item.text
     } else {
       // item is neither a string or a DescriptionItem, it's probably a sublist
-      liContent = (item.introduction ?? '') + createList(item, shift + '\t')
+      liContent = (item.introduction ?? '') + createList(item, shift + '\t', 1, nestedLevel++)
     }
     output += lineFactory(liContent)
   }

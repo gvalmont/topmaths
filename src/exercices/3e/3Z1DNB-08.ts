@@ -61,7 +61,7 @@ export default class ExercicePolynesie52024 extends ExerciceBrevetA {
     const cF = droite(point(xMin / 10, f(xMin) / 10), point(xMax / 10, f(xMax) / 10), '', 'ForestGreen')
     const lect1 = lectureAntecedent(Math.round((volumeArrondi - reste2) / v2 / 5) * 0.5, reste2 * 0.1, 1, 1, 'red', `${reste2}`, `${Math.round((volumeArrondi - reste2) / v2 / 5) * 5}`)
     const lect2 = lectureAntecedent(Math.round(dureeMax / 5) * 0.5, 0, 1, 1, 'purple', '', `${Math.round(dureeMax / 5) * 5}`)
-    const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.4 }, fixeBordures([...repBuild.objets, cF])), repBuild.objets, cF)
+    const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.4 }, fixeBordures([...repBuild.objets, cF])), repBuild.objets, cF) + ' <br'
     const figureCorrection = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.4 }, fixeBordures([...repBuild.objets, cF, lect1, lect2])), repBuild.objets, cF, lect1, lect2)
 
     this.enonce = `La piscine du camping ${nom} dispose d'un bassin circulaire de forme cylindrique de rayon $${texNombre(r, 1)}~\\text{m}$ et de hauteur $${texNombre(h, 1)}~\\text{m}$.<br>

@@ -24,7 +24,7 @@ export const amcType = 'AMCNum'
 export const uuid = '93df9'
 
 export const refs = {
-  'fr-fr': ['4C30-2'],
+  'fr-fr': ['4C30-2', 'BP2AutoE7'],
   'fr-ch': ['10NO2-4']
 }
 export default class EcritureDecimalePuissanceDe10 extends Exercice {

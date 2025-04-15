@@ -24,7 +24,7 @@ export const amcReady = true
 export const uuid = 'd28ff'
 
 export const refs = {
-  'fr-fr': ['3L11-3b'],
+  'fr-fr': ['3L11-3b', 'BP2AutoI6'],
   'fr-ch': ['']
 }
 

@@ -66,6 +66,7 @@ export default class CanNoteLaCouleur6 extends Exercice {
     this.relatif = false
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = true
+    this.nbQuestions = 6
   }
 
   nouvelleVersion () {
@@ -261,11 +262,11 @@ export default class CanNoteLaCouleur6 extends Exercice {
         \\begin{minipage}{0.4\\textwidth} \n\t ${mathalea2d(Object.assign({}, fixeBordures([rose]), { scale: 0.5 }), rose)} \n \\end{minipage}
       \\begin{minipage}{0.3\\textwidth} \n\t ${this.sup === 4 || this.sup === 2
                     ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
-                    : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n\\end{minipage}`
+                    : ''} ${mathalea2d(paramsCorrection, objetsEnonce)} \n \\end{minipage}`
         if (q < this.nbQuestions - 1 && !context.isHtml) {
-          texte += '\n\\newpage'
+          texte += '\n \\medskip'
         }
-        this.canEnonce = 'Sur quelle case le lutin s\'arrête pour noter la couleur ?\\\\' + `\\begin{minipage}{0.1\\textwidth}\n${scratchblock(pion.codeScratch)}\n\\end{minipage}\n\\begin{minipage}{0.3\\textwidth}\n ${mathalea2d(Object.assign({}, fixeBordures([rose]), { scale: 0.5 }), rose)}\\end{minipage}`
+        this.canEnonce = 'Sur quelle case le lutin s\'arrête pour noter la couleur ?\\\\' + `\\begin{minipage}{0.1\\textwidth}\n${scratchblock(pion.codeScratch)}\n \\end{minipage}\n\\begin{minipage}{0.3\\textwidth}\n ${mathalea2d(Object.assign({}, fixeBordures([rose]), { scale: 0.5 }), rose)}\n \\end{minipage}`
         this.canReponseACompleter = `${this.sup === 4 || this.sup === 2
                     ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
                     : ''} ${mathalea2d(paramsCorrection, objetsEnonce)}`
@@ -314,7 +315,7 @@ export default class CanNoteLaCouleur6 extends Exercice {
       }
       texteCorr += '<br><br>' + mathalea2d(paramsCorrection, objetsCorrection, lutin)
       if (q < this.nbQuestions - 1 && !context.isHtml) {
-        texteCorr += '\n\\newpage'
+        texteCorr += '\n \\medskip'
       }
       if (this.questionJamaisPosee(q, xdepart, ydepart, angledepart)) {
         this.listeQuestions[q] = texte

@@ -38,7 +38,7 @@ export const dateDeModifImportante = '23/02/2024'
 export const uuid = 'd5e44'
 
 export const refs = {
-  'fr-fr': ['6N23-6'],
+  'fr-fr': ['6N23-6', 'BP2AutoC3'],
   'fr-ch': ['9NO10-7']
 }
 export default class DivisionFraction extends Exercice {

@@ -38,6 +38,8 @@ export default class ProblemesEvenementsRecurrents extends Exercice {
     super()
 
     this.nbQuestions = 1
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
     this.sup = 1
     this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : 1 facteur commun, 1 facteur spécifique\n2 : 2 facteurs communs, 1 facteur spécifique\n3 : 2 facteurs communs, 2 facteurs spécifiques']
     this.besoinFormulaire2Texte = ['Type d\'énoncé', 'Nombres séparés par des tirets :\n1 : Guirlandes\n2 : Voiture\n3 : Fusée\n4 : Restau - ciné\n5 : Engrenages\n6 : Mélange']

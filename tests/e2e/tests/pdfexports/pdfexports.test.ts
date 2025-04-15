@@ -66,12 +66,16 @@ async function getLatexFile (page: Page, urlExercice: string) {
   if (resu2 === 'KO') {
     return 'KO'
   }
+  const resu3 = await getLatexFileStyle(page, urlExercice, 'Can')
+  if (resu3 === 'KO') {
+    return 'KO'
+  }
   return 'OK'
 }
 
 async function getLatexFileStyle (page: Page, urlExercice: string, style: string) {
   log(urlExercice)
-  page.setDefaultTimeout(100000)
+  page.setDefaultTimeout(120000)
 
   await page.goto(urlExercice)
   await page.reload()
@@ -90,6 +94,9 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
     case 'ProfMaquetteAvecQrCode' :
       styleLocator = 'input#Style3'
       break
+    case 'Can' :
+      styleLocator = 'input#Style4'
+      break
     default:
       styleLocator = 'input#Style2'
   }
@@ -97,11 +104,11 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
 
   // await page.click('input#Style2') // style maquette
 
-  await new Promise((resolve) => setTimeout(resolve, 2000))
+  await new Promise((resolve) => setTimeout(resolve, 200))
 
-  const downloadPromise = page.waitForEvent('download', { timeout: 50000 })
+  const downloadPromise = page.waitForEvent('download', { timeout: 60000 })
   page.click('button#downloadFullArchive')
-  //
+
   const download = await downloadPromise
 
   const downloadError = await download.failure()
@@ -117,7 +124,7 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
   let idPath = (new URL(urlExercice)).searchParams.get('id')
   idPath = idPath?.substring(0, idPath?.lastIndexOf('.')) || idPath
   const id = idPath?.split('/').reverse()[0]
-  const startedPath = idPath?.split('/')[0].split('_')[0] || 'test'
+  const startedPath = (idPath?.split('/')[0].split('_')[0] || 'test')
   // console.log(uuid)
 
   try {
@@ -138,15 +145,15 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
     await fs.mkdir(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath)
   }
 
-  await download.saveAs(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename())
+  await download.saveAs(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename())
 
-  const zip = await fs.open(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename())
+  const zip = await fs.open(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename())
 
   const unzipfiles : Map<string, string | ArrayBuffer> = await readZip(zip)
 
   zip.close()
 
-  const folder = UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + (id === uuid ? '_' : '_' + uuid + '_') + Date.now() + '-' + Math.round(Math.random() * 1E9)
+  const folder = UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + Date.now() + '-' + Math.round(Math.random() * 1E9)
   await fs.mkdir(folder)
 
   const filesPromise : Promise<unknown>[] = []
@@ -160,7 +167,7 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
   })
   await Promise.all(filesPromise)
 
-  await fs.rm(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename(), { recursive: true, force: true })
+  await fs.rm(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename(), { recursive: true, force: true })
 
   const file = Array.from(unzipfiles.keys()).find(ele => ele === 'main.tex' || ele === 'test.tex')
 
@@ -202,7 +209,7 @@ async function getLatexFileStyle (page: Page, urlExercice: string, style: string
   })
   log('code:' + code)
   if (code === 0) {
-    await fs.copyFile(folder + '/' + getFilenameWithoutExtension('' + file) + '.pdf', UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + (id === uuid ? '_' : '_' + uuid + '_') + getFilenameWithoutExtension(download.suggestedFilename()) + '.pdf')
+    await fs.copyFile(folder + '/' + getFilenameWithoutExtension('' + file) + '.pdf', UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + startedPath + '/' + id + style + (id === uuid ? '_' : '_' + uuid + '_') + getFilenameWithoutExtension(download.suggestedFilename()) + '.pdf')
     await fs.rm(folder + '/', { recursive: true, force: true })
     return 'OK'
   } else {

@@ -16,7 +16,7 @@ export const amcType = 'AMCOpen'
 export const uuid = '051c7'
 
 export const refs = {
-  'fr-fr': ['4C32-3'],
+  'fr-fr': ['4C32-3', 'BP2AutoE9'],
   'fr-ch': ['10NO2-6']
 }
 export default class ProblemesPuissancesDe10EtConversions extends Exercice {

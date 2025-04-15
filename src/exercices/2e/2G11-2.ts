@@ -3,7 +3,7 @@ export const titre = 'Résoudre des problèmes utilisant le théorème de Thalè
 export const interactifReady = false
 export const uuid = 'eab10'
 export const refs = {
-  'fr-fr': ['2G11-2'],
+  'fr-fr': ['2G11-2', 'BP2G22'],
   'fr-ch': []
 }
 export default class ProblemesThales2nde extends ProblemesThales {

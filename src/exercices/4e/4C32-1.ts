@@ -20,7 +20,7 @@ export const interactifReady = true
 export const uuid = '762fe'
 
 export const refs = {
-  'fr-fr': ['4C32-1'],
+  'fr-fr': ['4C32-1', 'BP2AutoF7'],
   'fr-ch': ['10NO2-17']
 }
 export default class CalculsAvecPuissancesDeDix extends Exercice {

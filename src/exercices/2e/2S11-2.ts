@@ -27,10 +27,11 @@ export const dateDePublication = '06/01/2022'
 export const uuid = '12444'
 
 export const refs = {
-  'fr-fr': ['2S11-2'],
+  'fr-fr': ['2S11-2', 'BP2AutoB2'],
   'fr-ch': []
 }
 export default class EvolutionsEnPourcentage extends Exercice {
+  onlyMoney = false
   constructor () {
     super()
 
@@ -55,7 +56,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
     if (this.sup === 4) {
       typesDeQuestionsDisponibles = ['finale', 'evolution', 'initiale']
     }
-    const situationsDisponibles = ['prix', 'etablissement', 'facture', 'population']
+    const situationsDisponibles = this.onlyMoney ? ['prix', 'facture'] : ['prix', 'etablissement', 'facture', 'population']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let date, cetteAnnee, anneeDerniere, etablissement, facture, nb

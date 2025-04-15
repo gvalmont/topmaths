@@ -21,7 +21,7 @@ export const dateDePublication = '16/03/2022'
 export const uuid = '91d72'
 
 export const refs = {
-  'fr-fr': ['5N10'],
+  'fr-fr': ['5N10', 'BP2AutoC1'],
   'fr-ch': ['9NO10-2', '1CN-3']
 }
 export default class PasserEcritureDecimaleEcritureFractionnaireInversement extends Exercice {

@@ -28,7 +28,7 @@ export const titre = 'Parcourir un labyrinthe de fractions égales'
 export const uuid = 'f8a4d'
 
 export const refs = {
-  'fr-fr': ['6N41-1'],
+  'fr-fr': ['6N41-1', 'BP2AutoG5'],
   'fr-ch': ['9NO12-2']
 }
 export default class ExerciceLabyrintheFractionsEgales extends Exercice {

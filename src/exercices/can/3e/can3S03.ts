@@ -8,7 +8,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Calculer une probabilités*'
+export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'd86be'
 
 export const refs = {
-  'fr-fr': ['can3S03'],
+  'fr-fr': ['can3S03', 'BP2FLUC17'],
   'fr-ch': []
 }
 export default class CalculsProbabilite2 extends Exercice {

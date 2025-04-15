@@ -182,3 +182,10 @@ export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1
     } else { tag.setAttribute('style', 'width:' + String(w) + tag.dataset.widthUnit + '; height:' + String(h) + tag.dataset.heightUnit + ';') }
   }
 }
+
+export const updateIframeSize = (container: HTMLDivElement, iframe: HTMLIFrameElement) => {
+  if (container.offsetWidth !== 0) {
+    iframe.setAttribute('width', '100%')
+    iframe.setAttribute('height', iframe.offsetWidth * 0.75 + '')
+  }
+}

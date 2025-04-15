@@ -370,9 +370,9 @@ export default class NoteLaCouleur6e extends Exercice {
         texte += `\\begin{minipage}{.3 \\linewidth} \n\t ${scratchblock(pion.codeScratch)} \n \\end{minipage}
       \\begin{minipage}{.7 \\linewidth} \n\t ${this.sup % 2 === 0
             ? 'Correspondance chiffre-couleur : \\\\\n0=Blanc, 1=Noir, 2=Rouge, 3=Bleu, 4=Orange, 5=Rose, 6=Jaune, 7=Vert, 8=Gris\\\\\n'
-            : ''} ${mathalea2d(paramsCorrection, ...objetsEnonce)} \n\\end{minipage}`
+            : ''} ${mathalea2d(paramsCorrection, ...objetsEnonce)} \n \\end{minipage}`
         if (q < this.nbQuestions - 1 && !context.isHtml) {
-          texte += '\n\\newpage'
+          texte += '\n \\medskip'
         }
       }
       reponseCouleur = couleurs

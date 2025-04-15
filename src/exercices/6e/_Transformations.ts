@@ -25,7 +25,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
-export const dateDeModifImportante = '31/03/2025'
+export const dateDeModifImportante = '11/04/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -49,19 +49,15 @@ export default class Transformations extends Exercice {
   }
 
   nouvelleVersion () {
-    let nbImages
+    const nbImages = this.can ? 1 : 3
 
     const choixTransformation = gestionnaireFormulaireTexte({
       max: 10,
       defaut: randint(1, 10),
-      nbQuestions: 3,
+      nbQuestions: this.nbQuestions * nbImages,
       saisie: this.sup,
       melange: 11
     }).map(Number) as TransformationsIndex[]
-
-    if (this.can) {
-      nbImages = 1
-    } else nbImages = 3
 
     const O = point(0, 0, 'O', 'above right')
     const d1 = droiteParPointEtPente(O, 1)
@@ -457,8 +453,8 @@ export default class Transformations extends Exercice {
           texteCorr = texteCorr.replaceAll(numAlpha(0), '')
         }
 
-        handleAnswers(this, indiceQuestion * 3 + i, { reponse: { value: String(images[i]) } })
-        texte += ajouteChampTexteMathLive(this, indiceQuestion * 3 + i, '')
+        handleAnswers(this, indiceQuestion * nbImages + i, { reponse: { value: String(images[i]) } })
+        texte += ajouteChampTexteMathLive(this, indiceQuestion * nbImages + i, '')
       }
       const graphique = mathalea2d({
         xmin: -4.5,

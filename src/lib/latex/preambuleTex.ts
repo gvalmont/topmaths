@@ -71,7 +71,7 @@ function loadPreambuleCan () {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SPÉCIFIQUE SUJETS CAN                  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\\usepackage{tabularray} % EE : Pour pouvoir utiliser tableauCAN
 \\usepackage{longtable}
 
 \\tikzset{

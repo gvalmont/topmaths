@@ -31,7 +31,7 @@ export const interactifType = 'mathLive'
 export const uuid = '5f429'
 
 export const refs = {
-  'fr-fr': ['4C21'],
+  'fr-fr': ['4C21', 'BP2AutoH9'],
   'fr-ch': ['9NO13-5']
 }
 export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercice {

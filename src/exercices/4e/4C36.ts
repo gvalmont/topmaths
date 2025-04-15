@@ -26,7 +26,7 @@ export const dateDeModifImportante = '18/06/2022'
 export const uuid = '975cc'
 
 export const refs = {
-  'fr-fr': ['4C36'],
+  'fr-fr': ['4C36', 'BP2AutoU2'],
   'fr-ch': ['10NO2-13']
 }
 export default class nomExercice extends Exercice {
@@ -97,7 +97,7 @@ export default class nomExercice extends Exercice {
       },
       {
         intitule: 'le volume d\'une bouteille d\'eau',
-        puissanceDe10: 3,
+        puissanceDe10: 6,
         unite: 'mm$^3$'
       },
       {

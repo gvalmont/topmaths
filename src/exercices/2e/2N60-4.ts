@@ -29,7 +29,7 @@ export const dateDeModifImportante = '07/06/2024'
 export const uuid = 'bc1e4'
 
 export const refs = {
-  'fr-fr': ['2N60-4'],
+  'fr-fr': ['2N60-4', 'BP2RES19'],
   'fr-ch': []
 }
 export default class ExerciceInequation1 extends Exercice {

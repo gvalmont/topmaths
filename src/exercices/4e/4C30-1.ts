@@ -22,7 +22,7 @@ export const titre = 'Encadrer des nombres positifs avec des puissances de 10'
 export const uuid = '760d7'
 
 export const refs = {
-  'fr-fr': ['4C30-1'],
+  'fr-fr': ['4C30-1', 'BP2AutoE6'],
   'fr-ch': ['9NO5-1']
 }
 export default class PuissancesEncadrement extends Exercice {

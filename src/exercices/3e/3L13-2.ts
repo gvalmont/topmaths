@@ -27,7 +27,7 @@ export const dateDeModifImportante = '15/06/2024'
 export const uuid = '6516e'
 
 export const refs = {
-  'fr-fr': ['3L13-2'],
+  'fr-fr': ['3L13-2', 'BP2RES13'],
   'fr-ch': ['11GM3-7', '11FA5-5']
 }
 export default class EqResolvantesThales extends Exercice {

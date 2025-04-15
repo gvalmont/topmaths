@@ -12,7 +12,7 @@ import ProblemesEnEquation from '../3e/3L13-3'
 export const uuid = '622b9'
 export const titre = 'Mettre un problème en équation et le résoudre'
 export const refs = {
-  'fr-fr': ['2N50-1'],
+  'fr-fr': ['2N50-1', 'BP2RES21'],
   'fr-ch': ['11FA6-7']
 }
 export default class ProblemesEnEquation2 extends ProblemesEnEquation {

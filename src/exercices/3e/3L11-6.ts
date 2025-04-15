@@ -22,7 +22,7 @@ export const dateDePublication = '22/05/2021'
 export const uuid = '51360'
 
 export const refs = {
-  'fr-fr': ['3L11-6'],
+  'fr-fr': ['3L11-6', 'BP2AutoI22'],
   'fr-ch': ['11FA3-3']
 }
 export default class FactoriserUneExpression3e extends Exercice {

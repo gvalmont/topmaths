@@ -19,7 +19,7 @@ export const dateDePublication = '17/09/2022'
 export const uuid = '5d1e2'
 
 export const refs = {
-  'fr-fr': ['6N13-0'],
+  'fr-fr': ['6N13-0', 'BP2AutoT1'],
   'fr-ch': ['9GM2-4']
 }
 export default class sensDesPrefixes extends Exercice {

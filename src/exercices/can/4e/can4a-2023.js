@@ -150,7 +150,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('\\dots{} min')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('\\dots{} min')
           break
 
         case 4:
@@ -306,7 +306,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
 
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('? $=\\ldots °$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('? $=\\ldots ^\\circ$')
           break
         case 6:
           if (choice([true, false])) {
@@ -322,7 +322,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             } else {
               texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
             }
-            this.listeCanReponsesACompleter.push('$\\ldots\\Aire[dm]{}$')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length] = ('$\\ldots\\Aire[dm]{}$')
           } else {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).div(100)
@@ -335,7 +335,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '') + 'm$^2$'
             } else {
               texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
-              this.listeCanReponsesACompleter.push('$\\ldots\\Aire[m]{}$')
+              this.listeCanReponsesACompleter[this.listeCanEnonces.length] = ('$\\ldots\\Aire[m]{}$')
             }
           }
           this.listeCanEnonces.push(texte)
@@ -368,7 +368,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots €$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots €$')
           break
 
         case 8:
@@ -519,7 +519,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             } else {
               texte += ' $\\ldots$ L'
               texte += context.isHtml ? ' $\\ldots$ L' : ''
-              this.listeCanReponsesACompleter.push('$\\ldots\\Capa{}$')
+              this.listeCanReponsesACompleter[this.listeCanEnonces.length] = ('$\\ldots\\Capa{}$')
             }
           }
           if (choix === 'b') {
@@ -531,7 +531,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '') + 'L'
             } else {
               texte += context.isHtml ? ' $\\ldots$ L' : ''
-              this.listeCanReponsesACompleter.push('$\\ldots\\Capa{}$')
+              this.listeCanReponsesACompleter[this.listeCanEnonces.length] = ('$\\ldots\\Capa{}$')
             }
           }
 
@@ -557,7 +557,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push(`On a $\\ldots$ chances <br> sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`)
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = (`On a $\\ldots$ chances <br> sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`)
           break
 
         case 15:
@@ -673,7 +673,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots$ pas.')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots$ pas.')
         }
           break
 
@@ -708,7 +708,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
             } else {
               texte += context.isHtml ? ' $\\ldots$ cm' : ''
-              this.listeCanReponsesACompleter.push('$AC=\\ldots$ cm.')
+              this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$AC=\\ldots$ cm.')
             }
           } else {
             listeTriplet = [[3, 4, 5], [6, 8, 10], [5, 12, 13]]
@@ -735,7 +735,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^2$'
             }
-            this.listeCanReponsesACompleter.push('$\\ldots\\Aire[cm]{}$')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots\\Aire[cm]{}$')
           }
 
           nbChamps = 1
@@ -910,7 +910,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots\\Capa[cL]{}$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots\\Capa[cL]{}$')
           break
 
         case 25:
@@ -952,7 +952,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${miseEnEvidence(a)}$ h $${miseEnEvidence(d)}$ min`
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots\\text{ h}\\ldots \\text{ min}$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots\\text{ h}\\ldots \\text{ min}$')
           break
 
         case 27:
@@ -1029,7 +1029,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
           reponse = c
           texte = `Ce pavé droit a un volume de $${v}$ cm$^3$.<br>
             Quelle est sa hauteur ? <br>`
-          texte += '<br>' + mathalea2d({
+          texte += mathalea2d({
             xmin: -1.5,
             ymin: -1,
             xmax: 7.1,
@@ -1048,7 +1048,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
 
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$AI= \\ldots\\Lg[cm]{}$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$AI= \\ldots\\Lg[cm]{}$')
           break
 
         case 30:

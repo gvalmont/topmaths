@@ -3,7 +3,7 @@ export const titre = 'Tester si un nombre est solution d\'une équation du premi
 export const interactifReady = false
 export const uuid = '5ecb8'
 export const refs = {
-  'fr-fr': ['4L14-1'],
+  'fr-fr': ['4L14-1', 'BP2RES5'],
   'fr-ch': ['10FA3-3']
 }
 export default class TesterSiUnNombreEstSolutionDUneEquationDeg1 extends TesterSiUnNombreEstSolutionDUneEquation {

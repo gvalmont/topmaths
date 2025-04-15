@@ -20,7 +20,7 @@ export const dateDePublication = '06/02/2021'
 export const uuid = '53762'
 
 export const refs = {
-  'fr-fr': ['2N52-1'],
+  'fr-fr': ['2N52-1', 'BP2RES31'],
   'fr-ch': ['11FA10-2']
 }
 export default class EquationsProduitsNuls2 extends Exercice {

@@ -2053,7 +2053,7 @@ export const dictionnaireDNB = {
   },
   dnb_2016_06_metropole_1: {
     annee: '2016',
-    lieu: 'Antilles - Guyane',
+    lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
@@ -2061,7 +2061,7 @@ export const dictionnaireDNB = {
   },
   dnb_2016_06_metropole_2: {
     annee: '2016',
-    lieu: 'Antilles - Guyane',
+    lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
@@ -2069,7 +2069,7 @@ export const dictionnaireDNB = {
   },
   dnb_2016_06_metropole_3: {
     annee: '2016',
-    lieu: 'Antilles - Guyane',
+    lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
@@ -2077,7 +2077,7 @@ export const dictionnaireDNB = {
   },
   dnb_2016_06_metropole_4: {
     annee: '2016',
-    lieu: 'Antilles - Guyane',
+    lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
@@ -2085,7 +2085,7 @@ export const dictionnaireDNB = {
   },
   dnb_2016_06_metropole_5: {
     annee: '2016',
-    lieu: 'Antilles - Guyane',
+    lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
@@ -2093,7 +2093,7 @@ export const dictionnaireDNB = {
   },
   dnb_2016_06_metropole_6: {
     annee: '2016',
-    lieu: 'Antilles - Guyane',
+    lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '6',
     typeExercice: 'dnb',
@@ -2101,7 +2101,7 @@ export const dictionnaireDNB = {
   },
   dnb_2016_06_metropole_7: {
     annee: '2016',
-    lieu: 'Antilles - Guyane',
+    lieu: 'Métropole',
     mois: 'Juin',
     numeroInitial: '7',
     typeExercice: 'dnb',
@@ -3711,7 +3711,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Statistiques', 'Pourcentages']
   },
-  dnb_2019_06_metropole_1: {
+  dnb_2019_06_antilles_1: {
     annee: '2019',
     lieu: 'Antilles - Guyane',
     mois: 'Juin',
@@ -3719,7 +3719,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Probabilités', 'Calcul numérique']
   },
-  dnb_2019_06_metropole_2: {
+  dnb_2019_06_antilles_2: {
     annee: '2019',
     lieu: 'Antilles - Guyane',
     mois: 'Juin',
@@ -3727,7 +3727,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Algorithmique-programmation', 'Transformations']
   },
-  dnb_2019_06_metropole_3: {
+  dnb_2019_06_antilles_3: {
     annee: '2019',
     lieu: 'Antilles - Guyane',
     mois: 'Juin',
@@ -3735,7 +3735,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Pourcentages', 'Statistiques', 'Tableur']
   },
-  dnb_2019_06_metropole_4: {
+  dnb_2019_06_antilles_4: {
     annee: '2019',
     lieu: 'Antilles - Guyane',
     mois: 'Juin',
@@ -3743,7 +3743,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Trigonométrie', 'Thalès']
   },
-  dnb_2019_06_metropole_5: {
+  dnb_2019_06_antilles_5: {
     annee: '2019',
     lieu: 'Antilles - Guyane',
     mois: 'Juin',
@@ -3751,7 +3751,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Programme de calculs', 'Calcul littéral', 'Calcul numérique']
   },
-  dnb_2019_06_metropole_6: {
+  dnb_2019_06_antilles_6: {
     annee: '2019',
     lieu: 'Antilles - Guyane',
     mois: 'Juin',
@@ -4240,7 +4240,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Algorithmique-programmation']
   },
-  dnb_2020_09_antillesguyanne_1: {
+  dnb_2020_09_antilles_1: {
     annee: '2020',
     lieu: 'Antilles - Guyane',
     mois: 'Septembre',
@@ -4248,7 +4248,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Pythagore', 'Thalès', 'Trigonométrie']
   },
-  dnb_2020_09_antillesguyanne_2: {
+  dnb_2020_09_antilles_2: {
     annee: '2020',
     lieu: 'Antilles - Guyane',
     mois: 'Septembre',
@@ -4256,7 +4256,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['QCM', 'Agrandissement-réduction', 'Calcul littéral', 'Puissances', 'Fractions']
   },
-  dnb_2020_09_antillesguyanne_3: {
+  dnb_2020_09_antilles_3: {
     annee: '2020',
     lieu: 'Antilles - Guyane',
     mois: 'Septembre',
@@ -4264,7 +4264,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Transformations', 'Arithmétique']
   },
-  dnb_2020_09_antillesguyanne_4: {
+  dnb_2020_09_antilles_4: {
     annee: '2020',
     lieu: 'Antilles - Guyane',
     mois: 'Septembre',
@@ -4272,7 +4272,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Statistiques', 'Pourcentages', 'Tableur']
   },
-  dnb_2020_09_antillesguyanne_5: {
+  dnb_2020_09_antilles_5: {
     annee: '2020',
     lieu: 'Antilles - Guyane',
     mois: 'Septembre',
@@ -5300,7 +5300,7 @@ export const dictionnaireDNB = {
     tags: ['Coordonnées terrestres', 'Durées', 'Statistiques', 'Vitesses']
   },
 
-  dnb_2023_10_amsud_1: {
+  dnb_2023_11_amsud_1: {
     annee: '2023',
     lieu: 'amsud',
     mois: 'Octobre',
@@ -5308,7 +5308,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Pythagore', 'Trigonométrie', 'Géométrie plane', 'Agrandissement-réduction', 'Aires et périmètres']
   },
-  dnb_2023_10_amsud_2: {
+  dnb_2023_11_amsud_2: {
     annee: '2023',
     lieu: 'amsud',
     mois: 'Octobre',
@@ -5316,7 +5316,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Aires et périmètres', 'Calcul littéral', 'Fonctions', 'Tableur', 'Lecture graphique']
   },
-  dnb_2023_10_amsud_3: {
+  dnb_2023_11_amsud_3: {
     annee: '2023',
     lieu: 'amsud',
     mois: 'Octobre',
@@ -5324,7 +5324,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Vrai-faux', 'Proportionnalité', 'Arithmétique', 'Calcul littéral']
   },
-  dnb_2023_10_amsud_4: {
+  dnb_2023_11_amsud_4: {
     annee: '2023',
     lieu: 'amsud',
     mois: 'Octobre',
@@ -5332,7 +5332,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Volumes', 'Grandeurs composées', 'Proportionnalité']
   },
-  dnb_2023_10_amsud_5: {
+  dnb_2023_11_amsud_5: {
     annee: '2023',
     lieu: 'amsud',
     mois: 'Octobre',
@@ -5858,4 +5858,86 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Arithmétique', 'Volumes', 'Fractions']
   },
+
+  dnb_2024_09_metropole_1: {
+    annee: '2024',
+    lieu: 'Métropole',
+    mois: 'Septembre',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_09_metropole_2: {
+    annee: '2024',
+    lieu: 'Métropole',
+    mois: 'Septembre',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_09_metropole_3: {
+    annee: '2024',
+    lieu: 'Métropole',
+    mois: 'Septembre',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_09_metropole_4: {
+    annee: '2024',
+    lieu: 'Métropole',
+    mois: 'Septembre',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_09_metropole_5: {
+    annee: '2024',
+    lieu: 'Métropole',
+    mois: 'Septembre',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_12_ameriquesud_1: {
+    annee: '2024',
+    lieu: 'Amérique du sud',
+    mois: 'Décembre',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_12_ameriquesud_2: {
+    annee: '2024',
+    lieu: 'Amérique du sud',
+    mois: 'Décembre',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_12_ameriquesud_3: {
+    annee: '2024',
+    lieu: 'Amérique du sud',
+    mois: 'Décembre',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_12_ameriquesud_4: {
+    annee: '2024',
+    lieu: 'Amérique du sud',
+    mois: 'Décembre',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2024_12_ameriquesud_5: {
+    annee: '2024',
+    lieu: 'Amérique du sud',
+    mois: 'Décembre',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+
 }

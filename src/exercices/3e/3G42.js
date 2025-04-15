@@ -31,7 +31,7 @@ export const dateDeModifImportante = '05/11/2023' // Une date de modification im
 export const uuid = '8c803'
 
 export const refs = {
-  'fr-fr': ['3G42'],
+  'fr-fr': ['3G42', 'BP2G19'],
   'fr-ch': ['11GM2-3']
 }
 export default class VolumeBoule extends Exercice {

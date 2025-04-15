@@ -23,7 +23,7 @@ export const dateDePublication = '16/12/2021'
 export const uuid = 'cf5b7'
 
 export const refs = {
-  'fr-fr': ['2N50-4'],
+  'fr-fr': ['2N50-4', 'BP2RES24'],
   'fr-ch': ['11FA6-10']
 }
 export default class ModeliserEquationsGeometrie extends Exercice {

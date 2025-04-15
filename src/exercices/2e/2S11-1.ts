@@ -4,7 +4,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '05db7'
 export const refs = {
-  'fr-fr': ['2S11-1'],
+  'fr-fr': ['2S11-1', 'BP2CCF9'],
   'fr-ch': []
 }
 export default class CoefficientEvolution2nde extends CoefficientEvolution {

@@ -4,7 +4,7 @@ export const interactifReady = false
 export const dateDePublication = '05/01/2023'
 export const uuid = 'ff410'
 export const refs = {
-  'fr-fr': ['4G30-1'],
+  'fr-fr': ['4G30-1', 'BP2AutoR10', 'BP2G11'],
   'fr-ch': ['11GM3-2']
 }
 export default class RelationDeThales4e extends RelationDeThales {

@@ -26,7 +26,7 @@ export const titre = 'Résoudre des problèmes de grandeurs composées et de con
 export const uuid = '72c5a'
 
 export const refs = {
-  'fr-fr': ['4P10'],
+  'fr-fr': ['4P10', 'BP2AutoU4'],
   'fr-ch': ['10FA4-2']
 }
 const solutes: [string, string, number][] = [

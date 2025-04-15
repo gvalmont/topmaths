@@ -14,7 +14,7 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
 export const uuid = 'a1c9a'
 
 export const refs = {
-  'fr-fr': ['4L14-0'],
+  'fr-fr': ['4L14-0', 'BP2RES4'],
   'fr-ch': ['10FA3-2', '11FA6-1']
 }
 

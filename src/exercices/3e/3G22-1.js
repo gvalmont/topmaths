@@ -22,7 +22,7 @@ export const dateDeModifImportante = '02/04/2023' // Une date de modification im
 export const uuid = 'a0ad1'
 
 export const refs = {
-  'fr-fr': ['3G22-1'],
+  'fr-fr': ['3G22-1', 'BP2G17'],
   'fr-ch': []
 }
 export default class Agrandissement extends Exercice {

@@ -7,7 +7,7 @@ const minVersion = {
   Safari: 16,
   Edge: 80,
   Opera: 67,
-  'Samsung Internet': 8,
+  'Samsung Internet': 14,
   'Mobile Safari': 12,
   'Mobile Chrome': 63,
   'Chrome Headless': 80,

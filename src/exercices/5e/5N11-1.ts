@@ -13,7 +13,7 @@ export const interactifReady = false
 export const uuid = 'f00fb'
 
 export const refs = {
-  'fr-fr': ['5N11-1'],
+  'fr-fr': ['5N11-1', 'BP2AutoB3', 'BP2CCF1'],
   'fr-ch': ['9NO14-4']
 }
 

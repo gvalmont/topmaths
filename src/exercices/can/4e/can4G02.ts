@@ -4,11 +4,11 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre = 'Trouver l’image d’un point par une transformation'
+export const dateDeModifImportante = '11/04/2025'
+export const dateDePublication = '01/08/2021'
 
 /**
  * @author Jean-Claude Lhote
- * Créé pendant l'été 2021
-
  */
 export const uuid = 'a77ed'
 

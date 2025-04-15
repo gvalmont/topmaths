@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 export const uuid = '3eae0'
 
 export const refs = {
-  'fr-fr': ['6N13'],
+  'fr-fr': ['6N13', 'BP2AutoQ2'],
   'fr-ch': ['10GM3-7']
 }
 export default class Exercice6N13 extends ExerciceConversions {

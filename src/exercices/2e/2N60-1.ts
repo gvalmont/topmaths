@@ -34,7 +34,7 @@ export const dateDeModifImportante = '03/04/2025'
 export const uuid = 'd2084'
 
 export const refs = {
-  'fr-fr': ['2N60-1'],
+  'fr-fr': ['2N60-1', 'BP2RES18'],
   'fr-ch': []
 }
 export default class ModeliseInequations extends Exercice {

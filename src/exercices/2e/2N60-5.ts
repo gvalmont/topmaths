@@ -27,7 +27,7 @@ export const amcType = 'qcmMono'
 export const uuid = '2844c'
 
 export const refs = {
-  'fr-fr': ['2N60-5'],
+  'fr-fr': ['2N60-5', 'BP2RES20'],
   'fr-ch': []
 }
 export default class SolInequation extends Exercice {

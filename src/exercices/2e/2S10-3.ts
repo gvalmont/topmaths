@@ -14,7 +14,7 @@ export const dateDePublication = '10/05/2023'
 export const uuid = '0f1d1'
 
 export const refs = {
-  'fr-fr': ['2S10-3'],
+  'fr-fr': ['2S10-3', 'BP2AutoB1'],
   'fr-ch': []
 }
 export default class ProportiondeProportionS extends ProportiondeProportion {

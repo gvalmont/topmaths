@@ -3,7 +3,7 @@ export const titre = 'Trouver l\'erreur dans une résolution d\'équation du pre
 export const interactifReady = false
 export const uuid = 'ad208'
 export const refs = {
-  'fr-fr': ['2N51-2'],
+  'fr-fr': ['2N51-2', 'BP2RES26'],
   'fr-ch': []
 }
 export default class TrouverErreurResolEqDeg12nde extends TrouverErreurResolEqDeg1 {

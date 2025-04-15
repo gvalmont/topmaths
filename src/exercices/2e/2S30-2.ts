@@ -8,7 +8,7 @@ export const interactifReady = false
 export const uuid = '28dfd'
 
 export const refs = {
-  'fr-fr': ['2S30-2'],
+  'fr-fr': ['2S30-2', 'BP2FLUC1'],
   'fr-ch': []
 }
 export default class FonctionsProbabilite12nde extends FonctionsProbabilite1 {

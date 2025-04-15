@@ -7,7 +7,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { ppcm } from '../../../modules/outils'
 export const uuid = '65fd3'
 export const refs = {
-  'fr-fr': ['4C2QCM-06'],
+  'fr-fr': ['4C2QCM-06', 'BP2AutoH8'],
   'fr-ch': []
 }
 export const interactifReady = true

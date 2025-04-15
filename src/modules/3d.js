@@ -126,7 +126,7 @@ class Arete3d {
   constructor (point1, point2, color, visible) {
     this.extremite1 = point1
     this.extremite2 = point2
-    this.color = color
+    this.color = Array.isArray(color) ? color[0] : color // MGu parfois un tableau de couleurs, pasd compatible avec segment.
     this.visible = visible
     if (!point1.visible || !point2.visible || !this.visible) {
       this.visible = false

@@ -22,10 +22,11 @@ export const titre = 'Résoudre des problèmes avec des calculs de pourcentages'
 export const uuid = 'd67e9'
 
 export const refs = {
-  'fr-fr': ['6N33-3'],
+  'fr-fr': ['6N33-3', 'BP2AutoB6'],
   'fr-ch': ['9NO15-2']
 }
 export default class AppliquerUnPourcentage extends Exercice {
+  onlyMoney = false
   constructor () {
     super()
 
@@ -36,7 +37,7 @@ export default class AppliquerUnPourcentage extends Exercice {
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2]
+    const typesDeQuestionsDisponibles = this.onlyMoney ? [1] : [1, 2]
     const choix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const listePourcentages = [10, 20, 30, 40, 50]
     const article = [['Un pull', 20, 40], ['Une chemise', 15, 35], ['Un pantalon', 30, 60], ['Un T-shirt', 15, 25], ['Une jupe', 20, 40]]

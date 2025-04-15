@@ -61,7 +61,7 @@ export default class Can2025N5Q12 extends Exercice {
     this.canEnonce += ` \\hspace*{7mm}\\texttt{return (a**2${ecritureAlgebrique(coeff)}*a)}`
     this.canEnonce += '}'
     this.canEnonce += '}'
-    this.canReponseACompleter = `$\\texttt{resultat(${a})}$ renvoie $\\ldots$`
+    this.canReponseACompleter = `$\\texttt{resultat(${a})}$ renvoie <br> $\\ldots$`
 
     if (this.interactif) { this.question += '<br>' }
   }

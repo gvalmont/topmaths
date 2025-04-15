@@ -5,6 +5,8 @@ import prefs from '../../helpers/prefs.js'
 import { findStatic, findUuid } from '../../helpers/filter.js'
 import { createIssue } from '../../helpers/issue.js'
 import { checkEachCombinationOfParams } from '../../helpers/testAllViews'
+import { describe, test } from 'vitest'
+import { expect } from '@playwright/test'
 
 const logConsole = getFileLogger('exportConsole', { append: true })
 
@@ -180,6 +182,7 @@ async function testRunAllLots (filter: string) {
         page.on('console', msg => {
           logConsole(msg.text())
         })
+        log(filter)
         const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
         const resultReq = await getConsoleTest(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&testCI`)
@@ -202,24 +205,47 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   prefs.headless = true
   log(filter)
   testRunAllLots(filter)
+} else if (process.env.CI && process.env.CHANGED_FILES !== null && process.env.CHANGED_FILES !== undefined) {
+  const changedFiles = process.env.CHANGED_FILES?.split('\n') ?? []
+  log(changedFiles)
+  prefs.headless = true
+  const filtered = changedFiles.filter(file => file.startsWith('src/exercices/') &&
+    !file.includes('ressources') &&
+    !file.includes('apps') &&
+    file.replace('src/exercices/', '').split('/').length >= 2).map(file =>
+    file.replace(/^src\/exercices\//, '').replace(/\.ts$/, '.').replace(/\.js$/, '.')
+  )
+  log(filtered)
+  if (filtered.length === 0) {
+    // aucun fichier concerné.. on sort
+    describe('dummy', () => {
+      test('should pass', () => {
+        expect(true).toBe(true)
+      })
+    })
+  } else {
+    filtered.forEach(file => {
+      const filter = file.replaceAll(' ', '')
+      testRunAllLots(filter)
+    })
+  }
 } else {
-  // prefs.headless = true
-  // prefs.slowMo = 100
-  // testRunAllLots('can')
-  // testRunAllLots('6e')
-  // testRunAllLots('5e')
-  // testRunAllLots('4e')
-  // testRunAllLots('3e')
-  // testRunAllLots('2e')
-  // testRunAllLots('1e')
-  // testRunAllLots('QCM')
-  // testRunAllLots('TEx')
-  // testRunAllLots('TSpe')
-  // testRunAllLots('techno1')
-  // testRunAllLots('QCMBac')
-  // testRunAllLots('QCMBrevet')
-  // testRunAllLots('QCMStatiques')
+  prefs.headless = false
+  testRunAllLots('can')
+  testRunAllLots('6e')
+  testRunAllLots('5e')
+  testRunAllLots('4e')
+  testRunAllLots('3e')
+  testRunAllLots('2e')
+  testRunAllLots('1e')
+  testRunAllLots('QCM')
+  testRunAllLots('TEx')
+  testRunAllLots('TSpe')
+  testRunAllLots('techno1')
+  testRunAllLots('QCMBac')
+  testRunAllLots('QCMBrevet')
+  testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  testRunAllLots('5e/5G30-2')
+  // testRunAllLots('5e/5G30-2')
 }

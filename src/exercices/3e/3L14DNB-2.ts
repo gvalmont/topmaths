@@ -13,7 +13,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = '972f7'
 export const refs = {
-  'fr-fr': ['3L14DNB-2'],
+  'fr-fr': ['3L14DNB-2', '3Z1DNB-14'],
   'fr-ch': []
 }
 export const titre = 'Programme de calcul et calcul littéral'

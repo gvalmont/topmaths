@@ -23,7 +23,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0cf54'
 
 export const refs = {
-  'fr-fr': ['2S30-3'],
+  'fr-fr': ['2S30-3', 'BP2FLUC2'],
   'fr-ch': []
 }
 export default class ProbaUnionInter extends Exercice {

@@ -503,7 +503,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             texte += ' <br>?$= $'
             texte += ajouteChampTexteMathLive(this, index, '  ') + '$^\\circ$'
           } else {
-            texte += '<br> ? $=\\ldots ^°$'
+            texte += '<br> ? $=\\ldots ^\\circ$'
           }
           nbChamps = 1
           break

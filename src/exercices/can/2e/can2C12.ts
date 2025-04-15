@@ -144,6 +144,6 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
     }
     this.reponse = arrondi(this.reponse, 0)
     this.canEnonce = this.question
-    this.canReponseACompleter = '\\ldots %'
+    this.canReponseACompleter = '$\\ldots \\%$'
   }
 }

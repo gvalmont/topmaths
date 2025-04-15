@@ -18,7 +18,7 @@ export const dateDePublication = '16/12/2021'
 export const uuid = '846b8'
 
 export const refs = {
-  'fr-fr': ['2N50-3'],
+  'fr-fr': ['2N50-3', 'BP2RES23'],
   'fr-ch': ['10FA3-12', '11FA6-8']
 }
 export default class ModeliserEquations extends Exercice {

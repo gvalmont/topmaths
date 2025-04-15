@@ -10,7 +10,7 @@ import Exercice from '../Exercice'
 
 export const uuid = '64d46'
 export const refs = {
-  'fr-fr': ['c3C32-03'],
+  'fr-fr': ['c3C32-03', 'BP2AutoL11'],
   'fr-ch': []
 }
 export const titre = 'Le sportif (proportionnalité)'

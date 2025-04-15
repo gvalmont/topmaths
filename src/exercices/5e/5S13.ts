@@ -29,7 +29,7 @@ export const dateDeModifImportante = '28/02/2022'
 export const uuid = '8cdd5'
 
 export const refs = {
-  'fr-fr': ['5S13'],
+  'fr-fr': ['5S13', 'BP2AutoA2', 'BP2SP3'],
   'fr-ch': ['11NO2-1']
 }
 export default class CalculerDesFrequences extends Exercice {

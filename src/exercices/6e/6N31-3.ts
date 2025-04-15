@@ -26,7 +26,7 @@ export const titre = 'Arrondir une valeur'
 export const uuid = 'ab793'
 
 export const refs = {
-  'fr-fr': ['6N31-3'],
+  'fr-fr': ['6N31-3', 'BP2AutoS7'],
   'fr-ch': ['9NO7-6']
 }
 export default class ArrondirUneValeur6e extends Exercice {

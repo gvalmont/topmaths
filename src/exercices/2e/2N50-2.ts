@@ -3,7 +3,7 @@ export const titre = 'Produire une forme littérale en introduisant une lettre p
 export const interactifReady = false
 export const uuid = '27741'
 export const refs = {
-  'fr-fr': ['2N50-2'],
+  'fr-fr': ['2N50-2', 'BP2RES22'],
   'fr-ch': []
 }
 export default class FormeLitteraleIntroduireUneLettre2nde extends FormeLitteraleIntroduireUneLettre {

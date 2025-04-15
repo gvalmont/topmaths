@@ -160,6 +160,6 @@ export default class AngleTriangleIsocele extends Exercice {
         break
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots °$'
+    this.canReponseACompleter = '$\\ldots ^\\circ$'
   }
 }

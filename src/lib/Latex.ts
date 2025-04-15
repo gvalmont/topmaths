@@ -352,6 +352,7 @@ Correction
     contents.preamble += '\n\\usepackage{xcolor}'
     contents.preamble += '\n\\usepackage{ProfMaquette}'
     contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
+    contents.preamble += '\n\\setKVdefault[ClesExercices]{BaremeTotal=false,BaremeDetaille=false}'
     contents.preamble += loadFonts(latexFileInfos)
     contents.preamble += '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
     contents.preamble += '\n\\usepackage[luatex]{hyperref}'

@@ -13,7 +13,7 @@ export const uuid = '4703c'
 export const dateDePublication = '29/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '08/09/2024'
 export const refs = {
-  'fr-fr': ['4S20-1'],
+  'fr-fr': ['4S20-1', 'BP2FLUC11'],
   'fr-ch': []
 }
 /**

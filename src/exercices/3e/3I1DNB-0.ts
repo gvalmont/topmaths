@@ -16,7 +16,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = '972f6'
 export const refs = {
-  'fr-fr': ['3I1DNB-0'],
+  'fr-fr': ['3I1DNB-0', '3Z1DNB-16'],
   'fr-ch': []
 }
 export const titre = 'Scratch'

@@ -16,7 +16,7 @@ export const dateDePublication = '13/11/2020'
 export const uuid = 'c9ba6'
 
 export const refs = {
-  'fr-fr': ['c3N30'],
+  'fr-fr': ['c3N30', 'BP2AutoQ3'],
   'fr-ch': []
 }
 export default class ConversionsC3 extends ExerciceConversions {

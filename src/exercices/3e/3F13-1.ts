@@ -23,7 +23,7 @@ export const amcType = 'AMCHybride'
 export const uuid = '4b121'
 
 export const refs = {
-  'fr-fr': ['3F13-1'],
+  'fr-fr': ['3F13-1', 'BP2AutoO9'],
   'fr-ch': []
 }
 export default class AntecedentEtImageGraphique extends Exercice {

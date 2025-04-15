@@ -9,6 +9,7 @@ import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSu
 import { latex2d, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import MainLevee from './MainLevee'
+import { GVPoint } from '../../modules/aleaFigure/elements'
 
 /**
  * v = vecteur('V') // son nom
@@ -24,18 +25,27 @@ export class Vecteur {
   x: number
   y: number
 
-  constructor (arg1: FractionEtendue | number | Point | string, arg2: FractionEtendue | number | Point, nom = '') {
+  constructor (arg1: FractionEtendue | number | Point | string | GVPoint, arg2: FractionEtendue | number | Point | GVPoint, nom = '') {
     if (arguments.length === 1) {
       this.nom = String(arg1)
       this.x = 0
       this.y = 0
     } else {
       if (typeof arg1 === 'number' || arg1 instanceof FractionEtendue) {
-        this.x = arg1 instanceof FractionEtendue ? arg1.valeurDecimale : arg1 as number
-        this.y = arg2 instanceof FractionEtendue ? arg2.valeurDecimale : arg2 as number
+        this.x = arg1 instanceof FractionEtendue ? arg1.valeurDecimale : Number(arg1)
+        this.y = arg2 instanceof FractionEtendue ? arg2.valeurDecimale : Number(arg2)
       } else {
-        this.x = (arg2 as Point).x - (arg1 as Point).x
-        this.y = (arg2 as Point).y - (arg1 as Point).y
+        if ((arg1 instanceof Point || arg1 instanceof GVPoint) && (arg2 instanceof Point || arg2 instanceof GVPoint)) {
+          this.x = arg2.x - arg1.x
+          this.y = arg2.y - arg1.y
+        } else {
+          window.notify('Vecteur : (attendus : A et B) les arguments de sont pas des points valides', {
+            arg1,
+            arg2
+          })
+          this.x = 0
+          this.y = 0
+        }
       }
       this.nom = nom
     }
@@ -178,41 +188,48 @@ export class Segment extends ObjetMathalea2D {
   extremite1: Point
   extremite2: Point
   longueur: number
-  constructor (arg1: number | Point, arg2: number | Point, arg3?: number | string, arg4?: number | string, color?: string, styleExtremites = '') {
+  constructor (arg1: number | Point | GVPoint, arg2: number | Point | GVPoint, arg3?: number | string, arg4?: number | string | GVPoint, color?: string, styleExtremites = '') {
     super()
     this.bordures = [0, 0, 0, 0]
     this.typeObjet = 'segment'
     this.styleExtremites = styleExtremites
     this.tailleExtremites = 4
-    if (arguments.length === 2) {
-      if (isNaN((arg1 as Point).x) || isNaN((arg1 as Point).y) || isNaN((arg2 as Point).x) || isNaN((arg2 as Point).y)) {
-        window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', {
+    if (arguments.length === 2 || arguments.length === 3) {
+      if ((arg1 instanceof Point || arg1 instanceof GVPoint) && (arg2 instanceof Point || arg2 instanceof GVPoint)) {
+        this.x1 = arg1.x
+        this.y1 = arg1.y
+        this.x2 = arg2.x
+        this.y2 = arg2.y
+      } else {
+        window.notify(`Segment : (attendus : A et B${arguments.length === 3 ? ' et "couleur"' : ''}) les arguments de sont pas des points valides`, {
           arg1,
           arg2
         })
+        this.x1 = 0
+        this.y1 = 0
+        this.x2 = 0
+        this.y2 = 0
       }
-      this.x1 = (arg1 as Point).x
-      this.y1 = (arg1 as Point).y
-      this.x2 = (arg2 as Point).x
-      this.y2 = (arg2 as Point).y
-    } else if (arguments.length === 3) {
-      if (Number.isNaN((arg1 as Point).x) || Number.isNaN((arg1 as Point).y) || Number.isNaN((arg2 as Point).x) || Number.isNaN((arg2 as Point).y)) {
-        window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', {
-          arg1,
-          arg2
-        })
+      if (arguments.length === 3) {
+        this.color = colorToLatexOrHTML(String(arg3))
       }
-      this.x1 = (arg1 as Point).x
-      this.y1 = (arg1 as Point).y
-      this.x2 = (arg2 as Point).x
-      this.y2 = (arg2 as Point).y
-      this.color = colorToLatexOrHTML(arg3 as string)
     } else if (arguments.length === 4) {
       if (typeof arg3 !== 'number') {
-        this.x1 = (arg1 as Point).x
-        this.y1 = (arg1 as Point).y
-        this.x2 = (arg2 as Point).x
-        this.y2 = (arg2 as Point).y
+        if ((arg1 instanceof Point || arg1 instanceof GVPoint) && (arg2 instanceof Point || arg2 instanceof GVPoint)) {
+          this.x1 = arg1.x
+          this.y1 = arg1.y
+          this.x2 = arg2.x
+          this.y2 = arg2.y
+        } else {
+          window.notify('Segment : (attendus : A, B, couleur et styleExtremites) les arguments de sont pas des points valides', {
+            arg1,
+            arg2
+          })
+          this.x1 = 0
+          this.y1 = 0
+          this.x2 = 0
+          this.y2 = 0
+        }
         this.color = colorToLatexOrHTML(String(arg3))
         this.styleExtremites = String(arg4)
       } else {

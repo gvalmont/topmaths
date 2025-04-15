@@ -76,8 +76,13 @@ class ExternalApp extends Exercice {
         const numberOfQuestions = parseInt(event.data.numberOfQuestions)
         const answers = Array.isArray(event.data.finalState) ? event.data.finalState : [event.data.finalState]
         const type = 'app'
+        const results = get(resultsByExercice)
+        let bestScore = results[indice]?.numberOfPoints || 0
+        if (numberOfPoints > bestScore) {
+          bestScore = numberOfPoints
+        }
         resultsByExercice.update((l) => {
-          l[indice] = { numberOfPoints, numberOfQuestions, indice, answers, type }
+          l[indice] = { numberOfPoints, bestScore, numberOfQuestions, indice, answers, type }
           return l
         })
         if (get(globalOptions).recorder === 'capytale') {

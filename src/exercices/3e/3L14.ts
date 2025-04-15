@@ -26,7 +26,7 @@ export const dateDeModifImportante = '09/03/2023'
 export const uuid = 'ecf62'
 
 export const refs = {
-  'fr-fr': ['3L14'],
+  'fr-fr': ['3L14', 'BP2RES16'],
   'fr-ch': ['11FA10-1']
 }
 export default class ResoudreUneEquationProduitNul extends Exercice {

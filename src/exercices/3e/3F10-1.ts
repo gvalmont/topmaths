@@ -24,7 +24,7 @@ export const titre = 'Utiliser le vocabulaire et les notations des fonctions (g√
 export const uuid = '0eecd'
 
 export const refs = {
-  'fr-fr': ['3F10-1'],
+  'fr-fr': ['3F10-1', 'BP2AutoO2'],
   'fr-ch': ['10FA5-5', '1F1-4']
 }
 export default class VocabulaireNotationsFonctions extends Exercice {
@@ -124,14 +124,13 @@ export default class VocabulaireNotationsFonctions extends Exercice {
           }
           break
       }
-      if (!context.isHtml) enonce += '<br>'
       this.autoCorrection[i] = {
         enonce,
         options: { ordered: false, vertical: true },
         propositions: []
       }
       for (let k = 0; k < reponses[i].length; k++) {
-        this.autoCorrection[i].propositions?.push({ texte: reponses[i][k][0] + (context.isHtml ? '' : '<br>'), statut: reponses[i][k][1] })
+        this.autoCorrection[i].propositions?.push({ texte: reponses[i][k][0], statut: reponses[i][k][1] })
       }
       monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {

@@ -9,7 +9,7 @@ export const dateDePublication = '03/04/2022'
 export const uuid = '7ba64'
 
 export const refs = {
-  'fr-fr': ['4S20'],
+  'fr-fr': ['4S20', 'BP2FLUC10'],
   'fr-ch': ['11NO2-10']
 }
 export default class FonctionsVocabulaireProbabilite4e extends FonctionsProbabilite1 {

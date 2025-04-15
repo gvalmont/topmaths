@@ -23,7 +23,7 @@ export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'
 export const uuid = 'c668a'
 
 export const refs = {
-  'fr-fr': ['4P10-1'],
+  'fr-fr': ['4P10-1', 'BP2AutoL2'],
   'fr-ch': ['9FA3-15', '10FA4-3']
 }
 export default class GraphiquesEtProportionnalite2 extends Exercice {

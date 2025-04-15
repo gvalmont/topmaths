@@ -19,7 +19,7 @@ export const dateDeModifImportante = '06/11/2024'
 export const uuid = '96bac'
 
 export const refs = {
-  'fr-fr': ['2N42-2'],
+  'fr-fr': ['2N42-2', 'BP2AutoJ1'],
   'fr-ch': ['11FA5-4']
 }
 export default class ExprimerEnFonctionDesAutresFormules extends Exercice {

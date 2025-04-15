@@ -21,7 +21,7 @@ export const dateDeModifImportante = '05/09/2023'
 export const uuid = '5d72b'
 
 export const refs = {
-  'fr-fr': ['4C32-0'],
+  'fr-fr': ['4C32-0', 'BP2AutoE8'],
   'fr-ch': ['10NO2-5']
 }
 export default class EcritureDecimaleApresPuissancesDeDix extends Exercice {

@@ -7,7 +7,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const uuid = '8a78e'
 export const refs = {
-  'fr-fr': ['3F10-6'],
+  'fr-fr': ['3F10-6', 'BP2AutoO7'],
   'fr-ch': ['1F1-8']
 }
 export default class CalculsImagesFonctionsPolynomialesOuRationnelles extends CalculsImagesFonctions {

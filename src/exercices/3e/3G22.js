@@ -18,7 +18,7 @@ export const titre = 'Connaître les effets des agrandissements/réductions sur 
 export const uuid = '960f9'
 
 export const refs = {
-  'fr-fr': ['3G22'],
+  'fr-fr': ['3G22', 'BP2G16'],
   'fr-ch': []
 }
 export default class AgrandissementReduction extends Exercice {

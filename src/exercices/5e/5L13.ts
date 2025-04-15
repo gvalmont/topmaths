@@ -21,7 +21,7 @@ export const amcType = 'AMCOpen'
 export const uuid = '1bce3'
 
 export const refs = {
-  'fr-fr': ['5L13'],
+  'fr-fr': ['5L13', 'BP2AutoI15'],
   'fr-ch': ['10FA1-11']
 }
 export default class Reductionaxbx extends Exercice {

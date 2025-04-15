@@ -21,7 +21,7 @@ export const dateDePublication = '20/06/2024'
 export const uuid = 'f7f49'
 
 export const refs = {
-  'fr-fr': ['4C23-11'],
+  'fr-fr': ['4C23-11', 'BP2AutoH19'],
   'fr-ch': []
 }
 export default class FractionEtPriorites extends Exercice {

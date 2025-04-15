@@ -6,7 +6,7 @@ export const amcType = 'AMCNum'
 export const titre = 'Résoudre une équation du premier degré à solutions entières'
 export const uuid = '5a02b'
 export const refs = {
-  'fr-fr': ['3L13-0'],
+  'fr-fr': ['3L13-0', 'BP2RES11'],
   'fr-ch': []
 }
 export default class EquationPremierDegreSolutionsEntieres extends ExerciceEquationASolutionEntiere {

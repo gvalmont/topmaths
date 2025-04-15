@@ -22,9 +22,9 @@ export const refs = {
  * @author Rémi Angot
 */
 export default class MoyenneEtMediane extends Exercice {
+  onlyMoyenne = false
   constructor () {
     super()
-    this.nbQuestions = 2
     this.nbQuestionsModifiable = false
     this.sup = 1
     this.besoinFormulaireNumerique = ['Effectif total', 2, '1 : Impair\n2 : Pair']
@@ -76,8 +76,15 @@ export default class MoyenneEtMediane extends Exercice {
       }
     }
 
-    this.listeQuestions.push(question1, question2)
-    this.listeCorrections.push(correction1, correction2)
+    if (this.onlyMoyenne) {
+      this.listeQuestions = [question1]
+      this.listeCorrections = [correction1]
+      this.nbQuestions = 1
+    } else {
+      this.nbQuestions = 2
+      this.listeQuestions.push(question1, question2)
+      this.listeCorrections.push(correction1, correction2)
+    }
 
     listeQuestionsToContenu(this)
   }

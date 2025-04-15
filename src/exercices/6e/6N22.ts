@@ -26,7 +26,7 @@ export const dateDeModifImportante = '07/03/2023' // Une date de modification im
 export const uuid = 'c75b6'
 
 export const refs = {
-  'fr-fr': ['6N22'],
+  'fr-fr': ['6N22', 'BP2AutoH25'],
   'fr-ch': ['9NO13-2']
 }
 export default class FractionsCalculsSimples extends Exercice {

@@ -6,7 +6,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const uuid = 'c9404'
 export const refs = {
-  'fr-fr': ['2N31-1'],
+  'fr-fr': ['2N31-1', 'BP2AutoF4'],
   'fr-ch': []
 }
 export default class NotationScientifique2e extends NotationScientifique {

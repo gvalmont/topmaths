@@ -33,7 +33,7 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
 export const uuid = 'd5ee3'
 
 export const refs = {
-  'fr-fr': ['5N20'],
+  'fr-fr': ['5N20', 'BP2AutoH22'],
   'fr-ch': ['9NO13-6']
 }
 export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercice {

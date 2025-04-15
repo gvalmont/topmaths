@@ -24,7 +24,7 @@ export const dateDeModifImportante = '24/09/2023'
 export const uuid = 'f5dcf'
 
 export const refs = {
-  'fr-fr': ['4C30'],
+  'fr-fr': ['4C30', 'BP2AutoE5'],
   'fr-ch': ['10NO2-3']
 }
 export default class PuissancesDeDix extends Exercice {

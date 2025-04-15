@@ -28,7 +28,7 @@ export const interactifType = ['qcm', 'mathLive']
 export const uuid = 'b18e8'
 
 export const refs = {
-  'fr-fr': ['4G22'],
+  'fr-fr': ['4G22', 'BP2AutoR4'],
   'fr-ch': ['10GM4-3', '11GM1-4']
 }
 export default class ProblemesPythagore extends Exercice {

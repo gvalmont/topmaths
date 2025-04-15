@@ -28,7 +28,7 @@ export const dateDeModifImportante = '24/06/2024'
 export const uuid = '1802d'
 
 export const refs = {
-  'fr-fr': ['3L13-1'],
+  'fr-fr': ['3L13-1', 'BP2RES12'],
   'fr-ch': ['11FA6-5']
 }
 export default class ExerciceEquation1Tiret2 extends Exercice {

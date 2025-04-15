@@ -12,7 +12,7 @@ export const interactifReady = false
 export const uuid = '5a44b'
 
 export const refs = {
-  'fr-fr': ['5N11-2'],
+  'fr-fr': ['5N11-2', 'BP2AutoB4', 'BP2CCF2'],
   'fr-ch': ['9NO14-5']
 }
 export default class TableauxEtPourcentagesPourcentConstant extends TableauxEtPourcentages {

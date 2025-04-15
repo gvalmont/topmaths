@@ -6,7 +6,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 export const uuid = '2e5df'
 export const refs = {
-  'fr-fr': ['2N40-9'],
+  'fr-fr': ['2N40-9', 'BP2AutoI16'],
   'fr-ch': []
 }
 export default class FactoriserParNombreOux2e extends FactoriserParNombreOux {

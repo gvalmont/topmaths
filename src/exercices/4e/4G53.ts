@@ -7,7 +7,7 @@ export const interactifType = ['qcm', 'mathLive']
 export const dateDeModifImportante = '10/06/2024'
 export const uuid = 'b6cbe'
 export const refs = {
-  'fr-fr': ['4G53'],
+  'fr-fr': ['4G53', 'BP2G12'],
   'fr-ch': ['10GM2-2', '11GM2-1']
 }
 export default class CalculDeVolumes4e extends CalculDeVolumes {

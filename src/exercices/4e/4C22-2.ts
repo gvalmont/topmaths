@@ -30,7 +30,7 @@ export const interactifType = 'mathLive'
 export const uuid = '55354'
 
 export const refs = {
-  'fr-fr': ['4C22-2'],
+  'fr-fr': ['4C22-2', 'BP2AutoH14'],
   'fr-ch': ['10NO5-7']
 }
 export default class ExerciceDiviserFractions extends Exercice {

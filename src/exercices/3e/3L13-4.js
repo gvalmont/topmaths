@@ -25,7 +25,7 @@ export const dateDeModifImportante = '25/09/2024'
 export const uuid = 'cd2f2'
 
 export const refs = {
-  'fr-fr': ['3L13-4'],
+  'fr-fr': ['3L13-4', 'BP2RES15'],
   'fr-ch': ['11FA6-9']
 }
 export default class problemes extends Exercice {

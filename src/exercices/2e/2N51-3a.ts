@@ -6,7 +6,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const uuid = '7959f'
 export const refs = {
-  'fr-fr': ['2N51-3a'],
+  'fr-fr': ['2N51-3a', 'BP2RES27'],
   'fr-ch': []
 }
 export default class EqResolvantesThales2nde extends EqResolvantesThales {

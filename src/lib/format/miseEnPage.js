@@ -147,7 +147,7 @@ export function deuxColonnesResp (cont1, cont2, options) {
  * @author Jean-Claude Lhote
  */
 export function centrage (texte) {
-  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
+  return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n \t${texte}\n \\end{center}\n`
 }
 
 /**

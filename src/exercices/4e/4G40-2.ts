@@ -5,7 +5,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '02/07/2021'
 export const uuid = '2f4d7'
 export const refs = {
-  'fr-fr': ['4G40-2'],
+  'fr-fr': ['4G40-2', 'BP2AutoS6'],
   'fr-ch': []
 }
 export default class ArrondirUneValeur4eme extends ArrondirUneValeur4e {

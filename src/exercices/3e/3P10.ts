@@ -30,6 +30,7 @@ export const refs = {
   'fr-ch': ['10FA4-5']
 }
 export default class EvolutionsEnPourcentage extends Exercice {
+  onlyMoney = false
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange']
@@ -50,7 +51,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
     } else {
       typesDeQuestionsDisponibles = ['finale', 'evolution', 'initiale']
     }
-    const situationsDisponibles = ['prix', 'etablissement', 'facture', 'population']
+    const situationsDisponibles = this.onlyMoney ? ['prix', 'facture'] : ['prix', 'etablissement', 'facture', 'population']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions)
     let date, cetteAnnee, anneeDerniere, etablissement, facture, nb

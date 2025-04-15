@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import HeaderExerciceVueEleve from '../shared/HeaderExerciceVueEleve.svelte'
@@ -30,6 +30,12 @@
     }
     const exercicesAffiches = new window.Event('addedToDom', { bubbles: true })
     divExercice.children[0].dispatchEvent(exercicesAffiches)
+  })
+
+  onDestroy(() => {
+    if (exercise.destroy != null) {
+      exercise.destroy()
+    }
   })
 
   $: {

@@ -14,7 +14,7 @@ export const dateDeModifImportante = '05/04/2023'
 export const uuid = '5ca1e'
 
 export const refs = {
-  'fr-fr': ['4L13-2'],
+  'fr-fr': ['4L13-2', 'BP2RES3'],
   'fr-ch': ['10FA3-11']
 }
 export default class ProblemesEnEquation4e extends ProblemesEnEquation {

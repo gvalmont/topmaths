@@ -14,7 +14,7 @@ export const titre = 'Remplir une facture'
 export const uuid = '837cd'
 
 export const refs = {
-  'fr-fr': ['6P13-1'],
+  'fr-fr': ['6P13-1', 'BP2CCF7'],
   'fr-ch': ['9FA3-14']
 }
 export default class CompleterUneFacture extends Exercice {

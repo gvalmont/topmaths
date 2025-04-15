@@ -50,8 +50,7 @@ export default class NomExercice extends Exercice {
       this.canEnonce += '}\\newline'
       this.canEnonce += '\\medskip'
 
-      this.canReponseACompleter = 'Que renvoie  $\\texttt{mystere(12)}$ ?\\\\'
-      this.canReponseACompleter += '$\\ldots$'
+      this.canReponseACompleter = 'Que renvoie  $\\texttt{mystere(12)}$ ? <br> $\\ldots$'
     } else {
       const a = randint(2, 9) * choice([-1, 1])
       const choix = choice([true, false])
@@ -94,8 +93,7 @@ export default class NomExercice extends Exercice {
       this.canEnonce += '}'
       this.canEnonce += '}\\newline'
       this.canEnonce += '\\medskip'
-      this.canReponseACompleter = `Que renvoie  $\\texttt{mystere(${a})}$ ?<br>\\\\`
-      this.canReponseACompleter += '$\\ldots$'
+      this.canReponseACompleter = `Que renvoie  $\\texttt{mystere(${a})}$ ?<br> $\\ldots$`
     }
   }
 }

@@ -23,7 +23,7 @@ export const dateDeModifImportante = '23/09/2023'
 export const uuid = '8117d'
 
 export const refs = {
-  'fr-fr': ['3F13'],
+  'fr-fr': ['3F13', 'BP2AutoO8'],
   'fr-ch': ['11FA7-4']
 }
 export default class AntecedentGraphique extends Exercice {

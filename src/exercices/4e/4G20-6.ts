@@ -22,7 +22,7 @@ export const amcType = 'AMCHybride'
 export const uuid = '516d1'
 
 export const refs = {
-  'fr-fr': ['4G20-6'],
+  'fr-fr': ['4G20-6', 'BP2AutoS4'],
   'fr-ch': ['10NO3-4']
 }
 export default class CalculValeurApprocheeRacineCarree extends Exercice {

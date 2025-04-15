@@ -3,7 +3,7 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
 export const interactifReady = false
 export const uuid = '71e5c'
 export const refs = {
-  'fr-fr': ['2N51-1'],
+  'fr-fr': ['2N51-1', 'BP2RES25'],
   'fr-ch': []
 }
 export default class TesterSiUnNombreEstSolutionDUneEquation2nde extends TesterSiUnNombreEstSolutionDUneEquation {

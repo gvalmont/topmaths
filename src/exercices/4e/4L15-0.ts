@@ -17,7 +17,7 @@ export const titre = 'Trouver l\'erreur dans une résolution d\'équation du pre
 export const uuid = 'df5a3'
 
 export const refs = {
-  'fr-fr': ['4L15-0'],
+  'fr-fr': ['4L15-0', 'BP2RES6'],
   'fr-ch': ['10FA3-8']
 }
 

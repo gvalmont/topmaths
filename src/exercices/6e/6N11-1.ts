@@ -2,7 +2,7 @@ import ReperageEntiersOuDecimaux from './6N30-0'
 export const titre = 'Repérer des entiers sur une droite graduée'
 export const uuid = '86529'
 export const refs = {
-  'fr-fr': ['6N11-1'],
+  'fr-fr': ['6N11-1', 'BP2AutoN1'],
   'fr-ch': []
 }
 export const interactifReady = true

@@ -34,7 +34,7 @@ export const interactifReady = true
 export const uuid = 'eb45a'
 
 export const refs = {
-  'fr-fr': ['6M11'],
+  'fr-fr': ['6M11', 'BP2AutoV3'],
   'fr-ch': ['9GM1-2']
 }
 export default class AireCarresRectanglesTriangles extends Exercice {

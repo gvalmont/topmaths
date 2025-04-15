@@ -15,6 +15,6 @@ export default class SerieDeTransformations5e extends SerieDeTransformations {
     super()
     this.version = 2
     this.nbQuestions = 1
-    this.besoinFormulaireNumerique = []
+    this.besoinFormulaireNumerique = false
   }
 }

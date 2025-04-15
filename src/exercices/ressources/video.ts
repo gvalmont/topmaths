@@ -3,6 +3,7 @@ import { get } from 'svelte/store'
 import { createButon, createIButton, createTextInput } from './_components'
 import { getUniqueStringBasedOnTimeStamp } from '../../lib/components/time'
 import Exercice from '../Exercice'
+import { updateIframeSize } from '../../lib/components/sizeTools'
 
 export const uuid = 'video'
 export const titre = 'Vidéo'
@@ -31,15 +32,9 @@ class ressourceVideo extends Exercice {
       'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
     )
     this.iframe.setAttribute('allowfullscreen', '')
-    const updateVideoSize = () => {
-      if (this.container.offsetWidth !== 0) {
-        this.iframe.setAttribute('width', '100%')
-        this.iframe.setAttribute('height', this.iframe.offsetWidth * 0.75 + '')
-      }
-    }
     this.teacherText = document.createElement('div')
-    window.addEventListener('resize', updateVideoSize)
-    this.container.addEventListener('addedToDom', updateVideoSize)
+    window.addEventListener('resize', this.updateSize)
+    this.container.addEventListener('addedToDom', this.updateSize)
 
     // constitution d'une ID pour mise en forme dans app.css
     this.iframe.setAttribute(
@@ -87,6 +82,15 @@ class ressourceVideo extends Exercice {
         return l
       })
     })
+  }
+
+  private updateSize = () => { // same function as in video.ts
+    updateIframeSize(this.container, this.iframe)
+  }
+
+  destroy () {
+    window.removeEventListener('resize', this.updateSize)
+    this.container.removeEventListener('addedToDom', this.updateSize)
   }
 
   get html () {

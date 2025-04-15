@@ -30,7 +30,7 @@ export const dateDeModifImportante = '12/04/2023' // Ajout de trois paramètres 
 export const uuid = 'd1513'
 
 export const refs = {
-  'fr-fr': ['6M11-1'],
+  'fr-fr': ['6M11-1', 'BP2AutoV4'],
   'fr-ch': ['9GM1-4']
 }
 export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice {

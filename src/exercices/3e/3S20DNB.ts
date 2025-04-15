@@ -11,7 +11,7 @@ import { sp } from '../../lib/outils/outilString'
 
 export const uuid = 'd11ae'
 export const refs = {
-  'fr-fr': ['3S20DNB'],
+  'fr-fr': ['3S20DNB', '3Z1DNB-15', 'BP2FLUC9'],
   'fr-ch': []
 }
 export const titre = 'Probabilités. Exercice de brevet'

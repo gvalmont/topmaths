@@ -7,7 +7,7 @@ export const titre = 'Calculs simples avec des fractions'
 export const uuid = '64422'
 
 export const refs = {
-  'fr-fr': ['6C23'],
+  'fr-fr': ['6C23', 'BP2AutoH24'],
   'fr-ch': []
 }
 export default class ExerciceAdditionnerFractions6e extends CalculsFractionsSimples {

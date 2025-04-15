@@ -12,7 +12,7 @@ export const dateDeModifImportante = '11/04/2023'
 export const uuid = 'ac571'
 
 export const refs = {
-  'fr-fr': ['6M22'],
+  'fr-fr': ['6M22', 'BP2AutoV6'],
   'fr-ch': ['10GM1-1']
 }
 export default class Reglages6M22 extends ExercicePerimetresEtAires {

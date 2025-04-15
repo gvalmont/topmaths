@@ -23,7 +23,7 @@ export const dateDePublication = '20/08/2022' // La date de publication initiale
 export const uuid = '8b399'
 
 export const refs = {
-  'fr-fr': ['4C32-4'],
+  'fr-fr': ['4C32-4', 'BP2AutoE10'],
   'fr-ch': ['10NO2-7', '11NO1-1']
 }
 export default class CalculsPuissancesDe10 extends Exercice {

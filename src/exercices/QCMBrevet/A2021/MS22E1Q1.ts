@@ -7,7 +7,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductiblesFaciles } from '../../../modules/fractions'
 export const uuid = '16773'
 export const refs = {
-  'fr-fr': ['4C2QCM-04'],
+  'fr-fr': ['4C2QCM-04', 'BP2AutoH7'],
   'fr-ch': []
 }
 export const interactifReady = true

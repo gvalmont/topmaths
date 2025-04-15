@@ -107,7 +107,7 @@ export default class Trigo extends Exercice {
         break
     }
 
-    this.question += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.05 * c, rymin: -0.05 * c, rxmax: 0.05 * c, rymax: 0.05 * c }), {
+    this.question += mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.05 * c, rymin: -0.05 * c, rxmax: 0.05 * c, rymax: 0.05 * c }), {
       pixelsParCm: 170 / c,
       mainlevee: false,
       amplitude: 0.5,

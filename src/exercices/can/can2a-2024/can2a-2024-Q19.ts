@@ -45,7 +45,7 @@ export default class NomExercice extends Exercice {
           this.question = `${a}^{${n}}\\times ${a}^{${p}}=${a}^{%{champ1}}`
           this.correction = `On utilise la formule $a^n\\times a^m=a^{n+m}$ avec $a=${a}$, $n=${n}$ et $p=${p}$.<br>
             $${a}^{${n}}\\times ${a}^{${p}}=${a}^{${n}+${p}}=${a}^{${miseEnEvidence(s)}}$`
-          this.canEnonce = `${a}^{${n}}\\times ${a}^{${p}}`
+          this.canEnonce = `$${a}^{${n}}\\times ${a}^{${p}}$`
           this.canReponseACompleter = `$${a}^{\\ldots}$`
           break
 

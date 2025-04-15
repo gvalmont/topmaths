@@ -38,7 +38,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'cc129'
 
 export const refs = {
-  'fr-fr': ['4L10-1'],
+  'fr-fr': ['4L10-1', 'BP2AutoI12'],
   'fr-ch': ['10FA1-15']
 }
 export default class ReductionsPiegesClassiques extends Exercice {

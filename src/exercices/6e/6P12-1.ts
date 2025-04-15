@@ -17,7 +17,7 @@ export const dateDePublication = '19/04/2024'
 export const uuid = '9c78f'
 
 export const refs = {
-  'fr-fr': ['6P12-1'],
+  'fr-fr': ['6P12-1', 'BP2AutoM2'],
   'fr-ch': []
 }
 export default class EchellesProblemes6eme extends EchellesProblemes {

@@ -3,7 +3,7 @@ export const titre = 'Résoudre des problèmes additifs et de comparaison sur le
 export const interactifReady = false
 export const uuid = 'd0fdc'
 export const refs = {
-  'fr-fr': ['2N30-7'],
+  'fr-fr': ['2N30-7', 'BP2AutoH5'],
   'fr-ch': []
 }
 export default class ProblemesAdditifsFractionsBis2nde extends ProblemesAdditifsFractionsBis {

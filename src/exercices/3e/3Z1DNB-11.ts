@@ -119,7 +119,7 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
 \\hline
 \\text{Mesure de l'angle } \\widehat{M'SM} \\text{(en degrés)} & 360 & ${texNombre(360 * circo1 / circo2, 0)}\\\\
 \\hline
-\\text{Longueur de l'arc } \\overset{\\displaystyle\\frown}{M'M} \\text{(en centimètres)} & ${texNombre(circo2, 1)} & ${texNombre(tt, 1)}\\\\
+\\text{Longueur de l'arc } \\overset{\\displaystyle\\frown}{M'M} \\text{(en centimètres)} & ${texNombre(circo2, 1)} & ${texNombre(circo1, 1)}\\\\
 \\hline
 \\end{array}$`
     const O3 = point(0, 0)
@@ -168,7 +168,7 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
     ${tableauCorrection}`
     const correction3c = `Calculons la mesure de l'angle, en utilisant le tableau de proportionnalité :<br>
     $\\widehat{M'SM} = \\dfrac{360 \\times ${texNombre(circo1, 1)}}{${texNombre(circo2, 1)}} =\\dfrac{${texNombre(360 * circo1, 0)}}{${texNombre(circo2, 1)}} \\approx ${texNombre(360 * circo1 / circo2, 1)}^\\circ$.<br>
-    Au degré près, l'angle correspondant à une longueur d'arc de $${texNombre(tt, 1)}$ cm permettant à ${quidam} de tracer le patron de son chapeau est de $${miseEnEvidence(`${texNombre(Math.round(103.4), 0)}^\\circ`)}$.`
+    Au degré près, l'angle correspondant à une longueur d'arc de $${texNombre(circo1, 1)}$ cm permettant à ${quidam} de tracer le patron de son chapeau est de $${miseEnEvidence(`${texNombre(Math.round(360 * circo1 / circo2), 0)}^\\circ`)}$.`
     const correction3 = createList({
       items: [correction3a, correction3b, correction3c],
       style: 'alpha'
@@ -207,15 +207,15 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
     })
     const question3bc = createList({
       items: [question3b, question3c],
-      style: 'alpha',
-      classOptions: ''
-    })
-    const question3 = deuxColonnesResp(`${quidam} a représenté ci-contre le patron de son chapeau.<br>
-    Il a reporté dessus les mesures des longueurs qu'il connaît et nommé $\\overset{\\displaystyle\\frown}{M'M}$ l'arc de cercle de longueur $${texNombre(circo1, 1)}$ cm.<br>
+      style: 'alpha'
+    }, undefined, 2)
+    const question3 = `${quidam} a représenté ci-contre le patron de son chapeau.<br>
+    ${deuxColonnesResp(
+    `Il a reporté dessus les mesures des longueurs qu'il connaît et nommé $\\overset{\\displaystyle\\frown}{M'M}$ l'arc de cercle de longueur $${texNombre(circo1, 1)}$ cm.<br>
     ${createList({
       items: [question3a],
       style: 'alpha'
-    })}`, figure2, { largeur1: 50, widthmincol1: '200px', widthmincol2: '200px' }) + introQuestion3b
+    })}`, figure2, { largeur1: 50, widthmincol1: '200px', widthmincol2: '200px' })}` + introQuestion3b
 
     const listeQuestionsA = createList({
       items: [question1, question2, question3 + question3bc],
@@ -244,7 +244,7 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
     const r = randint(16, 22) / 2
     const circo1 = 2 * Math.PI * r
     const max = Math.floor(circo1)
-    const min = Math.ceil(circo1 - 6.28)
+    const min = Math.floor(circo1 - 2)
     const tt = randint(min, max)
     const rapport = choice([fraction(1, 2), fraction(2, 3), fraction(3, 4), fraction(3, 5), fraction(1, 3)])
     const coeff = rapport.puissanceFraction(3).valeurDecimale * 100

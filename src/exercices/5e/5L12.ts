@@ -31,7 +31,7 @@ export const dateDeModifImportante = '04/11/2023'
 export const uuid = '85d2d'
 
 export const refs = {
-  'fr-fr': ['5L12'],
+  'fr-fr': ['5L12', 'BP2AutoI13'],
   'fr-ch': ['10FA1-12']
 }
 export default class ReduireUneExpressionLitterale extends Exercice {

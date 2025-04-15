@@ -18,7 +18,7 @@ export const interactifType = 'mathLive'
 export const uuid = '4ce2d'
 
 export const refs = {
-  'fr-fr': ['3P10-1'],
+  'fr-fr': ['3P10-1', 'BP2CCF12'],
   'fr-ch': ['10FA4-6']
 }
 export default class CoefficientEvolution extends Exercice {

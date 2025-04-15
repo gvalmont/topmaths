@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
 export const uuid = '4b711'
 
 export const refs = {
-  'fr-fr': ['can4G04'],
+  'fr-fr': ['can4G04', 'BP2AutoR5'],
   'fr-ch': []
 }
 export default class CalculCotePythagore extends Exercice {

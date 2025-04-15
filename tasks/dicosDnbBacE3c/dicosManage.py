@@ -94,7 +94,7 @@ def newEntry(file:str,dicoType:str)->list:
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
     if filename[-4:] != '_cor' and  extension == ".tex" :
         if 'mathalea' in filename: # EE : Pas encore trouvé à quelle occasion cela l'était
-            numeroInitial = filename.split('_')[6]
+            numeroInitial = filename.split('_')[5]
         else: # EE : Ici, on considère que c'est le cas général
             numeroInitial = filename.split('_')[4]
         if ('sti2d' in filename) :

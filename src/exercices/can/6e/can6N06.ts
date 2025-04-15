@@ -17,7 +17,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'ad44e'
 
 export const refs = {
-  'fr-fr': ['can6N06'],
+  'fr-fr': ['can6N06', 'BP2AutoS9'],
   'fr-ch': []
 }
 export default class ArrondiDixiemeCentieme extends Exercice {

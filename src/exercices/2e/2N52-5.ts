@@ -24,11 +24,11 @@ export const titre = 'Résoudre des équations avec un quotient'
 export const uuid = 'b5828'
 
 export const refs = {
-  'fr-fr': ['2N52-5'],
+  'fr-fr': ['2N52-5', 'BP2RES32'],
   'fr-ch': []
 }
 export default class ResoudreEquationsQuotient extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type d\'équations', 3, '1 : A(x)/B(x)=0\n 2 : A(x)/B(x)=a ou a/A(x)=b/B(x)\n 3 : Mélange']
 
@@ -36,7 +36,7 @@ export default class ResoudreEquationsQuotient extends Exercice {
     this.sup = 3
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2]

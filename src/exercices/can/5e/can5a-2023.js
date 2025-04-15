@@ -152,8 +152,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('\\dots{} min')
-
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = '\\dots{} min'
           break
 
         case 4:
@@ -305,7 +304,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             }
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('? $=\\ldots °$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = '? $=\\ldots ^\\circ$'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + '°'
@@ -331,7 +330,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
               texte += context.isHtml ? '  $\\ldots$ dm$^2$' : ''
             }
             this.listeCanEnonces.push(`$${texNombre(a, 1)}$ m$^2$  $=$`)
-            this.listeCanReponsesACompleter.push('$\\ldots\\Aire[dm]{}$')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = '$\\ldots\\Aire[dm]{}$'
           } else {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).div(100)
@@ -346,7 +345,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
               texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
             }
             this.listeCanEnonces.push(`$${texNombre(a, 1)}$ dm$^2$  $=$`)
-            this.listeCanReponsesACompleter.push('$\\ldots\\Aire[m]{}$')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = '$\\ldots\\Aire[m]{}$'
           }
 
           break
@@ -379,7 +378,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots €$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = '$\\ldots €$'
           break
 
         case 8:
@@ -579,7 +578,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
         Comme $1$ min $=60$ secondes, alors $${a}$ min  $=${a}\\times 60$ secondes $=${miseEnEvidence(reponse)}$ secondes. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             this.listeCanEnonces.push(texte)
-            this.listeCanReponsesACompleter.push('  $\\ldots$ secondes')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('  $\\ldots$ secondes')
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'secondes'
             } else {
@@ -594,7 +593,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
         Comme $60$ secondes $=1$ minute, alors $${a * 60}$ secondes  $=${a * 60}\\div 60$ secondes  $=${miseEnEvidence(reponse)}$ minutes. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             this.listeCanEnonces.push(texte)
-            this.listeCanReponsesACompleter.push('  $\\ldots$ minutes')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('  $\\ldots$ minutes')
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'minutes'
             } else {
@@ -637,7 +636,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('  $\\ldots$ €')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('  $\\ldots$ €')
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '') + '€'
           }
@@ -668,7 +667,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('? $=\\ldots$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('? $=\\ldots$')
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
@@ -779,7 +778,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             scale: 0.6,
             style: 'margin: auto'
           }, objets))
-          this.listeCanReponsesACompleter.push('? $=\\ldots °$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('? $=\\ldots ^\\circ$')
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
           if (this.interactif) {
@@ -865,7 +864,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             scale: 0.6,
             style: 'margin: auto'
           }, d, labA, labB, lab1, lab2, lab3))
-          this.listeCanReponsesACompleter.push('$AB=\\ldots$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$AB=\\ldots$')
           nbChamps = 1
 
           break
@@ -1108,7 +1107,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(`Entoure le résultat de $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$`)
-          this.listeCanReponsesACompleter.push(`${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`)
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = (`${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`)
           nbChamps = 1
           break
         case 26:
@@ -1134,7 +1133,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierHms)
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots\\text{ h }\\ldots\\text{ min}$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots\\text{ h }\\ldots\\text{ min}$')
           nbChamps = 1
 
           break
@@ -1161,7 +1160,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\ldots$ cubes')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots$ cubes')
           nbChamps = 1
           break
 
@@ -1189,7 +1188,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           texte += ajouteChampTexteMathLive(this, index, '', { texteApres: ' cm$^3$' })
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('$\\mathscr{V}=\\ldots$ cm$^3$')
+          this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\mathscr{V}=\\ldots$ cm$^3$')
           nbChamps = 1
           break
 
@@ -1203,7 +1202,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texteCorr = `$1$ dm$^3= 1$ L, donc $${a}$ dm$^3=${a}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             this.listeCanEnonces.push(`$${a}$ dm$^3=$`)
-            this.listeCanReponsesACompleter.push('$\\ldots$ L')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots$ L')
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'L'
             } else {
@@ -1216,7 +1215,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
             texteCorr = `$1$ dm$^3= 1$ L, donc $${a}$ L $=${a}$ dm$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             this.listeCanEnonces.push(`$${a}$ L $=$`)
-            this.listeCanReponsesACompleter.push('$\\ldots$ dm$^3$')
+            this.listeCanReponsesACompleter[this.listeCanEnonces.length - 1] = ('$\\ldots$ dm$^3$')
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, '') + 'dm$^3$'
             } else {

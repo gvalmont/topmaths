@@ -8,7 +8,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'cb572'
 
 export const refs = {
-  'fr-fr': ['2N30-4'],
+  'fr-fr': ['2N30-4', 'BP2AutoH3'],
   'fr-ch': []
 }
 export default class ExerciceDiviserFractions2nde extends ExerciceDiviserFractions {

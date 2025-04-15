@@ -19,7 +19,7 @@ export const titre = 'Résoudre des problèmes additifs et multiplicatifs utilis
 export const uuid = '7ba8b'
 
 export const refs = {
-  'fr-fr': ['4C25-1'],
+  'fr-fr': ['4C25-1', 'BP2AutoH20'],
   'fr-ch': ['10NO5-10']
 }
 export default class ProblemesMultiplicatifsFractions extends Exercice {

@@ -25,7 +25,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'a0d16'
 
 export const refs = {
-  'fr-fr': ['4C32'],
+  'fr-fr': ['4C32', 'BP2AutoF1'],
   'fr-ch': ['10NO2-16']
 }
 export default class NotationScientifique extends Exercice {

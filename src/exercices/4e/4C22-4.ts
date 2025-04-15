@@ -14,7 +14,7 @@ export const dateDePublication = '12/08/2022'
 export const uuid = '4713e'
 
 export const refs = {
-  'fr-fr': ['4C22-4'],
+  'fr-fr': ['4C22-4', 'BP2AutoH16'],
   'fr-ch': ['10NO5-9']
 }
 export default class RoseAdditive4F extends ExoRose { // c'est l'ExoRose zéro contenu dans _Roses.js

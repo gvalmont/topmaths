@@ -23,7 +23,7 @@ export const titre = 'Arrondir une racine carrée'
 export const uuid = '41187'
 
 export const refs = {
-  'fr-fr': ['4G20-4'],
+  'fr-fr': ['4G20-4', 'BP2AutoS2', 'BP2G8'],
   'fr-ch': ['10NO3-2']
 }
 export default class ArrondirUneValeur4e extends Exercice {

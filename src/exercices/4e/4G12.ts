@@ -311,9 +311,9 @@ export default class SerieDeTransformations extends Exercice {
       const objetsCorrection: NestedObjetMathalea2dArray = []
       texte = this.interactif
         ? this.sup === 1
-          ? 'Compléter la liste des figures successives obtenues avec une suite de symétries axiales.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-virgules.<br><br>'
-          : 'Compléter la liste des figures successives obtenues avec cette suite de transformations.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-virgules.<br><br>'
-        : 'On passe de la figure $0$ à la figure $28$ en passant par des cases adjacentes, en suivant les transformations listées dans l\'ordre précis des phrases ci-dessous qu\'il faut compléter.<br><br>'
+          ? 'Compléter la liste des figures successives obtenues avec une suite de symétries axiales.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-virgules.<br>'
+          : 'Compléter la liste des figures successives obtenues avec cette suite de transformations.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-virgules.<br>'
+        : 'On passe de la figure $0$ à la figure $28$ en passant par des cases adjacentes, en suivant les transformations listées dans l\'ordre précis des phrases ci-dessous qu\'il faut compléter.<br>'
       texteCorr = ''
 
       for (let x = 0; x < 5; x++) {
@@ -429,8 +429,8 @@ export default class SerieDeTransformations extends Exercice {
       } else {
         handleAnswers(this, i, { reponse: { value: chemin.toString().replaceAll(',', ';'), options: { suiteRangeeDeNombres: true } } })
       }
-      texte += context.isHtml ? '<br>' : '\n\\newpage'
-      texteCorr += context.isHtml ? '<br>' : '\n\\newpage'
+      texte += context.isHtml ? '<br>' : '\n \\medskip'
+      texteCorr += context.isHtml ? '<br>' : '\n \\medskip'
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

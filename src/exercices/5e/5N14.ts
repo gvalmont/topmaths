@@ -23,7 +23,7 @@ export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 export const uuid = '234a7'
 
 export const refs = {
-  'fr-fr': ['5N14'],
+  'fr-fr': ['5N14', 'BP2AutoG6'],
   'fr-ch': ['9NO12-5']
 }
 export default class ExerciceComparerDeuxFractions extends Exercice {

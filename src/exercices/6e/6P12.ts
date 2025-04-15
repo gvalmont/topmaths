@@ -482,7 +482,7 @@ function questionRecouvrirSurface (exo:Exercice, i:number) { // peinture, gazon,
 export const uuid = 'b0f4e'
 
 export const refs = {
-  'fr-fr': ['6P12'],
+  'fr-fr': ['6P12', 'BP2AutoL8'],
   'fr-ch': ['9FA3-12']
 }
 export default class ProportionnaliteParCoefDeProportionnalite extends Exercice {

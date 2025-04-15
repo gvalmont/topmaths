@@ -8,7 +8,7 @@ export const dateDeModifImportante = '10/06/2024'
 export const uuid = '65bed'
 
 export const refs = {
-  'fr-fr': ['2G11-5'],
+  'fr-fr': ['2G11-5', 'BP2G23'],
   'fr-ch': []
 }
 export default class CalculDeVolumes2nde extends CalculDeVolumes {

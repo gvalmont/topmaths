@@ -12,7 +12,7 @@ import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 
 export const uuid = '559fc'
 export const refs = {
-  'fr-fr': ['c3C32-01'],
+  'fr-fr': ['c3C32-01', 'BP2AutoL10'],
   'fr-ch': []
 }
 export const titre = 'A la pêche aux coquillages (proportionnalité)'

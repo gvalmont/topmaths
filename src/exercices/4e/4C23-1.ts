@@ -33,7 +33,7 @@ export const interactifType = 'mathLive'
 export const uuid = '18ddd'
 
 export const refs = {
-  'fr-fr': ['4C23-1'],
+  'fr-fr': ['4C23-1', 'BP2AutoH18'],
   'fr-ch': ['10NO6-3']
 }
 export default class ExerciceAdditionnerFractionProduit extends Exercice {

@@ -20,7 +20,7 @@ import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 export const titre = 'Repérer des nombres décimaux sur une droite graduée'
 export const uuid = '50614'
 export const refs = {
-  'fr-fr': ['6N30-0'],
+  'fr-fr': ['6N30-0', 'BP2AutoN2'],
   'fr-ch': []
 }
 export const interactifReady = true

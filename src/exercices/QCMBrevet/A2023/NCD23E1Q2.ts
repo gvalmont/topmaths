@@ -5,7 +5,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const uuid = '64ccf'
 export const refs = {
-  'fr-fr': ['4C2QCM-01'],
+  'fr-fr': ['4C2QCM-01', 'BP2AutoH6'],
   'fr-ch': []
 }
 export const interactifReady = true

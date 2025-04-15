@@ -11,7 +11,7 @@ export const titre = 'Produire une forme littérale en introduisant une lettre p
 export const uuid = '8b18b'
 
 export const refs = {
-  'fr-fr': ['4L13-1'],
+  'fr-fr': ['4L13-1', 'BP2RES2'],
   'fr-ch': ['9FA2-9', '10FA3-10']
 }
 

@@ -36,7 +36,7 @@ export const dateDePublication = '02/11/2021'
 export const uuid = '28d56'
 
 export const refs = {
-  'fr-fr': ['6C12'],
+  'fr-fr': ['6C12', 'BP2CCF3'],
   'fr-ch': ['9FA3-5']
 }
 export default class QuestionsPrix extends Exercice {

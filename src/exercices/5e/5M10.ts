@@ -26,7 +26,7 @@ export const dateDeModifImportante = '08/05/2022'
 export const uuid = 'd6cd1'
 
 export const refs = {
-  'fr-fr': ['5M10'],
+  'fr-fr': ['5M10', 'BP2AutoV1'],
   'fr-ch': ['9GM1-5']
 }
 export default class AireDuParallelogramme extends Exercice {

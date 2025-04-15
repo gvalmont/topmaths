@@ -30,7 +30,7 @@ export const dateDeModifImportante = '07/04/2024'
 export const uuid = '75f80'
 
 export const refs = {
-  'fr-fr': ['5N20-1'],
+  'fr-fr': ['5N20-1', 'BP2AutoH23'],
   'fr-ch': ['10NO5-3']
 }
 export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {

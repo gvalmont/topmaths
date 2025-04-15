@@ -859,13 +859,13 @@ export default class SujetCAN20215ieme extends Exercice {
           }, objets)
           texte += ' <br>? $=$'
           texteCorr = `Dans un triangle, la somme des angles vaut $180°$.<br>
-         ?$=180-${a}-${b}=${miseEnEvidence(180 - a - b)}°$.`
+         ?$=180-${a}-${b}=${miseEnEvidence(180 - a - b)}^\\circ$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: '°' })
           } else {
-            texte += ' $\\ldots °$'
+            texte += ' $\\ldots ^\\circ$'
           }
 
           nbChamps = 1

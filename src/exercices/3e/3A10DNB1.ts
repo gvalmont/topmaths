@@ -59,7 +59,7 @@ export default class Exercice3A10DNB0 extends ExerciceBrevetA {
     const volume = longueur * largeur * hauteur
 
     const prixFinal = fracR.produitFraction(volume).produitFraction(prixM3).valeurDecimale
-    const enonce = `Un club de natation propose un après-midi découverte pour les enfants.<br><br>
+    const enonce = `Un club de natation propose un après-midi découverte pour les enfants.<br>
 La présidente du club veut offrir des petits sachets cadeaux tous identiques contenant des autocollants et des drapeaux avec le logo du club.<br>
  Elle a acheté ${autocollants} autocollants et ${drapeaux} drapeaux et veut tous les utiliser.<br>
  Elle veut que, dans chaque sachet, il y ait exactement le même nombre d'autocollants et que, dans chaque sachet, il y ait exactement le même nombre de drapeaux.<br><br>

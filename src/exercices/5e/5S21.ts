@@ -23,7 +23,7 @@ export const interactifType = 'mathLive'
 export const uuid = '69e1f'
 
 export const refs = {
-  'fr-fr': ['5S21'],
+  'fr-fr': ['5S21', 'BP2FLUC13'],
   'fr-ch': ['11NO2-6']
 }
 export default class FonctionsProbabilite1 extends Exercice {

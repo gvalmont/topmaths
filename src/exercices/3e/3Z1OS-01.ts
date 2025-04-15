@@ -134,7 +134,7 @@ ${tableau}`
     rep.yLabelEcart = 0.8
     const repBuild = rep.buildCustom()
     const cF = courbe(f, { repere: repBuild, yUnite: 0.2, step: 0.1, color: 'ForestGreen', xMin, xMax })
-    const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.4 }, fixeBordures([...repBuild.objets, cF])), repBuild.objets, cF)
+    const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.4 }, fixeBordures([...repBuild.objets, cF])), repBuild.objets, cF) + ' <br>'
     const question23 = 'En déduire toutes les valeurs de $x$ pour lesquelles la fonction $f$ s\'annule.'
     const correction23 = `La fonction $f$, d'après les questions 1 et 2, s'annule pour $x=${-b / a}$ et $x=${fraction(-d, c).texFSD}$ et seulement pour ces deux valeurs.'`
     const question24 = `${prenom} a obtenu avec un traceur la courbe de la fonction $f$ ci-dessous. Elle annonce que la courbe de la fonction $f$ coupe l'axe des abscisses en $${texNombre(-b / a, 1)}$ et $${texNombre(-d / c, 2)}$. A-t-elle raison ?<br>${figure}`

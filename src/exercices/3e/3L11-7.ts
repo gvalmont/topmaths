@@ -23,7 +23,7 @@ export const dateDePublication = '12/12/2021'
 export const uuid = '7cf81'
 
 export const refs = {
-  'fr-fr': ['3L11-7'],
+  'fr-fr': ['3L11-7', 'BP2AutoI7'],
   'fr-ch': ['11FA2-8']
 }
 export default class CarreDoubleDistributivite extends Exercice {

@@ -8,7 +8,7 @@ export const titre = 'Calculer des probabilités.'
 export const dateDePublication = '02/08/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '24db8'
 export const refs = {
-  'fr-fr': ['4S20-4'],
+  'fr-fr': ['4S20-4', 'BP2FLUC12'],
   'fr-ch': []
 }
 

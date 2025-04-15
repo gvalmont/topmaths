@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'b2a59'
 
 export const refs = {
-  'fr-fr': ['can3S02'],
+  'fr-fr': ['can3S02', 'BP2FLUC16'],
   'fr-ch': []
 }
 export default class ProbaEvenementContraire extends Exercice {

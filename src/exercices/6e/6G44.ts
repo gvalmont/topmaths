@@ -30,7 +30,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'da6a4'
 
 export const refs = {
-  'fr-fr': ['6G44'],
+  'fr-fr': ['6G44', 'BP2G2'],
   'fr-ch': ['9ES7-7']
 }
 export default class NombreDeFacesEtDAretes extends Exercice {

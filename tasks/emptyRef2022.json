@@ -186,6 +186,39 @@
     "2S2": {},
     "2S3": {}
   },
+  "BP2":{
+    "BP2Auto":{
+      "BP2AutoA": {},
+      "BP2AutoB": {},
+      "BP2AutoC": {},
+      "BP2AutoD": {},
+      "BP2AutoE": {},
+      "BP2AutoF": {},
+      "BP2AutoG": {},
+      "BP2AutoH": {},
+      "BP2AutoI": {},
+      "BP2AutoJ": {},
+      "BP2AutoK": {},
+      "BP2AutoL": {},
+      "BP2AutoM": {},
+      "BP2AutoN": {},
+      "BP2AutoO": {},
+      "BP2AutoP": {},
+      "BP2AutoQ": {},
+      "BP2AutoR": {},
+      "BP2AutoS": {},
+      "BP2AutoT": {},
+      "BP2AutoU": {},
+      "BP2AutoV": {},
+      "BP2AutoW": {}
+    },
+    "BP2CCF": {},
+    "BP2FLUC": {},
+    "BP2FONC": {},
+    "BP2G": {},
+    "BP2RES": {},
+    "BP2SP": {}
+  },
   "1e": {
     "1eS": {
       "1AL1": {},

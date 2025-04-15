@@ -228,6 +228,10 @@ export default class Exercice {
     this._html = value
   }
 
+  destroy (): void {
+    // Nécessaire pour éviter les fuites de mémoire des exercices HTML
+  }
+
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
 
   correctionInteractive? (i: number): string | string[]

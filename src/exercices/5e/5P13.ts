@@ -35,7 +35,7 @@ export const dateDeModifImportante = '05/07/2024'
 export const uuid = 'edb61'
 
 export const refs = {
-  'fr-fr': ['5P13'],
+  'fr-fr': ['5P13', 'BP2AutoM1'],
   'fr-ch': ['10FA4-1']
 }
 export default class EchellesProblemes extends Exercice {

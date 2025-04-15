@@ -17,7 +17,7 @@ export const amcType = 'AMCNum'
 export const uuid = '47142'
 
 export const refs = {
-  'fr-fr': ['can3S01'],
+  'fr-fr': ['can3S01', 'BP2FLUC15'],
   'fr-ch': []
 }
 export default class CalculProbaSimple extends Exercice {
