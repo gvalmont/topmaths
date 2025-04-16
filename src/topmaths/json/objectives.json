@@ -6844,6 +6844,12 @@
                 "reference": "4N32",
                 "titleAcademic": "Utiliser les puissances d'exposant relatif",
                 "isKey": true,
+                "prerequisites": [
+                  {
+                    "description": "Simplifier l'écriture de produits à l'aide des puissances",
+                    "objectiveReference": "4N30"
+                  }
+                ],
                 "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objective&ref=4N30'>4N30</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -6929,6 +6935,12 @@
                 "title": "Écrire des nombres en notation scientifique",
                 "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objective&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a>, <a href='?v=objective&ref=4N32' title='Puissances positives et négatives'>4N32</a> et <a href='?v=objective&ref=4N33' title='Les puissances de 10'>4N33</a>.<br><br>La <i>notation scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $a$ qui est un chiffre entre 1 et 9.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "description": "Utiliser les puissances de 10 d'exposant relatif",
+                    "objectiveReference": "4N33"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
