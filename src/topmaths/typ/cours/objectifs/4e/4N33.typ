@@ -11,11 +11,11 @@
 ]
 
 #exemples()[
-  $10^3 = 1 000$ mille\
-  $10^6 = 1 000 000$ un million\
-  $10^9 = 1 000 000 000$ un milliard\
-  $10^(-3) = 0,001$ un millième\
-  $10^(-6) = 0,000 001$ un millionième
+  $10^3 = num("1 000")$ mille\
+  $10^6 = num("1 000 000")$ un million\
+  $10^9 = num("1 000 000 000")$ un milliard\
+  $10^(-3) = num("0,001")$ un millième\
+  $10^(-6) = num("0,000 001")$ un millionième
 ]
 
 #proprietes()[
@@ -25,6 +25,6 @@
 ]
 
 #exemples()[
-  $3,5 times 10^4 = 35 000$\
-  $3,5 times 10^(-4) = 0,000 35$
+  $3,5 times 10^4 = num("35 000")$\
+  $3,5 times 10^(-4) = num("0,000 35")$
 ]
