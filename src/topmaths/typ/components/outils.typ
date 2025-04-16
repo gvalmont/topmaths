@@ -1,3 +1,5 @@
+#import "@preview/unify:0.7.1": num
+
 #let lien(fichier) = {
   let messageErreur = text(red, "le lien vers " + fichier + " n'a pas pu être généré")
 
@@ -19,7 +21,7 @@
   } else if fichier.contains("_Poly") {
     let niveau = fichier.slice(0, 1) + "e"
     let suffixe = ""
-    if fichier.position("-") != none and fichier.position("-") > 0 {suffixe = " " + fichier.at(fichier.position("-") + 1)}
+    if fichier.position("-") != none and fichier.position("-") > 0 { suffixe = " " + fichier.at(fichier.position("-") + 1) }
     link("https://topmaths.fr/topmaths/photocopies/" + niveau + "/" + fichier + ".pdf")[Photocopies#suffixe]
   } else if fichier.contains("_Presentation") {
     let niveau = fichier.slice(0, 1) + "e"
@@ -53,11 +55,11 @@
 #let dfrac(a, b) = $display(frac(a, b))$
 
 #let fractionMultiplieParFacteur(numerateur, denominateur, facteur) = [
-  $(numerateur #text(red)[$times #facteur$])/(denominateur #text(red)[$times #facteur$])$
+  $(numerateur #text(red)[$times #facteur$]) / (denominateur #text(red)[$times #facteur$])$
 ]
 
 #let fractionDiviseParFacteur(numerateur, denominateur, facteur) = [
-  $(numerateur #text(red)[$div #facteur$])/(denominateur #text(red)[$div #facteur$])$
+  $(numerateur #text(red)[$div #facteur$]) / (denominateur #text(red)[$div #facteur$])$
 ]
 
 #let phantom(str) = {
