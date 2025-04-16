@@ -6,7 +6,7 @@
     row-gutter: 1em,
     align: center,
     $10^n =$, $10 times … times 10$, $=$, $10…0$, h(3em), $10^(-n) = 1 / 10^n=$, $1 / (10…0)$, $=$, $0,0…01$,
-    [], [$n$ facteurs], [], [$n$ zéros], [], [], [$n$ zéros], [], [$n$ zéros],
+    [], noir()[$n$ facteurs], [], noir()[$n$ zéros], [], [], noir()[$n$ zéros], [], noir()[$n$ zéros],
   )
 ]
 
