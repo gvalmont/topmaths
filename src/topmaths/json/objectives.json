@@ -166,6 +166,11 @@
                 "titleAcademic": "Multiplier ou diviser par 0,1 ; 0,01 ; 0,001",
                 "lessonSummaryHTML": "Multiplier par 0,1 revient à diviser par 10.<br>Multiplier par 0,01 revient à diviser par 100.<br>etc.<br>Diviser par 0,1 revient à multiplier par 10.<br>Diviser par 0,01 revient à multiplier par 100.<br>etc.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C12"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Multiplier par 0,1 ; 0,01 ; 0,001",
@@ -349,6 +354,11 @@
                 "title": "Poser une division décimale",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C21"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Diviser un nombre entier",
@@ -437,6 +447,11 @@
                 "titleAcademic": "Résoudre des problèmes avec des nombres décimaux",
                 "lessonSummaryHTML": "Si besoin, vous pouvez revoir <a href='/?v=objective&ref=6C30' title='6C30 : Résoudre des problèmes avec des nombres entiers'>6C30 : Résoudre des problèmes avec des nombres entiers</a> pour vous rappeler comment modéliser et résoudre un problème.<br><br>Vous pouvez aussi revoir <a href='/?v=objective&ref=6C20' title='6C20 : Additionner et soustraire des nombres décimaux'>6C20 : Additionner et soustraire des nombres décimaux</a>, <a href='/?v=objective&ref=6C20' title='6C21 : Poser une multiplication'>6C21 : Poser une multiplication</a> et <a href='/?v=objective&ref=6C20' title='6C22 : Effectuer une division décimale'>6C22 : Effectuer une division décimale</a> pour revoir comment faire les différents calculs.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C30"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -514,6 +529,11 @@
                 "titleAcademic": "Organiser un calcul en une seule ligne, utilisant si nécessaire des parenthèses",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C32"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -692,6 +712,11 @@
                 "lessonSummaryHTML": "Pour tracer la parallèle à une droite, on utilise <b><i>la règle</i></b> et <b><i>l'équerre</i></b>",
                 "lessonSummaryImage": "",
                 "lessonSummaryInstrumenpoche": "tracer-parallele",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -788,6 +813,11 @@
                 "titleAcademic": "Déterminer la distance d'un point à une droite",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -1159,6 +1189,11 @@
                 "titleAcademic": "Construire un triangle connaissant les 3 longueurs à l'aide d'une application",
                 "lessonSummaryHTML": "<p>Il s'agit ici de faire la même chose que <a href='?v=objective&ref=6G23'>6G23 : Construire des triangles connaissant les 3 longueurs</a> mais sur une application de géométrie.</p>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G23"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -1180,6 +1215,11 @@
                 "lessonSummaryHTML": "Un carré n'étant constitué que de segments perpendiculaires, si vous savez <a href='/?v=objective&ref=6G11' title='6G11 : Tracer des droites perpendiculaires'>tracer des droites perpendiculaires</a> vous devriez y arriver !",
                 "lessonSummaryImage": "",
                 "lessonSummaryInstrumenpoche": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Construire un carré",
@@ -1279,6 +1319,17 @@
                 "titleAcademic": "Exécuter un programme de construction simple",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G10"
+                  },
+                  {
+                    "objectiveReference": "6G20"
+                  },
+                  {
+                    "objectiveReference": "6G11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -1300,6 +1351,11 @@
                 "title": "Compléter ou rédiger un programme de construction",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G31"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -1550,6 +1606,11 @@
                 "title": "Transformer une figure par symétrie axiale",
                 "lessonSummaryHTML": "Méthode pour construire le symétrique d'un point",
                 "lessonSummaryInstrumenpoche": "tracer-symetrique",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G50"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Construire le symétrique d'un point",
@@ -1621,6 +1682,11 @@
                 "titleAcademic": "Transformer une figure par symétrie axiale sur Geogebra",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G51"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -1807,6 +1873,11 @@
                 "title": "Construire le patron d'un pavé droit",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G25"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Représenter un pavé droit en perspective cavalière",
@@ -1833,6 +1904,11 @@
                 "title": "Construire une maquette",
                 "lessonSummaryHTML": "Grâce à <a href='/?v=6G61'>6G61 : Construire et mettre en relation une représentation en perspective cavalière et un patron d'un cube et d'un pavé droit</a>, on sait construire des cubes et des pavés droits.<br>En en faisant plusieurs, on peut les assembler pour faire des maquettes plus élaborées !",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G61"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -2101,6 +2177,14 @@
                 "titleAcademic": "Calculer le périmètre et l'aire d'une figure composée de triangles et de rectangles",
                 "lessonSummaryHTML": "Pour calculer l'aire d'une figure complexe, on la découpe en figures dont on sait calculer l'aire.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G30"
+                  },
+                  {
+                    "objectiveReference": "6M10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Périmètre",
@@ -2149,6 +2233,11 @@
                 "title": "Calculer le périmètre et l'aire d'un triangle quelconque",
                 "lessonSummaryHTML": "Formule pour calculer l'aire d'un triangle : $A_{triangle} = \\dfrac{b \\times h}{2}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Identifier base et hauteur",
@@ -2251,8 +2340,22 @@
               {
                 "reference": "6M14",
                 "titleAcademic": "Calculer le périmètre et l'aire d'un assemblage de figures",
-                "lessonSummaryHTML": "Revoir si besoin :<br><a href='?v=objective&ref=6M10'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='?v=objective&ref=6M12'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='?v=objective&ref=6M13'>6M13 : Déterminer le périmètre et l'aire d'un disque</a><br><a href='?v=objective&ref=6M11'>6M11 : Calculer le périmètre et l'aire d'une figure composée de triangles et rectangles</a>",
+                "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G30"
+                  },
+                  {
+                    "objectiveReference": "6M10"
+                  },
+                  {
+                    "objectiveReference": "6M12"
+                  },
+                  {
+                    "objectiveReference": "6M13"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Périmètre",
@@ -2404,6 +2507,11 @@
                 "title": "Convertir des aires",
                 "lessonSummaryHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1000px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_aire_agraire.html'></iframe>",
                 "lessonSummaryImage": "utiliser-convertisseur-de-longueurs.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -2458,6 +2566,11 @@
                 "title": "Convertir des volumes",
                 "lessonSummaryHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1200px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_volume_capacite.html'></iframe>",
                 "lessonSummaryImage": "utiliser-convertisseur-de-longueurs.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M21"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -2555,6 +2668,11 @@
                 "title": "Calculer des durées et des horaires",
                 "lessonSummaryHTML": "Pour calculer des durées ou des horaires on fait attention à calculer les minutes avec les minutes et les heures avec les heures.<br>S'il y a un souci, on peut utiliser le fait que 60 min = 1 h :<br>- si le résultat d'une addition dépasse les 60 minutes, on enlève 60 min et on rajoute 1h ;<br>- si on veut faire une soustraction mais qu'on n'a pas assez de minutes, on ajoute 60 min et on enlève 1h.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M30"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -2850,6 +2968,11 @@
                 "title": "Placer un nombre avec 3 décimales sur une demi-droite graduée",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N31"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -2901,6 +3024,11 @@
                 "titleAcademic": "Comparer, ranger, encadrer, intercaler des nombres décimaux",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Comparer",
@@ -2984,6 +3112,11 @@
                 "title": "Placer un nombre avec 4 décimales sur une demi-droite graduée",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N20"
+                  }
+                ],
                 "videos": [],
                 "exercises": []
               }
@@ -3261,6 +3394,7 @@
               {
                 "reference": "6P10",
                 "titleAcademic": "Reconnaître une situation de proportionnalité",
+                "isKey": true,
                 "lessonSummaryHTML": "<p>Deux grandeurs (longueur, prix, masse, durée etc.) sont <i>proportionnelles</i> si elles se multiplient de la même façon (si les valeurs de l'une s'obtiennent en multipliant les valeurs de l'autre par un même nombre appelé <i>coefficient de proportionnalité</i>).</p>",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -3330,6 +3464,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "6P11-RDC.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -3373,6 +3512,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "<p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour $3$ personnes qu'il faut $150$ g de farine. <br>Elle veut adapter sa recette pour $21$ personnes. <br>Quelle masse de farine doit-elle prévoir ?</p><br><p>Commençons par trouver la quantité de farine à prévoir pour $1$ personne.<br>$1$ personne, c'est ${\\color{red}3}$ fois moins que $3$ personnes. Pour $1$ personne il faudra donc ${\\color{red}3}$ fois moins de farine que pour $3$ personnes.<br> $ 150 \\div {\\color{red}3} = 50 $ <br><strong>Conclusion intermédiaire :</strong> Pour $1$ personne il faudra prévoir ${\\color{blue}50}$ g de farine.<br><br>Cherchons maintenant la quantité de farine à prévoir pour $21$ personnes.<br> $21$ personnes, c'est ${\\color{red}21}$ fois plus que $1$ personne. Pour $21$ personnes, il faudra donc ${\\color{red}21}$ fois plus de farine que pour $1$ personne.<br> $ {\\color{red}21} \\times {\\color{blue}50} = 1050 $ <br> <strong>Conclusion :</strong> Pour 21 personnes, il faudra prévoir 1050 g de farine.</p>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -3396,6 +3540,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -3414,6 +3563,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "6P12-RDC.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P10"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -3434,6 +3588,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "schema-proportionnalite.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -3506,6 +3665,11 @@
                 "titleAcademic": "Appliquer un pourcentage",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P16"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -3547,6 +3711,17 @@
                 "titleAcademic": "Construire un agrandissement ou une réduction d'une figure donnée",
                 "lessonSummaryHTML": "Pour construire un agrandissement ou une réduction de rapport $k$ d'une figure donnée, on reproduit la même figure mais en multipliant les longueurs par $k$.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P14"
+                  },
+                  {
+                    "objectiveReference": "6G25"
+                  },
+                  {
+                    "objectiveReference": "6G23"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -3632,6 +3807,11 @@
                 "titleAcademic": "Recueillir et organiser des données",
                 "lessonSummaryHTML": "Si on veut juste organiser et regrouper des données pour pouvoir les lire plus facilement, on peut utiliser un tableau :",
                 "lessonSummaryImage": "6S11-tableau.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6S10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
