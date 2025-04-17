@@ -1472,7 +1472,6 @@
                 "title": "Définir et utiliser les propriétés de la médiatrice",
                 "prerequisites": [
                   {
-                    "description": "Tracer des perpendiculaires",
                     "objectiveReference": "6G11"
                   }
                 ],
@@ -3266,7 +3265,6 @@
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "description": "Connaître les tables de multiplication",
                     "objectiveReference": "6C10"
                   }
                 ],
@@ -3894,17 +3892,10 @@
                 "titleAcademic": "Construire des triangles connaissant des longueurs et des angles",
                 "prerequisites": [
                   {
-                    "description": "Construire des triangles connaissant les 3 longueurs",
                     "objectiveReference": "6G23"
                   },
                   {
-                    "description": "Utiliser le rapporteur pour tracer un angle",
-                    "objectiveReference": "6G42",
-                    "slugsWithSeed": [
-                      "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=4K8d&cd=1",
-                      "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=QrNA&cd=1",
-                      "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=rt9Z&cd=1"
-                    ]
+                    "objectiveReference": "6G42"
                   }
                 ],
                 "lessonSummaryHTML": "<ul><li>Je commence par tracer le plus grand côté</li><li>Je mesure les autres longueurs que je connais avec mon compas et trace des arcs de cercle</li><li>Je mesure les angles que je connais avec le rapporteur et trace des demi-droites</li><li>Je trouve le troisième point à l'intersection des arcs de cercle et des demi-droites</li></ul>",
@@ -3994,7 +3985,6 @@
                 "titleAcademic": "Construire un triangle connaissant des longueurs et des angles sur Geogebra",
                 "prerequisites": [
                   {
-                    "description": "Construire des triangles connaissant des longueurs et des angles",
                     "objectiveReference": "5G21"
                   }
                 ],
@@ -4461,17 +4451,10 @@
                 "isKey": true,
                 "prerequisites": [
                   {
-                    "description": "Connaître les tables de multiplication",
                     "objectiveReference": "6C10"
                   },
                   {
-                    "description": "Savoir que la multiplication est prioritaire",
-                    "objectiveReference": "6C32",
-                    "slugsWithSeed": [
-                      "uuid=4c10a&id=6C33&n=1&d=10&s=3&s2=true&s3=false&s4=false&alea=AE4W",
-                      "uuid=4c10a&id=6C33&n=1&d=10&s=3&s2=true&s3=false&s4=false&alea=QmSd",
-                      "uuid=4c10a&id=6C33&n=1&d=10&s=3&s2=true&s3=false&s4=false&alea=MIvN"
-                    ]
+                    "objectiveReference": "6C32"
                   }
                 ],
                 "lessonSummaryHTML": "Pour faire un calcul lorsqu'il y a plusieurs opérations différentes, on fait <strong>d'abord les multiplications et les divisions</strong>. <br> On dit que les multiplications et les divisions sont <strong>prioritaires</strong>.",
@@ -4517,7 +4500,6 @@
                 "title": "Traduire une phrase par un calcul",
                 "prerequisites": [
                   {
-                    "description": "Connaître les priorités opératoires",
                     "objectiveReference": "5N10"
                   }
                 ],
@@ -4626,6 +4608,11 @@
                 "titleAcademic": "Comparer et ranger des fractions dont les dénominateurs sont multiples l'un de l'autre",
                 "lessonSummaryHTML": "Pour comparer deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on compare les numérateurs.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Comparer",
@@ -5374,7 +5361,6 @@
                 "isKey": true,
                 "prerequisites": [
                   {
-                    "description": "Savoir que 2a c'est 2×a",
                     "objectiveReference": "5N50"
                   }
                 ],
@@ -6846,7 +6832,6 @@
                 "isKey": true,
                 "prerequisites": [
                   {
-                    "description": "Simplifier l'écriture de produits à l'aide des puissances",
                     "objectiveReference": "4N30"
                   }
                 ],
@@ -6937,7 +6922,6 @@
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "description": "Utiliser les puissances de 10 d'exposant relatif",
                     "objectiveReference": "4N33"
                   }
                 ],
@@ -7111,26 +7095,13 @@
                 "titleAcademic": "Développer une expression littérale avec des nombres relatifs",
                 "prerequisites": [
                   {
-                    "description": "Développer une expression littérale avec des nombres positifs",
                     "objectiveReference": "4N51"
                   },
                   {
-                    "description": "Effectuer une somme algébrique",
-                    "objectiveReference": "5N31",
-                    "slugsWithSeed": [
-                      "uuid=cbc26&id=5R20&n=4&s=20&s2=true&s3=false&alea=bsc5",
-                      "uuid=cbc26&id=5R20&n=4&s=20&s2=true&s3=false&alea=Zjze",
-                      "uuid=cbc26&id=5R20&n=4&s=20&s2=true&s3=false&alea=UJY5"
-                    ]
+                    "objectiveReference": "5N31"
                   },
                   {
-                    "description": "Multiplier et diviser des nombres relatifs",
-                    "objectiveReference": "4N10",
-                    "slugsWithSeed": [
-                      "uuid=0b020&id=4C10-7&n=4&d=12&s=true&s2=1-2&s3=10&alea=TSZ5&cd=1",
-                      "uuid=0b020&id=4C10-7&n=4&d=12&s=true&s2=1-2&s3=10&alea=bIfo&cd=1",
-                      "uuid=0b020&id=4C10-7&n=4&d=12&s=true&s2=1-2&s3=10&alea=xx6T&cd=1"
-                    ]
+                    "objectiveReference": "4N10"
                   }
                 ],
                 "lessonSummaryHTML": "Développer, c'est transformer un produit en une somme ou une différence.<br><b><i>k</i></b>(a + b) = <b><i>k</i></b>a + <b><i>k</i></b>b<br><b><i>k</i></b>(a – b) = <b><i>k</i></b>a – <b><i>k</i></b>b",
@@ -7160,7 +7131,6 @@
                 "title": "Factoriser une expression littérale",
                 "prerequisites": [
                   {
-                    "description": "Développer par simple distributivité",
                     "objectiveReference": "4N52"
                   }
                 ],
@@ -7267,17 +7237,10 @@
                 "isKey": true,
                 "prerequisites": [
                   {
-                    "description": "Savoir que 2a c'est 2×a",
                     "objectiveReference": "5N50"
                   },
                   {
-                    "description": "Calculer avec des nombres relatifs",
-                    "objectiveReference": "4N10",
-                    "slugsWithSeed": [
-                      "uuid=0b020&id=4C10-7&n=8&d=12&s=false&s2=5&s3=10&alea=jeql&cd=1",
-                      "uuid=0b020&id=4C10-7&n=8&d=12&s=false&s2=5&s3=10&alea=2pCr&cd=1",
-                      "uuid=0b020&id=4C10-7&n=8&d=12&s=false&s2=5&s3=10&alea=DZS7&cd=1"
-                    ]
+                    "objectiveReference": "4N10"
                   }
                 ],
                 "lessonSummaryHTML": "On cherche à avoir les $x$ à gauche et les nombres à droite.<br>Pour cela, on peut :<br>- ajouter ou enlever la <i>même</i> quantité des deux côtés ;<br>- multiplier ou diviser par un <i>même</i> nombre des deux côtés.",
@@ -7974,7 +7937,6 @@
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "description": "Développer par simple distributivité",
                     "objectiveReference": "4N52"
                   }
                 ],
@@ -8003,7 +7965,6 @@
                 "isKey": true,
                 "prerequisites": [
                   {
-                    "description": "Développer par simple distributivité",
                     "objectiveReference": "4N52"
                   }
                 ],
@@ -8199,7 +8160,6 @@
                 "title": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
                 "prerequisites": [
                   {
-                    "description": "Calculer des probabilités dans une expérience aléatoire à une épreuve",
                     "objectiveReference": "4S13"
                   }
                 ],

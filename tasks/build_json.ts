@@ -390,8 +390,8 @@ function buildCurriculum (): Curriculum {
       unitsPerTerm,
       cumulateUnitsPerTerm: unitsPerTerm
         ? unitsPerTerm.map((_nbUnits, index) => {
-            return unitsPerTerm.slice(0, index + 1).reduce((sum, nbUnits) => sum + nbUnits)
-          })
+          return unitsPerTerm.slice(0, index + 1).reduce((sum, nbUnits) => sum + nbUnits)
+        })
         : []
     }
   })
