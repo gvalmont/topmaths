@@ -7990,6 +7990,11 @@
                 "titleAcademic": "Connaître et utiliser une définition et une propriété caractéristique des triangles semblables",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4G30"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "À partir des angles",
@@ -8066,6 +8071,11 @@
                 "titleAcademic": "Transformer une figure par homothétie",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "methode_homothetie.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P14"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Construire l'image d'un point",
@@ -8099,6 +8109,11 @@
                 "titleAcademic": "Transformer une figure par rotation et comprendre l'effet d'une rotation",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "methode_rotation.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G42"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Construire l'image d'un point",
@@ -8136,6 +8151,11 @@
                 "titleAcademic": "Construire une figure en multipliant les rotations",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3G12"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8156,6 +8176,11 @@
                 "titleAcademic": "Comprendre l'effet d'une homothétie",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P14"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -8170,6 +8195,11 @@
                 "titleAcademic": "Utiliser la proportionnalité pour calculer des longueurs dans des triangles semblables",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3G10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8213,6 +8243,14 @@
                 "title": "Utiliser Cosinus, Sinus et Tangente",
                 "lessonSummaryHTML": "<center> $  \\text{C} {\\color{green}\\text{A}}{\\color{red}\\text{H}} ~~ \\text{S}{\\color{blue}\\text{O}}{\\color{red}\\text{H}} ~~ \\text{T}{\\color{blue}\\text{O}} {\\color{green}\\text{A}} $ <br><br> $ \\text{Cosinus} = \\cfrac{{\\color{green}\\text{Adjacent}}}{{\\color{red}\\text{Hypoténuse}}} $ <br><br> $ \\text{Sinus} = \\cfrac{{\\color{blue}\\text{Opposé}}}{{\\color{red}\\text{Hypoténuse}}} $ <br><br> $ \\text{Tangente} = \\cfrac{{\\color{blue}\\text{Opposé}}}{{\\color{green}\\text{Adjacent}}} $</center>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3G10"
+                  },
+                  {
+                    "objectiveReference": "4P11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "L'essentiel",
@@ -8240,6 +8278,11 @@
                 "title": "Calculer la mesure d'un angle à l'aide de la trigonométrie",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3G20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -8273,6 +8316,11 @@
                 "titleAcademic": "Se repérer sur une sphère (latitude, longitude)",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N35"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8312,6 +8360,20 @@
                 "title": "Calculer le volume d'un assemblage de solides",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5M20"
+                  },
+                  {
+                    "objectiveReference": "4G53"
+                  },
+                  {
+                    "objectiveReference": "3G31"
+                  },
+                  {
+                    "objectiveReference": "5M21"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -8325,6 +8387,11 @@
                 "title": "Utiliser les propriétés des sections planes de solides",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G60"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Résumé musical",
@@ -8394,7 +8461,7 @@
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "objectiveReference": "4N52"
+                    "objectiveReference": "5N30"
                   }
                 ],
                 "videos": [
@@ -8423,6 +8490,9 @@
                 "prerequisites": [
                   {
                     "objectiveReference": "4N52"
+                  },
+                  {
+                    "objectiveReference": "5N33"
                   }
                 ],
                 "lessonSummaryHTML": "$ ({\\color{red} a} + {\\color{blue} b})({\\color{green} c} + d) = {\\color{red} a} \\times {\\color{green} c} + {\\color{red} a} \\times d + {\\color{blue} b} \\times {\\color{green} c} + {\\color{blue} b} \\times d$",
@@ -8453,6 +8523,11 @@
                 "title": "Développer et factoriser à l'aide des identités remarquables",
                 "lessonSummaryHTML": "<center> $ ({\\color{green} a} + {\\color{blue} b})^2 = {\\color{green} a}^2 + 2{\\color{green} a}{\\color{blue} b} + {\\color{blue} b}^2 $ <br> $({\\color{green} a} - {\\color{blue} b})^2 = {\\color{green} a}^2 - 2{\\color{green} a}{\\color{blue} b} + {\\color{blue} b}^2$ <br> $ ({\\color{green} a} + {\\color{blue} b})({\\color{green} a} - {\\color{blue} b}) = {\\color{green} a}^2 - {\\color{blue} b}^2$ </center>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3N21"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Développer",
@@ -8483,6 +8558,11 @@
                 "titleAcademic": "Résoudre algébriquement des équations produit nul",
                 "lessonSummaryHTML": "Si $ {\\color{red}A} \\times {\\color{green}B} = 0$, alors ${\\color{red}A} = 0$ ou ${\\color{green}B} = 0$.<br><br>Par exemple si ${\\color{red}(3x + 12)}{\\color{green}(4x - 2)} = 0$, alors ${\\color{red}3x + 12} = 0$ ou ${\\color{green}4x - 2} = 0$.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4N57"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8503,6 +8583,14 @@
                 "titleAcademic": "Résoudre des équations de la forme x² = a",
                 "lessonSummaryHTML": "L'équation $x^2 = a$ admet exactement deux solutions qui sont $x = \\sqrt{a}$ et $x = - \\sqrt{a}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4G20"
+                  },
+                  {
+                    "objectiveReference": "4N57"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "(au collège on ne fait que le a)",
@@ -8537,6 +8625,11 @@
                 "titleAcademic": "Utiliser le lien entre pourcentage d'évolution et coefficient multiplicateur",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P17"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Calculer un coefficient multiplicateur",
@@ -8596,6 +8689,14 @@
                 "title": "Construire un histogramme",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M10"
+                  },
+                  {
+                    "objectiveReference": "5S10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8726,6 +8827,11 @@
                 "titleAcademic": "Déterminer une image et un antécédent dans un tableau",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S30"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8747,6 +8853,14 @@
                 "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S30"
+                  },
+                  {
+                    "objectiveReference": "5N35"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8767,6 +8881,14 @@
                 "titleAcademic": "Calculer une image par une fonction",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S30"
+                  },
+                  {
+                    "objectiveReference": "5N54"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8792,6 +8914,14 @@
                 "titleAcademic": "Identifier les paramètres d'une fonction linéaire à partir de son expression",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S30"
+                  },
+                  {
+                    "objectiveReference": "4N57"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8812,6 +8942,14 @@
                 "titleAcademic": "Identifier les paramètres d'une fonction linéaire à partir de sa courbe représentative",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S30"
+                  },
+                  {
+                    "objectiveReference": "5N35"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8836,6 +8974,14 @@
                 "titleAcademic": "Déterminer de manière algébrique l'antécédent par une fonction linéaire",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S30"
+                  },
+                  {
+                    "objectiveReference": "4N57"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -8849,6 +8995,14 @@
                 "titleAcademic": "Représenter graphiquement une fonction linéaire",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S40"
+                  },
+                  {
+                    "objectiveReference": "3S33"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8864,6 +9018,14 @@
                 "titleAcademic": "Modéliser une situation de proportionnalité à l'aide d'une fonction linéaire",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P10"
+                  },
+                  {
+                    "objectiveReference": "3S40"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8884,6 +9046,11 @@
                 "titleAcademic": "Identifier les paramètres d'une fonction affine à partir de son expression",
                 "lessonSummaryHTML": "Une fonction affine a une expression de la forme $f(x) = ax + b$ <br> $a$ est appelé pente ou coefficient directeur. <br> $b$ est appelé ordonnée à l'origine.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S40"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -8903,6 +9070,11 @@
                 "titleAcademic": "Identifier les paramètres d'une fonction affine à partir de sa courbe représentative",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S41"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8927,6 +9099,11 @@
                 "titleAcademic": "Représenter graphiquement une fonction affine",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S43"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Avec des coefficients entiers",
@@ -8948,6 +9125,11 @@
                 "titleAcademic": "Déterminer de manière algébrique l'antécédent par une fonction affine",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S42"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8967,6 +9149,11 @@
                 "titleAcademic": "Modéliser un phénomène continu par une fonction affine",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3S44"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Attention ! y = mx + p est une autre façon de noter f(x) = ab + b",
