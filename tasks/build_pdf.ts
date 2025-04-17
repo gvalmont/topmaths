@@ -186,6 +186,7 @@ function buildObjectiveLessonPlanHeader (unitGrade: StringGrade, objective: Unit
 
 function buildCategories (previousLessonPlan: UnitLessonPlan, currentLessonPlan: UnitLessonPlan, nextLessonPlan: UnitLessonPlan): string {
   let content = ''
+  content += buildCategory('Prérequis', currentLessonPlan.objectivePrerequisites.map(prerequisite => buildObjectiveLink(prerequisite.objectiveReference, getTitle(prerequisite))))
   content += buildCategory('Matériel élève', currentLessonPlan.studentMaterialsNeeded)
   content += buildCategory('Matériel enseignant', currentLessonPlan.teacherMaterialsNeeded)
   content += buildCategory('Début de séance', currentLessonPlan.startSteps)
@@ -193,7 +194,7 @@ function buildCategories (previousLessonPlan: UnitLessonPlan, currentLessonPlan:
     content += buildCategory(segment.title || `Segment ${i + 1}`, segment.steps)
   })
   content += buildCategory('Fin de séance', currentLessonPlan.closureSteps)
-  content += buildCategory('Prochain objectif', [`${nextLessonPlan.reference} : ${nextLessonPlan.objectiveTitle}`])
+  content += buildCategory('Prochain objectif', [buildObjectiveLink(nextLessonPlan.objectiveReference, nextLessonPlan.objectiveTitle)])
   content += buildCategory('Matériel à emmener la prochaine fois', nextLessonPlan.studentMaterialsNeeded)
   content += buildCategory('Notes', currentLessonPlan.comments)
   return content
@@ -213,6 +214,10 @@ function buildCategory (categoryName: string, contentLines: string[]): string {
 `
   })
   return content
+}
+
+function buildObjectiveLink (objectiveReference: ObjectiveReference, objectiveTitle: string): string {
+  return `#link("https://topmaths.fr/?v=objective&ref=${objectiveReference}")[${objectiveReference} : ${objectiveTitle}]`
 }
 
 function addFileLinks (content: string): string {

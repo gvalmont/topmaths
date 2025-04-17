@@ -22,7 +22,7 @@ export type UnitLessonPlan = ObjectiveLessonPlan & {
 }
 export function isUnitLessonPlan (obj: unknown, withStringReference: boolean = false): obj is UnitLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
-  return isObjectiveLessonPlan(obj) &&
+  return isObjectiveLessonPlan(obj, withStringReference) &&
     'objectiveReference' in obj && (withStringReference ? typeof obj.objectiveReference === 'string' : isObjectiveReference(obj.objectiveReference)) &&
     'objectiveTitle' in obj && typeof obj.objectiveTitle === 'string' &&
     'reference' in obj && typeof obj.reference === 'string'
@@ -32,6 +32,7 @@ export function isUnitLessonPlans (obj: unknown, withStringReference: boolean = 
   return obj.every(unit => isUnitLessonPlan(unit, withStringReference))
 }
 export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObjectiveLessonPlan' before initialization
+  objectivePrerequisites: [],
   startSteps: [],
   segments: [],
   closureSteps: [],

@@ -85,6 +85,7 @@ export const emptyObjectiveLessonPlanSegment: ObjectiveLessonPlanSegment = {
 }
 
 export type ObjectiveLessonPlan = {
+  objectivePrerequisites: ObjectivePrerequisite[]
   startSteps: string[],
   segments: ObjectiveLessonPlanSegment[],
   closureSteps: string[],
@@ -93,9 +94,10 @@ export type ObjectiveLessonPlan = {
   grades: StringGrade[],
   comments: string[]
 }
-export function isObjectiveLessonPlan (obj: unknown): obj is ObjectiveLessonPlan {
+export function isObjectiveLessonPlan (obj: unknown, withStringReference: boolean = false): obj is ObjectiveLessonPlan {
   if (obj == null || typeof obj !== 'object') return false
-  return 'startSteps' in obj && isStrings(obj.startSteps) &&
+  return 'objectivePrerequisites' in obj && (withStringReference ? isObjectivePrerequisitesWithStringReference(obj.objectivePrerequisites) : isObjectivePrerequisites(obj.objectivePrerequisites)) &&
+    'startSteps' in obj && isStrings(obj.startSteps) &&
     'segments' in obj && isObjectiveLessonPlanSegments(obj.segments) &&
     'closureSteps' in obj && isStrings(obj.closureSteps) &&
     'studentMaterialsNeeded' in obj && isStrings(obj.studentMaterialsNeeded) &&
@@ -103,11 +105,12 @@ export function isObjectiveLessonPlan (obj: unknown): obj is ObjectiveLessonPlan
     'grades' in obj && isStringGrades(obj.grades) &&
     'comments' in obj && isStrings(obj.comments)
 }
-export function isObjectiveLessonPlans (obj: unknown): obj is ObjectiveLessonPlan[] {
+export function isObjectiveLessonPlans (obj: unknown, withStringReference: boolean = false): obj is ObjectiveLessonPlan[] {
   if (obj == null || !Array.isArray(obj)) return false
-  return obj.every(isObjectiveLessonPlan)
+  return obj.every(obj => isObjectiveLessonPlan(obj, withStringReference))
 }
 export const emptyObjectiveLessonPlan: ObjectiveLessonPlan = {
+  objectivePrerequisites: [],
   startSteps: [],
   segments: [],
   closureSteps: [],
@@ -115,6 +118,15 @@ export const emptyObjectiveLessonPlan: ObjectiveLessonPlan = {
   teacherMaterialsNeeded: [],
   grades: [],
   comments: []
+}
+
+export type ObjectiveLessonPlanWithStringReference = ReplaceReferencesByStrings<UnitReference, ReplaceReferencesByStrings<ObjectiveReference, ObjectiveLessonPlan>>
+export function isObjectiveLessonPlanWithStringReference (obj: unknown): obj is ObjectiveLessonPlanWithStringReference {
+  return isObjectiveLessonPlan(obj, true)
+}
+export function isObjectiveLessonPlansWithStringReference (obj: unknown): obj is ObjectiveLessonPlanWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectiveLessonPlanWithStringReference)
 }
 
 type SlugsWithSeed = [string, string, string] // for reviews 4 lessons before, 2 lessons before and the new objective day

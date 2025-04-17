@@ -562,6 +562,7 @@ function buildUnitLessonPlans (objective: ObjectiveWithStringReference, unitGrad
       unitLessonPlan.teacherMaterialsNeeded = lessonPlan.teacherMaterialsNeeded ?? []
       unitLessonPlan.grades = lessonPlan.grades ?? []
       unitLessonPlan.comments = lessonPlan.comments ?? []
+      unitLessonPlan.objectivePrerequisites = objective.prerequisites
       unitLessonPlan.objectiveReference = objective.reference
       unitLessonPlan.objectiveTitle = getTitle(objective)
       unitLessonPlan.reference = `${objective.reference}${isMultipleLessonPlans ? `-${lessonPlanNumber}` : ''}`

@@ -22,8 +22,8 @@ export type ReplaceReferencesByStrings<R, T> = {
   [K in keyof T]: T[K] extends R
     ? string
     : T[K] extends object
-    ? ReplaceReferencesByStrings<R, T[K]>
-    : T[K];
+      ? ReplaceReferencesByStrings<R, T[K]>
+      : T[K];
 }
 
 type TupleToArray<T> = T extends [infer U, ...unknown[]] ? U[] : T
