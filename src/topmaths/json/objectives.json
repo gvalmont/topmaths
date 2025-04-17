@@ -4030,6 +4030,11 @@
                 "titleAcademic": "Connaître et utiliser l'inégalité triangulaire",
                 "lessonSummaryHTML": "<p>Dans un triangle non aplati, la longueur de chaque côté est toujours inférieure (&lt;) à la somme (+) des longueurs des deux autres côtés.</p><p>Ça s'appelle l'<strong>inégalité triangulaire</strong></p><p>Ça veut dire qu'il est impossible qu'un côté d'un triangle soit plus grand que la somme des deux autres côtés.</p>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G23"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -4294,6 +4299,11 @@
                 "titleAcademic": "Utiliser les propriétés des angles opposés par le sommet, supplémentaires, correspondants, alternes-internes",
                 "lessonSummaryHTML": "Deux angles opposés par le sommet ont la même mesure.<br><br>Si les droites sont parallèles, alors les angles alternes-internes ont la même mesure.<br>Si les angles alternes-internes ont la même mesure, alors les droites sont parallèles.<br>C'est pareil pour les angles correspondants.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5G30"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Utiliser les angles alternes-internes",
@@ -4401,6 +4411,11 @@
                 "titleAcademic": "Connaître et construire un parallélogramme",
                 "lessonSummaryHTML": "Un <b><i>parallélogramme</i></b> est un quadrilatère dont les côtés opposés sont deux à deux parallèles.<br>Les diagonales d'un parallélogramme se coupent en leur milieu.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5G42"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "À l'aide des diagonales",
@@ -4511,8 +4526,19 @@
               {
                 "reference": "5M10",
                 "titleAcademic": "Calculer le périmètre et l'aire d'une figure usuelle",
-                "lessonSummaryHTML": "Rappels de 6e :<br><a href='?v=objective&ref=6M10' title='Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle'>6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle</a><br><a href='?v=objective&ref=6M12' title='Déterminer le périmètre et l'aire d'un triangle quelconque'>6M12 : Déterminer le périmètre et l'aire d'un triangle quelconque</a><br><a href='?v=objective&ref=6M13' title='Déterminer le périmètre et l'aire d'un disque'>6M13 : Déterminer le périmètre et l'aire d'un disque</a>",
+                "lessonSummaryHTML": "",
                 "lessonSummaryImage": "RDC_S5S19.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M10"
+                  },
+                  {
+                    "objectiveReference": "6M12"
+                  },
+                  {
+                    "objectiveReference": "6M13"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -4604,6 +4630,11 @@
                 "titleAcademic": "Calculer le volume d'un assemblage de pavés, prismes et/ou cylindres",
                 "lessonSummaryHTML": "Pour calculer le volume d'un solide quelconque, on le découpe en solides dont on connaît la formule.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5M20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -4845,6 +4876,11 @@
                 "titleAcademic": "Simplifier des fractions simples",
                 "lessonSummaryHTML": "$\\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}} = \\cfrac{a}{b}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N20"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -4879,6 +4915,14 @@
                 "title": "Simplifier des fractions à l'aide des nombres premiers",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N22"
+                  },
+                  {
+                    "objectiveReference": "5N42"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Nouvelle méthode (avec les nombres premiers)",
@@ -4924,6 +4968,14 @@
                 "isKey": true,
                 "lessonSummaryHTML": "Pour additionner ou soustraire deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on additionne ou on soustrait les numérateurs.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C14"
+                  },
+                  {
+                    "objectiveReference": "5N20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -4968,6 +5020,11 @@
                 "titleAcademic": "Utiliser la notion d'opposé",
                 "lessonSummaryHTML": "On dit que – 8 est <strong>l'opposé</strong> de + 8 et que + 8 est <strong>l'opposé</strong> de – 8,<br>ou encore que + 8 et – 8 sont <strong>opposés</strong>.<br>De la même façon -5 est <strong>l'opposé</strong> de +5 et +5 est <strong>l'opposé </strong>de -5 etc.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N31"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -5074,6 +5131,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "+7 + (+4) = 7 + 4;<br>+7 + (–4) = 7 – 4;<br>–7 + (+4) = –7 + 4;<br>–7 + (–4) = –7 – 4.<br>Dans une somme de relatifs, il est plus simple de supprimer les parenthèses et les signes + d'addition afin de pouvoir calculer comme dans les programmes de calcul.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N31"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -5146,6 +5208,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "Pour soustraire un nombre relatif, on ajoute son opposé.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N32"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -5239,6 +5306,11 @@
                 "titleAcademic": "Repérer un point dans le plan muni d'un repère orthogonal",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "5N35-RDC.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N34"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -5334,6 +5406,11 @@
                 "titleAcademic": "Utiliser les critères de divisibilité par 2, 3, 5, 9, 10",
                 "lessonSummaryHTML": "Un nombre est divisible :<ul><li>par <i><b>2</b></i> lorsque <i><b>son chiffre des unités est 0, 2, 4, 6 ou 8</b></i></li><li>par <i><b>5</b></i> lorsque <i><b>son chiffre des unités est 0 ou 5</b></i></li><li>par <i><b>10</b></i> lorsque <i><b>son chiffre des unités est 0</b></i></li><li>par <i><b>3</b></i> lorsque <i><b>la somme de ses chiffres est divisible par 3</b></i></li><li>par <i><b>9</b></i> lorsque <i><b>la somme de ses chiffres est divisible par 9</b></i></li></ul>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N40"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -5380,6 +5457,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "Un <b><i>nombre premier</i></b> est un nombre qui possède exactement deux diviseurs : 1 et lui-même.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N40"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -5429,6 +5511,11 @@
                 "titleAcademic": "Décomposer un nombre entier en produit de facteurs premiers inférieurs à 30",
                 "lessonSummaryHTML": "Pour décomposer un nombre en un produit de facteurs premiers, on le divise autant que possible par des nombres premiers.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N42"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -5644,6 +5731,11 @@
                 "titleAcademic": "Utiliser le calcul littéral pour démontrer une propriété générale",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N51"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -5687,6 +5779,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "Pour calculer la valeur d'une expression littérale, on commence par la recopier en remplaçant les lettres par les valeurs données dans l'énoncé puis on calcule.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N51"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -5737,6 +5834,11 @@
                 "titleAcademic": "Tester une égalité",
                 "lessonSummaryHTML": "Pour tester une égalité :<br>- on calcule la valeur du <i>membre de gauche</i> en remplaçant la lettre par la valeur donnée dans l'énoncé ;<br>- on calcule la valeur du <i>membre de droite</i> en remplaçant la lettre par la valeur donnée dans l'énoncé ;<br>- si on obtient le même résultat, l'égalité est vraie ; sinon, elle est fausse.<br><br><p class='text-sm md:text-base'><i>membre de gauche</i> = tout ce qui est à gauche du signe égal<br><i>membre de droite</i> = tout ce qui est à droite du signe égal.</p><p class='text-sm md:text-base has-text-danger'>Attention à bien séparer les calculs du membre de gauche des calculs du membre de droite !</p>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N54"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -5839,6 +5941,11 @@
                 "titleAcademic": "Utiliser l'échelle d'une carte",
                 "lessonSummaryHTML": "Une échelle de $\\cfrac{1}{\\text{1 000 000}}$ signifie que 1 unité sur la carte correspond à 1 000 000 unités dans la réalité.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P14"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -6040,6 +6147,11 @@
                 "titleAcademic": "Calculer et interpréter la moyenne pondérée d'une série de données",
                 "lessonSummaryHTML": "Lorsqu'on veut calculer une <b><a href='?v=objective&ref=5S12'>moyenne</a></b>, si une <i>valeur</i> se répète plusieurs fois, on peut aller plus vite en multipliant cette valeur par son <i>effectif</i> (le nombre de fois où elle se répète).<br>Dans ce cas, on dit que la <i>moyenne</i> est <i>pondérée</i> par les effectifs.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5S12"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -6195,8 +6307,13 @@
               {
                 "reference": "5S31",
                 "titleAcademic": "Produire une formule littérale représentant la dépendance de deux grandeurs",
-                "lessonSummaryHTML": "Vous trouverez plusieurs vidéos ci-dessous.<br>Vous pouvez aussi revoir <a href='?v=objective&ref=5N52'>5N52 : Produire une expression littérale pour élaborer une formule ou traduire un programme de calcul</a>.",
+                "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N52"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Un premier exemple",
