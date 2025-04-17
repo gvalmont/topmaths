@@ -445,7 +445,7 @@
               {
                 "reference": "6C31",
                 "titleAcademic": "Résoudre des problèmes avec des nombres décimaux",
-                "lessonSummaryHTML": "Si besoin, vous pouvez revoir <a href='/?v=objective&ref=6C30' title='6C30 : Résoudre des problèmes avec des nombres entiers'>6C30 : Résoudre des problèmes avec des nombres entiers</a> pour vous rappeler comment modéliser et résoudre un problème.<br><br>Vous pouvez aussi revoir <a href='/?v=objective&ref=6C20' title='6C20 : Additionner et soustraire des nombres décimaux'>6C20 : Additionner et soustraire des nombres décimaux</a>, <a href='/?v=objective&ref=6C20' title='6C21 : Poser une multiplication'>6C21 : Poser une multiplication</a> et <a href='/?v=objective&ref=6C20' title='6C22 : Effectuer une division décimale'>6C22 : Effectuer une division décimale</a> pour revoir comment faire les différents calculs.",
+                "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
@@ -5509,6 +5509,7 @@
               {
                 "reference": "5N43",
                 "titleAcademic": "Décomposer un nombre entier en produit de facteurs premiers inférieurs à 30",
+                "isKey": true,
                 "lessonSummaryHTML": "Pour décomposer un nombre en un produit de facteurs premiers, on le divise autant que possible par des nombres premiers.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -6397,6 +6398,11 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "lessonSummaryInstrumenpoche": "image-figure-translation",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G12"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Image d'un point",
@@ -6492,6 +6498,11 @@
                 "titleAcademic": "Déterminer une valeur approchée de la racine carrée d’un nombre positif",
                 "lessonSummaryHTML": "<p>Pour encadrer une racine carrée, il suffit d'en déterminer une valeur approchée et d'encadrer cette dernière.<br>(Encadrer, c'est trouver un nombre plus petit et un nombre plus grand, par exemple on peut encadrer 2,7 par 2 et 3.<br>On écrit alors 2 &lt; 2,7 &lt; 3)</p><p>On peut aussi le faire de tête si on connaît les carrés parfaits&nbsp;!</p>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4G20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -6516,6 +6527,11 @@
                 "titleAcademic": "Calculer une longueur avec le théorème de Pythagore",
                 "lessonSummaryHTML": "<p>Si ABC est un triangle rectangle en A, alors d'après le théorème de Pythagore BC² = AB² + AC²</p><p>Remarque :<br>C'est l'hypoténuse (le plus grand côté) qui est toujours toute seule, peu importe que ce soit le côté qu'on cherche ou pas.</p>",
                 "lessonSummaryImage": "4G22-RDC.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4G20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Écrire l'égalité de Pythagore",
@@ -6630,6 +6646,11 @@
                 "titleAcademic": "Démontrer qu'un triangle est rectangle ou non à l'aide du théorème de Pythagore",
                 "lessonSummaryHTML": "<b><i>Réciproque du théorème de Pythagore :</i></b><br>Si le carré du plus grand côté d'un triangle est égal à la somme des carrés des deux autres côtés, alors ce triangle est rectangle.<br><br><b><i>Contraposée du théorème de Pythagore :</i></b><br>Si le carré du plus grand côté d'un triangle n'est <i>pas</i> égal à la somme des carrés des deux autres côtés, alors ce triangle n'est <i>pas</i> rectangle.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4G22"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Réciproque",
@@ -6722,6 +6743,14 @@
                 "titleAcademic": "Calculer une longueur avec le théorème de Thalès",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "3G10"
+                  },
+                  {
+                    "objectiveReference": "4P11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -6742,6 +6771,11 @@
                 "titleAcademic": "Démontrer que des droites sont parallèles ou non avec le théorème de Thalès",
                 "lessonSummaryHTML": "<b><i>Réciproque du théorème de Thalès :</i></b><br>Dans le cas où les droites $(BM)$ et $(CN)$ sont sécantes en $A$,<br>si $\\cfrac{AB}{AM}=\\cfrac{AC}{AN}=\\cfrac{BC}{MN}$, alors les droites $(BC)$ et $(MN)$ sont parallèles.<br><br><b><i>Contraposée du théorème de Thalès :</i></b><br>Dans le cas où les droites $(BM)$ et $(CN)$ sont sécantes en $A$,<br>si $\\cfrac{AB}{AM}\\not=\\cfrac{AC}{AN}\\not=\\cfrac{BC}{MN}$, alors les droites $(BC)$ et $(MN)$ ne sont <i>pas</i> parallèles.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4G31"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Réciproque",
@@ -6778,6 +6812,11 @@
                 "titleAcademic": "Savoir calculer une longueur avec le cosinus d'un angle",
                 "lessonSummaryHTML": "$\\text{cos (angle)} = \\cfrac{\\color{green}\\text{Adjacent}}{\\color{red}\\text{Hypothénuse}}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4P11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -6828,6 +6867,14 @@
                 "title": "Construire le patron d'une pyramide",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G25"
+                  },
+                  {
+                    "objectiveReference": "6G23"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Pyramide en perspective cavalière",
@@ -6854,6 +6901,14 @@
                 "title": "Construire le patron d'un cône",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G25"
+                  },
+                  {
+                    "objectiveReference": "6M13"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Cône en perspective cavalière",
@@ -6879,6 +6934,17 @@
                 "titleAcademic": "Calculer le volume d'une pyramide, d'un cône",
                 "lessonSummaryHTML": "$\\mathcal{V}_{\\text{pyramide}} = \\cfrac13\\mathcal{A}_\\text{Base} \\times \\text{hauteur}$ <br> $\\mathcal{V}_{\\text{cône}} = \\cfrac13\\mathcal{A}_\\text{Base} \\times \\text{hauteur}  = \\cfrac13 \\pi r^2 \\times \\text{hauteur}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M10"
+                  },
+                  {
+                    "objectiveReference": "6M12"
+                  },
+                  {
+                    "objectiveReference": "6M13"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Volume d'une pyramide",
@@ -6959,6 +7025,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "Pour multiplier des fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux :<br><br> $\\cfrac{a}{b} \\times \\cfrac{c}{d} = \\cfrac{a \\times c}{b \\times d}$ ou avec des chiffres $\\cfrac{2}{3} \\times \\cfrac{4}{5} = \\cfrac{2 \\times 4}{3 \\times 5} = \\cfrac{8}{15}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4N10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Multiplier deux fractions avec des nombres positifs",
@@ -7001,6 +7072,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "Pour <i><b>diviser</b></i> par une fraction, on <i><b>multiplie par son inverse</i></b>.<br>L'<i><b>inverse</b></i> d'une fraction c'est la même fraction, mais retournée !<br><br> $\\cfrac{a}{b} {\\color{red} \\div \\cfrac{c}{d}} = \\cfrac{a}{b} {\\color{red} \\times \\cfrac{d}{c}} = \\cfrac{a \\times d}{b \\times c}$ ou avec des chiffres $\\cfrac{2}{3} {\\color{red} \\div \\cfrac{4}{5}} = \\cfrac{2}{3} {\\color{red} \\times \\cfrac{5}{4}} = \\cfrac{2 \\times 5}{3 \\times 4} = \\cfrac{10}{12}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4N20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -7031,6 +7107,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N24"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -7048,6 +7129,14 @@
                 "titleAcademic": "Simplifier une fraction pour la rendre irréductible",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N40"
+                  },
+                  {
+                    "objectiveReference": "5N20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Rendre une fraction irréductible",
@@ -7109,6 +7198,14 @@
                 "isKey": true,
                 "lessonSummaryHTML": "Priorités de calculs (<strong>PEMDAS</strong>)<br>1) <strong>P</strong>arenthèses<br>2) <strong>E</strong>xposants (puissances)<br>3) <strong>M</strong>ultiplications, <strong>D</strong>ivisions<br>4) <strong>A</strong>dditions, <strong>S</strong>oustractions",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4N33"
+                  },
+                  {
+                    "objectiveReference": "5N10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7132,7 +7229,7 @@
                     "objectiveReference": "4N30"
                   }
                 ],
-                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objective&ref=4N30'>4N30</a><br><br><center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
+                "lessonSummaryHTML": "<center> $ a^{-n} = \\cfrac{1}{a^n} = \\cfrac{1}{\\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}}} $ </center>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
@@ -7156,8 +7253,13 @@
               {
                 "reference": "4N33",
                 "titleAcademic": "Utiliser les puissances de 10 d'exposant relatif",
-                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objective&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a> et <a href='?v=objective&ref=4N32' title='Puissances positives et négatives'>4N32</a>.<br><br><center> $ 10^n = \\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}} = {1}\\underbrace{00 ... 0}_{\\text{Il y a } n \\text{ zéros}} $ </center><br><center> $ 10^{-n} = \\cfrac{1}{\\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}}} = \\underbrace{0,00 ... 0}_{\\text{Il y a } n \\text{ zéros}}1 $ </center>",
+                "lessonSummaryHTML": "<center> $ 10^n = \\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}} = {1}\\underbrace{00 ... 0}_{\\text{Il y a } n \\text{ zéros}} $ </center><br><center> $ 10^{-n} = \\cfrac{1}{\\underbrace{10 \\times 10 \\times 10 \\times ... \\times 10}_{\\text{Le } 10 \\text{ apparaît } n \\text{ fois}}} = \\underbrace{0,00 ... 0}_{\\text{Il y a } n \\text{ zéros}}1 $ </center>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4N32"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Puissance simple",
@@ -7215,7 +7317,7 @@
                 "reference": "4N35",
                 "titleAcademic": "Associer dans le cas des nombres décimaux, écriture décimale, écriture fractionnaire et notation scientifique",
                 "title": "Écrire des nombres en notation scientifique",
-                "lessonSummaryHTML": "Si vous avez oublié comment fonctionnent les puissances, vous pouvez revoir <a href='?v=objective&ref=4N30' title='Les puissances, c'est quoi ?'>4N30</a>, <a href='?v=objective&ref=4N32' title='Puissances positives et négatives'>4N32</a> et <a href='?v=objective&ref=4N33' title='Les puissances de 10'>4N33</a>.<br><br>La <i>notation scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $a$ qui est un chiffre entre 1 et 9.",
+                "lessonSummaryHTML": "La <i>notation scientifique</i> d'un nombre est de la forme :<br> $a,... \\times 10^n$ avec $a$ qui est un chiffre entre 1 et 9.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
@@ -7246,6 +7348,11 @@
                 "titleAcademic": "Utiliser les ordres de grandeur pour vérifier ses résultats",
                 "lessonSummaryHTML": "Après avoir résolu un problème, c'est toujours une bonne idée de vérifier si le résultat qu'on a trouvé est cohérent, s'il est plausible ou si ce n'est pas le cas.<br>Ça nous permet de tout de suite remarquer qu'on a fait une erreur et de pouvoir tout de suite se corriger.<br>Pour y arriver, il faut avoir une idée de \"à quel point c'est grand » ou \"à quel point c'est petit ».<br>Voici des tableaux avec différents \"ordres de grandeur » qui pourront servir de base.",
                 "lessonSummaryImage": "Ordres-de-grandeur.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4N33"
+                  }
+                ],
                 "videos": [],
                 "exercises": [
                   {
@@ -7262,9 +7369,13 @@
                 "reference": "4N40",
                 "titleAcademic": "Déterminer la liste des nombres premiers inférieurs à 100",
                 "title": "Reconnaître les nombres premiers jusqu'à 100",
-                "isKey": true,
-                "lessonSummaryHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.<br>Vous pouvez aussi revoir <a href='/?v=objective&ref=5N42' title='5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30'>5N42 : Déterminer les nombres premiers inférieurs ou égaux à 30</a> si besoin.",
+                "lessonSummaryHTML": "Pour savoir si un nombre inférieur à 100 est premier, il suffit de vérifier qu'il n'est pas divisible par 2, 3, 5, ni 7.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N42"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7280,31 +7391,16 @@
                 ]
               },
               {
-                "reference": "4N41",
-                "titleAcademic": "Décomposer un nombre entier en produit de facteurs premiers",
-                "lessonSummaryHTML": "Pour décomposer un nombre en un produit de facteurs premiers, on le divise autant que possible par des nombres premiers",
-                "lessonSummaryImage": "",
-                "isKey": true,
-                "videos": [
-                  {
-                    "title": "Explications détaillées",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RBE2wPIKagI&vignette=https://i.ytimg.com/vi/RBE2wPIKagI/hqdefault.jpg&debut=0&fin=541&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "3A10-5,s=5,s2=3,n=2"
-                  }
-                ]
-              },
-              {
                 "reference": "4N42",
                 "titleAcademic": "Modéliser et résoudre des problèmes mettant en jeu la divisibilité (engrenages, conjonction de phénomènes…)",
                 "title": "Résoudre des problèmes à l'aide des nombres premiers",
-                "lessonSummaryHTML": "Voir <a href='?v=objective&ref=4N41'>4N41 : Décomposer un nombre entier en produit de facteurs premiers</a>",
+                "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N43"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7332,9 +7428,14 @@
               {
                 "reference": "4N50",
                 "titleAcademic": "Identifier la structure d'une expression littérale",
-                "title": "Reconnaître si c'est une somme, une différence, un produit ou un quotient",
-                "lessonSummaryHTML": "<p>La <b><i>somme</i></b> est le résultat d'une <b><i>addition</i></b>.<br>La <b><i>différence</i></b> est le résultat d'une <b><i>soustraction</i></b>.<br>Le <b><i>produit</i></b> est le résultat d'une <b><i>multiplication</i></b>.<br>Le <b><i>quotient</i></b> est le résultat d'une <b><i>division</i></b>.</p><p>La <b><i>structure d'une expression</i></b> est déterminée par l'<b><i>opération</i></b> qu'on réaliserait <b><i>en dernier</i></b> si on voulait faire les calculs.</p><p>Si vous ne savez plus dans quel ordre on fait les calculs, vous pouvez aller voir <a href='?v=objective&ref=5N10'>5N10 – Effectuer un enchaînement d'opérations en respectant les priorités opératoires.</a> et <a href='?v=objective&ref=5N11'>5N11 – Traduire un enchaînement d'opérations à l'aide d'une expression avec des parenthèses.</a></p>",
+                "title": "Reconnaître si une expression une somme, une différence, un produit ou un quotient",
+                "lessonSummaryHTML": "<p>La <b><i>somme</i></b> est le résultat d'une <b><i>addition</i></b>.<br>La <b><i>différence</i></b> est le résultat d'une <b><i>soustraction</i></b>.<br>Le <b><i>produit</i></b> est le résultat d'une <b><i>multiplication</i></b>.<br>Le <b><i>quotient</i></b> est le résultat d'une <b><i>division</i></b>.</p><p>La <b><i>structure d'une expression</i></b> est déterminée par l'<b><i>opération</i></b> qu'on réaliserait <b><i>en dernier</i></b> si on voulait faire les calculs.</p>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7368,6 +7469,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "Développer, c'est transformer un produit en une somme ou une différence.<br><b><i>k</i></b>(a + b) = <b><i>k</i></b>a + <b><i>k</i></b>b<br><b><i>k</i></b>(a – b) = <b><i>k</i></b>a – <b><i>k</i></b>b",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N51"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7461,6 +7567,11 @@
                 "titleAcademic": "Démontrer l'équivalence de deux programmes de calcul",
                 "lessonSummaryHTML": "Deux programmes de calcul sont <i>équivalents</i> s'ils se traduisent par la même expression littérale.<br><br>Pour vérifier si deux programmes de calcul sont équivalents, on choisit une lettre comme nombre de départ, on fait les calculs, on simplifie l'écriture et on vérifie si on obtient la même expression.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4N52"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7481,6 +7592,11 @@
                 "title": "Vérifier si un nombre est solution d'une équation",
                 "lessonSummaryHTML": "Pour vérifier si un nombre est solution d'une équation, on remplace l'inconnue ($x$ en général) par le nombre qu'on veut tester et on vérifie si les deux membres de l'égalité sont égaux.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N54"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7506,6 +7622,11 @@
                 "title": "Mettre un problème en équation",
                 "lessonSummaryHTML": "<b><i>1.</i></b> Choisir l'inconnue (souvent ce qu'on doit trouver)<br><b><i>2.</i></b> Exprimer les autres données de l'énoncé en fonction de l'inconnue<br><b><i>3.</i></b> Mettre en équation (écrire une égalité avec les données précédentes)<br><b><i>4.</i></b> Résoudre l'équation<br><b><i>5.</i></b> Vérifier le résultat",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N52"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7538,6 +7659,9 @@
                   },
                   {
                     "objectiveReference": "4N10"
+                  },
+                  {
+                    "objectiveReference": "4N55"
                   }
                 ],
                 "lessonSummaryHTML": "On cherche à avoir les $x$ à gauche et les nombres à droite.<br>Pour cela, on peut :<br>- ajouter ou enlever la <i>même</i> quantité des deux côtés ;<br>- multiplier ou diviser par un <i>même</i> nombre des deux côtés.",
@@ -7572,6 +7696,11 @@
                 "titleAcademic": "Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité",
                 "lessonSummaryHTML": "La représentation graphique d'une situation de proportionnalité est une droite qui passe par <i>l'origine.<br>L'origine du repère est le point de coordonnées (0 ; 0). C'est là où les axes se croisent</i>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7616,6 +7745,11 @@
                 "titleAcademic": "Utiliser un rapport d'agrandissement ou de réduction pour calculer, des longueurs, des aires, des volumes",
                 "lessonSummaryHTML": "Dans un agrandissement ou une réduction de rapport $k$ :<br>- les longueurs sont multipliées par $k$ ;<br>- les aires sont multipliées par $k^2$ ;<br>- les volumes sont multipliés par $k^3$.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P14"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7640,6 +7774,14 @@
                 "titleAcademic": "Effectuer des conversions d'unités sur des grandeurs composées",
                 "lessonSummaryHTML": "Une <b><i>grandeur composée</i></b> est une grandeur obtenue en multipliant ou en divisant deux grandeurs.<br><br><i>Exemple :</i><br> $\\text{Vitesse}=\\cfrac{\\text{Distance}}{\\text{Temps}}$ <br>Pour obtenir la vitesse, on divise deux grandeurs (distance et temps).<br>La vitesse est donc une grandeur composée.<br><br>Pour convertir les unités d'une grandeur composée, on convertit séparément les unités des grandeurs qui la composent.<br><br><i>Exemple :</i><br>Pour convertir en m/s une vitesse qui est donnée en km/h, on convertit les km en m, les h en s et on recalcule la vitesse.<br> $90~\\text{km/h} = \\cfrac{90~\\text{km}}{1~\\text{h}} = \\cfrac{90~000~\\text{m}}{3~600~\\text{s}} = 25~\\text{m/s}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M22"
+                  },
+                  {
+                    "objectiveReference": "6M30"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7785,6 +7927,11 @@
                 "title": "Lire et interpréter différentes valeurs sur l'axe des abscisses ou l'axe des ordonnées",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N35"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7804,6 +7951,14 @@
                 "titleAcademic": "Représenter la dépendance de deux grandeurs par un graphique",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5S30"
+                  },
+                  {
+                    "objectiveReference": "5S11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Un exemple",
@@ -8206,8 +8361,13 @@
                 "reference": "3N10",
                 "titleAcademic": "Déterminer si un nombre est premier",
                 "isKey": true,
-                "lessonSummaryHTML": "Vous pouvez aussi revoir <a href='/?v=objective&ref=4N40' title='4N40 : Déterminer la liste des nombres premiers inférieurs à 100'>4N40 : Déterminer la liste des nombres premiers inférieurs à 100</a> si besoin",
+                "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4N40"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
