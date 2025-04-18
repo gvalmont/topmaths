@@ -4773,6 +4773,11 @@
                 "isKey": true,
                 "lessonSummaryHTML": "$\\cfrac{a}{b} = \\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -5363,6 +5368,11 @@
                 "title": "Connaître le vocabulaire des multiples et diviseurs",
                 "lessonSummaryHTML": "Quand on <i><b>multiplie</b></i> un nombre, on obtient un <i><b>multiple</b></i>.<br>Si un nombre <i><b>divise</b></i> entièrement <i>(sans laisser de reste)</i>, c'est un <i><b>diviseur</b></i>.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
