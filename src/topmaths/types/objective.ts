@@ -15,6 +15,89 @@ export function isObjectiveReferences (obj: unknown): obj is ObjectiveReference[
 }
 export const emptyObjectiveReference: ObjectiveReference = objectivesReferences[0] // keep in sync with build_prepare.ts
 
+export type ObjectiveAncestor = { // keep in sync with ObjectiveAncestorWithStringReference
+  reference: ObjectiveReference
+  title: string
+  titleAcademic: string
+  ancestors: ObjectiveAncestor[]
+}
+export function isObjectiveAncestor (obj: unknown, withStringReference: boolean = false): obj is ObjectiveAncestor {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
+    'ancestors' in obj && isObjectiveAncestors(obj.ancestors, withStringReference)
+}
+export function isObjectiveAncestors (obj: unknown, withStringReference: boolean = false): obj is ObjectiveAncestor[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(obj => isObjectiveAncestor(obj, withStringReference))
+}
+export const emptyObjectiveAncestor: ObjectiveAncestor = {
+  reference: emptyObjectiveReference,
+  title: '',
+  titleAcademic: '',
+  ancestors: []
+}
+
+export type ObjectiveAncestorWithStringReference = { // keep in sync with ObjectiveAncestor (had to do this because ReplaceReferencesByStrings can't handle recursive types)
+  reference: string
+  title: string
+  titleAcademic: string
+  ancestors: ObjectiveAncestorWithStringReference[]
+}
+export function isObjectiveAncestorWithStringReference (obj: unknown): obj is ObjectiveAncestorWithStringReference {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'reference' in obj && typeof obj.reference === 'string' &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
+    'ancestors' in obj && isObjectiveAncestorsWithStringReference(obj.ancestors)
+}
+export function isObjectiveAncestorsWithStringReference (obj: unknown): obj is ObjectiveAncestorWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectiveAncestorWithStringReference)
+}
+
+export type ObjectiveDescendant = { // keep in sync with ObjectiveDescendantWithStringReference
+  reference: ObjectiveReference
+  title: string
+  titleAcademic: string
+  descendants: ObjectiveDescendant[]
+}
+export function isObjectiveDescendant (obj: unknown, withStringReference: boolean = false): obj is ObjectiveDescendant {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
+    'descendants' in obj && isObjectiveDescendants(obj.descendants, withStringReference)
+}
+export function isObjectiveDescendants (obj: unknown, withStringReference: boolean = false): obj is ObjectiveDescendant[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(obj => isObjectiveDescendant(obj, withStringReference))
+}
+export const emptyObjectiveDescendant: ObjectiveDescendant = {
+  reference: emptyObjectiveReference,
+  title: '',
+  titleAcademic: '',
+  descendants: []
+}
+export type ObjectiveDescendantWithStringReference = { // keep in sync with ObjectiveDescendant (had to do this because ReplaceReferencesByStrings can't handle recursive types)
+  reference: string
+  title: string
+  titleAcademic: string
+  descendants: ObjectiveDescendantWithStringReference[]
+}
+export function isObjectiveDescendantWithStringReference (obj: unknown): obj is ObjectiveDescendantWithStringReference {
+  if (obj == null || typeof obj !== 'object') return false
+  return 'reference' in obj && typeof obj.reference === 'string' &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
+    'descendants' in obj && isObjectiveDescendantsWithStringReference(obj.descendants)
+}
+export function isObjectiveDescendantsWithStringReference (obj: unknown): obj is ObjectiveDescendantWithStringReference[] {
+  if (obj == null || !Array.isArray(obj)) return false
+  return obj.every(isObjectiveDescendantWithStringReference)
+}
+
 export type ObjectiveVideo = {
   title: string,
   videoLink: string,
@@ -205,6 +288,8 @@ export const emptyObjectiveDownloadLinks: ObjectiveDownloadLinks = { // keep in 
 }
 
 export type Objective = {
+  ancestors: ObjectiveAncestor[],
+  descendants: ObjectiveDescendant[],
   downloadLinks: ObjectiveDownloadLinks,
   examExercises: ObjectiveExercise[],
   examExercisesLink: string,
@@ -229,7 +314,9 @@ export type Objective = {
 }
 export function isObjective (obj: unknown, withStringReference: boolean = false): obj is Objective {
   if (obj == null || typeof obj !== 'object') return false
-  return 'downloadLinks' in obj && isObjectiveDownloadLinks(obj.downloadLinks) &&
+  return 'ancestors' in obj && isObjectiveAncestors(obj.ancestors, withStringReference) &&
+    'descendants' in obj && isObjectiveDescendants(obj.descendants, withStringReference) &&
+    'downloadLinks' in obj && isObjectiveDownloadLinks(obj.downloadLinks) &&
     'examExercises' in obj && isObjectiveExercises(obj.examExercises) &&
     'examExercisesLink' in obj && typeof obj.examExercisesLink === 'string' &&
     'exercises' in obj && isObjectiveExercises(obj.exercises) &&
@@ -256,6 +343,8 @@ export function isObjectives (obj: unknown, withStringReference: boolean = false
   return obj.every(obj => isObjective(obj, withStringReference))
 }
 export const emptyObjective: Objective = { // keep in sync with build_prepare.ts
+  ancestors: [],
+  descendants: [],
   downloadLinks: emptyObjectiveDownloadLinks,
   examExercises: [],
   examExercisesLink: '',

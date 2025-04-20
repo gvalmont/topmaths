@@ -41,7 +41,7 @@ export function isStudentReferences (obj: unknown): obj is ReferenceStudent[] {
   return obj.every(isStudentReference)
 }
 
-const referenceClassroomValidKeys = <const>['mathador', 'curriculum']
+const referenceClassroomValidKeys = <const>['mathador', 'curriculum', 'prerequisites']
 type ReferenceClassroomValidKeysType = typeof referenceClassroomValidKeys
 export type ReferenceClassroom = ReferenceClassroomValidKeysType[number]
 export function isClassroomReference (obj: unknown): obj is ReferenceClassroom {

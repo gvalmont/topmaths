@@ -157,7 +157,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
   }
 }
 
-// Keep $class-name in sync with src/topmaths/types/grade.ts StringGrade
+// Keep $class-name in sync with src/topmaths/types/grade.ts StringGrade and services/color.ts
 // Keep $main-color in sync with index.html .spinner div:nth-child()
 @include theme-style('is-6e', tailwind-colors.$is-6e-default, tailwind-colors.$is-6e-light, tailwind-colors.$is-6e-filter);
 @include theme-style('is-5e', tailwind-colors.$is-5e-default, tailwind-colors.$is-5e-light, tailwind-colors.$is-5e-filter);
@@ -167,6 +167,7 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 // end of sync
 
 // Keep $class-name in sync src/topmaths/types/color.ts ButtonColor
+// Keep in sync with tailwind-colors.scss and tailwind.config.cjs
 @include theme-style('is-topmaths', tailwind-colors.$topmaths-default, tailwind-colors.$topmaths-light, tailwind-colors.$topmaths-filter, tailwind-colors.$topmathsdark-default);
 @include theme-style('is-sponsor', tailwind-colors.$is-sponsor-default, tailwind-colors.$is-sponsor-light, tailwind-colors.$is-sponsor-filter);
 @include theme-style('is-fuchsia', tailwind-colors.$is-fuchsia-default, tailwind-colors.$is-fuchsia-light, tailwind-colors.$is-fuchsia-filter);
@@ -178,4 +179,5 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 @include theme-style('is-purple', tailwind-colors.$is-purple-default, tailwind-colors.$is-purple-light, tailwind-colors.$is-purple-filter);
 @include theme-style('is-info-darker', tailwind-colors.$is-info-darker-default, tailwind-colors.$is-info-darker-default, tailwind-colors.$is-info-darker-filter);
 @include theme-style('is-coopmaths', tailwind-colors.$is-coopmaths-default, tailwind-colors.$is-coopmaths-light, tailwind-colors.$is-coopmaths-filter);
+@include theme-style('is-brown', tailwind-colors.$is-brown-default, tailwind-colors.$is-brown-light, tailwind-colors.$is-brown-filter);
 // end of sync

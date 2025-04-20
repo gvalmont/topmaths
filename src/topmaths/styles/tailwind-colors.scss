@@ -1,4 +1,4 @@
-// Keep in sync with tailwind.config.js colors
+// Keep in sync with tailwind.config.js colors and themes.scss
 $topmaths-default: #0284c7;
 $topmaths-light: #0284c7;
 $topmaths-filter: invert(51%) sepia(74%) saturate(6105%) hue-rotate(179deg) brightness(92%) contrast(98%);
@@ -54,8 +54,13 @@ $is-purple-filter: invert(22%) sepia(70%) saturate(3716%) hue-rotate(264deg) bri
 $is-tout-default: #feb60a;
 $is-tout-light: #fffbeb;
 $is-tout-filter: invert(82%) sepia(18%) saturate(7498%) hue-rotate(354deg) brightness(103%) contrast(99%);
+
+$is-brown-default: #A0522D;
+$is-brown-light: #EFD8CD;
+$is-brown-filter: invert(33%) sepia(58%) saturate(769%) hue-rotate(336deg) brightness(94%) contrast(82%);
 // end of sync
 
+// Keep in sync with types/grade.ts StringGrade and themes.scss and color.ts
 $is-6e-default: #28a745;
 $is-6e-light: #effaf3;
 $is-6e-filter: invert(44%) sepia(99%) saturate(384%) hue-rotate(81deg) brightness(99%) contrast(87%);
@@ -72,10 +77,7 @@ $is-3e-default: #da5e75;
 $is-3e-light: #fbf3f4;
 $is-3e-filter: invert(48%) sepia(66%) saturate(683%) hue-rotate(303deg) brightness(92%) contrast(84%);
 
-$is-tout-default: #feb60a;
-$is-tout-light: #fffbeb;
-$is-tout-filter: invert(79%) sepia(13%) saturate(6943%) hue-rotate(354deg) brightness(102%) contrast(99%);
-
 $is-coopmaths-default: #f15929;
 $is-coopmaths-light: #f15929;
 $is-coopmaths-filter: invert(54%) sepia(65%) saturate(5242%) hue-rotate(346deg) brightness(98%) contrast(92%);
+// end of sync

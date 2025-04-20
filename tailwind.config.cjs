@@ -58,7 +58,7 @@ const config = {
         200: '2.00'
       },
       colors: {
-        // Keep in sync with src/topmaths/styles/tailwind-colors.scss
+        // Keep in sync with src/topmaths/styles/tailwind-colors.scss, themes.css and types/color.ts
         topmaths: {
           DEFAULT: '#0284c7',
           light: '#0284c7',
@@ -136,6 +136,11 @@ const config = {
             DEFAULT: '#feb60a',
             light: '#fffbeb',
             filter: 'invert(82%) sepia(18%) saturate(7498%) hue-rotate(354deg) brightness(103%) contrast(99%)'
+          },
+          brown: {
+            DEFAULT: '#A0522D',
+            light: '#EFD8CD',
+            filter: 'invert(33%) sepia(58%) saturate(769%) hue-rotate(336deg) brightness(94%) contrast(82%)'
           },
           coopmaths: {
             DEFAULT: '#F15929',

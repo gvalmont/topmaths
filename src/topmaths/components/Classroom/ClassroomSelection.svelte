@@ -35,6 +35,13 @@
       >
         Progressions
       </MainMenuItem>
+      <MainMenuItem
+        view='classroom'
+        ref='prerequisites'
+        color='brown'
+      >
+        Visualisation des prérequis
+      </MainMenuItem>
     {/if}
     <div>
       <button

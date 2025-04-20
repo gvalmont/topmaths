@@ -12,7 +12,7 @@ import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
 import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
-import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference } from '../src/topmaths/types/objective.js'
+import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference, type ObjectiveAncestorWithStringReference, type ObjectiveDescendantWithStringReference } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
 import { emptyGlossaryMasterItem, type GlossaryItemWithStringReference, type GlossaryMasterItem, type GlossaryMasterItemWithStringReference, type GlossaryRelatedItem, type GlossaryUniteItemWithStringReference, isGlossaryMasterItemWithStringReference, isGlossaryUniteItemsWithStringReference } from '../src/topmaths/types/glossary.js'
 import { type CalendarSchoolYearMaster, isCalendarSchoolYearMasters, type CalendarSchoolYear, isCalendarSchoolYears, type CalendarPeriod } from '../src/topmaths/types/calendar.js'
@@ -30,6 +30,8 @@ const THIRD_PARTY_WEBSITES = [
 
 let warningCount = 0
 let exerciseNumber = 1
+const ancestorsCache = new Map<string, ObjectiveAncestorWithStringReference[]>()
+const descendantsCache = new Map<string, ObjectiveDescendantWithStringReference[]>()
 const curriculum = buildCurriculum()
 const units: UnitWithStringReference[] = buildUnits()
 const objectives: ObjectiveWithStringReference[] = buildObjectives()
@@ -142,6 +144,8 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           if (objective === undefined) { console.error(objective); throw new Error('Objective is undefined') }
           if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
           exerciseNumber = 1
+          objective.ancestors = []
+          objective.descendants = []
           objective.downloadLinks = deepCopy(emptyObjectiveDownloadLinks)
           objective.examExercises = buildExercises(objective.reference, objective.examExercises)
           objective.examExercisesLink = buildLinkFromSlugs(objective.examExercises.map(exercise => exercise?.slug))
@@ -204,6 +208,10 @@ function updateObjectives (): void {
       prerequisite.title = prerequisiteObjective.title
       prerequisite.titleAcademic = prerequisiteObjective.titleAcademic
     })
+  })
+  objectives.forEach(objective => {
+    buildObjectiveAncestors(objective)
+    buildObjectiveDescendants(objective)
   })
 }
 
@@ -638,6 +646,90 @@ function checkDuplicatesExamExercises (): void {
         examExercisesFound.push(examExerciseSlug)
       })
     })
+}
+
+function buildObjectiveAncestors (objective: ObjectiveWithStringReference): void {
+  // Check if the ancestors for this objective are already cached
+  if (ancestorsCache.has(objective.reference)) {
+    objective.ancestors = ancestorsCache.get(objective.reference)!
+    return
+  }
+
+  // Initialize the ancestors array for the current objective
+  objective.ancestors = objective.prerequisites.map((prerequisite) => {
+    return {
+      reference: prerequisite.objectiveReference,
+      title: prerequisite.title,
+      titleAcademic: prerequisite.titleAcademic,
+      ancestors: []
+    }
+  })
+
+  // Recursively find ancestors for each prerequisite
+  objective.ancestors.forEach((ancestor) => {
+    const ancestorObjective = objectives.find(
+      (obj) => obj.reference === ancestor.reference
+    )
+    if (!ancestorObjective) return // Skip if the ancestor is not found
+
+    // Ensure the ancestor has its ancestors populated
+    buildObjectiveAncestors(ancestorObjective)
+
+    // Append the ancestors of the ancestor to the current ancestor
+    ancestor.ancestors = [
+      ...ancestor.ancestors,
+      ...ancestorObjective.ancestors.map((ancestorOfAncestor) => ({
+        reference: ancestorOfAncestor.reference,
+        title: ancestorOfAncestor.title,
+        titleAcademic: ancestorOfAncestor.titleAcademic,
+        ancestors: ancestorOfAncestor.ancestors,
+      })),
+    ]
+  })
+
+  // Cache the result for this objective
+  ancestorsCache.set(objective.reference, objective.ancestors)
+}
+
+function buildObjectiveDescendants (objective: ObjectiveWithStringReference): void {
+  // Check if the descendants for this objective are already cached
+  if (descendantsCache.has(objective.reference)) {
+    objective.descendants = descendantsCache.get(objective.reference)!
+    return
+  }
+
+  // Initialize the descendants array for the current objective
+  objective.descendants = objectives
+    .filter((obj) => obj.prerequisites.some((prerequisite) => prerequisite.objectiveReference === objective.reference))
+    .map((descendant) => ({
+      reference: descendant.reference,
+      title: descendant.title,
+      titleAcademic: descendant.titleAcademic,
+      descendants: [],
+    }))
+
+  // Recursively find descendants for each descendant
+  objective.descendants.forEach((descendant) => {
+    const descendantObjective = objectives.find((obj) => obj.reference === descendant.reference)
+    if (!descendantObjective) return // Skip if the descendant is not found
+
+    // Ensure the descendant has its descendants populated
+    buildObjectiveDescendants(descendantObjective)
+
+    // Append the descendants of the descendant to the current descendant
+    descendant.descendants = [
+      ...descendant.descendants,
+      ...descendantObjective.descendants.map((descendantOfDescendant) => ({
+        reference: descendantOfDescendant.reference,
+        title: descendantOfDescendant.title,
+        titleAcademic: descendantOfDescendant.titleAcademic,
+        descendants: descendantOfDescendant.descendants,
+      })),
+    ]
+  })
+
+  // Cache the result for this objective
+  descendantsCache.set(objective.reference, objective.descendants)
 }
 
 function checkPrivacyPolicyThirdPartyWebsites (): void {
