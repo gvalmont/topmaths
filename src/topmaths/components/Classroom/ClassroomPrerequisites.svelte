@@ -48,6 +48,7 @@
       .append("svg")
       .attr("width", width)
       .attr("height", height)
+      .attr("xmlns:xlink", "http://www.w3.org/1999/xlink"); // Add xlink namespace
 
     const root = d3.hierarchy(rootNode, accessorFunction)
 
@@ -110,6 +111,7 @@
 
         // Append a rectangle behind the text
         group
+          .select("a")
           .append("rect")
           .attr("x", (d: d3.HierarchyNode<Objective>) => ((d.children && type === 'ancestors') || (!d.children && (type === 'descendants' || nodes.length === 1)) ? 6 : -41))
           .attr("y", -10)
@@ -120,6 +122,7 @@
           .attr("fill", "white")
           .attr("stroke", (d) => getGradeColor(`${d.data.reference.slice(0, 1)}e`))
           .attr("stroke-width", 1)
+          .style("pointer-events", "none");
 
         const tooltip = d3
           .select("body")
@@ -134,6 +137,7 @@
           .style("visibility", "hidden")
         // Append the text
         group
+          .select("a")
           .append("text")
           .attr("dy", 5)
           .attr("x", (d) => ((d.children && type === 'ancestors') || (!d.children && (type === 'descendants' || nodes.length === 1)) ? 8 : -5))
