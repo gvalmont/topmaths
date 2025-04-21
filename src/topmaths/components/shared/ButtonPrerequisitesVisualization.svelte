@@ -11,7 +11,7 @@
   let isPrerequisiteModalDisplayed = false
 
   function displayPrerequisitesModal(objectiveReference: ObjectiveReference): void {
-    const container = document.getElementById('prerequisites-container')
+    const container = document.getElementById(`prerequisites-container-${objectiveReference}`)
     if (!container) {
       throw new Error('Prerequisites container not found')
     }
@@ -46,6 +46,6 @@
   bind:isDisplayed={isPrerequisiteModalDisplayed}
 >
   <div slot="content">
-    <div id="prerequisites-container"></div>
+    <div id="prerequisites-container-{objectiveReference}"></div>
   </div>
 </BasicClassicModal>
