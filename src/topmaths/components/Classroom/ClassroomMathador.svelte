@@ -458,9 +458,6 @@
   #points-info-background {
     background-color: tailwind-colors.$topmaths-canvas-default;
     opacity: 0%;
-    :global(.dark) & {
-      background-color: tailwind-colors.$topmathsdark-canvas-default;
-    }
   }
 
   #points-info-text {

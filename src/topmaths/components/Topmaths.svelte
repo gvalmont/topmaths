@@ -19,7 +19,6 @@
   import InfoDialog from './presentationalComponents/InfoDialog.svelte'
   import Footer from './presentationalComponents/Footer.svelte'
   import Perso from './presentationalComponents/Perso.svelte'
-  import DarkModeToggle from './presentationalComponents/DarkModeToggle.svelte'
   import Info from './Info/Info.svelte'
   import Objective from './Objective/Objective.svelte'
   import Classroom from './Classroom/Classroom.svelte'
@@ -172,11 +171,6 @@
     {/if}
   </div>
   <Footer />
-
-  <DarkModeToggle
-    isDarkMode={$isDarkMode}
-    {setDarkMode}
-  />
   {#if $isTeacherMode}
     <TimeOverlay />
   {/if}

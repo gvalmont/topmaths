@@ -54,14 +54,7 @@
         a {
           color: tailwind-colors.$topmaths-corpus-default;
           text-decoration: underline;
-          :global(.dark) & {
-            color: #{$main-color};
-          }
         }
-      :global(.dark) & {
-        background-color: tailwind-colors.$topmathsdark-canvas-default;
-        color: #{$main-color};
-      }
     }
   }
 

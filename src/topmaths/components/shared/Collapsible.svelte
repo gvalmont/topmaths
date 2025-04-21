@@ -76,9 +76,6 @@
   button img {
     transform: rotate(0deg);
     transition: transform 0.3s ease-out;
-    :global(.dark) & {
-      filter: tailwind-colors.$topmathsdark-filter;
-    }
   } button.active img {
       transform: rotate(135deg);
       transition: transform 0.3s ease-out;

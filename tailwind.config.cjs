@@ -17,7 +17,6 @@ const flipclass = plugin(function ({ addUtilities }) {
   })
 })
 const config = {
-  darkMode: 'class',
   content: ['./src/**/*.{html,js,svelte,ts}',
     './node_modules/tw-elements/dist/js/**/*.js'],
   safelist: [
