@@ -5,7 +5,7 @@ import { getTitle } from '../services/string'
 import { buildGradeFromObjectiveReference } from '../services/reference'
 
 export function appendPrerequisiteTree (container: HTMLElement, objective: Objective): void {
-  const width = Math.floor(container.clientWidth / 2)
+  const width = Math.min(Math.floor(container.clientWidth / 2), 600)
   const height = width * 0.9
   const divAncestors = document.createElement('div')
   const divDescendants = document.createElement('div')
