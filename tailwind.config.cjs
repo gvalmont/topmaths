@@ -72,16 +72,16 @@ const config = {
           }
         },
         topmathsdark: {
-          DEFAULT: '#0ea5e9',
-          light: '#0ea5e9',
-          filter: 'invert(53%) sepia(84%) saturate(1728%) hue-rotate(166deg) brightness(92%) contrast(99%)',
+          DEFAULT: '#0284c7',
+          light: '#0284c7',
+          filter: 'invert(51%) sepia(74%) saturate(6105%) hue-rotate(179deg) brightness(92%) contrast(98%)',
           canvas: {
-            DEFAULT: '#18181b', // Keep in sync with index.html prefers-color-scheme: dark html, body background-color
-            dark: '#1f1f24'
+            DEFAULT: '#ffffff', // Keep in sync with index.html html, body background-color
+            dark: '#f6f6f6'
           },
           corpus: {
-            DEFAULT: '#b0b0b0',
-            light: '#c8c8c8'
+            DEFAULT: '#1d1d1d',
+            light: '#45505b'
           }
         },
         is: {
