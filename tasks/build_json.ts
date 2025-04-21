@@ -10,7 +10,7 @@ import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' as
 import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
-import { buildGradeFromObjectiveReference } from '../src/topmaths/services/reference.js'
+import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference, type ObjectiveAncestorWithStringReference, type ObjectiveDescendantWithStringReference } from '../src/topmaths/types/objective.js'
 import { type Unit, type UnitObjective, emptyUnitDownloadLinks, type UnitLessonPlan, isUnitLessonPlans, type UnitWithStringReference, type UnitReference, isUnitWithStringReference, emptyUnitLessonPlan, isUnitReference } from '../src/topmaths/types/unit.js'
@@ -925,9 +925,13 @@ function writePrerequisitesCsv (objectives: ObjectiveWithStringReference[]): voi
 function generateCSV (objectives: ObjectiveWithStringReference[]) {
   const header = 'Référence,Titre,Nombre de parents,Nombre d\'enfants\n'
 
-  const rows = objectives.map((objective) => {
-    return `${objective.reference},"${getTitle(objective)}",${objective.ancestorsCount},${objective.descendantsCount}`
-  })
+  const rows = objectives
+    .filter((objective) => {
+      return !isReferenceIgnored(objective.reference)
+    })
+    .map((objective) => {
+      return `${objective.reference},"${getTitle(objective)}",${objective.ancestorsCount},${objective.descendantsCount}`
+    })
 
   return header + rows.join('\n')
 }

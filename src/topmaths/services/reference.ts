@@ -23,6 +23,6 @@ export function buildThemeFromReference (reference: ObjectiveReference): 'nombre
   return 'nombres'
 }
 
-export function isReferenceIgnored (reference: ObjectiveReference): boolean {
+export function isReferenceIgnored (reference: string): boolean {
   return reference.slice(1, 2) === 'X'
 }

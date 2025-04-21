@@ -2,6 +2,7 @@
   import { onMount } from "svelte"
   import { objectives } from "../../services/store"
   import { appendPrerequisiteTree } from "../../services/prerequisite"
+    import { isReferenceIgnored } from "../../services/reference";
 
   onMount(() => {
     renderTrees()
@@ -13,10 +14,13 @@
       throw new Error("Trees container not found")
     }
     container.innerHTML = ""
-
-    $objectives.forEach((objective) => {
-      appendPrerequisiteTree(container, objective)
-    })
+    $objectives
+      .filter((objective) => {
+        return !isReferenceIgnored(objective.reference)
+      })
+      .forEach((objective) => {
+        appendPrerequisiteTree(container, objective)
+      })
   }
 
 </script>
