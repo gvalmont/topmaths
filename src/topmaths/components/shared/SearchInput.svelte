@@ -9,7 +9,7 @@
     md:mb-4
     rounded-sm md-rounded
     text-sm md:text-2xl
-    bg-topmaths-canvas dark:bg-topmathsdark-canvas"
+    bg-topmaths-canvas"
   type="text"
   aria-describedby="Champ pour rechercher une séquence"
   autocomplete="off"

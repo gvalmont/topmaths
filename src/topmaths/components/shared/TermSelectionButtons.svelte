@@ -10,7 +10,6 @@
     .map(termIndex => termIndex + 1)
 
   const classList = `button is-link is-light my-4 mx-1 rounded-3xl
-    dark:border
     py-1 md:py-2
     text-base md:text-2xl
     px-4 md:px-6`

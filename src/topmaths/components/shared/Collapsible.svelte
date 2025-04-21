@@ -25,7 +25,6 @@
     bind:this={collapsibleButton}
     class="{$$props.class} button collapsible flex items-center is-interactive
       bg-sky-100 hover:bg-sky-200
-      dark:bg-topmathsdark-canvas dark:hover:bg-topmathsdark-canvas
       dark:border dark:border-is-info"
     on:click={collapsibleOnClick}
   >
@@ -44,7 +43,7 @@
   <div
     bind:this={collapsibleContent}
     class="content
-      border-info-200 dark:border-topmathsdark
+      border-info-200
       {isActive ? 'border ' : ''}"
     >
     <slot name="content" />

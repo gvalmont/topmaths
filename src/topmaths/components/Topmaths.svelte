@@ -123,8 +123,8 @@
 <div id="top"
   class="flex flex-col items-center text-center
     text-base md:text-xl
-    text-topmaths-corpus dark:text-topmathsdark-corpus
-    bg-topmaths-canvas dark:bg-topmathsdark-canvas"
+    text-topmaths-corpus
+    bg-topmaths-canvas"
 >
   <HeaderMenu
     view={$view}

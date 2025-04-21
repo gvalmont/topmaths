@@ -15,13 +15,12 @@
         <button
           on:click={() => onClick(level)}
           class="button is-light is-{level}
-            dark:border-t dark:border-b
             text-base md:text-2xl
             my-1 md:my-4
             py-1 md:py-2
             px-3 md:px-5
-            {level === DEFAULT_GRADE ? 'rounded-l-[1.5rem] dark:border-l' : ''}
-            {level === stringGradeValidKeys[stringGradeValidKeys.length - 1] ? 'rounded-r-[1.5rem] dark:border-r' : ''}"
+            {level === DEFAULT_GRADE ? 'rounded-l-[1.5rem]' : ''}
+            {level === stringGradeValidKeys[stringGradeValidKeys.length - 1] ? 'rounded-r-[1.5rem]' : ''}"
           class:is-active={activeLevelTab === level}
         >
           {level === DEFAULT_GRADE ? 'Tout' : level}

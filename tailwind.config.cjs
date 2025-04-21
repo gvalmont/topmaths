@@ -17,6 +17,7 @@ const flipclass = plugin(function ({ addUtilities }) {
   })
 })
 const config = {
+  darkMode: 'class',
   content: ['./src/**/*.{html,js,svelte,ts}',
     './node_modules/tw-elements/dist/js/**/*.js'],
   safelist: [
@@ -228,7 +229,7 @@ const config = {
           light: '#f56d45',
           dark: '#F45E27',
           darkest: '#E64A10',
-          back: '#2e2e2b',
+          back: '#f5f1f3',
           backdark: '#dadbdf',
           backdarker: '#cecfd4',
           backcorrection: '#E0A588',
@@ -241,41 +242,62 @@ const config = {
           darkmode: '#2e2e2b',
           darkmodelight: '#363633',
           canvas: {
-            DEFAULT: '#282a36',
-            dark: '#3a3d4e',
-            darkest: '#4b4f66',
-            moredark: '#68688c',
-            light: '#9fa3b8'
+            DEFAULT: '#ffffff', // Anciennement '#EDEDF0'
+            dark: '#f6f6f6',
+            darkest: '#e9e9e9',
+            moredark: '#c8c8c8',
+            light: '#ffffff'
           },
           corpus: {
-            DEFAULT: '#b0b0b0',
-            light: '#c8c8c8',
-            lightest: '#dfdfdf',
-            dark: '#7b7b7b',
-            darkest: '#464646'
+            DEFAULT: '#1F2429',
+            light: '#45505b',
+            lightest: '#6a7c8d',
+            dark: '#191d21',
+            darkest: '#131619'
           },
           action: {
             DEFAULT: '#F15929',
-            light: '#ffc689',
-            lightest: '#ffd4a7',
-            dark: '#ff9523',
-            darkest: '#da7100'
+            light: '#f47a54',
+            lightest: '#f79b7f',
+            dark: '#d43d0e',
+            darkest: '#9f2e0a',
+            100: '#feeeea',
+            200: '#fcded4',
+            300: '#fbcdbf',
+            400: '#f9bda9',
+            500: '#f8ac94',
+            600: '#f79b7f',
+            700: '#f58b69',
+            800: '#f47a54',
+            900: '#f26a3e'
           },
           warn: {
-            DEFAULT: '#ff79c6',
-            light: '#ff94d1',
-            lightest: '#ffafdd',
-            dark: '#ff2ea6',
-            darkest: '#e20082'
+            DEFAULT: '#80D925',
+            light: '#99e150',
+            lightest: '#b3e97c',
+            dark: '#66ae1e',
+            darkest: '#4d8216',
+            50: '#f3fced',
+            100: '#e6f9db',
+            200: '#daf5c9',
+            300: '#cdf2b7',
+            400: '#c1eea4',
+            500: '#b4ea90',
+            600: '#a8e67c',
+            700: '#9be265',
+            800: '#8edd4b',
+            900: '#6ebc1f',
+            1000: '#5da119',
+            1100: '#4d8613'
           },
           struct: {
             DEFAULT: '#216D9A',
-            light: '#c49efa',
-            lightest: '#caa9fa',
-            dark: '#a66df7',
-            darkest: '#8f48f5'
+            light: '#2c93cf',
+            lightest: '#5faedd',
+            dark: '#1a577b',
+            darkest: '#14415c'
           }
-        }
+        },
       },
       fontFamily: {
         sans: ['"Arial"', ...defaultTheme.fontFamily.sans],

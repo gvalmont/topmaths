@@ -9,7 +9,7 @@
   pt-3 md:pt-6
   pb-6 md:pb-12
   text-xs md:text-base
-  bg-topmaths-canvas-dark dark:bg-topmathsdark-canvas-dark"
+  bg-topmaths-canvas-dark"
 >
   <p>
     <b>topmaths</b> © {year} de

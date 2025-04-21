@@ -321,7 +321,7 @@
   <div class="flex flex-row justify-center items-center">
     <div class="is-link is-interactive">
       <select class="border border-is-link
-        bg-topmaths-canvas dark:bg-topmathsdark-canvas
+        bg-topmaths-canvas
         text-base md:text-lg"
       >
         <option>Minuteur</option>

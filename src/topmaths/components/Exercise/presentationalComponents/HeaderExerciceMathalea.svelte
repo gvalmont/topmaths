@@ -28,8 +28,8 @@
     <button class="inline-flex items-center justify-center font-semibold
       h-6 md:h-8
       w-6 md:w-8
-      bg-coopmaths-action dark:bg-topmathsdark-canvas dark:border dark:border-coopmaths-action
-      text-coopmaths-canvas dark:text-coopmaths-action
+      bg-coopmaths-action
+      text-coopmaths-canvas
       lg:text-normal md:text-lg"
     >
       {exerciseIndex + 1}

@@ -23,8 +23,8 @@
   id="{item.reference}"
   class="m-6 p-6
     rounded-lg md:rounded-xl
-    shadow-3 dark:border dark:border-is-info
-    bg-topmaths-canvas dark:bg-topmathsdark-canvas"
+    shadow-3 dark:border
+    bg-topmaths-canvas"
 >
   <a
     class="is-interactive"
@@ -67,7 +67,7 @@
             <li
               bind:innerHTML={comment}
               contenteditable="false"
-              class="border-sky-200 dark:border-topmathsdark
+              class="border-sky-200
                 {i > 0 ? 'border-t-2' : ''}"
             >
             </li>
