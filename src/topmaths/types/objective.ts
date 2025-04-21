@@ -298,7 +298,6 @@ export type Objective = {
   exercises: ObjectiveExercise[],
   exercisesLink: string,
   grade: StringGrade,
-  isKey: boolean,
   lessonPlans: ObjectiveLessonPlan[],
   lessonSummaryHTML: string,
   lessonSummaryImage: string,
@@ -326,7 +325,6 @@ export function isObjective (obj: unknown, withStringReference: boolean = false)
     'exercises' in obj && isObjectiveExercises(obj.exercises) &&
     'exercisesLink' in obj && typeof obj.exercisesLink === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
-    'isKey' in obj && typeof obj.isKey === 'boolean' &&
     'lessonPlans' in obj && isObjectiveLessonPlans(obj.lessonPlans) &&
     'lessonSummaryHTML' in obj && typeof obj.lessonSummaryHTML === 'string' &&
     'lessonSummaryImage' in obj && typeof obj.lessonSummaryImage === 'string' &&
@@ -357,7 +355,6 @@ export const emptyObjective: Objective = { // keep in sync with build_prepare.ts
   exercises: [],
   exercisesLink: '',
   grade: DEFAULT_GRADE,
-  isKey: false,
   lessonPlans: [],
   lessonSummaryHTML: '',
   lessonSummaryImage: '',

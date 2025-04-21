@@ -210,9 +210,7 @@
               w-2/3">
                 {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)) as objective, objectiveIndex}
                   <RowCurriculum
-                    reference={objective.reference}
-                    isKey={objective.isKey}
-                    title={getTitle(objective)}
+                    {objective}
                     {goToView}
                     isLastRow={termIndex === Object.keys(curriculum.tout.unitsPerTerm).map(Number).map(termIndex => termIndex + 1).filter(term => $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length > 0).length - 1 && unitIndex === $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length - 1 && objectiveIndex === unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)).length - 1}
                   />

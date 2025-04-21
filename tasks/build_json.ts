@@ -37,6 +37,7 @@ const units: UnitWithStringReference[] = buildUnits()
 const objectives: ObjectiveWithStringReference[] = buildObjectives()
 updateUnits()
 updateObjectives()
+updateAncestorsAndDescendants()
 const glossary = buildGlossary()
 const calendar = buildCalendar()
 routineCheck()
@@ -155,7 +156,6 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           objective.exercises = buildExercises(objective.reference, objective.exercises)
           objective.exercisesLink = buildLinkFromSlugs(objective.exercises.map(exercise => exercise?.slug))
           objective.grade = grade.name
-          objective.isKey = objective.isKey ?? false
           objective.lessonPlans = objective.lessonPlans ? objective.lessonPlans.map(lessonPlan => buildObjectiveLessonPlan(lessonPlan)) : []
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = objective.lessonSummaryImage ? '../topmaths/img/' + objective.lessonSummaryImage : ''
@@ -212,11 +212,24 @@ function updateObjectives (): void {
       prerequisite.titleAcademic = prerequisiteObjective.titleAcademic
     })
   })
+}
+
+function updateAncestorsAndDescendants (): void {
   objectives.forEach(objective => {
     buildObjectiveAncestors(objective)
     objective.ancestorsCount = countAncestors(objective)
     buildObjectiveDescendants(objective)
     objective.descendantsCount = countDescendants(objective)
+  })
+  units.forEach(unit => {
+    unit.objectives.forEach(unitObjective => {
+      const objective = objectives.find(obj => obj.reference === unitObjective.reference)
+      if (!objective) {
+        console.error(unitObjective.reference)
+        throw new Error('Objective not found')
+      }
+      unitObjective.descendantsCount = objective.descendantsCount
+    })
   })
 }
 
@@ -618,7 +631,7 @@ function updateUnitObjectives (unit: UnitWithStringReference): void {
     unitObjective.grade = objective.grade
     unitObjective.lessonPlans = buildUnitLessonPlans(objective, unit.grade)
     unitObjective.prerequisites = objective.prerequisites
-    unitObjective.isKey = objective.isKey
+    unitObjective.descendantsCount = objective.descendantsCount
   })
 }
 

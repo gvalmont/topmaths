@@ -3,6 +3,11 @@ import type { Objective } from '../types/objective'
 import { getGradeColor } from '../services/color'
 import { getTitle } from '../services/string'
 import { buildGradeFromObjectiveReference } from '../services/reference'
+import type { UnitObjective } from '../types/unit'
+
+export function isKey (objective: Objective | UnitObjective): boolean {
+  return objective.descendantsCount > 3
+}
 
 export function appendPrerequisiteTree (container: HTMLElement, objective: Objective): void {
   const width = Math.min(Math.floor(container.clientWidth / 2), 600)

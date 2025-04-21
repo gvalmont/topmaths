@@ -11,7 +11,6 @@
               {
                 "reference": "6C10",
                 "titleAcademic": "Connaître les tables de multiplication",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour apprendre les tables de multiplication, il n'y a pas de méthode facile, encore moins des méthodes magiques, en revanche il y a des bonnes méthodes et des mauvaises méthodes.<br><br>Pour apprendre les tables de multiplication, il ne faut <b>pas</b> :<br><span style='text-decoration: line-through;'>- les lire<br>- les réciter l'une après l'autre comme une poésie ou une chanson<br>- utiliser des techniques avec les doigts</span><br><br>En revanche, il <b>faut</b> :<br>- essayer de se rappeler des résultats dans le désordre.<br>- s'entraîner pas longtemps mais souvent, un petit peu tous les jours par exemple<br><br>Pour le faire, vous pouvez télécharger <a href='/topmaths/telechargements/Tables_de_multiplication.pdf'>les tables de multiplication</a> et vous entraîner avec le lien sous la vidéo.<br><br><a href='https://www.multimaths.net/defitables.php'><img src='https://www.multimaths.net/img/applis/icones/dt.png' class='inline-block' /></a><br>Vous pouvez aussi utiliser l'application <a href='https://www.multimaths.net/defitables.php'>Défi Tables</a> disponible sur <a href='https://play.google.com/store/apps/details?id=air.com.multimaths.DefiTables&hl=fr'>téléphone et tablette Android</a> ainsi que sur <a href='https://apps.apple.com/fr/app/d%C3%A9fi-tables/id1335090081?l=fr&ls=1'>iPad</a>.",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -222,7 +221,6 @@
               {
                 "reference": "6C14",
                 "titleAcademic": "Ajouter ou soustraire des fractions de même dénominateur",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour additionner ou soustraire des fractions de même dénominateur :<br>- on additionne ou on soustrait les numérateurs ;<br>- on garde le même dénominateur.",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -490,7 +488,6 @@
               {
                 "reference": "6C32",
                 "titleAcademic": "Calculer en respectant la priorité de la multiplication",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour faire un calcul lorsqu'il y a des additions, des soustractions et des multipliations, on fait d'abord les <b><i>multiplications</i></b>.<br>On dit que les multiplications sont <b><i>prioritaires</i></b>.",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -585,7 +582,6 @@
               {
                 "reference": "6G10",
                 "titleAcademic": "Connaître le vocabulaire et les notations des droites, des demi-droites et des segments",
-                "isKey": true,
                 "lessonSummaryHTML": "] = on s'arrête.<br>) = on prolonge.<br>Un <b><i>segment</i></b> s'arrête des deux côtés, on le note donc avec deux crochets, par exemple [AB].<br>Une <b><i>droite</i></b> se prolonge des deux côtés, on la note donc avec deux parenthèses, par exemple (AB).<br>Une <b><i>demi-droite</i></b> commence en un point et se prolonge en passant par un autre point, on la note donc avec un crochet et une parenthèse. Par exemple [AB).",
                 "lessonSummaryImage": "droite-demi-droite-segment.png",
                 "videos": [
@@ -1389,7 +1385,6 @@
               {
                 "reference": "6G40",
                 "titleAcademic": "Connaître le vocabulaire et les notations des angles",
-                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "6G40-RDC.png",
                 "videos": [
@@ -2113,7 +2108,6 @@
               {
                 "reference": "6M10",
                 "titleAcademic": "Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle",
-                "isKey": true,
                 "lessonSummaryHTML": "Le <b><i>périmètre</i></b> d'une figure est la longueur de son contour.<br>L'<b><i>aire</i></b> d'une figure est la mesure de la surface à l'intérieur de son contour, on la calcule souvent en utilisant une formule :",
                 "lessonSummaryImage": "Aire-carre-rectangle-triangle-rectangle.png",
                 "videos": [
@@ -2493,7 +2487,6 @@
               {
                 "reference": "6M20",
                 "titleAcademic": "Convertir des longueurs",
-                "isKey": true,
                 "lessonSummaryHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='800px' height='350px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_longueur.html'></iframe>",
                 "lessonSummaryImage": "utiliser-convertisseur-de-longueurs.png",
                 "videos": [
@@ -2762,7 +2755,6 @@
                 "reference": "6N10",
                 "titleAcademic": "Connaître le système décimal",
                 "title": "Lire et écrire des grands nombres entiers",
-                "isKey": true,
                 "lessonSummaryHTML": "En France, on écrit les grand nombres en faisant des \"paquets de 3\" qu'on appelle des <i>classes</i><br>Il y a la <i>classe des unités</i>, la <i>classe des milliers</i>, la <i>classe des millions</i> etc.<br><img src='/topmaths/img/tableau-de-numeration-entiers.png' /><br><br>Pour écrire un nombre en chiffres, il y a quelques règles à connaître :<ul><li>On place un <i>trait d'union entre tous les mots</i> qui composent le nombre.</li><li><i>Vingt et cent s'accordent</i> au pluriel lorsqu'ils ne sont <i><b>pas suivis</b> d'un autre nombre</i></li><li><i>Mille est invariable</i> (il ne s'accorde jamais)</li><li><i>Million et milliard s'accordent</i> au pluriel</li></ul>",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -3168,7 +3160,6 @@
               {
                 "reference": "6N30",
                 "titleAcademic": "Faire le lien entre les fractions et les nombres entiers",
-                "isKey": true,
                 "lessonSummaryHTML": "$\\cfrac{17}{5} = \\cfrac{15}{5} + \\cfrac25 = \\cfrac{3 {\\color{red} \\times 5}}{\\color{red} 5} + \\cfrac25 = 3 + \\cfrac25$<br><br>Comme $\\cfrac{17}5 = 3 + \\text{\"un petit peu\"}$, alors $3 < \\cfrac{17}5 < 4$",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -3434,7 +3425,6 @@
               {
                 "reference": "6P10",
                 "titleAcademic": "Reconnaître une situation de proportionnalité",
-                "isKey": true,
                 "lessonSummaryHTML": "<p>Deux grandeurs (longueur, prix, masse, durée etc.) sont <i>proportionnelles</i> si elles se multiplient de la même façon (si les valeurs de l'une s'obtiennent en multipliant les valeurs de l'autre par un même nombre appelé <i>coefficient de proportionnalité</i>).</p>",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -3501,7 +3491,6 @@
                 "reference": "6P11",
                 "title": "Résoudre un problème de proportionnalité en ajoutant plusieurs fois la même quantité",
                 "titleAcademic": "Résoudre un problème de proportionnalité (Coefficient de linéarité entier)",
-                "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "6P11-RDC.png",
                 "prerequisites": [
@@ -3549,7 +3538,6 @@
                 "reference": "6P12",
                 "title": "Résoudre un problème de proportionnalité en passant par l'unité",
                 "titleAcademic": "Résoudre un problème de proportionnalité (retour à l'unité)",
-                "isKey": true,
                 "lessonSummaryHTML": "<p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour $3$ personnes qu'il faut $150$ g de farine. <br>Elle veut adapter sa recette pour $21$ personnes. <br>Quelle masse de farine doit-elle prévoir ?</p><br><p>Commençons par trouver la quantité de farine à prévoir pour $1$ personne.<br>$1$ personne, c'est ${\\color{red}3}$ fois moins que $3$ personnes. Pour $1$ personne il faudra donc ${\\color{red}3}$ fois moins de farine que pour $3$ personnes.<br> $ 150 \\div {\\color{red}3} = 50 $ <br><strong>Conclusion intermédiaire :</strong> Pour $1$ personne il faudra prévoir ${\\color{blue}50}$ g de farine.<br><br>Cherchons maintenant la quantité de farine à prévoir pour $21$ personnes.<br> $21$ personnes, c'est ${\\color{red}21}$ fois plus que $1$ personne. Pour $21$ personnes, il faudra donc ${\\color{red}21}$ fois plus de farine que pour $1$ personne.<br> $ {\\color{red}21} \\times {\\color{blue}50} = 1050 $ <br> <strong>Conclusion :</strong> Pour 21 personnes, il faudra prévoir 1050 g de farine.</p>",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -3577,7 +3565,6 @@
                 "reference": "6P13",
                 "title": "Résoudre un problème de proportionnalité en utilisant un tableau",
                 "titleAcademic": "Résoudre un problème de proportionnalité (additivité à l'aide d'un tableau)",
-                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -3600,7 +3587,6 @@
                 "reference": "6P14",
                 "title": "Résoudre un problème de proportionnalité en utilisant un coefficient de proportionnalité",
                 "titleAcademic": "Résoudre un problème de proportionnalité (coefficient de proportionnalité)",
-                "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "6P12-RDC.png",
                 "prerequisites": [
@@ -3625,7 +3611,6 @@
                 "reference": "6P15",
                 "title": "Résoudre un problème de proportionnalité avec des nombres décimaux",
                 "titleAcademic": "Résoudre un problème de proportionnalité avec des nombres décimaux",
-                "isKey": true,
                 "lessonSummaryHTML": "<p>Pour résoudre une situation de proportionnalité, on peut s'aider d'un schéma.</p><p><strong>Exemple : </strong><br>Nawel lit sur sa recette de crêpes pour 3 personnes qu'il faut 150 g de farine. <br>Elle veut adapter sa recette pour 21 personnes. <br>Quelle masse de farine doit-elle prévoir ?</p>",
                 "lessonSummaryImage": "schema-proportionnalite.png",
                 "prerequisites": [
@@ -3652,7 +3637,6 @@
               {
                 "reference": "6P16",
                 "titleAcademic": "Relier fractions, proportions et pourcentages",
-                "isKey": true,
                 "lessonSummaryHTML": "Au lieu d'écrire \"sur 100\", on peut écrire \"%\".<br><br>Par exemple : $ \\cfrac{35}{100} = 35 \\% $ <br><br>On peut alors passer de l'écriture décimale à l'écriture en pourcentage en multipliant par 100.<br><br>Par exemple : $0{,}513 = 51{,}3 \\%$<br><br>(car $0{,}513 = \\cfrac{0{,}513 \\times 100}{100} = \\cfrac{51{,}3}{100} = 51{,}3 \\%$)",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -4709,7 +4693,6 @@
                 "reference": "5N10",
                 "titleAcademic": "Effectuer un enchaînement d'opérations en respectant les priorités opératoires",
                 "title": "Calculer en respectant les priorités opératoires",
-                "isKey": true,
                 "prerequisites": [
                   {
                     "objectiveReference": "6C10"
@@ -4820,7 +4803,6 @@
               {
                 "reference": "5N20",
                 "titleAcademic": "Reconnaître et produire des fractions égales",
-                "isKey": true,
                 "lessonSummaryHTML": "$\\cfrac{a}{b} = \\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}}$",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -5020,7 +5002,6 @@
               {
                 "reference": "5N24",
                 "titleAcademic": "Additionner ou soustraire des fractions dont les dénominateurs sont égaux ou multiples l'un de l'autre",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour additionner ou soustraire deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on additionne ou on soustrait les numérateurs.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -5118,7 +5099,6 @@
               {
                 "reference": "5N31",
                 "titleAcademic": "Effectuer une somme algébrique",
-                "isKey": true,
                 "lessonSummaryHTML": "<p>On peut utiliser les signes + et - pour simplifier un programme de calcul.</p><p>Pour simplifier l'écriture du programme de calcul, « à un nombre, on ajoute 45 et on soustrait 46 »,<br>On aurait pu écrire : ... + 45 – 46 = ... –1.<br>On a préféré écrire : +45 – 46 = –1</p>",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -5183,7 +5163,6 @@
               {
                 "reference": "5N32",
                 "titleAcademic": "Additionner des nombres relatifs",
-                "isKey": true,
                 "lessonSummaryHTML": "+7 + (+4) = 7 + 4;<br>+7 + (–4) = 7 – 4;<br>–7 + (+4) = –7 + 4;<br>–7 + (–4) = –7 – 4.<br>Dans une somme de relatifs, il est plus simple de supprimer les parenthèses et les signes + d'addition afin de pouvoir calculer comme dans les programmes de calcul.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -5260,7 +5239,6 @@
               {
                 "reference": "5N33",
                 "titleAcademic": "Soustraire des nombres relatifs",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour soustraire un nombre relatif, on ajoute son opposé.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -5514,7 +5492,6 @@
               {
                 "reference": "5N42",
                 "titleAcademic": "Reconnaître les nombres premiers inférieurs ou égaux à 30",
-                "isKey": true,
                 "lessonSummaryHTML": "Un <b><i>nombre premier</i></b> est un nombre qui possède exactement deux diviseurs : 1 et lui-même.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -5569,7 +5546,6 @@
               {
                 "reference": "5N43",
                 "titleAcademic": "Décomposer un nombre entier en produit de facteurs premiers inférieurs à 30",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour décomposer un nombre en un produit de facteurs premiers, on le divise autant que possible par des nombres premiers.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -5627,7 +5603,6 @@
               {
                 "reference": "5N50",
                 "titleAcademic": "Simplifier l'écriture d'une expression littérale",
-                "isKey": true,
                 "lessonSummaryHTML": "On n'est pas obligé d'écrire le $\\times$ lorsqu'il est devant une lettre ou une parenthèse :<br> $3 \\times x = 3x$ <br> $7 \\times (2 + x) = 7(2 + x)$ <br> Mais $x \\times 5 \\not = x5$ parce que le $\\times$ est devant un chiffre (pas une lettre ni une parenthèse).<br>De plus : <br> $a^2 = a \\times a$ <br> $a^3 = a \\times a \\times a$",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -5686,7 +5661,6 @@
               {
                 "reference": "5N51",
                 "titleAcademic": "Réduire une expression littérale",
-                "isKey": true,
                 "prerequisites": [
                   {
                     "objectiveReference": "5N50"
@@ -5837,7 +5811,6 @@
               {
                 "reference": "5N54",
                 "titleAcademic": "Calculer la valeur d'une expression littérale",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour calculer la valeur d'une expression littérale, on commence par la recopier en remplaçant les lettres par les valeurs données dans l'énoncé puis on calcule.",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -7048,7 +7021,6 @@
               {
                 "reference": "4N10",
                 "titleAcademic": "Effectuer des produits ou des quotients avec des nombres relatifs",
-                "isKey": true,
                 "title": "Multiplier et diviser des nombres relatifs",
                 "lessonSummaryHTML": "<strong>MÉMÉ</strong>, c'est la <strong>+</strong> vieille : deux fois le <strong>MÊME</strong> signe, ça fait <strong>+</strong>",
                 "lessonSummaryImage": "",
@@ -7097,7 +7069,6 @@
                 "reference": "4N20",
                 "titleAcademic": "Multiplier des nombres relatifs en écriture fractionnaire",
                 "title": "Multiplier des fractions",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour multiplier des fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux :<br><br> $\\cfrac{a}{b} \\times \\cfrac{c}{d} = \\cfrac{a \\times c}{b \\times d}$ ou avec des chiffres $\\cfrac{2}{3} \\times \\cfrac{4}{5} = \\cfrac{2 \\times 4}{3 \\times 5} = \\cfrac{8}{15}$",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -7144,7 +7115,6 @@
                 "reference": "4N21",
                 "titleAcademic": "Diviser des nombres relatifs en écriture fractionnaire",
                 "title": "Diviser des fractions",
-                "isKey": true,
                 "lessonSummaryHTML": "Pour <i><b>diviser</b></i> par une fraction, on <i><b>multiplie par son inverse</i></b>.<br>L'<i><b>inverse</b></i> d'une fraction c'est la même fraction, mais retournée !<br><br> $\\cfrac{a}{b} {\\color{red} \\div \\cfrac{c}{d}} = \\cfrac{a}{b} {\\color{red} \\times \\cfrac{d}{c}} = \\cfrac{a \\times d}{b \\times c}$ ou avec des chiffres $\\cfrac{2}{3} {\\color{red} \\div \\cfrac{4}{5}} = \\cfrac{2}{3} {\\color{red} \\times \\cfrac{5}{4}} = \\cfrac{2 \\times 5}{3 \\times 4} = \\cfrac{10}{12}$",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -7179,7 +7149,6 @@
                 "reference": "4N22",
                 "titleAcademic": "Additionner ou soustraire des fractions",
                 "title": "",
-                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -7240,7 +7209,6 @@
                 "reference": "4N30",
                 "titleAcademic": "Utiliser les puissances d'exposant strictement positif d'un nombre pour simplifier l'écriture des produits",
                 "title": "Simplifier l'écriture de produits à l'aide des puissances",
-                "isKey": true,
                 "lessonSummaryHTML": "<center> $ a^n = \\underbrace{a \\times a \\times a \\times ... \\times a}_{\\text{Le } a \\text{ apparaît } n \\text{ fois}} $ </center>",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -7270,7 +7238,6 @@
                 "reference": "4N31",
                 "title": "Calculer en respectant les priorités opératoires avec des puissances",
                 "titleAcademic": "Calculs utilisant les priorités opératoires et les puissances",
-                "isKey": true,
                 "lessonSummaryHTML": "Priorités de calculs (<strong>PEMDAS</strong>)<br>1) <strong>P</strong>arenthèses<br>2) <strong>E</strong>xposants (puissances)<br>3) <strong>M</strong>ultiplications, <strong>D</strong>ivisions<br>4) <strong>A</strong>dditions, <strong>S</strong>oustractions",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -7298,7 +7265,6 @@
               {
                 "reference": "4N32",
                 "titleAcademic": "Utiliser les puissances d'exposant relatif",
-                "isKey": true,
                 "prerequisites": [
                   {
                     "objectiveReference": "4N30"
@@ -7541,7 +7507,6 @@
               {
                 "reference": "4N51",
                 "titleAcademic": "Développer une expression littérale avec des nombres positifs",
-                "isKey": true,
                 "lessonSummaryHTML": "Développer, c'est transformer un produit en une somme ou une différence.<br><b><i>k</i></b>(a + b) = <b><i>k</i></b>a + <b><i>k</i></b>b<br><b><i>k</i></b>(a – b) = <b><i>k</i></b>a – <b><i>k</i></b>b",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -7727,7 +7692,6 @@
                 "reference": "4N57",
                 "titleAcademic": "Résoudre algébriquement une équation du premier degré",
                 "title": "Résoudre une équation du premier degré",
-                "isKey": true,
                 "prerequisites": [
                   {
                     "objectiveReference": "5N50"
@@ -7793,7 +7757,6 @@
               {
                 "reference": "4P11",
                 "titleAcademic": "Calculer une quatrième proportionnelle par la procédure de son choix",
-                "isKey": true,
                 "lessonSummaryHTML": "Voir aussi <a href='?v=objective&ref=6P11'>6P11</a> pour d'autres méthodes.",
                 "lessonSummaryImage": "regle-de-trois.png",
                 "videos": [
@@ -8528,7 +8491,6 @@
               {
                 "reference": "3N10",
                 "titleAcademic": "Déterminer si un nombre est premier",
-                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "prerequisites": [
@@ -8587,7 +8549,6 @@
               {
                 "reference": "3N21",
                 "titleAcademic": "Développer par double distributivité",
-                "isKey": true,
                 "prerequisites": [
                   {
                     "objectiveReference": "4N52"
@@ -8846,7 +8807,6 @@
               {
                 "reference": "3S30",
                 "titleAcademic": "Utiliser les notations et le vocabulaire fonctionnels",
-                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [
@@ -8951,7 +8911,6 @@
               {
                 "reference": "3S32",
                 "titleAcademic": "Lire graphiquement une image et un antécédent",
-                "isKey": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "prerequisites": [

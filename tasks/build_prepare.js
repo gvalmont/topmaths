@@ -20,7 +20,6 @@ const emptyObjective = { // keep in sync with objective.ts
   exercises: [],
   exercisesLink: '',
   grade: 'tout',
-  isKey: false,
   lessonPlans: [],
   lessonSummaryHTML: '',
   lessonSummaryImage: '',

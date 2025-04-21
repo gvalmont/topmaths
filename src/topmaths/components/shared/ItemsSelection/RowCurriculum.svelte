@@ -1,46 +1,47 @@
 <script lang="ts">
+  import { isKey } from '../../../services/prerequisite'
   import { buildThemeFromReference } from '../../../services/reference'
+  import { getTitle } from '../../../services/string'
   import type { View } from '../../../types/navigation'
   import type { ObjectiveReference } from '../../../types/objective'
+  import type { UnitObjective } from '../../../types/unit'
   import Tooltip from '../Tooltip.svelte'
 
-  export let reference: ObjectiveReference
-  export let isKey: boolean = false
-  export let title: string
+  export let objective: UnitObjective
   export let goToView: (event: MouseEvent, view: View, reference: ObjectiveReference) => void
   export let isLastRow: boolean
 
 </script>
 
-<div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(reference)}
+<div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(objective.reference)}
   {isLastRow ? 'rounded-br-4xl md:rounded-br-5xl' : ''}"
 >
   <div class="w-2/12 flex items-center justify-center">
-    {#if isKey}
+    {#if isKey(objective)}
       <Tooltip
         dropdownText="Idée maîtresse"
         class="is-danger m-0.5 border border-is-danger rounded"
       >
         <a
           class="is-interactive p-1"
-          href='?v=objective&ref={reference}'
-          on:click={(event) => goToView(event, 'objective', reference)}
+          href='?v=objective&ref={objective.reference}'
+          on:click={(event) => goToView(event, 'objective', objective.reference)}
         >
-          {reference}
+          {objective.reference}
         </a>
       </Tooltip>
     {:else}
       <a
         class="is-interactive p-1 m-0.5"
-        href='?v=objective&ref={reference}'
-        on:click={(event) => goToView(event, 'objective', reference)}
+        href='?v=objective&ref={objective.reference}'
+        on:click={(event) => goToView(event, 'objective', objective.reference)}
       >
-        {reference}
+        {objective.reference}
       </a>
     {/if}
   </div>
   <div class="w-10/12 flex items-center justify-start text-left">
-    {title}
+    {getTitle(objective)}
   </div>
 </div>
 

@@ -47,7 +47,6 @@ export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObje
 
 export type UnitObjective = {
   reference: ObjectiveReference,
-  isKey: boolean,
   titleAcademic: string,
   title: string,
   exercises: ObjectiveExercise[],
@@ -55,12 +54,12 @@ export type UnitObjective = {
   theme: string,
   grade: StringGrade,
   lessonPlans: UnitLessonPlan[],
-  prerequisites: ObjectivePrerequisite[]
+  prerequisites: ObjectivePrerequisite[],
+  descendantsCount: number,
 }
 export function isUnitObjective (obj: unknown, withStringReference: boolean = false): obj is UnitObjective {
   if (obj == null || typeof obj !== 'object') return false
   return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
-    'isKey' in obj && typeof obj.isKey === 'boolean' &&
     'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
     'title' in obj && typeof obj.title === 'string' &&
     'exercises' in obj && isObjectiveExercises(obj.exercises) &&
@@ -68,7 +67,8 @@ export function isUnitObjective (obj: unknown, withStringReference: boolean = fa
     'theme' in obj && typeof obj.theme === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
     'lessonPlans' in obj && isUnitLessonPlans(obj.lessonPlans) &&
-    'prerequisites' in obj && isObjectivePrerequisites(obj.prerequisites)
+    'prerequisites' in obj && isObjectivePrerequisites(obj.prerequisites) &&
+    'descendantsCount' in obj && typeof obj.descendantsCount === 'number'
 }
 export function isUnitObjectives (obj: unknown, withStringReference: boolean = false): obj is UnitObjective[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -76,7 +76,6 @@ export function isUnitObjectives (obj: unknown, withStringReference: boolean = f
 }
 export const emptyUnitObjective: UnitObjective = {
   reference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
-  isKey: false,
   titleAcademic: '',
   title: '',
   exercises: [],
@@ -84,7 +83,8 @@ export const emptyUnitObjective: UnitObjective = {
   theme: '',
   grade: DEFAULT_GRADE,
   lessonPlans: [],
-  prerequisites: []
+  prerequisites: [],
+  descendantsCount: 0
 }
 
 export type UnitDownloadLinks = {
