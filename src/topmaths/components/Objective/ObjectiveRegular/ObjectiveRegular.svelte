@@ -67,10 +67,12 @@
   >
     {objective.reference + ' : ' + getTitle(objective)}
   </h1>
-  {#if objective.prerequisites.length > 0}
+  {#if objective.prerequisites.length > 0 || $isTeacherMode}
     <ObjectiveRegularPrerequisites
       prerequisites={objective.prerequisites}
       {goToView}
+      objectiveReference={objective.reference}
+      isTeacherMode={$isTeacherMode}
     />
   {/if}
   {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche}

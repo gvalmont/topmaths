@@ -1,0 +1,30 @@
+<svg viewBox="0 0 164 164"
+  xmlns="http://www.w3.org/2000/svg" fill="black" stroke="black" stroke-width="4">
+  <!-- Central node -->
+  <rect x="70" y="74" width="24" height="16" rx="8" ry="8" fill="black"/>
+
+  <!-- Incoming branches -->
+  <path d="M20 20 C50 20, 60 80, 82 82" />
+  <path d="M20 82 C50 82, 60 82, 82 82" />
+  <path d="M20 144 C50 144, 60 84, 82 82" />
+
+  <!-- Outgoing branches -->
+  <path d="M82 82 C104 82, 114 20, 144 20" />
+  <path d="M82 82 C114 82, 114 82, 144 82" />
+  <path d="M82 82 C104 82, 114 144, 144 144" />
+
+  <!-- End nodes (aligned with branches) -->
+  <rect x="8" y="14" width="24" height="12" rx="6" ry="6" fill="black"/>
+  <!-- Top-left -->
+  <rect x="8" y="76" width="24" height="12" rx="6" ry="6" fill="black"/>
+  <!-- Middle-left -->
+  <rect x="8" y="138" width="24" height="12" rx="6" ry="6" fill="black"/>
+  <!-- Bottom-left -->
+
+  <rect x="132" y="14" width="24" height="12" rx="6" ry="6" fill="black"/>
+  <!-- Top-right -->
+  <rect x="132" y="76" width="24" height="12" rx="6" ry="6" fill="black"/>
+  <!-- Middle-right -->
+  <rect x="132" y="138" width="24" height="12" rx="6" ry="6" fill="black"/>
+  <!-- Bottom-right -->
+</svg>

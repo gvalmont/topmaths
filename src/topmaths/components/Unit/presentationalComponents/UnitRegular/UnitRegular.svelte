@@ -10,7 +10,6 @@
   import type { Reference, View } from '../../../../types/navigation'
   import UnitRegularAssessment from './UnitRegularAssessment.svelte'
   import UnitRegularDownloads from './UnitRegularDownloads.svelte'
-  import { isReferenceIgnored } from '../../../../services/reference'
 
   export let unitReference
   export let goToView: (event: MouseEvent, view: View, reference: Reference) => void
@@ -38,6 +37,7 @@
   <UnitRegularObjectives
     {unit}
     {goToView}
+    isTeacherMode={$isTeacherMode}
   />
   <UnitRegularAssessment
     {unit}

@@ -27,7 +27,7 @@
       dispatch('close')
     }}
     class="rounded-xl
-      w-full md:w-2/3 xl:w-1/2
+       w-11/12
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
     <div class="relative p-6 text-center">
