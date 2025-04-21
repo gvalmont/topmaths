@@ -19,7 +19,7 @@
   <div class="w-2/12 flex items-center justify-center">
     {#if isKey(objective)}
       <Tooltip
-        dropdownText="Idée maîtresse"
+        dropdownText="Fondamental"
         class="is-danger m-0.5 border border-is-danger rounded"
       >
         <a
