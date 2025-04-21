@@ -286,6 +286,11 @@
                 "title": "Poser une addition, une soustraction ou une multiplication",
                 "lessonSummaryHTML": "Pour additionner ou soustraire des nombres décimaux, il faut faire attention à bien aligner les virgules.<br>Pour multiplier des nombres décimaux, on commence par poser la multiplication comme s'il n'y avait pas de virgule.<br>Ensuite, on compte il y avait combien de chiffres après la virgule dans les nombres qu'on a multipliés et on place la virgule dans le résultat de façon à avoir ce même nombre de chiffres après la virgule.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Poser une addition ou une soustraction",
@@ -323,6 +328,11 @@
                 "title": "Poser une division euclidienne",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Diviseur à 1 chiffre",
@@ -1019,6 +1029,11 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "lessonSummaryInstrumenpoche": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G21"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Triangles particuliers",
@@ -1974,6 +1989,11 @@
                 "title": "Programmer des déplacements vers le haut, vers l'ouest...",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G70"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -2028,6 +2048,11 @@
                 "title": "Programmer des déplacements vers la gauche, la droite...",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G71"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -2287,6 +2312,11 @@
                 "titleAcademic": "Calculer le périmètre et l'aire d'un disque",
                 "lessonSummaryHTML": " Périmètre du cercle $= 2 \\times \\pi \\times \\text{rayon}$ <br> Aire du disque $ = \\pi \\times \\text{rayon} \\times \\text{rayon} $",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -2404,6 +2434,11 @@
                 "titleAcademic": "Calculer le volume d'un cube ou d'un pavé droit",
                 "lessonSummaryHTML": "$\\mathcal{V}_{\\text{cube}} = c \\times c \\times c$ <br> $\\mathcal{V}_{\\text{pavé droit}} = L \\times l \\times h$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Volume d'un pavé droit",
@@ -2769,6 +2804,11 @@
                 "titleAcademic": "Comparer, ranger, encadrer des grands nombres entiers",
                 "lessonSummaryHTML": "<i><b>Comparer</b></i> deux nombres entiers, c'est dire s'ils sont égaux ou si l'un est plus petit ou plus grand que l'autre.<br><i><b>Encadrer</i></b> un nombre, c'est en trouver deux autres, un plus petit et un plus grand.<br><i><b>Ordre croissant</i></b> signifie « du plus petit au plus grand ».<br><i><b>Ordre décroissant</i></b> signifie « du plus grand au plus petit ».",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Comparer et ranger",
@@ -4473,6 +4513,11 @@
                 "titleAcademic": "Connaître et utiliser les propriétés des parallélogrammes",
                 "lessonSummaryHTML": "Si un quadrilatère a ses diagonales qui se coupent en leur milieu, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a ses côtés opposés de même longueur, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a deux côtés parallèles et de même longueur, alors c'est un parallélogramme.<br>Si un quadrilatère non croisé a ses angles opposés de même mesure, alors c'est un parallélogramme.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6G22"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -4605,6 +4650,11 @@
                 "titleAcademic": "Calculer le volume d'un pavé droit, d'un prisme droit, d'un cylindre",
                 "lessonSummaryHTML": "<a href='#objectif/6M15'>6M15 Calculer le volume d'un cube ou d'un pavé droit</a><br> $\\mathcal{V}_{\\text{prisme}} = \\mathcal{A}_{\\text{base}} \\times h$ <br> $\\mathcal{V}_{\\text{cylindre}} = \\mathcal{A}_{\\text{base}} \\times h = \\pi r^2 h$",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6M11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Volume d'un prisme droit",
@@ -6058,6 +6108,11 @@
                 "title": "Faire un graphique",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "5S11-RDC.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6S10"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Construction à la main",
@@ -6852,6 +6907,11 @@
                 "title": "Se repérer dans un pavé droit",
                 "lessonSummaryHTML": "Dans le plan, on peut repérer un point à l'aide de deux coordonnées : son <span style='color :green;'>abscisse</span> et son <span style='color :red;'>ordonnée</span>.<br>Dans l'espace, on a besoin d'une troisième coordonnée qu'on appellera son <span style='color :blue;'>altitude</span>.<br>Dans l'espace, un point se repère donc grâce à trois coordonnées (<span style='color :green;'>abscisse</span> ; <span style='color :red;'>ordonnée</span> ; <span style='color :blue;'>altitude</span>) toujours dans cet ordre.<br><br>On peut par exemple utiliser le repère (O ; <span style='color :green;'>I</span> ; <span style='color :red;'>J</span> ; <span style='color :blue;'>K</span>) où :<ul><li>le point O est l'<i>origine</i> du repère, ses cordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :green;'>I</span> donne la direction des <span style='color :green;'>abscisses</span>, ses coordonnées sont (<span style='color :green;'>1</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :red;'>J</span> donne la direction des <span style='color :red;'>ordonnées</span>, ses coordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>1</span> ; <span style='color :blue;'>0</span>) ;</li><li>le point <span style='color :blue;'>K</span> donne la direction des <span style='color :blue;'>altitudes</span>, ses coordonnées sont (<span style='color :green;'>0</span> ; <span style='color :red;'>0</span> ; <span style='color :blue;'>1</span>) ;</li></ul>",
                 "lessonSummaryImage": "Repere_OIJK.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N35"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -6992,6 +7052,11 @@
                 "title": "Multiplier et diviser des nombres relatifs",
                 "lessonSummaryHTML": "<strong>MÉMÉ</strong>, c'est la <strong>+</strong> vieille : deux fois le <strong>MÊME</strong> signe, ça fait <strong>+</strong>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N33"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
@@ -7816,6 +7881,11 @@
                 "titleAcademic": "Calculer et interpréter la médiane d'une série de données de petit effectif total",
                 "lessonSummaryHTML": "<p>Pour calculer une <strong>médiane</strong> :</p><ul><li><strong>on commence par ranger les valeurs dans l'ordre croissant</strong>, puis on distingue deux cas :<ul><li>Si l'effectif total est <strong>impair</strong><ul><li>La médiane est le <strong>nombre du milieu</strong></li></ul></li></ul><ul><li>Si l'effectif total est <strong>pair</strong><ul><li>La médiane est la <strong>moyenne des deux nombres du milieu</strong></li></ul></li></ul></li></ul>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N21"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7836,6 +7906,11 @@
                 "title": "Construire un diagramme circulaire",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "4S11-RDC.png",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "4P11"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -7907,6 +7982,14 @@
                 "titleAcademic": "Calculer et interpréter la moyenne d'une série de données",
                 "lessonSummaryHTML": "<p>Pour calculer une <b><i>moyenne</i></b>, on <i>additionne</i> toutes les <i><b>valeurs</b></i> puis on <i>divise le résultat</i> par l'<i><b>effectif total</b></i>.</p><p>Lorsqu'il y a des valeurs qui se répètent plusieurs fois, pour aller plus vite on peut faire des <i>multiplications</i> <span class='text-sm md:text-base'>(par exemple si la valeur 7 apparaît 5 fois, au lieu de faire 7 + 7 + 7 + 7 + 7, on fait 7 × 5 -&gt; On dit alors que 5 est l'<b><i>effectif</i></b> de 7).</span><br>Dans ce cas, on dit que la <b><i>moyenne</i></b> est <b><i>pondérée</i></b> par les effectifs.</p><br><p class='text-sm md:text-base'><b><i>valeurs</i></b> = les nombres qui nous intéressent : par exemple si on veut calculer une moyenne de notes, les valeurs sont des notes ; si on veut calculer une moyenne de températures, les valeurs sont les températures etc.<br><b><i>effectif total</i></b> = le nombre total de valeurs = combien il y en a</p>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5S12"
+                  },
+                  {
+                    "objectiveReference": "5S13"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -8350,6 +8433,14 @@
                 "titleAcademic": "Calculer le volume d'une boule",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "5N54"
+                  },
+                  {
+                    "objectiveReference": "4N31"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "Explications détaillées",
