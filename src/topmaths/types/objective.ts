@@ -289,7 +289,9 @@ export const emptyObjectiveDownloadLinks: ObjectiveDownloadLinks = { // keep in 
 
 export type Objective = {
   ancestors: ObjectiveAncestor[],
+  ancestorsCount: number,
   descendants: ObjectiveDescendant[],
+  descendantsCount: number,
   downloadLinks: ObjectiveDownloadLinks,
   examExercises: ObjectiveExercise[],
   examExercisesLink: string,
@@ -315,7 +317,9 @@ export type Objective = {
 export function isObjective (obj: unknown, withStringReference: boolean = false): obj is Objective {
   if (obj == null || typeof obj !== 'object') return false
   return 'ancestors' in obj && isObjectiveAncestors(obj.ancestors, withStringReference) &&
+    'ancestorsCount' in obj && typeof obj.ancestorsCount === 'number' &&
     'descendants' in obj && isObjectiveDescendants(obj.descendants, withStringReference) &&
+    'descendantsCount' in obj && typeof obj.descendantsCount === 'number' &&
     'downloadLinks' in obj && isObjectiveDownloadLinks(obj.downloadLinks) &&
     'examExercises' in obj && isObjectiveExercises(obj.examExercises) &&
     'examExercisesLink' in obj && typeof obj.examExercisesLink === 'string' &&
@@ -344,7 +348,9 @@ export function isObjectives (obj: unknown, withStringReference: boolean = false
 }
 export const emptyObjective: Objective = { // keep in sync with build_prepare.ts
   ancestors: [],
+  ancestorsCount: 0,
   descendants: [],
+  descendantsCount: 0,
   downloadLinks: emptyObjectiveDownloadLinks,
   examExercises: [],
   examExercisesLink: '',

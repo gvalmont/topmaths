@@ -51,6 +51,7 @@ writeTs('objectivesReferences', objectives.map(objective => objective.reference)
 writeTs('unitsReferences', units.map(unit => unit.reference))
 writeTs('specialUnitsReferences', specialUnitsJson.map(specialUnit => specialUnit.reference))
 // end of script
+writePrerequisitesCsv(objectives)
 
 function buildUnits (): UnitWithStringReference[] {
   const unitsTermsArray = buildUnitsTermsArray()
@@ -145,7 +146,9 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           if (objective.reference === undefined) { console.error(objective); throw new Error('Objective reference is undefined') }
           exerciseNumber = 1
           objective.ancestors = []
+          objective.ancestorsCount = 0
           objective.descendants = []
+          objective.descendantsCount = 0
           objective.downloadLinks = deepCopy(emptyObjectiveDownloadLinks)
           objective.examExercises = buildExercises(objective.reference, objective.examExercises)
           objective.examExercisesLink = buildLinkFromSlugs(objective.examExercises.map(exercise => exercise?.slug))
@@ -211,7 +214,9 @@ function updateObjectives (): void {
   })
   objectives.forEach(objective => {
     buildObjectiveAncestors(objective)
+    objective.ancestorsCount = countAncestors(objective)
     buildObjectiveDescendants(objective)
+    objective.descendantsCount = countDescendants(objective)
   })
 }
 
@@ -732,6 +737,22 @@ function buildObjectiveDescendants (objective: ObjectiveWithStringReference): vo
   descendantsCache.set(objective.reference, objective.descendants)
 }
 
+function countAncestors (ancestor: ObjectiveAncestorWithStringReference): number {
+  if (!ancestor.ancestors || ancestor.ancestors.length === 0) {
+    return 0 // Base case: no ancestors
+  }
+  // Count the current level of ancestors and recursively count their ancestors
+  return ancestor.ancestors.length + ancestor.ancestors.reduce((count, child) => count + countAncestors(child), 0)
+}
+
+function countDescendants (descendant: ObjectiveDescendantWithStringReference): number {
+  if (!descendant.descendants || descendant.descendants.length === 0) {
+    return 0 // Base case: no descendants
+  }
+  // Count the current level of descendants and recursively count their descendants
+  return descendant.descendants.length + descendant.descendants.reduce((count, child) => count + countDescendants(child), 0)
+}
+
 function checkPrivacyPolicyThirdPartyWebsites (): void {
   const fullLinks: string[] = objectives
     .map(objective => objective.exercises
@@ -889,4 +910,24 @@ function writeJson (fileName: string, data: unknown): void {
 function writeTs (fileName: string, data: unknown): void {
   fs.writeFileSync(path.join('./src', 'topmaths', 'types', fileName + '.ts'), `export const ${fileName} = <const> ${JSON.stringify(data, null, 2).replace(/"/g, '\'')}
 `)
+}
+
+function writePrerequisitesCsv (objectives: ObjectiveWithStringReference[]): void {
+  const csvFolderPath = path.join('public', 'topmaths', 'csv')
+
+  if (!fs.existsSync(csvFolderPath)) {
+    fs.mkdirSync(csvFolderPath, { recursive: true })
+  }
+
+  fs.writeFileSync(path.join(csvFolderPath, 'prerequis.csv'), generateCSV(objectives))
+}
+
+function generateCSV (objectives: ObjectiveWithStringReference[]) {
+  const header = 'Référence,Titre,Nombre de parents,Nombre d\'enfants\n'
+
+  const rows = objectives.map((objective) => {
+    return `${objective.reference},"${getTitle(objective)}",${objective.ancestorsCount},${objective.descendantsCount}`
+  })
+
+  return header + rows.join('\n')
 }

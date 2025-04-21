@@ -21,4 +21,15 @@
 
 </script>
 
+<div>
+  <a
+    href="/topmaths/csv/prerequis.csv"
+  >
+    <button
+      class="button border is-brown rounded-lg py-2 px-4"
+    >
+      Télécharger un récapitulatif
+    </button>
+  </a>
+</div>
 <div id="trees-container"></div>
