@@ -27,7 +27,7 @@ export function appendPrerequisiteTree (container: HTMLElement, objective: Objec
 
 function appendTree (container: HTMLElement, rootNode: Objective, type: 'ancestors' | 'descendants', width: number, height: number, parentContainer: HTMLElement): void {
   const widthPadding = 130 // to avoid the text being cut off
-  const heightPadding = 90 // to avoid the text being cut off
+  const heightPadding = 100 // to avoid the text being cut off
   const accessorFunction = type === 'ancestors' ? (d: any) => d.ancestors : (d: any) => d.descendants
   const linkColor = type === 'ancestors' ? '#8B4513' : '#E48900'
   const nodeColor = type === 'ancestors' ? '#A0522D' : '#E48900'
