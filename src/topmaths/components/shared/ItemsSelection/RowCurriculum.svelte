@@ -5,6 +5,7 @@
   import type { View } from '../../../types/navigation'
   import type { ObjectiveReference } from '../../../types/objective'
   import type { UnitObjective } from '../../../types/unit'
+  import ButtonPrerequisitesVisualization from '../ButtonPrerequisitesVisualization.svelte'
   import Tooltip from '../Tooltip.svelte'
 
   export let objective: UnitObjective
@@ -39,6 +40,11 @@
         {objective.reference}
       </a>
     {/if}
+    <span class="is-black">
+      <ButtonPrerequisitesVisualization
+        objectiveReference={objective.reference}
+      />
+    </span>
   </div>
   <div class="w-10/12 flex items-center justify-start text-left">
     {getTitle(objective)}
