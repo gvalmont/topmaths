@@ -126,4 +126,5 @@ $white-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(1
 @include theme-style('is-info-darker', tailwind-colors.$is-info-darker-default, tailwind-colors.$is-info-darker-default, tailwind-colors.$is-info-darker-filter);
 @include theme-style('is-coopmaths', tailwind-colors.$is-coopmaths-default, tailwind-colors.$is-coopmaths-light, tailwind-colors.$is-coopmaths-filter);
 @include theme-style('is-brown', tailwind-colors.$is-brown-default, tailwind-colors.$is-brown-light, tailwind-colors.$is-brown-filter);
+@include theme-style('is-black', tailwind-colors.$is-black-default, tailwind-colors.$is-black-light, tailwind-colors.$is-black-filter);
 // end of sync

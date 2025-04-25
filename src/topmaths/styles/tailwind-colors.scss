@@ -58,6 +58,10 @@ $is-tout-filter: invert(82%) sepia(18%) saturate(7498%) hue-rotate(354deg) brigh
 $is-brown-default: #A0522D;
 $is-brown-light: #EFD8CD;
 $is-brown-filter: invert(33%) sepia(58%) saturate(769%) hue-rotate(336deg) brightness(94%) contrast(82%);
+
+$is-black-default: #000;
+$is-black-light: #fff;
+$is-black-filter: invert(11%) sepia(12%) saturate(783%) hue-rotate(169deg) brightness(93%) contrast(92%);
 // end of sync
 
 // Keep in sync with types/grade.ts StringGrade and themes.scss and color.ts

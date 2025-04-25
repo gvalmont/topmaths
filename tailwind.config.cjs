@@ -146,6 +146,11 @@ const config = {
             DEFAULT: '#F15929',
             light: '#F15929',
             filter: 'invert(54%) sepia(65%) saturate(5242%) hue-rotate(346deg) brightness(98%) contrast(92%)'
+          },
+          black: {
+            DEFAULT: '#000000',
+            light: '#FFFFFF',
+            filter: 'invert(11%) sepia(12%) saturate(783%) hue-rotate(169deg) brightness(93%) contrast(92%)'
           }
         },
         // end of sync
