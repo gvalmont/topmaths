@@ -28,7 +28,7 @@ export const amcType = 'qcmMono'
 
 export const titre = 'Triangles semblables'
 export const dateDePublication = '16/05/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '13/01/2025'
+export const dateDeModifImportante = '15/04/2025'
 
 /**
  * Deux triangles semblables sont codés, il faut reconnaître les côtés homologues
@@ -56,9 +56,9 @@ export default class TrianglesSemblables extends Exercice {
     const zoom = context.vue === 'diap' ? 0.5 : 1
     const typeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: this.nbQuestions })
     let indiceChampReponse = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
-    let nbDeChampsReponse = 0
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeDeNomsDePolygonesDejaPris: string[] = []
+      let nbDeChampsReponse = 0
       let texte = ''
       let texteCorr = ''
       const sontSemblables = randint(0, 2) > 0

@@ -93,7 +93,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
           pixelsParCm: 20,
           scale: 0.75,
           mainlevee: false
-        }), objetsEnonce) + '<br>'
+        }), objetsEnonce)
         //  ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.75, mainlevee: false }), objetsEnonce)
         : ''
       if (context.isAmc) {

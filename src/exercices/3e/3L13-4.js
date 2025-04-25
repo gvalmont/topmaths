@@ -9,6 +9,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Grandeur from '../../modules/Grandeur'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -102,38 +103,38 @@ export default class problemes extends Exercice {
           solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()
-          exercice.texte = name`$${ABCD}$ est un rectangle.
+          exercice.texte = name`$${ABCD}$ est un rectangle.<br>
 
-$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${BC}=${toTex(exprBC)}}$ (en $cm$).
+$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${BC}=${toTex(exprBC)}}$ (en $cm$).<br>
 
-Le périmètre de $${ABCD}$ mesure $${p}~cm$.
+Le périmètre de $${ABCD}$ mesure $${p}~cm$.<br>
 
-Déterminer son aire${this.interactif ? (' : ' + ajouteChampTexteMathLive(this, i, ' unites[Longueurs,Aires,Volumes]', { texteApres: '<em class="ml-2">(Une unité d\'aire est attendue.)</em>' })) : '.'}
+Déterminer son aire${this.interactif ? (' : ' + ajouteChampTexteMathLive(this, i, KeyboardType.aire, { texteApres: '<em class="ml-2">(Une unité d\'aire est attendue.)</em>' })) : '.'}<br>
 
 ${graph}`
-          exercice.texteCorr = name`$${ABCD}$ est un rectangle donc ses côtés opposés sont de la même longueur.
+          exercice.texteCorr = name`$${ABCD}$ est un rectangle donc ses côtés opposés sont de la même longueur.<br>
 
-D'où $${AB}=${CD}$ et $${BC}=${DA}$.
+D'où $${AB}=${CD}$ et $${BC}=${DA}$.<br>
 
-Ainsi, $${toTex(name`${p} = 2*${AB} + 2*${BC}`)}$.
+Ainsi, $${toTex(name`${p} = 2*${AB} + 2*${BC}`)}$.<br>
 
-Ou encore $${toTex(`${p} = 2*(${exprAB}) + 2*(${exprBC})`)}$.
+Ou encore $${toTex(`${p} = 2*(${exprAB}) + 2*(${exprBC})`)}$.<br>
 
-$\textbf{Résolvons cette équation d'inconnue $x$}$.
+$\textbf{Résolvons cette équation d'inconnue $x$}$.<br>
 
-${resolution.texteCorr}
+${resolution.texteCorr}<br>
 
-$\textbf{Calculons $${AB}$ en cm.}$
+$\textbf{Calculons $${AB}$ en cm.}$<br>
 
-${calculAB.texteCorr}
+${calculAB.texteCorr}<br>
 
-$\textbf{Calculons $${BC}$ en cm.}$
+$\textbf{Calculons $${BC}$ en cm.}$<br>
 
-${calculBC.texteCorr}
+${calculBC.texteCorr}<br>
 
-$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD}$ en $cm^2$.}$
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD}$ en $cm^2$.}$<br>
 
-${calculAire.texteCorr}
+${calculAire.texteCorr}<br>
 
 Donc l'aire du rectangle $${ABCD}$ est ${environ} $${miseEnEvidence(toTex(solutionDecimale) + '~cm^2')}$.`
 
@@ -198,38 +199,38 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${miseEnEvidence(toTex(soluti
           solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()
-          exercice.texte = name`$${ABCD}$ est un rectangle.
+          exercice.texte = name`$${ABCD}$ est un rectangle.<br>
 
-$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${CD}=${toTex(exprCD)}}$ (en $cm$).
+$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${CD}=${toTex(exprCD)}}$ (en $cm$).<br>
 
-Le périmètre de $${ABCD}$ mesure $${p}~cm$.
+Le périmètre de $${ABCD}$ mesure $${p}~cm$.<br>
 
-Déterminer son aire${this.interactif ? (' : ' + ajouteChampTexteMathLive(this, i, ' unites[Longueurs,Aires,Volumes]', { texteApres: '<em class="ml-2">(Une unité d\'aire est attendue.)</em>' })) : '.'}
+Déterminer son aire${this.interactif ? (' : ' + ajouteChampTexteMathLive(this, i, KeyboardType.aire, { texteApres: '<em class="ml-2">(Une unité d\'aire est attendue.)</em>' })) : '.'}<br>
 
 ${graph}`
-          exercice.texteCorr = name`$${ABCD}$ est un rectangle donc ses côtés opposés sont de la même longueur.
+          exercice.texteCorr = name`$${ABCD}$ est un rectangle donc ses côtés opposés sont de la même longueur.<br>
 
-D'où $${AB}=${CD}$ et $${BC}=${DA}$.
+D'où $${AB}=${CD}$ et $${BC}=${DA}$.<br>
 
-Ainsi $${toTex(`${exprAB}=${exprCD}`)}$.
+Ainsi $${toTex(`${exprAB}=${exprCD}`)}$.<br>
 
-$\textbf{Résolvons l'équation.}$
+$\textbf{Résolvons l'équation.}$<br>
 
-${resolution.texteCorr}
+${resolution.texteCorr}<br>
 
-$\textbf{Calculons $${AB}$ en cm}.$
+$\textbf{Calculons $${AB}$ en cm}.$<br>
 
-${calculAB.texteCorr}
+${calculAB.texteCorr}<br>
 
-Ainsi, $${toTex(name`${p} = 2* (${calculAB.result}) + 2* ${BC}`)}$.
+Ainsi, $${toTex(name`${p} = 2* (${calculAB.result}) + 2* ${BC}`)}$.<br>
 
-$\textbf{Résolvons cette équation d'inconnue $${BC}$}$.
+$\textbf{Résolvons cette équation d'inconnue $${BC}$}$.<br>
 
-${resolution2.texteCorr}
+${resolution2.texteCorr}<br>
 
-$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD}$ en $cm^2$.}$
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD}$ en $cm^2$.}$<br>
 
-${calculAire.texteCorr}
+${calculAire.texteCorr}<br>
 
 Donc l'aire du rectangle $${ABCD}$ est ${environ} $${miseEnEvidence(toTex(solutionDecimale) + '~cm^2')}$.`
           break
@@ -247,8 +248,8 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${miseEnEvidence(toTex(soluti
 
       // exercice.texte += numeroquestion
       if (this.questionJamaisPosee(i, i)) {
-        this.listeQuestions[i] = exercice.texte.replaceAll('\n\n', '<br>')
-        this.listeCorrections[i] = exercice.texteCorr.replaceAll('\n\n', '<br>')
+        this.listeQuestions[i] = exercice.texte
+        this.listeCorrections[i] = exercice.texteCorr
         i++
       }
       cpt++

@@ -12,7 +12,7 @@ export const uuid = '1bb30'
 
 export const refs = {
   'fr-fr': ['2G30-3'],
-  'fr-ch': ['1F2-3']
+  'fr-ch': ['1mF2-3']
 }
 class EqCart2points extends EqCartDroite {
   version: number

@@ -8,6 +8,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { string } from 'mathjs'
+import { listeQuestionsToContenu } from '../../modules/outils'
 /**
  * Problème à résoudre en utilisant les nombres relatifs
  * La dernière question est ouverte (et difficile pour prouver que l'on a trouvé toutes les solutions)
@@ -140,7 +141,6 @@ export default class resoudreProblemeRelatifs extends Exercice {
       }
       cpt++
     }
+    listeQuestionsToContenu(this)
   }
-
-  listeQuestionsToContenu (this)
 }

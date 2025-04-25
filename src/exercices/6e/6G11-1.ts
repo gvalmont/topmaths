@@ -318,8 +318,8 @@ export default class constructionPerpendiculaires extends Exercice {
       if (context.isHtml) correction += '<br><br>Remarque : les droites $(d_1)$, $(d_2)$ et $(d_3)$ ont un seul point d\'intersection. On dit qu\'elles sont concourantes.'
       if (this.questionJamaisPosee(i, A.x, A.y, B.x, B.y)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = enonce + '<br>'
-        this.listeCorrections[i] = correction + '<br>'
+        this.listeQuestions[i] = enonce
+        this.listeCorrections[i] = correction
         i++
       }
     }

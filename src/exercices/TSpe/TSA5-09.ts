@@ -45,7 +45,7 @@ export default class DomaineDefFnLog extends Exercice {
     this.sup2 = true
     this.besoinFormulaireTexte = [
       'Type de fonction dans le logarithme',
-      'Nombres séparés par des tirets\n1 : Fonction affine\n2 : Fonction homographique\n3 : Polynome de degré 2\n4 : Mélange'
+      'Nombres séparés par des tirets\n1 : Fonction affine\n2 : Fonction homographique\n3 : Polynôme de degré 2\n4 : Mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', true]
     this.comment = 'Domaines de définition de fonctions logarithmes'
@@ -280,7 +280,7 @@ export default class DomaineDefFnLog extends Exercice {
             c = coeffX0
             fonction = reduirePolynomeDegre3(0, a, b, c)
             de = b * b - 4 * a * c
-            correction += `$${fonction}$ est un polynome de degré 2, calculons son discriminant : <br>`
+            correction += `$${fonction}$ est un polynôme de degré 2, calculons son discriminant : <br>`
             correction += `$\\Delta=${ecritureParentheseSiNegatif(b)}^2-4\\times ${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}`
 
             if (de > 0) {
@@ -442,7 +442,7 @@ export default class DomaineDefFnLog extends Exercice {
               de = b * b - 4 * a * c
             } while (de >= 0)
             fonction = reduirePolynomeDegre3(0, a, b, c)
-            correction += `$${fonction}$ est un polynome de degré 2, calculons son discriminant : <br>`
+            correction += `$${fonction}$ est un polynôme de degré 2, calculons son discriminant : <br>`
             correction += `$\\Delta=${ecritureParentheseSiNegatif(b)}^2-4\\times ${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}`
             correction += `$.<br>Le discriminant est négatif, donc $${fonction}$ est du signe de son coefficient de dégré $2$, soit ${a > 0 ? 'positif' : 'négatif'}.<br>`
             correction += tableauDeVariation({

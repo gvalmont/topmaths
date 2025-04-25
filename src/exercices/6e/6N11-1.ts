@@ -8,6 +8,7 @@ export const refs = {
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '26/08/2024'
+export const dateDeModifImportante = '17/04/2025'
 /**
  * Exercice de repérage sur droite graduée
  * L'exercice est décliné à partir de 6N30-0 (ReperageEntiersOuDecimaux)
@@ -23,8 +24,8 @@ class ReperageEntier extends ReperageEntiersOuDecimaux {
     this.sup = 5
     this.sup2 = false
     this.besoinFormulaireTexte = [
-      'Niveaux de difficultés ',
-      'Nombres séparés par des tirets\n1 : Entiers consécutifs\n2 : Le pas secondaire vaut 2, 3, 4 ou 5\n3 : Le pas secondaire peut être 25 ou 50\n4 : Le pas principal est moins simple\n5 : Mélange']
+      'Types de pas de graduations',
+      'Nombres séparés par des tirets\n1 : Entiers consécutifs\n2 : Le pas secondaire vaut 2, 3, 4 ou 5\n3 : Le pas secondaire vaut 2, 3, 6, 25 ou 50\n4 : Le pas principal est moins simple\n5 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false

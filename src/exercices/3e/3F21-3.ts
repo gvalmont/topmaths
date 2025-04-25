@@ -76,8 +76,13 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       const c = cercle(point(0, b), 0.8, '#f15929')
       c.epaisseur = 2
       let x0 = -7
-      while (!Number.isInteger(f(x0)) || f(x0) <= yMin || f(x0) >= yMax || x0 === -2 || x0 === -1 || x0 === 0) {
+      while (!Number.isInteger(f(x0)) || f(x0) <= yMin || f(x0) >= yMax || x0 === -1 || x0 === 0) {
         x0 += 1
+        if (x0 >= xMax) {
+          // pour éviter une boucle infinie
+          x0 = 1
+          break
+        }
       }
       const A = point(x0, f(x0))
       const B = point(x0 + 1, f(x0))
@@ -98,7 +103,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
 
       const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])
 
-      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br><br>` + mathalea2d({
+      const introduction = `On a représenté ci-dessous une fonction ${vocabulaire} $${nomFonction}$.<br>` + mathalea2d({
         xmin: xMin,
         xmax: xMax,
         ymin: yMin,
@@ -140,7 +145,7 @@ export default class PenteEtOrdonneeOrigineDroite extends Exercice {
       handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}` } })
       handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, options: { variable: 'x' }, compare: functionCompare } })
 
-      texte = introduction + '<br>' + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
+      texte = introduction + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
       texteCorr = (vocabulaire === 'affine' ? (correction1 + '<br>') : '') + correction2 + '<br>' + correction3
 
       if (this.questionJamaisPosee(i, a, b, num, den)) {

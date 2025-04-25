@@ -148,12 +148,12 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
         if (choice([true, false])) {
           texte = `$${n}+${texFractionFromString(a, b)}$`
           texteCorr = texte
-          texteCorr += `$${texFractionFromString(n + '\\times ' + b, b)}+${texFractionFromString(a, b)}`
+          texteCorr += `$=${texFractionFromString(n + '\\times ' + b, b)}+${texFractionFromString(a, b)}`
           texteCorr += `=${texFractionFromString(n * b + '+' + ecritureParentheseSiNegatif(a), b)}`
         } else {
           texte = `$${texFractionFromString(a, b)}+${ecritureParentheseSiNegatif(n)}$`
           texteCorr = texte
-          texteCorr += `$${texFractionFromString(a, b)}+${texFractionFromString(n + '\\times ' + b, b)}`
+          texteCorr += `$=${texFractionFromString(a, b)}+${texFractionFromString(n + '\\times ' + b, b)}`
           texteCorr += `=${texFractionFromString(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`
         }
         num = n * b + a

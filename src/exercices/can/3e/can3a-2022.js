@@ -473,7 +473,7 @@ export default class SujetCAN2022troisieme extends Exercice {
           }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
           texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
           On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
-          texte += '<br> $AC= $'
+          texte += ' $AC= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
@@ -604,7 +604,7 @@ export default class SujetCAN2022troisieme extends Exercice {
             texte += ' <br>$\\mathscr{P}= $'
             texte += ajouteChampTexteMathLive(this, index, ' ') + 'cm'
           } else {
-            texte += '<br> $\\mathscr{P}=\\ldots $ cm'
+            texte += ' $\\mathscr{P}=\\ldots $ cm'
           }
           nbChamps = 1
           break

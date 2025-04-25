@@ -53,7 +53,7 @@ export default class ExerciceOS01 extends ExerciceBrevetA {
     const tableau = tableauColonneLigne(entCol, entLigne, tabLigne)
     const tableauCorrection = tableauColonneLigne(entCol, entLigne, vals.map(e => texNombre(f(e), 1)))
     this.enonce += `Soit $f(x) = ${aa}x^2${ecritureAlgebriqueSauf1(bb)}x${ecritureAlgebrique(cc)}$`
-    const question11 = `Compléter le tableau de valeurs suivant à l'aide de la calculatrice :<br><br>
+    const question11 = `Compléter le tableau de valeurs suivant à l'aide de la calculatrice :<br>
 ${tableau}`
     const question12 = 'En déduire un antécédent de $0$ par la fonction $f$.'
     const question13 = 'Conjecturer l\'existence d\'un deuxième antécédent de $0$ par la fonction $f$. Expliquer clairement votre raisonnement.'
@@ -65,7 +65,7 @@ ${tableau}`
       ],
       style: 'nombres'
     })
-    const correction11 = `Le tableau de valeur est :<br><br>
+    const correction11 = `Le tableau de valeur est :<br>
     ${tableauCorrection}`
     const correction12 = `D'après le tableau précédent, un antécédent de $0$ par la fonction $f$ est $${miseEnEvidence(-b / a)}$ car $f(${-b / a})=${0}$.`
     const xInf = Math.floor((-d / c) * 2) / 2
@@ -134,7 +134,7 @@ ${tableau}`
     rep.yLabelEcart = 0.8
     const repBuild = rep.buildCustom()
     const cF = courbe(f, { repere: repBuild, yUnite: 0.2, step: 0.1, color: 'ForestGreen', xMin, xMax })
-    const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.4 }, fixeBordures([...repBuild.objets, cF])), repBuild.objets, cF) + ' <br>'
+    const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.4 }, fixeBordures([...repBuild.objets, cF])), repBuild.objets, cF)
     const question23 = 'En déduire toutes les valeurs de $x$ pour lesquelles la fonction $f$ s\'annule.'
     const correction23 = `La fonction $f$, d'après les questions 1 et 2, s'annule pour $x=${-b / a}$ et $x=${fraction(-d, c).texFSD}$ et seulement pour ces deux valeurs.'`
     const question24 = `${prenom} a obtenu avec un traceur la courbe de la fonction $f$ ci-dessous. Elle annonce que la courbe de la fonction $f$ coupe l'axe des abscisses en $${texNombre(-b / a, 1)}$ et $${texNombre(-d / c, 2)}$. A-t-elle raison ?<br>${figure}`

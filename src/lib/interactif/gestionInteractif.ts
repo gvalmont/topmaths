@@ -198,7 +198,7 @@ export interface AutoCorrection {
   enonce?: string
   enonceAvant?: boolean
   melange?: boolean
-  enonceAGauche?: [number, number]
+  enonceAGauche?: boolean
   enonceAvantUneFois?: boolean
   enonceCentre?: boolean
   enonceApresNumQuestion?: boolean

@@ -198,7 +198,6 @@ export default class CompleterParSymetrie6e extends Exercice {
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [{
                   enonce: texte,
                   texte: texteCorr,
@@ -208,7 +207,6 @@ export default class CompleterParSymetrie6e extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',

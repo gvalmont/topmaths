@@ -421,7 +421,7 @@ export default class SujetCAN2022quatrieme extends Exercice {
             texte += ' <br>$\\mathscr{P}= $'
             texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
           } else {
-            texte += '<br> $\\mathscr{P}=\\ldots $ cm'
+            texte += ' $\\mathscr{P}=\\ldots $ cm'
           }
           nbChamps = 1
           break

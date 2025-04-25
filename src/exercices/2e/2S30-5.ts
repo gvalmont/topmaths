@@ -68,8 +68,8 @@ export default class FonctionsProbabilite2 extends Exercice {
     qualites[4] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
     qualites[5] = ['rouges', 'verts', 'bleus', 'noirs', 'blancs']
     qualites[6] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
-    let iInteractif = 0
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+
+    for (let i = 0, cpt = 0, iInteractif = 0; i < this.nbQuestions && cpt < 50;) {
       let quidame = prenomF()
       let quidam = prenomM()
       let p: number
@@ -184,8 +184,8 @@ export default class FonctionsProbabilite2 extends Exercice {
           handleAnswers(this, iInteractif + 5, { reponse: { value: probaContraire.texFraction, options: { fractionEgale: true } } })
           break
         }
-        case 1:
-        { p = randint(0, 3)
+        case 1: {
+          p = randint(0, 3)
           if (randint(0, 1) === 0) { q = 32 } else { q = 52 }
           r = Math.floor(q / 33)
           Initiale[0] = choice(['sept', 'huit', 'neuf', 'dix', 'valet', 'roi', 'as'])
@@ -289,9 +289,9 @@ export default class FonctionsProbabilite2 extends Exercice {
             texte += `Un matin, il y a une panne de courant et ${quidam} prend au hasard une paire de chaussettes dans le premier tiroir et un T-shirt dans le deuxième.<br>`
             texte += createList({
               items: [
-              ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt ${qualites[5][r]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, 3 * i) : ''),
-              ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?` + (this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 1) : ''),
-                ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?` + (this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 2) : '')
+              ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt ${qualites[5][r]} ?` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 0) : ''),
+              ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 1) : ''),
+                ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 2) : '')
               ],
               style: 'alpha'
             })
@@ -332,9 +332,9 @@ export default class FonctionsProbabilite2 extends Exercice {
             texteCorr += numAlpha(2) + ' L\'événement "choisir des chaussettes et un T-shirt de couleurs différentes" est l\'événement contraire de l\'événement "choisir des chaussettes et un T-shirt de même couleur".<br>'
             texteCorr += `Donc sa probabilité est : $1-${probaTotale.texFractionSimplifiee}=${fraction(1, 1).texSommeFraction(probaTotale.oppose())}$.<br>`
 
-            handleAnswers(this, 3 * i + 0, { reponse: { value: produit1.texFraction, options: { fractionEgale: true } } })
-            handleAnswers(this, 3 * i + 1, { reponse: { value: probaTotale.texFraction, options: { fractionEgale: true } } })
-            handleAnswers(this, 3 * i + 2, { reponse: { value: probaContraire.texFraction, options: { fractionEgale: true } } })
+            handleAnswers(this, iInteractif + 0, { reponse: { value: produit1.texFraction, options: { fractionEgale: true } } })
+            handleAnswers(this, iInteractif + 1, { reponse: { value: probaTotale.texFraction, options: { fractionEgale: true } } })
+            handleAnswers(this, iInteractif + 2, { reponse: { value: probaContraire.texFraction, options: { fractionEgale: true } } })
           }
           break
         case 3:{
@@ -491,7 +491,7 @@ export default class FonctionsProbabilite2 extends Exercice {
         }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, p!, q!, r!)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         if (listeIndex[i] - 1 < 2) iInteractif = iInteractif + 6

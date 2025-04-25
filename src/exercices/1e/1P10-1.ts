@@ -14,7 +14,7 @@ export const titre = 'Écrire ou reconnaître une probabilité dans un énoncé'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '26/03/2025'
+export const dateDePublication = '15/04/2025'
 
 /**
  *
@@ -30,7 +30,7 @@ export default class ModeliserSuites extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.sup = '1'
+    this.sup = 3
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.besoinFormulaireNumerique = [
@@ -95,7 +95,7 @@ export default class ModeliserSuites extends Exercice {
           Pev1bsachantev2 = 1 - Pev1sachantev2
           liste = createList({
             items: [
-                   `$${texNombre(Pev2sachantev1 * 100, 1)}\\,\\%$ des adhérents qui pratiquent le judo le pratique en compétition ;`,
+                   `$${texNombre(Pev2sachantev1 * 100, 1)}\\,\\%$ des adhérents qui pratiquent le judo le pratiquent en compétition ;`,
                   `  $${texNombre(Pev1 * 100, 1)}\\,\\%$ des adhérents pratiquent le judo ;`,
                   ` $${texNombre(Pev2sachantev1b * 100, 1)}\\,\\%$ des adhérents qui pratiquent le karaté font de la compétition ; `,
                   `$${texNombre(Pev1 * Pev2sachantev1 * 100, 1)}\\,\\%$  des adhérents sont des adhérents qui pratiquent le judo en compétition ;`,
@@ -105,13 +105,13 @@ export default class ModeliserSuites extends Exercice {
             style: 'fleches'
           })
           intro = `Un club d'arts martiaux propose à ses adhérents de pratiquer le judo ou le karaté. <br>
-          Ce sont les deux seuls proposés. Chaque adhérent ne peut pratiquer qu'un seul de ces deux arts martiaux.<br>
+           Chaque adhérent ne peut pratiquer qu'un seul de ces deux arts martiaux.<br>
 De plus, certains des adhérents font de la compétition, d'autres non.<br>
-À son entrée dans le club, chaque adhérent a rempli une fiche de renseignements. En consultant ces fiches, on constate que :
-On choisit une fiche au hasard. On appelle P la probabilité associée à cette expérience aléatoire.`
+À son entrée dans le club, chaque adhérent a rempli une fiche de renseignements.<br>
+On choisit une fiche au hasard et on note P la probabilité associée à cette expérience aléatoire.`
           texte1 = ` On note : <br>
-                $\\bullet$ $${ev[0]}$ : « La fiche est celle d'un adhérent qui pratique le judo' » ;<br>
-                $\\bullet$ $${ev[1]}$ : «  La fiche est celle d'un adhérent qui pratique son sport en compétition. ».<br>`
+                $\\bullet$ $${ev[0]}$ : « La fiche est celle d'un adhérent qui pratique le judo » ;<br>
+                $\\bullet$ $${ev[1]}$ : «  La fiche est celle d'un adhérent qui pratique son sport en compétition ».<br>`
           break
         case 3:
           val1 = randint(45, 55, 50)
@@ -128,23 +128,23 @@ On choisit une fiche au hasard. On appelle P la probabilité associée à cette 
           Pev1bsachantev2 = 1 - Pev1sachantev2
           liste = createList({
             items: [
-                    ` $${texNombre(Pev1bsachantev2 * 100, 1)}\\,\\%$ des clients qui ont acheté un vêtement avaient un bon de réduction.`,
+                    ` $${texNombre(Pev1bsachantev2 * 100, 1)}\\,\\%$ des clients qui ont acheté un vêtement avaient un bon de réduction ;`,
                   `  $${texNombre(Pev1 * 100, 1)}\\,\\%$ des clients avaient un bon de réduction ;`,
                  `Parmi les clients qui ont un bon de réduction, $${texNombre(Pev2sachantev1 * 100, 1)}\\,\\%$ ont acheté un vêtement ;`,
                  `$${texNombre(Pev1 * Pev2sachantev1 * 100, 1)}\\,\\%$  des clients sont des clients qui ont acheté un vêtement et qui avaient un bon de réduction ;`,
                    ` $${texNombre(Pev2sachantev1b * 100, 1)}\\,\\%$ des clients qui n'avaient pas de bons de réduction ont acheté un vêtement ; `,
-                  `$${texNombre(Pev2 * 100, 1)}\\,\\%$ des clients ont acheté un vêtement ;`
+                  `$${texNombre(Pev2 * 100, 1)}\\,\\%$ des clients ont acheté un vêtement.`
             ],
             style: 'fleches'
           })
           intro = `Suite à l’envoi de bons de réduction par internet, le service marketing d’un magasin
 de prêt-à-porter effectue une enquête sur les clients du magasin.
-Cette enquête a montré que :<br>`
+Cette enquête a montré que :`
 
-          texte1 = ` On note : <br>
-                $\\bullet$ $${ev[0]}$ : «  Le client avait un bon de réduction  » ;<br>
+          texte1 = `On note : <br>
+                $\\bullet$ $${ev[0]}$ : «  Le client avait un bon de réduction » ;<br>
                 $\\bullet$ $${ev[1]}$ : «  Le client a acheté un vêtement ».<br>
-                On interroge au hasard un client sortant du magasin. On appelle P la probabilité associée à cette expérience aléatoire.<br> `
+                On interroge au hasard un client sortant du magasin et on note P la probabilité associée à cette expérience aléatoire.<br> `
           break
 
         case 4:
@@ -171,7 +171,7 @@ Enfin, ils estiment que $${texNombre(Pev2 * 100, 1)}\\,\\%$ des animaux contract
           texte1 = ` On note : <br>
                     $\\bullet$ $${ev[0]}$ : «  l’animal a été vacciné » ;<br>
                     $\\bullet$ $${ev[1]}$ : «  l’animal a contracté la maladie ».<br>
-                    On choisit  au hasard un animal. On appelle P la probabilité associée à cette expérience aléatoire.<br> `
+                    On choisit  au hasard un animal et on note P la probabilité associée à cette expérience aléatoire.<br> `
           break
       }
       texte = intro
@@ -181,29 +181,29 @@ Enfin, ils estiment que $${texNombre(Pev2 * 100, 1)}\\,\\%$ des animaux contract
         calc1 = this.interactif ? ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierProbabilite, { texteApres: `$=${texNombre(Pev2sachantev1, 2)}$` }) : `$\\ldots =${texNombre(Pev2sachantev1, 3)}$`
         calc2 = this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.clavierProbabilite, { texteApres: `$=${texNombre(Pev2, 3)}$` }) : `$\\ldots =${texNombre(Pev2, 3)}$`
         calc3 = this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierProbabilite, { texteApres: `$=${texNombre(Pev2sachantev1b, 2)}$` }) : `$\\ldots =${texNombre(Pev2sachantev1b, 3)}$`
-        calc1C = `$${miseEnEvidence(`P_{${ev[0]}}({${ev[1]}})`)}=${texNombre(Pev2sachantev1, 3)}$`
-        calc2C = `$${miseEnEvidence(`P(${ev[1]})`)} =${texNombre(Pev2, 3)}$`
-        calc3C = `$${miseEnEvidence(`P_{\\overline{${ev[0]}}}({ ${ev[1]}})`)}=${texNombre(Pev2sachantev1b, 3)}$`
+        calc1C = `Dans l'énoncé, $${texNombre(Pev2sachantev1, 3)}$ correspond à une probabilité conditionnelle :  $${miseEnEvidence(`P_{${ev[0]}}({${ev[1]}})`)}=${texNombre(Pev2sachantev1, 3)}$.<br>`
+        calc2C = `$${miseEnEvidence(`P(${ev[1]})`)} =${texNombre(Pev2, 3)}$<br>`
+        calc3C = `Dans l'énoncé, $${texNombre(Pev2sachantev1b, 3)}$ correspond à une probabilité conditionnelle : $${miseEnEvidence(`P_{\\overline{${ev[0]}}}({ ${ev[1]}})`)}=${texNombre(Pev2sachantev1b, 3)}$`
         calc4 = this.interactif ? ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierProbabilite, { texteApres: `$=${texNombre(Pev1bsachantev2, 3)}$` }) : `$\\ldots =${texNombre(Pev1bsachantev2, 3)}$`
         calc5 = this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.clavierProbabilite, { texteApres: `$=${texNombre(Pev1 * Pev2sachantev1, 3)}$` }) : `$\\ldots =${texNombre(Pev1 * Pev2sachantev1, 3)}$`
         calc6 = this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 2, KeyboardType.clavierProbabilite, { texteApres: `$=${texNombre(Pev1, 3)}$` }) : `$\\ldots =${texNombre(Pev1, 3)}$`
-        calc4C = `$${miseEnEvidence(`P_{${ev[1]}}(\\overline{${ev[0]}})`)}=${texNombre(Pev1bsachantev2, 3)}$`
-        calc5C = `$${miseEnEvidence(`P(${ev[0]}\\cap ${ev[1]})`)} =${texNombre(Pev1 * Pev2sachantev1, 3)}$`
+        calc4C = `Dans l'énoncé, $${texNombre(Pev1bsachantev2, 3)}$ correspond à une probabilité conditionnelle : $${miseEnEvidence(`P_{${ev[1]}}(\\overline{${ev[0]}})`)}=${texNombre(Pev1bsachantev2, 3)}$.<br>`
+        calc5C = `Dans l'énoncé, $${texNombre(Pev1 * Pev2sachantev1, 3)}$ correspond à la probabilité d'une intersection : $${miseEnEvidence(`P(${ev[0]}\\cap ${ev[1]})`)} =${texNombre(Pev1 * Pev2sachantev1, 3)}$.<br>`
         calc6C = `$${miseEnEvidence(`P( ${ev[0]})`)}=${texNombre(Pev1, 3)}$`
 
-        texte += '  En utilisant les données de l\'énoncé, compléter avec une probabilité :<br>'
+        texte += '  En utilisant les données de l\'énoncé, écrire avec la notation de probabilité qui convient :<br>'
         if (choice([true, false])) {
           texte += ` ${calc1}${sp(10)}${calc2}${sp(10)}${calc3}`
           handleAnswers(this, 3 * i, { reponse: { value: [`P_{${ev[0]}}({${ev[1]}})`, `P_{${ev[0]}}(${ev[1]})`], options: { texteAvecCasse: true } } })
-          handleAnswers(this, 3 * i + 1, { reponse: { value: [`P( ${ev[1]})`], options: { texteAvecCasse: true } } })
+          handleAnswers(this, 3 * i + 1, { reponse: { value: [`P(${ev[1]})`], options: { texteAvecCasse: true } } })
           handleAnswers(this, 3 * i + 2, { reponse: { value: [`P_{\\overline{${ev[0]}}}({${ev[1]}})`, `P_{\\overline{${ev[0]}}}({ ${ev[1]}})`, `P_{\\overline{${ev[0]}}}(${ev[1]})`, `P_{\\overline{${ev[0]}}}( ${ev[1]})`], options: { texteAvecCasse: true } } })
-          texteCorr = ` ${calc1C}${sp(10)}${calc2C}${sp(10)}${calc3C}`
+          texteCorr = ` ${calc1C}${calc2C}${calc3C}`
         } else {
           texte += ` ${calc4}${sp(10)}${calc5}${sp(10)}${calc6}`
           handleAnswers(this, 3 * i, { reponse: { value: [`P_{${ev[1]}}(\\overline{${ev[0]}})`, `P_{${ev[1]}}({\\overline{${ev[0]}}})`], options: { texteAvecCasse: true } } })
           handleAnswers(this, 3 * i + 1, { reponse: { value: [`P({${ev[0]}}\\cap {${ev[1]}})`, `P({${ev[1]}}\\cap {${ev[0]}})`, `P(${ev[0]}\\cap ${ev[1]})`], options: { texteAvecCasse: true } } })
-          handleAnswers(this, 3 * i + 2, { reponse: { value: [`P( ${ev[0]})`], options: { texteAvecCasse: true } } })
-          texteCorr = ` ${calc4C}${sp(10)}${calc5C}${sp(10)}${calc6C}`
+          handleAnswers(this, 3 * i + 2, { reponse: { value: [`P(${ev[0]})`], options: { texteAvecCasse: true } } })
+          texteCorr = ` ${calc4C}${calc5C}${calc6C}`
         }
       } else {
         calc1 = this.interactif ? ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierDeBase, { texteAvant: `$P_{${ev[0]}}({${ev[1]}})=$` }) : `$P_{${ev[0]}}({${ev[1]}})=\\ldots$`

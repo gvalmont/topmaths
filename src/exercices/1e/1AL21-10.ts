@@ -24,7 +24,7 @@ export const uuid = '9fa71' // exécuter pnpm getNewUuid
 
 export const refs = {
   'fr-fr': ['1AL21-10'],
-  'fr-ch': ['1F3-5']
+  'fr-ch': ['1mF3-5']
 }
 
 function pointVersTex (A: Point): string {

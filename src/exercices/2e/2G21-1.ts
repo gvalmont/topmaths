@@ -36,7 +36,7 @@ export default class SommeDeVecteurs extends Exercice {
   nouvelleVersion (numeroExercice: number) {
     let choix = 1
     let u, v, A, B, C, xU, yU, xV, yV, p, U, V, M, N, UU, VV, posLabelA
-    let questionsDisponibles  = [1, 2]
+    let questionsDisponibles = [1, 2]
     if (this.sup === 1) {
       questionsDisponibles = [1]
     } else if (this.sup === 2) {
@@ -81,7 +81,7 @@ export default class SommeDeVecteurs extends Exercice {
         ymax: Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 2,
         scale: 0.7
       }, U, V, UU, VV, tracePoint(A, 'red'), latexParPoint('A', posLabelA, 'red', 12, 6, ''))
-      texteCorr = 'Construisons le point $B$ tel que $\\overrightarrow{AB} = \\vec{u}$ puis le point $C$ tel que $\\overrightarrow{BC} = \\vec{v}$'
+      texteCorr = 'Construisons le point $B$ tel que $\\overrightarrow{AB} = \\vec{u}$ puis le point $C$ tel que $\\overrightarrow{BC} = \\vec{v}$.<br>'
       anim.couleur = 'black'
       anim.xMin = Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1
       anim.yMin = Math.min(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) - 1

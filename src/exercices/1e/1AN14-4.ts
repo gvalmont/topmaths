@@ -26,7 +26,7 @@ export const dateDePublication = '17/04/2024'
 class DerivationSommesSimples extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 : polynome et inverse\n2 : polynome et racine carrée\n3 : inverse et racine carrée\n4 : les trois réunis\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 : polynôme et inverse\n2 : polynôme et racine carrée\n3 : inverse et racine carrée\n4 : les trois réunis\n5 : Mélange']
     this.sup = '5'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true

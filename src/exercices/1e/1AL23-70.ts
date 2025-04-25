@@ -28,7 +28,7 @@ export const uuid = '392b3'
 
 export const refs = {
   'fr-fr': ['1AL23-7'],
-  'fr-ch': ['1F3-6']
+  'fr-ch': ['1mF3-6']
 }
 export default class TrouverEquationParabole extends Exercice {
   constructor () {

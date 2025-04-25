@@ -2,9 +2,9 @@ import { codageMediatrice } from '../../lib/2d/codages'
 import { Droite, droiteHorizontaleParPoint, droiteVerticaleParPoint, Mediatrice, mediatrice } from '../../lib/2d/droites'
 import { Point, point, pointIntersectionDD, tracePoint } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
+import { labelPoint, latexParCoordonnees, texteParPosition } from '../../lib/2d/textes'
 import { symetrieAxiale } from '../../lib/2d/transformations'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
@@ -154,7 +154,7 @@ export default class PavageEtReflexion2d extends Exercice {
 
     let Nx
     let Ny
-    let index1
+    let index1 : number
     let index2
     let A
     let B
@@ -174,7 +174,7 @@ export default class PavageEtReflexion2d extends Exercice {
     } else {
       typeDePavage = this.sup3 % 8
     }
-    while (couples.length < this.nbQuestions && nombrePavageTestes < 7) {
+    while (couples.length < this.nbQuestions && nombrePavageTestes < 2) {
       nombreTentatives = 0
       monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
       tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2], [3, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2], [5, 3]]]
@@ -183,20 +183,29 @@ export default class PavageEtReflexion2d extends Exercice {
       monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
       fenetre = monpavage.fenetre
       context.fenetreMathalea2d = [fenetre.xmin, fenetre.ymin, fenetre.xmax, fenetre.ymax]
-      while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) { // On cherche d pour avoir suffisamment de couples
+      while (couples.length < this.nbQuestions && nombreTentatives < 5) { // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
         index1 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3)) // On choisit 2 points dans 2 polygones distincts.
-        index2 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3), index1)
-        A = monpavage.polygones[index1].listePoints[randint(0, 2)] // On les choisit dans les trois premiers
-        B = monpavage.polygones[index2].listePoints[randint(0, 2)] // points pour éviter un point qui n'existe pas
-        while (compare2sommets(A, B)) { // On vérifie qu'ils sont bien distincts sinon, on change.
-          index1 = randint(0, monpavage.nb_polygones - 1)
-          index2 = randint(0, monpavage.nb_polygones - 1, index1)
-          A = monpavage.polygones[index1].listePoints[randint(0, 2)] // idem ci-dessus
-          B = monpavage.polygones[index2].listePoints[randint(0, 2)] // mais à la sortie du While A!=B
+        A = monpavage.barycentres[index1]
+        const indicesSimilaires = shuffle(monpavage.polygones
+          .map((poly, i) => ({ index: i, count: poly.listePoints.length }))
+          .filter(p => p.index !== index1 && p.count === monpavage.polygones[index1].listePoints.length)
+          .map(p => p.index))
+        const lastChoice : number[] = []
+        for (let kt = 0; kt < 20 && indicesSimilaires.length > lastChoice.length; kt++) {
+          index2 = choice(indicesSimilaires, lastChoice)
+          B = monpavage.barycentres[index2]
+          d = mediatrice(A, B, '', 'red')// l'axe sera la droite passant par ces deux points si ça fonctionne
+          if (Math.abs(d.pente) < 0.1) {
+            continue
+          }
+          const sympoly = symetrieAxiale(monpavage.polygones[index1], d)
+          if (compare2polys(sympoly, monpavage.polygones[index2])) {
+            break
+          }
+          lastChoice.push(index2)
         }
-        d = mediatrice(A, B, '', 'red')// l'axe sera la droite passant par ces deux points si ça fonctionne
-        if (!isNaN(d.pente) && d.pente !== 0) {
+        if (d && !isNaN(d.pente) && Math.abs(d.pente) > 0.1) {
           d.epaisseur = 3
           for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
             image = refleccion(monpavage, d, i)
@@ -209,9 +218,6 @@ export default class PavageEtReflexion2d extends Exercice {
         }
       }
       if (couples.length < this.nbQuestions) {
-        if (this.sup3 === 7) {
-          typeDePavage = (typeDePavage + 1) % 5 + 1
-        }
         nombrePavageTestes++
       }
     }
@@ -273,7 +279,6 @@ export default class PavageEtReflexion2d extends Exercice {
     }
 
     texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
-    texte += '<br>'
     const couleurs = combinaisonListes(['green', 'red', 'blue'], this.nbQuestions)
     for (let i = 0; i < this.nbQuestions; i++) {
       setReponse(this, i, couples[i][1])

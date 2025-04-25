@@ -25,14 +25,14 @@ export const uuid = 'ba520'
 
 export const refs = {
   'fr-fr': ['3F10-2', 'BP2AutoO3'],
-  'fr-ch': ['10FA5-6', '11FA8-2', '1F1-10']
+  'fr-ch': ['10FA5-6', '11FA8-2', '1mF1-10']
 }
 export default class CalculsImagesFonctions extends Exercice {
   fonctions: string
   constructor () {
     super()
     this.besoinFormulaireTexte = [
-      'Choix des questions', 'Nombres séparés par des tirets\n1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
+      'Choix des questions', 'Nombres séparés par des tirets\n1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynôme de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
     ]
     this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
     this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Que des entiers négatifs\n3 : Avec des entiers relatifs\n4 : Avec des fractions positives dans les coefficients (uniquement pour linéaire et affine)\n5 : Avec des antécédents tous négatifs (pas de fraction)\n6 : Mélange']

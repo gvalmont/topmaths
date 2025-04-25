@@ -245,7 +245,6 @@ export default class PavageEtDemiTour2D extends Exercice {
       objets.push(monpavage.polygones[i])
     }
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
-    texte += '<br>'
     for (let i = 0; i < this.nbQuestions; i++) {
       texte += `Donner le numéro de l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$.`
       setReponse(this, i, couples[i][1])

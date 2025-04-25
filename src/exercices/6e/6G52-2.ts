@@ -290,7 +290,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
           scale: (context.vue !== 'latex' ? 0.3 : 0.6),
           mainlevee: false,
           amplitude: 0.3
-        }, objets2) + '<br>' + (context.vue === 'diap' ? '</center>' : '')
+        }, objets2) + (context.vue === 'diap' ? '</center>' : '')
       }
       texte += `Que peut-on dire de $(d_${numDroites[code[0][0] - 1]})$ et $(d_${numDroites[code[code.length - 1][1] - 1]})$ ?`
       if (context.isAmc && !this.sup3) {
@@ -360,8 +360,8 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
 
       if (this.questionJamaisPosee(i, numDroites.join(''), JSON.stringify(code), JSON.stringify(code2))) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = texte + '<br>'
-        this.listeCorrections[i] = texteCorr + '<br>'
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++

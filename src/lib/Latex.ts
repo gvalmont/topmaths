@@ -279,7 +279,7 @@ Correction
         for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
           if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
           const contentVersion = this.getContentForAVersionProfMaquette(i, latexFileInfos.qrcodeOption === 'AvecQrcode')
-          contents.content += `\n\\begin{Maquette}[Fiche]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'}}\n`
+          contents.content += `\n\\begin{Maquette}[Fiche=true,IE=false]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'},Code= ,Calculatrice=true}\n`
           contents.content += contentVersion
           contents.content += '\n\\end{Maquette}'
           contents.content += '\n\\clearpage'
@@ -289,7 +289,7 @@ Correction
         for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
           if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted2 in getContents of Latex.ts', 'AbortError') }
           const contentVersion = this.getContentForAVersionProfMaquette(i, true)
-          contents.content += `\n\\begin{Maquette}[Fiche, CorrigeApres=false, CorrigeFin=true]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'}}\n`
+          contents.content += `\n\\begin{Maquette}[Fiche=true, IE=false, CorrigeApres=false, CorrigeFin=true]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'}}\n`
           contents.content += contentVersion
           contents.content += '\n\\end{Maquette}'
           contents.content += '\n\\clearpage'
@@ -658,8 +658,8 @@ export function format (text: string, AvecLesDoublesEspaces:boolean = true): str
     .replace(/( )?€( )/g, '\\,\\euro{}~')
     .replace(/( )?€/g, '\\,\\euro{}')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
-    .replace('«', '\\og{}')
-    .replace('»', '\\fg{}')
+    .replaceAll('«', '\\og{}')
+    .replaceAll('»', '\\fg{}')
 
   // Check if the language is 'fr-CH' and replace \times with \cdot if true
   if (lang === 'fr-CH') {

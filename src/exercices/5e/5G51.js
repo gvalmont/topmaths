@@ -346,8 +346,8 @@ export default class RepresenterUnSolide5e extends Exercice {
       correction += mathalea2d(params, objetsCorrection)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = enonce + '<br>'
-        this.listeCorrections[i] = correction + '<br>'
+        this.listeQuestions[i] = enonce
+        this.listeCorrections[i] = correction
         i++
       }
       cpt++

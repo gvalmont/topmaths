@@ -8,7 +8,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'c9382'
 export const refs = {
   'fr-fr': ['3F10-5', 'BP2AutoO6'],
-  'fr-ch': ['1F1-7']
+  'fr-ch': ['1mF1-7']
 }
 export default class CalculsImagesFonctionsLineairesOuAffines extends CalculsImagesFonctions {
   constructor () {

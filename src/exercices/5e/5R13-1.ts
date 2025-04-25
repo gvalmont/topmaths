@@ -8,7 +8,8 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Ranger des nombres relatifs'
 
-export const dateDePublication = '22/9/2024'
+export const dateDePublication = '22/09/2024'
+export const dateDeModifImportante = '23/04/2025'
 export const interactifReady = true
 export const interactifType = 'mathlive'
 export const uuid = 'c7c3d'
@@ -33,7 +34,7 @@ export default class RelatifsOrdre extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = new Decimal(randint(10, 99)).div(-10)
       const b = a.add(new Decimal(randint(1, 9)).div(100))
-      const c = a.add(new Decimal(randint(-9, 1)).div(100))
+      const c = a.add(new Decimal(randint(-9, -1)).div(100))
       const d = a.add(new Decimal(randint(1, 9)).div(10))
       const e = a.add(new Decimal(randint(-9, -1)).div(10))
       const f = a.add(new Decimal(choice([-1, 1])).mul(randint(10, 19)).div(10))
@@ -60,17 +61,17 @@ export default class RelatifsOrdre extends Exercice {
         )
         handleAnswers(this, i,
           {
-            // @ts-expect-error problème typage handleAnswers
+
             champ1: { value: orderedNumbers[0] },
-            // @ts-expect-error problème typage handleAnswers
+
             champ2: { value: orderedNumbers[1] },
-            // @ts-expect-error problème typage handleAnswers
+
             champ3: { value: orderedNumbers[2] },
-            // @ts-expect-error problème typage handleAnswers
+
             champ4: { value: orderedNumbers[3] },
-            // @ts-expect-error problème typage handleAnswers
+
             champ5: { value: orderedNumbers[4] },
-            // @ts-expect-error problème typage handleAnswers
+
             champ6: { value: orderedNumbers[5] }
           }
         )

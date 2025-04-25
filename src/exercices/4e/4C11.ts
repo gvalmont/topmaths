@@ -47,7 +47,6 @@ export const interactifType = 'mathLive'
  * * a-(b+c)
  * * (a+b+c)*d
  * @author Rémi Angot
- * 4C11
  */
 export const uuid = '62f66'
 

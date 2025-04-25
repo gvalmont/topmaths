@@ -15,12 +15,13 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { symetrieAnimee } from '../../modules/2dAnimation'
+
 export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-
+export const dateDeModifImportante = '15/04/2025'
 /**
 * Relecture : Novembre 2021 par EE
 */
@@ -344,7 +345,8 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
     }
     for (let i = 0; i < triAngles.length; i++) {
       triAngles[i].n = texteParPointEchelle(stringNombre(i), triAngles[i].gra, 0, 'black', 0.5)
-      objetsEnonce.push(triAngles[i].tri, triAngles[i].n)
+      objetsEnonce.push(triAngles[i].tri)
+      objetsEnonce.push(triAngles[i].n) // -> Responsable du pb de typage TS
     }
     paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 15, ymax: 10, pixelsParCm: 30 * scaleFigure, zoom: 1.5, scale: scaleFigure * 0.7, mainlevee: false }
     if (!this.sup) {
@@ -356,8 +358,8 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
     }
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, 3)
     const couleurs = ['blue', 'green', 'red', 'gray', 'magenta', 'purple']
-    let M
-    let N
+    let M:Point
+    let N:Point
     const d = []
     const dLatex = []
     const question = []
@@ -370,6 +372,7 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
         case 3: // axe parallèle à [BC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].tri.listePoints[0]
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].tri.listePoints[0]
+          d[i] = droite(M, N, '', couleurs[i])
           break
         case 1: // axe vertical
         case 4: // axe perpendiculaire à [BC]
@@ -379,12 +382,10 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
           d[i] = droite(M, N, '', couleurs[i])
           break
       }
-      d[i] = droite(M, N, '', couleurs[i])
       dLatex[i] = droiteAvecNomLatex(d[i], `(d_${i + 1})`, couleurs[i])
       dLatex[i][0].epaisseur = 3
       dLatex[i][0].opacite = 0.6
-
-      objetsEnonce.push(dLatex[i])
+      objetsEnonce.push(dLatex[i][0], dLatex[i][1])
       // ici on choisit les figures et on crée les questions
       question[i] = choisitTriangle(listeTypesDeQuestions[i], choix)
       triAngles[question[i].antecedent].tri.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
@@ -392,8 +393,8 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + `$${dLatex[i][1].texte}$` + ' ?', couleurs[i])}`
-      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + `$${dLatex[i][1].texte}$` + ' est la figure ' + question[i].image + '.', couleurs[i])}`
+      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + `$${dLatex[i][1].latex}$` + ' ?', couleurs[i])}`
+      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + `$${dLatex[i][1].latex}$` + ' est la figure ' + question[i].image + '.', couleurs[i])}`
       if (context.isAmc) {
         if (i === 0) {
           this.autoCorrection[0] = {
@@ -401,9 +402,9 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
             propositions: [
               {
                 type: 'qcmMono',
-                // @ts-expect-error
                 propositions: [
                   {
+                    // @ts-expect-error
                     texte: question[i].image,
                     statut: true,
                     feedback: ''
@@ -417,9 +418,9 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
           // @ts-expect-error
           this.autoCorrection[0].propositions.push({
             type: 'qcmMono',
-            // @ts-expect-error
             propositions: [
               {
+                // @ts-expect-error
                 texte: question[i].image,
                 statut: true,
                 feedback: ''
@@ -431,6 +432,7 @@ export default class SymetrieAxialePavageTriangulaire extends Exercice {
         for (let j = 0; j < question[i].distracteurs.length; j++) {
           // @ts-expect-error
           this.autoCorrection[0].propositions[i].propositions.push({
+            // @ts-expect-error
             texte: question[i].distracteurs[j],
             statut: false,
             feedback: ''

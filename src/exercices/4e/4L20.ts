@@ -50,7 +50,7 @@ export default class ExerciceEquation1 extends Exercice {
       '8 : Mélange'
     ].join('\n')
     ]
-    this.besoinFormulaire3CaseACocher = ['Avec seulement la lettre $x$']
+    this.besoinFormulaire3CaseACocher = ['Avec uniquement la lettre $x$']
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
     this.correctionDetailleeDisponible = true

@@ -26,7 +26,7 @@ export const uuid = 'c2f77'
 
 export const refs = {
   'fr-fr': ['5G31-2'],
-  'fr-ch': ['9ES2-10']
+  'fr-ch': ['9ES2-10', '1mG1-1']
 }
 export default class anglesTrianglesTableau extends Exercice {
   constructor () {

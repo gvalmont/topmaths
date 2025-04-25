@@ -26,7 +26,7 @@ export const uuid = '32f33'
 
 export const refs = {
   'fr-fr': ['3A10-3'],
-  'fr-ch': ['9NO4-17', '1CN-2']
+  'fr-ch': ['9NO4-17', '1mCN-2']
 }
 export default class DecompositionFacteursPremiers extends Exercice {
   constructor () {

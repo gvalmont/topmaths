@@ -529,6 +529,10 @@ export default class RecomposerEntierC3 extends Exercice {
             do {
               j = randint(1, 3)
               testeur++
+              if (nombreStr.substring(index, nbChiffres).replace(/^0+/g, '') === '') {
+                // il reste que des zéros, on ne peut pas les prendre en compte
+                break
+              }
               this.morceaux[i][k] = nombreStr
                 .substring(index, Math.min(index + j, nbChiffres))
                 .replace(/^0+/g, '')

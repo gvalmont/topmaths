@@ -9,7 +9,7 @@ export const dateDeModifImportante = '21/11/2024'
 export const interactifReady = false
 export const uuid = '8f8bc'
 export const refs = {
-  'fr-ch': ['1CN-4'],
+  'fr-ch': ['1mCN-4'],
   'fr-fr': ['PEN16']
 }
 

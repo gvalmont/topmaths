@@ -1,6 +1,6 @@
 import prefs from './prefs.js'
 import { fileURLToPath } from 'node:url'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, afterAll } from 'vitest'
 import { getDefaultPage } from './browser.js'
 import { getFileLogger, logError } from './log.js'
 import type { Locator, Page } from 'playwright'
@@ -41,6 +41,8 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
       if (prefs.pauseOnError && !result && page) {
         await page.pause()
         stop = true
+      } else if (result) {
+        if (prefs.browserInstance) await prefs.browserInstance.close()
       }
     })
 
@@ -91,6 +93,14 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
         await page.pause()
         stop = true
       }
+    })
+
+    afterAll(async () => {
+      if (page) { // on ferme la page à la fin des tests
+        await page.close()  // sinon ça reste ouvert et ça bouffe de la RAM
+        page = null // on remet à null pour ne pas avoir de pb de fermeture de page dans les tests suivants
+      }
+      if (prefs.browserInstance) await prefs.browserInstance.close()
     })
 
     if (prefs.browsers !== undefined) {

@@ -30,7 +30,7 @@ export const dateDeModifImportante = '24/12/2024'
 export const uuid = '1f334'
 export const refs = {
   'fr-fr': ['5G30-3'],
-  'fr-ch': []
+  'fr-ch': ['1mG1-3']
 }
 
 // Fonction pour vérifier si tous les points sont dans l'intervalle
@@ -464,7 +464,7 @@ export default class VocabulaireAngles extends Exercice {
       // On impose xmin et le reste pour avoir toujours la même taille de fenêtre.
       let texte = context.isHtml ? '<br>' : ''
       texte += mathalea2d({ zoom: 1, scale: 0.25, xmin: -8, xmax: 8, ymin: -8, ymax: 8, optionsTikz: ['baseline=(current bounding box.north)'] }, objets) // On trace le graphique
-      texte += '<br>' + texteSousFigure
+      texte += texteSousFigure
       if (this.questionJamaisPosee(i, ARot.x, ARot.y, BRot.x, BRot.y, CRot.x, CRot.y, choixQuestion)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

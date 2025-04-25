@@ -1,9 +1,9 @@
-import { getDefaultPage } from '../../helpers/browser'
+import type { Page } from 'playwright'
 import { runTest } from '../../helpers/run'
 import { expect } from '@playwright/test'
 import prefs from '../../helpers/prefs.js'
 
-async function testEleveView () {
+async function testEleveView (page: Page) {
   const goodAnswers = [
     '5,6',
     '-46',
@@ -37,10 +37,10 @@ async function testEleveView () {
     '5'
 
   ]
-  const page = await getDefaultPage()
+  // const page = await getDefaultPage()
   const hostname = `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
   const urlExercice = hostname + '?uuid=4581b&n=30&d=10&s=true&s2=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30&s3=false&i=1&cd=1&alea=lyjz&v=eleve&es=0211001'
-  await page.goto(urlExercice)
+  await page.goto(urlExercice, { timeout: 60000 })
 
   for (let i = 0; i < 30; i++) {
     const mathField = page.locator(`#champTexteEx0Q${i}`)

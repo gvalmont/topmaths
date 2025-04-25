@@ -62,7 +62,7 @@ export default class LectureDiagrammeBarre extends Exercice {
     this.question = `${quidam} a compté les ${valeurs[n][0]} dans ${valeurs[n][1]}. Les effectifs sont représentés sur le diagramme ci-dessous.<br>
     `
     this.question += mathalea2d({ xmin: -5, xmax: 17, ymin: -1, ymax: 6, scale: 0.4 }, objets)
-    this.question += `<br> Combien y a-t-il de ${valeurs[n][0]} en tout ?`
+    this.question += ` Combien y a-t-il de ${valeurs[n][0]} en tout ?`
     this.correction = `Il y a $${a}+${b}+${c} = ${this.reponse}$ ${valeurs[n][0]} en tout.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''

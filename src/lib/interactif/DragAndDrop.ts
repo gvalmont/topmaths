@@ -94,6 +94,9 @@ function dropHandler (e: DragEvent) {
         clonedEtiquette.id = `${etiquette.id}-clone-${Date.now()}`
         addDeleteButton(clonedEtiquette)
         dropTarget.appendChild(clonedEtiquette)
+      } else if (dropTarget.classList.contains('rectangleDND') && dropTarget.id.includes(numeroExQuest)) {
+        addDeleteButton(etiquette, etiquette.parentElement)
+        dropTarget.appendChild(etiquette)
       } else if (dropTarget.parentElement?.classList.contains('rectangleDND') && dropTarget.parentElement?.id.includes(numeroExQuest)) {
         // on est sur une étiquette déjà deposée
         const clonedEtiquette = etiquette.cloneNode(true) as HTMLDivElement
@@ -252,6 +255,16 @@ function touchEndHandler (e: TouchEvent) {
         (clonedEtiquette as HTMLDivElement).style.left = '0px';
         (clonedEtiquette as HTMLDivElement).style.zIndex = '1'
         dropTarget.appendChild(clonedEtiquette)
+      } else if (dropTarget.classList.contains('rectangleDND')) {
+        // console.log('cloneEtiquette', etiquette)
+        addDeleteButton(etiquette, etiquette.parentElement)
+        // etiquette.style.position = 'relative'
+        // etiquette.style.top = '0px'
+        // etiquette.classList.remove('dragOk')
+        // etiquette.style.left = '0px'
+        // etiquette.style.zIndex = '1'
+        etiquette.previousElementSibling?.remove()
+        dropTarget.appendChild(etiquette)
       } else {
         // console.log('cloneEtiquette2', etiquette)
         const clonedEtiquette = etiquette.cloneNode(true) as HTMLDivElement
@@ -270,7 +283,7 @@ function touchEndHandler (e: TouchEvent) {
     (etiquette as HTMLDivElement).style.position = 'relative'
     ; (etiquette as HTMLDivElement).style.top = '0px'
     ; (etiquette as HTMLDivElement).style.left = '0px'
-    etiquette.previousElementSibling?.remove()
+    if (etiquette.classList.contains('duplicable')) etiquette.previousElementSibling?.remove()
   }
 }
 // met le rectangle en effet 'green glowing'
@@ -293,12 +306,18 @@ function dragLeaveHandler (e: DragEvent) {
   }
 }
 
-function addDeleteButton (etiquette: HTMLElement) {
+function addDeleteButton (etiquette: HTMLElement, parent: HTMLElement | null = null) {
   const deleteBtn = document.createElement('button')
   deleteBtn.textContent = 'x'
   deleteBtn.classList.add('delete-btn')
   deleteBtn.addEventListener('click', () => {
-    etiquette.remove() // Supprime l'étiquette du DOM
+    if (etiquette.classList.contains('duplicable')) {
+      etiquette.remove() // Supprime l'étiquette du DOM
+    } else {
+      parent?.appendChild(etiquette)
+      // delete le bouton
+      etiquette.removeChild(deleteBtn)
+    }
   })
   etiquette.appendChild(deleteBtn)
 }

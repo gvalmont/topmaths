@@ -503,7 +503,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             texte += ' <br>?$= $'
             texte += ajouteChampTexteMathLive(this, index, '  ') + '$^\\circ$'
           } else {
-            texte += '<br> ? $=\\ldots ^\\circ$'
+            texte += ' ? $=\\ldots ^\\circ$'
           }
           nbChamps = 1
           break
@@ -969,7 +969,7 @@ export default class SujetCAN2022cinquieme extends Exercice {
             style: 'margin: auto'
           }, objets, s2, traceH, droite(B, C),
           texteParPosition(`${reponse}  cm`, milieu(A, H).x - 0.9, milieu(A, H).y, 'milieu', 'black', 1, 'middle', true), labelPoint(H))
-          texteCorr += `<br>La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${texNombre(reponse, 1)}$ cm`
+          texteCorr += `La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${texNombre(reponse, 1)}$ cm`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

@@ -161,7 +161,7 @@ export default class MesurerUnAngle extends Exercice {
       }
       const props = propositionsQcm(this, i)
       if (!context.isAmc) {
-        texte += '<br>' + props.texte
+        texte += props.texte
       }
       if (this.questionJamaisPosee(i, angle)) {
         this.listeQuestions[i] = texte

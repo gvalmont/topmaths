@@ -149,9 +149,11 @@ export default class TableauxEtFonction extends Exercice {
         enonces.push({
           enonce: `
 On considère un rectangle comme ci-dessous dont l'un des côtés mesure $${situations[k].coteConnu}$ $${unites[1]}$ et l'autre mesure $${situations[k].coteInconnu}$ $${unites[0]}$.<br>
-${situations[k].fig}<br>
+${situations[k].fig}
+
 ${numAlpha(indexSousQuestion++)} Compléter le tableau suivant :<br>
-${situations[k].tableau}<br>
+${situations[k].tableau}
+
 ${numAlpha(indexSousQuestion++)} Quelle formule permet de calculer le périmètre de ce rectangle en fonction de $${situations[k].coteInconnu}$ ?
 `,
           question: '',

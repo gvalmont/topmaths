@@ -37,7 +37,7 @@ export const uuid = '0d1f7'
 
 export const refs = {
   'fr-fr': ['3G30-1'],
-  'fr-ch': []
+  'fr-ch': ['1mT-12']
 }
 export default class ExprimerCosSinTan extends Exercice {
   constructor () {

@@ -159,7 +159,7 @@ async function waitForLatex (page: Page, model: LatexVariation | AMCVariation) {
       await page.waitForFunction(() => {
         const preElement = document.querySelector('pre')
         if (preElement && preElement.textContent) {
-          return preElement.textContent.includes('\\begin{Maquette}[Fiche]{Niveau= ,Classe= ,Date=   ,Theme=Exercices}')
+          return preElement.textContent.includes('\\begin{Maquette}[Fiche')
         }
         return false
       })
@@ -218,7 +218,6 @@ export async function checkEachCombinationOfParams (page: Page, action: (page: P
   } else {
     console.log('Testing simpleTest')
     await simpleTest(page, form1, form2, form3, form4, form5, action, options?.isFullViews || false)
-    console.log(page.url())
   }
 }
 
@@ -266,30 +265,35 @@ async function simpleTest (page: Page, form1: Form, form2: Form, form3: Form, fo
   for (const value1 of form1.values) {
     console.log('Testing', form1.description, value1)
     await setParam(page, form1, value1)
+    console.log(page.url())
     await action(page, `${form1.description}_${value1}`, isFullViews)
   }
   if (!form2) return
   for (const value2 of form2.values) {
     console.log('Testing', form2.description, value2)
     await setParam(page, form2, value2)
+    console.log(page.url())
     await action(page, `${form2.description}_${value2}`, isFullViews)
   }
   if (!form3) return
   for (const value3 of form3.values) {
     console.log('Testing', form3.description, value3)
     await setParam(page, form3, value3)
+    console.log(page.url())
     await action(page, `${form3.description}_${value3}`, isFullViews)
   }
   if (!form4) return
   for (const value4 of form4.values) {
     console.log('Testing', form4.description, value4)
     await setParam(page, form4, value4)
+    console.log(page.url())
     await action(page, `${form4.description}_${value4}`, isFullViews)
   }
   if (!form5) return
   for (const value5 of form5.values) {
     console.log('Testing', form5.description, value5)
     await setParam(page, form5, value5)
+    console.log(page.url())
     await action(page, `${form5.description}_${value5}`, isFullViews)
   }
 }

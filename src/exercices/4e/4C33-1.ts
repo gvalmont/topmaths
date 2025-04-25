@@ -27,8 +27,9 @@ export const dateDeModifImportante = '05/11/2024'
  * * 2 : quotient de puissances de même base
  * * 3 : puissance de puissance
  * * 4 : produit de puissances de même exposant
- * * 5 : mélange des trois autres niveaux
- * @author Sébastien Lozano
+ * * 5 : quotient de puissances de même exposant
+ * * 6 : mélange des quatre autres niveaux
+ * @author Sébastien Lozano (Rajout du paramètre 5 par Eric Elter)
  */
 export const uuid = 'bae57'
 
@@ -79,8 +80,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
 
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange']
-
+    this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Quotient de puissances de même exposant\n6 : Mélange']
     this.besoinFormulaire2Numerique = [
       'Signe de la mantisse',
       3,
@@ -91,7 +91,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
-    this.sup = 5
+    this.sup = '1-2-3-4'
     this.sup2 = 1
     this.classe = 4
   }
@@ -100,13 +100,12 @@ export default class PuissancesDunRelatif1 extends Exercice {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 4,
-      melange: 5,
-      defaut: 5,
+      max: 5, // Changé de 4 à 5 pour inclure le nouveau type d'exercice
+      melange: 6, // Changé de 5 à 6 pour correspondre à la nouvelle option de mélange
+      defaut: 6,
       nbQuestions: this.nbQuestions,
       shuffle: true
     })
-
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
@@ -313,7 +312,6 @@ export default class PuissancesDunRelatif1 extends Exercice {
           exposantInteractif = exp[0] * exp[1]
           break
         case 4: // produit de puissances de même exposant
-        default:
           base0 = randint(2, 8, [4, 6])
           base1 = randint(2, 8, [4, 6, base0])
           base = [base0, base1] // on choisit 2 bases différentes c'est mieux
@@ -348,6 +346,48 @@ export default class PuissancesDunRelatif1 extends Exercice {
           base = baseUtile
           exposantInteractif = exp
           break
+        case 5: // quotient de puissances de même exposant (a^n/b^n = (a/b)^n)
+        default:
+          base0 = randint(2, 8, [4, 6])
+          base1 = randint(2, 8, [4, 6, base0]) // on choisit 2 bases différentes pour le numérateur et dénominateur
+          exp = randint(2, 5, 6) // on choisit un exposant
+
+          // On s'assure que base0 > base1 pour avoir un quotient positif et entier
+          if (base0 < base1) {
+            [base0, base1] = [base1, base0]
+          }
+
+          // On vérifie que le quotient est un entier pour simplifier les calculs
+          if (base0 % base1 !== 0) {
+            base0 = base1 * randint(2, 4)
+          }
+
+          texte = `$${lettre}=\\dfrac{${base0}^{${exp}}}{${base1}^{${exp}}}$`
+          texteCorr += `$${lettre}=\\dfrac{${base0}^{${exp}}}{${base1}^{${exp}}}$`
+
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>'
+            texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(base0, exp, coul0)}}{${eclatePuissance(base1, exp, coul1)}}$`
+            texteCorr += '<br>'
+
+            // Explication de la réorganisation des termes
+            const fractions = []
+            for (let i = 0; i < exp; i++) {
+              fractions.push(`\\dfrac{\\color{${coul0}}{${base0}}}{\\color{${coul1}}{${base1}}}`)
+            }
+            texteCorr += `$${lettre}=${fractions.join(' \\times ')}$`
+          }
+
+          texteCorr += '<br>'
+          texteCorr += `$${lettre}= \\left(\\dfrac{\\color{${coul0}}{${base0}}}{\\color{${coul1}}{${base1}}}\\right)^{${exp}}=${miseEnEvidence(`${base0 / base1}^{${exp}}`)}$`
+
+          // La base est toujours positive dans ce cas
+          reponseInteractive = `${base0 / base1}^{${exp}}`
+          baseUtile = base0 / base1
+          baseUtileBisAMC = base0 / base1
+          base = baseUtile
+          exposantInteractif = exp
+          break
       }
 
       if (this.interactif && !context.isAmc) {
@@ -364,8 +404,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
           aussiCorrect: baseUtileBisAMC
         })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, base, exp0, exp1, listeTypeDeQuestions[i])) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -97,8 +97,6 @@ export default class RepresenterUnVecteur extends Exercice {
       const OVecteur = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false })
       const IVecteur = this.figures[i].create('Point', { x: 1, y: 0, isVisible: false })
       const JVecteur = this.figures[i].create('Point', { x: 0, y: 1, isVisible: false })
-      this.figures[i].create('VectorByPoints', { point1: OVecteur, point2: IVecteur, color: orangeMathalea, thickness: 3, isSelectable: false })
-      this.figures[i].create('VectorByPoints', { point1: OVecteur, point2: JVecteur, color: orangeMathalea, thickness: 3, isSelectable: false })
       this.figures[i].create('TextByPosition', {
         text: '$O$',
         x: -0.15,
@@ -107,23 +105,6 @@ export default class RepresenterUnVecteur extends Exercice {
         color: orangeMathalea,
         fontSize: '8pt'
       })
-      this.figures[i].create('TextByPosition', {
-        text: '$\\vec \\imath$',
-        x: 0.5,
-        y: 0,
-        anchor: 'topRight',
-        color: orangeMathalea,
-        fontsize: '3em'
-      })
-      this.figures[i].create('TextByPosition', {
-        text: '$\\vec \\jmath$',
-        x: -0.5,
-        y: 0,
-        anchor: 'bottomRight',
-        color: orangeMathalea,
-        fontsize: '3em'
-      })
-
       this.figures[i].create('Grid', {
         strokeWidthGrid: 1,
         color: 'black',
@@ -136,6 +117,24 @@ export default class RepresenterUnVecteur extends Exercice {
         labelX: true,
         labelY: true
       })
+      this.figures[i].create('TextByPosition', {
+        text: '$\\vec \\imath$',
+        x: 0.5,
+        y: 0,
+        anchor: 'topRight',
+        color: orangeMathalea,
+        fontSize: '1.5em'
+      })
+      this.figures[i].create('TextByPosition', {
+        text: '$\\vec \\jmath$',
+        x: -0.5,
+        y: 0,
+        anchor: 'bottomRight',
+        color: orangeMathalea,
+        fontSize: '1.5em'
+      })
+      this.figures[i].create('VectorByPoints', { point1: OVecteur, point2: IVecteur, color: orangeMathalea, thickness: 3, isSelectable: false })
+      this.figures[i].create('VectorByPoints', { point1: OVecteur, point2: JVecteur, color: orangeMathalea, thickness: 3, isSelectable: false })
       this.figures[i].snapGrid = true
       this.figures[i].setToolbar({
         tools: ['DRAG', 'REMOVE', 'VECTOR', 'POINT', 'SET_OPTIONS']
@@ -285,6 +284,7 @@ export default class RepresenterUnVecteur extends Exercice {
     this.figures[i].divUserMessage.style.display = 'none'
 
     let { isValid, vectors } = this.figures[i].checkVector({
+      color: 'green',
       xOrigin: this.xA[i],
       x: this.xB[i] - this.xA[i],
       yOrigin: this.yA[i],

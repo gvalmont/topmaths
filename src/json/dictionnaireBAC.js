@@ -2118,7 +2118,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Logarithme', 'Primitives']
+    tags: ['Logarithme', 'Primitives', 'Intégration']
   },
   bac_2024_06_sujet1_etrangers_1: {
     annee: '2024',
@@ -2481,15 +2481,6 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     tags: ['Espace']
   },
-  bac_2024_05_sujet2_ameriquenord_5: {
-    annee: '2024',
-    lieu: 'Amérique du Nord',
-    mois: 'Mai',
-    jour: 'J2',
-    numeroInitial: '5',
-    typeExercice: 'bac',
-    tags: ['Logarithme', 'Primitives', 'Intégration']
-  },
   bac_2024_09_sujet1_metropole_1: {
     annee: '2024',
     lieu: 'Métropole',
@@ -2598,6 +2589,79 @@ export const dictionnaireBAC = {
     numeroInitial: '4',
     typeExercice: 'bac',
     tags: ['Espace']
+  },
+
+  bac_2024_11_sujet1_amsud_1: {
+    annee: '2024',
+    lieu: 'amsud',
+    mois: 'Novembre',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2024_11_sujet1_amsud_2: {
+    annee: '2024',
+    lieu: 'amsud',
+    mois: 'Novembre',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2024_11_sujet1_amsud_3: {
+    annee: '2024',
+    lieu: 'amsud',
+    mois: 'Novembre',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2024_11_sujet1_amsud_4: {
+    annee: '2024',
+    lieu: 'amsud',
+    mois: 'Novembre',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2024_11_sujet2_amsud_1: {
+    annee: '2024',
+    lieu: 'amsud',
+    mois: 'Novembre',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2024_11_sujet2_amsud_2: {
+    annee: '2024',
+    lieu: 'amsud',
+    mois: 'Novembre',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2024_11_sujet2_amsud_3: {
+    annee: '2024',
+    lieu: 'amsud',
+    mois: 'Novembre',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['']
+  },
+  bac_2024_11_sujet2_amsud_4: {
+    annee: '2024',
+    lieu: 'amsud',
+    mois: 'Novembre',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['']
   },
 
 }

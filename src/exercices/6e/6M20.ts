@@ -120,7 +120,7 @@ export default class AireDeTriangles extends Exercice {
         pixelsParCm: 20,
         scale: 0.5,
         mainlevee: false
-      }, objetsEnonce) + '<br>'
+      }, objetsEnonce)
       if (this.correctionDetaillee) {
         texteCorr = mathalea2d({
           xmin,
@@ -130,7 +130,7 @@ export default class AireDeTriangles extends Exercice {
           pixelsParCm: 20,
           scale: 0.5,
           mainlevee: false
-        }, objetsCorrection) + '<br>'
+        }, objetsCorrection)
       } else texteCorr = ''
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${miseEnEvidence(texNombre(
         (cotes[i] * hauteurs[i]) / 2

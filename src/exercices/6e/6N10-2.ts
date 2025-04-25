@@ -5,12 +5,14 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '17/04/2025'
 
 /**
  * Des questions sur le nombre ou le chiffre de centaines, de dizaines, de dixièmes, de centièmes...
@@ -111,6 +113,7 @@ export default class DecompositionNombreDecimal extends Exercice {
                     mi
         }
       }
+
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `La partie entière du nombre $${n}$ est : `
@@ -125,7 +128,7 @@ export default class DecompositionNombreDecimal extends Exercice {
           texteCorr =
                         texte + `$${miseEnEvidence(texNombre(di! / 10 + ci! / 100 + mi! / 1000))}$`
           texte += ajouteChampTexteMathLive(this, i, '')
-          setReponse(this, i, di! / 10 + ci! / 100 + mi! / 1000)
+          setReponse(this, i, arrondi(di! / 10 + ci! / 100 + mi! / 1000, 3))
           this.autoCorrection[i]!.reponse!.param!.digits = 6
           this.autoCorrection[i]!.reponse!.param!.decimals = 4
           break

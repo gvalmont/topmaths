@@ -18,7 +18,7 @@ import { labelPoint } from '../../lib/2d/textes'
 export const uuid = 'fb6ed'
 export const refs = {
   'fr-fr': ['3Z1DNB-09'],
-  'fr-ch': []
+  'fr-ch': ['1mT-7']
 }
 export const titre = 'Préparation DNB : Trigo, Pythagore, agrandissement-réduction'
 export const dateDePublication = '09/04/2025'
@@ -67,7 +67,7 @@ export default class ExercicePolynesie392024 extends ExerciceBrevetA {
     const ligne2 = `le triangle $${triangle2}$ est rectangle en $${nom2[0]}$,`
     const ligne3 = `le triangle $${triangle3}$ est rectangle en $${nom3[0]}$,`
     const ligne4 = `$${nom1[0]}${nom1[1]}= ${texNombre(ON, 1)}$ cm et $\\widehat{\\text{${nom1[1]}${nom1[0]}${nom1[2]}}} = ${texNombre(MON, 0)}^\\circ$.`
-    const ligne5 = `${nom2[0]} est un point du segment [${nom1[0]}${nom1[2]}] et ${nom3[0]} est un point du segment [${nom1[0]}${nom2[1]}].`
+    const ligne5 = `$${nom2[0]}$ est un point du segment $[${nom1[0]}${nom1[2]}]$ et $${nom3[0]}$ est un point du segment $[${nom1[0]}${nom2[1]}]$.`
     const listeDonnees = createList({
       items: [ligne1, ligne2, ligne3, ligne4, ligne5],
       style: 'puces'

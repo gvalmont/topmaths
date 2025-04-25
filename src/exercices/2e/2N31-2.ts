@@ -4,7 +4,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '14/09/2023'
+export const dateDeModifImportante = '22/04/2025'
 export const uuid = '1e42b'
 export const refs = {
   'fr-fr': ['2N31-2'],
@@ -16,5 +16,6 @@ export default class PuissancesDunRelatif12e extends PuissancesDunRelatif1 {
     this.classe = 2
     this.correctionDetaillee = false
     this.sup2 = 3
+    this.sup = 6
   }
 }

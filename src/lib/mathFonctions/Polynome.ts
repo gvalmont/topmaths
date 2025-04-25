@@ -299,7 +299,7 @@ export class Polynome {
       }
       return true
     }
-    window.notify(`Polynome.isEqual a reçu comme argument autre chose qu'un number ou un Polynome : ${p}`, { p })
+    window.notify(`Polynome.isEqual a reçu comme argument autre chose qu'un number ou un polynôme : ${p}`, { p })
     return false
   }
 

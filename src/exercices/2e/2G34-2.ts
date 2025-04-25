@@ -13,7 +13,7 @@ export const interactifType = 'listeDeroulante'
 export const dateDePublication = '08/04/2024'
 export const uuid = '2eee3'
 export const refs = {
-  'fr-ch': ['11FA6-3', '1F2-8'],
+  'fr-ch': ['11FA6-3', '1mF2-8'],
   'fr-fr': ['2G34-2']
 }
 // export const dateDeModifImportante = '24/10/2021'

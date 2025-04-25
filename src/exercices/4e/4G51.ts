@@ -82,8 +82,8 @@ export default class RepresenterUnSolide4e extends Exercice {
     let A; let B; let C; let D; let E; let F; let G; let H; let I
     let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH; let IA; let IB; let IE; let IF; let BD; let FH
     let coeffpersp
-    let enonce
-    let correction
+    let enonce : string = ''
+    let correction : string = ''
     let carreaux; let g
     let objetsEnonce = []
     let objetsCorrection = []
@@ -420,8 +420,8 @@ export default class RepresenterUnSolide4e extends Exercice {
       }
       if (this.questionJamaisPosee(i, [A, B, C, D, E, F, G, H].map(p => p.nom).join(''))) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = enonce + '<br>'
-        this.listeCorrections[i] = correction + '<br>'
+        this.listeQuestions[i] = enonce
+        this.listeCorrections[i] = correction
         i++
       }
       cpt++

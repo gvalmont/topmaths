@@ -4600,7 +4600,7 @@ export const dictionnaireDNB = {
     mois: 'Septembre',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Statistiques', 'Pourcentages', 'Coordonnées terrestres']
   },
   dnb_2021_09_metropole_3: {
     annee: '2021',

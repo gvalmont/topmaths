@@ -36,7 +36,7 @@ export const uuid = '0ac11'
 
 export const refs = {
   'fr-fr': ['3G31'],
-  'fr-ch': []
+  'fr-ch': ['1mT-3']
 }
 
 /**

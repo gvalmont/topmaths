@@ -13,7 +13,7 @@ export const uuid = '8ba77'
 
 export const refs = {
   'fr-fr': ['3G32-5'],
-  'fr-ch': []
+  'fr-ch': ['1mT-11']
 }
 export default class CalculHauteurMontagne extends problemesTrigoLongueur {
   constructor () {

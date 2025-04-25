@@ -19,7 +19,7 @@ export const uuid = '660de'
 
 export const refs = {
   'fr-fr': ['2N32-5'],
-  'fr-ch': ['11NO1-8', '1CN-10']
+  'fr-ch': ['11NO1-8', '1mCN-10']
 }
 export default class DoubleDistributiviteAvecRacineCarree extends Exercice {
   constructor () {

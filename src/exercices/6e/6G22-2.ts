@@ -100,7 +100,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       const ymin = Math.min(...pointsY) - 2.2
       const ymax = Math.max(...pointsY) + 2.2
       const parametres2d = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.4 }
-      const enonceFigure = 'Dans la figure ci-dessous :<br>' + mathalea2d(parametres2d, objets2d) + '<br>'
+      const enonceFigure = 'Dans la figure ci-dessous :<br>' + mathalea2d(parametres2d, objets2d)
       texte = ''
       texteCorr = ''
       // On construit les questions
@@ -134,7 +134,7 @@ export default class ReconnaitreUnAngleParticulier extends Exercice {
       texte += monQcm.texte
       texteCorr += context.isAmc ? '' : questionReponse.question + '<br>'
       texteCorr += monQcm.texteCorr
-      this.correctionDetaillee ? texteCorr += questionReponse.explications + '<br><br>' : texteCorr += '<br>'
+      this.correctionDetaillee ? texteCorr += questionReponse.explications + '<br>' : texteCorr += '<br>'
       if (this.questionJamaisPosee(i, ...pointsX, ...pointsY, listeTypeQuestions[i])) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

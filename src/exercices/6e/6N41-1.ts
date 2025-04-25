@@ -68,7 +68,7 @@ export default class ExerciceLabyrintheFractionsEgales extends Exercice {
       const monchemin = laby.choisitChemin(laby.niveau) // on choisit un chemin
       laby.murs2d = laby.construitMurs(monchemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monchemin) // On trace le chemin solution
-      const table = randint(2, 8)
+      const table = randint(3, 8)
       let num = randint(1, 2 * table - 1)
       while (pgcd(num, table) !== 1) {
         num = randint(2, 2 * table - 1)

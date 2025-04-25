@@ -260,7 +260,8 @@ export default class ProblemesAdditifsFractions5e extends Exercice {
 On a représenté sur le diagramme circulaire ci-dessous la répartition des ${situations.fin_enonce_situation}.<br>
 ${texteGras('Les angles de même couleur ont la même mesure.')}<br>
 ${texteGras('L\'angle vert est un angle plat.')}<br>
-${situations.fig}<br>
+${situations.fig}
+
 ${numAlpha(indexSouSegmentQuestion++)} Quelle fraction représente les ${situations.nom_enonce} vers ${situations.cat1.destination} ?<br>
 ${numAlpha(indexSouSegmentQuestion++)} Quelle fraction représente les ${situations.nom_enonce} vers ${situations.cat2.destination} ?<br>
 ${numAlpha(indexSouSegmentQuestion++)} Sachant que ${situations.last_question[0]} ${situations.nb_total} ${situations.last_question[1]}

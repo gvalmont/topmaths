@@ -12,7 +12,7 @@ export const titre = 'Calculer avec une probabilité conditionnelle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '26/03/2025'
+export const dateDePublication = '15/04/2025'
 
 /**
  *
@@ -54,7 +54,7 @@ export default class CalculerProbaCond extends Exercice {
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0, pA, pBsachantA, pAinterB, intro, cours, listeEV, ev, listeFractions, f; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, qInt = 0, texte, texteCorr, reponse, cpt = 0, pA, pBsachantA, pAinterB, intro, cours, listeEV, ev, listeFractions, f; i < this.nbQuestions && cpt < 50;) {
       cours = `Pour tout événement $A$ (avec $P(A)\\neq 0$) et $B$ d'un univers $\\Omega$, on a  : <br>
           $P_{A}(B)=\\dfrac{P(A\\cap B)}{P(A)}$ ou encore  $P(A\\cap B)=P(A)\\times P_{A}(B)$.<br>
           En appliquant avec les données de l'énoncé, on obtient :<br>`
@@ -70,11 +70,11 @@ export default class CalculerProbaCond extends Exercice {
           pAinterB = pA * pBsachantA
           if (choice([true, false])) {
             reponse = texNombre(pA * pBsachantA, 3)
-            handleAnswers(this, i, { reponse: { value: reponse, compare: functionCompare } })
+            handleAnswers(this, qInt, { reponse: { value: reponse, compare: functionCompare } })
             texte = `On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
           $P(${ev[0]})=${texNombre(pA, 1)}$ et $P_{${ev[0]}}(${ev[1]})=${texNombre(pBsachantA, 2)}$.<br>
          ${this.interactif ? `$P(${ev[0]}\\cap ${ev[1]})=$` : `Calculer $P(${ev[0]}\\cap ${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, ' ')
+            texte += ajouteChampTexteMathLive(this, qInt, ' ')
             texteCorr = cours
             texteCorr += `
           $\\begin{aligned}
@@ -106,11 +106,11 @@ export default class CalculerProbaCond extends Exercice {
           pAinterB = pA.produitFraction(pBsachantA).simplifie()
           if (choice([true, false])) {
             reponse = pAinterB.texFraction
-            handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true } } })
+            handleAnswers(this, qInt, { reponse: { value: reponse, options: { fractionEgale: true } } })
             texte = `On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
         $P(${ev[0]})=${pA.texFraction}$ et $P_{${ev[0]}}(${ev[1]})=${pBsachantA.texFraction}$.<br>
        ${this.interactif ? `$P(${ev[0]}\\cap ${ev[1]})=$` : `Calculer $P(${ev[0]}\\cap ${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
+            texte += ajouteChampTexteMathLive(this, qInt, KeyboardType.clavierDeBaseAvecFraction)
             texteCorr = cours
             texteCorr += `
         $\\begin{aligned}
@@ -120,11 +120,11 @@ export default class CalculerProbaCond extends Exercice {
         \\end{aligned}$`
           } else {
             reponse = pBsachantA.texFraction
-            handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true } } })
+            handleAnswers(this, qInt, { reponse: { value: reponse, options: { fractionEgale: true } } })
             texte = `On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
         $P(${ev[0]})=${pA.texFraction}$ et $P(${ev[0]}\\cap ${ev[1]})=${pAinterB.texFraction}$.<br>
        ${this.interactif ? `$P_{${ev[0]}}(${ev[1]})=$` : `Calculer $P_{${ev[0]}}(${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
+            texte += ajouteChampTexteMathLive(this, qInt, KeyboardType.clavierDeBaseAvecFraction)
             texteCorr = cours
             texteCorr += `
         $\\begin{aligned}
@@ -159,17 +159,17 @@ En utilisant les événements  $${ev[0]}$ et $${ev[1]}$, écrire la probabilité
 contactés lors d'une  campagne publicitaire. Une étude statistique montre que la probabilité qu’un client effectue un achat sachant qu’il a été contacté au cours de la campagne publicitaire est de $${texNombre(pBsachantA, 2)}$.<br>
 On choisit au hasard un client du magasin lors de cette grande journée de promotion. <br>On définit les évènements suivants :<br>
 • $${ev[0]}$ : « le client choisi a été contacté lors de la campagne publicitaire ; »<br>
-• $${ev[1]}$ : le client choisi a effectué un achat. »<br>
+• $${ev[1]}$ : le client choisi a effectué un achat ».<br>
 En utilisant les événements  $${ev[0]}$ et $${ev[1]}$, écrire la probabilité que le client choisi ait été contacté par la campagne publicitaire et qu'il a fait un achat, puis calculer cette probabilité.`])
-              handleAnswers(this, 2 * i, { reponse: { value: [`P(${ev[0]}\\cap ${ev[1]})`, `P(${ev[1]}\\cap ${ev[0]})`], options: { texteAvecCasse: true } } })
-              handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(pAinterB, 4), compare: functionCompare } })
+              handleAnswers(this, qInt, { reponse: { value: [`P(${ev[0]}\\cap ${ev[1]})`, `P(${ev[1]}\\cap ${ev[0]})`], options: { texteAvecCasse: true } } })
+              handleAnswers(this, qInt + 1, { reponse: { value: texNombre(pAinterB, 4), compare: functionCompare } })
               texte = intro
-              texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierProbabilite, { texteAvant: 'Notation de la probabilité :' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase, { texteAvant: 'Valeur de la probabilité :' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, qInt, KeyboardType.clavierProbabilite, { texteAvant: 'Notation de la probabilité :' }) + '<br>' + ajouteChampTexteMathLive(this, qInt + 1, KeyboardType.clavierDeBase, { texteAvant: 'Valeur de la probabilité :' })
               texteCorr = `La probabilité $P$ est donnée par  $${miseEnEvidence(`P(${ev[0]}\\cap ${ev[1]})`)}$.<br>
               $\\begin{aligned}
               P(${ev[0]}\\cap ${ev[1]})&=P(${ev[0]}) \\times P_{${ev[0]}}(${ev[1]})\\\\
-              &=${texNombre(pA, 2)}\\times ${texNombre(pBsachantA, 2)}\\\\
-              &=${miseEnEvidence(`${texNombre(pA * pBsachantA, 3)}`)}
+              &=${texNombre(pA, 4)}\\times ${texNombre(pBsachantA, 4)}\\\\
+              &=${miseEnEvidence(`${texNombre(pA * pBsachantA, 4)}`)}
               \\end{aligned}$`
               break
 
@@ -191,22 +191,22 @@ En utilisant les événements  $${ev[0]}$ et $${ev[1]}$, écrire la probabilité
                  • $${ev[1]}$ : « le beignet choisi est aromatisé à la cannelle ».<br>
                  En utilisant les événements  $${ev[0]}$ et $${ev[1]}$, écrire la probabilité que le beignet choisi soit aromatisé à la cannelle sachant que ce beignet est à l'ananas, puis calculer cette probabilité.`,
                 `Le jour d'une grande journée de promotion, $${texNombre(pA * 100, 0)}\\,\\%$ des clients qui entrent dans un magasin ont été
-contactés lors d'une  campagne publicitaire. Une étude statistique montre que parmi tous les clients  $${texNombre(pAinterB * 100, 3)}\\,\\%$ ont été contacté lors de la campagne publicitaire et ont fait un achat.<br>
+contactés lors d'une  campagne publicitaire. Une étude statistique montre que, parmi tous les clients,  $${texNombre(pAinterB * 100, 3)}\\,\\%$ ont été contactés lors de la campagne publicitaire et ont fait un achat.<br>
 On choisit au hasard un client du magasin lors de cette grande journée de promotion. <br>On définit les évènements suivants :<br>
 • $${ev[0]}$ : « le client choisi a été contacté lors de la campagne publicitaire  » ;<br>
-• $${ev[1]}$ : le client choisi a effectué un achat. »<br>
+• $${ev[1]}$ : « le client choisi a effectué un achat. »<br>
 Le client choisi a été contacté lors de la campagne publicitaire.<br>
 En utilisant les événements  $${ev[0]}$ et $${ev[1]}$, écrire la probabilité que ce client ait fait un achat, puis calculer cette probabilité.`])
 
-              handleAnswers(this, 2 * i, { reponse: { value: [`P_{${ev[0]}}(${ev[1]})`], options: { texteAvecCasse: true } } })
-              handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(pBsachantA, 4), compare: functionCompare } })
+              handleAnswers(this, qInt, { reponse: { value: [`P_{${ev[0]}}(${ev[1]})`], options: { texteAvecCasse: true } } })
+              handleAnswers(this, qInt + 1, { reponse: { value: texNombre(pBsachantA, 4), compare: functionCompare } })
               texte = intro
-              texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierProbabilite, { texteAvant: 'Notation de la probabilité :' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase, { texteAvant: 'Valeur de la probabilité :' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, qInt, KeyboardType.clavierProbabilite, { texteAvant: 'Notation de la probabilité :' }) + '<br>' + ajouteChampTexteMathLive(this, qInt + 1, KeyboardType.clavierDeBase, { texteAvant: 'Valeur de la probabilité :' })
               texteCorr = `La probabilité $P$ est donnée par  $${miseEnEvidence(`P_{${ev[0]}}(${ev[1]})`)}$.<br>
           $\\begin{aligned}
          P_{${ev[0]}}(${ev[1]})&=\\dfrac{P(${ev[0]}\\cap ${ev[1]})}{P(${ev[0]})}\\\\
-          &=\\dfrac{${texNombre(pAinterB, 4)}}{${texNombre(pA, 3)}}\\\\
-          &=${miseEnEvidence(`${texNombre(pBsachantA, 3)}`)}
+          &=\\dfrac{${texNombre(pAinterB, 4)}}{${texNombre(pA, 4)}}\\\\
+          &=${miseEnEvidence(`${texNombre(pBsachantA, 4)}`)}
           \\end{aligned}$`
           }
 
@@ -217,6 +217,9 @@ En utilisant les événements  $${ev[0]}$ et $${ev[1]}$, écrire la probabilité
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
+        qInt = this.autoCorrection.length // ici on peut avoir 1 question interactive ou 2 questions interactives
+      } else {
+        this.autoCorrection = this.autoCorrection.slice(0, qInt) // on supprime les dernières questions non utilisées.
       }
       cpt++
     }

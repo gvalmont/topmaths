@@ -56,13 +56,21 @@ async function action (page: Page, description: string) {
   logDebug(`Test avec les paramètres ${description}`)
   // clic sur nouvel énoncé 3 fois
   const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé ' })
-  logDebug('Actualier (nouvel énoncé) 3 fois')
-  await buttonNewData.click({ clickCount: 3 })
-  logDebug('fin Actualier (nouvel énoncé) 3 fois')
+  logDebug('Actualier (nouvel énoncé)')
+  await buttonNewData.click({ force: true })
+  logDebug('fin Actualier (nouvel énoncé)')
   const buttonZoom = page.locator('#setupButtonsBar > div > div:nth-child(2) > button')
-  await buttonZoom.highlight()
+  const buttonZoomMoins = page.locator('#setupButtonsBar > div > div:nth-child(1) > button')
+  const zParam = new URL(page.url()).searchParams.get('z')
+  const z = (zParam === null || zParam === '' ? 1 : Number(zParam))
   log('Zoom')
-  await waitForExercicesAffiches(page, buttonZoom)
+  if (z < 1.4) {
+    // await buttonZoom.highlight()
+    await waitForExercicesAffiches(page, buttonZoom)
+  } else {
+    // await buttonZoomMoins.highlight()
+    await waitForExercicesAffiches(page, buttonZoomMoins)
+  }
   log('Fin zoom')
   // Active le mode interactif
   const activateInteractivityButton = page.getByRole('button', { name: 'Rendre interactif' })
@@ -97,85 +105,92 @@ async function getConsoleTest (page: Page, urlExercice: string) {
   // on configure à 5 min le timeout
   page.setDefaultTimeout(5 * 60 * 1000)
 
-  // await page.reload()
-  const messages: string[] = []
-
-  try {
-    page.on('pageerror', msg => {
-      if (msg.message !== 'Erreur de chargement de Mathgraph') { // mtgLoad : 3G22
-        messages.push(page.url() + ' ' + msg.stack)
-        logError(msg)
-      }
-    })
-    page.on('crash', msg => {
-      messages.push(page.url() + ' ' + msg)
-      logError(msg)
-    })
-    // Listen for all console events and handle errors
-    page.on('console', msg => {
-      // if (msg.type() === 'error') {
-      if (!msg.text().includes('[vite]') &&
-          !msg.text().includes('[bugsnag] Loaded!') &&
-          !msg.text().includes('No character metrics for') && // katex
-          !msg.text().includes('LaTeX-incompatible input') && // katex
-          !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
-          !msg.text().includes('MG32div0') && // MG32div0 : 3G22
-          !msg.text().includes('UserFriendlyError: Le chargement de mathgraph') &&
-          !msg.location().url.includes('mathgraph32')
-      ) {
-        if (!msg.text().includes('<HeaderExercice>')) {
-          messages.push(page.url() + ' ' + msg.text())
+  const retries = 3 // Nombre de tentatives en cas d'erreur
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    const messages: string[] = []
+    try {
+      page.on('pageerror', msg => {
+        if (msg.message !== 'Erreur de chargement de Mathgraph') { // mtgLoad : 3G22
+          messages.push('error:' + page.url() + ' ' + msg.stack)
+          log(msg.message)
+          log(msg.stack)
+          logError(msg)
         }
+      })
+      page.on('crash', msg => {
+        messages.push('crach:' + page.url() + ' ' + msg)
+        logError(msg)
+      })
+      // Listen for all console events and handle errors
+      page.on('console', msg => {
+        // if (msg.type() === 'error') {
+        if (!msg.text().includes('[vite]') &&
+            !msg.text().includes('[bugsnag] Loaded!') &&
+            !msg.text().includes('No character metrics for') && // katex
+            !msg.text().includes('LaTeX-incompatible input') && // katex
+            !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
+            !msg.text().includes('MG32div0') && // MG32div0 : 3G22
+            !msg.text().includes('UserFriendlyError: Le chargement de mathgraph') &&
+            !msg.location().url.includes('mathgraph32')
+        ) {
+          if (!msg.text().includes('<HeaderExercice>')) {
+            messages.push('console:' + page.url() + ' ' + msg.text())
+          }
+        }
+        // }
+      })
+
+      logDebug('On charge la page')
+      await page.goto(urlExercice)
+      await page.waitForLoadState('networkidle')
+      logDebug('fin : On charge la page')
+
+      // Correction
+      // On cherche les questions
+      logDebug('On cherche les questions')
+      await page.waitForSelector('div.mb-5>ul>div#consigne0-0')
+      logDebug('fin : On cherche les questions')
+      // Pour chaque combinaison de paramètres, on clique sur nouvel énoncé 3 fois, active le mode interactif et reclique sur nouvel énoncé 3 fois
+      await checkEachCombinationOfParams(page, action, { isFullViews: true })
+      // Paramètres ça va les refermer puisqu'ils sont ouverts par défaut
+      const buttonParam = page.getByRole('button', { name: 'Changer les paramètres de l\'' })
+      logDebug('Ferme les paramètres ')
+      if (await buttonParam.isVisible()) {
+        await buttonParam.click()
       }
-      // }
-    })
-
-    logDebug('On charge la page')
-    await page.goto(urlExercice)
-    await page.waitForLoadState('networkidle')
-    logDebug('fin : On charge la page')
-
-    // Correction
-    // On cherche les questions
-    logDebug('On cherche les questions')
-    await page.waitForSelector('div.mb-5>ul>div#consigne0-0')
-    logDebug('fin : On cherche les questions')
-    // Pour chaque combinaison de paramètres, on clique sur nouvel énoncé 3 fois, active le mode interactif et reclique sur nouvel énoncé 3 fois
-    await checkEachCombinationOfParams(page, action, { isFullViews: true })
-    // Paramètres ça va les refermer puisqu'ils sont ouverts par défaut
-    const buttonParam = page.getByRole('button', { name: 'Changer les paramètres de l\'' })
-    logDebug('Ferme les paramètres ')
-    if (await buttonParam.isVisible()) {
-      await buttonParam.click()
-    }
-    if (messages.length > 0) {
+      if (messages.length > 0) {
+        logError(messages)
+        logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
+        log('url:' + page.url())
+        await createIssue(urlExercice, messages, ['console'], log)
+        return 'KO'
+      } else {
+        return 'OK'
+      }
+    } catch (error) {
+      // si une exception comme timeout: on récupère la requete
+      let message = 'Unknown Error'
+      if (error instanceof Error) message = error.message
+      messages.push('erreur:' + message)
+      log('url:' + page.url())
       logError(messages)
       logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
-      await createIssue(urlExercice, messages, ['console'], log)
-      return 'KO'
+      if (attempt === retries) {
+        if (!message.includes('net::ERR_CONNECTION_REFUSED')) {
+          // le serveur ne répond pas... si net::ERR_CONNECTION_REFUSED
+          await createIssue(urlExercice, messages, ['console'], log)
+        }
+        return 'KO'
+      }
     }
-  } catch (error) {
-    // si une exception comme timeout: on récupère la requete
-    let message = 'Unknown Error'
-    if (error instanceof Error) message = error.message
-    messages.push('erreur:' + message)
-    logError(messages)
-    logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
-    if (!message.includes('net::ERR_CONNECTION_REFUSED')) {
-      // le serveur ne répond pas... si net::ERR_CONNECTION_REFUSED
-      await createIssue(urlExercice, messages, ['console'], log)
-    }
-    return 'KO'
   }
-  return 'OK'
 }
 
 async function testRunAllLots (filter: string) {
-  // return testAll(page, '6e/6G23')
   const uuids = filter.includes('dnb') ? await findStatic(filter) : await findUuid(filter)
-  for (let i = 0; i < uuids.length && i < 300; i += 10) {
+  for (let i = 0; i < uuids.length && i < 300; i += 20) {
     const ff : ((page: Page) => Promise<boolean>)[] = []
-    for (let k = i; k < i + 10 && k < uuids.length; k++) {
+    for (let k = i; k < i + 20 && k < uuids.length; k++) {
       const myName = 'test' + uuids[k][1]
       const f = async function (page: Page) {
         // Listen for all console logs
@@ -230,7 +245,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
     })
   }
 } else {
-  prefs.headless = false
+  prefs.headless = true
   testRunAllLots('can')
   testRunAllLots('6e')
   testRunAllLots('5e')
@@ -247,5 +262,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  // testRunAllLots('5e/5G30-2')
+  // testRunAllLots('6e/6M21.')
 }

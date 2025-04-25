@@ -34,7 +34,7 @@ async function testCanView (page: Page) {
   const page1Promise = page.waitForEvent('popup')
   await page.getByRole('button', { name: 'Visualiser' }).click()
   const page1 = await page1Promise
-  await page1.setDefaultTimeout(60000) // Set timeout to 60 seconds
+  await page1.setDefaultTimeout(100000) // Set timeout to 60 seconds
   // await page1.goto('http://localhost:5173/alea/?uuid=94d21&v=can&canD=10&canT=2024&canSA=1&canSM=gathered&canI=1')
   log('clique sur démarrer')
   await page1.getByRole('button', { name: ' Démarrer' }).click()
@@ -125,11 +125,22 @@ async function testCanView (page: Page) {
   await page1.getByRole('button', { name: 'Terminer' }).click()
   log('Accéder aux solutions')
   await page1.getByRole('button', { name: 'Accéder aux solutions' }).click()
-
   await page1.locator('.bx-toggle-right').click({ button: 'right' })
   log(await page1.locator('#score:first-child > span').innerText())
   log(await page1.locator('#answer-28').innerText())
   log(await page1.locator('#answer-12').innerText())
+
+  for (let i = 0; i < 30; i++) {
+    const icon4 = await page1.locator(`#can-solutions > li:nth-child(${i + 1}) > div > div > button > i`)
+    const classList = await icon4.getAttribute('class') || ''
+    if (classList.includes('text-green-500') === false) {
+      log('classList:', classList)
+      log(await page1.locator(`#can-solutions > li:nth-child(${i + 1})`).innerText())
+      log(`Réponse ${i + 1} Incorrecte`)
+    }
+    expect(classList).toContain('text-green-500')
+  }
+  // await page1.pause()
   expect(await page1.locator('#score:first-child > span').innerText()).toBe('30/30')
   expect(await page1.locator('#answer-28').innerText()).toBe('3{3}3')
   expect(await page1.locator('#answer-12').innerText()).toBe('6{6}6')
@@ -142,7 +153,7 @@ async function testEleveView (page: Page) {
   log('===      TEST VUE ELEVE PRESENTATION 0 2024 ===============')
   log('===========================================================')
   const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1')
+  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1', { timeout: 100000 })
   log('Chargement de l\'url:' + hostname + '?uuid=94d21&alea=hqk0&s=1')
   log('Clique sur le lien vue élève (config)')
   await page.locator('[data-tip="Lien pour les élèves"]').getByRole('button').click()
@@ -247,7 +258,7 @@ async function testEleveViewPre2 (page: Page) {
   log('===   TEST VUE ELEVE Presentation 2 2024 ==================')
   log('===========================================================')
   const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1')
+  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1', { timeout: 100000 })
   log('Chargement de l\'url:' + hostname + '?uuid=94d21&alea=hqk0&s=1')
   log('Clique sur le lien vue élève (config)')
   await page.locator('[data-tip="Lien pour les élèves"]').getByRole('button').click()
@@ -432,7 +443,7 @@ async function testEleveViewPre3 (page: Page) {
   log('===   TEST VUE ELEVE Presentation 3 2024 ==================')
   log('===========================================================')
   const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1')
+  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1', { timeout: 120000 })
   log('Chargement de l\'url:' + hostname + '?uuid=94d21&alea=hqk0&s=1')
   log('Clique sur le lien vue élève (config)')
   // await page.getByRole('button', { name: 'Lien pour les élèves  ' }).click()

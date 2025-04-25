@@ -12,8 +12,6 @@ import { Tableau } from '../../lib/2d/tableau'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
 
 import { lectureImage } from '../../lib/2d/courbes'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import PointOnPolyLine from '../../lib/mathFonctions/PointOnPolyLine'
 import Figure from 'apigeom'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
@@ -30,7 +28,7 @@ export const uuid = '6c6b3'
 
 export const refs = {
   'fr-fr': ['3F10-4', 'BP2AutoO4'],
-  'fr-ch': ['10FA5-8', '11FA7-2', '1F1-2']
+  'fr-ch': ['10FA5-8', '11FA7-2', '1mF1-2']
 }
 
 class LireImageParApiGeom extends Exercice {
@@ -58,7 +56,6 @@ class LireImageParApiGeom extends Exercice {
 
   nouvelleVersion (): void {
     // on va chercher une spline aléatoire
-    if (context.isHtml) this.consigne = texteEnCouleurEtGras('N\'utilisez pas le zoom de l\'application sur cet exercice (bouton +), il entraîne une erreur du programme !<br>Nous travaillons à corriger ce bug.')
     const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
@@ -73,20 +70,7 @@ class LireImageParApiGeom extends Exercice {
     const polyline = this.figure.create('Polyline', { points: mesPoints })
 
     if (context.isHtml) {
-      // Code alternatif : créer un objet GraphByParts, et voir si PointOnGraph est utilisable pour créer un point mobile
-      // Pour l'instant la classe GraphByParts n'est pas fonctionnelle.
-    /*  const parts: { expression: string, xMin: number, xMax: number }[] = []
-      for (let i = 0; i < spline.n - 1; i++) {
-        const pol = spline.polys[i].toMathExpr()
-        const xMin = spline.x[i]
-        const xMax = spline.x[i + 1]
-        parts.push({ expression: pol, xMin, xMax })
-      }
-      this.figure.create('GraphByParts', { parts })
-      */
-      const pointMobile = new PointOnPolyLine(this.figure, { polyline, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
-      pointMobile.draw()
-      pointMobile.label = 'M'
+      const pointMobile = this.figure.create('PointOnPolyline', { polyline, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, label: 'M', shape: 'x', color: 'blue', size: 3, thickness: 3 })
       pointMobile.createSegmentToAxeX()
       pointMobile.createSegmentToAxeY()
       const textX = this.figure.create('DynamicX', { point: pointMobile })
@@ -165,6 +149,8 @@ class LireImageParApiGeom extends Exercice {
     this.figure.isDynamic = true
     this.figure.divButtons.style.display = 'flex'
     const repere = new RepereBuilder({ xMin: -6.3, yMin: -6.3, xMax: 6.3, yMax: 6.3 })
+      .setThickX({ xMax: 6, xMin: -6, dx: 1 })
+      .setThickY({ yMax: 6, yMin: -6, dy: 1 })
       .setGrille({
         grilleX: {
           dx: 1, xMin: -6, xMax: 6
@@ -181,7 +167,13 @@ class LireImageParApiGeom extends Exercice {
       })
       .setLabelX({ dx: 1, xMin: -6, xMax: 6 })
       .buildStandard()
-    const figureCorrection = mathalea2d(Object.assign({ pixelsParCm: 25, scale: 0.8 }, fixeBordures([repere])), [repere, spline.courbe(), lectureImage(this.X[0], this.Y[0], 1, 1, 'green'), lectureImage(this.X[1], this.Y[1], 1, 1, 'blue'), lectureImage(this.X[2], this.Y[2], 1, 1, 'purple')])
+
+    const objs = []
+    const colors = ['red', 'blue', 'green', 'purple', 'orange']
+    for (let i = 0; i < this.nbImages; i++) {
+      objs.push(lectureImage(this.X[i], this.Y[i], 1, 1, colors[i % 5]))
+    }
+    const figureCorrection = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1 }, fixeBordures([repere])), [repere, spline.courbe(), objs])
     if (context.isHtml) {
       this.listeCorrections[0] = 'Les images sont tolérées à $0{,}1$ près :' + tableauValeur.output + '<br>' + figureCorrection
 
@@ -197,7 +189,7 @@ class LireImageParApiGeom extends Exercice {
         'Les images sont tolérées à $0{,}1$ près :' +
         '\\\\' +
         tabValeurTex
-      this.listeQuestions = [mathalea2d(Object.assign({ scale: 0.8 }, fixeBordures([repere])), [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
+      this.listeQuestions = [mathalea2d(Object.assign({ scale: 0.8 }, fixeBordures([repere])), [repere, spline.courbe()]) + enonce]
     }
   }
 }

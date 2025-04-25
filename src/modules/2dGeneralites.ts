@@ -451,7 +451,7 @@ export function mathalea2d (
   // code += codeTikz(...objets)
   codeTikz += ajouteCodeTikz(mainlevee, objets)
   codeTikz += '\n\\end{tikzpicture}'
-  if (style.includes('display: block')) codeTikz += '\\\n'
+  if (style.includes('display: block')) codeTikz += '\\\\\n'
   if (context.isHtml) return codeHTML
   else return codeTikz
 }

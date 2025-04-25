@@ -61,54 +61,14 @@ export default class MesurePrincipale extends Exercice {
         texteCorr: '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=\\sin(x)$'
       },
       {
-        texte: '$\\cos\\big(x-5\\pi\\big)=$',
-        reponse: '-\\cos(x)',
-        texteCorr: '$\\cos(x-5\\pi)=-\\cos(x)$'
-      },
-      {
-        texte: '$\\cos\\big(x-3\\pi\\big)=$',
-        reponse: '-\\cos(x)',
-        texteCorr: '$\\cos(x-3\\pi)=-\\cos(x)$'
-      },
-      {
-        texte: '$\\cos\\big(x+5\\pi\\big)=$',
-        reponse: '-\\cos(x)',
-        texteCorr: '$\\cos(x+5\\pi)=-\\cos(x)$'
-      },
-      {
-        texte: '$\\cos\\big(x+3\\pi\\big)=$',
-        reponse: '-\\cos(x)',
-        texteCorr: '$\\cos(x+3\\pi)=-\\cos(x)$'
-      },
-      {
         texte: '$\\sin\\big(x+\\pi\\big)=$',
         reponse: '-\\sin(x)',
         texteCorr: '$\\sin(x+\\pi)=-\\sin(x)$'
       },
       {
-        texte: '$\\sin\\big(x+3\\pi\\big)=$',
-        reponse: '-\\sin(x)',
-        texteCorr: '$\\sin(x+3\\pi)=-\\sin(x)$'
-      },
-      {
-        texte: '$\\sin\\big(x+5\\pi\\big)=$',
-        reponse: '-\\sin(x)',
-        texteCorr: '$\\sin(x+5\\pi)=-\\sin(x)$'
-      },
-      {
         texte: '$\\sin\\big(x-\\pi\\big)=$',
         reponse: '-\\sin(x)',
         texteCorr: '$\\sin(x-\\pi)=-\\sin(x)$'
-      },
-      {
-        texte: '$\\sin\\big(x-3\\pi\\big)=$',
-        reponse: '-\\sin(x)',
-        texteCorr: '$\\sin(x-3\\pi)=-\\sin(x)$'
-      },
-      {
-        texte: '$\\sin\\big(x-5\\pi\\big)=$',
-        reponse: '-\\sin(x)',
-        texteCorr: '$\\sin(x-5\\pi)=-\\sin(x)$'
       },
       {
         texte: '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=$',
@@ -121,46 +81,6 @@ export default class MesurePrincipale extends Exercice {
         texteCorr: '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=\\cos(x)$'
       },
       {
-        texte: '$\\sin\\big(x+2\\pi\\big)=$',
-        reponse: '\\sin(x)',
-        texteCorr: '$\\sin(x+2\\pi)=\\sin(x)$'
-      },
-      {
-        texte: '$\\sin\\big(x+4\\pi\\big)=$',
-        reponse: '\\sin(x)',
-        texteCorr: '$\\sin(x+4\\pi)=\\sin(x)$'
-      },
-      {
-        texte: '$\\sin\\big(x-2\\pi\\big)=$',
-        reponse: '\\sin(x)',
-        texteCorr: '$\\sin(x-2\\pi)=\\sin(x)$'
-      },
-      {
-        texte: '$\\sin\\big(x-4\\pi\\big)=$',
-        reponse: '\\sin(x)',
-        texteCorr: '$\\sin(x-4\\pi)=\\sin(x)$'
-      },
-      {
-        texte: '$\\cos\\big(x+4\\pi\\big)=$',
-        reponse: '\\cos(x)',
-        texteCorr: '$\\cos(x+4\\pi)=\\cos(x)$'
-      },
-      {
-        texte: '$\\cos\\big(x-2\\pi\\big)=$',
-        reponse: '\\cos(x)',
-        texteCorr: '$\\cos(x-2\\pi)=\\cos(x)$'
-      },
-      {
-        texte: '$\\cos\\big(x+2\\pi\\big)=$',
-        reponse: '\\cos(x)',
-        texteCorr: '$\\cos(x+2\\pi)=\\cos(x)$'
-      },
-      {
-        texte: '$\\cos\\big(x-4\\pi\\big)=$',
-        reponse: '\\cos(x)',
-        texteCorr: '$\\cos(x-4\\pi)=\\cos(x)$'
-      },
-      {
         texte: '$\\cos\\big(-x\\big)=$',
         reponse: '\\cos(x)',
         texteCorr: '$\\cos(-x)=\\cos(x)$'
@@ -169,6 +89,16 @@ export default class MesurePrincipale extends Exercice {
         texte: '$\\sin\\big(-x\\big)=$',
         reponse: '-\\sin(x)',
         texteCorr: '$\\sin(-x)=-\\sin(x)$'
+      },
+      {
+        texte: '$\\cos\\big(\\pi-x\\big)=$',
+        reponse: '-\\cos(x)',
+        texteCorr: '$\\cos\\big(\\pi-x\\big)=-\\cos(x)$'
+      },
+      {
+        texte: '$\\sin\\big(\\pi-x\\big)=$',
+        reponse: '\\sin(x)',
+        texteCorr: '$\\sin\\big(\\pi-x\\big)=\\sin(x)$'
       }
     ]
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

@@ -232,7 +232,7 @@ export default class PavageEtRotation2D extends Exercice {
       objets.push(monpavage.polygones[i])
     }
     texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
-    texte += `<br>Soit la rotation de centre $A$ et d'angle ${alpha}$^\\circ$ dans le sens `
+    texte += `Soit la rotation de centre $A$ et d'angle ${alpha}$^\\circ$ dans le sens `
     if (sensdirect === 1) {
       texte += 'contraire des aiguilles d\'une montre.<br>'
     } else {

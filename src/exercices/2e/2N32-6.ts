@@ -20,7 +20,7 @@ export const uuid = '91dc4'
 
 export const refs = {
   'fr-fr': ['2N32-6'],
-  'fr-ch': ['11NO1-9', '1CN-11']
+  'fr-ch': ['11NO1-9', '1mCN-11']
 }
 export default class IdentitesRemarquablesEtRacineCarree extends Exercice {
   constructor () {

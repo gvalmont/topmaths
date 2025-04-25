@@ -24,7 +24,7 @@ export const uuid = 'f13e3'
 
 export const refs = {
   'fr-fr': ['3G30-2'],
-  'fr-ch': []
+  'fr-ch': ['1mT-4']
 }
 
 class EquationTrigo extends Exercice {

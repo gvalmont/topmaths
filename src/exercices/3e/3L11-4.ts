@@ -8,8 +8,10 @@ import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/out
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Factoriser une expression'
+export const dateDeModifImportante = '20/04/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -19,6 +21,8 @@ export const amcType = 'AMCOpen'
  * Utiliser la simple ou la double distributivité et réduire l'expression
  * @author Rémi Angot
  * Ajout du paramétrage : Guillaume Valmont 13/08/2021
+ * Ajout d'un nouveau paramètre sur le choix des lettres : Eric Elter 20/04/2025
+ * Ajout d'un nouveau paramètre sur le choix du signe x final : Eric Elter 20/04/2025
  */
 export const uuid = '5f5a6'
 
@@ -37,7 +41,9 @@ export default class FactoriserParNombreOux extends Exercice {
 
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
     this.listeAvecNumerotation = false
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
+    this.besoinFormulaireNumerique = ['Type d\'expressions', 4, '1 : Expressions de type 7a+21b\n2 : Expressions de type 14a+21b\n3 : Expressions de type 14x+21x²\n4 : Mélange']
+    this.besoinFormulaire3CaseACocher = ['Signe $\\times$ dans la reponse finale', false]
+    this.besoinFormulaire2CaseACocher = ['Avec uniquement les mêmes lettres', true]
   }
 
   nouvelleVersion () {
@@ -58,6 +64,7 @@ export default class FactoriserParNombreOux extends Exercice {
         typesDeQuestionsDisponibles = ['ka+nkb', '-ka+nkb', 'nka+mkb', 'nka-mkb', 'nkx+mkx2', 'nkx-mkx2', 'nx2+x', 'nx2+mx']
         break
     }
+
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, reponse, n, m, couplenm, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
@@ -68,80 +75,81 @@ export default class FactoriserParNombreOux extends Exercice {
       n = couplenm[0]
       m = couplenm[1]
       n = choice([n, n, -n])
+      const a = this.sup2 ? 'a' : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'])
+      const b = this.sup2 ? 'b' : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'], [a])
+      const x = this.sup2 ? 'x' : choice(['x', 'y', 'z', 'k', 'n', 'a', 'b', 'c'])
+
       switch (listeTypeDeQuestions[i]) {
         case 'ka+nkb':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${k}*a+(${n * k})*b`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${k}*${a}+(${n * k})*${b}`)}$`
           texteCorr = texte
           if (n > 0) {
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}a+${k}\\times${n}b$`
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${a}+${k}\\times${n}${b}$`
           } else {
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}a-${k}\\times${abs(n)}b$`
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${a}-${k}\\times${abs(n)}${b}$`
           }
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${printlatex(`a+(${n})*b`)})$`
-          reponse = `${k}(${printlatex(`a+(${n})*b`)})`
+          reponse = `${k}\\times(${printlatex(`${a}+(${n})*${b}`)})`
           break
         case '-ka+nkb':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${-k}*a+(${n * k})*b`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${-k}*${a}+(${n * k})*${b}`)}$`
           texteCorr = texte
           if (n > 0) {
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}a+${k}\\times${n}b$`
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${printlatex(`-a+${n}*b`)})$`
-            reponse = `${k}(${printlatex(`-a+(${n})*b`)})`
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}${a}+${k}\\times${n}${b}$`
+            reponse = `${k}\\times(${printlatex(`-${a}+(${n})*${b}`)})`
           } else {
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}a+(${-k})\\times${-n}b$`
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}(${printlatex(`a+(${-n})*b`)})$`
-            reponse = `${-k}(${printlatex(`a+(${-n})*b`)})`
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}${a}+(${-k})\\times${-n}${b}$`
+            reponse = `${-k}\\times(${printlatex(`${a}+(${-n})*${b}`)})`
           }
           break
         case 'nka+mkb':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*a+(${m * k})*b`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*${a}+(${m * k})*${b}`)}$`
           texteCorr = texte
           if (n < 0) {
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times(${n}a)+${k}\\times${m}b$`
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times(${n}${a})+${k}\\times${m}${b}$`
           } else {
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${n}a+${k}\\times${m}b$`
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${n}${a}+${k}\\times${m}${b}$`
           }
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}a+${m}b)$`
-          reponse = `${k}(${n}a+${m}b)`
+          reponse = `${k}\\times(${n}${a}+${m}${b})`
           break
         case 'nka-mkb':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*a-(${m * k})*b`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*${a}-(${m * k})*${b}`)}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}a-${k}\\times${m}b$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}a-${m}b)$`
-          reponse = `${k}(${n}a-${m}b)`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}${a}-${k}\\times${m}${b}$`
+          reponse = `${k}\\times(${n}${a}-${m}${b})`
           break
         case 'nkx+mkx2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x+(${m * k})*x^2`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*${x}+(${m * k})*${x}^2`)}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x\\times${ecritureParentheseSiNegatif(n)}+${k}x\\times${m}x$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x(${n}+${m}x)$`
-          reponse = `${k}x(${n}+${m}x)`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${x}\\times${ecritureParentheseSiNegatif(n)}+${k}${x}\\times${m}${x}$`
+          reponse = `${k}${x}\\times(${n}+${m}${x})`
           break
         case 'nkx-mkx2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x-(${m * k})*x^2`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*${x}-(${m * k})*${x}^2`)}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x\\times${ecritureParentheseSiNegatif(n)}-${k}x\\times${m}x$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}x(${n}-${m}x)$`
-          reponse = `${k}x(${n}-${m}x)`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${x}\\times${ecritureParentheseSiNegatif(n)}-${k}${x}\\times${m}${x}$`
+          reponse = `${k}${x}\\times(${n}-${m}${x})`
           break
         case 'nx2+x':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${n}x^2+x$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${n}${x}^2+${x}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times 1$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+1)$`
-          reponse = `x(${n}x+1)`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${x}\\times ${ecritureParentheseSiNegatif(n)}${x}+${x}\\times 1$`
+          reponse = `${x}\\times(${n}${x}+1)`
           break
         case 'nx2+mx':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${n}x^2+${m}x$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${n}${x}^2+${m}${x}$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times ${m}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+${m})$`
-          reponse = `x(${n}x+${m})`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${x}\\times ${ecritureParentheseSiNegatif(n)}${x}+${x}\\times ${m}$`
+          reponse = `${x}\\times(${n}${x}+${m})`
           break
       }
+      // Suppression du signe \times si sup3 est faux
+      if (!this.sup3) reponse = reponse.replace('\\times', '')
+
+      // Affichage de la réponse finale
+      texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${reponse}$`
+
       if (!context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecVariable, { texteAvant: ' $=$' })
         handleAnswers(this, i, { reponse: { value: reponse, options: { factorisation: true } } })
       } else {
         this.autoCorrection[i] = {
@@ -161,7 +169,7 @@ export default class FactoriserParNombreOux extends Exercice {
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
-      if (this.questionJamaisPosee(i, k, n, m)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, k, n, m)) { // Si la question n'${a} jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

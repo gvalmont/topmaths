@@ -202,7 +202,6 @@ export default class PavageEtTranslation2d extends Exercice {
       objets.push(monpavage.polygones[i])
     }
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
-    texte += '<br>'
     if (index1 == null || index2 == null) {
       console.error('index1 ou index2 est null')
       return

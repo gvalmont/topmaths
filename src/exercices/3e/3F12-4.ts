@@ -28,12 +28,12 @@ export const uuid = 'b8946'
 
 export const refs = {
   'fr-fr': ['3F12-4'],
-  'fr-ch': ['11FA7-3', '1F1-3']
+  'fr-ch': ['11FA7-3', '1mF1-3']
 }
 export default class ImageGraphique extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynome du 2nd degré\n3 : Polynome du 3e degré']
+    this.besoinFormulaireNumerique = ['Type de fonction', 3, '1 : Affine\n2 : Polynôme du 2nd degré\n3 : Polynôme du 3e degré']
 
     this.sup = 3
 

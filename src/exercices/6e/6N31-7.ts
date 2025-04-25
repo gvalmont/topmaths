@@ -21,7 +21,8 @@ export const refs = {
 export default class RangerOrdreCroissantDecroissantDecimaux extends RangerOrdreCroissantDecroissant {
   constructor () {
     super()
-    this.sup = 1
+    this.besoinFormulaire2CaseACocher = ['Nombres décimaux', true]
     this.sup2 = true
+    this.sup = 1
   }
 }

@@ -23,7 +23,7 @@ export const dateDePublication = '25/11/2024'
 export const uuid = '5ea23'
 export const refs = {
   'fr-fr': ['1AL23-52'],
-  'fr-ch': ['1F3-3']
+  'fr-ch': ['1mF3-3']
 }
 export default class EtudeParabole extends Exercice {
   constructor () {

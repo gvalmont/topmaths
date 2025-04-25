@@ -26,7 +26,6 @@ export const interactifType = 'qcm'
  * Comparer aires et/ou périmètres de figures avec ceux d'un rectangle référence
  * @author Eric Elter
  */
-
 export const uuid = '95313'
 
 export const refs = {
@@ -66,7 +65,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
     this.besoinFormulaire2Numerique = ['Périmètres et/ou aires', 4, '1 : Que des périmètres\n2 : Que des aires\n3 : Les deux\n4 : L\'un ou l\'autre au hasard des questions']
 
     this.nbQuestions = 3
-
     this.sup = 13
     this.sup2 = 3
   }
@@ -105,7 +103,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
       if (this.sup2 === 4) aireOuPerimetre = choice(['Aire', 'Perimetre'])
       let texte = ''
       let texteCorr = ''
-
       switch (typesDeProblemes[q]) {
         case 1:{ // Polygone inscrit dans rectangle
           const E = A
@@ -131,7 +128,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           objets.push(poly, rect)
           // objets.push(rect)
 
-          texte = mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }, objets)
+          texte = mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }, objets)
           // Correction
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
@@ -162,7 +159,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
           objets.push(poly, rect)
-          texte = mathalea2d({ xmin: min(P.x, R.x) - 0.5, ymin: min(F.y, H.y) - 0.5, xmax: max(J.x, L.x) + 0.5, ymax: max(M.y, O.y) + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }, objets)
+          texte = mathalea2d({ xmin: min(P.x, R.x) - 0.5, ymin: min(F.y, H.y) - 0.5, xmax: max(J.x, L.x) + 0.5, ymax: max(M.y, O.y) + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }, objets)
           // Correction
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
@@ -193,7 +190,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const N = translation(G, vecteur(0, rayonOuCote))
           let O = translation(I, vecteur(-rayonOuCote, 0))
           const P = translation(K, vecteur(0, -rayonOuCote))
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           const choixFig = randint(0, 3)
           let pt1: Point
           let pt2: Point
@@ -292,7 +289,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const N = translation(G, vecteur(0, rayonOuCote))
           const O = translation(I, vecteur(-rayonOuCote, 0))
           const P = translation(K, vecteur(0, -rayonOuCote))
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           const choixFig = randint(0, 3)
           let pt1: Point
           let pt2: Point
@@ -383,7 +380,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const N = translation(G, vecteur(0, rayonOuCote))
           let O = translation(I, vecteur(-rayonOuCote, 0))
           const P = translation(K, vecteur(0, -rayonOuCote))
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           const choixFig = randint(0, 3)
           let pt1: Point
           let pt2: Point
@@ -462,7 +459,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const N = translation(G, vecteur(0, rayonOuCote))
           let O = translation(I, vecteur(-rayonOuCote, 0))
           const P = translation(K, vecteur(0, -rayonOuCote))
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           const choixFig = randint(0, 3)
           let pt1: Point
           let pt2: Point
@@ -531,7 +528,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
           objets.push(poly, rect)
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           texte = mathalea2d(paramsEnonce, objets)
           // Correction
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
@@ -558,7 +555,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5
           objets.push(poly, rect)
-          const paramsEnonce = { xmin: H.x - 0.5, ymin: E.y - 0.5, xmax: F.x + 0.5, ymax: G.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: H.x - 0.5, ymin: E.y - 0.5, xmax: F.x + 0.5, ymax: G.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           texte = mathalea2d(paramsEnonce, objets)
           // Correction
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
@@ -590,7 +587,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const N = translation(G, vecteur(0, rayonOuCote))
           const O = translation(I, vecteur(-rayonOuCote, 0))
           const P = translation(K, vecteur(0, -rayonOuCote))
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           const aleaLongueur = choice([-1, 1])
           const choixFig = randint(0, 3)
           let pt1: Point
@@ -699,7 +696,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const N = translation(G, vecteur(0, rayonOuCote))
           const O = translation(I, vecteur(-rayonOuCote, 0))
           const P = translation(K, vecteur(0, -rayonOuCote))
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           const aleaLongueur = choice([-1, 1])
           const choixFig = randint(0, 3)
           let pt1: Point
@@ -815,7 +812,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const N = translation(G, vecteur(0, rayonOuCote))
           const O = translation(I, vecteur(-rayonOuCote, 0))
           const P = translation(K, vecteur(0, -rayonOuCote))
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           const aleaLongueur = choice([-1, 1])
           const choixFig = randint(0, 3)
           let pt1: Point
@@ -930,7 +927,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const N = translation(G, vecteur(0, rayonOuCote))
           const O = translation(I, vecteur(-rayonOuCote, 0))
           const P = translation(K, vecteur(0, -rayonOuCote))
-          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false, optionsTikz: ['baseline=(current bounding box.north)'] }
           const aleaLongueur = -1
           const choixFig = randint(0, 3)
           let pt1: Point
@@ -1054,7 +1051,6 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
         }
       }
       // Gestion des énoncés
-      texte += '<br>'
       if (this.sup2 === 3) texte += numAlpha(0)
       if (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') {
         texte += `Entre le rectangle hachuré et la figure coloriée, lequel a le plus ${comparePerimetre} périmètre ?`

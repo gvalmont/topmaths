@@ -156,6 +156,10 @@ class PolynomePlusieursVariables {
   // Une méthode pour déterminer la mise en facteur commun
   miseEnFacteurCommun (): MonomePlusieursVariables {
     const monomes = this.monomes
+    if (monomes.length === 0) {
+      return new MonomePlusieursVariables(0, { variables: [], exposants: [] })
+    }
+
     let pgcdMonome = monomes[0]
     for (let i = 1; i < monomes.length; i++) {
       pgcdMonome = pgcdMonome.pgcd(monomes[i])

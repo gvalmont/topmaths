@@ -10,6 +10,8 @@ import Exercice from '../../Exercice'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { getLang } from '../../../lib/stores/languagesStore'
+
 export const titre = 'Utiliser la trigonométrie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +26,7 @@ export const uuid = 'c6b9c'
 
 export const refs = {
   'fr-fr': ['can3G05'],
-  'fr-ch': []
+  'fr-ch': ['1mT-2']
 }
 export default class Trigo extends Exercice {
   constructor () {
@@ -36,6 +38,7 @@ export default class Trigo extends Exercice {
   }
 
   nouvelleVersion () {
+    const lang = getLang()
     this.question = ''
     const listeTriplet = [
       [3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [12, 35, 37], [9, 40, 41], [11, 60, 61]
@@ -56,52 +59,52 @@ export default class Trigo extends Exercice {
     objets.push(pol[0], pol[1])
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //, 'b'
       case 'a':
-        this.question = `Donner la valeur de $\\cos\\widehat{${nom[2]}}$  sous la forme d'une fraction irréductible.<br>
+        this.question = `Donner la valeur de $\\cos${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}$  sous la forme d'une fraction irréductible.<br>
 
         `
         this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : <br>
-        $\\cos\\widehat{${nom[2]}}=\\dfrac{\\text{Côté adjacent à } \\widehat{${nom[2]}}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
+        $\\cos${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}=\\dfrac{\\text{Côté adjacent à } ${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
       <br>`
         this.reponse = `\\dfrac{${b}}{${c}}`
         break
       case 'b':
-        this.question = `Donner la valeur de $\\sin\\widehat{${nom[2]}}$ sous forme d'une fraction irréductible.<br>
+        this.question = `Donner la valeur de $\\sin${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}$ sous forme d'une fraction irréductible.<br>
         `
         this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : <br>
-        $\\sin\\widehat{${nom[2]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[2]}}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
+        $\\sin${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}=\\dfrac{\\text{Côté opposé à } ${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
       <br>`
         this.reponse = `\\dfrac{${a}}{${c}}`
         break
       case 'c':
-        this.question = `Donner la valeur de $\\tan\\widehat{${nom[2]}}$ sous forme d'une fraction irréductible.<br>
+        this.question = `Donner la valeur de $\\tan${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}$ sous forme d'une fraction irréductible.<br>
         `
         this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : <br>
-        $\\tan\\widehat{${nom[2]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[2]}}}{\\text{Côté adjacent à } \\widehat{${nom[2]}}}=\\dfrac{${a}}{${b}}.$
+        $\\tan${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}=\\dfrac{\\text{Côté opposé à } ${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}}{\\text{Côté adjacent à } ${lang === 'fr-CH' ? `\\widehat{${nom[0] + nom[2] + nom[1]}}` : `\\widehat{${nom[2]}}`}}=\\dfrac{${a}}{${b}}.$
       <br>`
         this.reponse = `\\dfrac{${a}}{${b}}`
         break
       case 'd':
-        this.question = `Donner la valeur de  $\\cos\\widehat{${nom[0]}}$ sous forme d'une fraction irréductible.<br>
+        this.question = `Donner la valeur de  $\\cos${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}$ sous forme d'une fraction irréductible.<br>
         `
         this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a : <br>
-        $\\cos\\widehat{${nom[0]}}=\\dfrac{\\text{Côté adjacent à } \\widehat{${nom[0]}}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
+        $\\cos${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}=\\dfrac{\\text{Côté adjacent à } ${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}}{\\text{Hypoténuse}}=\\dfrac{${a}}{${c}}.$
       <br>`
 
         this.reponse = `\\dfrac{${a}}{${c}}`
         break
       case 'e':
-        this.question = `Donner la valeur de $\\sin\\widehat{${nom[0]}}$ sous forme d'une fraction irréductible.<br>
+        this.question = `Donner la valeur de $\\sin${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}$ sous forme d'une fraction irréductible.<br>
         `
         this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[1]}$, on a :<br>
-        $\\sin\\widehat{${nom[0]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[0]}}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
+        $\\sin${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}=\\dfrac{\\text{Côté opposé à } ${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}}{\\text{Hypoténuse}}=\\dfrac{${b}}{${c}}.$
       <br>`
         this.reponse = `\\dfrac{${b}}{${c}}`
         break
       case 'f':
-        this.question = `Donner la valeur de $\\tan\\widehat{${nom[0]}}$ sous forme d'une fraction irréductible.<br>
+        this.question = `Donner la valeur de $\\tan${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}$ sous forme d'une fraction irréductible.<br>
         `
         this.correction = ` Dans le triangle $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[0]}$, on a : <br>
-        $\\tan\\widehat{${nom[0]}}=\\dfrac{\\text{Côté opposé à } \\widehat{${nom[0]}}}{\\text{Côté adjacent à } \\widehat{${nom[0]}}}=\\dfrac{${b}}{${a}}.$
+        $\\tan${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}=\\dfrac{\\text{Côté opposé à } ${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}}{\\text{Côté adjacent à } ${lang === 'fr-CH' ? `\\widehat{${nom[1] + nom[0] + nom[2]}}` : `\\widehat{${nom[0]}}`}}=\\dfrac{${b}}{${a}}.$
       <br>`
         this.reponse = `\\dfrac{${b}}{${a}}`
         break

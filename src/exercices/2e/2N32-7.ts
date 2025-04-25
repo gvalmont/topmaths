@@ -24,7 +24,7 @@ export const uuid = '4771d'
 
 export const refs = {
   'fr-fr': ['2N32-7'],
-  'fr-ch': ['1CN-12']
+  'fr-ch': ['1mCN-12']
 }
 export default class Rendreentier extends Exercice {
   constructor () {

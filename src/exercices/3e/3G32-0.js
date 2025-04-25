@@ -42,7 +42,7 @@ export const uuid = '2045e'
 
 export const refs = {
   'fr-fr': ['3G32-0'],
-  'fr-ch': []
+  'fr-ch': ['1mT-9']
 }
 export default class ProblemesTrigoLongueur extends Exercice {
   constructor () {
@@ -185,7 +185,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           }, objets) //  1O est le max de ordA+1 : ainsi le cadre a toujours proportionnellement la même hauteur, bien que la figure change de hauteur.
           enonceInit = texte
           if (this.sup) {
-            enonceAMC = `<br>${numAlpha(j)}Exprimer $${lB}${lC}$ en fonction de $${lA}${lB}$ et de $${alfa}$.`
+            enonceAMC = `${numAlpha(j)}Exprimer $${lB}${lC}$ en fonction de $${lA}${lB}$ et de $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}${lB}${lC}=$` })
@@ -330,7 +330,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             ymax: max(-sensV, ordA + sensV),
             pixelsParCm: 20,
             scale: 0.5
-          }, objets) + '<br>'
+          }, objets)
           texteCorr += `${numAlpha(j)}Dans le triangle $${lA}${lB}${lC}$ rectangle en $${lB}$ on a : $\\tan(${alfa})=\\dfrac{${lB}${lC}}{${AB}}$ d'où $${lB}${lC}=${AB}\\times \\tan(${alfa})$.<br>`
           j++
           if (this.sup) {
@@ -383,7 +383,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             ymax: 6,
             pixelsParCm: 20,
             scale: 0.5
-          }, objets) + '<br>'
+          }, objets)
           texte += `Quelle est la longueur du $${alpha}$e parallèle Nord au kilomètre près ?`
           texte += `<br>On prendra $${texNombre(6400)}$${sp()}km comme rayon de la Terre.<br>`
           enonceAMC = texte
@@ -394,7 +394,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             ymax: 6,
             pixelsParCm: 20,
             scale: 0.5
-          }, objets) + '<br>'
+          }, objets)
           texteCorr += `Considérons que le $${alpha}$e parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la Terre.<br>`
           texteCorr += 'Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>'
           texteCorr += 'Dans le triangle $OPH$ rectangle en $H$, $\\cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d\'où $HP=OP\\times \\cos(\\widehat{OPH})$.<br>'
@@ -479,7 +479,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               pixelsParCm: 20,
               scale: 0.5
             }, objets)
-            texte += `<br>${numAlpha(j)}Calculer d'abord $${baita}$, arrondie au centième près.`
+            texte += `${numAlpha(j)}Calculer d'abord $${baita}$, arrondie au centième près.`
             enonceAMC = texte
             texte = enonceInit + texte
             if (this.interactif) {
@@ -640,7 +640,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             pixelsParCm: 20,
             scale: 0.5
           }, objets)
-          texteCorr += this.sup ? `<br>${numAlpha(j)}` : '<br>'
+          texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `Dans le triangle $${lC}${lR}${lB}$ rectangle en $${lR}$, $\\tan(${baita})=\\dfrac{${lR}${lB}}{${lC}${lR}}$.<br>D'où $${baita}=\\arctan(\\dfrac{${texNombre(hauteur)}}{${texNombre(distance)}})\\approx ${texNombre(beta, 2)}^\\circ$.<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
@@ -692,7 +692,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               pixelsParCm: 20,
               scale: 0.5
             }, objets)
-            enonceAMC += `<br>${numAlpha(j)}Exprimer $h$ en fonction de $${lS}${lC}$ et $${baita}$ puis en fonction de $${lB}${lC}$ et $${alfa}$.`
+            enonceAMC += `${numAlpha(j)}Exprimer $h$ en fonction de $${lS}${lC}$ et $${baita}$ puis en fonction de $${lB}${lC}$ et $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}h=$` })
@@ -894,7 +894,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             scale: 0.5
           }, objets)
           j = 0
-          texteCorr += this.sup ? `<br>${numAlpha(j)}` : '<br>'
+          texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `Dans le triangle $${lS}${lC}${lA}$ rectangle en $${lC}$, $\\tan(${baita})=\\dfrac{h}{${lS}${lC}}$.<br>D'où $h=${lS}${lC}\\times \\tan(${baita})$.<br>`
           texteCorr += `Dans le triangle $${lB}${lC}${lA}$ rectangle en $${lC}$, $\\tan(${alfa})=\\dfrac{h}{${lB}${lC}}$.<br>D'où $h=${lB}${lC}\\times \\tan(${alfa})$.<br>`
           j++
@@ -956,7 +956,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           enonceInit = texte
           if (this.sup) {
             enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{${lC}${lA}${lS}}$ en fonction de $${baita}$.`
-            texte += '<br>' + enonceAMC
+            texte += enonceAMC
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}\\widehat{CAS}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -979,7 +979,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               iiAMC++
             }
             enonceAMC = `${numAlpha(j + 1)}Exprimer la mesure de l'angle $\\widehat{${lB}${lA}${lS}}$ en fonction de $${alfa}$.`
-            texte += '<br>' + enonceAMC
+            texte += enonceAMC
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}\\widehat{${lB}${lA}${lS}}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -1004,7 +1004,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             j += 2
           }
           enonceAMC = `${numAlpha(j)}Montrer que $\\widehat{${lC}${lA}${lH}}=${baita}-${alfa}$.`
-          texte += '<br>' + enonceAMC
+          texte += enonceAMC
           if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
@@ -1026,7 +1026,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           } else {
             enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lA}$ en fonction de $${lH}$.`
           }
-          texte += '<br>' + enonceAMC
+          texte += enonceAMC
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}CA=$` })
             setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -1055,7 +1055,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           } else {
             enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lH}$ en fonction de $${lB}${lC}$.`
           }
-          texte += '<br>' + enonceAMC
+          texte += enonceAMC
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}${lC}${lH}=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
@@ -1086,7 +1086,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           } else {
             enonceAMC = `${numAlpha(j)}En déduire $h$ en fonction de $${lB}${lC}$.`
           }
-          texte += '<br>' + enonceAMC
+          texte += enonceAMC
           enonceAMC += this.sup ? '<br>' : ''
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', { texteAvant: `$${sp(20)}h=$` })
@@ -1237,7 +1237,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           }
           texte = `$${A.nom + E.nom} = ${AE}~\\text{cm}$, $${A.nom + D.nom} = ${AD}~\\text{cm}$ et $${A.nom + C.nom} = ${AC}~\\text{cm}$.`
           texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-          texte += `<br>Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée au millimètre près.`
+          texte += `Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée au millimètre près.`
           enonceAMC = texte + '<br>'
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, '  unites[longueurs]')

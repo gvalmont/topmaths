@@ -564,12 +564,12 @@ class resolutionEquationInequationGraphique extends Exercice {
       }
     }
     if (this.sup !== 1) {
-      enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $\\left[${texNombre(xMin - 0.5, 1)};${texNombre(xMax + 1.5, 1)}\\right]$.<br>`
+      enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $\\left[${texNombre(xMin, 1)};${texNombre(xMax + 1, 1)}\\right]$.<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
         enonce += `L'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>'
       }
-      const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin - 0.5, xMax + 1.5)
+      const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMax + 1)
 
       handleAnswers(this, indexQuestion, {
         reponse: {
@@ -578,7 +578,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         }
       })
 
-      texteCorr += `Pour trouver l'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] , on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, 'blue')}$ est située ${inferieur ? 'en dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
+      texteCorr += `Pour trouver l'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $[${xMin};${xMax + 1}]$ , on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, 'blue')}$ est située ${inferieur ? 'en dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
       texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$`
     }
     /*  this.figureApiGeom.setToolbar({ tools: ['DRAG'], position: 'top' })
@@ -642,7 +642,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     trait1.epaisseur = 2
     trait2.epaisseur = 2
     const courbes = [courbe1, courbe2, trait1, trait2, nomCourbe1, nomCourbe2]
-    this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...(repere.objets ?? []), ...courbes])), repere.objets ?? [], ...courbes)]
+    this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...(repere.objets ?? [])])), repere.objets ?? [], ...courbes)]
     // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
     const textCorrSplit = texteCorr.split(':')
     let aRemplacer = textCorrSplit[textCorrSplit.length - 1]

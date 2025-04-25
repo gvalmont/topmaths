@@ -108,9 +108,9 @@ class NombrePeriodique {
     Cela implique que <br><br>
     $\\begin{aligned}
     ${this.toString()}&=${texNombre(nbDecimal, 6)}:${10 ** this.periode.toString().length - 1}\\\\
-    &=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFraction} \\quad \\text{on est passé à une écriture fractionnaire}\\\\
-    &=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFractionSimplifiee} \\quad \\text{on simplifie la fraction si nécessaire}
-    \\end{aligned}$.<br><br>
+    &=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFraction} \\quad \\text{on est passé à une écriture fractionnaire}
+    ${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).estIrreductible ? '.' : `\\\\&=${nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFractionSimplifiee} \\quad \\text{on simplifie la fraction.}`}
+    \\end{aligned}$<br><br>
     Ainsi, $${this.toString()}=${miseEnEvidence(nbSansPeriode.entierDivise(10 ** this.periode.toString().length - 1).texFractionSimplifiee)}$.`
     } else {
       procedure += '<br>On a donc les deux membres de droite qui sont égaux.'

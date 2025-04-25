@@ -6,7 +6,7 @@ export const dateDeModifImportante = '29/10/2021'
 export const uuid = 'd5a6d'
 export const refs = {
   'fr-fr': ['2N20-2'],
-  'fr-ch': ['1CN-1']
+  'fr-ch': ['1mCN-1']
 }
 export default class TableauCritereDeDivisibilite2nde extends TableauCriteresDeDivisibilite {
   constructor () {

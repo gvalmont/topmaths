@@ -16,7 +16,7 @@ export const uuid = 'd9495'
 
 export const refs = {
   'fr-fr': ['2N32-3'],
-  'fr-ch': ['11NO1-6', '1CN-8']
+  'fr-ch': ['11NO1-6', '1mCN-8']
 }
 export default class ExtraireUnCarreParfaitDUneRacineCarree extends Exercice {
   constructor () {

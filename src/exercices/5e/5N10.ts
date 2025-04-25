@@ -22,7 +22,7 @@ export const uuid = '91d72'
 
 export const refs = {
   'fr-fr': ['5N10', 'BP2AutoC1'],
-  'fr-ch': ['9NO10-2', '1CN-3']
+  'fr-ch': ['9NO10-2', '1mCN-3']
 }
 export default class PasserEcritureDecimaleEcritureFractionnaireInversement extends Exercice {
   constructor () {

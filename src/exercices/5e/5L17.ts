@@ -17,7 +17,7 @@ export const dateDePublication = '28/05/2024'
 export const uuid = '01387'
 export const refs = {
   'fr-fr': ['5L17'],
-  'fr-ch': ['1F1-1']
+  'fr-ch': ['1mF1-1']
 }
 export default class TraduireDependanceGrandeursTableau extends Exercice {
   constructor () {

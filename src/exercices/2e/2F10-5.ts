@@ -76,6 +76,7 @@ export default class Signefonctionaffine extends Exercice {
       [10, 3]
     ]
     let typesDeQuestionsDisponibles: number[] = []
+    const valeursDeB = combinaisonListes([-3, -2, -1, 0, 1, 2, 3], this.nbQuestions)
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // coef de x = 1
     } else if (this.sup === 2) {
@@ -85,6 +86,7 @@ export default class Signefonctionaffine extends Exercice {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const b = valeursDeB[i]
       let texte = ''
       let texteCorr = ''
       const typesDeQuestions = listeTypeDeQuestions[i]
@@ -93,7 +95,6 @@ export default class Signefonctionaffine extends Exercice {
         case 1: {
           const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           const a = randint(1, 5) * choice([-1, 1])
-          const b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
           const zero = new FractionEtendue(-b, a).simplifie()
           texte = `Dresser le tableau de signes de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$.`
           if (context.isHtml) { texteCorr = `${texteEnCouleurEtGras('Dans cet exercice, deux corrections différentes sont proposées.')}<br>` } else { texteCorr = '' }
@@ -180,7 +181,6 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
 
         case 2: {
           const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
-          const b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
           const fraction = choice(listeFractions)
           const ns = fraction[0] * choice([-1, 1])
           const ds = fraction[1]

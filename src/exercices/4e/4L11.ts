@@ -1,5 +1,6 @@
 import FactoriserParNombreOux from '../3e/3L11-4'
-export const titre = 'Factoriser une expression littérale'
+export const titre = 'Factoriser une expression littérale (Niveau 2)'
+export const dateDeModifImportante = '20/04/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -12,7 +13,7 @@ export const refs = {
 export default class Factoriser4e extends FactoriserParNombreOux {
   constructor () {
     super()
-    this.sup = 4
+    this.sup3 = true
     this.nbQuestions = 8
   }
 }

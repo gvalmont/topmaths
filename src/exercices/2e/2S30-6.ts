@@ -177,7 +177,7 @@ export default class ProbaUnionInter extends Exercice {
           reponse = texNombre(pAunionB, 2)
           texte = `Voici un tableau d'effectifs concernant deux événements $A$ et $B$ :  <br>
             ${tableau}
-              <br>
+              
                 Calculer $P(A\\cup B)$.`
           texteCorr = `On sait que $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.<br><br>
                <br>$\\begin{aligned} 

@@ -14,7 +14,7 @@ export const titre = 'Calculer  une probabilité avec un arbre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '29/03/2025'
+export const dateDePublication = '15/04/2025'
 
 /**
  *
@@ -78,14 +78,14 @@ export default class CalculerProbaArbre extends Exercice {
       pAsachantBb = pAinterBb.diviseFraction(pBb)
       pAbsachantB = pAbinterB.diviseFraction(pB)
       pAbsachantBb = pAbinterBb.diviseFraction(pBb)
-      texteProbaTotaleB = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers, d'après la formule des probabilités totales  : <br>
+      texteProbaTotaleB = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers. Donc,  d'après la formule des probabilités totales  : <br>
                 $\\begin{aligned}
                 P(${ev[1]})&=P(${ev[0]}\\cap ${ev[1]})+P(\\overline{${ev[0]}}\\cap ${ev[1]})\\\\
                 &=P(${ev[0]})\\times P_{${ev[0]}}(${ev[1]})+P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(${ev[1]})\\\\
                 &=${this.sup2 === true ? `${texProba(pA)}\\times ${texProba(pBsachantA)}` : `${texNombre(pA.valeurDecimale)}\\times ${texNombre(pBsachantA.valeurDecimale, 2)}`}+${this.sup2 === true ? `${texProba(pAb)}\\times ${texProba(pBsachantAb)}` : `${texNombre(pAb.valeurDecimale)}\\times ${texNombre(pBsachantAb.valeurDecimale, 2)}`}\\\\
                 &=${this.sup2 === true ? `${pB.simplifie().texFraction}` : `${texNombre(pB.valeurDecimale, 4)}`}
                 \\end{aligned}$<br>`
-      texteProbaTotaleBb = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers, d'après la formule des probabilités totales  : <br>
+      texteProbaTotaleBb = `$${ev[0]}$ et $\\overline{${ev[0]}}$ forment une partition de l'univers. Donc,  d'après la formule des probabilités totales  : <br>
                 $\\begin{aligned}
                 P(\\overline{${ev[1]}})&=P(${ev[0]}\\cap \\overline{${ev[1]}})+P(\\overline{${ev[0]}}\\cap \\overline{${ev[1]}})\\\\
                 &=P(${ev[0]})\\times P_{${ev[0]}}(\\overline{${ev[1]}})+P(\\overline{${ev[0]}})\\times P_{\\overline{${ev[0]}}}(\\overline{${ev[1]}})\\\\
@@ -211,7 +211,7 @@ export default class CalculerProbaArbre extends Exercice {
               reponse = pB.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = texteProbaTotaleB
-              texteCorr += `Ainsi, ${this.sup2 === true ? `$P(${ev[1]})=${miseEnEvidence(`${pB.simplifie().texFraction}`)}$` : `$P(${ev[1]})=${miseEnEvidence(`${texNombre(pB.valeurDecimale, 4)}`)}`}$`
+              texteCorr += `Ainsi, ${this.sup2 === true ? `$P(${ev[1]})=${miseEnEvidence(`${pB.simplifie().texFraction}`)}$.` : `$P(${ev[1]})=${miseEnEvidence(`${texNombre(pB.valeurDecimale, 4)}`)}`}$.`
               break
             case 2 :
             default:
@@ -220,7 +220,7 @@ export default class CalculerProbaArbre extends Exercice {
               reponse = pBb.texFraction
               handleAnswers(this, i, { reponse: { value: reponse } })
               texteCorr = texteProbaTotaleBb
-              texteCorr += `Ainsi, ${this.sup2 === true ? `$P(\\overline{${ev[1]}})=${miseEnEvidence(`${pBb.simplifie().texFraction}`)}$` : `$P(\\overline{${ev[1]}})=${miseEnEvidence(`${texNombre(pBb.valeurDecimale, 4)}`)}$`}`
+              texteCorr += `Ainsi, ${this.sup2 === true ? `$P(\\overline{${ev[1]}})=${miseEnEvidence(`${pBb.simplifie().texFraction}`)}$.` : `$P(\\overline{${ev[1]}})=${miseEnEvidence(`${texNombre(pBb.valeurDecimale, 4)}`)}$.`}`
 
               break
           }

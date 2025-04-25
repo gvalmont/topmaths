@@ -145,9 +145,9 @@ class ReperageEntiersOuDecimaux extends Exercice {
         ? randint(0, 4) * pasPrincipal +
           (randint(1, subdivision - 1) * pasPrincipal) / subdivision
         : Math.min(
-            premiereGraduation + randint(0, 5) * pasPrincipal + ((randint(1, subdivision - 1) + subdivisionsAvantPrincipale) * pasPrincipal) / subdivision,
-            premiereGraduation + pasPrincipal * (5 + (subdivision - 1) / subdivision)
-          )
+          premiereGraduation + randint(0, 5) * pasPrincipal + ((randint(1, subdivision - 1) + subdivisionsAvantPrincipale) * pasPrincipal) / subdivision,
+          premiereGraduation + pasPrincipal * (5 + (subdivision - 1) / subdivision)
+        )
       // fabrication de la droite graduée (faudra peut-être factoriser ça dans un objetMathalea2d() on verra)
 
       const A = point(0, 0)

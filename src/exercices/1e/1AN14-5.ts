@@ -32,7 +32,7 @@ type TypeDeFonction = 'monome2' | 'inv' | 'racine' | 'poly1' | 'poly2centre' | '
 export default class DeriveeProduit extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['types de fonctions :', 'Nombres séparés par des tirets\n1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynome\n4 : racine et polynome degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
+    this.besoinFormulaireTexte = ['types de fonctions :', 'Nombres séparés par des tirets\n1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynôme\n4 : racine et polynôme degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
 
     this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
     this.nbQuestions = 3

@@ -274,7 +274,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
               }, objets)
               texte += context.isHtml ? '? $=$' : ''
               texteCorr = `
-               ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}°$.`
+               ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}^\\circ$.`
             } else {
               objets.push(texteParPosition('?', -0.15, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
                 texteParPosition(`${stringNombre(ang1)}°`, 1, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7))
@@ -293,7 +293,7 @@ export default class SujetCAN2023Quatrieme extends Exercice {
                 style: 'margin: auto'
               }, objets)
               texte += context.isHtml ? '? $=$' : ''
-              texteCorr = `?$=${ang1}-90=${miseEnEvidence(ang1 - 90)}°$.  `
+              texteCorr = `?$=${ang1}-90=${miseEnEvidence(ang1 - 90)}^\\circ$.  `
             }
           }
 
@@ -578,13 +578,13 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             reponse = 5
             texte = 'Le nombre de faces de ce solide est : <br>'
 
-            texte += '<br>' + mathalea2d({
+            texte += mathalea2d({
               xmin: -1.5,
               ymin: -1.2,
               xmax: 7.1,
               ymax: 4.2,
               scale: 0.4
-            }, poly1, s1, poly2, poly3) + '<br>'
+            }, poly1, s1, poly2, poly3)
             texteCorr = `Ce solide a $${miseEnEvidence(5)}$ faces.`
           } else {
             A = point(0, 0, 'A', 'above')
@@ -603,13 +603,13 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             reponse = 4
             texte = 'Le nombre de faces de ce solide est : <br>'
 
-            texte += '<br>' + mathalea2d({
+            texte += mathalea2d({
               xmin: -1.5,
               ymin: -0.5,
               xmax: 7.1,
               ymax: 4.5,
               scale: 0.5
-            }, poly1, s1, s2, s3) + '<br>'
+            }, poly1, s1, s2, s3)
             texteCorr = `Ce solide a $${miseEnEvidence(4)}$ faces.`
           }
 

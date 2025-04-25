@@ -59,7 +59,7 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
       'Croissance',
       'Nombres séparés par des tirets\n1 : Croissant\n2 : Décroissant\n3 : Mélange'
     ]
-    this.besoinFormulaire2CaseACocher = ['Nombres décimaux']
+    // this.besoinFormulaire2CaseACocher = ['Nombres décimaux']
   }
 
   nouvelleVersion () {

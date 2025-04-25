@@ -352,8 +352,8 @@ export default class RepresenterUnSolide extends Exercice {
       correction += mathalea2d(params, objetsCorrection)
       if (this.questionJamaisPosee(i, A.x, A.y, B.x, B.y, C.x, C.y, D.x, D.y, E.x, E.y)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = enonce + '<br>'
-        this.listeCorrections[i] = correction + '<br>'
+        this.listeQuestions[i] = enonce ?? ''
+        this.listeCorrections[i] = correction
         // Pour AMC question AmcOpen
         this.autoCorrection[i] = { enonce, propositions: [{ texte: correction, statut: 3, feedback: '', sanscadre: true }] }
         i++

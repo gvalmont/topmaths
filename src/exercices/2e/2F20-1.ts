@@ -32,7 +32,7 @@ export default class PointSurCourbe extends Exercice {
     this.besoinFormulaireNumerique = [
       'Choix des questions',
       4,
-      '1 : Fonction affine\n2 : Polynome de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
+      '1 : Fonction affine\n2 : Polynôme de degré 2 \n3 : Fonction a/x+b \n4 : Mélange'
     ]
     this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Abscisse du point A entière\n2 : Abscisse du point A fractionnaire\n3 : Mélange']
 

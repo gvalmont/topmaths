@@ -17,7 +17,7 @@ export const dateDePublication = '14/03/2025'
 export const uuid = '6ea62'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': ['1F1-12']
+  'fr-ch': ['1mF1-12']
 }
 export default class DomaineDeDefinition extends Exercice {
   constructor () {

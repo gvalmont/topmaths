@@ -76,7 +76,7 @@ export default class ExerciceAmeriqueNord392024 extends ExerciceBrevetA {
     rep.yLabelEcart = 1
     rep.xLabelEcart = 1
     const objets = [rep.buildCustom(), d1, d2, d3, n1, n2, n3, legendY, legendX]
-    const figure = mathalea2d(Object.assign({ pixelsParCm: 15, scale: 0.35 }, fixeBordures(objets)), objets) + ' <br>'
+    const figure = mathalea2d(Object.assign({ pixelsParCm: 15, scale: 0.35 }, fixeBordures(objets)), objets)
     const lectureA = lectureAntecedent((prixEssentiel - essentielAbo) / essentielUnitaire, prixEssentiel / 10, 1, 1, 'purple', prixEssentiel % 50 === 0 ? '' : String(prixEssentiel), '')
     const libInt = (liberteAbo - essentielAbo) / essentielUnitaire
     const entreeMax = Math.floor(budgetMax / classique) > Math.floor((budgetMax - essentielAbo) / essentielUnitaire)

@@ -9,7 +9,7 @@ import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { noteLaCouleur, Plateau2dNLC, testInstruction, testSequence } from '../../../modules/noteLaCouleur'
+import { noteLaCouleur, Plateau2dNLC, testInstruction, testSequence, traducNum } from '../../../modules/noteLaCouleur'
 import {
   allerA,
   angleScratchTo2d,
@@ -272,7 +272,7 @@ export default class CanNoteLaCouleur6 extends Exercice {
                     : ''} ${mathalea2d(paramsCorrection, objetsEnonce)}`
       }
       texteCorr = 'On obtient la couleur suivante :<br> '
-      texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
+      texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + traducNum(couleurs[0] as 'Blanc' | 'Noir' | 'Jaune' | 'Bleu' | 'Vert' | 'Orange' | 'Rouge' | 'Gris' | 'Rose') + ')' + couleurs[0] : couleurs[0])} `
       setReponse(this, q, [couleurs[0], couleurs[0].toLowerCase()], { formatInteractif: 'texte' })
       lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>

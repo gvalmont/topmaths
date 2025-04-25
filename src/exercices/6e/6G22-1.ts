@@ -105,7 +105,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           case 'nom':
             questionReponse =
           {
-            question: (context.isAmc ? '' : ((ee !== 0 ? '<br>' : '') + (listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$${nomDirectCorrect}$ est :`,
+            question: (context.isAmc ? '' : ((listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$${nomDirectCorrect}$ est :`,
             propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
             reponses: ['le nom de l\'angle'],
             explications: `C'est l'angle de sommet $${B.nom}$, formé par les demi-droites $[${B.nom}${A.nom})$ et $[${B.nom}${C.nom})$.`
@@ -114,7 +114,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           case 'sommet':
             questionReponse =
           {
-            question: (context.isAmc ? '' : ((ee !== 0 ? '<br>' : '') + (listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$${B.nom}$ est :`,
+            question: (context.isAmc ? '' : ((listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$${B.nom}$ est :`,
             propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
             reponses: ['le sommet'],
             explications: 'Le sommet de l\'angle est l\'origine commune des demi-droites qui le forment.'
@@ -124,7 +124,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           case 'cote':
             questionReponse =
           {
-            question: (context.isAmc ? '' : ((ee !== 0 ? '<br>' : '') + (listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$[${B.nom}${C.nom})$ est :`,
+            question: (context.isAmc ? '' : ((listeTypeQuestions.length === 1 ? '' : numAlpha(ee)))) + `$[${B.nom}${C.nom})$ est :`,
             propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
             reponses: ['un côté'],
             explications: 'Les côtés sont les demi-droites qui forment l\'angle.'
@@ -151,7 +151,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
             }
             questionReponse =
             {
-              question: context.isAmc ? question : ((ee !== 0 ? '<br>' : '') + (listeTypeQuestions.length === 1 ? '' : numAlpha(ee)) + question),
+              question: context.isAmc ? question : ((listeTypeQuestions.length === 1 ? '' : numAlpha(ee)) + question),
               propositions: ['le sommet', 'un côté', 'le nom de l\'angle', 'rien de cela'],
               reponses: ['rien de cela'],
               explications
@@ -180,7 +180,6 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
           }
 
           const monQcm = propositionsQcm(this, ee + i * listeTypeQuestions.length)
-          texteQuestion += '<br>'
           texteQuestion += questionReponse.question + '<br>'
           texteQuestion += monQcm.texte
           texteCorrQuestion += questionReponse.question + '<br>'

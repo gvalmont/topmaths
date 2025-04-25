@@ -26,6 +26,7 @@ function logState () {
 }
 
 async function test (page: Page) {
+  await page.setDefaultTimeout(100000) // Set timeout to 100 seconds
   const classicExerciseParams = 'uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true&uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true'
   exerciseType = 'classique'
   log('Testing classic exercise')

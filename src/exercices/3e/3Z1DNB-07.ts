@@ -19,7 +19,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = 'fb6e2'
 export const refs = {
   'fr-fr': ['3Z1DNB-07'],
-  'fr-ch': []
+  'fr-ch': ['1mT-8']
 }
 export const titre = 'Préparation DNB : Pythagore, Thales, trigonométrie'
 export const dateDePublication = '06/04/2025'

@@ -200,52 +200,52 @@
   "1-ES3": {
     "titre": "Transformations du plan"
   },
-  "1CL1": {
+  "1mCL1": {
     "titre": "Généralités"
   },
-  "1CL2": {
+  "1mCL2": {
     "titre": "Factorisation"
   },
-  "1CL3": {
+  "1mCL3": {
     "titre": "Équations du premier degré"
   },
-  "1CL4": {
+  "1mCL4": {
     "titre": "Equations du second degré"
   },
-  "1CL5": {
+  "1mCL5": {
     "titre": "Systèmes d'équations"
   },
-  "1E": {
+  "1mE": {
     "titre": "Ensembles et intervalles"
   },
-  "1CN": {
+  "1mCN": {
     "titre": "Rappels de calcul numérique"
   },
-  "1F1": {
+  "1mF1": {
     "titre": "Fonctions, généralités"
   },
-  "1F2": {
+  "1mF2": {
     "titre": "Fonctions affines et droites"
   },
-  "1F3": {
+  "1mF3": {
     "titre": "Fonctions quadratiques et paraboles"
   },
-  "1F4": {
+  "1mF4": {
     "titre": "Fonctions racine, inverse, cubique"
   },
-  "1G1": {
+  "1mG1": {
     "titre": "Les angles"
   },
-  "1G2": {
+  "1mG2": {
     "titre": "Théorème de Pythagore"
   },
-  "1G3": {
+  "1mG3": {
     "titre": "Théorème de Thalès"
   },
-  "1G4": {
+  "1mG4": {
     "titre": "Cercle"
   },
-  "1T": {
-    "titre": "Trigonométrie"
+  "1mT": {
+    "titre": "Trigonométrie dans le triangle rectangle"
   }
 }

@@ -357,7 +357,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             scale: 1.2,
             style: 'margin: auto'
           }, objets)
-          texte += '<br>? $=$'
+          texte += '? $=$'
           texteCorr = `Les longueurs de la figure $B$ sont le double de celles de la figure $A$.<br>
           Ainsi, ?$=2\\times ${texNombre(a, 1)}\\text{ cm}= ${miseEnEvidence(texNombre(reponse, 1))}$ cm.
                   `
@@ -844,7 +844,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           texteCorr = `L'aire du rectangle $ABCD$ est : $${b}\\text{ cm}\\times ${c}\\text{ cm}=${b * c}$ cm$^2$.<br>
           L'aire du triangle $AED$ est : $\\dfrac{${a}\\text{ cm}\\times ${b}\\text{ cm}}{2}=${texNombre(f, 1)}$ cm$^2$.<br>
           On en déduit que l'aire du polygone grisé est : $${b * c}\\text{ cm}^2-${texNombre(f, 1)}\\text{ cm}^2=${miseEnEvidence(texNombre(reponse, 1))}$ cm$^2$.`
-          texte += '<br> Aire $= $'
+          texte += ' Aire $= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: ' cm$^2$' })

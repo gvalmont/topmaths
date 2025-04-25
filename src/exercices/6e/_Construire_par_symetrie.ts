@@ -691,8 +691,8 @@ export default class ConstruireParSymetrie extends Exercice {
 
       if (this.questionJamaisPosee(i, Xmin, Xmax, Ymin, Ymax)) {
       // Si la question n'a jamais été posée, on en créé une autre
-        this.listeQuestions[i] = enonce + '<br>'
-        this.listeCorrections[i] = correction + '<br>'
+        this.listeQuestions[i] = enonce
+        this.listeCorrections[i] = correction
         i++
       }
       cpt++

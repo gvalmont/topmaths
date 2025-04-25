@@ -15,6 +15,7 @@ export const refs = {
   'fr-fr': ['6M12'],
   'fr-ch': ['9GM2-1']
 }
+
 export default class Reglages6M12 extends ExerciceConversionsLongueurs {
   constructor () {
     super()

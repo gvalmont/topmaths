@@ -79,7 +79,7 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const objets = [labels, C, nomCercle, ABD, segEF]
     const ppcm = 40 * 4.5 / rayon
     const sc = 4.5 / rayon
-    const figure = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets)), objets) + ' <br>'
+    const figure = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets)), objets)
     // enoncé
     const enonce = `Sur la figure ci-dessous, on a :<br>
   ${createList({

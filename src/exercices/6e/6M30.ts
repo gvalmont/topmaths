@@ -71,11 +71,11 @@ export default class CalculDeVolumes extends Exercice {
         thissup4Max = 4
         break
       case 4:
-        thissup4Max = 6
+        thissup4Max = 8
         break
       case 3:
       default:
-        thissup4Max = 7
+        thissup4Max = 9
         break
     }
 
@@ -327,8 +327,7 @@ export default class CalculDeVolumes extends Exercice {
           resultat3 = volume.mul(3).div(4).round()
           resultat4 = volume.div(2).round()
           break
-        case 7: // boule
-        default:
+        case 9 : // boule
           j = randint(0, 3) // pour le choix de l'unité
           r = randint(2, 10)
           volume = new Decimal(r).pow(3).mul(4).mul(Decimal.acos(-1)).div(3)
@@ -341,6 +340,123 @@ export default class CalculDeVolumes extends Exercice {
           resultat3 = volume.mul(3).div(4).round()
           resultat4 = volume.div(2).round()
           break
+          // Ajout d'un nouveau cas (8) pour les pyramides à base triangulaire
+          // À insérer dans le switch case après le cas 7 (boule)
+
+        case 7 : // pyramide à base triangulaire rectangle
+        {
+          let a, b
+          if (this.sup === 1) {
+            // sans conversion
+            j = randint(0, 3) // pour le choix de l'unité
+            // Dimensions du triangle rectangle de base
+            a = partieDecimale1.plus(randint(2, 10)) // premier côté de l'angle droit
+            b = partieDecimale2.plus(randint(2, 10)) // deuxième côté de l'angle droit
+            h = randint(2, 8) // hauteur de la pyramide
+
+            // Calcul du volume : (1/3) × (aire de la base) × hauteur
+            // Aire de la base triangulaire : (a × b) / 2
+            volume = a.mul(b).mul(h).div(6) // (1/3) × (a×b/2) × h = (a×b×h)/6
+
+            texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
+            texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
+            texte += ` d'une pyramide de hauteur $${h}${listeUnites[j][0]}$ et dont la base est un triangle rectangle dont les côtés de l'angle droit mesurent respectivement $${texNombre(a, 1)}${listeUnites[j][0]}$ et $${texNombre(b, 1)}${listeUnites[j][0]}$.`
+
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\dfrac{${texNombre(a, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]} \\times ${texNombre(b, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}`
+            texteCorr += `=\\dfrac{${texNombre(a, 1)} \\times ${texNombre(b, 1)} \\times ${h}}{6}${listeUnites[j][1]}`
+
+            if (volume.eq(volume.round())) {
+              texteCorr += `=${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
+            } else {
+              texteCorr += `\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
+            }
+          } else {
+            // avec conversion
+            j = randint(1, 2) // pour le choix de l'unité
+            a = partieDecimale1.plus(randint(2, 8)) // premier côté de l'angle droit
+            b = partieDecimale2.plus(randint(2, 8)) // deuxième côté de l'angle droit
+            h = randint(30, 50) // hauteur de la pyramide en unité inférieure
+
+            volume = a.mul(b).mul(h).div(6) // (1/3) × (a×b/2) × h = (a×b×h)/6
+
+            texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
+            texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
+            texte += ` d'une pyramide de hauteur $${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}$ et dont la base est un triangle rectangle de côtés $${texNombre(a, 1)}${listeUnites[j][0]}$ et $${texNombre(b, 1)}${listeUnites[j][0]}$.`
+
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\dfrac{${texNombre(a, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]} \\times ${texNombre(b, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}`
+            texteCorr += `=\\dfrac{1}{3}\\times\\dfrac{${texNombre(a.mul(b), 2)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}^2}{2}\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}`
+
+            if (volume.eq(volume.round())) {
+              texteCorr += `=${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
+            } else {
+              texteCorr += `\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
+            }
+          }
+
+          resultat = volume.round()
+          resultat2 = volume.mul(3).round() // erreur commune : oublier de diviser par 3
+          resultat3 = a.mul(b).mul(h).div(3).round() // erreur commune : calculer le volume du prisme
+          resultat4 = volume.div(2).round() // autre erreur possible
+          break
+        }
+        case 8 : // pyramide à base triangulaire quelconque
+        default :
+        {
+          let coteBase
+          let hauteurBase
+          if (this.sup === 1) {
+            // sans conversion
+            j = randint(0, 3) // pour le choix de l'unité
+            // Dimensions du triangle quelconque de base
+            coteBase = partieDecimale1.plus(randint(3, 12)) // côté du triangle
+            hauteurBase = partieDecimale2.plus(randint(2, 8)) // hauteur relative à ce côté
+            h = randint(2, 8) // hauteur de la pyramide
+
+            // Calcul du volume : (1/3) × (aire de la base) × hauteur
+            // Aire de la base triangulaire : (côté × hauteur) / 2
+            volume = coteBase.mul(hauteurBase).mul(h).div(6) // (1/3) × (côté×hauteur/2) × h = (côté×hauteur×h)/6
+
+            texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
+            texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
+            texte += ` d'une pyramide de hauteur $${h}${listeUnites[j][0]}$ et dont la base est un triangle. La base du triangle mesure $${texNombre(coteBase, 1)}${listeUnites[j][0]}$ et la hauteur associée à cette base mesure $${texNombre(hauteurBase, 1)}${listeUnites[j][0]}$.`
+
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\dfrac{${texNombre(coteBase, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]} \\times ${texNombre(hauteurBase, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}`
+            texteCorr += `=\\dfrac{${texNombre(coteBase, 1)} \\times ${texNombre(hauteurBase, 1)} \\times ${h}}{6}${listeUnites[j][1]}`
+
+            if (volume.eq(volume.round())) {
+              texteCorr += `=${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
+            } else {
+              texteCorr += `\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
+            }
+          } else {
+            // avec conversion
+            j = randint(1, 2) // pour le choix de l'unité
+            coteBase = partieDecimale1.plus(randint(3, 12)) // côté du triangle
+            hauteurBase = randint(30, 50) // hauteur relative à ce côté (en unité inférieure)
+            h = new Decimal(randint(3, 15)).div(10) // hauteur de la pyramide (en unité supérieure)
+
+            volume = coteBase.mul(hauteurBase).mul(h.mul(10)).div(6) // (1/3) × (côté×hauteur/2) × h = (côté×hauteur×h)/6
+
+            texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
+            texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
+            texte += ` d'une pyramide de hauteur $${texNombre(h, 1)}${listeUnites[j - 1][0]}$ et dont la base est un triangle. La base du triangle mesure $${texNombre(coteBase, 1)}${listeUnites[j][0]}$ et la hauteur associée à cette base mesure $${texNombre(hauteurBase)}${listeUnites[j + 1][0]}$.`
+
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\dfrac{${texNombre(coteBase, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]} \\times ${texNombre(hauteurBase)}${listeUnites[j + 1][0]}}{2}\\times${texNombre(h, 1)}${listeUnites[j - 1][0]}`
+            texteCorr += `=\\dfrac{1}{3}\\times\\dfrac{${texNombre(coteBase, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]} \\times ${texNombre(hauteurBase / 10, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${texNombre(h.mul(10))}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}`
+
+            if (volume.eq(volume.round())) {
+              texteCorr += `=${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
+            } else {
+              texteCorr += `\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
+            }
+          }
+
+          resultat = volume.round()
+          resultat2 = volume.mul(3).round() // erreur commune : oublier de diviser par 3
+          resultat3 = coteBase.mul(hauteurBase).mul(h).div(2).round() // erreur commune : calculer le volume du prisme
+          resultat4 = volume.mul(2).round() // autre erreur possible
+          break
+        }
       }
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [{
@@ -379,7 +495,6 @@ export default class CalculDeVolumes extends Exercice {
             propositions: [
               {
                 type: 'qcmMono',
-                // @ts-expect-error
                 enonce: texte,
                 propositions: [
                   {
@@ -412,14 +527,12 @@ export default class CalculDeVolumes extends Exercice {
             options: {
               multicols: true,
               barreseparation: false,
-              // @ts-expect-error
               multicolsAll: false,
               numerotationEnonce: true
             },
             propositions: [
               {
                 type: 'AMCOpen',
-                // @ts-expect-error
                 propositions: [{
                   texte: texteCorr,
                   numQuestionVisible: false,
@@ -430,7 +543,6 @@ export default class CalculDeVolumes extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',

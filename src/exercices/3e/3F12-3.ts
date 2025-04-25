@@ -33,12 +33,12 @@ export const uuid = 'afb2f'
 
 export const refs = {
   'fr-fr': ['3F12-3'],
-  'fr-ch': ['10FA5-11', '11FA8-5', '1F1-11']
+  'fr-ch': ['10FA5-11', '11FA8-5', '1mF1-11']
 }
 export default class TableauDeValeurs extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynôme du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 
     this.nbQuestions = 1
 

@@ -26,6 +26,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 
 export const titre = 'Construire des symétriques de points'
 export const dateDePublication = '07/01/2024'
+export const dateDeModifImportante = '15/04/2025'
 export const interactifReady = true
 export const interactifType = 'custom'
 
@@ -82,7 +83,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     super()
     this.exoCustomResultat = true
     this.nbQuestions = 1
-    this.besoinFormulaireNumerique = ['Choix de l\'axe', 5]
+    this.besoinFormulaireNumerique = ['Type d\'axes', 5, '1 : Axe horizontal\n2 : Axe vertical\n3 : Axe oblique /\n4 : Axe oblique \\\n5 : Mélange']
     this.besoinFormulaire2Numerique = [
       'Type d\'aide',
       4,
@@ -164,7 +165,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       nuageSaved = shuffle(nuageSaved)
       nuage = nuageSaved.slice(0, this.nbPoints)
       this.labels[i] = creerNomDePolygone(nuage.length).split('')
-      // Rémi : avant les lettre étaient au hasard avec Array.from(choisitLettresDifferentes(nuage.length, 'Q', true))
+      // Rémi : avant, les lettres étaient au hasard avec Array.from(choisitLettresDifferentes(nuage.length, 'Q', true))
       // Maintenant, je les mets dans l'ordre alphabétique pour faciliter l'interactivité
 
       // Les antécédents sont des points nommés
@@ -254,7 +255,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       const options = {}
       if (this.sup2 === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
-        this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
+        this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 600, height: 600 }))
         this.figuresApiGeom[i].options.labelAutomaticBeginsWith = this.labels[i][0] + '\''
         this.figuresApiGeom[i].scale = 0.5
         this.figuresApiGeom[i].setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'DRAG', 'NAME_POINT', 'SHAKE', 'UNDO', 'REDO', 'REMOVE'], nbCols: 6, position: 'top' })
