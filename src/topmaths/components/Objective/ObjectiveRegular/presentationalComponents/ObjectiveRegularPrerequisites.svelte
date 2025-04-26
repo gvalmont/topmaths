@@ -39,6 +39,7 @@
   {#if isTeacherMode}
     <ButtonPrerequisitesVisualization
       objectiveReference={objectiveReference}
+      gradeTeached={buildGradeFromObjectiveReference(objectiveReference)}
       text="Visualiser les prérequis&nbsp;"
     />
   {/if}

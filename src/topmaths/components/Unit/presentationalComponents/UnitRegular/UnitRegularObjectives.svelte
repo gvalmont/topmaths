@@ -29,6 +29,7 @@
       {#if isTeacherMode}
         <ButtonPrerequisitesVisualization
           objectiveReference={objective.reference}
+          gradeTeached={unit.grade}
         />
       {/if}
     </li>

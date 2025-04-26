@@ -2,6 +2,7 @@
   import { isKey } from '../../../services/prerequisite'
   import { buildThemeFromReference } from '../../../services/reference'
   import { getTitle } from '../../../services/string'
+  import type { StringGrade } from '../../../types/grade'
   import type { View } from '../../../types/navigation'
   import type { ObjectiveReference } from '../../../types/objective'
   import type { UnitObjective } from '../../../types/unit'
@@ -9,6 +10,7 @@
   import Tooltip from '../Tooltip.svelte'
 
   export let objective: UnitObjective
+  export let gradeTeached: StringGrade
   export let goToView: (event: MouseEvent, view: View, reference: ObjectiveReference) => void
   export let isLastRow: boolean
 
@@ -43,6 +45,7 @@
     <span class="is-black">
       <ButtonPrerequisitesVisualization
         objectiveReference={objective.reference}
+        {gradeTeached}
       />
     </span>
   </div>

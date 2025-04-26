@@ -2,16 +2,18 @@
   import BasicClassicModal from '../../../components/shared/modal/BasicClassicModal.svelte'
   import { appendPrerequisiteTree } from '../../services/prerequisite'
   import { objectives } from '../../services/store'
+  import type { StringGrade } from '../../types/grade'
   import type { ObjectiveReference } from '../../types/objective'
   import TooltipIcon from '../shared/TooltipIcon.svelte'
 
   export let objectiveReference: ObjectiveReference
+  export let gradeTeached: StringGrade
   export let text: string = ''
   
   let isPrerequisiteModalDisplayed = false
 
   function displayPrerequisitesModal(objectiveReference: ObjectiveReference): void {
-    const container = document.getElementById(`prerequisites-container-${objectiveReference}`)
+    const container = document.getElementById(`prerequisites-container-${gradeTeached}-${objectiveReference}`)
     if (!container) {
       throw new Error('Prerequisites container not found')
     }
@@ -46,6 +48,6 @@
   bind:isDisplayed={isPrerequisiteModalDisplayed}
 >
   <div slot="content">
-    <div id="prerequisites-container-{objectiveReference}"></div>
+    <div id="prerequisites-container-{gradeTeached}-{objectiveReference}"></div>
   </div>
 </BasicClassicModal>
