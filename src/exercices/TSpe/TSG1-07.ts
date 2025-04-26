@@ -69,9 +69,8 @@ export default class nomExercice extends Exercice {
     let question3 = 'Le CA étant élu, il se réunit pour élire en son sein le bureau, composé d\'un président ou d\'une présidente, d\'un secrétaire ou d\'une secrétaire et d\'un trésorier ou d\'une trésorière.<br>'
     question3 += 'Combien de bureaux différents peut-on constituer ?'
     let correction3 = 'Pour constituer le bureau, l\'ordre compte, puisqu\'il y a trois postes différents à pourvoir.<br>'
-    correction3 += `Il faut donc déterminer le nombre de triplets que l'on peut constituer dans une liste de ${ca} membres.<br>`
-    correction3 += `C'est un arrangement de 3 membres parmi ${ca}.<br>`
-    correction3 += `$\\begin{aligned}A_{${ca}}^{3} &= \\dfrac{${ca}~!}{(${ca} - 3)~!}\\\\&=${texNombre(factorielle(ca) / (factorielle(ca - 3)))}\\end{aligned}$<br>`
+    correction3 += `Il faut donc déterminer le nombre de triplets d'éléments distincts que l'on peut constituer dans une liste à ${ca} éléments.<br>`
+    correction3 += `On calcule donc <br>$\\begin{aligned}\\dfrac{${ca}~!}{(${ca} - 3)~!}&=\\dfrac{${ca}~!}{${ca - 3} ~! }\\\\&=${texNombre(factorielle(ca) / (factorielle(ca - 3)))}\\end{aligned}$<br>`
     correction3 += `Il y a donc $${miseEnEvidence(texNombre(factorielle(ca) / (factorielle(ca - 3))))}$ bureaux possibles.`
     const reponse3 = factorielleCA / (factorielle(ca - 3))
     listeQuestionsToContenu(this)

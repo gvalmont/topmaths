@@ -1,75 +1,59 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { pgcd } from '../../lib/outils/primalite'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-export const titre = 'Dénombrement et probabilité élémentaire'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+
+export const titre = 'Relation de Newton.'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '21/04/2025' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
-export const uuid = '946e6'
+export const dateDePublication = '25/4/2025'
+
+export const uuid = '300a4'
 export const refs = {
-  'fr-fr': ['TSG1-04'],
+  'fr-fr': ['TSG1-08'],
   'fr-ch': []
 }
-
 /**
- * Ce model est prévu pour les exercice où le nombre de questions est fixe
- * et où on ne demande pas la même chose à toutes les questions
+ * Modèle d'exercice très simple pour la course aux nombres
  * @author Stéphane Guyon
 
 */
+
 export default class nomExercice extends Exercice {
-  constructor () {
-    super()
-
-    this.nbQuestions = 3
-    this.nbQuestionsModifiable = false
-  }
-
   nouvelleVersion () {
-    function factorielle (num: number): number {
-      if (num === 0 || num === 1) return 1
-      return num * factorielle(num - 1)
+    const typeQuestionsDisponibles = ['type1']
+    this.nbQuestions = 1
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      const n = randint(5, 18)
+      const k = randint(1, n - 1)
+      switch (listeTypeQuestions[i]) {
+        case 'type1':
+          texte = `Simplifier sans effectuer de calculs $\\dbinom{${n - 1}}{${k - 1}}+\\dbinom{${n - 1}}{${k}}=$ `
+          texteCorr = 'C\'est un résultat de cours, la relation de Pascal.<br>'
+          texteCorr += 'On sait que pour tout entiers $n$ et $k$, tels que $k\\leqslant n$, on a : $\\dbinom{n}{k} = \\dbinom{n-1}{k-1} + \\dbinom{n-1}{k}$.<br>'
+          texteCorr += `Donc $\\dbinom{${n - 1}}{${k - 1}} + \\dbinom{${n - 1}}{${k}} = ${miseEnEvidence(`\\dbinom{${n}}{${k}}`)}$.<br>`
+          texteCorr += '<iframe src="https://podeduc.apps.education.fr/video/90025-demontrer-la-relation-de-pascal/?is_iframe=true" width="640" height="360" style="padding: 0; margin: 0; border:0" allowfullscreen title="Demontrer la Relation de Pascal" ></iframe>'
+          if (this.interactif) {
+            texte += remplisLesBlancs(this, 0, '\\begin{pmatrix}%{champ1}\\\\%{champ2}\\end{pmatrix}')
+            handleAnswers(this, 0, { champ1: { value: n }, champ2: { value: k } })
+          }
+          break
+      }
+      if (this.questionJamaisPosee(i, texte)) {
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+        i++
+      }
+      cpt++
     }
-    const n = randint(7, 10)    // nombre de lettres
-    const con = randint(3, n - 3) // nombre de consonnes dans le jeu
-    const voy = n - con // nombre de voyelles dans le jeu
-    const tirage = 2 // nombre de lettres à tirer
-    const tirageConsonnes = randint(2, 3) // nombre de voyelles à tirer
-    const tirageVoyelles = randint(2, 3) // nombre de consonnes à tirer
-    const factorielleN = factorielle(n)
-    const factorielleN2 = factorielle(n - 2)
-    const resultat = factorielleN / (factorielleN2 * 2) // nombre de tirages possibles
-    const proba = new FractionEtendue(voy * con, resultat) // proba de gagner)
-    this.consigne = `${texteEnCouleurEtGras('Sujet inspiré d\'un exercice du sujet Bac Asie Juin 2021')} <br><br>Un sac contient ${n} lettres distinctes de l'alphabet dont ${voy} voyelles et ${con} consonnes.`
-    this.consigne += `<br>Un jeu consiste à tirer simultanément au hasard ${tirage} lettres dans ce sac. `
-    this.consigne += `<br>On gagne si le tirage est constitué d'une voyelle ${texteEnCouleurEtGras('et')} d'une consonne.`
-
-    let question1 = 'Un joueur extrait simultanément deux lettres du sac. Déterminer le nombre $n$ de tirages possibles.'
-    let correction1 = `Le tirage est simultané, on cherche donc le nombre de combinaisons de 2 éléments parmi ${n}.`
-    correction1 += `<br>On calcule donc <br>$\\begin{aligned}n&=\\dbinom{${n}}{2}\\\\&=\\dfrac{${n}~!}{${n - 2}~!\\times 2~ !}\\\\&=\\dfrac{${factorielleN}}{${factorielleN2}\\times 2}\\\\&=${resultat}.\\end{aligned}$`
-    correction1 += `<br>Il y a donc $${miseEnEvidence(resultat)}$ tirages possibles.`
-    let question2 = 'Déterminer la probabilité que le joueur gagne à ce jeu.'
-    let correction2 = 'On cherche le nombre de tirages gagnants.'
-    correction2 += `<br>Il y a ${voy} voyelles  possibles et pour chacune d'elles, ${con} consonnes possibles. <br>D'après le principe multiplicatif, il y a donc $${voy}\\times${con}=${voy * con}$ tirages gagnants.<br>`
-    correction2 += `La probabilité de succès est $p=${proba.texFraction}$`
-    if (pgcd(resultat, voy * con) !== 1) { correction2 += `$=${proba.texFractionSimplifiee}$.` }
-    correction2 += `<br>La probabilité que le joueur gagne à ce jeu est $${miseEnEvidence(proba.texFractionSimplifiee)}.$`
-    const reponse2 = proba.texFractionSimplifiee
 
     listeQuestionsToContenu(this)
-    handleAnswers(this, 0, { reponse: { value: resultat } })
-    question1 += ajouteChampTexteMathLive(this, 0, KeyboardType.clavierDeBase, { texteAvant: '<br>$n=$ ' })
-    this.listeQuestions.push(question1)
-    this.listeCorrections.push(correction1)
-    question2 += '<br>$p=$'+ remplisLesBlancs(this, 1, '%{champ1}')
-    handleAnswers(this, 1, { champ1: { value: reponse2 } })
-    this.listeQuestions.push(question2)
-    this.listeCorrections.push(correction2)
   }
 }

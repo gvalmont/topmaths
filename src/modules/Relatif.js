@@ -40,8 +40,8 @@ export class Relatif {
         }
       })
     } catch (err) {
-      console.log(err.message)
-      console.log(err.stack)
+      console.error(err.message)
+      console.error(err.stack)
     }
     return signes
   }
@@ -98,8 +98,8 @@ export class Relatif {
         return 1
       }
     } catch (err) {
-      console.log(err.message)
-      console.log(err.stack)
+      console.error(err.message)
+      console.error(err.stack)
     }
   }
 
@@ -152,7 +152,7 @@ export class Relatif {
       })
       return card
     } catch (err) {
-      console.log(err.message)
+      console.error(err.message)
     }
   }
 
@@ -207,7 +207,7 @@ export class Relatif {
         }
       }
     } catch (err) {
-      console.log(err.message)
+      console.error(err.message)
     }
   }
 
@@ -251,7 +251,7 @@ export class Relatif {
         }
       }
     } catch (err) {
-      console.log(err.message)
+      console.error(err.message)
     }
   }
 }

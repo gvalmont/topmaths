@@ -198,10 +198,10 @@ export default class LecturesGraphiques extends Exercice {
           do {
             y0 = randint(mini * 10 + 2, maxi * 10 - 2) / 10
             k = 0
-            while (k < noeuds.length && (y0 > Math.max(noeuds[k][1], noeuds[k + 1][1]) || y0 < Math.min(noeuds[k][1], noeuds[k + 1][1]))) {
+            while (k + 1 < noeuds.length && (y0 > Math.max(noeuds[k][1], noeuds[k + 1][1]) || y0 < Math.min(noeuds[k][1], noeuds[k + 1][1]))) {
               k++
             }
-            if (k < noeuds.length) antecedentTrouve = true
+            if (k + 1 < noeuds.length) antecedentTrouve = true
           } while (!antecedentTrouve)
           const candidatX0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
           if (candidatX0) x0 = candidatX0

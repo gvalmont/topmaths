@@ -131,6 +131,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
             !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
             !msg.text().includes('MG32div0') && // MG32div0 : 3G22
             !msg.text().includes('UserFriendlyError: Le chargement de mathgraph') &&
+            !msg.text().includes('Invalid \'X-Frame-Options\' header') &&
             !msg.location().url.includes('mathgraph32')
         ) {
           if (!msg.text().includes('<HeaderExercice>')) {
@@ -245,22 +246,22 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
     })
   }
 } else {
-  prefs.headless = true
-  testRunAllLots('can')
-  testRunAllLots('6e')
-  testRunAllLots('5e')
-  testRunAllLots('4e')
-  testRunAllLots('3e')
-  testRunAllLots('2e')
-  testRunAllLots('1e')
-  testRunAllLots('QCM')
-  testRunAllLots('TEx')
-  testRunAllLots('TSpe')
-  testRunAllLots('techno1')
-  testRunAllLots('QCMBac')
-  testRunAllLots('QCMBrevet')
-  testRunAllLots('QCMStatiques')
+  prefs.headless = false
+  // testRunAllLots('can')
+  // testRunAllLots('6e')
+  // testRunAllLots('5e')
+  // testRunAllLots('4e')
+  // testRunAllLots('3e')
+  // testRunAllLots('2e')
+  // testRunAllLots('1e')
+  // testRunAllLots('QCM')
+  // testRunAllLots('TEx')
+  // testRunAllLots('TSpe')
+  // testRunAllLots('techno1')
+  // testRunAllLots('QCMBac')
+  // testRunAllLots('QCMBrevet')
+  // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  // testRunAllLots('6e/6M21.')
+  testRunAllLots('TSpe/TSG1-04.')
 }

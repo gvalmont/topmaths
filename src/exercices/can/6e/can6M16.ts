@@ -9,7 +9,7 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Mesurer une aire de carré, rectangle, triangle rectangle'
-export const dateDePublication = '25/04/2024'
+export const dateDePublication = '25/04/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

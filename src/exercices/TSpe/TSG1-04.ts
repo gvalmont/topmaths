@@ -62,14 +62,15 @@ export default class nomExercice extends Exercice {
     correction2 += `<br>La probabilité que le joueur gagne à ce jeu est $${miseEnEvidence(proba.texFractionSimplifiee)}.$`
     const reponse2 = proba.texFractionSimplifiee
 
-    listeQuestionsToContenu(this)
     handleAnswers(this, 0, { reponse: { value: resultat } })
     question1 += ajouteChampTexteMathLive(this, 0, KeyboardType.clavierDeBase, { texteAvant: '<br>$n=$ ' })
     this.listeQuestions.push(question1)
     this.listeCorrections.push(correction1)
-    handleAnswers(this, 1, { champ1: { value: reponse2 } })
+    handleAnswers(this, 1, { reponse: { value: reponse2 } })
     question2 += ajouteChampTexteMathLive(this, 1, KeyboardType.clavierDeBase, { texteAvant: '<br>$p=$ ' })
     this.listeQuestions.push(question2)
     this.listeCorrections.push(correction2)
+
+    listeQuestionsToContenu(this)
   }
 }
