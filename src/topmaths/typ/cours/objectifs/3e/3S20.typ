@@ -22,8 +22,8 @@
 ]
 
 #exemple()[
-  Dans son armoire, Tom a 3 shorts bleus, 1 short rouge et 2 shorts verts.\
-  Il a aussi 2 tee-shirts bleus et 3 tee-shirts rouges.\
+  Dans son armoire, Tom a 1 short bleu, 1 short rouge et 1 short vert.\
+  Il a aussi 1 tee-shirt bleu, 2 tee-shirts rouges et 1 tee-shirt noir.\
   Il prend au hasard un short et un tee-shirt dans son armoire.
 
   + Quelle est la probabilité qu’il soit habillé tout en rouge ?
@@ -42,26 +42,32 @@
     #show "V": vert
     #show "Vert": vert
     #table(
-      columns: 3,
+      columns: 5,
       align: horizon + center,
       [
         #place(top + right)[Tee-shirt]
         #place(bottom + left)[Short]
         #math.cancel(inverted: true)[#phantom()[Tee-shirt - Short\ Tee-shirt - Short]]
-      ], [Bleu (B)], [Rouge (R)],
-      [Bleu], [(B ; B)], [(B ; R)],
-      [Rouge], [(R ; B)], [(R ; R)],
-      [Vert], [(V ; B)], [(V ; R)]
+      ],
+      [Bleu (B)],
+      [Rouge (R)],
+      [Rouge (R)],
+      [Noir (N)],
+
+      [Bleu], [(B ; B)], [(B ; R)], [(B ; R)], [(B ; N)],
+      [Rouge], [(R ; B)], [(R ; R)], [(R ; R)], [(R ; N)],
+      [Vert], [(V ; B)], [(V ; R)], [(V ; R)], [(V ; N)],
     )
   ]
 
 
-  + On peut lire sur le tableau qu’il y a $1$ possibilité pour qu’il soit tout en rouge sur un total de $6$ possibilités. La probabilité qu’il soit habillé tout en rouge est donc $1/6$.
+  + On peut lire sur le tableau qu’il y a $2$ possibilités pour qu’il soit tout en rouge sur un total de $12$ possibilités. La probabilité qu’il soit habillé tout en rouge est donc $2 / 12 = 1 / 6$.
   + On peut lire sur le tableau qu’il y a~:
     - 1 possibilité pour qu’il soit tout en bleu~;
-    - 1 possibilité pour qu’il soit tout en rouge~;
-    sur un total de 6 possibilités.\
-    La probabilité qu’il soit habillé entièrement de la même couleur est donc $(1+1)/6 = 2/6$
-  + On peut lire sur le tableau qu'il y a 4 possibilités pour qu'il soit habillé de deux couleurs différentes sur un total de 6 possibilités.\
-    La probabilité qu'il soit habillé de deux couleurs différentes est donc $4/6$.
+    - 2 possibilité pour qu’il soit tout en rouge~;
+    sur un total de 12 possibilités.\
+    La probabilité qu’il soit habillé entièrement de la même couleur est donc $(1 + 2) / 12 = 3 / 12 = 1 / 4$
+  + On peut lire sur le tableau qu'il y a 9 possibilités pour qu'il soit habillé de deux couleurs différentes sur un total de 12 possibilités.\
+    La probabilité qu'il soit habillé de deux couleurs différentes est donc $9 / 12 = 3 / 4$.\
+    (On aurait pu aussi remarquer qu'être habillé de deux couleurs différentes est l'événement contraire d'être habillé de la même couleur. Sa probabilité est donc $1 - 1 / 4 = 3 / 4$)\
 ]
