@@ -12,7 +12,7 @@
   <b>Propriétaire :</b> Guillaume VALMONT<br />
   <b>Responsable de publication :</b> Guillaume VALMONT<br />
   <b>Conception et réalisation :</b> Guillaume VALMONT<br />
-  <b>Hébergement :</b> Hodi SAS - 14 rue Pasteur - 97400 Saint-Denis - La Réunion
+  <b>Hébergement :</b> o2switch - Chemin des Pardiaux - 63000 Clermont-Ferrand 
 </p>
 <h2>INFORMATIONS</h2>
 <p>

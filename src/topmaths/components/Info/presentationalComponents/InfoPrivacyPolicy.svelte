@@ -117,6 +117,5 @@
   droit de révoquer le consentement que vous nous avez donné à tout moment
   avec effet pour l'avenir.
   <br /><br />
-  <b>Contact pour le traitement des données :</b> Guillaume VALMONT (contact arobase
-  topmaths.fr).
+  <b>Contact pour le traitement des données :</b> Guillaume VALMONT (contact@topmaths.fr).
 </p>

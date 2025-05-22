@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>topmaths.fr - Les maths au TOP !</title>
+  <title>Topmaths.fr - Les maths au Top !</title>
 </svelte:head>
 
 <div class="w-full max-w-screen-lg">

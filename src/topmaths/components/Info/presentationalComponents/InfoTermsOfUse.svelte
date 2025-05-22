@@ -1,7 +1,7 @@
 <h1>CONDITIONS GÉNÉRALES D'UTILISATION</h1>
 <h2>PRÉAMBULE</h2>
 <p>
-  En utilisant les outils proposés par topmaths sur topmaths.fr, vous acceptez les conditions d'utilisation suivantes.<br>
+  En utilisant les outils proposés par Topmaths sur topmaths.fr, vous acceptez les conditions d'utilisation suivantes.<br>
   topmaths se réserve le droit de mettre à jour et de modifier ces conditions sans préavis.
 </p>
 <h2>CONDITIONS D'UTILISATION</h2>

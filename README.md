@@ -1,14 +1,14 @@
 # Topmaths
 
-Code source du site [topmaths.fr](https://topmaths.fr) dont le but est d'organiser ma sélection d'exercices de [mathalea](https://coopmaths.fr/alea) pour les rendre facilement accessibles à mes élèves et moi.
+Code source du site [Topmaths.fr](https://topmaths.fr) dont le but est d'organiser ma sélection d'exercices de [MathALÉA](https://coopmaths.fr/alea) pour les rendre facilement accessibles à mes élèves et moi.
 
-Vous pouvez avoir votre propre version de topmaths avec vos propres sélections d'exercices / progressions etc. en modifiant juste quelques fichiers comme expliqué [ici](https://topmaths.fr/?v=info&ref=site-info#own-version)
+Vous pouvez avoir votre propre version de Topmaths avec vos propres sélections d'exercices / progressions etc. en modifiant juste quelques fichiers comme expliqué [ici](https://topmaths.fr/?v=info&ref=site-info#own-version)
 
 ## Avoir votre propre version de Topmaths
 
 ### Résumé
 
-Pour adapter topmaths à vos progressions, il suffit de télécharger le code disponible sur ce dépôt et de modifier les quelques fichiers suivants :
+Pour adapter Topmaths à vos progressions, il suffit de télécharger le code disponible sur ce dépôt et de modifier les quelques fichiers suivants :
 
 - [calendar.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/calendar.json?ref_type=heads) avec le calendrier scolaire de votre établissement
 - [curriculum.json](https://forge.apps.education.fr/valmontguillaume/topmaths/-/blob/main/src/topmaths/json/curriculum.json?ref_type=heads) avec le nombre de séquences par période
@@ -48,4 +48,4 @@ Tout le site se construit automatiquement à partir de ces fichiers. Il n'est pa
 
 N'hésitez pas à [ouvrir un ticket](https://forge.apps.education.fr/valmontguillaume/topmaths/-/issues/new) si vous rencontrez un problème ou voulez me faire part d'une idée d'amélioration.
 
-Vous pouvez aussi m'envoyer un mail à contact@topmaths.fr
+Vous pouvez aussi m'envoyer un mail à <contact@topmaths.fr>
