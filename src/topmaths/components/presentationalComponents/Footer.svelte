@@ -12,7 +12,7 @@
   bg-topmaths-canvas-dark"
 >
   <p>
-    <b>topmaths</b> © {year} de
+    <b>Topmaths</b> © {year} de
     <AnchorExternal href="https://forge.apps.education.fr/valmontguillaume">
       Guillaume Valmont
     </AnchorExternal>
