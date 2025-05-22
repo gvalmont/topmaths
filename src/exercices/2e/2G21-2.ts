@@ -310,24 +310,7 @@ export default class SommeDeVecteurs extends Exercice {
       this.figureApigCorr[i].options.latexHeight = 20
       this.figureApigCorr[i].options.latexWidth = 20
 
-      /* const vectorsBlue = [...figureCorrection.elements.values()].filter(e => e.color === 'blue')
-      for (let ee = 0; ee < vectorsBlue.length; ee++) {
-        if (vectorsBlue[ee]) {
-          vectorsBlue[ee].opacity = 0.5
-        }
-      } */
       this.figureApigCorr[i].setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
-      // figureCorrection.grid.isVisible = false
-      // const visibleGrid = () => {
-      // figureCorrection.grid.isVisible = !figureCorrection.grid.isVisible
-      // figureCorrection.grid.isVisible = false
-      // }
-
-      /* figureCorrection.addCustomButton({
-        action: visibleGrid,
-        tooltip: 'Cacher/Afficher la grille',
-        url: 'toto'
-      }) */
       this.figureApigCorr[i].stackUndo = []
       this.figureApigCorr[i].stackRedo = []
       this.figureApigCorr[i].saveState()
@@ -338,34 +321,49 @@ export default class SommeDeVecteurs extends Exercice {
           pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: xOrigin + (xPointIntermediaire - xOrigin) * ee / 10, y: yOrigin + (yPointIntermediaire - yOrigin) * ee / 10, isVisible: false })
           vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
           this.figureApigCorr[i].saveState()
-          if (ee !== 10) vecteurAnimation[ee].hide()
+          if (ee !== 10) {
+            vecteurAnimation[ee].hide()
+            vecteurAnimation[ee].label = ''
+          }
         }
       } else if (choixV === 'origine' && choixU !== 'origine') {
         for (let ee = 0; ee < 11; ee++) {
           pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix2X + (xOrigin + vecteur2.x - pointOrigineChoix2X) * ee / 10, y: pointOrigineChoix2Y + (yOrigin + vecteur2.y - pointOrigineChoix2Y) * ee / 10, isVisible: false })
           vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur1.x, y: vecteur1.y, color: 'green', thickness: 3, label: '\\vec{u}' })
           this.figureApigCorr[i].saveState()
-          if (ee !== 10) vecteurAnimation[ee].hide()
+          if (ee !== 10) {
+            vecteurAnimation[ee].hide()
+            vecteurAnimation[ee].label = ''
+          }
         }
       } else if (choixV !== 'origine' && choixU === 'origine') {
         for (let ee = 0; ee < 11; ee++) {
           pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix3X + (xPointIntermediaire - pointOrigineChoix3X) * ee / 10, y: pointOrigineChoix3Y + (yPointIntermediaire - pointOrigineChoix3Y) * ee / 10, isVisible: false })
           vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
           this.figureApigCorr[i].saveState()
-          if (ee !== 10) vecteurAnimation[ee].hide()
+          if (ee !== 10) {
+            vecteurAnimation[ee].hide()
+            vecteurAnimation[ee].label = ''
+          }
         }
       } else { // (choixV !== 'origine' && choixU !== 'origine')
         for (let ee = 0; ee < 11; ee++) {
           pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix2X + (xOrigin - pointOrigineChoix2X) * ee / 10, y: pointOrigineChoix2Y + (yOrigin - pointOrigineChoix2Y) * ee / 10, isVisible: false })
           vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur1.x, y: vecteur1.y, color: 'green', thickness: 3, label: '\\vec{u}' })
           this.figureApigCorr[i].saveState()
-          if (ee !== 10) vecteurAnimation[ee].hide()
+          if (ee !== 10) {
+            vecteurAnimation[ee].hide()
+            vecteurAnimation[ee].label = ''
+          }
         }
         for (let ee = 0; ee < 11; ee++) {
           pointAnimation[ee] = this.figureApigCorr[i].create('Point', { x: pointOrigineChoix3X + (xPointIntermediaire - pointOrigineChoix3X) * ee / 10, y: pointOrigineChoix3Y + (yPointIntermediaire - pointOrigineChoix3Y) * ee / 10, isVisible: false })
           vecteurAnimation[ee] = this.figureApigCorr[i].create('Vector', { origin: pointAnimation[ee], x: vecteur2.x, y: vecteur2.y, color: 'green', thickness: 3, label: '\\vec{v}' })
           this.figureApigCorr[i].saveState()
-          if (ee !== 10) vecteurAnimation[ee].hide()
+          if (ee !== 10) {
+            vecteurAnimation[ee].hide()
+            vecteurAnimation[ee].label = ''
+          }
         }
       }
       this.figureApigCorr[i].create('Vector', { origin: pointOrigineCorrection, x: xSomme[i], y: ySomme[i], color: orangeMathalea, thickness: 3 })

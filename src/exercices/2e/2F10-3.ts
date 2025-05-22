@@ -23,7 +23,6 @@ export const interactifType = 'custom'
 
 /**
 * @author Stéphane Guyon (mise à jour avec les cas Gilles Mora + figure interactive Rémi Angot)
-* 2F10-3
 */
 export const uuid = 'c360e'
 

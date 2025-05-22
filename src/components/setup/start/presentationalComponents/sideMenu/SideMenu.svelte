@@ -22,6 +22,7 @@
   import type { Language } from '../../../../../lib/types/languages'
   import { get } from 'svelte/store'
   import { deepReferentielInMenuCopy, getReferentiels } from '../../../../../lib/stores/referentielsStore';
+    import { sortArrayOfResourcesBasedOnYearAndMonth } from '../../../../../lib/components/sorting';
   interface SearchBlockType extends SvelteComponent {
     triggerUpdateFromSearchBlock: () => void
   }
@@ -68,6 +69,7 @@
       if (repositoryInMenu.searchable) {
         let filteredRepository: JSONReferentielObject =
           buildFilteredRepository(repositoryInMenu)
+       
         if (repositoryInMenu.name === 'aleatoires') {
           filteredRepository = orderFollowingSchoolLevel(filteredRepository)
         }
@@ -79,11 +81,16 @@
       }
     }
     referentielsForMenu = updatedRepositories
+
   }
 
   function buildFilteredRepository (repositoryInMenu: ReferentielInMenu) {
     const allExercices = getAllEndings(repositoryInMenu.referentiel)
-    const filteredExercices: ResourceAndItsPath[] = applyFilters(allExercices)
+    // const filteredExercices: ResourceAndItsPath[] = applyFilters(allExercices) // EE : (15/05/025) Commenté et remplacé par la ligne ci-dessous car tri dans les annales incorrect
+    const filteredExercices: ResourceAndItsPath[] = sortArrayOfResourcesBasedOnYearAndMonth(
+      applyFilters(allExercices),
+      'desc'
+    )
     return buildReferentiel(filteredExercices)
   }
 

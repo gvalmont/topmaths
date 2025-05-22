@@ -72,7 +72,7 @@ export default class CriteresDeDivisibilite extends Exercice {
           statut: false
         }
       ]
-      this.autoCorrection[i].options = { ordered: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
+      this.autoCorrection[i].options = { ordered: true, radio: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
       switch (listeTypeDeQuestions[i]) {
         case 2:
           u = randint(1, 2)

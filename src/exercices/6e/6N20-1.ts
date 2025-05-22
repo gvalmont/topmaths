@@ -1,5 +1,4 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { modalTexteCourt } from '../../lib/outils/modales'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
@@ -12,6 +11,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
 import { consecutiveCompare } from '../../lib/interactif/comparisonFunctions'
+import { ajouterAide } from '../../lib/outils/enrichissements'
 
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
@@ -37,7 +37,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
   listeDeDenominateurs?: number[]
   constructor () {
     super()
-    this.consigne = `Compléter avec deux nombres entiers ${modalTexteCourt(1, 'Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.', 'consécutifs')}.`
+    this.consigne = `Compléter avec deux nombres entiers ${ajouterAide('Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.', { texteAvant: 'consécutifs' })}.`
     this.introduction = 'Exemple : $2 < \\dfrac{9}{4} < 3$ car  $2=\\dfrac{8}{4}$ et $3=\\dfrac{12}{4}$'
     this.nbQuestions = 6
     this.nbCols = 2

@@ -1013,18 +1013,30 @@ export class Cylindre3d extends ObjetMathalea2D {
       let distanceMin = 9999
       const pt = c2.listePoints
       let i = 0
-      while ((distancePointDroite(pt[i], d.c2d) < distanceMin)) {
+      const axeCylindre = droite(this.centrebase2.c2d, this.centrebase1.c2d)
+      while ((distancePointDroite(pt[i], axeCylindre) < distanceMin)) {
         distanceMin = distancePointDroite(pt[i], d.c2d)
         i++
       }
-      s = segment(this.centrebase2.c2d, pt[i - 1], this.colorAxe)
+      s = segment(this.centrebase2.c2d, this.centrebase1.c2d, this.colorAxe)
       s.pointilles = 2
       s.opacite = 0.7
       this.c2d.push(s)
-      const v = vecteur(this.centrebase2.c2d, this.centrebase1.c2d)
-      s = segment(pt[i - 1], translation(pt[i - 1], vecteur(v.x / norme(v), v.y / norme(v))), this.colorAxe)
+
+      // Construction de l'extension de l'axe
+      s = droite(pt[i], pt[i - 1])
+      const ptAxe1 = pointIntersectionDD(s, axeCylindre)
+      s = segment(this.centrebase1.c2d, ptAxe1, this.colorAxe)
+      s.pointilles = 2
+      s.opacite = 0.7
       this.c2d.push(s)
-      s = segment(this.centrebase2.c2d, translation(translation(this.centrebase2.c2d, vecteur(pt[i - 1], this.centrebase1.c2d)), vecteur(-v.x / norme(v), -v.y / norme(v))), this.colorAxe)
+      s = segment(translation(ptAxe1, vecteur(this.centrebase1.c2d, ptAxe1)), ptAxe1, this.colorAxe)
+      s.opacite = 0.7
+      this.c2d.push(s)
+
+      const ptAxe2 = translation(this.centrebase2.c2d, vecteur(translation(ptAxe1, vecteur(this.centrebase1.c2d, ptAxe1)), this.centrebase1.c2d))
+      s = segment(ptAxe2, this.centrebase2.c2d)
+      s.opacite = 0.7
       this.c2d.push(s)
     }
   }

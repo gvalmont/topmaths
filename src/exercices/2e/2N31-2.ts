@@ -4,7 +4,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '22/04/2025'
+export const dateDeModifImportante = '09/05/2025'
 export const uuid = '1e42b'
 export const refs = {
   'fr-fr': ['2N31-2'],

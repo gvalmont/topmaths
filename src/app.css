@@ -488,35 +488,6 @@ div[id^="lampeMessage"]:before{
 div[id^="title-lampeMessage"]{
   @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark
 }
-/* aides */
-div[id^="aide-"] {
-  @apply inline
-    text-coopmaths-warn-dark dark:text-coopmathsdark-warn-light
-}
-
-div[id^="aide-trigger-"]{
-  @apply h-[1em] w-[1em] inline-flex justify-center items-center rounded-full font-bold
-    text-coopmaths-canvas dark:text-coopmathsdark-canvas
-    bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light
-}
-
-div[id^="aide-content-"]{
-  @apply fixed w-5/6 md:w-2/3 lg:w-1/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:flex flex-col items-start justify-start z-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 rounded-xl shadow-lg
-}
-
-.aide-header {
-  @apply text-coopmaths-struct dark:text-coopmathsdark-struct font-semibold text-base md:text-lg
-}
-
-.aide-content{
-  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light pt-2 pl-0 md:pl-2
-}
-
-
-/* .katex {
-  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus
-} */
-
 
 .katex {
   font-size: 1em !important

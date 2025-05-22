@@ -5,7 +5,7 @@ import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, similitude } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
-import { creerBoutonMathalea2d } from '../../lib/outils/modales'
+import { ajouterBoutonMathalea2d } from '../../lib/outils/enrichissements'
 import { texteGras } from '../../lib/format/style'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -147,7 +147,7 @@ export default class Thales2D extends Exercice {
       )
 
       const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
-      const boutonAideMathalea2d = creerBoutonMathalea2d(numeroExercice + '_' + i,
+      const boutonAideMathalea2d = ajouterBoutonMathalea2d(numeroExercice + '_' + i,
                 `if (!document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == true || (document.getElementById('M2D_${numeroExercice}_${i}_1').dataset.colorie == 'false')){
           document.getElementById('M2D_${numeroExercice}_${i}_1').style.stroke = 'blue';
           document.getElementById('M2D_${numeroExercice}_${i}_2').style.stroke = 'red';

@@ -51,7 +51,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
   }
 
   nouvelleVersion () {
-    const QuestionsDisponibles = gestionnaireFormulaireTexte({
+    const questionsDisponibles = gestionnaireFormulaireTexte({
       max: 3,
       defaut: 4,
       melange: 4,
@@ -61,7 +61,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
       enleveDoublons: true
     })
 
-    const incrementation = QuestionsDisponibles.length * (this.sup2 === 3 ? 2 : 1)
+    const incrementation = questionsDisponibles.length * (this.sup2 === 3 ? 2 : 1)
     for (let i = 0, texte, texteAMC, texteCorr, nbPuces, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nom = creerNomDePolygone(11, 'QD')
       const c = randint(2, 6)
@@ -85,9 +85,16 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
       const J = pointAdistance(I, a, randint(-25, 25), nom[9])
       const K = similitude(I, J, -90, b / a, nom[10])
       const triangle = polygoneAvecNom(I, J, K)
-      const objetsEnonce = [...carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
-        ...rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
-        ...triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)]
+      const objetsEnonce = []
+      if (questionsDisponibles.includes(1)) {
+        objetsEnonce.push(...carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A))
+      }
+      if (questionsDisponibles.includes(2)) {
+        objetsEnonce.push(...rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F))
+      }
+      if (questionsDisponibles.includes(3)) {
+        objetsEnonce.push(...triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K))
+      }
       texte = this.sup3
         ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
           pixelsParCm: 20,
@@ -106,8 +113,8 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
 
       texteCorr = ''
       nbPuces = 0
-      for (let ee = 0; ee < QuestionsDisponibles.length; ee++) {
-        switch (QuestionsDisponibles[ee]) {
+      for (let indiceSousQuestion = 0; indiceSousQuestion < questionsDisponibles.length; indiceSousQuestion++) {
+        switch (questionsDisponibles[indiceSousQuestion]) {
           case 1: // Carré
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
@@ -121,7 +128,6 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -152,7 +158,6 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -186,7 +191,6 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -218,7 +222,6 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -251,7 +254,6 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,
@@ -282,7 +284,6 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
                 // @ts-expect-error
                 this.autoCorrection[i].propositions.push({
                   type: 'AMCNum',
-                  // @ts-expect-error
                   propositions: [{
                     texte: '',
                     multicolsBegin: nbPuces === 0,

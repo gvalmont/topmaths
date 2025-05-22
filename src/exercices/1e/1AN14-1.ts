@@ -68,7 +68,7 @@ class DerivationFonctionsUsuelles extends Exercice {
               correctionDetaillee = `La fonction $${nameF}$ est une fonction constante, sa dérivée est nulle.<br>`
               break
             case 'mx+p':
-              df = 'pour tout $x\\in\\R$, $m\\in\\R$ et $p\\in\\R$'
+              df = 'pour tout $x\\in\\R$,'
               laDerivee = 'm'
               correctionDetaillee = `La fonction $${nameF}$ est une fonction affine de la forme $f(x)=ax+b$, sa dérivée est le coefficient $a$.<br>`
               break
@@ -99,7 +99,7 @@ class DerivationFonctionsUsuelles extends Exercice {
           }
           break
         case 'affine1': {
-          df = 'pour tout $x\\in\\R$, $m\\in\\R$ et $p\\in\\R$'
+          df = 'pour tout $x\\in\\R$'
           laFonction = choice([
             reduireAxPlusB(randint(-100, 100, 0), randint(-100, 100, 0)),
             `${String(randint(-100, 100, 0))}${ecritureAlgebriqueSauf1(randint(-100, 100, 0))}x`,

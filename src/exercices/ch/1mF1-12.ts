@@ -438,7 +438,7 @@ export default class DomaineDeDefinition extends Exercice {
           break
         case 'p/racineQ':{
           texte += `\\dfrac{${stringP}}{\\sqrt{${stringQ}}}$`
-          const domLatexQ = this.convertDomainToLatex(this.computeDomainePolynome('sqrt', q, racinesQ))
+          const domLatexQ = this.convertDomainToLatex(this.computeDomainePolynome('invSqrt', q, racinesQ))
           texteCorr += `La condition sur le domaine de définition est la suivante\\[${stringQ}> 0,\\] car la racine est définie sur les nombres positifs et le dénominateur ne peut pas valoir $0$. Le numérateur n'influence pas le domaine de définition dans ce cas.
           <br>`
           if (degQ === 2) {

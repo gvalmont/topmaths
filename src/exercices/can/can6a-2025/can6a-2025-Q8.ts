@@ -29,7 +29,7 @@ export default class Can2025N62Q8 extends Exercice {
   nouvelleVersion () {
     const unit = this.canOfficielle ? 5 : randint(3, 6)
     const a = this.canOfficielle ? 2 : randint(2, 5)
-    const b = this.canOfficielle ? 8 : randint(5, 7)
+    const b = this.canOfficielle ? 8 : randint(5, 7, a)
 
     this.reponse = b * unit
     this.question = `$${a}$ morceaux de sucre pèsent $${a * unit}$ g.<br>

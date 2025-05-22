@@ -14,6 +14,7 @@
     mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
     mathaleaHandleSup,
+    mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams
   } from '../../../lib/mathalea'
   import {
@@ -28,7 +29,6 @@
   import type { CanState } from '../../../lib/types/can'
   import CountDown from '../../display/can/presentationalComponents/CountDown.svelte'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
-  import { buildMathAleaURL } from '../../../lib/components/urls'
   import { notify } from '../../../bugsnag'
 
   const transitionSounds = {
@@ -40,14 +40,13 @@
 
   let state: CanState = 'end'
   let exercises: Exercice[] = []
-  let link: string = window.location.href
   let slideshow: Slideshow = {
     slides: [],
     currentQuestion: -1,
     selectedQuestionsNumber: 0
   }
 
-  $: if ($globalOptions.v === 'overview' && exercises.length > 0) updateExercises()
+  $: if ($globalOptions.v === 'overview' && exercises.length > 0) updateExercises(true)
   $: if (state === 'race') startSlideshow()
 
   onMount(async () => {
@@ -55,7 +54,7 @@
     context.vue = 'diap'
     document.addEventListener('updateAsyncEx', forceUpdate)
     exercises = await getExercisesFromExercicesParams()
-    updateExercises()
+    updateExercises(false, true)
   })
 
   onDestroy(() => {
@@ -63,21 +62,14 @@
   })
 
   async function forceUpdate () {
-    updateExercises()
+    updateExercises(true)
   }
 
-  async function updateExercises () {
-    setSlidesContent(exercises)
+  async function updateExercises (updateSlidesContent = false, updateParamsFromUrl = false) {
+    if (updateSlidesContent) setSlidesContent(exercises)
     if ($globalOptions.v !== 'overview') adjustQuestionsOrder()
-    updateExerciseParams(exercises)
+    updateParamsFromUrl ? mathaleaUpdateExercicesParamsFromUrl() : updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    updateLink()
-  }
-
-  function updateLink () {
-    setTimeout(() => {
-      link = buildMathAleaURL({ view: 'diaporama' }).toString()
-    }, 600) // to update link after the updateGlobalOptionsInURL setTimout
   }
 
   function setSlidesContent (newExercises: Exercice[]) {
@@ -226,7 +218,7 @@
   }
 
   function startSlideshow () {
-    updateExercises()
+    updateExercises(true)
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = 0
   }
@@ -279,12 +271,10 @@
         <SlideshowSettings
           {exercises}
           {updateExercises}
-          {updateLink}
           {transitionSounds}
           {startSlideshow}
           {goToOverview}
           {goToHome}
-          {link}
         />
       {/if}
     {/if}

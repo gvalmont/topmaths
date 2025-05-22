@@ -11,10 +11,10 @@ export class GlisseNombre extends ObjetMathalea2D {
     const chiffresADecaler = []
     const largeurColonne = 2
     const hauteurLigne = 1.5
-    const hauteurPremiereLigne = 5.5
+    const hauteurPremiereLigne = 7.5
     const nbLignes = 3
     const nbColonnes = 12
-    const A = point(3, 5)
+    const A = point(3, 5.5)
     for (let i = 0; i < nbColonnes + 1; i++) {
       const trait = segment(point(A.x + i * largeurColonne, A.y), point(A.x + i * largeurColonne, A.y - (nbLignes - 1) * hauteurLigne - hauteurPremiereLigne))
       this.objets.push(trait)

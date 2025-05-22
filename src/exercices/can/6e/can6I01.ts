@@ -2,7 +2,7 @@
 import { point, tracePoint } from '../../../lib/2d/points'
 import { texteParPositionEchelle } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { createLink } from '../../../lib/outils/modales'
+import { ajouterLien } from '../../../lib/outils/enrichissements'
 import { texteGras } from '../../../lib/format/style'
 import { stringNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
@@ -243,10 +243,10 @@ export default class CanNoteLaCouleur6 extends Exercice {
       }
       pion.codeScratch += '\\end{scratch}'
       if (context.isHtml && context.vue !== 'diap') {
-        texte = `Cet exercice est tiré de l'excellente activité débranchée ${createLink({ url: 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', text: 'Note la couleur' })} de Jean-Yves Labouche.<br>`
+        texte = `Cet exercice est tiré de l'excellente activité débranchée ${ajouterLien('https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur')} de Jean-Yves Labouche.<br>`
         texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
-        texte += `N'hésitez pas à vous rendre sur le site ${createLink({ url: 'https://www.monclasseurdemaths.fr', text: 'Mon classeur de Maths.fr' })} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
-        texte += `Pour jouer, regarder les ${createLink({ url: 'https://coopmaths.fr/alea/assets/pdf/reglesnlc.pdf', text: 'Règles du jeu' })} .<br>`
+        texte += `N'hésitez pas à vous rendre sur le site ${ajouterLien('https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
+        texte += `Pour jouer, regarder les ${ajouterLien('https://coopmaths.fr/alea/assets/pdf/reglesnlc.pdf', 'Règles du jeu')} .<br>`
       } else { texte = '' }
       texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexteMathLive(this, q, 'alphanumeric ')}<br><br>`
       if (context.isHtml) {

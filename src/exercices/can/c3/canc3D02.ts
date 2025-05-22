@@ -10,6 +10,7 @@ import Exercice from '../../Exercice'
 import Horloge from '../../../lib/2d/horloge'
 import Hms from '../../../modules/Hms'
 import { formatMinute } from '../../../lib/outils/texNombre'
+import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const titre = 'Lire une durée'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
@@ -61,7 +62,7 @@ export default class LireUneDuree extends Exercice {
     }
 
     const horloge1 = new Horloge(0, 0, 2, new Hms({ hour: h1, minute: m1 }))
-    const horloge2 = new Horloge(0, 0, 2, new Hms({ hour: m2, minute: m2 }))
+    const horloge2 = new Horloge(0, 0, 2, new Hms({ hour: h2, minute: m2 }))
     this.question = enonce + (context.isHtml ? '<table><tr><td>' : '\\begin{multicols}{2}\n') +
     mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.6, style: 'margin: auto' }, horloge1, texteParPosition('Heure de début', 0, -2.5)) +
 (context.isHtml ? '</td><td>' : '') +
@@ -72,9 +73,9 @@ export default class LireUneDuree extends Exercice {
     this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de $${Math.round((m2 - m1) / 5)}$ graduations soit $${m2 - m1}$ minutes.<br>`
     this.correction += 'Ensuite on regarde si la petite aiguille a avancé d\'au moins une graduation.<br>'
     if (h2 === h1) {
-      this.correction += `Ce n'est pas le cas, donc il s'est écoulé seulement $0$ h $${formatMinute(m2 - m1)}$ minutes.`
+      this.correction += `Ce n'est pas le cas, donc il s'est écoulé seulement ${texteEnCouleurEtGras(`${formatMinute(m2 - m1)} minutes`)}.`
     } else {
-      this.correction += `La petite aiguille a avancé d'une heure, donc il s'est écoulé $1$ h $${formatMinute(m2 - m1)}$ min.`
+      this.correction += `La petite aiguille a avancé d'une heure, donc il s'est écoulé ${texteEnCouleurEtGras(`une heure et ${formatMinute(m2 - m1)} minutes`)}.`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'

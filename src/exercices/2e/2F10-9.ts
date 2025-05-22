@@ -1,0 +1,19 @@
+import CoefficientDirecteur from '../3e/3F20-4'
+export const titre = "Reconnaître coefficient directeur et ordonnée à l'origine d'une fonction affine"
+export const dateDePublication = '19/05/2025'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
+export const uuid = '80d4f'
+export const refs = {
+  'fr-fr': ['2F10-9'],
+  'fr-ch': []
+}
+export default class CoefficientDirecteur2nde extends CoefficientDirecteur {
+  constructor () {
+    super()
+    this.sup = 12
+    this.sup2 = false
+    this.sup3 = false
+  }
+}

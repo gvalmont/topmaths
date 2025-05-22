@@ -18,7 +18,7 @@ import { arrondi } from '../../lib/outils/nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un angle avec le produit scalaire (dans un repère)'
-export const dateDeModifImportante = '14/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -28,7 +28,7 @@ export const dateDeModifImportante = '14/04/2025'
 export const uuid = '09243'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1G10-2'],
   'fr-ch': []
 }
 

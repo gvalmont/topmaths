@@ -12,7 +12,8 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import { inferieurouegal, listeQuestionsToContenu, randint, superieurouegal } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true
@@ -58,19 +59,23 @@ export default class LecturesGraphiques extends Exercice {
     let antecedents = []
     let s = []
     const r = repere({
-      xMin: -4,
-      yMin: -4,
-      xMax: 4,
-      yMax: 4,
+      xMin: -4.1,
+      yMin: -4.1,
+      xMax: 4.1,
+      yMax: 4.1,
       yUnite: 2,
-      xUnite: 3,
+      xUnite: 2,
       grilleSecondaire: true,
-      grilleSecondaireYDistance: 0.1,
-      grilleSecondaireXDistance: 0.1,
+      grilleSecondaireYDistance: 0.2,
+      grilleSecondaireXDistance: 0.2,
       grilleSecondaireXMin: -4,
       grilleSecondaireXMax: 4,
       grilleSecondaireYMin: -4,
-      grilleSecondaireYMax: 4
+      grilleSecondaireYMax: 4,
+      xThickMax: 4,
+      yThickMax: 4,
+      xThickMin: -4,
+      yThickMin: -4
     })
     let noeuds = []
     let minima
@@ -111,7 +116,8 @@ export default class LecturesGraphiques extends Exercice {
       ymin: -9,
       xmax: 13.5,
       ymax: 9,
-      scale: 0.5
+      scale: 0.5,
+      pixelsParCm: 30
     }, r, graph, origine) + '<br>'
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -123,43 +129,45 @@ export default class LecturesGraphiques extends Exercice {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'minimum':
           texte = 'Lire graphiquement le minimum de la fonction $f$ sur l\'intervalle $[-4;4]$.<br>'
-          if (!context.isAmc) setReponse(this, i, minimum[1])
+          if (!context.isAmc) handleAnswers(this, i, { reponse: { value: minimum[1], compare: approximatelyCompare, options: { tolerance: 0.1 } } })
           reponses[i] = minimum[1]
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `Le minimum de $f$ est $${texNombre(minimum[1], 1)}$ et il est atteint en $x=${minimum[0]}$.<br>`
           if (this.correctionDetaillee) {
-            s[0] = segment(minimum[0] * 3, 0, minimum[0] * 3, minimum[1] * 2, 'blue')
+            s[0] = segment(minimum[0] * 2, 0, minimum[0] * 2, minimum[1] * 2, 'blue')
             s[0].pointilles = 5
-            s[1] = segment(minimum[0] * 3, minimum[1] * 2, 0, minimum[1] * 2, 'red')
+            s[1] = segment(minimum[0] * 2, minimum[1] * 2, 0, minimum[1] * 2, 'red')
             s[1].pointilles = 5
-            s[2] = tracePoint(point(minimum[0] * 3, minimum[1] * 2), 'red')
+            s[2] = tracePoint(point(minimum[0] * 2, minimum[1] * 2), 'red')
             texteCorr += mathalea2d({
               xmin: -13.5,
               ymin: -9,
               xmax: 13.5,
               ymax: 9,
-              scale: 0.5
+              scale: 0.5,
+              pixelsParCm: 30
             }, r, graph, s, origine)
           }
           break
         case 'maximum':
           texte = 'Lire graphiquement le maximum de la fonction $f$ sur l\'intervalle $[-4;4]$.<br>'
-          if (!context.isAmc) setReponse(this, i, maximum[1])
+          if (!context.isAmc) handleAnswers(this, i, { reponse: { value: maximum[1], compare: approximatelyCompare, options: { tolerance: 0.1 } } })
           reponses[i] = maximum[1]
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `Le maximum de $f$ est $${texNombre(maximum[1], 1)}$ et il est atteint en $x=${maximum[0]}$.<br>`
           if (this.correctionDetaillee) {
-            s[0] = segment(maximum[0] * 3, 0, maximum[0] * 3, maximum[1] * 2, 'blue')
+            s[0] = segment(maximum[0] * 2, 0, maximum[0] * 2, maximum[1] * 2, 'blue')
             s[0].pointilles = 5
-            s[1] = segment(maximum[0] * 3, maximum[1] * 2, 0, maximum[1] * 2, 'red')
+            s[1] = segment(maximum[0] * 2, maximum[1] * 2, 0, maximum[1] * 2, 'red')
             s[1].pointilles = 5
-            s[2] = tracePoint(point(maximum[0] * 3, maximum[1] * 2), 'red')
+            s[2] = tracePoint(point(maximum[0] * 2, maximum[1] * 2), 'red')
             texteCorr += mathalea2d({
               xmin: -13.5,
               ymin: -9,
               xmax: 13.5,
               ymax: 9,
-              scale: 0.5
+              scale: 0.5,
+              pixelsParCm: 30
             }, r, graph, s, origine)
           }
           break
@@ -172,23 +180,24 @@ export default class LecturesGraphiques extends Exercice {
             k++
           }
           y0 = arrondi(imageInterpolee([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], x0), 1)
-          texte = `Lire graphiquement l'image de $${texNombre(x0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
-          if (!context.isAmc) setReponse(this, i, y0)
+          texte = `Lire graphiquement l'image de $${texNombre(x0, 1)}$ par la fonction $f$.<br>Donner la réponse avec la précision permise par le graphique.<br>`
+          if (!context.isAmc) handleAnswers(this, i, { reponse: { value: y0, compare: approximatelyCompare, options: { tolerance: 0.1 } } })
           reponses[i] = y0
           texte += ajouteChampTexteMathLive(this, i)
           texteCorr = `$f(${texNombre(x0, 1)})=${texNombre(y0, 1)}$.<br>`
           if (this.correctionDetaillee) {
-            s[0] = segment(0, y0 * 2, x0 * 3, y0 * 2, 'blue')
+            s[0] = segment(0, y0 * 2, x0 * 2, y0 * 2, 'blue')
             s[0].pointilles = 5
-            s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
+            s[1] = segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red')
             s[1].pointilles = 5
-            s[2] = tracePoint(point(x0 * 3, y0 * 2), 'red')
+            s[2] = tracePoint(point(x0 * 2, y0 * 2), 'red')
             texteCorr += mathalea2d({
               xmin: -13.5,
               ymin: -9,
               xmax: 13.5,
               ymax: 9,
-              scale: 0.5
+              scale: 0.5,
+              pixelsParCm: 30
             }, r, graph, s, origine)
           }
           break
@@ -205,22 +214,23 @@ export default class LecturesGraphiques extends Exercice {
           } while (!antecedentTrouve)
           const candidatX0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
           if (candidatX0) x0 = candidatX0
-          texte = `Lire graphiquement le plus petit antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
-          if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
+          texte = `Lire graphiquement le plus petit antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse avec la précision permise par le graphique.<br>`
+          if (!context.isAmc) handleAnswers(this, i, { reponse: { value: x0.toFixed(1), compare: approximatelyCompare, options: { tolerance: 0.1 } } })
           reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le plus petit antécédent à $0,1$ près de $${texNombre(y0, 1)}$ est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
+          texteCorr = `Le plus petit antécédent avec la précision permise par le graphique de $${texNombre(y0, 1)}$ est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
             s[0].pointilles = 5
-            s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
+            s[1] = segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red')
             s[1].pointilles = 5
             texteCorr += mathalea2d({
               xmin: -13.5,
               ymin: -9,
               xmax: 13.5,
               ymax: 9,
-              scale: 0.5
+              scale: 0.5,
+              pixelsParCm: 30
             }, r, graph, s, origine)
           }
         }
@@ -238,22 +248,23 @@ export default class LecturesGraphiques extends Exercice {
           }
           const candidatX0 = antecedentInterpole([[noeuds[k - 1][0], noeuds[k - 1][1]], [noeuds[k][0], noeuds[k][1]]], y0)
           if (candidatX0) x0 = candidatX0
-          texte = `Lire graphiquement le plus grand antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
-          if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
+          texte = `Lire graphiquement le plus grand antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse avec la précision permise par le graphique.<br>`
+          if (!context.isAmc)handleAnswers(this, i, { reponse: { value: x0.toFixed(1), compare: approximatelyCompare, options: { tolerance: 0.1 } } })
           reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le plus grand antécédent de $${texNombre(y0, 1)}$ à $0,1$ près est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
+          texteCorr = `Le plus grand antécédent de $${texNombre(y0, 1)}$ avec la précision permise par le graphique est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
             s[0].pointilles = 5
-            s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
+            s[1] = segment(x0 * 2, y0 * 2, x0 * 2, 0, 'red')
             s[1].pointilles = 5
             texteCorr += mathalea2d({
               xmin: -13.5,
               ymin: -9,
               xmax: 13.5,
               ymax: 9,
-              scale: 0.5
+              scale: 0.5,
+              pixelsParCm: 30
             }, r, graph, s, origine)
           }
         }
@@ -295,15 +306,15 @@ export default class LecturesGraphiques extends Exercice {
               texteCorr += `$${texNombre(antecedents[antecedentTrouve - 1], 1)}$.<br>`
               break
           }
-          if (!context.isAmc) setReponse(this, i, antecedentTrouve)
+          if (!context.isAmc) handleAnswers(this, i, { reponse: { value: antecedentTrouve } })
           reponses[i] = antecedentTrouve
           if (this.correctionDetaillee) {
             s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
             s[0].pointilles = 5
             for (let l = 0; l < antecedentTrouve; l++) {
-              s[l * 2 + 1] = tracePoint(point(antecedents[l] * 3, y0 * 2), 'red')
+              s[l * 2 + 1] = tracePoint(point(antecedents[l] * 2, y0 * 2), 'red')
               s[l * 2 + 1].epaisseur = 2
-              s[l * 2 + 2] = segment(antecedents[l] * 3, 0, antecedents[l] * 3, y0 * 2, 'red')
+              s[l * 2 + 2] = segment(antecedents[l] * 2, 0, antecedents[l] * 2, y0 * 2, 'red')
               s[l * 2 + 2].pointilles = 5
             }
             texteCorr += mathalea2d({
@@ -311,7 +322,8 @@ export default class LecturesGraphiques extends Exercice {
               ymin: -9,
               xmax: 13.5,
               ymax: 9,
-              scale: 0.5
+              scale: 0.5,
+              pixelsParCm: 30
             }, r, graph, s, origine)
           }
           break
@@ -369,7 +381,7 @@ export default class LecturesGraphiques extends Exercice {
                                 digits: 2,
                                 decimals: 1,
                                 signe: true,
-                                approx: 0
+                                approx: 1
                               }
                             }
                           }]

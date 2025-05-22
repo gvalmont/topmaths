@@ -17,7 +17,7 @@ import { droite } from '../../lib/2d/droites'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un produit scalaire avec une projetction'
-export const dateDeModifImportante = '14/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -27,7 +27,7 @@ export const dateDeModifImportante = '14/04/2025'
 export const uuid = '23033'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1G10-4'],
   'fr-ch': []
 }
 

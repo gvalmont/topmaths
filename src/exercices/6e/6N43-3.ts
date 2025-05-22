@@ -106,7 +106,7 @@ export default class ExerciceVraiFauxDivisibleMultipleDiviseur extends Exercice 
           statut: false
         }
       ]
-      this.autoCorrection[i].options = { ordered: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
+      this.autoCorrection[i].options = { ordered: true, radio: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'Ndiviseur':
           texte = `$${N}$ est un diviseur de $${texNombre(a)}$.`

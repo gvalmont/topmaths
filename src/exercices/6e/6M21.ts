@@ -94,7 +94,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
       const C = point(B.x, randint(5, 10, B.x))
       const D = point(0, C.y)
       const rect = polygone([A, B, C, D])
-      rect.hachures = true
+      rect.hachures = 'north east lines'
       rect.pointilles = 2
       let reponseAire1 = false
       let reponseAire2 = false
@@ -236,7 +236,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           O = rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], -60)
           const PP = segment(O, choixFigAire2[choixFig2][1], 'black')
           P.epaisseur = 2
-          objets.push(figAire1, figAire2, NN, codageSegment(M, pt1, '|||'), PP, codageSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
+          objets.push(figAire1, figAire2, rect, NN, codageSegment(M, pt1, '|||'), PP, codageSegment(O, choixFigAire2[choixFig2][1], '|||'))
           texte = mathalea2d(paramsEnonce, objets)
           // Correction
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
@@ -250,7 +250,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
             let angleCorr = choixFig2 - choixFig < 0 ? choixFig2 - choixFig + 4 : choixFig2 - choixFig
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             const figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
-            objets.push(poly, figAire1, figAire2, N, codageSegment(M, pt1, '|||'), P, codageSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
+            objets.push(poly, figAire1, figAire2, rect, N, codageSegment(M, pt1, '|||'), P, codageSegment(O, choixFigAire2[choixFig2][1], '|||'))
             if (context.isHtml) objets.push(translationPuisRotationAnimees(String(q), figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
@@ -427,7 +427,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           O = rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], 60)
           const PP = segment(O, choixFigAire2[choixFig2][1], 'black')
           P.epaisseur = 2
-          objets.push(figAire1, figAire2, NN, codageSegment(M, pt1, '|||'), PP, codageSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
+          objets.push(figAire1, figAire2, rect, NN, codageSegment(M, pt1, '|||'), PP, codageSegment(O, choixFigAire2[choixFig2][1], '|||'))
           texte = mathalea2d(paramsEnonce, objets)
           // Correction
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
@@ -506,7 +506,7 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           O = rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], -60)
           const PP = segment(O, choixFigAire2[choixFig2][1], 'black')
           P.epaisseur = 2
-          objets.push(figAire1, figAire2, NN, codageSegment(M, pt1, '|||'), PP, codageSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
+          objets.push(figAire1, figAire2, rect, NN, codageSegment(M, pt1, '|||'), PP, codageSegment(O, choixFigAire2[choixFig2][1], '|||'))
           texte = mathalea2d(paramsEnonce, objets)
           // Correction
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''

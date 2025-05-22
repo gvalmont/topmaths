@@ -46,12 +46,12 @@ export default class PointsCourbe extends Exercice {
     \\end{aligned}$`
     this.correction += isEqual
       ? `<br>On obtient l'égalité  $P(A\\cap B)=P(A)\\times P(B)$.<br>
-    Les événements $A$ et $B$ sont donc indépendants.<br> L'affirmation est ${texteEnCouleurEtGras('VraiE')}.`
+    Les événements $A$ et $B$ sont donc indépendants.<br> L'affirmation est ${texteEnCouleurEtGras('Vraie')}.`
       : `<br> $P(A\\cap B)\\neq P(A)\\times P(B)$.<br>Les événements $A$ et $B$ ne sont donc pas indépendants.<br>L'affirmation est ${texteEnCouleurEtGras('FAUSSE')}.`
     const question = `$P(A\\cap B)=${texNombre(AinterB, 2)}$<br>$P(A)=${texNombre(A, 2)}${sp(2)};${sp(2)}P(B)=${texNombre(B, 2)}$<br>$A$ et $B$ sont indépendants.<br>`
 
     this.autoCorrection[0] = {
-      options: { ordered: true },
+      options: { ordered: true, radio: true },
       enonce: question,
       propositions: [
         {

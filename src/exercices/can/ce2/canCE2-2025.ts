@@ -29,7 +29,7 @@ export const refs = {
   'fr-fr': ['canCE2a-2025'],
   'fr-ch': []
 }
-export const dateDePublication = '10/01/2025'
+export const dateDePublication = '01/05/2025'
 
 /**
  * Annales CAN 2025

@@ -55,7 +55,8 @@ export default class QuestionDAires extends Exercice {
             texte: 'Faux',
             statut: VF === 'F'
           }
-        ]
+        ],
+        options: { ordered: true, radio: true },
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {

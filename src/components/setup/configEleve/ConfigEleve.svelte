@@ -65,7 +65,6 @@
   let presMode:
     | 'liste_exos'
     | 'un_exo_par_page'
-    | 'liste_questions'
     | 'une_question_par_page'
     | 'recto'
     | 'verso' = $globalOptions.presMode ?? 'liste_exos'
@@ -229,10 +228,6 @@
                     label: 'Une page par exercice',
                     value: 'un_exo_par_page',
                     isDisabled: $exercicesParams.length === 1
-                  },
-                  {
-                    label: 'Toutes les questions sur une page',
-                    value: 'liste_questions'
                   },
                   {
                     label: 'Une page par question',

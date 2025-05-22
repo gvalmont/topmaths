@@ -30,6 +30,7 @@ export default class MultiplierAstucieusement extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.besoinFormulaireCaseACocher = ['Permettre des facteurs au dixième, au millième', false]
+    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
   nouvelleVersion () {

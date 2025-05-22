@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Exercice from '../Exercice'
@@ -12,12 +12,14 @@ import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
+import { bleuMathalea } from '../../lib/colors'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const titre = 'Additionner ou soustraire deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '16/05/2025'
 
 /**
  * Effectuer la somme ou la différence de deux fractions
@@ -138,21 +140,21 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
 
       // a/b(+ou-)c/d = num/den (résultat non simplifié)
       if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
-        texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plusOuMoins}${texFractionFromString(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
+        texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k1, bleuMathalea), b + miseEnEvidence('\\times ' + k1, bleuMathalea))}${plusOuMoins}${texFractionFromString(c + miseEnEvidence('\\times ' + k2, bleuMathalea), d + miseEnEvidence('\\times ' + k2, bleuMathalea))}`
         num = arrondi(a * k1 + plusOuMoinsUn * c * k2)
         den = b * k1
         texteCorr += `=${texFractionFromString(a * k1 + plusOuMoins + ecritureParentheseSiNegatif(c * k2), den)}`
       }
 
       if (typesDeQuestions === 'd_multiple_de_b') {
-        texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plusOuMoins}${texFractionFromString(c, d)}`
+        texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k, bleuMathalea), b + miseEnEvidence('\\times ' + k, bleuMathalea))}${plusOuMoins}${texFractionFromString(c, d)}`
         num = arrondi(a * k + plusOuMoinsUn * c)
         den = b * k
         texteCorr += `=${texFractionFromString(a * k + plusOuMoins + ecritureParentheseSiNegatif(c), den)}`
       }
 
       if (typesDeQuestions === 'b_multiple_de_d') {
-        texteCorr += `=${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
+        texteCorr += `=${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(c + miseEnEvidence('\\times ' + k, bleuMathalea), d + miseEnEvidence('\\times ' + k, bleuMathalea))}`
         num = arrondi(a + plusOuMoinsUn * c * k)
         den = b
         texteCorr += `=${texFractionFromString(a + plusOuMoins + ecritureParentheseSiNegatif(c * k), den)}`
@@ -173,7 +175,7 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
           }
           texteCorr = `$${n}${plusOuMoins}${texFractionFromString(a, b)}`
           texte = texteCorr + '$'
-          texteCorr += `=${texFractionFromString(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFractionFromString(a, b)}`
+          texteCorr += `=${texFractionFromString(n + miseEnEvidence('\\times ' + b, bleuMathalea), miseEnEvidence(b, bleuMathalea))}${plusOuMoins}${texFractionFromString(a, b)}`
           texteCorr += `=${texFractionFromString(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
           num = arrondi(n * b + plusOuMoinsUn * a)
         } else {
@@ -185,7 +187,7 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
           texte = `$${texFractionFromString(a, b)}${plusOuMoins}${ecritureParentheseSiNegatif(n)}`
           texteCorr = texte
           texte += '$'
-          texteCorr += `=${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
+          texteCorr += `=${texFractionFromString(a, b)}${plusOuMoins}${texFractionFromString(n + miseEnEvidence('\\times ' + b, bleuMathalea), miseEnEvidence(b, bleuMathalea))}`
           texteCorr += `=${texFractionFromString(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
           num = arrondi(a + plusOuMoinsUn * n * b)
         }
@@ -193,7 +195,19 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
       }
 
       texteCorr += `=${texFractionFromString(num, den)}`
-      texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
+      texteCorr += simplificationDeFractionAvecEtapes(num, den, { colorisationResultat: false }) + '$'
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replaceAll('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
 
       const myTexteCorrCol = texteCorr
       if (this.sup4) {
@@ -210,9 +224,10 @@ export default class ExerciceAdditionnerOuSoustraireDesFractions extends Exercic
         if (context.isHtml) {
           texteCorr += '<br>'
         }
-        texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[etapes.length - 1].replace('$', '')}$`
+        texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[etapes.length - 1]}`
       }
-      if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction.)'
+
+      if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += sp(5) + ' (On a réduit le plus possible la fraction.)'
 
       texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '=' })
       reponse = this.sup3 ? fraction(num, den).simplifie() : fraction(num, den)

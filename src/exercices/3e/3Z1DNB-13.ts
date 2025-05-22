@@ -154,7 +154,7 @@ $\\mathcal{V} = \\mathcal{A}(EFJGH) \\times ${texNombre(epaisseur / 100, 2)} = $
     const question2 = `Afin de pouvoir couler le béton, M. et M$^\\text{me}$ ${nomFamille} doivent délimiter la terrasse en installant des planches tout autour. Quelle longueur de planches doivent-ils acheter au minimum ?`
     const question3a = `Montrer que le volume de la terrasse est bien inférieur à $${volumeBeton}~\\mathrm{m}^{3}$.`
     const question3b = `Sachant que pour faire $1~\\mathrm{m}^{3}$ de béton, il faut $250~\\mathrm{kg}$ de ciment, quelle masse de ciment (en kg) doivent-ils acheter pour réaliser $${volumeBeton}~\\mathrm{m}^{3}$ de béton ?`
-    const question3c = 'Pour faire du béton, on ajoute de l\'eau à un mélange de ciment, de gravier et de sable. Dans ce mélange, les masses de ciment - gravier - sable sont dans le ratio $2~:~7~:~5$. Déterminer (en kg), la masse de gravier et la masse de sable nécessaires pour réaliser les $4~\\mathrm{m}^{3}$ de béton.'
+    const question3c = `Pour faire du béton, on ajoute de l'eau à un mélange de ciment, de gravier et de sable. Dans ce mélange, les masses de ciment - gravier - sable sont dans le ratio $2~:~7~:~5$. Déterminer (en kg), la masse de gravier et la masse de sable nécessaires pour réaliser les $${volumeBeton}~\\mathrm{m}^{3}$ de béton.`
     const question3 = createList({
       items: [question3a, question3b, question3c],
       style: 'alpha'

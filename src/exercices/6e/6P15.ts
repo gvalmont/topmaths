@@ -87,7 +87,7 @@ export default class CalculerCoeffPropo extends Exercice {
                 visible: colonne === colonneReference ? true : contenuVisible
               }
               deuxiemeLigne[colonne] = {
-                nombre: arrondi(premiereLigne[colonne].nombre * Number(coefficient)),
+                nombre: arrondi(premiereLigne[colonne].nombre * Number(coefficient), 4),
                 visible: colonne === colonneReference ? true : !contenuVisible
               }
             }
@@ -101,7 +101,7 @@ export default class CalculerCoeffPropo extends Exercice {
                 visible: colonne === colonneReference ? true : contenuVisible
               }
               deuxiemeLigne[colonne] = {
-                nombre: arrondi(coefficient * premiereLigne[colonne].nombre),
+                nombre: arrondi(coefficient * premiereLigne[colonne].nombre, 4),
                 visible: colonne === colonneReference ? true : !contenuVisible
               }
             }
@@ -127,7 +127,7 @@ export default class CalculerCoeffPropo extends Exercice {
                   visible: colonne === colonneReference ? true : contenuVisible
                 }
                 deuxiemeLigne[colonne] = {
-                  nombre: arrondi(premiereLigne[colonne].nombre * coefficient.valeurDecimale),
+                  nombre: arrondi(premiereLigne[colonne].nombre * coefficient.valeurDecimale, 4),
                   visible: colonne === colonneReference ? true : !contenuVisible
                 }
               }

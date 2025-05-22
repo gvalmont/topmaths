@@ -2,8 +2,6 @@
   import ButtonQRCode from '../../../../shared/forms/ButtonQRCode.svelte'
   import ButtonActionInfo from '../../../../shared/forms/ButtonActionInfo.svelte'
 
-  export let link: string
-
 </script>
 <div class="flex text-lg font-bold pb-2
   text-coopmaths-struct dark:text-coopmathsdark-struct"
@@ -13,7 +11,7 @@
     <ButtonActionInfo
       action="copy"
       icon={'bx-link text-2xl'}
-      textToCopy={link}
+      useCurrentUrl={true}
       tooltip="Lien du Diaporama"
       successMessage="Le lien du diaporama est copié dans le presse-papier !"
       errorMessage="Impossible de copier le lien du diaporama dans le presse-papier."

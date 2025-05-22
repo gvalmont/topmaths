@@ -45,14 +45,17 @@ export default class AireParComptage extends Exercice {
     const unites = gestionnaireFormulaireTexte({ saisie: this.sup3, nbQuestions: this.nbQuestions, min: 1, max: 3, melange: 4, defaut: 1 })
     for (let i = 0; i < this.nbQuestions; i++) {
       const uniteLongueurDefaut = 'u.l'
+      const uniteAireDefaut = 'u.a'
       let uniteLongueur = uniteLongueurDefaut
-      const uniteAire = 'u.a'
+      let uniteAire = uniteAireDefaut
       switch (unites[i]) {
         case 2:
-          uniteLongueur = '1\\,cm'
+          uniteLongueur = 'cm'
+          uniteAire = 'cm²'
           break
         case 3:
-          uniteLongueur = '1\\,m'
+          uniteLongueur = 'm'
+          uniteAire = 'm²'
           break
       }
       const decalageVisuelAire = uniteLongueur === uniteLongueurDefaut ? 2 : 0
@@ -79,11 +82,11 @@ export default class AireParComptage extends Exercice {
       const visuelUniteLongueur = segment(point(xmax - (2 + decalageVisuelAire), ymin + 1), point(xmax - (1 + decalageVisuelAire), ymin + 1))
       visuelUniteLongueur.epaisseur = 2
       visuelUniteLongueur.styleExtremites = '|-|'
-      const texteUniteLongueur = latex2d(uniteLongueur, xmax - (1.5 + decalageVisuelAire), ymin + 0.5, {})
+      const texteUniteLongueur = latex2d('1 ' + uniteLongueur, xmax - (1.5 + decalageVisuelAire), ymin + 0.5, {})
 
       const visuelUniteAire = carre(point(xmax - 2, ymin + 1), point(xmax - 1, ymin + 1))
       visuelUniteAire.couleurDeRemplissage = colorToLatexOrHTML('gray')
-      const texteUniteAire = latex2d(uniteAire, xmax - 1.5, ymin + 0.5, {})
+      const texteUniteAire = latex2d('1 ' + uniteAire, xmax - 1.5, ymin + 0.5, {})
 
       const objets = [grille(xmin, ymin, xmax, ymax), tetris.poly, tetris2.poly, fig1, fig2, visuelUniteLongueur, texteUniteLongueur]
       if (uniteLongueur === uniteLongueurDefaut) objets.push(visuelUniteAire, texteUniteAire)
@@ -108,7 +111,7 @@ Quelles sont les aires des figures ci-dessus ?<br>
         ? `L'aire de la figure 1 est $${miseEnEvidence(aire)}$ ${uniteAire} et celle de la figure 2 est  $${miseEnEvidence(aire2)}$ ${uniteAire}.`
         : this.sup2 === 2
           ? `Le périmètre de la figure 1 est $${miseEnEvidence(tetris.poly.perimetre)}$ ${uniteLongueur} et celui de la figure 2 est $${miseEnEvidence(tetris2.poly.perimetre)}$ ${uniteLongueur}.`
-          : `L'aire de la figure 1 est $${miseEnEvidence(aire)}$ ${uniteAire}, celle de la figure 2 est $${miseEnEvidence(aire2)}$ ${uniteAire}<br>
+          : `L'aire de la figure 1 est $${miseEnEvidence(aire)}$ ${uniteAire}, celle de la figure 2 est $${miseEnEvidence(aire2)}$ ${uniteAire}.<br>
           Le périmètre de la figure 1 est $${miseEnEvidence(tetris.poly.perimetre)}$ ${uniteLongueur} et celui de la figure 2 est $${miseEnEvidence(tetris2.poly.perimetre)}$ ${uniteLongueur}.`
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

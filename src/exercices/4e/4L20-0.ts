@@ -1,14 +1,11 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-import { abs, signe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { equation1erDegre1Inconnue } from '../../lib/outils/equations'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,12 +16,13 @@ export const titre = 'Résoudre une équation du premier degré à solutions ent
 
 /**
  * Équation du premier degré
- * * Type 1 : x+a=b ou ax=b
- * * Type 2 : ax+b=c
+ * * Type 1 : x+b=d ou ax=d
+ * * Type 2 : ax+b=d
  * * Type 3 : ax+b=cx+d
  * * Tous les types
  * @author Rémi Angot
  * Modifications de 4L20 pour n'avoir que des solutions entières : Jean-Claude Lhote
+ * Refactorisation et extraction de la fonction génératrice d'équations par Guillaume Valmont le 06/06/2025
  * 4L20-0
  */
 export const uuid = '515b0'
@@ -40,7 +38,7 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
     this.besoinFormulaire2Numerique = [
       "Type d'équations",
       4,
-      '1 : ax=b ou x+a=b ou x-a=b\n2: ax+b=c\n3: ax+b=cx+d\n4: Mélange'
+      '1 : ax=d ou x+b=d ou x-b=d\n2: ax+b=d\n3: ax+b=cx+d\n4: Mélange'
     ]
 
     this.consigne = 'Résoudre les équations suivantes.'
@@ -58,13 +56,13 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
   }
 
   nouvelleVersion () {
-    let listeTypeDeQuestions
+    let listeTypeDeQuestions: ('ax+b=0' | 'ax+b=d' | 'ax=d' | 'x+b=d' | 'ax+b=cx+d')[] = []
     switch (this.sup2.toString()) {
       case '1':
-        listeTypeDeQuestions = ['ax=b', 'x+b=c']
+        listeTypeDeQuestions = ['ax=d', 'x+b=d']
         break
       case '2':
-        listeTypeDeQuestions = ['ax+b=c']
+        listeTypeDeQuestions = ['ax+b=d']
         break
       case '3':
         listeTypeDeQuestions = ['ax+b=cx+d']
@@ -72,9 +70,9 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
       default:
         listeTypeDeQuestions = [
           'ax+b=0',
-          'ax+b=c',
-          'ax=b',
-          'x+b=c',
+          'ax+b=d',
+          'ax=d',
+          'x+b=d',
           'ax+b=cx+d'
         ]
         break
@@ -83,160 +81,12 @@ export default class ExerciceEquationASolutionEntiere extends Exercice {
       listeTypeDeQuestions,
       this.nbQuestions
     )
-    for (let i = 0, a, b, c, d, reponse, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      switch (listeTypeDeQuestions[i]) {
-        case 'ax+b=0':
-        case 'ax+b=c':
-          do {
-            if (listeTypeDeQuestions[i] === 'ax+b=0') {
-              c = 0
-            } else {
-              c = randint(-9, 9, [0])
-            }
-            reponse = randint(-5, 5, [0, -1, 1])
-            a = randint(-5, 5, [-1, 0, 1])
-            if (!this.sup) {
-              reponse = Math.abs(reponse)
-              a = Math.abs(a)
-              c = Math.abs(c)
-            }
-            b = c - a * reponse // b peut être négatif, ça sera une équation du type x-b=c
-            texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
-            texteCorr = texte + '<br>'
-            if (this.correctionDetaillee) {
-              if (b > 0) {
-                texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
-              } else {
-                texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
-              }
-            }
-            texteCorr += `$${a}x${ecritureAlgebrique(b)}${miseEnEvidence(
-                            ecritureAlgebrique(-1 * b)
-                        )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
-            texteCorr += `$${a}x=${c - b}$<br>`
-            if (this.correctionDetaillee) {
-              texteCorr += `On divise les deux membres par $${a}$.<br>`
-            }
-            texteCorr += `$${a}x${miseEnEvidence(
-                            '\\div' + ecritureParentheseSiNegatif(a)
-                        )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-            texteCorr += `$x=${texFractionFromString(c - b, a)}=${reponse}$`
-            texteCorr += `<br> La solution est $${reponse}$.`
-          } while (b === 0)
-          break
-        case 'x+b=c':
-          a = 1 // c'est pour éviter un warning
-          b = randint(-9, 9, [0]) // b peut être négatif, ça sera une équation du type x-b=c
-          c = randint(-16, 15, 0)
-          if (!this.sup) {
-            c = Math.abs(c)
-          }
-          reponse = c - b
-          texte = `$x${ecritureAlgebrique(b)}=${c}$`
-          texteCorr = texte + '<br>'
-          if (this.correctionDetaillee) {
-            if (b > 0) {
-              texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
-            } else {
-              texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
-            }
-          }
-          texteCorr += `$x${ecritureAlgebrique(b)}${miseEnEvidence(
-                        ecritureAlgebrique(-1 * b)
-                    )}=${c}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
-          texteCorr += `$x=${reponse}$`
-          texteCorr += `<br> La solution est $${reponse}$.`
-          break
-        case 'ax=b':
-          c = 1 // c'est pour éviter un warning
-          if (this.sup) {
-            a = randint(-9, 9, [0, -1, 1]) // b peut être négatif, ça sera une équation du type x-b=c
-            reponse = randint(-9, 9, [-1, 0, 1])
-          } else {
-            a = randint(2, 15)
-            reponse = randint(2, 9)
-          }
-          b = a * reponse
-          texte = `$${a}x=${b}$`
-          texteCorr = texte + '<br>'
-          if (this.correctionDetaillee) {
-            texteCorr += `On divise les deux membres par $${a}$.<br>`
-          }
-          texteCorr += `$${a}x${miseEnEvidence(
-                        '\\div' + ecritureParentheseSiNegatif(a)
-                    )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-          texteCorr += `$x=${texFractionFromString(b, a)}=${reponse}$`
-          texteCorr += `<br> La solution est $${reponse}$.`
-          break
-        case 'ax+b=cx+d':
-        default:
-          d = randint(-15, 15, 0)
-          c = randint(-5, 5, [-1, 0, 1])
-          if (!this.sup) {
-            c = Math.abs(c)
-            a = randint(2, 5) + c
-            reponse = Math.abs(randint(-9, 9, [0, -1, 1, -d / (c - a)]))
-          } else {
-            a = randint(-5, 5, [-c, -c + 1, -c - 1, 0]) + c
-            reponse = randint(-9, 9, [0, -1, 1, -d / (c - a)])
-          }
-          b = (c - a) * reponse + d
-          texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
-                        c
-                    )}x${ecritureAlgebrique(d)}$`
-          texteCorr = texte + '<br>'
-          if (this.correctionDetaillee) {
-            if (c > 0) {
-              texteCorr += `On soustrait $${rienSi1(
-                                c
-                            )}x$ aux deux membres.<br>`
-            } else {
-              texteCorr += `On ajoute $${rienSi1(
-                                -1 * c
-                            )}x$ aux deux membres.<br>`
-            }
-          }
-          texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(
-                        b
-                    )}${miseEnEvidence(
-                        signe(-1 * c) + rienSi1(abs(c)) + 'x'
-                    )}=${c}x${ecritureAlgebrique(d)}${miseEnEvidence(
-                        signe(-1 * c) + rienSi1(abs(c)) + 'x'
-                    )}$<br>`
-          texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
-                        b
-                    )}=${d}$<br>`
-          if (this.correctionDetaillee) {
-            if (b > 0) {
-              texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
-            } else {
-              texteCorr += `On ajoute $${-1 * b}$ aux deux membres.<br>`
-            }
-          }
-          texteCorr += `$${rienSi1(a - c)}x${ecritureAlgebrique(
-                        b
-                    )}${miseEnEvidence(
-                        ecritureAlgebrique(-1 * b)
-                    )}=${d}${miseEnEvidence(ecritureAlgebrique(-1 * b))}$<br>`
-          texteCorr += `$${rienSi1(a - c)}x=${d - b}$<br>`
-
-          if (this.correctionDetaillee) {
-            texteCorr += `On divise les deux membres par $${a - c}$.<br>`
-          }
-          texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence(
-                        '\\div' + ecritureParentheseSiNegatif(a - c)
-                    )}=${d -
-                    b +
-                    miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-          texteCorr += `$x=${texFractionFromString(d - b, a - c)}=${reponse}$`
-          texteCorr += `<br> La solution est $${reponse}$.`
-          break
-      }
-      texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: sp(10) + '<br>La solution est $x=$' })
-      this.sup ? setReponse(this, i, reponse, { signe: true }) : setReponse(this, i, reponse, { signe: false })
-      if (this.questionJamaisPosee(i, a, b, c)) {
-        // Si la question n'a jamais été posée, on en créé une autre
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const equation = equation1erDegre1Inconnue({ valeursRelatives: this.sup, type: listeTypeDeQuestions[i] })
+      const texte = `$${equation.egalite}$ ${ajouteChampTexteMathLive(this, i, '', { texteAvant: sp(10) + '<br>La solution est $x=$' })}`
+      const texteCorr = texte + '<br>' + this.correctionDetaillee ? equation.correctionDetaillee : equation.correction
+      setReponse(this, i, equation.reponse, { signe: !!this.sup })
+      if (this.questionJamaisPosee(i, equation.a, equation.b, equation.c)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

@@ -10,8 +10,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '16/04/2025'
 /**
- * Modèle d'exercice très simple pour la course aux nombres
- * @author Stéphane Guyon
+ *
+ * @author Stéphane Guyon (refactorisé par Eric Elter)
 
  *
 */
@@ -36,57 +36,48 @@ export default class IntegraleAffine extends Exercice {
     const choix = choice([1, 2])// Choix entre cos (1) et sin (2)
     const ICos = choice(['\\left[-\\pi;0\\right[', '\\left[0;\\pi\\right[']) // Intervalle pour le sinus
     const ISin = choice(['\\left[-\\dfrac{\\pi}{2};\\dfrac{\\pi}{2}\\right[', '\\left[\\dfrac{\\pi}{2};\\dfrac{3\\pi}{2}\\right[']) // Intervalle pour le cosinus
-    // this.consigne = 'Déterminer le sinus ou le cosinus associé à un réel $x$.'
-    this.formatChampTexte = KeyboardType.clavierFullOperations
-    if (choix === 1) { this.question = `Soit $x\\in ${ISin}$. <br>On donne $\\sin(x)=${texNombre(a / 10)}$.<br> Déterminer la valeur exacte de $\\cos(x)$.` } else { this.question = `Soit $x\\in ${ICos}$. <br>On donne $\\cos(x)=${texNombre(a / 10)}$.<br> Déterminer la valeur exacte de $\\sin(x)$` }
 
-    if (this.interactif && choix === 1) { this.question += '<br>$\\cos(x)=$ ' }
-    if (this.interactif && choix === 2) { this.question += '<br>$\\sin(x)=$ ' }
+    this.formatChampTexte = KeyboardType.clavierFullOperations
+    this.question = choix === 1
+      ? `Soit $x\\in ${ISin}$. <br>On donne $\\sin(x)=${texNombre(a / 10)}$.<br> Déterminer la valeur exacte de $\\cos(x)$.`
+      : `Soit $x\\in ${ICos}$. <br>On donne $\\cos(x)=${texNombre(a / 10)}$.<br> Déterminer la valeur exacte de $\\sin(x)$.`
+
+    if (this.interactif) this.question += choix === 1 ? '<br>$\\cos(x)=$ ' : '<br>$\\sin(x)=$ '
     this.correction = 'On sait que pour tout $x\\in \\mathbb{R}$, $\\sin^2(x)+\\cos^2(x)=1$.<br>'
-    if (choix === 1) // On cherche le cos
-    {
+    if (choix === 1) { // On cherche le cos
       this.correction += ' Donc $\\cos^2(x)=1-\\sin^2(x)$.<br> Ce qui donne deux solutions :<br> $\\cos(x)=\\sqrt{1-\\sin^2(x)}$ ou $\\cos(x)=-\\sqrt{1-\\sin^2(x)}$.<br>'
+      this.correction += ` Comme $x\\in ${ISin}$, on a $\\cos(x)\\leqslant 0$.<br>`
+      this.correction += `On en déduit que : <br>$\\begin{aligned}
+        \\cos(x)&=-\\sqrt{1-\\sin^2(x)}\\\\`
+
       if (ISin === '\\left[-\\dfrac{\\pi}{2};\\dfrac{\\pi}{2}\\right[') {
-        this.correction += ` Comme $x\\in ${ISin}$, on a $\\cos(x)\\geqslant 0$.<br>`
-        this.correction += `On en déduit que <br>$\\begin{aligned}
-        \\cos(x)&=\\sqrt{1-\\sin^2(x)}\\\\
-        &=\\sqrt{1-${texNombre(a / 10)}^2}\\\\
-        &=\\sqrt{${texNombre(solution)}}.\\end{aligned}$`
-        this.correction += `<br>On peut conclure que   $${miseEnEvidence(`\\cos(x)=\\sqrt{${texNombre(solution)}}`)}$`
-        this.reponse = `\\sqrt{${texNombre(solution)}}`
+        this.correction += `&=\\sqrt{1-${texNombre(a / 10)}^2}\\\\
+        &=\\sqrt{${texNombre(solution)}}.\\end{aligned}$
+        <br>On peut conclure que   $\\cos(x)=${miseEnEvidence(`\\sqrt{${texNombre(solution)}}`)}$.`
+        this.reponse = `\\sqrt{${solution}}`
+      } else {
+        this.correction += `&=-\\sqrt{1-${ecritureParentheseSiNegatif(a / 10)}^2}\\\\
+        &=-\\sqrt{${texNombre(solution)}}.\\end{aligned}$
+        <br>On peut conclure que   $\\cos(x)=${miseEnEvidence(`-\\sqrt{${texNombre(solution)}}`)}$$.`
+        this.reponse = `-\\sqrt{${solution}}`
       }
-      if (ISin === '\\left[\\dfrac{\\pi}{2};\\dfrac{3\\pi}{2}\\right[') {
-        this.correction += ` Comme $x\\in ${ISin}$, on a $\\cos(x)\\leqslant 0$.<br>`
-        this.correction += `On en déduit que <br>$\\begin{aligned}
-        \\cos(x)&=-\\sqrt{1-\\sin^2(x)}\\\\
-        &=-\\sqrt{1-${ecritureParentheseSiNegatif(a / 10)}^2}\\\\
-        &=-\\sqrt{${texNombre(solution)}}.\\end{aligned}$`
-        this.correction += `<br>On peut conclure que   $${miseEnEvidence(`\\cos(x)=-\\sqrt{${texNombre(solution)}}`)}$`
-        this.reponse = `-\\sqrt{${texNombre(solution)}}`
-      }
-    }
-    if (choix === 2) // On cherche le sin
-    {
+    } else { // On cherche le sin
       this.correction += ' Donc $\\sin(x)=\\sqrt{1-\\cos^2(x)}$ ou $\\sin(x)=-\\sqrt{1-\\cos^2(x)}$.<br>'
-      if (ICos === '\\left[-\\pi;0\\right[') {
-        this.correction += ` Comme $x\\in ${ICos}$, on a $\\sin(x)\\leqslant 0$.<br>`
-        this.correction += `On en déduit que <br>$\\begin{aligned}
-        \\sin(x)&=-\\sqrt{1-\\cos^2(x)}\\\\
-        &=-\\sqrt{1-${ecritureParentheseSiNegatif(a / 10)}^2}\\\\
-        &=-\\sqrt{${texNombre(solution)}}.\\end{aligned}$`
-        this.correction += `<br>On peut conclure que   $${miseEnEvidence(`\\sin(x)=-\\sqrt{${texNombre(solution)}}`)}$`
-        this.reponse = `-\\sqrt{${texNombre(solution)}}`
-      }
-      if (ICos === '\\left[0;\\pi\\right[') {
-        this.correction += ` Comme $x\\in ${ICos}$, on a $\\sin(x)\\geqslant 0$.<br>`
-        this.correction += `On en déduit que <br>$\\begin{aligned}
+      this.correction += ` Comme $x\\in ${ICos}$, on a $\\sin(x)\\geqslant 0$.<br>`
+      this.correction += `On en déduit que : <br>$\\begin{aligned}
             \\sin(x)&=\\sqrt{1-\\cos^2(x)}\\\\
             &=\\sqrt{1-${ecritureParentheseSiNegatif(a / 10)}^2}\\\\
             &=\\sqrt{${texNombre(solution)}}.\\end{aligned}$`
-        this.correction += `<br>On peut conclure que   $\\sin(x)=${miseEnEvidence(`\\sqrt{${texNombre(solution)}}`)}$`
-        this.reponse = `\\sqrt{${texNombre(solution)}}`
+
+      if (ICos === '\\left[-\\pi;0\\right[') {
+        this.correction += `<br>On peut conclure que   $\\sin(x)=${miseEnEvidence(`-\\sqrt{${texNombre(solution)}}`)}$.`
+        this.reponse = `-\\sqrt{${solution}}`
+      } else {
+        this.correction += `<br>On peut conclure que   $\\sin(x)=${miseEnEvidence(`\\sqrt{${texNombre(solution)}}`)}$.`
+        this.reponse = `\\sqrt{${solution}}`
       }
     }
+
     // if (ICos === '\\left[0;\\pi\\right[' || ISin === '\\left[-\\dfrac{\\pi}{2};\\dfrac{\\pi}{2}\\right[') {
     //   this.reponse = `\\sqrt{${texNombre(solution)}}`
     // }

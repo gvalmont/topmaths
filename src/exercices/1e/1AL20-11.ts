@@ -9,12 +9,12 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures'
-import { modalTexteLong } from '../../lib/outils/modales'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { ajouterAide } from '../../lib/outils/enrichissements'
 
 export const titre = 'Calcul du discriminant d\'une équation du second degré'
 
@@ -128,7 +128,7 @@ export default class CalculDiscriminant extends Exercice {
         correctionComplementaire += mathalea2d({ xmin: -10.1, ymin: -10.1, xmax: 10.1, ymax: 10.1, pixelsParCm: 15 },
           graphique, r, s)
 
-        texteCorr += modalTexteLong(numeroExercice, '<br>Complément graphique', correctionComplementaire, '<br>Complément graphique', 'info circle')
+        texteCorr += ajouterAide(correctionComplementaire, { texteAvant: 'Complément graphique', titreAide: 'Complément graphique' })
       }
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions[i] = texte

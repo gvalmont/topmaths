@@ -113,7 +113,7 @@ export class Cercle extends ObjetMathalea2D {
       return (
         pattern({
           motif: this.hachures,
-          id: Number(this.id),
+          id: String(this.id),
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[0],
@@ -186,7 +186,7 @@ export class Cercle extends ObjetMathalea2D {
       tableauOptions.push(
         pattern({
           motif: this.hachures,
-          id: Number(this.id),
+          id: String(this.id),
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
@@ -470,7 +470,7 @@ export class Arc extends ObjetMathalea2D {
         return (
           pattern({
             motif: this.hachures,
-            id: Number(this.id),
+            id: String(this.id),
             distanceDesHachures: this.distanceDesHachures,
             epaisseurDesHachures: this.epaisseurDesHachures,
             couleurDesHachures: this.couleurDesHachures[0] ?? 'black',
@@ -565,7 +565,7 @@ export class Arc extends ObjetMathalea2D {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (
-      this.rayons &&
+      // this.rayons && (EE (14/05/2025) : ai commenté cette ligne car je ne comprends pas pourquoi le remplissage dépendrait de this.rayons. Si présent, cela fait dysfonctionner la sortie LaTeX des cas 3-4-5-6 de 6M21.)
       this.couleurDeRemplissage[1] !== 'none' &&
       this.couleurDeRemplissage[1] !== ''
     ) {
@@ -578,7 +578,7 @@ export class Arc extends ObjetMathalea2D {
       tableauOptions.push(
         pattern({
           motif: this.hachures,
-          id: Number(this.id),
+          id: String(this.id),
           distanceDesHachures: this.distanceDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
           couleurDeRemplissage: this.couleurDeRemplissage[1],

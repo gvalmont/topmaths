@@ -253,192 +253,8 @@ async function testEleveView (page: Page) {
 
   return true
 }
+
 async function testEleveViewPre2 (page: Page) {
-  log('===========================================================')
-  log('===   TEST VUE ELEVE Presentation 2 2024 ==================')
-  log('===========================================================')
-  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  await page.goto(hostname + '?uuid=94d21&alea=hqk0&s=1', { timeout: 100000 })
-  log('Chargement de l\'url:' + hostname + '?uuid=94d21&alea=hqk0&s=1')
-  log('Clique sur le lien vue élève (config)')
-  await page.locator('[data-tip="Lien pour les élèves"]').getByRole('button').click()
-  // await page.getByRole('button', { name: 'Lien pour les élèves  ' }).click()
-  log('Configuration de la can (2024 2e)')
-  await page.locator('#presentation2').click()
-  await page.locator('#Interactif1').first().click()
-  const page1Promise = page.waitForEvent('popup')
-  await page.getByRole('button', { name: 'Visualiser' }).click()
-  const page1 = await page1Promise
-  await inputAnswerById(page1, '0Q0', '10')
-  await page1.locator('#exercice0Q0 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q0').first().innerText())
-
-  await page1.locator('#champTexteEx0Q1').focus()
-  await page1.locator('.key--0').click()
-  await page1.locator('#exercice0Q1 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q1').first().innerText())
-
-  await inputAnswerById(page1, '0Q2', 'x^2+11x+28')
-  await page1.locator('#exercice0Q2 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q2').first().innerText())
-
-  await inputAnswerById(page1, '0Q3', '22/7')
-  await page1.locator('#exercice0Q3 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q3').first().innerText())
-
-  await page1.locator('#champTexteEx0Q4').focus()
-  await page1.locator('.key--6').click()
-  await page1.locator('#exercice0Q4 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q4').first().innerText())
-
-  await page1.locator('#champTexteEx0Q5').focus()
-  await page1.locator('.key--0').click()
-  await page1.locator('.key--COMMA').click()
-  await page1.locator('.key--0').click()
-  await page1.locator('.key--6').click()
-  await page1.locator('#exercice0Q5 > div > button').click()
-  // await page1.waitForTimeout(5 * 60 * 1000)
-  // RA : Je ne comprends pas le test passe bien tout seul mais plante au build
-  // await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q5').first().innerText())
-  await page1.locator('#champTexteEx0Q6').focus()
-  await page1.locator('.key--1').click()
-  await page1.locator('.key--2').click()
-  await page1.locator('#exercice0Q6 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q6').first().innerText())
-
-  await page1.locator('#champTexteEx0Q7').focus()
-  await page1.locator('.key--1').click()
-  await page1.locator('.key--0').click()
-  await page1.locator('#exercice0Q7 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q7').first().innerText())
-
-  await page1.locator('#champTexteEx0Q8').focus()
-  await page1.locator('.key--6').click()
-  await page1.locator('#exercice0Q8 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q8').first().innerText())
-
-  await page1.locator('#champTexteEx0Q9').focus()
-  await page1.locator('.key--3').click()
-  await page1.locator('.key--6').click()
-  await page1.locator('#exercice0Q9 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q9').first().innerText())
-
-  await page1.locator('#champTexteEx0Q10').focus()
-  await inputAnswerById(page1, '0Q10', '17/3')
-  await page1.locator('#exercice0Q10 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q10').first().innerText())
-
-  await page1.locator('#champTexteEx0Q11').focus()
-  await page1.locator('.key--2').click()
-  await page1.locator('.key--COMMA').click()
-  await page1.locator('.key--6').click()
-  await page1.locator('#exercice0Q11 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q11').first().innerText())
-
-  await page1.locator('#champTexteEx0Q12').focus()
-  await page1.locator('.key--6').click()
-  await page1.locator('#exercice0Q12 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q12').first().innerText())
-
-  // QCM : obliger de ragarder les labels
-  const label = await page1.locator('#labelEx0Q13R0').innerText()
-  if (label.includes('99')) {
-    await page1.locator('#checkEx0Q13R0').click()
-  } else {
-    await page1.locator('#checkEx0Q13R1').click()
-  }
-  await page1.locator('#exercice0Q13 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q13').first().innerText())
-
-  await page1.locator('#champTexteEx0Q14').focus()
-  await page1.locator('.key--1').click()
-  await page1.locator('.key--0').click()
-  await page1.locator('.key--0').click()
-  await page1.locator('.key--COMMA').click()
-  await page1.locator('.key--1').click()
-  await page1.locator('#exercice0Q14 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q14').first().innerText())
-
-  await page1.locator('#champTexteEx0Q15').focus()
-  await page1.locator('.key--4').click()
-  await page1.locator('#exercice0Q15 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q15').first().innerText())
-
-  await page1.locator('#champTexteEx0Q16').focus()
-  await inputAnswerById(page1, '0Q16', '3/4')
-  await page1.locator('#exercice0Q16 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q16').first().innerText())
-
-  await page1.locator('#champTexteEx0Q17').focus()
-  await inputAnswerById(page1, '0Q17', '5,4 * 10^4')
-  await page1.locator('#exercice0Q17 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q17').first().innerText())
-
-  await page1.locator('#champTexteEx0Q18').focus()
-  await page1.locator('.key--1').click()
-  await page1.locator('.key--2').click()
-  await page1.locator('#exercice0Q18 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q18').first().innerText())
-
-  await page1.locator('#champTexteEx0Q19').focus()
-  await inputAnswerById(page1, '0Q19', '-16')
-  await page1.locator('#exercice0Q19 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q19').first().innerText())
-
-  await page1.locator('#champTexteEx0Q20').focus()
-  await inputAnswerById(page1, '0Q20', '5/2')
-  await page1.locator('#exercice0Q20 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q20').first().innerText())
-
-  await page1.locator('#champTexteEx0Q21').focus()
-  await inputAnswerById(page1, '0Q21', '1/2')
-  await page1.locator('#exercice0Q21 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q21').first().innerText())
-
-  await page1.locator('#champTexteEx0Q22').focus()
-  await inputAnswerById(page1, '0Q22', '-2')
-  await page1.locator('#exercice0Q22 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q22').first().innerText())
-
-  await page1.locator('#champTexteEx0Q23').focus()
-  await inputAnswerById(page1, '0Q23', '5;15')
-  await page1.locator('#exercice0Q23 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q23').first().innerText())
-
-  await page1.locator('#champTexteEx0Q24').focus()
-  await inputAnswerById(page1, '0Q24', 'x^2-8x+16')
-  await page1.locator('#exercice0Q24 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q24').first().innerText())
-
-  await page1.locator('#champTexteEx0Q25').focus()
-  await inputAnswerById(page1, '0Q25', '(x-5)(x+5)')
-  await page1.locator('#exercice0Q25 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q25').first().innerText())
-
-  await inputAnswerById(page1, '0Q26', '19/31')
-  await page1.locator('#exercice0Q26 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q26').first().innerText())
-
-  await page1.locator('#champTexteEx0Q27').focus()
-  await page1.locator('.key--2').click()
-  await page1.locator('#exercice0Q27 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q27').first().innerText())
-
-  await page1.locator('#champTexteEx0Q28').focus()
-  await page1.locator('.key--3').click()
-  await page1.locator('#exercice0Q28 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q28').first().innerText())
-
-  await page1.locator('#champTexteEx0Q29').focus()
-  await inputAnswerById(page1, '0Q29', '[-5;2]')
-  await page1.locator('#exercice0Q29 > div > button').click()
-  expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q29').first().innerText())
-  log('Fin des questions')
-
-  return true
-}
-
-async function testEleveViewPre3 (page: Page) {
   log('===========================================================')
   log('===   TEST VUE ELEVE Presentation 3 2024 ==================')
   log('===========================================================')
@@ -449,7 +265,7 @@ async function testEleveViewPre3 (page: Page) {
   // await page.getByRole('button', { name: 'Lien pour les élèves  ' }).click()
   await page.locator('[data-tip="Lien pour les élèves"]').getByRole('button').click()
   log('Configuration de la can (2024 2e)')
-  await page.locator('#presentation3').click()
+  await page.locator('#presentation2').click()
   await page.locator('#Interactif1').first().click()
   const page1Promise = page.waitForEvent('popup')
   await page.getByRole('button', { name: 'Visualiser' }).click()
@@ -628,11 +444,9 @@ if (process.env.CI) {
   runTest(testCanView, import.meta.url, { pauseOnError: false })
   runTest(testEleveView, import.meta.url, { pauseOnError: false })
   runTest(testEleveViewPre2, import.meta.url, { pauseOnError: false })
-  runTest(testEleveViewPre3, import.meta.url, { pauseOnError: false })
 } else {
   // prefs.headless = true
   runTest(testCanView, import.meta.url, { pauseOnError: true })
   runTest(testEleveView, import.meta.url, { pauseOnError: true })
   runTest(testEleveViewPre2, import.meta.url, { pauseOnError: true })
-  runTest(testEleveViewPre3, import.meta.url, { pauseOnError: true })
 }

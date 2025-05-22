@@ -14,7 +14,7 @@ export const titre = 'Calculer  une probabilité avec un arbre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '15/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -23,7 +23,7 @@ export const dateDePublication = '15/04/2025'
 export const uuid = '233ef'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1P10-3'],
   'fr-ch': []
 }
 export default class CalculerProbaArbre extends Exercice {

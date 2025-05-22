@@ -42,7 +42,7 @@ class ConstructionParallelogramme extends Exercice {
     this.figure.create('Segment', { point1: B, point2: C })
 
     const enonce = 'Placer le point $D$ tel que $ABCD$ soit un parallélogramme.'
-    this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'LINE_PERPENDICULAR', 'LINE_PARALLEL', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })
+    this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'LINE_PERPENDICULAR', 'LINE_PARALLEL', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })
     const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure })
     const texteCorr = 'Un parallélogramme est un quadrilatère non croisé qui a ses côtés opposés parallèles deux à deux.'
     const figureCorrection = createAnimationConstructionRectangle()

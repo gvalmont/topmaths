@@ -55,7 +55,7 @@ export default class SigneFonctionAffine extends Exercice {
                 statut: a < 0
               }
             ],
-            options: { ordered: true }
+            options: { ordered: true, radio: true }
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte

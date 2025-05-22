@@ -33,7 +33,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_3.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_3_cor.tex',
-    tags: ['Vrai-faux', 'Calcul numérique', 'Racines', 'Fractions', 'Puisssances']
+    tags: ['Vrai/Faux', 'Calcul numérique', 'Racines', 'Fractions', 'Puisssances']
   },
   evacom_2023_LS_p1_4: {
     annee: '2023',
@@ -57,7 +57,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P1_5.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P1_5_cor.tex',
-    tags: ['Vrai-faux', 'Équations']
+    tags: ['Vrai/Faux', 'Équations']
   },
   evacom_2023_LS_p1_6: {
     annee: '2023',
@@ -93,7 +93,7 @@ export const dictionnaireEVACOM = {
     typeExercice: 'evacom',
     url: 'static/evacom/2023/tex/evacom_LS_P2_8.tex',
     urlcor: 'static/evacom/2023/tex/evacom_LS_P2_8_cor.tex',
-    tags: ['Vrai-faux', 'Pythagore']
+    tags: ['Vrai/Faux', 'Pythagore']
   },
   evacom_2023_LS_p2_9: {
     annee: '2023',

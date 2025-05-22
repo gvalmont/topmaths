@@ -147,7 +147,7 @@ export default class Reconnaitrefonctionaffine extends Exercice {
       }
       if (this.interactif || context.isAmc) {
         this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: true }
+        this.autoCorrection[i].options = { ordered: true, radio: true }
         this.autoCorrection[i].enonce = `${texte}\n`
         this.autoCorrection[i].propositions = [
           {

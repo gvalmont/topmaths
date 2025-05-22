@@ -82,10 +82,10 @@ export default class ReconnaitreNombrePremier extends Exercice {
               statut: true,
             },
           ]
-          this.autoCorrection[i].options = {
-            ordered: true
-          }
           break
+      }
+      this.autoCorrection[i].options = {
+        ordered: true, radio: true
       }
       texte += this.interactif ? `Le nombre $${texNombre(a)}$ est-il un nombre premier ?` : `Vérifier si $${texNombre(a)}$ est un nombre premier.`
       texteCorr = rediger(a, this.sup2)

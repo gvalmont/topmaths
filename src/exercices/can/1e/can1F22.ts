@@ -111,7 +111,7 @@ export default class ReconnaitreFonctionDegre2 extends Exercice {
                 statut: a > 10
               }
             ],
-            options: { ordered: true }
+            options: { ordered: true, radio: true }
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte

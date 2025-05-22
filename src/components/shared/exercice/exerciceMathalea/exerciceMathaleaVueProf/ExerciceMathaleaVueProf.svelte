@@ -116,6 +116,7 @@
 
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
+    if (!isInteractif && divScore) divScore.innerHTML = ''
     headerProps.settingsReady = !exerciceHasNoSettings
     headerProps.isSortable = true
     headerProps.isDeletable = true
@@ -249,6 +250,7 @@
         exercise.applyNewSeed()
       }
       if (buttonScore) initButtonScore()
+      if (divScore) divScore.innerHTML = ''
       if (
         isLocalStorageAvailable() &&
         exercise.id !== undefined &&
@@ -432,7 +434,6 @@
       'ease-in-out',
       'checkReponses'
     )
-    if (divScore) divScore.innerHTML = ''
   }
 
   /**

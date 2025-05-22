@@ -128,6 +128,8 @@ export function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur
     const imageMiddle = fonc.image(middle)
     if ((imageMiddle < 0 && inferieur) || (!inferieur && imageMiddle > 0)) {
       solutions.push(`[${texNombre(values[i], 1)};${texNombre(values[i + 1], 1)}]`)
+    } else if (i === values.length - 2 && soluces[soluces.length - 1] === xMax) {
+      solutions.push(`\\{${texNombre(values[i + 1], 1)}\\}`)
     }
   }
   return solutions.join('\\cup')
@@ -281,14 +283,14 @@ class resolutionEquationInequationGraphique extends Exercice {
             func: () => noeudsPassants1[indexPI1].y,
             expr: `${noeudsPassants1[indexPI1].y}`,
             poly: new Polynome({ rand: false, deg: 3, coeffs: [noeudsPassants1[indexPI1].y, 0, 0, 0] })
-          }
+          } // la fonction constante
           noeudsPassants2[indexPI2].y = noeudsPassants1[0].y
           // c'est l'index du point non commun
           const indexNC1 = randint(0, 3, [indexPI1, indexPI2])
           noeudsPassants2[indexNC1].y = randint(-5, 5, [noeudsPassants1[indexPI1].y, noeudsPassants1[indexPI1].y - 1, noeudsPassants1[indexPI1].y + 1])
           const noeudsFonction = noeudsPassants2.filter((el, i) => (i === indexPI1 || i === indexPI2 || i === indexNC1))
           const poly = interpolationDeLagrange(noeudsFonction)
-          fonction2 = renseigneFonction(poly) // la fonction constante
+          fonction2 = renseigneFonction(poly) // une fonction de degré 2
         }
           break
         case 3: { // constante et degré3
@@ -302,13 +304,13 @@ class resolutionEquationInequationGraphique extends Exercice {
             func: () => noeudsPassants1[indexPI1].y,
             expr: `${noeudsPassants1[indexPI1].y}`,
             poly: new Polynome({ rand: false, deg: 3, coeffs: [noeudsPassants1[indexPI1].y, 0, 0, 0] })
-          }
+          } // la fonction constante
           for (const index of [indexPI1, indexPI2, indexPI3]) {
             noeudsPassants2[index].y = noeudsPassants1[indexPI1].y
           }
           noeudsPassants2[indexNC].y = randint(-5, 5, [noeudsPassants1[indexPI1].y, noeudsPassants1[indexPI1].y - 1, noeudsPassants1[indexPI1].y + 1])
           const poly = interpolationDeLagrange(noeudsPassants2)
-          fonction2 = renseigneFonction(poly) // la fonction constante
+          fonction2 = renseigneFonction(poly) // une fonction de degré 3
         }
           break
         case 4: // 2 affines
@@ -322,9 +324,9 @@ class resolutionEquationInequationGraphique extends Exercice {
             noeudsPassants2[indexNC2].y = randint(-4, 4, [noeudsPassants1[indexPI1].y, noeudsPassants1[indexNC1].y])
             const noeudsFonction2 = noeudsPassants2.filter((el, i) => (i === indexPI1 || i === indexNC2))
             const poly1 = interpolationDeLagrange(noeudsFonction1)
-            fonction1 = renseigneFonction(poly1) // la fonction constante
+            fonction1 = renseigneFonction(poly1) // une fonction affine
             const poly2 = interpolationDeLagrange(noeudsFonction2)
-            fonction2 = renseigneFonction(poly2) // la fonction constante
+            fonction2 = renseigneFonction(poly2) // la deuxième fonction affine
           }
           break
         case 5: // affine et degré2
@@ -343,7 +345,7 @@ class resolutionEquationInequationGraphique extends Exercice {
             noeudsPassants2[indexPNC1].y = randint(-5, 5, [noeudsPassants1[indexPNC1].y, noeudsPassants2[0].y, noeudsPassants2[1].y, noeudsPassants2[2].y, noeudsPassants2[3].y])
             const noeudsFonction2 = noeudsPassants2.filter((el, i) => (i === indexPI || i === indexPNC1 || i === indexPI2))
             const poly2 = interpolationDeLagrange(noeudsFonction2)
-            fonction2 = renseigneFonction(poly2) // la fonction constante
+            fonction2 = renseigneFonction(poly2) // la fonction degré 2
           }
           break
         case 6: { // affine et degré3
@@ -355,13 +357,13 @@ class resolutionEquationInequationGraphique extends Exercice {
           const indexPNC1 = randint(0, 3, [indexPI, indexPI1, indexPI2])
           const noeudsFonction1 = noeudsPassants1.filter((el, i) => (i === indexPI || i === indexPI1))
           const poly1 = interpolationDeLagrange(noeudsFonction1)
-          fonction1 = renseigneFonction(poly1) // la fonction constante
+          fonction1 = renseigneFonction(poly1) // la fonction affine
           for (const index of [indexPI, indexPI1, indexPI2]) {
             noeudsPassants2[index].y = fonction1.func(noeudsPassants2[index].x)
           }
           noeudsPassants2[indexPNC1].y = randint(-5, 5, [noeudsPassants1[indexPNC1].y, noeudsPassants2[0].y, noeudsPassants2[1].y, noeudsPassants2[2].y, noeudsPassants2[3].y])
           const poly2 = interpolationDeLagrange(noeudsPassants2)
-          fonction2 = renseigneFonction(poly2) // la fonction constante
+          fonction2 = renseigneFonction(poly2) // la fonction degré 3
         }
           break
         case 7: // degré2 et degré2
@@ -375,9 +377,9 @@ class resolutionEquationInequationGraphique extends Exercice {
             const noeudsFonction1 = noeudsPassants1.filter((el, i) => i === indexPI || i === indexPI1 || i === indexPNC1)
             const noeudsFonction2 = noeudsPassants2.filter((el, i) => i === indexPI || i === indexPNC1 || i === indexPNC2)
             const poly1 = interpolationDeLagrange(noeudsFonction1)
-            fonction1 = renseigneFonction(poly1) // la fonction constante
+            fonction1 = renseigneFonction(poly1) // la première parabole
             const poly2 = interpolationDeLagrange(noeudsFonction2)
-            fonction2 = renseigneFonction(poly2) // la fonction constante
+            fonction2 = renseigneFonction(poly2) // la deuxième parabole
           }
           break
         case 8: // degré2 et degré3
@@ -389,16 +391,16 @@ class resolutionEquationInequationGraphique extends Exercice {
             const indexPNC1 = randint(0, 3, [indexPI1, indexPI2])
             const noeudsFonction1 = noeudsPassants1.filter((el, i) => i === indexPI1 || i === indexPNC1 || i === indexPI2)
             const poly1 = interpolationDeLagrange(noeudsFonction1)
-            fonction1 = renseigneFonction(poly1) // la fonction constante
+            fonction1 = renseigneFonction(poly1) // la parabole
             const poly2 = interpolationDeLagrange(noeudsPassants2)
-            fonction2 = renseigneFonction(poly2) // la fonction constante
+            fonction2 = renseigneFonction(poly2) // la fonction degré 3
           }
           break
         case 9: // degré3 et degré3
           f1Type = 'poly3'
           f2Type = 'poly3'
           {
-            const poly1 = interpolationDeLagrange(noeudsPassants1)
+            const poly1 = interpolationDeLagrange(noeudsPassants1) // une fonction de degré 3
             fonction1 = renseigneFonction(poly1)
             // on modifie la valeur y de l'un des points passants qui devient non passant pour la fonction1
             const indexPNC1 = randint(0, 3)
@@ -409,7 +411,7 @@ class resolutionEquationInequationGraphique extends Exercice {
             } while (Math.abs(newY - noeudsPassants1[indexPNC1].y) > 5)
             noeudsPassants2[indexPNC1].y = newY
             const poly2 = interpolationDeLagrange(noeudsPassants2)
-            fonction2 = renseigneFonction(poly2) // la fonction constante
+            fonction2 = renseigneFonction(poly2) // une fonction de degré 3
           }
           break
         default: // affine et affine (c'est le this.sup par défaut) Le code du case 4 est dupliqué ici pour avoir une valeur par défaut au cas où
@@ -422,9 +424,9 @@ class resolutionEquationInequationGraphique extends Exercice {
             const noeudsFonction1 = noeudsPassants1.filter((el, i) => i === indexPI || i === indexPNC1)
             const noeudsFonction2 = noeudsPassants2.filter((el, i) => i === indexPI || i === indexPNC2)
             const poly1 = interpolationDeLagrange(noeudsFonction1)
-            fonction1 = renseigneFonction(poly1) // la fonction constante
+            fonction1 = renseigneFonction(poly1) // une fonction affine
             const poly2 = interpolationDeLagrange(noeudsFonction2)
-            fonction2 = renseigneFonction(poly2) // la fonction constante
+            fonction2 = renseigneFonction(poly2) // la deuxième fonction affine
           }
 
           break
@@ -475,8 +477,8 @@ class resolutionEquationInequationGraphique extends Exercice {
         color: 'blue',
         thickness: 2,
         fillOpacity: 0.5,
-        xMin: xMin - 0.5,
-        xMax: xMax + 2.5,
+        xMin,
+        xMax,
         isDashed: false
       })
       if (this.interactif) {
@@ -536,7 +538,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     const racinesArrondies = racines.map(el => Number(el.toFixed(1)))
     for (let n = 0; n < racinesArrondies.length; n++) {
       const image = fonction1.func(racinesArrondies[n])
-      const isInside = racinesArrondies[n] <= xMax + 1.5 && racinesArrondies[n] >= xMin
+      const isInside = racinesArrondies[n] <= xMax + 0.5 && racinesArrondies[n] >= xMin
       const isInside2 = image >= yMin && image <= yMin + 12.6
       if (isInside && isInside2) {
         soluces.push(racinesArrondies[n])
@@ -545,15 +547,15 @@ class resolutionEquationInequationGraphique extends Exercice {
     soluces = Array.from(new Set(soluces)) as number[]
     soluces = soluces.sort((a: number, b: number) => a - b)
     if (this.sup === 1 || this.sup === 3) {
-      enonce += `Résoudre graphiquement l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur  [$${xMin};$${xMax + 1}].<br>`
+      enonce += `Résoudre graphiquement l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur  [$${xMin};$${xMax}].<br>`
       if (this.interactif) enonce += 'Si besoin, les solutions doivent être séparées par un point-virgule.<br>'
-      texteCorr += `L'ensemble de solutions de l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] correspond aux abscisses des points d'intersection des deux courbes, soit : `
+      texteCorr += `L'ensemble de solutions de l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax}] correspond aux abscisses des points d'intersection des deux courbes, soit : `
       texteCorr += this.sup === 1 ? `$\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$` : `$${miseEnEvidence(`\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}`)}$.<br>`
     }
     let indexQuestion = 0
     if (soluces != null) {
       if (this.sup === 1 || this.sup === 3) {
-        if (this.interactif) enonce += `L'ensemble de solutions de l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
+        if (this.interactif) enonce += `L'ensemble de solutions de l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
         handleAnswers(this, indexQuestion, {
           reponse: {
             value: `\\{${Array.from(soluces).join(';')}\\}`,
@@ -564,12 +566,12 @@ class resolutionEquationInequationGraphique extends Exercice {
       }
     }
     if (this.sup !== 1) {
-      enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $\\left[${texNombre(xMin, 1)};${texNombre(xMax + 1, 1)}\\right]$.<br>`
+      enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $\\left[${texNombre(xMin, 1)};${texNombre(xMax, 1)}\\right]$.<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
-        enonce += `L'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>'
+        enonce += `L'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>'
       }
-      const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMax + 1)
+      const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMax)
 
       handleAnswers(this, indexQuestion, {
         reponse: {
@@ -578,7 +580,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         }
       })
 
-      texteCorr += `Pour trouver l'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $[${xMin};${xMax + 1}]$ , on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, 'blue')}$ est située ${inferieur ? 'en dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
+      texteCorr += `Pour trouver l'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur $[${xMin};${xMax}]$ , on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, 'blue')}$ est située ${inferieur ? 'en dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
       texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$`
     }
     /*  this.figureApiGeom.setToolbar({ tools: ['DRAG'], position: 'top' })
@@ -618,9 +620,9 @@ class resolutionEquationInequationGraphique extends Exercice {
 
     let courbe1, courbe2
     if (f1Type === 'constante' || f1Type === 'affine') {
-      courbe1 = segment(xMin, fonction1.func(xMin), xMax + 2.5, fonction1.func(xMax + 2.5), 'blue')
+      courbe1 = segment(xMin, fonction1.func(xMin), xMax, fonction1.func(xMax), 'blue')
     } else {
-      courbe1 = courbe(fonction1.func, { repere, xMin, xMax: xMax + 2.5, color: 'blue' })
+      courbe1 = courbe(fonction1.func, { repere, xMin, xMax, color: 'blue' })
     }
     const nomCourbe1 = latex2d(`\\mathscr{C}_${f1}`, xMin + 0.5, yMax - 1, { color: 'blue', letterSize: 'normalsize', backgroundColor: '' })
     const nomCourbe2 = latex2d(`\\mathscr{C}_${f2}`, xMin + 0.5, yMax - 2, { color: 'red', letterSize: 'normalsize', backgroundColor: '' })
@@ -629,9 +631,9 @@ class resolutionEquationInequationGraphique extends Exercice {
 
     courbe1.epaisseur = 2
     if (f2Type === 'affine') {
-      courbe2 = segment(xMin, fonction2.func(xMin), xMax + 2.5, fonction2.func(xMax + 2.5), 'red')
+      courbe2 = segment(xMin, fonction2.func(xMin), xMax, fonction2.func(xMax), 'red')
     } else {
-      courbe2 = courbe(fonction2.func, { repere, xMin, xMax: xMax + 2.5, color: 'red' })
+      courbe2 = courbe(fonction2.func, { repere, xMin, xMax, color: 'red' })
     }
     const p1A = point(xMin + 1, yMax - 1)
     const p1B = point(xMin + 2, yMax - 1)

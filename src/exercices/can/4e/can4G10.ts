@@ -99,7 +99,8 @@ export default class TripletsPythagoriciensOuPas extends Exercice {
             texte: 'Faux',
             statut: choix === false
           }
-        ]
+        ],
+        options: { ordered: true, radio: true },
       }
       const monQcm = propositionsQcm(this, i)
       if (this.interactif) {

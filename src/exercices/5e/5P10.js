@@ -245,7 +245,7 @@ export default class TableauxEtProportionnalite extends Exercice {
       texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
 
       this.autoCorrection[i] = {}
-      this.autoCorrection[i].options = { ordered: true }
+      this.autoCorrection[i].options = { ordered: true, radio: true }
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {

@@ -17,13 +17,11 @@
   import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
 
   export let exercises: Exercice[]
-  export let updateExercises: (updatedExercises: Exercice[]) => void
-  export let updateLink: () => void
+  export let updateExercises: (updateSlidesContent?: boolean) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
   export let startSlideshow: () => void
   export let goToOverview: () => void
   export let goToHome: () => void
-  export let link: string
 
   let divTableDurationsQuestions: HTMLDivElement
   let previousNumberOfSelectedExercises: number
@@ -43,55 +41,47 @@
 
   function updateNbOfViews (nbVues: NumberRange<1, 4>) {
     $globalOptions.nbVues = nbVues
-    updateLink()
   }
 
   function updateFlow (flow: 0 | 1 | 2) {
     $globalOptions.flow = flow
-    updateLink()
   }
 
   function updateScreenBetweenSlides (screenBetweenSlides: boolean) {
     $globalOptions.screenBetweenSlides = screenBetweenSlides
-    updateLink()
   }
 
   function updatePauseAfterEachQuestion (pauseAfterEachQuestion: boolean) {
     $globalOptions.pauseAfterEachQuestion = pauseAfterEachQuestion
-    updateLink()
   }
 
   function updateTune (tune: -1 | 0 | 1 | 2 | 3) {
     const soundCandidate = tune + 1
     if (isIntegerInRange0to4(soundCandidate)) {
       $globalOptions.sound = soundCandidate
-      updateLink()
     }
   }
 
   function updateQuestionsOrder (isQuestionsOrdered: boolean) {
     $globalOptions.shuffle = !isQuestionsOrdered
-    updateExercises(exercises)
+    updateExercises()
   }
 
   function updateSelect (selectedExercisesIndexes: number[] | undefined) {
     $globalOptions.select = selectedExercisesIndexes
-    updateExercises(exercises)
+    updateExercises()
   }
 
   function updateManualMode (isManualModeActive: boolean) {
     $globalOptions.manualMode = isManualModeActive
-    updateLink()
   }
 
   function updateDurationGlobal (durationGlobal: number | undefined) {
     $globalOptions.durationGlobal = durationGlobal
-    updateLink()
   }
 
   function updateIsImagesOnSides (isImagesOnSides: boolean) {
     $globalOptions.isImagesOnSides = isImagesOnSides
-    updateLink()
   }
 
   function remove (exerciseIndex: number) {
@@ -100,7 +90,7 @@
       goToHome()
     }
     applyRandomSelectionOfExercises(previousNumberOfSelectedExercises)
-    updateExercises(exercises)
+    updateExercises()
     exercises = exercises // to refresh ExercisesSettings component
   }
 
@@ -153,9 +143,7 @@
         selectedExercisesIndexes={$globalOptions.select ?? []}
         {applyRandomSelectionOfExercises}
       />
-      <LinksSettings
-        {link}
-      />
+      <LinksSettings />
     </div>
     <!-- Right Side -->
     <div class="flex flex-col justify-start

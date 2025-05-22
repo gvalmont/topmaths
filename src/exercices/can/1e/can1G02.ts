@@ -6,7 +6,7 @@ export const titre = 'Déterminer les valeurs remarquables du cosinus et sinus*'
 export const dateDePublication = '01/06/2022'
 
 /**
- * @author Stéphane et cie
+ * @author Stéphane Guyon
  */
 export const uuid = '2dd6a'
 

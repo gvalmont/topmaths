@@ -12,7 +12,7 @@ export const titre = 'Calculer avec une probabilité conditionnelle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '15/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -21,7 +21,7 @@ export const dateDePublication = '15/04/2025'
 export const uuid = 'baee1'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1P10-2'],
   'fr-ch': []
 }
 export default class CalculerProbaCond extends Exercice {

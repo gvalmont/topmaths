@@ -97,7 +97,7 @@ def newEntry(file:str,dicoType:str)->list:
             numeroInitial = filename.split('_')[5]
         else: # EE : Ici, on considère que c'est le cas général
             numeroInitial = filename.split('_')[4]
-        if ('sti2d' in filename) :
+        if ('sti2d' in filename or 'stl' in filename) :
             if ('j1' in filename or 'j2' in filename) :
                 # numeroInitial = filename.split('_')[5]
                 numeroInitial = filename.split('_')[4].upper()+' - '+filename.split('_')[5]+' ' # Pour avoir J1 ou J2 en plus du numeroInitial de Base
@@ -321,7 +321,7 @@ def main():
 
     # On choisit le type de dico à synchroniser/générer
     choiceDico = ''
-    while choiceDico not in ['1','2','3','4','5','6']:
+    while choiceDico not in ['1','2','3','4','5','6','7','8']:
         choiceDico = input("""Quel dictionnaire faut-il synchroniser/générer ?
         ---> 1 : DNB
         ---> 2 : DNB PRO
@@ -330,7 +330,8 @@ def main():
         ---> 5 : CRPE
         ---> 6 : FlashBAC
         ---> 7 : STI2D  
-Taper 1, 2, 3, 4, 5, 6 ou 7 pour lancer le script --> """)
+        ---> 8 : STL  
+Taper 1, 2, 3, 4, 5, 6, 7 ou 8 pour lancer le script --> """)
     # Une variable pour le chemin vers le dico à synchroniser/générer        
     dicoPath = ''
     # Une variable pour le type de dico à synchroniser/générer        
@@ -357,6 +358,9 @@ Taper 1, 2, 3, 4, 5, 6 ou 7 pour lancer le script --> """)
     elif (choiceDico == '7'):
         dicoPath = '../../src/json/dictionnaireSTI2D.js'
         dicoType = 'sti2d'
+    elif (choiceDico == '8'):
+        dicoPath = '../../src/json/dictionnaireSTL.js'
+        dicoType = 'stl'
 
     manageDico(dicoPath,dicoType)
 

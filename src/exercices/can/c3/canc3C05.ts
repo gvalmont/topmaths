@@ -130,7 +130,11 @@ export default class PariteDunNombre extends Exercice {
             texte: 'Non',
             statut: g % 2 === 1
           }
-        ]
+        ],
+        options: {
+          ordered: true,
+          radio: true
+        }
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {

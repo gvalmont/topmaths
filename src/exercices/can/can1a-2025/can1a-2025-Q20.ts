@@ -34,7 +34,7 @@ export default class Can2025N5Q20 extends Exercice {
     const coeffy = this.canOfficielle ? -coeffx : choice([coeffx, -coeffx])
     const question = `$\\vec{u}\\begin{pmatrix}${xu} \\\\${yu}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${xu * coeffx} \\\\ ${yu * coeffy}\\end{pmatrix}$ ont la même direction. <br>`
     this.autoCorrection[0] = {
-      options: { ordered: true },
+      options: { ordered: true, radio: true },
       enonce: question,
       propositions: [
         {

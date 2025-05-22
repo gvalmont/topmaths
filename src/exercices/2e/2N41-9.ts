@@ -47,7 +47,7 @@ export default class CalculFractionLitteral extends Exercice {
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const NomVar = [['a', 'b'], ['x', 'y'], ['n', 'p']]
+      const NomVar = [['a', 'b'], ['x', 'y'], ['n', 'z']]
       const pm = choice(['+', '-'])
       const Nom = choice(NomVar)
       const v1 = Nom[0]

@@ -54,11 +54,11 @@ export default class TablesDeMultiplications extends Exercice {
       81
     ) // Liste tous les couples possibles (2,3)≠(3,2)
     for (let i = 0, reponse, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 80;) {
+      const typeDeQuestion = listeTypeDeQuestions[i]
       const a: number = couples[cpt][0]
       const b: number = couples[cpt][1]
-      const ordre = this.sup3 ? [true] : [true, false]
+      const ordre = (this.sup3 || (tables.length === 1 && typeDeQuestion === 'a_trous')) ? [true] : [true, false]
       const choix = choice(ordre)
-      const typeDeQuestion = listeTypeDeQuestions[i]
       if (typeDeQuestion === 'classique') {
         reponse = a * b
         if (choix) {

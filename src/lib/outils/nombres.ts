@@ -44,7 +44,7 @@ export function signe (a: number) { // + ou -
 }
 
 /**
- * Retourne l'arrondi (par défaut au centième près)
+ * Retourne l'arrondi (par défaut au millionième près)
  * @author Rémi Angot
  * @param {number} nombre
  * @param {number} precision
@@ -254,4 +254,18 @@ export function numTrie (arr: number[]) {
 export function unSiPositifMoinsUnSinon (a: number) {
   if (a < 0) return -1
   else return 1
+}
+
+/**
+ *
+ * @param a retourne vrai si tous les éléments de a sont de même signe
+ * @returns boolean
+ * @author Jean-Claude Lhote
+ */
+export function tousDeMemeSigne (a: number[]) {
+  if (a.length === 0) return true
+  return a.every((val) => {
+    return signe(val) === signe(a[0])
+  }
+  )
 }

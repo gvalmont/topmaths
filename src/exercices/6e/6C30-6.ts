@@ -1,6 +1,6 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
@@ -61,13 +61,13 @@ export default class MultiplierUnNombreParPuissanceDeDix extends Exercice {
         texte: ' Vous pouvez, tout de même, le faire au brouillon sur un exemple avant de choisir une réponse en ligne.',
         couleur: 'nombres'
       })
-    } else {
+    } /* else {
       this.introduction = lampeMessage({
         titre: 'Bien lire les consignes.',
         texte: '',
         couleur: 'nombres'
       })
-    }
+    } */
     listeChoixAlea = combinaisonListes(listeChoixAlea, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const choixAlea = listeChoixAlea[0]
@@ -86,16 +86,16 @@ export default class MultiplierUnNombreParPuissanceDeDix extends Exercice {
         texte += `Le chiffre des unités de $${texNombre(exemple, 2)}$ devient, alors, le chiffre des $\\ldots\\ldots\\ldots\\ldots\\ldots$ et donc $${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} =\\ldots\\ldots\\ldots\\ldots$<br>`
 
         texteCorr = `${numAlpha(0)} $${unite}$ est le chiffre des unités de $${texNombre(exemple, 2)}$.<br>`
-        texteCorr += `${numAlpha(1)} Multiplier $${texNombre(exemple, 2)}$ par $${texNombre(10 ** (choixAlea - 3), 3)}$, c'est trouver le nombre ${texteEnCouleurEtGras(texNombre(10 ** Math.abs(choixAlea - 3), 0))} fois plus `
+        texteCorr += `${numAlpha(1)} Multiplier $${texNombre(exemple, 2)}$ par $${texNombre(10 ** (choixAlea - 3), 3)}$, c'est trouver le nombre $${miseEnEvidence(texNombre(10 ** Math.abs(choixAlea - 3), 0))}$ fois plus `
         texteCorr += choixAlea - 3 > 0 ? `${texteEnCouleurEtGras('grand')} ` : `${texteEnCouleurEtGras('petit')} `
         texteCorr += `que $${texNombre(exemple, 2)}$.<br>`
-        texteCorr += `Le chiffre des unités de $${texNombre(exemple, 2)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} =$ ${texteEnCouleurEtGras(texNombre(exemple * 10 ** (choixAlea - 3), 5))}.<br>`
+        texteCorr += `Le chiffre des unités de $${texNombre(exemple, 2)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} =$ $${miseEnEvidence(texNombre(exemple * 10 ** (choixAlea - 3), 5))}$.<br>`
       } else {
         texte = `Par combien multiplier un nombre pour que tous ses chiffres changent de position et que le chiffre des unités devienne le chiffre des ${choixUnites[choixAlea]} ?`
 
         texteCorr = `Prenons un exemple : ${texNombre(exemple, 2)}.<br>`
         texteCorr += `$${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} = ${texNombre(exemple * 10 ** (choixAlea - 3), 5)}$<br>`
-        texteCorr += `Si on veut que son chiffre des ${texteEnCouleurEtGras('unités')} devienne le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])}, on doit multiplier le nombre par ${texteEnCouleurEtGras(texNombre(10 ** (choixAlea - 3), 3))}.`
+        texteCorr += `Si on veut que son chiffre des ${texteEnCouleurEtGras('unités')} devienne le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])}, on doit multiplier le nombre par $${miseEnEvidence(texNombre(10 ** (choixAlea - 3), 3))}$.`
 
         const aleaFaux = range(6, [3, choixAlea])
         enleveElement(aleaFaux, choixAlea)
@@ -142,8 +142,7 @@ export default class MultiplierUnNombreParPuissanceDeDix extends Exercice {
       }
       if (context.isHtml) texteCorr += mathalea2d({ xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 }, glisseNombre(exemple, choixAlea - 3))
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+      if (this.questionJamaisPosee(i, exemple)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

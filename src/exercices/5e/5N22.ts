@@ -21,7 +21,7 @@ export const titre = 'Résoudre un problème en utilisant des fractions'
 export const uuid = 'b6250'
 
 export const refs = {
-  'fr-fr': ['5N20-0'],
+  'fr-fr': ['5N22'],
   'fr-ch': ['9NO15-4']
 }
 // une fonction pour gérer le codage des angles

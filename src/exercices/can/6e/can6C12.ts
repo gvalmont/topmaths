@@ -25,8 +25,8 @@ export default class DoubleOuTriple extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
     this.formatChampTexte = KeyboardType.clavierNumbers
+    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
   nouvelleVersion () {

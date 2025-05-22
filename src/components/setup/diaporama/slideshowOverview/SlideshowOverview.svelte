@@ -12,7 +12,7 @@
 
   export let exercises: Exercice[] = []
   export let slideshow: Slideshow
-  export let updateExercises: () => void
+  export let updateExercises: (updateSlidesContent?: boolean) => void
   export let backToSettings: () => void
 
   let currentSeriesIndex: 0 | 1 | 2 | 3 | 4 = 0

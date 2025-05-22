@@ -5,16 +5,22 @@ import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { bleuMathalea } from '../../lib/colors'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
-export const dateDeModifImportante = '02/03/2024'
+export const dateDeModifImportante = '20/05/2025'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
-* 4 fractions aux dénominateurs multiples et un nombre entier sont donnés, il faut les classer dans l'ordre croissant ou décroissant
-*
+* 4 fractions aux dénominateurs multiples et un nombre entier sont donnés, il faut les classer dans l'ordre croissant.
 * Pour la correction, les fractions sont toutes écrites avec un dénominateur commun avant d'être classées
 * @author Rémi Angot
 * Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
+* Rendu interactif le 20/05/2025 par Eric Elter
 */
 export const uuid = 'ce9ca'
 
@@ -28,7 +34,7 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
 
     this.consigne = "Ranger les nombres suivants dans l'ordre croissant."
     this.spacing = 2
-    context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5
+    context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2.5
     this.nbQuestions = 2
 
     this.sup = false
@@ -75,9 +81,9 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
       n3 *= positifOuNegatif[2]
       n4 *= positifOuNegatif[3]
       const tableauFractions: [number, number, string, string][] = [[n1, d1, `$${new FractionEtendue(n1, d1).texFSD}$`, `$${new FractionEtendue(n1, d1).texFSD}$`]]
-      tableauFractions.push([n2, d2, `$${new FractionEtendue(n2, d2).texFSD} = ${texFractionFromString(n2 + miseEnEvidence('\\times ' + d1 / d2), d2 + miseEnEvidence('\\times ' + d1 / d2))}=${new FractionEtendue(n2 * d1 / d2, d1).texFSD}$`, `$${new FractionEtendue(n2 * d1 / d2, d1).texFSD}$`])
-      tableauFractions.push([n3, d3, `$${new FractionEtendue(n3, d3).texFSD} = ${texFractionFromString(n3 + miseEnEvidence('\\times ' + d1 / d3), d3 + miseEnEvidence('\\times ' + d1 / d3))}=${new FractionEtendue(n3 * d1 / d3, d1).texFSD}$`, `$${new FractionEtendue(n3 * d1 / d3, d1).texFSD}$`])
-      tableauFractions.push([n4, d4, `$${new FractionEtendue(n4, d4).texFSD} = ${texFractionFromString(n4 + miseEnEvidence('\\times ' + d1 / d4), d4 + miseEnEvidence('\\times ' + d1 / d4))}=${new FractionEtendue(n4 * d1 / d4, d1).texFSD}$`, `$${new FractionEtendue(n4 * d1 / d4, d1).texFSD}$`])
+      tableauFractions.push([n2, d2, `$${new FractionEtendue(n2, d2).texFSD} = ${texFractionFromString(n2 + miseEnEvidence('\\times ' + d1 / d2, bleuMathalea), d2 + miseEnEvidence('\\times ' + d1 / d2, bleuMathalea))}=${new FractionEtendue(n2 * d1 / d2, d1).texFSD}$`, `$${new FractionEtendue(n2 * d1 / d2, d1).texFSD}$`])
+      tableauFractions.push([n3, d3, `$${new FractionEtendue(n3, d3).texFSD} = ${texFractionFromString(n3 + miseEnEvidence('\\times ' + d1 / d3, bleuMathalea), d3 + miseEnEvidence('\\times ' + d1 / d3, bleuMathalea))}=${new FractionEtendue(n3 * d1 / d3, d1).texFSD}$`, `$${new FractionEtendue(n3 * d1 / d3, d1).texFSD}$`])
+      tableauFractions.push([n4, d4, `$${new FractionEtendue(n4, d4).texFSD} = ${texFractionFromString(n4 + miseEnEvidence('\\times ' + d1 / d4, bleuMathalea), d4 + miseEnEvidence('\\times ' + d1 / d4, bleuMathalea))}=${new FractionEtendue(n4 * d1 / d4, d1).texFSD}$`, `$${new FractionEtendue(n4 * d1 / d4, d1).texFSD}$`])
       tableauFractions.push([k, 1, `$${k} = ${new FractionEtendue(d1 * k, d1).texFSD}$`, `$${new FractionEtendue(k * d1, d1).texFSD}$`])
       tableauFractions.sort(compareFractions)
       const tableauFractionsEnonce = shuffle(tableauFractions)
@@ -91,6 +97,26 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
       }
       texte = texte.substring(0, texte.length - 19) + '$' // Enlève les 21 derniers caractères (pour le ; de la fin)
       tableauFractions.sort(compareFractions)
+
+      if (this.interactif) {
+        texte += '<br>' + remplisLesBlancs(this,
+          i,
+          '%{champ1}~<~%{champ2}~<~%{champ3}~<~%{champ4}~<~%{champ5}',
+        ` ${KeyboardType.clavierDeBaseAvecFraction}`
+        )
+      }
+
+      handleAnswers(this, i,
+        {
+          bareme: (listePoints) => [listePoints[0] + listePoints[1] + listePoints[2] + listePoints[3] + listePoints[4], 5],
+          champ1: { value: new FractionEtendue(tableauFractions[0][0], tableauFractions[0][1]).texFSD, options: { fractionIdentique: true } },
+          champ2: { value: new FractionEtendue(tableauFractions[1][0], tableauFractions[1][1]).texFSD, options: { fractionIdentique: true } },
+          champ3: { value: new FractionEtendue(tableauFractions[2][0], tableauFractions[2][1]).texFSD, options: { fractionIdentique: true } },
+          champ4: { value: new FractionEtendue(tableauFractions[3][0], tableauFractions[3][1]).texFSD, options: { fractionIdentique: true } },
+          champ5: { value: new FractionEtendue(tableauFractions[4][0], tableauFractions[4][1]).texFSD, options: { fractionIdentique: true } }
+        }
+      )
+
       texteCorr = `Pour comparer facilement ces fractions, mettons-les toutes sur le même dénominateur (ici, ce sera ${Math.max(d1, d2, d3, d4)} ).<br>`
       for (let j = 0; j < tableauFractionsEnonce.length; j++) {
         texteCorr += tableauFractionsEnonce[j][2]
@@ -106,9 +132,9 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
       let texteConclusion = ''
       for (let j = 0; j < tableauFractions.length; j++) {
         if (tableauFractions[j][1] === 1) {
-          texteConclusion += `$${tableauFractions[j][0]}\\quad<\\quad$`
+          texteConclusion += `$${miseEnEvidence(tableauFractions[j][0])}\\quad<\\quad$`
         } else {
-          texteConclusion += `$${new FractionEtendue(tableauFractions[j][0], tableauFractions[j][1]).texFSD}\\quad<\\quad$`
+          texteConclusion += `$${miseEnEvidence(new FractionEtendue(tableauFractions[j][0], tableauFractions[j][1]).texFSD)}\\quad<\\quad$`
         }
       }
       texteCorr += 'Finalement : $\\quad$ ' + texteConclusion.substring(0, texteConclusion.length - 12) + '$'

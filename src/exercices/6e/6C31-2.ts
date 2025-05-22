@@ -2,20 +2,23 @@ import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
-
-export const titre = 'Donner des valeurs approchées d\'un quotient décimal'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+export const titre = 'Donner des arrondis d\'un quotient'
+
+export const dateDeModifImportante = '10/05/2025' // Guillaume Valmont
+export const dateDePublication = '07/12/2020' // Rémi Angot
+
 /**
- * Donner des valeurs approchées d'un quotient décimale.
- *
- *
+ * Donner des arrondis ou des valeurs approchées d'un quotient.
  * @author Rémi Angot
+ * @Refactorisation : Mickael Guironnet 04/05/2025
+ * @Refactorisation et ajout du choix de la précision : Guillaume Valmont 10/05/2025
 
  * 2020-12-07
  */
@@ -29,10 +32,43 @@ export default class ValeurApprocheeDivisionDecimale extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.besoinFormulaireTexte = ['Type de questions',
+      `Nombres séparés par des tirets :
+  1 : Arrondi
+  2 : Valeur approchée
+  3 : Troncature
+  4 : Mélange`
+    ]
+    this.sup = 1
+    this.besoinFormulaire2Texte = ['Précision',
+      `Nombres séparés par des tirets :
+  1 : Unité
+  2 : Dixième
+  3 : Centième
+  4 : Millième
+  5 : Mélange`
+    ]
+    this.sup2 = 5
   }
 
   nouvelleVersion () {
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    const typesDeQuestions = gestionnaireFormulaireTexte({
+      max: 3,
+      defaut: 1,
+      melange: 4,
+      nbQuestions: 0,
+      saisie: this.sup
+    })
+    const precisions = gestionnaireFormulaireTexte({
+      max: 4,
+      defaut: 5,
+      melange: 5,
+      nbQuestions: 0,
+      saisie: this.sup2
+    })
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Une fraction irréductible avec un dénominateur qui comporte un facteur différent de 2 ou de 5
       // aura une écriture décimale périodique infinie
       const k1 = choice([3, 7, 11, 13])
@@ -40,71 +76,63 @@ export default class ValeurApprocheeDivisionDecimale extends Exercice {
       const a = choice([3, 5, 7, 11, 13], [k1, k2]) * choice([3, 5, 7, 11, 13], [k1, k2])
       const b = k1 * k2
       const q = arrondi(a / b, 6)
-      texte = `On sait que $${a}\\div${b}\\approx${texNombre(q)}$.<br>Compléter les phrases suivantes.`
-      const listeDeQuestions1 = [
-        [`La valeur approchée par défaut de $${a}\\div${b}$ au dixième près est : `, arrondi(a / b - 0.05, 1)],
-        [`La valeur approchée par excès de $${a}\\div${b}$ au dixième près est : `, arrondi(a / b + 0.05, 1)],
-        [`La valeur approchée par défaut de $${a}\\div${b}$ au centième près est : `, arrondi(a / b - 0.005, 2)],
-        [`La troncature de $${a}\\div${b}$ au centième près est : `, arrondi(Math.floor(a / b * 100) / 100, 2)],
-        [`La valeur approchée par excès de $${a}\\div${b}$ au centième près est : `, arrondi(a / b + 0.005, 2)],
-        [`La valeur approchée par défaut de $${a}\\div${b}$ au millième près est : `, arrondi(a / b - 0.0005, 3)],
-        [`La troncature de $${a}\\div${b}$ au millième près est : `, arrondi(Math.round(a / b * 1000) / 1000, 3)],
-        [`La valeur approchée par excès de $${a}\\div${b}$ au millième près est : `, arrondi(a / b + 0.0005, 3)]
-      ]
-      const listeDeQuestions2 = [
-        [`La valeur arrondie de $${a}\\div${b}$ au dixième près est : `, arrondi(a / b, 1)],
-        [`La valeur arrondie de $${a}\\div${b}$ au centième près est : `, arrondi(a / b, 2)],
-        [`La valeur arrondie de $${a}\\div${b}$ au millième près est : `, arrondi(a / b, 3)]
-      ]
-
-      texteCorr = `On sait que $${a}\\div${b}\\approx${texNombre(q)}$.`
-      // Questions peuvent être défaut, excès ou excès, défaut ou troncature, excès ou excès, troncature
-      const choix = randint(1, 4)
-      switch (choix) {
-        case 1:
-          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[0][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, '') : '\\ldots'}`
-          setReponse(this, 4 * i, listeDeQuestions1[0][1])
-          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[4][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, '') : '\\ldots'}`
-          setReponse(this, 4 * i + 1, listeDeQuestions1[4][1])
-          texteCorr += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[0][0]} $ ${texNombre(listeDeQuestions1[0][1] as number)}$`
-          texteCorr += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[4][0]} $ ${texNombre(listeDeQuestions1[4][1] as number)}$`
-          break
-        case 2:
-          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[1][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, '') : '\\ldots'}`
-          setReponse(this, 4 * i, listeDeQuestions1[1][1])
-          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[5][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, '') : '\\ldots'}`
-          setReponse(this, 4 * i + 1, listeDeQuestions1[5][1])
-          texteCorr += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[1][0]} $ ${texNombre(listeDeQuestions1[1][1] as number)}$`
-          texteCorr += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[5][0]} $ ${texNombre(listeDeQuestions1[5][1] as number)}$`
-          break
-        case 3:
-          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[3][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, '') : '\\ldots'}`
-          setReponse(this, 4 * i, listeDeQuestions1[3][1])
-          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, '') : '\\ldots'}`
-          setReponse(this, 4 * i + 1, listeDeQuestions1[7][1])
-          texteCorr += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[3][0]} $ ${texNombre(listeDeQuestions1[3][1] as number)}$`
-          texteCorr += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} $ ${texNombre(listeDeQuestions1[7][1] as number)}$`
-          break
-        case 4:
-          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[4][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, '') : '\\ldots'}`
-          setReponse(this, 4 * i, listeDeQuestions1[4][1])
-          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, '') : '\\ldots'}`
-          setReponse(this, 4 * i + 1, listeDeQuestions1[7][1])
-          texteCorr += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[4][0]} $ ${texNombre(listeDeQuestions1[4][1] as number)}$`
-          texteCorr += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} $ ${texNombre(listeDeQuestions1[7][1] as number)}$`
-          break
+      let texte = `On sait que $${a}\\div${b}\\approx${texNombre(q)}$.<br>Compléter les phrases suivantes.<br><br>`
+      let texteCorr = ''
+      let numQuest = 0
+      const possibilites: { texte: string, texteCorr: string }[] = []
+      for (const precision of precisions) {
+        for (const typeDeQuestion of typesDeQuestions) {
+          let type: string
+          let reponse: number
+          const exposant = Number(precision) - 1
+          const parDefaut = choice([true, false])
+          switch (typeDeQuestion) {
+            case 1:
+              type = 'L\'arrondi'
+              reponse = arrondi(a / b, exposant)
+              break
+            case 2:
+              type = 'La valeur approchée'
+              reponse = parDefaut ? arrondi(a / b - (1 / (2 * 10 ** exposant)), exposant) : arrondi(a / b + (1 / (2 * 10 ** exposant)), exposant)
+              break
+            case 3:
+            default:
+              type = 'La troncature'
+              reponse = arrondi(Math.floor((a / b) * 10 ** exposant) / 10 ** exposant, exposant)
+              break
+          }
+          let textePrecision: string
+          switch (precision) {
+            case 1:
+              textePrecision = 'à l\'unité près'
+              break
+            case 2:
+              textePrecision = 'au dixième près'
+              break
+            case 3:
+              textePrecision = 'au centième près'
+              break
+            case 4:
+            default:
+              textePrecision = 'au millième près'
+              break
+          }
+          const ligne = `${type}${typeDeQuestion === 2 ? parDefaut ? ' par défaut' : ' par excès' : ''} de $${a}\\div${b}$ ${textePrecision} est `
+          possibilites.push({
+            texte: ligne + (this.interactif ? ajouteChampTexteMathLive(this, i * typesDeQuestions.length * precisions.length + numQuest, 'inline') + '.' : ':') + '<br>',
+            texteCorr: ligne + `$${texNombre(reponse, exposant, true, true)}$.<br>`
+          })
+          handleAnswers(this, i * typesDeQuestions.length * precisions.length + numQuest, { reponse: { value: reponse } })
+          numQuest++
+        }
       }
-      shuffle(listeDeQuestions2)
-
-      texte += `<br><br> ${numAlpha(2)} ${listeDeQuestions2[0][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 2, '') : '\\ldots'}`
-      setReponse(this, 4 * i + 2, listeDeQuestions2[0][1])
-      texte += `<br><br> ${numAlpha(3)} ${listeDeQuestions2[1][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 3, '') : '\\ldots'}`
-      setReponse(this, 4 * i + 3, listeDeQuestions2[1][1])
-
-      texteCorr += `<br><br> ${numAlpha(2)} ${listeDeQuestions2[0][0]} $ ${texNombre(listeDeQuestions2[0][1] as number)}$`
-      texteCorr += `<br><br> ${numAlpha(3)} ${listeDeQuestions2[1][0]} $ ${texNombre(listeDeQuestions2[1][1] as number)}$`
-
-      if (this.questionJamaisPosee(i, a, b, q)) {
+      const possibilitesMelangees = shuffle(possibilites)
+      for (let j = 0; j < possibilitesMelangees.length; j++) {
+        const possibilite = possibilitesMelangees[j]
+        texte += numAlpha(j) + ' ' + possibilite.texte
+        texteCorr += numAlpha(j) + ' ' + possibilite.texteCorr
+      }
+      if (this.questionJamaisPosee(i, q)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

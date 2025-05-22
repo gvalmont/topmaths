@@ -49,7 +49,7 @@ export default class VraiFaux extends Exercice {
         })
       }
       this.autoCorrection[i] = {
-        options: { ordered: true, vertical: false },
+        options: { ordered: true, vertical: false, radio: true },
         enonce: texte,
         propositions
       }

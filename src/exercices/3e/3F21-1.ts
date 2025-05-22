@@ -3,7 +3,6 @@ import { Point, point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint } from '../../lib/2d/textes'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
-import { katexPopup2 } from '../../lib/format/message'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { mathalea2d, Vide2d } from '../../modules/2dGeneralites'
@@ -14,6 +13,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import { ajouterAide } from '../../lib/outils/enrichissements'
 
 export const titre = 'Déterminer une fonction affine'
 export const amcReady = true
@@ -134,7 +134,7 @@ export default class LectureExpressionFonctionsAffines extends Exercice {
       this.contenuCorrection = 'Il s\'agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l\'ordonnée à l\'origine et $a$ la pente de la droite.\n' + this.contenuCorrection
     } else {
       explain = 'Il s\'agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la pente de la droite.\\ \n' + explain
-      this.contenuCorrection = 'Il s\'agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katexPopup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection
+      this.contenuCorrection = 'Il s\'agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + ajouterAide('La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.', { texteAvant: 'pente', titreAide: 'pente d\'une droite' }) + ' de la droite.\n' + this.contenuCorrection
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {

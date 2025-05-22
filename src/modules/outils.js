@@ -76,7 +76,7 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {number} params.defaut - Obligatoirement compris entre min et max inclus ou alors égal à melange
  * @param {string[] | number[]} [params.listeOfCase] - La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste. La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
  * @param {boolean} [params.shuffle=true] - Si true, on brasse la liste en sortie sinon on garde l'ordre
- * @param {number} params.nbQuestions - Obligatoire : c'est la taille de la liste en sortie. Si 999, alors le nbQuestions correspond à la longueur de saisie.
+ * @param {number} params.nbQuestions - Obligatoire : c'est la taille de la liste en sortie. Si 0, alors le nbQuestions correspond à la longueur de saisie.
  * @param {number} params.melange - La valeur utilisée pour l'option mélange
  * @param {boolean} [params.enleveDoublons=false] - Si true, la liste en sortie ne peut pas contenir deux fois la même valeur
  * @param {number[]} [params.exclus] - Liste de valeurs à exclure entre min et max
@@ -93,7 +93,6 @@ export function gestionnaireFormulaireTexte ({
   enleveDoublons = false,
   exclus
 } = {}) {
-  nbQuestions = Math.min(nbQuestions, 100) // Faut pas déconner, un jour quelqu'un a fait péter la fonction en demandant une liste de 10000 questions !
   if (exclus) {
     exclus = exclus.filter((element) => element >= min && element <= max)
   }
@@ -125,7 +124,11 @@ export function gestionnaireFormulaireTexte ({
   if (melange != null && compteOccurences(listeIndex, melange)) {
     listeIndex = rangeMinMax(min, max, exclus)
   }
-  if (nbQuestions === 999) nbQuestions = listeIndex.length // JCL : C'est quoi cette condition ? A quoi elle sert ?
+  if (nbQuestions === 0) {
+    nbQuestions = listeIndex.length
+  } else {
+    nbQuestions = Math.min(nbQuestions, 100) // Faut pas déconner, un jour quelqu'un a fait péter la fonction en demandant une liste de 10000 questions !
+  }
   listeIndex = shuffle ? combinaisonListes(listeIndex, nbQuestions) : combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
 
   const Max = Math.max(...listeIndex)

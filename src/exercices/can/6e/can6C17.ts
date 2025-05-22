@@ -25,9 +25,9 @@ export default class FractionSimpleDeQuantite extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.optionsChampTexte = { texteApres: ' L' }
+    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
   nouvelleVersion () {

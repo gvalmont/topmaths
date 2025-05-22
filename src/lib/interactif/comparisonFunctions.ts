@@ -291,11 +291,18 @@ export function generateCleaner (
     }
   })
 
-  return (str: string) =>
-    cleaningFunctions.reduce(
+  return (str: string) => {
+    let cleaned = String(str)
+
+    // Supprimer tous les '_{}' et tous les '^{}'
+    cleaned = cleaned.replaceAll('_{}', '').replaceAll('^{}', '')
+
+    // Appliquer les fonctions de nettoyage
+    return cleaningFunctions.reduce(
       (result, cleaningFn) => cleaningFn(result),
-      String(str)
+      cleaned
     )
+  }
 }
 
 /**
@@ -899,13 +906,15 @@ function comparaisonFraction (
       if ((saisieNativeParsed.operator === 'Divide' || saisieNativeParsed.operator === 'Rational') &&
         Number.isInteger(Math.log10(Number(saisieNativeParsed.op2.value))) &&
         Math.log10(Number(saisieNativeParsed.op2.value)) >= 0) {
+        if (!saisieNativeParsed.op1.isInteger) return { isOk: false, feedback: 'Résultat incorrect car le numérateur n\'est pas entier.' }
         return { isOk: true }
       }
       return { isOk: false, feedback: 'Résultat incorrect car une fraction décimale est attendue.' } // Sous-entendu : Et pas une autre fraction qu'irréductible
     }
     if (fractionIrreductible) {
-      if ((saisieNativeParsed.operator === 'Divide' || saisieNativeParsed.operator === 'Rational') && (
-        saisieNativeParsed.engine.box(['GCD', saisieNativeParsed.op1, saisieNativeParsed.op2]).value === 1)) {
+      if (((saisieNativeParsed.operator === 'Divide' || saisieNativeParsed.operator === 'Rational') && (
+        saisieNativeParsed.engine.box(['GCD', saisieNativeParsed.op1, saisieNativeParsed.op2]).value === 1)) ||
+      saisieNativeParsed.canonical.isInteger) {
         return { isOk: true }
       }
       return { isOk: false, feedback: 'Résultat incorrect car une fraction irréductible est attendue.' } // Sous-entendu : Et pas une autre fraction qu'irréductible
@@ -1952,7 +1961,7 @@ export function approximatelyCompare (
   ])
   const saisieClean = Number(engine.parse(cleaner(input)).numericValue)
   const answerClean = Number(engine.parse(cleaner(goodAnswer)).numericValue)
-  return { isOk: Math.abs(saisieClean - answerClean) < tolerance }
+  return { isOk: Math.abs(saisieClean - answerClean) <= tolerance }
 }
 
 /**

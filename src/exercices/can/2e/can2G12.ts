@@ -57,7 +57,7 @@ export default class VecteursColineairesVF extends Exercice {
                 statut: ux === 50
               }
             ],
-            options: { ordered: true }
+            options: { ordered: true, radio: true }
           }
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte

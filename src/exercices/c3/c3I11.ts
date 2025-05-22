@@ -2,14 +2,14 @@
 import { point, tracePoint } from '../../lib/2d/points'
 import { texteParPositionEchelle } from '../../lib/2d/textes'
 import { choice } from '../../lib/outils/arrayOutils'
-import { createLink } from '../../lib/outils/modales'
+import { ajouterLien } from '../../lib/outils/enrichissements'
 import { stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
-import { noteLaCouleur, plateau2dNLC, testInstruction, testSequence } from '../../modules/noteLaCouleur'
+import { noteLaCouleur, plateau2dNLC, testInstruction, testSequence, traducNum } from '../../modules/noteLaCouleur'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
@@ -127,8 +127,8 @@ export default class NoteLaCouleurC3 extends Exercice {
     for (let q = 0; q < this.nbQuestions;) {
       objetsCorrection = []
       objetsEnonce = []
-      objetsEnonce.push(lePlateauEnonce.objets as NestedObjetMathalea2dArray)
-      objetsCorrection.push(lePlateauCorr.objets as NestedObjetMathalea2dArray)
+      objetsEnonce.push(lePlateauEnonce.objets)
+      objetsCorrection.push(lePlateauCorr.objets)
       let reponseCouleur = []
       let texte = ''
       let texteCorr = ''
@@ -236,10 +236,10 @@ export default class NoteLaCouleurC3 extends Exercice {
       }
       pion.codeScratch += '\\end{scratch}'
       if (context.isHtml) {
-        texte = `Cet exercice est tiré de l'excellente activité débranchée ${createLink({ url: 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', text: 'Note la couleur' })} de Jean-Yves Labouche.<br>`
+        texte = `Cet exercice est tiré de l'excellente activité débranchée ${ajouterLien('https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur')} de Jean-Yves Labouche.<br>`
         texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
-        texte += `N'hésitez pas à vous rendre sur le site ${createLink({ url: 'https://www.monclasseurdemaths.fr', text: 'Mon classeur de Maths.fr' })} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
-        texte += `Pour jouer, regarder les ${createLink({ url: 'https://coopmaths.fr/alea/assets/pdf/reglesnlc.pdf', text: 'Règles du jeu' })} .<br>`
+        texte += `N'hésitez pas à vous rendre sur le site ${ajouterLien('https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
+        texte += `Pour jouer, regarder les ${ajouterLien('https://coopmaths.fr/alea/assets/pdf/reglesnlc.pdf', 'Règles du jeu')} .<br>`
       } else {
         texte = ''
       }
@@ -262,20 +262,20 @@ export default class NoteLaCouleurC3 extends Exercice {
         }
       }
       reponseCouleur = couleurs
-      if (this.sup % 2 === 0) reponseCouleur[0] = '(' + lePlateauCorr.traducNum(couleurs[0]) + ') ' + couleurs[0]
+      if (this.sup % 2 === 0) reponseCouleur[0] = '(' + traducNum(couleurs[0]) + ') ' + couleurs[0]
       texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteEnCouleurEtGras(reponseCouleur[q * couleurs.length])} `
       texte += !this.interactif ? '' : 'Couleur n°1 : ' + choixDeroulant(this, q * couleurs.length, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
       handleAnswers(this, q * couleurs.length, { reponse: { value: couleurs[0] } }, { formatInteractif: 'listeDeroulante' })
       /*
-      texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateauCorr.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
+      texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
       for (let i = 1; i < couleurs.length; i++) {
-        texteCorr += `- ${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateauCorr.traducNum(couleurs[i]) + ')' + couleurs[i] : couleurs[i])} `
+        texteCorr += `- ${texteGras(this.sup === 4 || this.sup === 2 ? '(' + traducNum(couleurs[i]) + ')' + couleurs[i] : couleurs[i])} `
       }
       texteCorr += '<br>'
       */
       for (let i = 1; i < couleurs.length; i++) {
-        if (this.sup % 2 === 0) reponseCouleur[i] = '(' + lePlateauCorr.traducNum(couleurs[i]) + ') ' + couleurs[i]
+        if (this.sup % 2 === 0) reponseCouleur[i] = '(' + traducNum(couleurs[i]) + ') ' + couleurs[i]
         texteCorr += `${texteEnCouleurEtGras(reponseCouleur[i])} `
         texte += !this.interactif ? '' : 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q * couleurs.length + i, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
         handleAnswers(this, q * couleurs.length + i, { reponse: { value: couleurs[i] } }, { formatInteractif: 'listeDeroulante' })

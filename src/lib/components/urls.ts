@@ -97,7 +97,7 @@ export class MathAleaURL extends URL {
  * @returns l'URL correspondant à la feuille d'exercices avec tous les paramètres
  */
 export function buildMathAleaURL (options: {
-  view: VueType,
+  view?: VueType,
   mode?: InterfaceGlobalOptions['presMode'],
   isEncrypted?: boolean,
   isShort?: boolean,
@@ -112,7 +112,7 @@ export function buildMathAleaURL (options: {
   }
   const global = get(globalOptions)
   const can = get(canOptions)
-  url.setVue(options.view).addParam('es', buildEsParams(options.mode))
+  if (options.view) url.setVue(options.view).addParam('es', buildEsParams(options.mode))
   if (options.view === 'can') {
     // paramètres spécifiques à la can dans l'URL
     url
@@ -148,12 +148,13 @@ export function buildEsParams (
   mode?: InterfaceGlobalOptions['presMode']
 ): string {
   const options = get(globalOptions)
-  const presentationMode = new Map([
+  const presentationMode = new Map([ // sync with src/lib/stores/generalStore.ts presModeId
     ['liste_exos', 0],
     ['un_exo_par_page', 1],
-    ['liste_questions', 2],
+    ['liste_exos', 2],
     ['une_question_par_page', 3],
-    ['cartes', 4]
+    ['recto', 4],
+    ['verso', 5]
   ])
   let es = ''
   // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed

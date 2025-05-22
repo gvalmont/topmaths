@@ -587,7 +587,7 @@ export const dictionnaireCrpeCoop = {
     urlcor: [
       'static/crpe/2023/2023-g3-ex5-corr.tex'
     ],
-    tags: ['Vrai-faux', 'Ensembles de nombres', 'Calcul littéral', 'Pourcentages', 'Pythagore', 'Propriétés des polygones', 'Fonctions', 'Agrandissement-réduction']
+    tags: ['Vrai/Faux', 'Ensembles de nombres', 'Calcul littéral', 'Pourcentages', 'Pythagore', 'Propriétés des polygones', 'Fonctions', 'Agrandissement-réduction']
   },
   'crpe-2022-g4-ex1': {
     typeExercice: 'crpe',
@@ -989,7 +989,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g5-ex1-cor-1.png',
       'static/crpe/2019/2019-g5-ex1-cor-2.png'
     ],
-    tags: ['Vrai-faux', 'Vitesses', 'Statistiques', 'Arithmétique']
+    tags: ['Vrai/Faux', 'Vitesses', 'Statistiques', 'Arithmétique']
   },
   'crpe-2019-g5-ex2': {
     typeExercice: 'crpe',
@@ -1182,7 +1182,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g1-ex4-cor-2.png',
       'static/crpe/2018/2018-g1-ex4-cor-3.png'
     ],
-    tags: ['Vrai-faux', 'Aires', 'Volumes', 'Pourcentages', 'Géométrie plane']
+    tags: ['Vrai/Faux', 'Aires', 'Volumes', 'Pourcentages', 'Géométrie plane']
   },
   'crpe-2018-g1-pb': {
     typeExercice: 'crpe',
@@ -1312,7 +1312,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g3-ex2-cor-2.png',
       'static/crpe/2018/2018-g3-ex2-cor-3.png'
     ],
-    tags: ['Vrai-faux', 'Arithmétique', 'Géométrie plane', 'Pourcentages', 'Agrandissement-réduction']
+    tags: ['Vrai/Faux', 'Arithmétique', 'Géométrie plane', 'Pourcentages', 'Agrandissement-réduction']
   },
   'crpe-2018-g3-ex3': {
     typeExercice: 'crpe',
@@ -1676,7 +1676,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-g1-ex3-cor2.png',
       'static/crpe/2017/2017-g1-ex3-cor3.png'
     ],
-    tags: ['Vrai-faux', 'Arithmétique', 'Calcul littéral', 'Pourcentages']
+    tags: ['Vrai/Faux', 'Arithmétique', 'Calcul littéral', 'Pourcentages']
   },
   'crpe-2017-g1-pb': {
     typeExercice: 'crpe',
@@ -1711,7 +1711,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-g2-ex1-cor1.png',
       'static/crpe/2017/2017-g2-ex1-cor2.png'
     ],
-    tags: ['Vrai-faux', 'Calculs numériques', 'Pourcentages', 'Statistiques', 'Calcul littéral']
+    tags: ['Vrai/Faux', 'Calculs numériques', 'Pourcentages', 'Statistiques', 'Calcul littéral']
   },
   'crpe-2017-g2-ex2': {
     typeExercice: 'crpe',
@@ -1784,7 +1784,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-g3-ex1-cor1.png',
       'static/crpe/2017/2017-g3-ex1-cor3.png'
     ],
-    tags: ['Vrai-faux', 'Arithmétique', 'Pourcentages', 'Vitesses', 'Géométrie plane']
+    tags: ['Vrai/Faux', 'Arithmétique', 'Pourcentages', 'Vitesses', 'Géométrie plane']
   },
   'crpe-2017-g3-ex2': {
     typeExercice: 'crpe',
@@ -1859,7 +1859,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-g4-ex1-cor.png',
       'static/crpe/2017/2017-g4-ex1-cor2.png'
     ],
-    tags: ['Vrai-faux', 'Géométrie plane', 'Proportionnalité', 'Thalès', 'Calcul littéral', 'Fonctions']
+    tags: ['Vrai/Faux', 'Géométrie plane', 'Proportionnalité', 'Thalès', 'Calcul littéral', 'Fonctions']
   },
   'crpe-2017-g4-ex2': {
     typeExercice: 'crpe',
@@ -2076,7 +2076,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Vrai-faux',
+    numeroInitial: 'Vrai/Faux',
     png: [
       'static/crpe/2017/2017-vraifaux-1.png',
       'static/crpe/2017/2017-vraifaux-2.png'
@@ -2122,7 +2122,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2016/2016-g1-ex2-cor-1.png',
       'static/crpe/2016/2016-g1-ex2-cor-2.png'
     ],
-    tags: ['Vrai-faux', 'Calculs numériques', 'Calcul littéral']
+    tags: ['Vrai/Faux', 'Calculs numériques', 'Calcul littéral']
   },
   'crpe-2016-g1-ex3': {
     typeExercice: 'crpe',
@@ -2234,7 +2234,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2016/2016-g2-ex4-cor-2.png',
       'static/crpe/2016/2016-g2-ex4-cor-3.png'
     ],
-    tags: ['Vrai-faux', 'Géométrie plane', 'Pourcentages', 'Calculs numériques', 'Arithmétique']
+    tags: ['Vrai/Faux', 'Géométrie plane', 'Pourcentages', 'Calculs numériques', 'Arithmétique']
   },
   'crpe-2016-g2-pb': {
     typeExercice: 'crpe',
@@ -2284,7 +2284,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2016/2016-g3-ex2-cor-2.png',
       'static/crpe/2016/2016-g3-ex2-cor-3.png'
     ],
-    tags: ['Vrai-faux', 'Arithmétique', 'Fonctions']
+    tags: ['Vrai/Faux', 'Arithmétique', 'Fonctions']
   },
   'crpe-2016-g3-ex3': {
     typeExercice: 'crpe',
@@ -2331,7 +2331,7 @@ export const dictionnaireCrpeCoop = {
     pngCor: [
       'static/crpe/2016/2016-cre-ex1-cor.png'
     ],
-    tags: ['Vrai-faux', 'Arithmétique']
+    tags: ['Vrai/Faux', 'Arithmétique']
   },
   'crpe-2016-cre-ex2': {
     typeExercice: 'crpe',
@@ -2447,7 +2447,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2016/2016-pol-ex4-cor-1.png',
       'static/crpe/2016/2016-pol-ex4-cor-2.png'
     ],
-    tags: ['Vrai-faux', 'Statistiques', 'Pourcentages']
+    tags: ['Vrai/Faux', 'Statistiques', 'Pourcentages']
   },
   'crpe-2016-pol-pb': {
     typeExercice: 'crpe',

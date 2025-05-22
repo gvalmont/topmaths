@@ -6,7 +6,7 @@ import { homothetie, rotation } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
-import { creerBoutonMathalea2d } from '../../lib/outils/modales'
+import { ajouterBoutonMathalea2d } from '../../lib/outils/enrichissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
@@ -247,7 +247,7 @@ export default class ReciproqueThales extends Exercice {
         }
 
         const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
-        const boutonAideMathalea2d = creerBoutonMathalea2d(`${numeroExercice}_Q${i}`,
+        const boutonAideMathalea2d = ajouterBoutonMathalea2d(`${numeroExercice}_Q${i}`,
                     `if (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == undefined || (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == 'false')){
           document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.stroke = 'blue';
           document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.stroke = 'red';

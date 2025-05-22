@@ -14,7 +14,7 @@ export const titre = 'Écrire ou reconnaître une probabilité dans un énoncé'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '15/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -23,10 +23,10 @@ export const dateDePublication = '15/04/2025'
 export const uuid = '227f0'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1P10-1'],
   'fr-ch': []
 }
-export default class ModeliserSuites extends Exercice {
+export default class EcritureProbabilite extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1

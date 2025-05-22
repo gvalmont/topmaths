@@ -18,7 +18,7 @@ import { colorToLatexOrHTML, mathalea2d, Vide2d, vide2d, type NestedObjetMathale
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const dateDePublication = '3/12/2021'
-export const dateDeModifImportante = '16/12/2024'
+export const dateDeModifImportante = '10/05/2025'
 export const titre = 'Trouver la transformation'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
@@ -132,7 +132,7 @@ function definitElements (type: 'symax' | 'trans' | 'rot90' | 'rot180', depart:n
       if (context.isHtml) return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, axe }
       else return { depart, arrivee, texte, texteCorr, texteInteractif, type, axe }
     case 'trans': // facile pour la translation : depart->arrivee
-      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
+      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par ${texteEnCouleurEtGras(`la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$`)}.`
       texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}.`
       texteInteractif = `la translation transformant ${noeuds[depart].nom} en ${noeuds[arrivee].nom}`
       vector = vecteur(noeuds[depart], noeuds[arrivee])
@@ -162,7 +162,7 @@ function definitElements (type: 'symax' | 'trans' | 'rot90' | 'rot180', depart:n
         }
       }
     case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
-      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$, d'angle $90^\\circ$ dans le sens ${leSens ? 'inverse des aiguilles d\'une montre' : 'des aiguilles d\'une montre'}.`
+      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par ${texteEnCouleurEtGras(`la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$, d'angle $90^\\circ$ dans le sens ${leSens ? 'inverse des aiguilles d\'une montre' : 'des aiguilles d\'une montre'}`)}.`
       texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)}, d'angle $90^\\circ$ dans le sens  ${leSens ? 'inverse des aiguilles d\'une montre' : 'des aiguilles d\'une montre'}.`
       texteInteractif = `la rotation de centre ${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}, d'angle 90° dans le sens ${leSens ? 'inverse des aiguilles d\'une montre' : 'des aiguilles d\'une montre'}`
       centre = Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6])
@@ -172,7 +172,7 @@ function definitElements (type: 'symax' | 'trans' | 'rot90' | 'rot180', depart:n
       if (context.isHtml) return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre, sens: leSens }
       else return { depart, arrivee, texte, texteCorr, texteInteractif, type, centre, sens: leSens }
     case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
-      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par ${texteEnCouleurEtGras('la symétrie dont le centre est le milieu de ')}$${miseEnEvidence('[' + noeuds[arrivee].nom + (Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom)) + ']'}$.`
+      texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par ${texteEnCouleurEtGras('la symétrie dont le centre est le milieu de ')}$${miseEnEvidence('[' + noeuds[arrivee].nom + (Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom) + ']')}$.`
       texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie dont le centre est le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
       texteInteractif = `la symétrie dont le centre est le milieu de [${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]`
       centre = milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6])
@@ -257,19 +257,22 @@ export default class TrouverLaTransformation extends Exercice {
           }
         }
       }
-
       const depart = []
       const arrivee = []
       depart[0] = randint(0, 3)
       arrivee[0] = depart[0] + (choice([true, false]) ? 1 : 6)
-      transfos[0] = definitElements(choice(typeDeTransfos), depart[0], arrivee[0], choice([true, false]), 12, polys[depart[0]] as Polygone)
+      let choixTransfo = choice(typeDeTransfos)
+      let choixSens = choice([true, false])
+      transfos[0] = definitElements(choixTransfo, depart[0], arrivee[0], choixSens, 12, polys[depart[0]] as Polygone)
       polys[arrivee[0]] = transfoPoly(polys[depart[0]], transfos[0])
       let choixArrivee = []
       for (let ee = 1; ee < 4; ee++) {
         depart[ee] = choice([ee * 6, ee * 6 + 1, ee * 6 + 2, ee * 6 + 3])
         choixArrivee = shuffle([1, 6])
         arrivee[ee] = arrivee.includes(depart[ee] + choixArrivee[0]) ? depart[ee] + choixArrivee[1] : depart[ee] + choixArrivee[0]
-        transfos[ee] = definitElements(choice(typeDeTransfos), depart[ee], arrivee[ee], choice([true, false]), 12, polys[depart[ee]] as Polygone)
+        choixTransfo = choice(typeDeTransfos)
+        choixSens = choice([true, false])
+        transfos[ee] = definitElements(choixTransfo, depart[ee], arrivee[ee], choixSens, 12, polys[depart[ee]] as Polygone)
         polys[arrivee[ee]] = transfoPoly(polys[depart[ee]], transfos[ee])
       }
 
@@ -316,14 +319,23 @@ export default class TrouverLaTransformation extends Exercice {
           switch (transforme) {
             case 'rot90':{
               trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, false, 12, polys[transfos[k].depart] as Polygone)
-              const centre = trans.centre
+              let centre = trans.centre
               if (centre == null) break
               propositions[k].push(
-                            `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
+                `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
               )
-              trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart] as Polygone)
               propositions[k].push(
-                            `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
+                `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
+              )
+
+              trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart] as Polygone)
+              centre = trans.centre
+              if (centre == null) break
+              propositions[k].push(
+                `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
+              )
+              propositions[k].push(
+                `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
               )
             }
               break
@@ -358,7 +370,6 @@ export default class TrouverLaTransformation extends Exercice {
         reponsePossible.push(transfos[k].texteInteractif)
       }
       shuffle3tableaux(objetEnonce, transfos, propositions)
-
       texte = mathalea2d(paramsEnonce, objetsEnonce)
       let texteCorrComplement = ''
       for (let ee = 0; ee < nbSousQuestions; ee++) {

@@ -9,9 +9,7 @@ import { nombreEnLettres } from '../../modules/nombreEnLettres'
 import { prenomM } from '../../lib/outils/Personne'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Résoudre des problèmes avec des probabilités (E3C)'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-export const dateDePublication = '16/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -20,7 +18,7 @@ export const dateDePublication = '16/04/2025'
 export const uuid = '0e166'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1P10-5'],
   'fr-ch': []
 }
 export default class ProlemesE3CProbabiltesCond extends Exercice {

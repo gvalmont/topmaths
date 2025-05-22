@@ -15,7 +15,7 @@ import { polygone } from '../../lib/2d/polygones'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un produit scalaire avec un angle'
-export const dateDeModifImportante = '14/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -25,7 +25,7 @@ export const dateDeModifImportante = '14/04/2025'
 export const uuid = '867cd'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1G10-3'],
   'fr-ch': []
 }
 

@@ -48,7 +48,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
       shuffle: true,
       listeOfCase: ['nom', 'sommet', 'cote', 'autre'],
       enleveDoublons: true,
-      nbQuestions: 999
+      nbQuestions: 0
     })
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

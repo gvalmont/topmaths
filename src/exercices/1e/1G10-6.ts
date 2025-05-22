@@ -17,7 +17,7 @@ import { abs } from '../../lib/outils/nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un  produit scalaire avec les normes'
-export const dateDePublication = '19/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -27,7 +27,7 @@ export const dateDePublication = '19/04/2025'
 export const uuid = 'e9e66'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1G10-6'],
   'fr-ch': []
 }
 

@@ -22,7 +22,7 @@ if (typeof window.iMathAlea === 'undefined') {
   }
 
   window.addEventListener('message', (event) => {
-    // V3
+    // V3 ou V4
     if (typeof event.data.action !== 'undefined' && event.data.action.startsWith('mathalea:')) {
       if (typeof event.data.iframe !== 'undefined' && typeof window.iMathAlea[parseInt(event.data.iframe)] !== 'undefined') {
         const iframe = window.iMathAlea[parseInt(event.data.iframe)].iframe
@@ -35,7 +35,12 @@ if (typeof window.iMathAlea === 'undefined') {
         if (event.data.action === 'mathalea:score') {
           const score = (event.data.resultsByExercice[0].numberOfPoints / event.data.resultsByExercice[0].numberOfQuestions) * 100
           // On regarde le score le plus proche parmi les scores compatibles moodle
-          const compatibleScore = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+          let compatibleScore
+          if (iframe.getAttribute('v')) { // v4
+            compatibleScore = [100, 90, 83.333, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+          } else { // v3
+            compatibleScore = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+          }
           const moodleScore = compatibleScore.reduce((prev, curr) => {
             return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
           })
@@ -80,10 +85,19 @@ if (typeof window.iMathAlea === 'undefined') {
     */
 
     // Appelé lorsque l'élément est inséré dans le DOM
-    connectedCallback () {
+    connectedCallback() {
       let VERSION
+      /*
+        Il y a actuellement plusieurs versions :
+        - 4
+        - 3
+        - 2
+        La version 2 n'est pas explicitement définie. Elle se base sur l'ancien format du site et n'a pas d'attribut url.
+        La version 3 n'est pas explicitement définie. Elle se base sur la nouvelle version du site et a un attribut url.
+        Les versions 4 ou plus sont explicitement définies par un attribut v.
+      */
       if (this.getAttribute('url')) {
-        VERSION = 3
+        VERSION = Number(this.getAttribute('v') ?? 3)
       } else {
         VERSION = 2
       }
@@ -149,7 +163,7 @@ if (typeof window.iMathAlea === 'undefined') {
       const addIframe = () => {
         iframe.setAttribute('width', '100%')
         iframe.setAttribute('height', '400')
-        if (VERSION === 3) {
+        if (VERSION >= 3) {
           let exoUrl = this.getAttribute('url')
           const ES = this.getAttribute('titre') === 'false' ? '0110100' : '0110101'
           // uuid=XXX&id=XXX&cols=2 => uuid=XXX&id=XXX[&alea=XX]&cols=2
@@ -182,7 +196,7 @@ if (typeof window.iMathAlea === 'undefined') {
       } else {
         // L'élève a répondu, on attend que la page charge pour récupérer ses réponses
         document.addEventListener('DOMContentLoaded', () => { // facultatif si le fichier est importé en mode module car l'exécution du script est deferred
-          if (VERSION === 3) {
+          if (VERSION >= 3) {
             if (questionDiv.querySelector('.outcome')) {
               // En v3 la correction est mélangée à l'énoncé. On masque la question (qui contient l'énoncé)
               // pour ne garder que la réponse (qui contient l'énoncé et la correction).
@@ -217,11 +231,11 @@ if (typeof window.iMathAlea === 'undefined') {
       shadow.appendChild(iframe)
     }
 
-    attributeChangedCallback (name, oldValue, newValue) {
+    attributeChangedCallback(name, oldValue, newValue) {
       name === 'height' && (this.iframe.height = newValue)
     }
 
-    static get observedAttributes () { return ['height'] }
+    static get observedAttributes() { return ['height'] }
   }
 
   // Define the new element

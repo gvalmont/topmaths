@@ -20,7 +20,7 @@ import { pi } from 'mathjs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Utiliser la formule d\'Al-Kashi'
-export const dateDePublication = '19/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -30,7 +30,7 @@ export const dateDePublication = '19/04/2025'
 export const uuid = '9774f'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1G10-7'],
   'fr-ch': []
 }
 
@@ -86,14 +86,14 @@ export default class ProduitScalaireAlKashi extends Exercice {
       objets.push(ABC, nommeABC, codeAB, codeAC, afficheMesureAngle(B, A, C, 'black', 1))
       const figure = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, style: 'inline' }, fixeBordures(objets)), objets)
       const figureC = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 15, style: 'inline' }, fixeBordures(objetsC)), objetsC)
-      const colonne1 = `Soit $ABC$ un triangle avec $AB=c$, $AC=b$ et $BC=b$. Alors :<br>
+      const colonne1 = `Soit $ABC$ un triangle avec $AB=b$, $AC=c$ et $BC=a$. Alors :<br>
       <br>` +
        createList(
          {
            items: [
              '$a^2=b^2+c^2-2bc\\cos(\\widehat{BAC})$ ',
-             '$b^2=c^2+a^2-2ac\\cos(\\widehat{ABC})$ ',
-             '$c^2=a^2+b^2-2ab\\cos(\\widehat{ACB})$'],
+             '$b^2=a^2+c^2-2ac\\cos(\\widehat{ACB})$ ',
+             '$c^2=a^2+b^2-2ab\\cos(\\widehat{ABC})$'],
            style: 'fleches'
          }
        )

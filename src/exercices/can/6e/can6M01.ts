@@ -44,7 +44,8 @@ export default class QuestionDePerimetres extends Exercice {
             texte: 'Faux',
             statut: VF[1 - b]
           }
-        ]
+        ],
+        options: { ordered: true, radio: true },
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {

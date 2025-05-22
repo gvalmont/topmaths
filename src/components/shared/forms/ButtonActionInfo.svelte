@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { buildMathAleaURL } from '../../../lib/components/urls'
   import { downloadFile } from '../../../lib/files'
   import BasicInfoModal from '../modal/BasicInfoModal.svelte'
   import ButtonIconTooltip from './ButtonIconTooltip.svelte'
@@ -8,6 +9,7 @@
   export let textToCopy: string = ''
   export let urlToDownload: string = ''
   export let fileName: string = 'mathAlea'
+  export let useCurrentUrl: boolean = false
 
   export let icon: string = ''
   export let tooltip: string = ''
@@ -37,12 +39,12 @@
   }
 
   function copyToClipboard () {
-    if (textToCopy === '') {
+    if (textToCopy === '' && !useCurrentUrl) {
       console.error('Le texte à copier est vide')
       contentDisplayed = 'error'
       return
     }
-    navigator.clipboard.writeText(textToCopy).then(
+    navigator.clipboard.writeText(useCurrentUrl ? buildMathAleaURL({}).toString() : textToCopy).then(
       () => {
         contentDisplayed = 'success'
       },
@@ -54,11 +56,11 @@
   }
 
   function download () {
-    if (urlToDownload === '') {
+    if (urlToDownload === '' && !useCurrentUrl) {
       console.error('L\'URL à télécharger est vide')
       return
     }
-    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(urlToDownload)}"></head></html>`
+    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(useCurrentUrl ? buildMathAleaURL({}).toString() : urlToDownload)}"></head></html>`
     downloadFile(text, `${fileName}.html`).then(
       (returnString) => { contentDisplayed = returnString }
     )

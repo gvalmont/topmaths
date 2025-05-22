@@ -33,7 +33,7 @@ export default class Can2025TQ20 extends Exercice {
     const signe = this.canOfficielle ? '-' : choice(['-', '+'])
 
     this.autoCorrection[0] = {
-      options: { ordered: true },
+      options: { ordered: true, radio: true },
       enonce: `L'équation $x^2${signe}\\sqrt{${b}}x+ ${this.canOfficielle ? '\\dfrac{1}{2}' : `${c.texFraction}`}=0$ admet une unique solution.`,
       propositions: [
         {

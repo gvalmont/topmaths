@@ -74,7 +74,7 @@
     if (isExerciceItemInReferentiel(ending) || isTool(ending)) {
       newExercise.id = ending.id
     }
-    if ($globalOptions.recorder === 'capytale') {
+    if ($globalOptions.recorder === 'capytale' || $globalOptions.setInteractive === '1') {
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])

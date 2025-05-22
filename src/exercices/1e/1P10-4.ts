@@ -13,7 +13,7 @@ export const titre = 'Calculer  une probabilité avec un tableau'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '16/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -22,7 +22,7 @@ export const dateDePublication = '16/04/2025'
 export const uuid = 'faacc'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1P10-4'],
   'fr-ch': []
 }
 export default class CalculerProbaTableau extends Exercice {

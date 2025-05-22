@@ -74,7 +74,6 @@ export interface InterfaceGlobalOptions {
   presMode?:
     | 'liste_exos'
     | 'un_exo_par_page'
-    | 'liste_questions'
     | 'une_question_par_page'
     | 'recto'
     | 'verso'

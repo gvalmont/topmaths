@@ -24,8 +24,8 @@ export default class Tables5A9 extends Exercice {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
     this.formatChampTexte = KeyboardType.clavierNumbers
+    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
   }
 
   nouvelleVersion () {

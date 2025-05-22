@@ -12,7 +12,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import Exercice from '../Exercice'
 
-export const titre = 'Résoudre des problèmes de prix avec des aliments'
+export const titre = 'Résoudre des problèmes de prix avec des aliments mettant en jeu diverses opérations'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -43,6 +43,7 @@ export default class QuestionsMasses extends Exercice {
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions\n']
     this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des questions']
     this.besoinFormulaire3CaseACocher = ['Prix unitaire entier']
+    this.besoinFormulaire4Numerique = ['Choix AMC', 3, '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps\n']
     this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction
     this.nbQuestions = 1
     this.sup = 9
@@ -52,14 +53,11 @@ export default class QuestionsMasses extends Exercice {
   }
 
   nouvelleVersion () {
-    if (context.isAmc) {
-      this.besoinFormulaire4Numerique = ['Choix AMC', 3, '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps\n']
-    }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typesQuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,
         defaut: 9,
-        nbQuestions: 999,
+        nbQuestions: 0,
         melange: 9,
         saisie: this.sup,
         shuffle: this.sup2,

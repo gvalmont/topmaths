@@ -50,11 +50,11 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     if (divis === 1) {
       return `Lorsqu'on divise un nombre par 1, le quotient est le nombre initial : $${texNombre(divid)}$.`
     }
-    const objets = []; let zeroutile = false; const periode = 0
+    const objets = []; let zeroutile = false; const periode = 0 // EE : Pas compris à quoi servait cette variable ?
     precision = Math.min(precision, nombreDeChiffresApresLaVirgule(divid.div(divis)))
     const decalage = nombreDeChiffresApresLaVirgule(divis)
     const dec1 = nombreDeChiffresApresLaVirgule(divid)
-    if (divid.lt(divis)) { zeroutile = true }
+    zeroutile = divid.lt(divis)
     divis = divis.mul(10 ** decalage)
     divid = divid.mul(10 ** (decalage + dec1))
     let dec2 = nombreDeChiffresApresLaVirgule(divid)
@@ -99,7 +99,11 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       divd.push(dividende.substr(0, m))
       if (parseInt(divd[0]) < divis) {
         divd[0] += dividende.substr(m, 1)
-        if (divis.div(10 ** dec2).lt(divis) && zeroutile) ecrirequotient(-1, '0')
+        if (divis.div(10 ** dec2).lt(divis) && zeroutile) {
+          ecrirequotient(-1, '0')
+        } else if (zeroutile) {
+          ecrirequotient(-1, '0')
+        }
         upos++
       } else if (zeroutile) {
         ecrirequotient(-1, '0')
@@ -130,15 +134,15 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         }
         divd.push(R[i])
         upos++
-
         ecrirequotient(i, Q[i])
         i++
       }
       if (precision > 0 && periode === 0) {
         objets.push(texteParPosition(',', (n + 1 + i - dec2 - dec1) * espacement, 10, 0, 'black', 1.2, 'milieu', false))
-      } else if (periode !== 0) {
-        objets.push(texteParPosition(',', (2 * n - dec2 - dec1) * espacement, 10, 0, 'black', 1.2, 'milieu', false))
       }
+      /* else if (periode !== 0) {
+        objets.push(texteParPosition(',', (2 * n - dec2 - dec1) * espacement, 10, 0, 'black', 1.2, 'milieu', false))
+      } */
     }
     if (calculer) objets.push(segment(n * espacement, 10.5, (n + m + i) * espacement, 10.5)) // on trace le trait horizontal
     else objets.push(segment(n * espacement, 10.5, (n + m + 2) * espacement, 10.5)) // on trace le trait horizontal

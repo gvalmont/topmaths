@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
@@ -8,11 +8,11 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 
-export const dateDeModifImportante = '6/2/2024'
-// Passage à remplis les blancs avec feedback pour les parenthèses
+export const dateDeModifImportante = '16/05/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
@@ -56,13 +56,15 @@ export default class TermeInconnuDeSomme extends Exercice {
       decimal = 10
     }
     for (let i = 0, a, b, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (!context.isAmc) {
-        a = arrondi(randint(4 * decimal, this.sup2 * decimal) / decimal, 1)
-        b = arrondi(randint(2 * decimal, this.sup2 * decimal) / decimal, 1)
-      } else {
-        a = arrondi(randint(4 * decimal, 20 * decimal) / decimal, 1)
-        b = arrondi(randint(2 * decimal, 20 * decimal) / decimal, 1)
-      }
+      do {
+        if (!context.isAmc) {
+          a = arrondi(randint(4 * decimal, this.sup2 * decimal) / decimal, 1)
+          b = arrondi(randint(2 * decimal, this.sup2 * decimal) / decimal, 1)
+        } else {
+          a = arrondi(randint(4 * decimal, 20 * decimal) / decimal, 1)
+          b = arrondi(randint(2 * decimal, 20 * decimal) / decimal, 1)
+        }
+      } while (a === b)
 
       let feedback
       switch (listeTypeDeQuestions[i]) {
@@ -90,11 +92,23 @@ export default class TermeInconnuDeSomme extends Exercice {
       }
       texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
 
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replaceAll('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$` + '.' // Gestion du point final
+      // Fin de cette uniformisation
+
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
-        const tableauReponse = ['(' + arrondi(b - a, 2) + ')']
-        if (this.sup3) tableauReponse.push(String(arrondi(b - a, 2)))
+        const tableauReponse = ['(' + arrondi(b - a, 2) + ')', '(' + ecritureAlgebrique(arrondi(b - a, 2)) + ')']
+        if (this.sup3 || listeTypeDeQuestions[i] === 2 || listeTypeDeQuestions[i] === 3 || arrondi(b - a, 2) > 0) tableauReponse.push(String(arrondi(b - a, 2)))
         if (this.interactif) {
           handleAnswers(this, i, {
             champ1: {

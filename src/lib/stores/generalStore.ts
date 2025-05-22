@@ -220,10 +220,10 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
 }
 
-export const presModeId: [
+export const presModeId: [ // sync with src/components/urls.ts presentationMode
   'liste_exos',
   'un_exo_par_page',
-  'liste_questions',
+  'liste_exos',
   'une_question_par_page',
   'recto',
   'verso'
@@ -231,7 +231,7 @@ export const presModeId: [
 ] = [
   'liste_exos',
   'un_exo_par_page',
-  'liste_questions',
+  'liste_exos',
   'une_question_par_page',
   'recto',
   'verso'

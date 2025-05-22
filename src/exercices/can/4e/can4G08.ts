@@ -58,6 +58,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
 
             this.autoCorrection[i] = {
               enonce: texte,
+              options: { ordered: true, radio: true },
               propositions: [
                 {
                   texte: 'Vrai',

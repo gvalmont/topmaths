@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures'
-import { katexPopup2 } from '../../lib/format/message'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenom, prenomF } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
@@ -16,6 +15,7 @@ import {
   gestionnaireFormulaireTexte
 } from '../../modules/outils'
 import { round } from 'mathjs'
+import { ajouterAide, ajouterImage } from '../../lib/outils/enrichissements'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
 
 /**
@@ -125,7 +125,7 @@ const vitesses: [string, number, number, number][] = [
   ['à pied', 2, 4, 5]
 ] // [moyen de transport, vitesse min,vitesse max en m/s,durée max en h]
 export default class ProblemesGrandeursComposees extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireTexte = [
       'Type des grandeurs',
@@ -139,7 +139,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
     this.sup = ''
   }
 
-  nouvelleVersion(numeroExercice: number) {
+  nouvelleVersion (numeroExercice: number) {
     // let listeIndex_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)
@@ -152,31 +152,29 @@ export default class ProblemesGrandeursComposees extends Exercice {
 
     // const listeIndex = combinaisonListes(grandeurs, this.nbQuestions)
     const grandeurs = gestionnaireFormulaireTexte({ saisie: this.sup, max: 14, melange: 15, defaut: 15, nbQuestions: this.nbQuestions })
-    let typeAide = 1
-    if (!context.isHtml) typeAide = 0
 
     for (
       let i = 0,
-      j,
-      index,
-      index1,
-      index2,
-      duree,
-      quidam,
-      nbheures,
-      nbminutes,
-      nbsecondes,
-      vitesseMoy,
-      distance,
-      masse,
-      masse2,
-      masse3,
-      prix1,
-      prix2,
-      prix3,
-      texte,
-      texteCorr,
-      cpt = 0;
+        j,
+        index,
+        index1,
+        index2,
+        duree,
+        quidam,
+        nbheures,
+        nbminutes,
+        nbsecondes,
+        vitesseMoy,
+        distance,
+        masse,
+        masse2,
+        masse3,
+        prix1,
+        prix2,
+        prix3,
+        texte,
+        texteCorr,
+        cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -203,12 +201,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte +=
             numAlpha(0) +
             ' Exprimer en kWh l\'' +
-            katexPopup2(
-              numeroExercice + i + 1,
-              typeAide,
-              'énergie',
-              'Définition : Énergie (grandeur physique)',
-              'C\'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joules (J).<br>1 J = 1 W × 1 s<br>Cependant, pour mesurer des énergies plus importantes, on utilise plutôt le kiloWattheure (kWh).<br>1 kWh = 1000 W × 1 h'
+            ajouterAide(
+              'C\'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joules (J).<br>1 J = 1 W × 1 s<br>Cependant, pour mesurer des énergies plus importantes, on utilise plutôt le kiloWattheure (kWh).<br>1 kWh = 1000 W × 1 h',
+              { texteAvant: 'énergie', titreAide: 'Définition : Énergie (grandeur physique)' }
             ) +
             ' consommée.<br>'
           texte += numAlpha(1) + ' Calculer la dépense correspondante.'
@@ -264,16 +259,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
               texte +=
                 numAlpha(0) +
                 ' Calculer le ' +
-                katexPopup2(
-                  numeroExercice + i * 3,
-                  typeAide,
-                  'volume',
-                  'Définition : Volume (grandeur physique)',
-                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre-cube (m${texteExposant(
-                    3
-                  )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(
-                    3
-                  )} = 1L.`
+                ajouterAide(
+                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre-cube (m${texteExposant(3)}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(3)} = 1L.`,
+                  { texteAvant: 'volume', titreAide: 'Définition : Volume (grandeur physique)' }
                 ) +
                 ` d'eau en m${texteExposant(
                   3
@@ -333,23 +321,17 @@ export default class ProblemesGrandeursComposees extends Exercice {
               texte +=
                 numAlpha(0) +
                 ' Calculer le ' +
-                katexPopup2(
-                  numeroExercice + i * 3,
-                  typeAide,
-                  'volume',
-                  'Définition : Volume (grandeur physique)',
-                  'C\'est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre-cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3 = \\text{1L}.$'
+                ajouterAide(
+                  'C\'est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre-cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3 = \\text{1L}.$',
+                  { texteAvant: 'volume', titreAide: 'Définition : Volume (grandeur physique)' }
                 ) +
                 ` en dm${texteExposant(3)} à $${texNombre(0.1)}$ près de ce tonneau.<br>`
               texte +=
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
-                katexPopup2(
-                  numeroExercice + i * 3,
-                  typeAide,
-                  'densité',
-                  'Définition : Densité (grandeur physique)',
-                  'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1 kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.'
+                ajouterAide(
+                  'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1 kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.',
+                  { texteAvant: 'densité', titreAide: 'Définition : Densité (grandeur physique)' }
                 ) +
                 ` est de $${texNombre(liquides[index2][1])}$ kg/dm$^3$), quelle masse ${liquides[index2][0]
                 } en kg contiendra-t-il au gramme près ?<br>`
@@ -382,35 +364,26 @@ export default class ProblemesGrandeursComposees extends Exercice {
           vitesseMoy = randint(vitesses[index1][1], vitesses[index1][2]) // vitesse choisie pour l'exo
           texte =
             `${quidam} se déplace ${vitesses[index1][0]} à la ` +
-            katexPopup2(
-              numeroExercice + i * 3,
-              typeAide,
-              'vitesse',
-              'Définition : Vitesse (grandeur physique)',
-              'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
+            ajouterAide(
+              'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).',
+              { texteAvant: 'vitesse', titreAide: 'Définition : Vitesse (grandeur physique)' }
             ) +
             ` de $${texNombre(vitesseMoy)}\\text{ m/s}$.<br>`
           texte += `Elle pèse $${masse}\\text{ kg}$.<br>`
           texte +=
             numAlpha(0) +
             ' Calculer sa ' +
-            katexPopup2(
-              numeroExercice + i * 3 + 1,
-              typeAide,
-              'quantité de mouvement',
-              'Définition : Quantité de mouvement (grandeur physique)',
-              'C\'est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le $\\text{kg.m.s}^{-1}$.'
+            ajouterAide(
+              'C\'est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le $\\text{kg.m.s}^{-1}$.',
+              { texteAvant: 'quantité de mouvement', titreAide: 'Définition : Quantité de mouvement (grandeur physique)' }
             ) +
             ' en $\\text{kg.m.s}^{-1}$.<br>'
           texte +=
             numAlpha(1) +
             ' En déduire son ' +
-            katexPopup2(
-              numeroExercice + i * 3 + 2,
-              typeAide,
-              'énergie cinétique',
-              'Définition : Énergie cinétique (grandeur physique)',
-              'L\'énergie cinétique d\'un corps de masse $m$ (en kg) assimilé à un point matériel se déplaçant à la vitesse $v$ (en m/s) est donné par la formule <br>$E=\\dfrac{1}{2}\\times m\\times v^2$.<br>L\'unité de mesure de l\'énergie cinétique est le Joule (J).<br>$1J = 1\\text{ kg.m}^2\\text{s}^{-2}$'
+            ajouterAide(
+              'L\'énergie cinétique d\'un corps de masse $m$ (en kg) assimilé à un point matériel se déplaçant à la vitesse $v$ (en m/s) est donné par la formule <br>$E=\\dfrac{1}{2}\\times m\\times v^2$.<br>L\'unité de mesure de l\'énergie cinétique est le Joule (J).<br>$1J = 1\\text{ kg.m}^2\\text{s}^{-2}$',
+              { texteAvant: 'énergie cinétique', titreAide: 'Définition : Énergie cinétique (grandeur physique)' }
             ) +
             ' en Joules.'
           texteCorr =
@@ -430,13 +403,10 @@ export default class ProblemesGrandeursComposees extends Exercice {
           masse = randint(20, 30) // masse de l'enfant
           distance = randint(25, 35) / 10
           texte =
-            `${quidam} qui pèse $${masse}$ kg se trouve sur le siège d'une balançoire ` +
-            katexPopup2(
-              numeroExercice + i * 3,
-              2,
-              'trébuchet',
-              'Schéma explicatif',
-              'alea/images/trebuchet.png'
+            `${quidam} qui pèse $${masse}$ kg se trouve sur le siège d'une ` +
+            ajouterAide(
+              ajouterImage('balancoire_trebuchet.png'), // Public Domain file : https://svgsilh.com/fr/image/43897.html
+              { texteAvant: 'balançoire trébuchet', titreAide: 'Schéma explicatif' }
             ) +
             ` dans un jardin d'enfant. Le siège est situé à $${texNombre(
               distance
@@ -444,20 +414,14 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte +=
             numAlpha(0) +
             ' Calculer le ' +
-            katexPopup2(
-              numeroExercice + i * 3 + 1,
-              typeAide,
-              'moment',
-              'Définition : Moment (grandeur physique)',
-              'Le moment d\'une force d\'intensité $F$ (en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de $F$ par la distance $d=$PM (appelée bras de levier) exprimée en mètres, soit $F\\times d$ (lorsque cette force s\'exerce perpendiculairement au bras de levier). Le moment est l\'energie permettant de faire tourner l\'objet autour du pivot.<br>L\'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$'
+            ajouterAide(
+              'Le moment d\'une force d\'intensité $F$ (en Newton ou kg.m.s$^{-2}$) en un point M par rapport à un pivot P est le produit de $F$ par la distance $d=$PM (appelée bras de levier) exprimée en mètres, soit $F\\times d$ (lorsque cette force s\'exerce perpendiculairement au bras de levier). Le moment est l\'energie permettant de faire tourner l\'objet autour du pivot.<br>L\'unité de mesure du moment est le Joule (J).<br>$1J=1\\text{ kg.m}^2\\text{s}^{-2}$',
+              { texteAvant: 'moment', titreAide: 'Définition : Moment (grandeur physique)' }
             ) +
             ' du ' +
-            katexPopup2(
-              numeroExercice + i * 3 + 2,
-              typeAide,
-              'poids',
-              'Définition : Poids (grandeur physique)',
-              'Le poids est le produit de la masse $m$ d\'un objet par l\'accélération de la pesanteur terrestre ($g=9,81\\text{ m.s}^{-2}$).<br>L\'unité du poids est le Newton (N) : 1 N = 1 kg.m.s$^{-2}$'
+            ajouterAide(
+              'Le poids est le produit de la masse $m$ d\'un objet par l\'accélération de la pesanteur terrestre ($g=9,81\\text{ m.s}^{-2}$).<br>L\'unité du poids est le Newton (N) : 1 N = 1 kg.m.s$^{-2}$',
+              { texteAvant: 'poids', titreAide: 'Définition : Poids (grandeur physique)' }
             ) +
             ` de ${quidam} sur son siège par rapport au pivot central du trébuchet en Joules (on admettra que le bras de levier est horizontal).<br>`
           texte +=
@@ -501,12 +465,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte =
             numAlpha(0) +
             ` Un bus de ville transporte en moyenne $${n1}$ personnes à la fois.<br> La longueur moyenne de déplacement est de $${d1}$ km.<br> Calculer le ` +
-            katexPopup2(
-              numeroExercice + i * 3,
-              typeAide,
-              'trafic',
-              'Définition : Trafic de voyageurs',
-              'Le trafic de voyageurs est le produit du nombre de voyageurs par la distance parcourue. L\'unité est le voyageur.km qui correspond au déplacement d\'un voyageur sur 1km.'
+            ajouterAide(
+              'Le trafic de voyageurs est le produit du nombre de voyageurs par la distance parcourue. L\'unité est le voyageur.km qui correspond au déplacement d\'un voyageur sur 1km.',
+              { texteAvant: 'trafic', titreAide: 'Définition : Trafic de voyageurs' }
             ) +
             ' moyen de voyageurs en voyageurs.km.<br> '
           texte +=
@@ -529,12 +490,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte = 'Les appareils de cet exercices fonctionnent sur le secteur, soit à une tension de 230V<br>' +
             numAlpha(0) +
             ` Un ${appareils[index][0]} est protégé par un fusible de $${I1}$ ampères.<br>Quelle est la ` +
-            katexPopup2(
-              numeroExercice + i * 3 + 1,
-              typeAide,
-              'puissance',
-              'Définition : Puissance (grandeur physique)',
-              'C\'est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W).'
+            ajouterAide(
+              'C\'est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W).',
+              { texteAvant: 'puissance', titreAide: 'Définition : Puissance (grandeur physique)' }
             ) +
             ' maximale de cet appareil ?<br>'
           texte +=
@@ -569,12 +527,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
               duree = randint(2, vitesses[index1][3])
               texte =
                 `${quidam} se déplace ${vitesses[index1][0]} à la ` +
-                katexPopup2(
-                  numeroExercice + i * 3,
-                  typeAide,
-                  'vitesse',
-                  'Définition : Vitesse (grandeur physique)',
-                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
+                ajouterAide(
+                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).',
+                  { texteAvant: 'vitesse', titreAide: 'Définition : Vitesse (grandeur physique)' }
                 ) +
                 ` de $${vitesseMoy}\\text{ m/s}$.<br>`
               texte +=
@@ -662,12 +617,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
               distance = randint(5, 15, [duree]) * 340 // distance de l'orage en m pour question b
               texte =
                 'Le son se déplace dans l\'air à la ' +
-                katexPopup2(
-                  numeroExercice + i * 3,
-                  typeAide,
-                  'vitesse',
-                  'Définition : Vitesse (grandeur physique)',
-                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
+                ajouterAide(
+                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).',
+                  { texteAvant: 'vitesse', titreAide: 'Définition : Vitesse (grandeur physique)' }
                 ) +
                 ' de $340\\text{ m/s}$.<br>'
               texte +=
@@ -714,12 +666,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
               quidam = prenomF()
               texte =
                 `${quidam} vient de courir ${distance} kilomètres. Sa montre connectée a enregistré l'` +
-                katexPopup2(
-                  numeroExercice + i,
-                  typeAide,
-                  'allure',
-                  'Définition : Allure (grandeur physique)',
-                  'L\'allure est le temps exprimé en h, min, s pour parcourir un kilomètre.<br>L\'unité est alors h/km ou min/km.'
+                ajouterAide(
+                  'L\'allure est le temps exprimé en h, min, s pour parcourir un kilomètre.<br>L\'unité est alors h/km ou min/km.',
+                  { texteAvant: 'allure', titreAide: 'Définition : Allure (grandeur physique)' }
                 ) +
                 'pour chaque kilomètre parcouru :<br>'
               allures = []
@@ -754,12 +703,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
               texte +=
                 numAlpha(1) +
                 ' En déduire sa ' +
-                katexPopup2(
-                  numeroExercice + i + 1,
-                  typeAide,
-                  'vitesse',
-                  'Définition : Vitesse (grandeur physique)',
-                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).'
+                ajouterAide(
+                  'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$).',
+                  { texteAvant: 'vitesse', titreAide: 'Définition : Vitesse (grandeur physique)' }
                 ) +
                 ' moyenne en $\\text{km/h}$ sur le trajet total.<br>'
               texte +=
@@ -962,12 +908,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte +=
             numAlpha(1) +
             ' La même année, la ' +
-            katexPopup2(
-              numeroExercice + i * 3 + 1,
-              typeAide,
-              'densité de population',
-              'Définition : Densité de population',
-              'C\'est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
+            ajouterAide(
+              'C\'est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).',
+              { texteAvant: 'densité de population', titreAide: 'Définition : Densité de population' }
             ) +
             ` de ${villes[index2][0]} était de $${texNombre(villes[index2][1] / villes[index2][2], 0)}\\text{ hab/km}^2$ pour une superficie de $${texNombre(
               villes[index2][2] * 100
@@ -1010,12 +953,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte =
             numAlpha(0) +
             ' La ' +
-            katexPopup2(
-              numeroExercice + i * 3 + 1,
-              typeAide,
-              'masse volumique',
-              'Définition : Masse volumique (grandeur physique)',
-              'La masse volumique d\'un élément est le quotient de la masse de cet élément par le volume qu\'il occupe.<br>L\'unité de la masse volumique dépend de la nature de l\'élément et peut s\'exprimer en kg/m$^3$ pour les solides ou en g/L pour les gaz, par exemple.'
+            ajouterAide(
+              'La masse volumique d\'un élément est le quotient de la masse de cet élément par le volume qu\'il occupe.<br>L\'unité de la masse volumique dépend de la nature de l\'élément et peut s\'exprimer en kg/m$^3$ pour les solides ou en g/L pour les gaz, par exemple.',
+              { texteAvant: 'masse volumique', titreAide: 'Définition : Masse volumique (grandeur physique)' }
             ) +
             ` ${materiaux[index1][2]}${materiaux[index1][0]} est de $${texNombre(
               materiaux[index1][1]
@@ -1100,12 +1040,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
           vMax = rivieres[index2][3] * 3600
           texte =
             'Le ' +
-            katexPopup2(
-              numeroExercice + i,
-              typeAide,
-              'débit',
-              'Définition : Débit (grandeur physique)',
-              'Le débit est le quotient d\'un volume d\'eau écoulée dans une section de conduit par le temps d\'écoulement.<br>L\'unité officielle est le mètre cube par seconde ($\\text{m}^3/\\text{s}$)  et dans certains cas, on peut utiliser le litre par minute (L/min).'
+            ajouterAide(
+              'Le débit est le quotient d\'un volume d\'eau écoulée dans une section de conduit par le temps d\'écoulement.<br>L\'unité officielle est le mètre cube par seconde ($\\text{m}^3/\\text{s}$)  et dans certains cas, on peut utiliser le litre par minute (L/min).',
+              { texteAvant: 'débit', titreAide: 'Définition : Débit (grandeur physique)' }
             ) +
             ` annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]
             } mesuré à ${rivieres[index2][1]} est de $${texNombre(rivieres[index2][2])
@@ -1157,12 +1094,9 @@ export default class ProblemesGrandeursComposees extends Exercice {
           texte =
             numAlpha(0) +
             ` ${quidam} télécharge un fichier depuis un espace de stockage en ligne. Sa ` +
-            katexPopup2(
-              numeroExercice + i,
-              typeAide,
-              'vitesse de téléchargement',
-              'Définition : Vitesse de téléchargement',
-              'La vitesse de téléchargement est le quotient de la quantité de données téléchargées (en ko, Mo ou Go) par la durée de téléchargement (en secondes).<br>L\'unité de cette grandeur quotient est le ko/s (ou Mo/s)'
+            ajouterAide(
+              'La vitesse de téléchargement est le quotient de la quantité de données téléchargées (en ko, Mo ou Go) par la durée de téléchargement (en secondes).<br>L\'unité de cette grandeur quotient est le ko/s (ou Mo/s)',
+              { texteAvant: 'vitesse de téléchargement', titreAide: 'Définition : Vitesse de téléchargement' }
             ) +
             ` est de $${vitesseMoy}$ $\\text{${unites[index]
             }/s}$.<br>`

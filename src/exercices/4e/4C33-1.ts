@@ -11,13 +11,14 @@ import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteracti
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 
 export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '05/11/2024'
+export const dateDeModifImportante = '09/05/2025'
 /**
  * Puissances d'un relatif (1)
  * * L\'objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
@@ -112,7 +113,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
     )
 
     // pour pouvoir adapter les couleurs en cas de besoin
-    const coul0 = 'red'
+    const coul0 = 'green'
     const coul1 = 'blue'
 
     for (
@@ -314,33 +315,34 @@ export default class PuissancesDunRelatif1 extends Exercice {
         case 4: // produit de puissances de même exposant
           base0 = randint(2, 8, [4, 6])
           base1 = randint(2, 8, [4, 6, base0])
+          base0 = base0 * (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([-1, 1])) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
+          base1 = base1 * (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([-1, 1])) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
+
           base = [base0, base1] // on choisit 2 bases différentes c'est mieux
           exp = randint(2, 5, 6) // on choisit un exposant
-          texte = `$${lettre}=${base[0]}^{${exp}}\\times ${base[1]}^{${exp}}$`
-          texteCorr += `$${lettre}=${base[0]}^{${exp}}\\times ${base[1]}^{${exp}}$`
+          texte = `$${lettre}=${ecritureParentheseSiNegatif(base[0])}^{${exp}}\\times ${ecritureParentheseSiNegatif(base[1])}^{${exp}}$`
+          texteCorr += texte
 
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
             texteCorr += `$${lettre}=${eclatePuissance(
-                            base[0],
+              ecritureParentheseSiNegatif(base[0]),
                             exp,
                             coul0
-                        )} \\times ${eclatePuissance(base[1], exp, coul1)}$`
+                        )} \\times ${eclatePuissance(ecritureParentheseSiNegatif(base[1]), exp, coul1)}$`
             texteCorr += '<br>'
             texteCorr += `$${lettre}=${reorganiseProduitPuissance(
-                            base[0],
-                            base[1],
+              ecritureParentheseSiNegatif(base[0]),
+              ecritureParentheseSiNegatif(base[1]),
                             exp,
                             coul0,
                             coul1
                         )}$`
           }
           texteCorr += '<br>'
-          texteCorr += `$${lettre}= (\\color{${coul0}}{\\mathbf{${base[0]
-                    }}} \\color{black}{\\times} \\color{${coul1}}{\\mathbf{${base[1]
-                    }}}\\color{black}{)^{${exp}}}=${miseEnEvidence(`${base[0] * base[1]}^{${exp}}`)}$`
-          // Ici la base ne peut jamais être négative
-          reponseInteractive = `${base[0] * base[1]}^{${exp}}`
+          texteCorr += `$${lettre}= (${miseEnEvidence(ecritureParentheseSiNegatif(base[0]), coul0)} \\times ${miseEnEvidence(ecritureParentheseSiNegatif(base[1]), coul1)})^{${exp}}=${miseEnEvidence(`(${base[0] * base[1]})^{${exp}}`)}$`
+
+          reponseInteractive = `(${base[0] * base[1]})^{${exp}}`
           baseUtile = base[0] * base[1]
           baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter une batterie de lignes spécifiques pour ce cas, je mets deux fois la même chose
           base = baseUtile
@@ -361,13 +363,15 @@ export default class PuissancesDunRelatif1 extends Exercice {
           if (base0 % base1 !== 0) {
             base0 = base1 * randint(2, 4)
           }
+          base0 = base0 * (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([-1, 1])) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
+          base1 = base1 * (this.sup2 === 1 ? 1 : this.sup2 === 2 ? -1 : choice([-1, 1])) // on choisit une base sauf 1 ... penser à gérer le cas des bases qui sont des puissances
 
-          texte = `$${lettre}=\\dfrac{${base0}^{${exp}}}{${base1}^{${exp}}}$`
-          texteCorr += `$${lettre}=\\dfrac{${base0}^{${exp}}}{${base1}^{${exp}}}$`
+          texte = `$${lettre}=\\dfrac{${ecritureParentheseSiNegatif(base0)}^{${exp}}}{${ecritureParentheseSiNegatif(base1)}^{${exp}}}$`
+          texteCorr += texte
 
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
-            texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(base0, exp, coul0)}}{${eclatePuissance(base1, exp, coul1)}}$`
+            texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(ecritureParentheseSiNegatif(base0), exp, coul0)}}{${eclatePuissance(ecritureParentheseSiNegatif(base1), exp, coul1)}}$`
             texteCorr += '<br>'
 
             // Explication de la réorganisation des termes
@@ -379,9 +383,8 @@ export default class PuissancesDunRelatif1 extends Exercice {
           }
 
           texteCorr += '<br>'
-          texteCorr += `$${lettre}= \\left(\\dfrac{\\color{${coul0}}{${base0}}}{\\color{${coul1}}{${base1}}}\\right)^{${exp}}=${miseEnEvidence(`${base0 / base1}^{${exp}}`)}$`
+          texteCorr += `$${lettre}= \\left(\\dfrac{\\color{${coul0}}{${base0}}}{\\color{${coul1}}{${base1}}}\\right)^{${exp}}=${miseEnEvidence(`${ecritureParentheseSiNegatif(base0 / base1)}^{${exp}}`)}$`
 
-          // La base est toujours positive dans ce cas
           reponseInteractive = `${base0 / base1}^{${exp}}`
           baseUtile = base0 / base1
           baseUtileBisAMC = base0 / base1

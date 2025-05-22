@@ -4,10 +4,12 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer la norme d’un vecteur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '6/12/2021'
+export const dateDeModifImportante = '18/05/2025'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -24,7 +26,7 @@ export const refs = {
 export default class NormeVecteur extends Exercice {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
@@ -42,7 +44,7 @@ export default class NormeVecteur extends Exercice {
         Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br>
         
         Donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant.`
-          this.optionsChampTexte = { texteApres: '' }
+          this.optionsChampTexte = { texteApres: '', texteAvant: '<br>' }
           this.correction = `D'après le cours, si $\\overrightarrow{u}(x;y)$ alors $\\| \\overrightarrow{u} \\|=\\sqrt{x^2+y^2}$. On a donc : <br><br>
           $ \\| \\overrightarrow{${nom}} \\|=
           \\sqrt{${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2}=
@@ -55,7 +57,7 @@ export default class NormeVecteur extends Exercice {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{${nom}}(${a};${b})$.<br>
           Déterminer la norme du vecteur $\\overrightarrow{${nom}}$.<br>
           (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
-          this.optionsChampTexte = { texteApres: '' }
+          this.optionsChampTexte = { texteApres: '', texteAvant: '<br>' }
           this.correction = `D'après le cours, si $\\overrightarrow{u}(x;y)$ alors $\\| \\overrightarrow{u} \\|=\\sqrt{x^2+y^2}$.<br><br>
           On a donc ici :<br><br>
           $\\| \\overrightarrow{${nom}} \\| =

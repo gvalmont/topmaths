@@ -1,5 +1,4 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
@@ -9,7 +8,6 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../modules/FractionEtendue'
 export const interactifReady = true
 export const interactifType = 'mathlive'
@@ -314,14 +312,12 @@ ${rienSi1(-e * c + f * a)}x&= ${e * d - f * b}${-e * c + f * a === 1 ? '' : '\\\
       handleAnswers(this, 2 * i, {
         reponse: {
           value: ensValeursInterdites,
-          compare: fonctionComparaison,
           options: { ensembleDeNombres: true }
         }
       })
       handleAnswers(this, 2 * i + 1, {
         reponse: {
           value: ensSolutions,
-          compare: fonctionComparaison,
           options: { ensembleDeNombres: true }
         }
       })

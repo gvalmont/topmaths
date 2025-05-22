@@ -83,7 +83,7 @@ export default ConstructionParallelogramme
 
 function createAnimationConstructionParallelogramme () : Figure {
   const figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
-  figure.setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
+  figure.setToolbar({ tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'], position: 'top' })
   const description = figure.create('TextByPosition', { anchor: 'bottomLeft', backgroundColor: 'white', text: 'Si un quarilatère non croisé a ses côtés opoosés deux à deux de même longueur alors c\'est un parallélogramme.', x: 10, y: 15 })
   const A = figure.create('Point', { x: 8, y: 11, label: 'A' })
   const B = figure.create('Point', { x: 18, y: 12, label: 'B' })

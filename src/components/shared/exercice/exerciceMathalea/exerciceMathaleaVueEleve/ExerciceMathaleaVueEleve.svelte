@@ -43,6 +43,7 @@
 
   $: {
     if (isInteractif && buttonScore) initButtonScore()
+    if (!isInteractif && divScore) divScore.innerHTML = ''
     headerExerciceProps = headerExerciceProps
   }
 
@@ -173,6 +174,7 @@
     const seed = mathaleaGenerateSeed()
     exercise.seed = seed
     if (buttonScore) initButtonScore()
+    if (divScore) divScore.innerHTML = ''
     updateDisplay()
   }
 
@@ -304,7 +306,6 @@
       'ease-in-out',
       'checkReponses'
     )
-    if (divScore) divScore.innerHTML = ''
   }
 
   /**

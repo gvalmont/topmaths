@@ -35,10 +35,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'aeba1'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['canc3a-2025b'],
   'fr-ch': []
 }
-export const dateDePublication = '12/02/2025'
+export const dateDePublication = '01/05/2025'
 
 /**
  * Annales CAN 2025

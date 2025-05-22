@@ -13,7 +13,8 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const amcReady = true
@@ -26,7 +27,6 @@ export const dateDeModifImportante = '09/05/2023'
 
 /**
  * Calculer un angle à partir de figures simples
- * Ref 6G23-5
  * @author Eric Elter
  * Publié le 03/05/2022
  */
@@ -73,7 +73,8 @@ export default class CalculerUnAngle extends Exercice {
       saisie: this.sup
     }).map(Number)
     const partagesPossiblesAngle90 = combinaisonListes([2, 3, 5, 6, 9, 10], this.nbQuestions)
-    for (let i = 0, QCas6 = 0, numA, numB, numC, numD, numE, texte, texteCorr, pointsPartage, choixPartage, reponse, A, B, B1, C, C1, D, D1, E, AB, AC, AD, sensRot, posA, posB, posC, posD, angB, angC, paramsEnonce; i < this.nbQuestions; i++) {
+    for (let i = 0, QCas6 = 0, numA, numB, numC, numD, texte, texteCorr, pointsPartage, choixPartage, reponse, A, B, B1, C, C1, D, D1, E, AB, AC, AD, sensRot, posA, posB, posC, posD, angB, angC, paramsEnonce; i < this.nbQuestions; i++) {
+      let numE = 1
       texte = ''
       texteCorr = ''
       // On prépare la figure...
@@ -354,8 +355,9 @@ export default class CalculerUnAngle extends Exercice {
       if (QuestionsDisponibles[i] !== 14) texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre([8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? numB : numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
       else texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
 
-      texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' °' })
-      setReponse(this, i, Math.abs(reponse), { digits: 3, decimals: 0, signe: false }) // abs indispensable à cause du cas 8
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' °' })
+      if (context.isAmc) setReponse(this, i, Math.abs(reponse), { digits: 3, decimals: 0, signe: false })  // abs indispensable à cause du cas 8
+      else handleAnswers(this, i, { reponse: { value: Math.abs(reponse), options: { nombreDecimalSeulement: true } } })
 
       // Correction selon les cas
       // Les espaces (sp) sont nécessaires pour contrecarrer l'espace créé par les °.

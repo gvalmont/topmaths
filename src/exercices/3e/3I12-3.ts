@@ -93,7 +93,7 @@ export default class CompleterScriptDiviseurs extends Exercice {
       max: 10,
       defaut: 11,
       melange: 11,
-      nbQuestions: 999,
+      nbQuestions: 0,
       saisie: this.sup
     })
 

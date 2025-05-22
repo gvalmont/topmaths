@@ -8,14 +8,18 @@ import { rangeMinMax } from '../../lib/outils/nombres'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { getDynamicFractionDiagram } from './6N20-2'
+import figureApigeom from '../../lib/figureApigeom'
 
 export const titre = 'Écrire un nombre entier sous la forme d\'une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '27/11/2024'
+export const dateDeModifImportante = '08/05/2025'
 
 /**
  * @author Guillaume Valmont
+ * Rajout du paramètre 3 par Eric Elter
  */
 export const uuid = '42ade'
 export const refs = {
@@ -35,10 +39,19 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
     this.sup2 = '1-2-3-4-5'
     this.besoinFormulaireTexte = ['Dénominateurs', 'Nombres séparés par des tirets\n(de 2 à 11 par défaut)']
     this.besoinFormulaire2Texte = ['Nombres entiers', 'Nombres séparés par des tirets\n(de 1 à 5 par défaut)']
+    this.besoinFormulaire3CaseACocher = ['Brouillon interactif', false]
     this.correctionDetailleeDisponible = true
   }
 
   nouvelleVersion () {
+    if (this.sup3) {
+      const figure = getDynamicFractionDiagram()
+      this.introduction = figureApigeom({ exercice: this, i: 0, figure, isDynamic: true })
+      if (figure.ui) figure.ui.send('FILL')
+    } else {
+      this.introduction = ''
+    }
+
     const listeDenominateurs = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 2,

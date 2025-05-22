@@ -32,7 +32,7 @@ export const refs = {
 export default class FractionsCalculsSimples extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireCaseACocher = ['Avec un schéma interactif']
+    this.besoinFormulaireCaseACocher = ['Avec un schéma']
     this.besoinFormulaire2Texte = ['Type d\'opérations', 'Nombres séparés par des tirets\n1 : Additions entre deux fractions de même dénominateur\n2 : Additions entre un entier et une fraction\n3 : Soustractions entre un entier et une fraction\n4 : Multiplications entre un entier et une fraction\n5 : Mélange']
 
     this.consigne = 'Calculer.'

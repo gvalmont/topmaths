@@ -29,7 +29,7 @@ export const refs = {
 export default class SommeDeDurees extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Niveau de difficulté', 'Nombres séparés par des tirets\n1 : Additions minutes-secondes sans conversion\n2 : Additions heures-minutes sans conversion\n3 : Additions heures-minutes-secondes sans conversion\n4 : Additions minutes-secondes avec potentielle conversion\n5 : Additions heures-minutes-secondes avec potentielle conversion\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Niveau de difficulté', 'Nombres séparés par des tirets\n1 : Additions minutes-secondes sans conversion\n2 : Additions heures-minutes avec potentielle conversion\n3 : Additions heures-minutes-secondes sans conversion\n4 : Additions minutes-secondes avec potentielle conversion\n5 : Additions heures-minutes-secondes avec potentielle conversion\n6 : Mélange']
     this.consigne = this.nbQuestions > 1 ? 'Compléter les égalités suivantes.' : 'Compléter l\'égalité suivante.'
     this.sup = '1-2' // 2 niveaux de difficultés
     this.spacing = 2

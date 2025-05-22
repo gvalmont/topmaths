@@ -14,7 +14,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer un  produit scalaire avec des coordonnées'
-export const dateDePublication = '19/04/2025'
+export const dateDePublication = '29/04/2025'
 
 /**
  *
@@ -24,7 +24,7 @@ export const dateDePublication = '19/04/2025'
 export const uuid = '747df'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1G10-5'],
   'fr-ch': []
 }
 
@@ -140,8 +140,8 @@ export default class ProduitScalaireCoordonnees extends Exercice {
                 texteCorr += `On a : $\\vec{v}${choix ? '+' : '-'}\\vec{w}\\begin{pmatrix}${xv}${choix ? '+' : '-'} ${ecritureParentheseSiNegatif(xw)}\\\\${yv}${choix ? '+' : '-'} ${ecritureParentheseSiNegatif(yw)}\\end{pmatrix}$, soit 
                 $\\vec{v}${choix ? '+' : '-'}\\vec{w}\\begin{pmatrix} ${choix ? `${xv + xw}` : `${xv - xw}`} \\\\${choix ? `${yv + yw}` : `${yv - yw}`} \\end{pmatrix}$.<br>
                     Ainsi, 
-                    $${choix ? '\\vec{u}\\cdot(\\vec{v}+\\vec{w})' : '\\vec{u}\\cdot(\\vec{v}-\\vec{w})'}=${xu}\\times ${ecritureParentheseSiNegatif(xv + xw)}${choix ? '+' : '-'}${ecritureParentheseSiNegatif(yu)}\\times ${ecritureParentheseSiNegatif(yv + yw)}=${choix ? `${miseEnEvidence(xu * (xv + xw) + yu * (yv + yw))}` : `${miseEnEvidence(xu * (xv + xw) - yu * (yv + yw))}`}$.`
-                reponse = choix ? xu * (xv + xw) + yu * (yv + yw) : xu * (xv + xw) - yu * (yv + yw)
+                    $${choix ? '\\vec{u}\\cdot(\\vec{v}+\\vec{w})' : '\\vec{u}\\cdot(\\vec{v}-\\vec{w})'}=${xu}\\times ${choix ? `${ecritureParentheseSiNegatif(xv + xw)}` : `${ecritureParentheseSiNegatif(xv - xw)}`}${choix ? '+' : '-'}${ecritureParentheseSiNegatif(yu)}\\times ${choix ? ` ${ecritureParentheseSiNegatif(yv + yw)}` : `${ecritureParentheseSiNegatif(yv - yw)}`}=${choix ? `${miseEnEvidence(xu * (xv + xw) + yu * (yv + yw))}` : `${miseEnEvidence(xu * (xv - xw) - yu * (yv - yw))}`}$.`
+                reponse = choix ? xu * (xv + xw) + yu * (yv + yw) : xu * (xv - xw) - yu * (yv - yw)
                 handleAnswers(this, i, { reponse: { value: reponse } })
                 texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: `<br>$${choix ? '\\vec{u}\\cdot(\\vec{v}+\\vec{w})' : '\\vec{u}\\cdot(\\vec{v}-\\vec{w})'}=$` })
                 break

@@ -16,7 +16,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
-export const titre = 'Additionner ou soustraire deux fractions (dénominateurs multiples)'
+export const titre = 'Additionner ou soustraire deux fractions positives (dénominateurs multiples)'
 /**
  * Effectuer l'addition ou la soustraction de deux fractions dont un dénominateur est un multiple de l'autre.
  * Les numérateurs peuvent être positifs ou négatifs.
@@ -40,7 +40,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
     this.sup2 = 3 // Si 1 alors il n'y aura pas de soustraction
     this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
     this.sup4 = true // QCM pour l'interactif
-    this.sup5 = 50 // Pourcentage de fractions avec numérateur négatif
+    this.sup5 = 0 // Pourcentage de fractions avec numérateur négatif
     this.spacing = 2
     this.spacingCorr = 2
     this.nbQuestions = 5

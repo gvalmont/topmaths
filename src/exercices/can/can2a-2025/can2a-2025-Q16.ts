@@ -48,7 +48,7 @@ export default class AdditionFractionVF extends Exercice {
     }
 
     this.autoCorrection[0] = {
-      options: { ordered: true },
+      options: { ordered: true, radio: true },
       enonce: `Vrai ou faux ? <br> $${a}+${b}=${c}$`,
       propositions: [
         {

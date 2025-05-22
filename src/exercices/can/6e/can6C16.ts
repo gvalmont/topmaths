@@ -25,8 +25,8 @@ export default class DoubleEtMoitie extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
+    this.optionsDeComparaison = { resultatSeulementEtNonOperation: true }
     this.nbQuestions = 1
-
     this.formatChampTexte = KeyboardType.clavierNumbers
   }
 

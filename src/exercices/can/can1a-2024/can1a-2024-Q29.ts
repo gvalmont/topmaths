@@ -35,7 +35,7 @@ export default class EvolutionPourcentages extends Exercice {
     $${b}\\,\\%$ est $${texNombre(1 - b / 100, 2)}$.<br> 
     Le coefficient multiplicateur gobal est  $${texNombre(1 + a / 100, 2)}\\times ${texNombre(1 - b / 100, 2)}$ dans un cas ou $${texNombre(1 - b / 100, 2)}\\times ${texNombre(1 + a / 100, 2)}$ dans l'autre cas, ce qui revient strictement au même. 
     <br>
-  L'affirmation est donc  ${texteEnCouleurEtGras('VraiE')}.`
+  L'affirmation est donc  ${texteEnCouleurEtGras('Vraie')}.`
       question = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
     diminuer de $${b}\\,\\%$  puis à l’augmenter $${a}\\,\\%$.`
       this.autoCorrection[0] = {
@@ -66,7 +66,7 @@ export default class EvolutionPourcentages extends Exercice {
   L'affirmation est donc  ${texteEnCouleurEtGras('FAUSSE')}.`
 
       this.autoCorrection[0] = {
-        options: { ordered: true },
+        options: { ordered: true, radio: true },
         enonce: question,
         propositions: [
           {

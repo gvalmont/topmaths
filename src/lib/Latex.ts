@@ -192,10 +192,6 @@ class Latex {
         }
       }
     }
-    content = content.replaceAll('œ', '\\oe ')
-    contentCorr = contentCorr.replaceAll('œ', '\\oe ')
-    content = content.replaceAll('°', '$^\\circ$ ')
-    contentCorr = contentCorr.replaceAll('°', '$^\\circ$')
     return { content, contentCorr }
   }
 
@@ -268,8 +264,7 @@ Correction
         content += '\n\\end{Solution}\n'
       }
     }
-    return content.replaceAll('œ', '\\oe ')
-    content = content.replaceAll('°', '$^\\circ$ ')
+    return content
   }
 
   async getContents (latexFileInfos : LatexFileInfos): Promise<contentsType> {
@@ -325,6 +320,8 @@ Correction
       if (latexFileInfos.style === 'Can') {
         contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
         contents.preamble += '% Pour les carrés des cases à cocher\n\\usepackage{fontawesome5}\n\n'
+        contents.preamble += '\n\\newbool{correctionDisplay}'
+        contents.preamble += `\n\\setbool{correctionDisplay}{${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
         contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
@@ -337,11 +334,6 @@ Correction
         contents.intro += '\n\\begin{document}\n'
       }
     }
-    contents.content = contents.content.replaceAll('œ', '\\oe ')
-    contents.contentCorr = contents.contentCorr.replaceAll('œ', '\\oe ')
-    contents.content = contents.content.replaceAll('°', '$^\\circ$ ')
-    contents.contentCorr = contents.contentCorr.replaceAll('°', '$^\\circ$')
-
     return contents
   }
 
@@ -439,6 +431,9 @@ ${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.appe
     latexWithoutPreamble += content
     if (latexFileInfos.style === 'ProfMaquette' || latexFileInfos.style === 'ProfMaquetteQrcode') {
       latexWithoutPreamble += '\n\\end{document}'
+    } else if (latexFileInfos.style === 'Can') {
+      latexWithoutPreamble += '\n\n\\clearpage\n\n\\ifbool{correctionDisplay}{\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}}{}\n\\end{document}'
+      latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     } else {
       latexWithoutPreamble += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
       latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
@@ -533,12 +528,14 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
           } else {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.png`)
           }
-        } else {
+        } else if (serie != null) {
           if (file.format) {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
           } else {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`)
           }
+        } else {
+          imagesFilesUrls.push(`${window.location.origin}/alea/${file.name}.${file.format}`)
         }
       }
     }
@@ -660,6 +657,8 @@ export function format (text: string, AvecLesDoublesEspaces:boolean = true): str
     .replace(/\\\\\s*\n\n/gm, '\\\\')
     .replaceAll('«', '\\og{}')
     .replaceAll('»', '\\fg{}')
+    .replaceAll('œ', '\\oe ')
+    .replaceAll('°', '$^\\circ$ ')
 
   // Check if the language is 'fr-CH' and replace \times with \cdot if true
   if (lang === 'fr-CH') {

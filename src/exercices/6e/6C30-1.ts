@@ -98,7 +98,8 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
       }
     }
     this.consigne = 'Calculer et donner le résultat sous forme d\'un nombre '
-    this.consigne += this.sup === '1' ? 'entier.' : this.sup === '2' ? 'décimal.' : this.sup === '3' ? 'fractionnaire.' : ''
+    this.consigne += this.sup === '1' ? 'entier.' : this.sup === '2' ? 'décimal.' : 'fractionnaire.'
+    if (this.sup === '4') this.consigne = 'Calculer.'
     if (this.sup2 || this.sup.length !== 1) this.consigne = 'Compléter.'
 
     let typesDeQuestions

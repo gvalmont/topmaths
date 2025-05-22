@@ -35,7 +35,7 @@
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
   import type { Language } from '../../../lib/types/languages'
-  import { isLanguage } from '../../../lib/types/languages'
+  import { ALLOWED_LANGUAGES, isLanguage } from '../../../lib/types/languages'
   import { get } from 'svelte/store'
   import { getExercisesFromExercicesParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
   import handleCapytale from '../../../lib/handleCapytale'
@@ -156,37 +156,40 @@
   }
 
   const handleLanguage = (lang: string) => {
+    let selectedLanguage: Language = ALLOWED_LANGUAGES[0]
     // on se déplace circulairement dans le tableau allowedLanguages
     // idée prise ici :https://dev.to/turneremma21/circular-access-of-array-in-javascript-j52
-    if (!isLanguage(lang)) {
-      throw new Error(`${lang} is not allowed as language.`)
+    if (isLanguage(lang)) {
+      selectedLanguage = lang
     } else {
-      referentielLocale.set(lang)
-      const currentRefToUuid = localisedIDToUuid[get(referentielLocale)]
-      exercicesParams.update((list) => {
-        for (let i = 0; i < list.length; i++) {
-          const localeID = (
-            Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]
-          ).find((key) => {
-            return currentRefToUuid[key] === list[i].uuid
-          })
-          const frenchID = (
-            Object.keys(
-              localisedIDToUuid['fr-FR']
-            ) as (keyof (typeof localisedIDToUuid)['fr-FR'])[]
-          ).find((key) => {
-            return localisedIDToUuid['fr-FR'][key] === list[i].uuid
-          })
-          list[i].id = localeID !== undefined && localeID.length !== 0 ? localeID : frenchID
-        }
-        return list
-      })
-      const event = new window.Event('languageHasChanged', {
-        bubbles: true
-      })
-      document.dispatchEvent(event)
-      mathaleaUpdateUrlFromExercicesParams()
+      window.notify(`${lang} is not allowed as language.`, {})
     }
+
+    referentielLocale.set(selectedLanguage)
+    const currentRefToUuid = localisedIDToUuid[get(referentielLocale)]
+    exercicesParams.update((list) => {
+      for (let i = 0; i < list.length; i++) {
+        const localeID = (
+          Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]
+        ).find((key) => {
+          return currentRefToUuid[key] === list[i].uuid
+        })
+        const frenchID = (
+          Object.keys(
+            localisedIDToUuid['fr-FR']
+          ) as (keyof (typeof localisedIDToUuid)['fr-FR'])[]
+        ).find((key) => {
+          return localisedIDToUuid['fr-FR'][key] === list[i].uuid
+        })
+        list[i].id = localeID !== undefined && localeID.length !== 0 ? localeID : frenchID
+      }
+      return list
+    })
+    const event = new window.Event('languageHasChanged', {
+      bubbles: true
+    })
+    document.dispatchEvent(event)
+    mathaleaUpdateUrlFromExercicesParams()
   }
 
   $: {
@@ -207,6 +210,13 @@
   /* MGu empeche le zoom sur double touch sur IPAD */
   document.addEventListener('gesturestart', function (e) {
     e.preventDefault()
+  })
+
+  /* Pour que les apps puissent fermer la sidenav */
+  window.addEventListener('message', (event) => {
+    if (event.data?.type === 'closeSidenav') {
+      if (isSidenavOpened) toggleSidenav(false)
+    }
   })
 
   function updateSelectedThirdApps () {
@@ -236,9 +246,17 @@
   }
 
   function setAllInteractive (isAllInteractive: boolean) {
-    const eventName = isAllInteractive ? 'setAllInteractif' : 'removeAllInteractif'
+    let eventName: string
+    if (isAllInteractive) {
+      $globalOptions.setInteractive = '1'
+      eventName = 'setAllInteractif'
+    } else {
+      $globalOptions.setInteractive = '0'
+      eventName = 'removeAllInteractif'
+    }
     const event = new window.Event(eventName, { bubbles: true })
     document.dispatchEvent(event)
+    console.log($globalOptions.setInteractive)
   }
 
   function newDataForAll () {
@@ -253,7 +271,7 @@
 
   function setFullScreen (isFullScreen: boolean) {
     globalOptions.update((params) => {
-      isFullScreen ? (params.v = 'l') : delete params.v
+      isFullScreen ? (params.v = 'l') : (params.v = '')
       return params
     })
   }
@@ -268,7 +286,7 @@
 
   function addExercise (uuid: string, id: string) {
     const newExercise: InterfaceParams = { uuid, id }
-    if ($globalOptions.recorder === 'capytale') {
+    if ($globalOptions.recorder === 'capytale' || $globalOptions.setInteractive === '1') {
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])

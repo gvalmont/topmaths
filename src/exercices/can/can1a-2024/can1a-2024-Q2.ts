@@ -44,14 +44,14 @@ export default class PointsCourbe extends Exercice {
         \\end{aligned}$
         <br>
         ${abs ** 2 + a === ord
-? `Le point $A$ est bien sur la parabole.<br> L'affirmation est ${texteEnCouleurEtGras('VraiE')}`
+? `Le point $A$ est bien sur la parabole.<br> L'affirmation est ${texteEnCouleurEtGras('Vraie')}`
         : `Puisque $${abs ** 2 + a} \\neq ${ord}$, le point $A$ n'est pas sur la parabole. <br>L'affirmation est ${texteEnCouleurEtGras('FAUSSE')}`}`
 
     this.question = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
     // c'est ça qui fait le this.reponse !
     this.autoCorrection[0] = {
-      options: { ordered: true },
+      options: { ordered: true, radio: true },
       enonce: this.question,
       propositions: [
         {
@@ -62,7 +62,7 @@ export default class PointsCourbe extends Exercice {
           texte: 'Faux',
           statut: ord !== abs ** 2 + a
         }
-      ]
+      ],
     }
     const qcm = propositionsQcm(this, 0)
     this.question += qcm.texte

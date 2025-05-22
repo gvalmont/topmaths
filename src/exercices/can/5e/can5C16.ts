@@ -59,7 +59,7 @@ ${texNombre(b)}\\times${texNombre(a)} + ${texNombre(a)}\\times${c}&=${texNombre(
         &=${texNombre(a)}\\times 10\\\\
         &=${texNombre(10 * a)}
         \\end{aligned}$`
-        this.reponse = 10 * a
+        this.reponse = arrondi(10 * a)
         break
 
       case 'c':
@@ -106,7 +106,7 @@ ${texNombre(a)}\\times ${texNombre(b)}+${texNombre(a)}\\times ${texNombre(c)}&=$
             &=${texNombre(a)}\\times 5\\\\
             &=${texNombre(5 * a)}
             \\end{aligned}$`
-        this.reponse = 5 * a
+        this.reponse = arrondi(5 * a)
         break
     }
     this.canEnonce = this.question// 'Compléter'

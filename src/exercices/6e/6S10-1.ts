@@ -15,7 +15,7 @@ import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
 
-export const titre = 'Représenter des données par un diagramme'
+export const titre = 'Lire des données représentées dans un diagramme'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -323,19 +323,16 @@ export default class LireUnDiagramme extends Exercice {
          [
            {
              type: 'qcmMono',
-             // @ts-expect-error
              propositions: propositionsQcm1,
              enonce: texteAMC + `${numAlpha(0)} Quelle est l'espèce la moins nombreuse ?`
            },
            {
              type: 'qcmMono',
-             // @ts-expect-error
              propositions: propositionsQcm2,
              enonce: `${numAlpha(1)} Quelle est l'espèce la plus nombreuse ?`
            },
            {
              type: 'qcmMono',
-             // @ts-expect-error
              propositions: propositionsQcm3,
              enonce: `${numAlpha(2)} L'espèce la plus nombreuse représente ?`,
              options: { lastChoice: 2 }

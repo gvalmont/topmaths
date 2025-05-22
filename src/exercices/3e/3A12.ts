@@ -1,18 +1,17 @@
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { katexPopup2 } from '../../lib/format/message'
 import { numAlpha } from '../../lib/outils/outilString'
 import { decompositionFacteursPremiers, pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils'
+import { ajouterAide } from '../../lib/outils/enrichissements'
 export const titre = 'Résoudre un exercice d\'engrenages'
 export const dateDeModifImportante = '01/04/2023'
 /**
  * ppcmEngrenages
  * les deux on besoin de la def partielle serie : stlX
- * pb dans la sortie LaTeX, revoir comment user de la fonction katexPopup2() pour affichage d'une note hors texte !
  * @author Sébastien Lozano
  */
 export const uuid = 'ce352'
@@ -35,7 +34,6 @@ export default class PpcmEngrenages extends Exercice {
 
   nouvelleVersion () {
     let typesDeQuestions
-    const numeroExercice = 0
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     /*
@@ -93,15 +91,12 @@ export default class PpcmEngrenages extends Exercice {
             texte += '<br>' + numAlpha(0) + ` Écrire la liste des multiples de $${nbDentsr1}$ et de $${nbDentsr2}$ jusqu'à trouver un multiple commun.`
             if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
               texte += `<br>Justifier que ${nbDentsr1} et ${nbDentsr2} sont des `
-              texte += katexPopup2(
-                numeroExercice + 1,
-                1,
-                `nombres premiers entre eux${context.isHtml ? '?' : ''}`,
-                'Définition à partir du plus petit multiple commun',
-                `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`
+              texte += ajouterAide(
+                `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`,
+                { texteAvant: 'nombres premiers entre eux', titreAide: 'Définition à partir du plus petit multiple commun' }
               )
             }
-            texte += context.isHtml ? '' : '?'
+            texte += '.'
             texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
             texteCorr = numAlpha(0) + ` Liste des premiers multiples de $${nbDentsr1}$ : <br>`
             // on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
@@ -141,15 +136,12 @@ export default class PpcmEngrenages extends Exercice {
             texteCorr += '<br>'
             if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
               texteCorr += '$ppcm(' + nbDentsr1 + ';' + nbDentsr2 + ')=' + nbDentsr1 + '\\times' + nbDentsr2 + `$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
-              texteCorr += katexPopup2(
-                numeroExercice + 2,
-                1,
-                `nombres premiers entre eux${context.isHtml ? '.' : ''}`,
-                'Définition à partir du plus petit multiple commun',
-                `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`
+              texteCorr += ajouterAide(
+                `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`,
+                { texteAvant: 'nombres premiers entre eux', titreAide: 'Définition à partir du plus petit multiple commun' }
               )
             }
-            texteCorr += context.isHtml ? '' : '.'
+            texteCorr += '.'
             texteCorr += '<br>'
             texteCorr += numAlpha(1) + ` Le plus petit multiple commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut donc $${ppcm(nbDentsr1, nbDentsr2)}$.<br>
             Il suffit donc que chaque roue tourne de $${ppcm(nbDentsr1, nbDentsr2)}$ dents pour faire un nombre entier de tours et ainsi revenir dans sa position initiale.<br>
@@ -190,15 +182,12 @@ export default class PpcmEngrenages extends Exercice {
           texte += '<br>' + numAlpha(0) + ` Décomposer $${nbDentsr1}$ et $${nbDentsr2}$ en produit de facteurs premiers.`
           if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
             texte += `<br>Justifier que ${nbDentsr1} et ${nbDentsr2} sont des `
-            texte += katexPopup2(
-              numeroExercice + 3,
-              1,
-              `nombres premiers entre eux${context.isHtml ? '?' : ''}`,
-              'Trois définitions équivalentes au choix',
-              `<br>- ${txtPopup} ${context.isHtml ? '<br>- ' : '\\\\- '} ${txtPopupBis} ${context.isHtml ? '<br>- ' : '\\\\- '} ${txtPopupTer}`
+            texte += ajouterAide(
+              `<br>- ${txtPopup} ${context.isHtml ? '<br>- ' : '\\\\- '} ${txtPopupBis} ${context.isHtml ? '<br>- ' : '\\\\- '} ${txtPopupTer}`,
+              { texteAvant: 'nombres premiers entre eux', titreAide: 'Trois définitions équivalentes au choix' }
             )
           }
-          texte += context.isHtml ? '' : '?'
+          texte += '.'
           texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
           texteCorr = 'Pour un nombre de dents plus élevé, il est plus commode d\'utiliser les décompositions en produit de facteurs premiers.'
           texteCorr += '<br>' + numAlpha(0) + ` Décomposition de $${nbDentsr1}$ en produit de facteurs premiers :  $${nbDentsr1} = ${decompositionFacteursPremiers(nbDentsr1)}$.`
@@ -211,43 +200,34 @@ export default class PpcmEngrenages extends Exercice {
             texteCorr += `D'après les calculs précédents, $ppcm(${nbDentsr1},${nbDentsr2})= ${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))}$.<br>`
 
             texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
-            texteCorr += katexPopup2(
-              numeroExercice + 4,
-              1,
-              `nombres premiers entre eux${context.isHtml ? '.' : ''}`,
-              'Définition à partir du plus petit multiple commun',
-              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`
+            texteCorr += ajouterAide(
+              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`,
+              { texteAvant: 'nombres premiers entre eux', titreAide: 'Définition à partir du plus petit multiple commun' }
             )
           }
-          texteCorr += context.isHtml ? '' : '.'
+          texteCorr += '.'
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
             texteCorr += '<br>Proposition de correction 2 : <br>'
 
             texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`
             texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
-            texteCorr += katexPopup2(
-              numeroExercice + 5,
-              1,
-              `nombres premiers entre eux${context.isHtml ? '.' : ''}`,
-              'Définition à partir du plus grand diviseur commun',
-              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopupBis}`
+            texteCorr += ajouterAide(
+              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopupBis}`,
+              { texteAvant: 'nombres premiers entre eux', titreAide: 'Définition à partir du plus grand diviseur commun' }
             )
           }
-          texteCorr += context.isHtml ? '' : '.'
+          texteCorr += '.'
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
             texteCorr += '<br>Proposition de correction 3 : <br>'
 
             texteCorr += `D'après les calculs précédents, le seul diviseur commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut $1$.<br> `
             texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
-            texteCorr += katexPopup2(
-              numeroExercice + 6,
-              1,
-              `nombres premiers entre eux${context.isHtml ? '.' : ''}`,
-              'Définition à partir de l\'intersection des diviseurs communs',
-              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopupTer}`
+            texteCorr += ajouterAide(
+              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopupTer}`,
+              { texteAvant: 'nombres premiers entre eux', titreAide: 'Définition à partir de l\'intersection des diviseurs communs' }
             )
           }
-          texteCorr += context.isHtml ? '' : '.'
+          texteCorr += '.'
           texteCorr += '<br>'
           texteCorr += numAlpha(1) + ` Pour retrouver la position initiale,
           chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre

@@ -9,6 +9,7 @@ import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteracti
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
 export const amcReady = true
@@ -38,13 +39,13 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
   constructor () {
     super()
 
-    this.consigne = "Donner l'écriture décimale de chaque nombre."
     this.nbQuestions = 5
     this.besoinFormulaireTexte = ['Type des textes', 'Nombres séparés par des tirets\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : Du genre 128/10\n5 : Du genre 8+5/100+7/100\n6 : Mélange']
     this.sup = 6
   }
 
   nouvelleVersion () {
+    this.consigne = "Donner l'écriture décimale de " + (this.nbQuestions > 1 ? 'chaque' : 'ce') + ' nombre.'
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,
       defaut: 6,
@@ -139,7 +140,7 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
 
       // Fin de cette uniformisation
 
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteAvant: sp() + '=' })
       handleAnswers(this, i, { reponse: { value: reponseAMC } })
 
       if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

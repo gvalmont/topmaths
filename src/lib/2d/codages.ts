@@ -410,13 +410,16 @@ export class TexteSurSegment extends ObjetMathalea2D {
  * @param {Point} A
  * @param {Point} B
  * @param {string} [color='black'] Code couleur HTML accepté
- * @param {number} [d=0.5] Distance à la droite.
+ * @param {number} [distance=0.5] Distance à la droite.
  * @param {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot
  */
-export function texteSurSegment (texte = '', A: Point, B: Point, color = 'black', d = 0.5, horizontal = false) {
-  return new TexteSurSegment(texte, A, B, color, d, horizontal)
+export function texteSurSegment (texte = '', A: Point, B: Point, color = 'black', distance = 0.5, horizontal = false) {
+  if (texte[0] === '$') {
+    return placeLatexSurSegment(texte.replaceAll('$', ''), A, B, { color, distance, horizontal })
+  }
+  return new TexteSurSegment(texte, A, B, color, distance, horizontal)
 }
 
 /**
@@ -1002,13 +1005,14 @@ function placeLatex2d (A: Point, B: Point, distance: number = 0.5): Point {
  * @param options
  * @returns {Latex2d}
  */
-export function placeLatexSurSegment (t: string, A: Point, B: Point, { distance = 0.5, color = 'black', backgroundColor = 'none', letterSize = 'normalsize' }: {
+export function placeLatexSurSegment (t: string, A: Point, B: Point, { distance = 0.5, color = 'black', backgroundColor = 'none', letterSize = 'normalsize', horizontal = false }: {
   distance?: number,
   color?: string,
   backgroundColor?: string,
-  letterSize?: LetterSizeType
+  letterSize?: LetterSizeType,
+  horizontal?: boolean
 } = {
 }): Latex2d {
-  const Q = latex2d(t, placeLatex2d(A, B, distance).x, placeLatex2d(A, B, distance).y, { orientation: directionLatex2d(A, B), color, backgroundColor, letterSize })
+  const Q = latex2d(t, placeLatex2d(A, B, distance).x, placeLatex2d(A, B, distance).y, { orientation: horizontal ? 0 : directionLatex2d(A, B), color, backgroundColor, letterSize })
   return Q
 }

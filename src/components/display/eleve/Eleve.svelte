@@ -206,10 +206,7 @@
     /** Charge les exercices*/
     exercices = await Promise.all(buildExercisesList())
 
-    if (
-      $globalOptions.presMode === 'liste_questions' ||
-      $globalOptions.presMode === 'une_question_par_page'
-    ) {
+    if ($globalOptions.presMode === 'une_question_par_page') {
       // construit les questions
       buildQuestions()
     }
@@ -261,11 +258,7 @@
     isCorrectionVisible = [...splitResults.isCorrectionVisible]
     indiceExercice = [...splitResults.indiceExercice]
     indiceQuestionInExercice = [...splitResults.indiceQuestionInExercice]
-    if (
-      $globalOptions.presMode === 'liste_questions' ||
-      $globalOptions.presMode === 'une_question_par_page'
-      // || $globalOptions.presMode === 'cartes'
-    ) {
+    if ($globalOptions.presMode === 'une_question_par_page') {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathaleaVueProf
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
@@ -375,8 +368,7 @@
   <div
     class="fixed z-20 h-16 bottom-4 right-2 {(typeof $globalOptions.title === 'string' &&
       $globalOptions.title.length === 0 &&
-      ($globalOptions.presMode === 'liste_exos' ||
-        $globalOptions.presMode === 'liste_questions')) ||
+      ($globalOptions.presMode === 'liste_exos')) ||
     ($globalOptions.title != null && $globalOptions.title.length > 0)
       ? 'lg:top-8'
       : 'lg:top-20'}  lg:right-6"
@@ -396,7 +388,7 @@
     <div
       class="{typeof $globalOptions.title === 'string' &&
       $globalOptions.title.length === 0 &&
-      ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')
+      ($globalOptions.presMode === 'liste_exos')
         ? 'hidden'
         : 'h-[10%]'}  w-full flex flex-col justify-center items-center"
     >
@@ -565,96 +557,6 @@
                 indiceLastExercice={$exercicesParams.length - 1}
                 isCorrectionVisible={$globalOptions.presMode === 'verso'}
               />
-            </div>
-          {/each}
-        </div>
-      {:else if $globalOptions.presMode === 'liste_questions'}
-        <div
-          class="columns-1 {$globalOptions.title?.length === 0
-            ? 'mt-6'
-            : ''} {$globalOptions.twoColumns ? 'md:columns-2' : ''}"
-        >
-          {#each questions as question, k (k + '_' + question)}
-            <div
-              class="pb-4 flex flex-col items-start justify-start relative break-inside-avoid-column"
-              id={`exercice${indiceExercice[k]}Q${k}`}
-            >
-              <div class="flex flex-row justify-start items-center">
-                <div class="text-coopmaths-struct font-bold text-md">
-                  Question {k + 1}
-                </div>
-                {#if exercices[indiceExercice[k]].interactif}
-                  <ButtonTextAction
-                    text="Vérifier"
-                    class="p-1 font-bold rounded-lg text-xs ml-2"
-                    on:click={() => checkQuestion(k)}
-                    disabled={isDisabledButton[k]}
-                  />
-                {:else if $globalOptions.isSolutionAccessible}
-                  <ButtonToggle
-                    titles={['Voir la correction', 'Masquer la correction']}
-                    classAddenda="ml-4"
-                    on:toggle={() => switchCorrectionVisible(k)}
-                  />
-                {/if}
-              </div>
-              <div
-                class="container grid grid-cols-1 {$globalOptions.twoColumns
-                  ? ''
-                  : 'lg:grid-cols-2'} gap-4 lg:gap-10"
-                style="font-size: {($globalOptions.z || 1).toString()}rem"
-              >
-                <div class="flex flex-col my-2 py-2">
-                  <div class="text-coopmaths-corpus pl-2 pb-2">
-                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html consignes[k]}
-                  </div>
-                  <div class="text-coopmaths-corpus pl-2 pb-2">
-                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html question}
-                  </div>
-                </div>
-                {#if isCorrectionVisible[k]}
-                  <div
-                    class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 mb-6 py-2 pl-4"
-                    style="break-inside:avoid"
-                    bind:this={divsCorrection[k]}
-                  >
-                    {#if consignesCorrections[k].length !== 0}
-                      <div
-                        class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3"
-                      >
-                        <div class="container absolute top-4 -left-4">
-                          <i
-                            class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark"
-                          />
-                        </div>
-                        <div class="">
-                          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                          {@html consignesCorrections[k]}
-                        </div>
-                      </div>
-                    {/if}
-
-                    <div
-                      class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto"
-                      style="break-inside:avoid"
-                    >
-                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                      {@html mathaleaFormatExercice(corrections[k])}
-                    </div>
-                    <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
-                    <div
-                      class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-                    >
-                      Correction
-                    </div>
-                    <div
-                      class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
-                    />
-                  </div>
-                {/if}
-              </div>
             </div>
           {/each}
         </div>

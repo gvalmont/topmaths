@@ -1,5 +1,6 @@
 import ExerciceAdditionnerOuSoustraireDesFractions from '../4e/4C21'
 export const titre = 'Additionner ou soustraire deux fractions'
+export const dateDeModifImportante = '16/05/2025'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true

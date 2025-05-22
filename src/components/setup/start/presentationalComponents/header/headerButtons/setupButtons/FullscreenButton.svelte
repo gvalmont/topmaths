@@ -66,14 +66,22 @@
     const isInFullScreen = document.fullscreenElement != null
     if (isFullScreen && !isInFullScreen) {
       if (isFullscreenRequestEnabled(element)) {
-        await requestFullScreen(element)
+        try {
+          await requestFullScreen(element)
+        } catch (error) {
+          console.error('Erreur lors de la requête de plein écran.')
+        }
       } else {
         handleFullScreenError(new Error('Plein écran non disponible'))
       }
     }
     if (!isFullScreen && isInFullScreen) {
       if (isFullscreenExitEnabled(document)) {
-        await exitFullScreen()
+        try {
+          await exitFullScreen()
+        } catch (error) {
+          console.error('Erreur lors de la sortie du plein écran.')
+        }
       } else {
         handleFullScreenError(new Error('Sortie du plein écran non disponible'))
       }
@@ -88,13 +96,18 @@
     }
     const method = element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen || element.msRequestFullscreen
     if (method) {
-      await method.call(element)
+      try {
+        await method.call(element)
+      } catch (error) {
+        handleFullScreenError(new Error('Requête de plein écran refusée'))
+      }
     } else {
-      throw new Error('Plein écran non disponible')
+      handleFullScreenError(new Error('Plein écran non disponible'))
     }
   }
 
   const exitFullScreen = async () => {
+    console.log('exit', document)
     if (!isFullscreenExitEnabled(document)) {
       handleFullScreenError(new Error("Le plein écran n'est plus disponible"))
       return
@@ -103,7 +116,7 @@
     if (method) {
       await method.call(document)
     } else {
-      throw new Error('Sortie du plein écran non disponible')
+      handleFullScreenError(new Error('Sortie du plein écran non disponible'))
     }
   }
 

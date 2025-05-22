@@ -85,7 +85,7 @@ export default class can6eAll extends Exercice {
       max: 47,
       defaut: 0,
       melange: 48,
-      nbQuestions: 999,
+      nbQuestions: 0,
       shuffle: false,
       exclus: [37, 0]
     }), 0)
@@ -113,7 +113,7 @@ export default class can6eAll extends Exercice {
       max: 7,
       defaut: 0,
       melange: 8,
-      nbQuestions: 999,
+      nbQuestions: 0,
       shuffle: false
     }), 0)
     log('pass1:' + questionsDisponiblesGeo)
@@ -138,7 +138,7 @@ export default class can6eAll extends Exercice {
       max: 17,
       defaut: 0,
       melange: 18,
-      nbQuestions: 999,
+      nbQuestions: 0,
       shuffle: false
     }), 0)
     log('pass1:' + questionsDisponiblesNum)
@@ -163,7 +163,7 @@ export default class can6eAll extends Exercice {
       max: 13,
       defaut: 0,
       melange: 14,
-      nbQuestions: 999,
+      nbQuestions: 0,
       shuffle: false
     }), 0)
     log('pass1:' + questionsDisponiblesMes)

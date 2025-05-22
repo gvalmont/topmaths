@@ -8,6 +8,12 @@ import { longueur, segment, Vecteur, vecteur } from './segmentsVecteurs'
 import { Latex2d, LatexParCoordonnees, latexParCoordonnees, TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation, translation } from './transformations'
 import { aireTriangle } from './triangle'
+import { lettreDepuisChiffre } from '../outils/outilString'
+import { codageSegments } from './codages'
+import { codageAngleDroit } from './angles'
+
+type BinomeXY = { x: number, y: number }
+type BinomesXY = BinomeXY[]
 
 /**
  * Crée le barycentre d'un polygone
@@ -434,30 +440,31 @@ export class Polygone extends ObjetMathalea2D {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}${this.opaciteDeRemplissage !== 1 ? ', opacity = ' + this.opaciteDeRemplissage : ''}}`)
     }
 
-    if (this.hachures) {
-      tableauOptions.push(pattern({
-        motif: String(this.hachures),
-        id: String(this.id),
-        distanceDesHachures: this.distanceDesHachures,
-        couleurDesHachures: this.couleurDesHachures[1] ?? 'black',
-        couleurDeRemplissage: this.couleurDeRemplissage[1],
-        opaciteDeRemplissage: this.opaciteDeRemplissage
-      }))
-    }
     let optionsDraw = ''
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
 
     let binomeXY = ''
+
     for (const point of this.listePoints) {
       binomeXY += `(${arrondi(point.x)},${arrondi(point.y)})--`
     }
-    // if (this.couleurDeRemplissage === '') {
-    return `\\draw${optionsDraw} ${binomeXY}cycle;`
-    // } else {
-    //  return `\\filldraw ${optionsDraw} ${binomeXY}cycle;`
-    // }
+    let lines = `\\draw${optionsDraw} ${binomeXY}cycle;`
+
+    if (this.hachures != null && typeof this.hachures === 'string') {
+      lines += patternTikZ({
+        motif: this.hachures,
+        x0: this.listePoints[0].x,
+        y0: this.listePoints[0].y,
+        x1: this.listePoints[2].x,
+        y1: this.listePoints[2].y,
+        distanceDesHachures: this.distanceDesHachures / 10,
+        couleurDesHachures: this.couleurDesHachures[1] === '' ? 'black' : this.couleurDesHachures[1],
+      })
+    }
+
+    return lines
   }
 
   svgml (coeff: number, amp: number) {
@@ -886,6 +893,52 @@ export function parallelogramme2points1hauteur (nom:string, A: Point, B: Point, 
 }
 
 /**
+ * Construit un rectangle à partir d'un point A et de deux longueurs
+ * @param {Point} A
+ * @param {number} longueur
+ * @param {number} largeur
+ * @param {object} options
+ * @param {string} [options.nom] noms des sommets
+ * @param {number} [options.angleRotation] angle de rotation du rectangle
+ * @return {PolygoneAvecNom}
+ * @example rectangle1Point2Longueurs(A, 5, 3)
+ * @example rectangle1Point2Longueurs(A, 5, 3, { nom: 'ABCD' })
+ * @example rectangle1Point2Longueurs(A, 5, 3, { angleRotation: 45 })
+ * @example rectangle1Point2Longueurs(A, 5, 3, { nom: 'ABCD', angleRotation: 45 })
+ * @author Guillaume Valmont d'après 6M11 d'Eric Elter
+ */
+export function rectangle1Point2Longueurs (A: Point, longueur: number, largeur: number, options: { nom?: string, angleRotation?: number, avecCodageSegments?: boolean, avecCodagesAnglesDroits?: boolean } = { avecCodageSegments: true, avecCodagesAnglesDroits: true }) {
+  const objets: ObjetMathalea2D[] = []
+  const angleRotation = options.angleRotation ?? 0
+  const B = pointAdistance(A, longueur, angleRotation)
+  const C = rotation(pointAdistance(B, largeur, 180 + angleRotation), B, -90)
+  const D = rotation(pointAdistance(A, largeur, angleRotation), A, 90)
+  if (options.nom) {
+    A.nom = options.nom[0]
+    B.nom = options.nom[1]
+    C.nom = options.nom[2]
+    D.nom = options.nom[3]
+  } else {
+    const numA = randint(1, 26)
+    const numB = randint(1, 26, [numA])
+    const numC = randint(1, 26, [numA, numB])
+    const numD = randint(1, 26, [numA, numB, numC])
+    A.nom = lettreDepuisChiffre(numA)
+    B.nom = lettreDepuisChiffre(numB)
+    C.nom = lettreDepuisChiffre(numC)
+    D.nom = lettreDepuisChiffre(numD)
+  }
+  objets.push(...polygoneAvecNom(A, B, C, D))
+  if (options.avecCodageSegments || options.avecCodageSegments === undefined) { // Lorsqu'un objet d'options est passé, le avecCodageSegments: true par défaut est écrasé donc s'il n'est pas redéfini en false, on le considère comme true
+    objets.push(codageSegments('/', 'red', B, C, D, A), codageSegments('||', 'blue', A, B, C, D))
+  }
+  if (options.avecCodagesAnglesDroits || options.avecCodagesAnglesDroits === undefined) { // Lorsqu'un objet d'options est passé, le avecCodagesAnglesDroits: true par défaut est écrasé donc s'il n'est pas redéfini en false, on le considère comme true
+    objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
+  }
+  return objets
+}
+
+/**
  * @description Place les labels passés dans le deuxième paramètre aux sommets du polygone en les plaçant alignés avec le barycentre du polygone à une distance fixée du point
  * @description Si les noms peuvent avoir plusieurs caractères, il faudra ajouter des virgules entre chaque nom dans le string passé en argument.
  * @example nommePolygone (p, "A',B',C',D',E'", 0.5, 'red')
@@ -977,6 +1030,218 @@ export function motifs (index: number) {
     default:
       return 'north east lines'
   }
+}
+
+/**
+ * Génère du code TikZ pour dessiner un motif de hachures personnalisé dans un rectangle.
+ *
+ * @param params - Objet contenant les paramètres de dessin.
+ * @param params.x0 - Coordonnée x du coin inférieur gauche.
+ * @param params.y0 - Coordonnée y du coin inférieur gauche.
+ * @param params.x1 - Coordonnée x du coin supérieur droit.
+ * @param params.y1 - Coordonnée y du coin supérieur droit.
+ * @param params.distanceDesHachures - Espacement entre les éléments du motif (hachures, points...).
+ * @param params.couleurDesHachures - Couleur utilisée pour dessiner le motif.
+ * @param params.motif - Type de motif à dessiner. Valeurs possibles :
+ *   - "north east lines" : lignes diagonales à 45°
+ *   - "horizontal lines" : hachures horizontales
+ *   - "vertical lines" : hachures verticales
+ *   - "dots" : points réguliers (taille fixe ~0.05cm)
+ *   - "crosshatch" : superposition de hachures horizontales et verticales
+ *   - "grid" : identique à "crosshatch"
+ *   - "checkerboard" : damier avec des carrés de côté `distanceDesHachures`
+ *   - "crosshatch dots" : grille de points superposée à un quadrillage
+ *   - "fivepointed stars" : étoiles à 5 branches disposées en grille.
+ *       → Modifier `minimum size` dans le code pour ajuster la taille des étoiles (par défaut : 5pt)
+ *   - "sixpointed stars" : étoiles à 6 branches, même principe que ci-dessus.
+ *       → Modifier `minimum size` ou `star point ratio` pour ajuster style/taille
+ *   - "bricks" : motif de briques horizontales décalées.
+ *       → La largeur est `2 × distanceDesHachures` et la hauteur est `distanceDesHachures`
+ *       → Pour des briques plus grandes, augmenter `distanceDesHachures`
+ *
+ * @author Eric Elter
+ * @returns Une chaîne contenant le code TikZ généré, ou une chaîne vide si le motif est inconnu.
+ */
+export function patternTikZ (params: {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+  distanceDesHachures: number;
+  couleurDesHachures: string;
+  motif: string;
+}): string {
+  const {
+    x0,
+    y0,
+    x1,
+    y1,
+    distanceDesHachures,
+    couleurDesHachures,
+    motif
+  } = params
+
+  const lignes: string[] = []
+  const hauteur = y1 - y0
+
+  lignes.push('\\begin{scope}')
+  lignes.push(`\\clip (${x0},${y0}) rectangle (${x1},${y1});`)
+
+  switch (motif) {
+    case 'horizontal lines': {
+      for (let y = y0; y <= y1; y += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
+        )
+      }
+      break
+    }
+
+    case 'vertical lines': {
+      for (let x = x0; x <= x1; x += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
+        )
+      }
+      break
+    }
+
+    case 'dots': {
+      for (let x = x0; x <= x1; x += distanceDesHachures) {
+        for (let y = y0; y <= y1; y += distanceDesHachures) {
+          lignes.push(
+            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) circle (0.05);`
+          )
+        }
+      }
+      break
+    }
+
+    case 'crosshatch': {
+      // Combine horizontal + vertical
+      for (let y = y0; y <= y1; y += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
+        )
+      }
+      for (let x = x0; x <= x1; x += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
+        )
+      }
+      break
+    }
+
+    case 'grid': {
+      // Quadrillage = idem crosshatch
+      for (let y = y0; y <= y1; y += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
+        )
+      }
+      for (let x = x0; x <= x1; x += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
+        )
+      }
+      break
+    }
+
+    case 'checkerboard': {
+      const side = distanceDesHachures
+      let toggle = false
+      for (let y = y0; y < y1; y += side) {
+        toggle = !toggle
+        for (let x = x0 + (toggle ? 0 : side); x < x1; x += 2 * side) {
+          lignes.push(
+            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) rectangle (${(x + side).toFixed(2)},${(y + side).toFixed(2)});`
+          )
+        }
+      }
+      break
+    }
+
+    case 'fivepointed stars': {
+      for (let x = x0; x <= x1; x += distanceDesHachures) {
+        for (let y = y0; y <= y1; y += distanceDesHachures) {
+          lignes.push(
+            `\\node[star,star points=5,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`
+          )
+        }
+      }
+      break
+    }
+
+    case 'sixpointed stars': {
+      for (let x = x0; x <= x1; x += distanceDesHachures) {
+        for (let y = y0; y <= y1; y += distanceDesHachures) {
+          lignes.push(
+            `\\node[star,star points=6,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`
+          )
+        }
+      }
+      break
+    }
+
+    case 'crosshatch dots': {
+      // Grille de points
+      for (let x = x0; x <= x1; x += distanceDesHachures) {
+        for (let y = y0; y <= y1; y += distanceDesHachures) {
+          lignes.push(
+            `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) circle (0.05);`
+          )
+        }
+      }
+      // Hachures horizontales
+      for (let y = y0; y <= y1; y += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
+        )
+      }
+      // Hachures verticales
+      for (let x = x0; x <= x1; x += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
+        )
+      }
+      break
+    }
+
+    case 'bricks': {
+      const brickWidth = distanceDesHachures * 2
+      const brickHeight = distanceDesHachures
+      for (let y = y0; y < y1; y += brickHeight) {
+        const isOddRow = Math.floor((y - y0) / brickHeight) % 2 === 1
+        const xStart = isOddRow ? x0 - brickWidth / 2 : x0
+        for (let x = xStart; x < x1; x += brickWidth) {
+          const xLeft = Math.max(x, x0)
+          const xRight = Math.min(x + brickWidth, x1)
+          const yTop = Math.min(y + brickHeight, y1)
+          if (xRight > x0 && xLeft < x1) {
+            lignes.push(
+              `\\draw(${xLeft.toFixed(2)},${y.toFixed(2)}) rectangle (${xRight.toFixed(2)},${yTop.toFixed(2)});`
+            )
+          }
+        }
+      }
+      break
+    }
+
+    case 'north east lines':
+    default : {
+      const xmin = x0 - hauteur
+      const xmax = x1 + hauteur
+      for (let x = xmin; x <= xmax; x += distanceDesHachures) {
+        lignes.push(
+          `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- ++(${hauteur},${hauteur});`
+        )
+      }
+      break
+    }
+  }
+
+  lignes.push('\\end{scope};')
+  return lignes.join('\n')
 }
 
 /**
@@ -1492,29 +1757,68 @@ export class Polyquad {
       }
     }
     // on supprime les points intermédiaires
-    for (let i = 1; i < this.dots.length - 1;) {
-      const pt1 = this.dots[i - 1]
-      const pt2 = this.dots[i]
-      const pt3 = this.dots[i + 1]
-      const dx = pt2.x - pt1.x
-      const dy = pt2.y - pt1.y
-      const dx2 = pt3.x - pt2.x
-      const dy2 = pt3.y - pt2.y
-      if (dx2 === dx && dy2 === dy) {
-        this.dots.splice(i, 1)
-      } else {
-        i++
-      }
-    }
-    const pt1 = this.dots[this.dots.length - 1]
-    const pt2 = this.dots[0]
-    const pt3 = this.dots[1]
-    const dx = pt2.x - pt1.x
-    const dy = pt2.x - pt1.y
-    const dx2 = pt3.x - pt2.x
-    const dy2 = pt3.y - pt2.y
-    if (dx2 === dx && dy2 === dy) {
-      this.dots.splice(0, 1)
+    this.dots = elimineBinomesXYIntermediairesAlignes(this.dots)
+  }
+}
+
+/**
+ * Vérifie si deux vecteurs sont orientés dans la même direction
+ * @param {number} dx1 Composante x du premier vecteur
+ * @param {number} dy1 Composante y du premier vecteur
+ * @param {number} dx2 Composante x du second vecteur
+ * @param {number} dy2 Composante y du second vecteur
+ * @returns {boolean} true si les vecteurs sont orientés dans la même direction, false sinon
+ */
+function sontVecteursAlignes (dx1: number, dy1: number, dx2: number, dy2: number): boolean {
+  if (dx1 === 0) {
+    if (dy1 === 0) {
+      return dx2 === 0 && dy2 === 0
+    } else {
+      return dy2 / dy1 > 0
     }
   }
+  if (dy1 === 0) {
+    if (dx1 === 0) {
+      return dx2 === 0 && dy2 === 0
+    } else {
+      return dx2 / dx1 > 0
+    }
+  }
+  return dx2 * dy1 === dx1 * dy2 && dx1 * dx2 > 0 && dy1 * dy2 > 0
+}
+
+/**
+ * Supprime de la liste de binomesXY les binomes intermédiaires correspondant à des point alignés avec le précédent et le suivant afin de limiter le nombre de sommets d'un polygone
+ * Elle permet aussi de supprimer les doublons consécutifs puisque forcément, ils sont alignés
+ * @param {BinomesXY} binomesXY une liste de binomesXY
+ * @returns {BinomesXY} une liste de binomesXY
+ * @author Jean-Claude Lhote
+ */
+export function elimineBinomesXYIntermediairesAlignes (binomesXY: BinomesXY) {
+  // on supprime les binomesXY intermédiaires
+  for (let i = 1; i < binomesXY.length - 1;) {
+    const pt1 = binomesXY[i - 1]
+    const pt2 = binomesXY[i]
+    const pt3 = binomesXY[i + 1]
+    const dx = pt2.x - pt1.x
+    const dy = pt2.y - pt1.y
+    const dx2 = pt3.x - pt2.x
+    const dy2 = pt3.y - pt2.y
+    if (sontVecteursAlignes(dx, dy, dx2, dy2)) {
+      binomesXY.splice(i, 1)
+    } else {
+      i++
+    }
+  }
+  const pt1 = binomesXY[binomesXY.length - 1]
+  const pt2 = binomesXY[0]
+  const pt3 = binomesXY[1]
+  const dx = pt2.x - pt1.x
+  const dy = pt2.x - pt1.y
+  const dx2 = pt3.x - pt2.x
+  const dy2 = pt3.y - pt2.y
+  if (dx2 === dx && dy2 === dy) {
+    binomesXY.splice(0, 1)
+  }
+  return binomesXY
 }

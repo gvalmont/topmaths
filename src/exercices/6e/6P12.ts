@@ -201,7 +201,7 @@ function questionAchat (exo:Exercice, i:number) { // questions d'origine du 6P11
         `$${y}$ ${objet} coûtent donc $${miseEnCouleur(y)}$ fois plus que $${miseEnCouleur(texPrix(x / n), 'blue')}$ €, le prix d'${listeDeChose[index1][index2]}.` +
         `<br> $${miseEnCouleur(texPrix(x / n), 'blue')}$ € $\\times ${miseEnCouleur(y)} = ${texPrix(x * y / n)}$ €<br>` +
         ` ${texteEnCouleurEtGras('Conclusion :', 'black')} $${y}$ ${objet} coûtent $${texPrix(x * y / n)}$ €.`
-  setReponse(exo, i, x * y / n)
+  setReponse(exo, i, arrondi(x * y / n, 2))
 
   return {
     qtexte: texte,
@@ -256,7 +256,7 @@ function questionRecette (exo:Exercice, i:number) { // questions avec des masses
         `Donc, il faut ${texteEnCouleur(nbPersonneFinal)} fois plus que ${liste[alea1].quantites_par_pers[alea3]} g de ${liste[alea1].ingredient} que pour 1 personne pour faire sa recette.` +
         `<br> ${texteEnCouleur(liste[alea1].quantites_par_pers[alea3], 'blue')} g $\\times$ ${texteEnCouleur(nbPersonneFinal)} = ${quantiteReponse} g <br>
 ${texteEnCouleurEtGras('Conclusion : ', 'black')} ${prenoms[0]} doit utiliser ${quantiteReponse} g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes. `
-  setReponse(exo, i, quantiteReponse)
+  setReponse(exo, i, arrondi(quantiteReponse, 6))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
@@ -326,7 +326,7 @@ function questionDillution (exo:Exercice, i:number) { // questions de mélange d
         ` Il faut donc ${texteEnCouleur(volumeFinalAff)} fois plus de ${liste[alea1].solute} que ${stringNombre(quantite / volumeInitial)} ${liste[alea1].unite_solute} :` +
         `<br> ${texteEnCouleur(stringNombre(quantite / volumeInitial), 'blue')} ${liste[alea1].unite_solute} $\\times$ ${texteEnCouleur(volumeFinalAff)} = ${stringNombre(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute}<br>` +
         `${texteEnCouleurEtGras('Conclusion :', 'black')} il faut prévoir ${stringNombre(quantite / volumeInitial * volumeFinal)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute}.`
-  setReponse(exo, i, quantite / volumeInitial * volumeFinal)
+  setReponse(exo, i, arrondi(quantite / volumeInitial * volumeFinal, 6))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
@@ -378,7 +378,7 @@ function questionDistance (exo:Exercice, i:number) { // questions de distance pa
         ` Le ${liste[alea1].locomotion} parcourt donc ${texteEnCouleur(dureeR)} fois plus de distance qu'en 1 h.` +
         `<br> ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2] * facteur), 'blue')} km $\\times$ ${texteEnCouleur(dureeR)} = $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km <br>` +
         `${texteEnCouleurEtGras('Conclusion :', 'black')} le ${liste[alea1].locomotion} parcourra en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeR * facteur)}$ km en ${dureeR} h.`
-  setReponse(exo, i, liste[alea1].vitesse[alea2] * dureeR * facteur)
+  setReponse(exo, i, arrondi(liste[alea1].vitesse[alea2] * dureeR * facteur, 6))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
@@ -406,7 +406,7 @@ function questionEchelle (exo:Exercice, i:number) { // X cm sur une carte corres
         ` ${distanceCarte2} cm, c'est ${texteEnCouleur(distanceCarte2)} fois 1 cm.` +
         `<br> ${texteEnCouleur(stringNombre(distanceReel / distanceCarte), 'blue')} km $\\times$ ${texteEnCouleur(distanceCarte2)} = ${stringNombre(distanceCarte2 * distanceReel / distanceCarte)} km<br>` +
         `${texteEnCouleurEtGras('Conclusion :', 'black')} son trajet correspond en réalité à une distance de ${stringNombre(distanceCarte2 * distanceReel / distanceCarte)} km.`
-  setReponse(exo, i, distanceCarte2 * distanceReel / distanceCarte)
+  setReponse(exo, i, arrondi(distanceCarte2 * distanceReel / distanceCarte, 6))
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,

@@ -2,7 +2,7 @@ import { miseEnEvidence } from './embellissements'
 import { ecritureParentheseSiNegatif } from './ecritures'
 import { pgcd } from './primalite'
 import { texNombre } from './texNombre'
-import { orangeMathalea } from '../colors'
+import { bleuMathalea } from '../colors'
 
 /**
  * Fonction de comparaison à utiliser avec tableau.sort(compareFractions)
@@ -87,7 +87,7 @@ export function produitDeDeuxFractions (num1: number, den1: number, num2: number
  * Le résultat est un string qui doit être entouré de $ pour le mode mathématique
  * @author Rémi Angot
  */
-export function simplificationDeFractionAvecEtapes (num: number, den: number, { couleur1 = orangeMathalea, couleur2 = 'black' } = {}) : string {
+export function simplificationDeFractionAvecEtapes (num: number, den: number, { couleur1 = bleuMathalea, couleur2 = 'black', colorisationResultat = true } = {}) : string {
   let result = '='
   if (num === 0) {
     return '=0'
@@ -99,12 +99,16 @@ export function simplificationDeFractionAvecEtapes (num: number, den: number, { 
   const s = pgcd(numAbs, denAbs)
   if (s !== 1) {
     if (numAbs % denAbs === 0) { // si le résultat est entier
-      result += `${num / den}`
+      result += colorisationResultat ? `${miseEnEvidence(num / den, couleur2)}` : `${num / den}`
     } else {
-      result += `${signe}${texFractionFromString(numAbs / s + miseEnEvidence('\\times' + s, couleur1), denAbs / s + miseEnEvidence('\\times' + s, couleur1))}=${miseEnEvidence(texFractionSigne(num / s, den / s), couleur2)}`
+      result += colorisationResultat
+        ? `${signe}${texFractionFromString(numAbs / s + miseEnEvidence('\\times' + s, couleur1), denAbs / s + miseEnEvidence('\\times' + s, couleur1))}=${miseEnEvidence(texFractionSigne(num / s, den / s), couleur2)}`
+        : `${signe}${texFractionFromString(numAbs / s + '\\times' + s, denAbs / s + '\\times' + s)}=${texFractionSigne(num / s, den / s)}`
     }
   } else if (num < 0 || den < 0) {
-    result += `${texFractionSigne(num, den)}`
+    result += colorisationResultat
+      ? `${miseEnEvidence(texFractionSigne(num, den), couleur2)}`
+      : `${texFractionSigne(num, den)}`
   } else return ''
   return result
 }

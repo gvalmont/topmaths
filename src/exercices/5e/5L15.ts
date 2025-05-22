@@ -349,7 +349,6 @@ export default class TesterUneEgalite extends Exercice {
               },
               {
                 type: 'qcmMono',
-                // @ts-expect-error
                 enonce: `Conclusion : l'égalité ${expression} est-elle vérifiée pour $x=${x1}$ ?`,
                 propositions: [
                   {

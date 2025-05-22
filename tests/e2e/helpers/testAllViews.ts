@@ -9,7 +9,7 @@ export function isView (obj: unknown): obj is View {
   return ViewValidKeys.includes(obj as View)
 }
 
-export const StudentVariationValidKeys = <const>['Tous les exercices sur une page', 'Une page par exercice', 'Toutes les questions sur une page', 'Une page par question', 'Course aux nombres']
+export const StudentVariationValidKeys = <const>['Tous les exercices sur une page', 'Une page par exercice', 'Une page par question', 'Course aux nombres']
 type StudentVariationValidKeysType = typeof StudentVariationValidKeys
 export type StudentVariation = StudentVariationValidKeysType[number]
 export function isStudentVariation (obj: unknown): obj is StudentVariation {
@@ -89,7 +89,6 @@ async function checkStudent (page: Page, description: string, context: BrowserCo
   await page.locator('.bx-link').click()
   await checkStudentVariation('Tous les exercices sur une page', page, description, context, callback)
   if (getExercisesCount(page) > 1) await checkStudentVariation('Une page par exercice', page, description, context, callback)
-  await checkStudentVariation('Toutes les questions sur une page', page, description, context, callback)
   await checkStudentVariation('Une page par question', page, description, context, callback)
   await checkStudentVariation('Course aux nombres', page, description, context, callback)
   await page.locator('.bx-x').first().click()

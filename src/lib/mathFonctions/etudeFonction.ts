@@ -17,6 +17,7 @@ import { stringNombre, texNombre } from '../outils/texNombre'
 import { matrice } from './Matrice'
 import engine from '../interactif/comparisonFunctions'
 import { Matrix, round } from 'mathjs'
+import { latex2d } from '../2d/textes'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
@@ -311,238 +312,24 @@ export function tableauDeVariation ({
               texte = tabLines[index][k * 2]
               long = tabLines[index][k * 2 + 1]
               codeVar = texte.split('/')
-              switch (codeVar.length) {
-                case 1: // il n'y a qu'un code
-                  // on ne fait rien, c'est la commande R/ ou un emplacement vide sans /
-                  break
-                case 2: // Une seule expression (2 codes séparés par un seul /)
-                  switch (codeVar[0]) {
-                    case '+': // une expression
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - 0.95
-                        )
+              if (codeVar.length === 1) {
+                // il n'y a qu'un code
+                // on ne fait rien, c'est la commande R/ ou un emplacement vide sans /
+              } else if (codeVar.length === 2) {
+                // Une seule expression (2 codes séparés par un seul /)
+                switch (codeVar[0]) {
+                  case '+': // une expression
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
                       )
-                      fleches.push(
-                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
-                      )
-                      if (ZIon) {
-                        ZI.push(
-                          point(lgt + deltacl + espcl * (k - 1), yLine),
-                          point(
-                            lgt + deltacl + espcl * (k - 1),
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                        )
-                        ZIon = false
-                      }
-                      zonesEstInterdit.push(false)
-                      break
-                    case '-': // une expression
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      fleches.push(
-                        point(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      if (ZIon) {
-                        ZI.push(
-                          point(lgt + deltacl + espcl * (k - 1), yLine),
-                          point(
-                            lgt + deltacl + espcl * (k - 1),
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                        )
-                        ZIon = false
-                      }
-                      zonesEstInterdit.push(false)
-                      break
-                    case '+C': // une expression sur une double barre (prolongement par continuité)
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine - 0.95
-                        )
-                      )
-                      fleches.push(
-                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
-                      )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      if (ZIon) {
-                        ZI.push(
-                          point(lgt + deltacl + espcl * (k - 1), yLine),
-                          point(
-                            lgt + deltacl + espcl * (k - 1),
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                        )
-                        ZIon = false
-                      }
-                      zonesEstInterdit.push(false)
-                      break
-                    case '-C': // une expression sur une double barre (prolongement par continuité)
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      fleches.push(
-                        point(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      if (ZIon) {
-                        ZI.push(
-                          point(lgt + deltacl + espcl * (k - 1), yLine),
-                          point(
-                            lgt + deltacl + espcl * (k - 1),
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                        )
-                        ZIon = false
-                      }
-                      zonesEstInterdit.push(false)
-                      break
-                    case '+D': // une expression suivie d’une double barre (discontinuité)
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1) - long / 28,
-                          yLine - 0.95
-                        )
-                      )
-                      fleches.push(
-                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
-                      )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      if (ZIon) {
-                        ZI.push(
-                          point(lgt + deltacl + espcl * (k - 1), yLine),
-                          point(
-                            lgt + deltacl + espcl * (k - 1),
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                        )
-                        ZIon = false
-                      }
-                      zonesEstInterdit.push(false)
-                      break
-                    case '-D': // une expression suivie d’une double barre (discontinuité)
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1) - long / 28,
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      fleches.push(
-                        point(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      if (ZIon) {
-                        ZI.push(
-                          point(lgt + deltacl + espcl * (k - 1), yLine),
-                          point(
-                            lgt + deltacl + espcl * (k - 1),
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                        )
-                        ZIon = false
-                      }
-                      zonesEstInterdit.push(false)
-                      break
-                    case '+H': // une expression suivie d’une zone interdite
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1) - long / 28,
-                          yLine - 0.95
-                        )
-                      )
-                      fleches.push(
-                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
-                      )
+                    )
+                    fleches.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
+                    )
+                    if (ZIon) {
                       ZI.push(
                         point(lgt + deltacl + espcl * (k - 1), yLine),
                         point(
@@ -550,27 +337,29 @@ export function tableauDeVariation ({
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
-                      ZIon = true
-                      zonesEstInterdit.push(true)
-                      break
-                    case '-H': // une expression suivie d’une zone interdite
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1) - long / 28,
-                          yLine -
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-': // une expression
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
-                        )
                       )
-                      fleches.push(
-                        point(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
-                        )
                       )
+                    )
+                    if (ZIon) {
                       ZI.push(
                         point(lgt + deltacl + espcl * (k - 1), yLine),
                         point(
@@ -578,1099 +367,1309 @@ export function tableauDeVariation ({
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
-                      ZIon = true
-                      zonesEstInterdit.push(true)
-                      break
-                    case 'D-': // expression précédée d'une double barre discontinuité
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1) + long / 28,
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+C': // une expression sur une double barre (prolongement par continuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
                       )
-                      fleches.push(
-                        point(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      if (ZIon) {
-                        ZI.push(
-                          point(lgt + deltacl + espcl * (k - 1), yLine),
-                          point(
-                            lgt + deltacl + espcl * (k - 1),
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                        )
-                        ZIon = false
-                      }
-                      zonesEstInterdit.push(false)
-                      break
-                    case 'D+': // expression précédée d'une double barre discontinuité
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1) + long / 28,
-                          yLine - 0.95
-                        )
-                      )
-                      fleches.push(
-                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
-                      )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      if (ZIon) {
-                        ZI.push(
-                          point(lgt + deltacl + espcl * (k - 1), yLine),
-                          point(
-                            lgt + deltacl + espcl * (k - 1),
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                        )
-                        ZIon = false
-                      }
-                      zonesEstInterdit.push(false)
-                      break
-                    case '-DH': // expression suivie d'une double barre discontinuité et d'une zone interdite
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1) - long / 28,
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      fleches.push(
-                        point(
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
-                        )
-                      )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
+                    )
+                    fleches.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
                       ZI.push(
-                        point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
                         point(
-                          lgt + deltacl + espcl * (k - 1) + 0.06,
+                          lgt + deltacl + espcl * (k - 1),
                           yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
-                      ZIon = true
-                      zonesEstInterdit.push(true)
-                      break
-                    case '+DH': // expression suivie d'une double barre discontinuité et d'une zone interdite
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1) - long / 28,
-                          yLine - 0.95
-                        )
-                      )
-                      fleches.push(
-                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
-                      )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                      )
-                      segments.push(s)
-                      ZI.push(
-                        point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
-                        point(
-                          lgt + deltacl + espcl * (k - 1) + 0.06,
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                        )
-                      )
-                      ZIon = true
-                      zonesEstInterdit.push(true)
-                      break
-                    case '-CH': // expression sur une double barre discontinuité et d'une zone interdite
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
-                          lgt + deltacl + espcl * (k - 1),
-                          yLine -
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-C': // une expression sur une double barre (prolongement par continuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                             tabInit0[i][1] * hauteurLignes * intervalle +
                             0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine - tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
-                      fleches.push(
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+D': // une expression suivie d’une double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-D': // une expression suivie d’une double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+H': // une expression suivie d’une zone interdite
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
+                    )
+                    ZI.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine),
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                      )
+                    )
+                    ZIon = true
+                    zonesEstInterdit.push(true)
+                    break
+                  case '-H': // une expression suivie d’une zone interdite
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    ZI.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine),
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                      )
+                    )
+                    ZIon = true
+                    zonesEstInterdit.push(true)
+                    break
+                  case 'D-': // expression précédée d'une double barre discontinuité
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case 'D+': // expression précédée d'une double barre discontinuité
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-DH': // expression suivie d'une double barre discontinuité et d'une zone interdite
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    ZI.push(
+                      point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
+                      point(
+                        lgt + deltacl + espcl * (k - 1) + 0.06,
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                      )
+                    )
+                    ZIon = true
+                    zonesEstInterdit.push(true)
+                    break
+                  case '+DH': // expression suivie d'une double barre discontinuité et d'une zone interdite
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    ZI.push(
+                      point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
+                      point(
+                        lgt + deltacl + espcl * (k - 1) + 0.06,
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                      )
+                    )
+                    ZIon = true
+                    zonesEstInterdit.push(true)
+                    break
+                  case '-CH': // expression sur une double barre discontinuité et d'une zone interdite
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                            tabInit0[i][1] * hauteurLignes * intervalle +
+                            0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    ZI.push(
+                      point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
+                      point(
+                        lgt + deltacl + espcl * (k - 1) + 0.06,
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                      )
+                    )
+                    ZIon = true
+                    zonesEstInterdit.push(true)
+                    break
+                  case '+CH': // expression sur une double barre discontinuité et d'une zone interdite
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    ZI.push(
+                      point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
+                      point(
+                        lgt + deltacl + espcl * (k - 1) + 0.06,
+                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                      )
+                    )
+                    ZIon = true
+                    zonesEstInterdit.push(true)
+                    break
+                }
+              } else {
+                // 2 expressions sérarées par / /
+                switch (codeVar[0]) { // on regarde le code
+                  case '':
+                    break
+                  case '-CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
                         point(
                           lgt + deltacl + espcl * (k - 1),
                           yLine -
-                            tabInit0[i][1] * hauteurLignes * intervalle +
-                            0.95
+                                  tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
                       )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) + long / 14,
+                        yLine - 0.95
                       )
-                      segments.push(s)
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
                       ZI.push(
-                        point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
                         point(
-                          lgt + deltacl + espcl * (k - 1) + 0.06,
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                        )
-                      )
-                      ZIon = true
-                      zonesEstInterdit.push(true)
-                      break
-                    case '+CH': // expression sur une double barre discontinuité et d'une zone interdite
-                      textes.push(
-                        sortieTexte(
-                          latexContent(codeVar[1]),
                           lgt + deltacl + espcl * (k - 1),
-                          yLine - 0.95
+                          yLine -
+                                  tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
-                      fleches.push(
-                        point(lgt + deltacl + espcl * (k - 1), yLine - 0.95)
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
                       )
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) - 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine - 0.95
                       )
-                      segments.push(s)
-                      s = segment(
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine,
-                        lgt + deltacl + espcl * (k - 1) + 0.05,
-                        yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
                       )
-                      segments.push(s)
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
                       ZI.push(
-                        point(lgt + deltacl + espcl * (k - 1) + 0.06, yLine),
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
                         point(
-                          lgt + deltacl + espcl * (k - 1) + 0.06,
-                          yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
+                                  tabInit0[i][1] * hauteurLignes * intervalle
                         )
                       )
-                      ZIon = true
-                      zonesEstInterdit.push(true)
-                      break
-                    case 3: // 2 expressions sérarées par / /
-                      switch (
-                        codeVar[0] // on regarde le code
-                      ) {
-                        case '':
-                          break
-                        case '-CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine -
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '+CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) + long / 14,
-                              yLine - 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '-CD+': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '+CD-': // une expression sur une double barre (continuité) et une expression après la double barre (discontinuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '-D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine -
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '+D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
+                                tabInit0[i][1] * hauteurLignes * intervalle +
+                                0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '-D+': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '+D-': // deux expressions de part et d’autre d’une double barre (discontinuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '-DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
-                                  tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '+DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
-                                  tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '-DC+': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
-                                tabInit0[i][1] * hauteurLignes * intervalle +
-                                0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
-                                  tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '+DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+DC-': // une expression avant une double barre (discontinuité) et une expression sur la double barre (continuité)
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] *
                                   hauteurLignes *
                                   demiIntervalle +
                                 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) - 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          s = segment(
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine,
-                            lgt + deltacl + espcl * (k - 1) + 0.05,
-                            yLine - tabInit0[i][1] * hauteurLignes * intervalle
-                          )
-                          segments.push(s)
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) - 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    s = segment(
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine,
+                      lgt + deltacl + espcl * (k - 1) + 0.05,
+                      yLine - tabInit0[i][1] * hauteurLignes * intervalle
+                    )
+                    segments.push(s)
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '-V-': // deux expressions
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-V-': // deux expressions
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine -
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '+V+': // deux expressions
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+V+': // deux expressions
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '-V+': // deux expressions
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '-V+': // deux expressions
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                        case '+V-': // deux expressions
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[1]),
-                              lgt + deltacl + espcl * (k - 1) - long / 28,
-                              yLine - 0.95
-                            )
-                          )
-                          textes.push(
-                            sortieTexte(
-                              latexContent(codeVar[2]),
-                              lgt + deltacl + espcl * (k - 1) + long / 28,
-                              yLine -
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                  case '+V-': // deux expressions
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[1]),
+                        lgt + deltacl + espcl * (k - 1) - long / 28,
+                        yLine - 0.95
+                      )
+                    )
+                    textes.push(
+                      sortieTexte(
+                        latexContent(codeVar[2]),
+                        lgt + deltacl + espcl * (k - 1) + long / 28,
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine - 0.95
-                            )
-                          )
-                          zonesEstInterdit.push(true)
-                          fleches.push(
-                            point(
-                              lgt + deltacl + espcl * (k - 1),
-                              yLine -
+                      )
+                    )
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine - 0.95
+                      )
+                    )
+                    zonesEstInterdit.push(true)
+                    fleches.push(
+                      point(
+                        lgt + deltacl + espcl * (k - 1),
+                        yLine -
                                 tabInit0[i][1] * hauteurLignes * intervalle +
                                 0.95
-                            )
-                          )
-                          if (ZIon) {
-                            ZI.push(
-                              point(lgt + deltacl + espcl * (k - 1), yLine),
-                              point(
-                                lgt + deltacl + espcl * (k - 1),
-                                yLine -
+                      )
+                    )
+                    if (ZIon) {
+                      ZI.push(
+                        point(lgt + deltacl + espcl * (k - 1), yLine),
+                        point(
+                          lgt + deltacl + espcl * (k - 1),
+                          yLine -
                                   tabInit0[i][1] * hauteurLignes * intervalle
-                              )
-                            )
-                            ZIon = false
-                          }
-                          zonesEstInterdit.push(false)
-                          break
-                      }
-                      break
-                  }
+                        )
+                      )
+                      ZIon = false
+                    }
+                    zonesEstInterdit.push(false)
+                    break
+                }
               }
             }
           }
@@ -1792,14 +1791,8 @@ export function tableauDeVariation ({
 
     // On ferme le tableau en bas
     segments.push(segment(0, yLine, longueurTotale, yLine))
-    const divsTexte = []
     for (const latex of textes) {
-      const texte = latex.texte
-      const xTexte = arrondi(latex.x * context.pixelsParCm, 1)
-      const yTexte = arrondi(-latex.y * context.pixelsParCm, 1)
-      divsTexte.push(
-        ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%) scale(${scale})" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(texte)}</div>`
-      )
+      segments.push(latex2d(latex.texte, latex.x, latex.y, { letterSize: 'normalsize' }))
     }
     // Si l'on de définit pas rxmin, rymin, rxmax et rymax, ceux-ci sont fixés par défaut à -0.5 et +0.5, ce qui s'ajoute aux marges déjà prévues pour les segments de -0.2 et +0.2
     // voilà d'où vient le décallage de 0.7 enregistré sur la position des latex par rapport au cadre !
@@ -1816,15 +1809,8 @@ export function tableauDeVariation ({
       ),
       segments
     )
-
+    return svgCode
     /* pour éviter d'avoir des containers imbriquées, util pour le zoom */
-    const codeHtml = `<div class="svgContainer">
-      <div style="position: relative;">
-        ${svgCode.replaceAll('svgContainer', '')} 
-        ${divsTexte.join('\n')}
-      </div>
-      </div>`
-    return codeHtml
   }
   let codeLatex = `\\begin{tikzpicture}[baseline, scale=${scale}]
     \\tkzTabInit[lgt=${lgt},deltacl=${deltacl},espcl=${espcl}`

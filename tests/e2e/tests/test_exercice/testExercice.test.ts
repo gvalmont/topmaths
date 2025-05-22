@@ -203,11 +203,6 @@ async function getScenario (description: string, view: View, variation: Variatio
         isMultiplePagesView: questionsNb > 1,
         navigationSelectors: new Array(questionsNb - 1).fill('.bxs-chevron-right')
       }
-    } else if (variation === 'Toutes les questions sur une page') {
-      return {
-        displayCorrectionSelectors: ['.bx-toggle-right'],
-        isMultipleDisplayCorrectionSelectorsOnSamePage: true
-      }
     } else if (variation === 'Tous les exercices sur une page') {
       return {
         displayCorrectionSelectors: ['text=Voir la correction']

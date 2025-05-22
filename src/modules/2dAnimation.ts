@@ -505,7 +505,7 @@ export class TranslationPuisRotationAnimee extends ObjetMathalea2D {
       code += '\n' + this.figure1.svg(coeff)
     }
     code += `<animateTransform
-    attributeNamethis."transform"
+    attributeName="transform"
     attributeType="XML"
     type="translate"
     from="0 0"
