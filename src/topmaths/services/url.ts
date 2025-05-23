@@ -48,6 +48,17 @@ export function copyLink (link: string, options?: CopyLinkOptions): void {
     })
   }
   const baseUrl = options?.baseUrl ?? TOPMATHS_BASE_URL
-  navigator.clipboard.writeText(baseUrl + params.toString())
-  showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien a été copié.')
+  copyToClipboard(baseUrl + params.toString())
+}
+
+export function copyToClipboard (str: string): void {
+  navigator.clipboard.writeText(str).then(
+    () => {
+      showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien a été copié.')
+    },
+    (err) => {
+      console.error('Async: Could not copy text: ', err)
+      showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien n\'a pas pu être copié.')
+    }
+  )
 }

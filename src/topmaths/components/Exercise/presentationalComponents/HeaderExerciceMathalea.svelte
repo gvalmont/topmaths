@@ -12,7 +12,7 @@
   export let nbCols: number
   export let newData: (exerciseIndex: number) => void
   export let switchCorrectionVisible: (exerciseIndex: number) => void
-  export let copyLink: (exerciseIndex: number) => void
+  export let navigatorShare: (exerciseIndex: number) => void
   export let columnsCountUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
   export let spacingUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
   export let zoomUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
@@ -69,13 +69,13 @@
   {/if}
   <button
     class="is-coopmaths ml-3 is-interactive"
-    on:click={() => copyLink(exerciseIndex)}
+    on:click={() => navigatorShare(exerciseIndex)}
   >
     <img
       class="is-icon
       size-4 md:size-6"
-      src="topmaths/img/cc0/copy-interface-symbol-svgrepo-com.svg"
-      alt="Documents dupliqués"
+      src="topmaths/img/cc0/share-2-svgrepo-com.svg"
+      alt="icone de partage"
     />
   </button>
   {#if $isTeacherMode && exerciseType === 'mathalea'}

@@ -18,8 +18,8 @@
   import HeaderExerciceMathalea from './presentationalComponents/HeaderExerciceMathalea.svelte'
   import seedrandom from 'seedrandom'
   import { randint } from '../../../modules/outils'
-  import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
   import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString'
+  import { copyToClipboard } from '../../services/url'
 
   export let isMd: boolean
 
@@ -292,17 +292,14 @@ function switchCorrectionVisible (exerciseIndex: number): void {
   }
 }
 
-function copyLink (exerciseIndex: number): void {
-  const urlToCopy = getUrlFromParams('exercise', [exercicesParams[exerciseIndex]]).href
-  navigator.clipboard.writeText(urlToCopy).then(
-    () => {
-      showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien a été copié.')
-    },
-    (err) => {
-      console.error('Async: Could not copy text: ', err)
-      showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien n\'a pas pu être copié.')
+function navigatorShare (exerciseIndex: number): void {
+  const title = exercisesWithMeta[exerciseIndex].exercise?.titre ?? exercicesParams[exerciseIndex].id
+  const url = getUrlFromParams('exercise', [exercicesParams[exerciseIndex]]).href
+    if (navigator.share) {
+      navigator.share({ title, url });
+    } else {
+      copyToClipboard(url);
     }
-  )
 }
 
 function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number): void {
@@ -339,7 +336,7 @@ function zoomUpdate (plusMinus: '+' | '-', exerciseIndex: number): void {
           {newData}
           {spacingUpdate}
           {switchCorrectionVisible}
-          {copyLink}
+          {navigatorShare}
           {zoomUpdate}
         />
       {/if}
