@@ -7,7 +7,7 @@
   MISE À DISPOSITION DU SITE WEB ET CRÉATION DE FICHIERS JOURNAUX
 </h2>
 <p>
-  Afin de respecter ses obligations légales, l'hébergeur du site web (HODI)
+  Afin de respecter ses obligations légales, l'hébergeur du site web (O2Switch)
   collecte et conserve des données techniques relatives à l’utilisation des
   services (IP, User Agent) pour une durée d'un an.
 </p>

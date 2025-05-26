@@ -2,7 +2,7 @@
 <h2>PRÉAMBULE</h2>
 <p>
   En utilisant les outils proposés par Topmaths sur topmaths.fr, vous acceptez les conditions d'utilisation suivantes.<br>
-  topmaths se réserve le droit de mettre à jour et de modifier ces conditions sans préavis.
+  Topmaths se réserve le droit de mettre à jour et de modifier ces conditions sans préavis.
 </p>
 <h2>CONDITIONS D'UTILISATION</h2>
 <p>
@@ -10,7 +10,7 @@
 </p>
 <h2>MODIFICATION DU SERVICE</h2>
 <p>
-  topmaths se réserve le droit, à tout moment de modifier ou d’interrompre, temporairement ou définitivement, le service avec ou sans préavis.
+  Topmaths se réserve le droit, à tout moment de modifier ou d’interrompre, temporairement ou définitivement, le service avec ou sans préavis.
   <br>
-  topmaths ne pourra être tenu responsable envers vous ou tout tiers pour toute modification, suspension ou interruption du service.
+  Topmaths ne pourra être tenu responsable envers vous ou tout tiers pour toute modification, suspension ou interruption du service.
 </p>

@@ -62,7 +62,7 @@
   <br />
   Voir également la page
   <button
-    class="text-link dark:text-linkdark"
+    class="is-topmaths is-interactive"
     on:click={(event) => goToView(event, 'info', 'privacy-policy')}
   >
     Politique de confidentialité
