@@ -1,8 +1,11 @@
 <script lang="ts">
   import { exerciseLinks, isTeacherMode } from '../../../services/store'
   import type TypeExercice from '../../../../exercices/Exercice'
-  import type { SvelteComponent } from 'svelte'
+  import { onMount, type SvelteComponent } from 'svelte'
   import ButtonImage from '../../shared/ButtonImage.svelte'
+    import type { UnitReference } from '../../../types/unit';
+    import { getUnitReferenceFromExamUuid } from '../../../services/reference';
+    import { goToView } from '../../../services/navigation';
 
   export let exercise: TypeExercice | SvelteComponent
   export let exerciseIndex: number
@@ -16,6 +19,20 @@
   export let columnsCountUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
   export let spacingUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
   export let zoomUpdate: (plusMinus: ('+' | '-'), exerciseIndex: number) => void
+
+  let unitReference: UnitReference | undefined = undefined;
+
+  onMount(() => {
+    if (exercise && exerciseType === 'static') {
+      unitReference = getUnitReferenceFromExamUuid(exercise.uuid);
+    }
+  });
+
+  function goToUnit(mouseEvent: MouseEvent) {
+    if (unitReference) {
+      goToView(mouseEvent, 'unit', unitReference)
+    }
+  }
 
 </script>
 
@@ -60,6 +77,20 @@
     </ButtonImage>
   {/if}
   {#if exerciseType === 'static'}
+    {#if unitReference}
+      <a href="?v=unit&ref={unitReference}">
+        <ButtonImage
+          class="flex justify-center ml-2 border p-1 w-[119px] md:w-[160px] rounded {isMd ? '' : 'is-small'}"
+          color="info-darker"
+          imageSrc="topmaths/img/cc0/guest-book-svgrepo-com.svg"
+          imageAlt="Livre ouvert"
+          imageClass="ml-2 size-4 md:size-6"
+          on:click={(mouseEvent) => goToUnit(mouseEvent)}
+        >
+          <div class="text-xs md:text-base">Voir la séquence</div>
+        </ButtonImage>
+      </a>
+    {/if}
     <a class="is-interactive is-coopmaths" href="https://www.apmep.fr/Brevet-{exercise.annee}" target="_blank" rel="noopener noreferrer">
       <ButtonImage
         class="flex justify-center ml-2 my-2 border p-1 rounded {isMd ? '' : 'is-small'}"

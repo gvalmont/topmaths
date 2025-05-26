@@ -1,16 +1,18 @@
-import { objectives as storeObjectives, units as storeUnits, specialUnits as storeSpecialUnits, calendar as storeCalendar, glossary as storeGlossary, curriculum as storeCurriculum } from './store'
+import { objectives as storeObjectives, units as storeUnits, specialUnits as storeSpecialUnits, calendar as storeCalendar, glossary as storeGlossary, curriculum as storeCurriculum, examExercises as storeExamExercises } from './store'
 import unitsJson from '../../topmaths/json/built_units.json'
 import objectivesJson from '../../topmaths/json/built_objectives.json'
 import glossaryJson from '../../topmaths/json/glossary.json'
 import specialUnitsJson from '../../topmaths/json/special_units.json'
 import calendarJson from '../../topmaths/json/built_calendar.json'
 import curriculumJson from '../../topmaths/json/built_curriculum.json'
+import examExercisesJson from '../../topmaths/json/built_exam-exercises.json'
 import { isGlossaryUniteItems } from '../types/glossary'
 import { isUnits } from '../types/unit'
 import { isObjectives } from '../types/objective'
 import { parseSchoolYear } from './calendar'
 import { isCurriculum } from '../types/curriculum'
 import { isSpecialUnits } from '../types/specialUnit'
+import { isExamExercises } from '../types/exam-exercise'
 
 export function cacheData (): void {
   cacheUnits()
@@ -19,6 +21,7 @@ export function cacheData (): void {
   cacheGlossary()
   cacheCalendar()
   cacheCurriculum()
+  cacheExamExercises()
 }
 
 function cacheUnits (): void {
@@ -68,4 +71,13 @@ function cacheCurriculum (): void {
     throw new Error('curriculum.json is not a Curriculum')
   }
   storeCurriculum.set(curriculum)
+}
+
+function cacheExamExercises (): void {
+  const examExercises = examExercisesJson
+  if (!isExamExercises(examExercises)) {
+    console.error(examExercises)
+    throw new Error('exam-exercises.json is not an array of ExamExercise')
+  }
+  storeExamExercises.set(examExercises)
 }

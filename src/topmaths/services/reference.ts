@@ -1,5 +1,8 @@
+import { get } from 'svelte/store'
 import { isStringGrade, type StringGrade } from '../types/grade.js'
 import type { ObjectiveReference } from '../types/objective'
+import type { UnitReference } from '../types/unit'
+import { examExercises } from './store'
 
 export function buildGradeFromObjectiveReference (reference: ObjectiveReference): StringGrade {
   const grade = reference.slice(0, 1) + 'e'
@@ -25,4 +28,8 @@ export function buildThemeFromReference (reference: ObjectiveReference): 'nombre
 
 export function isReferenceIgnored (reference: string): boolean {
   return reference.slice(1, 2) === 'X'
+}
+
+export function getUnitReferenceFromExamUuid (examUuid: string): UnitReference | undefined {
+  return get(examExercises).find(examExercise => examExercise.uuid === examUuid)?.unitReference
 }

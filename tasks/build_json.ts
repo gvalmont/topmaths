@@ -10,6 +10,7 @@ import calendarSchoolYearMasterJson from '../src/topmaths/json/calendar.json' as
 import type { RecursivePartial } from '../src/lib/types.js'
 import { deepCopy, type TuplesToArraysRecursive, type ReplaceReferencesByStrings } from '../src/topmaths/types/shared.js'
 import { DEFAULT_GRADE, emptyStringArrayRecordStringGrade, isStringGrade, stringGradeValidKeys, type StringGrade } from '../src/topmaths/types/grade.js'
+import type { ExamExerciseWithStringReference } from '../src/topmaths/types/exam-exercise.js'
 import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { EXERCISE_PARAM_ADDENDUM, isMathalea, REGULAR_VIEW_ADDENDUM, SLIDESHOW_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../src/topmaths/services/environment.js'
 import { emptyObjective, emptyObjectiveVideo, isObjectiveExercises, type ObjectiveExercise, type ObjectiveUnit, type Objective, emptyObjectiveLessonPlan, emptyObjectiveDownloadLinks, type ObjectiveWithStringReference, isObjectiveWithStringReference, type ObjectiveReference, type ObjectiveLessonPlan, emptyObjectiveLessonPlanSegment, type ObjectivePrerequisiteWithStringReference, isObjectivePrerequisitesWithStringReference, type ObjectiveAncestorWithStringReference, type ObjectiveDescendantWithStringReference } from '../src/topmaths/types/objective.js'
@@ -40,11 +41,13 @@ updateObjectives()
 updateAncestorsAndDescendants()
 const glossary = buildGlossary()
 const calendar = buildCalendar()
+const examExercises = buildExamExercises(units)
 routineCheck()
 console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
 // synchronise them with build_prepare.ts
 writeJson('built_objectives', objectives)
 writeJson('built_units', units)
+writeJson('built_exam-exercises', examExercises)
 writeJson('glossary', glossary)
 writeJson('built_calendar', calendar)
 writeJson('built_curriculum', curriculum)
@@ -469,10 +472,30 @@ function buildCurriculumValue (formattedGradeArray: CurriculumGrade[], grade: St
   }
 }
 
+function buildExamExercises (units: UnitWithStringReference[]): ExamExerciseWithStringReference[] {
+  return units
+    .filter(unit => unit.assessmentExamLink !== '')
+    .map(unit => {
+      const entries = new URL(unit.assessmentExamLink).searchParams.entries()
+      const references: ExamExerciseWithStringReference[] = []
+      for (const entry of entries) {
+        if (entry[0] === 'uuid') {
+          references.push({
+            uuid: entry[1],
+            unitReference: unit.reference,
+          })
+        }
+      }
+      return references
+    })
+    .flat()
+}
+
 function routineCheck (): void {
-  checkDuplicates(objectives)
-  checkDuplicates(units)
-  checkDuplicates(glossary)
+  checkDuplicateReferences(objectives)
+  checkDuplicateReferences(units)
+  checkDuplicateReferences(glossary)
+  checkDuplicateUuids(examExercises)
   checkImageAlt()
   checkPrivacyPolicyThirdPartyWebsites()
   checkDuplicatesExamExercises()
@@ -780,13 +803,23 @@ function checkPrivacyPolicyThirdPartyWebsites (): void {
   })
 }
 
-function checkDuplicates (array: ObjectiveWithStringReference[] | UnitWithStringReference[] | GlossaryItemWithStringReference[]): void {
+function checkDuplicateReferences (array: ObjectiveWithStringReference[] | UnitWithStringReference[] | GlossaryItemWithStringReference[]): void {
   const foundReferences: string[] = []
   array.forEach((item: ObjectiveWithStringReference | UnitWithStringReference | GlossaryItemWithStringReference) => {
     if (foundReferences.includes(item.reference)) {
       throw new Error(item.reference + ' found twice')
     }
     foundReferences.push(item.reference)
+  })
+}
+
+function checkDuplicateUuids (array: ExamExerciseWithStringReference[]): void {
+  const foundUuids: string[] = []
+  array.forEach((item: ExamExerciseWithStringReference) => {
+    if (foundUuids.includes(item.uuid)) {
+      throw new Error(item.uuid + ' found twice')
+    }
+    foundUuids.push(item.uuid)
   })
 }
 
