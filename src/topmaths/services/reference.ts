@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 import { isStringGrade, type StringGrade } from '../types/grade.js'
 import type { ObjectiveReference } from '../types/objective'
 import type { UnitReference } from '../types/unit'
-import { examExercises } from './store'
+import { examExercises } from './store.js'
 
 export function buildGradeFromObjectiveReference (reference: ObjectiveReference): StringGrade {
   const grade = reference.slice(0, 1) + 'e'
