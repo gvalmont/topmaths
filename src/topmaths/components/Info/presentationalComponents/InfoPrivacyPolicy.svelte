@@ -29,12 +29,6 @@
 <br />
 <ul>
   <li>
-    Le calcul mental peut venir de
-    <AnchorExternal href="https://mathsmentales.net/cgu.html">
-      MathsMentales
-    </AnchorExternal>
-  </li>
-  <li>
     Les vidéos viennent de
     <AnchorExternal href="https://policies.google.com/privacy?hl=fr#infocollect">
       YouTube

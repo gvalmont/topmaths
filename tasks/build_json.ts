@@ -23,7 +23,6 @@ import { getTitle } from '../src/topmaths/services/string.js'
 
 const THIRD_PARTY_WEBSITES = [
   'https://coopmaths.fr',
-  'https://mathsmentales.net',
   'https://mathix.org',
   'https://www.geogebra.org',
   'https://www.clicmaclasse.fr'
