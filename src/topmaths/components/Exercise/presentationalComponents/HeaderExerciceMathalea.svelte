@@ -21,7 +21,7 @@
 
 <div
   id="exercise{exerciseIndex}"
-  class="print-hidden flex flex-row flex-wrap content-center items-center justify-center my-3 h-10
+  class="print-hidden flex flex-row flex-wrap content-center items-center justify-center
     text-xs md:text-base"
 >
   <a href="#exercise{exerciseIndex}">
@@ -47,14 +47,6 @@
       <div class="text-xs md:text-base">Nouvel énoncé</div>
     </ButtonImage>
   {/if}
-  {#if exerciseType === 'static'}
-    <div class="flex justify-center items-center pt-2 ml-2">
-      <a class="is-interactive is-coopmaths" href="https://www.apmep.fr/Brevet-{exercise.annee}" target="_blank" rel="noopener noreferrer">
-        {`${exercise.typeExercice?.toUpperCase()} - ${exercise.mois || ''} ${exercise.annee} - ${exercise.lieu} - Ex. ${exercise.numeroInitial}`}
-        <i class='bx bx-link-external' />
-      </a>
-    </div>
-  {/if}
   {#if exerciseType !== 'html'}
     <ButtonImage
       class="flex justify-center ml-2 border p-1 w-[151px] md:w-[210px] rounded {isMd ? '' : 'is-small'}"
@@ -66,6 +58,21 @@
     >
     <div class="text-xs md:text-base">{isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}</div>
     </ButtonImage>
+  {/if}
+  {#if exerciseType === 'static'}
+    <a class="is-interactive is-coopmaths" href="https://www.apmep.fr/Brevet-{exercise.annee}" target="_blank" rel="noopener noreferrer">
+      <ButtonImage
+        class="flex justify-center ml-2 my-2 border p-1 rounded {isMd ? '' : 'is-small'}"
+        color="coopmaths"
+        imageSrc="topmaths/img/cc0/external-link-svgrepo-com.svg"
+        imageAlt="Lien externe"
+        imageClass="ml-2 size-3 md:size-4"
+      >
+        <div class="text-xs md:text-base">
+          {`${exercise.typeExercice?.toUpperCase()} - ${exercise.mois || ''} ${exercise.annee} - ${exercise.lieu} - Ex. ${exercise.numeroInitial}`}
+        </div>
+      </ButtonImage>
+    </a>
   {/if}
   <button
     class="is-coopmaths ml-3 is-interactive"
