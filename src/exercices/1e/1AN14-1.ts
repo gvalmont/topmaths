@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'ebd89'
 export const refs = {
   'fr-fr': ['1AN14-1'],
-  'fr-ch': []
+  'fr-ch': ['3mA2-1']
 }
 export const dateDePublication = '09/05/2024'
 const listFrac = obtenirListeFractionsIrreductibles()

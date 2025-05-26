@@ -22,7 +22,7 @@ export const interactifType = 'mathLive'
 export const uuid = '2f983'
 export const refs = {
   'fr-fr': ['3L11-11'],
-  'fr-ch': ['11FA1-7']
+  'fr-ch': ['11FA1-7', '1mCL1-10']
 }
 
 export default class NomExercice extends Exercice {

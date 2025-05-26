@@ -8,14 +8,14 @@ export const titre = 'Écrire un intervalle réel sous forme d\'ensemble et vice
 export const dateDePublication = '30/08/2024'
 
 /**
- * Réduire une expression littérale
+ * Écrire un intervalle réel sous forme d\'ensemble et vice-versa
  * @author Nathan Scheinmann
 */
 
 export const uuid = '67469'
 export const refs = {
   'fr-fr': ['2N11-3'],
-  'fr-ch': ['']
+  'fr-ch': ['1mEI-1']
 }
 
 export default class nomExercice extends Exercice {

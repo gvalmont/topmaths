@@ -24,7 +24,13 @@ export const refs = {
  * @author Jean-Claude Lhote
  */
 
-function achat (entier = true): [string, number, string, string] {
+// Les fonctions retournent une liste avec dans l'ordre :
+// 1. le nom de l'objet
+// 2. le nombre d'objets ou la quantité en première ligne (1 par défaut)
+// 3. le prix de ce nombe d'objet ou la quantité associée en deuxième ligne (prix unitaire par défaut)
+// 4. l'entête de la première ligne
+// 5. l'entête de la deuxième ligne
+function achat (entier = true): [string, number, number, string, string] {
   const listeDeChoses = [
     [
       'articles',
@@ -90,8 +96,102 @@ function achat (entier = true): [string, number, string, string] {
     const index2 = randint(0, listeDeChoses[index1].length - 1)
     objet = listeDeChoses[index1][index2]
     pu = listeDePrixUnit[index1][index2]
-  } while (Boolean(entier) && pu % 1 !== 0)
-  return [objet, pu, objet, 'Prix en euros']
+    entier = Boolean(entier)
+  } while ((entier && pu % 1 !== 0) || (!entier && pu % 1 === 0))
+  return [objet, 1, pu, `\\text{${objet}}`, '\\text{Prix en euros}']
+}
+function carrelage (entier = true): [string, number, number, string, string] {
+  const listeDeCarreaux: [string, number][] = [
+    ['carreaux de 10x10', 92],
+    ['carreaux de 20x20', 24],
+    ['carreaux de 20x10', 46],
+    ['carreaux de 33x33', 9],
+    ['carreaux de 40x20', 12],
+    ['carreaux de 40x40', 6.5],
+    ['carreaux de 50x50', 4],
+    ['carreaux de 60x60', 3],
+    ['carreaux de 60x20', 7],
+    ['carreaux de 30x10', 32],
+    ['carreaux de 40x15', 18],
+    ['carreaux de 50x25', 8],
+    ['carreaux de 33x20', 15],
+    ['carreaux de 30x30', 10.5],
+    ['carreaux de 30x20', 15.75],
+    ['carreaux de 40x33', 7.25],
+  ]
+
+  const entete1 = '\\text{Surface en m}^2'
+  const entete2 = '\\text{Nombre de carreaux}'
+  const carreau = entier ? choice(listeDeCarreaux.filter(el => el[1] % 1 === 0)) : choice(listeDeCarreaux.filter(el => el[1] % 1 !== 0))
+  return [carreau[0], 1, carreau[1], entete1, entete2]
+}
+
+function dillution (entier = true): [string, number, number, string, string] {
+  const liste = [
+    {
+      solute: 'sirop',
+      volumeUnitaire: [12, 15, 18],
+      unite_solute: 'cL',
+      unite_solvant: ['L', 'L'] // liste pour [0] singulier [1] pluriel
+    },
+    {
+      solute: 'nettoyant pour sol',
+      volumeUnitaire: [6, 8, 14, 12],
+      unite_solute: 'cL',
+      unite_solvant: ['L', 'L']
+    },
+    {
+      solute: 'médicament',
+      volumeUnitaire: [3.2, 3.5, 4.25, 4.5, 5.25, 7.5],
+      unite_solute: 'mL',
+      unite_solvant: ['dL', 'dL']
+    },
+    {
+      solute: 'produit pour piscine',
+      volumeUnitaire: [1.2, 0.8, 1.5],
+      unite_solute: 'L',
+      unite_solvant: ['dizaine de mètres cubes', 'dizaines de mètres cubes']
+    },
+    {
+      solute: 'liquide de rinçage concentré',
+      volumeUnitaire: [1.25, 0.75, 0.25],
+      unite_solute: 'cL',
+      unite_solvant: ['L', 'L']
+    },
+    {
+      solute: 'lessive',
+      volumeUnitaire: [8, 13, 9],
+      unite_solute: 'g',
+      unite_solvant: ['L', 'L']
+    },
+    {
+      solute: 'peinture',
+      volumeUnitaire: [1.2, 1.4, 1.6],
+      unite_solute: 'L',
+      unite_solvant: ['L', 'L']
+    },
+
+    {
+      solute: 'vinaigre',
+      volumeUnitaire: [25, 15, 22, 24],
+      unite_solute: 'cL',
+      unite_solvant: ['L', 'L']
+    }
+  ]
+  let alea1 = 0
+  let alea2 = 0
+  do {
+    entier = Boolean(entier)
+    alea1 = randint(0, liste.length - 1) // pour le choix du soluté
+    alea2 = randint(0, liste[alea1].volumeUnitaire.length - 1) // pour le choix du volume pour une unité de solvant
+  } while ((entier && liste[alea1].volumeUnitaire[alea2] % 1 !== 0) || (!entier && liste[alea1].volumeUnitaire[alea2] % 1 === 0))
+  return [
+    liste[alea1].solute,
+    1,
+    liste[alea1].volumeUnitaire[alea2],
+    `\\text{Volume de ${liste[alea1].solute} (${liste[alea1].unite_solute})}`,
+    `\\text{Volume d'eau (${liste[alea1].unite_solvant[0]})}`
+  ]
 }
 
 function combinaisonLineaire (x: number, y: number, a: number, b: number) {
@@ -198,14 +298,15 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
     this.consigne = this.nbQuestions === 1 ? 'compléter le tableau de proportionnalité ci dessous' : 'compléter les tableaux de proportionnalité ci-dessous'
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const fonctionChoisie = choice([achat, achat, dillution, carrelage])
       const nbo: number[] = []
       const prix: number[] = []
       const coefficients = combinaisonListes(listeCombinaisons[difficulté[i] - 1], 12) // On prévoit 12 combinaisons pour être sûr d'en avoir 3 différentes qui fonctionnent
-      const [objet, pu, entete1, entete2] = achat(this.sup)
-      const ligne1 = [`\\text{${entete1}}`]
-      const ligne2 = [`\\text{${entete2}}`]
-      const ligne1Corr = [`\\text{${entete1}}`]
-      const ligne2Corr = [`\\text{${entete2}}`]
+      const [objet, u, pu, entete1, entete2] = fonctionChoisie(this.sup) // achat(this.sup)
+      const ligne1 = [entete1]
+      const ligne2 = [entete2]
+      const ligne1Corr = [entete1]
+      const ligne2Corr = [entete2]
       const couple = choice(couplesPremiersEntreEux) // On choisit les 2 premiers nombres qui sont premiers entre eux
       nbo.push(...couple)
       const corrections: string[] = []
@@ -218,8 +319,8 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
           index = 0
         }
         const [a, b] = shuffle(coefficients[index])
-        const x = choice(nbo)
-        const y = choice(nbo, [x])
+        const x = choice(nbo) * u
+        const y = choice(nbo, [x / u]) * u
         const nbNew = combinaisonLineaire(x, y, a, b)
         if (!nbo.includes(nbNew) && nbNew > 1 && nbNew % 1 === 0) {
           nbo.push(nbNew)
@@ -244,33 +345,33 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
       for (let j = 0; j < nbo.length; j++) {
         if (j < 2) {
           hautBas.push(3)
-          valeursLigne1.push(texNombre(nbo[j], 0))
+          valeursLigne1.push(texNombre(nbo[j] * u, 0))
           valeursLigne2.push(texNombre(nbo[j] * pu, 2))
-          valeursLigne1Corr.push(texNombre(nbo[j], 0))
+          valeursLigne1Corr.push(texNombre(nbo[j] * u, 0))
           valeursLigne2Corr.push(texNombre(nbo[j] * pu, 2))
           reponses.push(String(nbo[j])) // On s'en fiche, ce ne sera pas lu
         } else if (listeTypesDeQuestions[i] === 1) {
           hautBas.push(2)
           corrections.push(redaction(X[j - 2], Y[j - 2], A[j - 2], B[j - 2], pu))
-          valeursLigne1.push(texNombre(nbo[j], 0))
+          valeursLigne1.push(texNombre(nbo[j] * u, 0))
           valeursLigne2.push('')
           reponses.push(texNombre(nbo[j] * pu, 2))
-          valeursLigne1Corr.push(texNombre(nbo[j], 0))
+          valeursLigne1Corr.push(texNombre(nbo[j] * u, 0))
           valeursLigne2Corr.push(miseEnEvidence(texNombre(nbo[j] * pu, 2)))
         } else {
           if (Math.random() < 0.4 || valeursLigne1.find(el => el === '') == null) { // On met au moins une case vide en première ligne.
             hautBas.push(1)
             valeursLigne1.push('')
             valeursLigne2.push(texNombre(nbo[j] * pu, 2))
-            valeursLigne1Corr.push(miseEnEvidence(texNombre(nbo[j], 0)))
+            valeursLigne1Corr.push(miseEnEvidence(texNombre(nbo[j] * u, 0)))
             valeursLigne2Corr.push(texNombre(nbo[j] * pu, 2))
-            reponses.push(texNombre(nbo[j], 2))
+            reponses.push(texNombre(nbo[j] * u, 2))
             corrections.push(redaction(X[j - 2] * pu, Y[j - 2] * pu, A[j - 2], B[j - 2], 1 / pu))
           } else {
             hautBas.push(2)
-            valeursLigne1.push(texNombre(nbo[j], 0))
+            valeursLigne1.push(texNombre(nbo[j] * u, 0))
             valeursLigne2.push('')
-            valeursLigne1Corr.push(texNombre(nbo[j], 0))
+            valeursLigne1Corr.push(texNombre(nbo[j] * u, 0))
             valeursLigne2Corr.push(miseEnEvidence(texNombre(nbo[j] * pu, 2)))
             reponses.push(texNombre(nbo[j] * pu, 2))
             corrections.push(redaction(X[j - 2], Y[j - 2], A[j - 2], B[j - 2], pu))

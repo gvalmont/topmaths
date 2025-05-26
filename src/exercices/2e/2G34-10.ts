@@ -25,7 +25,7 @@ export const dateDePublication = '20/04/2024'
 export const uuid = '81fd6'
 export const refs = {
   'fr-fr': ['2G34-10'],
-  'fr-ch': ['11FA6-10']
+  'fr-ch': ['11FA6-10', '1mSE-1']
 }
 
 export default class AssocierGraphiqueSysteme extends Exercice {

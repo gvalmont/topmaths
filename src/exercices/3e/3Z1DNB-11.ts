@@ -24,7 +24,7 @@ import { context } from '../../modules/context'
 export const uuid = 'fb6ee'
 export const refs = {
   'fr-fr': ['3Z1DNB-11'],
-  'fr-ch': []
+  'fr-ch': ['11EVA-1']
 }
 export const titre = 'Préparation DNB : Volume, Pythagore, périmètre, agrandissement-réduction'
 export const dateDePublication = '10/04/2025'

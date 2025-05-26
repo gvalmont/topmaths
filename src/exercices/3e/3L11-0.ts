@@ -25,7 +25,7 @@ export const uuid = 'f61d9'
 
 export const refs = {
   'fr-fr': ['3L11-0'],
-  'fr-ch': ['']
+  'fr-ch': ['10FA2-4', '11FA2-16', '1mCL1-1']
 }
 
 export default class SimpleDistributivite extends Exercice {

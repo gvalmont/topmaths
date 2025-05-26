@@ -15,7 +15,7 @@ import { codageSegments, placeLatexSurSegment } from '../../lib/2d/codages'
 export const uuid = '8abca'
 export const refs = {
   'fr-fr': ['3Z1DNB-21'],
-  'fr-ch': []
+  'fr-ch': ['11EVA-3']
 }
 export const titre = 'Préparation DNB : Aires, prise d\'initiative, volumes'
 export const dateDePublication = '15/04/2025'

@@ -9,7 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
 
-export const titre = 'Déterminer des médianes'
+export const titre = 'Déterminer une médiane'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -18,7 +18,7 @@ export const dateDePublication = '01/12/2021'
 export const dateDeModifImportante = '24/06/2024'
 
 /**
- * Calculs de médianes dans des séries statistiques numériques
+ * Détermination de médianes dans des séries statistiques numériques
  * @author Sébastien Lozano forked de Jean-Claude Lhote
  * Ajout de l'alternance entre effectif total pair et impair le 18/08/2021 : Guilllaume Valmont
  */

@@ -22,7 +22,7 @@ export const uuid = '82313'
 
 export const refs = {
   'fr-fr': ['3L11-3', 'BP2AutoI11'],
-  'fr-ch': ['11FA2-4']
+  'fr-ch': ['11FA2-4', '1mCL1-9']
 }
 export default class DistributiviteSimpleDoubleReduction extends Exercice {
   constructor () {

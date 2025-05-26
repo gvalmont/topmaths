@@ -30,7 +30,7 @@ export const dateDePublication = '30/12/2024' // La date de publication initiale
 export const uuid = '58a64'
 export const refs = {
   'fr-fr': ['3G24-2'],
-  'fr-ch': []
+  'fr-ch': ['11GM3-9', '1mG3-2']
 }
 /**
  * calcul de longueurs avec des triangles semblables

@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '20/02/2025'
 export const refs = {
   'fr-fr': ['2N41-9', 'BP2AutoI2'],
-  'fr-ch': []
+  'fr-ch': ['1mCN-13']
 }
 export default class CalculFractionLitteral extends Exercice {
   constructor () {

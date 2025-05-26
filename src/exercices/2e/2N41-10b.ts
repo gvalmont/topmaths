@@ -26,7 +26,7 @@ export const interactifType = 'mathLive'
 export const uuid = '1f3da'
 export const refs = {
   'fr-fr': ['2N41-10b'],
-  'fr-ch': []
+  'fr-ch': ['1mCL1-5', '11FA2-20']
 }
 
 export default class DevelopperReduireExprComplexe extends Exercice {

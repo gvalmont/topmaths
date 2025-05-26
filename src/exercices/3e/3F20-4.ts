@@ -24,7 +24,7 @@ export const uuid = 'a2b1b'
 
 export const refs = {
   'fr-fr': ['3F20-4'],
-  'fr-ch': ['']
+  'fr-ch': ['1mF2-16', '11FA8-19']
 }
 export default class CoefficientDirecteur extends Exercice {
   constructor () {
@@ -46,7 +46,8 @@ export default class CoefficientDirecteur extends Exercice {
         '9 : f(x) = ax + b + cx',
         '10 : f(x) = ax + b + c',
         '11 : f(x) = ax + b + cx + d',
-        '12 : Mélange'
+        '12 : f(x) = x/c + b/d',
+        '13 : Mélange'
       ].join('\n')
     ]
     this.besoinFormulaire2CaseACocher = ['Uniquement $f$ comme nom de fonction']
@@ -61,9 +62,9 @@ export default class CoefficientDirecteur extends Exercice {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 11,
-      melange: 12,
-      defaut: 12,
+      max: 12,
+      melange: 13,
+      defaut: 13,
       nbQuestions: this.nbQuestions
     })
 
@@ -232,6 +233,22 @@ export default class CoefficientDirecteur extends Exercice {
             texteCorSelonCase = `On réduit $${nomFonction}_{${i + 1}}(${nomVariable})$ et on obtient $${nomFonction}_{${i + 1}}(${nomVariable})=${ordOrigine} ${ecritureAlgebrique(coefDir)}${nomVariable}$.<br>`
             texteCorSelonCase += `On peut réécrire l'expression algébrique de cette fonction sous la forme $${nomFonction}(${nomVariable}) = m ${nomVariable} + p$ et donc $${nomFonction}_{${i + 1}}(${nomVariable})=${reduireAxPlusB(coefDir, ordOrigine, nomVariable)}`
             if (ordOrigine < 0) texteCorSelonCase += `= ${coefDir}${nomVariable}+(${ordOrigine})`
+          }
+          break
+        case 12 : // x/c + b/d
+          a = choice([-1, 1])
+          c = randint(2, 9)
+          d = randint(-9, 9, [-1, 0, 1, b, -b])
+          coefDir = new FractionEtendue(a, c).texFractionSimplifiee
+          ordOrigine = new FractionEtendue(b, d).texFractionSimplifiee
+          if (choice([false, true])) {
+            fonctionF = (a === 1 ? '' : '-') + `${texFractionFromString(nomVariable, c)} ${ecritureAlgebrique(new FractionEtendue(b, d).simplifie())}`
+            texteCorSelonCase += `On observe que l'expression algébrique de la fonction $${nomFonction}_{${i + 1}}$ s'écrit bien sous la forme $${nomFonction}(${nomVariable})= m ${nomVariable}+ p`
+            texteCorSelonCase += `$ et donc $${nomFonction}_{${i + 1}}(${nomVariable}) = ${coefDir}${nomVariable}+(${ordOrigine})`
+          } else {
+            fonctionF = `${ordOrigine}` + ((a < 0) ? '-' : '+') + `${texFractionFromString(nomVariable, c)}`
+            texteCorSelonCase += `On peut réécrire l'expression algébrique de cette fonction sous la forme $${nomFonction}(${nomVariable}) = m ${nomVariable} + p$ et donc $${nomFonction}_{${i + 1}}(${nomVariable})=${reduireAxPlusB(new FractionEtendue(a, c).simplifie(), new FractionEtendue(b, d).simplifie(), nomVariable)}`
+            texteCorSelonCase += ` = ${coefDir}${nomVariable}+(${ordOrigine})`
           }
           break
       }

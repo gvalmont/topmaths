@@ -27,7 +27,7 @@ export const amcType = 'AMCOpen'
 export const uuid = '0ee90'
 export const refs = {
   'fr-fr': ['4L11-0'],
-  'fr-ch': ['']
+  'fr-ch': ['11FA3-6', '1mCL2-0'],
 }
 
 export default class FactoriserExpressionsNiv1 extends Exercice {

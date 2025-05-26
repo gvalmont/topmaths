@@ -20,7 +20,7 @@ export const uuid = '2a6c7'
 
 export const refs = {
   'fr-fr': ['1AL23-24'],
-  'fr-ch': []
+  'fr-ch': ['1mF3-9']
 }
 
 export default class ResolutionEquationDifferentesFormes extends Exercice {

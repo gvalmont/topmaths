@@ -1,6 +1,6 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
+import { miseEnCouleur, miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites'
@@ -9,6 +9,7 @@ import { min } from 'mathjs'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { lampeMessage } from '../../lib/format/message'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Multiplier un décimal par 10, 100, 1000, 0,1, 0,01, 0,001...'
@@ -54,7 +55,15 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
     }
     if (this.interactif) {
       this.consigne = 'Calculer.'
-    } else { this.consigne = `${texteGras('Compléter les calculs en suivant le modèle :')} <br>14,5 × 10 = 14,5 dizaines. <br>Le chiffre des unités (4) devient celui des dizaines. Donc 14,5 x 10 = 145` }
+    } else {
+      this.consigne = lampeMessage({
+        titre: '',
+        texte: `1${texteEnCouleur('4', 'green')},5 $\\times$ ${texteEnCouleur('10', 'blue')} = 1${texteEnCouleur('4', 'green')},5  ${texteEnCouleur('dizaines', 'blue')} = 1${texteEnCouleur('4', 'green')}5. <br>
+    En effet, le chiffre des unités ($${miseEnEvidence('4', 'green')}$) est devenu celui des ${texteEnCouleur('dizaines', 'blue')}.`,
+        couleur: 'nombres'
+      })
+      this.consigne += 'Calculer.'
+    }
 
     listeChoixAlea = combinaisonListes(listeChoixAlea, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -69,10 +78,9 @@ export default class MultiplierUnDecimalParPuissanceDeDix extends Exercice {
 
       texte = `$${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} =$`
       if (this.interactif) { texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme') }
-      texteCorr = `$${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} = $  `
-      texteCorr += `$${texNombre(exemple, 2)}$ ${texteGras(choixUnites[choixAlea])} <br>`
-      texteCorr += `Le chiffre des unités ( ${texteGras(unite)} ) va donc devenir celui des ${texteGras(choixUnites[choixAlea])} <br> `
-      texteCorr += `Donc : $${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} = ${miseEnEvidence(texNombre(exemple * 10 ** (choixAlea - 3), 5))}.$<br><br>`
+      texteCorr = `$${texNombre(exemple, 2)} \\times ${miseEnCouleur((texNombre(10 ** (choixAlea - 3), 3)), 'blue')} = $  `
+      texteCorr += `$${texNombre(exemple, 2)}$ ${texteEnCouleur(choixUnites[choixAlea], 'blue')} = $${miseEnEvidence(texNombre(exemple * 10 ** (choixAlea - 3), 5))}.$<br>`
+      texteCorr += `En effet, le chiffre des unités ( ${texteEnCouleur(unite, 'green')} ) est devenu celui des ${texteEnCouleur(choixUnites[choixAlea], 'blue')}. <br> `
       reponse = texNombre(exemple * 10 ** (choixAlea - 3))
       handleAnswers(this, i, { reponse: { value: reponse } })
       if (this.html) { if (this.sup3) { texteCorr += mathalea2d({ xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 }, glisseNombre(exemple, choixAlea - 3)) } }

@@ -15,6 +15,7 @@ import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import type Point from 'apigeom/src/elements/points/Point'
 import { orangeMathalea } from '../../lib/colors'
 import { context } from '../../modules/context'
+import { getLang } from '../../lib/stores/languagesStore'
 
 export const titre = 'Tracer une droite à partir d\'un point et d\'un coefficient directeur ou d\'un vecteur directeur'
 export const dateDePublication = '09/03/2025'
@@ -28,7 +29,7 @@ export const uuid = '580a6'
 
 export const refs = {
   'fr-fr': ['2G30-9'],
-  'fr-ch': ['']
+  'fr-ch': ['10FA5-19', '11FA8-16', '1mF2-14']
 }
 export default class RepresenterfDroite extends Exercice {
   figures: Figure[] = []
@@ -36,8 +37,13 @@ export default class RepresenterfDroite extends Exercice {
   pointsB: Point[] = []
   constructor () {
     super()
+    const lang = getLang()
     this.nbQuestions = 1 // On complète le nb de questions
-    this.sup = '4'
+    if (lang === 'fr-CH') {
+      this.sup = '1-2'
+    } else {
+      this.sup = '4'
+    }
     this.besoinFormulaireTexte = [
       'Type de questions', [
         'Nombres séparés par des tirets  :',

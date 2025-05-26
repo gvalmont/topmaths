@@ -17,7 +17,7 @@ export const dateDePublication = '04/09/2024'
 export const uuid = '1cd08'
 export const refs = {
   'fr-fr': ['3L11-14'],
-  'fr-ch': ['11FA1-10']
+  'fr-ch': ['11FA1-10', '1mCL1-6']
 }
 
 export default class nomExercice extends Exercice {

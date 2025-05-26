@@ -20,7 +20,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = '68e607'
 export const refs = {
   'fr-fr': ['3F24DNB-1', '3Z1DNB-04'],
-  'fr-ch': []
+  'fr-ch': ['1mF3-12']
 }
 export const titre = 'Préparation DNB : Fonctions, fonction affine, tableur et équation produit-nul'
 export const dateDePublication = '17/11/2024'

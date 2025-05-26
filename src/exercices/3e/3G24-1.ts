@@ -41,7 +41,7 @@ export const uuid = 'f4b7e'
 
 export const refs = {
   'fr-fr': ['3G24-1'],
-  'fr-ch': []
+  'fr-ch': ['1mG3-1', '11GM3-0']
 }
 export default class TrianglesSemblables extends Exercice {
   constructor () {

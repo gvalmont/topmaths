@@ -150,14 +150,12 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     }
     await new Promise((resolve) => setTimeout(resolve, 500))
     // On attend 500 ms pour que les champs texte soient bien remplis
-    console.info(studentAssignment)
     if (!canOptions.isChoosen) {
       console.info('Maintenant que les réponses sont chargées, clic sur les boutons score', studentAssignment)
       for (const exercice of studentAssignment) {
         if (exercice == null) continue
         // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
         const buttonScore = document.querySelector(`#buttonScoreEx${exercice?.indice}`) as HTMLButtonElement
-        console.info('Clic sur le bouton score ', `#buttonScoreEx${exercice?.indice}`, buttonScore)
         if (buttonScore !== null) {
           // On note dans le bouton que ce sont les réponses sauvegardées et pas de nouvelles réponses de l'élève
           // Cela évite, en cas de problème de chargement, d'effacer les réponses de l'élève

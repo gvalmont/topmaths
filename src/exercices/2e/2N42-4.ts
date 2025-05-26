@@ -18,7 +18,7 @@ export const uuid = '6b5bc'
 
 export const refs = {
   'fr-fr': ['2N42-4'],
-  'fr-ch': []
+  'fr-ch': ['1mF3-10']
 }
 class FormeTrinome extends Exercice {
   // version: number

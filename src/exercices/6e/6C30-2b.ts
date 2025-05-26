@@ -12,13 +12,13 @@ import Operation from '../../modules/operations'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const dateDePublication = '06/05/2025'
+export const dateDeModifImportante = '25/05/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer le produit (en ligne) de deux décimaux connaissant le produit de deux entiers'
 
 /**
  * * Calculer le produit (en ligne) de deux décimaux à partir d'un produit de deux entiers
- * * 6C30-2b
  * @author Eric Elter
  */
 
@@ -92,17 +92,14 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
       texteCorr = ''
 
       let choix = true
-
       switch (listeTypeDeQuestions[i]) {
         case 1: // nb1*10^p1 + nb2
           if (this.sup2 === 1) d1 = 0
           p1 = randint(-3, 3, [0])
-          p2 = 0
           break
 
         case 2: // nb1 + nb2*10^p2
           if (this.sup2 === 1) d2 = 0
-          p1 = 0
           p2 = randint(-3, 3, [0])
           break
 
@@ -185,9 +182,9 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
 
       texteCorr += !this.sup4
         ? `$${texNombre(multipleNb1)}\\times ${texNombre(multipleNb2)} =
-                   ${nb1}\\times ${texNombre(10 ** p1)} \\times ${nb2} =
-                   ${nb1}\\times ${nb2}\\times ${texNombre(10 ** p1)} = 
-                   ${texNombre(nb1 * nb2)}\\times ${texNombre(10 ** p1)} =
+                   ${nb1} ${p1 === 0 ? '' : `\\times ${texNombre(10 ** p1)}`} \\times ${nb2}${p2 === 0 ? '' : `\\times ${texNombre(10 ** p2)}`} =
+                   ${nb1}\\times ${nb2}${p1 === 0 ? '' : `\\times ${texNombre(10 ** p1)}`}${p2 === 0 ? '' : `\\times ${texNombre(10 ** p2)}`} = 
+                   ${texNombre(nb1 * nb2)}\\times ${texNombre(10 ** (p1 + p2))} =
                    ${miseEnEvidence(texNombre(reponse[1]))}$`
         : (`$${texNombre(multipleNb1)}\\times ${texNombre(multipleNb2)} =
       ${nb1}$  ${nomUnitePourPuissance(p1)} $\\times ${nb2} $ ${nomUnitePourPuissance(p2)} $=` +

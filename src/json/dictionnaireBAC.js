@@ -2663,4 +2663,77 @@ export const dictionnaireBAC = {
     tags: ['Espace']
   },
 
+  bac_2025_05_sujet1_ameriquenord_1: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires','Bienaymé-Tchebychev']
+  },
+  bac_2025_05_sujet1_ameriquenord_2: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Suites', 'Python']
+  },
+  bac_2025_05_sujet1_ameriquenord_3: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Affirmations', 'Espace']
+  },
+  bac_2025_05_sujet1_ameriquenord_4: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Exponentielle', 'Equations différentielles', 'Intégration', 'Primitives']
+  },
+  bac_2025_05_sujet2_ameriquenord_1: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Variables aléatoires', 'Loi binomiale', 'Bienaymé-Tchebychev']
+  },
+  bac_2025_05_sujet2_ameriquenord_2: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Suites', 'logarithme', 'Python']
+  },
+  bac_2025_05_sujet2_ameriquenord_3: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Affirmations', 'Espace']
+  },
+  bac_2025_05_sujet2_ameriquenord_4: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Trigonométrie', 'Exponentielle', 'Intégration']
+  },
+
 }

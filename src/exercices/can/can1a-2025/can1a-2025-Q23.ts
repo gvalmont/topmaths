@@ -41,17 +41,16 @@ export default class Can2025N5Q23 extends Exercice {
     const frac2 = new FractionEtendue(num2, den)
     const frac3 = new FractionEtendue(num3, den)
     this.reponse = new FractionEtendue(den - num1 - num2 - num3, den).texFraction
-    this.question = tableauColonneLigne(['x_i', '-1', '0', '1', '2'],
+    this.canEnonce = tableauColonneLigne(['x_i', '-1', '0', '1', '2'],
       ['P(X=x_i)'],
-      [`${frac1.texFraction}`, `${frac2.texFraction}`, `${frac3.texFraction}`, '\\ldots']) + '<br>'
+      [`${frac1.texFraction}`, `${frac2.texFraction}`, `${frac3.texFraction}`, '\\ldots'],
+      2.5)
+    this.question = this.canEnonce + '<br>'
     this.question += '<br> $P(X=2)=$'
     if (!this.interactif) { this.question += ' $\\ldots$' }
     this.correction = ` La somme des probabilités doit être égale à $1$.<br>
     Ainsi, $P(X=2)=1-${frac1.texFraction}-${frac2.texFraction}-${frac3.texFraction}=${miseEnEvidence(this.reponse)}$.`
 
-    this.canEnonce = tableauColonneLigne(['x_i', '-1', '0', '1', '2'],
-      ['P(X=x_i)'],
-      [`${frac1.texFraction}`, `${frac1.texFraction}`, `${frac3.texFraction}`, '\\ldots'])
     this.canReponseACompleter = '$P(X=2)=\\ldots$'
   }
 }

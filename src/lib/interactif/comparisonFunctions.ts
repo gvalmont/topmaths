@@ -225,7 +225,7 @@ function cleanMathRm (str: string): string {
  * @param {string} str
  */
 function cleanUnity (str: string): string {
-  return str.replaceAll('{\\:\\text{', '').replaceAll('}\\:}', '')
+  return str.replaceAll('}}', '').replaceAll('{\\text{', '').replaceAll('{\\:\\text{', '').replaceAll('}\\:}', '')
 }
 
 /**

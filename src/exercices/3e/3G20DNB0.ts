@@ -17,7 +17,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs'
 export const uuid = '4beb8'
 export const refs = {
   'fr-fr': ['3G20DNB0', '3Z1DNB-02'],
-  'fr-ch': []
+  'fr-ch': ['1mG4-1']
 }
 export const titre = 'Préparation DNB : Thales, Pythagore, aire'
 export const dateDePublication = '26/11/2024'

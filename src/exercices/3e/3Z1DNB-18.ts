@@ -17,7 +17,7 @@ import { egalOuApprox } from '../../lib/outils/ecritures'
 export const uuid = 'fb7ad'
 export const refs = {
   'fr-fr': ['3Z1DNB-18'],
-  'fr-ch': []
+  'fr-ch': ['11EVA-2']
 }
 export const titre = 'Préparation DNB : Volumes, périmètres, proportionnalité, prise d\'intitiative'
 export const dateDePublication = '13/04/2025'

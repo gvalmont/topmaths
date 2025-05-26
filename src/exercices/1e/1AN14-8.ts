@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'f38cf'
 export const refs = {
   'fr-fr': [],
-  'fr-ch': []
+  'fr-ch': ['3mA2-5']
 }
 export const dateDePublication = '18/04/2024'
 const questions = [Derivees1, Derivees3, Derivees4, Derivees5, Derivees6, Derivees7]

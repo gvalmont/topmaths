@@ -197,11 +197,14 @@
   "11ES3": {
     "titre": "Transformations du plan"
   },
-  "1-ES3": {
-    "titre": "Transformations du plan"
+  "11TAF": {
+    "titre": "Préparation au TAF"
+  },
+  "11EVA": {
+    "titre": "Préparation à l'EVACOM"
   },
   "1mCL1": {
-    "titre": "Généralités"
+    "titre": "Calcul littéral - Généralités"
   },
   "1mCL2": {
     "titre": "Factorisation"
@@ -215,8 +218,11 @@
   "1mCL5": {
     "titre": "Systèmes d'équations"
   },
-  "1mE": {
+  "1mEI": {
     "titre": "Ensembles et intervalles"
+  },
+  "1mSE": {
+    "titre": "Systèmes d'équations"
   },
   "1mCN": {
     "titre": "Rappels de calcul numérique"
@@ -247,5 +253,14 @@
   },
   "1mT": {
     "titre": "Trigonométrie dans le triangle rectangle"
+  },
+  "3mA1": {
+    "titre": "Limites"
+  },
+  "3mA2": {
+    "titre": "Dérivation"
+  },
+  "3mA3": {
+    "titre": "Étude de fonctions"
   }
 }

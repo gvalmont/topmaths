@@ -23,7 +23,7 @@ export const dateDePublication = '20/04/2024'
 export const uuid = '8ff15'
 export const refs = {
   'fr-fr': ['2G34-11'],
-  'fr-ch': ['11FA6-11', '1mF2-10']
+  'fr-ch': ['11FA6-11', '1mF2-10', '1mSE-2', '1mF2-15']
 }
 export default class IntersectionDroites extends Exercice {
   constructor () {
