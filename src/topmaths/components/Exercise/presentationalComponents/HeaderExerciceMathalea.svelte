@@ -80,11 +80,11 @@
     {#if unitReference}
       <a href="?v=unit&ref={unitReference}">
         <ButtonImage
-          class="flex justify-center ml-2 border p-1 w-[119px] md:w-[160px] rounded {isMd ? '' : 'is-small'}"
+          class="flex justify-center ml-2 border p-1 w-[120px] md:w-[175px] rounded {isMd ? '' : 'is-small'}"
           color="info-darker"
           imageSrc="topmaths/img/cc0/guest-book-svgrepo-com.svg"
           imageAlt="Livre ouvert"
-          imageClass="ml-2 size-4 md:size-6"
+          imageClass="size-4 md:size-6"
           on:click={(mouseEvent) => goToUnit(mouseEvent)}
         >
           <div class="text-xs md:text-base">Voir la séquence</div>
@@ -100,7 +100,7 @@
         imageClass="ml-2 size-3 md:size-4"
       >
         <div class="text-xs md:text-base">
-          {`${exercise.typeExercice?.toUpperCase()} - ${exercise.mois || ''} ${exercise.annee} - ${exercise.lieu} - Ex. ${exercise.numeroInitial}`}
+          {`Sujet ${exercise.lieu} - ${exercise.mois || ''} ${exercise.annee}`}
         </div>
       </ButtonImage>
     </a>
