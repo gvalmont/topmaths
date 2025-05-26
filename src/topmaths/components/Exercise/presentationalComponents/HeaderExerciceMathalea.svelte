@@ -61,7 +61,7 @@
       imageClass="size-4 md:size-6"
       on:click={() => newData(exerciseIndex)}
     >
-      <div class="text-xs md:text-base">Nouvel énoncé</div>
+      <div class="text-xs md:text-base">Nouvel {$exerciseLinks.length > 1 ? 'exercice' : 'énoncé'}</div>
     </ButtonImage>
   {/if}
   {#if exerciseType !== 'html'}
