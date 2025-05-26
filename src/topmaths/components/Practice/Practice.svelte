@@ -17,16 +17,16 @@
     if (regularExercisesLinks.length === 0) {
       showDialogForLimitedTime('topmaths-info-dialog', 2000, 'Tu n\'as pas encore d\'exercice à réviser, reviens plus tard !')
     } else {
-      launch(regularExercisesLinks)
+      launch(shuffle(regularExercisesLinks))
     }
   }
 
   function launchExamExercises (): void {
-    const examExercisesLinks = shuffle(getExamExercisesLinks())
+    const examExercisesLinks = getExamExercisesLinks()
     if (examExercisesLinks.length === 0) {
       showDialogForLimitedTime('topmaths-info-dialog', 2000, 'Tu n\'as pas encore d\'exercice de brevet à réviser, reviens plus tard !')
     } else {
-      launch(examExercisesLinks)
+      launch(shuffle(examExercisesLinks))
     }
   }
 
