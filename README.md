@@ -1,6 +1,6 @@
 # Topmaths
 
-Code source du site [Topmaths.fr](https://topmaths.fr) dont le but est d'organiser ma sélection d'exercices de [MathALÉA](https://coopmaths.fr/alea) pour les rendre facilement accessibles à mes élèves et moi.
+Code source du site [Topmaths](https://topmaths.fr) dont le but est d'organiser ma sélection d'exercices de [MathALÉA](https://coopmaths.fr/alea) pour les rendre facilement accessibles à mes élèves et moi.
 
 Vous pouvez avoir votre propre version de Topmaths avec vos propres sélections d'exercices / progressions etc. en modifiant juste quelques fichiers comme expliqué [ici](https://topmaths.fr/?v=info&ref=site-info#own-version)
 

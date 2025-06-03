@@ -411,7 +411,7 @@
     </AnchorExternal>.
     Le site
     <AnchorExternal href="https://topmaths.fr">
-      Topmaths.fr
+      Topmaths
     </AnchorExternal>
     est un site indépendant et n’est pas affilié à
     <AnchorExternal href="https://www.mathador.fr">

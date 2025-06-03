@@ -116,7 +116,7 @@
 </script>
 
 <svelte:head>
-  <title>Topmaths.fr - Les maths au Top !</title>
+  <title>Topmaths - Les maths au Top !</title>
 </svelte:head>
 
 <svelte:window bind:innerWidth />

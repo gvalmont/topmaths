@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-  <title>Topmaths.fr - Panier</title>
+  <title>Topmaths - Panier</title>
 </svelte:head>
 
 <div class="w-full max-w-screen-lg">
