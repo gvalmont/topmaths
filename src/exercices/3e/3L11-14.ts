@@ -100,7 +100,7 @@ export default class nomExercice extends Exercice {
           if (p1.monomes[0].coefficient.num === 1 && p1.monomes[0].coefficient.den === 1) {
             p1.monomes[0].coefficient = new FractionEtendue(-2, 1)
           }
-          texte = `$${lettreDepuisChiffre(i + 1)}=${p1.toString()}\\left(${p2.toString()}\\right)$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${p1.toString() === '-1' ? '-' : `${p1.toString()}`}\\left(${p2.toString()}\\right)$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${(p1.produit(p2)).toString()}=${miseEnEvidence((p1.produit(p2)).reduire().toString())}$`
           break
         }

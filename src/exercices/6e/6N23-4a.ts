@@ -29,7 +29,7 @@ export const uuid = '47fed'
 
 export const refs = {
   'fr-fr': ['6N23-4a'],
-  'fr-ch': ['']
+  'fr-ch': ['9NO10-14']
 }
 export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice {
   constructor () {

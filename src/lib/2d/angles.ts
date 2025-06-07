@@ -5,11 +5,12 @@ import type { Angle } from '../mathFonctions/trigo'
 import { arrondi, unSiPositifMoinsUnSinon } from '../outils/nombres'
 import { arc, cercle, cercleCentrePoint } from './cercle'
 import { CodageAngle } from './codages'
-import { Point, point, pointSurCercle, pointSurSegment } from './points'
+import { point, pointSurCercle, pointSurSegment } from './points'
 import { polygone, polyline } from './polygones'
 import { longueur, segment, vecteur } from './segmentsVecteurs'
 import { latexParPoint, texteParPoint, texteParPosition } from './textes'
 import { homothetie, rotation } from './transformations'
+import type { PointAbstrait } from './points-abstraits'
 
 export type MarkType = 'simple' | 'double' | 'triple' | 'gras' | 'double-gras' | 'gras-simple-gras' | 'simple-gras-simple' | 'pointilles' | 'double-pointilles' | 'mixte-simple-pointilles' | 'mixte-gras-pointilles'
 export const markTypeArray: MarkType[] = [
@@ -26,7 +27,7 @@ export const markTypeArray: MarkType[] = [
   'mixte-gras-pointilles'
 ]
 export class MarqueAngle extends ObjetMathalea2D {
-  constructor (start: Point, sommet: Point, end: Point, {
+  constructor (start: PointAbstrait, sommet: PointAbstrait, end: PointAbstrait, {
     mark = 'simple',
     color = 'black',
     rayon = 1
@@ -185,7 +186,7 @@ export class MarqueAngle extends ObjetMathalea2D {
   }
 }
 
-export function marqueAngle (start: Point, sommet: Point, end: Point, {
+export function marqueAngle (start: PointAbstrait, sommet: PointAbstrait, end: PointAbstrait, {
   mark = 'simple',
   color = 'black',
   rayon = 1
@@ -248,43 +249,43 @@ export class Rapporteur extends ObjetMathalea2D {
       if (avecNombre !== '') {
         if (avecNombre === 'deuxSens') {
           if (i === 0) {
-            numero = texteParPoint(String(arcPlein), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, 2), -depart, color, 0.65)
+            numero = texteParPoint(String(arcPlein), rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, color, 0.65)
             numero.contour = true
             this.objets.push(numero)
           }
           if (i === nbDivisions - 1) {
-            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
+            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
             numero.contour = true
             this.objets.push(numero)
           } else if ((arcPlein - (1 + i) * 10) % stepGraduation === 0) {
-            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8) as Point, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.78)
+            numero = texteParPoint(String(arcPlein - (1 + i) * 10), rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.78)
             numero.contour = true
             this.objets.push(numero)
           }
         }
         if (i === 0) {
-          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9) as Point, centre, 2), -depart, color, 0.65)
+          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         }
         if (i === nbDivisions - 1) {
-          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as Point, centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
+          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         } else if ((i + 1) * 10 % stepGraduation === 0) {
-          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9) as Point, centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.65)
+          numero = texteParPoint(String((1 + i) * 10), rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, color, 0.65)
           numero.contour = true
           this.objets.push(numero)
         }
       }
       for (let s = 1, r; s < 10; s++) {
         if (s === 5 && precisionAuDegre < 10) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92), homothetie(rotation(azimut2, centre, s), centre, 0.99), color)
           r.opacite = 0.6
           r.tailleExtremites = 0.65
           this.objets.push(r)
         } else if (precisionAuDegre === 1) {
-          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96) as Point, homothetie(rotation(azimut2, centre, s), centre, 0.99) as Point, color)
+          r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96), homothetie(rotation(azimut2, centre, s), centre, 0.99), color)
           r.opacite = 0.6
           r.tailleExtremites = 0.65
           this.objets.push(r)
@@ -294,15 +295,15 @@ export class Rapporteur extends ObjetMathalea2D {
       azimut = rotation(azimut, centre, arcPlein / nbDivisions)
       azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
       if (rayonsVisibles) rayon = segment(azimut, azimut2, color)
-      else rayon = segment(homothetie(azimut2, centre, 0.9) as Point, azimut2, color)
+      else rayon = segment(homothetie(azimut2, centre, 0.9), azimut2, color)
       rayon.opacite = this.opacite
     }
     if (!semi) {
-      rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2) as Point, homothetie(rotation(azimut, centre, -90), centre, 0.2) as Point, color)
+      rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2), homothetie(rotation(azimut, centre, -90), centre, 0.2), color)
       this.objets.push(rayon)
-      rayon = segment(homothetie(azimut, centre, -0.2) as Point, homothetie(azimut, centre, 0.2) as Point, color)
+      rayon = segment(homothetie(azimut, centre, -0.2), homothetie(azimut, centre, 0.2), color)
     } else {
-      rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2) as Point, color)
+      rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2), color)
     }
     this.objets.push(rayon)
     const bordures = fixeBordures(this.objets, { rxmin: 0, rxmax: 0, rymin: 0, rymax: 0 })
@@ -372,9 +373,9 @@ export function rapporteur ({
 
 /**
  * Renvoie la mesure d'angle en degré
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {PointAbstrait} A Point sur un côté de l'angle
+ * @param {PointAbstrait} O Sommet de l'angle
+ * @param {PointAbstrait} B Point sur l'autre côté de l'angle
  * @param {number} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle
  * @example x = angle(H,E,T)
  * // x contient la mesure en degré de l'angle HET, arrondi au centième
@@ -384,7 +385,7 @@ export function rapporteur ({
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function angle (A: Point, O: Point, B: Point, precision = 2) {
+export function angle (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, precision = 2) {
   const OA = longueur(O, A, precision)
   const OB = longueur(O, B, precision)
   const AB = longueur(A, B, precision)
@@ -433,9 +434,9 @@ export function angleModulo (a: number) {
 
 /**
  * Retourne la valeur signée de la mesure d'un angle en degré
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {PointAbstrait} A Point sur un côté de l'angle
+ * @param {PointAbstrait} O Sommet de l'angle
+ * @param {PointAbstrait} B Point sur l'autre côté de l'angle
  * @param {number} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté
  * @example x = angleOriente(H,E,T)
  * // x contient la valeur de la mesure de l'angle orienté HET, arrondie au centième
@@ -445,7 +446,7 @@ export function angleModulo (a: number) {
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function angleOriente (A: Point, O: Point, B: Point, precision = 2) {
+export function angleOriente (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, precision = 2) {
   const OA = longueur(O, A, precision)
   const OB = longueur(O, B, precision)
   if (OA < 1e-12 || OB < 1e-12) { // On considère qu'un côté de l'angle a une longueur nulle, et ce n'est pas normal !
@@ -461,9 +462,9 @@ export function angleOriente (A: Point, O: Point, B: Point, precision = 2) {
 
 /**
  * Retourne la valeur la mesure d'un angle en radian
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {PointAbstrait} A Point sur un côté de l'angle
+ * @param {PointAbstrait} O Sommet de l'angle
+ * @param {PointAbstrait} B Point sur l'autre côté de l'angle
  * @param {number} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté
  * @example x = angleradian(H,E,T)
  * // x contient la valeur de la mesure de l'angle HET en radians, arrondie au centième
@@ -473,7 +474,7 @@ export function angleOriente (A: Point, O: Point, B: Point, precision = 2) {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function angleradian (A: Point, O: Point, B: Point, precision = 2) {
+export function angleradian (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, precision = 2) {
   const OA = longueur(O, A, precision)
   const OB = longueur(O, B, precision)
   const AB = longueur(A, B, precision)
@@ -482,9 +483,9 @@ export function angleradian (A: Point, O: Point, B: Point, precision = 2) {
 
 /**
  * Code un angle droit
- * @param {Point} A Point sur un côté de l'angle droit
- * @param {Point} O Sommet de l'angle droit
- * @param {Point} B Point sur l'autre côté de l'angle droit
+ * @param {PointAbstrait} A Point sur un côté de l'angle droit
+ * @param {PointAbstrait} O Sommet de l'angle droit
+ * @param {PointAbstrait} B Point sur l'autre côté de l'angle droit
  * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'
  * @param {number} [d=0.4] Taille du codage de l'angle droit
  * @param {number} [epaisseur=0.5] Epaisseur du trait
@@ -495,9 +496,9 @@ export function angleradian (A: Point, O: Point, B: Point, precision = 2) {
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {Point} depart Point sur un côté de l'angle droit
- * @property {Point} sommet Sommet de l'angle droit
- * @property {Point} arrivee Point sur l'autre côté de l'angle droit
+ * @property {PointAbstrait} depart Point sur un côté de l'angle droit
+ * @property {PointAbstrait} sommet Sommet de l'angle droit
+ * @property {PointAbstrait} arrivee Point sur l'autre côté de l'angle droit
  * @property {string} color Couleur du codage. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} taille Taille du codage de l'angle droit
  * @property {string} couleurDeRemplissage 'none' si on ne veut pas de remplissage. À associer obligatoirement à colorToLatexOrHTML().
@@ -506,15 +507,15 @@ export function angleradian (A: Point, O: Point, B: Point, precision = 2) {
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageAngleDroit extends ObjetMathalea2D {
-  sommet: Point
-  depart: Point
-  arrivee: Point
+  sommet: PointAbstrait
+  depart: PointAbstrait
+  arrivee: PointAbstrait
   taille: number
   color: string[]
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
 
-  constructor (A: Point, O: Point, B: Point, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
+  constructor (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
     super()
     this.sommet = O
     this.depart = A
@@ -540,11 +541,11 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   svg (coeff: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
-    let o: Point
+    let o: PointAbstrait
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
-      o = rotation(this.sommet, a, -90) as Point
+      o = rotation(this.sommet, a, -90)
     } else {
-      o = rotation(this.sommet, a, 90) as Point
+      o = rotation(this.sommet, a, 90)
     }
     const result = polygone([this.sommet, a, o, b], this.color[0])
     if (this.couleurDeRemplissage[0] !== 'none') {
@@ -560,7 +561,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   tikz () {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
-    let o: Point
+    let o: PointAbstrait
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
@@ -579,7 +580,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   svgml (coeff: number, amp: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
-    let o: Point
+    let o: PointAbstrait
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
@@ -591,7 +592,7 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   tikzml (amp: number) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
-    let o: Point
+    let o: PointAbstrait
     if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
@@ -603,9 +604,9 @@ export class CodageAngleDroit extends ObjetMathalea2D {
 
 /**
  * Code un angle droit
- * @param {Point} A Point sur un côté de l'angle droit
- * @param {Point} O Sommet de l'angle droit
- * @param {Point} B Point sur l'autre côté de l'angle droit
+ * @param {PointAbstrait} A Point sur un côté de l'angle droit
+ * @param {PointAbstrait} O Sommet de l'angle droit
+ * @param {PointAbstrait} B Point sur l'autre côté de l'angle droit
  * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'
  * @param {number} [d=0.4] Taille du codage de l'angle droit
  * @param {number} [epaisseur=0.5] Epaisseur du trait
@@ -620,15 +621,15 @@ export class CodageAngleDroit extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function codageAngleDroit (A: Point, O: Point, B: Point, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
+export function codageAngleDroit (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
   return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
 }
 
 /**
  * Code un angle
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
+ * @param {PointAbstrait} A Point sur un côté de l'angle
+ * @param {PointAbstrait} O Sommet de l'angle
+ * @param {number|PointAbstrait} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
  * @param {number} [taille=0.8] Taille de l'angle
  * @param {string} [mark=''] Marque sur l'angle
  * @param {string} [color='black'] Couleur de l'angle : du type 'blue' ou du type '#f15929'
@@ -658,7 +659,7 @@ export function codageAngleDroit (A: Point, O: Point, B: Point, color = 'black',
  * @return {CodageAngle|CodageAngleDroit}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageAngle (A: Point, O: Point, angle: Point | number, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
+export function codageAngle (A: PointAbstrait, O: PointAbstrait, angle: PointAbstrait | number, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
   let angleNumerique: number
   if (typeof (angle) !== 'number') {
     angleNumerique = angleOriente(A, O, angle)

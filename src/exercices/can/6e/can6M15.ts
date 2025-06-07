@@ -23,7 +23,7 @@ export const uuid = 'b9878'
 
 export const refs = {
   'fr-fr': ['can6M15'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-13']
 }
 export default class PerimetreParComptageCan extends Exercice {
   constructor () {

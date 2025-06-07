@@ -19,6 +19,7 @@ import Grandeur from '../../modules/Grandeur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer périmètre et aire de figures composées'
 export const interactifReady = true
@@ -219,7 +220,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const N = point(0, c * zoom, 'N')
           const O = point(c * zoom, c * zoom, 'O')
           const P = point(c * zoom, 0, 'P')
-          const S = pointIntersectionCC(cercle(N, c1 * zoom), cercle(O, c2 * zoom), 'S', 2) as Point
+          const S = pointIntersectionCC(cercle(N, c1 * zoom), cercle(O, c2 * zoom), 'S', 2)
           const p2 = polygoneAvecNom(M, N, S, O, P)
           contourFigure.push(p2[0])
           const NO = segment(N, O)
@@ -287,10 +288,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const N = point(0, c * zoom, 'N')
           const O = point(c * zoom, c * zoom, 'O')
           const P = point(c * zoom, 0, 'P')
-          const S = pointIntersectionCC(cercle(N, h1 * zoom), cercle(O, h2 * zoom), 'S', 2) as Point
-          const T = pointIntersectionDD(droite(M, N), droiteParPointEtPerpendiculaire(S, droite(M, N))) as Point
-          const U = pointIntersectionDD(droite(O, P), droiteParPointEtPerpendiculaire(S, droite(M, N))) as Point
-          const H = pointIntersectionDD(droite(N, O), droiteParPointEtPerpendiculaire(S, droite(N, O))) as Point
+          const S = pointIntersectionCC(cercle(N, h1 * zoom), cercle(O, h2 * zoom), 'S', 2)
+          const T = pointIntersectionDD(droite(M, N), droiteParPointEtPerpendiculaire(S, droite(M, N)))
+          const U = pointIntersectionDD(droite(O, P), droiteParPointEtPerpendiculaire(S, droite(M, N)))
+          const H = pointIntersectionDD(droite(N, O), droiteParPointEtPerpendiculaire(S, droite(N, O)))
           const p2 = polygoneAvecNom(M, N, S, O, P)
           contourFigure.push(p2[0])
           const HS = segment(H, S)
@@ -541,10 +542,10 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
         }
       }
       if (this.sup4 === 1 || this.sup4 === 3 || this.sup4 === 4) {
-        texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), '  unites[longueurs]', { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
+        texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), KeyboardType.longueur, { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
       }
       if (this.sup4 === 2 || this.sup4 === 3 || this.sup4 === 4) {
-        texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), '  unites[aires]', { texteAvant: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
+        texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), KeyboardType.aire, { texteAvant: '<br>Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ', texteApres: sp(12) + 'Il faut penser à préciser l\'unité dans la réponse.' })
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -613,7 +614,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
         }
       } else {
         if (this.sup4 === 1 || this.sup4 === 3) handleAnswers(this, i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: [new Grandeur(perimetreReponses[0], 'cm'), new Grandeur(perimetreReponses[1], 'cm')], compare: fonctionComparaison, options: { unite: true, precisionUnite: this.sup3 - 1 } } })
-        if (this.sup4 === 2 || this.sup4 === 3) handleAnswers(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: [new Grandeur(aireReponses[0], 'cm^2'), new Grandeur(aireReponses[1], 'cm^2')], compare: fonctionComparaison, options: { unite: true, precisionUnite: this.sup3 - 1 } } })
+        if (this.sup4 === 2 || this.sup4 === 3) handleAnswers(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), { reponse: { value: [new Grandeur(aireReponses[0], 'cm^2'), new Grandeur(aireReponses[1], 'cm^2')], options: { unite: true, precisionUnite: this.sup3 - 1 } } })
       }
       if (this.questionJamaisPosee(i, perimetreReponses[0], aireReponses[0])) {
         this.listeQuestions[i] = texte

@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 export default class ResoudreGraphFonctionRef extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.besoinFormulaireNumerique = ['Choix des questions', 4, '1 : Avec la fonction carré\n2 : Avec la fonction inverse\n3 : Avec la fonction racine carrée\n4 : Mélange']
 
@@ -44,7 +44,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
     this.spacing = 1.5 // Interligne des questions
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2']
@@ -65,7 +65,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
       // Boucle principale où i+1 correspond au numéro de la question
       const estInegStrict = choice([true, false])
       let ensembleSolutions: string
-      function intervalleLaTex(borneGauche: string | number, borneDroite: string | number, ouvertGauche: boolean, ouvertDroite: boolean): string {
+      function intervalleLaTex (borneGauche: string | number, borneDroite: string | number, ouvertGauche: boolean, ouvertDroite: boolean): string {
         const delimGauche = ouvertGauche ? '\\left]' : '\\left['
         const delimDroite = ouvertDroite ? '\\right[' : '\\right]'
         return `${delimGauche}${borneGauche} ; ${borneDroite}${delimDroite}`
@@ -133,7 +133,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }), Cg
-              , r1, o, sAAx, sBBx, sAxBx, Texte1, Texte2, Texte3, Texte4)
+            , r1, o, sAAx, sBBx, sAxBx, Texte1, Texte2, Texte3, Texte4)
             texte = `Résoudre graphiquement l'inéquation : $x^2${signeInegalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
@@ -225,8 +225,8 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-              Cg
-              , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, Texte1, Texte2, Texte3, Texte4)
+            Cg
+            , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, Texte1, Texte2, Texte3, Texte4)
             texte = `Résoudre graphiquement l'inéquation : $x^2${signeInegalité}${a}$.<br>`
             if (!context.isHtml) {
               texte += 'On pourra utiliser le repère suivant.<br>'
@@ -333,8 +333,8 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-              Cg1
-              , r1, o, sAAx, sAxIO, sAxI2Ax, Texte1, Texte2, Texte3)
+            Cg1
+            , r1, o, sAAx, sAxIO, sAxI2Ax, Texte1, Texte2, Texte3)
 
             const graphiqueC2 = mathalea2d({ // 1/x<k avec k<0
               xmin: -6,
@@ -348,8 +348,8 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-              Cg2
-              , r1, o, sA2A2x, sA2xO, Texte1B, Texte2, Texte3B)
+            Cg2
+            , r1, o, sA2A2x, sA2xO, Texte1B, Texte2, Texte3B)
 
             const signeInégalité = estInegStrict ? ' < ' : ' \\leqslant '
             texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${signeInégalité}${a}$.<br>`
@@ -363,7 +363,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : $${borne}$.<br>
             $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement en dessous de' : ' sur ou sous '} la droite.<br>`
             if (a > 0) {
-              ensembleSolutions = intervalleLaTex('-\\infty', 0, true, estInegStrict) + '\\cup' + intervalleLaTex(borne, '+\\infty', estInegStrict, true)
+              ensembleSolutions = intervalleLaTex('-\\infty', 0, true, true) + '\\cup' + intervalleLaTex(borne, '+\\infty', estInegStrict, true)
               texteCorr += `${graphiqueC1}<br>`
               texteCorr += `Comme la fonction inverse est définie sur $\\mathbb{R}^*$, $0$ est une valeur interdite et donc l'ensemble des solutions de l'inéquation $\\dfrac{1}{x}${signeInégalité}${a}$ est : `
             } else {
@@ -459,7 +459,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-              Cg1, r1, o, sAAx, sAxO, Texte1, Texte2, Texte3)
+            Cg1, r1, o, sAAx, sAxO, Texte1, Texte2, Texte3)
 
             const graphiqueC2 = mathalea2d({ // 1/x>k avec a<0
               xmin: -6,
@@ -473,7 +473,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-              Cg2, r1, o, sA2A2x, sAxIA2x, sAxIPAx, Texte1B, Texte2, Texte3B)
+            Cg2, r1, o, sA2A2x, sAxIA2x, sAxIPAx, Texte1B, Texte2, Texte3B)
             const signeInégalité = estInegStrict ? '>' : ' \\geqslant '
             texte = `Résoudre graphiquement l'inéquation : $\\dfrac{1}{x}${signeInégalité}${a}$.<br>`
             if (!context.isHtml) {
@@ -553,8 +553,8 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-              Cg
-              , r1, o, sAAx, sAxBx, Texte1, Texte2, Texte3)
+            Cg
+            , r1, o, sAAx, sAxBx, Texte1, Texte2, Texte3)
             const signeInégalité = estInegStrict ? '<' : ' \\leqslant '
             texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${signeInégalité}${a}$.<br>`
             if (!context.isHtml) {
@@ -632,8 +632,8 @@ export default class ResoudreGraphFonctionRef extends Exercice {
               color: 'blue',
               epaisseur: 2
             }),
-              Cg
-              , r1, o, sAAx, sAxAInf, Texte1, Texte2, Texte3)
+            Cg
+            , r1, o, sAAx, sAxAInf, Texte1, Texte2, Texte3)
 
             const signeInégalité = estInegStrict ? '>' : ' \\geqslant '
             texte = `Résoudre graphiquement l'inéquation : $\\sqrt{x}${signeInégalité}${a}$.<br>`

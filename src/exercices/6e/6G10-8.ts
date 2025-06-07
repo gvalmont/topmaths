@@ -20,7 +20,7 @@ export const interactifType = 'custom'
 export const uuid = 'f8dee'
 export const refs = {
   'fr-fr': ['6G10-8'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-10']
 }
 /**
  * Utiliser la définition du cercle et du disque

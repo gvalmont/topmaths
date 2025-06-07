@@ -124,7 +124,7 @@ export default class CompleterParSymetrie6e extends Exercice {
         }
       }
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
-        image = symetrieAxiale(point(pointsPossibles[0][0], pointsPossibles[0][1]), d) as Point
+        image = symetrieAxiale(point(pointsPossibles[0][0], pointsPossibles[0][1]), d)
         j = 1
         trouve = false
         while (j < pointsPossibles.length && !trouve) {

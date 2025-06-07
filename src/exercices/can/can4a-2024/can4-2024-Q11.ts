@@ -51,7 +51,7 @@ export default class NomExercice extends Exercice {
           this.question += '$\\ldots$ min'
         } else { this.optionsChampTexte = { texteApres: 'min' } }
       } else {
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
         this.reponse = new FractionEtendue(a[0], a[1])
         this.question = `$${a[2]}$ min $=$ `
         this.correction = `$\\dfrac{1}{${a[1]}}$ h $=60\\text{ min } \\div ${a[1]} = ${texNombre(a[2] / a[0], 0)}$ min.<br>

@@ -320,31 +320,31 @@ export default class PuissancesDunRelatif1 extends Exercice {
 
           base = [base0, base1] // on choisit 2 bases différentes c'est mieux
           exp = randint(2, 5, 6) // on choisit un exposant
-          texte = `$${lettre}=${ecritureParentheseSiNegatif(base[0])}^{${exp}}\\times ${ecritureParentheseSiNegatif(base[1])}^{${exp}}$`
+          texte = `$${lettre}=${ecritureParentheseSiNegatif(base0)}^{${exp}}\\times ${ecritureParentheseSiNegatif(base1)}^{${exp}}$`
           texteCorr += texte
 
           if (this.correctionDetaillee) {
             texteCorr += '<br>'
             texteCorr += `$${lettre}=${eclatePuissance(
-              ecritureParentheseSiNegatif(base[0]),
+              ecritureParentheseSiNegatif(base0),
                             exp,
                             coul0
-                        )} \\times ${eclatePuissance(ecritureParentheseSiNegatif(base[1]), exp, coul1)}$`
+                        )} \\times ${eclatePuissance(ecritureParentheseSiNegatif(base1), exp, coul1)}$`
             texteCorr += '<br>'
             texteCorr += `$${lettre}=${reorganiseProduitPuissance(
-              ecritureParentheseSiNegatif(base[0]),
-              ecritureParentheseSiNegatif(base[1]),
+              ecritureParentheseSiNegatif(base0),
+              ecritureParentheseSiNegatif(base1),
                             exp,
                             coul0,
                             coul1
                         )}$`
           }
           texteCorr += '<br>'
-          texteCorr += `$${lettre}= (${miseEnEvidence(ecritureParentheseSiNegatif(base[0]), coul0)} \\times ${miseEnEvidence(ecritureParentheseSiNegatif(base[1]), coul1)})^{${exp}}=${miseEnEvidence(`(${base[0] * base[1]})^{${exp}}`)}$`
+          texteCorr += `$${lettre}= (${miseEnEvidence(ecritureParentheseSiNegatif(base0), coul0)} \\times ${miseEnEvidence(ecritureParentheseSiNegatif(base1), coul1)})^{${exp}}=${miseEnEvidence(`(${base0 * base1})^{${exp}}`)}$`
 
-          reponseInteractive = `(${base[0] * base[1]})^{${exp}}`
-          baseUtile = base[0] * base[1]
-          baseUtileBisAMC = base[0] * base[1] // juste pour ne pas avoir à ajouter une batterie de lignes spécifiques pour ce cas, je mets deux fois la même chose
+          reponseInteractive = base0 * base1 > 0 ? `${base0 * base1}^{${exp}}` : `(${base0 * base1})^{${exp}}`
+          baseUtile = base0 * base1
+          baseUtileBisAMC = base[0] * base1 // juste pour ne pas avoir à ajouter une batterie de lignes spécifiques pour ce cas, je mets deux fois la même chose
           base = baseUtile
           exposantInteractif = exp
           break
@@ -385,7 +385,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
           texteCorr += '<br>'
           texteCorr += `$${lettre}= \\left(\\dfrac{\\color{${coul0}}{${base0}}}{\\color{${coul1}}{${base1}}}\\right)^{${exp}}=${miseEnEvidence(`${ecritureParentheseSiNegatif(base0 / base1)}^{${exp}}`)}$`
 
-          reponseInteractive = `${base0 / base1}^{${exp}}`
+          reponseInteractive = base0 / base1 > 0 ? `${base0 / base1}^{${exp}}` : `(${base0 / base1})^{${exp}}`
           baseUtile = base0 / base1
           baseUtileBisAMC = base0 / base1
           base = baseUtile

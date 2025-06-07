@@ -11,7 +11,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const uuid = '9d5ef'
 export const refs = {
   'fr-fr': ['c3C32-02'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-20']
 }
 export const titre = 'Au marché (addition et soustraction de masses, conversions)'
 export const dateDePublication = '20/11/2024'
@@ -209,6 +209,27 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
          `${this.correctionDetaillee ? `Pour exprimer la masse totale ${fruit1.pluriel} et ${fruit2.pluriel} ${fruit1.nomSingulier.includes('une') && fruit2.nomSingulier.includes('une') ? 'achetées' : 'achetés'}, on additionne les masses.<br>` : ''}
          ${this.correctionDetaillee
 ? `${new SchemaEnBoite({
+  lignes: [
+           {
+barres: [{
+            length: 4,
+            color: fruit1.color,
+            content: `$${masseFruit1}$`
+          },
+          {
+            length: 4,
+            color: fruit2.color,
+            content: `$${masseFruit2}$`
+          }]
+},
+          {
+barres: [{
+            length: 8,
+            color: 'gray',
+            content: '?'
+          }]
+}
+  ],
           topBraces: [{
             start: 1,
             end: 5,
@@ -218,21 +239,6 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
             start: 5,
             end: 9,
             text: `${fruit2.nomPluriel}`
-          }],
-          topBar: [{
-            length: 4,
-            color: fruit1.color,
-            content: `$${masseFruit1}$`
-          },
-          {
-            length: 4,
-            color: fruit2.color,
-            content: `$${masseFruit2}$`
-          }],
-          bottomBar: [{
-            length: 8,
-            color: 'gray',
-            content: '?'
           }]
          }).display()}<br><br>`
 : ''}
@@ -253,7 +259,9 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
             end: 15,
             text: `${fruit3.nomPluriel}`
           }],
-          topBar: [{
+          lignes: [
+            {
+            barres: [{
             length: 10,
             color: 'cyan',
             content: `$${masseFruit1 + masseFruit2}$`
@@ -262,13 +270,16 @@ Le contenu de son panier pèse $${texNombre(masseTotale, 3, true)}$ kg.`
             length: 4,
             color: 'white',
             content: '?'
-          }],
-          bottomBar: [{
+          }]
+        }, {
+            barres: [{
             length: 14,
             color: 'gray',
             content: `$${masseTotale * 1000}$`
           }]
-         }).display()}<br><br>`
+        }
+          ]
+                 }).display()}<br><br>`
 : ''}
 
           $${texNombre(masseTotale * 1000, 0)}-${texNombre(masseFruit1 + masseFruit2, 0)}= ${texNombre(masseFruit3, 0)}$ g<br>

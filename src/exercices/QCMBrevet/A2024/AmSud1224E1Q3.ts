@@ -1,5 +1,5 @@
 import { cercle } from '../../../lib/2d/cercle'
-import { Point, point, pointIntersectionCC } from '../../../lib/2d/points'
+import { point, pointIntersectionCC } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../../lib/2d/transformations'
@@ -51,7 +51,7 @@ export default class AmeriqueSud1224Ex1Q3 extends ExerciceQcmA {
     const r = randint(AC - BC + 1, AC + BC - 1)
     const C1 = cercle(B, r)
     const C2 = cercle(C, AC)
-    const A = pointIntersectionCC(C1, C2, labels[0], choice([1, 2])) as Point
+    const A = pointIntersectionCC(C1, C2, labels[0], choice([1, 2]))
     const H = homothetie(A, B, BD / BC, labels[1])
     const poly = polygoneAvecNom(A, H, B, D, C, 0.8)
     const segHD = segment(H, D)

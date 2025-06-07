@@ -136,8 +136,8 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           dC = droiteParPointEtPerpendiculaire(C, d)
           dD = droiteParPointEtPerpendiculaire(D, d)
           BB = rotation(A, B, 90)
-          CC = pointIntersectionDD(dC, d, 'M', 'below right') as Point
-          DD = pointIntersectionDD(dD, d, 'N', 'above left') as Point
+          CC = pointIntersectionDD(dC, d, 'M', 'below right')
+          DD = pointIntersectionDD(dD, d, 'N', 'above left')
           lC = arrondi(longueur(CC, A) * k, 1)
           lD = arrondi(longueur(DD, A) * k, 1)
           cB = codageAngleDroit(A, B, BB)
@@ -236,9 +236,9 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           dC = droiteParPointEtParallele(C, d)
           dD = droiteParPointEtParallele(D, d)
           p = droite(A, F)
-          CC = pointIntersectionDD(dC, p, 'M', 'above left') as Point
-          DD = pointIntersectionDD(dD, p, 'N', 'above left') as Point
-          EE = pointIntersectionDD(dE, p, 'O', 'above left') as Point
+          CC = pointIntersectionDD(dC, p, 'M', 'above left')
+          DD = pointIntersectionDD(dD, p, 'N', 'above left')
+          EE = pointIntersectionDD(dE, p, 'O', 'above left')
           lC = arrondi(longueur(CC, A) * k, 1)
           lD = arrondi(longueur(DD, A) * k, 1)
           lE = arrondi(longueur(EE, A) * k, 1)
@@ -295,10 +295,10 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           dD = droiteParPointEtParallele(D, d)
           dC = droiteParPointEtPerpendiculaire(C, d)
           BB = rotation(A, B, 90)
-          CC = pointIntersectionDD(dC, d, 'M', 'below right') as Point
-          DD = pointIntersectionDD(dD, dB, 'N', 'above left') as Point
-          EE = pointIntersectionDD(dC, dE, 'O', 'above left') as Point
-          FF = pointIntersectionDD(dD, dC) as Point
+          CC = pointIntersectionDD(dC, d, 'M', 'below right')
+          DD = pointIntersectionDD(dD, dB, 'N', 'above left')
+          EE = pointIntersectionDD(dC, dE, 'O', 'above left')
+          FF = pointIntersectionDD(dD, dC)
 
           lC = arrondi(longueur(CC, A) * k, 1)
           lD = arrondi(longueur(DD, A) * k, 1)

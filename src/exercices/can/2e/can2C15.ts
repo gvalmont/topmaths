@@ -29,7 +29,7 @@ export default class NombreInverse extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
+    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion () {

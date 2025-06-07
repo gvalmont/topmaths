@@ -19,7 +19,7 @@ import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 export const uuid = 'bc6ad'
 export const refs = {
   'fr-fr': ['3Z1DNB-22'],
-  'fr-ch': []
+  'fr-ch': ['1mT-14']
 }
 export const titre = 'Préparation DNB : Statistiques, pourcentages, trigonométrie'
 export const dateDePublication = '16/04/2025'

@@ -10,6 +10,7 @@ import { droite, Droite, droiteParPointEtPerpendiculaire, Mediatrice } from './d
 import { carre, Polygone, polygone } from './polygones'
 import { DemiDroite, longueur, Segment, segment, vecteur } from './segmentsVecteurs'
 import { homothetie, rotation, similitude } from './transformations'
+import { PointAbstrait } from './points-abstraits'
 
 /**
  * A = point('A') //son nom
@@ -19,49 +20,7 @@ import { homothetie, rotation, similitude } from './transformations'
  * @author Rémi Angot
  * @class
  */
-export class Point extends ObjetMathalea2D {
-  nom: string
-  x: number
-  y: number
-
-  constructor (arg1: string | number, arg2: number, arg3?: number | string, positionLabel = 'above') {
-    super()
-    this.typeObjet = 'point'
-    this.x = 0
-    this.y = 0
-    this.nom = ' ' // Le nom d'un point est par défaut un espace. On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
-    if (arguments.length === 1) {
-      this.nom = String(arg1)
-    } else if (arguments.length === 2) {
-      if (Number.isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
-      else {
-        this.x = Number(arg1)
-        this.y = arg2
-      }
-    } else {
-      if (Number.isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
-      else {
-        this.x = Number(arg1)
-        this.y = arg2
-      }
-      this.nom = String(arg3)
-    }
-    // On n'a pas besoin de davantage de décimales pour les graphiques !
-    this.x = arrondi(this.x, 2)
-    this.y = arrondi(this.y, 2)
-
-    this.positionLabel = positionLabel
-    this.bordures = [this.x, this.y, this.x, this.y]
-  }
-
-  xSVG (coeff: number) {
-    return arrondi(this.x * coeff, 1)
-  }
-
-  ySVG (coeff: number) {
-    return arrondi(-this.y * coeff, 1)
-  }
-
+export class Point extends PointAbstrait {
   /**
      * Teste l'appartenance d'un point à tout type de polygone (non convexe ou convexe). Pour info, la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
      * @memberof Point
@@ -89,7 +48,7 @@ export class Point extends ObjetMathalea2D {
      * @return {boolean}
      */
   // JSDOC Validee par EE Aout 2022
-  estDansTriangle (A: Point, B: Point, C: Point): boolean {
+  estDansTriangle (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait): boolean {
     const vMA = vecteur(this, A)
     const vMB = vecteur(this, B)
     const vMC = vecteur(this, C)
@@ -169,12 +128,16 @@ export class Point extends ObjetMathalea2D {
  * Crée un objet Point ayant les propriétés suivantes :
  * @param {number} x abscisse
  * @param {number} y ordonnée
- * @param {string} [A] son nom qui apparaîtra
+ * @param {string} nom son nom qui apparaîtra
  * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @return {Point}
  */
-export function point (x: number, y: number, A = '', positionLabel = 'above') {
-  return new Point(x, y, A, positionLabel)
+export function point (x: number, y: number, nom = '', positionLabel = 'above') {
+  return new Point(x, y, nom, positionLabel)
+}
+
+export function pointDepuisPointAbstrait (point: PointAbstrait) {
+  return new Point(point.x, point.y, point.nom, point.positionLabel)
 }
 
 /**
@@ -467,14 +430,14 @@ export function tracePoint (...args: (Point | Point3d | string)[]) {
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export class TracePointSurDroite extends ObjetMathalea2D {
-  lieu: Point
+  lieu: PointAbstrait
   taille: number
   x: number
   y: number
-  direction: Point
+  direction: PointAbstrait
   stringColor: string
 
-  constructor (A: Point, O: Point | Droite, color = 'black') {
+  constructor (A: PointAbstrait, O: PointAbstrait | Droite, color = 'black') {
     super()
     this.stringColor = color
     this.lieu = A
@@ -484,7 +447,7 @@ export class TracePointSurDroite extends ObjetMathalea2D {
     let M, d
     this.bordures = [A.x - 0.2, A.y - 0.2, A.x + 0.2, A.y + 0.2]
 
-    if (O.constructor === Point) {
+    if (O instanceof PointAbstrait) {
       if (longueur(this.lieu, O) < 0.001) {
         window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', {
           A,
@@ -515,11 +478,11 @@ export class TracePointSurDroite extends ObjetMathalea2D {
   }
 }
 
-export function tracePointSurDroite (A: Point, O: Point | Droite, color = 'black') {
+export function tracePointSurDroite (A: PointAbstrait, O: PointAbstrait | Droite, color = 'black') {
   return new TracePointSurDroite(A, O, color)
 }
 
-export function traceMilieuSegment (A: Point, B: Point) {
+export function traceMilieuSegment (A: PointAbstrait, B: PointAbstrait) {
   return new TracePointSurDroite(milieu(A, B), droite(A, B))
 }
 
@@ -527,14 +490,14 @@ export function traceMilieuSegment (A: Point, B: Point) {
  * M = milieu(A,B) //M est le milieu de [AB]
  * M = milieu(A,B,'M') //M est le milieu [AB] et se nomme M
  * M = milieu(A,B,'M','below') //M est le milieu [AB], se nomme M et le nom est en dessous du point
- * @returns {Point} Milieu du segment [AB]
+ * @returns {PointAbstrait} Milieu du segment [AB]
  * @author Rémi Angot
  */
-export function milieu (A: Point, B: Point, nom = '', positionLabel = 'above'): Point {
+export function milieu (A: PointAbstrait, B: PointAbstrait, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2
-  return new Point(x, y, nom, positionLabel)
+  return point(x, y, nom, positionLabel)
 }
 
 /**
@@ -547,13 +510,13 @@ export function milieu (A: Point, B: Point, nom = '', positionLabel = 'above'): 
  * Sécurité ajoutée par Jean-Claude Lhote : si AB=0, alors on retourne A
  * @author Rémi Angot
  */
-export function pointSurSegment (A: Point, B: Point, l?: number, nom = '', positionLabel = 'above'): Point {
+export function pointSurSegment (A: PointAbstrait, B: PointAbstrait, l?: number, nom = '', positionLabel = 'above'): Point {
   if (isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
-  if (longueur(A, B) === 0) return A
+  if (longueur(A, B) === 0) return pointDepuisPointAbstrait(A)
   if (l === undefined || typeof l === 'string') {
     l = (longueur(A, B) * randint(15, 85)) / 100
   }
-  return homothetie(B, A, l / longueur(A, B), nom, positionLabel) as Point
+  return pointDepuisPointAbstrait(homothetie(B, A, l / longueur(A, B), nom, positionLabel))
 }
 
 /**
@@ -596,14 +559,14 @@ export function pointSurDroite (d: Droite, x: number, nom = '', positionLabel = 
  * @param {Droite} f
  * @param {string} nom  le nom du point d'intersection. Facultatif, vide par défaut.
  * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut.
- * @return {Point|boolean} Point 'M' d'intersection de d1 et de d2
+ * @return {Point} Point 'M' d'intersection de d1 et de d2
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite, nom = '', positionLabel = 'above'): Point | false {
+export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite | Mediatrice, nom = '', positionLabel = 'above'): Point | false {
   let x, y
   if (egal(f.a * d.b - f.b * d.a, 0, 0.000001)) {
     // Les droites sont parallèles ou confondues, pas de point d'intersection ou une infinité
-    return false
+    return pointIntersectionNonTrouveEntre(d, f, point(0, 0))
   } else {
     y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a)
   }
@@ -620,7 +583,7 @@ export function pointIntersectionDD (d: Droite | Mediatrice, f: Droite, nom = ''
  * @example p=pointAdistance(A,5,'M') // Place un point aléatoirement à 5 unités de A et lui donne le nom de 'M'.
  * @author Jean-Claude Lhote
  */
-export function pointAdistance (A: Point, d: number = 1, angle:string | number = 0, nom = '', positionLabel = 'above'): Point {
+export function pointAdistance (A: PointAbstrait, d: number = 1, angle:string | number = 0, nom = '', positionLabel = 'above'): Point {
   let leNom = ''
   let lAngle = 0
   let lePositionLabel = 'above'
@@ -643,10 +606,10 @@ export function pointAdistance (A: Point, d: number = 1, angle:string | number =
  * @param {Cercle} C le cercle
  * @param {string} nom le nom du point d'intersection
  * @param {entier} n 1 pour le premier point, 2 sinon. Si il n'y a qu'un seul point d'intesection, l'un ou l'autre renvoie ce point.
- * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c)
+ * @example I = pointItersectionLC(d,c,'I',1) // I est le premier point d'intersection si il existe de la droite (d) et du cercle (c). On renvoie le centre du cercle sinon.
  * @author Jean-Claude Lhote
  */
-export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Point | boolean {
+export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Point | false {
   const O = C.centre
   const r = C.rayon
   const a = d.a
@@ -660,7 +623,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
     xi = -c / a
     xiPrime = xi
     Delta = 4 * (-xO * xO - (c * c) / (a * a) - (2 * xO * c) / a + r * r)
-    if (Delta < 0) return false
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
     else if (egal(Delta, 0)) {
       // un seul point d'intersection
       yi = yO + Math.sqrt(Delta) / 2
@@ -675,7 +638,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
     yi = -c / b
     yiPrime = yi
     Delta = 4 * (-yO * yO - (c * c) / (b * b) - (2 * yO * c) / b + r * r)
-    if (Delta < 0) return false
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
     else if (egal(Delta, 0)) {
       // un seul point d'intersection
       xi = xO + Math.sqrt(Delta) / 2
@@ -688,7 +651,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
   } else {
     // cas général
     Delta = (2 * ((a * c) / (b * b) + (yO * a) / b - xO)) ** 2 - 4 * (1 + (a / b) ** 2) * (xO * xO + yO * yO + (c / b) ** 2 + (2 * yO * c) / b - r * r)
-    if (Delta < 0) return false
+    if (Delta < 0) return pointIntersectionNonTrouveEntre(d, C, C.centre)
     else if (egal(Delta, 0)) {
       // un seul point d'intersection
       delta = Math.sqrt(Delta)
@@ -727,7 +690,7 @@ export function pointIntersectionLC (d: Droite, C: Cercle, nom = '', n = 1): Poi
  * @author Rémi Angot
  * @see https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
  */
-export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): Point | boolean {
+export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): Point | false {
   const O1 = c1.centre
   const O2 = c2.centre
   const r0 = c1.rayon
@@ -740,10 +703,10 @@ export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): P
   const dy = y1 - y0
   const d = Math.sqrt(dy * dy + dx * dx)
   if (d > r0 + r1) {
-    return false
+    return pointIntersectionNonTrouveEntre(c1, c2, c1.centre)
   }
   if (d < Math.abs(r0 - r1)) {
-    return false
+    return pointIntersectionNonTrouveEntre(c1, c2, c1.centre)
   }
   const a = (r0 * r0 - r1 * r1 + d * d) / (2.0 * d)
   const x2 = x0 + (dx * a) / d
@@ -768,4 +731,10 @@ export function pointIntersectionCC (c1: Cercle, c2: Cercle, nom = '', n = 1): P
       return point(xiPrime, yiPrime, nom)
     }
   }
+}
+
+function pointIntersectionNonTrouveEntre (objet1: Cercle | Droite | Mediatrice, objet2: Cercle | Droite | Mediatrice, valeurParDefaut: PointAbstrait): false {
+  // window.notify(`${objet1.nom} et ${objet2.nom} ne se coupent pas. Impossible de trouver leur intersection.`, { objet1, objet2 })
+  // return pointDepuisPointAbstrait(valeurParDefaut)
+  return false
 }

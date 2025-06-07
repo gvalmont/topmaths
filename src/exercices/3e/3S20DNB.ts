@@ -17,7 +17,7 @@ export const refs = {
 export const titre = 'Probabilités. Exercice de brevet'
 export const dateDePublication = '27/11/2024'
 
-const listeNumeros = [26, 3, 35, 12, 28, 7, 29, 18, 22, 9, 31, 14, 20, 11, 33, 16, 24, 5, 10, 23, 8, 30, 11, 36, 13, 27, 6, 34, 17, 25, 2, 21, 4, 19, 15, 32, 0]
+const listeNumeros = [26, 3, 35, 12, 28, 7, 29, 18, 22, 9, 31, 14, 20, 1, 33, 16, 24, 5, 10, 23, 8, 30, 11, 36, 13, 27, 6, 34, 17, 25, 2, 21, 4, 19, 15, 32, 0]
 function latexRoulette (listeNumeros: number[]) {
   return `
   \\tikzset{%

@@ -9,6 +9,7 @@ import { milieu, Point, point, pointSurDroite, pointSurSegment } from './points'
 import { DemiDroite, demiDroite, longueur, norme, segment, Vecteur, vecteur } from './segmentsVecteurs'
 import { Latex2d, latex2d, TexteParPoint, texteParPosition, type LetterSizeType } from './textes'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations'
+import { PointAbstrait } from './points-abstraits'
 
 /**
  * Ajouter une étiquette sur une droite.
@@ -345,26 +346,31 @@ export class Droite extends ObjetMathalea2D {
   directeur: Vecteur
   stringColor: string
   leNom?: TexteParPoint
-  constructor (arg1: number | Point, arg2: number | Point, arg3?: number | string, arg4?: number | string, arg5?: string) {
+  constructor (arg1: number | PointAbstrait, arg2: number | PointAbstrait, arg3?: number | string, arg4?: number | string, arg5?: string) {
     super()
     let a, b, c
     this.stringColor = 'black'
 
     if (arguments.length === 2) {
-      if (Number.isNaN((arg1 as Point).x) || Number.isNaN((arg1 as Point).y) || Number.isNaN((arg2 as Point).x) || Number.isNaN((arg2 as Point).y)) {
+      if (arg1 instanceof PointAbstrait && arg2 instanceof PointAbstrait) {
+        this.x1 = arg1.x
+        this.x2 = arg2.x
+        this.y1 = arg1.y
+        this.y2 = arg2.y
+      } else {
         window.notify('Droite : (attendus : A et B) les arguments de sont pas des points valides', {
           arg1,
           arg2
         })
+        this.x1 = 0
+        this.x2 = 0
+        this.y1 = 0
+        this.y2 = 0
       }
       this.nom = ''
       this.pointilles = 0
       this.opacite = 1
       this.epaisseur = 1
-      this.x1 = (arg1 as Point).x
-      this.y1 = (arg1 as Point).y
-      this.x2 = (arg2 as Point).x
-      this.y2 = (arg2 as Point).y
       this.a = this.y1 - this.y2
       this.b = this.x2 - this.x1
       this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
@@ -690,8 +696,8 @@ export class Droite extends ObjetMathalea2D {
 
 /**  Trace une droite définie par 2 points OU BIEN par les coefficients de son équation
  * @property {number} epaisseur
- * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
- * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
+ * @param {PointAbstrait | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
+ * @param {PointAbstrait | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
  * @param {string | number} arg3 Nom affiché de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0
  * @param {string} arg4 Couleur de la droite : du type 'blue' ou du type '#f15929' OU BIEN nom affiché de la droite si arg1 est un nombre
  * @param {string} arg5 Couleur de la droite : du type 'blue' ou du type '#f15929' si arg1 est un nombre
@@ -702,7 +708,7 @@ export class Droite extends ObjetMathalea2D {
  * @author Jean-Claude Lhote
  * @return {Droite}
  */
-export function droite (arg1: number | Point, arg2: number | Point, arg3?: number | string, arg4?: number | string, arg5?: string) {
+export function droite (arg1: number | PointAbstrait, arg2: number | PointAbstrait, arg3?: number | string, arg4?: number | string, arg5?: string) {
   if (arguments.length === 2) return new Droite(arg1, arg2)
   if (arguments.length === 3) return new Droite(arg1, arg2, arg3)
   if (arguments.length === 4) return new Droite(arg1, arg2, arg3, arg4)
@@ -780,7 +786,7 @@ export function positionLabelDroite (d: Droite, { xmin = 0, ymin = 0, xmax = 10,
 }
 
 /**  Trace la droite passant par le point A et de vecteur directeur v
- * @param {Point} A Point de la droite
+ * @param {PointAbstrait} A Point de la droite
  * @param {Vecteur} v Vecteur directeur de la droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -790,13 +796,13 @@ export function positionLabelDroite (d: Droite, { xmin = 0, ymin = 0, xmax = 10,
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteParPointEtVecteur (A: Point, v: Vecteur, nom = '', color = 'black') {
+export function droiteParPointEtVecteur (A: PointAbstrait, v: Vecteur, nom = '', color = 'black') {
   const B = point(A.x + v.x, A.y + v.y)
   return new Droite(A, B, nom, color)
 }
 
 /**  Trace la droite parallèle à d passant par le point A
- * @param {Point} A Point de la droite
+ * @param {PointAbstrait} A Point de la droite
  * @param {Droite} d Droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -806,12 +812,12 @@ export function droiteParPointEtVecteur (A: Point, v: Vecteur, nom = '', color =
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteParPointEtParallele (A: Point, d: Droite, nom = '', color = 'black') {
+export function droiteParPointEtParallele (A: PointAbstrait, d: Droite, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.directeur, nom, color)
 }
 
 /**  Trace la droite perpendiculaire à d passant par le point A
- * @param {Point} A Point de la droite
+ * @param {PointAbstrait} A Point de la droite
  * @param {Droite} d Droite
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [color = 'black'] Couleur de la droite : du type 'blue' ou du type '#f15929'
@@ -821,7 +827,7 @@ export function droiteParPointEtParallele (A: Point, d: Droite, nom = '', color 
  * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteParPointEtPerpendiculaire (A: Point, d: Droite, nom = '', color = 'black') {
+export function droiteParPointEtPerpendiculaire (A: PointAbstrait, d: Droite, nom = '', color = 'black') {
   return droiteParPointEtVecteur(A, d.normal, nom, color)
 }
 
@@ -871,8 +877,8 @@ export function droiteParPointEtPente (A: Point, k: number, nom = '', color = 'b
 
 /**
  * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
+ * @param {PointAbstrait} A Première extrémité du segment
+ * @param {PointAbstrait} B Seconde extrémité du segment
  * @param {string} [nom = ''] Nom affiché de la droite
  * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
  * @param {string} [color='blue'] Couleur du codage : du type 'blue' ou du type '#f15929'.
@@ -906,8 +912,8 @@ export class Mediatrice extends ObjetMathalea2D {
   couleurConstruction?: string
 
   constructor (
-    A: Point,
-    B: Point,
+    A: PointAbstrait,
+    B: PointAbstrait,
     nom = '',
     couleurMediatrice = 'red',
     color = 'blue',
@@ -1041,7 +1047,7 @@ export class Mediatrice extends ObjetMathalea2D {
  * @return {Mediatrice|Droite}
  */
 // JSDOC Validee par EE Juin 2022
-export function mediatrice (A: Point, B: Point, nom = '', couleurMediatrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, markmilieu = '×', markrayons = '||', epaisseurMediatrice = 1, opaciteMediatrice = 1, pointillesMediatrice = 0) {
+export function mediatrice (A: PointAbstrait, B: PointAbstrait, nom = '', couleurMediatrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, markmilieu = '×', markrayons = '||', epaisseurMediatrice = 1, opaciteMediatrice = 1, pointillesMediatrice = 0) {
   if (arguments.length < 5) return new Mediatrice(A, B, nom, couleurMediatrice)
   else return new Mediatrice(A, B, nom, couleurMediatrice, color, couleurConstruction, construction, detail, markmilieu, markrayons, epaisseurMediatrice, opaciteMediatrice, pointillesMediatrice)
 }
@@ -1085,9 +1091,9 @@ export class Bissectrice extends DemiDroite {
   couleurConstruction?: string
 
   constructor (
-    A: Point,
-    O: Point,
-    B: Point,
+    A: PointAbstrait,
+    O: PointAbstrait,
+    B: PointAbstrait,
     couleurBissectrice = 'red',
     color = 'blue',
     couleurConstruction = 'black',

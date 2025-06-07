@@ -22,7 +22,7 @@ export const uuid = 'a17d6'
 
 export const refs = {
   'fr-fr': ['can6M17'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-11']
 }
 export default class DifferenceAireParComptageCan extends Exercice {
   constructor () {

@@ -17,7 +17,7 @@ export const uuid = '59365'
 
 export const refs = {
   'fr-fr': ['can3C11'],
-  'fr-ch': []
+  'fr-ch': ['10NO3-6a']
 }
 export default class calculsRacinesCarresPafaits extends Exercice {
   constructor () {

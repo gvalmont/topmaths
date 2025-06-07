@@ -8,7 +8,7 @@ export const uuid = 'd1861'
 export const titre = 'Multiplier en utilisant la distributivité'
 export const refs = {
   'fr-fr': ['5C12-6'],
-  'fr-ch': []
+  'fr-ch': ['1mCL1-14', '10FA2-5', '11FA2-21']
 }
 export const interactifReady = true
 export const interactifType = 'mathLive'

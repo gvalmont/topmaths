@@ -1,7 +1,7 @@
 import { angle, codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
-import { milieu, Point, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import { milieu, point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { grille, seyes } from '../../lib/2d/reperes'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
@@ -248,11 +248,11 @@ export default class constructionPerpendiculaires extends Exercice {
       }
       anim.taille((Xmax - Xmin + 5) * 30, (Ymax - Ymin + 5) * 30)
       anim.recadre(Xmin - 3, Ymax)
-      B = homothetie(A, B, 0.5, 'B', 'above right') as Point
-      C = homothetie(A, C, 0.5, 'C', 'above right') as Point
-      pHc = homothetie(A, pHc, 0.5) as Point
-      pHb = homothetie(A, pHb, 0.5) as Point
-      pHa = homothetie(A, pHa, 0.5) as Point
+      B = homothetie(A, B, 0.5, 'B', 'above right')
+      C = homothetie(A, C, 0.5, 'C', 'above right')
+      pHc = homothetie(A, pHc, 0.5)
+      pHb = homothetie(A, pHb, 0.5)
+      pHa = homothetie(A, pHa, 0.5)
       ortho = homothetie(A, ortho, 0.5)
       anim.pointsCreer(A, B, C)
       anim.regleModifierLongueur(20)

@@ -22,7 +22,7 @@ export const uuid = 'f7f49'
 
 export const refs = {
   'fr-fr': ['4C23-11', 'BP2AutoH19'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-12', '11TAF-3', '11EVA-5', '1mCN-15']
 }
 export default class FractionEtPriorites extends Exercice {
   constructor () {

@@ -1,6 +1,6 @@
 import { angle, codageAngle } from '../../lib/2d/angles'
 import { droite, droiteParPointEtParallele } from '../../lib/2d/droites'
-import { Point, point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
+import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
@@ -64,7 +64,7 @@ export default class EgaliteDAngles extends Exercice {
         const B = pointSurSegment(A, C, randint(3, ac - 4), noms[1], 'above left')
         const BD = droiteParPointEtParallele(B, AE, '', '#f15929')
         // BD.epaisseur = 2
-        const D = pointIntersectionDD(BD, CE, noms[3], 'above right') as Point
+        const D = pointIntersectionDD(BD, CE, noms[3], 'above right')
         const m1 = codageAngle(E, A, C, 1, '', 'black', 2, 1, context.isAmc ? 'none' : 'black', 0.1, true)
         const m2 = codageAngle(A, C, E, 1, '', 'black', 2, 1, context.isAmc ? 'none' : 'black', 0.1, true)
         const l1 = labelPoint(A, B, C, D, E)

@@ -42,7 +42,7 @@ export default class ConstruireHomothetiePoint3e extends Exercice {
     this.sup2 = 3
   }
 
-  nouvelleVersion (numeroExercice) {
+  nouvelleVersion (numeroExercice: number) {
     let plusieursCiblesPourUnPoint = true
     const listeRapports = [-2, -1.5, -0.5, 0.5, 1.5, 2]
     const choixCodage = ['OO', '|||', '//']
@@ -56,7 +56,7 @@ export default class ConstruireHomothetiePoint3e extends Exercice {
         plusieursCiblesPourUnPoint = this.sup2 === 3 ? !plusieursCiblesPourUnPoint : this.sup2 === 2
         let result = [0, 0]; texteCorr = ''; const nbpoints = plusieursCiblesPourUnPoint ? 1 : parseInt(this.sup)
         const propositionsAMC = []
-        const celluleAlea = function (rang) {
+        const celluleAlea = function (rang: number) {
           const lettre = lettreDepuisChiffre(randint(1, rang))
           const chiffre = Number(randint(1, rang)).toString()
           return lettre + chiffre

@@ -4,7 +4,6 @@ import { afficheLongueurSegment, codageSegments, texteSurSegment } from '../../l
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
   milieu,
-  Point,
   point,
   pointAdistance,
   pointIntersectionCC,
@@ -98,6 +97,8 @@ export default class ConstruireUnTriangle extends Exercice {
       let texteCorr = ''
       if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
       IEP = new Alea2iep()
+      IEP.tempo = 0
+      IEP.vitesse = 1000
       objetsEnonce = []
       objetsCorrection = []
       if (!this.sup2) {
@@ -121,7 +122,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
           objetsEnonce.push(afficheLongueurSegment(B, A), texteSurSegment(`${stringNombre(segment(B, C).longueur, 1)} cm`, CC, B), texteSurSegment(`${stringNombre(segment(A, C).longueur, 1)} cm`, A, CC))
@@ -141,7 +142,7 @@ export default class ConstruireUnTriangle extends Exercice {
           cA = cercle(A, lAC)
           dAB = droite(A, B)
           dBC = droiteParPointEtPerpendiculaire(B, dAB)
-          C = pointIntersectionLC(dBC, cA, sommets[2], 1) as Point
+          C = pointIntersectionLC(dBC, cA, sommets[2], 1)
           CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
 
           objetsEnonce.push(afficheLongueurSegment(B, A), texteSurSegment(`${stringNombre(segment(A, C).longueur, 1)} cm`, CC, A), codageAngleDroit(A, B, CC))
@@ -182,7 +183,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
           objetsEnonce.push(afficheLongueurSegment(B, A), texteSurSegment(`${stringNombre(segment(B, C).longueur, 1)} cm`, CC, B), texteSurSegment(`${stringNombre(segment(A, C).longueur, 1)} cm`, A, CC))
@@ -196,7 +197,7 @@ export default class ConstruireUnTriangle extends Exercice {
           verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)} cm`) + '.<br>'
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
-          const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC, false)
+          const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC, { description: false })
           IEP.regleMontrer(Ai)
           IEP.regleRotation(Bi)
           IEP.pointCreer(milieu(Ai, Bi), { dx: 0, dy: -0.5, label: sommets[3] })
@@ -237,7 +238,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
 
@@ -252,7 +253,7 @@ export default class ConstruireUnTriangle extends Exercice {
           verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)} cm`) + '.<br>'
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
-          const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC, false)
+          const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC, { description: false })
           IEP.regleMontrer(Ai)
           IEP.regleRotation(Bi)
           IEP.pointCreer(milieu(Ai, Bi), { dx: 0, dy: -0.5, label: sommets[3] })
@@ -292,7 +293,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
 
@@ -308,7 +309,7 @@ export default class ConstruireUnTriangle extends Exercice {
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée, l\'équerre et le compas.<br>'
 
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
-          const [Ai, Bi, Ci] = IEP.triangleRectangleCoteHypotenuse(sommets.slice(0, 3).join(''), lAB, lBC, false)
+          const [Ai, Bi, Ci] = IEP.triangleRectangleCoteHypotenuse(sommets.slice(0, 3).join(''), lAB, lBC, { description: false })
           IEP.regleMontrer(Ci)
           IEP.regleRotation(Bi)
           IEP.pointCreer(milieu(Ci, Bi), { dx: 0, dy: -0.5, label: sommets[3] })
@@ -348,7 +349,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
 
@@ -364,7 +365,7 @@ export default class ConstruireUnTriangle extends Exercice {
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée et l\'équerre.<br>'
 
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
-          const [Ai, Bi, Ci] = IEP.triangleRectangle2Cotes(sommets.slice(0, 3).join(''), lAB, lAC, false)
+          const [Ai, Bi, Ci] = IEP.triangleRectangle2Cotes(sommets.slice(0, 3).join(''), lAB, lAC, { description: false })
           IEP.regleMontrer(Ai)
           IEP.regleRotation(Ci)
           IEP.pointCreer(milieu(Ai, Ci), { dx: 0, dy: -0.5, label: sommets[3] })
@@ -408,7 +409,7 @@ export default class ConstruireUnTriangle extends Exercice {
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
           cB = cercle(B, lBC)
-          C = pointIntersectionCC(cA, cB, sommets[2], 1) as Point
+          C = pointIntersectionCC(cA, cB, sommets[2], 1)
           C.positionLabel = 'above'
           CC = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, sommets[2])
 
@@ -423,7 +424,7 @@ export default class ConstruireUnTriangle extends Exercice {
           verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)} cm`) + '.<br>'
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
-          const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC, false)
+          const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3).join(''), lAB, lAC, lBC, { description: false })
           IEP.regleMontrer(Ai)
           IEP.regleRotation(Bi)
           IEP.pointCreer(milieu(Ai, Bi), { dx: 0, dy: -0.5, label: sommets[3] })

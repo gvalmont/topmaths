@@ -49,7 +49,7 @@ export const interactifType = 'mathLive'
 export const uuid = '1bf3b'
 export const refs = {
   'fr-fr': ['4C11-0'],
-  'fr-ch': ['']
+  'fr-ch': ['1mCN-14', '9NO6-5', '10N06-4', '11TAF-2', '11EVA-4']
 }
 
 export default class PrioritesEtRelatifsComplex extends Exercice {

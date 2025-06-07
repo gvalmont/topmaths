@@ -12,7 +12,7 @@
 
   export let exercises: Exercice[] = []
   export let slideshow: Slideshow
-  export let updateExercises: (updateSlidesContent?: boolean) => void
+  export let updateExercises: (updateSlidesContent?: boolean, updateParamsFromUrl?: boolean) => void
   export let backToSettings: () => void
 
   let currentSeriesIndex: 0 | 1 | 2 | 3 | 4 = 0
@@ -90,7 +90,7 @@
       })
     }
     exercicesParams.set(newParams)
-    updateExercises()
+    updateExercises(true)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     isQuestionsVisible = true
     isCorrectionVisible = false

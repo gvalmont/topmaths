@@ -138,7 +138,7 @@ export default class ProbaUnionInter extends Exercice {
             P(A\\cup B) &=${reponse}           
             \\end{aligned}$<br>
             Ainsi $P(A\\cup B)=${miseEnEvidence(reponse)}$.`
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '$P(A)=$' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '$P(A\\cup B)=$' })
           }
           break
         case 5:{ // on cherche P(A union  B) avec des événements contraires

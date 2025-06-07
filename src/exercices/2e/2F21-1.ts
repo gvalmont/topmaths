@@ -739,8 +739,8 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
                   '  Au bout de combien de jours, l\'éleveur sera-t-il à court de grains ? Justifier.<br> ',
                   ' Quelle quantité de grains en kg consomment les poulets en une journée ?<br> ',
                  ` Un jour, des renards ont tué la moitié des poulets, divisant par deux la quantité de grains consommée par jour.<br>
-                  Il lui reste $${rest}$ kg de grains. <br>
-                  Donner la fonction qui modélise la quantité de grains restante en fonction du nombre de jours. <br>
+                  Il  reste à l'éleveur $${rest}$ kg de grains. <br>
+                  Donner la fonction qui modélise la quantité de grains restante en fonction du nombre de jours écoulés. <br>
                   On notera $g$ cette fonction. `
 
                 ],

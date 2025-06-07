@@ -15,6 +15,7 @@ export default engine
 
 export type ResultType = { isOk: boolean; feedback?: string }
 export type OptionsComparaisonType = {
+  noFeedback?: boolean
   expressionsForcementReduites?: boolean
   avecSigneMultiplier?: boolean
   avecFractions?: boolean

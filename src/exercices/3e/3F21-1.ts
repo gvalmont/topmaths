@@ -1,5 +1,5 @@
 import { droiteParPointEtPente, positionLabelDroite } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { latexParPoint } from '../../lib/2d/textes'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
@@ -110,7 +110,7 @@ export default class LectureExpressionFonctionsAffines extends Exercice {
       if (posLab[i] instanceof Vide2d) {
         objets2d.push(d[i])
       } else {
-        nomDroite[i] = latexParPoint(`(d_${i + 1})`, (posLab[i] as Point), colors[i], 20, 10, '', 6)
+        nomDroite[i] = latexParPoint(`(d_${i + 1})`, posLab[i], colors[i], 20, 10, '', 6)
         objets2d.push(d[i], nomDroite[i])
       }
     }

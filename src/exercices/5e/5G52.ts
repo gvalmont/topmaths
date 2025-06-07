@@ -24,7 +24,7 @@ export const dateDePublication = '27/04/2024'
 export const uuid = 'bc788'
 export const refs = {
   'fr-fr': ['5G52'],
-  'fr-ch': []
+  'fr-ch': ['11ES1-2', '10ES1-2']
 }
 /**
  * calculer des longueurs avec un patron de cylindre
@@ -264,7 +264,7 @@ export default class nomExercice extends Exercice {
           const [colonne1, colonne2] = definiColonnes(objetsPerspective, objetsPatron, scaleDessin)
           const [rColonne1, rColonne2] = definiColonnes(objetsPerspectiveReponse, objetsPatronReponse, scaleDessin)
           // texte += `Question ${i + 1} de type CylindreVersPatron<br>${listetypeOrientationCylindre[i]}<br>`
-          texte += 'On souhaite construire le patron  du cylindre ci-dessous.<br> Complète le schéma du patron en indiquant les longeurs en valeur exacte si possible ou au millimètre près.<br>'
+          texte += 'On souhaite construire le patron  du cylindre ci-dessous.<br> Complète le schéma du patron en indiquant les longueurs en valeur exacte si possible ou au millimètre près.<br>'
           texte += '<br><br>'
           texte += deuxColonnesResp(colonne1, colonne2, {
             largeur1: largeurCol,
@@ -295,7 +295,7 @@ export default class nomExercice extends Exercice {
           const [colonne1, colonne2] = definiColonnes(objetsPatron, objetsPerspective, scaleDessin)
           const [rColonne1, rColonne2] = definiColonnes(objetsPatronReponse, objetsPerspectiveReponse, scaleDessin)
           // texte += `Question ${i + 1} de type PatronVersCylindre`
-          texte += 'On souhaite connaitre les dimensions du cylindre correspondant au patrons ci-dessous.<br> Complète le schéma du cylindre en indiquant les longeurs en valeur exacte si possible ou au millimètre près.<br>'
+          texte += 'On souhaite connaitre les dimensions du cylindre correspondant au patrons ci-dessous.<br> Complète le schéma du cylindre en indiquant les longueurs en valeur exacte si possible ou au millimètre près.<br>'
           texte += '<br><br>'
           texte += deuxColonnesResp(colonne1, colonne2, {
             largeur1: largeurCol,

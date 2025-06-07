@@ -3,7 +3,6 @@ import { arc, cercle } from '../../lib/2d/cercle'
 import { afficheLongueurSegment, codageSegments, texteSurSegment } from '../../lib/2d/codages'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import {
-  Point,
   point,
   pointAdistance,
   pointIntersectionCC,
@@ -160,9 +159,9 @@ export default class ExercicePerimetresEtAires extends Exercice {
             texte += 'de ce rectangle.'
             const A = point(0, 0, nomRectangle.charAt(0), 'below left')
             const B = pointAdistance(A, L, randint(-5, 5, [0]), nomRectangle.charAt(1), 'below right')
-            const C = pointIntersectionLC(droiteParPointEtPerpendiculaire(B, droite(A, B)), cercle(B, l), nomRectangle.charAt(2), 1) as Point
+            const C = pointIntersectionLC(droiteParPointEtPerpendiculaire(B, droite(A, B)), cercle(B, l), nomRectangle.charAt(2), 1)
             C.positionLabel = 'above right'
-            const D = pointIntersectionLC(droiteParPointEtPerpendiculaire(A, droite(A, B)), cercle(A, l), nomRectangle.charAt(3), 1) as Point
+            const D = pointIntersectionLC(droiteParPointEtPerpendiculaire(A, droite(A, B)), cercle(A, l), nomRectangle.charAt(3), 1)
             D.positionLabel = 'above left'
             const figure = polygone(A, B, C, D)
 
@@ -209,7 +208,7 @@ export default class ExercicePerimetresEtAires extends Exercice {
             const B = pointAdistance(A, a * zoom, randint(-5, 5, [0]), nomTriangle.charAt(1), 'below right')
             // const B = point(a * zoom, 0, nomTriangle.charAt(1), 'below right')
             // const C = point(0, b * zoom, nomTriangle.charAt(2), 'above left')
-            const C = pointIntersectionCC(cercle(A, b * zoom), cercle(B, c * zoom), nomTriangle.charAt(2)) as Point
+            const C = pointIntersectionCC(cercle(A, b * zoom), cercle(B, c * zoom), nomTriangle.charAt(2))
             const figure = polygone(A, B, C)
             // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
             const xmin = Math.min(A.x) - 2

@@ -115,10 +115,10 @@ export default class ModeliseInequations extends Exercice {
             const budget = randint(20, 35) * 10 //
 
             texte = ` Pour la location mensuelle d'un véhicule, une entreprise propose le tarif suivant :<br>
-            Forfait de $${b}$ € quelque soit le nombre de km parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
+            Forfait de $${b}$ € quel que soit le nombre de km parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
             
             ${quidam} loue une voiture à cette société. Elle a un budget de $${budget}$ € et ne veut pas le dépasser.<br>
-                      Quel est le nombre maximum de km (arrondi à l'unité si besoin) qu'elle pourra parcourir sans dépasser son budget ?
+                      Quel nombre maximum de km (arrondi à l'unité) pourra-t-elle parcourir sans dépasser son budget  ?
                                    `
             texteCorr = `En notant $x$, le nombre de km parcourus, le coût pour la location mensuelle est donné par : $${reduireAxPlusB(a, b)}$.<br>
             Le budget de ${quidam} étant de  $${budget}$ €, le nombre de km $x$ qu'elle pourra parcourir doit vérifier $${reduireAxPlusB(a, b)}<${budget}$.<br>

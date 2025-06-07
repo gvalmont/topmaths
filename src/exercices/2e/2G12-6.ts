@@ -103,8 +103,8 @@ export default class Reperage2e extends Exercice {
       const traceRep = tracePoint(pointO, pointI, pointK)
       traceRep.style = '.'
       traceRep.epaisseur = 1
-      const IPrime = homothetie(pointI, pointO, 4) as Point
-      const KPrime = homothetie(pointK, pointO, 3) as Point
+      const IPrime = homothetie(pointI, pointO, 4)
+      const KPrime = homothetie(pointK, pointO, 3)
       const INeg = rotation(IPrime, pointO, 180)
       const KNeg = rotation(KPrime, pointO, 180)
       const OI = segment(INeg, homothetie(IPrime, pointO, 1.05))
@@ -154,7 +154,7 @@ export default class Reperage2e extends Exercice {
           }
         }
       }
-      const dots = this.sup4 ? grid : tracePoint(...(grid.filter(el => el instanceof Point) as Point[]))
+      const dots = this.sup4 ? grid : tracePoint(...grid.filter(el => el instanceof Point))
       const ticks = this.sup4 ? [] : grid.filter(el => el instanceof Segment)
       if (this.sup4) {
         for (const el of dots as Segment[]) {

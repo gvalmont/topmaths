@@ -7,10 +7,13 @@ import {
   pointIntersectionLC,
   pointSurSegment
 } from '../../lib/2d/points'
+import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { longueur } from '../../lib/2d/segmentsVecteurs'
 import { homothetie, rotation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
+import type { OptionsCompas } from '../Alea2iep'
+import type Alea2iep from '../Alea2iep'
 import { randint } from '../outils'
 
 /**
@@ -22,11 +25,12 @@ import { randint } from '../outils'
    * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
    * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
    */
-export const triangle3longueurs = function (ABC, AB, AC, BC, description = true) {
+export const triangle3longueurs = function (this: Alea2iep, ABC: string, AB: number, AC: number, BC: number, options: OptionsCompas = {}) {
   const A = point(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const p = triangle2points2longueurs(A, B, AC, BC)
   const C = p.listePoints[2]
+  let description = options.description ?? true
   if (ABC.length !== 3) {
     description = false
   } else {
@@ -35,32 +39,32 @@ export const triangle3longueurs = function (ABC, AB, AC, BC, description = true)
     C.nom = ABC[2]
   }
 
-  if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
-  this.pointCreer(A)
-  // this.regleRotation(droite(A,B).angleAvecHorizontale)
-  // this.regleMontrer(A)
-  this.regleSegment(A, B)
-  this.pointCreer(B)
-  this.crayonMasquer()
-  if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -3)
+  if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2, options)
+  this.pointCreer(A, options)
+  // this.regleRotation(droite(A,B).angleAvecHorizontale, options)
+  // this.regleMontrer(A, options)
+  this.regleSegment(A, B, options)
+  this.pointCreer(B, options)
+  this.crayonMasquer(options)
+  if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -3, options)
   this.couleur = 'forestgreen'
   this.epaisseur = 2
-  this.compasMontrer(A)
-  this.compasEcarterAvecRegle(AC)
-  this.compasTracerArcCentrePoint(A, C, 40)
-  if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} appartient au cercle de centre ${B.nom} et de rayon ${nombreAvecEspace(BC)} cm.`, 0, -4)
-  this.compasDeplacer(B)
-  this.compasEcarterAvecRegle(BC)
-  this.compasTracerArcCentrePoint(B, C)
-  this.compasMasquer()
+  this.compasMontrer(A, options)
+  this.compasEcarterAvecRegle(AC, options)
+  this.compasTracerArcCentrePoint(A, C, options)
+  if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} appartient au cercle de centre ${B.nom} et de rayon ${nombreAvecEspace(BC)} cm.`, 0, -4, options)
+  this.compasDeplacer(B, options)
+  this.compasEcarterAvecRegle(BC, options)
+  this.compasTracerArcCentrePoint(B, C, options)
+  this.compasMasquer(options)
   this.couleur = 'blue'
   this.epaisseur = 3
-  if (description) this.textePosition(`Le point ${C.nom} est à une intersection des deux cercles.`, 0, -5)
-  this.pointCreer(C)
-  this.regleSegment(B, C)
-  this.regleSegment(C, A)
-  this.crayonMasquer()
-  this.regleMasquer()
+  if (description) this.textePosition(`Le point ${C.nom} est à une intersection des deux cercles.`, 0, -5, options)
+  this.pointCreer(C, options)
+  this.regleSegment(B, C, options)
+  this.regleSegment(C, A, options)
+  this.crayonMasquer(options)
+  this.regleMasquer(options)
   return [A, B, C]
 }
 /**
@@ -73,7 +77,7 @@ export const triangle3longueurs = function (ABC, AB, AC, BC, description = true)
      * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
      * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
      */
-export const triangleRectangleCoteHypotenuse = function (ABC, AB, AC, description = true) { // Triangle rectangle en B
+export const triangleRectangleCoteHypotenuse = function (this: Alea2iep, ABC: string, AB: number, AC: number, options: OptionsCompas = {}) { // Triangle rectangle en B
   const A = point(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const dAB = droite(A, B)
@@ -84,6 +88,7 @@ export const triangleRectangleCoteHypotenuse = function (ABC, AB, AC, descriptio
   cAC.isVisible = false
   const C = pointIntersectionLC(dBC, cAC)
   const c = homothetie(C, B, 1.2)
+  let description = options.description ?? true
   if (ABC.length !== 3) {
     description = false
   } else {
@@ -94,32 +99,32 @@ export const triangleRectangleCoteHypotenuse = function (ABC, AB, AC, descriptio
 
   if (longueur(A, C) > 8) this.equerreZoom(150)
   if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
-  this.equerreRotation(dAB.angleAvecHorizontale)
-  this.pointCreer(A)
-  this.regleSegment(A, B)
-  this.pointCreer(B)
-  if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3)
-  this.equerreMontrer(A)
-  this.equerreDeplacer(B)
-  this.tracer(c)
-  this.equerreMasquer()
-  this.codageAngleDroit(A, B, C)
-  this.crayonMasquer()
-  if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -4)
-  this.compasMontrer(A)
-  this.compasEcarterAvecRegle(AC)
+  this.equerreRotation(dAB.angleAvecHorizontale, options)
+  this.pointCreer(A, options)
+  this.regleSegment(A, B, options)
+  this.pointCreer(B, options)
+  if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3, options)
+  this.equerreMontrer(A, options)
+  this.equerreDeplacer(B, options)
+  this.tracer(c, options)
+  this.equerreMasquer(options)
+  this.codageAngleDroit(A, B, C, options)
+  this.crayonMasquer(options)
+  if (description) this.textePosition(`${A.nom + C.nom} = ${nombreAvecEspace(AC)} cm donc ${C.nom} appartient au cercle de centre ${A.nom} et de rayon ${nombreAvecEspace(AC)} cm.`, 0, -4, options)
+  this.compasMontrer(A, options)
+  this.compasEcarterAvecRegle(AC, options)
   this.couleur = 'forestgreen'
   this.epaisseur = 2
-  this.compasTracerArcCentrePoint(A, C)
+  this.compasTracerArcCentrePoint(A, C, options)
   this.couleur = 'blue'
   this.epaisseur = 2
-  if (description) this.textePosition(`${C.nom} est à une intersection de la perpendiculaire et du cercle.`, 0, -5)
-  this.crayonMontrer(C)
-  this.pointCreer(C)
-  this.compasMasquer()
-  this.regleSegment(A, C)
-  this.regleMasquer()
-  this.crayonMasquer()
+  if (description) this.textePosition(`${C.nom} est à une intersection de la perpendiculaire et du cercle.`, 0, -5, options)
+  this.crayonMontrer(C, options)
+  this.pointCreer(C, options)
+  this.compasMasquer(options)
+  this.regleSegment(A, C, options)
+  this.regleMasquer(options)
+  this.crayonMasquer(options)
   return [A, B, C]
 }
 
@@ -133,7 +138,7 @@ export const triangleRectangleCoteHypotenuse = function (ABC, AB, AC, descriptio
      * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
      * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
      */
-export const triangleRectangle2Cotes = function (ABC, AB, BC, description = true) { // Triangle rectangle en B
+export const triangleRectangle2Cotes = function (this: Alea2iep, ABC: string, AB: number, BC: number, options: OptionsCompas = {}) { // Triangle rectangle en B
   const A = point(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const dAB = droite(A, B)
@@ -144,6 +149,7 @@ export const triangleRectangle2Cotes = function (ABC, AB, BC, description = true
   cBC.isVisible = false
   const C = pointIntersectionLC(dBC, cBC)
   const c = homothetie(C, B, 1.2)
+  let description = options.description ?? true
   if (ABC.length !== 3) {
     description = false
   } else {
@@ -152,31 +158,35 @@ export const triangleRectangle2Cotes = function (ABC, AB, BC, description = true
     C.nom = ABC[2]
   }
 
-  if (longueur(A, C) > 8) this.equerreZoom(150)
-  if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2)
-  this.equerreRotation(dAB.angleAvecHorizontale)
-  this.pointCreer(A)
-  this.regleSegment(A, B)
-  this.pointCreer(B)
-  if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3)
-  this.equerreMontrer(A)
-  this.equerreDeplacer(B)
-  this.tracer(c)
-  this.equerreMasquer()
-  this.codageAngleDroit(A, B, C)
-  if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} est à ${nombreAvecEspace(BC)} cm de ${B.nom} sur la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -4)
-  this.regleMontrer(B)
-  this.regleRotation(C)
-  this.crayonDeplacer(C)
-  this.pointCreer(C)
+  if (longueur(A, C) > 8) this.equerreZoom(150, options)
+  if (description) this.textePosition(`${A.nom + B.nom} = ${nombreAvecEspace(AB)} cm`, 0, -2, options)
+  this.equerreRotation(dAB.angleAvecHorizontale, options)
+  this.pointCreer(A, options)
+  this.regleSegment(A, B, options)
+  this.pointCreer(B, options)
+  if (description) this.textePosition(`${A.nom + B.nom + C.nom} est un triangle rectangle en ${B.nom} donc ${C.nom} appartient à la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -3, options)
+  this.equerreMontrer(A, options)
+  this.equerreDeplacer(B, options)
+  this.tracer(c, options)
+  this.equerreMasquer(options)
+  this.codageAngleDroit(A, B, C, options)
+  if (description) this.textePosition(`${B.nom + C.nom} = ${nombreAvecEspace(BC)} cm donc ${C.nom} est à ${nombreAvecEspace(BC)} cm de ${B.nom} sur la perpendiculaire à (${A.nom + B.nom}) passant par ${B.nom}.`, 0, -4, options)
+  this.regleMontrer(B, options)
+  this.regleRotation(C, options)
+  this.crayonDeplacer(C, options)
+  this.pointCreer(C, options)
   this.couleur = 'blue'
   this.epaisseur = 2
-  this.compasMasquer()
-  this.regleSegment(A, C)
-  this.regleMasquer()
-  this.crayonMasquer()
+  this.compasMasquer(options)
+  this.regleSegment(A, C, options)
+  this.regleMasquer(options)
+  this.crayonMasquer(options)
 
   return [A, B, C]
+}
+
+type OptionsTriangle1longueur2angles = OptionsCompas & {
+  mesure?: boolean
 }
 /**
      * Macro de construction d'un triangle à partir d'une longueur et des 2 angles adajcents au côté connu. Le premier point aura pour coordonnées (6,0).
@@ -187,7 +197,7 @@ export const triangleRectangle2Cotes = function (ABC, AB, BC, description = true
      * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
      * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
      */
-export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description = true, mesure = false) {
+export const triangle1longueur2angles = function (this: Alea2iep, NOM: string | string[], AB: number, BAC: number, CBA: number, options: OptionsTriangle1longueur2angles = {}) {
   const angle = randint(-20, 20)
   const a1 = BAC
   const a2 = CBA
@@ -206,6 +216,8 @@ export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description
   const d2 = rotation(droite(B, A), B, -a2)
   d2.isVisible = false
   const C = pointIntersectionDD(d, d2)
+  let description = options.description ?? true
+  const mesure = options.mesure ?? false
   if (NOM.length !== 3) {
     description = false
   } else {
@@ -215,43 +227,43 @@ export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description
   }
   this.couleur = 'blue'
   this.epaisseur = 3
-  this.pointCreer(A)
-  if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4)
-  this.regleSegment(A, B)
-  this.pointCreer(B)
+  this.pointCreer(A, options)
+  if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4, options)
+  this.regleSegment(A, B, options)
+  this.pointCreer(B, options)
   this.couleur = 'grey'
   this.epaisseur = 1
-  this.rapporteurMontrer(A)
-  this.rapporteurDeplacer(A)
-  this.rapporteurRotation(angle)
-  if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5)
+  this.rapporteurMontrer(A, options)
+  this.rapporteurDeplacer(A, options)
+  this.rapporteurRotation(angle, options)
+  if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5, options)
   this.epaisseur = 3
-  this.trait(D, D1, 20)
+  this.trait(D, D1, Object.assign({}, options, { tempo: 20 }))
   this.epaisseur = 1
-  this.rapporteurMasquer()
-  this.regleSegment(A, D2)
-  this.regleMasquer()
-  this.angleCodage(B, A, C)
-  this.rapporteurMontrer(A)
-  this.rapporteurDeplacer(B)
-  if (description) this.textePosition(`On place un repère à ${a2} degrés pour tracer la demi-droite [${B.nom + C.nom}).`, 0, -6)
+  this.rapporteurMasquer(options)
+  this.regleSegment(A, D2, options)
+  this.regleMasquer(options)
+  this.angleCodage(B, A, C, options)
+  this.rapporteurMontrer(A, options)
+  this.rapporteurDeplacer(B, options)
+  if (description) this.textePosition(`On place un repère à ${a2} degrés pour tracer la demi-droite [${B.nom + C.nom}).`, 0, -6, options)
   this.epaisseur = 3
-  this.trait(E, E1, 10)
-  this.trait(F, F1, 20)
+  this.trait(E, E1, Object.assign({}, options, { tempo: 10 }))
+  this.trait(F, F1, Object.assign({}, options, { tempo: 20 }))
   this.epaisseur = 1
-  this.rapporteurMasquer()
-  this.regleMontrer(B)
-  this.regleSegment(B, E2)
-  this.angleCodage(C, B, A)
-  this.pointCreer(C)
-  // this.pointNommer(C, C.nom, -0.5, 1)
+  this.rapporteurMasquer(options)
+  this.regleMontrer(B, options)
+  this.regleSegment(B, E2, options)
+  this.angleCodage(C, B, A, options)
+  this.pointCreer(C, options)
+  // this.pointNommer(C, C.nom, -0.5, 1, options)
   this.couleur = 'blue'
   this.epaisseur = 3
-  this.regleSegment(B, C)
-  this.regleSegment(C, A)
-  this.regleMasquer()
-  this.crayonMasquer()
-  if (description && mesure) this.textePosition(`On peut mesurer ${A.nom + C.nom} ≈ ${nombreAvecEspace(longueur(A, C, 1))} cm et ${B.nom + C.nom} ≈ ${nombreAvecEspace(longueur(B, C, 1))} cm.`, 0, -7)
+  this.regleSegment(B, C, options)
+  this.regleSegment(C, A, options)
+  this.regleMasquer(options)
+  this.crayonMasquer(options)
+  if (description && mesure) this.textePosition(`On peut mesurer ${A.nom + C.nom} ≈ ${nombreAvecEspace(longueur(A, C, 1))} cm et ${B.nom + C.nom} ≈ ${nombreAvecEspace(longueur(B, C, 1))} cm.`, 0, -7, options)
 
   return [A, B, C]
 }
@@ -264,7 +276,8 @@ export const triangle1longueur2angles = function (NOM, AB, BAC, CBA, description
      * @param {boolean} description Affichage d'un texte descriptif des étapes de la construction
      * @return {array} [A, B, C] les 3 sommets du triangle (objets MathALEA2D)
      */
-export const triangle2longueurs1angle = function (NOM, AB, AC, BAC, description = true) {
+export const triangle2longueurs1angle = function (this: Alea2iep, NOM: string, AB: number, AC: number, BAC: number, options: OptionsCompas = {}) {
+  let description = options.description ?? true
   const angle = randint(-20, 20)
   const a1 = BAC
   const A = point(6, 0)
@@ -282,36 +295,36 @@ export const triangle2longueurs1angle = function (NOM, AB, AC, BAC, description 
   }
   this.couleur = 'blue'
   this.epaisseur = 3
-  this.pointCreer(A)
-  if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4)
-  this.regleSegment(A, B)
-  this.pointCreer(B)
+  this.pointCreer(A, options)
+  if (description) this.textePosition(`On trace le côté [${A.nom + B.nom}] de ${nombreAvecEspace(AB)} cm.`, 0, -4, options)
+  this.regleSegment(A, B, options)
+  this.pointCreer(B, options)
   this.couleur = 'grey'
   this.epaisseur = 1
-  this.rapporteurMontrer(A)
-  this.rapporteurDeplacer(A)
-  this.rapporteurRotation(angle)
-  if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5)
+  this.rapporteurMontrer(A, options)
+  this.rapporteurDeplacer(A, options)
+  this.rapporteurRotation(angle, options)
+  if (description) this.textePosition(`On place un repère à ${a1} degrés pour tracer la demi-droite [${A.nom + C.nom}).`, 0, -5, options)
   this.epaisseur = 3
-  this.trait(D, D1, 20)
+  this.trait(D, D1, Object.assign({}, options, { tempo: 20 }))
   this.epaisseur = 1
-  this.rapporteurMasquer()
-  this.regleSegment(A, D2)
-  this.angleCodage(B, A, C)
-  this.rapporteurMasquer()
-  if (description) this.textePosition(`On place le point ${C.nom} sur la demi-droite [${A.nom + C.nom}) à ${AC} cm de ${A.nom}.`, 0, -6)
+  this.rapporteurMasquer(options)
+  this.regleSegment(A, D2, options)
+  this.angleCodage(B, A, C, options)
+  this.rapporteurMasquer(options)
+  if (description) this.textePosition(`On place le point ${C.nom} sur la demi-droite [${A.nom + C.nom}) à ${AC} cm de ${A.nom}.`, 0, -6, options)
   this.epaisseur = 3
   this.couleur = 'blue'
-  this.crayonDeplacer(C)
-  this.pointCreer(C)
-  this.regleSegment(A, C)
-  this.crayonMasquer()
-  if (description) this.textePosition(`On trace le côté [${B.nom + C.nom}].`, 0, -7)
-  this.regleMontrer(C)
-  this.crayonMontrer(C)
-  this.regleSegment(C, B)
-  this.regleMasquer()
-  this.crayonMasquer()
+  this.crayonDeplacer(C, options)
+  this.pointCreer(C, options)
+  this.regleSegment(A, C, options)
+  this.crayonMasquer(options)
+  if (description) this.textePosition(`On trace le côté [${B.nom + C.nom}].`, 0, -7, options)
+  this.regleMontrer(C, options)
+  this.crayonMontrer(C, options)
+  this.regleSegment(C, B, options)
+  this.regleMasquer(options)
+  this.crayonMasquer(options)
   return [A, B, C]
 }
 
@@ -322,12 +335,12 @@ export const triangle2longueurs1angle = function (NOM, AB, AC, BAC, description 
      * @param {string} nomC
      * @return {array} [A, B, C]
      */
-export const triangleEquilateral2Sommets = function (A, B, nomC = '') {
+export const triangleEquilateral2Sommets = function (this: Alea2iep, A: PointAbstrait, B: PointAbstrait, nomC: string = '') {
   const C = rotation(B, A, 60)
   C.nom = nomC
   this.traitRapide(A, B)
-  this.pointCreer(A, A.nom, 0)
-  this.pointCreer(B, B.nom, 0)
+  this.pointCreer(A)
+  this.pointCreer(B)
   this.compasEcarter2Points(A, B)
   this.compasTracerArcCentrePoint(A, C)
   this.compasTracerArcCentrePoint(B, C)
@@ -349,7 +362,7 @@ export const triangleEquilateral2Sommets = function (A, B, nomC = '') {
      * @return {array} [A, B, C]
      */
 
-export const triangleEquilateral = function (NOM, AB) {
+export const triangleEquilateral = function (this: Alea2iep, NOM: string | string[], AB: number) {
   const A = point(6, 0)
   const B = pointAdistance(A, AB, randint(-20, 20))
   const C = rotation(B, A, 60)

@@ -29,7 +29,7 @@ export default class CalculImageQuotient extends Exercice {
 
     this.nbQuestions = 1
 
-    this.formatInteractif = 'fractionEgale'
+    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion () {

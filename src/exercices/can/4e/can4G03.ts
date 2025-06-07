@@ -4,17 +4,18 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { similitude } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
+export const dateDeModifImportante = '01/06/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -29,7 +30,7 @@ export default class CalculHypotenusePythagore extends Exercice {
   constructor () {
     super()
     this.typeExercice = 'simple'
-
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.nbQuestions = 1
   }
 
@@ -74,7 +75,7 @@ export default class CalculHypotenusePythagore extends Exercice {
               ${nom[0]}${nom[2]}^2&=${b ** 2}+${a ** 2}\\\\
               ${nom[0]}${nom[2]}^2&=${c2}\\\\
               ${nom[0]}${nom[2]}&=\\sqrt{${c2}}\\\\
-              ${nom[0]}${nom[2]}&=${reduction[0]}
+              ${nom[0]}${nom[2]}&=${miseEnEvidence(`${reduction[0]}`)}
               \\end{aligned}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
     La longueur $${nom[0]}${nom[2]}$ est donnée par la racine carrée de la somme des carrés de $${b}$ et de $${a}$.<br>
@@ -89,7 +90,7 @@ export default class CalculHypotenusePythagore extends Exercice {
         ${nom[0]}${nom[2]}^2&=${b}^2+${a}^2\\\\
         ${nom[0]}${nom[2]}^2&=${b ** 2}+${a ** 2}\\\\
         ${nom[0]}${nom[2]}^2&=${c2}\\\\
-        ${nom[0]}${nom[2]}&=\\sqrt{${c2}}
+        ${nom[0]}${nom[2]}&=${miseEnEvidence(`\\sqrt{${c2}}`)}
         \\end{aligned}$
         ${reductible ? `En simplifiant, on obtient : $${nom[0]}${nom[2]} = ${texRacineCarree(c2)}$` : ''}`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -123,7 +124,7 @@ La valeur cherchée est donc : $\\sqrt{${c2}}$.
           ${nom[1]}${nom[2]}^2&=${b}+${a ** 2}\\\\
           ${nom[1]}${nom[2]}^2&=${c2}\\\\
           ${nom[1]}${nom[2]}&=\\sqrt{${c2}}\\\\
-          ${nom[1]}${nom[2]}&=${reduction[0]}
+          ${nom[1]}${nom[2]}&=${miseEnEvidence(`${reduction[0]}`)}
           \\end{aligned}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
     La longueur $${nom[1]}${nom[2]}$ est donnée par la racine carrée de la somme des carrés de $\\sqrt{${b}}$ et de $${a}$.<br>
@@ -141,7 +142,7 @@ ${nom[1]}${nom[2]}^2&=${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2\\\\
 ${nom[1]}${nom[2]}^2&=\\sqrt{${b}}^2+${a}^2\\\\
 ${nom[1]}${nom[2]}^2&=${b}+${a ** 2}\\\\
 ${nom[1]}${nom[2]}^2&=${c2}\\\\
-${nom[1]}${nom[2]}&=\\sqrt{${c2}}
+${nom[1]}${nom[2]}&=${miseEnEvidence(`\\sqrt{${c2}}`)}
 \\end{aligned}$
 ${reductible ? `En simplifiant, on obtient : $${nom[1]}${nom[2]} = ${texRacineCarree(c2)}$` : ''}`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>

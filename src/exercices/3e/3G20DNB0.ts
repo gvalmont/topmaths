@@ -6,7 +6,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 import { texNombre } from '../../lib/outils/texNombre'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { randint } from '../../modules/outils'
-import { Point, point, pointIntersectionCC, pointIntersectionDD } from '../../lib/2d/points'
+import { point, pointIntersectionCC, pointIntersectionDD } from '../../lib/2d/points'
 import { cercle } from '../../lib/2d/cercle'
 import { labelPoint, latex2d } from '../../lib/2d/textes'
 import { Droite, droite, droiteParPointEtParallele } from '../../lib/2d/droites'
@@ -63,7 +63,7 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const C = cercle(pointO, rayon)
     const pointE = point(rayon - rayon * 2 * ratio, 0, E, 'below')
     const C2 = cercle(pointB, BD)
-    const pointD = pointIntersectionCC(C, C2, D, 1) as Point
+    const pointD = pointIntersectionCC(C, C2, D, 1)
     if (!pointD) {
       throw new Error('Les cercles ne se coupent pas')
     }
@@ -73,7 +73,7 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const droiteAD = droite(pointA, pointD)
     const droiteBD = droite(pointB, pointD)
     const droiteEF: unknown = droiteParPointEtParallele(pointE, droiteBD)
-    const pointF = pointIntersectionDD(droiteAD, droiteEF as Droite, F, 'above right') as Point
+    const pointF = pointIntersectionDD(droiteAD, droiteEF as Droite, F, 'above right')
     const segEF = segment(pointE, pointF)
     const labels = labelPoint(pointO, pointA, pointB, pointD, pointE, pointF)
     const objets = [labels, C, nomCercle, ABD, segEF]

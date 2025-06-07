@@ -1,5 +1,5 @@
 import { droite } from '../../lib/2d/droites'
-import { Point, point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
+import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../lib/2d/transformations'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -73,7 +73,7 @@ export default class TracerTriangle2Angles extends Exercice {
       // const s5 = segment(B2, C3)
       const d1 = droite(A2, C2)
       const d2 = droite(B2, C3)
-      const C = pointIntersectionDD(d1, d2, p[2]) as Point
+      const C = pointIntersectionDD(d1, d2, p[2])
       // const l = labelPoint(A0, B0, A1, B1, A2, B2, C)
 
       // if (context.isHtml) {
@@ -89,7 +89,7 @@ export default class TracerTriangle2Angles extends Exercice {
         texteCorr = `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 1))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 1))}$ cm.`
       }
       const anim = new Alea2iep()
-      anim.triangle1longueur2angles(p, c, angle1, angle2, true, true) // description et longueur
+      anim.triangle1longueur2angles(p, c, angle1, angle2, { description: true, mesure: true }) // description et longueur
       texteCorr += anim.htmlBouton(this.numeroExercice ?? 0, i)
 
       if (this.questionJamaisPosee(i, c, angle1, angle2)) {

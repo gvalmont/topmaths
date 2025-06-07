@@ -1,7 +1,7 @@
 import { angle } from '../../lib/2d/angles'
 import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages'
-import { distancePointDroite, Droite, droite, droiteAvecNomLatex, droiteParPointEtParallele, positionLabelDroite } from '../../lib/2d/droites'
-import { Point, point, pointAdistance, tracePoint } from '../../lib/2d/points'
+import { distancePointDroite, droite, droiteAvecNomLatex, droiteParPointEtParallele, positionLabelDroite } from '../../lib/2d/droites'
+import { point, pointAdistance, tracePoint } from '../../lib/2d/points'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
@@ -201,8 +201,8 @@ export default class ConservationTransformation extends Exercice {
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute les noms des droites si besoin
-      if (listeTypeDeTransformations[i] === 'symetrieAxiale') objetsEnonceEtCorr.push(texteParPoint('$(d)$', positionLabelDroite(d as Droite, paramsEnonce) as Point, 0, 'black', 1, 'milieu', true))
-      if (listeTypeDeQuestions[i] === 'parallelisme') objetsEnonceEtCorr.push(texteParPoint('$(d_1)$', positionLabelDroite(d1, paramsEnonce) as Point, 0, 'black', 1, 'milieu', true))
+      if (listeTypeDeTransformations[i] === 'symetrieAxiale' && d) objetsEnonceEtCorr.push(texteParPoint('$(d)$', positionLabelDroite(d, paramsEnonce), 0, 'black', 1, 'milieu', true))
+      if (listeTypeDeQuestions[i] === 'parallelisme') objetsEnonceEtCorr.push(texteParPoint('$(d_1)$', positionLabelDroite(d1, paramsEnonce), 0, 'black', 1, 'milieu', true))
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += mathalea2d(Object.assign({}, fixeBordures([objetsEnonceOnly, objetsEnonceEtCorr])), objetsEnonceOnly, objetsEnonceEtCorr)
 

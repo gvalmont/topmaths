@@ -401,7 +401,7 @@ export default class SommeDeVecteurs extends Exercice {
     this.figureApig[i].divButtons.style.display = 'none'
     this.figureApig[i].divUserMessage.style.display = 'none'
     const nbPoints = [...this.figureApig[i].elements.values()].filter(
-      (e) => e.type === 'Point' && (e as Point).isVisible && !e.isChild
+      (e) => e.type === 'Point' && e.isVisible && !e.isChild
     ).length
     const onePointWasAdded = nbPoints >= 3
 

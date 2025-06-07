@@ -6,7 +6,6 @@ import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../.
 import { droite } from '../../lib/2d/droites'
 import {
   milieu,
-  Point,
   point,
   pointAdistance,
   pointIntersectionCC,
@@ -94,7 +93,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         c4 = c4 / 5
         d1 = randint(Math.min(d1, d2), Math.max(d1, d2)) / 5 // BD
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
-        D = pointIntersectionCC(cercle(A, c4), cercle(B, d1), noms[3]) as Point
+        D = pointIntersectionCC(cercle(A, c4), cercle(B, d1), noms[3])
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
         texte = `$${nom}$ est un parallélogramme tel que `
@@ -186,7 +185,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         c4 = (1.2 + (randint(0, 8) / 20)) * c1// BD
 
         B = pointAdistance(A, c1, randint(0, 30), noms[1])
-        D = pointIntersectionCC(cercle(A, c1), cercle(B, c4), noms[3]) as Point
+        D = pointIntersectionCC(cercle(A, c1), cercle(B, c4), noms[3])
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
 
@@ -250,7 +249,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         c3 = c3 / 10
 
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
-        O = pointIntersectionCC(cercle(A, c2), cercle(B, c3), noms[4]) as Point
+        O = pointIntersectionCC(cercle(A, c2), cercle(B, c3), noms[4])
         C = rotation(A, O, 180, noms[2])
         D = rotation(B, O, 180, noms[3])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
@@ -295,7 +294,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
         dd1 = droite(A, B)
         D = rotation(A, C, -c3)
         dd2 = droite(C, D)
-        B = pointIntersectionDD(dd1, dd2, noms[1]) as Point
+        B = pointIntersectionDD(dd1, dd2, noms[1])
         D = rotation(B, O, 180, noms[3])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
         texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm.<br>$\\widehat{${noms[4] + noms[0] + noms[1]}}=${c2}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>$\\widehat{${noms[4] + noms[2] + noms[1]}}=${c3}^\\circ$  dans le sens des aiguilles d'une montre.<br>`
@@ -341,9 +340,9 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
     const result3 = dansLaCibleCarree(B.x, B.y, 5, tailleGrille, cellule3)
     const result2 = dansLaCibleCarree(C.x, C.y, 5, tailleGrille, cellule2)
     const result1 = dansLaCibleCarree(D.x, D.y, 5, tailleGrille, cellule1)
-    const cible1 = cibleCarree({ x: result1[0] as number, y: result1[1] as number, rang: 5, num: typeDeQuestion === 7 ? 2 : 3, taille: tailleGrille, color: 'gray' })
-    const cible2 = cibleCarree({ x: result2[0] as number, y: result2[1] as number, rang: 5, num: 2, taille: tailleGrille, color: 'gray' })
-    const cible3 = cibleCarree({ x: result3[0] as number, y: result3[1] as number, rang: 5, num: 1, taille: tailleGrille, color: 'gray' })
+    const cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: typeDeQuestion === 7 ? 2 : 3, taille: tailleGrille, color: 'gray' })
+    const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: tailleGrille, color: 'gray' })
+    const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 1, taille: tailleGrille, color: 'gray' })
     dd1 = segment(O, A)
     dd2 = segment(O, B)
     const dd3 = segment(O, C)

@@ -25,7 +25,7 @@ export const uuid = '0e527'
 
 export const refs = {
   'fr-fr': ['6N21-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-10']
 }
 export default class LireAbscissesFractionnairesComplexes extends Exercice {
   constructor () {

@@ -314,7 +314,7 @@ export class SemiEllipse extends ObjetMathalea2D {
     this.anglesAxe = anglesAxe
     this.angle = hemisphere === 'nord' ? 180 : -180
     this.M = point(centre.x + rx, centre.y)
-    const med = homothetie(rotation(this.M, centre, this.angle / 2), centre, ry / rx) as Point
+    const med = homothetie(rotation(this.M, centre, this.angle / 2), centre, ry / rx)
 
     this.large = 0
     this.sweep = 0

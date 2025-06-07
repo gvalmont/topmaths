@@ -1,7 +1,7 @@
 import { angleOriente, codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegments } from '../../lib/2d/codages'
 import { Droite, droite, mediatrice } from '../../lib/2d/droites'
-import { Point, point, pointAdistance, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
+import { point, pointAdistance, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -131,7 +131,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
           s1 = segment(D, B)
           s2 = segment(A, C)
           E = pointIntersectionDD(droite(A, C), droite(D, B), sommets[4], 'above')
-          F = affiniteOrtho(E, droite(B, C), -1.1, sommets[5], 'right') as Point
+          F = affiniteOrtho(E, droite(B, C), -1.1, sommets[5], 'right')
           s3 = polygone(A, B, C, D)
           s4 = segment(B, F)
           s5 = segment(C, F)

@@ -308,7 +308,25 @@
       l = resultsByExerciceArray
       return l
     })
-    if ($globalOptions.recorder === 'capytale') {
+    if ($globalOptions.recorder === "moodle") {
+      const url = new URL(window.location.href);
+      const iframe = url.searchParams.get("iframe");
+      console.info({
+        resultsByExercice: $resultsByExercice,
+        duration: getDuration(),
+        action: "mathalea:score",
+        iframe,
+      });
+      window.parent.postMessage(
+        {
+          resultsByExercice: $resultsByExercice,
+          duration: getDuration(),
+          action: "mathalea:score",
+          iframe,
+        },
+        "*",
+      );
+    } else if ($globalOptions.recorder === 'capytale') {
       if (
         getRecordedScore() > getScoreTotal() ||
         (getRecordedScore() === getScoreTotal() &&

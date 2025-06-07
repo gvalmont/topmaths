@@ -25,7 +25,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a33b9'
 export const refs = {
   'fr-fr': ['4C11-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-17']
 }
 
 export default class resoudreProblemeRelatifs extends Exercice {

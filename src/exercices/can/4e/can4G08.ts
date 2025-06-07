@@ -180,7 +180,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
           Ainsi, l'aire a été multipliée par : $\\left(${maFraction.texFraction}\\right)^2=${miseEnEvidence(reponse)}$.
       <br>`
 
-            this.formatInteractif = 'fractionEgale'
+            // this.formatInteractif = 'fractionEgale'
             handleAnswers(this, i, { reponse: { value: reponse, compare: functionCompare } })
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: '' })
             this.canEnonce = texte// 'Compléter'
@@ -199,7 +199,7 @@ export default class QuestionsAiresEtPerimetres extends Exercice {
             texteCorr = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
           Ainsi, les longueurs ont été multipliées par : $\\sqrt{${maFractionAuCarre}}=${miseEnEvidence(reponse)}$.
       <br>`
-            this.formatInteractif = 'fractionEgale'
+            // this.formatInteractif = 'fractionEgale'
             handleAnswers(this, i, { reponse: { value: reponse, compare: functionCompare } })
             texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: '' })
             this.canEnonce = texte// 'Compléter'

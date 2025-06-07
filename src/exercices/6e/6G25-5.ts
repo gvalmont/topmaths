@@ -26,7 +26,7 @@ export const uuid = '528b2'
 
 export const refs = {
   'fr-fr': ['6G25-5'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-31', '10ES2-18']
 }
 
 export default class NbAxesDeSymetrie extends Exercice {

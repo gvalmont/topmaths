@@ -12,7 +12,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const uuid = '4f77c'
 export const refs = {
   'fr-fr': ['c3C32-04'],
-  'fr-ch': []
+  'fr-ch': ['9NO16-7']
 }
 export const titre = 'Le spectacle (problème complexe)'
 export const dateDePublication = '21/11/2024'

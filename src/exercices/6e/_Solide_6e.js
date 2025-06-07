@@ -520,7 +520,7 @@ export default class Solide6e extends Exercice {
       }
       ]
       const props = propositionsQcm(this, i)
-      texte += props.texte
+      texte += this.interactif ? props.texte : ''
       if (this.questionJamaisPosee(i, texte, k, l, s)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions[i] = texte + '<br>'

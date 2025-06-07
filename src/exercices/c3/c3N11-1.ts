@@ -3,7 +3,7 @@ export const titre = 'Repérer des entiers sur une droite graduée'
 export const uuid = '14b84'
 export const refs = {
   'fr-fr': ['c3N11-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO2-7']
 }
 export const interactifReady = true
 export const interactifType = 'mathLive'

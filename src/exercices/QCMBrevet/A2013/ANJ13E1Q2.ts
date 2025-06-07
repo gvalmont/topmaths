@@ -50,10 +50,10 @@ export default class AmeriqueJuin13Exo1Q2 extends ExerciceQcmA {
   versionAleatoire: () => void = () => {
     const n = 3
     do {
-      const lea = prenomF(1)[0]
+      const lea = prenomF(1)
       const a = randint(9, 16)
       const b = randint(15, 30)
-      this.appliquerLesValeurs(a, b, choice([3, 4]), lea)
+      this.appliquerLesValeurs(a, b, choice([3, 4]), Array.isArray(lea) ? lea[0] : lea)
     } while (nombreElementsDifferents(this.reponses) < n)
   }
 

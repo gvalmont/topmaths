@@ -1,5 +1,5 @@
 import { droite } from '../../../lib/2d/droites'
-import { Point, point, tracePoint } from '../../../lib/2d/points'
+import { point, tracePoint } from '../../../lib/2d/points'
 import { papierPointe } from '../../../lib/2d/reperes'
 import { longueur } from '../../../lib/2d/segmentsVecteurs'
 import { symetrieAxiale } from '../../../lib/2d/transformations'
@@ -77,7 +77,7 @@ export default class CompleterParSymetrieCan extends Exercice {
       pointsPossibles = papier.listeCoords.slice()
       // on prépare les points cliquables pour la version interactive
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
-        image = symetrieAxiale(point(pointsPossibles[0][0], pointsPossibles[0][1]), d) as Point
+        image = symetrieAxiale(point(pointsPossibles[0][0], pointsPossibles[0][1]), d)
         j = 1
         trouve = false
         while (j < pointsPossibles.length && !trouve) {

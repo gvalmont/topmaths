@@ -74,7 +74,7 @@ export default class Proportionnalite3 extends Exercice {
         `
         }
         this.reponse = frac
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ kg'
         break
@@ -120,7 +120,7 @@ export default class Proportionnalite3 extends Exercice {
             `
         }
         this.reponse = frac
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = `$\\ldots$ de ${fruits2[0]}`
         break

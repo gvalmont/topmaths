@@ -3,14 +3,22 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Additionner deux entiers relatifs dans un tableau à double entrée'
+export const dateDeModifImportante = '07/06/2025'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
 /**
 * Additionner deux entiers relatifs dans un tableau à double entrée
 * @author Rémi Angot
+* Passage en interactif, changement total du code pour les tableaux et amélioration de la consigne par Eric Elter le 07/06/2025
 */
 export const uuid = '41254'
 
@@ -21,8 +29,7 @@ export const refs = {
 export default class ExerciceTableauAdditionsRelatifs extends Exercice {
   constructor () {
     super()
-
-    this.consigne = 'Calculer.'
+    this.consigne = 'Compléter ce tableau de manière à ce que chaque case corresponde à la somme du nombre dans l\'en-tête de la colonne associée et du nombre dans l\'en-tête de la ligne associée.'
 
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
@@ -30,50 +37,47 @@ export default class ExerciceTableauAdditionsRelatifs extends Exercice {
 
   nouvelleVersion () {
     const listeSignes1 = combinaisonListes([-1, 1], 4)
-    let a1 = randint(2, 9)
-    let a2 = randint(2, 9, a1)
-    let a3 = randint(2, 9, [a1, a2])
-    let a4 = randint(2, 9, [a1, a2, a3])
-    let b1 = randint(2, 9)
-    let b2 = randint(2, 9, b1)
-    let b3 = randint(2, 9, [b1, b2])
-    let b4 = randint(2, 9, [b1, b2, b3])
-    a1 *= listeSignes1[0]
-    a2 *= listeSignes1[1]
-    a3 *= listeSignes1[2]
-    a4 *= listeSignes1[3]
-    b1 *= listeSignes1[0]
-    b2 *= listeSignes1[1]
-    b3 *= listeSignes1[2]
-    b4 *= listeSignes1[3]
 
-    const texte = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
-    \\hline
-    + & ${ecritureAlgebrique(a1)} & ${ecritureAlgebrique(a2)} & ${ecritureAlgebrique(a3)} & ${ecritureAlgebrique(a4)} \\\\
-    \\hline
-    ${ecritureAlgebrique(b1)} &  &  & &  \\\\
-    \\hline
-    ${ecritureAlgebrique(b2)} & & & & \\\\
-    \\hline
-    ${ecritureAlgebrique(b3)} & & & & \\\\
-    \\hline
-    ${ecritureAlgebrique(b4)} & & & & \\\\
-    \\hline
-    \\end{array}$`
+    const nombreSurLigne: number[] = []
+    const nombreDansColonne: number[] = []
+    const ligneEnt = []
+    const colonneEnt = ['+']
+    for (let i = 0; i < 4; i++) {
+      // Génère un nombre entre 2 et 9, différent de ceux déjà choisis
+      const dejaChoisisLigne = nombreSurLigne.map(n => Math.abs(n))
+      const a = randint(2, 9, dejaChoisisLigne)
+      nombreSurLigne.push(a * listeSignes1[i])
+      ligneEnt.push(`${ecritureAlgebrique(a * listeSignes1[i])}`)
 
-    const texteCorr = `$\\def\\arraystretch{1.5}\\begin{array}{|c|c|c|c|c|}
-    \\hline
-    + & ${ecritureAlgebrique(a1)} & ${ecritureAlgebrique(a2)} & ${ecritureAlgebrique(a3)} & ${ecritureAlgebrique(a4)} \\\\
-    \\hline
-    ${ecritureAlgebrique(b1)} & ${ecritureAlgebrique(a1 + b1)} & ${ecritureAlgebrique(a2 + b1)} & ${ecritureAlgebrique(a3 + b1)} & ${ecritureAlgebrique(a4 + b1)} \\\\
-    \\hline
-    ${ecritureAlgebrique(b2)} & ${ecritureAlgebrique(a1 + b2)} & ${ecritureAlgebrique(a2 + b2)} & ${ecritureAlgebrique(a3 + b2)} & ${ecritureAlgebrique(a4 + b2)} \\\\
-    \\hline
-    ${ecritureAlgebrique(b3)} & ${ecritureAlgebrique(a1 + b3)} & ${ecritureAlgebrique(a2 + b3)} & ${ecritureAlgebrique(a3 + b3)} & ${ecritureAlgebrique(a4 + b3)} \\\\
-    \\hline
-    ${ecritureAlgebrique(b4)} & ${ecritureAlgebrique(a1 + b4)} & ${ecritureAlgebrique(a2 + b4)} & ${ecritureAlgebrique(a3 + b4)} & ${ecritureAlgebrique(a4 + b4)} \\\\
-    \\hline
-\\end{array}$`
+      const dejaChoisisColonne = nombreDansColonne.map(n => Math.abs(n))
+      const b = randint(2, 9, dejaChoisisColonne)
+      nombreDansColonne.push(b * listeSignes1[i])
+      colonneEnt.push(`${ecritureAlgebrique(b * listeSignes1[i])}`)
+    }
+
+    const contenu = Array(16).fill('')
+    const objetReponse1: { [key: string]: { value: number } } = {}
+
+    const contenuCorr = []
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        const somme = nombreSurLigne[i] + nombreDansColonne[j]
+        const key = `L${i + 1}C${j + 1}`
+        objetReponse1[key] = {
+          value: somme
+        }
+        contenuCorr.push(miseEnEvidence(somme === 0 ? somme : ecritureAlgebrique(somme)))
+      }
+    }
+
+    const tableau = tableauColonneLigne(colonneEnt, ligneEnt, contenu)
+    const tableauInteractif = AddTabDbleEntryMathlive.create(this.numeroExercice ?? 0, 0, AddTabDbleEntryMathlive.convertTclToTableauMathlive(colonneEnt, ligneEnt, contenu), '', true, {})
+    const texte = this.interactif ? tableauInteractif.output : tableau
+    handleAnswers(this, 0, objetReponse1, { formatInteractif: 'mathlive' })
+
+    const tableauCorr = tableauColonneLigne(colonneEnt, ligneEnt, contenuCorr)
+    const texteCorr = `${tableauCorr}`
+
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
 

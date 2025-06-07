@@ -205,6 +205,7 @@ function testIfLoaded (values : string[], valueToPut : string, contents: content
 export function loadPackagesFromContent (contents: contentsType) {
   contents.preamble += '\n% loadPackagesFromContent'
   loadProfCollegeIfNeed(contents)
+  testIfLoaded(['ifthenelse'], '\\usepackage{ifthen}', contents)
   testIfLoaded(['pspicture', '\\rput', '\\pscurve', '\\psset', '\\psframe'], '\\usepackage{pstricks}', contents)
   testIfLoaded(['\\PstPolygon', '\\PstStarFive'], '\\usepackage{pst-poly}', contents)
   testIfLoaded(['\\pstext'], '\\usepackage{pst-text}', contents)

@@ -8,6 +8,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 
 export const titre = 'Déterminer un antécédent par une fonction affine'
 export const interactifReady = true
@@ -57,6 +58,7 @@ export default class AntecedentParCalcul extends Exercice {
       let ante:FractionEtendue
       texteCorr = `On cherche un nombre $x$ tel que $f(x) = ${m}$.<br>`
       texteCorr += `On résout donc l'équation : $f(x) = ${m}$. <br>`
+
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent
         case 2:
           // f(x) = ax + b avec a et b grands relatifs
@@ -117,11 +119,13 @@ export default class AntecedentParCalcul extends Exercice {
           texteCorr += '$\\begin{aligned} '
           texteCorr += `${a}x ${ecritureAlgebrique(b)} &= ${m} \\\\ `
           texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-b)} \\\\ `
+          texteCorr += `${a}x &= ${m - b} \\\\ `
+          texteCorr += `${texFractionFromString(a + 'x', a)} &= ${texFractionFromString(m - b, a)} \\\\ ` // EE : Ne pas mettre fractionEtendue car sinon 0/14 affiche 0.
           ante = new FractionEtendue(m - b, a)
           break
       }
 
-      if (!ante.estIrreductible || ante.inferieurstrict(0)) texteCorr += `x &=${ante.texFraction}${ante.texSimplificationAvecEtapes('none', '#f15929')} \\\\` // c'est la couleur de miseEnEvidence
+      if ((!ante.estIrreductible || ante.inferieurstrict(0)) && ante.num !== 0) texteCorr += `x &=${ante.texFraction}${ante.texSimplificationAvecEtapes('none', '#f15929')} \\\\` // c'est la couleur de miseEnEvidence
       else texteCorr += `x &=${miseEnEvidence(ante.texFSD)}`
       texteCorr += '\\end{aligned}$'
       if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i])) {

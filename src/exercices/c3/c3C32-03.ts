@@ -11,7 +11,7 @@ import Exercice from '../Exercice'
 export const uuid = '64d46'
 export const refs = {
   'fr-fr': ['c3C32-03', 'BP2AutoL11'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-21']
 }
 export const titre = 'Le sportif (proportionnalité)'
 export const dateDePublication = '20/11/2024'
@@ -104,9 +104,9 @@ Pour parcourir $${distanceBase * nbFoisPlus + 1}$ km en continuant à ${sportif.
       }
       enonce += listeEnonce.length > 1
         ? createList({
-            items: listeEnonce,
-            style: 'alpha'
-          })
+          items: listeEnonce,
+          style: 'alpha'
+        })
         : listeEnonce[0]
       const correction = createList({
         items: listeCorrection,

@@ -7,7 +7,7 @@ import {
   droiteParPointEtPerpendiculaire,
   labelOnLine
 } from '../../lib/2d/droites'
-import { Point, point, pointIntersectionDD } from '../../lib/2d/points'
+import { point, pointIntersectionDD } from '../../lib/2d/points'
 import { rotation } from '../../lib/2d/transformations'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
@@ -269,7 +269,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
           labels.push(labelOnLine(droiteP2, `(d_${numDroites[codeAll[x][1] - 1]})`))
           droiteP2.epaisseur = 2
           dE.push(droiteP2)
-          const Inter = pointIntersectionDD(d[codeAll[x][0] - 1], droiteP) as Point
+          const Inter = pointIntersectionDD(d[codeAll[x][0] - 1], droiteP)
           const PP = rotation(P[x + 1], Inter, 90)
           objets.push(codageAngleDroit(PP, Inter, P[x + 1], 'black', 0.6))
           objets2.push(codageAngleDroit(PP, Inter, P[x + 1], 'black', 0.6))

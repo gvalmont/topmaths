@@ -114,7 +114,7 @@ export default class Milieu extends Exercice {
 
             texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
             texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
-            texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$. `
+            texte += `<br>Déterminer les coordonnées du point $${M.nom}$, milieu du segment $[${A.nom}${B.nom}]$. `
             if (this.interactif) {
               texte += '<br>' + remplisLesBlancs(this, i,
               `${M.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
@@ -199,7 +199,7 @@ export default class Milieu extends Exercice {
 
             texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
             texte += ` $${A.nom}\\left(${Ax.texFSD}\\,;\\,${Ay.texFSD}\\right)$ et $${B.nom}\\left(${Bx.texFSD}\\,;\\,${By.texFSD}\\right)$.`
-            texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$.`
+            texte += `<br>Déterminer les coordonnées du point $${M.nom}$, milieu du segment $[${A.nom}${B.nom}]$.`
             handleAnswers(this, i, {
               bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
               champ1: { value: xM.texFraction },

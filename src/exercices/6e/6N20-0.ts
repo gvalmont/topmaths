@@ -24,7 +24,7 @@ export const dateDeModifImportante = '08/05/2025'
 export const uuid = '42ade'
 export const refs = {
   'fr-fr': ['6N20-0'],
-  'fr-ch': ['']
+  'fr-ch': ['9NO12-11']
 }
 export default class EcrireEntierSousFormeDeFraction extends Exercice {
   constructor () {

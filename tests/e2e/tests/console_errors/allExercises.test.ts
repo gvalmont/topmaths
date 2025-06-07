@@ -192,7 +192,7 @@ async function testRunAllLots (filter: string) {
   for (let i = 0; i < uuids.length && i < 300; i += 20) {
     const ff : ((page: Page) => Promise<boolean>)[] = []
     for (let k = i; k < i + 20 && k < uuids.length; k++) {
-      const myName = 'test' + uuids[k][1]
+      const myName = uuids[k][1]
       const f = async function (page: Page) {
         // Listen for all console logs
         page.on('console', msg => {

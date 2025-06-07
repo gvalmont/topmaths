@@ -6,6 +6,7 @@ import { Droite, droite, Mediatrice } from './droites'
 import { Point, point } from './points'
 import { Polygone, polygone } from './polygones'
 import { Segment, segment, Vecteur, vecteur } from './segmentsVecteurs'
+import { pointAbstrait, PointAbstrait } from './points-abstraits'
 
 /**
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v
@@ -18,11 +19,15 @@ import { Segment, segment, Vecteur, vecteur } from './segmentsVecteurs'
  * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Rémi Angot
  */
-export function translation<T extends Point | Droite | Segment | Polygone | Vecteur> (O: T, v: Vecteur, nom = '', positionLabel = 'above', color = 'black'): T {
-  if (O instanceof Point) {
+export function translation<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (O: T, v: Vecteur, nom = '', positionLabel = 'above', color = 'black'): T {
+  if (O instanceof PointAbstrait) {
     const x = O.x + v.x
     const y = O.y + v.y
-    return point(x, y, nom, positionLabel) as T
+    if (O instanceof Point) {
+      return point(x, y, nom, positionLabel) as T
+    } else {
+      return pointAbstrait(x, y, nom, positionLabel) as T
+    }
   }
   if (O instanceof Polygone) {
     const p2 = []
@@ -55,11 +60,15 @@ export function translation<T extends Point | Droite | Segment | Polygone | Vect
  * @author Rémi Angot
  */
 
-export function translation2Points<T extends Point | Droite | Segment | Polygone | Vecteur> (O: T, A: Point, B: Point, nom = '', positionLabel = 'above', color = 'black'): T {
-  if (O instanceof Point) {
+export function translation2Points<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (O: T, A: PointAbstrait, B: PointAbstrait, nom = '', positionLabel = 'above', color = 'black'): T {
+  if (O instanceof PointAbstrait) {
     const x = O.x + B.x - A.x
     const y = O.y + B.y - A.y
-    return point(x, y, nom, positionLabel) as T
+    if (O instanceof Point) {
+      return point(x, y, nom, positionLabel) as T
+    } else {
+      return pointAbstrait(x, y, nom, positionLabel) as T
+    }
   }
   if (O instanceof Polygone) {
     const p2 = []
@@ -85,8 +94,8 @@ export function translation2Points<T extends Point | Droite | Segment | Polygone
 }
 
 /**
- * @param {Point|Polygone|Droite|Vecteur|Segment} A Point, Polygone, Droite, Segment ou Vecteur
- * @param {Point} O Centre de rotation
+ * @param {PointAbstrait|Point|Polygone|Droite|Vecteur|Segment} A Point, Polygone, Droite, Segment ou Vecteur
+ * @param {PointAbstrait} O Centre de rotation
  * @param {number} angle Angle de rotation
  * @param {string} [nom=''] Nom de l'image
  * @param {string} [positionLabel='above']
@@ -94,15 +103,19 @@ export function translation2Points<T extends Point | Droite | Segment | Polygone
  * @return L'image de A par la rotation de centre O et d'angle angle
  * @author Rémi Angot et Jean-Claude Lhote
  */
-export function rotation<T extends Point | Droite | Segment | Polygone | Vecteur> (A:T, O:Point, angle: number, nom = '', positionLabel = 'above', color = 'black'):T {
-  if (A instanceof Point) {
+export function rotation<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (A:T, O:PointAbstrait, angle: number, nom = '', positionLabel = 'above', color = 'black'):T {
+  if (A instanceof PointAbstrait) {
     const x = O.x +
       (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
       (A.y - O.y) * Math.sin((angle * Math.PI) / 180)
     const y = O.y +
       (A.x - O.x) * Math.sin((angle * Math.PI) / 180) +
       (A.y - O.y) * Math.cos((angle * Math.PI) / 180)
-    return point(x, y, nom, positionLabel) as T
+    if (A instanceof Point) {
+      return point(x, y, nom, positionLabel) as T
+    } else {
+      return pointAbstrait(x, y, nom, positionLabel) as T
+    }
   }
   if (A instanceof Polygone) {
     const p2 = []
@@ -139,7 +152,7 @@ export function rotation<T extends Point | Droite | Segment | Polygone | Vecteur
  * sens Le sens (+1 ou -1) de la rotation. +1=sens trig
  */
 export class SensDeRotation extends ObjetMathalea2D {
-  constructor (A1:Point, centre:Point, sens:1 | -1, color = 'black') {
+  constructor (A1:PointAbstrait, centre:PointAbstrait, sens:1 | -1, color = 'black') {
     super()
     this.objets = []
     const arc1 = arc(A1, centre, 20 * sens)
@@ -193,11 +206,15 @@ export function sensDeRotation (A:Point, O:Point, sens:1 | -1, color = 'black') 
  * @author Rémi Angot
  * @return {Point|Segment|Droite|Polygone|Vecteur}
  */
-export function homothetie<T extends Point | Droite | Segment | Polygone | Vecteur> (Objet:T, O: Point, k: number, nom = '', positionLabel = 'above', color = 'black'):T {
-  if (Objet instanceof Point) {
+export function homothetie<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (Objet:T, O: PointAbstrait, k: number, nom = '', positionLabel = 'above', color = 'black'):T {
+  if (Objet instanceof PointAbstrait) {
     const x = O.x + k * (Objet.x - O.x)
     const y = O.y + k * (Objet.y - O.y)
-    return new Point(x, y, nom, positionLabel) as T
+    if (Objet instanceof Point) {
+      return point(x, y, nom, positionLabel) as T
+    } else {
+      return pointAbstrait(x, y, nom, positionLabel) as T
+    }
   }
   if (Objet instanceof Polygone) {
     const p2 = []
@@ -235,13 +252,13 @@ export function homothetie<T extends Point | Droite | Segment | Polygone | Vecte
  * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Jean-Claude Lhote
  */
-export function symetrieAxiale<T extends Point | Droite | Segment | Polygone | Vecteur> (A:T, d:Droite | Mediatrice, nom = '', positionLabel = 'above', color = 'black'):T {
+export function symetrieAxiale<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (A:T, d:Droite | Mediatrice, nom = '', positionLabel = 'above', color = 'black'):T {
   let x, y
   const a = d.a
   const b = d.b
   const c = d.c
   const k = 1 / (a * a + b * b)
-  if (A instanceof Point) {
+  if (A instanceof PointAbstrait) {
     if (a === 0) {
       x = A.x
       y = -(A.y + (2 * c) / b)
@@ -252,7 +269,11 @@ export function symetrieAxiale<T extends Point | Droite | Segment | Polygone | V
       x = k * ((b * b - a * a) * A.x - 2 * a * b * A.y - 2 * a * c)
       y = k * ((a * a - b * b) * A.y - 2 * a * b * A.x + (a * a * c) / b - b * c) - c / b
     }
-    return point(x, y, nom, positionLabel) as T
+    if (A instanceof Point) {
+      return point(x, y, nom, positionLabel) as T
+    } else {
+      return pointAbstrait(x, y, nom, positionLabel) as T
+    }
   }
   if (A instanceof Polygone) {
     const p2 = []
@@ -288,13 +309,13 @@ export function symetrieAxiale<T extends Point | Droite | Segment | Polygone | V
  * N = projectionOrtho(M,d,'N','below left')
  *@author Jean-Claude Lhote
  */
-export function projectionOrtho<T extends Point | Vecteur> (M:T, d: Droite, nom = '', positionLabel = 'above'):T {
+export function projectionOrtho<T extends PointAbstrait | Point | Vecteur> (M:T, d: Droite, nom = '', positionLabel = 'above'):T {
   const a = d.a
   const b = d.b
   const c = d.c
   const k = 1 / (a * a + b * b)
   let x, y
-  if (M instanceof Point) {
+  if (M instanceof PointAbstrait) {
     if (a === 0) {
       x = M.x
       y = -c / b
@@ -305,7 +326,11 @@ export function projectionOrtho<T extends Point | Vecteur> (M:T, d: Droite, nom 
       x = k * (b * b * M.x - a * b * M.y - a * c)
       y = k * (-a * b * M.x + a * a * M.y + (a * a * c) / b) - c / b
     }
-    return point(x, y, nom, positionLabel) as T
+    if (M instanceof Point) {
+      return point(x, y, nom, positionLabel) as T
+    } else {
+      return pointAbstrait(x, y, nom, positionLabel) as T
+    }
   }
   let O
   if (egal(b, 0)) O = point(-c / a, 0)
@@ -318,7 +343,7 @@ export function projectionOrtho<T extends Point | Vecteur> (M:T, d: Droite, nom 
 
 /**
  * Construit l'image d'un objet par affinité orthogonale
- * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
+ * @param {PointAbstrait|Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
  * @param {Droite} d Direction de l'affinité
  * @param {number} k Rapport de l'affinité
  * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point)
@@ -331,16 +356,16 @@ export function projectionOrtho<T extends Point | Vecteur> (M:T, d: Droite, nom 
  * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position.
  * @example s = affiniteOrtho(segment(A, B),d,0.1,'','','red')
  * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge.
- * @return {Point|Segment|Droite|Polygone|Vecteur} Retourne un objet du même type que le paramètre objet de la fonction
+ * @return {PointAbstrait|Point|Segment|Droite|Polygone|Vecteur} Retourne un objet du même type que le paramètre objet de la fonction
  */
 // JSDOC Validee par EE Juin 2022
-export function affiniteOrtho<T extends Point | Droite | Segment | Polygone | Vecteur> (A: T, d: Droite, k: number, nom = '', positionLabel = 'above', color = 'black'):T {
+export function affiniteOrtho<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (A: T, d: Droite, k: number, nom = '', positionLabel = 'above', color = 'black'):T {
   const a = d.a
   const b = d.b
   const c = d.c
   const q = 1 / (a * a + b * b)
   let x, y
-  if (A instanceof Point) {
+  if (A instanceof PointAbstrait) {
     if (a === 0) {
       x = A.x
       y = k * A.y + (c * (k - 1)) / b
@@ -351,7 +376,11 @@ export function affiniteOrtho<T extends Point | Droite | Segment | Polygone | Ve
       x = q * (b * b * A.x - a * b * A.y - a * c) * (1 - k) + k * A.x
       y = q * (a * a * A.y - a * b * A.x + (a * a * c) / b) * (1 - k) + (k * c) / b + k * A.y - c / b
     }
-    return new Point(x, y, nom, positionLabel) as T
+    if (A instanceof Point) {
+      return point(x, y, nom, positionLabel) as T
+    } else {
+      return pointAbstrait(x, y, nom, positionLabel) as T
+    }
   }
   if (A instanceof Polygone) {
     const p2 = []
@@ -382,8 +411,8 @@ export function affiniteOrtho<T extends Point | Droite | Segment | Polygone | Ve
 
 /**
  *
- * @param {Point|Polygone|Droite|Vecteur|Segment} A // Le point dont on veut l'image
- * @param {Point} O // Le centre de la similitude
+ * @param {PointAbstrait|Point|Polygone|Droite|Vecteur|Segment} A // Le point dont on veut l'image
+ * @param {PointAbstrait} O // Le centre de la similitude
  * @param {number} a // L'angle de la rotation
  * @param {number} k // le rapport de l'homothétie
  * @param {string} nom
@@ -391,12 +420,16 @@ export function affiniteOrtho<T extends Point | Droite | Segment | Polygone | Ve
  * M = similitude(B,O,30,1.1,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 1.1
  * @author Jean-Claude Lhote
  */
-export function similitude<T extends Point | Droite | Segment | Polygone | Vecteur> (A:T, O:Point, a:number, k:number, nom = '', positionLabel = 'above', color = 'black'): T {
-  if (A instanceof Point) {
+export function similitude<T extends PointAbstrait | Point | Droite | Segment | Polygone | Vecteur> (A:T, O:PointAbstrait, a:number, k:number, nom = '', positionLabel = 'above', color = 'black'): T {
+  if (A instanceof PointAbstrait) {
     const ra = degToRad(a)
     const x = O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
     const y = O.y + k * (Math.cos(ra) * (A.y - O.y) + Math.sin(ra) * (A.x - O.x))
-    return point(x, y, nom, positionLabel) as T
+    if (A instanceof Point) {
+      return point(x, y, nom, positionLabel) as T
+    } else {
+      return pointAbstrait(x, y, nom, positionLabel) as T
+    }
   }
   if (A instanceof Polygone) {
     const p2 = []

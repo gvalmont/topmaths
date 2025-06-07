@@ -39,7 +39,7 @@ export default class EcondDegreAbscisseOrdonneeSommet extends Exercice {
     ]
     let a, b, c, r, alpha, nom
     if (choice([true, false])) {
-      this.formatInteractif = 'fractionEgale'
+      // this.formatInteractif = 'fractionEgale'
       a = randint(-3, 3, 0)
       b = randint(-9, 9)
       c = randint(-9, 9)
@@ -55,7 +55,7 @@ export default class EcondDegreAbscisseOrdonneeSommet extends Exercice {
           L'abscisse du sommet est donc : $-\\dfrac{${b}}{2\\times${ecritureParentheseSiNegatif(a)} }= ${r.texFraction}${r.texSimplificationAvecEtapes()}$.`
       this.reponse = r
     } else {
-      this.formatInteractif = 'mathLive'
+      // this.formatInteractif = 'mathLive'
       a = randint(-3, 3, 0)
       b = randint(-2, 2) * 2 * a
       c = randint(-9, 9)

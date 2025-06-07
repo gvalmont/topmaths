@@ -14,7 +14,7 @@ export const uuid = 'a3914'
 
 export const refs = {
   'fr-fr': ['5N22-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-6', '10NO5-15']
 }
 export default class ProblemesAdditifsFractions5eBis extends ProblemesAdditifsFractionsBis {
   constructor () {

@@ -23,7 +23,7 @@ export const uuid = '83be9'
 
 export const refs = {
   'fr-fr': ['6M10-2'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-17']
 }
 export default class AireParComptage extends Exercice {
   constructor () {

@@ -19,7 +19,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Construction de quadrilatères avec dispositif d'auto-correction aléatoire
+ * Trouver les coordonnees du 4e sommet d'un parallélogramme à partir de 3 sommets donnés.
  * @author Jean-Claude Lhote
  */
 export const uuid = '37e38'

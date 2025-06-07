@@ -26,7 +26,7 @@ export const uuid = 'e2a95'
 export const titre = "Mettre des parenthèses ou pas pour qu'une égalité soit juste"
 export const refs = {
   'fr-fr': ['5C12-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO6-6', '10NO6-4']
 }
 /**
  * @author Jean-Claude Lhote
@@ -240,27 +240,27 @@ class MettreDesParentheses extends Exercice {
       // La fonction calculer() de Frédéric Piou fournit la correction, mais elle fournit aussi le résultat, et bien d'autres choses que je n'utilise pas...
       const answer = parentheses
         ? calculer(
-            assignVariables(materiel.expAP.replaceAll('_', ''), valeurs),
-            {
-              removeImplicit: false,
-              suppr1: false,
-              suppr0: false,
-              supprPlusMoins: false,
-              comment: true,
-              commentStep: true
-            }
-          )
+          assignVariables(materiel.expAP.replaceAll('_', ''), valeurs),
+          {
+            removeImplicit: false,
+            suppr1: false,
+            suppr0: false,
+            supprPlusMoins: false,
+            comment: true,
+            commentStep: true
+          }
+        )
         : calculer(
-            assignVariables(materiel.expSP.replaceAll('_', ''), valeurs),
-            {
-              removeImplicit: false,
-              suppr1: false,
-              suppr0: false,
-              supprPlusMoins: false,
-              comment: true,
-              commentStep: true
-            }
-          )
+          assignVariables(materiel.expSP.replaceAll('_', ''), valeurs),
+          {
+            removeImplicit: false,
+            suppr1: false,
+            suppr0: false,
+            supprPlusMoins: false,
+            comment: true,
+            commentStep: true
+          }
+        )
       const texteCorr: string = `${answer.texteCorr}`
       // La callback de correction intéractive
       const callback = (

@@ -7,6 +7,7 @@ import { AddTabPropMathlive } from '../../lib/interactif/tableaux/AjouteTableauM
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 
 export const titre = 'Compléter un tableau de proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
@@ -18,7 +19,7 @@ export const uuid = 'f7a15'
 
 export const refs = {
   'fr-fr': ['6P11-5'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-19']
 }
 /**
  * @author Jean-Claude Lhote
@@ -98,7 +99,7 @@ function achat (entier = true): [string, number, number, string, string] {
     pu = listeDePrixUnit[index1][index2]
     entier = Boolean(entier)
   } while ((entier && pu % 1 !== 0) || (!entier && pu % 1 === 0))
-  return [objet, 1, pu, `\\text{${objet}}`, '\\text{Prix en euros}']
+  return [objet, 1, pu, `\\text{${premiereLettreEnMajuscule(objet)}}`, '\\text{Prix en euros}']
 }
 function carrelage (entier = true): [string, number, number, string, string] {
   const listeDeCarreaux: [string, number][] = [
@@ -295,7 +296,7 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 2, nbQuestions: this.nbQuestions, melange: 3, defaut: 1 }).map(Number)
     const difficulté = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, nbQuestions: this.nbQuestions, melange: 4, defaut: 1 }).map(Number)
-    this.consigne = this.nbQuestions === 1 ? 'compléter le tableau de proportionnalité ci dessous' : 'compléter les tableaux de proportionnalité ci-dessous'
+    this.consigne = this.nbQuestions === 1 ? 'Compléter le tableau de proportionnalité ci dessous.' : 'Compléter les tableaux de proportionnalité ci-dessous.'
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const fonctionChoisie = choice([achat, achat, dillution, carrelage])
@@ -403,8 +404,8 @@ export default class ProportionnaliteParLinearite2 extends Exercice {
       const tableau = AddTabPropMathlive.create(this.numeroExercice ?? 0, i, cells, 'tableauMathlive', this.interactif, {})
 
       if (this.questionJamaisPosee(i, objet)) { // Si la question n'a jamais été posée, on la garde.
-        this.listeQuestions[i] = tableau.output
-        this.listeCorrections[i] = tableauCorr.output + '<br>' + correctionsOrdonnees.join('<br>')
+        this.listeQuestions.push(context.isHtml ? tableau.output : tableau.latexOutput)
+        this.listeCorrections.push((context.isHtml ? tableauCorr.output : tableauCorr.latexOutput) + '<br>' + correctionsOrdonnees.join('<br>'))
         i++
       }
       cpt++

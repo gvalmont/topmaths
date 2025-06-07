@@ -42,13 +42,23 @@ window.onload = function () {
       // On sauvegarde immédiatement la graine pour éviter la triche
       scorm.set('cmi.suspend_data', seed)
     }
+    // Il faut remplacer tous les alea aux cas où on est dans une CAN
     if (exo.includes('&alea=-1')) {
-      exo = exo.replace('&alea=-1', '&alea=' + seed)
+      exo = exo.replaceAll('&alea=-1', '&alea=' + seed)
     } else {
-      exo = exo + '&alea=' + seed
+      exo = exo.replaceAll(/((?:^|&)uuid=[^&]+(?:&id=[^&]+))/g,'$1&alea=' + seed)
     }
   }
-  iframe.src = 'https://coopmaths.fr/alea/?' + exo + '&i=1&v=eleve&recorder=moodle&title=&es=011010' + (answers !== '' ? '&done=1&answers=' + answers : '')
+  let src = 'https://coopmaths.fr/alea/?'
+  src += exo
+  if (!exo.includes('&v=can')) {
+    src += '&i=1&v=eleve&title=&es=011010'
+  }
+  src += '&recorder=moodle'
+  if (answers !== '') {
+    src += '&done=1&answers=' + answers
+  }
+  iframe.src = src
   iframe.setAttribute('frameborder', '0')
   iframe.setAttribute('width', '100%')
   iframe.setAttribute('height', '100%')
@@ -78,11 +88,19 @@ window.addEventListener('message', (event) => {
   if (typeof event.data.action !== 'undefined' && event.data.action.startsWith('mathalea:')) {
     if (event.data.action === 'mathalea:score') {
       const seed = event.data.resultsByExercice[0].alea
-      const score = Math.round((event.data.resultsByExercice[0].numberOfPoints / event.data.resultsByExercice[0].numberOfQuestions) * 100)
+      let points = 0
+      let max = 0
+      for (let result of event.data.resultsByExercice) {
+        points += result.numberOfPoints
+        max += result.numberOfQuestions
+      }
+      const score = Math.round((points / max) * 100)
       scorm.status('set', 'completed')
       scorm.set('cmi.core.score.raw', score)
       scorm.set('cmi.core.score.min', '0')
       scorm.set('cmi.core.score.max', '100')
+      let answers = event.data.resultsByExercice.map(x=>x.answers)
+      // todo : gérer les can où il y a plusieurs exos
       scorm.set('cmi.suspend_data', seed + '|' + JSON.stringify(event.data.resultsByExercice[0].answers))
       let copieEleveUrl = document.getElementsByTagName('iframe')[0].src
       copieEleveUrl = copieEleveUrl.replace(/&alea=[^&]+(?:&|$)/, '&alea=' + seed) // On remplace la seed au cas où qu'elle ait changé

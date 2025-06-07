@@ -1,4 +1,4 @@
-import { Point, point } from '../../../lib/2d/points'
+import { point } from '../../../lib/2d/points'
 import { polygone } from '../../../lib/2d/polygones'
 import { grille } from '../../../lib/2d/reperes'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -35,9 +35,9 @@ export default class AmeriqueSud1224Ex1Q4 extends ExerciceQcmA {
     const G = point(rapport * coef, 0, noms[1], coef > 0 ? 'above left' : 'below right')
     const F = point(rapport * coef, rapport * coef, noms[2], coef > 0 ? 'below left' : 'above right')
     const E = point(0, rapport * coef, noms[3], coef > 0 ? 'below right' : 'above left')
-    const D = homothetie(G, A, 1 / rapport, noms[4], coef < 0 ? 'above left' : 'below right') as Point
-    const C = homothetie(F, A, 1 / rapport, noms[5], coef < 0 ? 'below left' : 'above right') as Point
-    const B = homothetie(E, A, 1 / rapport, noms[6], coef < 0 ? 'below right' : 'above left') as Point
+    const D = homothetie(G, A, 1 / rapport, noms[4], coef < 0 ? 'above left' : 'below right')
+    const C = homothetie(F, A, 1 / rapport, noms[5], coef < 0 ? 'below left' : 'above right')
+    const B = homothetie(E, A, 1 / rapport, noms[6], coef < 0 ? 'below right' : 'above left')
     const poly1 = polygone(A, G, F, E)
     const poly2 = polygone(A, D, C, B)
     const segGE = segment(G, E)

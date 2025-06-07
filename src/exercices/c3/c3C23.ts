@@ -27,7 +27,7 @@ class CalculsFractionsSimples extends Exercice {
   version: string
   constructor () {
     super()
-    this.formatInteractif = 'fractionEgale'
+    // this.formatInteractif = 'fractionEgale'
     this.nbQuestions = 6
     this.sup = '1-2'
     this.consigne = 'Calculer.'

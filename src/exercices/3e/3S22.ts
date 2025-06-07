@@ -10,7 +10,7 @@ import { fraction } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Calcul de probabilités à partir d\'un tableau à double entrées'
+export const titre = 'Calcul de probabilités à partir d\'un tableau à double entrée'
 export const dateDePublication = '03/04/2025'
 export const dateDeModifImportante = '20/06/2024'
 export const interactifReady = true
@@ -186,11 +186,8 @@ function appareils (exercice: Exercice, question: number): { texte: string, text
 // On factorise les situations.
 function moule (exercice: Exercice, question: number, subst1: string, subst2: string, adj1: string, adj2: string, substT: string, intro: string, choix: string, nbParts:[number, number, number, number]): { texte: string, texteCorr: string, alea: number[] } {
   ;[subst1, subst2] = shuffle([subst1, subst2])
-  // ;[adj1, adj2] = shuffle([adj1, adj2])
   const Fem1 = subst1.endsWith('(f)') ? 'e' : ''
   const Fem2 = subst2.endsWith('(f)') ? 'e' : ''
-  // const FemAdj1 = adj1.endsWith('(f)') ? 'e' : ''
-  // const FemAdj2 = adj2.endsWith('(f)') ? 'e' : ''
   subst1 = subst1.replace(/\(f\)/, '')
   subst2 = subst2.replace(/\(f\)/, '')
   adj1 = adj1.replace(/\(f\)/, '')

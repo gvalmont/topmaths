@@ -2,7 +2,7 @@ import { cercle, cercleCentrePoint, traceCompas } from '../../lib/2d/cercle'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles'
 import { codageSegments } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
-import { Point, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../lib/2d/points'
+import { point, pointAdistance, pointIntersectionCC, tracePoint } from '../../lib/2d/points'
 import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
@@ -105,9 +105,9 @@ export default class ConstructionsParallelogrammes extends Exercice {
       const result2 = dansLaCibleCarree(D.x, D.y, 5, tailleGrille, cellule2)
       const result3 = dansLaCibleCarree(B.x, B.y, 5, tailleGrille, cellule3)
 
-      const cible = cibleCarree({ x: result[0] as number, y: result[1] as number, rang: 5, num: listeTypeQuestions[i] > 2 ? 1 : 0, taille: tailleGrille, color: 'gray', opacite: 0.7 })
-      const cible2 = cibleCarree({ x: result2[0] as number, y: result2[1] as number, rang: 5, num: 2, taille: tailleGrille, color: 'gray', opacite: 0.7 })
-      const cible3 = cibleCarree({ x: result3[0] as number, y: result3[1] as number, rang: 5, num: 3, taille: tailleGrille, color: 'gray', opacite: 0.7 })
+      const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: listeTypeQuestions[i] > 2 ? 1 : 0, taille: tailleGrille, color: 'gray', opacite: 0.7 })
+      const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: tailleGrille, color: 'gray', opacite: 0.7 })
+      const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: tailleGrille, color: 'gray', opacite: 0.7 })
       const xMin = Math.min(A.x, B.x, C.x, D.x) - 3
       const yMin = Math.min(A.y, B.y, C.y, D.y) - 4
       const xMax = Math.max(A.x, B.x, C.x, D.x) + 4
@@ -161,13 +161,13 @@ export default class ConstructionsParallelogrammes extends Exercice {
             texteCorr += `En voici une utilisant l'égalité des longueurs : $${noms[0] + noms[1]}=${noms[3] + noms[2]}$ et $${noms[2] + noms[1]}=${noms[3] + noms[0]}$.<br>`
           }
           P = polygoneAvecNom(D, A, B)
-          animIEP.pointCreer(D, D.nom)
-          animIEP.pointCreer(A, A.nom)
-          animIEP.pointCreer(B, B.nom)
+          animIEP.pointCreer(D)
+          animIEP.pointCreer(A)
+          animIEP.pointCreer(B)
           animIEP.regleSegment(D, A)
           animIEP.regleSegment(A, B)
-          animIEP.regleMasquer(0)
-          animIEP.crayonMasquer(0)
+          animIEP.regleMasquer()
+          animIEP.crayonMasquer()
           animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
           objetsEnonce.push(tracePoint(A, B, D), P[1])
           objetsCorrection.push(p[0], p[1], traceCompas(D, C, 30), traceCompas(B, C, 30), codageSegments('||', 'red', A, B, D, C), codageSegments('///', 'blue', A, D, B, C))
@@ -213,7 +213,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
           animIEP.regleZoom(200)
           animIEP.equerreZoom(200)
           animIEP.parallelogrammeAngleCentre(D, A, B, O)
-          objetsEnonce.push(dd1, dd2, tracePoint(O), labelPoint(O, A), texteParPoint('x', pointIntersectionCC(cercleCentrePoint(A, D), cercle(D, 0.5), '', 1) as Point), texteParPoint('y', similitude(B, A, 4, 1.3)))
+          objetsEnonce.push(dd1, dd2, tracePoint(O), labelPoint(O, A), texteParPoint('x', pointIntersectionCC(cercleCentrePoint(A, D), cercle(D, 0.5), '', 1)), texteParPoint('y', similitude(B, A, 4, 1.3)))
           objetsCorrection.push(dd1, dd2, dd3, dd4, p[0], p[1], tracePoint(O), labelPoint(O), d1, d3, codageSegments('||', 'red', A, O, O, C))
           if (this.sup3) {
             texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`

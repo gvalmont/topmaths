@@ -2,7 +2,8 @@
 import { angleOriente } from '../lib/2d/angles'
 import { droite } from '../lib/2d/droites'
 import { milieu, point, pointAdistance, pointSurSegment } from '../lib/2d/points'
-import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs'
+import { pointAbstrait, PointAbstrait } from '../lib/2d/points-abstraits'
+import { longueur, norme, Segment, segment, vecteur } from '../lib/2d/segmentsVecteurs'
 import { homothetie, rotation, translation, translation2Points } from '../lib/2d/transformations'
 import { context } from './context'
 import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables'
@@ -12,16 +13,104 @@ import { carre1point1longueur } from './iepMacros/quadrilateres'
 import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations'
 import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles'
 
-const store = {}
+const store: Record<string, string> = {}
 
 export class StoreIep {
-  static getXml (id) {
+  static getXml (id: string) {
     return store[id]
   }
 
-  static saveXml (id, xml) {
+  static saveXml (id: string, xml: string) {
     store[id] = xml
   }
+}
+
+type ObjetIep = {
+  visibilite: boolean
+  position: PointAbstrait
+  angle: number
+  zoom: number
+}
+
+type Regle = ObjetIep & {
+  longueur: number // Longueur de la règle en cm
+}
+
+type Rapporteur = ObjetIep & {
+  rayon: number // Rayon du rapporteur en cm
+}
+
+type Compas = ObjetIep & {
+  orientation: 'droite' | 'gauche' // Orientation du compas
+  ecartement: number // Ecartement du compas en cm
+  leve: boolean // Le compas est-il levé ?
+}
+
+type StringOutil = 'regle' | 'equerre' | 'requerre' | 'rapporteur' | 'compas' | 'crayon'
+
+export type OptionsIep = {
+  id?: string // Identifiant de l'objet
+  tempo?: number // Temps d'attente après l'instruction
+  vitesse?: number // Vitesse de déplacement des instruments
+  couleur?: string // Couleur des traits
+  epaisseur?: number // Epaisseur des traits
+  pointilles?: boolean // Pointillés ou traits pleins
+  couleurLabel?: string // Couleur du label des points
+  couleurPoint?: string // Couleur du nom des points
+  description?: boolean // Pour ajouter un texte qui décrit les étapes de construction
+}
+
+export type OptionsOutil = OptionsIep & {
+}
+
+export type OptionsCrayon = OptionsOutil & {
+  vecteur?: boolean
+}
+
+export type OptionsOutilMesure = OptionsCrayon & {
+  longueur?: number // Longueur pour la règle ou le compas
+  codage?: string // Code pour le codage
+  couleurCodage?: string // Couleur du codage
+  sens?: number // Sens de la rotation
+}
+
+export type OptionsRegle = OptionsOutilMesure & {
+}
+
+export type OptionsEquerre = OptionsRegle & {
+}
+
+export type OptionsRequerre = OptionsEquerre & {
+}
+
+export type OptionsRapporteur = OptionsOutilMesure & {
+}
+
+export type OptionsCompas = OptionsRapporteur & {
+  rayon?: number // Rayon du cercle tracé par le compas
+  delta?: number // Delta pour l'arc de cercle autour d'un point
+  couleurCompas?: string // Couleur du compas
+}
+
+export type OptionsPoint = OptionsCrayon & {
+  label?: string // Label du point
+  dx?: number // Décalage horizontal du label du point
+  dy?: number // Décalage vertical du label du point
+}
+
+export type OptionsTexte = OptionsIep & {
+  police?: string
+  taille?: number
+  couleur?: string
+  couleurFond?: string
+  opaciteFond?: string
+  couleurCadre?: string
+  epaisseurCadre?: number
+  marge?: number
+  margeGauche?: number
+  margeDroite?: number
+  margeHaut?: number
+  margeBas?: number
 }
 /*
  * Classe parente de tous les objets Alea2iep
@@ -29,6 +118,71 @@ export class StoreIep {
  * @author Rémi Angot
  */
 export default class Alea2iep {
+  idIEP: number // Identifiant pour les tracés
+  idHTML: number // Identifiant pour les div et le svg
+  tempo: number // Pause par défaut après une instruction
+  vitesse: number // Vitesse par défaut pour les déplacements d'instruments
+  couleur: string // Couleur par défaut
+  couleurCompas: string
+  couleurTexte: string
+  couleurPoint: string // Couleur du nom des points
+  couleurCodage: string
+  couleurTraitsDeConstruction: string
+  epaisseur: number
+  epaisseurTraitsDeConstruction: number
+  pointilles: boolean
+  liste_script: string[] // Liste des instructions xml mise à jour par les méthodes
+  translationX: number
+  translationY: number // Par défaut l'angle en haut à gauche est le point de coordonnées (0,10)
+  xMin: number // Garde en mémoire les coordonnées extrêmes des objets créés
+  yMin: number
+  xMax: number
+  yMax: number
+  regle: Regle
+  crayon: ObjetIep
+  equerre: ObjetIep
+  requerre: ObjetIep
+  rapporteur: Rapporteur
+  compas: Compas
+  xml: string // Code XML de l'animation
+  symetrieAxialePoint = symetrieAxialePoint
+  parallelogramme3sommetsConsecutifs = parallelogramme3sommetsConsecutifs
+  parallelogrammeAngleCentre = parallelogrammeAngleCentre
+  partageSegment = partageSegment
+  paralleleRegleEquerre2points3epoint = paralleleRegleEquerre2points3epoint
+  perpendiculaireRegleEquerre2points3epoint = perpendiculaireRegleEquerre2points3epoint
+  perpendiculaireRegleEquerreDroitePoint = perpendiculaireRegleEquerreDroitePoint
+  perpendiculaireRegleEquerrePointSurLaDroite = perpendiculaireRegleEquerrePointSurLaDroite
+  perpendiculaireCompasPointSurLaDroite = perpendiculaireCompasPointSurLaDroite
+  perpendiculaireCompasPoint = perpendiculaireCompasPoint
+  paralleleRegleEquerreDroitePointAvecDescription = paralleleRegleEquerreDroitePointAvecDescription
+  paralleleAuCompasAvecDescription = paralleleAuCompasAvecDescription
+  paralleleAuCompas = paralleleAuCompas
+  mediatriceAuCompas = mediatriceAuCompas
+  mediatriceRegleEquerre = mediatriceRegleEquerre
+  hauteur = hauteur
+  mediane = mediane
+  bissectriceAuCompas = bissectriceAuCompas
+  cercleCirconscrit = cercleCirconscrit
+  triangle3longueurs = triangle3longueurs
+  triangleRectangleCoteHypotenuse = triangleRectangleCoteHypotenuse
+  triangleRectangle2Cotes = triangleRectangle2Cotes
+  triangle1longueur2angles = triangle1longueur2angles
+  triangle2longueurs1angle = triangle2longueurs1angle
+  triangleEquilateral2Sommets = triangleEquilateral2Sommets
+  triangleEquilateral = triangleEquilateral
+  carre1point1longueur = carre1point1longueur
+  rotationPoint = rotationPoint
+  translationPoint = translationPoint
+  demiTourPoint = demiTourPoint
+  homothetiePoint = homothetiePoint
+  rotationPolygone = rotationPolygone
+  symetrieAxialePolygone = symetrieAxialePolygone
+  translationPolygone = translationPolygone
+  demiTourPolygone = demiTourPolygone
+  homothetiePolygone = homothetiePolygone
+  parallelogramme2sommetsConsecutifsCentre = parallelogramme2sommetsConsecutifsCentre
+
   constructor () {
     this.idIEP = 0 // Identifiant pour les tracés
     this.idHTML = 0 // Identifiant pour les div et le svg
@@ -41,7 +195,7 @@ export default class Alea2iep {
     this.couleurCodage = '#f15929'
     this.couleurTraitsDeConstruction = 'gray'
     this.epaisseur = 2
-    this.epaisseurTraitsDeConstruction = 1
+    this.epaisseurTraitsDeConstruction = 0.5
     this.pointilles = false
     this.liste_script = [] // Liste des instructions xml mise à jour par les méthodes
 
@@ -107,7 +261,7 @@ export default class Alea2iep {
   /** **** Fin du constructeur */
 
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
-  x (A) {
+  x (A: PointAbstrait) {
     const x = Math.round((A.x + this.translationX) * 30)
     if (A.x > this.xMax) {
       this.xMax = A.x
@@ -118,7 +272,7 @@ export default class Alea2iep {
     return x
   }
 
-  y (A) {
+  y (A: PointAbstrait) {
     const y = Math.round((-A.y + this.translationY) * 30)
     if (A.y < this.yMin) {
       this.yMin = A.y
@@ -150,9 +304,9 @@ export default class Alea2iep {
    * @param {number} numeroExercice - Numéro de l'exercice
    * @param {number} i - Numéro de la question
    */
-  html (id1, id2 = 0) {
+  html (numeroExercice: number, id2 = 0) {
     if (context.isHtml) {
-      const id = `IEP_${id1}_${id2}`
+      const id = `IEP_${numeroExercice}_${id2}`
       StoreIep.saveXml(id, this.script())
       const codeHTML = `<alea-instrumenpoche id=${id}>`
       return codeHTML
@@ -182,332 +336,189 @@ export default class Alea2iep {
  **************************
  */
 
-  /**
- *
- * @param {number} xmin
- * @param {number} ymax
- */
-  recadre (xmin, ymax) {
+  recadre (xmin: number, ymax: number) {
     this.translationX = 1 - xmin
     this.translationY = ymax + 3
   }
 
-  /**
-   *
-   * @param {number} width
-   * @param {number} height
-   */
-  taille (width, height) {
+  taille (width: number, height: number) {
     this.liste_script.push(`<viewBox width="${width}" height="${height}" />`)
   }
 
-  /**
-   *
-   * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
-   * @param {Point} [A] - Point (0, 0) par défaut
-   * @param {objet} [options] - { tempo : 10 }
-   */
-  montrer (objet, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
-    if (!this[objet].visibilite || this[objet].position !== A) { // On ajoute une ligne xml que si l'objet est caché ou doit apparaitre à un autre endroit
+  montrer (outil: StringOutil, A: PointAbstrait, options: OptionsIep = {}) {
+    const tempo = options.tempo ?? this.tempo
+    if (!this[outil].visibilite || this[outil].position !== A) { // On ajoute une ligne xml que si l'objet est caché ou doit apparaitre à un autre endroit
       let codeXML = ''
       let A1
       if (typeof A === 'undefined') { // A1 est une copie de A ou (0,0) si A n'est pas défini
-        A1 = this[objet].position
+        A1 = this[outil].position
       } else {
         A1 = A
       }
-      if (this[objet].visibilite) { // S'il est déjà visible, montrer devient un déplacer
-        this.deplacer(objet, A1, { tempo, vitesse })
+      if (this[outil].visibilite) { // S'il est déjà visible, montrer devient un déplacer
+        this.deplacer(outil, A1, options)
       } else {
-        codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" tempo="${tempo}" />`
-        this[objet].visibilite = true
+        codeXML = `<action objet="${outil}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" tempo="${tempo}" />`
+        this[outil].visibilite = true
       }
-      this[objet].position = A1
+      this[outil].position = A1
       this.liste_script.push(codeXML)
     }
   }
 
-  /**
-   *
-   * @param {Point}[A]
-   *@param {objet} [options]
-   */
-  regleMontrer (A, options) {
-    this.montrer('regle', A, options)
+  regleMontrer (A?: PointAbstrait, options: OptionsRegle = {}) {
+    this.montrer('regle', A ?? this.regle.position, options)
   }
 
-  /**
-   *
-   * @param {Point} [A]
-   *@param {objet} [options]
-   */
-  crayonMontrer (A, options) {
-    this.montrer('crayon', A, options)
+  crayonMontrer (A?: PointAbstrait, options: OptionsCrayon = {}) {
+    this.montrer('crayon', A ?? this.crayon.position, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  equerreMontrer (A, options) {
-    this.montrer('equerre', A, options)
+  equerreMontrer (A?: PointAbstrait, options: OptionsEquerre = {}) {
+    this.montrer('equerre', A ?? this.equerre.position, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  requerreMontrer (A, options) {
-    this.montrer('requerre', A, options)
+  requerreMontrer (A?: PointAbstrait, options: OptionsRequerre = {}) {
+    this.montrer('requerre', A ?? this.requerre.position, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  compasMontrer (A, options) {
-    this.montrer('compas', A, options)
+  compasMontrer (A?: PointAbstrait, options: OptionsCompas = {}) {
+    this.montrer('compas', A ?? this.compas.position, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  rapporteurMontrer (A, options) {
-    this.montrer('rapporteur', A, options)
+  rapporteurMontrer (A?: PointAbstrait, options: OptionsRapporteur = {}) {
+    this.montrer('rapporteur', A ?? this.rapporteur.position, options)
   }
 
-  /**
-   *
-   * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
-   * @param {objet} param1
-   */
-  masquer (objet, { tempo = this.tempo } = {}) {
-    if (this[objet].visibilite) { // On ajoute une ligne xml que si l'objet est visible
-      const codeXML = `<action objet="${objet}" mouvement="masquer" tempo="${tempo}" />`
-      this[objet].visibilite = false
+  masquer (outil: StringOutil, options: OptionsOutil = {}) {
+    const tempo = options.tempo ?? this.tempo
+    if (this[outil].visibilite) { // On ajoute une ligne xml que si l'objet est visible
+      const codeXML = `<action objet="${outil}" mouvement="masquer" tempo="${tempo}" />`
+      this[outil].visibilite = false
       this.liste_script.push(codeXML)
     }
   }
 
-  /**
-   *
-   *@param {objet} [options]
-   */
-  regleMasquer (options) {
+  regleMasquer (options: OptionsRegle = {}) {
     this.masquer('regle', options)
   }
 
-  /**
-   *
-   *@param {objet} [options]
-   */
-  crayonMasquer (options) {
+  crayonMasquer (options: OptionsCrayon = {}) {
     this.masquer('crayon', options)
   }
 
-  /**
-   *
-   *@param {objet} [options]
-   */
-  equerreMasquer (options) {
+  equerreMasquer (options: OptionsEquerre = {}) {
     this.masquer('equerre', options)
   }
 
-  /**
-   *
-   *@param {objet} [options]
-   */
-  requerreMasquer (options) {
+  requerreMasquer (options: OptionsRequerre = {}) {
     this.masquer('requerre', options)
   }
 
-  /**
-   *
-   *@param {objet} [options]
-   */
-  compasMasquer (options) {
+  compasMasquer (options: OptionsCompas = {}) {
     this.masquer('compas', options)
   }
 
-  /**
-   *
-   *@param {objet} [options]
-   */
-  rapporteurMasquer (options) {
+  rapporteurMasquer (options: OptionsRapporteur = {}) {
     this.masquer('rapporteur', options)
   }
 
-  /**
- *
- * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
- * @param {Point} A
- *@param {objet} [options]
- */
-  deplacer (objet, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
-    if (this[objet].position !== A) { // On n'ajoute une commande xml que s'il y a vraiment un déplacement
-      const codeXML = `<action objet="${objet}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
-      this[objet].position = A
+  deplacer (outil: StringOutil, A: PointAbstrait, options: OptionsOutil = {}) {
+    const tempo = options.tempo ?? this.tempo
+    const vitesse = options.vitesse ?? this.vitesse
+    if (this[outil].position !== A) { // On n'ajoute une commande xml que s'il y a vraiment un déplacement
+      const codeXML = `<action objet="${outil}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
+      this[outil].position = A
       this.liste_script.push(codeXML)
     }
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  regleDeplacer (A, options) {
+  regleDeplacer (A: PointAbstrait, options: OptionsRegle = {}) {
     this.deplacer('regle', A, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  texteDeplacer (id, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+  texteDeplacer (id: string, A: PointAbstrait, options: OptionsIep = {}) {
+    const tempo = options.tempo ?? this.tempo
+    const vitesse = options.vitesse ?? this.vitesse
     const codeXML = `<action objet="texte" id="${id}" mouvement="translation" abscisse="${this.x(A)}" ordonnee="${this.y(A)}" tempo="${tempo}" vitesse="${vitesse}" />`
     this.liste_script.push(codeXML)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  crayonDeplacer (A, options) {
+  crayonDeplacer (A: PointAbstrait, options: OptionsCrayon = {}) {
     this.deplacer('crayon', A, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  equerreDeplacer (A, options) {
+  equerreDeplacer (A: PointAbstrait, options: OptionsEquerre = {}) {
     this.deplacer('equerre', A, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  requerreDeplacer (A, options) {
+  requerreDeplacer (A: PointAbstrait, options: OptionsRequerre = {}) {
     this.deplacer('requerre', A, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  compasDeplacer (A, options) {
+  compasDeplacer (A: PointAbstrait, options: OptionsCompas = {}) {
     this.deplacer('compas', A, options)
   }
 
-  /**
-   *
-   * @param {Point} A
-   *@param {objet} [options]
-   */
-  rapporteurDeplacer (A, options) {
+  rapporteurDeplacer (A: PointAbstrait, options: OptionsRapporteur = {}) {
     this.deplacer('rapporteur', A, options)
   }
 
-  /**
- *
- * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
- * @param {number} angle
- *@param {objet} [options]
- */
-  rotation (objet, a, { tempo = this.tempo, sens = Math.round(this.vitesse / 2) } = {}) {
-    let angle
-    if (a.typeObjet === 'point') {
-      const d = droite(this[objet].position, a)
-      angle = d.angleAvecHorizontale
+  rotation (outil: StringOutil, angle: number | PointAbstrait, options: OptionsCompas = {}) {
+    const tempo = options.tempo ?? this.tempo
+    const sens = options.sens ?? Math.round(this.vitesse / 2)
+    let angleDeRotation: number
+    if (typeof angle === 'number') {
+      angleDeRotation = angle
     } else {
-      angle = a
+      const d = droite(this[outil].position, angle)
+      angleDeRotation = d.angleAvecHorizontale
     }
-    if (this[objet].angle !== a) { // Si la rotation est inutile, on ne la fait pas
+    if (this[outil].angle !== angle) { // Si la rotation est inutile, on ne la fait pas
       // Les angles de MathALEA2D et de IEP sont opposés !!!!!
-      const codeXML = `<action objet="${objet}" mouvement="rotation" angle="${-1 * angle}" tempo="${tempo}" sens="${sens}" />`
-      this[objet].angle = angle
-      if (typeof angle === 'number' && isFinite(angle)) {
+      const codeXML = `<action objet="${outil}" mouvement="rotation" angle="${-1 * angleDeRotation}" tempo="${tempo}" sens="${sens}" />`
+      this[outil].angle = angleDeRotation
+      if (typeof angleDeRotation === 'number' && isFinite(angleDeRotation)) {
         this.liste_script.push(codeXML)
       } else {
-        console.error('Angle de rotation non défini pour l\'objet .', objet)
+        console.error('Angle de rotation non défini pour l\'objet .', outil)
       }
     }
   }
 
-  /**
- *
- * @param {number|Point} angle
- *@param {objet} [options]
- */
-  regleRotation (angle, options) {
+  regleRotation (angle: number | PointAbstrait, options: OptionsRegle = {}) {
     this.rotation('regle', angle, options)
   }
 
-  /**
- *
- * @param {number} angle
- *@param {objet} [options]
- */
-  crayonRotation (angle, options) {
+  crayonRotation (angle: number | PointAbstrait, options: OptionsCrayon = {}) {
     this.rotation('crayon', angle, options)
   }
 
-  /**
- *
- * @param {number|Point} angle
- *@param {objet} [options]
- */
-  equerreRotation (angle, options) {
+  equerreRotation (angle: number | PointAbstrait, options: OptionsEquerre = {}) {
     this.rotation('equerre', angle, options)
   }
 
-  /**
- *
- * @param {number} angle
- *@param {objet} [options]
- */
-  requerreRotation (angle, options) {
+  requerreRotation (angle: number | PointAbstrait, options: OptionsRequerre = {}) {
     this.rotation('requerre', angle, options)
   }
 
-  /**
- *
- * @param {number} angle
- *@param {objet} [options]
- */
-  compasRotation (angle, options) {
+  compasRotation (angle: number | PointAbstrait, options: OptionsCompas = {}) {
     this.rotation('compas', angle, options)
   }
 
-  /**
- *
- * @param {number} angle
- *@param {objet} [options]
- */
-  rapporteurRotation (angle, options) {
+  rapporteurRotation (angle: number | PointAbstrait, options: OptionsRapporteur = {}) {
     this.rotation('rapporteur', angle, options)
   }
 
   /**
- * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas' ou 'rapporteur'
- * @param {number} pourcentage 200 pour doubler la taille
+ * @param {string} outil - 'regle', 'equerre', 'requerre, 'compas' ou 'rapporteur'
+ * @param {number} echelle 200 pour doubler la taille
  * @param {objet} [options] tempo = 0 par défaut
  */
-  zoom (objet, echelle, { tempo = 0 } = {}) {
-    this[objet].zoom = echelle
-    this.liste_script.push(`<action echelle="${echelle}" mouvement="zoom" objet="${objet}" tempo="${tempo}" />`)
+  zoom (outil: StringOutil, echelle: number, options: OptionsIep = {}) {
+    const tempo = options.tempo ?? 0
+    this[outil].zoom = echelle
+    this.liste_script.push(`<action echelle="${echelle}" mouvement="zoom" objet="${outil}" tempo="${tempo}" />`)
   }
 
   /**
@@ -515,7 +526,7 @@ export default class Alea2iep {
  * @param {number} pourcentage 200 pour doubler la taille
  * @param {objet} [options] tempo = 0 par défaut
  */
-  regleZoom (echelle, options) {
+  regleZoom (echelle: number, options: OptionsIep = {}) {
     this.zoom('regle', echelle, options)
     this.regle.longueur = this.regle.longueur * echelle / 100
   }
@@ -525,7 +536,7 @@ export default class Alea2iep {
  * @param {number} pourcentage 200 pour doubler la taille
  * @param {objet} [options] tempo = 0 par défaut
  */
-  equerreZoom (echelle, options) {
+  equerreZoom (echelle: number, options: OptionsIep = {}) {
     this.zoom('equerre', echelle, options)
   }
 
@@ -534,7 +545,7 @@ export default class Alea2iep {
  * @param {number} pourcentage 200 pour doubler la taille
  * @param {objet} [options] tempo = 0 par défaut
  */
-  requerreZoom (echelle, options) {
+  requerreZoom (echelle: number, options: OptionsIep = {}) {
     this.zoom('requerre', echelle, options)
   }
 
@@ -543,7 +554,7 @@ export default class Alea2iep {
  * @param {number} pourcentage 200 pour doubler la taille
  * @param {objet} [options] tempo = 0 par défaut
  */
-  rapporteurZoom (echelle, options) {
+  rapporteurZoom (echelle: number, options: OptionsIep = {}) {
     this.zoom('rapporteur', echelle, options)
   }
 
@@ -552,7 +563,7 @@ export default class Alea2iep {
  * @param {number} pourcentage 200 pour doubler la taille
  * @param {objet} [options] tempo = 0 par défaut
  */
-  compasZoom (echelle, options) {
+  compasZoom (echelle: number, options: OptionsIep = {}) {
     this.zoom('compas', echelle, options)
   }
 
@@ -563,14 +574,17 @@ export default class Alea2iep {
  */
 
   /**
- * Crééer un point avec la croix pour le situer et son nom en bas à droite par défaut. L'id sera sauvegardé dans l'objet point. S'il n'est pas défini alors on prend le premier entier disponible.
- * @param {Point} A
- * @param {objet} [options] { label: A.nom, tempo: this.tempo, couleur: this.couleurPoint, couleurLabel: this.couleurTexte, id }
- *
+ * Créer un point avec la croix pour le situer et son nom en bas à droite par défaut. L'id sera sauvegardé dans l'objet point. S'il n'est pas défini alors on prend le premier entier disponible.
+ * @param {PointAbstrait} A
+ * @param {objet} [options] Défaut : { dx = 0.1, dy, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id }
  */
-  pointCreer (A, { dx = 0.1, dy, label = A.nom, tempo = this.tempo, couleur = this.couleurPoint, couleurLabel = this.couleurTexte, id } = {}) {
-    if (typeof id !== 'undefined') {
-      A.id = id
+  pointCreer (A: PointAbstrait, options: OptionsPoint = {}) {
+    const label = options.label ?? A.nom
+    const couleur = options.couleurPoint ?? options.couleur ?? this.couleurPoint
+    const tempo = options.tempo ?? this.tempo
+    const couleurLabel = options.couleurLabel ?? couleur
+    if (options.id) {
+      A.id = options.id
     } else {
       this.idIEP++
       A.id = this.idIEP
@@ -580,11 +594,11 @@ export default class Alea2iep {
       codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" couleur="${couleur}" id="${A.id}" mouvement="creer" objet="point" tempo="${tempo}"/>`
       // codeXML += `\n<action couleur="${couleurLabel}" nom="${label}" id="${this.idIEP}" mouvement="nommer" objet="point" tempo="${tempo}"  />`
       const M = point(A.x, A.y)
-      if (typeof dx !== 'undefined') {
-        M.x += dx
+      if (options.dx) {
+        M.x += options.dx
       }
-      if (typeof dy !== 'undefined') {
-        M.y += dy
+      if (options.dy) {
+        M.y += options.dy
       }
       this.textePoint(`$${label}$`, M, { tempo: 0, couleur: couleurLabel })
     } else {
@@ -594,87 +608,75 @@ export default class Alea2iep {
   }
 
   /**
- * Création de plusieurs points
- * Le dernier argument peut être une option qui sera appliquée à tous les points
- *
- * @param  {...points} points Points séparés par des virgules
- */
-  pointsCreer (...args) {
-    if (args[args.length - 1].typeObjet === 'point') {
-      for (const point of args) {
-        this.pointCreer(point, { tempo: 0 })
-      }
-    } else {
-      const options = args[args.length - 1]
-      const enleveDernier = arr => arr.slice(0, -1)
-      for (const point of enleveDernier(args)) {
-        this.pointCreer(point, options)
-      }
-    }
+  *
+  * Création de plusieurs points
+  * On peut passer des points ou des options. Toutes les options sont intégrées à tous les points.
+  */
+  pointsCreer (...args: (PointAbstrait | OptionsPoint)[]) {
+    const options: OptionsPoint = { tempo: 0 }
+    args.filter(arg => !(arg instanceof PointAbstrait)).forEach(option => { // On intègre aux options les paramètres des arguments qui ne sont pas des points
+      Object.assign(options, option)
+    })
+    args.filter(arg => arg instanceof PointAbstrait).forEach(point => {
+      this.pointCreer(point, options)
+    })
   }
 
   /**
  * Masquer un point
- * @param {Point} A
+ * @param {PointAbstrait} A
  * @param {objet} [options] Défaut : { tempo: 0 }
  */
-  pointMasquer (...args) {
-    const enleveDernier = arr => arr.slice(0, -1)
-    if (args[args.length - 1].typeObjet === 'point') {
-      for (const point of args) {
-        this.liste_script.push(`<action id="${point.id}" mouvement="masquer" objet="point" tempo="0" />`)
-      }
-    } else {
-      if (args[args.length - 1].tempo !== undefined) {
-        const tempo = args[args.length - 1].tempo
-        for (const point of enleveDernier(args)) {
-          this.liste_script.push(`<action id="${point.id}" mouvement="masquer" objet="point" tempo="${tempo}" />`)
-        }
-      } else {
-        for (const point of enleveDernier(args)) {
-          this.liste_script.push(`<action id="${point.id}" mouvement="masquer" objet="point" tempo="0" />`)
-        }
-      }
-    }
+  pointMasquer (...args: (PointAbstrait | OptionsPoint)[]) {
+    const options: OptionsPoint = { tempo: 0 }
+    args.filter(arg => !(arg instanceof PointAbstrait)).forEach(option => { // On intègre aux options les paramètres des arguments qui ne sont pas des points
+      Object.assign(options, option)
+    })
+    args.filter(arg => arg instanceof PointAbstrait).forEach(point => {
+      this.liste_script.push(`<action id="${point.id}" mouvement="masquer" objet="point" tempo="${options.tempo}" />`)
+    })
   }
 
   /**
-   * Montrer un point qui aurait été caché
-   * @param {Point} A
-   * @param {objet} [options] Défaut ; { tempo : this.tempo }
-   */
-  pointMontrer (A, { tempo = this.tempo } = {}) {
+ * Montrer un point qui aurait été caché
+ * @param {PointAbstrait} A
+ * @param {objet} [options] Défaut : { tempo: 0 }
+ */
+  pointMontrer (A: PointAbstrait, options: OptionsPoint = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action id="${A.id}" mouvement="montrer" objet="point" tempo="${tempo}" />`)
   }
 
   /**
    * Anime la translation d'un point
-   * @param {Point} A
+   * @param {PointAbstrait} A
    * @param {number} x Abscisse du point d'arrivée
    * @param {number} y Ordonnée du point d'arrivée
    * @param {objet} [options] Défaut : { tempo: this.tempo, vitesse: this.vitesse }
    */
-  pointDeplacer (A, x, y, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+  pointDeplacer (A: PointAbstrait, x: number, y: number, options: OptionsPoint = {}) {
+    const tempo = options.tempo ?? this.tempo
+    const vitesse = options.vitesse ?? this.vitesse
     const B = point(x, y)
     this.liste_script.push(`<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" id="${A.id}" mouvement="translation" objet="point" tempo="${tempo}" vitesse="${vitesse}" />`)
   }
 
   /**
-   * Ajoute un label au point
-   * @param {Point} A
+   * Ajoute un label au point { dx, dy, couleur = this.couleurPoint, tempo = this.tempo }
+   * @param {PointAbstrait} A
    * @param {string} nom
    * @param {objet} [options] dx pour le déplacement vertical du nom du point, dy pour le déplacemetn horizontal, couleur: this.couleurPoint, tempo: this.tempo
    */
-  pointNommer (A, nom, { dx, dy, couleur = this.couleurPoint, tempo = this.tempo } = {}) {
+  pointNommer (A: PointAbstrait, nom: string, options: OptionsPoint = {}) {
     // const coordonneesTexte = ''
     const M = point(A.x, A.y)
-    if (typeof dx !== 'undefined') {
-      M.x += dx
+    if (options.dx) {
+      M.x += options.dx
     }
-    if (typeof dy !== 'undefined') {
-      M.y += dy
+    if (options.dy) {
+      M.y += options.dy
     }
-    this.textePoint(`$${nom}$`, M, { tempo, couleur })
+    this.textePoint(`$${nom}$`, M, options)
     // this.liste_script.push(`<action couleur="${couleur}" nom="${nom}" id="${A.id}" mouvement="nommer" objet="point" tempo="${tempo}" ${coordonneesTexte} />`)
   }
 
@@ -688,7 +690,8 @@ export default class Alea2iep {
 * Change l'orientation du compas. Par défaut, elle est vers la droite. L'orientation courante du compas est sauvegardée dans this.compas.orientation
 * @param {objet} [options] Défaut : { tempo: this.tempo}
 */
-  compasRetourner ({ tempo = this.tempo } = {}) {
+  compasRetourner (options: OptionsCompas = {}) {
+    const tempo = options.tempo ?? this.tempo
     const codeXML = `<action mouvement="retourner" objet="compas" tempo="${tempo}" />`
     if (this.compas.orientation === 'droite') {
       this.compas.orientation = 'gauche'
@@ -703,7 +706,9 @@ export default class Alea2iep {
 * @param {number} longueur écartement en cm
 * @param {objet} [options] Défaut : { tempo: this.tempo, vitesse: this.vitesse }
 */
-  compasEcarter (l, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
+  compasEcarter (l: number, options: OptionsCompas = {}) {
+    const tempo = options.tempo ?? this.tempo
+    const vitesse = options.vitesse ?? this.vitesse
     const codeXML = `<action ecart="${l * 30}" mouvement="ecarter" objet="compas" tempo="${tempo}" vitesse="${vitesse}" />`
     this.compas.ecartement = l
     this.liste_script.push(codeXML)
@@ -714,36 +719,37 @@ export default class Alea2iep {
 * @param {number} longueur
 * @param {*} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
 */
-  compasEcarterAvecRegle (l, { tempo = this.tempo, vitesse = this.vitesse, sens = this.vitesse / 2 } = {}) {
-    this.regleRotation(0, { tempo: 0, sens })
-    this.regleMontrer(this.compas.position, { tempo: 0 })
-    this.regleDeplacer(this.compas.position, { tempo: 0, vitesse })
-    this.compasMontrer()
-    this.compasRotation(0, { tempo: 0, sens })
-    this.compasEcarter(l, { tempo, vitesse, sens })
+  compasEcarterAvecRegle (l: number, options: OptionsCompas = {}) {
+    this.regleRotation(0, options)
+    this.regleMontrer(this.compas.position, options)
+    this.regleDeplacer(this.compas.position, options)
+    this.compasMontrer(this.compas.position, options)
+    this.compasRotation(0, options)
+    this.compasEcarter(l, options)
   }
 
   /**
 *
-* @param {Point} A Pointe du compas
-* @param {Point} B Mine du compas
+* @param {PointAbstrait} A Pointe du compas
+* @param {PointAbstrait} B Mine du compas
 * @param {objet} [options] Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
 */
-  compasEcarter2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = this.vitesse / 2 } = {}) {
-    this.compasMontrer(A)
-    this.compasDeplacer(A, { tempo, vitesse })
+  compasEcarter2Points (A: PointAbstrait, B: PointAbstrait, options: OptionsCompas = {}) {
+    this.compasMontrer(A, options)
+    this.compasDeplacer(A, options)
     const s = segment(A, B)
     s.isVisible = false
     const angle = s.angleAvecHorizontale
-    this.compasRotation(angle, { tempo, sens })
-    this.compasEcarter(longueur(A, B), { tempo, vitesse })
+    this.compasRotation(angle, options)
+    this.compasEcarter(longueur(A, B), options)
   }
 
   /**
 * Remettre le compas en position standard. Son état est sauvegardé dans le booléen this.compas.leve.
 * @param {objet} [options] Défaut : { tempo: this.tempo }
 */
-  compasLever ({ tempo = this.tempo } = {}) {
+  compasLever (options: OptionsCompas = {}) {
+    const tempo = options.tempo ?? this.tempo
     if (!this.compas.leve) { // On ne fait rien si le compas est déjà levé
       const codeXML = `<action mouvement="lever" objet="compas" tempo="${tempo} />`
       this.compas.leve = true
@@ -755,7 +761,8 @@ export default class Alea2iep {
 * Voir le compas en vue de dessus avant qu'il trace un arc de cercle
 * @param {objet} [options] Défaut : { tempo: this.tempo }
 */
-  compasCoucher ({ tempo = this.tempo } = {}) {
+  compasCoucher (options: OptionsCompas = {}) {
+    const tempo = options.tempo ?? this.tempo
     if (this.compas.leve) { // On ne fait rien si le compas est déjà levé
       const codeXML = `<action mouvement="coucher" objet="compas" tempo="${tempo}" />`
       this.compas.leve = false
@@ -770,8 +777,12 @@ export default class Alea2iep {
 * @param {objet} [options] Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
 * @return {id}
 */
-  compasTracerArc2Angles (angle1, angle2, { tempo = this.tempo, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
-    const pointillesTexte = pointilles ? 'pointille="tiret"' : ''
+  compasTracerArc2Angles (angle1: number, angle2: number, options: OptionsCompas = {}) {
+    const tempo = options.tempo ?? this.tempo
+    const sens = options.sens ?? this.vitesse / 2
+    const epaisseur = options.epaisseur ?? 0.5
+    const couleurCompas = options.couleurCompas ?? this.couleurCompas
+    const pointillesTexte = options.pointilles ? 'pointille="tiret"' : ''
     this.idIEP += 1
     if (Math.abs(this.compas.angle - angle1) > Math.abs(this.compas.angle - angle2)) { // On cherche à commencer par le point le plus proche de la position courante du compas
       [angle1, angle2] = [angle2, angle1]
@@ -783,9 +794,9 @@ export default class Alea2iep {
     if (angle2 > angle1) {
       sensTexte = sens
     } else {
-      sensTexte = -1 * sens
+      sensTexte = -1 * (sens)
     }
-    codeXML += `<action couleur="${couleur}" epaisseur="${epaisseur}" sens="${sensTexte}" debut="${-angle1}" fin="${-angle2}" mouvement="tracer" objet="compas"  ${pointillesTexte} id="${this.idIEP}" />\n`
+    codeXML += `<action couleur="${couleurCompas}" epaisseur="${epaisseur}" sens="${sensTexte}" debut="${-angle1}" fin="${-angle2}" mouvement="tracer" objet="compas"  ${pointillesTexte} id="${this.idIEP}" />\n`
     codeXML += `<action mouvement="coucher" objet="compas" tempo="${tempo}"/>`
     this.compas.angle = angle2
     this.liste_script.push(codeXML)
@@ -794,35 +805,36 @@ export default class Alea2iep {
 
   /**
 * Trace un arc de cercle autour d'un point. La longueur de l'arc est déterminée par l'option delta en degré qui est ajoutée de part et d'autre du point
-* @param {Point} centre
-* @param {Point} point
+* @param {PointAbstrait} centre
+* @param {PointAbstrait} point
 * @param {objet} [options] Défaut : { delta: 10, tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
 * @return {id}
 */
-  compasTracerArcCentrePoint (centre, point, { delta = 10, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
-    this.compasMontrer()
-    this.compasDeplacer(centre, { tempo, vitesse })
+  compasTracerArcCentrePoint (centre: PointAbstrait, point: PointAbstrait, options: OptionsCompas = {}) {
+    const delta = options.delta ?? 10
+    this.compasMontrer(this.compas.position, options)
+    this.compasDeplacer(centre, options)
     const s = segment(centre, point)
     s.visibility = false
     const angle1 = s.angleAvecHorizontale - delta
     const angle2 = s.angleAvecHorizontale + delta
     if ((Math.abs(this.compas.ecartement - longueur(this.compas.position, point))) > 0.1) {
-      this.compasEcarter(longueur(centre, point), { tempo, vitesse })
+      this.compasEcarter(longueur(centre, point), options)
     }
-    return this.compasTracerArc2Angles(angle1, angle2, { tempo, vitesse, epaisseur, sens, couleur, pointilles })
+    return this.compasTracerArc2Angles(angle1, angle2, options)
   }
 
   /**
 *
-* @param {Point} centre
-* @param {Point} point Point de départ du tracé du cercle
+* @param {PointAbstrait} centre
+* @param {PointAbstrait} point Point de départ du tracé du cercle
 * @param {objet} [options] Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
 */
-  compasCercleCentrePoint (centre, point, { tempo = this.tempo, couleur = this.couleur, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
-    this.compasEcarter2Points(centre, point, { vitesse, tempo })
+  compasCercleCentrePoint (centre: PointAbstrait, point: PointAbstrait, options: OptionsCompas = {}) {
+    this.compasEcarter2Points(centre, point, options)
     const d = droite(centre, point)
     const angle1 = d.angleAvecHorizontale
-    this.compasTracerArc2Angles(angle1, angle1 + 360, { tempo, vitesse, sens, epaisseur, couleur, pointilles })
+    this.compasTracerArc2Angles(angle1, angle1 + 360, options)
   }
 
   /**
@@ -836,8 +848,10 @@ export default class Alea2iep {
    * @param {number} déplacement en nombre de cm (le déplacement peut être positif ou négatif)
    * @param {*} options Défaut : { tempo: this.tempo, vitesse: this.vitesse }
    */
-  requerreGlisserEquerre (a, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
-    this.liste_script.push(`<action abscisse="${a * 30}" mouvement="glisser" objet="requerre" tempo="${tempo}" vitesse="${vitesse}" />`)
+  requerreGlisserEquerre (deplacement: number, options: OptionsRequerre = {}) {
+    const tempo = options.tempo ?? this.tempo
+    const vitesse = options.vitesse ?? this.vitesse
+    this.liste_script.push(`<action abscisse="${deplacement * 30}" mouvement="glisser" objet="requerre" tempo="${tempo}" vitesse="${vitesse}" />`)
   }
 
   /**
@@ -856,7 +870,7 @@ export default class Alea2iep {
 
   /**
    * Montre ou masque les graduations du rapporteur
-   * @param {Point} A
+   * @param {PointAbstrait} A
    * @param {string} nom
    * @param {objet} [options] Défaut : { tempo: this.tempo }
    */
@@ -867,7 +881,8 @@ export default class Alea2iep {
    * @param {objet} [options] Défaut : { tempo: this.tempo }
    */
 
-  rapporteurMasquerGraduationsExterieures ({ tempo = this.tempo } = {}) {
+  rapporteurMasquerGraduationsExterieures (options: OptionsRapporteur = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action mouvement="masquer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
   }
 
@@ -875,7 +890,8 @@ export default class Alea2iep {
    * Montre la graduation extérieure si elle avait été précédemment cachée
    * @param {objet} [options] Défaut : { tempo: this.tempo }
    */
-  rapporteurMontrerGraduationsExterieures ({ tempo = this.tempo } = {}) {
+  rapporteurMontrerGraduationsExterieures (options: OptionsRapporteur = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action mouvement="montrer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
   }
 
@@ -883,7 +899,8 @@ export default class Alea2iep {
    * Masque la graduation interne du rapporteur (laisse l'autre graduation visible)
    * @param {objet} [options] Défaut : { tempo: this.tempo }
    */
-  rapporteurMasquerGraduationsInterieures ({ tempo = this.tempo } = {}) {
+  rapporteurMasquerGraduationsInterieures (options: OptionsRapporteur = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action mouvement="vide" objet="rapporteur" tempo="${tempo}"/>`)
   }
 
@@ -891,22 +908,23 @@ export default class Alea2iep {
    * Montre la graduation interne si elle avait été précédemment cachée
    * @param {objet} [options] Défaut : { tempo: this.tempo }
    */
-  rapporteurMontrerGraduationsInterieures ({ tempo = this.tempo } = {}) {
+  rapporteurMontrerGraduationsInterieures (options: OptionsRapporteur = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action mouvement="graduations" objet="rapporteur" tempo="${tempo}"/>`)
   }
 
   /**
  * Met le rapporteur en position avec le centre en A et le 0 de droite alogné avec le point B
- * @param {Point} A
- * @param {Point} B
+ * @param {PointAbstrait} A
+ * @param {PointAbstrait} B
  * @param {objet} [options] Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
  */
-  rapporteurDeplacerRotation2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2) } = {}) {
+  rapporteurDeplacerRotation2Points (A: PointAbstrait, B: PointAbstrait, options: OptionsRapporteur = {}) {
     const d = droite(A, B)
     d.isVisible = false
-    this.rapporteurMontrer()
-    this.rapporteurDeplacer(A, { tempo, vitesse })
-    this.rapporteurRotation(d.angleAvecHorizontale, { tempo, vitesse, sens })
+    this.rapporteurMontrer(this.rapporteur.position, options)
+    this.rapporteurDeplacer(A, options)
+    this.rapporteurRotation(d.angleAvecHorizontale, options)
   }
 
   /**
@@ -914,37 +932,37 @@ export default class Alea2iep {
  * @param {number} angle
  * @param {objet} [options] Défaut : { tempo: this.tempo, vitesse: this.vitesse, couleur: this.couleurTraitsDeConstruction, epaisseur: this.epaisseurTraitsDeConstruction }
  */
-  rapporteurCrayonMarqueAngle (angle, { tempo = this.tempo, vitesse = this.vitesse, couleur = this.couleurTraitsDeConstruction, epaisseur = this.epaisseurTraitsDeConstruction } = {}) {
+  rapporteurCrayonMarqueAngle (angle: number, options: OptionsCrayon = {}) {
     const O = this.rapporteur.position
     const distanceBord = this.rapporteur.rayon * this.rapporteur.zoom / 100
     const M = pointAdistance(O, distanceBord, angle + this.rapporteur.angle)
     const N = pointAdistance(O, distanceBord + 0.3, angle + this.rapporteur.angle)
-    this.crayonMontrer()
-    this.crayonDeplacer(M, { tempo, vitesse })
-    this.tracer(N, { tempo, vitesse, couleur, epaisseur })
+    this.crayonMontrer(this.crayon.position, options)
+    this.crayonDeplacer(M, options)
+    this.tracer(N, options)
   }
 
   /**
  * Le crayon va faire une marque sur la graduation du rapporteur, le rapporteur va se cacher et on trace une demi-droite dont on peut choisir la "longueur" (par défaut 90% de celle de la règle)
- * @param {Point} A Centre du rapporteur
- * @param {Point} B Point avec lequel le 0 de droite sera aligné
+ * @param {PointAbstrait} A Centre du rapporteur
+ * @param {PointAbstrait} B Point avec lequel le 0 de droite sera aligné
  * @param {number} angle
  * @param {objet} [options] { longueur: 0.9 * this.regle.longueur, couleur: this.couleur, tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2, epaisseur: this.epaisseur, pointilles: this.pointilles }
  */
-  rapporteurTracerDemiDroiteAngle (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
+  rapporteurTracerDemiDroiteAngle (A: PointAbstrait, B: PointAbstrait, angle: number, options: OptionsCrayon = {}) {
     if (angle > 0) {
-      this.rapporteurDeplacerRotation2Points(A, B, { tempo, vitesse, sens })
-      this.rapporteurCrayonMarqueAngle(angle, { tempo, vitesse, sens })
+      this.rapporteurDeplacerRotation2Points(A, B, options)
+      this.rapporteurCrayonMarqueAngle(angle, options)
     } else {
       const B2 = rotation(B, A, 180)
-      this.rapporteurDeplacerRotation2Points(A, B2, { tempo, vitesse, sens })
-      this.rapporteurCrayonMarqueAngle(180 - Math.abs(angle), { tempo, vitesse, sens })
+      this.rapporteurDeplacerRotation2Points(A, B2, options)
+      this.rapporteurCrayonMarqueAngle(180 - Math.abs(angle), options)
     }
     const d = droite(A, B)
     d.isVisible = false
     const M = pointAdistance(A, this.rapporteur.rayon * this.rapporteur.zoom / 100, d.angleAvecHorizontale + angle)
-    this.rapporteurMasquer({ tempo })
-    this.regleDemiDroiteOriginePoint(A, M, { longueur, couleur, tempo, vitesse, sens, epaisseur, pointilles })
+    this.rapporteurMasquer(options)
+    this.regleDemiDroiteOriginePoint(A, M, options)
   }
 
   /**
@@ -957,7 +975,8 @@ export default class Alea2iep {
  * Masquer les graduations sur la règle
  * @param {objet} [options] Défaut : { tempo: this.tempo }
  */
-  regleMasquerGraduations ({ tempo = this.tempo } = {}) {
+  regleMasquerGraduations (options: OptionsIep = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action mouvement="vide" objet="regle" tempo="${tempo}"/>`)
   }
 
@@ -965,7 +984,8 @@ export default class Alea2iep {
  * Montrer les graduations sur la règle si elles avaient été masquées
  * @param {objet} [options] Défaut : { tempo: this.tempo }
  */
-  regleMontrerGraduations ({ tempo = this.tempo } = {}) {
+  regleMontrerGraduations (options: OptionsIep = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action mouvement="graduations" objet="regle" tempo="${tempo}"/>`)
   }
 
@@ -974,37 +994,34 @@ export default class Alea2iep {
    * @param {number} longueur
    * @param {objet} [options] Défaut : { tempo: this.tempo }
    */
-  regleModifierLongueur (longueur = 20, { tempo = this.tempo } = {}) {
+  regleModifierLongueur (longueur = 20, options: OptionsIep = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.regle.longueur = longueur
-    this.liste_script.push(`<action mouvement="modifier_longueur" objet="regle" longueur="${longueur}" tempo="${tempo}"/>`)
+    this.liste_script.push(`<action mouvement="modifier_longueur" objet="regle" longueur="${this.regle.longueur}" tempo="${tempo}"/>`)
   }
 
   /**
  * Trace une demi-droite d'origine O passant par A (ou en direction de A si les points sont trop éloignés)
- * @param {Point} O Origine
- * @param {Point} A Direction
+ * @param {PointAbstrait} O Origine
+ * @param {PointAbstrait} A Direction
  * @param {objet} [options] Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
  */
-  regleDemiDroiteOriginePoint (O, A, options = {}) {
-    if (!options.longueur) {
-      options.longueur = this.regle.longueur
-    }
-    const M = pointSurSegment(O, A, options.longueur)
+  regleDemiDroiteOriginePoint (O: PointAbstrait, A: PointAbstrait, options: OptionsRegle = {}) {
+    const longueur = options.longueur ?? this.regle.longueur
+    const M = pointSurSegment(O, A, longueur)
     this.regleSegment(O, M, options)
   }
 
   /**
    * Trace une droite passanrt par les points A et B
-   * @param {Point} A
-   * @param {Point} B
+   * @param {PointAbstrait} A
+   * @param {PointAbstrait} B
    * @param {objet} [options] Défaut {longueur: this.regle.longueur, tempo : this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
    */
-  regleDroite (A, B, options = {}) {
-    if (!options.longueur) {
-      options.longueur = this.regle.longueur
-    }
-    const M = homothetie(B, A, (-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B))
-    const N = homothetie(A, B, (-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B))
+  regleDroite (A: PointAbstrait, B: PointAbstrait, options: OptionsRegle = {}) {
+    const longueurRegle = options.longueur ?? this.regle.longueur
+    const M = homothetie(B, A, (-(longueurRegle) * 0.5 + longueur(A, B) * 0.5) / longueur(A, B))
+    const N = homothetie(A, B, (-(longueurRegle) * 0.5 + longueur(A, B) * 0.5) / longueur(A, B))
     if (this.x(A) <= this.x(B)) {
       this.regleMontrer(M)
       this.regleRotation(N, options)
@@ -1018,21 +1035,19 @@ export default class Alea2iep {
 
   /**
  * Avec la règle, on prolonge le segment de l cm du coté de la 2e extrémité si l est positif sinon du côté de la première extrémité
- * @param {Point} A
- * @param {Point} B
- * @param {objet} [options] Défaut {longueur: 3, tempo: this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
+ * @param {PointAbstrait} A
+ * @param {PointAbstrait} B
+ * @param {objet} [options] Défaut {longueur: this.regle.longueur - 3, tempo: this.tempo, vitesse: this.vitesse, sens: this.vitesse / 2}
  */
-  regleProlongerSegment (A, B, options = {}) {
-    if (!options.longueur) {
-      options.longueur = this.regle.longueur - 3
-    }
-    if (options.longueur > 0) {
+  regleProlongerSegment (A: PointAbstrait, B: PointAbstrait, options: OptionsRegle = {}) {
+    const longueur = options.longueur ?? (this.regle.longueur - 3)
+    if (longueur > 0) {
       const B1 = pointSurSegment(B, A, 3)
-      const B2 = pointSurSegment(B, A, -options.longueur)
+      const B2 = pointSurSegment(B, A, -longueur)
       this.regleSegment(B1, B2, options)
     } else {
       const A1 = pointSurSegment(A, B, 3)
-      const A2 = pointSurSegment(A, B, options.longueur)
+      const A2 = pointSurSegment(A, B, longueur)
       this.regleSegment(A1, A2, options)
     }
   }
@@ -1045,13 +1060,18 @@ export default class Alea2iep {
 
   /**
  * Le crayon trace un trait de sa position courante jusqu'au point B
- * @param {Point} B
+ * @param {PointAbstrait} B
  * @param {objet} [options] Défaut { tempo: this.tempo, vitesse: this.vitesse, epaisseur: this.epaisseur, couleur: this.couleur, pointilles: this.pointilles, vecteur: false }
  * @return {id} id utilisée pour le tracé
  */
-  tracer (B, { tempo = this.tempo, vitesse = this.vitesse, epaisseur = this.epaisseur, couleur = this.couleur, pointilles = this.pointilles, vecteur = false } = {}) {
+  tracer (B: PointAbstrait, options: OptionsCrayon = {}) {
+    const tempo = options.tempo ?? this.tempo
+    const vitesse = options.vitesse ?? this.vitesse
+    const epaisseur = options.epaisseur ?? this.epaisseur
+    const couleur = options.couleur ?? this.couleur
+    const pointilles = options.pointilles ?? this.pointilles
     const pointillesTexte = pointilles ? 'pointille="tiret"' : ''
-    const vecteurTexte = vecteur ? 'style="vecteur"' : ''
+    const vecteurTexte = options.vecteur ? 'style="vecteur"' : ''
     this.idIEP += 1
     const codeXML = `<action abscisse="${this.x(B)}" ordonnee="${this.y(B)}" epaisseur="${epaisseur}" couleur="${couleur}" mouvement="tracer" objet="crayon" tempo="${tempo}" vitesse="${vitesse}"  ${pointillesTexte} ${vecteurTexte} id="${this.idIEP}" />`
     this.crayon.position = B
@@ -1061,36 +1081,37 @@ export default class Alea2iep {
 
   /**
    * Trace au crayon le segment [AB]
-   * @param {Point} A Première extrémité
-   * @param {Point} B Deuxième extrémité
+   * @param {PointAbstrait} A Première extrémité
+   * @param {PointAbstrait} B Deuxième extrémité
    * @param {*} options
    * @return {id} id utilisée pour le tracé
    */
-  trait (A, B, options = {}) {
+  trait (A: PointAbstrait, B: PointAbstrait, options: OptionsCrayon = {}) {
     this.crayonDeplacer(A, options)
     return this.tracer(B, options)
   }
 
   /**
    * Trace au crayon le segment [AB] sans tempo et avec une vitesse multipliée par 1 000
-   * @param {Point} A Première extrémité
-   * @param {Point} B Deuxième extrémité
+   * @param {PointAbstrait} A Première extrémité
+   * @param {PointAbstrait} B Deuxième extrémité
    * @param {*} options
    * @return {id} id utilisée pour le tracé
    */
-  traitRapide (A, B, options = {}) {
-    options.tempo = 0
-    options.vitesse = 10000
-    this.crayonDeplacer(A, options)
-    return this.tracer(B, options)
+  traitRapide (A: PointAbstrait, B: PointAbstrait, options: OptionsCrayon = {}) {
+    const tempo = 0
+    const vitesse = 10000
+    this.crayonDeplacer(A, Object.assign({ tempo, vitesse }, options))
+    return this.tracer(B, Object.assign({ tempo, vitesse }, options))
   }
 
   /**
  * Masque le trait d'id fourni
  * @param {number} id
- * @param {objet} [options] Défaut : { tempo: 0, vitesse: 200 } // @fixme tempo n'étant pas utilisée je l'ai supprimé des arguments
+ * @param {objet} [options] Défaut : { vitesse: 200 }
  */
-  traitMasquer (id, { vitesse = 200 } = {}) {
+  traitMasquer (id: number, options: OptionsCrayon = {}) {
+    const vitesse = options.vitesse ?? 200
     this.liste_script.push(`<action mouvement="masquer" objet="trait" id="${id}" vitesse="${vitesse}" />`)
   }
 
@@ -1101,16 +1122,32 @@ export default class Alea2iep {
    * @param {objet} [arg3] si les deux premiers arguments étaient des points
    * @returns {id} identifiant utilisé pour le trait
    */
-  regleSegment (arg1, arg2, arg3) {
-    let A, B, options, id
-    if (arg1.typeObjet === 'segment') {
+  regleSegment (arg1: Segment | PointAbstrait, arg2?: OptionsRegle | PointAbstrait, arg3?: OptionsRegle) {
+    let A: PointAbstrait, B: PointAbstrait
+    let id: number = -1
+    let options: OptionsRegle = {}
+    if (arg1 instanceof Segment) {
       A = arg1.extremite1
       B = arg1.extremite2
-      options = arg2
+      if (arg2 instanceof PointAbstrait) {
+        window.notify('regleSegment appelé avec un mauvais jeu d\'arguments (arg1 est un segment mais arg2 est un point)', { arg1, arg2, arg3 })
+      } else {
+        if (typeof arg2 === 'object') {
+          options = arg2
+        }
+      }
     } else {
-      A = arg1
-      B = arg2
-      options = arg3
+      if (arg1 instanceof PointAbstrait && arg2 instanceof PointAbstrait) {
+        A = arg1
+        B = arg2
+      } else {
+        window.notify('regleSegment appelé avec un mauvais jeu d\'arguments (arg1 et arg2 ne sont pas des points)', { arg1, arg2, arg3 })
+        A = pointAbstrait(0, 0)
+        B = pointAbstrait(0, 0)
+      }
+      if (typeof arg3 === 'object') {
+        options = arg3
+      }
     }
     if (A.x <= B.x) { // Toujours avoir la règle de gauche à droite
       this.regleMontrer(A, options)
@@ -1135,7 +1172,7 @@ export default class Alea2iep {
    * Trace un polygone avec les options par défaut que l'on ne peut pas changer ici
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
-  polygoneTracer (...sommets) {
+  polygoneTracer (...sommets: PointAbstrait[]) {
     for (let i = 0; i < sommets.length - 1; i++) {
       this.regleSegment(sommets[i], sommets[i + 1])
     }
@@ -1146,12 +1183,23 @@ export default class Alea2iep {
    * Trace un polygone avec traitRapide()
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
-  polygoneRapide (...sommets) {
-    if (Array.isArray(sommets) && sommets.length > 2) {
-      for (let i = 0; i < sommets.length - 1; i++) {
-        this.traitRapide(sommets[i], sommets[i + 1])
+  polygoneRapide (...args: (PointAbstrait | OptionsCrayon)[]) {
+    const sommets: PointAbstrait[] = []
+    const option: OptionsCrayon = {}
+    args.forEach(arg => {
+      if (arg instanceof PointAbstrait) {
+        sommets.push(arg)
+      } else if (typeof arg === 'object') {
+        Object.assign(option, arg)
+      } else {
+        window.notify('polygoneRapide appelé avec un mauvais jeu d\'arguments', { arg })
       }
-      this.traitRapide(sommets[sommets.length - 1], sommets[0])
+    })
+    if (sommets.length > 2) {
+      for (let i = 0; i < sommets.length - 1; i++) {
+        this.traitRapide(sommets[i], sommets[i + 1], option)
+      }
+      this.traitRapide(sommets[sommets.length - 1], sommets[0], option)
     } else throw Error(`Pour utiliser polygoneRapide, il faut passer une liste de points ! et pas ça : ${JSON.stringify(sommets)} `)
   }
 
@@ -1164,46 +1212,47 @@ export default class Alea2iep {
   /**
    * Ecris un texte collé au point. On peut choisir un fond, un cadre, l'opacité du fond, la police...
    * @param {string} texte
-   * @param {Point} A
+   * @param {PointAbstrait} A
    * @param {objet} [options] Défaut : { tempo: this.tempo, police: false, couleur: this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas }
    * @return {id}
    */
-  textePoint (texte, A, { tempo = this.tempo, police = false, couleur = this.couleurTexte, taille, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas } = {}) {
+  textePoint (texte: string, A: PointAbstrait, options: OptionsTexte = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.idIEP++
-    const policeTexte = police ? `police="${police}"` : ''
-    let options = ''
-    if (typeof couleurFond !== 'undefined') {
-      options += ` couleur_fond="${couleurFond}"`
+    const policeTexte = options.police ? `police="${options.police}"` : ''
+    let stringOptions = ''
+    if (options.couleurFond) {
+      stringOptions += ` couleur_fond="${options.couleurFond}"`
     }
-    if (typeof opaciteFond !== 'undefined') {
-      options += ` opacite_fond="${opaciteFond}"`
+    if (options.opaciteFond) {
+      stringOptions += ` opacite_fond="${options.opaciteFond}"`
     }
-    if (typeof couleurCadre !== 'undefined') {
-      options += ` couleur_cadre="${couleurCadre}"`
+    if (options.couleurCadre) {
+      stringOptions += ` couleur_cadre="${options.couleurCadre}"`
     }
-    if (typeof epaisseurCadre !== 'undefined') {
-      options += ` epaisseur_cadre="${epaisseurCadre}"`
+    if (options.epaisseurCadre) {
+      stringOptions += ` epaisseur_cadre="${options.epaisseurCadre}"`
     }
-    if (typeof marge !== 'undefined') {
-      options += ` marge="${marge}"`
+    if (options.marge) {
+      stringOptions += ` marge="${options.marge}"`
     }
-    if (typeof margeGauche !== 'undefined') {
-      options += ` marge_gauche="${margeGauche}"`
+    if (options.margeGauche) {
+      stringOptions += ` marge_gauche="${options.margeGauche}"`
     }
-    if (typeof margeDroite !== 'undefined') {
-      options += ` marge_droite="${margeDroite}"`
+    if (options.margeDroite) {
+      stringOptions += ` marge_droite="${options.margeDroite}"`
     }
-    if (typeof margeBas !== 'undefined') {
-      options += ` marge_bas="${margeBas}"`
+    if (options.margeBas) {
+      stringOptions += ` marge_bas="${options.margeBas}"`
     }
-    if (typeof margeHaut !== 'undefined') {
-      options += ` marge_haut="${margeHaut}"`
+    if (options.margeHaut) {
+      stringOptions += ` marge_haut="${options.margeHaut}"`
     }
-    if (typeof taille !== 'undefined') {
-      options += ` taille="${taille}"`
+    if (options.taille) {
+      stringOptions += ` taille="${options.taille}"`
     }
     let codeXML = `<action abscisse="${this.x(A)}" ordonnee="${this.y(A)}" id="${this.idIEP}" mouvement="creer" objet="texte" />`
-    codeXML += `\n<action ${policeTexte} couleur="${couleur}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${options} tempo="${tempo}" />`
+    codeXML += `\n<action ${policeTexte} couleur="${options.couleur || this.couleurTexte}" texte="${texte}" id="${this.idIEP}" mouvement="ecrire" objet="texte" ${stringOptions} tempo="${tempo}" />`
     this.liste_script.push(codeXML)
     return this.idIEP
   }
@@ -1215,12 +1264,12 @@ export default class Alea2iep {
    * @param {number} y Ordonnée du coin en haut à gauche
    * @param {objet} [options] Défaut : { tempo: this.tempo, police: false, couleur: this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas }
    */
-  textePosition (texte, x, y, options) {
+  textePosition (texte: string, x: number, y: number, options: OptionsTexte = {}) {
     const A = point(x, y)
     return this.textePoint(texte, A, options)
   }
 
-  longueurSegment (A, B, dy, options) {
+  longueurSegment (A: PointAbstrait, B: PointAbstrait, dy: number, options: OptionsTexte = {}) {
     const l = longueur(A, B)
     const v = vecteur(A, B)
     const w = vecteur(-v.y * dy / norme(v), v.x * dy / norme(v))
@@ -1228,7 +1277,7 @@ export default class Alea2iep {
     return this.textePoint(`${l} cm`, ancrage, options)
   }
 
-  mesureAngle (A, O, B) {
+  mesureAngle (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait) {
     const a = angleOriente(A, O, B)
     const C = translation(homothetie(rotation(A, O, a / 2), O, 1.3 / longueur(O, A)), vecteur(-0.2, 0.5))
     return this.textePoint(Math.abs(a) + '°', C)
@@ -1239,24 +1288,14 @@ export default class Alea2iep {
  * @param {array} id
  * @param {objet} [options] Défaut : { tempo: 0 }
  */
-  texteMasquer (...args) {
-    const enleveDernier = arr => arr.slice(0, -1)
-    if (Number.isNaN(args[args.length - 1])) {
-      if (args[args.length - 1].tempo !== undefined) {
-        const tempo = args[args.length - 1].tempo
-        for (const texte of enleveDernier(args)) {
-          this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${texte}" tempo="${tempo}" />`)
-        }
-      } else {
-        for (const texte of enleveDernier(args)) {
-          this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${texte}" tempo="0" />`)
-        }
-      }
-    } else {
-      for (const texte of args) {
-        this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${texte}" tempo="0" />`)
-      }
-    }
+  texteMasquer (...args: (number | OptionsIep)[]) {
+    const options: OptionsIep = { tempo: 0 }
+    args.filter(arg => !(typeof arg === 'number')).forEach(option => { // On intègre aux options les paramètres des arguments qui ne sont pas des id
+      Object.assign(options, option)
+    })
+    args.filter(arg => typeof arg === 'number').forEach(id => {
+      this.liste_script.push(`<action mouvement="masquer" objet="texte" id="${id}" tempo="${options.tempo}" />`)
+    })
   }
 
   /**
@@ -1266,7 +1305,7 @@ export default class Alea2iep {
    * @param {number} id
    * @param {string} couleur
    */
-  texteChangeCouleur (texte, id, couleur) {
+  texteChangeCouleur (texte: string, id: number, couleur: string) {
     this.liste_script.push(`\n<action couleur="${couleur}" texte="${texte}" id="${id}" mouvement="ecrire" objet="texte" />`)
   }
 
@@ -1290,29 +1329,36 @@ export default class Alea2iep {
    * @param {objet} [options] si les deux premiers arguments étaient des points. Défaut : { tempo: this.tempo, couleur: this.couleurCodage, codage: '//', }
    * @return {id}
   */
-  segmentCodage (arg1, arg2 = {}, arg3 = {}) {
-    let s
-    let options = {}
-    if (arg1.typeObjet === 'segment') {
+  segmentCodage (arg1: Segment | PointAbstrait, arg2?: OptionsRegle | PointAbstrait, arg3?: OptionsRegle) {
+    let s: Segment
+    let options: OptionsRegle = {}
+    if (arg1 instanceof Segment) {
       s = arg1
-      options = arg2
+      if (arg2 instanceof PointAbstrait) {
+        window.notify('segmentCodage appelé avec un mauvais jeu d\'arguments (arg1 est un segment mais arg2 est un point', { arg1, arg2, arg3 })
+      } else {
+        if (typeof arg2 === 'object') {
+          options = arg2
+        }
+      }
     } else {
-      s = segment(arg1, arg2)
-      options = { ...arg3 }
+      if (arg1 instanceof PointAbstrait && arg2 instanceof PointAbstrait) {
+        s = segment(arg1, arg2)
+      } else {
+        window.notify('segmentCodage appelé avec un mauvais jeu d\'arguments (arg1 et arg2 ne sont pas des points)', { arg1, arg2, arg3 })
+        s = segment(pointAbstrait(0, 0), pointAbstrait(0, 0))
+      }
+      if (typeof arg3 === 'object') {
+        options = arg3
+      }
     }
-    if (options.tempo === undefined) {
-      options.tempo = this.tempo
-    }
-    if (options.couleur === undefined) {
-      options.couleur = this.couleurCodage
-    }
-    if (options.codage === undefined) {
-      options.codage = '\\'
-    }
+    const tempo = options.tempo ?? this.tempo
+    const couleur = options.couleurCodage ?? options.couleur ?? this.couleurCodage
+    const codage = options.codage ?? '\\'
     this.idIEP++
     const id = this.idIEP
     const M = milieu(s.extremite1, s.extremite2)
-    const codeXML = `<action abscisse="${this.x(M)}" ordonnee="${this.y(M)}" forme="${options.codage}"  couleur="${options.couleur}" id="${id}" tempo="${options.tempo}" mouvement="creer" objet="longueur" />`
+    const codeXML = `<action abscisse="${this.x(M)}" ordonnee="${this.y(M)}" forme="${codage}"  couleur="${couleur}" id="${id}" tempo="${tempo}" mouvement="creer" objet="longueur" />`
     this.liste_script.push(codeXML)
     return id
   }
@@ -1322,7 +1368,8 @@ export default class Alea2iep {
    * @param {number} id Identifiant du codage
    * @param {objet} [options] Défaut : { tempo: this.tempo }
    */
-  segmentCodageMasquer (id, { tempo = this.tempo } = {}) {
+  segmentCodageMasquer (id: number, options: OptionsIep = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action id="${id}" mouvement="masquer" objet="longueur" tempo="${tempo}" />`)
   }
 
@@ -1331,33 +1378,30 @@ export default class Alea2iep {
    * @param {number} id Identifiant du codage
    * @param {objet} [options] Défaut : { tempo: this.tempo }
    */
-  segmentCodageMontrer (id, { tempo = this.tempo } = {}) {
+  segmentCodageMontrer (id: number, options: OptionsIep = {}) {
+    const tempo = options.tempo ?? this.tempo
     this.liste_script.push(`<action id="${id}" mouvement="montrer" objet="longueur" tempo="${tempo}" />`)
   }
 
   /**
    * Trace le petit carré au crayon
-   * @param {Point} A Point sur un côté de l'angle
-   * @param {Point} B Sommet de l'angle
-   * @param {Point} C Point sur un côté de l'angle
+   * @param {PointAbstrait} A Point sur un côté de l'angle
+   * @param {PointAbstrait} B Sommet de l'angle
+   * @param {PointAbstrait} C Point sur un côté de l'angle
    * @param {objet} [options] Défaut : {longueur : 0.3, couleur: this.couleurCodage}
    * @return {array} [idTrait1, idTrait2]
    */
-  codageAngleDroit (A, B, C, options = {}) {
+  codageAngleDroit (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, options: OptionsRegle = {}) {
+    const longueur = options.longueur ?? 0.3
+    const couleur = options.couleurCodage ?? options.couleur ?? this.couleurCodage
     this.crayonMontrer()
-    if (options.longueur === undefined) {
-      options.longueur = 0.3
-    }
-    if (options.couleur === undefined) {
-      options.couleur = this.couleurCodage
-    }
-    const C1 = pointSurSegment(B, C, options.longueur)
-    const A1 = pointSurSegment(B, A, options.longueur)
+    const C1 = pointSurSegment(B, C, longueur)
+    const A1 = pointSurSegment(B, A, longueur)
     const M = translation2Points(A1, B, C1)
-    const options1 = { ...options } // On recopie options pour ouvoir en changer le tempo du premier tracé
+    const options1 = { ...options } // On recopie options pour pouvoir en changer le tempo du premier tracé
     options1.tempo = 0
-    const trait1 = this.trait(C1, M, options1)
-    const trait2 = this.trait(M, A1, options)
+    const trait1 = this.trait(C1, M, Object.assign({}, options1, { couleur }))
+    const trait2 = this.trait(M, A1, Object.assign({}, options, { couleur }))
     return [trait1, trait2]
   }
 
@@ -1366,9 +1410,10 @@ export default class Alea2iep {
    * @param {number} id Identifiant du codage d'un angle droit
    * @param {objet} [options] Défaut { tempo: 0 }
    */
-  codageAngleDroitMasquer (id, { tempo = 0 } = {}) {
-    this.traitMasquer(id[0], { tempo })
-    this.traitMasquer(id[1], { tempo })
+  codageAngleDroitMasquer (id: [number, number], options: OptionsIep = {}) {
+    const tempo = options.tempo ?? 0
+    this.traitMasquer(id[0], Object.assign({ tempo }, options))
+    this.traitMasquer(id[1], Object.assign({ tempo }, options))
   }
 
   /**
@@ -1376,13 +1421,17 @@ export default class Alea2iep {
    * "double", "double/", "double//", "double///", "doubleO"
    * "triple", "triple/", "triple//", "triple///", "tripleO"
    * "plein", "plein/", "plein//", "plein///", "pleinO"
-   * @param {Point} A Point sur un côté de l'angle
-   * @param {Point} B Sommet de l'angle
-   * @param {Point} C Point sur un côté de l'angle
+   * @param {PointAbstrait} A Point sur un côté de l'angle
+   * @param {PointAbstrait} B Sommet de l'angle
+   * @param {PointAbstrait} C Point sur un côté de l'angle
    * @param {objet} [options] Défaut : { rayon : 1, couleur: this.couleurCodage, codage: 'plein'}
    * @return {id} L'identifiant correspond à l'identifiant des 3 points de l'angle séparés par _
    */
-  angleCodage (B, A, C, { couleur = this.couleurCodage, codage = 'plein', rayon = 1, tempo = this.tempo } = {}) {
+  angleCodage (B: PointAbstrait, A: PointAbstrait, C: PointAbstrait, options: OptionsCompas = {}) {
+    const couleur = options.couleurCodage ?? options.couleur ?? this.couleurCodage
+    const codage = options.codage ?? 'plein'
+    const rayon = options.rayon ?? 1
+    const tempo = options.tempo ?? this.tempo
     const id = B.id + '_' + A.id + '_' + C.id
     const d1 = droite(A, B)
     const d2 = droite(A, C)
@@ -1397,24 +1446,26 @@ export default class Alea2iep {
 
   /**
    * Masque un codage préalablement créé
-   * @param {Point} A
-   * @param {Point} B
-   * @param {Point} C
+   * @param {PointAbstrait} A
+   * @param {PointAbstrait} B
+   * @param {PointAbstrait} C
    * @param {objet} [options] Défaut { tempo: 0 }
    */
-  angleCodageMasquer (B, A, C, { tempo = 0 } = {}) {
+  angleCodageMasquer (B: PointAbstrait, A: PointAbstrait, C: PointAbstrait, options: OptionsIep = {}) {
+    const tempo = options.tempo ?? 0
     const id = B.id + '_' + A.id + '_' + C.id
     this.liste_script.push(`<action id="${id}" mouvement="masquer" objet="angle" tempo="${tempo}" />`)
   }
 
   /**
    * Montre un codage préalablement créé
-   * @param {Point} A
-   * @param {Point} B
-   * @param {Point} C
+   * @param {PointAbstrait} A
+   * @param {PointAbstrait} B
+   * @param {PointAbstrait} C
    * @param {objet} [options] Défaut { tempo: 0 }
    */
-  angleCodageMontrer (B, A, C, { tempo = 0 } = {}) {
+  angleCodageMontrer (B: PointAbstrait, A: PointAbstrait, C: PointAbstrait, options: OptionsIep = {}) {
+    const tempo = options.tempo ?? 0
     const id = B.id + '_' + A.id + '_' + C.id
     this.liste_script.push(`<action id="${id}" mouvement="montrer" objet="angle" tempo="${tempo}" />`)
   }
@@ -1424,7 +1475,7 @@ export default class Alea2iep {
    * @param {string} url
    * @returns {id}
    */
-  image (url, A = point(0, 0)) {
+  image (url: string, A = point(0, 0)) {
     this.idIEP++
     let codeXML
     codeXML = `<action id="${this.idIEP}" url="${url}" mouvement="chargement" objet="image" />`
@@ -1433,42 +1484,3 @@ export default class Alea2iep {
     return this.idIEP
   }
 }
-
-Alea2iep.prototype.symetrieAxialePoint = symetrieAxialePoint
-Alea2iep.prototype.parallelogramme3sommetsConsecutifs = parallelogramme3sommetsConsecutifs
-Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = parallelogramme2sommetsConsecutifsCentre
-Alea2iep.prototype.parallelogrammeAngleCentre = parallelogrammeAngleCentre
-Alea2iep.prototype.partageSegment = partageSegment
-Alea2iep.prototype.paralleleRegleEquerre2points3epoint = paralleleRegleEquerre2points3epoint
-Alea2iep.prototype.paralleleRegleEquerre2points3epoint = paralleleRegleEquerre2points3epoint
-Alea2iep.prototype.perpendiculaireRegleEquerre2points3epoint = perpendiculaireRegleEquerre2points3epoint
-Alea2iep.prototype.perpendiculaireRegleEquerreDroitePoint = perpendiculaireRegleEquerreDroitePoint
-Alea2iep.prototype.perpendiculaireRegleEquerrePointSurLaDroite = perpendiculaireRegleEquerrePointSurLaDroite
-Alea2iep.prototype.perpendiculaireCompasPointSurLaDroite = perpendiculaireCompasPointSurLaDroite
-Alea2iep.prototype.perpendiculaireCompasPoint = perpendiculaireCompasPoint
-Alea2iep.prototype.paralleleRegleEquerreDroitePointAvecDescription = paralleleRegleEquerreDroitePointAvecDescription
-Alea2iep.prototype.paralleleAuCompasAvecDescription = paralleleAuCompasAvecDescription
-Alea2iep.prototype.paralleleAuCompas = paralleleAuCompas
-Alea2iep.prototype.mediatriceAuCompas = mediatriceAuCompas
-Alea2iep.prototype.mediatriceRegleEquerre = mediatriceRegleEquerre
-Alea2iep.prototype.hauteur = hauteur
-Alea2iep.prototype.mediane = mediane
-Alea2iep.prototype.bissectriceAuCompas = bissectriceAuCompas
-Alea2iep.prototype.cercleCirconscrit = cercleCirconscrit
-Alea2iep.prototype.triangle3longueurs = triangle3longueurs
-Alea2iep.prototype.triangleRectangleCoteHypotenuse = triangleRectangleCoteHypotenuse
-Alea2iep.prototype.triangleRectangle2Cotes = triangleRectangle2Cotes
-Alea2iep.prototype.triangle1longueur2angles = triangle1longueur2angles
-Alea2iep.prototype.triangle2longueurs1angle = triangle2longueurs1angle
-Alea2iep.prototype.triangleEquilateral2Sommets = triangleEquilateral2Sommets
-Alea2iep.prototype.triangleEquilateral = triangleEquilateral
-Alea2iep.prototype.carre1point1longueur = carre1point1longueur
-Alea2iep.prototype.rotationPoint = rotationPoint
-Alea2iep.prototype.translationPoint = translationPoint
-Alea2iep.prototype.demiTourPoint = demiTourPoint
-Alea2iep.prototype.homothetiePoint = homothetiePoint
-Alea2iep.prototype.rotationPolygone = rotationPolygone
-Alea2iep.prototype.symetrieAxialePolygone = symetrieAxialePolygone
-Alea2iep.prototype.translationPolygone = translationPolygone
-Alea2iep.prototype.demiTourPolygone = demiTourPolygone
-Alea2iep.prototype.homothetiePolygone = homothetiePolygone

@@ -117,7 +117,7 @@ export default class TransformationsDeTriangle extends Exercice {
       anim.polygoneRapide(...triangle0.listePoints)
       anim.pointsCreer(A, B, C, F, D)
       anim.couleur = 'black'
-      anim.traitRapide(X, Y)
+      anim.traitRapide(X, Y, { couleur: 'red', epaisseur: 1 })
       anim.textePoint('(d)', milieu(B, B1))
       anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], {
         couleur: 'blue',

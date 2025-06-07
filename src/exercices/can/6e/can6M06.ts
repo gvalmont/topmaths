@@ -1,5 +1,5 @@
 import { cercle } from '../../../lib/2d/cercle'
-import { milieu, Point, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../../lib/2d/points'
+import { milieu, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { longueur } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
@@ -46,7 +46,7 @@ export default class Perimetre extends Exercice {
     const d = l - b - c + Math.floor(c)
     const c1 = cercle(C, d)
     const c2 = cercle(A, b)
-    const D = pointIntersectionCC(c1, c2, nom[3], 1) as Point
+    const D = pointIntersectionCC(c1, c2, nom[3], 1)
     const objets = []
     const xmin = Math.min(A.x, B.x, C.x, D.x) - 1.5
     const ymin = Math.min(A.y, B.y, C.y, D.y) - 1.5

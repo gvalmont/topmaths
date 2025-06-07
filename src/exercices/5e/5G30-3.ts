@@ -30,7 +30,7 @@ export const dateDeModifImportante = '24/12/2024'
 export const uuid = '1f334'
 export const refs = {
   'fr-fr': ['5G30-3'],
-  'fr-ch': ['1mG1-3']
+  'fr-ch': ['1mG1-3', '11ES2-4']
 }
 
 // Fonction pour vérifier si tous les points sont dans l'intervalle

@@ -4,7 +4,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import { cercle } from '../../lib/2d/cercle'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
-import { milieu, point, tracePoint, pointIntersectionLC, Point } from '../../lib/2d/points'
+import { milieu, point, tracePoint, pointIntersectionLC } from '../../lib/2d/points'
 import { codageSegments } from '../../lib/2d/codages'
 import { codageAngleDroit } from '../../lib/2d/angles'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -228,7 +228,7 @@ export default class Distance extends Exercice {
             const M1 = point(xM1, yM1, 'A')
             const M2 = point(xM2, yM2, 'B')
             const med = mediatrice(M1, M2) as Droite
-            const M3 = pointIntersectionLC(med, cercle(M1, 5.5)) as Point
+            const M3 = pointIntersectionLC(med, cercle(M1, 5.5))
             const s1 = segment(M1, M3, 'black')
             s1.pointilles = 5
             const s2 = segment(M2, M3, 'black')
@@ -307,7 +307,7 @@ export default class Distance extends Exercice {
             const M1 = point(xM1, yM1, 'A')
             const M2 = point(xM2, yM2, 'B')
             const med = mediatrice(M1, M2) as Droite
-            const M3 = pointIntersectionLC(med, cercle(M1, 5.5)) as Point
+            const M3 = pointIntersectionLC(med, cercle(M1, 5.5))
             const s1 = segment(M1, M3, 'black')
             s1.pointilles = 5
             const s2 = segment(M2, M3, 'black')

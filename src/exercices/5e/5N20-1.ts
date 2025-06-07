@@ -8,7 +8,7 @@ export const dateDePublication = '11/05/2025'
 export const uuid = '6074b'
 export const refs = {
   'fr-fr': ['5N20-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-14', '9NO13-10']
 }
 export default class ExerciceAdditionnerSoustraireFractions5eter extends ExerciceAdditionnerSoustraireFractions5ebis {
   constructor () {

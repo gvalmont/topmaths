@@ -5,10 +5,13 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { texNombre } from '../../lib/outils/texNombre'
 
 export const titre = 'Calculer la valeur d\'une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModificationImportante = '26/05/2025'
 
 /**
  * Calculer la valeur d'une expression littérale
@@ -24,6 +27,7 @@ export const interactifType = 'mathLive'
  * * axy+x+y
  * * (ax+b)(cy-d)
  * @author Rémi Angot
+ * Modifications pour intégrer des nombres relatifs + mise en forme Jean-Claude Lhote le 26/05/2025 + ajout des clones 4L21 et 4L22
  * 5L14
  */
 export const uuid = '17e39'
@@ -44,7 +48,7 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
     // let typesDeQuestionsDisponibles = range1(10)
     let typesDeQuestionsDisponibles
 
-    if (this.version === '5L13-5') {
+    if (this.version === '5L13-5' || this.version === '4L21') {
       typesDeQuestionsDisponibles = range1(2)
     } else {
       typesDeQuestionsDisponibles = range1(10)
@@ -59,34 +63,69 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
           a = randint(2, 10)
           x = randint(2, 10, a)
           b = randint(1, 10, [a, x])
-          texte = `Calculer $${a}x+${b}$ pour $x=${x}$`
+
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1], 3)
+            a *= changeSigne[0]
+            b = changeSigne[1]
+            x *= changeSigne[2]
+          }
+          texte = `Calculer $${a}x${ecritureAlgebrique(b)}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x+${b}=${a}\\times ${x}+${b}=${a * x}+${b}=${miseEnEvidence(`${a * x + b}`)}$`
+          texteCorr += `$\\begin{aligned}${a}x${ecritureAlgebrique(b)}
+          &=${a}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}\\\\
+          &=${a * x}${ecritureAlgebrique(b)}\\\\
+          &=${miseEnEvidence(`${a * x + b}`)}\\end{aligned}$`
           setReponse(this, i, a * x + b)
           break
         case 2: // a(x+b)
           a = randint(2, 10)
           x = randint(2, 10, a)
           b = randint(1, 10, [a, x])
-          texte = `Calculer $${a}(x+${b})$ pour $x=${x}$`
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1], 3)
+            a *= changeSigne[0]
+            b = changeSigne[1]
+            x *= changeSigne[2]
+          }
+          texte = `Calculer $${a}(x${ecritureAlgebrique(b)})$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}(x+${b})=${a}\\times (${x}+${b})=${a}\\times ${x + b}=${miseEnEvidence(`${a * (x + b)}`)}$`
+          texteCorr += `$\\begin{aligned}${a}(x${ecritureAlgebrique(b)})
+          &=${a}\\times (${x}${ecritureAlgebrique(b)})\\\\
+          &=${a}\\times ${ecritureParentheseSiNegatif(x + b)}\\\\
+          &=${miseEnEvidence(`${a * (x + b)}`)}\\end{aligned}$`
           setReponse(this, i, a * (x + b))
           break
         case 3: // x^2+y^2
           x = randint(2, 10)
           y = randint(2, 10)
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1, -1], 2)
+            x *= changeSigne[0]
+            y *= changeSigne[1]
+          }
           texte = `Calculer $x^2+y^2$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$x^2+y^2=${x}^2+${y}^2=${x ** 2}+${y ** 2}=${miseEnEvidence(`${x ** 2 + y ** 2}`)}$`
+          texteCorr += `$\\begin{aligned}x^2+y^2
+          &=${ecritureParentheseSiNegatif(x)}^2+${ecritureParentheseSiNegatif(y)}^2\\\\
+          &=${x ** 2}+${y ** 2}\\\\
+          &=${miseEnEvidence(`${x ** 2 + y ** 2}`)}\\end{aligned}$`
           setReponse(this, i, x ** 2 + y ** 2)
           break
         case 4: // x^2-y^2
           x = randint(2, 10)
           y = randint(1, x - 1)
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1, -1], 2)
+            x *= changeSigne[0]
+            y *= changeSigne[1]
+          }
           texte = `Calculer $x^2-y^2$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$x^2-y^2=${x}^2-${y}^2=${x ** 2}-${y ** 2}=${miseEnEvidence(`${x ** 2 - y ** 2}`)}$`
+          texteCorr += `$\\begin{aligned}x^2-y^2
+          &=${ecritureParentheseSiNegatif(x)}^2-${ecritureParentheseSiNegatif(y)}^2\\\\
+          &=${x ** 2}-${y ** 2}\\\\
+          &=${miseEnEvidence(`${x ** 2 - y ** 2}`)}\\end{aligned}$`
           setReponse(this, i, x ** 2 - y ** 2)
           break
         case 5: // ax^2+b(x-1)+cy^3
@@ -95,9 +134,21 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
           c = randint(2, 6)
           x = randint(3, 6)
           y = choice([1, 2, 3, 5, 10])
-          texte = `Calculer $${a}x^2+${b}(x-1)+${c}y^3$ pour $x=${x}$ et $y=${y}$`
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1, -1, 1], 5)
+            x *= changeSigne[0]
+            y *= changeSigne[1]
+            a *= changeSigne[2]
+            b *= changeSigne[3]
+            c *= changeSigne[4]
+          }
+          texte = `Calculer $${a}x^2${ecritureAlgebrique(b)}(x-1)${ecritureAlgebrique(c)}y^3$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$${a}x^2+${b}(x-1)+${c}y^3=${a}\\times ${x}^2+${b}(${x}-1)+${c}\\times ${y}^3=${a}\\times ${x ** 2}+${b}\\times ${x - 1}+${c}\\times ${y ** 3}=${miseEnEvidence(`${a * x ** 2 + b * (x - 1) + c * y ** 3}`)}$`
+          texteCorr += `$\\begin{aligned}${a}x^2${ecritureAlgebrique(b)}(x-1)${ecritureAlgebrique(c)}y^3&=${a}\\times ${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(b)}(${x}-1)${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(y)}^3\\\\
+          &=${a}\\times ${x ** 2}${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(x - 1)}${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(y ** 3)}\\\\
+          &=${a * x ** 2}${ecritureAlgebrique(b * (x - 1))}${ecritureAlgebrique(c * y ** 3)}\\\\
+          &=${miseEnEvidence(`${a * x ** 2 + b * (x - 1) + c * y ** 3}`)}
+          \\end{aligned}$`
           setReponse(this, i, a * x ** 2 + b * (x - 1) + c * y ** 3)
           break
         case 6: // ax^2+bx+c
@@ -105,9 +156,20 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
           b = randint(2, 6)
           c = randint(2, 6)
           x = randint(3, 6)
-          texte = `Calculer $${a}x^2+${b}x+${c}$ pour $x=${x}$`
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1, -1, 1], 4)
+            x *= changeSigne[0]
+            a *= changeSigne[2]
+            b *= changeSigne[3]
+            c *= changeSigne[1]
+          }
+          texte = `Calculer $${a}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2+${b}x+${c}=${a}\\times ${x}^2+${b}\\times ${x}+${c}=${a}\\times ${x ** 2}+${b * x}+${c}=${miseEnEvidence(`${a * x ** 2 + b * x + c}`)}$`
+          texteCorr += `$\\begin{aligned}${a}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}
+          &=${a}\\times ${x}^2${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(c)}\\\\
+          &=${a}\\times ${x ** 2}${ecritureAlgebrique(b * x)}${ecritureAlgebrique(c)}\\\\
+          &=${a * x ** 2}${ecritureAlgebrique(b * x)}${ecritureAlgebrique(c)}\\\\
+          &=${miseEnEvidence(`${a * x ** 2 + b * x + c}`)}\\end{aligned}$`
           setReponse(this, i, a * x ** 2 + b * x + c)
           break
         case 7: // ax^2+bx-c
@@ -115,9 +177,18 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
           b = randint(2, 6)
           c = randint(2, 6)
           x = randint(3, 6)
-          texte = `Calculer $${a}x^2+${b}x-${c}$ pour $x=${x}$`
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1], 3)
+            x *= changeSigne[0]
+            a *= changeSigne[1]
+            b *= changeSigne[2]
+          }
+          texte = `Calculer $${a}x^2${ecritureAlgebrique(b)}x-${c}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2+${b}x-${c}=${a}\\times ${x}^2+${b}\\times ${x}-${c}=${a}\\times ${x ** 2}+${b * x}-${c}=${miseEnEvidence(`${a * x ** 2 + b * x - c}`)}$`
+          texteCorr += `$\\begin{aligned}${a}x^2${ecritureAlgebrique(b)}x-${c}
+          &=${a}\\times ${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(x)}-${c}\\\\
+          &=${a}\\times ${x ** 2}${ecritureAlgebrique(b * x)}-${c}\\\\
+          &=${miseEnEvidence(`${a * x ** 2 + b * x - c}`)}\\end{aligned}$`
           setReponse(this, i, a * x ** 2 + b * x - c)
           break
         case 8: // ax^2-bx+c
@@ -125,9 +196,18 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
           b = randint(2, a)
           c = randint(2, 6)
           x = randint(3, 6)
-          texte = `Calculer $${a}x^2-${b}x+${c}$ pour $x=${x}$`
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1], 3)
+            x *= changeSigne[0]
+            a *= changeSigne[1]
+            c *= changeSigne[2]
+          }
+          texte = `Calculer $${a}x^2-${b}x${ecritureAlgebrique(c)}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2-${b}x+${c}=${a}\\times ${x}^2-${b}\\times ${x}+${c}=${a}\\times ${x ** 2}-${b * x}+${c}=${miseEnEvidence(`${a * x ** 2 - b * x + c}`)}$`
+          texteCorr += `$\\begin{aligned}${a}x^2-${b}x${ecritureAlgebrique(c)}
+          &=${a}\\times ${ecritureParentheseSiNegatif(x)}^2-${b}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(c)}\\\\
+          &=${a}\\times ${x ** 2}${ecritureAlgebrique(-b * x)}${ecritureAlgebrique(c)}\\\\
+          &=${miseEnEvidence(`${a * x ** 2 - b * x + c}`)}\\end{aligned}$`
           setReponse(this, i, a * x ** 2 - b * x + c)
           break
 
@@ -135,9 +215,17 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
           a = randint(2, 10)
           x = randint(2, 10)
           y = randint(2, 10, x)
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1], 3)
+            x *= changeSigne[0]
+            a *= changeSigne[1]
+            y *= changeSigne[2]
+          }
           texte = `Calculer $${a}xy+x+y$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$${a}xy+x+y=${a}\\times ${x}\\times ${y}+${x}+${y}=${a * x * y}+${x}+${y}=${miseEnEvidence(`${a * x * y + x + y}`)}$`
+          texteCorr += `$\\begin{aligned}${a}xy+x+y&=${a}\\times ${ecritureParentheseSiNegatif(x)}\\times ${ecritureParentheseSiNegatif(y)}${ecritureAlgebrique(x)}${ecritureAlgebrique(y)}\\\\
+          &=${a * x * y}${ecritureAlgebrique(x)}${ecritureAlgebrique(y)}\\\\
+          &=${miseEnEvidence(`${a * x * y + x + y}`)}\\end{aligned}$`
           setReponse(this, i, a * x * y + x + y)
           break
         case 10: // (ax+b)(cy-d)
@@ -148,9 +236,22 @@ export default class CalculerLaValeurDUneExpressionLitterale extends Exercice {
           y = randint(2, 10, x)
           c = randint(2, 10)
           d = randint(1, Math.min(10, c * y))
-          texte = `Calculer $(${a}x+${b})(${c}y-${d})$ pour $x=${x}$ et $y=${y}$`
+          if (this.version.startsWith('4L')) {
+            const changeSigne = combinaisonListes([-1, 1, -1, 1, -1, 1], 6)
+            x *= changeSigne[0]
+            a *= changeSigne[2]
+            c *= changeSigne[3]
+            y *= changeSigne[1]
+            b *= changeSigne[4]
+            d *= changeSigne[5]
+          }
+          texte = `Calculer $(${a}x${ecritureAlgebrique(b)})(${c}y${ecritureAlgebrique(-d)})$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$(${a}x+${b})(${c}y-${d})=(${a}\\times ${x}+${b})(${c}\\times ${y}-${d})=${a * x + b}\\times ${c * y - d}=${miseEnEvidence(`${(a * x + b) * (c * y - d)}`)}$`
+          texteCorr += `$\\begin{aligned}(${a}x${ecritureAlgebrique(b)})(${c}y${ecritureAlgebrique(-d)})
+          &=(${a}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)})(${c}\\times ${ecritureParentheseSiNegatif(y)}${ecritureAlgebrique(-d)})\\\\
+          &=(${a * x}${ecritureAlgebrique(b)})(${c * y}${ecritureAlgebrique(-d)})\\\\
+          &=${a * x + b}\\times ${ecritureParentheseSiNegatif(c * y - d)}\\\\
+          &=${miseEnEvidence(`${texNombre((a * x + b) * (c * y - d), 0)}`)}\\end{aligned}$`
           setReponse(this, i, (a * x + b) * (c * y - d))
           break
       }

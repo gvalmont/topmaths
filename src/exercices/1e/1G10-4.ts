@@ -16,7 +16,7 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Calculer un produit scalaire avec une projetction'
+export const titre = 'Calculer un produit scalaire avec une projection'
 export const dateDePublication = '29/04/2025'
 
 /**

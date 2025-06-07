@@ -11,6 +11,7 @@ import { longueur } from './segmentsVecteurs'
 import { rotation } from './transformations'
 import MainLevee from './MainLevee'
 import { degToRad } from '../mathFonctions/trigo'
+import { PointAbstrait } from './points-abstraits'
 
 /**
  * Construit le cercle (ou le disque) de centre O, de rayon r
@@ -47,7 +48,7 @@ import { degToRad } from '../mathFonctions/trigo'
  */
 // JSDOC Validee par EE Juin 2022
 export class Cercle extends ObjetMathalea2D {
-  centre: Point
+  centre: PointAbstrait
   rayon: number
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
@@ -57,7 +58,7 @@ export class Cercle extends ObjetMathalea2D {
   distanceDesHachures: number
 
   constructor (
-    O: Point,
+    O: PointAbstrait,
     r: number,
     color = 'black',
     couleurDeRemplissage = 'none',
@@ -258,7 +259,7 @@ export class Cercle extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export function cercle (
-  O: Point,
+  O: PointAbstrait,
   r: number,
   color = 'black',
   couleurDeRemplissage = 'none',
@@ -375,13 +376,13 @@ export class Arc extends ObjetMathalea2D {
   rayon: number
   angleFin: number
   azimut: number
-  pointDepart: Point
-  centre: Point
-  pointFinal: Point
+  pointDepart: PointAbstrait
+  centre: PointAbstrait
+  pointFinal: PointAbstrait
   constructor (
-    M: Point,
-    omega: Point,
-    angle: Point | number,
+    M: PointAbstrait,
+    omega: PointAbstrait,
+    angle: PointAbstrait | number,
     rayons = false,
     couleurDeRemplissage = 'none',
     color = 'black',
@@ -405,7 +406,7 @@ export class Arc extends ObjetMathalea2D {
     this.pointilles = 0
     this.epaisseur = 1
     this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
-    this.angle = angle instanceof Point ? angleOriente(M, omega, angle) : angle
+    this.angle = angle instanceof PointAbstrait ? angleOriente(M, omega, angle) : angle
     const medX: number[] = []
     const medY: number[] = []
     for (let ee = 1; ee < 9; ee++) {
@@ -656,9 +657,9 @@ export class Arc extends ObjetMathalea2D {
  */
 // JSDOC Validee par EE Juin 2022
 export function arc (
-  M: Point,
-  Omega: Point,
-  angle: Point | number,
+  M: PointAbstrait,
+  Omega: PointAbstrait,
+  angle: PointAbstrait | number,
   rayon = false,
   couleurDeRemplissage = 'none',
   color = 'black',
@@ -695,8 +696,8 @@ export function arc (
  */
 // JSDOC Validee par EE Juin 2022
 export function arcPointPointAngle (
-  M: Point,
-  N: Point,
+  M: PointAbstrait,
+  N: PointAbstrait,
   angle: number,
   rayon = false,
   couleurDeRemplissage = 'none',
@@ -731,8 +732,8 @@ export function arcPointPointAngle (
  *@author Jean-Claude Lhote
  */
 export function traceCompas (
-  O: Point,
-  A: Point,
+  O: PointAbstrait,
+  A: PointAbstrait,
   angle = 20,
   color = 'gray',
   opacite = 1.1,

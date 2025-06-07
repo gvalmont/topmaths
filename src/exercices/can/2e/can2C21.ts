@@ -19,7 +19,7 @@ export const uuid = 'bd96a'
 
 export const refs = {
   'fr-fr': ['can2C21'],
-  'fr-ch': []
+  'fr-ch': ['10NO3-6b']
 }
 export default class calculsRacinesCarresPafaitsDecimaux extends Exercice {
   constructor () {

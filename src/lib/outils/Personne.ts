@@ -1,14 +1,104 @@
 import { choice, shuffle } from './arrayOutils'
 
+const prenoms: { prenom: string, pronom: string }[] = [
+  { prenom: 'Albert', pronom: 'il' },
+  { prenom: 'Alice', pronom: 'elle' },
+  { prenom: 'Benoît', pronom: 'il' },
+  { prenom: 'Béatrice', pronom: 'elle' },
+  { prenom: 'Céline', pronom: 'elle' },
+  { prenom: 'Charles', pronom: 'il' },
+  { prenom: 'David', pronom: 'il' },
+  { prenom: 'Diane', pronom: 'elle' },
+  { prenom: 'Émile', pronom: 'il' },
+  { prenom: 'Élodie', pronom: 'elle' },
+  { prenom: 'François', pronom: 'il' },
+  { prenom: 'Fiona', pronom: 'elle' },
+  { prenom: 'Gaspard', pronom: 'il' },
+  { prenom: 'Gabrielle', pronom: 'elle' },
+  { prenom: 'Hugo', pronom: 'il' },
+  { prenom: 'Hélène', pronom: 'elle' },
+  { prenom: 'Isabelle', pronom: 'elle' },
+  { prenom: 'Julien', pronom: 'il' },
+  { prenom: 'Julie', pronom: 'elle' },
+  { prenom: 'Kevin', pronom: 'il' },
+  { prenom: 'Karine', pronom: 'elle' },
+  { prenom: 'Lucas', pronom: 'il' },
+  { prenom: 'Léa', pronom: 'elle' },
+  { prenom: 'Mathieu', pronom: 'il' },
+  { prenom: 'Marie', pronom: 'elle' },
+  { prenom: 'Nicolas', pronom: 'il' },
+  { prenom: 'Nathalie', pronom: 'elle' },
+  { prenom: 'Olivier', pronom: 'il' },
+  { prenom: 'Océane', pronom: 'elle' },
+  { prenom: 'Paul', pronom: 'il' },
+  { prenom: 'Pascale', pronom: 'elle' },
+  { prenom: 'Quentin', pronom: 'il' },
+  { prenom: 'Quynh', pronom: 'elle' },
+  { prenom: 'Romain', pronom: 'il' },
+  { prenom: 'Roxane', pronom: 'elle' },
+  { prenom: 'Sébastien', pronom: 'il' },
+  { prenom: 'Sophie', pronom: 'elle' },
+  { prenom: 'Thomas', pronom: 'il' },
+  { prenom: 'Tania', pronom: 'elle' },
+  { prenom: 'Ulysse', pronom: 'il' },
+  { prenom: 'Ursule', pronom: 'elle' },
+  { prenom: 'Victor', pronom: 'il' },
+  { prenom: 'Valérie', pronom: 'elle' },
+  { prenom: 'William', pronom: 'il' },
+  { prenom: 'Wendy', pronom: 'elle' },
+  { prenom: 'Xavier', pronom: 'il' },
+  { prenom: 'Yasmine', pronom: 'elle' },
+  { prenom: 'Zoé', pronom: 'elle' },
+  { prenom: 'Yann', pronom: 'il' },
+  { prenom: 'Yvette', pronom: 'elle' },
+  { prenom: 'Zacharie', pronom: 'il' },
+  { prenom: 'Madeleine', pronom: 'elle' },
+  { prenom: 'Schona', pronom: 'elle' },
+  { prenom: 'Lilian', pronom: 'il' },
+  { prenom: 'Aude', pronom: 'elle' },
+  { prenom: 'Carine', pronom: 'elle' },
+  { prenom: 'Corinne', pronom: 'elle' },
+  { prenom: 'Dalila', pronom: 'elle' },
+  { prenom: 'Elsa', pronom: 'elle' },
+  { prenom: 'Farida', pronom: 'elle' },
+  { prenom: 'Karole', pronom: 'elle' },
+  { prenom: 'Lisa', pronom: 'elle' },
+  { prenom: 'Manon', pronom: 'elle' },
+  { prenom: 'Marina', pronom: 'elle' },
+  { prenom: 'Magalie', pronom: 'elle' },
+  { prenom: 'Nadia', pronom: 'elle' },
+  { prenom: 'Nawel', pronom: 'elle' },
+  { prenom: 'Teresa', pronom: 'elle' },
+  { prenom: 'Vanessa', pronom: 'elle' },
+  { prenom: 'Arthur', pronom: 'il' },
+  { prenom: 'Benjamin', pronom: 'il' },
+  { prenom: 'Bernard', pronom: 'il' },
+  { prenom: 'Christophe', pronom: 'il' },
+  { prenom: 'Cyril', pronom: 'il' },
+  { prenom: 'Fernando', pronom: 'il' },
+  { prenom: 'Guillaume', pronom: 'il' },
+  { prenom: 'Jean-Claude', pronom: 'il' },
+  { prenom: 'Joachim', pronom: 'il' },
+  { prenom: 'José', pronom: 'il' },
+  { prenom: 'Kamel', pronom: 'il' },
+  { prenom: 'Karim', pronom: 'il' },
+  { prenom: 'Laurent', pronom: 'il' },
+  { prenom: 'Mehdi', pronom: 'il' },
+  { prenom: 'Nassim', pronom: 'il' },
+  { prenom: 'Pablo', pronom: 'il' },
+  { prenom: 'Rémi', pronom: 'il' },
+  { prenom: 'Yazid', pronom: 'il' }
+]
 /**
  * Renvoie un prénom féminin au hasard ou une liste de prénoms féminins au hasard
  * @author Rémi Angot
  */
 export function prenomF (n = 1) {
+  const prenomsFeminins = prenoms.filter(p => p.pronom === 'elle').map(p => p.prenom)
   if (n === 1) {
-    return choice(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine'])
+    return choice(prenomsFeminins)
   } else {
-    return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine']).slice(0, n)
+    return shuffle(prenomsFeminins).slice(0, n)
   }
 }
 
@@ -17,10 +107,11 @@ export function prenomF (n = 1) {
  * @author Rémi Angot
  */
 export function prenomM (n: number = 1): string | string[] {
+  const prenomsMasculinsArray = prenoms.filter(p => p.pronom === 'il').map(p => p.prenom)
   if (n === 1) {
-    return choice(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nassim', 'Pablo', 'Rémi', 'Victor', 'Yazid'])
+    return choice(prenomsMasculinsArray)
   } else {
-    return shuffle(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nassim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
+    return shuffle(prenomsMasculinsArray).slice(0, n)
   }
 }
 
@@ -29,10 +120,11 @@ export function prenomM (n: number = 1): string | string[] {
  * @author Rémi Angot
  */
 export function prenom (n = 1) {
+  const prenomsArray = prenoms.map(element => element.prenom) // Conversion de Set en tableau
   if (n === 1) {
-    return choice([prenomF(), prenomM()])
+    return choice(prenomsArray)
   } else {
-    return shuffle(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine', 'Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nassim', 'Pablo', 'Rémi', 'Victor', 'Yazid']).slice(0, n)
+    return shuffle(prenomsArray).slice(0, n)
   }
 }
 
@@ -47,15 +139,15 @@ export class Personne {
   pronom: string
   Pronom: string
   constructor ({ prenom = '', genre = '', pronom = '' } = {}) {
-    let choix
+    let choix: { prenom: string, pronom: string }
     this.prenom = ''
     this.genre = ''
     this.pronom = ''
     this.Pronom = ''
     if (prenom === '' || ((typeof prenom) === 'undefined')) { // On le/la baptise
       choix = prenomPronom()
-      this.prenom = choix[0]
-      this.pronom = choix[1]
+      this.prenom = choix.prenom
+      this.pronom = choix.pronom
     } else if (pronom === '') { // le pronom n'est pas précisé
       this.pronom = 'on'
       this.Pronom = 'On'
@@ -108,15 +200,18 @@ export function personnes (n: number) {
 }
 
 /**
- * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
+ * Renvoie un objet {prénom,pronom} où pronom='il' ou 'elle'
  *  @author Jean-Claue Lhote
  */
-export function prenomPronom (): [string, string] {
-  if (choice([true, false])) {
-    const prenom = prenomM(1) as string
-    return [prenom, 'il']
+export function prenomPronom (): { prenom: string, pronom: string } {
+  const couple = choice(prenoms)
+  return couple
+}
+
+export function prenomsPronoms (n: number): { prenom: string, pronom: string } | { prenom: string, pronom: string }[] {
+  if (n < 2) {
+    return prenomPronom()
   } else {
-    const prenom = prenomF(1) as string
-    return [prenom, 'elle']
+    return shuffle(prenoms).slice(0, n)
   }
 }

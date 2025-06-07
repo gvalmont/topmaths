@@ -69,7 +69,7 @@ export default class CalculProduitScalaireAngle extends Exercice {
             const listeAngle = [[30, '\\dfrac{\\pi}{6}'], [45, '\\dfrac{\\pi}{4}'], [60, '\\dfrac{\\pi}{3}'], [120, '\\dfrac{2\\pi}{3}'], [135, '\\dfrac{3\\pi}{4}'], [150, '\\dfrac{5\\pi}{6}'], [180, '\\pi']]// ]
             const angle = choice(listeAngle)
             const ligne1 = `\\overrightarrow{AB}\\cdot\\overrightarrow{AC}&=${AB}\\times ${AC}\\times \\cos\\left(${this.sup2 ? `${angle[1]}` : `${angle[0]}^\\circ`}\\right)\\\\`
-            texte = `On considère un triangle $ABC$ tel que $AB=${AB}$, $AC=${AC}$ et $\\cos(\\widehat{BAC})=${this.sup2 ? `${angle[1]}` : `${angle[0]}^\\circ`}$.<br>
+            texte = `On considère un triangle $ABC$ tel que $AB=${AB}$, $AC=${AC}$ et $\\widehat{BAC}=${this.sup2 ? `${angle[1]}` : `${angle[0]}^\\circ`}$.<br>
           Calculer $\\overrightarrow{AB}\\cdot\\overrightarrow{AC}$.`
             texteCorr = `D'après le cours on a : $\\overrightarrow{AB}\\cdot\\overrightarrow{AC}=AB\\times AC\\times \\cos(\\widehat{BAC})$.<br>
           On applique avec les données de l'énoncé : <br>`

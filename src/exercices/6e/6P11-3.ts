@@ -23,7 +23,7 @@ export const uuid = 'c71fb'
 
 export const refs = {
   'fr-fr': ['6P11-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO16-6']
 }
 export default class ProblemesDeFoisPlusEtDeFoisMoins extends Exercice {
   constructor () {

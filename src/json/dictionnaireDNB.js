@@ -547,7 +547,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Aires et périmètres', 'Calcul littéral', 'Fonctions']
   }, // amerique sud secours nov 2013
-  dnb_2013_11_amdusudsecours_1: {
+  dnb_2013_11_ameriquesud_secours_1: {
     annee: '2013',
     lieu: 'Amérique du sud (Secours)',
     mois: 'Novembre',
@@ -555,7 +555,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['QCM', 'Calcul numérique', 'Calcul littéral', 'Statistiques', 'Hors programme']
   },
-  dnb_2013_11_amdusudsecours_2: {
+  dnb_2013_11_ameriquesud_secours_2: {
     annee: '2013',
     lieu: 'Amérique du sud (Secours)',
     mois: 'Novembre',
@@ -563,7 +563,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Calcul numérique', 'Calcul littéral', 'Équations']
   },
-  dnb_2013_11_amdusudsecours_3: {
+  dnb_2013_11_ameriquesud_secours_3: {
     annee: '2013',
     lieu: 'Amérique du sud (Secours)',
     mois: 'Novembre',
@@ -571,7 +571,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Pythagore', 'Trigonométrie', 'Vitesses']
   },
-  dnb_2013_11_amdusudsecours_4: {
+  dnb_2013_11_ameriquesud_secours_4: {
     annee: '2013',
     lieu: 'Amérique du sud (Secours)',
     mois: 'Novembre',
@@ -579,7 +579,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Volumes']
   },
-  dnb_2013_11_amdusudsecours_5: {
+  dnb_2013_11_ameriquesud_secours_5: {
     annee: '2013',
     lieu: 'Amérique du sud (Secours)',
     mois: 'Novembre',
@@ -587,7 +587,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     tags: ['Aires et périmètres', 'Tableur', 'Fonctions']
   },
-  dnb_2013_11_amdusudsecours_6: {
+  dnb_2013_11_ameriquesud_secours_6: {
     annee: '2013',
     lieu: 'Amérique du sud (Secours)',
     mois: 'Novembre',
@@ -5720,7 +5720,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes', 'Aires et périmètres']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Volumes', 'Aires et périmètres', 'Grandeurs composées']
   },
   dnb_2024_06_polynesie_4: {
     annee: '2024',

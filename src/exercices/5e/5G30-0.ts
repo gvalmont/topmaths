@@ -15,7 +15,7 @@ export const titre = 'Calculer des mesures d\'angles adjacents, supplémentaires
 export const uuid = 'ed9f4'
 export const refs = {
   'fr-fr': ['5G30-0'],
-  'fr-ch': []
+  'fr-ch': ['11ES2-3', '1mG1-6']
 }
 /**
  * Utiliser le vocabulaire complémentaires et supplémentaires pour qualifier des paires d'angles ou calculer des mesures d'angles

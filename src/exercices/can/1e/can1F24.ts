@@ -73,9 +73,9 @@ export default class LectureGraphiqueParaboleA extends Exercice {
 
             f = x => a * x ** 2 + b
 
-            texte = ` $f$ est définie par $f(x)=ax^2+${b}$ .<br>
+            texte = `Soit $f$ une fonction définie sur $\\mathbb{R}$ par $f(x)=ax^2+${b}$ .<br>
                         `
-            texte += `Déterminer la valeur de $a$.<br>
+            texte += `A l'aide de la représentation graphique, déterminer la valeur de $a$.<br>
             
             ` + mathalea2d({
                 xmin: -6,
@@ -107,9 +107,9 @@ export default class LectureGraphiqueParaboleA extends Exercice {
 
             f = x => a * x ** 2 + b
 
-            texte = `$f$ est définie par $f(x)=ax^2${ecritureAlgebrique(b)}$ .<br>
+            texte = `Soit $f$ une fonction définie sur $\\mathbb{R}$ par $f(x)=ax^2${ecritureAlgebrique(b)}$ , où $a$ est un réel non-nul.<br>
             `
-            texte += `Déterminer la valeur de $a$.<br>
+            texte += `A l'aide de la représentation graphique, déterminer la valeur de $a$.<br>
             
             ` + mathalea2d({
                 xmin: -6,
@@ -162,18 +162,19 @@ export default class LectureGraphiqueParaboleA extends Exercice {
 
             f = x => a * x ** 2 + b
 
-            texte = `$f$ est définie par $f(x)=ax^2${ecritureAlgebrique(b)}$ .<br>
+            texte = `Soit $f$ une fonction définie sur $\\mathbb{R}$ par $f(x)=ax^2${ecritureAlgebrique(b)}$ .<br>
             `
-            texte += 'Déterminer la valeur de $a$.<br>' +
-                            mathalea2d({
-                              xmin: -6,
-                              xmax: 6,
-                              ymin: -4.2,
-                              ymax: 4,
-                              pixelsParCm: 25,
-                              scale: 0.6,
-                              style: 'margin: auto'
-                            }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte += `A l'aide de la représentation graphique, déterminer la valeur de $a$.<br>
+          ` +
+           mathalea2d({
+             xmin: -6,
+             xmax: 6,
+             ymin: -4.2,
+             ymax: 4,
+             pixelsParCm: 25,
+             scale: 0.6,
+             style: 'margin: auto'
+           }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           } else {
             r = repere({
               yUnite: 1,
@@ -195,9 +196,9 @@ export default class LectureGraphiqueParaboleA extends Exercice {
 
             f = x => a * x ** 2 + b
 
-            texte = `$f$ est définie par $f(x)=ax^2${ecritureAlgebrique(b)}$ .<br>
+            texte = `Soit $f$ une fonction définie sur $\\mathbb{R}$ par $f(x)=ax^2${ecritureAlgebrique(b)}$ .<br>
             `
-            texte += `Déterminer la valeur de $a$.<br>
+            texte += `A l'aide de la représentation graphique, déterminer la valeur de $a$.<br>
             
             ` + mathalea2d({
                 xmin: -6,

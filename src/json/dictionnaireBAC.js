@@ -4,6 +4,7 @@
    Équations différentielles
    Espace
    Exponentielle
+   Intégration
    Trigonométrie
    Logarithme
    Loi binomiale
@@ -13,7 +14,6 @@
    QCM
    Suites
    Variables aléatoires
-   Vrai/Faux
    TVI
    Tableur
 */
@@ -168,7 +168,7 @@ export const dictionnaireBAC = {
     mois: 'Mai',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Exponentielle', 'Convexité']
+    tags: ['Affirmations', 'Exponentielle', 'Convexité']
   },
   bac_2021_05_ameriquenord_5: {
     annee: '2021',
@@ -574,7 +574,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Exponentielle', 'Convexité', 'Vrai/Faux']
+    tags: ['Exponentielle', 'Convexité', 'Affirmations']
   },
   bac_2022_05_sujet1_asie_1: {
     annee: '2022',
@@ -1271,7 +1271,7 @@ export const dictionnaireBAC = {
     mois: 'Janvier',
     numeroInitial: '6',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Suites']
+    tags: ['Affirmations', 'Suites']
   },
   bac_2024_01_sujet0_7: {
     annee: '2024',
@@ -1396,7 +1396,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Exponentielle']
+    tags: ['Affirmations', 'Exponentielle']
   },
   bac_2023_03_sujet1_etrangers_groupe2_1: {
     annee: '2023',
@@ -1495,7 +1495,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Convexité', 'Primitives', 'Exponentielle', 'Python']
+    tags: ['Affirmations', 'Convexité', 'Primitives', 'Exponentielle', 'Python']
   },
   bac_2023_03_sujet1_polynesie_4: {
     annee: '2023',
@@ -1756,7 +1756,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Suites', 'Logarithme', 'Convexité', 'Python']
+    tags: ['Affirmations', 'Suites', 'Logarithme', 'Convexité', 'Python']
   },
   bac_2023_03_sujet2_reunion_1: {
     annee: '2023',
@@ -2226,7 +2226,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Suites', 'Python']
+    tags: ['Affirmations', 'Suites', 'Python']
   },
   bac_2024_06_sujet1_metropole_1: {
     annee: '2024',
@@ -2235,7 +2235,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Exponentielle', 'Équations différentielles', 'Suites']
+    tags: ['Affirmations', 'Exponentielle', 'Équations différentielles', 'Suites']
   },
   bac_2024_06_sujet1_metropole_2: {
     annee: '2024',
@@ -2298,7 +2298,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: 'devoile',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Exponentielle', 'Convexité', 'Logarithme', 'TVI']
+    tags: ['Affirmations', 'Exponentielle', 'Convexité', 'Logarithme', 'TVI']
   },
   bac_2024_06_sujet1_polynesie_1: {
     annee: '2024',
@@ -2307,7 +2307,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Espace']
+    tags: ['Affirmations', 'Espace']
   },
   bac_2024_06_sujet1_polynesie_2: {
     annee: '2024',
@@ -2361,7 +2361,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Convexité', 'Dénombrement', 'Logarithme', 'Équations différentielles']
+    tags: ['Affirmations', 'Convexité', 'Dénombrement', 'Logarithme', 'Équations différentielles']
   },
   bac_2024_06_sujet2_asie_4: {
     annee: '2024',
@@ -2406,7 +2406,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Espace']
+    tags: ['Affirmations', 'Espace']
   },
   bac_2024_06_sujet2_metropole_devoile_1: {
     annee: '2024',
@@ -2424,7 +2424,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: 'devoile',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Espace']
+    tags: ['Affirmations', 'Espace']
   },
   bac_2024_06_sujet2_metropole_devoile_3: {
     annee: '2024',
@@ -2505,7 +2505,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Suites', 'Python']
+    tags: ['Affirmations', 'Suites', 'Python']
   },
   bac_2024_09_sujet1_metropole_4: {
     annee: '2024',
@@ -2532,7 +2532,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Exponentielle', 'Logarithme', 'TVI', 'Équations différentielles', 'Intégration']
+    tags: ['Affirmations', 'Exponentielle', 'Logarithme', 'TVI', 'Équations différentielles', 'Intégration']
   },
   bac_2024_09_sujet1_polynesie_3: {
     annee: '2024',
@@ -2560,7 +2560,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Équations différentielles', 'Suites', 'Python', 'Logarithme']
+    tags: ['Affirmations', 'Équations différentielles', 'Suites', 'Python', 'Logarithme']
   },
   bac_2024_06_sujet1_suede_2: {
     annee: '2024',
@@ -2597,7 +2597,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['Equations différentielles', 'Exponentielle', 'TVI', 'Python']
+    tags: ['Équations différentielles', 'Exponentielle', 'TVI', 'Python']
   },
   bac_2024_11_sujet1_amsud_2: {
     annee: '2024',
@@ -2615,7 +2615,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '3',
     typeExercice: 'bac',
-    tags: ['Suites', 'Vrai/Faux', 'Intégration']
+    tags: ['Suites', 'Affirmations', 'Intégration']
   },
   bac_2024_11_sujet1_amsud_4: {
     annee: '2024',
@@ -2642,7 +2642,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['Vrai/Faux', 'Suites', 'Equations différentielles']
+    tags: ['Affirmations', 'Suites', 'Équations différentielles']
   },
   bac_2024_11_sujet2_amsud_3: {
     annee: '2024',
@@ -2670,7 +2670,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '1',
     typeExercice: 'bac',
-    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires','Bienaymé-Tchebychev']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
   },
   bac_2025_05_sujet1_ameriquenord_2: {
     annee: '2025',
@@ -2697,7 +2697,7 @@ export const dictionnaireBAC = {
     jour: 'J1',
     numeroInitial: '4',
     typeExercice: 'bac',
-    tags: ['Exponentielle', 'Equations différentielles', 'Intégration', 'Primitives']
+    tags: ['Exponentielle', 'Équations différentielles', 'Intégration', 'Primitives']
   },
   bac_2025_05_sujet2_ameriquenord_1: {
     annee: '2025',
@@ -2715,7 +2715,7 @@ export const dictionnaireBAC = {
     jour: 'J2',
     numeroInitial: '2',
     typeExercice: 'bac',
-    tags: ['Suites', 'logarithme', 'Python']
+    tags: ['Suites', 'Logarithme', 'Python']
   },
   bac_2025_05_sujet2_ameriquenord_3: {
     annee: '2025',
@@ -2734,6 +2734,43 @@ export const dictionnaireBAC = {
     numeroInitial: '4',
     typeExercice: 'bac',
     tags: ['Trigonométrie', 'Exponentielle', 'Intégration']
+  },
+
+  bac_2025_05_sujet2_ameriquenord_secours_1: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J2',
+    numeroInitial: 'secours',
+    typeExercice: 'bac',
+    tags: ['Exponentielle', 'Convexité', 'Intégration', 'TVI']
+  },
+  bac_2025_05_sujet2_ameriquenord_secours_2: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J2',
+    numeroInitial: 'secours',
+    typeExercice: 'bac',
+    tags: ['Espace']
+  },
+  bac_2025_05_sujet2_ameriquenord_secours_3: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J2',
+    numeroInitial: 'secours',
+    typeExercice: 'bac',
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
+  },
+  bac_2025_05_sujet2_ameriquenord_secours_4: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    jour: 'J2',
+    numeroInitial: 'secours',
+    typeExercice: 'bac',
+    tags: ['Suites']
   },
 
 }

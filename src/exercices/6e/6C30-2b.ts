@@ -26,7 +26,7 @@ export const uuid = '56772'
 
 export const refs = {
   'fr-fr': ['6C30-2b'],
-  'fr-ch': ['']
+  'fr-ch': ['9NO8-19']
 }
 
 function nomUnitePourPuissance (p1: number): string {

@@ -11,6 +11,7 @@ import { aireTriangle } from './triangle'
 import { lettreDepuisChiffre } from '../outils/outilString'
 import { codageSegments } from './codages'
 import { codageAngleDroit } from './angles'
+import type { PointAbstrait } from './points-abstraits'
 
 type BinomeXY = { x: number, y: number }
 type BinomesXY = BinomeXY[]
@@ -46,10 +47,10 @@ export function barycentre (p: Polygone, nom = '', positionLabel = 'above') {
  * @author Rémi Angot
  */
 export class Polyline extends ObjetMathalea2D {
-  listePoints: Point[]
+  listePoints: PointAbstrait[]
   nom: string
   stringColor: string
-  constructor (...points: Point[] | (Point[] | string)[]) {
+  constructor (...points: PointAbstrait[] | (PointAbstrait[] | string)[]) {
     super()
     this.epaisseur = 1
     this.pointilles = 0
@@ -60,7 +61,7 @@ export class Polyline extends ObjetMathalea2D {
       this.stringColor = points[1] as string
       this.color = colorToLatexOrHTML(String(points[1]))
     } else {
-      this.listePoints = points as unknown as Point[]
+      this.listePoints = points
       this.color = colorToLatexOrHTML('black')
       this.stringColor = 'black'
     }
@@ -205,7 +206,7 @@ export class Polyline extends ObjetMathalea2D {
  * @returns Polyline
  * @author Rémi Angot
  */
-export function polyline (...args: Point[] | (Point[] | string)[]) {
+export function polyline (...args: PointAbstrait[] | (PointAbstrait[] | string)[]) {
   return new Polyline(...args)
 }
 
@@ -244,15 +245,15 @@ export class Polygone extends ObjetMathalea2D {
   distanceDesHachures: number
   epaisseurDesHachures: number
   hachures: boolean | string
-  listePoints: Point[]
+  listePoints: PointAbstrait[]
   nom: string
   pointilles: number
-  _triangulation: [Point, Point, Point][]
+  _triangulation: [PointAbstrait, PointAbstrait, PointAbstrait][]
   _flat: number[]
   _aire: number
   stringColor: string
   readonly perimetre: number
-  constructor (...points: (Point | Point[] | string)[]) {
+  constructor (...points: (PointAbstrait | PointAbstrait[] | string)[]) {
     super()
     this.epaisseurDesHachures = 1
     this.distanceDesHachures = 10
@@ -291,7 +292,7 @@ export class Polygone extends ObjetMathalea2D {
         this.stringColor = String(points[points.length - 1])
         points.splice(points.length - 1, 1)
       }
-      this.listePoints = points as unknown as Point[]
+      this.listePoints = points
       this.nom = this.listePoints.map(el => el.nom).join('')
       this.couleurDeRemplissage = colorToLatexOrHTML('none')
       this.couleurDesHachures = colorToLatexOrHTML('none') // Rajout EE du 22/02/2024 pour 6N22 cas 3
@@ -504,7 +505,7 @@ export class Polygone extends ObjetMathalea2D {
  * @example polygone(A,B,C,D,E) //Trace ABCDE
  * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * @example polygone([A,B,C,D],"#f15929") // Trace ABCD en orange (code couleur HTML : #f15929)
- * @property {Point[]} listePoints
+ * @property {PointAbstrait[]} listePoints
  * @property {string[]} color
  * @property {string[]} couleurDeRemplissage
  * @property {string[]} couleurDesHachures
@@ -522,7 +523,7 @@ export class Polygone extends ObjetMathalea2D {
  *
  * @author Rémi Angot
  */
-export function polygone (...args: (Point | Point[] | string)[]) {
+export function polygone (...args: (PointAbstrait | PointAbstrait[] | string)[]) {
   return new Polygone(...args)
 }
 
@@ -533,15 +534,15 @@ export function polygone (...args: (Point | Point[] | string)[]) {
  * Si le dernier argument est un nombre, celui-ci sera utilisé pour fixer la distance entre le sommet et le label (par défaut 0.5)
  * @exemple [poly, sommets] = polygoneAvecNom(A, B, C, D) // où A, B, C, D sont des objets Point
  */
-export function polygoneAvecNom (...args: (Point | number)[]): [Polygone, NommePolygone] {
+export function polygoneAvecNom (...args: (PointAbstrait | number)[]): [Polygone, NommePolygone] {
   let k = 0.5
   if (typeof args[args.length - 1] === 'number') {
     k = Number(args[args.length - 1])
     args.splice(args.length - 1, 1)
   }
-  const p = polygone(...args as unknown as Point[])
+  const p = polygone(...args)
   let nom = ''
-  ;(args as Point[]).forEach((el: Point) => {
+  ;(args).forEach((el: Point) => {
     nom += el.nom + ','
   })
   nom = nom.substring(0, nom.length - 1)

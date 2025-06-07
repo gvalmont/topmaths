@@ -32,13 +32,10 @@ export default class PuissancesDUnRelatif2 extends Exercice {
   constructor () {
     super()
 
-    this.consigne = 'Écrire sous la forme '
-    context.isHtml
-      ? (this.consigne += '$\\mathbf{a^n}$.')
-      : (this.consigne += '$a^n$.')
+    this.consigne = 'Soit $a$ un nombre réel non nul et $n$ un nombre entier relatif. <br>Écrire les nombres suivants sous la forme $a^n$ :'
     this.spacing = 2
     this.spacingCorr = 2.5
-    this.nbQuestions = 8
+    this.nbQuestions = 3
   }
 
   nouvelleVersion () {
@@ -54,7 +51,7 @@ export default class PuissancesDUnRelatif2 extends Exercice {
     ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
 
-      const variables = ['x', 'y', 'a', 'b']
+      const variables = ['a']
       const base = variables[randint(0, variables.length - 1)]
       let texte = ''
       let texteCorr = ''

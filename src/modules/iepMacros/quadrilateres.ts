@@ -1,6 +1,8 @@
 import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points'
+import type { PointAbstrait } from '../../lib/2d/points-abstraits'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { rotation } from '../../lib/2d/transformations'
+import type Alea2iep from '../Alea2iep'
 import { randint } from '../outils'
 
 /**
@@ -9,7 +11,7 @@ import { randint } from '../outils'
    * @param {number} c
    * @returns polygoneAvecNom
    */
-export const carre1point1longueur = function (nom, A, c) {
+export const carre1point1longueur = function (this: Alea2iep, nom: string, A: PointAbstrait, c: number) {
   const interligne = 1
   A = point(5, 0, nom[0])
   const B = pointAdistance(A, c, randint(-20, 20), nom[1])

@@ -27,7 +27,6 @@ export default class CalculProbaSimple extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion () {
@@ -37,7 +36,7 @@ export default class CalculProbaSimple extends Exercice {
     const parfum1 = choice(parfums)
     let parfum2 = choice(parfums)
     while (parfum1 === parfum2) { parfum2 = choice(parfums) }
-    this.reponse = fraction(1, k + 1)
+    this.reponse = fraction(1, k + 1).texFraction
     this.question = `Un sachet de bonbons contient ${a} bonbons ${parfum1} et ${k * a} bonbons ${parfum2}.<br>
      On choisit un bonbon au hasard. <br>
      

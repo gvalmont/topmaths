@@ -1,13 +1,14 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { texPrix } from '../../lib/format/style'
-import { arrondi } from '../../lib/outils/nombres'
+import { arrondi, range1 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
+import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 
 export const titre = 'Résoudre des problèmes de courses au marché'
 export const interactifReady = true
@@ -35,6 +36,8 @@ export default class ProblemeCourse extends Exercice {
     // Modification de l'exercice pour avoir plusieurs question. On peut revenir à la version initiale en décommentant. Jean-Claude Lhote
     this.nbQuestions = 1
     // this.nbQuestionsModifiable = false
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
 
     this.sup = false
   // this.listeAvecNumerotation = false
@@ -65,7 +68,7 @@ export default class ProblemeCourse extends Exercice {
       let prixAliment2
       if (this.sup) {
         prixAliment2 = randint(15, 25)
-        masseEnGdeAliment2 = randint(2, 7) * 500
+        masseEnGdeAliment2 = choice([200, 250, 500, 750])
       } else {
         prixAliment2 = randint(12, 23) + randint(1, 9) / 10
         masseEnGdeAliment2 = randint(21, 97) * 10
@@ -75,6 +78,85 @@ export default class ProblemeCourse extends Exercice {
       const prixTotalAliment2 = (masseEnGdeAliment2 * prixAliment2) / 1000
       const prixTotal = prixTotalAliment1 + prixTotalAliment2
       const masseEnKgDeAliment2 = masseEnGdeAliment2 / 1000
+      const schema = new SchemaEnBoite({
+        topBraces: [
+          {
+            text: `${aliment1} à $${texNombre(prixAliment1, 2)}$ €/kg`,
+            start: 1,
+            end: 2 * Math.round(masseEnKgDeAliment1) + 1,
+            type: 'flèche'
+          }
+        ],
+        lignes: [
+          {
+            spacing: 1,
+            barres: [
+              ...range1(Math.round(masseEnKgDeAliment1)).map(el => ({
+                content: `$${texNombre(prixAliment1, 2)}$ €`,
+                length: 2,
+                color: 'lightgray'
+              }))
+            ]
+          },
+          {
+            barres:
+              masseEnGdeAliment2 === 750
+                ? [
+                    ...range1(3).map(el => ({
+                      content: '$250$ g',
+                      length: 2,
+                      color: 'lightgray'
+                    })),
+                    {
+                      content: '',
+                      length: 2,
+                      color: 'white'
+                    }
+                  ]
+                : masseEnGdeAliment2 === 500
+                  ? [
+                      {
+                        content: '$500$ g',
+                        length: 4,
+                        color: 'lightgray'
+                      },
+                      {
+                        content: '',
+                        length: 4,
+                        color: 'lightgray'
+                      }
+                    ]
+                  : [{
+                      content: `$${texNombre(masseEnGdeAliment2, 0)}$ g`,
+                      length: 2,
+                      color: 'lightgray'
+                    }, ...range1(Math.round(1000 / masseEnGdeAliment2 - 1)).map(el => (
+                      {
+                        content: `$${texNombre(prixAliment2, 2)}$ €`,
+                        length: 2,
+                        color: 'lightgray'
+                      }
+                    ))
+                    ]
+          }
+        ],
+        bottomBraces: [
+          {
+            text: `1 kg de ${aliment2} : $${texNombre(prixAliment2, 2)}$ €`,
+            start: 1,
+            end: masseEnGdeAliment2 === 200 ? 11 : 9,
+            type: 'accolade'
+          }
+        ],
+        rightBraces: [
+          {
+            text: `Prix total : $${texNombre(prixTotal, 2)}$ €`,
+            start: 2,
+            end: 5,
+            type: 'accolade'
+          }
+        ]
+      })
       let texte = `${prenom} achète $${texNombre(masseEnKgDeAliment1, 3)}$ kg de ${aliment1} à $${texPrix(prixAliment1)}$ €/kg `
       texte += `et $${texNombre(masseEnGdeAliment2, 0)}$ g de ${aliment2} à $${texPrix(prixAliment2)}$ €/kg. Quel est le prix total à payer ?`
       let texteCorr = `Prix des ${aliment1} : $${texNombre(masseEnKgDeAliment1, 3)}\\text{ kg} \\times ${texPrix(prixAliment1)}$ €/kg $ = ${texPrix(prixTotalAliment1)}$ €<br>`
@@ -89,6 +171,7 @@ export default class ProblemeCourse extends Exercice {
         texteCorr += `Prix total à payer : $${texPrix(prixTotalAliment1)}\\text{ \\euro} + ${texPrix(prixTotalAliment2)}\\text{ \\euro}`
         texteCorr += `${egalOuApprox(prixTotal, 2)} ${texPrix(prixTotal)}\\text{ \\euro}$<br>`
       }
+      texteCorr += this.sup && this.correctionDetaillee ? `<br>${schema.display()}<br><br>` : ''
 
       // Pour tolérer l'écriture d'un somme avec des centimes, par exemple 54,1 € ou 54,10 €
       const reponse = prixTotal.toFixed(2)

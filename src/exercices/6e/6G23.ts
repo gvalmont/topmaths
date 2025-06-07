@@ -1,6 +1,6 @@
 import { cibleCouronne } from '../../lib/2d/cibles'
 import { afficheMesureAngle } from '../../lib/2d/codages'
-import { Point, point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, sensDeRotation, similitude } from '../../lib/2d/transformations'
@@ -70,14 +70,14 @@ export default class ConstruireUnAngle extends Exercice {
       B = point(5, 0)
       B = rotation(B, A, anglerot)
       Apos = texteParPoint(p[1], similitude(B, A, -90, 0.1), 0, 'black', 1, 'milieu', true)
-      Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.9) as Point, signe[i] * 90, 0.1), 0, 'black', 1, 'milieu', true)
+      Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.9), signe[i] * 90, 0.1), 0, 'black', 1, 'milieu', true)
 
       s = segment(A, B)
       s.styleExtremites = '|-'
       s.epaisseur = 2
       s.tailleExtremites = 1.5
       C = rotation(B, A, angle)
-      Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9) as Point, -signe[i] * 90, 0.1), 0, 'black', 1, 'milieu', true)
+      Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9), -signe[i] * 90, 0.1), 0, 'black', 1, 'milieu', true)
       fleche = sensDeRotation(B, A, signe[i])
       s2 = segment(A, C)
       s2.styleExtremites = '|-'

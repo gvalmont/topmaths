@@ -1,5 +1,5 @@
 import { angle, codageAngle } from '../../lib/2d/angles'
-import { Point, point, tracePoint } from '../../lib/2d/points'
+import { point, tracePoint } from '../../lib/2d/points'
 import { demiDroite, longueur } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
@@ -77,7 +77,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
       const angleABC = codageAngle(A, B, C, 2)
       const demiDroiteBA = demiDroite(B, A)
       const demiDroiteCA = demiDroite(B, C)
-      objets2d.push(tracePoint(...points), texteParPoint(A.nom, rotation(A, B, -10)), texteParPoint(C.nom, rotation(C, B, 10)), texteParPoint(B.nom, homothetie(B, A, 1.2) as Point), angleABC, demiDroiteBA, demiDroiteCA)
+      objets2d.push(tracePoint(...points), texteParPoint(A.nom, rotation(A, B, -10)), texteParPoint(C.nom, rotation(C, B, 10)), texteParPoint(B.nom, homothetie(B, A, 1.2)), angleABC, demiDroiteBA, demiDroiteCA)
       // On affiche le cadre mathalea2d
       const pointsX = []
       const pointsY = []

@@ -108,7 +108,7 @@ export default class ModeliserEquations extends Exercice {
                 $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c)}$ € par km parcouru ;<br>
                 $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d)}$ € par km parcouru ;<br>
           
-                       Pour combien de km (arrondi à l'unité), les deux tarifs sont-ils égaux ?<br>
+                       Pour quelle distance (arrondie au km près), les deux tarifs sont-ils égaux ?<br>
                                       `
           texteCorr = `En notant $x$, le nombre de km parcourus, on a :<br>
                 $\\bullet$ Avec le tarif A, le prix à payer est : $${reduireAxPlusB(c, a)}$ ;<br>

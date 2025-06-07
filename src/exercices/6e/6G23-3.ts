@@ -147,7 +147,7 @@ export default class TracerTriangle2Angles extends Exercice {
       }
       if (context.isHtml) {
         const anim = new Alea2iep()
-        anim.triangle1longueur2angles(p, loAC, angle1, angle2, true, true) // description et longueur
+        anim.triangle1longueur2angles(p, loAC, angle1, angle2, { description: true, mesure: true }) // description et longueur
         texteCorr += anim.htmlBouton(this.numeroExercice ?? 0, i)
       }
 

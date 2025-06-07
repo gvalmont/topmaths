@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 export const uuid = '6dc45'
 export const refs = {
   'fr-fr': ['4G20-8', 'BP2AutoR3'],
-  'fr-ch': []
+  'fr-ch': ['11GM1-9']
 }
 /**
  * Calcul mental utilisant les carrés de 1 à 15 avec le théorème de Pythagore

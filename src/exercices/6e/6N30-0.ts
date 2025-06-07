@@ -21,7 +21,7 @@ export const titre = 'Repérer des nombres décimaux sur une droite graduée'
 export const uuid = '50614'
 export const refs = {
   'fr-fr': ['6N30-0', 'BP2AutoN2'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-11']
 }
 export const interactifReady = true
 export const interactifType = 'mathLive'

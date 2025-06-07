@@ -9,6 +9,7 @@ import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSu
 import { latex2d, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import MainLevee from './MainLevee'
+import { PointAbstrait } from './points-abstraits'
 
 /**
  * v = vecteur('V') // son nom
@@ -24,7 +25,7 @@ export class Vecteur {
   x: number
   y: number
 
-  constructor (arg1: FractionEtendue | number | Point | string, arg2: FractionEtendue | number | Point, nom = '') {
+  constructor (arg1: FractionEtendue | number | PointAbstrait | string, arg2: FractionEtendue | number | PointAbstrait, nom = '') {
     if (arguments.length === 1) {
       this.nom = String(arg1)
       this.x = 0
@@ -34,7 +35,7 @@ export class Vecteur {
         this.x = arg1 instanceof FractionEtendue ? arg1.valeurDecimale : Number(arg1)
         this.y = arg2 instanceof FractionEtendue ? arg2.valeurDecimale : Number(arg2)
       } else {
-        if ((arg1 instanceof Point) && (arg2 instanceof Point)) {
+        if ((arg1 instanceof PointAbstrait) && (arg2 instanceof PointAbstrait)) {
           this.x = arg2.x - arg1.x
           this.y = arg2.y - arg1.y
         } else {
@@ -99,7 +100,7 @@ export class Vecteur {
  * @example v = vecteur(x,y,'v') // son nom et ses composantes.
  * @author Jean-Claude Lhote et Rémi Angot
  */
-export function vecteur (arg1: FractionEtendue | number | Point | string, arg2: FractionEtendue | number | Point, nom = '') {
+export function vecteur (arg1: FractionEtendue | number | PointAbstrait | string, arg2: FractionEtendue | number | PointAbstrait, nom = '') {
   return new Vecteur(arg1, arg2, nom)
 }
 
@@ -184,17 +185,17 @@ export class Segment extends ObjetMathalea2D {
   y1: number
   x2: number
   y2: number
-  extremite1: Point
-  extremite2: Point
+  extremite1: PointAbstrait
+  extremite2: PointAbstrait
   longueur: number
-  constructor (arg1: number | Point, arg2: number | Point, arg3?: number | string, arg4?: number | string, color?: string, styleExtremites = '') {
+  constructor (arg1: number | PointAbstrait, arg2: number | PointAbstrait, arg3?: number | string, arg4?: number | string, color?: string, styleExtremites = '') {
     super()
     this.bordures = [0, 0, 0, 0]
     this.typeObjet = 'segment'
     this.styleExtremites = styleExtremites
     this.tailleExtremites = 4
     if (arguments.length === 2 || arguments.length === 3) {
-      if ((arg1 instanceof Point) && (arg2 instanceof Point)) {
+      if ((arg1 instanceof PointAbstrait) && (arg2 instanceof PointAbstrait)) {
         this.x1 = arg1.x
         this.y1 = arg1.y
         this.x2 = arg2.x
@@ -591,7 +592,7 @@ export class Segment extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 
-export function segment (...args: [number | Point, number | Point, (string | number | undefined)?, (string | number | undefined)?, (string | undefined)?]) {
+export function segment (...args: [number | PointAbstrait, number | PointAbstrait, (string | number | undefined)?, (string | number | undefined)?, (string | undefined)?]) {
   if (args.length === 2) {
     return new Segment(args[0], args[1])
   }
@@ -611,15 +612,15 @@ export function segment (...args: [number | Point, number | Point, (string | num
  * @example segmentAvecExtremites(x1,y1,x2,y2,'#f15929')
  * @author Rémi Angot
  */
-export function segmentAvecExtremites (...args: [number | Point, number | Point, (string | number | undefined)?, (string | number | undefined)?, (string | undefined)?]) {
+export function segmentAvecExtremites (...args: [number | PointAbstrait, number | PointAbstrait, (string | number | undefined)?, (string | number | undefined)?, (string | undefined)?]) {
   const s = segment(...args)
   s.styleExtremites = '|-|'
   return s
 }
 
 /**  Trace la demi-droite d'origine A passant par B
- * @param {Point} A Origine de la droite
- * @param {Point} B Point de la demi-droite, autre que l'origine
+ * @param {PointAbstrait} A Origine de la droite
+ * @param {PointAbstrait} B Point de la demi-droite, autre que l'origine
  * @param {string} [color = 'black'] Couleur de la demi-droite : du type 'blue' ou du type '#f15929'
  * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
  * @property {string} color Couleur de la demi-droite. À associer obligatoirement à colorToLatexOrHTML().
@@ -630,7 +631,7 @@ export function segmentAvecExtremites (...args: [number | Point, number | Point,
  */
 // JSDOC Validee par EE Aout 2022
 export class DemiDroite extends Segment {
-  constructor (A: Point, B: Point, color = 'black', extremites = false) {
+  constructor (A: PointAbstrait, B: PointAbstrait, color = 'black', extremites = false) {
     super(A, B)
     this.opacite = 1
     this.pointilles = 0
@@ -644,8 +645,8 @@ export class DemiDroite extends Segment {
 }
 
 /**  Trace la demi-droite d'origine A passant par B
- * @param {Point} A
- * @param {Point} B
+ * @param {PointAbstrait} A
+ * @param {PointAbstrait} B
  * @param {string} [color='black'] Facultatif, 'black' par défaut
  * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
  * @example demiDroite(M, N) // Trace la demi-droite d'origine M passant par N et de couleur noire
@@ -654,20 +655,20 @@ export class DemiDroite extends Segment {
  * @return {DemiDroite}
  */
 // JSDOC Validee par EE Aout 2022
-export function demiDroite (A: Point, B: Point, color = 'black', extremites = false) {
+export function demiDroite (A: PointAbstrait, B: PointAbstrait, color = 'black', extremites = false) {
   return new DemiDroite(A, B, color, extremites)
 }
 
 /**
  * Renvoie la distance de A à B
- * @param {Point} A
- * @param {Point} B
+ * @param {PointAbstrait} A
+ * @param {PointAbstrait} B
  * @param {number} [precision] Nombre de chiffres après la virgule.
  * (ne sert à rien car si le number correspondant à l'arrondi ne tombe pas sur un flottant convertible en bianire sans erreur, il y aura 18 chiffres significatifs dans le number retourné
  * C'est à la fonction d'affichage de limiter le nombre de chiffres
  * @author Rémi Angot
  */
-export function longueur (A: Point, B: Point, precision = 2) {
+export function longueur (A: PointAbstrait, B: PointAbstrait, precision = 2) {
   return arrondi(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), precision ?? 6)
   // j chiffres après la virgule pour l'arrondi sachant que c'est à la fonction d'affichage de limiter le nombre de chiffres.
 }

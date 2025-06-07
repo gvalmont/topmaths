@@ -75,9 +75,9 @@ export default class ProprietesMediatrice extends Exercice {
         // Le point C est au dessus ou en dessous une fois sur deux
 
         if (randint(0, 99) > 50) {
-          C = pointIntersectionLC(mediatriceAB as Droite, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 1) as Point
+          C = pointIntersectionLC(mediatriceAB as Droite, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 1)
         } else {
-          C = pointIntersectionLC(mediatriceAB as Droite, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 2) as Point
+          C = pointIntersectionLC(mediatriceAB as Droite, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 2)
         }
         if (!listeSurLaMediatrice[i]) C = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, nomDesPoints[2], 'above') // s'il ne doit pas être sur la médiatrice, on l'en éloigne
       } while (C.constructor !== Point || A.constructor !== Point || B.constructor !== Point)
@@ -99,7 +99,7 @@ export default class ProprietesMediatrice extends Exercice {
         objetsEnonce.push(segmentAC, segmentBC, affLongueurAC, affLongueurBC) // On affiche les longueurs dans l'énoncé
         texte = `Le point $${nomDesPoints[2]}$ appartient-il à la médiatrice du segment [$${nomDesPoints[0]}${nomDesPoints[1]}$] ? Justifier.<br>`
         // On construit et code la médiatrice puis on la push dans la correction
-        D = pointIntersectionDD(mediatriceAB as Droite, droite(A, B)) as Point
+        D = pointIntersectionDD(mediatriceAB as Droite, droite(A, B))
         if (C.x > A.x) {
           objetsCorrection.push(codageAngleDroit(A, D, C, 'red', 0.4))
         } else {
@@ -119,7 +119,7 @@ export default class ProprietesMediatrice extends Exercice {
         objetsCorrection.push(segmentAC, segmentBC, affLongueurAC, affLongueurBC) // On affiche les longueurs dans la correction
         texte = `Le point $${nomDesPoints[2]}$ est-il équidistant de $${nomDesPoints[0]}$ et de $${nomDesPoints[1]}$ ? Justifier.<br>`
         // On construit et code la médiatrice puis on la push dans l'énoncé
-        D = pointIntersectionDD(mediatriceAB as Droite, droite(A, B)) as Point
+        D = pointIntersectionDD(mediatriceAB as Droite, droite(A, B))
         if (C.x > A.x) {
           objetsEnonce.push(codageAngleDroit(A, D, C, 'red', 0.4))
         } else {

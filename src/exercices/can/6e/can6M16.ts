@@ -23,7 +23,7 @@ export const uuid = 'b486a'
 
 export const refs = {
   'fr-fr': ['can6M16'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-12']
 }
 export default class AireUsuelleParComptageCan extends Exercice {
   constructor () {

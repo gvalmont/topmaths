@@ -26,7 +26,7 @@ export const uuid = '8e07a'
 
 export const refs = {
   'fr-fr': ['6N33-4'],
-  'fr-ch': ['']
+  'fr-ch': ['9NO15-5', '10NO5-11']
 }
 
 function capitalizeFirstLetter (word: string): string {

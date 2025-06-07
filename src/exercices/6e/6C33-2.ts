@@ -21,7 +21,7 @@ export const dateDePublication = '31/05/2024'
 export const uuid = '2z3e5'
 export const refs = {
   'fr-fr': ['6C33-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO6-8', '10NO6-6']
 }
 export default class ExpressionsDepuisCalculs extends Exercice {
   constructor () {

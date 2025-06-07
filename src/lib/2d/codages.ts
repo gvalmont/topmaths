@@ -10,6 +10,7 @@ import { longueur, Segment, segment, vecteur } from './segmentsVecteurs'
 import { Latex2d, latex2d, latexParCoordonnees, tailleDeNbVersLatex, TexteParPoint, texteParPoint, type LetterSizeType } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import type { Polygone } from './polygones'
+import { PointAbstrait } from './points-abstraits'
 
 /**
  * Code le milieu d'un segment
@@ -68,8 +69,8 @@ export function codageMilieu (A: Point, B: Point, color = 'black', mark = '×', 
 
 /**
  * Code la médiatrice d'un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
+ * @param {PointAbstrait} A Première extrémité du segment
+ * @param {PointAbstrait} B Seconde extrémité du segment
  * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
@@ -82,7 +83,7 @@ export function codageMilieu (A: Point, B: Point, color = 'black', mark = '×', 
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageMediatrice extends ObjetMathalea2D {
-  constructor (A: Point, B: Point, color = 'black', mark = '×') {
+  constructor (A: PointAbstrait, B: PointAbstrait, color = 'black', mark = '×') {
     super()
     if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
     this.color = colorToLatexOrHTML(color)
@@ -108,8 +109,8 @@ export class CodageMediatrice extends ObjetMathalea2D {
 
 /**
  * Code la médiatrice d'un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
+ * @param {PointAbstrait} A Première extrémité du segment
+ * @param {PointAbstrait} B Seconde extrémité du segment
  * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @example codageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
@@ -118,30 +119,30 @@ export class CodageMediatrice extends ObjetMathalea2D {
  * @return {CodageMediatrice}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageMediatrice (A: Point, B: Point, color = 'black', mark = '×') {
+export function codageMediatrice (A: PointAbstrait, B: PointAbstrait, color = 'black', mark = '×') {
   return new CodageMediatrice(A, B, color, mark)
 }
 
 /**
  * Code la bissectrice d'un angle
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {PointAbstrait} A Point sur un côté de l'angle
+ * @param {PointAbstrait} O Sommet de l'angle
+ * @param {PointAbstrait} B Point sur l'autre côté de l'angle
  * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
  * @param {string} [mark = 'x'] Symbole posé sur les arcs
  * @property {string} color Couleur de la bissectrice. À associer obligatoirement à colorToLatexOrHTML().
  * @property {string} mark Symbole posé sur les arcs
- * @property {Point} centre Sommet de l'angle
- * @property {Point} depart Point sur un côté de l'angle (équivalent au point A)
+ * @property {PointAbstrait} centre Sommet de l'angle
+ * @property {PointAbstrait} depart Point sur un côté de l'angle (équivalent au point A)
  * @author Jean-Claude Lhote
  * @class
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageBissectrice extends ObjetMathalea2D {
   mark: string
-  centre: Point
-  depart: Point
-  constructor (A: Point, O: Point, B: Point, color = 'black', mark = 'X') {
+  centre: PointAbstrait
+  depart: PointAbstrait
+  constructor (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, color = 'black', mark = 'X') {
     super()
     this.color = colorToLatexOrHTML(color)
     this.mark = mark
@@ -173,9 +174,9 @@ export class CodageBissectrice extends ObjetMathalea2D {
 
 /**
  * Code la bissectrice d'un angle
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {PointAbstrait} A Point sur un côté de l'angle
+ * @param {PointAbstrait} O Sommet de l'angle
+ * @param {PointAbstrait} B Point sur l'autre côté de l'angle
  * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
  * @param {string} [mark='x'] Symbole posé sur les arcs
  * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
@@ -184,7 +185,7 @@ export class CodageBissectrice extends ObjetMathalea2D {
  * @return {CodageBissectrice}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageBissectrice (A: Point, O: Point, B: Point, color = 'black', mark = 'X') {
+export function codageBissectrice (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, color = 'black', mark = 'X') {
   return new CodageBissectrice(A, O, B, color, mark)
 }
 
@@ -202,7 +203,7 @@ export class CodageCarre extends ObjetMathalea2D {
   constructor (c: Polygone, color = 'black', mark = '×') {
     super()
     this.objets = []
-    this.objets.push(codageSegments(mark, color, ...(c.listePoints as Point[])))
+    this.objets.push(codageSegments(mark, color, ...(c.listePoints)))
     this.objets.push(
       codageAngleDroit(
         c.listePoints[0],
@@ -274,8 +275,8 @@ export function codageCarre (c: Polygone, color = 'black', mark = '×') {
 
 /**
  * Affiche la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous.
- * @param  {Point} A Première extrémité du segment
- * @param  {Point} B Seconde extrémité du segment
+ * @param  {PointAbstrait} A Première extrémité du segment
+ * @param  {PointAbstrait} B Seconde extrémité du segment
  * @param  {string} [color='black'] Couleur de la longueur affichée : du type 'blue' ou du type '#f15929'.
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
@@ -291,12 +292,12 @@ export function codageCarre (c: Polygone, color = 'black', mark = '×') {
 export class AfficheLongueurSegment extends ObjetMathalea2D {
   stringColor: string
   angle: number
-  O: Point
-  M: Point
+  O: PointAbstrait
+  M: PointAbstrait
   distance: number
   text: string
 
-  constructor (A: Point, B: Point, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
+  constructor (A: PointAbstrait, B: PointAbstrait, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
     super()
     this.stringColor = color
     this.O = milieu(A, B)
@@ -328,8 +329,8 @@ export class AfficheLongueurSegment extends ObjetMathalea2D {
 
 /**
  * Affiche la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous.
- * @param  {Point} A Première extrémité du segment
- * @param  {Point} B Seconde extrémité du segment
+ * @param  {PointAbstrait} A Première extrémité du segment
+ * @param  {PointAbstrait} B Seconde extrémité du segment
  * @param  {string} [color='black'] Couleur affichée de la longueur affichée : du type 'blue' ou du type '#f15929'.
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
@@ -343,7 +344,7 @@ export class AfficheLongueurSegment extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function afficheLongueurSegment (A: Point, B: Point, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
+export function afficheLongueurSegment (A: PointAbstrait, B: PointAbstrait, color = 'black', d = 0.5, unite = 'cm', horizontal = false, precision = 1) {
   return new AfficheLongueurSegment(A, B, color, d, unite, horizontal, precision)
 }
 
@@ -354,17 +355,17 @@ export function afficheLongueurSegment (A: Point, B: Point, color = 'black', d =
  */
 export class TexteSurSegment extends ObjetMathalea2D {
   stringColor: string
-  extremite1: Point
-  extremite2: Point
+  extremite1: PointAbstrait
+  extremite2: PointAbstrait
   distance: number
   texte: string
   scale: number
   mathOn: boolean
   angle: number
-  O: Point
-  M: Point
+  O: PointAbstrait
+  M: PointAbstrait
 
-  constructor (texte: string, A: Point, B: Point, color = 'black', d = 0.5, horizontal = false) {
+  constructor (texte: string, A: PointAbstrait, B: PointAbstrait, color = 'black', d = 0.5, horizontal = false) {
     super()
     if (typeof texte === 'number') texte = String(texte)
     if (longueur(A, B) < 0.1) window.notify('TexteSurSegment : Points trop proches pour cette fonction', { A, B })
@@ -407,15 +408,15 @@ export class TexteSurSegment extends ObjetMathalea2D {
 /**
  * Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous ou bien horizontal
  * @param {string} texte
- * @param {Point} A
- * @param {Point} B
+ * @param {PointAbstrait} A
+ * @param {PointAbstrait} B
  * @param {string} [color='black'] Code couleur HTML accepté
  * @param {number} [distance=0.5] Distance à la droite.
  * @param {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot
  */
-export function texteSurSegment (texte = '', A: Point, B: Point, color = 'black', distance = 0.5, horizontal = false) {
+export function texteSurSegment (texte = '', A: PointAbstrait, B: PointAbstrait, color = 'black', distance = 0.5, horizontal = false) {
   if (texte[0] === '$') {
     return placeLatexSurSegment(texte.replaceAll('$', ''), A, B, { color, distance, horizontal })
   }
@@ -535,14 +536,14 @@ export function texteSurArc (texte: string, A: Point, B: Point, angle: number, c
  */
 // JSDOC Validee par EE Juin 2022
 export class AfficheMesureAngle extends ObjetMathalea2D {
-  depart: Point
-  sommet: Point
-  arrivee: Point
+  depart: PointAbstrait
+  sommet: PointAbstrait
+  arrivee: PointAbstrait
   distance: number
   ecart: number
   saillant: boolean
 
-  constructor (A: Point, B: Point, C: Point, color = 'black', distance = 1.5, label = '', {
+  constructor (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, color = 'black', distance = 1.5, label = '', {
     ecart = 0.5,
     mesureEnGras = false,
     saillant = true,
@@ -601,7 +602,7 @@ export class AfficheMesureAngle extends ObjetMathalea2D {
  * @return {AfficheMesureAngle}
  */
 // JSDOC Validee par EE Juin 2022
-export function afficheMesureAngle (A: Point, B: Point, C: Point, color = 'black', distance = 1.5, label = '', {
+export function afficheMesureAngle (A: PointAbstrait, B: PointAbstrait, C: PointAbstrait, color = 'black', distance = 1.5, label = '', {
   ecart = 0.5,
   mesureEnGras = false,
   saillant = true,
@@ -723,8 +724,8 @@ export function afficheCoteSegment (s: Segment, Cote = '', positionCote = 0.5, c
 
 /**
  * Code un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
+ * @param {PointAbstrait} A Première extrémité du segment
+ * @param {PointAbstrait} B Seconde extrémité du segment
  * @param {string} [mark='||'] Symbole posé sur le segment
  * @param {string} [color='black'] Couleur du symbole : du type 'blue' ou du type '#f15929'
  * @param {number} [echelle=1] Taille relative du symbole
@@ -735,7 +736,7 @@ export function afficheCoteSegment (s: Segment, Cote = '', positionCote = 0.5, c
  * @return {TexteParPoint}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageSegment (A: Point, B: Point, mark = '||', color = 'black', echelle = 0.5) {
+export function codageSegment (A: PointAbstrait, B: PointAbstrait, mark = '||', color = 'black', echelle = 0.5) {
   const O = milieu(A, B)
   const s = segment(A, B)
   let angle
@@ -815,7 +816,7 @@ export class CodageSegments extends ObjetMathalea2D {
       }
     } else {
       for (let i = 0; i < (this.isEchelle ? this.args.length - 1 : this.args.length); i += 2) {
-        const codage = codageSegment(this.args[i] as Point, this.args[i + 1] as Point, this.mark, this.stringColor, this.echelle)
+        const codage = codageSegment(this.args[i], this.args[i + 1], this.mark, this.stringColor, this.echelle)
         code += codage.svg(coeff)
         code += '\n'
       }
@@ -853,7 +854,7 @@ export class CodageSegments extends ObjetMathalea2D {
     } else {
       const condition = this.isEchelle ? this.args.length - 1 : this.args.length
       for (let i = 0; i < condition; i += 2) {
-        code += codageSegment(this.args[i] as Point, this.args[i + 1] as Point, this.mark, this.stringColor, this.echelle).tikz()
+        code += codageSegment(this.args[i], this.args[i + 1], this.mark, this.stringColor, this.echelle).tikz()
         code += '\n'
       }
     }
@@ -914,8 +915,8 @@ export function codageSegments (mark = '||', color = 'black', ...args: any[]) {
  */
 // JSDOC Validee par EE Juin 2022
 export class CodageAngle extends ObjetMathalea2D {
-  debut: Point
-  centre: Point
+  debut: PointAbstrait
+  centre: PointAbstrait
   angle: number
   taille: number
   mark: string
@@ -925,7 +926,7 @@ export class CodageAngle extends ObjetMathalea2D {
   couleurDeRemplissage: string[]
   opaciteDeRemplissage: number
 
-  constructor (debut: Point, centre: Point, angle: Point | number, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
+  constructor (debut: PointAbstrait, centre: PointAbstrait, angle: PointAbstrait | number, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
     super()
     this.color = colorToLatexOrHTML(color)
     this.debut = debut
@@ -937,7 +938,7 @@ export class CodageAngle extends ObjetMathalea2D {
     this.opacite = opacite
     this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
     this.opaciteDeRemplissage = opaciteDeRemplissage
-    this.angle = angle instanceof Point ? angleOriente(debut, centre, angle) : angle
+    this.angle = angle instanceof PointAbstrait ? angleOriente(debut, centre, angle) : angle
     this.tailleTexte = tailleTexte
     this.angleArrondi = angleArrondi
     this.objets = []
@@ -979,7 +980,7 @@ export class CodageAngle extends ObjetMathalea2D {
  * @return {Latex2d}
  */
 
-function directionLatex2d (A: Point, B: Point): number {
+function directionLatex2d (A: PointAbstrait, B: PointAbstrait): number {
   // pour du texte dans le bon sens de lecture
   const sAB = segment(A, B)
   let directionAB = sAB.angleAvecHorizontale
@@ -990,7 +991,7 @@ function directionLatex2d (A: Point, B: Point): number {
       : directionAB
   return directionAB
 }
-function placeLatex2d (A: Point, B: Point, distance: number = 0.5): Point {
+function placeLatex2d (A: PointAbstrait, B: PointAbstrait, distance: number = 0.5): Point {
   // le point d'affichage du texte à 0.5 sous le milieu du segment orienté
   const M = milieu(A, B)
   const N = rotation(A, M, -90)
@@ -1005,7 +1006,7 @@ function placeLatex2d (A: Point, B: Point, distance: number = 0.5): Point {
  * @param options
  * @returns {Latex2d}
  */
-export function placeLatexSurSegment (t: string, A: Point, B: Point, { distance = 0.5, color = 'black', backgroundColor = 'none', letterSize = 'normalsize', horizontal = false }: {
+export function placeLatexSurSegment (t: string, A: PointAbstrait, B: PointAbstrait, { distance = 0.5, color = 'black', backgroundColor = 'none', letterSize = 'normalsize', horizontal = false }: {
   distance?: number,
   color?: string,
   backgroundColor?: string,

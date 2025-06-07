@@ -26,7 +26,7 @@ export const dateDePublication = '31/05/2024'
 export const uuid = '2b06d'
 export const refs = {
   'fr-fr': ['6C33-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO6-7', '10NO6-5']
 }
 export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
   constructor () {

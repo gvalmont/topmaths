@@ -1,7 +1,7 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
-import { Point, point, pointIntersectionCC } from '../../../lib/2d/points'
+import { point, pointIntersectionCC } from '../../../lib/2d/points'
 import { cercle } from '../../../lib/2d/cercle'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { placeLatexSurSegment } from '../../../lib/2d/codages'
@@ -31,7 +31,7 @@ export default class Can2025N4Q18 extends ExerciceCan {
     const B = point(c, 0, 'B', 'below right')
     const C1 = cercle(A, a)
     const C2 = cercle(B, b)
-    const C = pointIntersectionCC(C1, C2, 'C', 1) as Point
+    const C = pointIntersectionCC(C1, C2, 'C', 1)
     C.label = 'C'
     C.positionLabel = 'above right'
     const l1 = placeLatexSurSegment(`${a}\\text{ cm}`, A, C)

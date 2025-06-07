@@ -29,7 +29,7 @@ export default class RechercheCoordonneesProdScal extends Exercice {
 
     this.nbQuestions = 1
 
-    this.formatInteractif = 'fractionEgale'
+    // this.formatInteractif = 'fractionEgale'
   }
 
   nouvelleVersion () {

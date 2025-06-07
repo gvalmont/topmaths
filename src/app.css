@@ -30,6 +30,15 @@ math-field.fillInTheBlanks {
   padding: '2px';
 }
 
+math-field.schemaEnBoite {
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  padding : 0px 0px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, .3);
+  min-width: 50px;
+}
 
 @media print {
   * {

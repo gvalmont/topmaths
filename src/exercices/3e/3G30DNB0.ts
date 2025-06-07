@@ -98,9 +98,9 @@ export default class Exercice3G2DNB0 extends ExerciceBrevetA {
     const ang2 = polygone(...listeSommets2)
     ang2.epaisseur = 0
     ang2.couleurDeRemplissage = colorToLatexOrHTML('gray')
-    const haut = latex2d(`${texNombre(hauteur, 2)}\\text{ m}`, -0.5, 1.5, { orientation: -90 })
-    const prof = latex2d(`${texNombre(profondeur, 2)}\\text{ m}`, 5.3, 6.4, { orientation: -30 })
-    const long = latex2d(`${texNombre(hypo, 2)}\\text{ m}`, 14.5, 7.4, { orientation: 40 })
+    const haut = latex2d(`${texNombre(hauteur, 2)}\\text{ m}`, -0.5, 1.5, { orientation: 90 })
+    const prof = latex2d(`${texNombre(profondeur, 2)}\\text{ m}`, 5.3, 6.4, { orientation: 30 })
+    const long = latex2d(`${texNombre(hypo, 2)}\\text{ m}`, 14.5, 7.4, { orientation: -40 })
     const objets2 = [...prisme.c2d, carre1.c2d, carre2.c2d, ang1, ang2, haut, prof, long]
 
     const figure2 = mathalea2d(Object.assign({ pixelsParCm: ppcm, scale: sc }, fixeBordures(objets2)), objets2)

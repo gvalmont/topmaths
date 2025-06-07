@@ -44,7 +44,7 @@ export default class CoeffDirecteurDroite extends Exercice {
         d = xB - xA
 
         this.reponse = new FractionEtendue(n, d)
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
         this.question = `Dans un repère du plan, on considère les points $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>
         
         Calculer le coefficient directeur de la droite $(AB)$.
@@ -105,7 +105,7 @@ export default class CoeffDirecteurDroite extends Exercice {
         xA = randint(1, 10)
         yA = randint(-10, 10, 0)
         this.reponse = new FractionEtendue(yA, xA).simplifie()
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
         this.question = `Donner le coefficient directeur d'une droite représentant une fonction linéaire passant par le point $A(${xA};${yA})$.<br>
 
           On donnera le résultat sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`

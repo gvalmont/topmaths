@@ -113,7 +113,7 @@ export default class ProgrammeCalcul2 extends Exercice {
         b = randint(-4, 4, 0) * a
         f1 = new FractionEtendue(1, a)
         f2 = new FractionEtendue(1, b)
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
         reponse = f1.sommeFraction(f2).simplifie()
         this.question = `Choisir deux nombres puis calculer la somme de leur inverse.  <br>
       
@@ -134,7 +134,7 @@ export default class ProgrammeCalcul2 extends Exercice {
         a = randint(-10, 10, 0)
         b = randint(-10, 10, [0, -a])
 
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
         reponse = new FractionEtendue(1, a + b)
         this.question = `Choisir deux nombres puis calculer l'inverse de leur somme.  <br>
       
@@ -151,7 +151,7 @@ export default class ProgrammeCalcul2 extends Exercice {
         a = randint(2, 10)
         b = randint(1, 10)
         f1 = new FractionEtendue(1, a)
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
         f2 = new FractionEtendue(1 + b * a, a)
         reponse = new FractionEtendue(a, 1 + b * a)
         this.question = `Choisir deux nombres puis calculer l'inverse de leur somme.  <br>
@@ -171,7 +171,7 @@ export default class ProgrammeCalcul2 extends Exercice {
         a = randint(-9, 9, 0)
         if (a < 0) { b = randint(-2, 6, [0, -a]) } else { b = randint(-6, 2, [0, -a]) }
 
-        this.formatInteractif = 'fractionEgale'
+        // this.formatInteractif = 'fractionEgale'
 
         reponse = new FractionEtendue(1, (a + b) ** 2)
         this.question = `Choisir deux nombres puis calculer l'inverse du carré de leur somme.  <br>

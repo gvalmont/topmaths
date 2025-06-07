@@ -5,7 +5,7 @@ import {
   droiteParPointEtPente,
   droiteVerticaleParPoint
 } from '../../lib/2d/droites'
-import { Point, point, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import { point, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { nommePolygone, Polygone, polygone } from '../../lib/2d/polygones'
 import { grille, seyes } from '../../lib/2d/reperes'
 import { longueur, norme, segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
@@ -68,7 +68,7 @@ export default class ConstruireParSymetrie extends Exercice {
       do { // on vérifie que le point est du bon côté et à distance suffisante de la droite.
         if (lieu[0] === 'sur') A = pointSurDroite(d, randint(-6, 6), '')
         else A = point(randint(-8, 8), randint(-8, 8))
-        pA = projectionOrtho(A, d) as Point
+        pA = projectionOrtho(A, d)
         hA = longueur(A, pA)
         count++
       } while (((hA < 2 && lieu[0] !== 'sur') || dessousDessus(d, A) !== lieu[0]) && count < 50)
@@ -79,7 +79,7 @@ export default class ConstruireParSymetrie extends Exercice {
       do { // on vérifie que le point est du bon côté et à distance suffisante de la droite.
         if (lieu[1] === 'sur') B = pointSurDroite(d, randint(-6, 6), '')
         else B = point(randint(-8, 8, Math.round(A.x)), randint(-8, 8, Math.round(A.y)))
-        pB = projectionOrtho(B, d) as Point
+        pB = projectionOrtho(B, d)
         hB = longueur(B, pB)
         count++
       } while (((hB < 2 && lieu[1] !== 'sur') || dessousDessus(d, B) !== lieu[1]) && count < 50)
@@ -90,7 +90,7 @@ export default class ConstruireParSymetrie extends Exercice {
       do { // on vérifie que le point est du bon côté et à distance suffisante de la droite.
         if (lieu[2] === 'sur') C = pointSurDroite(d, randint(-8, 8), '')
         else C = point(randint(-8, 8, [Math.round(A.x), Math.round(B.x)]), randint(-8, 8, [Math.round(A.y), Math.round(B.y)]))
-        pC = projectionOrtho(C, d) as Point
+        pC = projectionOrtho(C, d)
         hC = longueur(C, pC)
         count++
       } while (((hC < 2 && lieu[2] !== 'sur') || dessousDessus(d, C) !== lieu[2]) && count < 50)
@@ -226,9 +226,9 @@ export default class ConstruireParSymetrie extends Exercice {
           D.positionLabel = 'above'
           E.nom = p1nom[4]
           E.positionLabel = 'above'
-          CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above') as Point
-          DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above') as Point
-          EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above') as Point
+          CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
+          DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
+          EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
           cC = C.estSur(d) ? C : codageMediatrice(C, CC, 'red', '|')
           cD = D.estSur(d) ? D : codageMediatrice(D, DD, 'blue', 'X')
           cE = E.estSur(d) ? E : codageMediatrice(E, EE, 'green', 'O')
@@ -281,9 +281,9 @@ export default class ConstruireParSymetrie extends Exercice {
           D.positionLabel = 'above'
           E.nom = p1nom[4]
           E.positionLabel = 'above'
-          CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above') as Point
-          DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above') as Point
-          EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above') as Point
+          CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
+          DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
+          EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
           cC = C.estSur(d) ? C : codageMediatrice(C, CC, 'red', '|')
           cD = D.estSur(d) ? D : codageMediatrice(D, DD, 'blue', 'X')
           cE = E.estSur(d) ? E : codageMediatrice(E, EE, 'green', 'O')
@@ -334,9 +334,9 @@ export default class ConstruireParSymetrie extends Exercice {
           D.positionLabel = 'above'
           E.nom = p1nom[4]
           E.positionLabel = 'above'
-          CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above') as Point
-          DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above') as Point
-          EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above') as Point
+          CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
+          DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
+          EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
           cC = C.estSur(d) ? C : codageMediatrice(C, CC, 'red', '|')
           cD = D.estSur(d) ? D : codageMediatrice(D, DD, 'blue', 'X')
           cE = E.estSur(d) ? E : codageMediatrice(E, EE, 'green', 'O')

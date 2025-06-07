@@ -15,7 +15,7 @@ export const interactifType = 'mathlive'
 export const uuid = 'c7c3d'
 export const refs = {
   'fr-fr': ['5R13-1'],
-  'fr-ch': ['']
+  'fr-ch': ['9NO9-18']
 }
 /**
  * Ranger des nombres relatifs

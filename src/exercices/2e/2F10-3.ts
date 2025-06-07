@@ -43,7 +43,7 @@ export default class Representerfonctionaffine extends Exercice {
   }
 
   nouvelleVersion () {
-    this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 || context.isDiaporama ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
+    this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 || context.isDiaporama ? 'la fonction affine suivante  définie' : 'les fonctions affines suivantes définies') + ' sur $\\mathbb R$ par :'
     this.figures = []
     this.coefficients = []
 
@@ -120,7 +120,7 @@ export default class Representerfonctionaffine extends Exercice {
             tB.taille = 5
             tB.epaisseur = 2
 
-            texte = `$f(x)=${reduireAxPlusB(a, b)}$ <br>`
+            texte = `$f_{${i + 1}}(x)=${reduireAxPlusB(a, b)}$ <br>`
             texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
             if (this.sup2 === 1) {
               if (a !== 0) {
@@ -193,7 +193,7 @@ export default class Representerfonctionaffine extends Exercice {
               scale: 0.6
             }
 
-            texte = `$f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
+            texte = `$f_{${i + 1}}(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
             texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
             if (this.sup2 === 1) {
               texteCorr += `La droite a pour équation $y=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$. <br>

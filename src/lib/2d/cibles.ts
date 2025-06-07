@@ -22,7 +22,7 @@ import { rotation, similitude } from './transformations'
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Aout 2022
-export function dansLaCibleCarree (x:number, y:number, rang:number, taille:number, cellule:string) {
+export function dansLaCibleCarree (x:number, y:number, rang:number, taille:number, cellule:string): [number, number] {
   const lettre = cellule[0]
   const chiffrelettre = lettre.charCodeAt(0) - 64
   const chiffre = parseInt(cellule[1])
@@ -31,8 +31,10 @@ export function dansLaCibleCarree (x:number, y:number, rang:number, taille:numbe
   const dx = 0 // Devenu inutile
   const dy = 0 // Devenu inutile
   const delta = taille / 2
-  if (chiffre > rang || chiffrelettre > rang) return 'Cette cellule n\'existe pas dans la cible'
-  else {
+  if (chiffre > rang || chiffrelettre > rang) {
+    window.notify('Cette cellule n\'existe pas dans la cible', { x, y, rang, taille, cellule })
+    return [0, 0]
+  } else {
     return [x + dx - chiffrelettre * taille + delta + rang * delta, y + dy - chiffre * 2 * delta + (rang + 1) * delta]
   }
 }

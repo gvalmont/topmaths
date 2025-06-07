@@ -16,7 +16,7 @@ export const dateDeModifImportante = '03/04/2025'
 export const uuid = 'e9252'
 export const refs = {
   'fr-fr': ['6M25-1'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-18']
 }
 /**
  * Les longueurs sont choisies de telle sorte que le calcul mental soit possible.

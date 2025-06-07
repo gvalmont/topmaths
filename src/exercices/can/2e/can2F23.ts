@@ -13,7 +13,7 @@ export const dateDePublication = '30/11/2024'
 export const uuid = '25d1f'
 export const refs = {
   'fr-fr': ['can2F23'],
-  'fr-ch': []
+  'fr-ch': ['1mF2-20', '11FA8-25']
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -41,7 +41,7 @@ export default class TrouverpFonctionAffine extends Exercice {
     Déterminer la valeur de $p$ sachant que $${nomF}(${a})=${b}$.`
     this.correction = `Comme $${nomF}(${a})=${b}$, alors : <br>
     $\\begin{aligned}
-    ${rienSi1(m)}\\times ${ecritureParentheseSiNegatif(a)}+p&=${b}\\\\
+    ${rienSi1(m)}${m === 1 ? '' : '\\times'} ${ecritureParentheseSiNegatif(a)}+p&=${b}\\\\
     ${m * a}+p&=${b}\\\\
     p&=${miseEnEvidence(this.reponse)}
     \\end{aligned}$`

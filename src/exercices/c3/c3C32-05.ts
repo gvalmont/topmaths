@@ -14,7 +14,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const uuid = 'ab18c'
 export const refs = {
   'fr-fr': ['c3C32-05'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-7']
 }
 export const titre = 'La bouteille (problème de conversion avec fraction simple)'
 export const dateDePublication = '30/11/2024'

@@ -92,7 +92,7 @@ export default class nomExercice extends Exercice {
 
           break
       }
-      texte = 'Dans un repère orthonormé de l\'espace, on donne les coordonénes des points $A$ et $B$ et la représentation paramétrique d\'une droite $(\\Delta)$ :<br>'
+      texte = 'Dans un repère orthonormé de l\'espace, on donne les coordonnées des points $A$ et $B$ et la représentation paramétrique d\'une droite $(\\Delta)$ :<br>'
       texte += `$ A(${xA}~;~${yA}~;~${zA})$ ; $B(${xB}~;~${yB}~;~${zB})$ et `
       texte += `$(\\Delta) : \\begin{cases}x=${x}${a !== 0 ? `${ecritureAlgebriqueSauf1(a)}t` : ''}\\\\y=${y}${b !== 0 ? `${ecritureAlgebriqueSauf1(b)}t` : ''} \\quad (t\\in\\mathbb{R})\\\\z=${z}${c !== 0 ? `${ecritureAlgebriqueSauf1(c)}t` : ''}\\end{cases}$`
       texte += '<br>Déterminer si les doites $(AB)$ et $\\Delta)$ sont orthogonales.'

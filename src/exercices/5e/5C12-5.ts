@@ -19,7 +19,7 @@ export const dateDePublication = '23/11/2024'
 export const uuid = '1cd63'
 export const refs = {
   'fr-fr': ['5C12-5', 'BP2AutoH21'],
-  'fr-ch': []
+  'fr-ch': ['11NO5-13', '1mCN-16']
 }
 /**
  * @author Rémi Angot

@@ -1,4 +1,4 @@
-import { Point, point, tracePoint } from '../../lib/2d/points'
+import { point, tracePoint } from '../../lib/2d/points'
 import { repere } from '../../lib/2d/reperes'
 import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint, texteParPosition } from '../../lib/2d/textes'
@@ -84,8 +84,8 @@ export default class TranslationEtCoordonnes extends Exercice {
       const A = point(xA, yA) // On définit et on trace le point A
       const B = point(xB, yB) // On définit et on trace le point B
       const traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-      const posLabelA = homothetie(B, A, -0.7 / longueur(A, B)) as Point // pour positionner les noms des points aux extrémités proprement
-      const posLabelB = homothetie(A, B, -0.7 / longueur(A, B)) as Point
+      const posLabelA = homothetie(B, A, -0.7 / longueur(A, B)) // pour positionner les noms des points aux extrémités proprement
+      const posLabelB = homothetie(A, B, -0.7 / longueur(A, B))
       const labelA = latexParPoint('A', posLabelA, 'red', 10, 12, '')
       const labelB = latexParPoint("A'", posLabelB, 'red', 10, 12, '')
       const s = segment(A, B, 'red') // On trace en rouge [AB]

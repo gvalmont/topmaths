@@ -23,7 +23,7 @@ export const titre = 'Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nomb
 export const uuid = '5df6e'
 export const refs = {
   'fr-fr': ['6C30-5b'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-20']
 }
 export default class MultiplierPar001Bis extends Exercice {
   constructor () {

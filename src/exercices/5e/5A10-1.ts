@@ -14,7 +14,7 @@ export const dateDePublication = '13/12/2024'
 export const uuid = '108ab'
 export const refs = {
   'fr-fr': ['5A10-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-31']
 }
 /**
  * Donner la liste de tous les diviseurs de tête pour des nombres simples

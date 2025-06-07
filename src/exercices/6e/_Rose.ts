@@ -1,4 +1,4 @@
-import { Point, point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones'
 import { longueur, Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees, latexParCoordonneesBox, texteParPoint } from '../../lib/2d/textes'
@@ -225,13 +225,13 @@ export class Rose {
       M.positionLabel = 'center'
       const B = similitude(M, O, 180 / this.nombreDeValeurs, 1.2, 'B')
       const D = similitude(M, O, -180 / this.nombreDeValeurs, 1.2, 'D')
-      const C = homothetie(M, O, 1.5, 'C') as Point
+      const C = homothetie(M, O, 1.5, 'C')
       const N = rotation(C, O, 360 / this.nombreDeValeurs, 'N')
       const P = similitude(M, O, 180 / this.nombreDeValeurs, 2.5, 'P')
       const s = segment(O, B, 'black')
       const t = segment(B, C, 'black')
       const u = segment(C, D, 'black')
-      const M2 = homothetie(C, O, 0.6) as Point// pointIntersectionDD(droite(B, D), droite(O, C), 'M2')
+      const M2 = homothetie(C, O, 0.6)// pointIntersectionDD(droite(B, D), droite(O, C), 'M2')
       const s1 = homothetie(segment(C, P), C, (longueur(C, P) - this.rayonBoite) / longueur(C, P)) as Segment
       s1.styleExtremites = '->'
       s1.tailleExtremites = 5

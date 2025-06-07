@@ -166,7 +166,7 @@ export default class LireUnePuissance extends Exercice {
       const nb1parGroupe = nb1 / pgcd12
       const nb2parGroupe = nb2 / pgcd12
       let texte = `Un ${situation.qui} ${situation.faitQuoi} ${situation.ou} ${situation.pourQui}.<br>
-      Il souhaite repartir les ${nb1} ${situation.espece1}${situation.especePluriel} et les ${nb2} ${situation.espece2}${situation.especePluriel} dans des ${situation.groupement}s.<br>
+      Il souhaite répartir les ${nb1} ${situation.espece1}${situation.especePluriel} et les ${nb2} ${situation.espece2}${situation.especePluriel} dans des ${situation.groupement}s.<br>
       Il souhaite que chaque ${situation.groupement} comporte le même nombre de ${situation.espece1}${situation.especePluriel} et le même nombre de ${situation.espece2}${situation.especePluriel}.<br>`
       const indiceI = i * listeQ.length
       let indiceII = 0
@@ -175,7 +175,7 @@ export default class LireUnePuissance extends Exercice {
       const itemsCorr: string[] = []
 
       if (listeQ.includes(1)) {
-        items.push(`Décomposer en produit de facteurs premiers les nombres ${nb1} et ${nb2}.${this.interactif ? `<br> $${texNombre(nb1, 0)} =$ ${ajouteChampTexteMathLive(this, indiceI + indiceII)}<br>$${texNombre(nb2, 0)} =$ ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)}` : ''}`)
+        items.push(`Décomposer, en produit de facteurs premiers, les nombres ${nb1} et ${nb2}.${this.interactif ? `<br> $${texNombre(nb1, 0)} =$ ${ajouteChampTexteMathLive(this, indiceI + indiceII)}<br>$${texNombre(nb2, 0)} =$ ${ajouteChampTexteMathLive(this, indiceI + indiceII + 1)}` : ''}`)
         itemsCorr.push(`La décomposition en produit de facteurs premiers de $${texNombre(nb1, 0)}$ est $${miseEnEvidence(texFactorisation(nb1, false))}$
 et celle de $${texNombre(nb2, 0)}$ est $${miseEnEvidence(texFactorisation(nb2, false))}$, soit respectivement : $${miseEnEvidence(texFactorisation(nb1, true))}$
 et $${miseEnEvidence(texFactorisation(nb2, true))}$.`)

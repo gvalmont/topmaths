@@ -20,6 +20,7 @@ export function toutAUnPoint (listePoints: number[]) {
  * @returns {{feedback: string, score: {nbBonnesReponses: (number|number), nbReponses: (number|number)}, isOk: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, resultat: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, isOk: string}|*|{feedback: string, score: {nbBonnesReponses: (number), nbReponses: number}, resultat: string}}
  */
 export function verifQuestionMathLive (exercice: Exercice, i: number, writeResult = true) {
+  let noFeedback = false
   const getCustomFeedback = exercice.autoCorrection[i]?.reponse?.valeur?.feedback
   if (exercice.autoCorrection[i]?.reponse == null) {
     throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.stringify({
@@ -76,13 +77,14 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
         for (let k = 0; k < cellules.length; k++) {
           const [key, reponse] = cellules[k]
           const options = reponse.options
+          noFeedback = noFeedback || Boolean(options?.noFeedback)
           const compareFunction = reponse.compare ?? fonctionComparaison
           const inputs = Array.from(table.querySelectorAll('math-field'))
           const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`) as MathfieldElement
           let result
           const spanFedback = table.querySelector(`span#resultatCheckEx${exercice.numeroExercice}Q${i}${key}`)
           if (input == null || input.value === '') {
-            result = { isOk: false, feedback: `Vous devez saisir une réponse dans la cellule ${key}.<br>` }
+            result = { isOk: false, feedback: (noFeedback ? '' : `Vous devez saisir une réponse dans la cellule ${key}.<br>`) }
           } else {
             if (Array.isArray(reponse.value)) {
               let ii = 0
@@ -126,6 +128,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
         let feedback = ''
         let compteurSaisiesVides = 0
         let compteurBonnesReponses = 0
+        let noFeedback = false
         for (let k = 0; k < variables.length; k++) {
           const [key, reponse] = variables[k]
           if (key === 'feedback' || key === 'bareme') continue
@@ -133,6 +136,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
           saisies[key] = saisie
           const compareFunction = reponse.compare ?? fonctionComparaison
           const options = reponse.options
+          noFeedback = noFeedback || Boolean(options?.noFeedback)
           let result
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
           if (saisie == null || saisie === '') {
@@ -192,7 +196,7 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
           spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
         }
         // le feedback est déjà assuré par la fonction feedback(), donc on le met à ''
-        return { isOk: nbBonnesReponses === nbReponses, feedback, score: { nbBonnesReponses, nbReponses } }
+        return { isOk: nbBonnesReponses === nbReponses, feedback: noFeedback ? '' : feedback, score: { nbBonnesReponses, nbReponses } }
       }
     }
     // ici, il n'y a qu'un seul input une seule saisie (même si la réponse peut contenir des variantes qui seront toutes comparées à la saisie
@@ -208,18 +212,20 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
     if (getCustomFeedback != null) {
       customFeedback = getCustomFeedback({ saisie })
     }
-    if (saisie == null || saisie === '') return { isOk: false, feedback: 'Vous devez saisir une réponse.', score: { nbBonnesReponses: 0, nbReponses: 1 } }
-    let isOk = false
-    let ii = 0
-    let reponse
-    let feedback = ''
     const objetReponse = reponses.reponse
     if (objetReponse == null) {
       window.notify(`verifQuestionMathlive: objetReponse est null pour la question ${i} de l'exercice ${exercice.id}`, { exercice, i })
       return { isOk: false, feedback: 'erreur dans le programme', score: { nbBonnesReponses: 0, nbReponses: 1 } }
     }
-    const compareFunction = objetReponse.compare ?? fonctionComparaison
+
     const options = objetReponse.options ?? {}
+    noFeedback = options.noFeedback ?? false
+    if (saisie == null || saisie === '') return { isOk: false, feedback: noFeedback ? '' : 'Vous devez saisir une réponse.', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+    let isOk = false
+    let ii = 0
+    let reponse
+    let feedback = ''
+    const compareFunction = objetReponse.compare ?? fonctionComparaison
 
     if (Array.isArray(objetReponse.value)) {
       while ((!isOk) && (ii < objetReponse.value.length)) {
@@ -254,15 +260,15 @@ export function verifQuestionMathLive (exercice: Exercice, i: number, writeResul
         spanReponseLigne.innerHTML = '😎'
         spanReponseLigne.style.fontSize = 'large'
         champTexte.readOnly = true
-        return { isOk, feedback, score: { nbBonnesReponses: 1, nbReponses: 1 } }
+        return { isOk, feedback: noFeedback ? '' : feedback, score: { nbBonnesReponses: 1, nbReponses: 1 } }
       }
       if (writeResult) {
         spanReponseLigne.innerHTML = '☹️'
         spanReponseLigne.style.fontSize = 'large'
         champTexte.readOnly = true
-        return { isOk, feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
+        return { isOk, feedback: noFeedback ? '' : feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
       }
-      return { isOk, feedback, score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 } } // ce code n'est jamais exécuté vu que writeResult est toujours true
+      return { isOk, feedback: noFeedback ? '' : feedback, score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 } } // ce code n'est jamais exécuté vu que writeResult est toujours true
     }
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error}\n Avec les métadonnées : `, {

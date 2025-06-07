@@ -13,7 +13,7 @@ import ExerciceBrevetA from '../ExerciceBrevetA'
 export const uuid = 'fb6ec'
 export const refs = {
   'fr-fr': ['3Z1DNB-08'],
-  'fr-ch': []
+  'fr-ch': ['11FA11-2']
 }
 export const titre = 'Préparation DNB : Volume, fonctions, vitesse, grandeurs composées'
 export const dateDePublication = '08/04/2025'

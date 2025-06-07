@@ -14,7 +14,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '24/04/2025'
+export const dateDePublication = '24/05/2025'
 
 /**
  * Résoudre des problèmes
@@ -69,7 +69,8 @@ export default class ProblèmesBalance extends Exercice {
           const mult = randint(0, 1) === 0 ? [randint(2, 4), 1] : [1, randint(2, 4)]
           const gauche = this.generateBalance(nombreBoule, nombreEtoile, masseBoule * nombreBoule + masseEtoile * nombreEtoile)
           const droite = this.generateBalance(nombreBoule * mult[0], nombreEtoile * mult[1], masseBoule * nombreBoule * mult[0] + masseEtoile * nombreEtoile * mult[1])
-          texte = (randint(0, 1) === 0 ? gauche + (!context.isHtml ? '<br>' : '') + droite : droite + (!context.isHtml ? '<br>' : '') + gauche) + '<br>'
+          const inverse = randint(0, 1)
+          texte = (inverse === 0 ? gauche + (!context.isHtml ? '<br>' : '') + droite : droite + (!context.isHtml ? '<br>' : '') + gauche) + '<br>'
           texte += `${numAlpha(0)} Quelle est la masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'} en grammes?<br>`
           texte += (this.interactif && !context.isAmc) ? ajouteChampTexteMathLive(this, i * 2, KeyboardType.clavierDeBase, { texteApres: ' g' }) + '<br>' : ''
           texte += `${numAlpha(1)} Quelle est la masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'} en grammes?<br>`
@@ -79,7 +80,11 @@ export default class ProblèmesBalance extends Exercice {
           texteCorr += `On divise ensuite par le nombre ${mult[0] === 1 ? 'd\'étoiles restantes' : 'de boules restantes'} pour trouver la masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'}.<br>`
           texteCorr += `$ ${texNombre(masseBoule * (nombreBoule * mult[0] - nombreBoule) + masseEtoile * (nombreEtoile * mult[1] - nombreEtoile))} \\div ${mult[0] === 1 ? nombreEtoile * mult[1] - nombreEtoile : nombreBoule * mult[0] - nombreBoule} = ${texNombre(mult[0] === 1 ? masseEtoile : masseBoule)}$ g.<br>`
           texteCorr += `La masse d'une ${mult[0] === 1 ? 'étoile' : 'boule'} est de $${miseEnEvidence(texNombre(mult[0] === 1 ? masseEtoile : masseBoule))}$ g.<br>`
-          texteCorr += `${numAlpha(1)} Finalement,  ${mult[0] === 1 ? nombreBoule : nombreEtoile} ${mult[0] === 1 ? 'boules' : 'étoiles'} pèsent ${texNombre(mult[0] === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)} g.<br>`
+          texteCorr += `${numAlpha(1)} Si on reprend la ${(inverse === 0 ? 'première' : 'deuxième')} balance<br>`
+          texteCorr += gauche + '<br>'
+          texteCorr += `On supprime les ${mult[0] === 1 ? nombreEtoile : nombreBoule} ${mult[0] === 1 ? 'étoiles' : 'boules'} à gauche et on supprime à droite $${mult[0] === 1 ? nombreEtoile : nombreBoule} \\times ${mult[0] === 1 ? texNombre(masseEtoile) : texNombre(masseBoule)} = ${mult[0] === 1 ? texNombre(nombreEtoile * masseEtoile) : texNombre(nombreBoule * masseBoule)}$ g.<br>`
+          texteCorr += this.generateBalance(mult[0] === 1 ? nombreBoule : 0, mult[0] === 1 ? 0 : nombreEtoile, mult[0] === 1 ? nombreBoule * masseBoule : nombreEtoile * masseEtoile) + '<br>'
+          texteCorr += `On en déduit que  ${mult[0] === 1 ? nombreBoule : nombreEtoile} ${mult[0] === 1 ? 'boules' : 'étoiles'} pèsent $${texNombre(mult[0] === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)}$ g.<br>`
           texteCorr += `On divise ensuite ${mult[0] === 1 ? nombreBoule : nombreEtoile} pour trouver la masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'}.<br>`
           texteCorr += `$ ${texNombre(mult[0] === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)} \\div ${mult[0] === 1 ? nombreBoule : nombreEtoile} = ${texNombre(mult[0] === 1 ? masseBoule : masseEtoile)}$ g.<br>`
           texteCorr += `La masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'} est de $${miseEnEvidence(texNombre(mult[0] === 1 ? masseBoule : masseEtoile))}$ g.<br>`
@@ -108,18 +113,20 @@ export default class ProblèmesBalance extends Exercice {
           texteCorr = `${numAlpha(0)} Si on multiplie la ${inverse === 0 ? 'première' : 'deuxième'} par ${gaucheMinMult === 1 ? mult[0] : mult[1]} alors on obtient la même quantité ${gaucheMinMult === 1 ? 'de boules' : 'd\'étoiles'}.<br>`
           texteCorr += this.generateBalance(nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]), nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]), masseBoule * nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) + masseEtoile * nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1])) + '<br>'
           texteCorr += `La ${inverse === 1 ? 'première' : 'deuxième'} étant: <br>`
-          texteCorr += (inverse === 1 ? gauche : droite) + '<br>'
+          texteCorr += droite + '<br>'
           texteCorr += `Si on fait la soustraction entre les deux balances, ${gaucheMinMult === 1 ? 'les boules sont enlevées' : 'les étoiles sont enlevées'}.<br>`
           texteCorr += this.generateBalance(Math.abs(nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreBoule * mult[0]), Math.abs(nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreEtoile * mult[1]), Math.abs(masseBoule * (nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreBoule * mult[0]) + masseEtoile * (nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreEtoile * mult[1]))) + '<br>'
           texteCorr += `On divise ensuite par le nombre ${gaucheMinMult === 1 ? 'd\'étoiles restantes' : 'de boules restantes'} pour trouver la masse d'une ${gaucheMinMult === 1 ? 'étoile' : 'boule'}.<br>`
-          texteCorr += `$ ${texNombre(Math.abs(masseBoule * (nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreBoule * mult[0]) + masseEtoile * (nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreEtoile * mult[1])))} \\div ${gaucheMinMult === 1 ? Math.abs(nombreEtoile * mult[1] - nombreEtoile * mult[0]) : Math.abs(nombreBoule * mult[0] - nombreBoule * mult[1])} = ${mult[0] === 1 ? texNombre(masseEtoile) : texNombre(masseBoule)}$ g.<br>`
+          texteCorr += `$ ${texNombre(Math.abs(masseBoule * (nombreBoule * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreBoule * mult[0]) + masseEtoile * (nombreEtoile * (gaucheMinMult === 1 ? mult[0] : mult[1]) - nombreEtoile * mult[1])))} \\div ${gaucheMinMult === 1 ? Math.abs(nombreEtoile * mult[1] - nombreEtoile * mult[0]) : Math.abs(nombreBoule * mult[0] - nombreBoule * mult[1])} = ${gaucheMinMult === 1 ? texNombre(masseEtoile) : texNombre(masseBoule)}$ g.<br>`
           texteCorr += `La masse d'une ${gaucheMinMult === 1 ? 'étoile' : 'boule'} est de $${miseEnEvidence(texNombre(gaucheMinMult === 1 ? masseEtoile : masseBoule))}$ g.<br>`
           texteCorr += `${numAlpha(1)} Si on reprend la ${inverse === 0 ? 'première' : 'deuxième'} balance<br>`
-          texteCorr += (inverse === 0 ? gauche : droite) + '<br>'
-          texteCorr += `On en déduit que  ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} ${gaucheMinMult === 1 ? 'boules' : 'étoiles'} pèsent ${texNombre(gaucheMinMult === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)} g.<br>`
+          texteCorr += gauche + '<br>'
+          texteCorr += `On supprime les ${gaucheMinMult === 0 ? nombreBoule : nombreEtoile} ${gaucheMinMult === 0 ? ' boules' : ' étoiles'} à gauche et on supprime à droite $${gaucheMinMult === 0 ? nombreBoule : nombreEtoile} \\times ${gaucheMinMult === 0 ? texNombre(masseBoule) : texNombre(masseEtoile)} = ${gaucheMinMult === 0 ? texNombre(nombreBoule * masseBoule) : texNombre(nombreEtoile * masseEtoile)}$ g.<br>`
+          texteCorr += this.generateBalance(gaucheMinMult === 1 ? nombreBoule : 0, gaucheMinMult === 1 ? 0 : nombreEtoile, gaucheMinMult === 1 ? nombreBoule * masseBoule : nombreEtoile * masseEtoile) + '<br>'
+          texteCorr += `On en déduit que  ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} ${gaucheMinMult === 1 ? 'boules' : 'étoiles'} pèsent $${texNombre(gaucheMinMult === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)}$ g.<br>`
           texteCorr += `On divise ensuite par ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} pour trouver la masse d'une ${gaucheMinMult === 1 ? 'boule' : 'étoile'}.<br>`
           texteCorr += `$ ${texNombre(gaucheMinMult === 1 ? masseBoule * nombreBoule : masseEtoile * nombreEtoile)} \\div ${gaucheMinMult === 1 ? nombreBoule : nombreEtoile} = ${gaucheMinMult === 1 ? texNombre(masseBoule) : texNombre(masseEtoile)}$ g.<br>`
-          texteCorr += `La masse d'une ${mult[0] === 1 ? 'boule' : 'étoile'} est de $${miseEnEvidence(texNombre(mult[0] === 1 ? masseBoule : masseEtoile))}$ g.<br>`
+          texteCorr += `La masse d'une ${gaucheMinMult === 1 ? 'boule' : 'étoile'} est de $${miseEnEvidence(texNombre(gaucheMinMult === 1 ? masseBoule : masseEtoile))}$ g.<br>`
           if (context.isAmc) {
             setReponse(this, i * 2, (gaucheMinMult === 1 ? masseEtoile : masseBoule))
             setReponse(this, i * 2 + 1, (gaucheMinMult === 1 ? masseBoule : masseEtoile))
@@ -158,8 +165,8 @@ export default class ProblèmesBalance extends Exercice {
     const etoileSVG = (x : number, y: number) =>
       `<text x="${x}" y="${y + 10}" font-size="30" text-anchor="middle" fill="gold">★</text>`
     const masseSVG = (x : number, y : number, value : number) =>
-      `<rect x="${x - 20}" y="${y - 20}" width="40" height="40" rx="5" ry="5" fill="#666" />
-       <text x="${x}" y="${y + 5}" font-size="14" text-anchor="middle" fill="white">${arrondi(value).toString().replace('.', ',')}g</text>`
+      `<rect x="${x - 25}" y="${y - 20}" width="50" height="40" rx="5" ry="5" fill="#666" />
+       <text x="${x}" y="${y + 5}" font-size="14" text-anchor="middle" fill="white">${Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 }).format(masse).toString()} g</text>`
     // Positionnement des objets sur les plateaux
     const leftObjects = []
     const spacing = 20
@@ -275,6 +282,7 @@ export default class ProblèmesBalance extends Exercice {
 \\pgfmathsetmacro{\\masse}{${masse}}
 
 % Objets sur plateau gauche
+\\ifthenelse{\\boules>0}{
 \\ifthenelse{\\boules<11}{
 % forme triangulaire
 \\foreach \\i in {0,...,\\numexpr\\boules-1\\relax} {
@@ -291,7 +299,7 @@ export default class ProblèmesBalance extends Exercice {
       }
     }
   }
-} % fin de forme triangulaire
+} % fin de forme triangulaire forEach
 }{
 % forme carrée
 \\foreach \\i in {0,...,\\numexpr\\boules-1\\relax} {
@@ -312,9 +320,11 @@ export default class ProblèmesBalance extends Exercice {
       }
     }
   }
-} % fin de forme carrée
+} % fin de forme carrée forEach
 }
+}{}
 
+\\ifthenelse{\\etoiles>0}{
 \\ifthenelse{\\etoiles<11}{
 % forme triangulaire
 \\foreach \\i in {0,...,\\numexpr\\etoiles-1\\relax} {
@@ -354,6 +364,7 @@ export default class ProblèmesBalance extends Exercice {
   }
 } % fin de forme carrée
 }
+}{}
 
 % Masse à droite
 \\fill[yellow] (7.4,-0.2) rectangle +(1.2,1);

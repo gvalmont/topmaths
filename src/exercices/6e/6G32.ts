@@ -2,7 +2,7 @@ import { angle, angleOriente } from '../../lib/2d/angles'
 import { arc } from '../../lib/2d/cercle'
 import { afficheLongueurSegment } from '../../lib/2d/codages'
 import { distancePointDroite, droite } from '../../lib/2d/droites'
-import { Point, point, pointSurDroite, tracePoint } from '../../lib/2d/points'
+import { point, pointSurDroite, tracePoint } from '../../lib/2d/points'
 import { nommePolygone, polygone } from '../../lib/2d/polygones'
 import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes'
@@ -73,13 +73,13 @@ export default class SymetrieAxialeProprietes extends Exercice {
           A = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[0])
           while (distancePointDroite(A, d) < 1) A = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[0])
           B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
-          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d) as Point, B) < 1)) B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
-          C = symetrieAxiale(A, d, noms[2]) as Point
-          D = symetrieAxiale(B, d, noms[3]) as Point
+          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
+          C = symetrieAxiale(A, d, noms[2])
+          D = symetrieAxiale(B, d, noms[3])
           texte += `Les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ sont symétriques par rapport à $(d)$ et $${A.nom}${B.nom}=${texNombre(longueur(A, B, 1))}${sp()}\\text{cm}$ . Quelle est la longueur du segment $[${C.nom}${D.nom}]$ ?`
           texte += this.sup2 && !this.interactif ? ' Justifier.<br>' : '<br>'
           objetsEnonce.push(d, segmentAvecExtremites(A, B), segmentAvecExtremites(C, D), nommePolygone(polygone([A, B]), A.nom + B.nom), nommePolygone(polygone([C, D]), C.nom + D.nom), afficheLongueurSegment(A, B))
-          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' })), objetsEnonce)
+          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce)), objetsEnonce)
           texteCorr += `Les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ sont symétriques par rapport à $(d)$.<br>`
           texteCorr += 'Or, le symétrique d\'un segment est un segment de même longueur.<br>'
           texteCorr += `Donc les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ ont la même longueur et $${miseEnEvidence(C.nom + D.nom + '=' + texNombre(longueur(A, B, 1)))}$${sp()}${texteEnCouleurEtGras('cm')}.<br>`
@@ -91,15 +91,15 @@ export default class SymetrieAxialeProprietes extends Exercice {
           A = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[0])
           while (distancePointDroite(A, d) < 1) A = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[0])
           B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
-          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d) as Point, B) < 1)) B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
+          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
           C = pointSurDroite(droite(A, B), B.x + 1, noms[2])
-          D = symetrieAxiale(A, d, noms[3]) as Point
-          E = symetrieAxiale(B, d, noms[4]) as Point
-          F = symetrieAxiale(C, d, noms[5]) as Point
+          D = symetrieAxiale(A, d, noms[3])
+          E = symetrieAxiale(B, d, noms[4])
+          F = symetrieAxiale(C, d, noms[5])
           texte += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$. Les points $${A.nom}$, $${B.nom}$ et $${C.nom}$ sont alignés. Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ le sont-ils ?`
           texte += this.sup2 && !this.interactif ? ' Justifier.<br>' : '<br>'
           objetsEnonce.push(d, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F))
-          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' })), objetsEnonce)
+          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce)), objetsEnonce)
           texteCorr += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$ et sont alignés.<br>`
           texteCorr += 'Or, la symétrie axiale conserve l\'alignement.<br>'
           texteCorr += `Donc les points $${miseEnEvidence(D.nom)}$${texteEnCouleurEtGras(', ')}$${miseEnEvidence(E.nom)}$${texteEnCouleurEtGras(' et ')}$${miseEnEvidence(F.nom)}$ ${texteEnCouleurEtGras(' sont alignés')} également.<br>`
@@ -111,16 +111,16 @@ export default class SymetrieAxialeProprietes extends Exercice {
           A = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[0])
           while (distancePointDroite(A, d) < 1) A = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[0])
           B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
-          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d) as Point, B) < 1)) B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
+          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 1) || (longueur(symetrieAxiale(A, d), B) < 1)) B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
           C = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[2])
-          while ((distancePointDroite(C, d) < 1) || (longueur(A, C) < 1) || (longueur(symetrieAxiale(A, d) as Point, C) < 1) || (longueur(C, B) < 1) || (longueur(symetrieAxiale(B, d) as Point, C) < 1) || (angle(A, B, C) < 30) || (angle(B, A, C) < 30) || (angle(A, C, B) < 30)) C = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[2])
-          D = symetrieAxiale(A, d, noms[3]) as Point
-          E = symetrieAxiale(B, d, noms[4]) as Point
-          F = symetrieAxiale(C, d, noms[5]) as Point
+          while ((distancePointDroite(C, d) < 1) || (longueur(A, C) < 1) || (longueur(symetrieAxiale(A, d), C) < 1) || (longueur(C, B) < 1) || (longueur(symetrieAxiale(B, d), C) < 1) || (angle(A, B, C) < 30) || (angle(B, A, C) < 30) || (angle(A, C, B) < 30)) C = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[2])
+          D = symetrieAxiale(A, d, noms[3])
+          E = symetrieAxiale(B, d, noms[4])
+          F = symetrieAxiale(C, d, noms[5])
           texte += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$. Quelle est la longueur du segment $[${D.nom}${E.nom}]$ ?`
           texte += this.sup2 && !this.interactif ? ' Justifier.<br>' : '<br>'
           objetsEnonce.push(d, polygone([A, B, C], 'green'), nommePolygone(polygone([A, B, C]), A.nom + B.nom + C.nom), polygone([D, E, F], 'brown'), nommePolygone(polygone([D, E, F]), D.nom + E.nom + F.nom), afficheLongueurSegment(A, B), afficheLongueurSegment(A, C), afficheLongueurSegment(C, B))
-          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { rxmin: -1, rymin: -1, rxmax: 1, rymax: 1, pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' })), objetsEnonce)
+          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { rxmin: -1, rymin: -1, rxmax: 1, rymax: 1 })), objetsEnonce)
           texteCorr += `Les segments $[${A.nom}${B.nom}]$ et $[${D.nom}${E.nom}]$ sont symétriques par rapport à $(d)$.<br>`
           texteCorr += 'Or, le symétrique d\'un segment est un segment de même longueur.<br>'
           texteCorr += `Donc les segments $[${A.nom}${B.nom}]$ et $[${D.nom}${E.nom}]$ ont la même longueur et $${miseEnEvidence(D.nom + E.nom + '=' + texNombre(longueur(A, B, 1)))}$${sp()}${texteEnCouleurEtGras('cm')}.<br>`
@@ -132,12 +132,12 @@ export default class SymetrieAxialeProprietes extends Exercice {
           A = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[0])
           while (distancePointDroite(A, d) < 1) A = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[0])
           B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
-          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 6 || (longueur(symetrieAxiale(A, d) as Point, B) < 1))) B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
+          while ((distancePointDroite(B, d) < 1) || (longueur(A, B) < 6 || (longueur(symetrieAxiale(A, d), B) < 1))) B = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[1])
           C = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[2])
-          while ((distancePointDroite(C, d) < 1) || (longueur(A, C) < 6) || (longueur(symetrieAxiale(A, d) as Point, C) < 1) || (longueur(C, B) < 6) || (longueur(symetrieAxiale(B, d) as Point, C) < 1) || (angle(A, B, C) < 30) || (angle(B, A, C) < 30) || (angle(A, C, B) < 30)) C = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[2])
-          D = symetrieAxiale(A, d, noms[3]) as Point
-          E = symetrieAxiale(B, d, noms[4]) as Point
-          F = symetrieAxiale(C, d, noms[5]) as Point
+          while ((distancePointDroite(C, d) < 1) || (longueur(A, C) < 6) || (longueur(symetrieAxiale(A, d), C) < 1) || (longueur(C, B) < 6) || (longueur(symetrieAxiale(B, d), C) < 1) || (angle(A, B, C) < 30) || (angle(B, A, C) < 30) || (angle(A, C, B) < 30)) C = point(arrondi(randint(-80, 80, 0) / 10), arrondi(randint(-80, 80, 0) / 10), noms[2])
+          D = symetrieAxiale(A, d, noms[3])
+          E = symetrieAxiale(B, d, noms[4])
+          F = symetrieAxiale(C, d, noms[5])
           texte += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$. Quelle est la mesure de l'angle $\\widehat{${D.nom}${F.nom}${E.nom}}$ ?`
           texte += this.sup2 && !this.interactif ? ' Justifier.<br>' : '<br>'
           objetsEnonce.push(d, polygone([A, B, C], 'green'), nommePolygone(polygone([A, B, C]), A.nom + B.nom + C.nom), polygone([D, E, F], 'brown'), nommePolygone(polygone([D, E, F]), D.nom + E.nom + F.nom))
@@ -159,7 +159,7 @@ export default class SymetrieAxialeProprietes extends Exercice {
           ALabel = rotation(homothetie(ptRef1, A, 2 / 10 + 1 / longueur(A, ptRef1)), A, angleOriente(ptRef1, A, ptRef2) / 3)
           ALabel.positionLabel = 'center'
           objetsEnonce.push(arc(Aarc, A, angleOriente(ptRef1, A, ptRef2)), latexParPoint(`${180 - angle(A, ptRef2, ptRef1, 0) - angle(A, ptRef1, ptRef2, 0)}^\\circ`, ALabel, 'black', 12, 20, ''))
-          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { rxmin: -1, rymin: -1, rxmax: 1, rymax: 1, pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' })), objetsEnonce)
+          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { rxmin: -1, rymin: -1, rxmax: 1, rymax: 1 })), objetsEnonce)
           texteCorr += `Les angles $\\widehat{${A.nom}${C.nom}${B.nom}}$ et $\\widehat{${D.nom}${F.nom}${E.nom}}$ sont symétriques par rapport à $(d)$.<br>`
           texteCorr += 'Or, le symétrique d\'un angle est un angle de même mesure.<br>'
           texteCorr += `Donc les angles $\\widehat{${A.nom}${C.nom}${B.nom}}$ et $\\widehat{${D.nom}${F.nom}${E.nom}}$ ont la même mesure et $\\widehat{${D.nom}${F.nom}${E.nom}} = ${angle(D, F, E, 0)}^\\circ$.<br>`

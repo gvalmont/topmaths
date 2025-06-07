@@ -17,7 +17,7 @@ export const dateDePublication = '30/11/2024'
 export const uuid = 'bf029'
 export const refs = {
   'fr-fr': ['can5G04'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-15', '10GM1-7']
 }
 /**
  * Modèle d'exercice très simple pour la course aux nombres

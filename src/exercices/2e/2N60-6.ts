@@ -97,7 +97,7 @@ export default class PositionRelative extends Exercice {
             ${a - c > 0 ? `x&<\\dfrac{${d - b}}{${a - c}}` : `x&>\\dfrac{${d - b}}{${a - c}}`}
               \\end{aligned}$
               <br>
-              ${pgcd(d - b, a - c) === 1 ? 'L\'' : `Comme $\\dfrac{${d - b}}{${a - c}}=${texFractionReduite(d - b, a - c)}$, l'`}  ensemble $S$ des solutions de l'inéquation est
+              ${pgcd(d - b, a - c) === 1 && a - c > 0 ? 'L\'' : `Comme $\\dfrac{${d - b}}{${a - c}}=${texFractionReduite(d - b, a - c)}$, l'`}  ensemble $S$ des solutions de l'inéquation est
               $S= ${a - c > 0 ? `\\left]-\\infty\\,;\\,${texFractionReduite(d - b, a - c)}\\right[` : `\\left]${texFractionReduite(d - b, a - c)}\\,;\\,+\\infty\\right[`}$.<br>`
 
             texteCorr += `${numAlpha(1)} Position relative : <br>

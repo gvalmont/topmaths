@@ -18,7 +18,7 @@ export const interactifType = 'custom'
 export const uuid = '0dbe7'
 export const refs = {
   'fr-fr': ['6G25-0'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-11']
 }
 /**
  * Construire des médiatrices

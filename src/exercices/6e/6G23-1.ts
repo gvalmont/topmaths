@@ -1,5 +1,5 @@
 import { afficheMesureAngle } from '../../lib/2d/codages'
-import { Point, point, pointSurSegment } from '../../lib/2d/points'
+import { point, pointSurSegment } from '../../lib/2d/points'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import { texteParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations'
@@ -80,12 +80,12 @@ export default class MesurerUnAngle extends Exercice {
       B = point(6, 0)
       B = rotation(B, A, anglerot)
 
-      Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.95) as Point, signes[i] * 90, 0.1), 0, 'black', 1.5, 'milieu', true)
+      Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.95), signes[i] * 90, 0.1), 0, 'black', 1.5, 'milieu', true)
       s1 = demiDroite(A, B)
       C = rotation(B, A, angle)
       bis = rotation(B, A, angle / 2)
       Apos = texteParPoint(p[1], pointSurSegment(A, bis, -0.5), 0, 'black', 1.5, 'milieu', true)
-      Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.95) as Point, -signes[i] * 90, 0.1), 0, 'black', 1.5, 'milieu', true)
+      Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.95), -signes[i] * 90, 0.1), 0, 'black', 1.5, 'milieu', true)
       s2 = demiDroite(A, C)
       // labels = labelPoint(A, B, C)
       secteur0 = afficheMesureAngle(B, A, C, 'black', 1.5, ' ')

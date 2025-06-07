@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { droite, droiteParPointEtPente } from '../../../lib/2d/droites'
-import { Point, point, pointIntersectionCC, pointIntersectionDD } from '../../../lib/2d/points'
+import { point, pointIntersectionCC, pointIntersectionDD } from '../../../lib/2d/points'
 import { rotation, symetrieAxiale } from '../../../lib/2d/transformations'
 import { cercle } from '../../../lib/2d/cercle'
 import { nommePolygone, polygone } from '../../../lib/2d/polygones'
@@ -42,16 +42,16 @@ export default class Can2025N5Q12 extends ExerciceCan {
     const d = droite(point(0, 0), point2)
     const dMin = droiteParPointEtPente(point(0, alpha < 90 ? -2 : -1), 0)
     const dMax = droiteParPointEtPente(point(0, alpha > 90 ? 7 : 6), 0)
-    const pointSd1 = pointIntersectionDD(d, dMin) as Point
-    const pointSd2 = pointIntersectionDD(d, dMax) as Point
+    const pointSd1 = pointIntersectionDD(d, dMin)
+    const pointSd2 = pointIntersectionDD(d, dMax)
     const sd = segment(pointSd1, pointSd2)
     const A = point(-2, 0)
     const Bprime = point(a - 2, 0)
     const B = rotation(Bprime, A, alpha)
     const c1 = cercle(B, b)
     const c2 = cercle(A, c)
-    const C = pointIntersectionCC(c1, c2, '', 0) as Point
-    const Cprime = pointIntersectionCC(c1, c2, '', 1) as Point
+    const C = pointIntersectionCC(c1, c2, '', 0)
+    const Cprime = pointIntersectionCC(c1, c2, '', 1)
     const CC = (Cprime.x > C.x ? C : Cprime)
     const triangle1 = polygone(A, B, CC)
     const triangle2 = symetrieAxiale(triangle1, d)

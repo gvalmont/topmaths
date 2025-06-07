@@ -1,6 +1,6 @@
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
 import { codageSegments } from '../../lib/2d/codages'
-import { Point, point } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { barycentre, carre, nommePolygone, Polygone, polygone } from '../../lib/2d/polygones'
 import { grille, seyes } from '../../lib/2d/reperes'
 import { Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
@@ -195,7 +195,7 @@ export default class NommerEtCoderDesPolygones extends Exercice {
             A = point(3, randint(0, 20) / 10, nom[0])
             B = point(randint(7, 8), randint(10, 30) / 10, nom[1])
             D = similitude(B, A, 90, randint(30, 80) / 100, nom[3])
-            C = translation(D, homothetie(vecteur(A, B), A, randint(30, 80) / 100) as Vecteur, nom[2]) as Point
+            C = translation(D, homothetie(vecteur(A, B), A, randint(30, 80) / 100) as Vecteur, nom[2])
             q = polygone(A, B, C, D) as Polygone
             p = rotation(q, barycentre(q), randint(0, 360))
             A = p.listePoints[0]

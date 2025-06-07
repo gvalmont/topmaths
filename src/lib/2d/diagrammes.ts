@@ -1,7 +1,7 @@
 import { max } from 'mathjs'
 import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D, Vide2d, vide2d } from '../../modules/2dGeneralites'
 import { arc, cercle } from './cercle'
-import { Point, point, tracePoint } from './points'
+import { point, tracePoint } from './points'
 import { carre, motifs, Polygone, polygone, polyline } from './polygones'
 import { axeY, labelY, pointDansRepere, Repere } from './reperes'
 import { texcolors } from '../format/style'
@@ -49,7 +49,7 @@ export class TraceGraphiqueCartesien extends ObjetMathalea2D {
       t.taille = tailleDesPoints
       this.objets.push(t)
     }
-    const l = polyline(listePoints as Point[])
+    const l = polyline(listePoints)
     l.epaisseur = epaisseurDuTrait
     l.color = colorToLatexOrHTML(couleurDuTrait)
     if (styleDuTrait === 'pointilles') {
