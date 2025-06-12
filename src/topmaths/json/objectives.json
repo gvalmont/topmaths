@@ -3580,7 +3580,11 @@
                     "authorLink": "https://www.youtube.com/c/Ma%C3%AEtreLucas"
                   }
                 ],
-                "exercises": [],
+                "exercises": [
+                  {
+                    "slug": "uuid=f7a15&id=6P11-5&n=1&d=10&s=true&s2=1&s3=2&s4=false"
+                  }
+                ],
                 "lessonPlans": []
               },
               {
