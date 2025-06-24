@@ -22,6 +22,8 @@
 
   let unitReference: UnitReference | undefined = undefined;
 
+  $: if (exercise.uuid) unitReference = getUnitReferenceFromExamUuid(exercise.uuid);
+
   onMount(() => {
     if (exercise && exerciseType === 'static') {
       unitReference = getUnitReferenceFromExamUuid(exercise.uuid);
