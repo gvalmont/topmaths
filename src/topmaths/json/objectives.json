@@ -7940,7 +7940,12 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "5S21,s=1,n=1"
+                    "slug": "5S21,s=1,n=1",
+                    "description": "Exercice simple"
+                  },
+                  {
+                    "slug": "uuid=bc6ae&id=3Z1DNB-23",
+                    "description": "Exercice de brevet"
                   }
                 ]
               },
