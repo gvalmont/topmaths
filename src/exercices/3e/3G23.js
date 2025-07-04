@@ -24,10 +24,10 @@ import { context } from '../../modules/context'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Reconnaître des triangles égaux dans différentes configurations'
+export const titre = 'Reconnaitre des triangles égaux dans différentes configurations'
 
 /**
- * Reconnaître des triangles égaux
+ * Reconnaitre des triangles égaux
  * @author Jean-Claude Lhote et Sébastien Lozano (Rendu QCM et interactif par EE)
  */
 export const uuid = '91513'

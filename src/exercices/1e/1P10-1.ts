@@ -10,7 +10,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { createList } from '../../lib/format/lists'
 import { sp } from '../../lib/outils/outilString'
-export const titre = 'Écrire ou reconnaître une probabilité dans un énoncé'
+export const titre = 'Écrire ou reconnaitre une probabilité dans un énoncé'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

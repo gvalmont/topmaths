@@ -511,8 +511,8 @@ export class CodageAngleDroit extends ObjetMathalea2D {
   depart: PointAbstrait
   arrivee: PointAbstrait
   taille: number
-  color: string[]
-  couleurDeRemplissage: string[]
+  color: [string, string]
+  couleurDeRemplissage: [string, string]
   opaciteDeRemplissage: number
 
   constructor (A: PointAbstrait, O: PointAbstrait, B: PointAbstrait, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {

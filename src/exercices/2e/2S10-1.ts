@@ -10,7 +10,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Connaître les différentes écritures d\'une proportion'
+export const titre = 'Connaitre les différentes écritures d\'une proportion'
 export const dateDePublication = '21/04/2023'
 export const dateDeModifImportante = '31/01/2024'
 /**

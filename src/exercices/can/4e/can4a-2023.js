@@ -19,7 +19,7 @@ import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { scratchblock } from '../../../modules/scratchblock'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context'
-import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
@@ -27,6 +27,7 @@ import Decimal from 'decimal.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 
 export const titre = 'CAN 4e sujet 2023'
 export const interactifReady = true
@@ -872,12 +873,12 @@ export default class SujetCAN2023Quatrieme extends Exercice {
             texte = `Simplifie l'expression : <br>
           $${a}${lettre}+${b}+${c}${lettre}+${d}$`
             texteCorr = ` $${a}${lettre}+${b}+${c}${lettre}+${d}=${a}${lettre}+${c}${lettre}+${b}+${d}=${miseEnEvidence(a + c)}${miseEnEvidence(lettre)}$ ${texteEnCouleurEtGras('+')} $${miseEnEvidence(b + d)}$`
-            reponse = printlatex(`${a + c}*${lettre}+(${b + d})`)
+            reponse = `${rienSi1(a + c)}${lettre}${ecritureAlgebrique(b + d)}`
           } else {
             texte = `Simplifie l'expression : <br>
           $${a}${lettre}+${b}+${c}${lettre}$`
             texteCorr = ` $${a}${lettre}+${b}+${c}${lettre}=${a}${lettre}+${c}${lettre}+${b}=${miseEnEvidence(a + c)}${miseEnEvidence(lettre)}$ ${texteEnCouleurEtGras('+')} $${miseEnEvidence(b)}$`
-            reponse = printlatex(`${a + c}*${lettre}+${b}`)
+            reponse = `${rienSi1(a + c)}${lettre}${ecritureAlgebrique(b)}`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {

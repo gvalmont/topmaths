@@ -761,7 +761,7 @@ export function etoile4Branches (
   }
 ): Figure2D {
   // Options par défaut
-  const fillStyle = options?.fillStyle || 'silver'
+  const fillStyle = options?.fillStyle || 'gray'
   const strokeStyle = options?.strokeStyle || 'black'
   const lineWidth = options?.lineWidth || 1
   const rayonExterieur = options?.rayonExterieur || 1

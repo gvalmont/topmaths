@@ -4,19 +4,20 @@ import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../lib/2d/transformations'
 import { choice } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
+import { rotation3d } from '../../lib/3d/tranformations'
 import {
-  arc3d,
-  arete3d,
   cone3d,
   cylindre3d,
-  droite3d,
-  point3d,
-  polygone3d,
   prisme3d,
-  pyramide3d,
-  rotation3d,
-  vecteur3d
-} from '../../modules/3d'
+  pyramide3d
+} from '../../lib/3d/solides'
+import {
+  arc3d,
+  arete3d, droite3d,
+  Point3d,
+  point3d,
+  polygone3d, vecteur3d
+} from '../../lib/3d/elements'
 import { context } from '../../modules/context'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -26,7 +27,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import type { Latex2d } from '../../lib/2d/textes'
 
-export const titre = 'Reconnaître des solides'
+export const titre = 'Reconnaitre des solides'
 export const dateDePublication = '24/09/2022'
 export const dateDeModifImportante = '08/05/2023'
 export const interactifReady = true
@@ -123,7 +124,7 @@ export default class ReconnaitreDesSolides extends Exercice {
                 points3YZ.length = 0
                 points3YZ.push(...points3DRota)
               }
-              base = polygone3d(points3YZ)
+              base = polygone3d(...points3YZ)
               k3 = vecteur3d(3, 0, 0)
               p3 = point3d(3, 0, 0)
             } else {
@@ -136,7 +137,7 @@ export default class ReconnaitreDesSolides extends Exercice {
                 points3XY.length = 0
                 points3XY.push(...points3DRota)
               }
-              base = polygone3d(points3XY)
+              base = polygone3d(...points3XY)
               k3 = vecteur3d(0, 0, 3)
               p3 = point3d(0, 0, 3)
             }
@@ -244,9 +245,9 @@ export default class ReconnaitreDesSolides extends Exercice {
           if (solide === 'cube') {
             axe = 2 // cube quel que soit l'axe
           }
-          const points3XY = []
-          const points3XZ = []
-          const points3YZ = []
+          const points3XY: Point3d[] = []
+          const points3XZ: Point3d[] = []
+          const points3YZ: Point3d[] = []
           const rayon = 2
           const alpha = Math.PI * 2 / n
           for (let i = 0; i < n; i++) {
@@ -263,7 +264,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             points3XZ.length = 0
             points3XZ.push(...points3DRota)
 
-            const base = polygone3d(points3XZ)
+            const base = polygone3d(...points3XZ)
             const k2 = vecteur3d(0, -6, 0)
             pave = prisme3d(base, k2)
           } else if (axe === 2) {
@@ -275,7 +276,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             points3YZ.length = 0
             points3YZ.push(...points3DRota)
 
-            const base = polygone3d(points3YZ)
+            const base = polygone3d(...points3YZ)
             if (solide === 'cube') {
               const k1 = vecteur3d(3, 0, 0)
               pave = prisme3d(base, k1)
@@ -290,7 +291,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             }
             points3XY.length = 0
             points3XY.push(...points3DRota)
-            const base = polygone3d(points3XY)
+            const base = polygone3d(...points3XY)
             const k3 = vecteur3d(0, 0, 3)
             pave = prisme3d(base, k3)
           }

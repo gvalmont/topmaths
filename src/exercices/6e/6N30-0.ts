@@ -26,6 +26,7 @@ export const refs = {
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '26/08/2024'
+export const dateDeModifImportante = '15/06/2025'
 
 /**
  * @author Jean-Claude Lhote
@@ -45,9 +46,11 @@ class ReperageEntiersOuDecimaux extends Exercice {
       'Types de pas de graduations',
       'Nombres séparés par des tirets\n1 : Le pas secondaire vaut 0.5 ou 0.1\n2 : Le pas secondaire vaut 1.5, 2.5, 0.2 ou 0.3\n3 : Un peu plus difficile\n4 : Le pas principal est complexe\n5 : Mélange'
     ]
-    this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
+    this.besoinFormulaire2CaseACocher = ['Zéro visible']
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
+    this.besoinFormulaire3CaseACocher = ['Avec le mot abscisse']
+    this.sup3 = true
   }
 
   nouvelleVersion () {
@@ -237,8 +240,11 @@ class ReperageEntiersOuDecimaux extends Exercice {
         trace,
         label
       ]
-      // fin fabrication droite graduée
-      let texte = `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `  ${KeyboardType.numbersSpace}`)}.<br>`
+      // fin fabrication droite graduée.
+      let texte = this.sup3
+        ? `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$, c'est-à-dire le nombre repéré par `
+        : 'Donner le nombre repéré par le point '
+      texte += `$${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `  ${KeyboardType.numbersSpace}`, { texteAvant: ' : ' })}.<br>`
       texte += mathalea2d(
         Object.assign(
           { pixelsParCm: 30, scale: 1 },
@@ -259,7 +265,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
       texteCorr += `Ensuite, on compte le nombre d'intervalles entre ces deux graduations : il y a $${subdivision}$ intervalles.<br>`
       const pas = pasPrincipal / subdivision
       texteCorr += `Maintenant, on calcule la longueur de l'intervalle (le pas) : $${texNombre(pasPrincipal, nbDecimales)}\\div ${subdivision}=${texNombre(pas, nbDecimales)}$.<br>`
-      texteCorr += `Ensuite, ${nombreATrouver < repere1 ? 'on retire' : 'on ajoute'} le pas autant de fois que nécessaire pour trouver l'abscisse : `
+      texteCorr += `Ensuite, ${nombreATrouver < repere1 ? 'on retire' : 'on ajoute'} le pas autant de fois que nécessaire pour trouver ${this.sup3 ? 'l\'abscisse demandée' : 'le nombre demandé'} : `
       texteCorr +=
         nombreATrouver < repere1
           ? `$${texNombre(repere1, nbDecimales)}-${texNombre((repere1 - nombreATrouver) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>`
@@ -277,7 +283,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
         texteCorr += `<br>On aurait pu aussi utiliser les grosses graduations, ainsi : $${texNombre(repere2, nbDecimales)}+${nbGrosseGrad}\\times ${texNombre(pasPrincipal, nbDecimales)}=${texNombre(repere2 + nbGrosseGrad * pasPrincipal, nbDecimales)}$.<br>`
         texteCorr += `Puis $${texNombre(repere2 + nbGrosseGrad * pasPrincipal, nbDecimales)}+${texNombre(nbPetiteGrad, 0)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(repere2 + nbGrosseGrad * pasPrincipal, nbDecimales)}+${texNombre(nbPetiteGrad * pas, nbDecimales)}=${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>`
       }
-      const correctionRapide = `L'abscisse du point $${lettreDepuisChiffre(i + 1)}$ est : $${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>Notation : $${lettreDepuisChiffre(i + 1)}(${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))})$.`
+      const correctionRapide = `${this.sup3 ? 'L\'abscisse du' : 'Le nombre repéré par le'} point $${lettreDepuisChiffre(i + 1)}$ est : $${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>Notation : $${lettreDepuisChiffre(i + 1)}(${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))})$.`
       if (this.questionJamaisPosee(i, repere1, repere2, nombreATrouver, pas)) {
         this.listeQuestions[i] = texte
         if (this.interactif) {

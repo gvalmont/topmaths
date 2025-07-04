@@ -3,7 +3,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
-export const titre = 'Connaître les propriétés des parallélogrammes particuliers'
+export const titre = 'Connaitre les propriétés des parallélogrammes particuliers'
 
 export const dateDePublication = '26/04/2023'
 export const uuid = '78f28'

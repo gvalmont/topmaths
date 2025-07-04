@@ -8,7 +8,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 export const titre = 'Résoudre un système linéaire de deux équations à deux inconnues par substitution'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
+export const interactifType = 'mathlive'
 export const dateDePublication = '08/04/2024'
 export const uuid = '521b6'
 export const refs = {

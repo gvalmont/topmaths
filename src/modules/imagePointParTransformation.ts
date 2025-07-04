@@ -1,6 +1,11 @@
 import { Matrice, matrice } from '../lib/mathFonctions/Matrice'
 import { Matrix } from 'mathjs'
 export type TransformationsIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 11 | 12 | 13 | 14 | 8 | 9 | 10 | 11 | 12 | 13 | 14
+export function isTransformationsIndex (obj: unknown): obj is TransformationsIndex {
+  if (typeof obj !== 'number') return false
+  if (!Number.isInteger(obj)) return false
+  return obj >= 1 && obj <= 14
+}
 /**
  * Description
  * @param {any} transformation Entier déterminant la transformation voulue

@@ -18,7 +18,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
-    this.optionsChampTexte = { texteApres: ' €', texteAvant: 'En tout j\'ai reçu' }
+    this.optionsChampTexte = { texteApres: ' €', texteAvant: 'En tout, j\'ai reçu' }
 
     this.canOfficielle = false
   }
@@ -34,8 +34,8 @@ export default class NomExercice extends Exercice {
     this.question = `J'ai reçu $${valeurs[0]}$ € puis $${valeurs[1] - valeurs[0]}$ €. <br>
      `
     this.correction = `J'ai reçu $${valeurs[0]}$ € $+$ $${valeurs[1] - valeurs[0]}$ € $=${miseEnEvidence(this.reponse)}$ €.`
-    if (!this.interactif) { this.question += 'En tout j\'ai reçu $\\ldots$ €.' }
+    if (!this.interactif) { this.question += 'En tout, j\'ai reçu $\\ldots$ €.' }
     this.canEnonce = `J'ai reçu $${valeurs[0]}$ € puis $${valeurs[1] - valeurs[0]}$.`
-    this.canReponseACompleter = 'En tout j\'ai reçu $\\ldots$ €.'
+    this.canReponseACompleter = 'En tout, j\'ai reçu $\\ldots$ €.'
   }
 }

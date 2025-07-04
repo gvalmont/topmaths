@@ -85,62 +85,47 @@ export function ajouteFeedback (exercice: Exercice, question: number, style = 's
   if (exercice == null || typeof exo !== 'number' || typeof question !== 'number') return ''
   return `<div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exo}Q${question}" ${style !== '' ? style : ''}></div>`
 }
-export function ajouteChampTexte (exercice: Exercice, i: number, style = '', {
-  texteApres = '',
-  texteAvant = '',
-  blocCenter = false,
-  // tailleExtensible = false,
-  espace = false
-} = {}) {
-  if (texteApres !== '') texteApres = sp() + texteApres
-  if (context.isHtml && exercice.interactif) {
-    if (typeof style !== 'string') {
-      window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`, { style })
-    }
-    if (style.includes('blocCenter')) blocCenter = true
-    const dataKeyboard = buildDataKeyboardString(typeof (style) === 'string' ? style : '')
-    let html = ''
-    if (style === 'none') return ''
-    if (style === '') {
-      html = `<label>${texteAvant}</label><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    // } else if (tailleExtensible) {
-    //  html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; display: inline;padding:0 0;margin:0"><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''}  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    } else if (blocCenter) {
-      html = `<div style='display: flex;justify-content: center; margin:5px;'><label>${texteAvant}</label><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div>`
-    } else html = `<label>${texteAvant}</label><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    html += ajouteFeedback(exercice, i)// `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
-    return html
-  }
-  return ''
+
+type OptionsChamp = {
+  texteApres?: string,
+  texteAvant?: string,
+  blocCenter?: boolean,
+  espace?: boolean
+  placeholder?: string
 }
 
-export function ajouteChampTexteMathLive (exercice: Exercice, i:number, style = '', {
-  texteApres = '',
-  texteAvant = '',
-  blocCenter = false,
-  // tailleExtensible = false,
-  espace = false
-} = {}) {
+export function ajouteChampTexte (exercice: Exercice, i: number, style = '', options: OptionsChamp = {}) {
+  return ajouteChamp({ type: 'texte', exercice, i, style }, options)
+}
+
+export function ajouteChampTexteMathLive (exercice: Exercice, i: number, style = '', options: OptionsChamp = {}) {
+  return ajouteChamp({ type: 'mathlive', exercice, i, style }, options)
+}
+
+type ParamsChamp = {
+  type: 'texte' | 'mathlive',
+  exercice: Exercice,
+  i: number,
+  style?: string,
+}
+
+function ajouteChamp (params: ParamsChamp, options: OptionsChamp = {}) {
+  const { type, exercice, i, style = '' } = params
+  let { texteAvant = '', texteApres = '', blocCenter = false, espace = false, placeholder = '' } = options
   if (texteApres !== '') texteApres = sp() + texteApres
-  if (context.isHtml && exercice.interactif) {
-    if (typeof style !== 'string') {
-      window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`, { style })
-    }
-    if (style.includes('blocCenter')) blocCenter = true
-    const dataKeyboard = buildDataKeyboardString(typeof (style) === 'string' ? style : '')
-    let html = ''
-    if (style === 'none') return ''
-    if (style === '') {
-      html = `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    // } else if (tailleExtensible) {
-    //  html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; display: inline;padding:0 0;margin:0"><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''}  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    } else if (blocCenter) {
-      html = `<div style='display: flex;justify-content: center; margin:5px;'><label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div>`
-    } else html = `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    html += ajouteFeedback(exercice, i)// `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
-    return html
+  if (!context.isHtml || !exercice.interactif || style === 'none') return ''
+  if (typeof style !== 'string') {
+    window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`, { style })
   }
-  return ''
+  if (style.includes('blocCenter')) blocCenter = true
+  const dataKeyboard = buildDataKeyboardString(typeof (style) === 'string' ? style : '')
+  const balise = type === 'mathlive' ? 'math-field' : 'input'
+  let html = `<label>${texteAvant}</label><${balise} data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} ${placeholder ? `placeholder="${placeholder}"` : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></${balise}>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+  if (blocCenter) {
+    html = `<div style='display: flex;justify-content: center; margin:5px;'>${html}<div>`
+  }
+  html += ajouteFeedback(exercice, i)
+  return html
 }
 
 export function remplisLesBlancs (exercice:Exercice, question:number, content:string, classes = '', blanc = '\\ldots') {

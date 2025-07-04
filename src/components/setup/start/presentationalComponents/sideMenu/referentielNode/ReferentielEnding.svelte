@@ -15,6 +15,7 @@
   import { isLessThanAMonth } from '../../../../../../lib/types/dates'
   import NoInteractivityIcon from '../../../../../shared/icons/NoInteractivityIcon.svelte'
   import QcmCamIcon from '../../../../../shared/icons/QcmCamIcon.svelte'
+  import { mathaleaGenerateSeed } from '../../../../../../lib/mathalea'
 
   export let ending: JSONReferentielEnding
   export let nestedLevelCount: number
@@ -69,6 +70,7 @@
   function addToList () {
     const newExercise = {
       uuid: ending.uuid,
+      alea: mathaleaGenerateSeed(),
       interactif: isGeoDynamic(ending) ? '1' : '0'
     } as InterfaceParams
     if (isExerciceItemInReferentiel(ending) || isTool(ending)) {

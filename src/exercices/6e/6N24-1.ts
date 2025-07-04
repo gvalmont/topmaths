@@ -2,7 +2,16 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
+import GlisseNombreElement from 'glisse-nombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { context } from '../../modules/context'
+
+/**
+ * Définit le customElement glisse-nombre
+ */
+if (customElements.get('glisse-nombre') === undefined) {
+  customElements.define('glisse-nombre', GlisseNombreElement)
+}
 
 export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 000'
 
@@ -22,7 +31,6 @@ export const refs = {
 export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 extends Exercice {
   constructor () {
     super()
-
     this.consigne = "Donner l'écriture décimale."
     this.spacing = 2
     this.spacingCorr = 2
@@ -54,6 +62,9 @@ export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 exten
           ' = ' +
           texNombre((a / b)) +
           ' $'
+        if (context.isHtml && i === 0) {
+          this.introduction = `<glisse-nombre number="${texNombre(a / b)}"/>`
+        }
       } else {
         texte =
           '$ ' + texNombre(a) + '\\times' + texNombre(b) + ' =  $'
@@ -65,6 +76,9 @@ export default class ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 exten
           ' = ' +
           texNombre((a * b)) +
           ' $'
+        if (context.isHtml && i === 0) {
+          this.introduction = `<glisse-nombre number="${a}"/>`
+        }
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

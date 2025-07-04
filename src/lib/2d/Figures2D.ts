@@ -55,8 +55,118 @@ function rotatedBoundingBoxWithCenter (
     rotatedCenterY + dy,
   ]
 }
+// Classe de base pour les formes 2D sans les méthodes de transformation et d'animation de Figure2D
+export class Shape2D extends ObjetMathalea2D {
+  codeSvg: string
+  codeTikz: string
+  x: number
+  y: number
+  angle: number
+  scale: { x: number, y: number }
+  width: number // laargeur en cm
+  height: number // hauteur en cm
+  pixelsParCm: number
+  bordures: [number, number, number, number] // [xmin, ymin, xmax, ymax]
+  opacite = 1
+  constructor ({
+    name = '',
+    codeSvg,
+    codeTikz,
+    x = 0,
+    y = 0,
+    angle = 0,
+    scale = { x: 1, y: 1 },
+    width,
+    height,
+    pixelsParCm = context.pixelsParCm,
+    opacite = 1,
+    bordures
+  }: {
+    name?: string,
+    codeSvg: string,
+    codeTikz: string,
+    x?: number,
+    y?: number,
+    angle?: number,
+    scale?: { x: number, y: number },
+    width: number,
+    height: number,
+    pixelsParCm?: number,
+    opacite?: number,
+    bordures?: [number, number, number, number]
+  }) {
+    super()
+    this.name = name
+    this.codeSvg = codeSvg
+    this.codeTikz = codeTikz
+    this.x = x
+    this.y = y
+    this.angle = angle
+    this.scale = scale
+    this.width = width
+    this.height = height
+    this.pixelsParCm = pixelsParCm
+    this.opacite = opacite
+    this.bordures = bordures ?? [
+      (this.x - this.width / 2),
+      (this.y - this.height / 2),
+      (this.x + this.width / 2),
+      (this.y + this.height / 2)
+    ]
+  }
 
-export class Figure2D extends ObjetMathalea2D {
+  svg (coeff: number) {
+    return `<g opacity=${this.opacite} transform="translate(${(this.x * coeff).toFixed(2)}, ${(-this.y * coeff).toFixed(2)}) ${this.scale.x !== 1 || this.scale.y !== 1 || coeff !== 20 ? `scale(${(this.scale.x * coeff / 20).toFixed(3)},${(this.scale.y * coeff / 20).toFixed(3)})` : ''} ${this.angle !== 0 ? `rotate(${(-this.angle).toFixed(2)})` : ''}">${this.codeSvg}</g>`
+  }
+
+  tikz () {
+    // const tikzCenterX = this.width / 2
+    // const tikzCenterY = this.height / 2
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(2)},${(this.y).toFixed(2)})}${this.scale.x !== 1 ? `, xscale=${(this.scale.x).toFixed(3)}` : ''}${this.scale.y !== 1 ? `, yscale=${(this.scale.y).toFixed(3)}` : ''}${this.angle !== 0 ? `, rotate around={${this.angle}:(0,0)}` : ''}]
+    ${this.codeTikz}
+    \\end{scope}`
+  }
+
+  updateBordures () {
+    this.bordures = [
+      (this.x - this.width / 2),
+      (this.y - this.height / 2),
+      (this.x + this.width / 2),
+      (this.y + this.height / 2)
+    ]
+    if (this.angle !== 0) {
+      this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], this.angle * Math.PI / 180, this.x, this.y)
+    }
+  }
+
+  clone () {
+    const codeTikz = String(this.codeTikz)
+    const codeSvg = String(this.codeSvg)
+    const x = Number(this.x)
+    const y = Number(this.y)
+    const angle = Number(this.angle)
+    const scale = { x: this.scale.x, y: this.scale.y }
+    const width = Number(this.width)
+    const height = Number(this.height)
+    const pixelsParCm = Number(this.pixelsParCm)
+    return new Shape2D({
+      codeSvg,
+      codeTikz,
+      x,
+      y,
+      angle,
+      scale,
+      width,
+      height,
+      pixelsParCm,
+      opacite: this.opacite,
+      bordures: this.bordures
+    })
+  }
+}
+
+// Classe pour les figures 2D avec des méthodes de transformation et d'animation basée sur Shape2D
+export class Figure2D extends Shape2D {
   codeSvg: string
   codeTikz: string
   scale: { x: number, y: number }
@@ -69,6 +179,8 @@ export class Figure2D extends ObjetMathalea2D {
   centre: Point | null
   nbAxes: number
   name: string
+  bordures: [number, number, number, number] // [xmin, ymin, xmax, ymax]
+  opacite: number
   constructor ({
     codeSvg,
     codeTikz,
@@ -84,7 +196,8 @@ export class Figure2D extends ObjetMathalea2D {
     centre = null,
     nbAxes,
     opacite = 1,
-    name = Date.now().toString()
+    name = Date.now().toString(),
+    bordures
   }: {
     codeSvg: string,
     codeTikz: string,
@@ -101,8 +214,9 @@ export class Figure2D extends ObjetMathalea2D {
     opacite?: number
     name?: string
     nonAxe?: Segment | null
+    bordures?: [number, number, number, number]
   }) {
-    super()
+    super({ codeSvg, codeTikz, x, y, angle, scale, width, height })
     this.name = name
     this.x = x
     this.y = y
@@ -130,13 +244,13 @@ export class Figure2D extends ObjetMathalea2D {
   }
 
   svg (coeff: number) {
-    return `<g opacity=${this.opacite} transform="translate(${this.x * coeff}, ${-this.y * coeff}) scale(${this.scale.x},${this.scale.y}) rotate(${-this.angle})">${this.codeSvg}</g>`
+    return `<g opacity=${this.opacite} transform="translate(${(this.x * coeff).toFixed(2)}, ${(-this.y * coeff).toFixed(2)}) scale(${(this.scale.x).toFixed(3)},${(this.scale.y).toFixed(3)}) rotate(${(-this.angle).toFixed(2)})">${this.codeSvg}</g>`
   }
 
   tikz () {
     // const tikzCenterX = this.width / 2
     // const tikzCenterY = this.height / 2
-    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(1)},${(this.y).toFixed(1)})}, xscale=${this.scale.x}, yscale=${this.scale.y}, rotate around={${this.angle}:(0,0)}]
+    return `\\begin{scope}[fill opacity=${this.opacite}, shift={(${(this.x).toFixed(2)},${(this.y).toFixed(2)})}, xscale=${this.scale.x.toFixed(3)}, yscale=${this.scale.y.toFixed(3)}, rotate around={${-this.angle.toFixed(2)}:(0,0)}]
     ${this.codeTikz}
     \\end{scope}`
   }
@@ -211,7 +325,8 @@ export class Figure2D extends ObjetMathalea2D {
     // Calcul du code TikZ pour la symétrie
     // On applique la même transformation que pour le SVG, mais en TikZ
     // L'angle de symétrie est angleAxe, le centre est (0,0) car la matrice est centrée sur (0,0)
-    const tikz = `\\begin{scope}[xscale=${a.toFixed(4)}, yscale=${d.toFixed(4)}, xslant=${c.toFixed(4)}, yslant=${b.toFixed(4)}, shift={({${tx.toFixed(4)},${ty.toFixed(4)}})}]
+    // Inversion de l'axe des y pour TikZ (y vers le haut)
+    const tikz = `\\begin{scope}[cm={${a.toFixed(4)},${-b.toFixed(4)},${-c.toFixed(4)},${d.toFixed(4)},(${tx.toFixed(4)},${-ty.toFixed(4)})}]
   ${this.codeTikz}
   \\end{scope}`
     // Nouvelle instance avec les mêmes propriétés, mais codeSvg/codeTikz modifiés
@@ -600,4 +715,40 @@ export class Figure2D extends ObjetMathalea2D {
   get Axes () {
     return this.axes.map(el => rotation(el, point(0, 0), this.angle))
   }
+}
+
+export function shapeToFigure2D (shape: Shape2D): Figure2D {
+  return new Figure2D({
+    codeSvg: shape.codeSvg,
+    codeTikz: shape.codeTikz,
+    x: shape.x,
+    y: shape.y,
+    angle: shape.angle,
+    scale: shape.scale,
+    width: shape.width,
+    height: shape.height,
+    pixelsParCm: shape.pixelsParCm,
+    opacite: shape.opacite,
+    bordures: shape.bordures,
+    axes: [],
+    nonAxe: null,
+    centre: null,
+    nbAxes: 0,
+    name: Date.now().toString()
+  })
+}
+export function figure2DToShape (figure: Figure2D): Shape2D {
+  return new Shape2D({
+    codeSvg: figure.codeSvg,
+    codeTikz: figure.codeTikz,
+    x: figure.x,
+    y: figure.y,
+    angle: figure.angle,
+    scale: figure.scale,
+    width: figure.width,
+    height: figure.height,
+    pixelsParCm: figure.pixelsParCm,
+    opacite: figure.opacite,
+    bordures: figure.bordures
+  })
 }

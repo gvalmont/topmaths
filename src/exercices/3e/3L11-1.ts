@@ -1,13 +1,13 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import { ecritureAlgebriqueSauf1, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
@@ -86,9 +86,9 @@ export default class DoubleDistributivite extends Exercice {
         case 3: // (ax-b)(cx+d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})$`
           if (a * d - b * c === 0) {
-            texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`
+            texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${a * c}x^2-${b * d}$`
           } else {
-            texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`
+            texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${a * c}x^2${ecritureAlgebriqueSauf1(d * a - b * c)}x-${b * d}$`
           }
           reponse1 = a * c
           reponse2 = a * d - b * c

@@ -9,7 +9,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { mg32DisplayAll } from '../../modules/mathgraph'
 import { ajouterAide } from '../../lib/outils/enrichissements'
-export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
+export const titre = 'Connaitre les effets des agrandissements/réductions sur les aires et les volumes'
 
 /**
 * Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes

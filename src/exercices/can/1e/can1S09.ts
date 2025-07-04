@@ -71,7 +71,7 @@ export default class RelationRec extends Exercice {
           c = randint(5, 20) * 1000
 
           texte = `Chaque année, un magazine perd $${a}${sp()} \\%$  de ses abonnés.<br>
-          En $2020$, ce magazine compte $${c}$ abonnés.
+          En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
           On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>`
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>

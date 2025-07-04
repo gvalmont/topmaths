@@ -11,7 +11,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
+export const titre = 'Reconnaitre un parallélogramme à partir du codage d\'une figure'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

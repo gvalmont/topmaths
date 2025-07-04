@@ -80,7 +80,7 @@ export default class NbAxesDeSymetrie extends Exercice {
       }
       texte += this.interactif
         ? `Combien d'axes de symétrie possède${nbFigures > 1 ? 'nt' : ' '}l${nbFigures > 1 ? 'es' : 'a'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} ?<br>`
-        : `Trace le ou les axes de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} lorsqu'il y en a.<br>`
+        : `Tracer le ou les axes de symétrie d${nbFigures > 1 ? 'es ' : 'e la'} figure${nbFigures > 1 ? 's' : ''} suivante${nbFigures > 1 ? 's' : ''} lorsqu'il y en a.<br>`
       const formes: Figure2D[] = []
       const scale = nbFigures === 1 ? 1 : nbFigures === 2 ? 0.9 : 0.8
       for (let j = 0; j < nbFigures; j++) {

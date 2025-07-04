@@ -106,7 +106,10 @@ def newEntry(file:str,dicoType:str)->list:
             lieu = locationName(filename.split('_')[3])
             annee = filename.split('_')[1]
             mois = filename.split('_')[2]
-            dicoType = 'sti2d'
+            if ('sti2d' in filename) : 
+                dicoType = 'sti2d'
+            else :
+                dicoType = 'stl'
             newLines = f'''  {filename}: {{                
                 annee: '{annee}',                
                 lieu: '{lieu}',                

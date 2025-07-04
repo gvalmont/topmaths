@@ -3,7 +3,7 @@ import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { point, Point } from './points'
-import { Point3d } from '../../modules/3d'
+import { Point3d } from '../3d/elements'
 import { Polygone } from './polygones'
 import type { PointAbstrait } from './points-abstraits'
 
@@ -242,7 +242,7 @@ export class TexteParPoint extends ObjetMathalea2D {
     this.orientation = orientation
     this.color = colorToLatexOrHTML(color)
     this.scale = scale
-    this.taille = 14 * scale
+    this.taille = Math.round(14 * scale)
     this.opacite = opacite
     this.couleurDeRemplissage = colorToLatexOrHTML(color)
     this.mathOn = mathOn

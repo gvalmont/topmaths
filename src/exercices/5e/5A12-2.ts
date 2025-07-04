@@ -10,7 +10,7 @@ export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
 
-export const titre = 'Reconnaître un nombre premier'
+export const titre = 'Reconnaitre un nombre premier'
 export const dateDePublication = '11/07/2022'
 export const dateDeModifImportante = '06/12/2024'
 
@@ -111,7 +111,7 @@ function rediger (a: number, avecCalculDeRacine: boolean): string {
     return '1 n\'est pas un nombre premier (il n\'a qu\'un seul diviseur).'
   }
   if (premiersEntreBornes(2, 30).includes(a)) {
-    return `$${texNombre(a)}$ est un nombre premier. Il fait partie des nombres premiers à connaître : ${lister(premiersEntreBornes(2, 30).map(t => `$${t}$`))}.`
+    return `$${texNombre(a)}$ est un nombre premier. Il fait partie des nombres premiers à connaitre : ${lister(premiersEntreBornes(2, 30).map(t => `$${t}$`))}.`
   }
   const premiersATester = premiersEntreBornes(2, Math.floor(Math.sqrt(a)))
   let redaction = ''

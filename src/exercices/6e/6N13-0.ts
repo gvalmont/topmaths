@@ -5,7 +5,7 @@ import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Connaître les préfixes utilisés dans les unités'
+export const titre = 'Connaitre les préfixes utilisés dans les unités'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 

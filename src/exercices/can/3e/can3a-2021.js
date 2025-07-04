@@ -13,13 +13,14 @@ import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
-import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { min, round } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 
 export const titre = 'CAN 3e sujet 2021'
 export const interactifReady = true
@@ -72,6 +73,7 @@ export default class SujetCAN20213ieme extends Exercice {
     ]
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, resultat, fraction18 = [], fraction22 = [], triplet, sCote1, sCote2, s1, s2, s3, s4, s5, s6, prix, choix, truc, a, b, c, d, e, m, p, k, A, B, C, D, E, F, G, pol, code1, code2, code3, code4, code5, code6, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      typeQuestionsDisponibles[i] = 23
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -733,7 +735,7 @@ export default class SujetCAN20213ieme extends Exercice {
               texteParPosition(`${stringNombre(b)}  `, milieu(D, E).x + 0.3, milieu(D, E).y),
               texteParPosition(`${stringNombre(a)}  `, milieu(D, C).x, milieu(D, C).y + 0.3),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
-            reponse = printlatex(`4x+${2 * a + b}`)
+            reponse = `4x${ecritureAlgebrique(2 * a + b)}`
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({
               xmin,
@@ -781,7 +783,7 @@ export default class SujetCAN20213ieme extends Exercice {
               texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
               texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
-            reponse = printlatex(`2x+${4 * a + b}`)
+            reponse = `2x${ecritureAlgebrique(4 * a + b)}`
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({
               xmin,
@@ -827,7 +829,7 @@ export default class SujetCAN20213ieme extends Exercice {
               texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
               texteParPosition('x', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
-            reponse = printlatex(`2x+${3 * a + b}`)
+            reponse = `2x${ecritureAlgebrique(3 * a + b)}`
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({
               xmin,
@@ -872,7 +874,7 @@ export default class SujetCAN20213ieme extends Exercice {
               texteParPosition(`${stringNombre(b)}`, milieu(D, E).x + 0.3, milieu(D, E).y),
               texteParPosition(`${stringNombre(a)}`, milieu(D, C).x, milieu(D, C).y + 0.3),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
-            reponse = printlatex(`3x+${2 * a + b}`)
+            reponse = `3x${ecritureAlgebrique(2 * a + b)}`
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({
               xmin,

@@ -1,4 +1,4 @@
-import { paveLPH3d } from '../../../modules/3d'
+import { paveLPH3d } from '../../../lib/3d/solides'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'

@@ -35,7 +35,7 @@ export default class NomExercice extends Exercice {
     this.correction = `$${a}$ carreaux de chocolats pèsent $${a * unit}$ g,  donc $1$ carreau pèse $${unit}$ g.<br>
       Donc $${b}$ carreaux pèsent  $${b}\\times${unit}$ g $=${miseEnEvidence(texNombre(this.reponse, 0))}$ g.`
 
-    if (!this.interactif) { this.question += '$\\ldots$ g' }
+    if (!this.interactif) { this.question += '$\\ldots$ g.' }
     this.canEnonce = `$${a}$ carreaux de chocolats pèsent $${a * unit}$ g.`
     this.canReponseACompleter = `$${b}$ carreaux de chocolat pèsent $\\ldots$ g.`
   }

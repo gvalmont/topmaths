@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Connaître le vocabulaire du cube'
+export const titre = 'Connaitre le vocabulaire du cube'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'cfd87'

@@ -28,7 +28,7 @@ export default class CompteEstBon extends Exercice {
       '1: Avec 10 et 100\n2 : Avec 10 et de quoi faire facilement 100\n3 : Avec des calculs imbriqués\n4 : Mélange'
     ] // Texte, tooltip
     this.consigne =
-    'Trouve le résultat en utilisant les quatre opérations et les nombres du tirage (une seule fois).'
+    'Trouver le résultat en utilisant les quatre opérations et les nombres du tirage (une seule fois).'
     this.nbQuestions = 5
     this.nbCols = 2
     this.nbColsCorr = 2

@@ -1414,7 +1414,7 @@ export function upperCaseCompare (input: string, goodAnswer: string): ResultType
  * @author Eric Elter
  * @return ResultType
  */
-function texteSansCasseCompare (input: string, goodAnswer: string): ResultType {
+export function texteSansCasseCompare (input: string, goodAnswer: string): ResultType {
   const localInput = input.toLowerCase()
   const localGoodAnswer = goodAnswer.toLowerCase()
   return texteAvecCasseCompare(localInput, localGoodAnswer)

@@ -4,7 +4,7 @@ import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { ppcm } from '../../../modules/outils'
+import { ppcm } from '../../../lib/outils/primalite'
 export const uuid = '65fd3'
 export const refs = {
   'fr-fr': ['4C2QCM-06', 'BP2AutoH8'],

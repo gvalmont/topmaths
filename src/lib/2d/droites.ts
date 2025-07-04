@@ -1212,7 +1212,7 @@ export function bissectrice (A: Point, O: Point, B: Point, couleurBissectrice = 
  * @return {number}
  */
 // JSDOC Validee par EE Aout 2022
-export function distancePointDroite (A: Point, d: Droite) {
-  const M = projectionOrtho(A, d) as Point
+export function distancePointDroite (A: PointAbstrait, d: Droite) {
+  const M = projectionOrtho(A, d)
   return longueur(A, M, 9)
 }

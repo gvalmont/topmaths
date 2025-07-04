@@ -39,7 +39,7 @@ export default class OrdreDeGrandeur extends Exercice {
       const d = randint(5, 9)
       const resultat = nombre * d
       let texte = `$${texNombre(nombre, 0)}\\times ${d}$<br>
-    Choisir la bonne réponse sans effectuer précisément le calcul.<br>`
+    Choisir parmi ces propositions, le résultat du calcul, sans effectuer précisément le calcul.<br>`
       // Ajout avant l'ajout des propositions de réponse
       // ça serait mieux en uniformisant avec this.question pour tous les exos can
       this.canEnonce = texte

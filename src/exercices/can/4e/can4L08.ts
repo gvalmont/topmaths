@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-export const titre = 'Reconnaître une expression littérale (QCM)'
+export const titre = 'Reconnaitre une expression littérale (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

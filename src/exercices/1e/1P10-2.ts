@@ -149,7 +149,7 @@ export default class CalculerProbaCond extends Exercice {
                On constate qu'il  supprime $${texNombre(pBsachantA * 100, 2)}\\,\\%$ de spams.<br>
                 On choisit un message au hasard et on note $${ev[0]}$ : « le message est un spam » et $${ev[1]}$ : « le message est supprimé ».<br>
               En utilisant les événements  $${ev[0]}$ et $${ev[1]}$,  écrire la probabilité que le message soit un spam supprimé, puis calculer cette probabilité.`, `Le cuisinier d’une colonie de vacances a confectionné des beignets pour le goûter :<br>
- $${texNombre(pA * 100, 0)}\\,\\%$ des beignets sont à l’ananas, les autres sont aux pommes  et $${texNombre(pBsachantA * 100, 1)}\\,\\%$ des beignets à l’ananas sont aromatisés à la cannelle.<br>
+ $${texNombre(pA * 100, 0)}\\,\\%$ des beignets sont à l’ananas, les autres sont aux pommes  et $${texNombre(pBsachantA * 100, 2)}\\,\\%$ des beignets à l’ananas sont aromatisés à la cannelle.<br>
 On choisit un beignet au hasard. <br>
 On définit les évènements suivants :<br>
 • $${ev[0]}$ : « le beignet choisi est à l’ananas » ;<br>

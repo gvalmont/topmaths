@@ -1,6 +1,6 @@
 import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { labyrinthe } from '../../modules/Labyrinthe'
+import { labyrinthe, type LabyrintheChemin } from '../../modules/Labyrinthe'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -45,7 +45,7 @@ export default class ExerciceLabyrintheDivisibilite2 extends Exercice {
   nouvelleVersion () {
     const tailleChiffre = 0.8
 
-    let texte; let texteCorr; let monChemin = [[]]
+    let texte; let texteCorr; let monChemin: LabyrintheChemin = []
     const listeCouples = shuffle([[2, 3], [2, 9], [5, 3], [5, 9], [10, 3], [10, 9]])
     let tables = []
     for (const couple of listeCouples) {

@@ -9,7 +9,7 @@ import { abs } from '../../../lib/outils/nombres'
 import Exercice from '../../Exercice'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-export const titre = 'Reconnaître une fonction polynôme du second degré (V/F)'
+export const titre = 'Reconnaitre une fonction polynôme du second degré (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const dateDePublication = '24/09/2022'

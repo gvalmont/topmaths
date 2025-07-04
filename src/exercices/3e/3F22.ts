@@ -20,9 +20,10 @@ export const refs = {
   'fr-ch': ['1mF2-17', '11FA8-20']
 }
 export const dateDePublication = '08/10/2024'
+export const dateDeModifImportante = '11/06/2025'
 
 /**
- * Reconnaître une fonction affine
+ * Reconnaitre une fonction affine
 * @author Erwan Duplessy Remis au gout du jour et interactif par Jean-Claude Lhote
 * 3F23
 * date : 2021/02/21
@@ -131,7 +132,7 @@ export default class AntecedentParCalcul extends Exercice {
       if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i])) {
         if (this.interactif) {
           texte += `<br>${ajouteChampTexteMathLive(this, i, '')}`
-          handleAnswers(this, i, { reponse: { value: ante.simplifie().texFSD, options: { fractionEgale: true } } })
+          handleAnswers(this, i, { reponse: { value: ante.simplifie().texFSD, options: { fractionEgale: true, nombreDecimalSeulement: true } } })
         }
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[i] = texte

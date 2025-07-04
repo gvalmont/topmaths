@@ -226,5 +226,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
 
   // pour faire un test sur un exercice particulier:
   // testRunAllLots('4e/4C32.js')
-  testRunAllLots('2e/2G30-3')
+  testRunAllLots('beta/betaListeDeroulante')
 }

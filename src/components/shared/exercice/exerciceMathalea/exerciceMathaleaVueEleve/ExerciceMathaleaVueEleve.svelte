@@ -1,5 +1,6 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
+  import { statsTracker } from '../../../../../modules/stats'
   import { afterUpdate, onMount, tick, onDestroy, beforeUpdate } from 'svelte'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import seedrandom from 'seedrandom'
@@ -170,7 +171,7 @@
 
   async function newData () {
     exercise.isDone = false
-    if (isCorrectVisible) switchCorrectionVisible()
+    if (isCorrectVisible) switchCorrectionVisible(false)
     const seed = mathaleaGenerateSeed()
     exercise.seed = seed
     if (buttonScore) initButtonScore()
@@ -222,6 +223,7 @@
 
   function verifExerciceVueEleve () {
     log('verifExerciceVueEleve')
+    if (exercise.numeroExercice != null && !(exercise.isDone === true)) statsTracker(exercise, $globalOptions.recorder ?? '',$globalOptions.v ??'')
     exercise.isDone = true
     if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
     if (exercise.numeroExercice != null) {
@@ -382,15 +384,15 @@
     adjustMathalea2dFiguresWidth(true)
   }
 
-  function switchCorrectionVisible () {
+  function switchCorrectionVisible (newdata: boolean = true) {
     isCorrectVisible = !isCorrectVisible
     if (isCorrectVisible && isLocalStorageAvailable() && exercise.id !== undefined) {
       window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
     }
-    if (!$globalOptions.oneShot && exercise.interactif && !isCorrectVisible && !exercise.isDone) {
+    if (newdata && !$globalOptions.oneShot && exercise.interactif && !isCorrectVisible && !exercise.isDone) {
       newData()
     }
-    adjustMathalea2dFiguresWidth()
+    if (newdata) adjustMathalea2dFiguresWidth()
   }
 
   function switchInteractif () {

@@ -1,8 +1,8 @@
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenuSansNumero, printlatex, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { listeQuestionsToContenuSansNumero, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -81,6 +81,7 @@ export default class ReductionSiPossible extends Exercice {
     for (let i = 0, reponse, coeffa, constb, a, b, c, d, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
+      reponse = ''
       coeffa = 0
       constb = 0
       a = randint(-11, 11, 0)
@@ -89,43 +90,43 @@ export default class ReductionSiPossible extends Exercice {
       d = randint(-11, 11, 0)
       switch (listeTypeDeQuestions[i]) {
         case 1 : // 'ax+b':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x${ecritureAlgebrique(b)}$`
           texteCorr = texte
-          reponse = [printlatex(`${a}*x+(${b})`), printlatex(`${b}+(${a}*x)`)]
+          reponse = [`${rienSi1(a)}x${ecritureAlgebrique(b)}`, `${b}${ecritureAlgebriqueSauf1(a)}x`]
           coeffa = a
           constb = b
           break
         case 2 : // 'ax+bx':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x)`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x)`)}=${printlatex(`${a + b}x`)}$`
-          reponse = printlatex(`${a + b}x`)
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}x=${rienSi1(a + b)}x$`
+          reponse = `${rienSi1(a + b)}x`
           coeffa = a + b
           constb = 0
           break
         case 3 : // 'ax+bx2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x^2)`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}x^2$`
           texteCorr = texte
-          reponse = [printlatex(`${a}*x+(${b}*x^2)`), printlatex(`${b}*x^2+(${a}*x)`)]
+          reponse = [`${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}x^2`, `${b}x^2${ecritureAlgebriqueSauf1(a)}x`]
           // celui-ci ne peut pas être choisi pour AMC
           break
         case 4 : // 'ax*b':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x`)}\\times ${ecritureParentheseSiNegatif(b)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x`)}\\times ${ecritureParentheseSiNegatif(b)}=${printlatex(`${a * b}*x`)}$`
-          reponse = printlatex(`${a * b}*x`)
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x\\times ${ecritureParentheseSiNegatif(b)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x\\times ${ecritureParentheseSiNegatif(b)}=${rienSi1(a * b)}x$`
+          reponse = `${rienSi1(a * b)}x`
           coeffa = a * b
           constb = 0
           break
         case 5 : // 'b*ax':
           a = randint(1, 11)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${b}\\times ${printlatex(`${a}*x`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${b}\\times ${printlatex(`${a}*x`)}=${printlatex(`${b * a}*x`)}$`
-          reponse = printlatex(`${b * a}*x`)
+          texte = `$${lettreDepuisChiffre(i + 1)}=${b}\\times ${rienSi1(a)}x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${b}\\times ${rienSi1(a)}x=${rienSi1(b * a)}x$`
+          reponse = `${rienSi1(b * a)}x`
           coeffa = a * b
           constb = 0
           break
         case 6 : // 'ax+b+cx+d':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x${ecritureAlgebrique(b)}${ecritureAlgebriqueSauf1(c)}x${ecritureAlgebrique(d)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x${ecritureAlgebrique(b)}${ecritureAlgebriqueSauf1(c)}x${ecritureAlgebrique(d)}`
           if (b + d === 0) {
             if (a + c === 0) {
               texteCorr += '=0$'
@@ -133,8 +134,8 @@ export default class ReductionSiPossible extends Exercice {
               coeffa = 0
               constb = 0
             } else {
-              texteCorr += `=${printlatex(`${a + c}*x`)}$`
-              reponse = printlatex(`${a + c}*x`)
+              texteCorr += `=${rienSi1(a + c)}x$`
+              reponse = `${rienSi1(a + c)}x`
               coeffa = a + c
               constb = 0
             }
@@ -145,16 +146,16 @@ export default class ReductionSiPossible extends Exercice {
               constb = b + d
               coeffa = 0
             } else {
-              texteCorr += `=${printlatex(`${a + c}*x+(${b + d})`)}$`
-              reponse = [printlatex(`${a + c}*x+(${b + d})`), printlatex(`${b + d}+(${a + c}*x)`)]
+              texteCorr += `=${rienSi1(a + c)}x${ecritureAlgebrique(b + d)}$`
+              reponse = [`${rienSi1(a + c)}x${ecritureAlgebrique(b + d)}`, `${b + d}${ecritureAlgebriqueSauf1(a + c)}x`]
               coeffa = a + c
               constb = b + d
             }
           }
           break
         case 7 :// 'b+ax+d+cx':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${b}${ecritureAlgebriqueSauf1(a)}x${ecritureAlgebrique(d)}${ecritureAlgebriqueSauf1(c)}x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${b}${ecritureAlgebriqueSauf1(a)}x${ecritureAlgebrique(d)}${ecritureAlgebriqueSauf1(c)}x`
           if (b + d === 0) {
             if (a + c === 0) {
               texteCorr += '=0$'
@@ -162,8 +163,8 @@ export default class ReductionSiPossible extends Exercice {
               coeffa = 0
               constb = 0
             } else {
-              texteCorr += `=${printlatex(`${a + c}*x`)}$`
-              reponse = printlatex(`${a + c}*x`)
+              texteCorr += `=${rienSi1(a + c)}x$`
+              reponse = `${rienSi1(a + c)}x`
               coeffa = a + c
               constb = 0
             }
@@ -174,8 +175,8 @@ export default class ReductionSiPossible extends Exercice {
               coeffa = 0
               constb = b + d
             } else {
-              texteCorr += `=${printlatex(`${a + c}*x+(${b + d})`)}$`
-              reponse = [printlatex(`${a + c}*x+(${b + d})`), printlatex(`${b + d}+(${a + c}*x)`)]
+              texteCorr += `=${rienSi1(a + c)}x${ecritureAlgebrique(b + d)}$`
+              reponse = [`${rienSi1(a + c)}x${ecritureAlgebrique(b + d)}`, `${b + d}${ecritureAlgebriqueSauf1(a + c)}x`]
               coeffa = a + c
               constb = b + d
             }
@@ -183,9 +184,9 @@ export default class ReductionSiPossible extends Exercice {
           break
         case 8 : // 'ax+b+x':
           a = randint(-11, 11, [0, -1])
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+x`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+x`)}=${printlatex(`${a + 1}*x+(${b})`)}$`
-          reponse = [printlatex(`${a + 1}*x+(${b})`), printlatex(`${b}+(${a + 1}*x)`)]
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x${ecritureAlgebrique(b)}+x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}x${ecritureAlgebrique(b)}+x=${rienSi1(a + 1)}x${ecritureAlgebrique(b)}$`
+          reponse = [`${rienSi1(a + 1)}x${ecritureAlgebrique(b)}`, `${b}${ecritureAlgebriqueSauf1(a + 1)}x`]
           coeffa = a + 1
           constb = b
           break

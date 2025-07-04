@@ -9,7 +9,7 @@ import { labelPoint, latexParCoordonnees, texteParPosition } from '../../../lib/
 import { rotation } from '../../../lib/2d/transformations'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { arrondi, signe } from '../../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString'
 import { prenomF } from '../../../lib/outils/Personne'
@@ -20,7 +20,7 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context'
-import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
@@ -812,15 +812,15 @@ export default class SujetCAN2023troisieme extends Exercice {
             // ne pas écrire 1x
             texte = `Développe $${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$`
             texteCorr = `$${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})=${k}${inconnue}\\times ${inconnue} ${signe(k * b)}${k}${inconnue}\\times ${Math.abs(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
-            reponse = printlatex(`${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`)
+            reponse = `${rienSi1(k * a)}${inconnue}^2${ecritureAlgebriqueSauf1(k * b)}${inconnue}`
           } else {
             texte = `Développe $${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$`
             if (k > 0) {
               texteCorr = `$${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})=${k}${inconnue}\\times ${a}${inconnue} + ${k}${inconnue}\\times ${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
-              reponse = printlatex(`${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`)
+              reponse = `${rienSi1(k * a)}${inconnue}^2${ecritureAlgebriqueSauf1(k * b)}${inconnue}`
             } else {
               texteCorr = `$${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})=${k}${inconnue}\\times ${a}${inconnue} + (${k}${inconnue})\\times ${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
-              reponse = printlatex(`${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`)
+              reponse = `${rienSi1(k * a)}${inconnue}^2${ecritureAlgebriqueSauf1(k * b)}${inconnue}`
             }
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

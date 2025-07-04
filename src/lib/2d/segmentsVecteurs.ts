@@ -10,6 +10,7 @@ import { latex2d, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
 import MainLevee from './MainLevee'
 import { PointAbstrait } from './points-abstraits'
+import { Point3d } from '../3d/elements'
 
 /**
  * v = vecteur('V') // son nom
@@ -188,76 +189,41 @@ export class Segment extends ObjetMathalea2D {
   extremite1: PointAbstrait
   extremite2: PointAbstrait
   longueur: number
-  constructor (arg1: number | PointAbstrait, arg2: number | PointAbstrait, arg3?: number | string, arg4?: number | string, color?: string, styleExtremites = '') {
+  constructor (...args: [PointAbstrait | Point3d, PointAbstrait | Point3d, string?, string?] | [number, number, number, number, string?, string?]) {
     super()
     this.bordures = [0, 0, 0, 0]
     this.typeObjet = 'segment'
-    this.styleExtremites = styleExtremites
+    if (typeof args[0] === 'number') {
+      this.styleExtremites = args[5] || ''
+    } else {
+      this.styleExtremites = String(args[3]) || ''
+    }
     this.tailleExtremites = 4
-    if (arguments.length === 2 || arguments.length === 3) {
-      if ((arg1 instanceof PointAbstrait) && (arg2 instanceof PointAbstrait)) {
-        this.x1 = arg1.x
-        this.y1 = arg1.y
-        this.x2 = arg2.x
-        this.y2 = arg2.y
+    if (args[0] instanceof PointAbstrait || args[0] instanceof Point3d) {
+      if (args[1] instanceof PointAbstrait || args[1] instanceof Point3d) {
+        this.x1 = args[0].x
+        this.y1 = args[0].y
+        this.x2 = args[1].x
+        this.y2 = args[1].y
       } else {
-        window.notify(`Segment : (attendus : A et B${arguments.length === 3 ? ' et "couleur"' : ''}) les arguments de sont pas des points valides`, {
-          arg1,
-          arg2
-        })
+        window.notify(`Segment : (attendus : A et B${arguments.length === 3 ? ' et "couleur"' : ''}) les arguments de sont pas des points valides`, { ...args })
         this.x1 = 0
         this.y1 = 0
         this.x2 = 0
         this.y2 = 0
       }
-      if (arguments.length === 3) {
-        this.color = colorToLatexOrHTML(String(arg3))
-      }
-    } else if (arguments.length === 4) {
-      if (typeof arg3 !== 'number') {
-        if ((arg1 instanceof Point) && (arg2 instanceof Point)) {
-          this.x1 = arg1.x
-          this.y1 = arg1.y
-          this.x2 = arg2.x
-          this.y2 = arg2.y
-        } else {
-          window.notify('Segment : (attendus : A, B, couleur et styleExtremites) les arguments de sont pas des points valides', {
-            arg1,
-            arg2
-          })
-          this.x1 = 0
-          this.y1 = 0
-          this.x2 = 0
-          this.y2 = 0
-        }
-        this.color = colorToLatexOrHTML(String(arg3))
-        this.styleExtremites = String(arg4)
-      } else {
-        if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) {
-          window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', {
-            arg1,
-            arg2
-          })
-        }
-        this.x1 = Number(arg1)
-        this.y1 = Number(arg2)
-        this.x2 = Number(arg3)
-        this.y2 = Number(arg4)
-      }
+      this.color = colorToLatexOrHTML(args[2]?.toString() || 'black')
+      this.styleExtremites = args[3]?.toString() || ''
     } else {
-      // Au moins 5 arguments
-      if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) {
-        window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', {
-          arg1,
-          arg2
-        })
+      if (Number.isNaN(args[0]) || Number.isNaN(args[1]) || Number.isNaN(args[2]) || Number.isNaN(args[3])) {
+        window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { ...args })
       }
-      this.x1 = Number(arg1)
-      this.y1 = Number(arg2)
-      this.x2 = Number(arg3)
-      this.y2 = Number(arg4)
-      this.color = colorToLatexOrHTML(String(color))
-      this.styleExtremites = styleExtremites
+      this.x1 = Number(args[0])
+      this.y1 = Number(args[1])
+      this.x2 = Number(args[2])
+      this.y2 = Number(args[3])
+      this.color = colorToLatexOrHTML(args[4] || 'black')
+      this.styleExtremites = args[5] || ''
     }
 
     this.x1 = arrondi(this.x1, 2)
@@ -592,16 +558,7 @@ export class Segment extends ObjetMathalea2D {
  * @author Rémi Angot
  */
 
-export function segment (...args: [number | PointAbstrait, number | PointAbstrait, (string | number | undefined)?, (string | number | undefined)?, (string | undefined)?]) {
-  if (args.length === 2) {
-    return new Segment(args[0], args[1])
-  }
-  if (args.length === 3) {
-    return new Segment(args[0], args[1], args[2])
-  }
-  if (args.length === 4) {
-    return new Segment(args[0], args[1], args[2], args[3])
-  }
+export function segment (...args: [PointAbstrait | Point3d, PointAbstrait | Point3d, string?, string?] | [number, number, number, number, string?, string?]) {
   return new Segment(...args)
 }
 
@@ -612,7 +569,7 @@ export function segment (...args: [number | PointAbstrait, number | PointAbstrai
  * @example segmentAvecExtremites(x1,y1,x2,y2,'#f15929')
  * @author Rémi Angot
  */
-export function segmentAvecExtremites (...args: [number | PointAbstrait, number | PointAbstrait, (string | number | undefined)?, (string | number | undefined)?, (string | undefined)?]) {
+export function segmentAvecExtremites (...args: [PointAbstrait | Point3d, PointAbstrait | Point3d, string?, string?] | [number, number, number, number, string?, string?]) {
   const s = segment(...args)
   s.styleExtremites = '|-|'
   return s
@@ -668,7 +625,7 @@ export function demiDroite (A: PointAbstrait, B: PointAbstrait, color = 'black',
  * C'est à la fonction d'affichage de limiter le nombre de chiffres
  * @author Rémi Angot
  */
-export function longueur (A: PointAbstrait, B: PointAbstrait, precision = 2) {
+export function longueur (A: PointAbstrait | Point3d, B: PointAbstrait | Point3d, precision = 2) {
   return arrondi(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), precision ?? 6)
   // j chiffres après la virgule pour l'arrondi sachant que c'est à la fonction d'affichage de limiter le nombre de chiffres.
 }

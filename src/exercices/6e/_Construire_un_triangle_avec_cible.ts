@@ -59,13 +59,13 @@ export default class ConstruireUnTriangleAvecCible extends Exercice {
     }
     if (this.nbQuestions === 1) {
       if (this.sup2) {
-        this.consigne = 'Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle en respectant les mesures indiquées.'
+        this.consigne = 'Le triangle ci-dessous a été réalisé à main levée, sans respecter les dimensions.<br>Construire ce triangle en respectant les informations indiquées.'
       } else {
         this.consigne = 'Construire le triangle suivant.'
       }
     } else {
       if (this.sup2) {
-        this.consigne = 'Les triangles ci-dessous ont été réalisés à main levée.<br>Construire ces triangles en respectant les mesures indiquées.<br>'
+        this.consigne = 'Les triangles ci-dessous ont été réalisés à main levée, sans respecter les dimensions.<br>Construire ces triangles en respectant les informations indiquées.<br>'
       } else {
         this.consigne = 'Construire les triangles suivants.'
       }

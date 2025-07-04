@@ -1,20 +1,24 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../lib/outils/embellissements'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites'
+import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
-import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin'
+import { avance, baisseCrayon, creerLutin, tournerD } from '../../modules/2dLutin'
+import { bleuMathalea, orangeMathalea } from '../../lib/colors'
+import { range } from '../../lib/outils/nombres'
+import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Dessiner avec scratch'
+export const dateDeModifImportante = '10/06/2025'
+export const interactifReady = true
+export const interactifType = 'cliqueFigure'
 
 /**
- * * Dessiner selon un programme scratch
- * * 4Algo1-0
+ * Dessiner selon un programme scratch
  * @author Sébastien Lozano
- * mise à plat du big ouaille suite au passage à la V2
  * implémentation fonction scratchblock par Jean-Claude Lhote
- * la fonction gère la sortie Latex ou html du code scratch
+ * Interactivité, grosse refactorisation par Eric Elter le 10/06/2025
  */
 
 export const uuid = '33c9a'
@@ -34,12 +38,11 @@ export default class TracerAvecScratch extends Exercice {
   nouvelleVersion () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 
-    const fenetreMathalea2D = { xmin: -10, ymin: -15, xmax: 60, ymax: 2, pixelsParCm: 10, scale: 0.2 }
-    const pixelsParCm = fenetreMathalea2D.pixelsParCm * 5 / 100
-    //    var unitesLutinParCm = 100;
+    const fenetreMathalea2D = { style: 'display: inline-block', xmin: -4, ymin: -13.5, xmax: 10, ymax: 0.5, pixelsParCm: 10, scale: 0.2, id: 'ADeterminerPlusTard' }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    // let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
+
+    this.figures = [[], [], [], []]
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer la sortie HTML/LaTeX
@@ -55,42 +58,34 @@ export default class TracerAvecScratch extends Exercice {
         switch (n) {
           case 2:
             sortie.name = 'segment'
-            sortie.nameParSommets = 'AB'
             sortie.nbPas = 400
             break
           case 3:
             sortie.name = 'triangle équilatéral'
-            sortie.nameParSommets = 'ABC'
             sortie.nbPas = 400
             break
           case 4:
             sortie.name = 'carré'
-            sortie.nameParSommets = 'ABCD'
             sortie.nbPas = 400
             break
           case 5:
             sortie.name = 'pentagone régulier'
-            sortie.nameParSommets = 'ABCDE'
             sortie.nbPas = 300
             break
           case 6:
             sortie.name = 'hexagone régulier'
-            sortie.nameParSommets = 'ABCDEF'
             sortie.nbPas = 250
             break
           case 7:
             sortie.name = 'heptagone régulier'
-            sortie.nameParSommets = 'ABCDEFG'
             sortie.nbPas = 200
             break
           case 8:
             sortie.name = 'octogone régulier'
-            sortie.nameParSommets = 'ABCDEFGH'
             sortie.nbPas = 200
             break
           case 9:
             sortie.name = 'ennéagone régulier'
-            sortie.nameParSommets = 'ABCDEFGHI'
             sortie.nbPas = 200
             break
         }
@@ -118,130 +113,37 @@ export default class TracerAvecScratch extends Exercice {
           }
         ]
 
-        let tabAbsDemLutin2
-        if (n === 6) {
-          tabAbsDemLutin2 = [0, 3 * myPolyName(n).nbPas, 6 * myPolyName(n).nbPas, 9 * myPolyName(n).nbPas]
-        } else if (n === 8) {
-          tabAbsDemLutin2 = [0, 4 * myPolyName(n).nbPas, 8 * myPolyName(n).nbPas, 12 * myPolyName(n).nbPas]
-        } else {
-          tabAbsDemLutin2 = [0, 2 * myPolyName(n).nbPas, 4 * myPolyName(n).nbPas, 6 * myPolyName(n).nbPas]
+        const lutinEnonce = []
+        const figLutinEnonce = []
+
+        // le lutinEnonce[indiceLutin] fait la bonne figure
+        const tabNbCote = [n, n + 1, n - 1, n]
+        for (let indiceLutin = 0; indiceLutin < 4; indiceLutin++) {
+          lutinEnonce[indiceLutin] = creerLutin()
+          lutinEnonce[indiceLutin].stringColor = bleuMathalea
+          baisseCrayon(lutinEnonce[indiceLutin])
+          for (let k = 1; k < tabNbCote[indiceLutin] + 1; k++) {
+            avance(myPolyName(tabNbCote[indiceLutin]).nbPas, lutinEnonce[indiceLutin])
+            tournerD(360 / tabNbCote[indiceLutin] - (indiceLutin === 3 ? 10 : 0), lutinEnonce[indiceLutin])
+          }
+
+          fenetreMathalea2D.id = `cliquefigure${indiceLutin}Ex${this.numeroExercice}Q${i}`
+          figLutinEnonce[indiceLutin] = mathalea2d(fenetreMathalea2D, lutinEnonce[indiceLutin])
         }
-        // on mélange tout ça !
-        tabAbsDemLutin2 = shuffle(tabAbsDemLutin2)
-        // Les figures de l'énoncé
-        // le lutin2  trace le cadre en pointillés
-        const lutin2 = creerLutin()
-        lutin2.color = colorToLatexOrHTML('black')
-        lutin2.pointilles = 5
-        allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin2)
-        baisseCrayon(lutin2)
-        allerA(fenetreMathalea2D.xmax * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin2)
-        allerA(fenetreMathalea2D.xmax * pixelsParCm, fenetreMathalea2D.ymin * pixelsParCm, lutin2)
-        allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymin * pixelsParCm, lutin2)
-        allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin2)
-        leveCrayon(lutin2)
-        // le lutin2 fait la bonne figure
-        lutin2.pointilles = 0
-        lutin2.color = colorToLatexOrHTML('blue')
-        allerA(tabAbsDemLutin2[0], 0, lutin2)
-        baisseCrayon(lutin2)
+        const ordre = shuffle(range(3))
+        situations[0].fig = figLutinEnonce[ordre[0]] + figLutinEnonce[ordre[1]] + figLutinEnonce[ordre[2]] + figLutinEnonce[ordre[3]]
+
+        const lutinCorr = creerLutin()
+        lutinCorr.stringColor = orangeMathalea
+        baisseCrayon(lutinCorr)
         for (let k = 1; k < n + 1; k++) {
-          avance(myPolyName(n).nbPas, lutin2)
-          tournerD(360 / n, lutin2)
-        }
-        // le lutin2 fait un polygone régulier avec un côté de plus
-        leveCrayon(lutin2)
-        allerA(tabAbsDemLutin2[1], 0, lutin2)
-        baisseCrayon(lutin2)
-        for (let k = 1; k < n + 1 + 1; k++) {
-          avance(myPolyName(n + 1).nbPas, lutin2)
-          tournerD(360 / (n + 1), lutin2)
+          avance(myPolyName(n).nbPas, lutinCorr)
+          tournerD(360 / n, lutinCorr)
         }
 
-        // le lutin2 fait un polygone régulier avec un côté de moins
-        leveCrayon(lutin2)
-        allerA(tabAbsDemLutin2[2], 0, lutin2)
-        baisseCrayon(lutin2)
-        for (let k = 1; k < n; k++) {
-          avance(myPolyName(n - 1).nbPas, lutin2)
-          tournerD(360 / (n - 1), lutin2)
-        }
+        const figLutinCorr = mathalea2d(fenetreMathalea2D, lutinCorr)
 
-        // le lutin2 fait une figure ouverte à n côtés
-        leveCrayon(lutin2)
-        allerA(tabAbsDemLutin2[3], 0, lutin2)
-        baisseCrayon(lutin2)
-        for (let k = 1; k < n + 1; k++) {
-          avance(myPolyName(n).nbPas, lutin2)
-          tournerD((360 / n) - 10, lutin2)
-        }
-        allerA(tabAbsDemLutin2[3], 0, lutin2)
-
-        const mesAppelsEnonce = [
-          lutin2
-        ]
-        situations[0].fig = mathalea2d(
-          fenetreMathalea2D,
-          mesAppelsEnonce
-        )
-
-        // les figures de la correction
-        // le lutin3  trace le cadre
-        const lutin3 = creerLutin()
-        lutin3.color = colorToLatexOrHTML('black')
-        lutin3.pointilles = 5
-        allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin3)
-        baisseCrayon(lutin3)
-        allerA(fenetreMathalea2D.xmax * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin3)
-        allerA(fenetreMathalea2D.xmax * pixelsParCm, fenetreMathalea2D.ymin * pixelsParCm, lutin3)
-        allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymin * pixelsParCm, lutin3)
-        allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin3)
-        leveCrayon(lutin3)
-        // le lutin3 fait la bonne figure
-        lutin3.pointilles = 0
-        lutin3.color = colorToLatexOrHTML('green')
-        allerA(tabAbsDemLutin2[0], 0, lutin3)
-        baisseCrayon(lutin3)
-        for (let k = 1; k < n + 1; k++) {
-          avance(myPolyName(n).nbPas, lutin3)
-          tournerD(360 / n, lutin3)
-        }
-        // le lutin3 fait un polygone régulier avec un côté de plus
-        lutin3.color = colorToLatexOrHTML('red')
-        leveCrayon(lutin3)
-        allerA(tabAbsDemLutin2[1], 0, lutin3)
-        baisseCrayon(lutin3)
-        for (let k = 1; k < n + 1 + 1; k++) {
-          avance(myPolyName(n + 1).nbPas, lutin3)
-          tournerD(360 / (n + 1), lutin3)
-        }
-
-        // le lutin3 fait un polygone régulier avec un côté de moins
-        leveCrayon(lutin3)
-        allerA(tabAbsDemLutin2[2], 0, lutin3)
-        baisseCrayon(lutin3)
-        for (let k = 1; k < n; k++) {
-          avance(myPolyName(n - 1).nbPas, lutin3)
-          tournerD(360 / (n - 1), lutin3)
-        }
-
-        // le lutin3 fait une figure ouverte à n côtés
-        leveCrayon(lutin3)
-        allerA(tabAbsDemLutin2[3], 0, lutin3)
-        baisseCrayon(lutin3)
-        for (let k = 1; k < n + 1; k++) {
-          avance(myPolyName(n).nbPas, lutin3)
-          tournerD((360 / n) - 10, lutin3)
-        }
-        allerA(tabAbsDemLutin2[3], 0, lutin3)
-
-        const mesAppelsCorr = [
-          lutin3
-        ]
-        situations[0].fig_corr = mathalea2d(
-          fenetreMathalea2D,
-          mesAppelsCorr
-        )
+        situations[0].fig_corr = figLutinCorr
 
         const enonces = []
         enonces.push({
@@ -252,9 +154,7 @@ export default class TracerAvecScratch extends Exercice {
           `,
           question: '',
           correction: `
-          Les figures rouges sont erronées.
-          <br> La figure tracée par le programme a ${situations[0].nbCotes} côtés de même longueur et ${situations[0].nbCotes} angles de même mesure, c'est un ${situations[0].nom}.
-          <br>${texteEnCouleur('La bonne figure est donc la figure verte.')}
+          La figure tracée par le programme a ${situations[0].nbCotes} côtés de même longueur et ${situations[0].nbCotes} angles de même mesure, c'est un ${texteEnCouleurEtGras(situations[0].nom, bleuMathalea)}.
           <br><br>
           ${situations[0].fig_corr}
           `
@@ -262,6 +162,11 @@ export default class TracerAvecScratch extends Exercice {
 
         return enonces
       }
+      this.figures[i] = [{ id: `cliquefigure0Ex${this.numeroExercice}Q${i}`, solution: true },
+        { id: `cliquefigure1Ex${this.numeroExercice}Q${i}`, solution: false },
+        { id: `cliquefigure2Ex${this.numeroExercice}Q${i}`, solution: false },
+        { id: `cliquefigure3Ex${this.numeroExercice}Q${i}`, solution: false }
+      ]
 
       const enonces = []
       enonces.push(mySituation(3)[0])
@@ -271,8 +176,14 @@ export default class TracerAvecScratch extends Exercice {
       enonces.push(mySituation(8)[0])
       texte = `${enonces[listeTypeDeQuestions[i] - 1].enonce}`
       texteCorr = `${enonces[listeTypeDeQuestions[i] - 1].correction}`
+      if (this.interactif) {
+        this.autoCorrection[i] = {}
+        setCliqueFigure(this.autoCorrection[i])
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+        texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+      }
+
+      if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++

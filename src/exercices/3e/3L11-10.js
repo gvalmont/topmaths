@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils'
+import { egal, randint, listeQuestionsToContenuSansNumero } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
@@ -10,6 +10,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
 export const dateDeModifImportante = '04/01/2025'
@@ -101,12 +102,12 @@ export default class TableDoubleDistributivite extends Exercice {
           if (egal(a * d - b * c, 0)) {
             developpements = {
               eclate: `${a * c}x^2+${d * a}x-${b * c}x-${b * d}`,
-              reduit: `${printlatex(`${a * c}*x^2-${b * d}`)}`
+              reduit: `${a * c}x^2-${b * d}`
             }
           } else {
             developpements = {
               eclate: `${a * c}x^2+${d * a}x-${b * c}x-${b * d}`,
-              reduit: `${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}`
+              reduit: `${a * c}x^2${ecritureAlgebriqueSauf1(d * a - b * c)}x-${b * d}`
             }
           }
           termesRectangles = [a * c, a * d, -b * c, -b * d]

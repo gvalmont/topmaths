@@ -1,7 +1,7 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { shuffle, shuffle2tableaux } from '../../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d, ObjetMathalea2D, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
-import { cube } from '../../../modules/3d'
+import { cube } from '../../../lib/3d/CubeIso'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
@@ -261,18 +261,18 @@ export default class Visualisation3d extends ExerciceCan {
   nouvelleVersion () {
     this.canOfficielle
       ? this.enonce([
-          [
-            [0, 1],
-            [0, 1],
-            [0, 2]
-          ]
-        ], [
-          [
-            [0, 1],
-            [0, 2],
-            [0, 1]
-          ]
-        ])
+        [
+          [0, 1],
+          [0, 1],
+          [0, 2]
+        ]
+      ], [
+        [
+          [0, 1],
+          [0, 2],
+          [0, 1]
+        ]
+      ])
       : this.enonce()
   }
 }

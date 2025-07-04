@@ -11,7 +11,6 @@ export const refs = {
 }
 export const uuid = 'de353'
 const tableauDesCaracteres = Array.from('-xçwjè,k~:aq«rlgdmftbéocsà.êeipzhu\'ynvî»â!')
-tableauDesCaracteres[2] = 'ç'
 const enteteColonnes = ['\\times', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
 function produitPourCaractere (car:string, map: Map<number, string>):number {
@@ -26,7 +25,6 @@ export default class EncodeurTexte extends Exercice {
   type: string
   constructor (type = 'générateur') {
     super()
-    this.introduction = 'Générateur inspiré par la commande DefiTableTexte du package ProfCollege de Christophe Poulain.'
     this.consigne = 'Choisir un texte à encoder dans le formulaire en paramètre.'
     this.besoinFormulaireTexte = ['Texte à encoder (liste de mots ou de phrases séparés par /', '']
     this.besoinFormulaire2CaseACocher = ['Grille différente pour chaque morceau', false]
@@ -78,6 +76,7 @@ export default class EncodeurTexte extends Exercice {
           table[j] = []
           for (let k = 0, produit; k < 10; k++) {
             produit = (j + 1) * (k + 1) // La table js est indicée de 0 à 9 donc on ajoute 1 pour avoir le facteur correspondant.
+
             if (!associations.has(produit)) { // Ce produit n'est pas déjà associé
               associations.set(produit, tabCar[positionCourante]) // on lui associe le caractère courant
               positionCourante++ // On se positionne sur le caractère suivant n'ayant pas encore été assigné
@@ -85,7 +84,7 @@ export default class EncodeurTexte extends Exercice {
             table[j][k] = String(associations.get(produit)) // on ajoute le caractère dans la table.
           }
         }
-        texte = `${tableauColonneLigne(enteteColonnes, enteteLignes, table.flat(), 1.3, false, this.numeroExercice, i, false)}`
+        texte = `${tableauColonneLigne(enteteColonnes, enteteLignes, table.flat().map(c => `\\large \\textbf{${c}}`), 1.3, false, this.numeroExercice, i, false)}`
       } else {
         texte = ''
       }

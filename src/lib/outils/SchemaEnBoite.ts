@@ -74,8 +74,21 @@ export default class SchemaEnBoite {
     }
   }
 
-  display (): string {
+  display (texScale = 0.8): string {
     if (context.isHtml) {
+      // Trouver la largeur max des entêtes (en nombre d'unité de grille)
+      let maxEnteteLength = 0
+      let hasEntete = false
+      for (const ligne of this.lignes) {
+        if (ligne.entete !== undefined) {
+          hasEntete = true
+          if ((ligne.entete.longueur ?? 0) > maxEnteteLength) {
+            maxEnteteLength = ligne.entete.longueur ?? 0
+          }
+        }
+      }
+      this.maxEnteteLength = maxEnteteLength
+      // Si aucune entête n'est définie, on ne met pas de colonne d'entête
       let ligneAccoladeH = ''
       if (this.topBraces) {
         for (let k = 0; k < this.topBraces.length; k++) {
@@ -92,7 +105,7 @@ export default class SchemaEnBoite {
           const lineHeight = options.lineHeight ?? '1.2em'
           if (start != null && end != null && texte != null) {
             ligneAccoladeH += type === 'flèche'
-              ? `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none; --arrow-color: ${color}">
+              ? `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none; --arrow-color: ${color}">
                     <div class="latexAccoladeTop" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">${texte}</div>
                   <div class="horizontalArrow">
                     <div class="horizontalArrowHead" style="transform: rotate(180deg);"></div>
@@ -100,7 +113,7 @@ export default class SchemaEnBoite {
                     <div class="horizontalArrowHead"></div>
                   </div>
                 </div>\n`
-              : `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start}; grid-column-end: ${end}; text-align:center; border: none"; --brace-color: ${color}">
+              : `<div class="SchemaTop" style="grid-row: 1; grid-column-start: ${start + maxEnteteLength}; grid-column-end: ${end + maxEnteteLength}; text-align:center; border: none"; --brace-color: ${color}">
                     <div class="latexAccoladeTop" style="text-align: ${justify}; color: ${color}; font-size: ${fontSize}; font-weight: ${fontWeight}; line-height: ${lineHeight}">${texte}</div>
                     <div class="braceTop">
                       <div class="braceTopLeft">
@@ -118,20 +131,6 @@ export default class SchemaEnBoite {
           }
         }
       }
-
-      // Trouver la largeur max des entêtes (en nombre d'unité de grille)
-      let maxEnteteLength = 0
-      let hasEntete = false
-      for (const ligne of this.lignes) {
-        if (ligne.entete !== undefined) {
-          hasEntete = true
-          if ((ligne.entete.longueur ?? 0) > maxEnteteLength) {
-            maxEnteteLength = ligne.entete.longueur ?? 0
-          }
-        }
-      }
-      this.maxEnteteLength = maxEnteteLength
-      // Si aucune entête n'est définie, on ne met pas de colonne d'entête
 
       // Générer les lignes de barres avec entête et gestion du spacing
       const lignesHtml: string[] = []
@@ -321,12 +320,12 @@ export default class SchemaEnBoite {
       }
       // Si aucune entête n'est définie, on ne met pas de colonne d'entête
       // On peut aussi utiliser la plus grande largeur réelle (en px) mais ici on reste simple
-      let latex = '\\begin{tikzpicture}[scale=0.8]\n'
+      let latex = `\\begin{tikzpicture}[scale=${texScale}]\n`
       if (this.topBraces) {
         for (let k = 0; k < this.topBraces.length; k++) {
           const brace = this.topBraces[k]
-          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * 0.7
-          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * 0.7
+          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
+          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
           const texte = brace.text
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -385,7 +384,7 @@ export default class SchemaEnBoite {
           }
         }
 
-        y -= rectHeight * 0.7
+        y -= rectHeight * texScale
 
         for (let k = 0; k < barres.length; k++) {
           const barre = barres[k]
@@ -415,29 +414,29 @@ export default class SchemaEnBoite {
             : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${barre.content}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
           if (barre.type === 'boite') {
             if (barre.options?.style === 'borderless') {
-              latex += `\\draw[fill=${barre.color}, draw=none] (${(start * 0.7).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * 0.7).toFixed(1)},${(rectHeight * 0.7 + y).toFixed(1)});\n`
+              latex += `\\draw[fill=${barre.color}, draw=none] (${(start * texScale).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * texScale).toFixed(1)},${(rectHeight * texScale + y).toFixed(1)});\n`
             } else {
-              latex += `\\draw[fill=${barre.color}] (${(start * 0.7).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * 0.7).toFixed(1)},${(rectHeight * 0.7 + y).toFixed(1)});\n`
+              latex += `\\draw[fill=${barre.color}] (${(start * texScale).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * texScale).toFixed(1)},${(rectHeight * texScale + y).toFixed(1)});\n`
             }
             let anchor = 'center'
             let align = 'center'
-            let x = ((start + barre.length / 2) * 0.7).toFixed(1)
+            let x = ((start + barre.length / 2) * texScale).toFixed(1)
             if (justify === 'start') {
               anchor = 'west'
               align = 'left'
-              x = (start * 0.7).toFixed(1)
+              x = (start * texScale).toFixed(1)
             } else if (justify === 'end') {
               anchor = 'east'
               align = 'right'
-              x = ((start + barre.length) * 0.7).toFixed(1)
+              x = ((start + barre.length) * texScale).toFixed(1)
             }
             latex += `\\node[anchor=${anchor}, align=${align}] at (${x},${(y + rectHeight / 2).toFixed(1)}) {${texteLatex}};\n`
           } else if (barre.type === 'flèche') {
-            latex += `\\draw[<->,thick, draw=${color}] (${(start * 0.7).toFixed(1)},${(y + 0.56).toFixed(1)}) -- (${((start + barre.length) * 0.7).toFixed(1)},${(y + 0.56).toFixed(1)}) node[pos=0.5, below] {${texteLatex}};\n`
+            latex += `\\draw[<->,thick, draw=${color}] (${(start * texScale).toFixed(1)},${(y + 0.56).toFixed(1)}) -- (${((start + barre.length) * texScale).toFixed(1)},${(y + 0.56).toFixed(1)}) node[pos=0.5, below] {${texteLatex}};\n`
             // Ligne verticale à l'extrémité droite de la flèche
-            latex += `\\draw[dashed, thick, draw=${color}] (${((start + barre.length) * 0.7).toFixed(1)},${y}) -- (${((start + barre.length) * 0.7).toFixed(1)},${(y + rectHeight * 0.7).toFixed(1)});\n`
+            latex += `\\draw[dashed, thick, draw=${color}] (${((start + barre.length) * texScale).toFixed(1)},${y}) -- (${((start + barre.length) * texScale).toFixed(1)},${(y + rectHeight * texScale).toFixed(1)});\n`
           } else {
-            latex += `\\draw[fill=${barre.color}] (${(start * 0.7).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * 0.7).toFixed(1)},${(rectHeight * 0.7 + y).toFixed(1)}) node[pos=0.5] {${texteLatex}};\n`
+            latex += `\\draw[fill=${barre.color}] (${(start * texScale).toFixed(1)},${y.toFixed(1)}) rectangle (${((start + barre.length) * texScale).toFixed(1)},${(rectHeight * texScale + y).toFixed(1)}) node[pos=0.5] {${texteLatex}};\n`
           }
 
           // On met à jour le start pour le prochain élément
@@ -448,8 +447,8 @@ export default class SchemaEnBoite {
       if (this.bottomBraces) {
         for (let k = 0; k < this.bottomBraces.length; k++) {
           const brace = this.bottomBraces[k]
-          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * 0.7
-          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * 0.7
+          const start = (brace.start + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
+          const end = (brace.end + (hasEntete ? maxEnteteLength : 0) - 1) * texScale
           const texte = brace.text
           const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -484,8 +483,8 @@ export default class SchemaEnBoite {
         const gridLength = Math.max(...longueurBarres) // Longueur totale de la grille
         for (let k = 0; k < this.rightBraces.length; k++) {
           const brace = this.rightBraces[k]
-          const start = 3 + (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * 0.7 - brace.start * 0.7
-          const end = 3 + (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * 0.7 - brace.end * 0.7
+          const start = 3 + (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * texScale - brace.start * texScale
+          const end = 3 + (this.topBraces && this.topBraces.length > 0 ? 2 : 1) * texScale - brace.end * texScale
           const texte = brace.text
           // const type = brace.type ?? 'accolade'
           const options = brace.options ?? {}
@@ -508,9 +507,9 @@ export default class SchemaEnBoite {
               ? `${styleTexte}${fontSizeCmd}${fontWeightCmd}\\shortstack{${texte.replaceAll('<br>', '\\\\')}}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
               : `${styleTexte}${fontSizeCmd}${fontWeightCmd}${texte}${fontWeight === 'bold' ? '}' : ''}${color ? '}' : ''}`
 
-            latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}]  (${((gridLength + 0.3) * 0.7).toFixed(1)},${start.toFixed(1)}) -- (${((gridLength + 0.3) * 0.7).toFixed(1)},${end.toFixed(1)});\n`
+            latex += `\\draw[decorate,decoration={brace,amplitude=10pt},xshift=0pt,yshift=0pt, draw=${color}]  (${((gridLength + 0.3) * texScale).toFixed(1)},${start.toFixed(1)}) -- (${((gridLength + 0.3) * texScale).toFixed(1)},${end.toFixed(1)});\n`
             // Ajoute un petit espace horizontal (par exemple 0.3) entre l'accolade et le texte
-            latex += `\\node[anchor=west, align=left] at (${(gridLength * 0.7 + 0.8).toFixed(1)},${((start + end) / 2).toFixed(1)}) {${texteLatex}};\n`
+            latex += `\\node[anchor=west, align=left] at (${(gridLength * texScale + 0.8).toFixed(1)},${((start + end) / 2).toFixed(1)}) {${texteLatex}};\n`
           }
         }
       }

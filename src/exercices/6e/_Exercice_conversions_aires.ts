@@ -141,7 +141,7 @@ export default class ExerciceConversionsAires extends Exercice {
           [' h', '\\times100\\times100', 10000],
           [' k', '\\times100\\times100\\times100', 1000000]
         ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
-        resultat = a.mul(prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = a.mul(prefixeMulti[k][2]) // Utilise Decimal pour avoir le résultat exact même avec des décimaux
         texte =
                     '$ ' +
                     texNombre(a, 2) +
@@ -279,7 +279,7 @@ export default class ExerciceConversionsAires extends Exercice {
           ['a', '\\times100', 100]
         ]
         k = randint(0, 1)
-        resultat = a.mul(prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = a.mul(prefixeMulti[k][2]) // Utilise Decimal pour avoir le résultat exact même avec des décimaux
         texte =
                     '$ ' +
                     texNombre(a, 2) +

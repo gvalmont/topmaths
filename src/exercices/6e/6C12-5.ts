@@ -174,7 +174,7 @@ const listePb = [piqueNique, carrelage, bibliotheque, camion, agriculteur, fleur
 export default class RepresenterUneFraction extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Trouve la bonne réponse en utilisant les ordres de grandeurs.'
+    this.consigne = 'Trouver la bonne réponse en utilisant les ordres de grandeurs.'
     this.nbQuestions = 4
 
     // this.sup = 3

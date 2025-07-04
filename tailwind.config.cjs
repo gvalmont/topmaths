@@ -19,7 +19,8 @@ const flipclass = plugin(function ({ addUtilities }) {
 const config = {
   darkMode: 'class',
   content: ['./src/**/*.{html,js,svelte,ts}',
-    './node_modules/tw-elements/dist/js/**/*.js'],
+    './node_modules/tw-elements/dist/js/**/*.js',
+    './node_modules/glisse-nombre/src/**/*.{html,js,svelte,ts}'],
   safelist: [
     {
       pattern: /grid-cols-./,
@@ -303,6 +304,60 @@ const config = {
             darkest: '#14415c'
           }
         },
+        coopmathsBlue: {
+          DEFAULT: '#F15929',
+          lightest: '#f87f5c',
+          light: '#f56d45',
+          dark: '#F45E27',
+          darkest: '#E64A10',
+          back: '#2e2e2b',
+          backdark: '#dadbdf',
+          backdarker: '#cecfd4',
+          backcorrection: '#E0A588',
+          backnav: '#F15929',
+          backnavlight: '#f56d45',
+          title: '#342A34',
+          titlemenu: '#F15929',
+          titlelight: '#f5f1f3',
+          titleexercise: '#F15929',
+          darkmode: '#2e2e2b',
+          darkmodelight: '#363633',
+          canvas: {
+            DEFAULT: '#282a36',
+            dark: '#3a3d4e',
+            darkest: '#4b4f66',
+            moredark: '#68688c',
+            light: '#9fa3b8'
+          },
+          corpus: {
+            DEFAULT: '#b0b0b0',
+            light: '#c8c8c8',
+            lightest: '#dfdfdf',
+            dark: '#7b7b7b',
+            darkest: '#464646'
+          },
+          action: {
+            DEFAULT: '#ffb86c',
+            light: '#ffc689',
+            lightest: '#ffd4a7',
+            dark: '#ff9523',
+            darkest: '#da7100'
+          },
+          warn: {
+            DEFAULT: '#ff79c6',
+            light: '#ff94d1',
+            lightest: '#ffafdd',
+            dark: '#ff2ea6',
+            darkest: '#e20082'
+          },
+          struct: {
+            DEFAULT: '#bd93f9',
+            light: '#c49efa',
+            lightest: '#caa9fa',
+            dark: '#a66df7',
+            darkest: '#8f48f5'
+          }
+        }
       },
       fontFamily: {
         sans: ['"Arial"', ...defaultTheme.fontFamily.sans],

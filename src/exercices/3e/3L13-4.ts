@@ -14,7 +14,7 @@ export const titre = 'Résoudre un problème mêlant équations et périmètre e
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDeModifImportante = '07/05/2025'
+export const dateDeModifImportante = '11/06/2025'
 
 export const uuid = 'cd2f2'
 export const refs = {
@@ -133,7 +133,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             b1 = randint(1, equation.b / 2)
             b2 = equation.b / 2 - b1
             longueur = a1 * equation.reponse + b1
-          } while (a1 * equation.reponse + b1 <= 0 || a2 * equation.reponse + b2 <= 0 || equation.d === 4)
+          } while (a1 * equation.reponse + b1 <= 0 || a2 * equation.reponse + b2 <= 0 || equation.d === 4 || a2 === 0)
           perimetre = equation.d
           const expression1 = `${rienSi1(a1)}x${b1 === 0 ? '' : ecritureAlgebrique(b1)}`
           const expression2 = `${rienSi1(a2)}x${b2 === 0 ? '' : ecritureAlgebrique(b2)}`
@@ -162,6 +162,7 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
           segment1 = longCote
           segment2 = largeCote
           largeur = a2 * equation.reponse + b2
+          reponse = longueur * largeur
           texte += `$x$ est un nombre tel que $${segment1}=${expression1}$ et $${segment2}=${expression2}$ (en cm).<br>`
           texteCorr = `${nomRectangle} est un rectangle donc ses côtés opposés sont de la même longueur donc $${A.nom}${B.nom}=${C.nom}${D.nom}$ et $${B.nom}${C.nom}=${D.nom}${A.nom}$.<br><br>
             ${texteGras('Mise en équation.')}<br>
@@ -180,9 +181,8 @@ export default class ProblemeEquationsPerimetreAireRectangle extends Exercice {
             $\\mathcal{A} = L \\times l$<br>
             $\\mathcal{A} = ${longCote} \\times ${largeCote}$<br>
             $\\mathcal{A} = ${longueur} \\times ${largeur}$<br>
-            $\\mathcal{A} = ${longueur * largeur}$<br>
-            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(longueur * largeur)}$ cm².`
-          reponse = 0
+            $\\mathcal{A} = ${reponse}$<br>
+            Donc l'aire du rectangle $${nomRectangle}$ est de $${miseEnEvidence(reponse)}$ cm².`
           break
         }
       }

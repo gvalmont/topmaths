@@ -203,11 +203,11 @@ const triathlon2: FonctionProbleme = (interactif = false, typeQuestion: Question
   const distanceVelo = distanceNatation * 15 // en mètres
   const distanceCourse = distanceNatation * 5 // en mètres
   const total = distanceNatation + distanceVelo + distanceCourse
-  const totalInter = distanceNatation + distanceVelo
+  const totalInter = distanceNatation + distanceCourse
   const enonce = `${prenom} participe à un triathlon. Il nage zone0 m, fait ensuite du vélo et ensuite court sur zone2 m. ${premiereLettreEnMajuscule(pronom)} a parcouru en tout zone3 m. Quelle distance a-t-${pronom} parcourue à vélo ?<br><br>
       Réponse :<br>
-      - Calcul de la distance parcourue en nage et en vélo en m : $${texNombre(distanceNatation, 0)}+${texNombre(distanceVelo, 0)}=${texNombre(totalInter, 0)}$<br>
-      - Distance parcourue en course à pied en m : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone2.`
+      - Calcul de la distance parcourue en nage et en course à pied en m : $${texNombre(distanceNatation, 0)}+${texNombre(distanceCourse, 0)}=${texNombre(totalInter, 0)}$<br>
+      - Distance parcourue à vélo en m : $${texNombre(total, 0)}-${texNombre(totalInter, 0)}=$ zone1.`
 
   const barre = SchemaEnBoite.additionPartiesTout('zone3', 2, ['zone0', 'zone1', 'zone2'])
   return { enonce, barre, reponses: [distanceNatation, distanceVelo, distanceCourse, total] }
@@ -383,7 +383,7 @@ export const comparaisonDeuxSommes: FonctionProbleme = (interactif = false, type
 function genereEnonces (exercice: Exercice, typeQuestion: QuestionType, startInteractif = 0, fonction: FonctionProbleme) : { enonce: string, nextInteractif: number, correction: string } {
   const interactif = exercice.interactif
   let { enonce, barre, reponses } = fonction(interactif, typeQuestion)
-  let i = startInteractif
+  let indexInteractif = startInteractif
   const zoneAQuestionner = combinaisonListes(['e', 's'], 4)
   for (let i = 0; i <= 3; i++) {
     if (typeQuestion === 'schéma') {
@@ -472,12 +472,12 @@ ${barreCorr.display()}`
   for (let k = 0; k < 4; k++) {
     if (enonce.includes(`zone${k}`)) {
       if (interactif && exercice != null) {
-        enonce = enonce.replaceAll(`zone${k}`, ajouteChampTexteMathLive(exercice, k, 'schemaEnBoite'))
-        handleAnswers(exercice, k, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
-        i++
+        enonce = enonce.replaceAll(`zone${k}`, ajouteChampTexteMathLive(exercice, indexInteractif, 'schemaEnBoite'))
+        handleAnswers(exercice, indexInteractif, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
+        indexInteractif++
       } else {
         enonce = enonce.replace(`zone${k}`, '$\\ldots$')
-        i++
+        indexInteractif++
       }
     }
   }
@@ -487,16 +487,16 @@ ${barreCorr.display()}`
       if (braces.length > 0) {
         if (interactif && exercice != null) {
           braces.forEach(b => {
-            b.text = b.text.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, k, 'schemaEnBoite'))
-            handleAnswers(exercice, k, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
+            b.text = b.text.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, indexInteractif, 'schemaEnBoite'))
+            handleAnswers(exercice, indexInteractif, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
           })
-          i++
+          indexInteractif++
         } else {
           braces.forEach(b => {
             b.text = b.text.replace(`zone${k}`, '\\ldots')
           }
           )
-          i++
+          indexInteractif++
         }
       }
     }
@@ -505,15 +505,15 @@ ${barreCorr.display()}`
       if (braces.length > 0) {
         if (interactif && exercice != null) {
           braces.forEach(b => {
-            b.text = b.text.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, k, 'schemaEnBoite'))
-            handleAnswers(exercice, k, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
+            b.text = b.text.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, indexInteractif, 'schemaEnBoite'))
+            handleAnswers(exercice, indexInteractif, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
           })
-          i++
+          indexInteractif++
         } else {
           braces.forEach(b => {
             b.text = b.text.replace(`zone${k}`, '\\ldots')
           })
-          i++
+          indexInteractif++
         }
       }
     }
@@ -522,37 +522,37 @@ ${barreCorr.display()}`
       if (bars.length > 0) {
         if (interactif && exercice != null) {
           bars.forEach(b => {
-            b.content = b.content.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, k, 'schemaEnBoite'))
-            handleAnswers(exercice, k, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
+            b.content = b.content.replace(`zone${k}`, ajouteChampTexteMathLive(exercice, indexInteractif, 'schemaEnBoite'))
+            handleAnswers(exercice, indexInteractif, { reponse: { value: texNombre(reponses[k], 2), options: { noFeedback: true } } })
           })
-          i++
+          indexInteractif++
         } else {
           bars.forEach(b => {
             b.content = b.content.replace(`zone${k}`, '\\ldots')
           }
           )
-          i++
+          indexInteractif++
         }
       }
     }
   }
   const texte = `${enonce}<br><br>
   ${barre.display()}<br><br>`
-  return { enonce: texte, nextInteractif: i, correction: enonceCorr }
+  return { enonce: texte, nextInteractif: indexInteractif, correction: enonceCorr }
 }
 
 export default class ModelisationProblemes extends Exercice {
   constructor () {
     super()
-    this.consigne = 'compléter les vides dans les énoncés et les schémas pour les faire se correspondre.'
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Types de questions', 'nombres séparés par des tirets\n1 : Compléter le schéma\n2 : Compléter l\'énoncé\n3 : Compléter le schéma et l\'énoncé\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Compléter le schéma\n2 : Compléter l\'énoncé\n3 : Compléter le schéma et l\'énoncé\n4 : Mélange']
     this.sup = '4'
-    this.besoinFormulaire2Texte = ['Types de problèmes', 'nombres séparés par des tirets\n1 : Calcul de partie manquante avec comparaison\n2 : Somme de trois parties\n3 : Partie manquante d\'une somme\n4 : Quotient (avec reste)d\'un produit de deux nombre\n5 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de problèmes', 'Nombres séparés par des tirets\n1 : Calcul de partie manquante avec comparaison\n2 : Somme de trois parties\n3 : Partie manquante d\'une somme\n4 : Quotient (avec reste) d\'un produit de deux nombre\n5 : Mélange']
     this.sup2 = '5'
   }
 
   nouvelleVersion () {
+    this.consigne = `Trouver les nombres manquants dans ${this.nbQuestions > 1 ? 'ces problèmes' : 'ce problème'} afin que énoncé, réponse et schéma se correspondent.`
     const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, melange: 4, nbQuestions: this.nbQuestions, listeOfCase: ['schéma', 'énoncé', 'mixte'] }) as unknown as QuestionType[]
     const typeDeProblèmes = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 4, defaut: 5, melange: 5, nbQuestions: this.nbQuestions, }).map(el => Number(el) - 1)
     const problèmes = [
@@ -565,8 +565,8 @@ export default class ModelisationProblemes extends Exercice {
     let indexInteractif = 0
     for (let i = 0; i < this.nbQuestions;) {
       const { enonce, nextInteractif, correction } = genereEnonces(this, typeDeQuestions[i], indexInteractif, fonctions[i])
-      indexInteractif = nextInteractif
       if (this.questionJamaisPosee(i, enonce.split(' ')[0])) {
+        indexInteractif = nextInteractif
         this.listeQuestions.push(enonce)
         this.listeCorrections.push(correction)
         i++

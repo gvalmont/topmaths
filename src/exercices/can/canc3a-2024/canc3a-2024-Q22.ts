@@ -38,10 +38,10 @@ export default class AbscisseEnDemiBisCM2 extends Exercice {
     this.reponse = { reponse: { value: `\\frac{${2 * a1 + delta}}{2}` } }
     const drGrad = new DroiteGraduee({ Unite: 1, Min: a1 - delta, Max: a2 + delta, thickOffset: 1, thickDistance: 3, thickSec: true, thickSecDist: 1.5, labelsPrincipaux: false, labelListe: [[a1 + 1, String(a1)], [a2 + 1, String(a2)]], pointListe: [[x + 1, 'A']] })
     const objets = [drGrad]
-    this.question = 'Quelle est l\'abscisse du point A ?<br>'
+    this.question = 'Donner le nombre qui repère le point A.<br>'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    this.correction = `L'abscisse du point A est $${miseEnEvidence(texNombre(x, 1))}$.`
+    this.correction = `Le nombre qui repère le point A est : $${miseEnEvidence(texNombre(x, 1))}$.`
   }
 }

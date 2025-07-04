@@ -40,17 +40,17 @@ async function testV (page: Page) {
   }
   // await page.pause()
   expect(await page.locator('#iframe').contentFrame().locator('#score:first-child > span').innerText()).toBe('1/11')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-0').innerText()).toBe('12\nℎ\n15\n12h15')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-0').innerText()).toBe('12\n12 h \n15\n15')
   expect(await page.locator('#iframe').contentFrame().locator('#answer-1').innerText()).toBe('20\n000\n000\n000\n20000000000')
   expect(await page.locator('#iframe').contentFrame().locator('#answer-2').innerText()).toBe('600\n600')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-3').innerText()).toBe('𝑉\n𝑜\n𝑖\n𝑟\n𝑓\n𝑖\n𝑔\n𝑢\n𝑟\n𝑒\nVoirfigure')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-3').innerText()).toBe('Voir figure')
   expect(await page.locator('#iframe').contentFrame().locator('#answer-4').innerText()).toBe('1\n1')
   expect(await page.locator('#iframe').contentFrame().locator('#answer-5').innerText()).toBe('1\n1')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-6').innerText()).toBe('𝑑\n𝑖\n𝑓\n𝑓\n𝑒\nˊ\n𝑟\n𝑒\n𝑛\n𝑐\n𝑒\ndiff\ne\nˊ\nrence')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-7').innerText()).toBe('𝑑\n𝑖\n𝑓\n𝑓\n𝑒\nˊ\n𝑟\n𝑒\n𝑛\n𝑐\n𝑒\ndiff\ne\nˊ\nrence')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-8').innerText()).toBe('diffeˊrence{différence}diffeˊrence')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-9').innerText()).toBe('𝑑\n𝑖\n𝑓\n𝑓\n𝑒\nˊ\n𝑟\n𝑒\n𝑛\n𝑐\n𝑒\ndiff\ne\nˊ\nrence')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-10').innerText()).toBe('𝑑\n𝑒\n𝑢\n𝑥\ndeux')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-6').innerText()).toBe('différence')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-7').innerText()).toBe('différence')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-8').innerText()).toBe('différence')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-9').innerText()).toBe('différence')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-10').innerText()).toBe('deux')
   return true
 }
 

@@ -2773,4 +2773,296 @@ export const dictionnaireBAC = {
     tags: ['Suites']
   },
 
+  bac_2025_06_sujet1_asie_1: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Espace', 'Affirmations']
+  },
+  bac_2025_06_sujet1_asie_2: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
+  },
+  bac_2025_06_sujet1_asie_3: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Suites', 'Python', 'Logarithme']
+  },
+  bac_2025_06_sujet1_asie_4: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Exponentielle', 'Intégration', 'TVI']
+  },
+  bac_2025_06_sujet1_etrangers_1: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
+  },
+  bac_2025_06_sujet1_etrangers_2: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Espace', 'QCM']
+  },
+  bac_2025_06_sujet1_etrangers_3: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Logarithme', 'TVI', 'Python', 'Suites']
+  },
+  bac_2025_06_sujet1_etrangers_4: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Equations différentielles', 'Logarithme']
+  },
+  bac_2025_06_sujet2_asie_1: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Variables aléatoires', 'Loi binomiale', 'Logarithme']
+  },
+  bac_2025_06_sujet2_asie_2: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Suites', 'Python', 'Logarithme']
+  },
+  bac_2025_06_sujet2_asie_3: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Espace', 'Affirmations']
+  },
+  bac_2025_06_sujet2_asie_4: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Exponentielle', 'Intégration', 'TVI', 'Equations différentielles']
+  },
+
+  bac_2025_06_sujet2_etrangers_1: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Suites', 'Python', 'Logarithme']
+  },
+  bac_2025_06_sujet2_etrangers_2: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Exponentielle', 'Intégration', 'TVI', 'Primitives']
+  },
+  bac_2025_06_sujet2_etrangers_3: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Dénombrement', 'Loi binomiale', 'Variables aléatoires']
+  },
+  bac_2025_06_sujet2_etrangers_4: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Espace']
+  },
+
+  bac_2025_06_sujet1_polynesie_1: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
+  },
+  bac_2025_06_sujet1_polynesie_2: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Espace']
+  },
+  bac_2025_06_sujet1_polynesie_3: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Exponentielle', 'Intégration', 'Suites', 'Python']
+  },
+  bac_2025_06_sujet1_polynesie_4: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Affirmations', 'Dénombrement', 'Suites', 'Espace', 'Convexité']
+  },
+
+  bac_2025_06_sujet1_metropole_1: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
+  },
+  bac_2025_06_sujet1_metropole_2: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Logarithme', 'Convexité', 'Intégration']
+  },
+  bac_2025_06_sujet1_metropole_3: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Affirmations', 'Espace']
+  },
+  bac_2025_06_sujet1_metropole_4: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Suites', 'Python', 'Exponentielle', 'Intégration', 'Equations différentielles']
+  },
+  bac_2025_06_sujet2_metropole_1: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires', 'Bienaymé-Tchebychev']
+  },
+  bac_2025_06_sujet2_metropole_2: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Espace']
+  },
+  bac_2025_06_sujet2_metropole_3: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Affirmations', 'Logarithme', 'Convexité', 'Suites']
+  },
+  bac_2025_06_sujet2_metropole_4: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Equations différentielles', 'Intégration', 'Exponentielle']
+  },
+  bac_2025_06_sujet2_polynesie_1: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '1',
+    typeExercice: 'bac',
+    tags: ['Probabilités conditionnelles', 'Suites', 'Python']
+  },
+  bac_2025_06_sujet2_polynesie_2: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '2',
+    typeExercice: 'bac',
+    tags: ['Logarithme', 'Convexité', 'TVI']
+  },
+  bac_2025_06_sujet2_polynesie_3: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '3',
+    typeExercice: 'bac',
+    tags: ['Espace']
+  },
+  bac_2025_06_sujet2_polynesie_4: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    jour: 'J2',
+    numeroInitial: '4',
+    typeExercice: 'bac',
+    tags: ['Affirmations', 'Dénombrement', 'Intégration', 'Equations différentielles', 'Logarithme', 'Suites', 'Trigonométrie']
+  },
+
 }

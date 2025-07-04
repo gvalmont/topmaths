@@ -21,7 +21,7 @@ export const dateDeModifImportante = '07/03/2023' // Une date de modification im
 
 /**
  * Calculs avec des fractions que l'on peut faire à partir de schémas
- * @author Rémi Angot (Modifié par EE : rajout d'un paramètre)
+ * @author Rémi Angot (Modifié par Eric Elter : rajout d'un paramètre)
  */
 export const uuid = 'c75b6'
 

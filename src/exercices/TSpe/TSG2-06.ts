@@ -1,9 +1,10 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ppcm } from '../../lib/outils/primalite'
 
 export const titre = 'Vecteur normal à deux autre vecteurs'
 export const interactifReady = true

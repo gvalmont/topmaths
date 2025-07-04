@@ -1,6 +1,6 @@
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu } from '../../modules/outils'
 import { matrice } from '../../lib/mathFonctions/Matrice'
 import { choice } from '../../lib/outils/arrayOutils'
 import { index, range } from 'mathjs'

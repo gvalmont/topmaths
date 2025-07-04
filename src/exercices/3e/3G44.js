@@ -13,19 +13,20 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Grandeur from '../../modules/Grandeur'
 import {
   CodageAngleDroit3D,
+  rotation3d,
+  translation3d
+} from '../../lib/3d/tranformations'
+import {
   cone3d,
   cube3d,
   cylindre3d,
-  droite3d,
   pave3d,
-  point3d,
-  polygone3d,
-  pyramide3d,
-  rotation3d,
-  sphere3d,
-  translation3d,
-  vecteur3d
-} from '../../modules/3d'
+  pyramide3d, sphere3d
+} from '../../lib/3d/solides'
+import {
+  droite3d, point3d,
+  polygone3d, vecteur3d
+} from '../../lib/3d/elements'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { RedactionPythagore } from '../4e/_pythagore'

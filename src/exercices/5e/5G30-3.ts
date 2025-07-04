@@ -19,12 +19,12 @@ import type { CodageAngle } from '../../lib/2d/codages'
 
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
-export const titre = 'Connaître le vocabulaire sur les angles'
+export const titre = 'Connaitre le vocabulaire sur les angles'
 export const dateDePublication = '29/11/2024'
 export const dateDeModifImportante = '24/12/2024'
 
 /**
- * Connaître le vocabulaire sur les angles
+ * Connaitre le vocabulaire sur les angles
  * @author Éric Elter (sur un scénario voulu par Rémi Angot)
  */
 export const uuid = '1f334'

@@ -36,12 +36,12 @@ export default class QuestionDAires extends Exercice {
       let VF
       let texte
       if (choice([true, false])) {
-        texte = `Est-il vrai qu'un carré de côté $${a}$ cm et un rectangle de largeur $${Math.min(a, b)}$ cm et de longueur $${Math.max(a, b)}$ cm ont une aire qui diffère de $${Math.max(a * a, a * b) - Math.min(a * a, a * b)}$ cm${texteExposant(2)} ?`
+        texte = `Un carré de côté $${a}$ cm et un rectangle de largeur $${Math.min(a, b)}$ cm et de longueur $${Math.max(a, b)}$ cm ont une aire qui diffère de $${Math.max(a * a, a * b) - Math.min(a * a, a * b)}$ cm${texteExposant(2)}.`
         this.canEnonce = texte
         VF = 'V'
       } else {
         VF = 'F'
-        texte = `Est-il vrai qu'un carré de côté $${a}$ cm et un rectangle de largeur $${Math.min(a, b)}$ cm et de longueur $${Math.max(a, b)}$ cm ont une aire qui diffère de $${Math.max(a * a, a * b) - Math.min(a * a, a * b) + c}$ cm${texteExposant(2)} ?`
+        texte = `Un carré de côté $${a}$ cm et un rectangle de largeur $${Math.min(a, b)}$ cm et de longueur $${Math.max(a, b)}$ cm ont une aire qui diffère de $${Math.max(a * a, a * b) - Math.min(a * a, a * b) + c}$ cm${texteExposant(2)}.`
         this.canEnonce = texte
       }
       this.autoCorrection[i] = {

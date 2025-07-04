@@ -2,11 +2,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
@@ -61,22 +61,14 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           // k-(ax+b)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${k}-(${printlatex(
-                        `${a}${choixLettre}+(${b})`
-                    )})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}-(${printlatex(
-                        `${a}${choixLettre}+(${b})`
-                    )})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${k}-(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}-(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
           if (k - b !== 0) {
-            texteCorr += `<br>$${lettreDepuisChiffre(
-                            i + 1
-                        )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${k}${ecritureAlgebrique(Number(rienSi1(-a)))}${choixLettre}${ecritureAlgebrique(-b)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(-a, k - b, choixLettre)}$`
             reponse = reduireAxPlusB(-a, k - b, choixLettre)
           } else {
-            texteCorr += `<br>$${lettreDepuisChiffre(
-                            i + 1
-                        )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${k}${ecritureAlgebrique(Number(rienSi1(-a)))}${choixLettre}${ecritureAlgebrique(-b)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(-a, 0, choixLettre)}$`
             reponse = reduireAxPlusB(-a, 0, choixLettre)
           }
@@ -87,22 +79,14 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
           break
         case 2:
           // k+(ax+b)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${k}+(${printlatex(
-                        `${a}${choixLettre}+(${b})`
-                    )})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}+(${printlatex(
-                        `${a}${choixLettre}+(${b})`
-                    )})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${k}+(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}+(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
           if (k + b !== 0) {
-            texteCorr += `<br>$${lettreDepuisChiffre(
-                            i + 1
-                        )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${k}${ecritureAlgebrique(Number(rienSi1(a)))}${choixLettre}${ecritureAlgebrique(b)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(a, k + b, choixLettre)}$`
             reponse = reduireAxPlusB(a, k + b, choixLettre)
           } else {
-            texteCorr += `<br>$${lettreDepuisChiffre(
-                            i + 1
-                        )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${k}${ecritureAlgebrique(Number(rienSi1(a)))}${choixLettre}${ecritureAlgebrique(b)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(a, 0, choixLettre)}$`
             reponse = reduireAxPlusB(a, 0, choixLettre)
           }
@@ -112,20 +96,14 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
           break
         case 3:
           // kx-(ax+b)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${k}${choixLettre}`)}-(${printlatex(
-                        `${a}${choixLettre}+(${b})`
-                    )})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(k)}${choixLettre}-(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
           texteCorr = texte
           if (k - a !== 0) {
-            texteCorr += `<br>$${lettreDepuisChiffre(
-                            i + 1
-                        )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${rienSi1(k)}${ecritureAlgebrique(Number(rienSi1(-a)))}${choixLettre}${ecritureAlgebrique(-b)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(k - a, -b, choixLettre)}$`
             reponse = reduireAxPlusB(k - a, -b, choixLettre)
           } else {
-            texteCorr += `<br>$${lettreDepuisChiffre(
-                            i + 1
-                        )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${rienSi1(k)}${ecritureAlgebrique(Number(rienSi1(-a)))}${choixLettre}${ecritureAlgebrique(-b)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${ecritureAlgebrique(-b)}$`
             reponse = ecritureAlgebrique(-b)
           }
@@ -135,22 +113,14 @@ export default class ParenthesesPrecedesDeMoinsOuPlus extends Exercice {
           break
         case 4:
           // kx+(ax+b)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${k}${choixLettre}`)}+(${printlatex(
-                        `${a}${choixLettre}+(${b})`
-                    )})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(k)}${choixLettre}+(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
           texteCorr = texte
           if (k + a !== 0) {
-            texteCorr += `<br>$${lettreDepuisChiffre(
-                            i + 1
-                        )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(
-                            k + a, b, choixLettre)}$`
-            reponse = reduireAxPlusB(
-              k + a, b, choixLettre)
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${rienSi1(k)}${choixLettre}${ecritureAlgebrique(Number(rienSi1(a)))}${choixLettre}${ecritureAlgebrique(b)}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(k + a, b, choixLettre)}$`
+            reponse = reduireAxPlusB(k + a, b, choixLettre)
           } else {
-            texteCorr += `<br>$${lettreDepuisChiffre(
-                            i + 1
-                        )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${rienSi1(k)}${choixLettre}${ecritureAlgebrique(Number(rienSi1(a)))}${choixLettre}${ecritureAlgebrique(b)}$`
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${ecritureAlgebrique(b)}$`
             reponse = ecritureAlgebrique(b)
           }

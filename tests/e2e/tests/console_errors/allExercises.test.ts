@@ -263,5 +263,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  testRunAllLots('TSpe/TSG1-04.')
+  testRunAllLots('beta/betaListeDeroulante')
 }

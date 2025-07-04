@@ -56,10 +56,16 @@ function afficheChoice (li: HTMLLIElement | HTMLSpanElement, choice: AllChoiceTy
       const mf: MathfieldElement = new MathfieldElement()
       mf.value = choice.latex ?? choice.value
       mf.readOnly = true
+      mf.setAttribute('contenteditable', 'false')  // <-- Ajouté ici
       // à supprimer lorsque le bug des MathfieldElement readOnly sera fixé.
       const shadowRoot = mf.shadowRoot
       if (shadowRoot) mf.shadowRoot.innerHTML = setPointEventsToNone(shadowRoot.innerHTML)
       li.appendChild(mf)
+      // Ajout du listener pour propager le clic
+      mf.addEventListener('click', (event) => {
+        event.stopPropagation()
+        li.click()
+      })
     } else if ('image' in choice) {
       const image = document.createElement('img')
       image.src = choice.image ?? choice.value

@@ -64,7 +64,7 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
       {
         texte: 'Soit $u$ une fonction dérivable sur $I$. Une primitive de $u\'u^{n}$ avec $n\\in \\mathbb N^{*}$ sur $I$ est $\\dfrac{1}{n+1}u^{n+1}$.',
         statut: true,
-        correction: 'Vrai. C\'est une formule de cours à connaître..'
+        correction: 'Vrai. C\'est une formule de cours à connaitre..'
       },
       {
         texte: 'La fonction $x\\mapsto e^{-x^2}$ n\'admet pas de primitive.',
@@ -114,7 +114,7 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
         correction: 'Vrai. Formule classique obtenue par dérivation.'
       },
       {
-        texte: 'Une primitive de $x\\mapsto \\dfrac{x}{(x^2+1)^2}$ est $x\\mapsto -\\dfrac{1}{2(x^2+1)}+C$.',//
+        texte: 'Une primitive de $x\\mapsto \\dfrac{x}{(x^2+1)^2}$ est $x\\mapsto -\\dfrac{1}{2(x^2+1)}+C$.', //
         statut: true,
         correction: 'Vrai. On reconnaît la forme $-\\dfrac{1}{2}u\'u^{-2}$ avec $u=x^2+1$.'
       }

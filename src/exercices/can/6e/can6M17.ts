@@ -67,7 +67,7 @@ export default class DifferenceAireParComptageCan extends Exercice {
       rectangle.hachures = 'north east lines'
       rectangle.couleurDeRemplissage = colorToLatexOrHTML('white')
       rectangle.couleurDesHachures = colorToLatexOrHTML('gray')
-      rectangle.distanceDesHachures = 3
+      rectangle.distanceDesHachures = 5
 
       const objets: NestedObjetMathalea2dArray = []
       if (this.sup2) {

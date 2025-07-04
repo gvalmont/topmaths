@@ -8,7 +8,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
-export const titre = 'Reconnaître diviseur, multiple, divisible'
+export const titre = 'Reconnaitre diviseur, multiple, divisible'
 
 export const dateDeModifImportante = '07/03/2023'
 

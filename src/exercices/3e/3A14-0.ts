@@ -11,7 +11,8 @@ import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites'
-import { pyramide3d, pave3d, point3d, polygone3d } from '../../modules/3d'
+import { pyramide3d, pave3d } from '../../lib/3d/solides'
+import { point3d, polygone3d } from '../../lib/3d/elements'
 
 export const titre = 'Arithmétique & volumes'
 
@@ -89,12 +90,12 @@ export default class DesChocolatsDansDesBoites extends Exercice {
     text2.contour = true
     text2.couleurDeRemplissage = colorToLatexOrHTML('black')
     const sommetPyramide = point3d(largeurCadre / 4 - 2, 4, hauteurCadre - 4)
-    const base = polygone3d([
+    const base = polygone3d(
       point3d(largeurCadre / 4 - 6, 0, hauteurCadre / 3 + 1),
       point3d(largeurCadre / 4 + 2, 0, hauteurCadre / 3 + 1),
       point3d(largeurCadre / 4 + 2, 8, hauteurCadre / 3 + 1),
       point3d(largeurCadre / 4 - 6, 8, hauteurCadre / 3 + 1)
-    ])
+    )
     const pyramide = pyramide3d(base, sommetPyramide)
     const sommetsPave = [
       point3d(3 * largeurCadre / 4 - 5, 0, hauteurCadre / 3 + 2),

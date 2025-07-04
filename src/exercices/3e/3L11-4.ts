@@ -1,10 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/outils'
+import { listeQuestionsToContenuSansNumero } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -81,28 +81,28 @@ export default class FactoriserParNombreOux extends Exercice {
 
       switch (listeTypeDeQuestions[i]) {
         case 'ka+nkb':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${k}*${a}+(${n * k})*${b}`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${k}${a}${ecritureAlgebriqueSauf1(n * k)}${b}$`
           texteCorr = texte
           if (n > 0) {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${a}+${k}\\times${n}${b}$`
           } else {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${a}-${k}\\times${abs(n)}${b}$`
           }
-          reponse = `${k}\\times(${printlatex(`${a}+(${n})*${b}`)})`
+          reponse = `${k}\\times(${a}${ecritureAlgebriqueSauf1(n)}${b})`
           break
         case '-ka+nkb':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${-k}*${a}+(${n * k})*${b}`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${-k}${a}${ecritureAlgebriqueSauf1(n * k)}${b}$`
           texteCorr = texte
           if (n > 0) {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}${a}+${k}\\times${n}${b}$`
-            reponse = `${k}\\times(${printlatex(`-${a}+(${n})*${b}`)})`
+            reponse = `${k}\\times(-${a}${ecritureAlgebriqueSauf1(n)}${b})`
           } else {
-            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}${a}+(${-k})\\times${-n}${b}$`
-            reponse = `${-k}\\times(${printlatex(`${a}+(${-n})*${b}`)})`
+            texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${-k}${a}+(-${k})\\times${-n}${b}$`
+            reponse = `${-k}\\times(${a}${ecritureAlgebriqueSauf1(-n)}${b})`
           }
           break
         case 'nka+mkb':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*${a}+(${m * k})*${b}`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(n * k)}${a}${ecritureAlgebriqueSauf1(m * k)}${b}$`
           texteCorr = texte
           if (n < 0) {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times(${n}${a})+${k}\\times${m}${b}$`
@@ -112,19 +112,19 @@ export default class FactoriserParNombreOux extends Exercice {
           reponse = `${k}\\times(${n}${a}+${m}${b})`
           break
         case 'nka-mkb':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*${a}-(${m * k})*${b}`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(n * k)}${a}-${rienSi1(m * k)}${b}$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}${a}-${k}\\times${m}${b}$`
           reponse = `${k}\\times(${n}${a}-${m}${b})`
           break
         case 'nkx+mkx2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*${x}+(${m * k})*${x}^2`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(n * k)}${x}+${rienSi1(m * k)}${x}^2$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${x}\\times${ecritureParentheseSiNegatif(n)}+${k}${x}\\times${m}${x}$`
           reponse = `${k}${x}\\times(${n}+${m}${x})`
           break
         case 'nkx-mkx2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*${x}-(${m * k})*${x}^2`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(n * k)}${x}-${rienSi1(m * k)}${x}^2$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}${x}\\times${ecritureParentheseSiNegatif(n)}-${k}${x}\\times${m}${x}$`
           reponse = `${k}${x}\\times(${n}-${m}${x})`

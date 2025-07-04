@@ -11,7 +11,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import Trinome from '../../modules/Trinome'
 import { texNombre } from '../../lib/outils/texNombre'
-export const titre = 'Étudier le sens de variations d\'une fonction polynôme du troisième degré'
+export const titre = 'Étudier le sens de variations d\'une fonction polynôme du troisième degré (avec discriminant)'
 export const dateDePublication = '08/07/2024'
 export const dateDeModifImportante = '26/09/2024'
 export const interactifReady = false
@@ -22,7 +22,7 @@ export const refs = {
 }
 
 /**
- * Étudier le sens de variations d'une fonction polynôme du troisième degré'
+ * Étudier le sens de variations d'une fonction polynôme du troisième degré (avec discriminant)'
  * @author Gilles Mora
 */
 

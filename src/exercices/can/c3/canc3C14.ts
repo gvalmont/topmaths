@@ -3,7 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-export const titre = 'Connaître les tables de multiplication (avec des divisions)'
+export const titre = 'Connaitre les tables de multiplication (avec des divisions)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

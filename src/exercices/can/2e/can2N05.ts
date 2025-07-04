@@ -7,7 +7,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils'
 
 import Exercice from '../../Exercice'
 
-export const titre = 'Reconnaître un nombre premier'
+export const titre = 'Reconnaitre un nombre premier'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

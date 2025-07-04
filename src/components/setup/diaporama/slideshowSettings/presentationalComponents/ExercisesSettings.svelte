@@ -2,6 +2,7 @@
   import type Exercice from '../../../../../exercices/Exercice'
   import NumberInput from '../../../../shared/forms/InputNumber.svelte'
   import { formattedTimeStamp } from '../../../../../lib/components/time'
+  import { exercicesParams } from '../../../../../lib/stores/generalStore'
 
   export let exercises: Exercice[]
   export let selectedExercisesIndexes: number[]
@@ -45,11 +46,19 @@
 
   function updateQuestionsNb (i: number, value: number) {
     exercises[i].nbQuestions = value
+    exercicesParams.update((params) => {
+      params[i].nbQuestions = value
+      return params
+    })
     updateExercises()
   }
 
   function updateDuration (i: number, value: number) {
     exercises[i].duration = value
+    exercicesParams.update((params) => {
+      params[i].duration = value
+      return params
+    })
     updateExercises()
   }
 

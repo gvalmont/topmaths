@@ -31,7 +31,7 @@ export const dateDePublication = '16/05/2024' // La date de publication initiale
 export const dateDeModifImportante = '15/04/2025'
 
 /**
- * Deux triangles semblables sont codés, il faut reconnaître les côtés homologues
+ * Deux triangles semblables sont codés, il faut reconnaitre les côtés homologues
  * Mais aussi deux triangles sont ils semblables ? dans des cas variés : 2 angles donnés sur 3, 3 Longueurs données,
  * triangles rectangles imbriqués, triangles en configurations de thalès
  * @author Mickael Guironnet; Olivier Mimeau // passage TS ; corrections  ; interactivité

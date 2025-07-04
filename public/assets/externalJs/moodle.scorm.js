@@ -46,7 +46,7 @@ window.onload = function () {
     if (exo.includes('&alea=-1')) {
       exo = exo.replaceAll('&alea=-1', '&alea=' + seed)
     } else {
-      exo = exo.replaceAll(/((?:^|&)uuid=[^&]+(?:&id=[^&]+))/g,'$1&alea=' + seed)
+      exo = exo.replaceAll(/((?:^|&)uuid=[^&]+(?:&id=[^&]+))/g, '$1&alea=' + seed)
     }
   }
   let src = 'https://coopmaths.fr/alea/?'
@@ -94,12 +94,13 @@ window.addEventListener('message', (event) => {
         points += result.numberOfPoints
         max += result.numberOfQuestions
       }
-      const score = Math.round((points / max) * 100)
+      const scoreMax = Math.ceil(10000 / (window?.parent?.document?.getElementById('scorm_tree')?.getElementsByTagName('li')?.length || 1)) / 100
+      const score = Math.round(100 * (points / max) * scoreMax) / 100
       scorm.status('set', 'completed')
       scorm.set('cmi.core.score.raw', score)
       scorm.set('cmi.core.score.min', '0')
-      scorm.set('cmi.core.score.max', '100')
-      let answers = event.data.resultsByExercice.map(x=>x.answers)
+      scorm.set('cmi.core.score.max', scoreMax.toString())
+      let answers = event.data.resultsByExercice.map(x => x.answers)
       // todo : gérer les can où il y a plusieurs exos
       scorm.set('cmi.suspend_data', seed + '|' + JSON.stringify(event.data.resultsByExercice[0].answers))
       let copieEleveUrl = document.getElementsByTagName('iframe')[0].src

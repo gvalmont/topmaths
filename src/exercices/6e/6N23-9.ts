@@ -9,14 +9,14 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
 
-export const titre = 'Connaître les liens entre les unités de numération'
+export const titre = 'Connaitre les liens entre les unités de numération'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '12/05/2025'
 /**
- * Connaître les liens entre les unités de numération : unité, dizaine, centaine, millier, dixième, centième, millième
+ * Connaitre les liens entre les unités de numération : unité, dizaine, centaine, millier, dixième, centième, millième
  *
  * @author Eric Elter
 
@@ -137,9 +137,11 @@ export default class NombreDecimalOraliseDeDifferentesManieres extends Exercice 
           : ' $\\ldots\\ldots\\ldots$ ' + unites[binomesConversion[i][1]]
         handleAnswers(this, i, { reponse: { value: reponse } })
       } else {
+        const texteApres = binomesConversion[i][1] < 4 ? unites[binomesConversion[i][1]] : (`$\\times ${unitesNumeriques[binomesConversion[i][1]]}$`)
         texte = '$' + unitesNumeriques[binomesConversion[i][0]] + ' =$'
-        texteCorr = texte + ` $${miseEnEvidence(texNombre(reponse))}$ ` + (reponse > 1 ? unites[binomesConversion[i][1]] : unites[binomesConversion[i][1]].slice(0, -1))
-        const texteApres = binomesConversion[i][1] < 4 ? unites[binomesConversion[i][1]] : `$${unitesNumeriques[binomesConversion[i][1]]}$`
+        texteCorr = texte
+        if (binomesConversion[i][1] > 3) { texteCorr += ` $${miseEnEvidence(texNombre(reponse))}$ ` + texteApres + '$=$' }
+        texteCorr += ` $${miseEnEvidence(texNombre(reponse))}$ ` + (reponse > 1 ? unites[binomesConversion[i][1]] : unites[binomesConversion[i][1]].slice(0, -1))
 
         texte += this.interactif
           ? binomesConversion[i][1] > 3

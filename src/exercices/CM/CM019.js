@@ -20,7 +20,7 @@ export const refs = {
 export default class LeCompteEstBonV3 extends Exercice {
   constructor (maxSolution) {
     super()
-    this.besoinFormulaireNumerique = ['Limite inférieure', maxSolution]
+    this.besoinFormulaireNumerique = ['Limite inférieure', maxSolution ?? 100]
     this.besoinFormulaire2Numerique = ['Limite supérieure', 100]
     this.consigne =
     'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
@@ -35,7 +35,7 @@ export default class LeCompteEstBonV3 extends Exercice {
     let solutionMathador = []
     let tirage, solution, expression
     let minSolution = parseInt(this.sup)
-    const maxSolution = parseInt(this.sup2)
+    const maxSolution = parseInt(this.sup2) ?? 100
     if (minSolution > maxSolution) {
       minSolution = maxSolution
       this.sup = this.sup2
@@ -46,12 +46,12 @@ export default class LeCompteEstBonV3 extends Exercice {
 
     ) {
       this.autoCorrection[i] = {}
-      solutionMathador = TrouverSolutionMathador(minSolution, maxSolution)
+      solutionMathador = TrouverSolutionMathador(minSolution, maxSolution ?? 100)
       tirage = solutionMathador[0]
       solution = solutionMathador[1]
       expression = solutionMathador[3]
 
-      texte = `Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ <br>La cible est : $${solution}$`
+      texte = `Le tirage est le suivant : $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$. <br>La cible est : $${solution}$.`
       texteCorr = `Pour le tirage $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${solution}$, la solution est : $${expression}=${solution}$ `
       texteCorr += `ou $${solutionMathador[4]}$.<br>`
       texteCorr += 'En effet : <br>'

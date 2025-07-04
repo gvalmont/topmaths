@@ -17,7 +17,7 @@ export const dateDePublication = '29/08/2022'
 export const dateDeModifImportante = '30/09/2024'
 /**
  *
- * Attendus de 3e : Connaître et utiliser les critères de divisibilité par 2, par 3, par 5, par 9 et par 10
+ * Attendus de 3e : Connaitre et utiliser les critères de divisibilité par 2, par 3, par 5, par 9 et par 10
  * @author Eric Elter
  */
 

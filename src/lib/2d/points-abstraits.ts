@@ -56,3 +56,10 @@ export class PointAbstrait extends ObjetMathalea2D {
 export function pointAbstrait (x: number, y: number, A = '', positionLabel = 'above') {
   return new PointAbstrait(x, y, A, positionLabel)
 }
+
+export function isPointAbstrait (objet: any): objet is PointAbstrait {
+  return objet instanceof PointAbstrait
+}
+export function isPointsAbstraits (objets: any[]): objets is PointAbstrait[] {
+  return objets.every(isPointAbstrait)
+}

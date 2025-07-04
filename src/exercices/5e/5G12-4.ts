@@ -12,7 +12,7 @@ import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 
-export const titre = 'Reconnaître une symétrie centrale'
+export const titre = 'Reconnaitre une symétrie centrale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

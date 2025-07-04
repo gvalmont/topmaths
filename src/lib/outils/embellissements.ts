@@ -29,11 +29,117 @@ export function miseEnEvidence (texte: string | FractionEtendue | number, couleu
 }
 
 /**
+ * Met en évidence un seul chiffre d’un nombre au format LaTeX, en le coloriant et le mettant en gras.
+ *
+ * - Si le texte contient une virgule, la fonction identifie la partie entière (à gauche)
+ *   et la partie décimale (à droite), puis colore le chiffre selon la position demandée.
+ * - Si le texte ne contient pas de virgule, seul un chiffre de la partie entière est ciblé.
+ *
+ * @param {string | FractionEtendue | number} texte - Le nombre ou texte à analyser.
+ *   Peut être :
+ *   - une chaîne (ex. "123,45")
+ *   - un nombre (ex. 123.45)
+ *   - une instance de `FractionEtendue` (sa propriété `texFraction` sera utilisée)
+ *
+ * @param {string} [couleur='#f15929'] - Couleur à utiliser pour le chiffre mis en évidence.
+ *   Peut être un nom de couleur LaTeX (ex. `"red"`) ou un code hexadécimal (ex. `"#FF0000"`).
+ *
+ * @param {number} [position=1] - La position du chiffre à mettre en évidence :
+ *   - `0.001` → 3e chiffre à droite de la virgule (millième)
+ *   - `0.01`  → 2e chiffre à droite de la virgule (centième)
+ *   - `0.1`   → 1er chiffre à droite de la virgule (dixième)
+ *   - `1`     → chiffre immédiatement à gauche de la virgule (unité)
+ *   - `10`    → 2e chiffre à gauche de la virgule (dizaine)
+ *   - `100`   → 3e chiffre à gauche de la virgule (centaine)
+ *   - `1000`  → 4e chiffre à gauche de la virgule (millier)
+ * @author Eric Elter
+ * @returns {string} Une chaîne LaTeX avec un seul chiffre mis en couleur et en gras.
+ *   Le reste du nombre est laissé tel quel.
+ */
+
+export function coloreUnSeulChiffre (
+  texte: string | FractionEtendue | number,
+  couleur: string = '#f15929',
+  position: number = 1
+): string {
+  if (texte instanceof FractionEtendue) texte = texte.texFraction
+  if (typeof texte === 'number') texte = String(texte)
+  if (Array.isArray(couleur)) couleur = couleur[0]
+
+  const getColorLatex = (contenu: string): string => {
+    if (context.isHtml) {
+      return `\\color{${couleur}}\\boldsymbol{${contenu}}`
+    } else if (couleur === 'green') {
+      return `\\color[HTML]{008002}\\boldsymbol{${contenu}}`
+    } else if (couleur.startsWith('#')) {
+      return `\\color[HTML]{${couleur.slice(1)}}\\boldsymbol{${contenu}}`
+    } else {
+      return `\\color{${couleur}}\\boldsymbol{${contenu}}`
+    }
+  }
+
+  const indexGauche = new Map<number, number>([
+    [1, -1],    // unités
+    [10, -2],   // dizaines
+    [100, -3],   // centaines
+    [1000, -6]   // milliers -6 à cause du séparateur de milliers
+  ])
+
+  const indexDroite = new Map<number, number>([
+    [0.1, 0],    // dixièmes
+    [0.01, 1],   // centièmes
+    [0.001, 2]   // millièmes
+  ])
+
+  const estDroite = position < 1
+  const index = estDroite ? indexDroite.get(position) : indexGauche.get(position)
+  if (index === undefined) return texte // sécurité
+
+  // Cas avec virgule
+  if (texte.includes('{,}')) {
+    const [partieEntiere, partieDecimale] = texte.split('{,}')
+
+    if (estDroite) {
+      if (index >= partieDecimale.length) return texte
+      const avant = partieDecimale.slice(0, index)
+      const chiffreCible = partieDecimale.charAt(index)
+      const apres = partieDecimale.slice(index + 1)
+      const colored = getColorLatex(chiffreCible)
+      return `\\boldsymbol{${partieEntiere}{,}${avant}}{${colored}}\\boldsymbol{${apres}}`
+    } else {
+      const pos = partieEntiere.length + index
+      if (pos < 0 || pos >= partieEntiere.length) return texte
+      const prefixe = partieEntiere.slice(0, pos)
+      const chiffreCible = partieEntiere.charAt(pos)
+      const suffixe = partieEntiere.slice(pos + 1)
+      const colored = getColorLatex(chiffreCible)
+
+      return `\\boldsymbol{${prefixe}}{${colored}}\\boldsymbol{${suffixe}{,}${partieDecimale}}`
+    }
+  }
+
+  // Cas sans virgule
+  const partieEntiere = texte
+  if (estDroite) {
+    // Pas de partie décimale → on ne peut pas accéder à des chiffres à droite
+    return texte
+  } else {
+    const pos = partieEntiere.length + index
+    if (pos < 0 || pos >= partieEntiere.length) return texte
+    const prefixe = partieEntiere.slice(0, pos)
+    const chiffreCible = partieEntiere.charAt(pos)
+    const suffixe = partieEntiere.slice(pos + 1)
+    const colored = getColorLatex(chiffreCible)
+    return `\\boldsymbol{${prefixe}}{${colored}}\\boldsymbol{${suffixe}}`
+  }
+}
+
+/**
  * Met en couleur
  * Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
  * @param {string} texte à mettre en couleur
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
- * @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
+ * @author Guillaume Valmont d'apres MiseEnEvidence() de Rémi Angot
  */
 export function miseEnCouleur (texte: string | number, couleur: string = '#f15929') {
   texte = typeof texte === 'number' ? String(texte) : texte

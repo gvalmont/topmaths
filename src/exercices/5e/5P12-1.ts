@@ -6,11 +6,12 @@ import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilS
 import { personne, personnes } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, ppcm, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import type { MathfieldElement } from 'mathlive'
+import { ppcm } from '../../lib/outils/primalite'
 
 export const titre = 'Problèmes de ratio'
 export const interactifReady = true

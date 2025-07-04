@@ -14,12 +14,13 @@ import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { min, round } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 
 export const titre = 'CAN 5e sujet 2021'
 export const interactifReady = true
@@ -1071,7 +1072,7 @@ export default class SujetCAN20215ieme extends Exercice {
           texte = `Simplifie l'expression : <br>
           $${a}a+${b}+${c}a+${d}$`
           texteCorr = ` $${a}a+${b}+${c}a+${d}=${a}a+${c}a+${b}+${d}=${miseEnEvidence(`${a + c}a+${b + d}`)}$`
-          reponse = printlatex(`${a + c}*a+(${b + d})`)
+          reponse = `${rienSi1(a + c)}a${ecritureAlgebrique(b + d)}`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecVariable)

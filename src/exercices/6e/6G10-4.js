@@ -22,7 +22,7 @@ export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const titre = 'Connaître le vocabulaire du cercle'
+export const titre = 'Connaitre le vocabulaire du cercle'
 
 export const dateDePublication = '19/08/2022'
 export const dateDeModifImportante = '22/01/2024'

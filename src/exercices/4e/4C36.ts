@@ -201,18 +201,18 @@ export default class nomExercice extends Exercice {
           break
       }
       resultatObtenu = resultatObtenu.times(10 ** puissanceObtenue)
-      texteCorr = `${premiereLettreEnMajuscule(prenom[1])} a obtenu un résultat de l'ordre de $10^{${puissanceObtenue}}$ ${probleme.unite}. `
+      texteCorr = `${premiereLettreEnMajuscule(prenom.prenom)} a obtenu un résultat de l'ordre de $10^{${puissanceObtenue}}$ ${probleme.unite}. `
       texteCorr += remarque
       switch (listeDesProblemes[i]) {
         case 1:
-          texte = `${prenom[0]} a calculé ${probleme.intitule} et a obtenu $${texNombre(resultatObtenu)}$ ${probleme.unite}.<br>
+          texte = `${prenom.pronom} a calculé ${probleme.intitule} et a obtenu $${texNombre(resultatObtenu)}$ ${probleme.unite}.<br>
           En utilisant les ordres de grandeur, dire si ce résultat est plausible.`
           if (justesseResultats[i] !== 0) texteCorr += `<br>${premiereLettreEnMajuscule(probleme.intitule)} serait plutôt de l'ordre de grandeur de $10^{${probleme.puissanceDe10}}$ ${probleme.unite}.`
           break
         case 2:
         default:
-          texte = `${prenom[0]} sait que ${probleme.intitule} est de l'ordre de $10^{${probleme.puissanceDe10}}$ ${probleme.unite}.<br>
-          Comme résultat d'un exercice, ${prenom[1]} a obtenu $${texNombre(resultatObtenu)}$ ${probleme.unite}.<br>
+          texte = `${prenom.pronom} sait que ${probleme.intitule} est de l'ordre de $10^{${probleme.puissanceDe10}}$ ${probleme.unite}.<br>
+          Comme résultat d'un exercice, ${prenom.prenom} a obtenu $${texNombre(resultatObtenu)}$ ${probleme.unite}.<br>
           Ce résultat est-il plausible ?`
           break
       }

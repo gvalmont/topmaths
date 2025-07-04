@@ -6,7 +6,7 @@ import Decimal from 'decimal.js'
 import { ecritureAlgebrique, rienSi1, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-export const titre = 'Reconnaître une suite arithmétique/géométrique (QCM)'
+export const titre = 'Reconnaitre une suite arithmétique/géométrique (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const dateDePublication = '23/11/2024'

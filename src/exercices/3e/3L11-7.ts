@@ -3,7 +3,7 @@ import { reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -58,50 +58,50 @@ export default class CarreDoubleDistributivite extends Exercice {
       choixLettre = choice(lettresPossibles)
       switch (listeTypeDeQuestions[i]) {
         case '(ax+b)2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${a}${choixLettre}+${b})^2`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${a}${choixLettre}+${b})^2`)}$`
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${a}${choixLettre}+${b})*(${a}${choixLettre}+${b})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}+${b})^2$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}+${b})^2$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}+${b})(${rienSi1(a)}${choixLettre}+${b})$`
           if (this.sup) {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(a)}${choixLettre} \\times ${rienSi1(a)}${choixLettre} + ${rienSi1(a)}${choixLettre} \\times ${b} + ${b} \\times ${rienSi1(a)}${choixLettre}  + ${b} \\times ${b}$`
           }
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a * a}${choixLettre}^2 + ${a * b}${choixLettre} + ${a * b}${choixLettre} + ${b * b}`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${a * a}${choixLettre}^2 + ${a * b}${choixLettre} + ${a * b}${choixLettre} + ${b * b}$`
           reponse1 = a * a
           reponse2 = 2 * a * b
           reponse3 = b * b
           break
         case '(b+ax)2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${b}+${a}${choixLettre})^2`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${b}+${a}${choixLettre})^2`)}$`
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${b}+${a}${choixLettre})*(${b}+${a}${choixLettre})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${b}+${rienSi1(a)}${choixLettre})^2$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${b}+${rienSi1(a)}${choixLettre})^2$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=(${b}+${rienSi1(a)}${choixLettre})(${b}+${rienSi1(a)}${choixLettre})$`
           if (this.sup) {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${b} \\times ${b} +  ${b} \\times ${rienSi1(a)}${choixLettre} +  ${rienSi1(a)}${choixLettre} \\times ${b}  + ${rienSi1(a)}${choixLettre} \\times ${rienSi1(a)}${choixLettre} $`
           }
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${b * b} + ${a * b}${choixLettre} + ${a * b}${choixLettre} + ${a * a}${choixLettre}^2`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${b * b} + ${rienSi1(a * b)}${choixLettre} + ${rienSi1(a * b)}${choixLettre} + ${rienSi1(a * a)}${choixLettre}^2$`
           reponse1 = a * a
           reponse2 = 2 * a * b
           reponse3 = b * b
           break
         case '(ax-b)2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${a}${choixLettre}-${b})^2`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${a}${choixLettre}-${b})^2`)}$`
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${a}${choixLettre}-${b})*(${a}${choixLettre}-${b})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}-${b})^2$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}-${b})^2$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}-${b})(${rienSi1(a)}${choixLettre}-${b})$`
           if (this.sup) {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(a)}${choixLettre} \\times ${rienSi1(a)}${choixLettre} + ${rienSi1(a)}${choixLettre} \\times (${-b}) + (${-b}) \\times ${rienSi1(a)}${choixLettre}  + (${-b}) \\times (${-b})$`
           }
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a * a}${choixLettre}^2 - ${a * b}${choixLettre} - ${a * b}${choixLettre} + ${b * b}`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${rienSi1(a * a)}${choixLettre}^2 - ${rienSi1(a * b)}${choixLettre} - ${rienSi1(a * b)}${choixLettre} + ${b * b}$`
           reponse1 = a * a
           reponse2 = -2 * a * b
           reponse3 = b * b
 
           break
         case '(b-ax)2':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${b}-${a}${choixLettre})^2`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${b}-${a}${choixLettre})^2`)}$`
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`(${b}-${a}${choixLettre})*(${b}-${a}${choixLettre})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${b}-${rienSi1(a)}${choixLettre})^2$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${b}-${rienSi1(a)}${choixLettre})^2$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=(${b}-${rienSi1(a)}${choixLettre})(${b}-${rienSi1(a)}${choixLettre})$`
           if (this.sup) {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${b} \\times ${b} +  ${b} \\times (-${rienSi1(a)}${choixLettre}) +  (-${rienSi1(a)}${choixLettre}) \\times ${b}  + (-${rienSi1(a)}${choixLettre}) \\times (-${rienSi1(a)}${choixLettre}) $`
           }
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${b * b} - ${a * b}${choixLettre} - ${a * b}${choixLettre} + ${a * a}${choixLettre}^2`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${b * b} - ${rienSi1(a * b)}${choixLettre} - ${rienSi1(a * b)}${choixLettre} + ${rienSi1(a * a)}${choixLettre}^2$`
           reponse1 = a * a
           reponse2 = -2 * a * b
           reponse3 = b * b

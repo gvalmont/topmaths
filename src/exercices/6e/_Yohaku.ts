@@ -63,9 +63,9 @@ export default class FabriqueAYohaku extends Exercice {
       yohaku.calculeResultats()
       const mot = type === 'littéraux' ? 'expressions' : type.includes('frac') ? 'fractions' : 'nombres'
       this.introduction = operateur === 'addition'
-        ? `Trouve les ${mot} à mettre dans les cases vides pour que les sommes de chaque ligne et chaque colonne soient exactes.`
-        : `Trouve les ${mot} à mettre dans les cases vides pour que les produits de chaque ligne et chaque colonne soient exacts.`
-      this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
+        ? `Trouver les ${mot} à mettre dans les cases vides pour que les sommes de chaque ligne et chaque colonne soient exactes.`
+        : `Trouver les ${mot} à mettre dans les cases vides pour que les produits de chaque ligne et chaque colonne soient exacts.`
+      this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot} qui conviennent${this.sup4 ? '' : ' (plusieurs solutions possibles)'}.<br>`
       texte = yohaku.representation({ numeroExercice: this.numeroExercice ?? 0, question: i, isInteractif: this.interactif, classes: '' })
       texteCorr = Case == null
         ? 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'

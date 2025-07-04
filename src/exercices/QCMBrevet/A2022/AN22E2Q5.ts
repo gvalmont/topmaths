@@ -1,7 +1,8 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
-import { point3d, polygone3d, prisme3d, vecteur3d } from '../../../modules/3d'
+import { prisme3d } from '../../../lib/3d/solides'
+import { point3d, polygone3d, vecteur3d } from '../../../lib/3d/elements'
 import { randint } from '../../../modules/outils'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { codageAngleDroit } from '../../../lib/2d/angles'
@@ -34,7 +35,7 @@ export default class AmeriqueNordJuin22Ex1Q5 extends ExerciceQcmA {
     ]
     const base = polygone3d(...basePoints)
     for (const arete of base.aretes) {
-      arete.visible = true
+      arete.isVisible = true
     }
     const a1 = codageAngleDroit(basePoints[1].c2d, basePoints[0].c2d, basePoints[2].c2d)
     const vecteurExtrusion = vecteur3d(0, 8, 0)

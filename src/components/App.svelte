@@ -34,6 +34,7 @@
   import Popup from './shared/modal/Popup.svelte'
   import { checkBrowserVersion } from '../lib/components/browserVersion'
   import { vendor } from '../lib/stores/vendorStore'
+  import { convertVueType } from '../lib/types'
 
   let isInitialUrlHandled = false
 
@@ -75,6 +76,15 @@
   } else {
     isInIframe.set(false)
   }
+
+  // le plus tôt possible, on met à jour la vue
+  // const view = url.searchParams.get('v') ?? ''
+  // const v = convertVueType(view) ?? ''
+  // globalOptions.update((options) => {
+  //   options.v = v
+  //   return options
+  // })
+
 
   // Gestion des paramètres de la CAN
   const canDuration = url.searchParams.get('canD')

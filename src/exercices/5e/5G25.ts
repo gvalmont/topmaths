@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 
-export const titre = 'Connaître les définitions et propriétés du triangle et des droites remarquables'
+export const titre = 'Connaitre les définitions et propriétés du triangle et des droites remarquables'
 
 export const dateDePublication = '18/1/2025'
 

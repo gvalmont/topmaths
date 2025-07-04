@@ -9,7 +9,7 @@ import '../../lib/interactif/listeDeroulante/listeDeroulante.scss'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import type { Repere } from '../../lib/2d/reperes'
 
-export const titre = 'Reconnaître une fonction d\'après sa courbe'
+export const titre = 'Reconnaitre une fonction d\'après sa courbe'
 export const interactifReady = true
 export const interactifType = 'custom'
 
@@ -78,7 +78,7 @@ export default class BetaListeDeroulante extends Exercice {
       const span = document.querySelector(`span#ListeDeroulanteExo${this.numeroExercice}Q0`) as HTMLSpanElement
       if (span.getElementsByClassName('listeDeroulante').length === 0) {
         if (this.listeDeroulante.container != null) span.appendChild(this.listeDeroulante.container)
-        this.listeDeroulante.show()
+        // this.listeDeroulante.show()
         const spanFeedback = document.createElement('div')
         spanFeedback.id = `resultatCheckEx${this.numeroExercice}Q0`
         if (this.listeDeroulante.spanSelected != null) this.listeDeroulante.spanSelected.appendChild(spanFeedback)
@@ -93,7 +93,7 @@ export default class BetaListeDeroulante extends Exercice {
   correctionInteractive = (i: number) => {
     const spanFeedback = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q0`) as HTMLSpanElement
     const index = this.listeDeroulante.getSelectedIndex()
-    const saisie = typeof this.listeDeroulante.choices[index] === 'string' ? this.listeDeroulante.choices[index] : this.listeDeroulante.choices[index].value
+    const saisie = index < 0 ? '' : typeof this.listeDeroulante.choices[index] === 'string' ? this.listeDeroulante.choices[index] : this.listeDeroulante.choices[index].value
     // @ts-expect-error
     const resultatOK = saisie === this.autoCorrection[0].reponse.valeur[0]
     if (resultatOK) {

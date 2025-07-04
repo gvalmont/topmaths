@@ -4,7 +4,8 @@ import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
-  nombreDeChiffresDe
+  nombreDeChiffresDe,
+  rangeMinMax
 } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
@@ -353,7 +354,7 @@ function questionRecette (exo: Exercice, i:number) { // questions avec des masse
     qtexteCorr: texteCorr
   }
 }
-
+/*
 function questionDillution (exo:Exercice, i:number) { // questions de mélange de volumes
   let uniteSolvantVolumeFinal
   const liste = [
@@ -447,7 +448,7 @@ function questionDillution (exo:Exercice, i:number) { // questions de mélange d
     qtexteCorr: texteCorr
   }
 }
-
+*/
 function questionDistance (exo:Exercice, i:number) { // questions de distance parcourue à une vitesse moyenne donnée
   let texte, texteCorr
   const liste = [ // liste des "moyens de locomotion" et vitesses associées
@@ -497,7 +498,7 @@ function questionDistance (exo:Exercice, i:number) { // questions de distance pa
     temps: '3 heures',
     rapport: 3
   }]
-  if (versionSimplifiee) {
+  /* if (versionSimplifiee) {
     const alea1 = randint(0, 3) // pour le choix de locomotion
     let dureeQ, distance
     if (alea1 === 0) { // Si piéton
@@ -546,78 +547,79 @@ function questionDistance (exo:Exercice, i:number) { // questions de distance pa
       }
     }
   } else {
-    const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le choix du temps passé
-    const rapportQuestion2 = [0.25, 0.5, 0.75, 1.25, 1.5, 2]
-    let alea3 = randint(0, rapportQuestion2.length - 1)
-    while (duree[alea2].rapport === rapportQuestion2[alea3]) {
-      alea3 = randint(0, rapportQuestion2.length - 1)
-    }
-    const reponseQ1 = duree[alea2].rapport * liste[alea1].vitesse[alea2]
-    const distance = stringNombre(rapportQuestion2[alea3] * liste[alea1].vitesse[alea2]) // pour question 2
-    let enonceAMC1 = `${numAlpha(0)} Un ${liste[alea1].locomotion} parcourt en moyenne ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km en une heure.<br>`
-    texte = enonceAMC1
-    enonceAMC1 += `Quelle distance, en${sp()}km, va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps}${sp()}? `
-    texte += `Quelle distance va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps}${sp()}? `
-    texte += ajouteChampTexteMathLive(exo, i, '', { texteApres: ' km' })
-    texteCorr = `${numAlpha(0)} ${duree[alea2].temps}, c'est ${texteEnCouleur(stringNombre(duree[alea2].rapport))} fois une heure.<br> ` +
+   */
+  const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le choix du temps passé
+  const rapportQuestion2 = versionSimplifiee ? rangeMinMax(2, 5) : [0.25, 0.5, 0.75, 1.25, 1.5, 2]
+  let alea3 = randint(0, rapportQuestion2.length - 1)
+  while (duree[alea2].rapport === rapportQuestion2[alea3]) {
+    alea3 = randint(0, rapportQuestion2.length - 1)
+  }
+  const reponseQ1 = duree[alea2].rapport * liste[alea1].vitesse[alea2]
+  const distance = stringNombre(rapportQuestion2[alea3] * liste[alea1].vitesse[alea2]) // pour question 2
+  let enonceAMC1 = `${numAlpha(0)} Un ${liste[alea1].locomotion} parcourt en moyenne ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km en une heure.<br>`
+  texte = enonceAMC1
+  enonceAMC1 += `Quelle distance, en${sp()}km, va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps}${sp()}? `
+  texte += `Quelle distance va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps}${sp()}? `
+  texte += ajouteChampTexteMathLive(exo, i, '', { texteApres: ' km' })
+  texteCorr = `${numAlpha(0)} ${duree[alea2].temps}, c'est ${texteEnCouleur(stringNombre(duree[alea2].rapport))} fois une heure.<br> ` +
             `En une heure, le ${liste[alea1].locomotion} parcourt ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2]), 'blue')}${sp()}km donc en ${duree[alea2].temps}, il va parcourir ${texteEnCouleur(stringNombre(duree[alea2].rapport))} fois ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2]), 'blue')}${sp()}km. <br>` +
             `${texteEnCouleur(stringNombre(duree[alea2].rapport))} $\\times$ ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2]), 'blue')}${sp()}km = ${stringNombre(reponseQ1)}${sp()}km <br>` +
             ` Conclusion : Le ${liste[alea1].locomotion} va donc parcourir ${texteEnCouleurEtGras(stringNombre(reponseQ1))}${sp()}km.` + '<br>'
-    const enonceAMC2 = `${numAlpha(1)} Combien de temps, en minutes, va-t-il mettre pour parcourir ${distance}${sp()}km à cette même vitesse${sp()}? `
-    texte += `<br> ${numAlpha(1)} Combien de temps va-t-il mettre pour parcourir ${distance}${sp()}km à cette même vitesse${sp()}? ` + ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' minutes' })
-    texteCorr += `${numAlpha(1)} ${distance}${sp()}km, c'est ${texteEnCouleur(stringNombre(rapportQuestion2[alea3]))} fois ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km.
+  const enonceAMC2 = `${numAlpha(1)} Combien de temps, en minutes, va-t-il mettre pour parcourir ${distance}${sp()}km à cette même vitesse${sp()}? `
+  texte += `<br> ${numAlpha(1)} Combien de temps va-t-il mettre pour parcourir ${distance}${sp()}km à cette même vitesse${sp()}? ` + ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' minutes' })
+  texteCorr += `${numAlpha(1)} ${distance}${sp()}km, c'est ${texteEnCouleur(stringNombre(rapportQuestion2[alea3]))} fois ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km.
       Le ${liste[alea1].locomotion} parcourt ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km en une heure. <br>` +
             `Il va mettre donc ${texteEnCouleur(stringNombre(rapportQuestion2[alea3]))} fois une heure à parcourir ${distance}${sp()}km. <br>` +
             `Conclusion : Le ${liste[alea1].locomotion} va donc mettre  ${stringNombre(rapportQuestion2[alea3])} heure${rapportQuestion2[alea3] >= 2 ? 's' : ''} à parcourir ${distance}${sp()}km,  ce qui fait ${texteEnCouleurEtGras(rapportQuestion2[alea3] * 60)} minutes (${stringNombre(rapportQuestion2[alea3])} $\\times$ 60 minutes).`
-    if (!context.isAmc) {
-      setReponse(exo, i, reponseQ1)
-      setReponse(exo, i + 1, (rapportQuestion2[alea3] * 60).toFixed(2))
-    } else {
-      exo.autoCorrection[i] = {
-        enonce: '',
-        enonceAvant: false,
-        options: { multicols: true, barreseparation: true },
-        propositions: [
-          {
-            type: 'AMCNum',
-            // @ts-expect-error
-            propositions: [{
-              texte: texteCorr,
-              statut: '',
-              reponse: {
-                texte: enonceAMC1,
-                valeur: [reponseQ1],
-                param: {
-                  digits: nombreDeChiffresDe(reponseQ1),
-                  decimals: nombreDeChiffresDansLaPartieDecimale(reponseQ1),
-                  signe: false,
-                  approx: 0
-                }
+  if (!context.isAmc) {
+    setReponse(exo, i, reponseQ1)
+    setReponse(exo, i + 1, (rapportQuestion2[alea3] * 60).toFixed(2))
+  } else {
+    exo.autoCorrection[i] = {
+      enonce: '',
+      enonceAvant: false,
+      options: { multicols: true, barreseparation: true },
+      propositions: [
+        {
+          type: 'AMCNum',
+          // @ts-expect-error
+          propositions: [{
+            texte: texteCorr,
+            statut: '',
+            reponse: {
+              texte: enonceAMC1,
+              valeur: [reponseQ1],
+              param: {
+                digits: nombreDeChiffresDe(reponseQ1),
+                decimals: nombreDeChiffresDansLaPartieDecimale(reponseQ1),
+                signe: false,
+                approx: 0
               }
-            }]
-          },
-          {
-            type: 'AMCNum',
-            // @ts-expect-error
-            propositions: [{
-              texte: '',
-              statut: '',
-              reponse: {
-                texte: enonceAMC2,
-                valeur: [arrondi(rapportQuestion2[alea3] * 60, 2)],
-                param: {
-                  digits: nombreDeChiffresDe(arrondi(rapportQuestion2[alea3] * 60, 2)),
-                  decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(rapportQuestion2[alea3] * 60, 2)),
-                  signe: false,
-                  approx: 0
-                }
+            }
+          }]
+        },
+        {
+          type: 'AMCNum',
+          // @ts-expect-error
+          propositions: [{
+            texte: '',
+            statut: '',
+            reponse: {
+              texte: enonceAMC2,
+              valeur: [arrondi(rapportQuestion2[alea3] * 60, 2)],
+              param: {
+                digits: nombreDeChiffresDe(arrondi(rapportQuestion2[alea3] * 60, 2)),
+                decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(rapportQuestion2[alea3] * 60, 2)),
+                signe: false,
+                approx: 0
               }
-            }]
-          }
-        ]
-      }
+            }
+          }]
+        }
+      ]
     }
   }
+  // }
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
@@ -733,7 +735,7 @@ function questionRecouvrirSurface (exo:Exercice, i:number) { // peinture, gazon,
     }
   ]
   const prenoms = [prenomF(), prenomM()]
-  if (versionSimplifiee) {
+  /* if (versionSimplifiee) {
     const alea1 = 2 // Pour avoir un coef entier, qtt_matiere_unitaire doit être plus grand que qtt_surface, ce qui n'est possible qu'avec les carreaux
     const quantiteD = couplePremiersEntreEux[indexN][1]
     const surfaceD = couplePremiersEntreEux[indexN][0]
@@ -777,75 +779,76 @@ function questionRecouvrirSurface (exo:Exercice, i:number) { // peinture, gazon,
       }
     }
   } else {
-    const alea1 = randint(0, liste.length - 1)
-    const alea2 = randint(0, liste[alea1].qtt_matiere_unitaire.length - 1)
-    const alea3 = randint(0, liste[alea1].qtt_surface.length - 1)
-    const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela paraît suffisant)
-    const quantite = liste[alea1].qtt_matiere_unitaire[alea2]
-    const alea4 = randint(0, rapport.length - 1)
-    const surfaceFinale = rapport[alea4] * liste[alea1].qtt_surface[alea3]
-    const alea5 = randint(0, rapport.length - 1, [alea4])
-    const quantite2 = rapport[alea5] * liste[alea1].qtt_matiere_unitaire[alea2]
-    const alea6 = randint(-2, 2, [0])
-    const surfaceFinale2 = rapport[alea5] * liste[alea1].qtt_surface[alea3] + alea6
-    const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
-    const enonceAMC1 = `${numAlpha(0)} ${prenoms[0]} doit acheter ${liste[alea1].matiere}. ` +
+   */
+  const alea1 = randint(0, liste.length - 1)
+  const alea2 = randint(0, liste[alea1].qtt_matiere_unitaire.length - 1)
+  const alea3 = randint(0, liste[alea1].qtt_surface.length - 1)
+  const rapport = versionSimplifiee ? rangeMinMax(2, 5) : [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela paraît suffisant)
+  const quantite = liste[alea1].qtt_matiere_unitaire[alea2]
+  const alea4 = randint(0, rapport.length - 1)
+  const surfaceFinale = rapport[alea4] * liste[alea1].qtt_surface[alea3]
+  const alea5 = randint(0, rapport.length - 1, [alea4])
+  const quantite2 = rapport[alea5] * liste[alea1].qtt_matiere_unitaire[alea2]
+  const alea6 = randint(-2, 2, [0])
+  const surfaceFinale2 = rapport[alea5] * liste[alea1].qtt_surface[alea3] + alea6
+  const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
+  const enonceAMC1 = `${numAlpha(0)} ${prenoms[0]} doit acheter ${liste[alea1].matiere}. ` +
             `Sur la notice, il est indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${liste[alea1].qtt_surface[alea3]}${sp()}m${texteExposant(2)}. <br> ` +
             `Combien de${sp()}${liste[alea1].unite} doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}${sp()}?`
-    texte = enonceAMC1 + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' ' + liste[alea1].unite })
-    texteCorr = `${numAlpha(0)} ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}, c'est ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]}${sp()}m${texteExposant(2)}. <br>` +
+  texte = enonceAMC1 + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' ' + liste[alea1].unite })
+  texteCorr = `${numAlpha(0)} ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}, c'est ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]}${sp()}m${texteExposant(2)}. <br>` +
             `Il va donc falloir ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${texteEnCouleur(qttaffichage, 'blue')}${sp()}${liste[alea1].unite} pour ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}. <br>` +
             `${texteEnCouleur(stringNombre(rapport[alea4]))} $\\times$ ${texteEnCouleur(qttaffichage, 'blue')}${sp()}${liste[alea1].unite} = ${stringNombre(rapport[alea4] * quantite, 3)}${sp()}${liste[alea1].unite}<br>` +
             `Conclusion : ${prenoms[0]} doit acheter ${texteEnCouleurEtGras(stringNombre(rapport[alea4] * quantite, 3))}${sp()}${liste[alea1].unite}.` + '<br>  '
-    const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}. Sur la notice, il est aussi indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${stringNombre(liste[alea1].qtt_surface[alea3])}${sp()}m${texteExposant(2)}. <br>` +
+  const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}. Sur la notice, il est aussi indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${stringNombre(liste[alea1].qtt_surface[alea3])}${sp()}m${texteExposant(2)}. <br>` +
             `En a-t-il suffisamment pour la surface de ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} qu'il lui reste à faire${sp()}?<br>`
-    texte += '<br>' + enonceAMC2 + ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' (oui ou non)' })
-    texteCorr += `${numAlpha(1)} ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}, c'est ${texteEnCouleur(stringNombre(rapport[alea5]))} fois ${qttaffichage}${sp()}${liste[alea1].unite}. <br>` +
+  texte += '<br>' + enonceAMC2 + ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' (oui ou non)' })
+  texteCorr += `${numAlpha(1)} ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}, c'est ${texteEnCouleur(stringNombre(rapport[alea5]))} fois ${qttaffichage}${sp()}${liste[alea1].unite}. <br>` +
             `Avec ${stringNombre(quantite2)}${sp()}${liste[alea1].unite} on peut donc traiter une surface de ${texteEnCouleur(stringNombre(rapport[alea5]))}
 fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${texteExposant(2)}. <br>` +
             `${texteEnCouleur(stringNombre(rapport[alea5]))} $\\times$ ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${texteExposant(2)} = ${stringNombre(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3)}${sp()}m${texteExposant(2)}<br>`
-    texteCorr += rapport[alea5] * liste[alea1].qtt_surface[alea3] < surfaceFinale2
-      ? `Conclusion : ${stringNombre(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3)}${sp()}m${texteExposant(2)} < ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${texteEnCouleurEtGras('non')}, ${prenoms[1]} n'en a pas assez pour ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)}.` + ' <br>'
-      : `Conclusion : ${stringNombre(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3)}${sp()}m${texteExposant(2)} > ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${texteEnCouleurEtGras('oui')}, ${prenoms[1]} en a suffisamment pour ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)}.` + ' <br>'
+  texteCorr += rapport[alea5] * liste[alea1].qtt_surface[alea3] < surfaceFinale2
+    ? `Conclusion : ${stringNombre(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3)}${sp()}m${texteExposant(2)} < ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${texteEnCouleurEtGras('non')}, ${prenoms[1]} n'en a pas assez pour ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)}.` + ' <br>'
+    : `Conclusion : ${stringNombre(rapport[alea5] * liste[alea1].qtt_surface[alea3], 3)}${sp()}m${texteExposant(2)} > ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${texteEnCouleurEtGras('oui')}, ${prenoms[1]} en a suffisamment pour ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)}.` + ' <br>'
 
-    if (!context.isAmc) {
-      setReponse(exo, i, (rapport[alea4] * quantite).toFixed(3))
-      setReponse(exo, i + 1, (rapport[alea5] * liste[alea1].qtt_surface[alea3] > surfaceFinale2 ? 'oui' : 'non'))
-    } else {
-      exo.autoCorrection[i] = {
-        enonce: '',
-        enonceAvant: false,
-        propositions: [
-          {
-            type: 'AMCNum',
-            // @ts-expect-error
-            propositions: [{
-              texte: texteCorr,
-              statut: '',
-              reponse: {
-                texte: enonceAMC1,
-                valeur: [arrondi(rapport[alea4] * quantite, 3)],
-                param: {
-                  digits: nombreDeChiffresDe(arrondi(rapport[alea4] * quantite, 3)),
-                  decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(rapport[alea4] * quantite, 3)),
-                  signe: false,
-                  approx: 0
-                }
+  if (!context.isAmc) {
+    setReponse(exo, i, (rapport[alea4] * quantite).toFixed(3))
+    setReponse(exo, i + 1, (rapport[alea5] * liste[alea1].qtt_surface[alea3] > surfaceFinale2 ? 'oui' : 'non'))
+  } else {
+    exo.autoCorrection[i] = {
+      enonce: '',
+      enonceAvant: false,
+      propositions: [
+        {
+          type: 'AMCNum',
+          // @ts-expect-error
+          propositions: [{
+            texte: texteCorr,
+            statut: '',
+            reponse: {
+              texte: enonceAMC1,
+              valeur: [arrondi(rapport[alea4] * quantite, 3)],
+              param: {
+                digits: nombreDeChiffresDe(arrondi(rapport[alea4] * quantite, 3)),
+                decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(rapport[alea4] * quantite, 3)),
+                signe: false,
+                approx: 0
               }
-            }]
-          },
-          {
-            type: 'AMCOpen',
-            // @ts-expect-error
-            propositions: [{
-              enonce: enonceAMC2,
-              statut: 2
-            }]
-          }
-        ]
-      }
+            }
+          }]
+        },
+        {
+          type: 'AMCOpen',
+          // @ts-expect-error
+          propositions: [{
+            enonce: enonceAMC2,
+            statut: 2
+          }]
+        }
+      ]
     }
   }
+  // }
   return {
     qtexte: texte,
     qtexteCorr: texteCorr
@@ -869,7 +872,7 @@ export default class ProportionnaliteParLinearite extends Exercice {
 
     this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
     this.sup = false
-    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface\n7 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Distance\n4 : Échelle\n5 : Surface\n6 : Mélange']
     this.sup2 = 7
   }
 
@@ -887,9 +890,9 @@ export default class ProportionnaliteParLinearite extends Exercice {
     let indiceChampTexte = 0
 
     const listeIndexSituations = gestionnaireFormulaireTexte({
-      max: 6,
-      defaut: 7,
-      melange: 7,
+      max: 5,
+      defaut: 6,
+      melange: 6,
       nbQuestions: this.nbQuestions,
       saisie: this.sup2
     }).map(Number)
@@ -918,11 +921,12 @@ export default class ProportionnaliteParLinearite extends Exercice {
             incrementInteractif = 1
           }
           break
-        case 3:
+          /* case 3:
           question = questionDillution(this, indiceChampTexte)
           incrementInteractif = 1
           break
-        case 4:
+          */
+        case 3:
           question = questionDistance(this, indiceChampTexte)
           if (versionSimplifiee) {
             incrementInteractif = 1
@@ -934,7 +938,7 @@ export default class ProportionnaliteParLinearite extends Exercice {
             }
           }
           break
-        case 5:
+        case 4:
           question = questionEchelle(this, indiceChampTexte)
           if (!context.isAmc) {
             incrementInteractif = 2
@@ -942,7 +946,7 @@ export default class ProportionnaliteParLinearite extends Exercice {
             incrementInteractif = 1
           }
           break
-        case 6:
+        case 5:
         default:
           question = questionRecouvrirSurface(this, indiceChampTexte)
           if (versionSimplifiee) {

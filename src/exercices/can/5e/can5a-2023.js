@@ -17,7 +17,7 @@ import { formatMinute, stringNombre, texNombre } from '../../../lib/outils/texNo
 import Exercice from '../../Exercice'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { paveLPH3d } from '../../../modules/3d'
+import { paveLPH3d } from '../../../lib/3d/solides'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -1233,7 +1233,7 @@ export default class SujetCAN2023Cinquieme extends Exercice {
           d = a * 100 + b * 10 + c
 
           reponse = a * 100 + b * 10 + c + 9 - a - b - c
-          texte = `Trouve le plus petit nombre supérieur à $${d}$ qui soit divisible par $9$.`
+          texte = `Trouver le plus petit nombre supérieur à $${d}$ qui soit divisible par $9$.`
           texteCorr = `La somme des chiffres est $${a + b + c}$. Pour obtenir un multiple de $9$ il faut que la somme des chiffres soit $9$, il faut donc ajouter $${9 - a - b - c}$ au nombre $${d}$.<br>
             Ainsi, le plus petit nombre supérieur à $${d}$ qui soit divisible par $9$ est $${a * 100 + b * 10 + c}+${9 - a - b - c}=${miseEnEvidence(reponse)}$. `
 

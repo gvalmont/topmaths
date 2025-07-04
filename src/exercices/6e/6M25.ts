@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils'
-export const titre = 'Connaître le cours sur le périmètre et l\'aire'
+export const titre = 'Connaitre le cours sur le périmètre et l\'aire'
 
 /**
  * Citer des formules de périmètre, des formules d'aire ou la définition de π

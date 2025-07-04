@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -32,16 +32,16 @@ export default class OpposeExpression extends Exercice {
     super()
     this.besoinFormulaireTexte = ['Types de questions',
   `Nombres séparés par des tirets
-1 : '-(ax+b)'
-2 : '(ax+b)'
-3 : '-(ax2+bx+c)'
-4 : '(ax2+bx+c)'
-5 : '(ax+b)-(cx+d)'
-6 : '-(ax+b)+(cx+d)'
-7 : '(ax+b)-(cx2+dx+e)'
-8 : '-(ax+b)+(cx2+dx+e)'
-9 : '(ax2+bx+c)-(dx2+ex+f)'
-10 : '-(ax2+bx+c)+(dx2+ex+f)'
+1 : -(ax+b)
+2 : (ax+b)
+3 : -(ax2+bx+c)
+4 : (ax2+bx+c)
+5 : (ax+b)-(cx+d)
+6 : -(ax+b)+(cx+d)
+7 : (ax+b)-(cx2+dx+e)
+8 : -(ax+b)+(cx2+dx+e)
+9 : (ax2+bx+c)-(dx2+ex+f)
+10 : -(ax2+bx+c)+(dx2+ex+f)
 11 : Mélange`
     ]
     this.spacing = context.isHtml ? 3 : 2
@@ -83,89 +83,77 @@ export default class OpposeExpression extends Exercice {
 
       switch (listeTypeDeQuestions[i]) {
         case 1 : // '-(ax+b)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=-(${printlatex(
-                        `${a}${choixLettre}+(${b})`
-                    )})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=-(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
           texteCorr = texte
-          // texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${-a}*${choixLettre}+(${-b})`)}$`
           reponse1 = 0
           reponse2 = -a
           reponse3 = -b
           break
         case 2 : // '(ax+b)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(
-                        `${a}${choixLettre}+(${b})`
-                    )})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)})$`
           texteCorr = texte
-          // texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${choixLettre}+(${b})`)}$`
           reponse1 = 0
           reponse2 = a
           reponse3 = b
           break
         case 3 : // '-(ax2+bx+c)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=-(${printlatex(
-                        `${a}${choixLettre}^2+(${b})${choixLettre}+(${c})`
-                    )})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=-(${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)})$`
           texteCorr = texte
-          // texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${-a}${choixLettre}^2+(${-b})${choixLettre}+(${-c})`)}$`
           reponse1 = -a
           reponse2 = -b
           reponse3 = -c
           break
         case 4 : // '(ax2+bx+c)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(
-                        `${a}${choixLettre}^2+(${b})${choixLettre}+(${c})`
-                    )})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)})$`
           texteCorr = texte
-          // texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}${choixLettre}^2+(${b})${choixLettre}+(${c})`)}$`
           reponse1 = a
           reponse2 = b
           reponse3 = c
           break
         case 5 : // '(ax+b)-(cx+d)':
-          texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}${choixLettre}+(${b})`)}) - (${printlatex(`${c}${choixLettre}+(${d})`)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}= (${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}) - (${rienSi1(c)}${choixLettre}${ecritureAlgebrique(d)})$`
           texteCorr = texte
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${printlatex(`${a}${choixLettre}+(${b})`)} ${-c < 0 ? '' : '+'} ${printlatex(`${-c}${choixLettre}+(${-d})`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}${ecritureAlgebriqueSauf1(-c)}${choixLettre}${ecritureAlgebrique(-d)}$`
           reponse1 = 0
           reponse2 = a - c
           reponse3 = b - d
           break
         case 6 : // '-(ax+b)+(cx+d)':
-          texte = `$${lettreDepuisChiffre(i + 1)}= -(${printlatex(`${a}${choixLettre}+(${b})`)}) + (${printlatex(`${c}${choixLettre}+(${d})`)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}= -(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}) + (${rienSi1(c)}${choixLettre}${ecritureAlgebrique(d)})$`
           texteCorr = texte
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${printlatex(`${-a}${choixLettre}+(${-b})`)} ${c < 0 ? '' : '+'} ${printlatex(`${c}${choixLettre}+(${d})`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(-a)}${choixLettre}${ecritureAlgebrique(-b)}${ecritureAlgebriqueSauf1(c)}${choixLettre}${ecritureAlgebrique(d)}$`
           reponse1 = 0
           reponse2 = c - a
           reponse3 = d - b
           break
         case 7 : // '(ax+b)-(cx2+dx+e)':
-          texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}${choixLettre}+(${b})`)}) - (${printlatex(`${c}${choixLettre}^2+(${d}${choixLettre})+(${e})`)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}= (${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}) - (${rienSi1(c)}${choixLettre}^2${ecritureAlgebriqueSauf1(d)}${choixLettre}${ecritureAlgebrique(e)})$`
           texteCorr = texte
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${printlatex(`${a}${choixLettre}+(${b})`)} ${-c < 0 ? '' : '+'} ${printlatex(`${-c}${choixLettre}^2+(${-d}${choixLettre})+(${-e})`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)} ${ecritureAlgebriqueSauf1(-c)}${choixLettre}^2${ecritureAlgebriqueSauf1(-d)}${choixLettre}${ecritureAlgebrique(-e)}$`
           reponse1 = -c
           reponse2 = a - d
           reponse3 = b - e
           break
         case 8 : // '-(ax+b)+(cx2+dx+e)':
-          texte = `$${lettreDepuisChiffre(i + 1)}= -(${printlatex(`${a}${choixLettre}+(${b})`)}) + (${printlatex(`${c}${choixLettre}^2+(${d})${choixLettre}+(${e})`)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}= -(${rienSi1(a)}${choixLettre}${ecritureAlgebrique(b)}) + (${rienSi1(c)}${choixLettre}^2${ecritureAlgebriqueSauf1(d)}${choixLettre}${ecritureAlgebrique(e)})$`
           texteCorr = texte
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${printlatex(`${-a}${choixLettre}+(${-b})`)} ${c < 0 ? '' : '+'} ${printlatex(`${c}${choixLettre}^2+(${d})${choixLettre}+(${e})`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(-a)}${choixLettre}${ecritureAlgebrique(-b)} ${ecritureAlgebriqueSauf1(c)}${choixLettre}^2${ecritureAlgebriqueSauf1(d)}${choixLettre}${ecritureAlgebrique(e)}$`
           reponse1 = c
           reponse2 = -a + d
           reponse3 = -b + e
           break
         case 9 : // '(ax2+bx+c)-(dx2+ex+f)'
-          texte = `$${lettreDepuisChiffre(i + 1)}= (${printlatex(`${a}${choixLettre}^2+(${b}${choixLettre})+(${c})`)}) - (${printlatex(`${d}${choixLettre}^2+(${e}${choixLettre})+(${f})`)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}= (${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)}) - (${rienSi1(d)}${choixLettre}^2${ecritureAlgebriqueSauf1(e)}${choixLettre}${ecritureAlgebrique(f)})$`
           texteCorr = texte
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${printlatex(`${a}${choixLettre}^2+(${b}${choixLettre})+(${c})`)} ${-d < 0 ? '' : '+'} ${printlatex(`${-d}${choixLettre}^2+(${-e}${choixLettre})+(${-f})`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)}${ecritureAlgebriqueSauf1(-d)}${choixLettre}^2${ecritureAlgebriqueSauf1(-e)}${choixLettre}${ecritureAlgebrique(-f)}$`
           reponse1 = a - d
           reponse2 = b - e
           reponse3 = c - f
           break
         case 10 : // '-(ax2+bx+c)+(dx2+ex+f)'
-          texte = `$${lettreDepuisChiffre(i + 1)}= -(${printlatex(`${a}${choixLettre}^2+(${b}${choixLettre})+(${c})`)}) + (${printlatex(`${d}${choixLettre}^2+(${e}${choixLettre})+(${f})`)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}= -(${rienSi1(a)}${choixLettre}^2${ecritureAlgebriqueSauf1(b)}${choixLettre}${ecritureAlgebrique(c)}) + (${rienSi1(d)}${choixLettre}^2${ecritureAlgebriqueSauf1(e)}${choixLettre}${ecritureAlgebrique(f)})$`
           texteCorr = texte
-          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${printlatex(`${-a}${choixLettre}^2+(${-b}${choixLettre})+(${-c})`)} ${d < 0 ? '' : '+'} ${printlatex(`${d}${choixLettre}^2+(${e}${choixLettre})+(${f})`)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}= ${rienSi1(-a)}${choixLettre}^2${ecritureAlgebriqueSauf1(-b)}${choixLettre}${ecritureAlgebrique(-c)} ${ecritureAlgebriqueSauf1(d)}${choixLettre}^2${ecritureAlgebriqueSauf1(e)}${choixLettre}${ecritureAlgebrique(f)}$`
           reponse1 = -a + d
           reponse2 = -b + e
           reponse3 = -c + f

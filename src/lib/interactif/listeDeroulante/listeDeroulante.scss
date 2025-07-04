@@ -130,3 +130,8 @@ liste-deroulante.listeDeroulante.disabled {
     pointer-events: none;
   }
 }
+
+/* Empêche le curseur pointer sur les math-field dans la liste déroulante */
+.listeDeroulante ul li math-field .ML__mathlive {
+  cursor: pointer !important;
+}

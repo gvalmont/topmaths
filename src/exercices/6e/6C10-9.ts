@@ -8,7 +8,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Connaître les tables de multiplication « à l\'envers »'
+export const titre = 'Connaitre les tables de multiplication « à l\'envers »'
 export const dateDePublication = '4/4/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'

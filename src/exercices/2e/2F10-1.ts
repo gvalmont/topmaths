@@ -6,14 +6,14 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
-export const titre = 'Reconnaître une fonction affine'
+export const titre = 'Reconnaitre une fonction affine'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
 
 /**
- * Reconnaître une fonction affine
+ * Reconnaitre une fonction affine
 * @author Stéphane Guyon
 */
 export const uuid = '90998'

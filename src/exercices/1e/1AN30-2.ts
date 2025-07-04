@@ -50,6 +50,7 @@ export default class SimplifierExponentielles extends Exercice {
       nbQuestions: this.nbQuestions,
       listeOfCase: ['mul', 'pow', 'powTimesPow', 'k(a+b)', '(e^mx)p - e^nx * e^ox', 'fracPowNum', 'fracMulNum']
     })
+    if (this.sup >= 2) { this.consigne = 'Soit $x$ un réel. Simplifier les expressions suivantes :' }
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''

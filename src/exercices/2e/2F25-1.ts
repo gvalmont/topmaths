@@ -13,7 +13,7 @@ import { abs } from 'mathjs'
 export const titre = 'Étudier graphiquement la parité d\'une fonction'
 
 /**
- * Reconnaître la parité d'une fonction
+ * Reconnaitre la parité d'une fonction
 * @author Stéphane Guyon
 */
 export const uuid = '6e82d'

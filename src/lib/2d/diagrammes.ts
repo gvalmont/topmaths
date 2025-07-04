@@ -10,6 +10,7 @@ import { numberFormat, texNombre } from '../outils/texNombre'
 import { segment, vecteur } from './segmentsVecteurs'
 import { latexParPoint, TexteParPoint, texteParPoint, texteParPosition } from './textes'
 import { rotation, similitude, translation } from './transformations'
+import type { PointAbstrait } from './points-abstraits'
 
 /**
  * Trace un graphique cartésien dans un repère
@@ -40,7 +41,7 @@ export class TraceGraphiqueCartesien extends ObjetMathalea2D {
     }) {
     super()
     this.objets = []
-    const listePoints = []
+    const listePoints: PointAbstrait[] = []
     for (const [x, y] of data) {
       const M = pointDansRepere(x, y, repere)
       listePoints.push(M)
@@ -49,7 +50,7 @@ export class TraceGraphiqueCartesien extends ObjetMathalea2D {
       t.taille = tailleDesPoints
       this.objets.push(t)
     }
-    const l = polyline(listePoints)
+    const l = polyline(...listePoints)
     l.epaisseur = epaisseurDuTrait
     l.color = colorToLatexOrHTML(couleurDuTrait)
     if (styleDuTrait === 'pointilles') {

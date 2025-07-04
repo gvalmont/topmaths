@@ -44,17 +44,17 @@ async function testV (page: Page) {
   // const v1 = await page.locator('#iframe').contentFrame().locator('#answer-8').innerText()
 
   expect(await page.locator('#iframe').contentFrame().locator('#score:first-child > span').innerText()).toBe('11/11')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-0').innerText()).toBe('8h10{8h10}8h10')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-0').innerText()).toBe('8{8}8 h 10{10}10')
   expect(await page.locator('#iframe').contentFrame().locator('#answer-1').innerText()).toBe('200 000 000{200\\,000\\,000}200000000')
   expect(await page.locator('#iframe').contentFrame().locator('#answer-2').innerText()).toBe('600000{600000}600000')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-3').innerText()).toBe('Voirfigure{Voir figure}Voirfigure')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-3').innerText()).toBe('Voir figure')
   expect(await page.locator('#iframe').contentFrame().locator('#answer-4').innerText()).toBe('1{1}1')
   expect(await page.locator('#iframe').contentFrame().locator('#answer-5').innerText()).toBe('1{1}1')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-6').innerText()).toBe('produit{produit}produit')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-7').innerText()).toBe('somme{somme}somme')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-8').innerText()).toBe('diffeˊrence{différence}diffeˊrence')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-9').innerText()).toBe('quotient{quotient}quotient')
-  expect(await page.locator('#iframe').contentFrame().locator('#answer-10').innerText()).toBe('cinq−mille−quatre−cent−trente−trois{cinq - mille - quatre - cent - trente - trois}cinq−mille−quatre−cent−trente−trois')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-6').innerText()).toBe('produit')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-7').innerText()).toBe('somme')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-8').innerText()).toBe('différence')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-9').innerText()).toBe('quotient')
+  expect(await page.locator('#iframe').contentFrame().locator('#answer-10').innerText()).toBe('cinq - mille - quatre - cent - trente - trois')
   return true
 }
 

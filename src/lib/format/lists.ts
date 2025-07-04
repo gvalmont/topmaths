@@ -65,7 +65,7 @@ interface NestedList extends List<NestedList> {}
  * @param item Objet à controller
  * @returns `true` si l'objet est de type `DescriptionItem`
  */
-export function isDescriptionItem(item: DescriptionItem | NestedList): item is DescriptionItem {
+export function isDescriptionItem (item: DescriptionItem | NestedList): item is DescriptionItem {
   return (item as DescriptionItem).description !== undefined
 }
 
@@ -77,7 +77,7 @@ export function isDescriptionItem(item: DescriptionItem | NestedList): item is D
  * @author sylvain, Jean-Léon Henry
  * @link https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Numérotation-et-listes
  */
-export function createList(
+export function createList (
   list: NestedList,
   shift: string = '',
   startWith: number = 1,
@@ -126,7 +126,7 @@ export function createList(
   openingTagLine += lineBreak
   output += openingTagLine
 
-  function lineFactory(
+  function lineFactory (
     inside: string,
     before: string = shift + lineStart,
     after: string = lineEnd + lineBreak

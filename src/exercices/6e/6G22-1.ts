@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'AMCHybride'
 export const amcReady = true
-export const titre = 'Connaître le vocabulaire de base des angles'
+export const titre = 'Connaitre le vocabulaire de base des angles'
 
 export const dateDePublication = '03/12/2022'
 export const dateDeModifImportante = '17/10/2023'

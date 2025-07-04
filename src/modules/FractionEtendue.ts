@@ -12,12 +12,13 @@ import {
   decompositionFacteursPremiers,
   listeDesDiviseurs,
   obtenirListeFacteursPremiers,
-  pgcd
+  pgcd,
+  ppcm
 } from '../lib/outils/primalite'
 import { stringNombre, texNombre } from '../lib/outils/texNombre'
 import {
   quotientier,
-  egal, ppcm
+  egal
 } from './outils'
 import { abs, multiply, gcd, round, lcm, max, min } from 'mathjs'
 import { colorToLatexOrHTML } from './2dGeneralites'
@@ -206,7 +207,7 @@ class FractionEtendue {
   texFractionSimplifiee!: string
   /**
    * num/den mais avec simplification des signes (numérateur et dénominateur positifs, signe - eventuellement devant.)
-   * littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser ecritureAlgebrique)
+   * littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser texFractionSignee)
    */
   texFSD!: string
   /**

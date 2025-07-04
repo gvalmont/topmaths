@@ -30,6 +30,7 @@
   import CountDown from '../../display/can/presentationalComponents/CountDown.svelte'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
   import { notify } from '../../../bugsnag'
+  import { get } from 'svelte/store'
 
   const transitionSounds = {
     0: new Audio('assets/sounds/transition_sound_01.mp3'),
@@ -198,23 +199,34 @@
   }
 
   function updateExerciseParams (newExercises: Exercice[]) {
-    const newParams: InterfaceParams[] = []
-    for (const exercice of newExercises) {
-      newParams.push({
-        cd: exercice.correctionDetaillee ? '1' : '0',
-        uuid: exercice.uuid,
-        id: exercice.id,
-        alea: exercice.seed?.substring(0, 4),
-        nbQuestions: exercice.nbQuestions,
-        duration: exercice.duration,
-        sup: mathaleaHandleSup(exercice.sup),
-        sup2: mathaleaHandleSup(exercice.sup2),
-        sup3: mathaleaHandleSup(exercice.sup3),
-        sup4: mathaleaHandleSup(exercice.sup4),
-        sup5: mathaleaHandleSup(exercice.sup5)
+    if (newExercises.length === get(exercicesParams).length) {
+      // Update si nécessaire
+      exercicesParams.update((params: InterfaceParams[]) => {
+        params.forEach((param, i) => {
+          if (param.alea && param.alea !== newExercises[i].seed?.substring(0, 4)) param.alea = newExercises[i].seed?.substring(0, 4)
+        })
+        return params
       })
+    } else {
+      // MGU : on remet tout mais j'aime PAS , ancien code, ne devrait pas être utilisé
+      const newParams : InterfaceParams[] = []
+      for (const exercice of newExercises) {
+        newParams.push({
+          cd: exercice.correctionDetaillee ? '1' : '0',
+          uuid: exercice.uuid,
+          id: exercice.id,
+          alea: exercice.seed?.substring(0, 4),
+          nbQuestions: exercice.nbQuestions,
+          duration: exercice.duration,
+          sup: mathaleaHandleSup(exercice.sup),
+          sup2: mathaleaHandleSup(exercice.sup2),
+          sup3: mathaleaHandleSup(exercice.sup3),
+          sup4: mathaleaHandleSup(exercice.sup4),
+          sup5: mathaleaHandleSup(exercice.sup5)
+        })
+      }
+      exercicesParams.set(newParams)
     }
-    exercicesParams.set(newParams)
   }
 
   function startSlideshow () {

@@ -23,6 +23,7 @@ vitetest.config.ts
 /public/topmaths/presentations
 /public/topmaths/tutos
 /public/static
+/public/emojis
 _private/
 /src/topmaths/json/built_objectives.json
 /src/topmaths/json/built_units.json

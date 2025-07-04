@@ -1,9 +1,9 @@
 import { engrenages } from '../../../lib/2d/engrenage'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { ppcm } from '../../../lib/outils/primalite'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
-import { ppcm } from '../../../modules/outils'
 import { nombreElementsDifferents } from '../../ExerciceQcm'
 import ExerciceQcmA from '../../ExerciceQcmA'
 

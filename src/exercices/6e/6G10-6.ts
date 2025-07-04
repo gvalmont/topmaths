@@ -182,9 +182,7 @@ export default class constructionElementaire extends Exercice {
             enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
             enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
             melange: true, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
-            // @ts-expect-error
             options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
-            // @ts-expect-error
             propositions: propositionsAMC
           }
         }

@@ -3,7 +3,7 @@ import { randint, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '.
 import { min } from 'mathjs'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import Exercice from '../Exercice'
-export const titre = 'Connaître le vocabulaire lié aux 4 opérations'
+export const titre = 'Connaitre le vocabulaire lié aux 4 opérations'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

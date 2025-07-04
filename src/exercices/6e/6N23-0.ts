@@ -94,7 +94,7 @@ export default class ÉcrireNombresDecimal extends Exercice {
       }
       if (formatEcriture[i]) {
         if (context.vue !== 'diap') {
-          texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : ${this.interactif ? ajouteChampTexte(this, i, '') : '\\dotfill'}`
+          texte = `Écrire le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : ${this.interactif ? ajouteChampTexte(this, i, '') : '\\dotfill'}`
         } else texte = `$${texNombre(nombre)}$`
         if (context.vue !== 'diap') {
           texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre, type)}.`
@@ -104,7 +104,7 @@ export default class ÉcrireNombresDecimal extends Exercice {
         handleAnswers(this, i, { reponse: { value: nombreEnLettres(200.3, 1), options: { texteSansCasse: true } } })
       } else {
         if (context.vue !== 'diap') {
-          texte = `Écris le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, '') : '\\dotfill'}`
+          texte = `Écrire le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, '') : '\\dotfill'}`
         } else {
           texte = ` ${nombreEnLettres(nombre, type)}`
         }

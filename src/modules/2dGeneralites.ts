@@ -206,7 +206,7 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
 export class ObjetMathalea2D {
   [x: string]: any // à typer quand on passera à TypeScript
   positionLabel: string
-  color: string[]
+  color: [string, string] // Couleur au format HTML et au format LaTeX
   style: string
   epaisseur: number
   opacite: number

@@ -3,7 +3,7 @@ import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-import { cube } from '../../modules/3d'
+import { cube } from '../../lib/3d/CubeIso'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { deuxColonnes } from '../../lib/format/miseEnPage'

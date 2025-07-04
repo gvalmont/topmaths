@@ -10,9 +10,9 @@ import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-export const titre = 'Justifier que deux triangles sont égaux'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { context } from '../../modules/context'
+export const titre = 'Justifier que deux triangles sont égaux'
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
 export const interactifType = 'qcm'// 'mathLive'
@@ -20,7 +20,7 @@ export const amcReady = true // pour définir que l'exercice peut servir à AMC
 export const amcType = 'qcmMono'
 
 /**
- * Deux triangles égaux sont codés, il faut reconnaître les côtés homologues
+ * Deux triangles égaux sont codés, il faut reconnaitre les côtés homologues
  * @author Rémi Angot
 
 */

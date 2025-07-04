@@ -11,7 +11,7 @@ import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 
-export const titre = 'Reconnaître une situation de proportionnalité'
+export const titre = 'Reconnaitre une situation de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

@@ -18,5 +18,6 @@ export default class MessageCodeAvecTables extends EncodeurTexte {
     this.besoinFormulaireTexte = false
     this.besoinFormulaire2CaseACocher = false
     this.besoinFormulaire3Numerique = ['Texte à encoder', 3, '1 : Un seul mot\n2 : Une phrase avec la même grille\n3 : Une phrase avec plusieur grilles']
+    this.consigne = ''
   }
 }

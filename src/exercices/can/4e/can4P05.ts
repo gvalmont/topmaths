@@ -10,7 +10,7 @@ import Exercice from '../../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité'
+export const titre = 'Reconnaitre sur un graphique une situation de proportionnalité ou de non proportionnalité'
 export const dateDePublication = '23/01/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '02/11/2024' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**

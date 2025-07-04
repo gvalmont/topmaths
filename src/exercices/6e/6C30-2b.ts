@@ -50,6 +50,7 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
     super()
     this.sup = 4
     this.sup2 = 1
+    this.sup4 = false
     this.nbQuestions = 3
     this.besoinFormulaireTexte = [
       'Types du calcul final', [
@@ -131,13 +132,11 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
       if (this.sup2 === 1) {
         if (useNb1Decomposed) {
           texteCorr += numAlpha(0) + `$${nb1}\\times ${nb2} =
-      ${nb1}\\times (${d2 * 10} + ${u2}) =
       (${nb1} \\times ${d2 * 10}) + (${nb1} \\times ${u2}) =
       ${nb1 * d2 * 10} + ${nb1 * u2} =
       ${miseEnEvidence(texNombre(reponse[0]))}$<br>`
         } else {
           texteCorr += numAlpha(0) + `$${nb1}\\times ${nb2} =
-      (${d1 * 10} + ${u1}) \\times ${nb2} =
       (${d1 * 10} \\times ${nb2}) + (${u1} \\times ${nb2}) =
       ${nb2 * d1 * 10} + ${nb2 * u1} =
       ${miseEnEvidence(texNombre(reponse[0]))}$<br>`

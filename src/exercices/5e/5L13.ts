@@ -1,8 +1,8 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
@@ -49,14 +49,14 @@ export default class Reductionaxbx extends Exercice {
       b = this.sup ? randint(-11, 11, [0, a, -a]) : randint(-a, a, 0)
       switch (listeTypeDeQuestions[i]) {
         case 'ax+bx':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${x}+(${b}*${x})`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${x}+(${b}*${x})`)}=(${a}${ecritureAlgebrique(b)})\\times ${x}=${printlatex(`${a + b}${x}`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}${ecritureAlgebriqueSauf1(b)}${x}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}${ecritureAlgebriqueSauf1(b)}${x}=(${a}${ecritureAlgebrique(b)})\\times ${x}=${rienSi1(a + b)}${x}$`
           reponse = reduireAxPlusB(a + b, 0, x)
           break
         case 'ax+x':
         default:
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${x}+${x}`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${x}+${x}`)}=(${a}+1)\\times ${x}=${printlatex(`${a + 1}${x}`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}+${x}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(a)}${x}+${x}=(${a}+1)\\times ${x}=${rienSi1(a + 1)}${x}$`
           reponse = reduireAxPlusB(a + 1, 0, x)
           break
       }

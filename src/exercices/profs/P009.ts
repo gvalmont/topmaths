@@ -16,7 +16,7 @@ export const refs = {
 export const uuid = '691a7'
 
 /**
- * Reconnaître une fonction affine
+ * Reconnaitre une fonction affine
 * @author Erwan Duplessy
 * 6C30-1
 * D'après le document "Attendus en fin de 3eme"

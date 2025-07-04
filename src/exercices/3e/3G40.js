@@ -5,16 +5,17 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlpha } from '../../lib/outils/outilString'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import {
+  rotation3d,
+  rotationV3d,
+  sensDeRotation3d
+} from '../../lib/3d/tranformations'
+import { sphere3d } from '../../lib/3d/solides'
+import {
   arete3d,
   demicercle3d,
   droite3d,
-  point3d,
-  rotation3d,
-  rotationV3d,
-  sensDeRotation3d,
-  sphere3d,
-  vecteur3d
-} from '../../modules/3d'
+  point3d, vecteur3d
+} from '../../lib/3d/elements'
 import { context } from '../../modules/context'
 import {
   listeQuestionsToContenuSansNumero,
@@ -64,12 +65,8 @@ export default class ReperageSurLaSphere extends Exercice {
     const normalRot = vecteur3d(0, 1, 0)
     const droiteRot = droite3d(point3d(0, 0, 0), normalRot)
     let M = rotation3d(point3d(10, 0, 0, true, 'M'), droiteRot, inclinaison)
-    const PoleNord = rotation3d(point3d(0, 0, 11), droiteRot, inclinaison)
-    PoleNord.c2d.visible = false
-    PoleNord.c2d.nom = 'Nord'
-    const PoleSud = rotation3d(point3d(0, 0, -11.5), droiteRot, inclinaison)
-    PoleSud.c2d.visible = false
-    PoleSud.c2d.nom = 'Sud'
+    const PoleNord = rotation3d(point3d(0, 0, 11, false, 'Nord'), droiteRot, inclinaison)
+    const PoleSud = rotation3d(point3d(0, 0, -11.5, false, 'Sud'), droiteRot, inclinaison)
     const Pn = texteParPoint('Nord', PoleNord.c2d, 0, 'brown')
     const Ps = texteParPoint('Sud', PoleSud.c2d, 0, 'brown')
     Pn.taille = 15
@@ -86,21 +83,21 @@ export default class ReperageSurLaSphere extends Exercice {
     origine.c2d.nom = '0 ^\\circ'
     origine.c2d.positionLabel = 'above left'
     const uniteLongitudePositive = rotation3d(origine, droite3d(O, normalV), 8)
-    uniteLongitudePositive.visible = true
+    uniteLongitudePositive.isVisible = true
     uniteLongitudePositive.c2d.nom = '10 ^\\circ'
     uniteLongitudePositive.c2d.positionLabel = 'above left'
     const uniteLongitudeNegative = rotation3d(origine, droite3d(O, normalV), this.sup2 ? -15 : -12)
-    uniteLongitudeNegative.visible = true
+    uniteLongitudeNegative.isVisible = true
     uniteLongitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 ^\\circ'
     uniteLongitudeNegative.c2d.positionLabel = 'above left'
     let uniteLattitudePositive = rotation3d(origine, droite3d(O, normalH), -10)
     uniteLattitudePositive = rotation3d(uniteLattitudePositive, droite3d(O, normalV), -2)
-    uniteLattitudePositive.visible = true
+    uniteLattitudePositive.isVisible = true
     uniteLattitudePositive.c2d.nom = '10 ^\\circ'
     uniteLattitudePositive.c2d.positionLabel = 'above left'
     let uniteLattitudeNegative = rotation3d(origine, droite3d(O, normalH), 10)
     uniteLattitudeNegative = rotation3d(uniteLattitudeNegative, droite3d(O, normalV), this.sup2 ? -5 : -2)
-    uniteLattitudeNegative.visible = true
+    uniteLattitudeNegative.isVisible = true
     uniteLattitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 ^\\circ'
     uniteLattitudeNegative.c2d.positionLabel = 'above left'
     const labelUnites = labelLatexPoint({
@@ -185,7 +182,7 @@ export default class ReperageSurLaSphere extends Exercice {
       else NordouSud[i] = 'N'
       M = rotation3d(origine, droite3d(O, normalH), -latitudes[i])
       P[i] = rotation3d(M, droite3d(O, normalV), longitudes[i])
-      P[i].visible = true
+      P[i].isVisible = true
       P[i].c2d.nom = `${nom[i]}`
       P[i].c2d.positionLabel = 'above left'
       lab = labelPoint(P[i].c2d)

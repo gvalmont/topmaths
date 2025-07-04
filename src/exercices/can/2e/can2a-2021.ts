@@ -6,7 +6,7 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
@@ -14,7 +14,7 @@ import { context } from '../../../modules/context'
 import { mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { fraction } from '../../../modules/fractions'
 import { min, round } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -575,7 +575,7 @@ export default class SujetCAN2021Seconde extends Exercice {
           if (choix === 'a') {
             a = randint(2, 10)
             b = randint(2, 10)
-            reponse = [printlatex(`(${a}*x-${b})*(${a}*x+${b})`), printlatex(`(${a}*x+${b})*(${a}*x-${b})`)]
+            reponse = [`(${rienSi1(a)}x${ecritureAlgebrique(-b)})(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(a)}x${ecritureAlgebrique(-b)})`]
 
             texte = `Factoriser $${a ** 2}x^2-${b ** 2}$.
       `
@@ -584,7 +584,7 @@ export default class SujetCAN2021Seconde extends Exercice {
           } else {
             a = randint(2, 10)
             b = randint(2, 10)
-            reponse = [printlatex(`(${b}-${a}*x)*(${b}+${a}*x)`), printlatex(`(${b}+${a}*x)*(${b}-${a}*x)`)]
+            reponse = [`(${b}${ecritureAlgebriqueSauf1(-a)}x)(${b}${ecritureAlgebriqueSauf1(a)}x)`, `(${b}${ecritureAlgebriqueSauf1(a)}x)(${b}${ecritureAlgebriqueSauf1(-a)}x)`]
 
             texte = `Factoriser $${b ** 2}-${a ** 2}x^2$.
       `

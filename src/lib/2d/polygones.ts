@@ -11,7 +11,8 @@ import { aireTriangle } from './triangle'
 import { lettreDepuisChiffre } from '../outils/outilString'
 import { codageSegments } from './codages'
 import { codageAngleDroit } from './angles'
-import type { PointAbstrait } from './points-abstraits'
+import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
+import { Point3d } from '../3d/elements'
 
 type BinomeXY = { x: number, y: number }
 type BinomesXY = BinomeXY[]
@@ -48,20 +49,23 @@ export function barycentre (p: Polygone, nom = '', positionLabel = 'above') {
  */
 export class Polyline extends ObjetMathalea2D {
   listePoints: PointAbstrait[]
+  listePoints3d: Point3d[]
   nom: string
   stringColor: string
-  constructor (...points: PointAbstrait[] | (PointAbstrait[] | string)[]) {
+  constructor (...points: (PointAbstrait | Point3d)[] | [(PointAbstrait | Point3d)[], string]) {
     super()
     this.epaisseur = 1
     this.pointilles = 0
     this.opacite = 1
     if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
-      this.listePoints = points[0]
-      this.stringColor = points[1] as string
+      this.listePoints = points[0].filter(el => el instanceof PointAbstrait)
+      this.listePoints3d = points[0].filter(el => el instanceof Point3d)
+      this.stringColor = String(points[1]) // alors le deuxième est un string
       this.color = colorToLatexOrHTML(String(points[1]))
-    } else {
-      this.listePoints = points
+    } else { // On n'a que des points
+      this.listePoints = points.filter(el => el instanceof PointAbstrait)
+      this.listePoints3d = points.filter(el => el instanceof Point3d)
       this.color = colorToLatexOrHTML('black')
       this.stringColor = 'black'
     }
@@ -82,6 +86,9 @@ export class Polyline extends ObjetMathalea2D {
     // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
       for (const point of this.listePoints) {
         this.nom += point.nom
+      }
+      for (const point of this.listePoints3d) {
+        this.nom += point.label
       }
     };
   }
@@ -113,7 +120,14 @@ export class Polyline extends ObjetMathalea2D {
     }
     let binomeXY = ''
     for (const point of this.listePoints) {
-      binomeXY += `${point.xSVG(coeff)},${point.ySVG(coeff)} `
+      const X = point.xSVG(coeff)
+      const Y = point.ySVG(coeff)
+      binomeXY += `${X},${Y} `
+    }
+    for (const point of this.listePoints3d) {
+      const X = point.c2d.xSVG(coeff)
+      const Y = point.c2d.ySVG(coeff)
+      binomeXY += `${X},${Y} `
     }
     return `<polyline points="${binomeXY}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }
@@ -206,7 +220,7 @@ export class Polyline extends ObjetMathalea2D {
  * @returns Polyline
  * @author Rémi Angot
  */
-export function polyline (...args: PointAbstrait[] | (PointAbstrait[] | string)[]) {
+export function polyline (...args: (PointAbstrait | Point3d)[] | [(PointAbstrait | Point3d)[], string]) {
   return new Polyline(...args)
 }
 
@@ -253,7 +267,7 @@ export class Polygone extends ObjetMathalea2D {
   _aire: number
   stringColor: string
   readonly perimetre: number
-  constructor (...points: (PointAbstrait | PointAbstrait[] | string)[]) {
+  constructor (...points: PointAbstrait[] | [PointAbstrait[], string?]) {
     super()
     this.epaisseurDesHachures = 1
     this.distanceDesHachures = 10
@@ -292,7 +306,7 @@ export class Polygone extends ObjetMathalea2D {
         this.stringColor = String(points[points.length - 1])
         points.splice(points.length - 1, 1)
       }
-      this.listePoints = points
+      this.listePoints = points.filter(el => el instanceof PointAbstrait)
       this.nom = this.listePoints.map(el => el.nom).join('')
       this.couleurDeRemplissage = colorToLatexOrHTML('none')
       this.couleurDesHachures = colorToLatexOrHTML('none') // Rajout EE du 22/02/2024 pour 6N22 cas 3
@@ -523,7 +537,7 @@ export class Polygone extends ObjetMathalea2D {
  *
  * @author Rémi Angot
  */
-export function polygone (...args: (PointAbstrait | PointAbstrait[] | string)[]) {
+export function polygone (...args: PointAbstrait[] | [PointAbstrait[], string?]) {
   return new Polygone(...args)
 }
 
@@ -540,9 +554,13 @@ export function polygoneAvecNom (...args: (PointAbstrait | number)[]): [Polygone
     k = Number(args[args.length - 1])
     args.splice(args.length - 1, 1)
   }
+  if (!isPointsAbstraits(args)) {
+    window.notify('polygoneAvecNom : les arguments doivent être des objets PointAbstrait', { args })
+    return [polygone(), nommePolygone(polygone())]
+  }
   const p = polygone(...args)
   let nom = ''
-  ;(args).forEach((el: Point) => {
+  args.forEach((el: PointAbstrait) => {
     nom += el.nom + ','
   })
   nom = nom.substring(0, nom.length - 1)
@@ -1135,12 +1153,13 @@ export function patternTikZ (params: {
 
     case 'grid': {
       // Quadrillage = idem crosshatch
-      for (let y = y0; y <= y1; y += distanceDesHachures) {
+      const side = distanceDesHachures / 5
+      for (let y = y0; y <= y1; y += side) {
         lignes.push(
           `\\draw[${couleurDesHachures}] (${x0},${y.toFixed(2)}) -- (${x1},${y.toFixed(2)});`
         )
       }
-      for (let x = x0; x <= x1; x += distanceDesHachures) {
+      for (let x = x0; x <= x1; x += side) {
         lignes.push(
           `\\draw[${couleurDesHachures}] (${x.toFixed(2)},${y0}) -- (${x.toFixed(2)},${y1});`
         )
@@ -1149,7 +1168,7 @@ export function patternTikZ (params: {
     }
 
     case 'checkerboard': {
-      const side = distanceDesHachures
+      const side = distanceDesHachures / 3
       let toggle = false
       for (let y = y0; y < y1; y += side) {
         toggle = !toggle
@@ -1163,8 +1182,9 @@ export function patternTikZ (params: {
     }
 
     case 'fivepointed stars': {
-      for (let x = x0; x <= x1; x += distanceDesHachures) {
-        for (let y = y0; y <= y1; y += distanceDesHachures) {
+      const side = distanceDesHachures / 3
+      for (let x = x0; x <= x1; x += side) {
+        for (let y = y0; y <= y1; y += side) {
           lignes.push(
             `\\node[star,star points=5,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`
           )
@@ -1174,8 +1194,9 @@ export function patternTikZ (params: {
     }
 
     case 'sixpointed stars': {
-      for (let x = x0; x <= x1; x += distanceDesHachures) {
-        for (let y = y0; y <= y1; y += distanceDesHachures) {
+      const side = distanceDesHachures / 2
+      for (let x = x0; x <= x1; x += side) {
+        for (let y = y0; y <= y1; y += side) {
           lignes.push(
             `\\node[star,star points=6,star point ratio=2.25,fill=${couleurDesHachures},inner sep=0pt,minimum size=5pt] at (${x.toFixed(2)},${y.toFixed(2)}) {};`
           )
@@ -1186,8 +1207,9 @@ export function patternTikZ (params: {
 
     case 'crosshatch dots': {
       // Grille de points
-      for (let x = x0; x <= x1; x += distanceDesHachures) {
-        for (let y = y0; y <= y1; y += distanceDesHachures) {
+      const side = distanceDesHachures / 5
+      for (let x = x0; x <= x1; x += side) {
+        for (let y = y0; y <= y1; y += side) {
           lignes.push(
             `\\fill[${couleurDesHachures}] (${x.toFixed(2)},${y.toFixed(2)}) circle (0.05);`
           )

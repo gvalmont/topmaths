@@ -31,7 +31,7 @@ export default class LectureDiagrammeBarre extends Exercice {
 
   nouvelleVersion () {
     const objets = []
-    const valeurs = [['fruits', 'une corbeille', ['bananes', 'oranges', 'pommes']],
+    const valeurs: [string, string, string[]][] = [['fruits', 'une corbeille', ['bananes', 'oranges', 'pommes']],
       ['voitures', 'un garage', ['berline', 'utilitaire', 'cross over']],
       ['vêtements', 'une armoire', ['chemises', 'T-shirts', 'pulls']]]
     const quidam = prenom()
@@ -42,22 +42,24 @@ export default class LectureDiagrammeBarre extends Exercice {
     const r = repere({
       grilleX: 'pointilles',
       grilleY: false,
-      yThickListe: [],
-      yLabelListe: [],
+      yThickListe: false,
+      yLabelListe: valeurs[n][2].map((v: string, index:number) => Object.assign({}, { valeur: 1.5 * index + 1, texte: `\\text{${v}}` })),
+      yLabelEcart: 2,
       xUnite: 1,
       xThickDistance: 1,
       yMax: 5,
       xMin: 0,
       xMax: 11,
       yMin: 0,
-      axeYSyle: '',
+      axeYStyle: '',
       axeXStyle: '->',
-      xLegende: `${valeurs[n][0]}`
+      xLegende: `${valeurs[n][0]}`,
+      xLegendePosition: [13, 0.5]
     })
     objets.push(r)
-    objets.push(traceBarreHorizontale(a, 1, valeurs[n][2][0], { epaisseur: 1, couleurDeRemplissage: 'blue', hachures: true }),
-      traceBarreHorizontale(b, 2.5, valeurs[n][2][1], { epaisseur: 1, couleurDeRemplissage: 'red', hachures: true }),
-      traceBarreHorizontale(c, 4, valeurs[n][2][2], { epaisseur: 1, couleurDeRemplissage: 'green', hachures: true }))
+    objets.push(traceBarreHorizontale(a, 1, '', { epaisseur: 1, couleurDeRemplissage: 'blue', hachures: true }),
+      traceBarreHorizontale(b, 2.5, '', { epaisseur: 1, couleurDeRemplissage: 'red', hachures: true }),
+      traceBarreHorizontale(c, 4, '', { epaisseur: 1, couleurDeRemplissage: 'green', hachures: true }))
     this.reponse = a + b + c
     this.question = `${quidam} a compté les ${valeurs[n][0]} dans ${valeurs[n][1]}. Les effectifs sont représentés sur le diagramme ci-dessous.<br>
     `

@@ -6,7 +6,7 @@ import { randint } from '../../../modules/outils'
 import { lettreA, lettreB, lettreC, lettreD, lettreE, lettreF, lettreG, lettreH, lettreI, lettreJ, lettreK, lettreL, lettreM, lettreN, lettreO, lettreP, lettreQ, lettreR, lettreS, lettreT, lettreU, lettreV, lettreW, lettreX, lettreY, lettreZ } from './lettres'
 import { chiffreDigital, nombre13, nombre25, nombre26, nombre30, nombre38, nombre42, nombre52, nombre73, nombre75, nombre80, nombre88, nombre96 } from './chiffres'
 /**
- * @description formes utilisées dans l'exercice 6G25-4 notzmment
+ * @description formes utilisées dans l'exercice 6G25-4 notamment
  * @author Jean-Claude Lhote
  */
 export const listeFigures2d: Forme[] = [

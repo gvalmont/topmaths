@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { sp } from '../../../lib/outils/outilString'
-export const titre = 'Reconnaître deux événements indépendants'
+export const titre = 'Reconnaitre deux événements indépendants'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const uuid = 'd23db'

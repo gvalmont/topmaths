@@ -159,7 +159,7 @@ export default class ExercicePolynesie592015 extends ExerciceBrevetA {
       // volumeB = Math.PI * hauteurB * (diametreB / 2) ** 2
       // contenanceA = premierMultipleInferieur(5, volumeB / 1000 + choice([-1, 1]) * randint(10, 50))
     } while (volumeB < productionLaitTotale * 1000 || hauteurB < diametreB) // volumeB < productionLaitTotale * 1000
-    const [prenom1, ilElle] = prenomPronom()
+    const { prenom: prenom1, pronom: ilElle } = prenomPronom()
 
     this.appliquerLesValeurs(productionLait, densiteChevre, grandeLongueur, petiteLongueur, contenanceA, diametreB, hauteurB, prenom1, ilElle)
   }

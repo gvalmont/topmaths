@@ -4,7 +4,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-export const titre = 'Reconnaître des vecteurs colinéaires (V/F)'
+export const titre = 'Reconnaitre des vecteurs colinéaires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

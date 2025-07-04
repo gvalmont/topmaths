@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-export const titre = 'Reconnaître une expression numérique (QCM)'
+export const titre = 'Reconnaitre une expression numérique (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

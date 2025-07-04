@@ -9,7 +9,7 @@ import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
-export const titre = 'Reconnaître une fonction affine'
+export const titre = 'Reconnaitre une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

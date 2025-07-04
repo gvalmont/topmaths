@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '17/05/2025'
 
 /**
- * Reconnaître des figures symétriques par rapport à une droite donnée.
+ * Reconnaitre des figures symétriques par rapport à une droite donnée.
  * @author Jean-Claude Lhote
  */
 export const uuid = '528b2'
@@ -114,7 +114,7 @@ export default class NbAxesDeSymetrie extends Exercice {
       }
       const nomDroite = latex2d(`(d_{${(i + 1) % 10}})`, axe.x2 + 0.6, axe.y2, { })
       objets.push(nomDroite)
-      texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures(objets, { rxmax: 3, rymax: 1, rymin: -1 })), objets)
+      texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets, { rxmax: 3, rymax: 1, rymin: -1 })), objets)
       if (this.interactif) {
         this.autoCorrection[i] = {
           propositions: [
@@ -186,7 +186,7 @@ export default class NbAxesDeSymetrie extends Exercice {
       const forme2Bis = forme2.copy(forme2.name + 'Bis')
       forme2Bis.opacite = 0.3
       objetsCorr.push(formeBis, forme2Bis, anim, axe, nomDroite)
-      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures(objetsCorr, { rxmax: 4, rymax: 2, rymin: -2.5 })), objetsCorr)
+      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objetsCorr, { rxmax: 4, rymax: 2, rymin: -2.5 })), objetsCorr)
       texteCorr += `Les deux figures ${texteEnCouleurEtGras((choixReponse === 'symetrie' ? 'sont' : 'ne sont pas') + ' symétriques')} par rapport à la droite $(d_{${(i + 1) % 10}})$.<br>`
       texteCorr += choixReponse === 'homothetie'
         ? 'Les figures n\'ont pas la même taille.'

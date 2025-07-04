@@ -7,7 +7,7 @@ import { grille } from '../../lib/2d/reperes'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { mathalea2d } from '../../modules/2dGeneralites'
 
-export const titre = 'Reconnaître des vecteurs égaux/opposés/colinéaires (QCM)'
+export const titre = 'Reconnaitre des vecteurs égaux/opposés/colinéaires (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -20,7 +20,7 @@ export const refs = {
 }
 
 /**
- * Reconnaître des vecteurs égaux/opposés/colinéaires (QCM).
+ * Reconnaitre des vecteurs égaux/opposés/colinéaires (QCM).
  * @author Stéphan Grignon
  * stephan.grignon@ac-strasbourg.fr
  */

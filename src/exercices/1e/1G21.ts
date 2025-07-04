@@ -32,7 +32,7 @@ function pointVersTex (A: Point): string {
 
 function vecteurVersTex (u: Vecteur): string {
   const fonctionLatex = u.nom.length >= 2 ? 'overrightarrow' : 'vec'
-  return `\\${fonctionLatex}{${u.nom}} = \\begin{pmatrix} ${u.x} \\\\ ${u.y} \\end{pmatrix}`
+  return `\\${fonctionLatex}{${u.nom}} \\begin{pmatrix} ${u.x} \\\\ ${u.y} \\end{pmatrix}`
 }
 
 function vecteurNormal (u: Vecteur, nom: string = 'n'): Vecteur {

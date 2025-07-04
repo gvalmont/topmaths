@@ -1,14 +1,17 @@
 import { shuffle } from '../../lib/outils/arrayOutils'
 import {
   homothetie3d,
-  point3d,
-  polygone3d,
+  translation3d
+} from '../../lib/3d/tranformations'
+import {
   prisme3d,
   pyramide3d,
-  pyramideTronquee3d,
-  translation3d,
-  vecteur3d
-} from '../../modules/3d'
+  pyramideTronquee3d
+} from '../../lib/3d/solides'
+import {
+  point3d,
+  polygone3d, vecteur3d
+} from '../../lib/3d/elements'
 import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'

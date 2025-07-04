@@ -5940,4 +5940,208 @@ export const dictionnaireDNB = {
     tags: ['Algorithmique-programmation']
   },
 
+  dnb_2025_06_ameriquenord_1: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['Probabilités', 'Arithmétique', 'Pourcentages', 'Agrandissement-réduction', 'Statistiques']
+  },
+  dnb_2025_06_ameriquenord_2: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['Pythagore', 'Thalès', 'Aires et périmètres', 'Géométrie plane']
+  },
+  dnb_2025_06_ameriquenord_3: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
+  },
+  dnb_2025_06_ameriquenord_4: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['Proportionnalité', 'Lecture graphique', 'Vitesses', 'Grandeurs composées']
+  },
+  dnb_2025_06_ameriquenord_5: {
+    annee: '2025',
+    lieu: 'Amérique du Nord',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['Algorithmique-programmation', 'Probabilités', 'statistiques']
+  },
+
+  dnb_2025_06_asie_1: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Statistiques', 'Fonctions']
+  },
+  dnb_2025_06_asie_2: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['Pythagore', 'Aires et périmètres', 'Thalès', 'Triangles semblables']
+  },
+  dnb_2025_06_asie_3: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['Aires et périmètres', 'Géométrie plane', 'Tableur', 'Calcul littéral', 'Équations']
+  },
+  dnb_2025_06_asie_4: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['Algorithmique-programmation']
+  },
+  dnb_2025_06_asie_5: {
+    annee: '2025',
+    lieu: 'Asie',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['Aritmétique', 'Pourcentages', 'Volumes']
+  },
+  dnb_2025_06_etrangers_1: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['QCM', 'Aritmétique', 'Tableur', 'Transformations', 'Calcul littéral', 'Trigonométrie']
+  },
+  dnb_2025_06_etrangers_2: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['Statistiques', 'Probabilités', 'Volumes', 'Grandeurs composées']
+  },
+  dnb_2025_06_etrangers_3: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Fonctions']
+  },
+  dnb_2025_06_etrangers_4: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['Pythagore', 'Géométrie plane', 'Thalès', 'Aires et périmètres', 'Ratio', 'Recherche d\'informations']
+  },
+  dnb_2025_06_etrangers_5: {
+    annee: '2025',
+    lieu: 'Centres étrangers',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['Probabilités', 'Arithmétique', 'Algorithmique-programmation']
+  },
+
+  dnb_2025_06_metropole_1: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['Probabilités']
+  },
+  dnb_2025_06_metropole_2: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie']
+  },
+  dnb_2025_06_metropole_3: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['Proportionnalité', 'Transformations', 'Pourcentages', 'Aires et périmètres', 'Calcul littéral', 'Volumes', 'QCM']
+  },
+  dnb_2025_06_metropole_4: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['Programme de calculs', 'Calcul littéral', 'Algorithmique-programmation']
+  },
+  dnb_2025_06_metropole_5: {
+    annee: '2025',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['Fonctions', 'Tableur', 'Lecture graphique']
+  },
+
+  dnb_2025_06_polynesie_1: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_polynesie_2: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_polynesie_3: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '3',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_polynesie_4: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '4',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+  dnb_2025_06_polynesie_5: {
+    annee: '2025',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '5',
+    typeExercice: 'dnb',
+    tags: ['']
+  },
+
 }

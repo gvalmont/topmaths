@@ -4,7 +4,7 @@ import { mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d'
+import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../lib/3d/solides'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'

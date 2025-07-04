@@ -207,7 +207,7 @@ export default class constructionPerpendiculaires extends Exercice {
       if (typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'OrthoExterieur') {
         enonce +=
           numAlpha(questind++) +
-          `Tracer $(${A.nom}${B.nom})$, $(${A.nom}${C.nom})$ et $(${B.nom}${C.nom})$.<br>`
+          `Tracer les droites $(${A.nom}${B.nom})$, $(${A.nom}${C.nom})$ et $(${B.nom}${C.nom})$.<br>`
         enonce +=
           numAlpha(questind++) +
           `Tracer la droite $(d_1)$ perpendiculaire à $(${A.nom}${B.nom})$ passant par $${C.nom}$.<br>`
@@ -223,7 +223,7 @@ export default class constructionPerpendiculaires extends Exercice {
       } else {
         enonce +=
           numAlpha(questind++) +
-          `Tracer $(${A.nom}${B.nom})$, $(${A.nom}${C.nom})$ et $(${B.nom}${C.nom})$.<br>`
+          `Tracer les droites $(${A.nom}${B.nom})$, $(${A.nom}${C.nom})$ et $(${B.nom}${C.nom})$.<br>`
         enonce +=
           numAlpha(questind++) +
           `Placer le milieu de $[${A.nom}${B.nom}]$.<br>`

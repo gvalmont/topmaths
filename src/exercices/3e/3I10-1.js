@@ -5,7 +5,7 @@ import { deuxColonnes } from '../../lib/format/miseEnPage'
 import { texteGras } from '../../lib/format/style'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { noteLaCouleur, plateau2dNLC, testInstruction } from '../../modules/noteLaCouleur'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import {
@@ -30,9 +30,11 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 export const dateDePublication = '27/09/2022'
+export const dateDeModifImportante = '18/06/2028'
 
 /**
  * Analyser un programme scratch utilisant NoteLaCouleur
+ * On interdit le mélange des cas (c'est forcément 3 ou 4 couleurs sinon souci Capytale) par Eric Elter le 18/06/2025
  * @author Jean-Claude Lhote
  */
 export const uuid = '2ecd9'
@@ -50,8 +52,8 @@ export default class ScratchMultiScript extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = [
-      'Compétence évaluée',
-      'Nombres séparés par des tirets\n1 : Repérage dans le plan\n2 : Boucles répéter n fois imbriquées\n3 : Conditionnelles'
+      'Compétence évaluée', // EE :On enlève le mélange sinon, on pourrait avoir 3 ou 4 couleurs dans des questions différentes et ensuite souci Capytale.
+      '1 : Repérage dans le plan\n2 : Boucles répéter n fois imbriquées\n3 : Conditionnelles'
     ]
 
     this.spacing = 2
@@ -59,7 +61,7 @@ export default class ScratchMultiScript extends Exercice {
 
     this.typeExercice = 'Scratch'
 
-    this.sup = '1-2-3'
+    this.sup = '2'
     this.correctionDetailleeDisponible = true
     this.correctionDetaille = false
   }
@@ -76,21 +78,13 @@ export default class ScratchMultiScript extends Exercice {
     this.consigne = 'Donner la série de couleurs affichées par ce' + (this.nbQuestions > 1 ? 's' : '') + ' programme' + (this.nbQuestions > 1 ? 's.' : '.')
     const mesQcm = []
     let indexReponse = 0
-    const choixQuestions = gestionnaireFormulaireTexte({
-      saisie: this.sup,
-      min: 1,
-      max: 3,
-      defaut: 1,
-      nbQuestions: this.nbQuestions,
-      shuffle: true
-    })
+    const choixQuestions = parseInt(this.sup)
     const noteLesCouleurs = []
     const lutins = []
     const couleurs = []
     context.unitesLutinParCm = 20 // avancer de 10 pour le lutin lui fait parcourir 1cm (en fait 0,5cm car j'ai ajouté un scale=0.5 pour la sortie latex)
     context.pixelsParCm = 20 // 20 pixels d'écran représentent 1cm (enfin ça dépend du zoom, donc c'est juste un réglage par défaut)
 
-    // choixQuestions = shuffle(choixQuestions) // pour mélanger
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsCorrection = []
       couleurs[i] = []
@@ -117,7 +111,7 @@ export default class ScratchMultiScript extends Exercice {
       allerA(0, 0, lutins[i]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
       baisseCrayon(lutins[i]) // à partir de là, le lutin laissera une trace (ses positions successives sont enregistrées dans lutins[i].listeTraces)
 
-      switch (choixQuestions[i]) {
+      switch (choixQuestions) {
         case 1:
           x[0] = 0
           y[0] = 0
@@ -260,7 +254,7 @@ export default class ScratchMultiScript extends Exercice {
 
           break
 
-        case 3:
+        default:
           x.push(randint(-4, 2) * 30 + 15)
           y.push(randint(-4, 2) * 30 + 15)
           x.push(-120, 30, 30, 60, 30, 30)

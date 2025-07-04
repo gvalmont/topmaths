@@ -13,10 +13,10 @@ export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const dateDeModifImportante = '10/11/2024'
-export const titre = 'Reconnaître un quadrilatère particulier à partir de ses propriétés'
+export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
 
 /**
- * Reconnaître un quadrilatère particulier à partir de ses propriétés
+ * Reconnaitre un quadrilatère particulier à partir de ses propriétés
  * @author Rémi Angot
 */
 export const uuid = '4e52e'

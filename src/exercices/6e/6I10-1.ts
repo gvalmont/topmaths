@@ -8,17 +8,26 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu } from '../../modules/outils'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 import Exercice from '../Exercice'
+import { lettreDepuisChiffre, numAlphaNum } from '../../lib/outils/outilString'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const titre = 'Programmer des déplacements relatifs (Scratch)'
 export const dateDePublication = '05/02/2023'
+export const dateDeModifImportante = '09/06/2025'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * * Colorier le déplacement d'un lutin
  * * 6I10-2
  * @author Guillaume Valmont // d'après 6I10 de Erwan Duplessy
+ * Ajout interactivité : Juin 2025 par Guillaume Valmont
  */
 export const uuid = '594eb'
 
@@ -48,6 +57,8 @@ export default class ColorierDeplacement extends Exercice {
   nouvelleVersion () {
     const lstObjet = [] // liste de tous les objets Mathalea2d
     let direction: 0 | 90 | 180 | 270 = 0 // Orientation du lutin en degrés
+    let positionApresPremierDeplacement = 'A1'
+    let positionApresDernierDeplacement = 'A1'
     function scratchblocksTikz (codeSvg: string, codeTikz: string) {
       // c'est une ancienne façon de faire. Maintenant il existe une fonction scratchblock() qui effectue la conversion scratch Latex -> scratchblock
       if (context.isHtml) {
@@ -201,12 +212,9 @@ export default class ColorierDeplacement extends Exercice {
       lstObjet.push(texteParPosition(txt, xGrilleMin + j + 0.5, yGrilleMax + 0.5, 0, 'black', 1, 'milieu')) // affiche de A à J... en haut de la grille
     }
     for (let i = 0; i < (yGrilleMax - yGrilleMin); i++) {
-      lstObjet.push(texteParPosition(String(i), xGrilleMin - 0.25, yGrilleMax - i - 0.5, 0, 'black', 1, 'milieu')) // affiche de 0 à 9... à gauche de la grille
+      lstObjet.push(texteParPosition(String(i + 1), xGrilleMin - 0.25, yGrilleMax - i - 0.5, 0, 'black', 1, 'milieu')) // affiche de 0 à 9... à gauche de la grille
     }
-
-    texte += 'Au départ, le lutin est situé dans la case grisée et regarde vers la droite. Chaque déplacement se fait dans une case adjacente. Exécuter le programme.<br><br>'
-    if (!context.isHtml) { texte += '\\begin{center}' }
-    texte += mathalea2d({
+    const mathalea2dEnonce = mathalea2d({
       xmin: xGrilleMin - 3,
       xmax: xGrilleMax + 1,
       ymin: yGrilleMin - 1,
@@ -214,12 +222,6 @@ export default class ColorierDeplacement extends Exercice {
       pixelsParCm: 20,
       scale: 0.5
     }, lstObjet)
-    if (context.isHtml) {
-      texte += '</td></tr></table>'
-    } else {
-      texte += '\\end{center}\\end{minipage} '
-      texte += '\\hfill \\null'
-    }
 
     // CORRECTION
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
@@ -244,6 +246,9 @@ export default class ColorierDeplacement extends Exercice {
         p.opaciteDeRemplissage = 0.25
         p.epaisseur = 0
         lstObjet.push(p)
+        if (i === 0) {
+          positionApresPremierDeplacement = lettreDepuisChiffre(xLutin - xGrilleMin + 1) + (yGrilleMax - yLutin + 1) // position finale du lutin
+        }
       }
       lstObjet.push(p, fleche(xLutin, yLutin, direction))
       if (this.sup2) {
@@ -269,10 +274,35 @@ export default class ColorierDeplacement extends Exercice {
         texteCorr += '\\begin{minipage}{.49\\textwidth}'
       }
     }
+    positionApresDernierDeplacement = lettreDepuisChiffre(xLutin - xGrilleMin + 1) + (yGrilleMax - yLutin + 1) // position finale du lutin
     context.isHtml ? texteCorr += '</td></tr></table>' : texteCorr += '\\end{minipage}'
 
     if (context.isAmc) {
       this.autoCorrection = [{ propositions: [{ texte: '', statut: 3, sanscadre: true }] }]
+    }
+
+    texte += 'Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. Exécuter le programme.'
+
+    texte += '<br><br>'
+    if (!context.isHtml) { texte += '\\begin{center}' }
+    texte += mathalea2dEnonce
+    if (context.isHtml) {
+      texte += '</td></tr></table>'
+    } else {
+      texte += '\\end{center}\\end{minipage} '
+      texte += '\\hfill \\null'
+    }
+
+    if (this.interactif && context.isHtml) {
+      texte += `<br>
+      ${numAlphaNum(0)} Quelle est la première case coloriée par le lutin ? ${ajouteChampTexteMathLive(this, 0, 'alphanumeric', { placeholder: 'A1' })}`
+      handleAnswers(this, 0, { reponse: { value: positionApresPremierDeplacement, compare: texteSansCasseCompare } })
+      texte += `<br>
+      ${numAlphaNum(1)} Quelle est la dernière case coloriée par le lutin ? ${ajouteChampTexteMathLive(this, 1, 'alphanumeric', { placeholder: 'A1' })}`
+      handleAnswers(this, 1, { reponse: { value: positionApresDernierDeplacement, compare: texteSansCasseCompare } })
+      texteCorr += `<br>
+      La première case coloriée par le lutin est ${texteEnCouleurEtGras(positionApresPremierDeplacement)}.<br>
+      La dernière case coloriée par le lutin est ${texteEnCouleurEtGras(positionApresDernierDeplacement)}.`
     }
 
     this.listeQuestions.push(texte)

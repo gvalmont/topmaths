@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -156,21 +156,13 @@ export default class DevelopperReduireExprComplexe extends Exercice {
         g = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, e])
         h = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, f])
       }
-      const aS = String(a)
-      const bS = String(b)
-      const cS = String(c)
-      const dS = String(d)
-      const eS = String(e)
-      const fS = String(f)
-      const gS = String(g)
-      const hS = String(h)
       const choixLettre = choice(lettresPossibles)
       const expression1 = factsProd1Diff
-        ? printlatex(`(${aS}*${choixLettre}+(${bS}))*(${cS}*${choixLettre}+(${dS}))`).replaceAll(' ', '')
-        : printlatex(`(${aS}*${choixLettre}+(${bS}))^2`).replaceAll(' ', '')
+        ? `(${rienSi1(a)} ${choixLettre}${ecritureAlgebrique(b)}) (${rienSi1(c)} ${choixLettre}${ecritureAlgebrique(d)})`
+        : `(${rienSi1(a)} ${choixLettre}${ecritureAlgebrique(b)})^2`
       const expression2 = factsProd2Diff
-        ? printlatex(`(${eS}*${choixLettre}+(${fS}))*(${gS}*${choixLettre}+(${hS}))`).replaceAll(' ', '')
-        : printlatex(`(${eS}*${choixLettre}+(${fS}))^2`).replaceAll(' ', '')
+        ? `(${rienSi1(e)} ${choixLettre}${ecritureAlgebrique(f)}) (${rienSi1(g)} ${choixLettre}${ecritureAlgebrique(h)})`
+        : `(${rienSi1(e)} ${choixLettre}${ecritureAlgebrique(f)})^2`
       const expressionDeveloppee1 = developpe(expression1, { isColored, colorOffset: 0, level })
       const expressionDeveloppee2 = developpe(expression2, { isColored, colorOffset: 4, level })
       const parsedExp1: BoxedExpression = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac'))

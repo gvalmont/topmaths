@@ -2,10 +2,10 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenuSansNumero, randint, printlatex } from '../../modules/outils'
+import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures'
 
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
@@ -48,43 +48,46 @@ export default class DistributiviteSimpleDoubleReduction extends Exercice {
       c = randint(-11, 11, 0)
       d = randint(-11, 11, 0)
       e = randint(-11, 11, 0)
+      texte = ''
+      texteCorr = ''
+      reponse = ''
       switch (listeTypeDeQuestions[i]) {
         case 'cx+e(ax+b)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${c}*x+(${e * a})*x+(${e * b})`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${c + e * a}*x+(${e * b})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(c)}x${ecritureAlgebriqueSauf1(e)}(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
+          texteCorr = texte
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(c)}x${ecritureAlgebriqueSauf1(e * a)}x${ecritureAlgebrique(e * b)}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(c + e * a)}x${ecritureAlgebrique(e * b)}$`
           reponse = reduireAxPlusB(c + e * a, e * b, 'x')
           coeffa = 0
           coeffb = c + e * a
           coeffc = e * b
           break
         case 'ex+(ax+b)(cx+d)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}*x+(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * c}*x^2+(${e + b * c + a * d})*x+(${b * d})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${rienSi1(e)}x+(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c)}x${ecritureAlgebrique(d)})$`
+          texteCorr = texte
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(e)}x${ecritureAlgebriqueSauf1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(e + b * c + a * d)}x${ecritureAlgebrique(b * d)}$`
           reponse = reduirePolynomeDegre3(0, a * c, e + b * c + a * d, b * d, 'x')
           coeffa = a * c
           coeffb = e + b * c + a * d
           coeffc = b * d
           break
         case 'e+(ax+b)(cx+d)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}+(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * c}*x^2+(${b * c + a * d})*x+(${e + b * d})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${e}+(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c)}x${ecritureAlgebrique(d)})$`
+          texteCorr = texte
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${e}${ecritureAlgebriqueSauf1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(e + b * d)}$`
           reponse = reduirePolynomeDegre3(0, a * c, b * c + a * d, e + b * d, 'x')
           coeffa = a * c
           coeffb = b * c + a * d
           coeffc = e + b * d
           break
         case 'e-(ax+b)(cx+d)':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${e}-${printlatex(`(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${e}-(${printlatex(`(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)})$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}+(${-1 * a * c})*x^2+(${-1 * a * d})*x+(${-1 * b * c})*x+(${-1 * b * d})`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-1 * a * c}*x^2+(${-1 * b * c - a * d})*x+(${e - b * d})`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${e}-(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c)}x${ecritureAlgebrique(d)})$`
+          texteCorr = texte
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${e}-(${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)})$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${e}${ecritureAlgebriqueSauf1(-1 * a * c)}x^2${ecritureAlgebriqueSauf1(-1 * a * d)}x${ecritureAlgebriqueSauf1(-1 * b * c)}x${ecritureAlgebrique(-1 * b * d)}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(-1 * a * c)}x^2${ecritureAlgebriqueSauf1(-1 * b * c - a * d)}x${ecritureAlgebrique(e - b * d)}$`
           reponse = reduirePolynomeDegre3(0, -1 * a * c, -1 * b * c - a * d, e - b * d, 'x')
           coeffa = -1 * a * c
           coeffb = -1 * b * c - a * d
@@ -94,10 +97,10 @@ export default class DistributiviteSimpleDoubleReduction extends Exercice {
         case '(ax*b)(cx+d)':
           a = randint(-3, 3, [0])
           b = randint(2, 3)
-          texte = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * b}*x`)}\\times(${printlatex(`${c}*x+(${d})`)})$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * b * c}*x^2+(${a * b * d})*x`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x\\times${b})(${rienSi1(c)}x${ecritureAlgebrique(d)})$`
+          texteCorr = texte
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(a * b)}x\\times(${rienSi1(c)}x${ecritureAlgebrique(d)})$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(a * b * c)}x^2${ecritureAlgebriqueSauf1(a * b * d)}x$`
           reponse = reduirePolynomeDegre3(0, a * b * c, a * b * d, 0, 'x')
           coeffa = a * b * c
           coeffb = a * b * d
@@ -105,11 +108,11 @@ export default class DistributiviteSimpleDoubleReduction extends Exercice {
           break
         case 'e(ax+b)-(d+cx)':
           e = randint(-11, 11, [-1, 1, 0])
-          texte = `$${lettreDepuisChiffre(i + 1)}=${e}(${printlatex(`${a}*x+(${b})`)})-(${printlatex(`${d}+(${c})*x`)})$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${e}(${rienSi1(a)}x${ecritureAlgebrique(b)})-(${d}${ecritureAlgebriqueSauf1(c)}x)$`
           texteCorr = texte
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a})*x+(${e * b})`)}-(${printlatex(`${d}+(${c})*x`)})$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a})*x+(${e * b})+(${-d})+(${-c})*x`)}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a - c})*x+(${e * b - d})`)}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(e * a)}x${ecritureAlgebrique(e * b)}-(${d}${ecritureAlgebriqueSauf1(c)}x)$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(e * a)}x${ecritureAlgebrique(e * b)}${ecritureAlgebrique(-d)}${ecritureAlgebriqueSauf1(-c)}x$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${rienSi1(e * a - c)}x${ecritureAlgebrique(e * b - d)}$`
           reponse = reduireAxPlusB(e * a - c, e * b - d, 'x')
           coeffa = 0
           coeffb = e * a - c
@@ -117,7 +120,7 @@ export default class DistributiviteSimpleDoubleReduction extends Exercice {
           break
       }
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false } } })
+        handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, ' ')) : ''
       } else {
         this.autoCorrection[i] = {

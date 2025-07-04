@@ -24,7 +24,7 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { Arbre } from '../../../modules/arbres'
 import { min, round } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
@@ -1004,20 +1004,20 @@ export default class SujetCAN2022Premiere extends Exercice {
           if (choix === 'a') {
             a = randint(1, 10)
             b = randint(2, 10)
-            reponse = [printlatex(`(${a}*x-${b})*(${a}*x+${b})`), printlatex(`(${a}*x+${b})*(${a}*x-${b})`)]
+            reponse = [`(${rienSi1(a)}x-${b})(${rienSi1(a)}x+${b})`, `(${rienSi1(a)}x+${b})(${rienSi1(a)}x-${b})`]
 
             texte = `Factoriser $${rienSi1(a ** 2)}x^2-${b ** 2}$.
       `
-            texteCorr = ` On reconnaît une différence de deux carrés : $a^2-b^2$ avec $a=${a}x$ et $b=${b}$.<br>
+            texteCorr = ` On reconnaît une différence de deux carrés : $a^2-b^2$ avec $a=${rienSi1(a)}x$ et $b=${b}$.<br>
             Comme $a^2-b^2=(a-b)(a+b)$, alors $${rienSi1(a ** 2)}x^2-${b ** 2}=(${rienSi1(a)}x-${b})(${rienSi1(a)}x+${b})$.`
           } else {
             a = randint(1, 10)
             b = randint(2, 10)
-            reponse = [printlatex(`(${b}-${a}*x)*(${b}+${a}*x)`), printlatex(`(${b}+${a}*x)*(${b}-${a}*x)`)]
+            reponse = [`(${b}-${rienSi1(a)}x)(${b}+${rienSi1(a)}x)`, `(${b}+${rienSi1(a)}x)(${b}-${rienSi1(a)}x)`]
 
             texte = `Factoriser $${b ** 2}-${rienSi1(a ** 2)}x^2$.
       `
-            texteCorr = ` On reconnaît une différence de deux carrés : $a^2-b^2$ avec $a=${b}$ et $b=${a}x$.<br>
+            texteCorr = ` On reconnaît une différence de deux carrés : $a^2-b^2$ avec $a=${b}$ et $b=${rienSi1(a)}x$.<br>
             Comme $a^2-b^2=(a-b)(a+b)$, alors  $${b ** 2}-${rienSi1(a ** 2)}x^2=(${b}-${rienSi1(a)}x)(${b}+${rienSi1(a)}x)$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

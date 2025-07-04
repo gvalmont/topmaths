@@ -1,15 +1,17 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
-  cone3d,
-  cylindre3d,
   homothetie3d,
+  translation3d
+} from '../../lib/3d/tranformations'
+import {
+  cone3d,
+  cylindre3d, prisme3d,
+  pyramide3d
+} from '../../lib/3d/solides'
+import {
   point3d,
-  polygone3d,
-  prisme3d,
-  pyramide3d,
-  translation3d,
-  vecteur3d
-} from '../../modules/3d'
+  polygone3d, vecteur3d
+} from '../../lib/3d/elements'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'

@@ -124,6 +124,7 @@ export default class Exercice {
   isDone?: boolean
   private _html: HTMLElement = document.createElement('div')
   score?: number
+  vspace?: number // Ajoute un \vspace{[number]cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
 
   constructor () {
   // ////////////////////////////////////////////////
@@ -163,7 +164,6 @@ export default class Exercice {
     this.nbColsCorrModifiable = true // booléen pour déterminer si le nombre de colonnes de la correction est modifiable en ligne dans la sortie LaTeX.
     this.spacingModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX.
     this.spacingCorrModifiable = true // booléen pour déterminer si l'espacement est modifiable en ligne dans la sortie LaTeX.
-    // this.vspace = -1 //Ajoute un \vspace{-1cm} avant l'énoncé ce qui peut être pratique pour des exercices avec des figures.
 
     // ////////////////////////////////////////////
     // Gestion de la sortie autre que LateX

@@ -7,12 +7,12 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
-export const titre = 'Reconnaître des points alignés'
+export const titre = 'Reconnaitre des points alignés'
 
 export const dateDePublication = '22/02/2023'
 
 /**
- * Reconnaître si trois points sont alignés en traçant une droite qui passe par les deux premiers et en vérifiant qu'elle passe bien par le troisième.
+ * Reconnaitre si trois points sont alignés en traçant une droite qui passe par les deux premiers et en vérifiant qu'elle passe bien par le troisième.
  * @author Guillaume Valmont
 
 */

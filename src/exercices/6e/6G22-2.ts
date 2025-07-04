@@ -18,12 +18,12 @@ export const interactifType = 'qcm'
 export const amcType = 'qcmMono'
 export const amcReady = true
 
-export const titre = 'Reconnaître un angle particulier'
+export const titre = 'Reconnaitre un angle particulier'
 
 export const dateDePublication = '03/12/2022'
 
 /**
- * Reconnaître un angle nul, aigu, droit, obtus, plat
+ * Reconnaitre un angle nul, aigu, droit, obtus, plat
  * @author Guillaume Valmont
  * 6G22-2
  */

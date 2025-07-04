@@ -72,11 +72,11 @@ export default defineConfig({
             // on essaie de découper un peu, mais pas trop (la ligne suivante génère des empty chunks, explose la ram consommée et génère trop de petits chunks)
             // return id.replace(/.*node_modules\/([^/]+)(\/.*)/, 'vendor-$1')
             // celle-ci serait pas mal, mais ça consomme encore trop de RAM
-            // for (const name of ['jquery-ui', 'jquery', 'ace-builds', 'algebrite', 'blockly', 'basthon', 'jsplumb', 'jstree', 'redux', 'scratch', 'skulpt']) {
+            // for (const name of ['jquery-ui', 'jquery', 'ace-builds', 'blockly', 'basthon', 'jsplumb', 'jstree', 'redux', 'scratch', 'skulpt']) {
             // c'est surtout basthon qu'il faut mettre à part (18M)
             // IMPORTANT, il faut mettre jquery-ui à part, sinon ça plante dès le chargement de son chunk avec `jQuery is not defined`
             if (/\/jquery(\/|$)/.test(id)) return 'vendor-jquery' // faut pas choper jquery-ui ni jquery.terminal
-            for (const name of ['jquery-ui', 'algebrite', 'basthon', 'blockly', 'skulpt']) {
+            for (const name of ['jquery-ui', 'basthon', 'blockly', 'skulpt']) {
               if (id.includes(name)) return `vendor-${name}`
             }
             // si on met ceux-là ensemble, ça plante avec un pb dans immer, requis par redux

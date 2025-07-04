@@ -285,7 +285,7 @@ export default class PremierOuPas extends Exercice {
             tabPremiersATester.push(prems[r])
             r++
           }
-          texteCorr = this.level === 1 ? texteEnCouleurEtGras(nombreAvecEspace(N) + ' est un nombre premier') + ' car il fait partie de la liste des nombres premiers à connaître. Sinon, sans cette connaissance, il y a la méthode suivante.<br>' : ''
+          texteCorr = this.level === 1 ? texteEnCouleurEtGras(nombreAvecEspace(N) + ' est un nombre premier') + ' car il fait partie de la liste des nombres premiers à connaitre. Sinon, sans cette connaissance, il y a la méthode suivante.<br>' : ''
           texteCorr += `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
           if (N === 2 || N === 3) {
             texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul,'

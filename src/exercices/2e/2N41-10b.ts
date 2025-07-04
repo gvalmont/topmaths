@@ -1,9 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -154,21 +154,13 @@ export default class DevelopperReduireExprComplexe extends Exercice {
         g = fractions[6].multiplieEntier(isPositif ? 1 : choice([1, -1]))
         h = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, f])
       }
-      const aS = `${a.num}/${a.den}`
-      const bS = String(b)
-      const cS = `${c.num}/${c.den}`
-      const dS = String(d)
-      const eS = `${e.num}/${e.den}`
-      const fS = String(f)
-      const gS = `${g.num}/${g.den}`
-      const hS = String(h)
       const choixLettre = choice(lettresPossibles)
       const expression1 = factsProd1Diff
-        ? printlatex(`(${aS}*${choixLettre}+(${bS}))*(${cS}*${choixLettre}+(${dS}))`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
-        : printlatex(`(${aS}*${choixLettre}+(${bS}))^2`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
+        ? `(${a.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(b)})(${c.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(d)})`
+        : `(${a.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(b)})^2`
       const expression2 = factsProd2Diff
-        ? printlatex(`(${eS}*${choixLettre}+(${fS}))*(${gS}*${choixLettre}+(${hS}))`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
-        : printlatex(`(${eS}*${choixLettre}+(${fS}))^2`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
+        ? `(${e.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(f)})(${g.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(h)})`
+        : `(${e.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(f)})^2`
       const expressionDeveloppee1 = developpe(expression1, { isColored, colorOffset: 0, level })
       const expressionDeveloppee2 = developpe(expression2, { isColored, colorOffset: 4, level })
       const devExpr1 = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex

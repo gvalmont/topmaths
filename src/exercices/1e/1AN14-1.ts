@@ -196,7 +196,7 @@ class DerivationFonctionsUsuelles extends Exercice {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
-        handleAnswers(this, i, { reponse: { value: reponse, options: { variable: 'x', domaine: [-10, 10] } }, compare: functionCompare })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { variable: 'x', domaine: [-10, 10] }, compare: functionCompare } })
         i++
         cpt--
       }
