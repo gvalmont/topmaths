@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
 
-export const titre = 'Patternes numériques (divisibilité)'
+export const titre = 'Patterns numériques (divisibilité)'
 
 /**
  * On donne une liste de nombre et on demande si des nombres sont dans cette liste.

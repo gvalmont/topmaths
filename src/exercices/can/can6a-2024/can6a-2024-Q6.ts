@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -11,7 +11,7 @@ export const uuid = '8665b'
  * @author Gilles Mora
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
 

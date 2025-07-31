@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
@@ -14,7 +14,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
 */
-export default class Can2025CM1Q19 extends Exercice {
+export default class Can2025CM1Q19 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Utiliser une proportionnalité*'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6P02'],
   'fr-ch': []
 }
-export default class ProportionnaliteCompliquee extends Exercice {
+export default class ProportionnaliteCompliquee extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

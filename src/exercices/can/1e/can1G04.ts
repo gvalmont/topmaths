@@ -5,7 +5,7 @@ import { labelPoint } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can1G04'],
   'fr-ch': []
 }
-export default class ProduitScalaireNormesAngles extends Exercice {
+export default class ProduitScalaireNormesAngles extends ExerciceSimple {
   constructor () {
     super()
 

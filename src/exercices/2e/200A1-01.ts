@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
 import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 
 export const titre = 'Lister tous les diviseurs d\'un entier'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
  * @author Jean-Claude Lhote
 
  */
-export default class ModeleAutomatisme2nde extends Exercice {
+export default class ModeleAutomatisme2nde extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,10 +1,11 @@
 import { repere } from '../../../lib/2d/reperes'
-import { texteParPosition } from '../../../lib/2d/textes'
+import { latex2d } from '../../../lib/2d/textes'
 import { spline } from '../../../lib/mathFonctions/Spline'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const dateDeModifImportante = '26/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,16 +21,23 @@ export const refs = {
   'fr-fr': ['can3F01'],
   'fr-ch': []
 }
-export default class ImageSpline extends Exercice {
+type Noeud = {
+  x: number;
+  y: number;
+  deriveeGauche: number;
+  deriveeDroit: number;
+  isVisible: boolean;
+}
+export default class ImageSpline extends ExerciceSimple {
   constructor () {
     super()
-
+    this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
   nouvelleVersion () {
-    const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+    const noeuds1 : Noeud[] = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -39,7 +47,7 @@ export default class ImageSpline extends Exercice {
       { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: 5, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
     ]
-    const noeuds2 = [{ x: -4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+    const noeuds2: Noeud[] = [{ x: -4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
       { x: -2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -50,7 +58,7 @@ export default class ImageSpline extends Exercice {
       { x: 5, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
     ]
     const mesFonctions = [noeuds1, noeuds2]
-    function aleatoiriseCourbe (listeFonctions) {
+    function aleatoiriseCourbe (listeFonctions: Noeud[][]) {
       const coeffX = choice([-1, 1]) // symétries ou pas
       const coeffY = choice([-1, 1])
       const deltaX = randint(-2, +2) // translations
@@ -64,9 +72,9 @@ export default class ImageSpline extends Exercice {
         isVisible: noeud.isVisible
       }))
     }
-    let bornes = {}
+    let bornes = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
     const antecedent = randint(0, 8)
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+    const o = latex2d('\\text{O}', -0.3, -0.3, { letterSize: 'scriptsize' })
     const nuage = aleatoiriseCourbe(mesFonctions)
     const theSpline = spline(nuage)
     this.spline = theSpline
@@ -96,10 +104,21 @@ export default class ImageSpline extends Exercice {
     const objetsEnonce = [repere1, courbe1]
 
     this.reponse = theSpline.y[antecedent]
-    this.question = `Quelle est l'image de $${theSpline.x[antecedent]}$ ?
-    ` + mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+    this.distracteurs = [
+                  `$${theSpline.x[antecedent]}$`,
+                  `L\'image de $${theSpline.x[antecedent]}$ n'existe pas`,
+                  `$${theSpline.y[0]}$`
+    ]
+    if (this.versionQcm) {
+      this.question = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) + '<br>'+
+     `L'image de $${theSpline.x[antecedent]}$ est : `
+    }// fixeBordures(objetsEnonce))
+    else {
+      this.question = `Quelle est l'image de $${theSpline.x[antecedent]}$ ?
+    ` + mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.7, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)
+    }
     this.correction = `Pour lire l'image de $${theSpline.x[antecedent]}$, on place la valeur de $${theSpline.x[antecedent]}$ sur l'axe des abscisses (axe de lecture  des antécédents) et on lit
-    son image  sur l'axe des ordonnées (axe de lecture des images). On obtient :  $f(${theSpline.x[antecedent]})=${theSpline.y[antecedent]}$`
+    son image  sur l'axe des ordonnées (axe de lecture des images). On obtient :  $f(${theSpline.x[antecedent]})=${miseEnEvidence(theSpline.y[antecedent])}$`
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

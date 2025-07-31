@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -13,7 +13,7 @@ export const uuid = '4adca'
 
 */
 
-export default class DivisionParQuatreCM2 extends Exercice {
+export default class DivisionParQuatreCM2 extends ExerciceSimple {
   constructor () {
     super()
 

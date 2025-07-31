@@ -5,7 +5,7 @@ import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can3G04'],
   'fr-ch': []
 }
-export default class RechercheValeurPythagore extends Exercice {
+export default class RechercheValeurPythagore extends ExerciceSimple {
   constructor () {
     super()
 

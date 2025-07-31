@@ -1,6 +1,6 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Limite de $n^m-n^p$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const dateDePublication = '13/08/2024'
  * @author Jean-Claude Lhote
  *
  */
-export default class LimiteFormeIndeterminee extends Exercice {
+export default class LimiteFormeIndeterminee extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1
@@ -42,7 +42,7 @@ export default class LimiteFormeIndeterminee extends Exercice {
       this.reponse = '-\\infty'
     }
     this.correction +=
-            'Ainsi, par produit, '
+      'Ainsi, par produit, '
     this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${miseEnEvidence(this.reponse)}$.`
   }
 }

@@ -1,6 +1,6 @@
 import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import {
   randint
 } from '../../../modules/outils'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2F02'],
   'fr-ch': []
 }
-export default class CalculImageQuotient extends Exercice {
+export default class CalculImageQuotient extends ExerciceSimple {
   constructor () {
     super()
 

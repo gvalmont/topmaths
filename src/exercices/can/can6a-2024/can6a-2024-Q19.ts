@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -12,7 +12,7 @@ export const uuid = 'dcd81'
  * @author  Gilles Mora
 
 */
-export default class SoustractionPasFacile extends Exercice {
+export default class SoustractionPasFacile extends ExerciceSimple {
   constructor () {
     super()
 
@@ -24,9 +24,9 @@ export default class SoustractionPasFacile extends Exercice {
   }
 
   nouvelleVersion () {
-    let a:Decimal
+    let a: Decimal
     let b: Decimal
-    let partieEntiere:number
+    let partieEntiere: number
     let partieDec: Decimal
     if (this.canOfficielle) {
       a = new Decimal('10')

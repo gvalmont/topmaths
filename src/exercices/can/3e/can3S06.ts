@@ -1,6 +1,6 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Déterminer le rang d’une médiane'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can3S06'],
   'fr-ch': []
 }
-export default class Mediane extends Exercice {
+export default class Mediane extends ExerciceSimple {
   constructor () {
     super()
 

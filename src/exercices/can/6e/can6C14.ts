@@ -3,7 +3,7 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la somme de quatre entiers qui se marient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6C14'],
   'fr-ch': []
 }
-export default class Somme4EntiersQuiSeMarient extends Exercice {
+export default class Somme4EntiersQuiSeMarient extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

@@ -1,6 +1,6 @@
 import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Utiliser la proportionnalité sur une expression algébrique'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can3P01'],
   'fr-ch': []
 }
-export default class ProportionnaliteExpressionAlgebrique extends Exercice {
+export default class ProportionnaliteExpressionAlgebrique extends ExerciceSimple {
   constructor () {
     super()
 

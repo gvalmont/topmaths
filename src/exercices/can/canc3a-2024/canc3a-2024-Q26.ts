@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
@@ -14,7 +14,7 @@ export const uuid = 'c700e'
  * @author Gilles Mora (reprise du fichier de Jean-Claude Lhote 6ième)
 
 */
-export default class AjouteDecimauxPieges extends Exercice {
+export default class AjouteDecimauxPieges extends ExerciceSimple {
   constructor () {
     super()
 

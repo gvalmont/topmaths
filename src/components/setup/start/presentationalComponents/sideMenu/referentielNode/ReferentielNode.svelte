@@ -71,6 +71,22 @@
       if (pathToThisNode[pathToThisNode.length - 1].includes("année")) {
         return Object.entries(s).reverse()
       }
+      
+      // classement des thèmes dans l'ordre alphabétique
+      const key2 = pathToThisNode[pathToThisNode.length - 1] as keyof typeof codeToLevelList
+      if (codeToLevelList[key2]?.includes("thème")) {
+        return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
+          return keyA.localeCompare(keyB, "fr")
+        })
+      }
+
+      // classement des thèmes dans l'ordre alphabétique
+      if (pathToThisNode[pathToThisNode.length - 1].includes("Tags")) {
+        return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
+          return keyA.localeCompare(keyB, "fr")
+        })
+      }
+
       // classement des thèmes dans l'ordre alphabétique
       if (pathToThisNode[pathToThisNode.length - 1].includes("thèmes")) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -109,6 +125,12 @@
       }
       return Object.entries(s)
     } else {
+      // classement dans l'ordre alphabétique
+      if ('Géométrie dynamique' === levelTitle || 'Vos ressources'  === levelTitle) {
+        return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
+          return keyA.localeCompare(keyB, "fr")
+        })
+      }
       return Object.entries(s)
     }
   }

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
@@ -17,7 +17,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Developper extends Exercice {
+export default class Developper extends ExerciceSimple {
   constructor () {
     super()
 

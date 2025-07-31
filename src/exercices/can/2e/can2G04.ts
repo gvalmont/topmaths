@@ -4,7 +4,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer les coordonnées du milieu'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2G04'],
   'fr-ch': []
 }
-export default class CalculCoordonneesMilieu extends Exercice {
+export default class CalculCoordonneesMilieu extends ExerciceSimple {
   constructor () {
     super()
 
@@ -52,7 +52,7 @@ export default class CalculCoordonneesMilieu extends Exercice {
         this.reponse = `(${arrondi((a + b) / 2, 1)};${arrondi((c + d) / 2, 1)})`
 
         break
-      case 'b' :
+      case 'b':
         a = randint(-9, 9, 0)
         b = randint(-9, 9, 0)
 

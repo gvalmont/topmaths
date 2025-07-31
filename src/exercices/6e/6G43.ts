@@ -7,6 +7,8 @@ import { cube } from '../../lib/3d/CubeIso'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { deuxColonnes } from '../../lib/format/miseEnPage'
+import { context } from '../../modules/context'
+import { SceneViewer } from '../../lib/3d/SceneViewer'
 
 export const dateDePublication = '03/03/2021'
 export const titre = 'Compter les cubes manquants ou pas'
@@ -27,11 +29,15 @@ export const refs = {
   'fr-fr': ['6G43'],
   'fr-ch': ['9ES7-6']
 }
+const sceneBuilders: SceneViewer[] = []
+const sceneBuildersCorrection: SceneViewer[] = []
 export default class DenombrerCubes extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compter les cubes\n2 : Compter les cubes manquants\n3 : Mélange']
     this.besoinFormulaire2Numerique = ["Taille de l'empilement", 5, 'De taille 3\nDe taille 4\nDe taille 5\nDe taille 6\nDe taille 7']
+    this.besoinFormulaire3CaseACocher = ['3D dynamique', false]
+    this.sup3 = false
     this.nbQuestions = 3 // Ici le nombre de questions
 
     this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
@@ -40,6 +46,10 @@ export default class DenombrerCubes extends Exercice {
   }
 
   nouvelleVersion () {
+    sceneBuilders.forEach(sceneBuilder => sceneBuilder.destroy())
+    sceneBuilders.length = 0
+    sceneBuildersCorrection.forEach(sceneBuilder => sceneBuilder.destroy())
+    sceneBuildersCorrection.length = 0
     let typesDeQuestionsDisponibles: number[] = [] // tableau à compléter par valeurs possibles des types de questions
     switch (this.sup) {
       case 1:
@@ -91,76 +101,110 @@ export default class DenombrerCubes extends Exercice {
     const hauteur = longueur // hauteur de l'empilement
 
     for (let q = 0, texte, texteCorr, cpt = 0; q < this.nbQuestions && cpt < 50;) {
-      const objetsCorrection = [] // Idem pour la correction
-      const objetsEnonce = []
-      const objetsEnonce2 = []
+      const L = empilementCubes(longueur, largeur, hauteur) // crée un empilement aléatoire
       texte = 'Un empilement de cubes est représenté ci-dessous sous deux angles différents. <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
+      let figure = ''
+      let figureCorrection = ''
 
-      let cosa, cosb, sina, sinb
-      const L = empilementCubes(longueur, largeur, hauteur) // crée un empilement aléatoire
-      const alpha1 = 10 // choix de la projection
-      const beta1 = -40// choix de la projection
-      const alpha2 = 35// choix de la projection
-      const beta2 = -20 // choix de la projection
-      for (let i = 0; i < L.length; i++) {
-        objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha1, beta1, {}).c2d)
-      }
+      if (!this.sup3 || !context.isHtml) {
+        const objetsCorrection = [] // Idem pour la correction
+        const objetsEnonce = []
+        const objetsEnonce2 = []
 
-      for (let i = 0; i < L.length; i++) {
-        objetsEnonce2.push(...cube(L[i][0], L[i][1], L[i][2], alpha2, beta2, {}).c2d)
-      }
-      for (let i = 0; i < L.length; i++) {
-        objetsCorrection.push(...cube(3 * L[i][0], L[i][1], L[i][2], alpha2, beta2, {}).c2d)
-      }
-      cosa = Math.cos(alpha1 * Math.PI / 180)
-      sina = Math.sin(alpha1 * Math.PI / 180)
-      cosb = Math.cos(beta1 * Math.PI / 180)
-      sinb = Math.sin(beta1 * Math.PI / 180)
-      const paramsEnonce = Object.assign({
-        pixelsParCm: 20,
-        scale: 0.6,
-        mainlevee: false,
-        style: 'display: inline'
-      }, fixeBordures(objetsEnonce))
+        let cosa, cosb, sina, sinb
+        const alpha1 = 10 // choix de la projection
+        const beta1 = -40// choix de la projection
+        const alpha2 = 35// choix de la projection
+        const beta2 = -20 // choix de la projection
+        for (let i = 0; i < L.length; i++) {
+          objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha1, beta1, {}).c2d)
+        }
 
-      cosa = Math.cos(alpha2 * Math.PI / 180)
-      sina = Math.sin(alpha2 * Math.PI / 180)
-      cosb = Math.cos(beta2 * Math.PI / 180)
-      sinb = Math.sin(beta2 * Math.PI / 180)
-      const paramsEnonce2 = Object.assign({
-        pixelsParCm: 20,
-        scale: 0.6,
-        mainlevee: false,
-        style: 'display: inline'
-      }, fixeBordures(objetsEnonce2))
-      const paramsCorrection = {
-        xmin: -sina * largeur - 0.5,
-        ymin: -0.5,
-        xmax: cosa * longueur * 3 + 0.5,
-        ymax: -sina * sinb * longueur * 1.5 - cosa * sinb * largeur + cosb * hauteur * 1.5 + 0.5,
-        pixelsParCm: 20,
-        scale: 0.6,
-        mainlevee: false,
-        style: 'display: inline'
+        for (let i = 0; i < L.length; i++) {
+          objetsEnonce2.push(...cube(L[i][0], L[i][1], L[i][2], alpha2, beta2, {}).c2d)
+        }
+        for (let i = 0; i < L.length; i++) {
+          objetsCorrection.push(...cube(3 * L[i][0], L[i][1], L[i][2], alpha2, beta2, {}).c2d)
+        }
+        cosa = Math.cos(alpha1 * Math.PI / 180)
+        sina = Math.sin(alpha1 * Math.PI / 180)
+        cosb = Math.cos(beta1 * Math.PI / 180)
+        sinb = Math.sin(beta1 * Math.PI / 180)
+        const paramsEnonce = Object.assign({
+          pixelsParCm: 20,
+          scale: 0.6,
+          mainlevee: false,
+          style: 'display: inline'
+        }, fixeBordures(objetsEnonce))
+
+        cosa = Math.cos(alpha2 * Math.PI / 180)
+        sina = Math.sin(alpha2 * Math.PI / 180)
+        cosb = Math.cos(beta2 * Math.PI / 180)
+        sinb = Math.sin(beta2 * Math.PI / 180)
+        const paramsEnonce2 = Object.assign({
+          pixelsParCm: 20,
+          scale: 0.6,
+          mainlevee: false,
+          style: 'display: inline'
+        }, fixeBordures(objetsEnonce2))
+        const paramsCorrection = {
+          xmin: -sina * largeur - 0.5,
+          ymin: -0.5,
+          xmax: cosa * longueur * 3 + 0.5,
+          ymax: -sina * sinb * longueur * 1.5 - cosa * sinb * largeur + cosb * hauteur * 1.5 + 0.5,
+          pixelsParCm: 20,
+          scale: 0.6,
+          mainlevee: false,
+          style: 'display: inline'
+        }
+        figure = deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce2, objetsEnonce2))
+        figureCorrection = mathalea2d(paramsCorrection, objetsCorrection)
+      } else {
+        const sceneBuilder = new SceneViewer({ width: 400, height: 400, rigPosition: [longueur / 2, largeur / 2, -hauteur / 2], cameraDistance: 8, fov: 60 })
+
+        for (let i = 0; i < L.length; i++) {
+          sceneBuilder.addCubeTroisCouleursABox({
+            position: [L[i][0], L[i][2], -L[i][1]],
+            size: 1,
+            color1: 'red',
+            color2: 'blue',
+            color3: 'green'
+          })
+        }
+        figure = `<div id="emplacementPourSceneViewerEx${this.numeroExercice}Q${q}" style="width: 400px; height: 400px;"></div>`
+        sceneBuilders.push(sceneBuilder)
+
+        const sceneBuilder2 = new SceneViewer({ width: 400, height: 400, rigPosition: [longueur * 1.5 - 0.5, largeur / 2, -hauteur / 2], cameraDistance: 8, fov: 60, zoomLimits: { min: 5, max: 20 } })
+        for (let i = 0; i < L.length; i++) {
+          sceneBuilder2.addCubeTroisCouleursABox({
+            position: [3 * L[i][0], L[i][2], -L[i][1]],
+            size: 1,
+            color1: 'red',
+            color2: 'blue',
+            color3: 'green'
+          })
+        }
+        figureCorrection = `<div id="emplacementPourSceneViewerEx${this.numeroExercice}Q${q}Correction" style="width: 400px; height: 400px;"></div>`
+        sceneBuildersCorrection.push(sceneBuilder2)
       }
       // début de l'exercice
       switch (listeTypeDeQuestions[q]) {
         case 1:
           texte += 'Combien de petits cubes contient cet empilement de cubes ?' + ajouteChampTexteMathLive(this, q, '')
-          texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce2, objetsEnonce2))
+          texte += '<br>' + figure
           // correction :
           texteCorr += "On peut représenter l'empilement par tranches : <br>"
-          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
+          texteCorr += figureCorrection + '<br>'
           texteCorr += `Il y a au total ${L.length} cubes.`
           setReponse(this, q, L.length)
           break
         case 2:
           texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de côté ${longueur} ?` + ajouteChampTexteMathLive(this, q, '')
-          texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce2, objetsEnonce2))
+          texte += '<br>' + figure
           // correction :
           texteCorr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
-          texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
+          texteCorr += figureCorrection + '<br>'
           texteCorr += `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur * largeur * hauteur}$. <br>`
           texteCorr += `Il manque $${longueur * largeur * hauteur - L.length}$ cubes.`
           setReponse(this, q, longueur * largeur * hauteur - L.length)
@@ -170,10 +214,29 @@ export default class DenombrerCubes extends Exercice {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions[q] = texte
         this.listeCorrections[q] = texteCorr
-
         q++
       }
       cpt++
+    }
+    if (sceneBuilders.length > 0) {
+      document.addEventListener('exercicesAffiches', () => {
+        for (let i = 0; i < sceneBuilders.length; i++) {
+          const emplacement = document.getElementById(`emplacementPourSceneViewerEx${this.numeroExercice}Q${i}`)
+          if (emplacement) {
+            sceneBuilders[i].showSceneAt(emplacement)
+          }
+        }
+      }, { once: true })
+    }
+    if (sceneBuildersCorrection.length > 0) {
+      document.addEventListener('correctionsAffichees', () => {
+        for (let i = 0; i < sceneBuildersCorrection.length; i++) {
+          const emplacementCorrection = document.getElementById(`emplacementPourSceneViewerEx${this.numeroExercice}Q${i}Correction`)
+          if (emplacementCorrection) {
+            sceneBuildersCorrection[i].showSceneAt(emplacementCorrection)
+          }
+        }
+      }, { once: true })
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }

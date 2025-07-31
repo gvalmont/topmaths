@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -13,7 +13,7 @@ export const uuid = '1b6cc'
  * @author Gilles Mora
 
 */
-export default class BillesMultiplieesCM2 extends Exercice {
+export default class BillesMultiplieesCM2 extends ExerciceSimple {
   constructor () {
     super()
 

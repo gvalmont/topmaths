@@ -1,6 +1,6 @@
 import { pave } from '../../../lib/2d/projections3d'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Volume de pavé droit'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6M10'],
   'fr-ch': []
 }
-export default class VolumePaveSimple extends Exercice {
+export default class VolumePaveSimple extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

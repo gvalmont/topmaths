@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
@@ -25,7 +25,7 @@ function fact (nbr: number) {
   }
   return f
 }
-export default class Can2025TQ23 extends Exercice {
+export default class Can2025TQ23 extends ExerciceSimple {
   constructor () {
     super()
 

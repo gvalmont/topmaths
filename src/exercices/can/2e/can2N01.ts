@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Utiliser les intervalles'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2N01'],
   'fr-ch': []
 }
-export default class Intervalles extends Exercice {
+export default class Intervalles extends ExerciceSimple {
   constructor () {
     super()
 
@@ -86,7 +86,7 @@ export default class Intervalles extends Exercice {
         }
         break
 
-      case 2 :
+      case 2:
         a = randint(1, 4) * (-1)
         b = randint(1, 4)
         c = arrondi(randint(-9, -4) + randint(-9, -1) / 10)

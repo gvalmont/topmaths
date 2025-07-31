@@ -42,6 +42,7 @@ export type BlockForKeyboard =
   | 'uppercaseIToP'
   | 'uppercaseQToW'
   | 'uppercaseXToZ'
+  | 'estOuestSudNord'
 
 export interface CompleteKeysList {
   inline: KeysList

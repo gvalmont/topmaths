@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -21,7 +21,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class ComparerFractions extends Exercice {
+export default class ComparerFractions extends ExerciceSimple {
   constructor () {
     super()
 
@@ -37,7 +37,7 @@ export default class ComparerFractions extends Exercice {
     const b = choice([2024, 2026])
     const choix = choice([true, false])
     switch (randint(2, 2)) {
-      case 1 :
+      case 1:
 
         this.consigne = choix ? `L'image de $${texNombre(a, 0)}$ par la fonction $f$ est $${texNombre(b, 0)}$.` : `$${texNombre(b, 0)}$ est l'image de $${texNombre(a, 0)}$ par la fonction $f$.`
         this.consigne += '<br> Compléter l\'égalité correspondante.'
@@ -53,7 +53,7 @@ export default class ComparerFractions extends Exercice {
         this.canReponseACompleter = `$f(${sp()}\\ldots ${sp()}) =${sp()}\\ldots$`
         break
 
-      case 2 :
+      case 2:
         this.consigne = choix ? `Un antécédent de $${texNombre(a, 0)}$ par la fonction $f$ est $${texNombre(b, 0)}$.` : `$${texNombre(b, 0)}$ est un antécédent de  $${texNombre(a, 0)}$ par la fonction $f$.`
         this.consigne += '<br> Compléter l\'égalité correspondante.'
         this.question = 'f(%{champ1}) =%{champ2}'

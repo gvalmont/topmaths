@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Dresser le tableau de signes d\'une fonction dérivée à partir d\'un graphique'
@@ -17,7 +17,7 @@ export const refs = {
   'fr-ch': []
 }
 // une liste de nœuds pour définir une fonction Spline
-export default class SignesTabGSpline extends Exercice {
+export default class SignesTabGSpline extends ExerciceSimple {
   constructor () {
     super()
 

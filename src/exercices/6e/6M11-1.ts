@@ -15,7 +15,7 @@ import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
-export const titre = 'Calculer périmètre et aire de carrés, rectangles et triangles rectangles'
+export const titre = 'Calculer périmètre et/ou aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifType = 'mathLive'
@@ -39,7 +39,7 @@ export default class PerimetreOuAireDeCarresRectanglesTriangles extends Exercice
       'Type de figures',
       'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
     ]
-    this.besoinFormulaire2Numerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
     this.besoinFormulaire3CaseACocher = ['Avec figures']
     this.interactif = false
 

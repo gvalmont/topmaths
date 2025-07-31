@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Raisonnement par récurrence'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Stéphane Guyon
 
 */
-export default class recurrence extends Exercice {
+export default class recurrence extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

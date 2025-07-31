@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 
@@ -17,7 +17,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class CalculDivers extends Exercice {
+export default class CalculDivers extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -30,7 +30,7 @@ export default class CalculDivers extends Exercice {
     let a
     let b
     switch (randint(1, 2)) {
-      case 1 :
+      case 1:
         a = randint(8, 12, 10)
         b = 20 - a
         this.question = `Pour un concert, $${texNombre(2025, 0)}$ places ont été vendues à $${a}$ € la place.<br>
@@ -42,7 +42,7 @@ export default class CalculDivers extends Exercice {
         $${texNombre(2025, 0)} \\times ${a + b}=${texNombre(this.reponse, 0)}$<br>
         La recette totale est : $${miseEnEvidence(texNombre(this.reponse, 0))}$ €.`
         break
-      case 2 :
+      case 2:
         a = randint(4, 7, 5)
         b = 10 - a
         this.question = `Pour un concert, $${texNombre(2025, 0)}$ places ont été vendues à $${a}$ € la place.<br>

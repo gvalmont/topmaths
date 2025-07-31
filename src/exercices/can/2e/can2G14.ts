@@ -1,7 +1,7 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 export const titre = 'Déterminer les coordonnées d\'un point avec une translation'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2G14'],
   'fr-ch': []
 }
-export default class TranslationVecteur extends Exercice {
+export default class TranslationVecteur extends ExerciceSimple {
   constructor () {
     super()
 

@@ -6,7 +6,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { texteCentre } from '../../../lib/format/miseEnPage'
 import { abs } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites'
 import { randint, egal } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-fr': ['can3F08'],
   'fr-ch': []
 }
-export default class LectureGraphiqueFonctionAffine2 extends Exercice {
+export default class LectureGraphiqueFonctionAffine2 extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierFullOperations
@@ -49,14 +49,14 @@ export default class LectureGraphiqueFonctionAffine2 extends Exercice {
     c.epaisseur = 2
     this.question = `$f$ est une fonction affine${this.interactif ? '.' : ' définie par $f(x)=\\ldots$'}<br>`
     this.question += `${mathalea2d({
-        xmin: -5,
-        ymin: -5,
-        xmax: 6,
-        ymax: 5,
-pixelsParCm: 20,
-scale: 0.7,
-style: 'margin: auto'
-        }, r, c, o)}`// On trace le graphique
+      xmin: -5,
+      ymin: -5,
+      xmax: 6,
+      ymax: 5,
+      pixelsParCm: 20,
+      scale: 0.7,
+      style: 'margin: auto'
+    }, r, c, o)}`// On trace le graphique
     this.optionsChampTexte = { texteAvant: '$f(x)=$' }
     this.reponse = [`${new FractionEtendue(a, d).texFraction}x${ecritureAlgebrique(b)}`]
     if (egal(a * 1000 / d, Math.round(a * 1000 / d))) {
@@ -92,21 +92,21 @@ style: 'margin: auto'
         pixelsParCm: 20,
         scale: 0.7,
         style: 'margin: auto'
-        }, r, s1, s2, c, o)}`
+      }, r, s1, s2, c, o)}`
     }// On trace le graphique
     this.canEnonce = `$f$ est une fonction affine. <br>
     
     Exprimer $f(x)$ en fonction de $x$.<br>`
     this.canEnonce +=
-    `
+      `
     ${mathalea2d({
-      xmin: -5,
-      ymin: -5,
-      xmax: 6,
-      ymax: 5,
-pixelsParCm: 20,
-scale: 0.7,
-style: 'margin: auto'
+        xmin: -5,
+        ymin: -5,
+        xmax: 6,
+        ymax: 5,
+        pixelsParCm: 20,
+        scale: 0.7,
+        style: 'margin: auto'
       }, r, c, o)}
       
       `

@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Écrire la valeur décimale d\'une somme de fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,14 +18,14 @@ export const refs = {
   'fr-fr': ['can5C17'],
   'fr-ch': []
 }
-export default class EntierPlusFractionVersDecimal extends Exercice {
-  constructor () {
+export default class EntierPlusFractionVersDecimal extends ExerciceSimple {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, b, c, maFraction, maFraction2
     let resultat
 

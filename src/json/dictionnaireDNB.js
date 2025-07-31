@@ -6109,7 +6109,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '1',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Statistiques', 'Pourcentages', 'Tableur']
   },
   dnb_2025_06_polynesie_2: {
     annee: '2025',
@@ -6117,7 +6117,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '2',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Pythagore', 'Trigonométrie', 'Thalès', 'Vitesses', 'Grandeurs composées']
   },
   dnb_2025_06_polynesie_3: {
     annee: '2025',
@@ -6125,7 +6125,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '3',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['QCM', 'Puissances', 'Arithmétique', 'Aires et périmètres', 'Calcul littéral', 'Transformations']
   },
   dnb_2025_06_polynesie_4: {
     annee: '2025',
@@ -6133,7 +6133,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '4',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Calcul littéral', 'Fonctions', 'Équations']
   },
   dnb_2025_06_polynesie_5: {
     annee: '2025',
@@ -6141,7 +6141,7 @@ export const dictionnaireDNB = {
     mois: 'Juin',
     numeroInitial: '5',
     typeExercice: 'dnb',
-    tags: ['']
+    tags: ['Probabilités', 'Algorithmique-programmation']
   },
 
 }

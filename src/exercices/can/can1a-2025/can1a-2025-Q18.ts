@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
@@ -16,7 +16,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2025N5Q18 extends Exercice {
+export default class Can2025N5Q18 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -12,7 +12,7 @@ export const uuid = '3828e'
  * @author Gilles Mora
 
 */
-export default class ProduitScalaire extends Exercice {
+export default class ProduitScalaire extends ExerciceSimple {
   constructor () {
     super()
 
@@ -23,10 +23,10 @@ export default class ProduitScalaire extends Exercice {
   }
 
   nouvelleVersion () {
-    let ux:number
+    let ux: number
     let uy: number
     let vx: number
-    let vy:number
+    let vy: number
     if (this.canOfficielle) {
       ux = 1
       uy = -3

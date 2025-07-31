@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { pgcd } from '../../../lib/outils/primalite'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can3C14'],
   'fr-ch': []
 }
-export default class DecimalVersFractionIr extends Exercice {
+export default class DecimalVersFractionIr extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

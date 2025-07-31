@@ -1,7 +1,7 @@
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre une équation du type $ax+b=0$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can3L02'],
   'fr-ch': []
 }
-export default class EquationAXPlusBEgalZero extends Exercice {
+export default class EquationAXPlusBEgalZero extends ExerciceSimple {
   constructor () {
     super()
 

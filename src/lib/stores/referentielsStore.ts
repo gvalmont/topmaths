@@ -33,8 +33,9 @@ function createoriginalReferentielsFR () {
   // on trie les examens dans l'ordre inverse des années/mois
   const examsReferentiel: JSONReferentielObject = { ...referentielExams }
   const activations: Record<ActivationName, boolean> = { ...referentielsActivation }
-  let examens = getAllEndings(examsReferentiel)
-  examens = triAnnales(examens, 'ascStringdescNumber')
+  const examens = getAllEndings(examsReferentiel)
+  // MGu: c'est trié dans ReferentielNode
+  // examens = triAnnales(examens, 'ascStringdescNumber')
   const orderedExamsReferentiel = buildReferentiel(examens)
   const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
   const referentielOutils: JSONReferentielObject = { ...referentielProfs }

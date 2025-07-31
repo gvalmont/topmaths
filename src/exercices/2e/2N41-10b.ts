@@ -156,11 +156,11 @@ export default class DevelopperReduireExprComplexe extends Exercice {
       }
       const choixLettre = choice(lettresPossibles)
       const expression1 = factsProd1Diff
-        ? `(${a.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(b)})(${c.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(d)})`
-        : `(${a.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(b)})^2`
+        ? `\\left(${a.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(b)}\\right)\\left(${c.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(d)}\\right)`
+        : `\\left(${a.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(b)}\\right)^2`
       const expression2 = factsProd2Diff
-        ? `(${e.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(f)})(${g.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(h)})`
-        : `(${e.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(f)})^2`
+        ? `\\left(${e.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(f)}\\right)\\left(${g.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(h)}\\right)`
+        : `\\left(${e.texFractionSaufUn}${choixLettre}${ecritureAlgebrique(f)}\\right)^2`
       const expressionDeveloppee1 = developpe(expression1, { isColored, colorOffset: 0, level })
       const expressionDeveloppee2 = developpe(expression2, { isColored, colorOffset: 4, level })
       const devExpr1 = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex

@@ -1,7 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { numTrie } from '../../../lib/outils/nombres'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver le plus grand nombre entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['canc3N03'],
   'fr-ch': []
 }
-export default class PlusGrandNombreEntier extends Exercice {
+export default class PlusGrandNombreEntier extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -12,7 +12,7 @@ export const uuid = '92d99'
  * @author Gilles Mora (reprise du fichier de Jean-Claude Lhote 6ième)
 
 */
-export default class vitesseCM2 extends Exercice {
+export default class vitesseCM2 extends ExerciceSimple {
   constructor () {
     super()
 
@@ -25,7 +25,7 @@ export default class vitesseCM2 extends Exercice {
 
   nouvelleVersion () {
     let vitesse: number
-    let duree:number
+    let duree: number
 
     if (this.canOfficielle) {
       vitesse = 60

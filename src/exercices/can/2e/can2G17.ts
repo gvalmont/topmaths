@@ -1,6 +1,6 @@
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 export const titre = 'Déterminer un vecteur directeur avec une équation cartésienne'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2G17'],
   'fr-ch': []
 }
-export default class VecteurDirEqCart extends Exercice {
+export default class VecteurDirEqCart extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une expression pour une valeur particulière'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can4L04'],
   'fr-ch': []
 }
-export default class SubstitutionRelatif extends Exercice {
+export default class SubstitutionRelatif extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

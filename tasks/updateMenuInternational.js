@@ -55,6 +55,7 @@ async function readInfos (
           file !== 'deprecatedExercice.js' &&
           file !== 'MetaExerciceCan.ts' &&
           file !== 'Exercice.ts' &&
+          file !== 'ExerciceSimple.ts' &&
           file !== 'exerciseMethods.ts' &&
           file !== 'ExerciceQcm.ts' &&
           file !== 'ExerciceQcmA.ts' &&
@@ -235,6 +236,14 @@ async function readInfos (
                         }
                       }
                     }
+                  }
+                }
+                const versionQcmRegex = /versionQcm(Disponible)*\s*=\s*true/
+                const versionQcmMatch = versionQcmRegex.exec(data)
+                if (versionQcmMatch) {
+                  infos.features.qcm = {
+                    isActive: true,
+                    type: ''
                   }
                 }
                 infos.typeExercice = 'alea'

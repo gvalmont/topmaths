@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -22,7 +22,7 @@ export const refs = {
  * @author Stéphane Guyon
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

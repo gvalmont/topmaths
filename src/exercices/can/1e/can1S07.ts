@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer la raison d’une suite arithmétique/géométrique'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can1S07'],
   'fr-ch': []
 }
-export default class CalculRaison extends Exercice {
+export default class CalculRaison extends ExerciceSimple {
   constructor () {
     super()
 

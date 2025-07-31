@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can1F08'],
   'fr-ch': []
 }
-export default class CalculFonctionDeriveeAffine extends Exercice {
+export default class CalculFonctionDeriveeAffine extends ExerciceSimple {
   constructor () {
     super()
 

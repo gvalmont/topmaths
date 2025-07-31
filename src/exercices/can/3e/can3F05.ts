@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un antécédent par fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can3F05'],
   'fr-ch': []
 }
-export default class CalculAntecedentAffine extends Exercice {
+export default class CalculAntecedentAffine extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Simplifier des fractions (cas simples)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can4C17'],
   'fr-ch': []
 }
-export default class SimplifierFractionSimple extends Exercice {
+export default class SimplifierFractionSimple extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -28,7 +28,7 @@ export default class SimplifierFractionSimple extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 2, 3])) { // 1, 2, 3, 4, 5, 6
-      case 1 :
+      case 1:
         {
           const n = randint(-10, 10, 0)
           const d = choice([-1, 1])
@@ -36,26 +36,29 @@ export default class SimplifierFractionSimple extends Exercice {
           this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
           this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse.texFraction}$`
           this.canEnonce = this.question
-          this.canReponseACompleter = '' }
+          this.canReponseACompleter = ''
+        }
         break
-      case 2 :{
+      case 2: {
         const n = randint(-10, 10, 0)
         const d = n * choice([-1, 1])
         this.reponse = new FractionEtendue(n, d).simplifie()
         this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
         this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse.texFraction}$`
         this.canEnonce = this.question
-        this.canReponseACompleter = '' }
+        this.canReponseACompleter = ''
+      }
         break
 
-      case 3 :{
+      case 3: {
         const d = randint(-10, 10, [-1, 0, 1])
         const n = d * choice([-10, 10])
         this.reponse = new FractionEtendue(n, d).simplifie()
         this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
         this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse.texFraction}$`
         this.canEnonce = this.question
-        this.canReponseACompleter = '' }
+        this.canReponseACompleter = ''
+      }
         break
     }
   }

@@ -1,7 +1,7 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier par les multiples de 101'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can5C09'],
   'fr-ch': []
 }
-export default class MutliplierParN0N extends Exercice {
+export default class MutliplierParN0N extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

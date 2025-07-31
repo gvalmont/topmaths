@@ -1,6 +1,6 @@
 import { texteParPosition } from '../../../lib/2d/textes'
 import Pyramide from '../../../modules/pyramide'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { mathalea2d } from '../../../modules/2dGeneralites'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6C34'],
   'fr-ch': []
 }
-export default class PyramideAdd3EtagesBaseInconnue extends Exercice {
+export default class PyramideAdd3EtagesBaseInconnue extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

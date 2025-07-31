@@ -26,13 +26,6 @@ export const dateDePublication = '09/03/2025'
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
-      '$x \\longmapsto x \\ln (x) - x$', // Réponse correcte (c)
-      '$x \\longmapsto \\ln (x)$', // Mauvaise réponse (a)
-      '$x \\longmapsto \\dfrac{1}{x}$', // Mauvaise réponse (b)
-      '$x \\longmapsto \\dfrac{\\ln (x)}{x}$' // Mauvaise réponse (d)
-    ]
-
-    this.reponses = [
       '$ -\\dfrac{1}{2} \\ln (3) $', // Réponse correcte (d)
       '$ 1 - \\dfrac{1}{2} \\ln (3) $', // Mauvaise réponse (a)
       '$ \\dfrac{1}{2} \\ln (3) $', // Mauvaise réponse (b)

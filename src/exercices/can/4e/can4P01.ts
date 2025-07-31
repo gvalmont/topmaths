@@ -3,7 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de robinets'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can4P01'],
   'fr-ch': []
 }
-export default class ProblemesDeRobinets extends Exercice {
+export default class ProblemesDeRobinets extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

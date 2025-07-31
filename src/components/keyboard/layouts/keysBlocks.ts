@@ -165,6 +165,11 @@ const vFONCaps: CompleteKeysList = {
   block: ['V', 'F', 'O', 'N']
 }
 
+const eosnCaps: CompleteKeysList = {
+  inline: ['O', 'E', 'S', 'N', 'DEG', 'SEMICOLON'],
+  block: ['O', 'E', 'S', 'N', 'DEG', 'SEMICOLON']
+}
+
 // @ts-expect-error Problème de typage
 const lengthUnitsKeys = Object.keys(keys).filter(k => k.includes('LENGTH')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const lengthsCaps: CompleteKeysList = {
@@ -455,6 +460,14 @@ export const uppercaseXToZ: KeyboardBlock = {
   isUnits: false
 }
 
+export const estOuestSudNord: KeyboardBlock = {
+  keycaps: eosnCaps,
+  cols: 2,
+  title: 'Points cardinaux',
+  isUnits: false
+
+}
+
 export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>]: KeyboardBlock } = {
   advanced,
   angles,
@@ -491,5 +504,6 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   uppercaseAToH,
   uppercaseIToP,
   uppercaseQToW,
-  uppercaseXToZ
+  uppercaseXToZ,
+  estOuestSudNord
 }

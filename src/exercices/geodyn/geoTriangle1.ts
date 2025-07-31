@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
@@ -25,7 +25,7 @@ export const uuid = 'e514f'
 
 type Triangle = { label: string; a: number; b: number; c: number }
 
-class ConstructionTriangle extends Exercice {
+class ConstructionTriangle extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   triangle!: Triangle

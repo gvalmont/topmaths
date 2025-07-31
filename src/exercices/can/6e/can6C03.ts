@@ -1,7 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Rechercher un terme dans une somme'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-ch': []
 }
 
-export default class AdditionATrou extends Exercice {
+export default class AdditionATrou extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

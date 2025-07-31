@@ -944,6 +944,24 @@
     "titre": "Automatismes - fonctions",
     "sousThemes": {}
   },
+  "1A-C": {
+    "titre": "Calcul numérique et algébrique"
+  },
+  "1A-R": {
+    "titre": "Proportions et pourcentages"
+  },
+  "1A-E": {
+    "titre": "Évolutions et variations"
+  },
+  "1A-F" :{
+    "titre": "Fonctions et représentations"
+  },
+  "1A-S": {
+    "titre": "Statistiques"
+  },
+  "1A-P": {
+    "titre": "Probabilités"
+  },
   "1AL1": {
     "titre": "Suites numériques"
   },

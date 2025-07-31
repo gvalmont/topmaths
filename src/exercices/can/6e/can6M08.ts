@@ -5,6 +5,7 @@ import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
+import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const titre = 'Comparer des aires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -62,8 +63,8 @@ export default class QuestionDAires extends Exercice {
       if (!context.isAmc) {
         texte += monQcm.texte
       }
-      let texteCorr = VF === 'V' ? 'Vrai' : 'Faux'
-      texteCorr += `<br> $\\bullet$  le carré a une aire de $${a}\\times ${a}=${a * a}$ cm${texteExposant(2)}.<br>
+      let texteCorr = texteEnCouleurEtGras(VF === 'V' ? 'Vrai' : 'Faux')
+      texteCorr += `<br> $\\bullet$  Le carré a une aire de $${a}\\times ${a}=${a * a}$ cm${texteExposant(2)}.<br>
     $\\bullet$  Le rectangle a une aire de $${a}\\times ${b}=${a * b}$ cm${texteExposant(2)}.`
       texteCorr += `<br>Ce qui fait ${VF === 'V' ? 'bien ' : ''} une différence de $${Math.max(a * a, a * b)} - ${Math.min(a * a, a * b)}=${Math.max(a * a, a * b) - Math.min(a * a, a * b)}$ cm${texteExposant(2)} ${VF === 'F' ? ' et non pas de ' + texNombre(Math.max(a * a, a * b) - Math.min(a * a, a * b) + c) + ' cm' + texteExposant(2) + '.' : '.'}`
       if (this.questionJamaisPosee(i, a, b, c)) {

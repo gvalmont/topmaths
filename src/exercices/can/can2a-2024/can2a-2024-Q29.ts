@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { Spline, spline, type NoeudSpline } from '../../../lib/mathFonctions/Spline'
@@ -18,7 +18,7 @@ export const uuid = '325b5'
  * @author Gilles Mora
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   spline?: Spline
   constructor () {
     super()

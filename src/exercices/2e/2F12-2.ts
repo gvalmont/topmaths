@@ -483,7 +483,7 @@ export default class ResoudreGraphFonctionRef extends Exercice {
             const borne = a > 0 ? `\\dfrac{1}{${a}}` : `-\\dfrac{1}{${-a}}`
             texteCorr = `Pour résoudre graphiquement cette inéquation : <br>
             $\\bullet$ On trace l'hyperbole d'équation $y=\\dfrac{1}{x}$. <br>
-            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : ${borne}. <br>
+            $\\bullet$ On trace la droite horizontale d'équation $y=${a}$. Cette droite coupe l'hyperbole en un point dont l'abscisse est : $${borne}$. <br>
             $\\bullet$    Les solutions de l'inéquation sont les abscisses des points de la courbe qui se situent ${estInegStrict ? 'strictement au dessus de' : ' sur ou au dessus de '} la droite.<br>`
             if (a > 0) {
               ensembleSolutions = intervalleLaTex(0, borne, true, estInegStrict)

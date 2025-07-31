@@ -36,7 +36,7 @@ export const refs = {
   'fr-fr': ['6M11-3'],
   'fr-ch': ['9GM1-1']
 }
-export default class AireCarresRectanglesTriangles extends Exercice {
+export default class AireCarresRectanglesTrianglesSL extends Exercice {
   constructor () {
     super()
 
@@ -44,7 +44,6 @@ export default class AireCarresRectanglesTriangles extends Exercice {
     this.amcType = amcType
     this.interactif = false
 
-    this.consigne = 'Calculer le périmètre des 3 figures suivantes.'
     this.spacing = 2
 
     context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

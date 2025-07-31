@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 
@@ -17,7 +17,7 @@ export const uuid = 'f828d'
  * @author Gilles Mora (reprise du fichier de Jean-Claude Lhote 6ième)
 
 */
-export default class PerimetreRectangleCM2 extends Exercice {
+export default class PerimetreRectangleCM2 extends ExerciceSimple {
   constructor () {
     super()
 

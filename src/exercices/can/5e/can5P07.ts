@@ -1,7 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Résoudre un problème de proportionnalité*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,12 +22,12 @@ export const refs = {
   'fr-fr': ['can5P07'],
   'fr-ch': []
 }
-export default class Proportionnalite2 extends Exercice {
+export default class Proportionnalite2 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     // this.formatInteractif = 'fractionEgale'
   }
 

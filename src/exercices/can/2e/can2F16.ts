@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const dateDePublication = '27/10/2023'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2F16'],
   'fr-ch': []
 }
-export default class EquationsGSpline extends Exercice {
+export default class EquationsGSpline extends ExerciceSimple {
   compteur = 0
   spline?: Spline
   constructor () {

@@ -1,7 +1,7 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec triple et moitié'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can5C04'],
   'fr-ch': []
 }
-export default class TripleEtMoitie extends Exercice {
+export default class TripleEtMoitie extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

@@ -17,6 +17,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { mathalea2d } from '../../modules/2dGeneralites'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer l\'aire de carré, rectangle ou triangle rectangle'
 export const dateDeModifImportante = '24/04/2025'
@@ -75,10 +76,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
       nbQuestions: 50
     })
     enleveDoublonNum(typesDeQuestionsDisponibles)
-    /* this.consigne = typesDeQuestionsDisponibles.length > 1
-      ? `Calculer l'aire des ${typesDeQuestionsDisponibles.length} figures suivantes.`
-      : 'Calculer l\'aire de la figure suivante.'
-*/
+
     let texte = ''
     let texteCorr = ''
     const nom = creerNomDePolygone(11, 'QD')
@@ -113,7 +111,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           // texte = `Calculer l'aire du carré en cm${texteExposant(2)}.`
           texte = 'Calculer l\'aire du carré.'
 
-          texteCorr += `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
+          texteCorr += `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${miseEnEvidence(c * c)}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
@@ -138,8 +136,7 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           objets.push(rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F))
           // texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}.`
           texte = 'Calculer l\'aire du rectangle.'
-          texteCorr += `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
-                    }~\\text{cm}^2$`
+          texteCorr += `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${miseEnEvidence(L * l)}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
@@ -162,9 +159,8 @@ export default class AireCarresRectanglesTriangles extends Exercice {
           break
         case 2 :
           objets.push(triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K))
-          // texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}.`
           texte = 'Calculer l\'aire du triangle rectangle.'
-          texteCorr += `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(((a * b) / 2))}~\\text{cm}^2$`
+          texteCorr += `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${miseEnEvidence(texNombre(((a * b) / 2)))}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(arrondi((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {

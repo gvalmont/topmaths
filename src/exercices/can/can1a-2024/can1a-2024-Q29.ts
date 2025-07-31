@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { randint } from '../../../modules/outils'
@@ -12,7 +12,7 @@ export const uuid = '29eda'
  * @author Gilles Mora
 
 */
-export default class EvolutionPourcentages extends Exercice {
+export default class EvolutionPourcentages extends ExerciceSimple {
   constructor () {
     super()
 

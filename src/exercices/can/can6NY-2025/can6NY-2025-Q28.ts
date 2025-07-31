@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 
@@ -18,7 +18,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class CalculDivers extends Exercice {
+export default class CalculDivers extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -31,12 +31,12 @@ export default class CalculDivers extends Exercice {
     const d = new Decimal(a).div(10)
     const c = new Decimal(a).div(100)
     switch (randint(1, 2)) {
-      case 1 :
+      case 1:
         this.question = `Quel nombre obtient-on en retranchant $${a}$ ${a === 1 ? 'dixième' : 'dixièmes'} à $${texNombre(2025, 0)}$ ?`
         this.reponse = texNombre(new Decimal(2025).sub(d), 1)
         this.correction = `$${texNombre(2025, 0)} -${texNombre(d, 1)}=${miseEnEvidence(this.reponse)}$`
         break
-      case 2 :
+      case 2:
         this.question = `Quel nombre obtient-on en retranchant $${a}$ ${a === 1 ? 'centième' : 'centièmes'} à $${texNombre(2025, 0)}$ ?`
         this.reponse = texNombre(new Decimal(2025).sub(c), 2)
         this.correction = `$${texNombre(2025)} -${texNombre(c, 2)}=${miseEnEvidence(this.reponse)}$`

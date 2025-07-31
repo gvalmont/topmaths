@@ -1,7 +1,7 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Décomposer une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can4C18'],
   'fr-ch': []
 }
-export default class DecomposerFraction extends Exercice {
+export default class DecomposerFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

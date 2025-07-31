@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class SommeEntierFraction extends Exercice {
+export default class SommeEntierFraction extends ExerciceSimple {
   constructor () {
     super()
 

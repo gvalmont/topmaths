@@ -116,11 +116,11 @@ export default class DivisionsEuclidiennesEgaliteFondamentale extends Exercice {
       a = b * q + r
       texte = this.sup2
         ? String(Operation({
-            operande1: a,
-            operande2: b,
-            type: 'divisionE',
-            options: { solution: false, colore: '' }
-          }))
+          operande1: a,
+          operande2: b,
+          type: 'divisionE',
+          options: { solution: false, colore: '' }
+        }))
         : `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
       if (r === 0) {
         texteCorr = String(Operation({

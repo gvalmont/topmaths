@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { stringNombre, texPrix } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -13,7 +13,7 @@ export const uuid = '59072'
  * @author Gilles Mora (reprise du fichier de Jean-Claude Lhote 6ième)
 
 */
-export default class CoutBDEtRomansCM2 extends Exercice {
+export default class CoutBDEtRomansCM2 extends ExerciceSimple {
   constructor () {
     super()
 
@@ -26,7 +26,7 @@ export default class CoutBDEtRomansCM2 extends Exercice {
   }
 
   nouvelleVersion () {
-    let coutUnitaire:number
+    let coutUnitaire: number
     let nbBds: number
     let nbRomans: number
     let quidam: string

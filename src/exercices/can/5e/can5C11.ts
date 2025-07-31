@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can5C11'],
   'fr-ch': []
 }
-export default class DifferenceNegative extends Exercice {
+export default class DifferenceNegative extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

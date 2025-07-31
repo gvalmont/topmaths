@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer des sommes contenant des puissances de 10'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can3C15'],
   'fr-ch': []
 }
-export default class CalculPuissance10B extends Exercice {
+export default class CalculPuissance10B extends ExerciceSimple {
   constructor () {
     super()
 

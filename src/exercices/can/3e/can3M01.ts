@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer l’aire ou un périmètre d’un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can3M01'],
   'fr-ch': []
 }
-export default class CarreAire extends Exercice {
+export default class CarreAire extends ExerciceSimple {
   constructor () {
     super()
 

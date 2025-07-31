@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 
@@ -19,7 +19,7 @@ export const refs = {
 }
 export const uuid = '4d4a8'
 
-class ConstructionParallelogramme extends Exercice {
+class ConstructionParallelogramme extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   constructor () {

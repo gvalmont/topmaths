@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2N04'],
   'fr-ch': []
 }
-export default class ReunionIntervalles extends Exercice {
+export default class ReunionIntervalles extends ExerciceSimple {
   constructor () {
     super()
 
@@ -33,7 +33,7 @@ export default class ReunionIntervalles extends Exercice {
   nouvelleVersion () {
     const cours = 'La réunion de deux intervalles $I$ et $J$ (notée $I\\cup J$) est l’ensemble qui contient les nombres appartenant à  au moins un des deux intervalles $I$ ou $J$.<br>'
     switch (choice([1, 2, 3, 4, 5, 6, 7])) { //, 2,3,4,5,6,7
-      case 1 ://  [a;b] union [c;d] avec c<b resultat [a;d]
+      case 1://  [a;b] union [c;d] avec c<b resultat [a;d]
         {
           const a = randint(-30, -20)
           const b = randint(-10, 5)
@@ -73,7 +73,7 @@ export default class ReunionIntervalles extends Exercice {
         }
         break
 
-      case 3 ://  [a;+infini[ union [c;d] avec c<a et d>a  donc résultat [c;+infini[
+      case 3://  [a;+infini[ union [c;d] avec c<a et d>a  donc résultat [c;+infini[
         {
           const a = randint(-5, 10)
 
@@ -92,7 +92,7 @@ export default class ReunionIntervalles extends Exercice {
         }
         break
 
-      case 4 ://  [a;+infini[ union [c;d] avec a<c donc resultat [a;+infini[
+      case 4://  [a;+infini[ union [c;d] avec a<c donc resultat [a;+infini[
         {
           const a = randint(-5, 10)
           const c = a + randint(1, 5)
@@ -109,7 +109,7 @@ export default class ReunionIntervalles extends Exercice {
         }
         break
 
-      case 5 ://  [a;+infini[ union [c;+infini[ avec a<c donc resultat [a;+infini[]
+      case 5://  [a;+infini[ union [c;+infini[ avec a<c donc resultat [a;+infini[]
         {
           const a = randint(-5, 10)
           const c = a + randint(1, 5)
@@ -125,7 +125,7 @@ export default class ReunionIntervalles extends Exercice {
         }
         break
 
-      case 6 ://  ]-infini;b] union [c;+infini[ avec b>c donc resultat ]-infini;+infini[
+      case 6://  ]-infini;b] union [c;+infini[ avec b>c donc resultat ]-infini;+infini[
         {
           const b = randint(-10, 10)
           const c = b - randint(1, 5)
@@ -142,7 +142,7 @@ export default class ReunionIntervalles extends Exercice {
         }
         break
 
-      case 7 ://  ]-infini;b] union [c;d] avec c<b et d>b donc resultat ]-infini;d]
+      case 7://  ]-infini;b] union [c;d] avec c<b et d>b donc resultat ]-infini;d]
         {
           const b = randint(-10, 10)
           const c = b - randint(1, 5)

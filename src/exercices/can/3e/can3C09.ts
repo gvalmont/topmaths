@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer avec une racine carrée'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can3C09'],
   'fr-ch': []
 }
-export default class CalculAvecRacineCarree1 extends Exercice {
+export default class CalculAvecRacineCarree1 extends ExerciceSimple {
   constructor () {
     super()
     this.optionsChampTexte = { texteAvant: '<br>' }

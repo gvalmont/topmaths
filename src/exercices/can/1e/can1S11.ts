@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Donner le résultat d’un programme Python'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can1S11'],
   'fr-ch': []
 }
-export default class CalculSuitePython extends Exercice {
+export default class CalculSuitePython extends ExerciceSimple {
   constructor () {
     super()
 

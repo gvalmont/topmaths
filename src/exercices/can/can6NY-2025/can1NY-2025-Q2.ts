@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -19,7 +19,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora+Eric Elter
 */
-export default class decimalPuisance extends Exercice {
+export default class decimalPuisance extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !

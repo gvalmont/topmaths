@@ -3,7 +3,7 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le complément à 100'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6C19'],
   'fr-ch': []
 }
-export default class ComplementACent extends Exercice {
+export default class ComplementACent extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

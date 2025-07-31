@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Déterminer un agrandissement/réduction avec fraction'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2G01'],
   'fr-ch': []
 }
-export default class AgrandissementReductionGFraction extends Exercice {
+export default class AgrandissementReductionGFraction extends ExerciceSimple {
   constructor () {
     super()
 

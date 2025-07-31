@@ -5,7 +5,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { randint, } from '../../../modules/outils'
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec +/-99 ou +/-999'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can6C23'],
   'fr-ch': []
 }
-export default class CalculAvec99 extends Exercice {
+export default class CalculAvec99 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer une longueur/un périmètre (avec des décimaux)'
 export const dateDePublication = '27/08/2022'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can6M12'],
   'fr-ch': []
 }
-export default class ProblemesDeLongueursEtPerimetre extends Exercice {
+export default class ProblemesDeLongueursEtPerimetre extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

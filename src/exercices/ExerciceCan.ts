@@ -1,6 +1,6 @@
-import Exercice from './Exercice'
+import ExerciceSimple from './ExerciceSimple'
 
-export default class ExerciceCan extends Exercice {
+export default class ExerciceCan extends ExerciceSimple {
   canOfficielle?: boolean // propriétés qui ne devraient pas être déclarées sur Exercice
   // listeCanReponseACompleter?: string[]
   // listeCanEnonce?: string[]

@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un quotient entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can5C05'],
   'fr-ch': []
 }
-export default class Division5e extends Exercice {
+export default class Division5e extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

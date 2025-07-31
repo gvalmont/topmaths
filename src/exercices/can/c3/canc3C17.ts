@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['canc3C17'],
   'fr-ch': []
 }
-export default class problemeAddition extends Exercice {
+export default class problemeAddition extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

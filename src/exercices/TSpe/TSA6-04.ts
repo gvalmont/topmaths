@@ -23,7 +23,7 @@ export const dateDePublication = '15/03/2025'
 
 export default class Primitives extends ExerciceQcm {
   versionOriginale: () => void = () => {
-    const a = choice([-7, -6,-5,-4,4, 5,6, 7])
+    const a = choice([-7, -6, -5, -4, 4, 5, 6, 7])
     const b = choice([-7, -5, -3, 3, 5, 7])
     const c = randint(-5, 5, [-1, 0, 1])
     const fraction = new FractionEtendue(abs(b), 2)
@@ -44,7 +44,7 @@ export default class Primitives extends ExerciceQcm {
     correction += `- La primitive de $ ${a}x^2 $ est $${new FractionEtendue(a, 3).texFractionSimplifiee}x^3$.<br>`
     correction += `- La primitive de $ ${b}x $ est $ ${fraction2.texFractionSimplifiee}x^2 $.<br>`
     correction += `- La primitive de $ ${c}$ est $ ${c}x $.<br>`
-    correction += `Ainsi, une primitive de $ f $ est  $${miseEnEvidence( `F(x) =${new FractionEtendue(a, 3).texFractionSimplifiee}x^3 ${ecritureAlgebrique(b)}x^2${ecritureAlgebrique(c)}x`)} $`
+    correction += `Ainsi, une primitive de $ f $ est  $${miseEnEvidence(`F(x) =${new FractionEtendue(a, 3).texFractionSimplifiee}x^3 ${ecritureAlgebrique(b)}x^2${ecritureAlgebrique(c)}x`)} $`
     this.correction = correction
   }
 

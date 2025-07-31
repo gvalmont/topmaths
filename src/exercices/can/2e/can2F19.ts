@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class FonctionAffAvec2Images extends Exercice {
+export default class FonctionAffAvec2Images extends ExerciceSimple {
   constructor () {
     super()
 
@@ -32,7 +32,7 @@ export default class FonctionAffAvec2Images extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 2])) {
-      case 1 :// on donne f(1) et f(0)
+      case 1:// on donne f(1) et f(0)
         {
           const nom = ['f', 'g', 'h']
           const nomF = choice(nom)
@@ -57,8 +57,9 @@ soit $${p + m}-${ecritureParentheseSiNegatif(p)}=${m}$.
 `, 'blue')
         }
         break
-      case 2 :// on donne f(-1) et f(0)
-        { const nom = ['f', 'g', 'h']
+      case 2:// on donne f(-1) et f(0)
+        {
+          const nom = ['f', 'g', 'h']
           const nomF = choice(nom)
           const m = randint(1, 8)
           const p = randint(-10, 10)
@@ -78,7 +79,8 @@ soit $${p + m}-${ecritureParentheseSiNegatif(p)}=${m}$.
   Mentalement : <br>
 Les images de $-1$ et de $0$ permettent de déterminer rapidement le coefficient directeur qui est la différence des images, 
 soit $${p}-${ecritureParentheseSiNegatif(p - m)}=${m}$.
-`, 'blue') }
+`, 'blue')
+        }
         break
     }
     this.canEnonce = this.question// 'Compléter'

@@ -3,7 +3,7 @@ import { texFractionFromString, obtenirListeFractionsIrreductibles } from '../..
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer un nombre connaissant son inverse'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2C15'],
   'fr-ch': []
 }
-export default class NombreInverse extends Exercice {
+export default class NombreInverse extends ExerciceSimple {
   constructor () {
     super()
 

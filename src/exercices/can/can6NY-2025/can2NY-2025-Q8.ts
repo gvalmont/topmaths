@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class EgaliteCompleter extends Exercice {
+export default class EgaliteCompleter extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -30,7 +30,7 @@ export default class EgaliteCompleter extends Exercice {
 
   nouvelleVersion () {
     switch (randint(1, 4)) {
-      case 1 :
+      case 1:
         this.reponse = texNombre(45, 0)
         this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=81\\times 25$, compléter :`
         this.question = `\\sqrt{${texNombre(2025, 0)}}=~%{champ1} `
@@ -43,7 +43,7 @@ export default class EgaliteCompleter extends Exercice {
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
         this.canReponseACompleter = `$\\sqrt{${texNombre(2025, 0)}}= \\ldots$`
         break
-      case 2 :
+      case 2:
         this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9^2\\times 5^2$, compléter :`
         this.reponse = texNombre(2025, 0)
         this.question = '\\sqrt{%{champ1}}~= 45 '
@@ -52,7 +52,7 @@ export default class EgaliteCompleter extends Exercice {
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
         this.canReponseACompleter = '$\\sqrt{\\ldots}= 45$'
         break
-      case 3 :
+      case 3:
         this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9^2\\times 5^2$, compléter :`
         this.reponse = texNombre(5, 0)
         this.question = `\\sqrt{${texNombre(2025, 0)}}= 9\\times~%{champ1}`
@@ -61,7 +61,7 @@ export default class EgaliteCompleter extends Exercice {
         handleAnswers(this, 0, { champ1: { value: this.reponse } })
         this.canReponseACompleter = `$\\sqrt{${texNombre(2025, 0)}}= 9\\times\\ldots $`
         break
-      case 4 :
+      case 4:
         this.consigne = `En utilisant l'égalité $${texNombre(2025, 0)}=9^2\\times 5^2$, compléter :`
         this.reponse = texNombre(2025, 0)
         this.question = '45^2=~%{champ1}'

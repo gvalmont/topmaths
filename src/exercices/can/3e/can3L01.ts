@@ -1,6 +1,6 @@
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre une équation du type $ax=b$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can3L01'],
   'fr-ch': []
 }
-export default class EquationAXEgalB extends Exercice {
+export default class EquationAXEgalB extends ExerciceSimple {
   constructor () {
     super()
 

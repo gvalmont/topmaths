@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Dénombrement.'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Stéphane Guyon
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

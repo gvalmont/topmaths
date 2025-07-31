@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Trouver le nombre d’entiers entre deux valeurs'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can2C01'],
   'fr-ch': []
 }
-export default class NombreDeNombresEntiersEntreDeuxValeurs2 extends Exercice {
+export default class NombreDeNombresEntiersEntreDeuxValeurs2 extends ExerciceSimple {
   constructor () {
     super()
 

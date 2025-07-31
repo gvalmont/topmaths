@@ -1,6 +1,6 @@
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['1AL11-8'],
   'fr-ch': []
 }
-export default class SommeSuite extends Exercice {
+export default class SommeSuite extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

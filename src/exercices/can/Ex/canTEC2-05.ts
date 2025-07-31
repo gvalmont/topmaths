@@ -1,7 +1,7 @@
 import { Angle, angleOppose, angleSupplementaire, kCosOuKSin, parenthesesSiNegatifStrigArray } from '../../../lib/mathFonctions/trigo'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Donner un complexe à partir de son expression trigonométrique'
 
@@ -21,7 +21,7 @@ function ajoutePlusSiPasMoins (str: string): string {
 /**
  * @author Jean-Claude Lhote
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['TSA6-12'],
   'fr-ch': []
 }
-export default class IntegraleAffine extends Exercice {
+export default class IntegraleAffine extends ExerciceSimple {
   constructor () {
     super()
 

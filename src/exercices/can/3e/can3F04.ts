@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un antécédent par une fonction linéaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can3F04'],
   'fr-ch': []
 }
-export default class CalculAntecedentLineaire extends Exercice {
+export default class CalculAntecedentLineaire extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Donner la mesure d\'un angle à partir des cosinus et sinus '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const refs = {
   'fr-fr': ['can1G11'],
   'fr-ch': []
 }
-export default class mesureAngleCosSin extends Exercice {
+export default class mesureAngleCosSin extends ExerciceSimple {
   constructor () {
     super()
 

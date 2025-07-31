@@ -4,7 +4,7 @@ import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { arcenciel } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { signe } from '../../../lib/outils/nombres'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer un terme d’une suite récurrente'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can1S02'],
   'fr-ch': []
 }
-export default class CalculTermeSuiteRec extends Exercice {
+export default class CalculTermeSuiteRec extends ExerciceSimple {
   constructor () {
     super()
 

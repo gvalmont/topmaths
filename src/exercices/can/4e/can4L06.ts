@@ -1,5 +1,5 @@
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une expression pour une valeur particulière*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,7 @@ export const refs = {
   'fr-fr': ['can4L06'],
   'fr-ch': []
 }
-export default class CalculSubstitution extends Exercice {
+export default class CalculSubstitution extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

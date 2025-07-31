@@ -2,11 +2,11 @@ import type { MathfieldElement } from 'mathlive'
 import type { BlockForKeyboard } from '../../../components/keyboard/types/keyboardContent'
 
 const KEYBOARD_CATEGORIES = [
+  'aire',
+  'alphanumericAvecEspace',
+  'alphanumeric',
+  'angles',
   'clavierHms',
-  'lycee',
-  'grecTrigo',
-  'college6eme',
-  'complexes',
   'clavierDeBase',
   'clavierCompare',
   'clavierCompareAvecNombres',
@@ -15,25 +15,26 @@ const KEYBOARD_CATEGORIES = [
   'clavierDeBaseAvecFractionPuissanceCrochets',
   'clavierDeBaseAvecEgal',
   'clavierDeBaseAvecVariable',
-  'clavierNumbers',
   'clavierEnsemble',
   'clavierEnsemblePredefini',
   'clavierFullOperations',
-  'clavierSuite',
-  'alphanumericAvecEspace',
-  'alphanumeric',
-  'longueur',
-  'aire',
-  'clavierFonctionsTerminales',
-  'numeration',
-  'volume',
-  'masse',
+  'clavierNumbers',
   'clavierProbabilite',
-  'angles',
+  'clavierSuite',
+  'college6eme',
+  'complexes',
+  'geolocalisation',
+  'grecTrigo',
+  'longueur',
+  'lycee',
+  'masse',
+  'clavierFonctionsTerminales',
   'nombresEtDegre',
   'nombresEtDegreCelsius',
   'numbersSpace',
-  'vFON'
+  'numeration',
+  'vFON',
+  'volume'
 ] as const
 
 export type KeyboardCategory = (typeof KEYBOARD_CATEGORIES)[number] // on crée le type à partir du tableau de strings comme un union type de toutes les strings
@@ -145,6 +146,8 @@ export const convertKeyboardTypeToBlocks = (
       ]
     case KeyboardType.nombresEtDegre:
       return ['numbers', 'degre']
+    case KeyboardType.geolocalisation:
+      return ['numbers', 'estOuestSudNord']
     case KeyboardType.nombresEtDegreCelsius:
       return ['numbers', 'degreCelsius']
 

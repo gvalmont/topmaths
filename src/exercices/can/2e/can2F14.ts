@@ -6,7 +6,7 @@ import {
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import {
   randint
 } from '../../../modules/outils'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-fr': ['can2F14'],
   'fr-ch': []
 }
-export default class CalculOrdonneePoint extends Exercice {
+export default class CalculOrdonneePoint extends ExerciceSimple {
   constructor () {
     super()
 

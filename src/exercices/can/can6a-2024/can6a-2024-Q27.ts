@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -18,7 +18,7 @@ export const uuid = '32d25'
 
 */
 
-export default class FractionDeRectangle extends Exercice {
+export default class FractionDeRectangle extends ExerciceSimple {
   constructor () {
     super()
 
@@ -33,7 +33,7 @@ export default class FractionDeRectangle extends Exercice {
     const hauteur = 3
     let cas: number
     let factor: number
-    let nbCase:number
+    let nbCase: number
     if (this.canOfficielle) {
       nbCase = 3
       cas = 1

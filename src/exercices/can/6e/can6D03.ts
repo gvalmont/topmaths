@@ -2,7 +2,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomM } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une durée en minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6D03'],
   'fr-ch': []
 }
-export default class CalculDureeMinutes extends Exercice {
+export default class CalculDureeMinutes extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

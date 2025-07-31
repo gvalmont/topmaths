@@ -6,7 +6,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import Decimal from 'decimal.js'
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier deux décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can6C30'],
   'fr-ch': []
 }
-export default class MultiplierDeuxDecimaux extends Exercice {
+export default class MultiplierDeuxDecimaux extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

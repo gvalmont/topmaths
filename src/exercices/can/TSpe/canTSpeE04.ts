@@ -1,6 +1,6 @@
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Déterminer un produit scalaire avec les coordonnées'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['canTSpeE04'],
   'fr-ch': []
 }
-export default class ProduitScalaireCoordonnees extends Exercice {
+export default class ProduitScalaireCoordonnees extends ExerciceSimple {
   constructor () {
     super()
 

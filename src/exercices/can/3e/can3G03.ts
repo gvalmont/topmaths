@@ -4,7 +4,7 @@ import { labelPoint, latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une longueur avec le théorème de Thalès'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can3G03', 'BP2AutoR11'],
   'fr-ch': []
 }
-export default class CalculLongueurThales2 extends Exercice {
+export default class CalculLongueurThales2 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,7 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Trouver un nombre dans un produit de trois facteurs '
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['canc3C13'],
   'fr-ch': []
 }
-export default class TableMultiplicationTrous3 extends Exercice {
+export default class TableMultiplicationTrous3 extends ExerciceSimple {
   constructor () {
     super()
 

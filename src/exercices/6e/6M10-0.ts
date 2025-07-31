@@ -37,7 +37,7 @@ export default class AireParComptage extends Exercice {
     this.besoinFormulaire3Texte = ['Unités', 'Nombres séparés par des tirets\n1 : u.l / u.a\n2 : cm / cm²\n3 : m / m²\n4 : Mélange']
     this.sup = '4'
     this.sup2 = 1
-    this.sup3 = '1'
+    this.sup3 = '2'
   }
 
   nouvelleVersion () {

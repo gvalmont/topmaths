@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can2N06'],
   'fr-ch': []
 }
-export default class DecimalForme extends Exercice {
+export default class DecimalForme extends ExerciceSimple {
   constructor () {
     super()
 

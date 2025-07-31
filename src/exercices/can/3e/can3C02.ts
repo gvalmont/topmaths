@@ -2,7 +2,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une moyenne avec des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can3C02'],
   'fr-ch': []
 }
-export default class MoyenneEntiereDeDecimaux extends Exercice {
+export default class MoyenneEntiereDeDecimaux extends ExerciceSimple {
   constructor () {
     super()
 

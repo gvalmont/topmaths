@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2C07'],
   'fr-ch': []
 }
-export default class CalculAvecRacineCarree2 extends Exercice {
+export default class CalculAvecRacineCarree2 extends ExerciceSimple {
   constructor () {
     super()
 
@@ -36,7 +36,7 @@ export default class CalculAvecRacineCarree2 extends Exercice {
     ] // couples pour simplifier des produits de racines carrées
     let racine, a, b, reduction
     switch (choice([1, 2])) {
-      case 1 :
+      case 1:
         racine = choice(listeRacines1)
         a = racine[0]
         b = racine[1]
@@ -65,7 +65,7 @@ export default class CalculAvecRacineCarree2 extends Exercice {
         this.reponse = [`${reduction[0] + 1}\\sqrt${reduction[1]}`]
         break
 
-      case 2 :
+      case 2:
         racine = choice(listeRacines1)
         a = racine[0]
         b = racine[1]

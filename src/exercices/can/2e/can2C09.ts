@@ -6,10 +6,11 @@ import { milieu, point } from '../../../lib/2d/points'
 import { randint } from '../../../modules/outils'
 import { fraction } from '../../../modules/fractions'
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { codageSegments } from '../../../lib/2d/codages'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { pgcd } from '../../../lib/outils/primalite'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
@@ -26,13 +27,14 @@ export const refs = {
   'fr-fr': ['can2C09'],
   'fr-ch': []
 }
-export default class MilieuEntre1EtFraction extends Exercice {
+export default class MilieuEntre1EtFraction extends ExerciceSimple {
   constructor () {
     super()
 
     this.typeExercice = 'simple'
     this.nbQuestions = 1
 
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.optionsDeComparaison = { fractionIrreductible: true }
   }
 

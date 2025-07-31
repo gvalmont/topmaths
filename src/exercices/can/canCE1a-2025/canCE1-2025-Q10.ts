@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { milieu, point } from '../../../lib/2d/points'
 import { ellipse } from '../../../lib/2d/projections3d'
@@ -17,7 +17,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class VocabulaireSolide extends Exercice {
+export default class VocabulaireSolide extends ExerciceSimple {
   constructor () {
     super()
     this.formatInteractif = 'qcm'

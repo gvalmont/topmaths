@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { point, pointAdistance } from '../../../lib/2d/points'
@@ -15,7 +15,7 @@ export const uuid = '1e8ea'
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
 

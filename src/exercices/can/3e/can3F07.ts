@@ -6,7 +6,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { texteCentre } from '../../../lib/format/miseEnPage'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-fr': ['can3F07'],
   'fr-ch': []
 }
-export default class LectureGraphiqueFonctionAffine1 extends Exercice {
+export default class LectureGraphiqueFonctionAffine1 extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierFullOperations
@@ -46,7 +46,7 @@ export default class LectureGraphiqueFonctionAffine1 extends Exercice {
     this.question = `$f$ est une fonction affine${this.interactif ? '.' : ' définie par $f(x)=\\ldots$'}<br>`
     this.question += `
     ${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7, style: 'margin: auto' },
-        rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}
+      rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}
         `
     this.optionsChampTexte = { texteAvant: '$f(x)=$' }
     this.reponse = { reponse: { value: `${reduireAxPlusB(a, b)}` } }
@@ -73,20 +73,20 @@ export default class LectureGraphiqueFonctionAffine1 extends Exercice {
     if (a > 0) {
       this.correction += `${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7, style: 'margin: auto' },
         rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o, s1, s2,
-         texteParPosition('1', 0.5, b - 0.5, 0, 'green', 1, 'milieu', true)
-       , texteParPosition(a, 1.5, b + a / 2, 0, 'red', 1, 'milieu', true))}<br>`
+        texteParPosition('1', 0.5, b - 0.5, 0, 'green', 1, 'milieu', true)
+        , texteParPosition(a, 1.5, b + a / 2, 0, 'red', 1, 'milieu', true))}<br>`
     }
     if (a < 0) {
       this.correction += `${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7, style: 'margin: auto' },
         rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o, s1, s2,
-         texteParPosition('1', 0.5, b + 0.5, 0, 'green', 1, 'milieu', true)
-       , texteParPosition(a, 1.5, b + a / 2, 0, 'red', 1, 'milieu', true))}<br>`
+        texteParPosition('1', 0.5, b + 0.5, 0, 'green', 1, 'milieu', true)
+        , texteParPosition(a, 1.5, b + a / 2, 0, 'red', 1, 'milieu', true))}<br>`
     }
     this.canEnonce = `$f$ est une fonction affine. <br>
     Exprimer $f(x)$ en fonction de $x$.`
     this.canEnonce += `
     ${mathalea2d({ xmin: -5, ymin: -5.2, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7, style: 'margin: auto' },
-        rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}`
+      rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}`
     this.canReponseACompleter = '$f(x)=\\ldots$'
   }
 }

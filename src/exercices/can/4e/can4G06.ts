@@ -6,7 +6,7 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une longueur avec le théorème de Thalès'
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['can4G06', 'BP2AutoR12'],
   'fr-ch': []
 }
-export default class CalculLongueurThales extends Exercice {
+export default class CalculLongueurThales extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

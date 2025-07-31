@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { latex2d } from '../../../lib/2d/textes'
 import RepereBuilder from '../../../lib/2d/RepereBuilder'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class ResoudreGraphiquementEquation extends Exercice {
+export default class ResoudreGraphiquementEquation extends ExerciceSimple {
   constructor () {
     super()
 

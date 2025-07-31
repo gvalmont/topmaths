@@ -6,12 +6,15 @@
   import QRCode from 'qrcode'
   import { notify } from '../../../bugsnag'
   import { mathaleaGenerateSeed } from '../../../lib/mathalea'
+  import { buildMathAleaURL } from '../../../lib/components/urls'
 
-  export let url: string
+  export let customUrl: string = ''
   export let icon: string = 'bx-qr text-2xl'
   export let cornerIcon: string = ''
   export let cornerIconClass: string = ''
   export let tooltip: string = ''
+  export let useCurrentUrl: boolean = false
+  export let removeSeed: boolean = false
 
   const imageId: string = mathaleaGenerateSeed()
 
@@ -32,6 +35,7 @@
   let QRCodeCopyState: 'success' | 'error' | 'none' = 'none'
 
   async function updateQRCodeImage () {
+    const url = useCurrentUrl ? buildMathAleaURL({removeSeed}).toString() : customUrl
     QRCode.toDataURL(url, QRCodeOptions, (error: Error, url: string) => {
       const imageElement = document.getElementById(imageId)
       if (!imageElement || !(imageElement instanceof HTMLImageElement)) {

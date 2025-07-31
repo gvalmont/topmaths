@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
@@ -37,7 +37,7 @@ type Rectangle = {
   bottomRight: [number, number];
 }
 
-export default class shikaku extends Exercice {
+export default class shikaku extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   figureCorrection!: Figure
@@ -298,7 +298,7 @@ export default class shikaku extends Exercice {
         }
       }
       const newRectangles = rectangles.map(rect => ({
-      //  topLeft: [rect.topLeft[1], n - 1 - rect.bottomRight[0]],
+        //  topLeft: [rect.topLeft[1], n - 1 - rect.bottomRight[0]],
         // bottomRight: [rect.bottomRight[1], n - 1 - rect.topLeft[0]]
         bottomRight: [n - 1 - rect.topLeft[1], rect.bottomRight[0]],
         topLeft: [n - 1 - rect.bottomRight[1], rect.topLeft[0]]
@@ -311,23 +311,23 @@ export default class shikaku extends Exercice {
     if (this.largeur === this.longueur) { // Si la grille est carrée, 3 rotations + l'identité sont possibles
       const choixRotation = choice(range1(4))
       switch (choixRotation) {
-        case 2 : {
+        case 2: {
           result = rotate90(grid, rectangles)
           // result = { grid, rectangles }
           break
         }
-        case 3 : {
+        case 3: {
           result = rotate180Carree(grid, rectangles)
           break
         }
-        case 4 : {
+        case 4: {
           result = rotate270(grid, rectangles)
           break
         }
       }
     } else {
       switch (choice(range1(2))) {
-        case 2 : {
+        case 2: {
           result = rotate180NonCarree(grid, rectangles)
           break
         }
@@ -397,10 +397,10 @@ export default class shikaku extends Exercice {
     this.correction = texteCorr + this.figureCorrection.getStaticHtml()
 
     // Construction de la grille au format voulu par ProfCollege... Inutile finalement car on se passe de ProfCollege pour la correction.
-    const tabProfCollege:string[] = []
+    const tabProfCollege: string[] = []
     for (let j = 0; j < this.largeur; j++) {
       for (let i = 0; i < this.longueur; i++) {
-        let contenuCasePC:string = ''
+        let contenuCasePC: string = ''
         if (i !== 0 && newGrid[this.largeur - j - 1][i].regionId !== newGrid[this.largeur - j - 1][i - 1].regionId) contenuCasePC = '1'
         if (j !== this.largeur - 1 && newGrid[this.largeur - j - 1][i].regionId !== newGrid[this.largeur - j - 2][i].regionId) contenuCasePC += 'b'
         contenuCasePC += '/' + newGrid[this.largeur - j - 1][i].value.toString()

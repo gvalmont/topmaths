@@ -22,13 +22,16 @@ export const nombreElementsDifferents = (liste: string[]) => {
 
 // class à utiliser pour fabriquer des Qcms sans aléatoirisation (en cas d'aléatoirisation, on utilisera ExerciceQcmA à la place)
 export default class ExerciceQcm extends Exercice {
+  versionQcm?: boolean
+  versionQcmDisponible = true
+
   enonce!: string
   reponses!: string[]
   bonnesReponses?: boolean[]
   corrections?: string[]
   options: { vertical?: boolean, ordered: boolean, lastChoice?: number }
   versionAleatoire?: ()=>void
-  versionOriginale:()=>void = () => {
+  versionOriginale?: ()=>void = undefined /* () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
     this.enonce = 'Enoncé de la question'
     // Ici, on colle les différentes réponses prise dans le latex : attention !!! mettre la bonne en premier (elles seront brassées par propositionsQcm)
@@ -40,6 +43,7 @@ export default class ExerciceQcm extends Exercice {
     ]
     this.correction = 'La correction'
   }
+    */
 
   constructor () {
     super()
@@ -52,7 +56,7 @@ export default class ExerciceQcm extends Exercice {
     this.spacingCorr = 2 // idem pour la correction
     // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
     this.options = { vertical: false, ordered: false, lastChoice: 8 }
-    this.versionOriginale()
+    if (this.versionOriginale != null) this.versionOriginale()
   }
 
   nouvelleVersion () {
@@ -76,8 +80,9 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
     }
     if (this.versionAleatoire != null) {
       for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 30;) {
-        if (this.sup) this.versionOriginale()
+        if (this.sup && this.versionOriginale != null) this.versionOriginale()
         else this.versionAleatoire()
+
         const bonneReponse = this.reponses[0]
         if (this.questionJamaisPosee(i, bonneReponse)) {
           let texte = this.enonce
@@ -153,7 +158,7 @@ ${this.interactif || context.isAmc ? 'Cocher la (ou les) case(s) correspondante(
         if (this.sup) break // Si on a coché pour la version originale, il n'y aura qu'une seule question
       }
     } else {
-      this.versionOriginale()
+      if (this.versionOriginale != null) this.versionOriginale()
       let texte = this.enonce
       this.autoCorrection[0] = {}
       if (this.options != null) {

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { tableau2x2 } from '../../../lib/2d/tableau'
 export const titre = 'Calculer une quatrième proportionnelle'
 export const interactifReady = true
@@ -20,15 +20,15 @@ export const refs = {
   'fr-fr': ['can4P03'],
   'fr-ch': []
 }
-export default class QuatriemeProportionnelle extends Exercice {
-  constructor() {
+export default class QuatriemeProportionnelle extends ExerciceSimple {
+  constructor () {
     super()
     this.typeExercice = 'simple'
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const a = randint(1, 6)
     const b = randint(4, 8, a) * 2
     const c = choice([2, 3, 4, 5])

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Calculer avec un programme de calcul*'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2C16'],
   'fr-ch': []
 }
-export default class ProgrammeCalcul2 extends Exercice {
+export default class ProgrammeCalcul2 extends ExerciceSimple {
   constructor () {
     super()
     this.optionsChampTexte = { texteAvant: '<br>' }

@@ -22,6 +22,6 @@ export default class NombreDeFacesEtDAretesExo extends NombreDeFacesEtDAretes {
     super()
     this.nbQuestions = 1
     this.version = 3
-    this.besoinFormulaireNumerique = []
+    this.besoinFormulaireNumerique = false
   }
 }

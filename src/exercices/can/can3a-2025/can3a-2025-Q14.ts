@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -16,7 +16,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class InverseOuOppose extends Exercice {
+export default class InverseOuOppose extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { sp } from '../../../lib/outils/outilString'
@@ -15,7 +15,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class multiple extends Exercice {
+export default class multiple extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !

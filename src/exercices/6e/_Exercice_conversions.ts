@@ -5,18 +5,18 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texTexte } from '../../lib/format/texTexte'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { fraction } from '../../modules/fractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '17/09/2022' // Modifications pour les octets. Pas de nombres décimaux => uniquement des multiplications pour convertir
-// Modification le 18/10 pour supprimer math.evaluate et le remplacer par un arrondi
+export const dateDeModifImportante = '28/07/2025' // Rajout du paramètre this.sup3  et de la correction détaillée
 
 /**
  * Conversions  mètres, litres, grammes, octets (et euros pour la version LaTeX) en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -30,32 +30,80 @@ export const dateDeModifImportante = '17/09/2022' // Modifications pour les octe
  * @author Rémi Angot
  * Relecture : Novembre 2021 par EE
  */
+
+type Unite = 'm' | 'g' | '€' | 'L' | 'o' | 'octets' | 'ko' | 'Mo' | 'Go' | 'To'
+
+interface Traduction {
+  singulier: string;
+  pluriel: string;
+}
+
+/**
+ * Traduit un symbole d'unité en ses équivalents français au singulier et au pluriel.
+ *
+ * @param symbole - Le symbole de l’unité à traduire : `'m'` pour mètre, `'g'` pour gramme, `'€'` pour euro, ou `'L'` pour litre.
+ * @returns Un objet contenant les formes singulière et plurielle en français.
+ * @author Eric Elter
+ * @throws {Error} Si le symbole fourni n’est pas pris en charge.
+ *
+ * @example
+ * unit = traduireUnite('€');
+ * // unit.singulier --> "euro"
+ * // unit.pluriel --> "euros"
+ */
+function traduireUnite (symbole: Unite): Traduction {
+  switch (symbole) {
+    case 'm':
+      return { singulier: 'mètre', pluriel: 'mètres' }
+    case 'g':
+      return { singulier: 'gramme', pluriel: 'grammes' }
+    case '€':
+      return { singulier: 'euro', pluriel: 'euros' }
+    case 'L':
+      return { singulier: 'litre', pluriel: 'litres' }
+    case 'o':
+      return { singulier: 'octet', pluriel: 'octets' }
+    default:
+      throw new Error(`Symbole inconnu : ${symbole}`)
+  }
+}
+
 export default class ExerciceConversions extends Exercice {
   correction_avec_des_fractions: boolean
+  valUnitaire: boolean
   constructor (niveau = 1) {
     super()
     this.sup = niveau // Niveau de difficulté de l'exercice
     this.sup2 = false // Avec des nombres décimaux ou pas
     this.titre =
         'Convertir des longueurs, masses, contenance, prix ou unités informatiques'
-    this.consigne = 'Compléter : '
+    this.consigne = 'Compléter par un nombre décimal.'
     this.spacing = 2
     this.correction_avec_des_fractions = false
-
+    this.valUnitaire = false
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, "1 : De da, h, k vers l'unité de référence\n2 : De d, c, m vers l'unité de référence\n3 : Multiplications ou divisions vers l'unité de référence\n4 : Conversions avec les octets\n5 : Mélange"]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
+    this.besoinFormulaire3CaseACocher = ['Qu\'avec des unités de longueurs']
+    this.sup3 = false
+    this.besoinFormulaire4CaseACocher = ['Avec possiblement des fractions dans la correction']
+    this.sup4 = false
+    this.correctionDetaillee = true
+    this.correctionDetailleeDisponible = false
+    this.comment = 'Le paramètre qui permet de ne choisir que des unités de longueurs devient caduque si, à un paramètre précédent, on choisit de convertir des unités de stockage informatiques.'
   }
 
   nouvelleVersion () {
+    this.correction_avec_des_fractions = this.sup4
+
     const prefixeMulti = [
-      ['da', 10],
-      ['h', 100],
-      ['k', 1000]
-    ] // ['M',1000000],['G',1000000000],['T',1000000000000]];
+      ['da', 10, 'déca', 'une dizaine de'],
+      ['h', 100, 'hecto', 'une centaine de'],
+      ['k', 1000, 'kilo', 'un millier de']
+    ]
     const prefixeDiv = [
-      ['d', 10],
-      ['c', 100],
-      ['m', 1000]
+      ['d', 10, 'déci', 'un dixième de'],
+      ['c', 100, 'centi', 'un centième de'],
+      ['m', 1000, 'milli', 'un millième de']
     ]
     let listeDesProblemes = []
     listeDesProblemes[0] = this.sup
@@ -67,15 +115,13 @@ export default class ExerciceConversions extends Exercice {
       k,
       div,
       resultat,
-      unite,
       texte,
       texteCorr,
-      listeUniteInfo,
+      listeUniteInfo:Unite[] = [],
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       k = randint(0, 2) // Choix du préfixe
       texteCorr = ''
-      unite = ''
       switch (listeDesProblemes[i]) {
         case 2 :
           div = true // Avec des divisions
@@ -91,8 +137,9 @@ export default class ExerciceConversions extends Exercice {
           div = false // Il n'y aura pas de division
           break
       }
-      let nbChiffreArrondi
-      if (this.sup2) {
+      let nbChiffreArrondi = 0
+      if (this.valUnitaire) val = new Decimal(1)
+      else if (this.sup2) {
         // Si la case pour les nombres décimaux est cochée
         nbChiffreArrondi = 2
         val = choice([
@@ -112,24 +159,18 @@ export default class ExerciceConversions extends Exercice {
         ]))
         // X, X0, X00, XX
       }
-
+      let unite : Unite = this.sup3 ? 'm' : choice(['m', 'L', 'g'])
       if (!div && listeDesProblemes[i] < 4) {
-        // Si il faut multiplier pour convertir
-        if (k < 2) {
-          // Choix de l'unité
-          unite = choice(['m', 'L', 'g'])
-        } else if (k === 2) {
-          if (context.isHtml) {
-            unite = choice(['m', 'L', 'g']) // pas de signe € pour KaTeX
-          } else {
-            unite = choice(['m', 'L', 'g', '€'])
-          }
-        } else {
+        // S'il faut multiplier pour convertir
+        // Choix de l'unité spécifique
+        if (k === 2) {
+          unite = this.sup3 ? 'm' : choice(['m', 'g', '€']) // on supprime les kL mais on accepte les k€.
+        } else if (k > 2) {
           unite = 'o'
         }
 
         resultat = val.mul(prefixeMulti[k][1])
-        texte = '$ ' + texNombre(val, nbChiffreArrondi) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
+        texte = '$ ' + texNombre(val, nbChiffreArrondi) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
 
         texteCorr =
                     '$ ' +
@@ -147,13 +188,12 @@ export default class ExerciceConversions extends Exercice {
       } else if (div &&
                 listeDesProblemes[i] < 4 &&
                 this.correction_avec_des_fractions) {
-        unite = choice(['m', 'L', 'g'])
         resultat = val.div(prefixeDiv[k][1])
         texte =
                     '$ ' +
                     texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeDiv[k][0] + unite) +
-                    ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+                    ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
                     '$ ' +
                     texNombre(val, nbChiffreArrondi) +
@@ -166,13 +206,12 @@ export default class ExerciceConversions extends Exercice {
                     texTexte(unite) +
                     '$'
       } else if (div && listeDesProblemes[i] < 4) {
-        unite = choice(['m', 'L', 'g'])
         resultat = val.div(prefixeDiv[k][1])
         texte =
                     '$ ' +
                     texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeDiv[k][0] + unite) +
-                    ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+                    ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
                     '$ ' +
                     texNombre(val, nbChiffreArrondi) +
@@ -203,14 +242,15 @@ export default class ExerciceConversions extends Exercice {
         }
         const ecart = unite2 - unite1 // nombre de multiplication par 1000 pour passer de l'un à l'autre
         if (unite1 === 0 && val.toNumber() % 1 !== 0) val = new Decimal(randint(3, 100)) // Pas de nombre d'octets non entiers
+        const uniteOctets = listeUniteInfo[unite1]
+        unite = listeUniteInfo[unite1]
         if (!div) {
           resultat = val.mul(Math.pow(10, 3 * ecart))
-          unite = listeUniteInfo[unite1]
           texte =
                         '$ ' +
                         texNombre(val, nbChiffreArrondi) +
                         texTexte(listeUniteInfo[unite2]) +
-                        ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+                        ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
                         '$ ' +
                         texNombre(val, nbChiffreArrondi) +
@@ -219,19 +259,18 @@ export default class ExerciceConversions extends Exercice {
                         texNombre(val, nbChiffreArrondi) +
                         '\\times' +
                         texNombre(Math.pow(10, 3 * ecart), 0) +
-                        texTexte(unite) +
+                        texTexte(uniteOctets) +
                         ' = ' +
                         texNombre(resultat, 0) +
-                        texTexte(unite) +
+                        texTexte(uniteOctets) +
                         '$'
         } else {
           val = val.div(Math.pow(10, randint(3 * ecart - 1, 3 * ecart + 1)))
           resultat = val.mul(Math.pow(10, 3 * ecart))
-          unite = listeUniteInfo[unite1]
           texte = '$ ' +
                         texNombre(val, nbChiffreArrondi + 3 * ecart) +
                         texTexte(listeUniteInfo[unite2]) +
-                        ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+                        ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
                         '$ ' +
                         texNombre(val, nbChiffreArrondi + 3 * ecart) +
@@ -240,10 +279,10 @@ export default class ExerciceConversions extends Exercice {
                         texNombre(val, nbChiffreArrondi + 3 * ecart) +
                         '\\div' +
                         texNombre(Math.pow(10, -3 * ecart), 3 * ecart) +
-                        texTexte(unite) +
+                        texTexte(uniteOctets) +
                         ' = ' +
                         texNombre(resultat) +
-                        texTexte(unite) +
+                        texTexte(uniteOctets) +
                         '$'
         }
       }
@@ -251,9 +290,10 @@ export default class ExerciceConversions extends Exercice {
       // EE : Mise en couleur de la réponse interactive
       const aMettreEnCouleur: string = miseEnEvidence((texteCorr.split('=').pop() ?? '').replaceAll('$', '')) + '$'
       texteCorr = texteCorr.replace(String(texteCorr.split('=').pop()), '') + aMettreEnCouleur.replace(texTexte(unite), '') + '$' + texTexte(unite) + '$'
+      if (this.correctionDetaillee && listeDesProblemes[i] !== 4) { texteCorr = `Un ${div ? prefixeDiv[k][2] : prefixeMulti[k][2]}${traduireUnite(unite).singulier} est ${div ? prefixeDiv[k][3] : prefixeMulti[k][3]} ${div ? traduireUnite(unite).singulier : traduireUnite(unite).pluriel} donc :<br>` + texteCorr + '.' }
 
       if (this.questionJamaisPosee(i, val, resultat.toString())) {
-        setReponse(this, i, resultat.toString())
+        handleAnswers(this, i, { reponse: { value: resultat.toString(), options: { nombreDecimalSeulement: true, fractionDecimale: true } } })
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')

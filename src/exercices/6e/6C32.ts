@@ -297,7 +297,7 @@ export default class ProblemeCourse extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['Calculs faciles']
-    this.besoinFormulaire2Texte = ['types de problèmes', 'Nombres séparés par des tirets\n1 : Somme de deux prix\n2 : plusieurs produits au même prix\n3 : Un produit à l\'unité et un autre au poids\n4 : Deux produits au poids\n 5 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de problèmes', 'Nombres séparés par des tirets\n1 : Somme de deux prix\n2 : plusieurs produits au même prix\n3 : Un produit à l\'unité et un autre au poids\n4 : Deux produits au poids\n 5 : Mélange']
     this.spacing = 2
     this.spacingCorr = 2
     // Modification de l'exercice pour avoir plusieurs question. On peut revenir à la version initiale en décommentant. Jean-Claude Lhote

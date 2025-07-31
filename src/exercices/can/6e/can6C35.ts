@@ -4,7 +4,7 @@ import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can6C35'],
   'fr-ch': []
 }
-export default class PlusOuMoins6ieme extends Exercice {
+export default class PlusOuMoins6ieme extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { latex2d } from '../../../lib/2d/textes'
 import { courbe } from '../../../lib/2d/courbes'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class ImageGraphique extends Exercice {
+export default class ImageGraphique extends ExerciceSimple {
   constructor () {
     super()
 

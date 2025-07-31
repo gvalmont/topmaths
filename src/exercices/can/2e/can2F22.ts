@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const dateDePublication = '12/09/2024'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can2F22'],
   'fr-ch': []
 }
-export default class InequationsGSpline extends Exercice {
+export default class InequationsGSpline extends ExerciceSimple {
   constructor () {
     super()
 
@@ -113,7 +113,7 @@ qui se situent  ${symbole === '>' || symbole === '<' ? 'strictement' : 'sur ou '
 On en déduit `
     this.question = `On donne la représentation graphique d'une fonction $f$. <br>
     Résoudre l'inéquation  $f(x)${symbole}${y1}$.<br>` +
-       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+      mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
     if (this.interactif) {
       this.question += '$S=$ '
     }

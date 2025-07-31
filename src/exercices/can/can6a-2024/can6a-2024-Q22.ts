@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { DroiteGraduee } from '../../../lib/2d/reperes'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
@@ -15,7 +15,7 @@ export const uuid = 'eb9d6'
 
 */
 
-export default class AbscisseEnDemiBis extends Exercice {
+export default class AbscisseEnDemiBis extends ExerciceSimple {
   constructor () {
     super()
 

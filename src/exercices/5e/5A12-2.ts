@@ -119,7 +119,7 @@ function rediger (a: number, avecCalculDeRacine: boolean): string {
     redaction = `$\\sqrt{${a}} \\approx ${texNombre(Math.sqrt(a), 2)}$<br>
     On vérifie si $${texNombre(a)}$ est divisible par tous les nombres premiers inférieurs ou égaux à $${Math.floor(Math.sqrt(a))}$, c'est-à-dire ${lister(premiersATester.map(t => `$${t}$`))}.<br>`
   } else {
-    redaction = `On essaie de diviser $${texNombre(a)}$ par tous les nombres premiers jusqu'à ce que le quotient soit inférieur au dividende.<br>`
+    redaction = `On essaie de diviser $${texNombre(a)}$ par tous les nombres premiers jusqu'à ce que le quotient soit inférieur au diviseur.<br>`
   }
   let i = 0
   while (i < premiersATester.length && a % premiersATester[i] !== 0) {

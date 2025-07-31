@@ -5,7 +5,7 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can3F10'],
   'fr-ch': []
 }
-export default class OrdonneeAbscisseFonctionLineaire extends Exercice {
+export default class OrdonneeAbscisseFonctionLineaire extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -38,7 +38,7 @@ export default class OrdonneeAbscisseFonctionLineaire extends Exercice {
     const a = choice([0.5, 1.5, 2, 2.5, 3, 3.5, 4])
     if (a === 0.5 || a === 1.5 || a === 2) { xA = choice([2, 4]) } else { xA = 2 }
     const yA = a * xA
-    const f = (x:number) => a * x
+    const f = (x: number) => a * x
     const xB = randint(5, 10)
     if (a === 0.5) { yB = randint(6, 10) * 2 } else
       if (a === 1.5) { yB = randint(6, 10) * 3 } else

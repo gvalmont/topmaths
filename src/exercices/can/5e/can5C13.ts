@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can5C13'],
   'fr-ch': []
 }
-export default class CalculAstucieux1 extends Exercice {
+export default class CalculAstucieux1 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

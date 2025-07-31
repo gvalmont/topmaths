@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can6C52'],
   'fr-ch': []
 }
-export default class PetitsProblemePartage2 extends Exercice {
+export default class PetitsProblemePartage2 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

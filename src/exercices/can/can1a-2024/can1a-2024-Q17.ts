@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -12,7 +12,7 @@ export const uuid = '17868'
  * @author Gilles Mora
 
 */
-export default class DeltaSecondDegre extends Exercice {
+export default class DeltaSecondDegre extends ExerciceSimple {
   constructor () {
     super()
 
@@ -23,8 +23,8 @@ export default class DeltaSecondDegre extends Exercice {
   }
 
   nouvelleVersion () {
-    let a : number
-    let b : number
+    let a: number
+    let b: number
     let c: number
     if (this.canOfficielle) {
       this.reponse = -7

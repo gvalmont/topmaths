@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -14,7 +14,7 @@ export const uuid = '5c582'
  * @author Gilles Mora
 
 */
-export default class calculProba extends Exercice {
+export default class calculProba extends ExerciceSimple {
   constructor () {
     super()
 

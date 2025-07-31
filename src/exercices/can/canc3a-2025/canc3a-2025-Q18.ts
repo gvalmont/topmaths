@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { point, Point } from '../../../lib/2d/points'
 
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
@@ -23,7 +23,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2025CM2Q18 extends Exercice {
+export default class Can2025CM2Q18 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can6C40'],
   'fr-ch': []
 }
-export default class CalculMoitieDecimal extends Exercice {
+export default class CalculMoitieDecimal extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

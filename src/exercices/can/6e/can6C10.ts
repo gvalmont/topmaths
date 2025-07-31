@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Connaitre les tables de multiplication (de 5 à 9)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can6C10'],
   'fr-ch': []
 }
-export default class Tables5A9 extends Exercice {
+export default class Tables5A9 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

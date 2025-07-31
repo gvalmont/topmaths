@@ -1,8 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can2L05'],
   'fr-ch': []
 }
-export default class SolutionInequation extends Exercice {
+export default class SolutionInequation extends ExerciceSimple {
   constructor () {
     super()
 
@@ -33,18 +33,20 @@ export default class SolutionInequation extends Exercice {
     this.spacing = 3
     this.formatChampTexte = KeyboardType.clavierEnsemble
     this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
+    this.versionQcmDisponible = true
   }
 
   nouvelleVersion () {
     let a, b, maFraction, n
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
-      case 1 :// cas a>0
-        a = randint(2, 6)
+
+    switch (randint(1, 8)) { //
+      case 1:// cas a>0
+      { a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
-        if (this.interactif) {
+        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
+        if (this.interactif && this.versionQcm === false) {
           this.question += '<br>$S=$'
         }
         this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$`)}.<br>
@@ -53,15 +55,18 @@ export default class SolutionInequation extends Exercice {
             En divisant par $${a}$ dans chaque membre, on obtient :<br>
             $x>${maFraction.texFractionSimplifiee}$<br>
             Les solutions sont les nombres strictement supérieurs à $${maFraction.texFractionSimplifiee}$.   `
-        this.reponse = `]${-n};+\\infty[`
-        break
-      case 2 :// cas a>0
-        a = randint(2, 6)
+        this.reponse = `$]${-n}~;~+\\infty[$`
+        let tableau = [`$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]${n}~;~+\\infty[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${n}[$`]
+        tableau = shuffle(tableau)
+        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        break }
+      case 2:// cas a>0
+      { a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
-        if (this.interactif) {
+        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
+        if (this.interactif && this.versionQcm === false) {
           this.question += '<br>$S=$'
         }
         this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$`)}.<br>
@@ -70,15 +75,18 @@ export default class SolutionInequation extends Exercice {
                     En divisant par $${a}$ dans chaque membre, on obtient :<br>
                     $x\\geqslant${maFraction.texFractionSimplifiee}$<br>
                     Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
-        this.reponse = `[${-n};+\\infty[`
-        break
-      case 3 :// cas a>0
-        a = randint(2, 6)
+        this.reponse = `$[${-n}~;~+\\infty[$`
+        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]${n}~;~+\\infty[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${n}[$`,]
+        tableau = shuffle(tableau)
+        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        break }
+      case 3:// cas a>0
+      { a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
-        if (this.interactif) {
+        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
+        if (this.interactif && this.versionQcm === false) {
           this.question += '<br>$S=$'
         }
         this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$`)}.<br>
@@ -87,15 +95,18 @@ export default class SolutionInequation extends Exercice {
                       En divisant par $${a}$ dans chaque membre, on obtient :<br>
                       $x\\leqslant${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
-        this.reponse = `]-\\infty;${-n}]`
-        break
-      case 4 :// cas a>0
-        a = randint(2, 6)
+        this.reponse = `$]-\\infty~;~${-n}]$`
+        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${n}]$`]
+        tableau = shuffle(tableau)
+        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        break }
+      case 4:// cas a>0
+      { a = randint(2, 6)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
-        if (this.interactif) {
+        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
+        if (this.interactif && this.versionQcm === false) {
           this.question += '<br>$S=$'
         }
         this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]-\\infty${sp(1)} ; ${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$`)}.<br>
@@ -104,18 +115,20 @@ export default class SolutionInequation extends Exercice {
                       En divisant par $${a}$ dans chaque membre, on obtient :<br>
                       $x<${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$.   `
-        this.reponse = `]-\\infty;${-n}[`
-
-        break
+        this.reponse = `$]-\\infty~;~${-n}[$`
+        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}]$`, `$]-\\infty~;~${n}]$`]
+        tableau = shuffle(tableau)
+        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        break }
 
       case 5:// cas a<0
-        a = randint(-6, -2)
+      { a = randint(-6, -2)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
 
-        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
-        if (this.interactif) {
+        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}>0$ ?`
+        if (this.interactif && this.versionQcm === false) {
           this.question += '<br>$S=$'
         }
         this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg[$`)}.<br>
@@ -125,15 +138,18 @@ export default class SolutionInequation extends Exercice {
             $x$ ${texteEnCouleur(' $<$ ')}$${-n}$ ${sp(3)}
             ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
             Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$. `
-        this.reponse = `]-\\infty;${-n}[`
-        break
+        this.reponse = `$]-\\infty~;~${-n}[$`
+        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}]$`, `$]-\\infty~;~${n}]$`]
+        tableau = shuffle(tableau)
+        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        break }
       case 6:// cas a<0
-        a = randint(-6, -2)
+      { a = randint(-6, -2)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
-        if (this.interactif) {
+        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\geqslant 0$ ?`
+        if (this.interactif && this.versionQcm === false) {
           this.question += '<br>$S=$'
         }
         this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]-\\infty${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$`)}.<br>
@@ -143,15 +159,18 @@ export default class SolutionInequation extends Exercice {
           $x$ ${texteEnCouleur(' $\\leqslant$ ')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
-        this.reponse = `]-\\infty;${-n}]`
-        break
+        this.reponse = `$]-\\infty~;~${-n}]$`
+        let tableau = [`$]${-n}~;~+\\infty[$`, `$[${-n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}[$`, `$]-\\infty~;~${n}]$`]
+        tableau = shuffle(tableau)
+        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        break }
       case 7:// cas a<0
-        a = randint(-6, -2)
+      { a = randint(-6, -2)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
-        if (this.interactif) {
+        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}\\leqslant 0$ ?`
+        if (this.interactif && this.versionQcm === false) {
           this.question += '<br>$S=$'
         }
         this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$`)}.<br>
@@ -161,15 +180,18 @@ export default class SolutionInequation extends Exercice {
           $x$ ${texteEnCouleur(' $\\geqslant$ ')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
-        this.reponse = `[${-n};+\\infty[`
-        break
+        this.reponse = `$[${-n}~;~+\\infty[$`
+        let tableau = [`$]${-n}~;~+\\infty[$`, `$]${n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}]$`, `$]-\\infty~;~${n}]$`]
+        tableau = shuffle(tableau)
+        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        break }
       case 8:// cas a<0
-        a = randint(-6, -2)
+      { a = randint(-6, -2)
         n = randint(2, 7) * choice([-1, 1])
         b = n * a
         maFraction = fraction(-b, a)
-        this.question = `Quel est l'ensemble des solutions $S$ de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
-        if (this.interactif) {
+        this.question = `Quel est l'ensemble des solutions de l'inéquation $${reduireAxPlusB(a, b)}< 0$ ?`
+        if (this.interactif && this.versionQcm === false) {
           this.question += '<br>$S=$'
         }
         this.correction = `L'ensemble de solutions est : ${texteEnCouleur(` $\\bigg]${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$`)}.<br>
@@ -179,8 +201,11 @@ export default class SolutionInequation extends Exercice {
           $x$ ${texteEnCouleur(' $>$ ')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres strictement supérieurs   à $${maFraction.texFractionSimplifiee}$. `
-        this.reponse = `]${-n};+\\infty[`
-        break
+        this.reponse = `$]${-n}~;~+\\infty[$`
+        let tableau = [`$[${-n}~;~+\\infty[$`, `$]${n}~;~+\\infty[$`, `$[${n}~;~+\\infty[$`, `$]-\\infty~;~${n}[$`, `$]-\\infty~;~${-n}]$`, `$]-\\infty~;~${n}]$`]
+        tableau = shuffle(tableau)
+        this.distracteurs = [tableau[0], tableau[1], tableau[2], tableau[3]]
+        break }
     }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

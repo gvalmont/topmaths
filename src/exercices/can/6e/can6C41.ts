@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
@@ -26,6 +26,14 @@ export default class ComparerFraction extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
+    this.besoinFormulaireNumerique = [
+      'Choix du dénominateur', 3, [
+        '1 : Même dénominateur',
+        '2 : Même numérateur',
+        '3 : L\'un ou l\'autre',
+      ].join('\n')
+    ]
+    this.spacingCorr = 1.5
   }
 
   nouvelleVersion () {
@@ -43,9 +51,14 @@ export default class ComparerFraction extends Exercice {
       [14, 5, 11, 5], [7, 3, 11, 3]
     ]
     let a, b, fraction1
+    const typeDeQuestionsDisponibles = this.sup === 1
+      ? combinaisonListes([1], this.nbQuestions)
+      : this.sup === 2
+        ? combinaisonListes([2], this.nbQuestions)
+        : combinaisonListes([1, 2], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
-      switch (choice([1, 2])) {
+      switch (typeDeQuestionsDisponibles[i]) {
         case 1:// même dénominateur
           fraction1 = choice(listeFractions1)
           a = new FractionEtendue(fraction1[0], fraction1[1])
@@ -92,8 +105,8 @@ export default class ComparerFraction extends Exercice {
                 champ1: { value: '>', options: { texteSansCasse: true } }
               }
             )
-            this.correction = `Les deux fractions ont le même dénominateur, la plus grande est celle qui a le plus grand numérateur.<br>
-          Ainsi, $${a.texFraction} ${miseEnEvidence('>')} ${b.texFraction}$.`
+            this.correction = `Les deux fractions ont le même numérateur, la plus grande est celle qui a le plus petit dénominateur.<br>
+         Ainsi, $${a.texFraction} ${miseEnEvidence('>')} ${b.texFraction}$.`
             this.reponse = '>'
             this.canEnonce = 'Compléter avec $>$ ou $<$.'
             this.canReponseACompleter = `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`

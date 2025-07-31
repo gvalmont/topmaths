@@ -39,12 +39,12 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
   figures: Figure[] = []
   pointsA: Point[] = []
   pointsB: Point[] = []
-  constructor() {
+  constructor () {
     super()
     this.nbQuestions = 1 // On complète le nb de questions
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     this.figures = []
 
     const textO = latex2d('\\text{O}', -0.3, -0.3, {
@@ -70,7 +70,7 @@ export default class RepresenterDroiteDepuisEq extends Exercice {
         ordonnéeOrigine * coeffMult,
       ]
 
-      function makeEquation(x: string | number, y: string) {
+      function makeEquation (x: string | number, y: string) {
         // Version LaTeX propre de l'équation
         let equation = ''
         if (coeffs[0] === 0) {

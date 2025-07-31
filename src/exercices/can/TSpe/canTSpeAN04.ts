@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Stéphane Guyon
 
 */
-export default class logarithme extends Exercice {
+export default class logarithme extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

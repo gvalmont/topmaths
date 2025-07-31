@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
@@ -15,7 +15,7 @@ export const uuid = 'fa173'
 
 */
 
-export default class EncadreRacParDeuxEntiers extends Exercice {
+export default class EncadreRacParDeuxEntiers extends ExerciceSimple {
   constructor () {
     super()
 

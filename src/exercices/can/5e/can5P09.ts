@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer un prix à partir d\'un prix au kg'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can5P09'],
   'fr-ch': []
 }
-export default class CalculPrix extends Exercice {
+export default class CalculPrix extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

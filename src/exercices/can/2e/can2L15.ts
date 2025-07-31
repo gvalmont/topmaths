@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -23,7 +23,7 @@ export const refs = {
 /**
  * @author Gilles Mora
 */
-export default class EquationsCarree extends Exercice {
+export default class EquationsCarree extends ExerciceSimple {
   constructor () {
     super()
     this.canOfficielle = false
@@ -49,8 +49,9 @@ export default class EquationsCarree extends Exercice {
     const f = (x: number): number => x ** 2
     const Cg = droite(point(-6, 3), point(6, 3), '', 'green')
     switch (choice([1, 2])) {
-      case 1 :// x^2<k
-        { const choix = choice([true, false])
+      case 1:// x^2<k
+        {
+          const choix = choice([true, false])
           sAAx.epaisseur = 2
           sAAx.pointilles = 5
           sBBx.epaisseur = 2
@@ -98,7 +99,7 @@ export default class EquationsCarree extends Exercice {
             ${choix ? `$${miseEnEvidence(`]${-a}\\,;\\,${a}[`)}$.` : `$${miseEnEvidence(`[${-a}\\,;\\,${a}]`)}$.`}`
         }
         break
-      case 2 :// x^2>k
+      case 2:// x^2>k
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2

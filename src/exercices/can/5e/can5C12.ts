@@ -2,7 +2,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can5C12'],
   'fr-ch': []
 }
-export default class FractionDEntierQuiVaBien extends Exercice {
+export default class FractionDEntierQuiVaBien extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

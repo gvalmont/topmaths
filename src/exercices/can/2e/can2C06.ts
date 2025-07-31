@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Simplifier des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2C06'],
   'fr-ch': []
 }
-export default class SimplificationsRacinesCarrees extends Exercice {
+export default class SimplificationsRacinesCarrees extends ExerciceSimple {
   constructor () {
     super()
     this.optionsChampTexte = { texteAvant: '<br>' }

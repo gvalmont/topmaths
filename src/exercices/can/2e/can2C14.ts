@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer/déterminer une racine carrée (phrase ou calcul)'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2C14'],
   'fr-ch': []
 }
-export default class CalculAvecRacineDef extends Exercice {
+export default class CalculAvecRacineDef extends ExerciceSimple {
   constructor () {
     super()
     this.optionsChampTexte = { texteAvant: '<br>' }
@@ -33,7 +33,7 @@ export default class CalculAvecRacineDef extends Exercice {
   nouvelleVersion () {
     let a, choix
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
-      case 1 :
+      case 1:
         a = choice([1, 4, 9, 16, 25, 36, 49, 64, 81, 100])
         if (choice([true, false])) {
           this.question = `Calculer $(\\sqrt{${a}})^2$. `
@@ -48,7 +48,7 @@ export default class CalculAvecRacineDef extends Exercice {
         this.reponse = a
         break
 
-      case 2 :
+      case 2:
         a = randint(1, 10)
         choix = choice([true, false])
         this.question = `Calculer  ${choix ? '' : '$-$'}$\\sqrt{${a * a}}$. `
@@ -59,7 +59,7 @@ export default class CalculAvecRacineDef extends Exercice {
         this.reponse = choix ? a : -a
         break
 
-      case 3 :
+      case 3:
         a = choice([2, 3, 4, 5, 6, 7, 8, 9, 10, 16, 25, 36, 49, 64, 81, 100]) * choice([-1, 1])
         this.question = `Calculer $\\sqrt{${ecritureParentheseSiNegatif(a)}^2}$. `
         if (a < 0) {
@@ -76,7 +76,7 @@ export default class CalculAvecRacineDef extends Exercice {
 
         break
 
-      case 4 :
+      case 4:
         a = randint(2, 30, [4, 9, 16, 25])
         choix = choice([true, false])
         if (choice([true, false])) {
@@ -94,7 +94,7 @@ export default class CalculAvecRacineDef extends Exercice {
         this.reponse = choix ? a : -a
         break
 
-      case 5 :
+      case 5:
         a = randint(2, 30, [4, 9, 16, 25])
         choix = choice([true, false])
         this.question = `Écrire plus simplement $\\sqrt{${a}}+ \\sqrt{${a}}$. `
@@ -104,7 +104,7 @@ export default class CalculAvecRacineDef extends Exercice {
         this.reponse = [`2\\sqrt{${a}}`]
         break
 
-      case 6 :
+      case 6:
         a = randint(2, 10)
         choix = choice([true, false])
         this.question = `Donner le nombre ${choix ? 'positif' : 'négatif'} dont le carré est $${a}$.`
@@ -123,7 +123,7 @@ export default class CalculAvecRacineDef extends Exercice {
         this.reponse = choix ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`] : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
         break
 
-      case 7 :
+      case 7:
         a = randint(2, 10)
         choix = choice([true, false])
         if (choice([true, false])) {
@@ -149,7 +149,7 @@ export default class CalculAvecRacineDef extends Exercice {
         this.reponse = choix ? [`\\sqrt{${a}}`, `${Math.sqrt(a)}`] : [`-\\sqrt{${a}}`, `-${Math.sqrt(a)}`]
         break
 
-      case 8 :
+      case 8:
         a = randint(1, 12)
         this.question = `Quel est le nombre dont la racine carrée vaut $${a}$ ?`
         this.correction = `Comme $\\sqrt{${a ** 2}}=${a}$, le nombre dont la racine carrée est $${a}$ est $${miseEnEvidence(`${a ** 2}`)}$.`

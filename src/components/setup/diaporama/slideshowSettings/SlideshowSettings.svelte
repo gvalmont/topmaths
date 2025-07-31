@@ -14,7 +14,7 @@
   import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
-  import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
+  import { listOfRandomIndexes } from '../../../../lib/outils/arrayOutils'
 
   export let exercises: Exercice[]
   export let updateExercises: (updateSlidesContent?: boolean) => void

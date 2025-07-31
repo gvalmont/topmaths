@@ -2,7 +2,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Trouver les coordonnées d\'un point avec un milieu'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can2G22'],
   'fr-ch': []
 }
-export default class CoordonneesMilieuExtremite extends Exercice {
+export default class CoordonneesMilieuExtremite extends ExerciceSimple {
   constructor () {
     super()
 

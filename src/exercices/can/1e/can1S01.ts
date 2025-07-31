@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['can1S01'],
   'fr-ch': []
 }
-export default class CalculTermeSuiteExp extends Exercice {
+export default class CalculTermeSuiteExp extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction

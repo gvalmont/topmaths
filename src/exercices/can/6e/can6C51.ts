@@ -6,7 +6,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier une fraction décimale par 10, 100, 1000 '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can6C51'],
   'fr-ch': []
 }
-export default class MultiplieFractionDPar10Par100Par1000 extends Exercice {
+export default class MultiplieFractionDPar10Par100Par1000 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -41,8 +41,9 @@ export default class MultiplieFractionDPar10Par100Par1000 extends Exercice {
     this.question = `Calculer sous la forme d'un entier ou d'un décimal : $${texFractionFromString(a, den)}\\times${texNombre(b)}$.`
     this.correction = `$\\begin{aligned}
         ${texFractionFromString(a, den)} \\times ${texNombre(
-                b)} &= ${texFractionFromString(a * b, den)}\\\\
-                & = ${miseEnEvidence(texNombre((a / den) * b, 3))}
+      b)} &= ${texFractionFromString(a * b, den)}\\\\
+                ${texFractionFromString(a, den)} \\times ${texNombre(
+        b)} & = ${miseEnEvidence(texNombre((a / den) * b, 3))}
                 \\end{aligned}$`
     this.reponse = resultat
 

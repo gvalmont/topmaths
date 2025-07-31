@@ -3,7 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver la bonne unité'
 export const dateDePublication = '5/11/2021'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['canc3M01'],
   'fr-ch': []
 }
-export default class TrouverLaBonneUnite extends Exercice {
+export default class TrouverLaBonneUnite extends ExerciceSimple {
   constructor () {
     super()
 

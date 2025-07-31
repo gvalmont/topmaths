@@ -2,7 +2,7 @@ import { listeDeNotes } from '../../../lib/outils/aleatoires'
 import { sp } from '../../../lib/outils/outilString'
 import { prenom } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une étendue'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can3S04'],
   'fr-ch': []
 }
-export default class Etendue extends Exercice {
+export default class Etendue extends ExerciceSimple {
   constructor () {
     super()
 

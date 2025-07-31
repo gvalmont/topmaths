@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import checkElementExist from 'apigeom/src/check/checkElementExist'
 import figureApigeom from '../../lib/figureApigeom'
@@ -88,7 +88,7 @@ class Trait {
   }
 }
 
-class ConstructionSegmentRayLine extends Exercice {
+class ConstructionSegmentRayLine extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   nameA!: string

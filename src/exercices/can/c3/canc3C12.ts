@@ -1,6 +1,6 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['canc3C12'],
   'fr-ch': []
 }
-export default class ProgrammeCalculInverse extends Exercice {
+export default class ProgrammeCalculInverse extends ExerciceSimple {
   constructor () {
     super()
 

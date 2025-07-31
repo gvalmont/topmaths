@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Trouver $a+1$ ou $a-1$ connaissant $2a$'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can5L01'],
   'fr-ch': []
 }
-export default class MoitiePlusOuMoinsUn extends Exercice {
+export default class MoitiePlusOuMoinsUn extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver l’opposé ou l’inverse d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can4C02'],
   'fr-ch': []
 }
-export default class OpposeDeFraction extends Exercice {
+export default class OpposeDeFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -41,7 +41,7 @@ export default class OpposeDeFraction extends Exercice {
         Ainsi, l'opposé de $\\dfrac{${b}}{${c}}$ est $-${d.texFraction}$ car $\\dfrac{${b}}{${c}}+\\left(-${d.texFraction}\\right)=0$.`
         this.reponse = d.oppose()
         break
-      case 'b' :
+      case 'b':
         b = a.n * (-1)
         d = fraction(b, c)
         this.question = `Quel est l'opposé de $\\dfrac{${b}}{${c}}$ ? `
@@ -50,7 +50,7 @@ export default class OpposeDeFraction extends Exercice {
         this.reponse = d.oppose()
         break
 
-      case 'c' :
+      case 'c':
         b = a.n
         d = fraction(b, c)
         this.question = `Quel est l'opposé de $-\\dfrac{${b}}{${c}}$ ?`
@@ -58,7 +58,7 @@ export default class OpposeDeFraction extends Exercice {
         Ainsi, l'opposé de $-\\dfrac{${b}}{${c}}$ est $${d.texFraction}$ car $-\\dfrac{${b}}{${c}}+${d.texFraction}=0$.`
         this.reponse = d
         break
-      case 'd' :
+      case 'd':
         b = a.n
         d = fraction(b, c)
         e = fraction(c, b)
@@ -67,7 +67,7 @@ export default class OpposeDeFraction extends Exercice {
         Ainsi, l'inverse de $\\dfrac{${b}}{${c}}$ est $${e.texFraction}$ car $${d.texFraction}\\times ${e.texFraction}=1$.`
         this.reponse = e
         break
-      case 'e' :
+      case 'e':
         b = a.n
         d = fraction(b, c)
         e = fraction(c, b)

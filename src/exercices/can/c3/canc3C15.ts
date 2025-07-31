@@ -1,7 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Connaitre les tables de multiplication (phrases)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['canc3C15'],
   'fr-ch': []
 }
-export default class TablesPhrase extends Exercice {
+export default class TablesPhrase extends ExerciceSimple {
   constructor () {
     super()
 

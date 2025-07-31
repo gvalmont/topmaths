@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -26,7 +26,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class EquationsRacCarree extends Exercice {
+export default class EquationsRacCarree extends ExerciceSimple {
   constructor () {
     super()
 
@@ -68,8 +68,9 @@ export default class EquationsRacCarree extends Exercice {
 
     })
     switch (choice([1, 2])) {
-      case 1 :// sqrt(x)<k
-        { const choix = choice([true, false])
+      case 1:// sqrt(x)<k
+        {
+          const choix = choice([true, false])
           sAAx.epaisseur = 2
           sAAx.pointilles = 5
           sAxBx.epaisseur = 2
@@ -99,7 +100,7 @@ export default class EquationsRacCarree extends Exercice {
             ${choix ? `$${miseEnEvidence(`[0\\,;\\,${a ** 2}[`)}$.` : `$${miseEnEvidence(`[0\\,;\\,${a ** 2}]`)}$.`}`
         }
         break
-      case 2 :// sqrt(x)>k
+      case 2:// sqrt(x)>k
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2

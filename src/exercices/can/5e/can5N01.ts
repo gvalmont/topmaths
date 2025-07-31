@@ -2,7 +2,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la somme de nombres décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can5N01'],
   'fr-ch': []
 }
-export default class SommeDecimale5e extends Exercice {
+export default class SommeDecimale5e extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

@@ -1,17 +1,15 @@
-import { courbe } from '../../../lib/2d/courbes'
-import { repere } from '../../../lib/2d/reperes'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
-import { mathalea2d } from '../../../modules/2dGeneralites'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-export const titre = 'Déterminer le coefficient directeur d\'une droite'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+export const titre = 'Déterminer le coefficient directeur d\'une droite à partir de son équation réduite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '30/09/2021'
-
+export const dateModiImportante = '25/07/2025'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -24,95 +22,132 @@ export const refs = {
   'fr-fr': ['can2G06'],
   'fr-ch': []
 }
-export default class CoeffDirecteurDroite extends Exercice {
+export default class CoeffDirecteurDroite extends ExerciceSimple {
   constructor () {
     super()
-
+    this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+  }
+
+  // Textes communs factorisés
+  questionReprise (equation: string) {
+    return `On considère la droite d'équation $${equation}$. <br>
+     ${this.versionQcm ? 'Son coefficient directeur est :' : 'Donner son coefficient directeur.<br>'} `
+  }
+
+  correctionReprise () {
+    return `On reconnaît l'équation réduite d'une droite de la forme $y=mx+p$ où $m$ est son coefficient directeur.<br>
+      Ici, `
   }
 
   nouvelleVersion () {
-    let xA, yA, xB, yB, n, d, a, b, rep
-    switch (choice([1, 2, 3, 4])) {
-      case 1:// coefficient directeur droite
-        xA = randint(0, 7)
-        yA = randint(0, 7)
-        xB = randint(0, 7, xA)
-        yB = randint(0, 7)
-        n = yB - yA
-        d = xB - xA
+    switch (choice([1, 2, 3, 4, 4, 5, 5, 6, 6])) {
+      case 1:
+        {
+          const a = 0
+          const b = randint(-5, 5)
 
-        this.reponse = new FractionEtendue(n, d)
-        // this.formatInteractif = 'fractionEgale'
-        this.question = `Dans un repère du plan, on considère les points $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>
-        
-        Calculer le coefficient directeur de la droite $(AB)$.
-         `
-        this.correction = 'On observe que $ x_B\\neq x_A$.'
-        this.correction += '<br>La droite $(AB)$ n\'est donc pas verticale.'
-        this.correction += '<br>On peut donc calculer le coefficient directeur de la droite.'
-        this.correction += '<br>On sait d\'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
-        this.correction += `<br>On applique avec les données de l'énoncé :
-        $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=
-        ${miseEnEvidence(`${this.reponse.texFraction}`)} ${this.reponse.texSimplificationAvecEtapes()}$.`
-
-        break
-      case 2:// coefficient directeur droite
-        a = randint(-4, 4, 0)
-        b = randint(-4, 4, 0)
-        xA = randint(-3, 3, [-1, 0])
-        yA = a * xA + b
-        xB = xA + 1
-        yB = b + a * xB
-        rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
-
-        this.question = `Donner le coefficient directeur de la droite.<br><br>
-        `
-        this.question += `
-        ${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 18, scale: 0.6, style: 'margin: auto' }, rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }))}`
-        this.correction = `Le coefficient directeur est $~${miseEnEvidence(`${a}`)}$.`
-        this.reponse = a
-
-        break
-      case 3:// coefficient directeur droite a partir equ reduite
-        a = randint(-9, 9, 0)
-        b = randint(-9, 9, 0)
-
-        if (choice([true, false])) {
-          this.question = `On considère la droite d'équation $y=${reduireAxPlusB(a, b)}$. <br>
-
-            Donner son coefficient directeur.<br>`
-          this.correction = `Le coefficient directeur est $~${miseEnEvidence(`${a}`)}$.`
-          this.reponse = a
-        } else {
-          if (a < 0) {
-            this.question = `On considère la droite d'équation $y=${b}${reduireAxPlusB(a, 0)}$. <br>
-
-           Donner son coefficient directeur.<br>`
-            this.correction = `Le coefficient directeur est $~${miseEnEvidence(`${a}`)}$.`
-            this.reponse = a
-          } else {
-            this.question = `On considère la droite d'équation $y=${b}+${reduireAxPlusB(a, 0)}$. <br>
-            
-            Donner son coefficient directeur.<br>`
-            this.correction = `Le coefficient directeur est $~${miseEnEvidence(`${a}`)}$.`
-            this.reponse = a
-          }
+          this.question = this.questionReprise(`y=${b}`)
+          this.correction = this.correctionReprise() + `$m=${miseEnEvidence(`${a}`)}$ et $p=${b}$.`
+          this.reponse = this.versionQcm ? `$m=${a}$` : a
+          this.distracteurs = [
+            '$m=1$',
+            '$m=-1$',
+            `${b === 0 || b === 1 || b === -1 ? '$m=\\emptyset$' : `$m=${b}$`}`,
+          ]
         }
         break
-      case 4:// coefficient directeur fct linéaire
-        xA = randint(1, 10)
-        yA = randint(-10, 10, 0)
-        this.reponse = new FractionEtendue(yA, xA).simplifie()
-        // this.formatInteractif = 'fractionEgale'
-        this.question = `Donner le coefficient directeur d'une droite représentant une fonction linéaire passant par le point $A(${xA};${yA})$.<br>
 
-          On donnera le résultat sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
-        this.correction = `Le coefficient directeur de la droite est donné par : $m=\\dfrac{y_A}{x_A}=\\dfrac{${yA}}{${xA}}=${miseEnEvidence(`${this.reponse.texFraction}`)}$.`
+      case 2:
+        {
+          const a = randint(-10, 10, 0)
+          const b = 0
+
+          this.question = this.questionReprise(`y=${rienSi1(a)}x`)
+          this.correction = this.correctionReprise() + `$m=${miseEnEvidence(`${a}`)}$ et $p=${b}$.`
+          this.reponse = this.versionQcm ? `$m=${a}$` : a
+          this.distracteurs = [
+            '$m=0$',
+            `${a === 1 || a === -1 ? '$m=\\emptyset$' : `$m=${new FractionEtendue(1, a).texFractionSimplifiee}$`}`,
+            `$m=${a}x$`
+          ]
+        }
+        break
+
+      case 3:
+        {
+          const a = randint(-10, 10, 0)
+          const b = randint(-10, 10, [0, a])
+          const choix = choice([true, false])
+          const equation = choix ? `y=${reduireAxPlusB(a, b)}` : `y=${b}${ecritureAlgebriqueSauf1(a)}x`
+
+          this.question = this.questionReprise(equation)
+          this.correction = this.correctionReprise() + `$m=${miseEnEvidence(`${a}`)}$ et $p=${b}$.`
+          this.reponse = this.versionQcm ? `$m=${a}$` : a
+          this.distracteurs = [
+            `$m=${b}$`,
+            `${a === 1 || a === -1 ? '$m=\\emptyset$' : `$m=${new FractionEtendue(1, a).texFractionSimplifiee}$`}`,
+            `$m=${rienSi1(a)}x$`
+          ]
+        }
+        break
+
+      case 4:
+        {
+          const a = randint(2, 10)
+          const b = randint(-10, 10, [0, a])
+          const equation = `y=\\dfrac{x}{${a}}${ecritureAlgebrique(b)}`
+
+          this.question = this.questionReprise(equation)
+          this.correction = this.correctionReprise() + `$m=${miseEnEvidence(`\\dfrac{1}{${a}}`)}$ et $p=${b}$.`
+          this.reponse = this.versionQcm ? `$m=\\dfrac{1}{${a}}$` : `\\dfrac{1}{${a}}`
+          this.distracteurs = [
+            `$m=${b}$`,
+            `$m=${a}$`,
+            `$m=${rienSi1(a)}x$`
+          ]
+        }
+        break
+
+      case 5:
+
+        {
+          const a = randint(2, 10)
+          const b = randint(-10, 10, [0, a])
+          const equation = `y=\\dfrac{x}{${a}}${ecritureAlgebrique(b)}`
+          this.question = this.questionReprise(equation)
+          this.correction = this.correctionReprise() + `$m=${miseEnEvidence(`\\dfrac{1}{${a}}`)}$ et $p=${b}$.`
+          this.reponse = this.versionQcm ? `$m=\\dfrac{1}{${a}}$` : `\\dfrac{1}{${a}}`
+          this.distracteurs = [
+            `$m=${b}$`,
+            `$m=${a}$`,
+            `$m=\\dfrac{x}{${a}}$`
+          ]
+        }
+        break
+
+      case 6:
+      default:
+        {
+          const a = randint(2, 10)
+          const b = randint(-10, 10, [0, a])
+          const c = a + 1
+          const equation = `y=\\dfrac{${a}x${ecritureAlgebrique(b)}}{${c}}`
+          this.question = this.questionReprise(equation)
+          this.correction = this.correctionReprise() + `$m=${miseEnEvidence(`\\dfrac{${a}}{${c}}`)}$ et $p=${b}$.`
+          this.reponse = this.versionQcm ? `$m=\\dfrac{${a}}{${c}}$` : `\\dfrac{${a}}{${c}}`
+          this.distracteurs = [
+            `$m=\\dfrac{${c}}{${a}}$`,
+            `$m=${a}$`,
+            `$m=${rienSi1(a)}x$`
+          ]
+        }
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+
+    this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
 }

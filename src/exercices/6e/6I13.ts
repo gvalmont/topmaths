@@ -4,19 +4,17 @@ import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { balleDef, carreDef, carreRondDef, hexagoneDef, listeShapes2DNames, listeShapesDef, losangeDef, redCrossDef, rondDef, triangleEquilateralDef } from '../../lib/2d/figures2d/shapes2d'
-import { listePatternsPreDef, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
+import { listePatternAffineOuLineaire, type PatternRiche, type PatternRiche3D } from '../../lib/2d/patterns/patternsPreDef'
 import { createList } from '../../lib/format/lists'
 import { texNombre } from '../../lib/outils/texNombre'
 import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { cubeDef, project3dIso, Shape3D, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
+import { cubeDef, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { context } from '../../modules/context'
-import { emoji } from '../../lib/2d/figures2d/Emojis'
-import { emojis } from '../../lib/2d/figures2d/listeEmojis'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 
 export const titre = 'Comprendre un algorithme itératif'
@@ -28,7 +26,7 @@ export const dateDePublication = '10/06/2025'
 
 /**
  * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes ${['e','a','é','i','o','u','y','è','ê'].includes(pattern.shapes[0][0]) ? 'd\'':'de'}${pattern.shapes[0]} du motif suivant.
- * Les patterns sont des motifs numériques qui évoluent selon des règles définies.
+ * Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.
  * Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/
  * @author Jean-Claude Lhote
  */
@@ -44,34 +42,30 @@ export default class PaternNum0 extends Exercice {
     super()
     this.nbQuestions = 3
     this.comment = `Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif suivant.\n
- Les patterns sont des motifs numériques qui évoluent selon des règles définies.\n
+ Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.\n
  Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/`
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
-    this.besoinFormulaire3Texte = ['formes', 'Nombres séparés par des tirets\n1: Carrés\n2 : Étoile\n3 : Carrés arrondis\n4: Chat\n5 : Soleil\n6 : Losange\n7 : Hexagone\n8: Cercle\n9: Balle de tennis\n10 : tortue\n11 : triangle\n12 : croix rouge\n13 : Mélange']
-    this.sup3 = '13'
-    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Motif 42 (nombre)\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
+    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
     this.sup4 = '6'
     this.besoinFormulaire5Numerique = ['Numéro de pattern (uniquement si 1 seule question)', 100,]
     this.sup5 = 1
   }
 
   nouvelleVersion (): void {
-    if (this.sup5 > listePatternsPreDef.length) {
-      this.sup5 = listePatternsPreDef.length
+    if (this.sup5 > listePatternAffineOuLineaire.length) {
+      this.sup5 = listePatternAffineOuLineaire.length
     }
     if (this.sup5 < 1) {
       this.sup5 = 1
     }
-
+    if (this.nbQuestions > 25) this.nbQuestions = 25
+    // on ne conserve que les linéaires et les affines.
     const listePreDef = (this.nbQuestions === 1
-      ? [listePatternsPreDef[Number(this.sup5) - 1]]
-      : shuffle(listePatternsPreDef.slice(0, this.sup2 ?? listePatternsPreDef.length)))
-      .filter(p => p.fonctionRatio == null && p.fonctionFraction == null && p.type !== 'autre' && p.type !== 'degré3' && p.type !== 'degré2')
+      ? [listePatternAffineOuLineaire[Number(this.sup5) - 1]]
+      : shuffle(listePatternAffineOuLineaire.slice(0, this.sup2 ?? listePatternAffineOuLineaire.length)))
+      .filter(p => p.fonctionRatio == null && p.fonctionFraction == null && p.type !== 'autre' && p.type !== 'degré3' && p.type !== 'degré2' && p.type !== 'fractal')
     const nbFigures = Math.max(2, this.sup)
-    // const typesMotifs = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 3, melange: 3, nbQuestions: this.nbQuestions }).map(Number)
-    const formes = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 12, defaut: 13, melange: 13, nbQuestions: this.nbQuestions }).map(Number)
-    // const patterns : (VisualPattern | VisualPattern3D)[] = []
     const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: 5, shuffle: false }).map(Number)))
     let indexInteractif = 0
     for (let i = 0; i < this.nbQuestions;) {
@@ -81,144 +75,85 @@ export default class PaternNum0 extends Exercice {
         continue
       }
       const pat = popped
-      const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
+      const delta = pat.fonctionNb(2) - pat.fonctionNb(1)
+      const b = pat.fonctionNb(1) - delta
+      const explain = pat.type === 'linéaire'
+        ? `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
+        Et que c'est aussi le nombre de formes à l'étape 1. Par conséquent, pour trouver le nombre de formes d'un motif il faut simplement multiplier par ${delta} le numéro du motif.`
+        : `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
+        Cependant, il n'y a pas ${delta} formes sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut multiplier le numéro du motif par ${delta} et ${b < 0 ? `retirer ${-b}` : `ajouter ${b}`}.`
+      const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', prefixId: `Ex${this.numeroExercice}Q${i}`, shapes: ['cube'] }) : new VisualPattern([])
 
       //  patterns.push(pattern)
-
+      const figureCorr = []
+      let xmin = Infinity
+      let ymin = Infinity
+      let xmax = -Infinity
+      let ymax = -Infinity
       if (pattern instanceof VisualPattern3D) {
-        pattern.shape = (pat as PatternRiche3D).shapeDefault as Shape3D ?? shapeCubeIso() as Shape3D
+        pattern.shape = shapeCubeIso()
         pattern.iterate3d = (pat as PatternRiche3D).iterate3d
-        objetsCorr.push(cubeDef(`cubeIsoQ${i}F0`))
+        objetsCorr.push(cubeDef(`cubeIsoQ${i}F${nbFigures}`))
+
+        const angle = Math.PI / 6
+        if (context.isHtml) {
+          updateCubeIso({ pattern, i, j: nbFigures, angle, inCorrectionMode: true })
+          pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${nbFigures}"></use>`
+          // Ajouter les SVG générés par svg() de chaque objet
+          const cells = (pattern as VisualPattern3D).update3DCells(nbFigures)
+          cells.forEach(cell => {
+            const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
+            const obj = shapeCubeIso(`cubeIsoQ${i}F${nbFigures}`, px, py)
+            figureCorr.push(obj)
+            ymin = Math.min(ymin, -py / 20)
+            ymax = Math.max(ymax, -py / 20)
+            xmin = Math.min(xmin, px / 20)
+            xmax = Math.max(xmax, px / 20)
+          })
+          xmin -= 5
+          xmax += 5
+          ymin -= 5
+          ymax += 5
+        } else {
+          figureCorr.push(...(pattern as VisualPattern3D).render(nbFigures, 0, 0, Math.PI / 6))
+          ;({ xmin, ymin, xmax, ymax } = fixeBordures(figureCorr))
+        }
+        objetsCorr.push(...figureCorr)
       } else {
         const pat2D = pat as PatternRiche
         pattern.iterate = (pat as PatternRiche).iterate
-        if (pat2D.shapes[0] === pat2D.shapes[1] || !pat2D.shapes[1]) {
-          pattern.shapes = [listeShapes2DNames[formes[i]]]
-          switch (formes[i]) {
-            case 2:
-              pattern.shapes[0] = 'étoile'
-              pattern.shapes[1] = 'étoile'
-              objetsCorr.push(emoji('étoile', emojis['étoile']).shapeDef)
-              break
-            case 3:
-              pattern.shapes[0] = 'carréRond'
-              pattern.shapes[1] = 'carréRond'
-              objetsCorr.push(carreRondDef)
-              break
-            case 4:
-              pattern.shapes[0] = 'chat'
-              pattern.shapes[1] = 'chat'
-              objetsCorr.push(emoji('chat', emojis['chat']).shapeDef)
-              break
-            case 5:
-              pattern.shapes[0] = 'soleil'
-              pattern.shapes[1] = 'soleil'
-              objetsCorr.push(emoji('soleil', emojis['soleil']).shapeDef)
-              break
-            case 6:
-              pattern.shapes[0] = 'losange'
-              pattern.shapes[1] = 'losange'
-              objetsCorr.push(losangeDef)
-              break
-            case 7:
-              pattern.shapes[0] = 'hexagone'
-              pattern.shapes[1] = 'hexagone'
-              objetsCorr.push(hexagoneDef)
-              break
-            case 8:
-              pattern.shapes[0] = 'rond'
-              pattern.shapes[1] = 'rond'
-              objetsCorr.push(rondDef)
-              break
-            case 9:
-              pattern.shapes[0] = 'balle'
-              pattern.shapes[1] = 'balle'
-              objetsCorr.push(balleDef)
-              break
-            case 10:
-              pattern.shapes[0] = 'tortue'
-              pattern.shapes[1] = 'tortue'
-              objetsCorr.push(emoji('tortue', emojis['tortue']).shapeDef)
-              break
-            case 11:
-              pattern.shapes[0] = 'triangle'
-              pattern.shapes[1] = 'triangle'
-              objetsCorr.push(triangleEquilateralDef)
-              break
-            case 12:
-              pattern.shapes[0] = 'redCross'
-              pattern.shapes[1] = 'redCross'
-              objetsCorr.push(redCrossDef)
-              break
-            case 1:
-            default:
-              pattern.shapes[0] = 'carré'
-              pattern.shapes[1] = 'carré'
-              objetsCorr.push(carreDef)
-              break
+        pattern.shapes = pat2D.shapes || ['carré', 'carré']
+        for (const shape of pattern.shapes) {
+          if (shape in listeShapes2DInfos) {
+            objetsCorr.push(listeShapes2DInfos[shape].shapeDef)
+          } else {
+            throw new Error(`Shape ${shape} not found in listeShapes2DInfos or emojis.`)
           }
-        } else {
-          objetsCorr.push(listeShapesDef[pat2D.shapes[0]])
-          if (pat2D.shapes[1] !== pat2D.shapes[0]) objetsCorr.push(listeShapesDef[pat2D.shapes[1]])
         }
+        objetsCorr.push(...pattern.render(nbFigures + 1, 0, 0))
+        ;({ xmin, ymin, xmax, ymax } = fixeBordures(objetsCorr))
       }
+      const xminCorr = xmin
+      const xmaxCorr = xmax
+      const yminCorr = ymin
+      const ymaxCorr = ymax
 
-      const rendered = pattern.render(nbFigures + 1, 0, 0, Math.PI / 6)
-      objetsCorr.push(...rendered)
       let yMax = 0
       let yMin = 0
       const angle = Math.PI / 6
-      let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs numériques. Ils évoluent selon des règles définies.<br>`
+      let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs figuratifs. Ils évoluent selon des règles définies.<br>`
       const figures: NestedObjetMathalea2dArray[] = []
       for (let j = 0; j < nbFigures; j++) {
         figures[j] = []
         if (pattern instanceof VisualPattern3D) {
           figures[j].push(cubeDef(`cubeIsoQ${i}F${j}`))
         } else {
-          const pat2D = pat as PatternRiche
-          if (pat2D.shapes[0] === pat2D.shapes[1] || !pat2D.shapes[1]) {
-            switch (formes[i]) {
-              case 2:
-                figures[j].push(emoji('étoile', emojis['étoile']).shapeDef)
-                break
-              case 3:
-                figures[j].push(carreRondDef)
-                break
-              case 4:
-                figures[j].push(emoji('chat', emojis['chat']).shapeDef)
-                break
-              case 5:
-                figures[j].push(emoji('soleil', emojis['soleil']).shapeDef)
-                break
-              case 6:
-                figures[j].push(losangeDef)
-                break
-              case 7:
-                figures[j].push(hexagoneDef)
-                break
-              case 8:
-                figures[j].push(rondDef)
-                break
-              case 9:
-                figures[j].push(balleDef)
-                break
-              case 10:
-                figures[j].push(emoji('tortue', emojis['tortue']).shapeDef)
-                break
-              case 11:
-                figures[j].push(triangleEquilateralDef)
-                break
-              case 12:
-                figures[j].push(redCrossDef)
-                break
-              case 1:
-              default:
-                figures[j].push(carreDef)
-                break
+          for (const shape of pattern.shapes) {
+            if (shape in listeShapes2DInfos) {
+              figures[j].push(listeShapes2DInfos[shape].shapeDef)
+            } else {
+              throw new Error(`Shape ${shape} not found in listeShapes2DInfos or emojis.`)
             }
-          } else {
-            figures[j].push(listeShapesDef[pat2D.shapes[0]])
-            if (pat2D.shapes[1] !== pat2D.shapes[0]) figures[j].push(listeShapesDef[pat2D.shapes[1]])
           }
         }
 
@@ -228,9 +163,9 @@ export default class PaternNum0 extends Exercice {
         let ymax = -Infinity
         if (pattern instanceof VisualPattern3D) {
           if (context.isHtml) {
-            updateCubeIso(pattern, i, j, angle)
-            pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
-            const cells = (pattern as VisualPattern3D).render3d(j + 1)
+            updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
+            if (pattern.shape) pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
+            const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
             // Ajouter les SVG générés par svg() de chaque objet
             cells.forEach(cell => {
               const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
@@ -262,18 +197,19 @@ export default class PaternNum0 extends Exercice {
       let texteCorr = ''
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []
+      const infosShape = pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : { articleCourt: 'un', nomPluriel: 'formes' }
       for (const q of typesQuestions) {
         switch (q) {
           case 1:
             listeQuestions.push(`\nDessiner le motif $${nbFigures + 1}$.<br>`)
             listeCorrections.push(`Voici le motif $${nbFigures + 1}$ :<br>
-              ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr)}`)
+              ${mathalea2d(Object.assign({ scale: 0.4, optionsTikz: 'transform shape', id: `Motif${i}F${nbFigures}` }, { xmin: xminCorr, ymin: yminCorr, xmax: xmaxCorr, ymax: ymaxCorr }), objetsCorr)}`)
             break
           case 2:{
             const nbFormes = pat.fonctionNb(nbFigures + 1)
             const nbTex = texNombre(nbFormes, 0)
 
-            listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s dans le motif $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
+            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} dans le motif $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
             {
 exercice: this,
               question: indexInteractif++,
@@ -281,14 +217,14 @@ exercice: this,
               typeInteractivite: 'mathlive'
             }
           )}`)
-            listeCorrections.push(`Le motif $${nbFigures + 1}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s.<br>
+            listeCorrections.push(`Le motif $${nbFigures + 1}$ contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${infosShape.nomPluriel}.<br>
           ${!typesQuestions.includes(1) ? mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -1, rymin: 0, rxmax: 0, rymax: 1 }), { scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr) : ''}`)
           }
             break
           case 3:{
             const nbFormes = pat.fonctionNb(10)
             const nbTex = texNombre(nbFormes, 0)
-            listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s pour le motif $10$ ?<br>${ajouteQuestionMathlive(
+            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} pour le motif $10$ ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
               question: indexInteractif++,
@@ -297,30 +233,39 @@ exercice: this,
               }
             )}
             `)
-            listeCorrections.push(`Le motif $10$ contient $${miseEnEvidence(nbTex)}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s.<br>
-            En effet, la formule pour trouver le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'))}$.<br>`)
+            listeCorrections.push(`Le motif $10$ contient $${miseEnEvidence(nbTex)}$ ${infosShape.articleCourt} ${infosShape.nomPluriel}.<br>
+            En effet, la formule pour trouver le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', '10'))}$.<br>
+            ${explain}`)
           }
             break
           case 4:{
-            const nbFormes = pat.fonctionNb(43)
+            const etape = randint(20, 80)
+            const nbFormes = pat.fonctionNb(etape)
             const nbTex = texNombre(nbFormes, 0)
-            listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s pour le motif $43$ ?<br>${ajouteQuestionMathlive(
+            listeQuestions.push(`\nUn motif de cette série contient $${nbTex}$ ${infosShape.nomPluriel}. À quel numéro de motif cela correspond-il ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
               question: indexInteractif++,
-              objetReponse: { reponse: { value: nbTex } },
+              objetReponse: { reponse: { value: etape.toString() } },
               typeInteractivite: 'mathlive'
               }
             )}
             `)
-            listeCorrections.push(`Le motif $43$ contient $${miseEnEvidence(nbTex)}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s.<br>
-            En effet, la formule pour trouver le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s est : $${miseEnEvidence(pat.formule.replaceAll('n', '43'))}$.<br>`)
+
+            const explain2 = pat.type === 'linéaire'
+              ? `On constate que le nombre de formes  augmente de $${delta}$ à chaque étape.<br>
+        Et que c'est aussi le nombre de formes à l'étape 1. Par conséquent, pour trouver le numéro d'un motif dont on connait le nombre de formes, il faut simplement diviser ce nombre par ${delta} pour trouver le numéro.`
+              : `On constate que le nombre de formes augmente de $${delta}$ à chaque étape.<br>
+        Cependant, il n'y a pas ${delta} formes sur le motif 1, mais ${pat.fonctionNb(1)}. Par conséquent, il faut ${b < 0 ? `ajouter ${-b}` : `retirer ${b}`} au nombre de formes puis diviser le résultat par ${delta} : <br>
+        $\\dfrac{${nbTex} ${b < 0 ? '+' : '-'} ${Math.abs(b)}}{${delta}}=${miseEnEvidence(etape)}$.`
+            listeCorrections.push(`C'est le motif numéro $${miseEnEvidence(etape.toString())}$ qui contient $${miseEnEvidence(texNombre(nbFormes, 0))}$ ${pattern.shapes[0]}s.<br>
+            ${explain2}`)
           }
             break
           case 5:{
             const nbFormes = pat.fonctionNb(100)
             const nbTex = texNombre(nbFormes, 0)
-            listeQuestions.push(`\nQuel sera le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s pour le motif $100$ ?<br>${ajouteQuestionMathlive(
+            listeQuestions.push(`\nQuel sera le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} pour le motif $100$ ?<br>${ajouteQuestionMathlive(
             {
               exercice: this,
               question: indexInteractif++,
@@ -329,8 +274,9 @@ exercice: this,
               }
             )}
             `)
-            listeCorrections.push(`Le motif $100$ contient $${miseEnEvidence(nbTex)}$ formes ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s.<br>
-            En effet, la formule pour trouver le nombre ${['e', 'a', 'é', 'i', 'o', 'u', 'y', 'è', 'ê'].includes(pattern.shapes[0][0]) ? 'd\'' : 'de '}${pattern.shapes[0]}s est : $${miseEnEvidence(pat.formule.replaceAll('n', '100'))}$.<br>`)
+            listeCorrections.push(`Le motif $100$ contient $${miseEnEvidence(nbTex)}$ ${infosShape.nomPluriel}.<br>
+            En effet, la formule pour trouver le nombre ${infosShape.articleCourt} ${infosShape.nomPluriel} est : $${miseEnEvidence(pat.formule.replaceAll('n', '100'))}$.<br>
+            ${explain}`)
           }
             break
         }

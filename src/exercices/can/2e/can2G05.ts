@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une distance avec les coordonnées'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can2G05'],
   'fr-ch': []
 }
-export default class DistanceRepere extends Exercice {
+export default class DistanceRepere extends ExerciceSimple {
   constructor () {
     super()
 
@@ -69,7 +69,7 @@ export default class DistanceRepere extends Exercice {
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = `$${nom[0]}${nom[1]}=\\ldots$`
         break
-      case 'b' :
+      case 'b':
         a = randint(-5, 5, 0)
         b = randint(-5, 5, 0)
         if (a ** 2 + b ** 2 === 25) {

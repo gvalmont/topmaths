@@ -3,7 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver le nombre manquant dans une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['canc3C06'],
   'fr-ch': []
 }
-export default class ComplementAuDixiemeOuALaDizaine extends Exercice {
+export default class ComplementAuDixiemeOuALaDizaine extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

@@ -3,7 +3,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { randint } from '../../../modules/outils'
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la fraction d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6C17'],
   'fr-ch': []
 }
-export default class FractionSimpleDeQuantite extends Exercice {
+export default class FractionSimpleDeQuantite extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

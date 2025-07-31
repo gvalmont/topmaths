@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
 export const titre = 'Résoudre un problème de proportionnalité'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can5P03'],
   'fr-ch': []
 }
-export default class PoucentageP2 extends Exercice {
+export default class PoucentageP2 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

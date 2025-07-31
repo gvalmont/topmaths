@@ -2,7 +2,7 @@ import { courbe } from '../../../lib/2d/courbes'
 import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { deuxColonnesResp } from '../../../lib/format/miseEnPage'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-fr': ['can1F16'],
   'fr-ch': []
 }
-export default class LectureGraphiqueTangente extends Exercice {
+export default class LectureGraphiqueTangente extends ExerciceSimple {
   constructor () {
     super()
 

@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const dateDePublication = '26/10/2023'
 export const interactifReady = true
@@ -30,7 +30,7 @@ type Noeud = {
   deriveeDroit: number;
   isVisible: boolean;
 }
-export default class AntecedentSpline extends Exercice {
+export default class AntecedentSpline extends ExerciceSimple {
   constructor () {
     super()
 
@@ -122,7 +122,7 @@ export default class AntecedentSpline extends Exercice {
     const reponse1 = (!solutions1 || solutions1.length === 0) ? '\\emptyset' : `${solutions1.join(';')}`
     this.reponse = reponse1
     this.question = `Déterminer les antécédents éventuels de $${y1}$ par la fonction $f$.<br>` +
-       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+      mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
     if (this.interactif) {
       this.question += '<br>Écrire les antécédents séparés par des points-virgules (saisir $\\emptyset$ s\'il n\'y en a pas).<br>'
       this.question += 'Antécédent(s) : '

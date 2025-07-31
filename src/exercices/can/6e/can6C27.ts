@@ -7,7 +7,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de rendu de monnaie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can6C27'],
   'fr-ch': []
 }
-export default class RenduMonnaie extends Exercice {
+export default class RenduMonnaie extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

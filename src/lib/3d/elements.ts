@@ -1,10 +1,10 @@
-import { translation3d, rotation3d } from './tranformations';
-import { context } from '../../modules/context';
-import { Droite, droite } from '../2d/droites';
-import { Point, point } from '../2d/points';
-import { polyline, Polygone, polygone } from '../2d/polygones';
-import { Vecteur, Segment, vecteur, segment } from '../2d/segmentsVecteurs';
-import { arrondi } from '../outils/nombres';
+import { translation3d, rotation3d } from './tranformations'
+import { context } from '../../modules/context'
+import { Droite, droite } from '../2d/droites'
+import { Point, point } from '../2d/points'
+import { polyline, Polygone, polygone } from '../2d/polygones'
+import { Vecteur, Segment, vecteur, segment } from '../2d/segmentsVecteurs'
+import { arrondi } from '../outils/nombres'
 import { cross, dot, matrix, multiply, norm } from 'mathjs'
 
 export const math = { matrix, multiply, norm, cross, dot }
@@ -41,7 +41,7 @@ export class Point3d {
   label: string
   typeObjet: string
   c2d: Point
-  constructor(x: number, y: number, z: number, isVisible: boolean, label: string, positionLabel: string) {
+  constructor (x: number, y: number, z: number, isVisible: boolean, label: string, positionLabel: string) {
     const alpha = context.anglePerspective * Math.PI / 180 // context.anglePerspective peut être changé globalement pour modifier la perspective
     const rapport = context.coeffPerspective // idem pour context.coefficientPerspective qui est la réduction sur l'axe y.
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]]) // La matrice de projection 3d -> 2d
@@ -57,7 +57,7 @@ export class Point3d {
   }
 }
 
-export function point3d(x: number, y: number, z = 0, visible = true, label = '', positionLabel = 'above left') {
+export function point3d (x: number, y: number, z = 0, visible = true, label = '', positionLabel = 'above left') {
   return new Point3d(x, y, z, visible, label, positionLabel)
 }
 /**
@@ -83,14 +83,14 @@ export function point3d(x: number, y: number, z = 0, visible = true, label = '',
  */
 
 export class Vecteur3d {
-  x: number = 0;
-  y: number = 0;
-  z: number = 0;
+  x: number = 0
+  y: number = 0
+  z: number = 0
   matrice: any
   norme: number
   c2d: Vecteur
   representant: (A: Point3d) => Segment
-  constructor(...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]) {
+  constructor (...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]) {
     const alpha = context.anglePerspective * Math.PI / 180
     const rapport = context.coeffPerspective
     const MT = math.matrix([[1, rapport * Math.cos(alpha), 0], [0, rapport * Math.sin(alpha), 1]]) // ceci est la matrice de projection 3d -> 2d
@@ -118,7 +118,7 @@ export class Vecteur3d {
   }
 }
 
-export function vecteur3d(...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]) {
+export function vecteur3d (...args: [Point3d, Point3d] | [number, number, number] | [math.Matrix]) {
   return new Vecteur3d(...args)
 }
 /**
@@ -135,7 +135,7 @@ export class Arete3d {
   color: string
   isVisible: boolean
   c2d: Segment
-  constructor(point1: Point3d, point2: Point3d, color: string, isVisible: boolean) {
+  constructor (point1: Point3d, point2: Point3d, color: string, isVisible: boolean) {
     this.extremite1 = point1
     this.extremite2 = point2
     this.color = Array.isArray(color) ? color[0] : color // MGu parfois un tableau de couleurs, pasd compatible avec segment.
@@ -155,7 +155,7 @@ export class Arete3d {
 }
 // l'arête est visible par défaut sauf si p1 ou p2 sont invisibles
 
-export function arete3d(p1: Point3d, p2: Point3d, color = 'black', visible = true) {
+export function arete3d (p1: Point3d, p2: Point3d, color = 'black', visible = true) {
   return new Arete3d(p1, p2, color, visible)
 }
 /**
@@ -171,7 +171,7 @@ export class Droite3d {
   origine: Point3d
   point: any
   c2d: Droite
-  constructor(point3D: Point3d, vecteur3D: Vecteur3d) {
+  constructor (point3D: Point3d, vecteur3D: Vecteur3d) {
     if (vecteur3D.constructor === Vecteur3d) {
       this.directeur = vecteur3D
     } else if (vecteur3D.constructor === Point3d) {
@@ -185,7 +185,7 @@ export class Droite3d {
   }
 }
 
-export function droite3d(point3D: Point3d, vecteur3D: Vecteur3d) {
+export function droite3d (point3D: Point3d, vecteur3D: Vecteur3d) {
   return new Droite3d(point3D, vecteur3D)
 }
 /**
@@ -242,7 +242,7 @@ export function demicercle3d (centre, normal, rayon, cote, color, angledepart = 
  * @return {demiCercle}
  */
 
-export function demicercle3d(centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, sens: string = 'direct', estCache: boolean = false, color: string = 'black', angledepart: number = context.anglePerspective) {
+export function demicercle3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, sens: string = 'direct', estCache: boolean = false, color: string = 'black', angledepart: number = context.anglePerspective) {
   let signe
   const M = []
   const listepoints = []
@@ -283,7 +283,7 @@ export function demicercle3d(centre: Point3d, normal: Vecteur3d, rayon: Vecteur3
  *
  */
 
-export function arc3d(centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, cote: 'visible' | 'caché', color: string, angledepart: number, angledefin: number) {
+export function arc3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, cote: 'visible' | 'caché', color: string, angledepart: number, angledefin: number) {
   const M = []
   const listepoints = []
   const d = droite3d(centre, normal)
@@ -312,7 +312,7 @@ export function arc3d(centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, cote
  *
  */
 
-export function cercle3d(centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, visible: boolean = true, color: string = 'black', pointilles: boolean = false): [Polygone, Point3d[], Point[]] {
+export function cercle3d (centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, visible: boolean = true, color: string = 'black', pointilles: boolean = false): [Polygone, Point3d[], Point[]] {
   const M: Point3d[] = []
   const listepoints: Point[] = []
   const listepoints3d: Point3d[] = []
@@ -340,11 +340,11 @@ export function cercle3d(centre: Point3d, normal: Vecteur3d, rayon: Vecteur3d, v
  */
 export class Polygone3d {
   listePoints: Point3d[]
-  color: string = 'black';
+  color: string = 'black'
   listePoints2d: Point[]
   aretes: Arete3d[]
   c2d: Segment[]
-  constructor(...args: [Point3d[], string] | Point3d[]) {
+  constructor (...args: [Point3d[], string] | Point3d[]) {
     if (Array.isArray(args[0])) {
       // Si le premier argument est un tableau
       this.listePoints = args[0]
@@ -373,6 +373,6 @@ export class Polygone3d {
   }
 }
 
-export function polygone3d(...args: [Point3d[], string] | Point3d[]): Polygone3d {
+export function polygone3d (...args: [Point3d[], string] | Point3d[]): Polygone3d {
   return new Polygone3d(...args)
 }

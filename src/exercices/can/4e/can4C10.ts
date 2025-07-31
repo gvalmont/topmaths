@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { fraction } from '../../../modules/fractions'
 
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can4C10'],
   'fr-ch': []
 }
-export default class SommeDifferenceFractionsEgyptiennes extends Exercice {
+export default class SommeDifferenceFractionsEgyptiennes extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

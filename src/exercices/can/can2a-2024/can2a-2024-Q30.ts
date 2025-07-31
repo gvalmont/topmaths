@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { Spline, spline, type NoeudSpline } from '../../../lib/mathFonctions/Spline'
@@ -18,7 +18,7 @@ export const uuid = 'eb73a'
  * @author Gilles Mora
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   spline?: Spline
   constructor () {
     super()
@@ -158,7 +158,7 @@ export default class NomExercice extends Exercice {
       if (theSpline.y[0] > 0) { // le premier point a une ordonnée positive ---> courbe + puis -
         this.reponse = choix ? `[${theSpline.x[0]};${theSpline.x[3]}]` : `[${theSpline.x[3]};${theSpline.x[6]}]`
         this.question = `Sur quel intervalle, $f$ est-elle ${choix ? 'positive' : 'négative'} ou nulle ?<br>` +
-         mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+          mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
         this.correction = `La fonction est ${choix ? 'positive' : 'négative'} ou nulle lorsque les images sont ${choix ? 'positives' : 'négatives'} ou nulles.<br>
     Graphiquement, les images sont ${choix ? 'positives' : 'négatives'} ou nulles  lorsque la courbe se situe sur ou ${choix ? 'au-dessus' : 'en dessous'}  de l'axe des abscisses, soit sur l'intervalle  
     ${choix ? `$${miseEnEvidence(`[${theSpline.x[0]}\\,;\\,${theSpline.x[3]}]`)}$` : `$${miseEnEvidence(`[${theSpline.x[3]}\\,;\\,${theSpline.x[6]}]`)}$`}

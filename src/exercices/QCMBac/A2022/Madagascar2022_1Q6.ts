@@ -37,7 +37,7 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     this.enonce += '<br>On note $h\'$ sa dérivée et on admet que, pour tout réel $x$ de l\'intervalle $]0~;~2]$, on a : $h\'(x) = 4x(1 + \\ln (x)).$'
     this.enonce += ' <br>On note $\\mathcal{C}_h$ la courbe représentative de $h$ dans un repère du plan. '
     this.enonce += '<br>Sur l\'intervalle $]0~;~2]$, le nombre de points d\'inflexion de la courbe $\\mathcal{C}_h$ est égal à :<br>'
-   
+
     this.correction = 'La fonction $h\'$ est dérivable sur $]0~;~2]$, et sa dérivée seconde est :<br>'
     this.correction += '$h\'\'(x) = 4(1 + \\ln (x)) + 4x \\times \\dfrac{1}{x} = 4 + 4\\ln (x) + 4 = 8 + 4\\ln (x) = 4(2 + \\ln (x))$.<br>'
     this.correction += 'De plus, la dérivée troisième est :<br>'

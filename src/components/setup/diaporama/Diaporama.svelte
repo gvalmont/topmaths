@@ -7,7 +7,6 @@
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
   import { onMount, onDestroy } from 'svelte'
-  import { shuffle } from '../../../lib/components/shuffle'
   import {
     getExercisesFromExercicesParams,
     mathaleaFormatExercice,
@@ -31,6 +30,7 @@
   import ButtonText from '../../shared/forms/ButtonText.svelte'
   import { notify } from '../../../bugsnag'
   import { get } from 'svelte/store'
+  import { shuffle } from '../../../lib/outils/arrayOutils'
 
   const transitionSounds = {
     0: new Audio('assets/sounds/transition_sound_01.mp3'),

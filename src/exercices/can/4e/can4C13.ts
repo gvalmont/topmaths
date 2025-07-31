@@ -3,7 +3,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer une fraction de dénominateur un décimal'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can4C13'],
   'fr-ch': []
 }
-export default class CalculFractionDecimal extends Exercice {
+export default class CalculFractionDecimal extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

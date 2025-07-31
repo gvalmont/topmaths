@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { Spline, spline } from '../../../lib/mathFonctions/Spline'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can1F25'],
   'fr-ch': []
 }
-export default class ResolEquationDerivee extends Exercice {
+export default class ResolEquationDerivee extends ExerciceSimple {
   spline!: Spline
   constructor () {
     super()

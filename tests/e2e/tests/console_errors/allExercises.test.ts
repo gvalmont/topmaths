@@ -132,6 +132,12 @@ async function getConsoleTest (page: Page, urlExercice: string) {
             !msg.text().includes('MG32div0') && // MG32div0 : 3G22
             !msg.text().includes('UserFriendlyError: Le chargement de mathgraph') &&
             !msg.text().includes('Invalid \'X-Frame-Options\' header') &&
+            !msg.text().includes('Blockly.Workspace.getAllVariables was deprecated in v12') &&
+            !msg.text().includes('A-Frame Version:') &&
+            !msg.text().includes('THREE Version (https://github.com/supermedium/three.js)') &&
+            !msg.text().includes('WARNING: Too many active WebGL contexts. Oldest context will be lost.') &&
+            !msg.text().includes('GPU stall due to ReadPixels') &&
+            !msg.text().includes(': le motif contient plus') &&
             !msg.location().url.includes('mathgraph32')
         ) {
           if (!msg.text().includes('<HeaderExercice>')) {

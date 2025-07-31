@@ -1,7 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Connaitre les tables de multiplication (avec des divisions)'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['canc3C14'],
   'fr-ch': []
 }
-export default class TableDivisions extends Exercice {
+export default class TableDivisions extends ExerciceSimple {
   constructor () {
     super()
 
@@ -35,7 +35,8 @@ export default class TableDivisions extends Exercice {
   nouvelleVersion () {
     switch (choice([1, 1, 2])) {
       case 1:
-        { const a = randint(2, 9)
+        {
+          const a = randint(2, 9)
           const b = randint(4, 10)
           const c = a * b
           if (choice([true, false])) {
@@ -55,7 +56,8 @@ export default class TableDivisions extends Exercice {
         break
 
       case 2:
-        { const a = randint(3, 9)
+        {
+          const a = randint(3, 9)
           const b = randint(5, 9)
           const c = a * b
           this.reponse = b

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
@@ -14,7 +14,7 @@ export const uuid = 'c1fe4'
 
 */
 
-export default class CompleterUnLitre extends Exercice {
+export default class CompleterUnLitre extends ExerciceSimple {
   constructor () {
     super()
 

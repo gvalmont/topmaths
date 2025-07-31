@@ -2,7 +2,7 @@ import { shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Utiliser la règle des signes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can4C04'],
   'fr-ch': []
 }
-export default class RegleDesSignes extends Exercice {
+export default class RegleDesSignes extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

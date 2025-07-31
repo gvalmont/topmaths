@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
@@ -21,7 +21,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class PolyTableauSignes extends Exercice {
+export default class PolyTableauSignes extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !

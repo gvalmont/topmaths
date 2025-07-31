@@ -52,7 +52,7 @@ export function ajouteQuestionMathlive ({ exercice, question, objetReponse, repo
     handleAnswers(exercice, question, objetReponse, reponseParams)
     switch (typeInteractivite) {
       case 'remplisLesBlancs':
-        return remplisLesBlancs(exercice, question, content, '\\ldots')
+        return remplisLesBlancs(exercice, question, content, classe, '\\ldots')
       case 'tableauMathlive':{
         if (!tableau) {
           window.notify(`Tableau non défini pour l'interactivité tableauMathlive. Exercice ${exercice.id} ${exercice.uuid}`, { typeInteractivite })

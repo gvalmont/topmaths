@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Diviser par 9'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export const refs = {
   'fr-ch': []
 }
 
-export default class DivisionPar9 extends Exercice {
+export default class DivisionPar9 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

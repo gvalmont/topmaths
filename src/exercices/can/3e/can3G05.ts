@@ -6,7 +6,7 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -28,7 +28,7 @@ export const refs = {
   'fr-fr': ['can3G05'],
   'fr-ch': ['1mT-2']
 }
-export default class Trigo extends Exercice {
+export default class Trigo extends ExerciceSimple {
   constructor () {
     super()
 

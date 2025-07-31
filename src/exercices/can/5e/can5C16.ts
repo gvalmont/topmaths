@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Calculer astucieusement avec une factorisation'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can5C16'],
   'fr-ch': []
 }
-export default class CalculAstucieuxAvecFactorisation extends Exercice {
+export default class CalculAstucieuxAvecFactorisation extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

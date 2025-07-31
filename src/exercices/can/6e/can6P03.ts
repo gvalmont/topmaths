@@ -1,7 +1,7 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer une distance avec une vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can6P03'],
   'fr-ch': []
 }
-export default class QuestionDeVitesse extends Exercice {
+export default class QuestionDeVitesse extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

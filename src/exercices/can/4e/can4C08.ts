@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme de puissances de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can4C08'],
   'fr-ch': []
 }
-export default class SommePuissancesDeDix extends Exercice {
+export default class SommePuissancesDeDix extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

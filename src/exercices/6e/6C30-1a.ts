@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { coloreUnSeulChiffre, miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -18,16 +18,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const titre = 'Diviser un nombre décimal par 10, 100 ou 1 000'
-export const dateDePublication = '02/07/2025'
+export const dateDePublication = '05/07/2025'
 
 /**
  * Division d'un nombre décimal dans différentes écritures par 10, 100, 1000
- *
- *  * Type 1 : écriture entière
- *  * Type 2 : écriture décimale
- *
  * @author Eric Elter (sur les bases de 6C30-1)
- *
  */
 export const uuid = 'fcf1b'
 
@@ -36,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 
-function donneNomClasse (valeur: number): string[] {
+export function donneNomClasse (valeur: number): string[] {
   switch (valeur) {
     case 10:
       return ['dizaines', 'dixièmes']
@@ -49,13 +44,13 @@ function donneNomClasse (valeur: number): string[] {
   }
 }
 
-function chiffreAPositionDecimale (nombre: number, position: number): number {
+export function chiffreAPositionDecimale (nombre: number, position: number): number {
   const partieDecimale = Math.abs(nombre)
   const decale = Math.floor(partieDecimale * position)
   return decale % 10
 }
 
-function analyserNombre (nombre: number): { estEntier: boolean; doublonUnites: boolean } {
+export function analyserNombre (nombre: number): { estEntier: boolean; doublonUnites: boolean } {
   const estEntier = Math.floor(nombre) === nombre
   // Étape 1 : récupérer le chiffre des unités
   const chiffreUnites = Math.abs(Math.floor(nombre)) % 10
@@ -74,7 +69,7 @@ function analyserNombre (nombre: number): { estEntier: boolean; doublonUnites: b
   return { estEntier, doublonUnites }
 }
 
-export default class MultiplierDecimauxPar101001000 extends Exercice {
+export default class DiviserDecimauxPar101001000 extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = [
@@ -117,6 +112,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
     this.comment += 'Le cinquième paramètre permet de choisir si cet exercice propose une correction sèche ou une correction détaillée.'
     this.correctionDetaillee = false
     this.correctionDetailleeDisponible = true
+    this.consigne = 'Compléter.'
   }
 
   nouvelleVersion () {
@@ -136,7 +132,6 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
       defaut: 3,
       nbQuestions: this.nbQuestions
     })
-    const typesDeResultats = combinaisonListes(typesDeFacteursDisponibles, this.nbQuestions)
 
     const typesDeResultatsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup3,
@@ -146,27 +141,22 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
       nbQuestions: this.nbQuestions
     })
 
-    this.consigne = 'Compléter.'
     if (context.isHtml && this.sup4) {
+      this.consigne = 'Compléter.'
       this.consigne += '<br>Un glisse-nombre est à disposition pour répondre '
       this.consigne += this.nbQuestions === 1 ? 'à la question.' : 'aux questions.'
       this.consigne += glisseNombreInteractif({ number: 20.25 })
-    }
+    } else { this.consigne = 'Compléter.' }
 
     const puissances = combinaisonListes(
       [1, 2, 3],
       this.nbQuestions
     )
-    let texteIntro
 
     for (
       let i = 0, texte, cpt = 0, a, b, choixPuissance10, aEntier;
       i < this.nbQuestions && cpt < 50;
     ) {
-      if (enleveDoublonNum(typesDeFacteursDisponibles.map(Number)).length !== 1 && !this.sup) {
-        if (typesDeResultats[i] === 1) { texteIntro = 'Calculer et donner le résultat sous forme d\'un nombre entier.<br>' } else { texteIntro = 'Calculer et donner le résultat sous forme d\'un nombre décimal.<br>' }
-      } else texteIntro = ''
-
       aEntier = choice([randint(11, 99), randint(101, 999)])
       b = puissances[i]
 
@@ -221,11 +211,11 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
             texteCorr = `Quand on divise par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
             if (chiffreAPositionDecimale(a / Math.pow(10, b), 1) === 0) {
               texteCorr += `Notamment, le chiffre des unités devient le chiffre des ${choixClasseDecimale}.<br>`
-              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$ (le résultat de la division), le chiffre des ${choixClasseDecimale} est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$`
+              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$ (le résultat du calcul), le chiffre des ${choixClasseDecimale} est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$`
               texteCorr += ` donc le chiffre des unités du nombre recherché est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$.<br>`
             } else {
               texteCorr += `Notamment, le chiffre des ${choixClasseEntiere} devient le chiffre des unités.<br>`
-              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$ (le résultat de la division), le chiffre des unités est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$`
+              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$ (le résultat du calcul), le chiffre des unités est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$`
               texteCorr += ` donc le chiffre des ${choixClasseEntiere} du nombre recherché est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$.<br>`
             }
           }
@@ -237,27 +227,28 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
           handleAnswers(this, i, { reponse: { value: reponse, options: { fractionEgale: true, nombreDecimalSeulement: true } } })
           break
         case 3 : // Recherche de la puissance de 10
+        default :
           texte = `$${texNombre(a)}~\\div$`
 
-          if (this.interactif) texte = ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: texte, texteApres: `$=${texNombre(a / Math.pow(10, b))}$` })
-          else texte = texte + sp() + '$ \\ldots$' + sp() + `$=${texNombre(a / Math.pow(10, b))}$`
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: `$=${texNombre(a / Math.pow(10, b))}$` })
+          else texte += sp() + '$ \\ldots$' + sp() + `$=${texNombre(a / Math.pow(10, b))}$`
 
           if (this.correctionDetaillee) {
             texteCorr = `Quand on divise par $${texNombre(Math.pow(10, b))}$, tous les chiffres prennent une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
             if (chiffreAPositionDecimale(a / Math.pow(10, b), 1) === 0) {
               texteCorr += `Notamment, le chiffre des unités devient le chiffre des ${choixClasseDecimale}.<br>`
-              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$ (le résultat de la division), le chiffre des ${choixClasseDecimale} est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$`
+              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$ (le résultat du calcul), le chiffre des ${choixClasseDecimale} est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$`
               texteCorr += ` donc le chiffre des unités du nombre recherché est $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$.<br>`
             } else {
               texteCorr += `Notamment, le chiffre des ${choixClasseEntiere} devient le chiffre des unités.<br>`
-              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$ (le résultat de la division), le chiffre des unités est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$`
+              texteCorr += `Dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$ (le résultat du calcul), le chiffre des unités est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$`
               texteCorr += ` donc le chiffre des ${choixClasseEntiere} du nombre recherché est $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$.<br>`
             }
           }
           if (this.correctionDetaillee) {
             texteCorr = a / Math.pow(10, b) < 1
               ? `Le chiffre des unités de $${texNombre(a)}$ (${analyserNombre(arrondi(a)).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffreDesUnites, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, 1)}$` +
-                       `) devient le chiffre des ${choixClasseDecimale} (dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b), b, true, true), bleuMathalea, Math.pow(10, -b))}$).<br>`
+                       `) devient le chiffre des ${choixClasseDecimale} (dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, Math.pow(10, -b))}$).<br>`
               : `Le chiffre des ${choixClasseEntiere} de $${texNombre(a)}$ (${analyserNombre(arrondi(a / Math.pow(10, b))).doublonUnites ? 'ce ' : ''}chiffre $${miseEnEvidence(chiffrePartieDecimale, bleuMathalea)}$ dans $${coloreUnSeulChiffre(texNombre(a), bleuMathalea, Math.pow(10, b))}$` +
                        `) devient le chiffre des unités (dans $${coloreUnSeulChiffre(texNombre(a / Math.pow(10, b)), bleuMathalea, 1)}$).<br>`
             texteCorr += `Tous les chiffres prennent donc une position $${texNombre(Math.pow(10, b))}$ fois plus petite.<br>`
@@ -272,9 +263,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
           break
       }
 
-      if (this.sup4) {
-        texteCorr += glisseNombreInteractif({ number: a, animation: -b })
-      }
+      if (this.sup4) texteCorr += glisseNombreInteractif({ number: a, animation: -b })
 
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
@@ -289,7 +278,7 @@ export default class MultiplierDecimauxPar101001000 extends Exercice {
       }
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions[i] = texteIntro + texte
+        this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
       }

@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une moyenne'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can3S05'],
   'fr-ch': []
 }
-export default class MoyenneStat extends Exercice {
+export default class MoyenneStat extends ExerciceSimple {
   constructor () {
     super()
 

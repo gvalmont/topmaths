@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { randint } from '../../../modules/outils'
@@ -12,7 +12,7 @@ export const uuid = '34c25'
  * @author Gilles Mora
 
 */
-export default class equationAxeSymetrie extends Exercice {
+export default class equationAxeSymetrie extends ExerciceSimple {
   constructor () {
     super()
 

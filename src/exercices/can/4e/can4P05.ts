@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can4P05'],
   'fr-ch': []
 }
-export default class ImageSpline extends Exercice {
+export default class ImageSpline extends ExerciceSimple {
   lineaire: boolean
   constructor () {
     super()

@@ -2,7 +2,7 @@ import { shuffle } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texteExposant } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un volume de pyramide'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can3M02'],
   'fr-ch': []
 }
-export default class CalculVolumePyramide extends Exercice {
+export default class CalculVolumePyramide extends ExerciceSimple {
   constructor () {
     super()
 

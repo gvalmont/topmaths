@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Convertir en tous sens'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6M04'],
   'fr-ch': []
 }
-export default class ConversionEnTousSens extends Exercice {
+export default class ConversionEnTousSens extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

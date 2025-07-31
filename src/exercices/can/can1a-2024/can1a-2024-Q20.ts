@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
@@ -16,7 +16,7 @@ export const uuid = 'd5ba3'
  * @author Gilles Mora
 
 */
-export default class Esperance extends Exercice {
+export default class Esperance extends ExerciceSimple {
   constructor () {
     super()
 

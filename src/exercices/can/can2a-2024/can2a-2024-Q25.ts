@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { expressionDeveloppeeEtNonReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
@@ -13,7 +13,7 @@ export const uuid = '7e2a2'
  * @author Gilles Mora
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
 
@@ -36,7 +36,7 @@ export default class NomExercice extends Exercice {
     } else {
       const a = randint(1, 9)
       switch (choice([1, 2])) {
-        case 1 :
+        case 1:
           this.reponse = `x^2+${2 * a}x+${a * a}`
           this.question = ` Développer $(x+${a})^2$.` // (x+a)²
           this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=x$ et $b=${a}$.<br>
@@ -45,7 +45,7 @@ export default class NomExercice extends Exercice {
       &=${miseEnEvidence(this.reponse)}
       \\end{aligned}$`
           break
-        case 2 :
+        case 2:
           this.reponse = `x^2-${2 * a}x+${a * a}`
           this.question = ` Développer $(x-${a})^2$.` // (x-a)²
           this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=x$ et $b=${a}$.<br>

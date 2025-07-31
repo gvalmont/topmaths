@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Donner la forme explicite d’une suite arithmétique/géométrique'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can1S06'],
   'fr-ch': []
 }
-export default class CalculTermeSuiteRec extends Exercice {
+export default class CalculTermeSuiteRec extends ExerciceSimple {
   constructor () {
     super()
 

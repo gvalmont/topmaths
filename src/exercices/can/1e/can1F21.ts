@@ -4,7 +4,7 @@ import {
   ecritureParentheseSiNegatif,
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 export const titre = 'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can1F21'],
   'fr-ch': []
 }
-export default class EcondDegreAbscisseOrdonneeSommet extends Exercice {
+export default class EcondDegreAbscisseOrdonneeSommet extends ExerciceSimple {
   constructor () {
     super()
 

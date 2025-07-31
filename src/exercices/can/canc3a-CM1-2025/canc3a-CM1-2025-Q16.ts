@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 import { Grille } from '../../../lib/2d/reperes'
@@ -21,7 +21,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2025CM1Q16 extends Exercice {
+export default class Can2025CM1Q16 extends ExerciceSimple {
   constructor () {
     super()
 

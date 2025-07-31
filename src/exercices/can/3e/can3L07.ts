@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { milieu, point, tracePointSurDroite } from '../../../lib/2d/points'
@@ -23,7 +23,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class EnFonctionDe extends Exercice {
+export default class EnFonctionDe extends ExerciceSimple {
   constructor () {
     super()
 
@@ -93,7 +93,7 @@ export default class EnFonctionDe extends Exercice {
         }
         break
 
-      case 2 :
+      case 2:
         {
           const listeValeurs = [[7, 2], [8, 3], [9, 2], [7, 4],
             [7, 3], [10, 4], [12, 3],

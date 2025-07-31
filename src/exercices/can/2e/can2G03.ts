@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can2G03'],
   'fr-ch': []
 }
-export default class CalculHypotenusePythagore extends Exercice {
+export default class CalculHypotenusePythagore extends ExerciceSimple {
   constructor () {
     super()
 

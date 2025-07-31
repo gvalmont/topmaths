@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -21,7 +21,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class ReduireDecimaux extends Exercice {
+export default class ReduireDecimaux extends ExerciceSimple {
   constructor () {
     super()
 
@@ -33,7 +33,7 @@ export default class ReduireDecimaux extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 2])) {
-      case 1 :// x-ax ou 2x-ax
+      case 1:// x-ax ou 2x-ax
         {
           const variable = choice(['x', 'y', 'a', 'b', 'n'])
           const b = new Decimal(randint(1, 99)).div(100)
@@ -58,7 +58,7 @@ export default class ReduireDecimaux extends Exercice {
           }
         }
         break
-      case 2 :// ax-x ou ax-2x
+      case 2:// ax-x ou ax-2x
         {
           const variable = choice(['x', 'y', 'a', 'b', 'n'])
           const b = new Decimal(randint(1, 99)).div(100)

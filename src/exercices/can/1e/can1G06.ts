@@ -6,7 +6,7 @@ import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['can1G06'],
   'fr-ch': []
 }
-export default class ProduitScalaireFiguresClassiques extends Exercice {
+export default class ProduitScalaireFiguresClassiques extends ExerciceSimple {
   constructor () {
     super()
 

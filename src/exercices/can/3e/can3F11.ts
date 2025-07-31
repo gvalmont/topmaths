@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { sp } from '../../../lib/outils/outilString'
 import { randint } from '../../../modules/outils'
 import { context } from '../../../modules/context'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can3F11'],
   'fr-ch': []
 }
-export default class VocabulaireImageAntecedent extends Exercice {
+export default class VocabulaireImageAntecedent extends ExerciceSimple {
   constructor () {
     super()
 
@@ -30,8 +30,9 @@ export default class VocabulaireImageAntecedent extends Exercice {
   nouvelleVersion () {
     const ListeNomF = ['f', 'g', 'h', 'u', 'v', 'w', 'c', 'd']
     switch (choice([1, 2, 3])) { //, 2, 3, 4, 5, 6
-      case 1 :
-        { const NomF = choice(ListeNomF)
+      case 1:
+        {
+          const NomF = choice(ListeNomF)
           const choix = choice([true, false])
           const a = randint(-10, 10)
           const b = randint(-10, 10, a)
@@ -41,10 +42,12 @@ export default class VocabulaireImageAntecedent extends Exercice {
           $\\bullet$ $b$ est l'image de $a$ par la fonction $${NomF}$ ;<br>
           $\\bullet$ $a$ est un antécédent de $b$ par la fonction $${NomF}$.<br>
           Ainsi,  ${choix ? `le  nombre image  est $${b}$` : ` un antécédent est $${a}$`}.`
-          this.reponse = choix ? `${b}` : `${a}` }
+          this.reponse = choix ? `${b}` : `${a}`
+        }
         break
-      case 2 :
-        { const NomF = choice(ListeNomF)
+      case 2:
+        {
+          const NomF = choice(ListeNomF)
           const choix = choice([true, false])
           const a = randint(-10, 10)
           const b = randint(-10, 10, a)
@@ -62,11 +65,13 @@ export default class VocabulaireImageAntecedent extends Exercice {
           this.correction = `Sur la première ligne du tableau on lit les valeurs de $x$ donc les antécédents. <br>
           Sur la deuxième ligne, on lit les valeurs de $${NomF}(x)$, donc les images.<br>
           Ainsi, ${choix ? `le  nombre image  est $${b}$` : `un antécédent est $${a}$`}.`
-          this.reponse = choix ? `${b}` : `${a}` }
+          this.reponse = choix ? `${b}` : `${a}`
+        }
         break
 
-      case 3 :
-        { const NomF = choice(ListeNomF)
+      case 3:
+        {
+          const NomF = choice(ListeNomF)
           const choix = choice([true, false])
           const a = randint(-10, 10)
           const b = randint(-10, 10, a)
@@ -76,7 +81,8 @@ export default class VocabulaireImageAntecedent extends Exercice {
               $\\bullet$ $b$ est l'image de $a$ par la fonction $${NomF}$ ;<br>
               $\\bullet$ $a$ est un antécédent de $b$ par la fonction $${NomF}$.<br>
               Ainsi,  ${choix ? `le  nombre image  est $${b}$` : `un antécédent est $${a}$`}.`
-          this.reponse = choix ? `${b}` : `${a}` }
+          this.reponse = choix ? `${b}` : `${a}`
+        }
         break
     }
     this.canEnonce = this.question// 'Compléter'

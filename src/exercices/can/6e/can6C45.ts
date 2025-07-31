@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème par soustraction/division'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can6C45'],
   'fr-ch': []
 }
-export default class ProblemeSoustractionDivision extends Exercice {
+export default class ProblemeSoustractionDivision extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

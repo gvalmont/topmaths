@@ -1,8 +1,7 @@
 import type { NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import type { Shape2D } from '../Figures2D'
-import { emoji } from '../figures2d/Emojis'
-import { emojis } from '../figures2d/listeEmojis'
-import { listeShapes2D, shapeNames, type ShapeName } from '../figures2d/shapes2d'
+import { listeEmojisInfos } from '../figures2d/listeEmojis'
+import { listeShapes2DInfos, type ShapeInfos, type ShapeName } from '../figures2d/shapes2d'
 
 type CellsOptions = {
   scale?: number // échelle de la forme
@@ -42,13 +41,13 @@ export class VisualPattern {
     } else {
       throw new Error('initialCells must be a Set, an array of coordinates or an array of strings')
     }
-    if (shapes == null || shapes.length === 0 || !(Object.keys(listeShapes2D).includes(shapes[0]) || Object.keys(emojis).includes(shapes[0]))) {
+    if (shapes == null || shapes.length === 0 || !(Object.keys(listeShapes2DInfos).includes(shapes[0]) || Object.keys(listeEmojisInfos).includes(shapes[0]))) {
       this.shapes = ['carré']
     } else {
       this.shapes = []
 
       for (const shape of shapes) {
-        if (!Object.keys(listeShapes2D).includes(shape) && !Object.keys(emojis).includes(shape)) {
+        if (!Object.keys(listeShapes2DInfos).includes(shape) && !Object.keys(listeEmojisInfos).includes(shape)) {
           throw new Error(`VisualPattern: la forme ${shape} n'existe pas dans la liste des formes`)
         }
         this.shapes.push(shape)
@@ -109,10 +108,13 @@ export class VisualPattern {
         throw new Error('PatternNumerique: les coordonnées doivent être positives')
       }
         */
-      const isEmoji = Object.keys(emojis).includes(shape ?? 'undefined')
-      const isInListeShapes = shapeNames.includes(shape ?? 'undefined')
+      const isEmoji = 'unicode' in listeShapes2DInfos[shape ?? '']
+      const isInListeShapes = 'shape2D' in listeShapes2DInfos[shape ?? '']
+      if (!isEmoji && !isInListeShapes) {
+        throw new Error(`PatternNumerique: la forme ${shape} n'existe pas dans la liste des formes`)
+      }
 
-      const shape2d = isInListeShapes ? listeShapes2D[shape ?? 'carré'] : isEmoji ? emoji(shape ?? 'soleil', emojis[shape ?? 'soleil']) : listeShapes2D['carré']
+      const shape2d = isInListeShapes ? (listeShapes2DInfos[shape ?? 'carré'] as ShapeInfos).shape2D : isEmoji ? listeShapes2DInfos[shape ?? 'soleil'].shapeDef : (listeShapes2DInfos['carré'] as ShapeInfos).shape2D
 
       if (!shape2d) {
         throw new Error(`PatternNumerique: la forme ${shape} n'existe pas`)

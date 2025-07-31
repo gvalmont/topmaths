@@ -7,7 +7,7 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une longueur/un périmètre/une aire (avec des entiers)'
 export const dateDePublication = '25/08/2022'
 export const interactifReady = true
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['canc3M02'],
   'fr-ch': []
 }
-export default class ProblemesDeLongueursEtPerimetreCM extends Exercice {
+export default class ProblemesDeLongueursEtPerimetreCM extends ExerciceSimple {
   constructor () {
     super()
 

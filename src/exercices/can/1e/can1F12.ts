@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can1F12'],
   'fr-ch': []
 }
-export default class CalculFonctionDeriveeFctRef extends Exercice {
+export default class CalculFonctionDeriveeFctRef extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierFullOperations

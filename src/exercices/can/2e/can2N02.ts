@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer le plus petit ensemble de nombres'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2N02'],
   'fr-ch': []
 }
-export default class PlusPetitEnsemble extends Exercice {
+export default class PlusPetitEnsemble extends ExerciceSimple {
   constructor () {
     super()
 

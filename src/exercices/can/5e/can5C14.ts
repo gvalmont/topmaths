@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Diviser avec des décimaux'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can5C14'],
   'fr-ch': []
 }
-export default class DivisionAvecDecimaux extends Exercice {
+export default class DivisionAvecDecimaux extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -29,7 +29,7 @@ export default class DivisionAvecDecimaux extends Exercice {
   }
 
   nouvelleVersion () {
-    let a:number
+    let a: number
     let b: number
     switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':

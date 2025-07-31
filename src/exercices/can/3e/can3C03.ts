@@ -3,7 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import {
   obtenirListeFractionsIrreductibles
 } from '../../../lib/outils/deprecatedFractions'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Rendre irréductible une fraction'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can3C03'],
   'fr-ch': []
 }
-export default class FractionIrreductibleCan extends Exercice {
+export default class FractionIrreductibleCan extends ExerciceSimple {
   constructor () {
     super()
 

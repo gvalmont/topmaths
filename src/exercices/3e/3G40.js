@@ -34,6 +34,11 @@ export const refs = {
   'fr-fr': ['3G40'],
   'fr-ch': []
 }
+
+/**
+ * @author Jean-Claude Lhote, améliorations par Éric Elter
+ *
+ */
 export default class ReperageSurLaSphere extends Exercice {
   constructor () {
     super()

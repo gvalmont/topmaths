@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
@@ -16,7 +16,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
 */
-export default class TauxGlobal extends Exercice {
+export default class TauxGlobal extends ExerciceSimple {
   constructor () {
     super()
     this.canOfficielle = true

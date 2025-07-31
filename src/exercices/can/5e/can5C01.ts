@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un produit d’entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can5C01'],
   'fr-ch': []
 }
-export default class ProduitEntiers5e extends Exercice {
+export default class ProduitEntiers5e extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

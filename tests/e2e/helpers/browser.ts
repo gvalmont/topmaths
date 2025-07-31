@@ -201,7 +201,7 @@ async function initCurrentBrowser (browserName: BrowserName) {
   const pwBrowser = playwright[browserName]
   options.headless = prefs.headless
   // chromium plante en headless chez moi, on tente ce workaround https://github.com/microsoft/playwright/issues/4761
-  if (prefs.headless) options.args = ['--disable-gpu']
+  if (prefs.headless) options.args = ['--disable-gpu', '--enable-unsafe-swiftshader']
   if (prefs.slowMo) {
     console.info('slow mis en option du browser', prefs.slowMo)
     options.slowMo = prefs.slowMo

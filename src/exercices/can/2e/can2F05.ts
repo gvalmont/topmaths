@@ -1,5 +1,5 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 import { context } from '../../../modules/context'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2F05'],
   'fr-ch': []
 }
-export default class AntecedentFonctionRacine extends Exercice {
+export default class AntecedentFonctionRacine extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

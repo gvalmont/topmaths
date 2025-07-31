@@ -24,7 +24,9 @@ export const dateDePublication = '09/03/2025'
  *
  */
 export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
-  versionOriginale: () => void = () => {
+  constructor () {
+    super()
+    this.options = { vertical: true, ordered: false }
     this.reponses = [
       'L\'équation $(E)$ admet une unique solution réelle.', // Réponse correcte (c)
       '3 est solution de $(E)$.', // Mauvaise réponse (a)
@@ -48,11 +50,5 @@ export default class SujetZero2024Ex5Q5 extends ExerciceQcm {
     this.correction += '- $5 - \\sqrt{46} < 0$, donc $x_1 \\notin \\mathcal{D}_f$.<br>'
     this.correction += '- $5 + \\sqrt{46} > 10$, donc $x_2 \\in \\mathcal{D}_f$.<br>'
     this.correction += `Ainsi, l'équation $(E)$ admet une unique solution réelle, qui est $${miseEnEvidence('5 + \\sqrt{46}')}$.<br>`
-  }
-
-  constructor () {
-    super()
-    this.options = { vertical: true, ordered: false }
-    this.versionOriginale()
   }
 }

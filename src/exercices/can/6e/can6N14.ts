@@ -3,6 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -64,7 +65,7 @@ export default class DeterminerLeNombre extends Exercice {
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
           texteCorr = ` $1$ dixième est égal à $0,1$. <br>
-          Ainsi, $${a}$ dixièmes $=${a}\\times 0,1=${texNombre(a / 10)}$. `
+          Ainsi, $${a}$ dixièmes $=${a}\\times 0,1=${miseEnEvidence(texNombre(a / 10))}$. `
 
           break
         case 2 :
@@ -97,7 +98,7 @@ export default class DeterminerLeNombre extends Exercice {
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
           texteCorr = ` $1$ centième est égal à $0,01$. <br>
-          Ainsi, $${a}$ centièmes $=${a}\\times 0,01=${texNombre(a / 100)}$. `
+          Ainsi, $${a}$ centièmes $=${a}\\times 0,01=${miseEnEvidence(texNombre(a / 100))}$. `
           break
 
         case 3 :
@@ -132,7 +133,7 @@ export default class DeterminerLeNombre extends Exercice {
           monQcm = propositionsQcm(this, i)
           texte += monQcm.texte
           texteCorr = ` $1$ millième est égal à $0,001$. <br>
-          Ainsi, $${a}$ millièmes $=${a}\\times 0,001=${texNombre(a / 1000)}$. `
+          Ainsi, $${a}$ millièmes $=${a}\\times 0,001=${miseEnEvidence(texNombre(a / 1000))}$. `
           break
       }
 

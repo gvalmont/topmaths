@@ -1,7 +1,7 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { randint } from '../../modules/outils'
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 
 export const titre = 'Calculer les coordonnées du 4e sommet d\'un parallélogramme'
 export const dateDePublication = '11/11/2023'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 
-class CoordonneesParallelogramme extends Exercice {
+class CoordonneesParallelogramme extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

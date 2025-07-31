@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -17,7 +17,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class SuitesRep extends Exercice {
+export default class SuitesRep extends ExerciceSimple {
   constructor () {
     super()
 
@@ -42,7 +42,7 @@ export default class SuitesRep extends Exercice {
     Comme ${choix === 2 * n ? `$${choix}$ est pair alors la $${choix}^{\\text{e}}$ lettre est '${texteEnCouleurEtGras('B')}'.` : `$${choix}$ est impair alors la $${choix}^{\\text{e}}$ lettre est '${texteEnCouleurEtGras('A')}'.`}`
         }
         break
-      case 2 :
+      case 2:
         {
           const n = randint(6, 20)
           const choix = choice([3 * n, 3 * n + 1, 3 * n + 2])

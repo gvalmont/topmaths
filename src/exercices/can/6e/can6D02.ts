@@ -1,5 +1,5 @@
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Chercher un reste en minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const refs = {
   'fr-fr': ['can6D02'],
   'fr-ch': []
 }
-export default class ResteEnMinutes extends Exercice {
+export default class ResteEnMinutes extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

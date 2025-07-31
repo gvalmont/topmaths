@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Effectuer une division avec une fraction'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can4C03'],
   'fr-ch': []
 }
-export default class QuotientEntierQuiVaBienParFraction extends Exercice {
+export default class QuotientEntierQuiVaBienParFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

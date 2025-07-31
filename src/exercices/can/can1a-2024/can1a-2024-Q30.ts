@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -13,7 +13,7 @@ export const uuid = 'e88e8'
  * @author Gilles Mora
 
 */
-export default class SommetParabole extends Exercice {
+export default class SommetParabole extends ExerciceSimple {
   constructor () {
     super()
 
@@ -24,9 +24,9 @@ export default class SommetParabole extends Exercice {
   }
 
   nouvelleVersion () {
-    let a : number
-    let b : number
-    let c : number
+    let a: number
+    let b: number
+    let c: number
     if (this.canOfficielle) {
       a = 1
       b = -2

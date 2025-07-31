@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { codageSegments } from '../../../lib/2d/codages'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
@@ -18,7 +18,7 @@ export const uuid = 'fec2f'
  * @author Gilles Mora
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
 

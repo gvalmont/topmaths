@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer des puissances de +/-2, 3, 4 ou 5'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can4C09'],
   'fr-ch': []
 }
-export default class PuissancesDe2345 extends Exercice {
+export default class PuissancesDe2345 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

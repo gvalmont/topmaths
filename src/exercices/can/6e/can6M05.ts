@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Convertir des m$^3$ et litres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6M05'],
   'fr-ch': []
 }
-export default class ConversionM3EtLitres extends Exercice {
+export default class ConversionM3EtLitres extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

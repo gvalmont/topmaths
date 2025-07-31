@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { point } from '../../../lib/2d/points'
 import { barycentre, polygone, polygoneAvecNom } from '../../../lib/2d/polygones'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can4G09'],
   'fr-ch': []
 }
-export default class TripletsPythagoriciens extends Exercice {
+export default class TripletsPythagoriciens extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

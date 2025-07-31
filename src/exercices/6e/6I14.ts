@@ -1,28 +1,27 @@
-import { shuffle } from '../../lib/outils/arrayOutils'
+import { combinaisonListes, combinaisonListesSansChangerOrdre, getRandomSubarray } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { listeShapesDef } from '../../lib/2d/figures2d/shapes2d'
-import { patternsRepetition, type PatternRicheRepetition } from '../../lib/2d/patterns/patternsPreDef'
+import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { createList } from '../../lib/format/lists'
-import { texteParPosition } from '../../lib/2d/textes'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
-import { emoji } from '../../lib/2d/figures2d/Emojis'
-import { emojis } from '../../lib/2d/figures2d/listeEmojis'
+import { listeEmojisInfos } from '../../lib/2d/figures2d/listeEmojis'
 import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { BoiteBuilder } from '../../lib/2d/polygones'
 
 export const titre = 'Comprendre un algorithme répétitif'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'qcm'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '29/06/2025'
 
 /**
  * Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes ${['e','a','é','i','o','u','y','è','ê'].includes(pattern.shapes[0][0]) ? 'd\'':'de'}${pattern.shapes[0]} du motif suivant.
- * Les patterns sont des motifs numériques qui évoluent selon des règles définies.
+ * Les patterns sont des motifs figuratifs ou numériques qui évoluent selon des règles définies.\n
  * Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/
  * @author Jean-Claude Lhote
  */
@@ -37,101 +36,144 @@ export default class PaternRepetitif extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.comment = `Étudier les premiers termes d'une série de formes afin de donner une forme de rang quelconque.\n
- Les patterns sont des motifs numériques qui évoluent selon des règles définies.\n
- Cet exercice contient des patterns créés par Jean-Claude Lhote d'après une idée de Sophie Roubin`
-    this.besoinFormulaireCaseACocher = ['Nombre de formes augmenté', false]
-    this.sup = false
-    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1:forme suivante dans une liste\n2 : forme de rang pas trop éloigné\n3 : forme de rang important\n4 : 42e forme \n5 Question au hasard parmi les 4 précédentes']
-    this.sup4 = '6'
-    this.besoinFormulaire5Numerique = ['Numéro de pattern (uniquement si 1 seule question)', 100,]
-    this.sup5 = 1
+    this.comment = `Étudier une série d'éléments figuratifs afin d'identifier un pattern et être capable d'interpoler l'élément de rang quelconque.\n
+ Les patterns (angliscisme utilisé dans certains documents de référence) sont des motifs figuratifs ou numériques répétitifs qui évoluent selon une règle définie.\n
+ Cet exercice contient des patterns figuratifs créés par Jean-Claude Lhote d'après une idée de Sophie Roubin`
+    this.besoinFormulaireTexte = ['Types de pattern', 'Nombres séparés par des tirets\n1: Pattern court sans symétrie\n2 : Pattern long sans symétrie\n3 : Pattern court avec symétrie\n4 : Pattern long avec symétrie \n5 : Pattern complexe avec sous-série\n6 : Mélange']
+    this.sup = '1'
+    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : élément suivant dans une liste\n2 : Longueur du pattern\n3 : élément de rang quelconque\n4 : Mélange']
+    this.sup4 = '2-1'
   }
 
   nouvelleVersion (): void {
-    if (this.sup5 > patternsRepetition.length) {
-      this.sup5 = patternsRepetition.length
-    }
-    if (this.sup5 < 1) {
-      this.sup5 = 1
-    }
+    const listeTypeDeSerie = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: this.nbQuestions })
 
-    const listePreDef = this.nbQuestions === 1
-      ? [patternsRepetition[Number(this.sup5) - 1]]
-      : shuffle(patternsRepetition)
-    const formeAdd = this.sup ? 1 : 0
-    const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 4, defaut: 1, melange: 5, nbQuestions: 4, shuffle: false }).map(Number)))
+    const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 3, defaut: 1, melange: 4, nbQuestions: 4, shuffle: false }).map(Number)))
     let indexInteractif = 0
     for (let i = 0; i < this.nbQuestions;) {
+      let nbElements: number
+      let shapes: string[]
+      let longueurSerie: number
+      let longueurSousSerie1: number
+      const selectedShapes = combinaisonListes(Object.keys(listeShapes2DInfos), 1)
+
+      switch (listeTypeDeSerie[i]) {
+        case 1:
+          longueurSerie = randint(2, 6)
+          nbElements = randint(longueurSerie * 2 + 1, longueurSerie * 4 - 1, longueurSerie * 3)
+          shapes = selectedShapes.slice(0, longueurSerie)
+          break
+        case 2:
+          longueurSerie = randint(5, 8)
+          nbElements = randint(longueurSerie * 2 + 1, longueurSerie * 4 - 1, longueurSerie * 3)
+          shapes = selectedShapes.slice(0, longueurSerie)
+          break
+        case 3:{
+          longueurSerie = randint(3, 6)
+          const demiSerie = Math.ceil(longueurSerie / 2)
+          if (demiSerie % 2 === 0) {
+            shapes = selectedShapes.slice(0, demiSerie)
+            shapes.push(...shapes.slice(0, demiSerie).reverse())
+          } else {
+            shapes = selectedShapes.slice(0, demiSerie)
+            shapes.push(...shapes.slice(0, demiSerie - 1).reverse())
+          }
+          nbElements = randint(longueurSerie * 2, longueurSerie * 3)
+        }
+          break
+        case 4:
+          {
+            longueurSerie = randint(5, 8)
+            const demiSerie = Math.ceil(longueurSerie / 2)
+            if (demiSerie % 2 === 0) {
+              shapes = selectedShapes.slice(0, demiSerie)
+              shapes.push(...shapes.slice(0, demiSerie).reverse())
+            } else {
+              shapes = selectedShapes.slice(0, demiSerie)
+              shapes.push(...shapes.slice(0, demiSerie - 1).reverse())
+            }
+            nbElements = randint(longueurSerie * 2, longueurSerie * 3)
+          }
+          break
+        case 5:
+        default:
+          longueurSousSerie1 = randint(4, 5)
+          shapes = selectedShapes.slice(0, longueurSousSerie1)
+          shapes.push(...combinaisonListesSansChangerOrdre(shapes, 1).slice(randint(0, 1), randint(3, 5)))
+          shapes.push(...getRandomSubarray(selectedShapes.filter((s) => !shapes.includes(s)), randint(1, 2)))
+          longueurSerie = shapes.length
+          nbElements = randint(longueurSerie * 2, longueurSerie * 3)
+      }
+
       const objetsCorr: NestedObjetMathalea2dArray = []
       const objets: NestedObjetMathalea2dArray = []
-      const popped = listePreDef.pop()
-      if (!popped) {
-        continue
+      for (const shape of selectedShapes) {
+        objets.push(listeShapes2DInfos[shape].shapeDef)
       }
-      const pat = popped
-      const pattern = new VisualPattern([])
-      const nbFigures = pat.nbMotifMin + formeAdd
-      const numeroPasTropLoin = randint(nbFigures + 5, nbFigures + 20)
-      const numeroTresLoin = randint(6, 9) * 100 + randint(1, 99)
 
-      const pat2D = pat as PatternRicheRepetition
-      pattern.iterate = (pat as PatternRicheRepetition).iterate
-      pattern.shapes = pat.shapes
-      for (const forme of new Set(pat2D.shapes)) {
-        if (forme in listeShapesDef) {
-          objetsCorr.push(listeShapesDef[forme])
-          objets.push(listeShapesDef[forme])
-        } else {
-          objetsCorr.push(emoji(forme, emojis[forme]).shapeDef)
-          objets.push(emoji(forme, emojis[forme]).shapeDef)
-        }
+      const pattern = new VisualPattern([])
+
+      for (let j = 1; j <= nbElements; j++) {
+        const shape = listeShapes2DInfos[shapes[(j - 1) % longueurSerie]].shape2D.clone().translate(j * 1.2, 0)
+        objets.push(shape)
       }
-      for (let j = 1; j <= nbFigures; j++) {
-        objets.push(pattern.render(j, j, 0))
-      }
-      objetsCorr.push(pattern.render(nbFigures + 1, 0, 0))
-      let texte = `Voici les ${nbFigures} premières formes d'une série. Ils évoluent selon des règles définies.<br>`
-      objets.push(texteParPosition(`Les ${nbFigures} premières formes`, nbFigures / 2, 1.5, 0, 'black', 0.8, 'milieu'))
-      texte += mathalea2d(Object.assign(fixeBordures(objets, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { pixelsParCm: 20, scale: 0.4, optionsTikz: 'transform shape' }), objets)
+      let texte = `Voici les ${nbElements} premièrs pictogrammes d'un motif répétitif.<br>`
+      const laSerieEnImage = mathalea2d(Object.assign(fixeBordures(objets, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { pixelsParCm: 20, scale: 0.4, optionsTikz: 'transform shape' }), objets)
+      texte += laSerieEnImage
       let texteCorr = ''
       const listeQuestions: string[] = []
       const listeCorrections: string[] = []
+      const infosShape = pattern.shapes[0] in listeShapes2DInfos ? listeShapes2DInfos[pattern.shapes[0]] : pattern.shapes[0] in listeEmojisInfos ? listeEmojisInfos[pattern.shapes[0]] : { articleCourt: 'un', nomPluriel: 'formes', articleSingulier: 'une', nomSingulier: pattern.shapes[0] }
+      const numeroTresLoin = randint(longueurSerie * 4 + 1, longueurSerie * 10)
+      let unQcm: { texte: string, texteCorr: string }
+      let indexQuestion = 0
+      const listeProps: string[] = shapes.map((s) => `${listeShapes2DInfos[s].articleSingulier} ${listeShapes2DInfos[s].nomSingulier}`)
+      let laBonneProp: string
       for (const q of typesQuestions) {
         switch (q) {
           case 1:
-            listeQuestions.push(`\nQuelle est la prochaine forme de la série ?<br>${ajouteQuestionMathlive(
-            {
-exercice: this,
-              question: indexInteractif++,
-              objetReponse: { reponse: { value: pat.fonctionShape(nbFigures + 1) } },
-              typeInteractivite: 'texte'
+            laBonneProp = `${listeShapes2DInfos[shapes[nbElements % longueurSerie]].articleSingulier} ${listeShapes2DInfos[shapes[nbElements % longueurSerie]].nomSingulier}`
+
+            this.autoCorrection[i * typesQuestions.length + indexQuestion] = {
+              propositions: listeProps.map((s) => Object.assign({}, { texte: s, statut: s === laBonneProp })),
             }
-          )}`)
-            listeCorrections.push(`Voici le motif $${nbFigures + 1}$ :<br>
-              ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr)}`)
+            unQcm = propositionsQcm(this, i * typesQuestions.length + indexQuestion++)
+            listeQuestions.push(`\nQuelle est le prochain pictogramme de cette suite ?<br>${unQcm.texte}`)
+            objetsCorr.push(listeShapes2DInfos[shapes[nbElements % longueurSerie]].shapeDef, listeShapes2DInfos[shapes[nbElements % longueurSerie]].shape2D)
+            listeCorrections.push(`Voici le motif $${nbElements + 1}$ :<br>
+              ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -0.2, rymin: -1, rxmax: 0.2, rymax: 1 }), { pixelsParCm: 20, scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr)}`)
             break
-          case 2:
-            listeQuestions.push(`\nQuelle sera la forme numéro $${numeroPasTropLoin}$ de la série (donner juste le nom sans article) ?<br>${ajouteQuestionMathlive(
+          case 2:{
+            listeQuestions.push(`\nQuelle est la longueur ${texteEnCouleurEtGras('minimale', 'black')} du motif répété ?<br>${ajouteQuestionMathlive(
             {
 exercice: this,
-              question: indexInteractif++,
-              objetReponse: { reponse: { value: pat.fonctionShape(numeroPasTropLoin) } },
-              typeInteractivite: 'texte'
-            }
-          )}`)
-            listeCorrections.push(`La forme numéro $${numeroPasTropLoin}$ est en forme de ${texteEnCouleurEtGras(pat.fonctionShape(numeroPasTropLoin))}.<br>`)
+              question: i * typesQuestions.length + indexQuestion++,
+              objetReponse: { reponse: { value: longueurSerie } },
+              typeInteractivite: 'mathlive',
+              reponseParams: {
+                formatInteractif: 'mathlive'
+              }
+            })}`)
+            const cadre = new BoiteBuilder({ xMin: 0.5, xMax: longueurSerie * 1.2 + 0.6, yMin: -0.8, yMax: 0.8 })
+            cadre.addColor({ color: '#222222', opacity: 0.8 })
+            const objetsCorr2: NestedObjetMathalea2dArray = [...objets, cadre.render()]
+
+            listeCorrections.push(`La longueur du motif répété est ${texteEnCouleurEtGras(String(longueurSerie))} et le voici :<br>
+            ${mathalea2d(Object.assign(fixeBordures(objetsCorr2, { rxmin: -0.2, rymin: -1, rxmax: 0.2, rymax: 1 }), { pixelsParCm: 20, scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr2)}`)
+          }
             break
           case 3:
-            listeQuestions.push(`\nQuelle sera la forme numéro $${numeroTresLoin}$ de la série (donner juste le nom sans article) ?<br>${ajouteQuestionMathlive(
-            {
-exercice: this,
-              question: indexInteractif++,
-              objetReponse: { reponse: { value: pat.fonctionShape(numeroTresLoin) } },
-              typeInteractivite: 'texte'
+            laBonneProp = `${listeShapes2DInfos[shapes[numeroTresLoin % longueurSerie]].articleSingulier} ${listeShapes2DInfos[shapes[numeroTresLoin % longueurSerie]].nomSingulier}`
+
+            this.autoCorrection[i * typesQuestions.length + indexQuestion] = {
+              propositions: listeProps.map((s) => Object.assign({}, { texte: s, statut: s === laBonneProp })),
             }
-          )}`)
-            listeCorrections.push(`La forme numéro $${numeroTresLoin}$ est en forme de ${texteEnCouleurEtGras(pat.fonctionShape(numeroTresLoin))}.<br>`)
+            unQcm = propositionsQcm(this, i * typesQuestions.length + indexQuestion++)
+            listeQuestions.push(`\nQuelle sera l'élément numéro $${numeroTresLoin + 1}$ de la série ?<br>${unQcm.texte}`)
+            objetsCorr.push(listeShapes2DInfos[shapes[numeroTresLoin % longueurSerie]].shapeDef, listeShapes2DInfos[shapes[numeroTresLoin % longueurSerie]].shape2D)
+            listeCorrections.push(`Voici l'élément $${numeroTresLoin + 1}$ :<br>
+              ${mathalea2d(Object.assign(fixeBordures(objetsCorr, { rxmin: -0.2, rymin: -1, rxmax: 0.2, rymax: 1 }), { pixelsParCm: 20, scale: 0.4, optionsTikz: 'transform shape' }), objetsCorr)}<br>
+              L'élément $${numeroTresLoin + 1}$ est ${infosShape.articleSingulier} ${texteEnCouleurEtGras(listeShapes2DInfos[shapes[numeroTresLoin % longueurSerie]].nomSingulier)}.<br>`)
 
             break
           case 4:
@@ -139,11 +181,11 @@ exercice: this,
             {
 exercice: this,
               question: indexInteractif++,
-              objetReponse: { reponse: { value: pat.fonctionShape(42) } },
+              objetReponse: { reponse: { value: listeShapes2DInfos[shapes[42 % longueurSerie]].nomSingulier } },
               typeInteractivite: 'texte'
             }
           )}`)
-            listeCorrections.push(`La forme numéro $42$ est en forme de ${texteEnCouleurEtGras(pat.fonctionShape(42))}.<br>`)
+            listeCorrections.push(`La forme numéro $42$ est ${infosShape.articleSingulier} ${texteEnCouleurEtGras(listeShapes2DInfos[shapes[42 % longueurSerie]].nomSingulier)}.<br>`)
 
             break
         }

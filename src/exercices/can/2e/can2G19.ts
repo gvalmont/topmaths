@@ -6,7 +6,7 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-fr': ['can2G19'],
   'fr-ch': []
 }
-export default class CoeffDirDroite extends Exercice {
+export default class CoeffDirDroite extends ExerciceSimple {
   constructor () {
     super()
 

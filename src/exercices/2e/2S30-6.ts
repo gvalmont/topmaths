@@ -56,7 +56,7 @@ export default class ProbaUnionInter extends Exercice {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 20)
-      let reponse
+      let reponse = ''
       let texte = ''
       let texteCorr = ''
       let pA

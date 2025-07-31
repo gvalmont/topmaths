@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Résoudre une équation du type $\\dfrac{x+a}{b}=c$'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2L08'],
   'fr-ch': []
 }
-export default class ResoudreEquationAvecQuotient extends Exercice {
+export default class ResoudreEquationAvecQuotient extends ExerciceSimple {
   constructor () {
     super()
 
@@ -32,7 +32,7 @@ export default class ResoudreEquationAvecQuotient extends Exercice {
     const b = randint(-10, 10, [-1, 0, 1])
     const c = randint(-10, 10, 0)
     switch (choice([1])) {
-      case 1 :
+      case 1:
         if (!this.interactif) { this.question = ` Résoudre l'équation $\\dfrac{x${ecritureAlgebrique(a)}}{${b}}=${c}$.` } else { this.question = ` Donner la solution de l'équation $\\dfrac{x${ecritureAlgebrique(a)}}{${b}}=${c}$.` }
         this.correction = `On multiplie par $${b}$ chacun des deux membres, puis on`
         if (a > 0) { this.correction += ` retranche $${a}$.<br>` } else { this.correction += ` ajoute $${abs(a)}$.<br>` }

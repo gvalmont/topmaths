@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
@@ -16,7 +16,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class DevelopperEtReduire extends Exercice {
+export default class DevelopperEtReduire extends ExerciceSimple {
   constructor () {
     super()
 

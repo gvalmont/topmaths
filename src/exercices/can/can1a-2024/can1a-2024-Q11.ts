@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -12,7 +12,7 @@ export const uuid = '40cd8'
  * @author Gilles Mora
 
 */
-export default class FractionAvecPi extends Exercice {
+export default class FractionAvecPi extends ExerciceSimple {
   constructor () {
     super()
 

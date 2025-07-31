@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['canc3C18'],
   'fr-ch': []
 }
-export default class problemeSoustraction extends Exercice {
+export default class problemeSoustraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -63,7 +63,8 @@ Combien lui reste-t-il de km à parcourir ?`
         }
         break
       case 3:
-        { const prenom = prenomM()
+        {
+          const prenom = prenomM()
           const a = randint(4, 8) * 10 + randint(1, 5)
           const b = randint(1, 2) * 10 + randint(6, 9)
           this.reponse = texNombre(a - b, 0)
@@ -80,7 +81,8 @@ Combien lui manque-t-il ?`
         break
 
       case 4:
-        { const prenom = prenomM()
+        {
+          const prenom = prenomM()
           const a = randint(4, 8) * 10 + randint(1, 5)
           const b = randint(1, 2) * 10 + randint(6, 9)
           this.reponse = texNombre(a - b, 0)

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 
@@ -16,7 +16,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author GM+EE
 */
-export default class CalculDivers extends Exercice {
+export default class CalculDivers extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -26,32 +26,32 @@ export default class CalculDivers extends Exercice {
 
   nouvelleVersion () {
     switch (randint(1, 7)) {
-      case 1 :
+      case 1:
         this.question = `Combien vaut $${texNombre(2025)} + 20 + 5$ ?`
         this.reponse = 2050
         this.correction = `$${texNombre(2025)} + 20 + 5=${texNombre(2045)} + 5=${miseEnEvidence(texNombre(this.reponse, 4))}$`
         break
-      case 2 :
+      case 2:
         this.question = `Combien vaut $${texNombre(2025)} + 20 - 5$ ?`
         this.reponse = 2040
         this.correction = `$${texNombre(2025)} + 20 - 5=${texNombre(2045)} - 5=${miseEnEvidence(texNombre(this.reponse, 4))}$`
         break
-      case 3 :
+      case 3:
         this.question = `Combien vaut $${texNombre(2025)} - 20 - 5$ ?`
         this.reponse = 2000
         this.correction = `$${texNombre(2025)} - 20 - 5=${texNombre(2005)} -5=${miseEnEvidence(texNombre(this.reponse, 4))}$`
         break
-      case 4 :
+      case 4:
         this.question = `Combien vaut $${texNombre(2025)} - 20 + 5$ ?`
         this.reponse = 2010
         this.correction = `$${texNombre(2025)} - 20 + 5=${texNombre(2005)} + 5=${miseEnEvidence(texNombre(this.reponse, 4))}$`
         break
-      case 5 :
+      case 5:
         this.question = `Combien vaut $${texNombre(2025)} - (20 + 5)$ ?`
         this.reponse = 2000
         this.correction = `$${texNombre(2025)} - (20 + 5)=${texNombre(2025)} - 25=${miseEnEvidence(texNombre(this.reponse, 4))}$`
         break
-      case 6 :
+      case 6:
         this.question = `Combien vaut $${texNombre(2025)} - (20 \\times 5)$ ?`
         this.reponse = 1925
         this.correction = `$${texNombre(2025)} - (20 \\times 5)=${texNombre(2025)} - 100=${miseEnEvidence(texNombre(this.reponse, 4))}$`

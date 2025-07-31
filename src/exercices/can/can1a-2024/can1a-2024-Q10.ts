@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -13,7 +13,7 @@ export const uuid = 'a9e45'
  * @author Gilles Mora
 
 */
-export default class Equation1degre extends Exercice {
+export default class Equation1degre extends ExerciceSimple {
   constructor () {
     super()
 

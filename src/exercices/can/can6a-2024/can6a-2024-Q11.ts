@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -13,7 +13,7 @@ export const uuid = 'e1faf'
  * @author Jean-Claude Lhote
 
 */
-export default class CompareDecimalFraction extends Exercice {
+export default class CompareDecimalFraction extends ExerciceSimple {
   constructor () {
     super()
 
@@ -24,13 +24,13 @@ export default class CompareDecimalFraction extends Exercice {
   }
 
   nouvelleVersion () {
-    let a:string
-    let b:string
+    let a: string
+    let b: string
     let nbA: number
     let nbB: number
     let num: number
     let den: number
-    let reponse : string
+    let reponse: string
     if (this.canOfficielle) {
       a = texNombre(3.4, 1)
       b = '\\dfrac{7}{3}'

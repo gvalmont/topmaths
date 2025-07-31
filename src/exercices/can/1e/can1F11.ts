@@ -5,7 +5,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Déterminer la fonction dérivée d’un polynôme de degré 3'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can1F11'],
   'fr-ch': []
 }
-export default class DeriveePoly3 extends Exercice {
+export default class DeriveePoly3 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -6,8 +6,8 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
 import { arrondi } from '../../../lib/outils/nombres'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier ou diviser par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,11 +26,12 @@ export const refs = {
   'fr-fr': ['can6C24'],
   'fr-ch': []
 }
-export default class MultiplierParPuissanceDixNeg extends Exercice {
+export default class MultiplierParPuissanceDixNeg extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.versionQcmDisponible = true
 
     this.formatChampTexte = KeyboardType.clavierNumbers
     this.besoinFormulaireNumerique = ['Multiplier ou diviser', 3, '1 : Multiplier\n2 : Diviser\n3 : Mélange']
@@ -49,6 +50,7 @@ export default class MultiplierParPuissanceDixNeg extends Exercice {
     const typeQuestion = choice(typeQuestionsDisponibles)
     const d = choice([0.1, 0.01, 0.001])
     this.reponse = arrondi(facteur * d)
+    this.distracteurs = [arrondi(facteur / d), arrondi(facteur * 10 * d), arrondi(facteur * 10 / d)]
     let operateurLaTeX = '\\times'
     let operateurLateXContraire = '\\div'
     let verbeOperation = 'multipli'
@@ -57,6 +59,7 @@ export default class MultiplierParPuissanceDixNeg extends Exercice {
     let petitOuGrand = 'petit'
     if (typeQuestion === 'diviser') {
       this.reponse = arrondi(facteur / d)
+      this.distracteurs = [arrondi(facteur * d), arrondi(facteur * 10 * d), arrondi(facteur * 10 / d)]
       operateurLaTeX = '\\div'
       verbeOperation = 'divis'
       verbeOperationContraire = 'multipli'
@@ -66,6 +69,7 @@ export default class MultiplierParPuissanceDixNeg extends Exercice {
     }
 
     this.question = `Calculer $${facteur}${operateurLaTeX} ${texNombre(d)}$.`
+    if (this.versionQcm) this.question = `$${facteur}${operateurLaTeX} ${texNombre(d)} =$`
     this.correction = `$${facteur}${operateurLaTeX} ${texNombre(d)}=${miseEnEvidence(texNombre(this.reponse))}$<br>`
 
     if (d === 0.1) {

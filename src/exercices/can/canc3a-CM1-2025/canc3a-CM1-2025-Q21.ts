@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Effetuer une multiplication avec $50$'
@@ -13,7 +13,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
 */
-export default class Can2025CM1Q21 extends Exercice {
+export default class Can2025CM1Q21 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
@@ -20,7 +20,7 @@ export const refs = {
 }
 export const uuid = '01607'
 
-class ConstructionCarre2 extends Exercice {
+class ConstructionCarre2 extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   cote!: number

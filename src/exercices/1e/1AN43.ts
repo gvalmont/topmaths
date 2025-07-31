@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['1AN43'],
   'fr-ch': ['1mT-13']
 }
-export default class IntegraleAffine extends Exercice {
+export default class IntegraleAffine extends ExerciceSimple {
   constructor () {
     super()
 

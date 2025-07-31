@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -25,16 +25,16 @@ export const refs = {
   'fr-fr': ['can5P06'],
   'fr-ch': []
 }
-export default class ÉcrirePourcentage extends Exercice {
-  constructor () {
+export default class ÉcrirePourcentage extends ExerciceSimple {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const listeFractions1 = [[1, 2], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
-      [1, 10], [3, 10], [7, 10], [9, 10], [3, 25], [9, 25], [13, 25], [9, 50], [17, 50], [9, 20], [3, 20], [17, 20]]
+    [1, 10], [3, 10], [7, 10], [9, 10], [3, 25], [9, 25], [13, 25], [9, 50], [17, 50], [9, 20], [3, 20], [17, 20]]
     switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':
         {
@@ -44,7 +44,8 @@ export default class ÉcrirePourcentage extends Exercice {
           this.correction = `$${texNombre(a)}=\\dfrac{${texNombre(a * 100, 0)}}{100}=${miseEnEvidence(texNombre(a * 100))} ${sp()}\\%$`
           this.reponse = (a * 100).toFixed(0)
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${texNombre(a)}=.... ${sp()}\\%$` }
+          this.canReponseACompleter = `$${texNombre(a)}=.... ${sp()}\\%$`
+        }
         break
       case 'b':
         {
@@ -87,7 +88,8 @@ export default class ÉcrirePourcentage extends Exercice {
         \\dfrac{${texNombre((n * 100) / d, 0)}}{100}=${miseEnEvidence(texNombre((n * 100) / d, 0))} ${sp()}\\%$`
           this.reponse = (n * 100) / d
           this.canEnonce = 'Compléter.'
-          this.canReponseACompleter = `$${frac.texFraction}=.... ${sp()}\\%$` }
+          this.canReponseACompleter = `$${frac.texFraction}=.... ${sp()}\\%$`
+        }
         break
     }
   }

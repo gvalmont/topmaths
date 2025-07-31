@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
@@ -16,7 +16,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class PrioriteMultiplication extends Exercice {
+export default class PrioriteMultiplication extends ExerciceSimple {
   constructor () {
     super()
 

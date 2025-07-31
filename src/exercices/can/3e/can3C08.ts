@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Calculer avec un programme de calcul'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can3C08'],
   'fr-ch': []
 }
-export default class ProgrammeCalcul extends Exercice {
+export default class ProgrammeCalcul extends ExerciceSimple {
   constructor () {
     super()
 

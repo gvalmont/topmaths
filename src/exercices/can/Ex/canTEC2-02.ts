@@ -1,7 +1,7 @@
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre $|z-z\'|=|z-z\'\'|$'
 export const interactifReady = false
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Stéphane Guyon
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

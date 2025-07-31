@@ -27,7 +27,7 @@ export const dateDePublication = '15/03/2025'
 export default class Binomiale extends ExerciceQcm {
   versionOriginale: () => void = () => {
     const a = randint(-5, 5, [0, -1, 1])
-    const b = randint(-5, 5, [0,  1])
+    const b = randint(-5, 5, [0, 1])
     const c = randint(-5, 5, [0])
 
     let correction = ''

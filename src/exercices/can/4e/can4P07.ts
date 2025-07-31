@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class PourcentageARetrouver extends Exercice {
+export default class PourcentageARetrouver extends ExerciceSimple {
   constructor () {
     super()
 
@@ -28,15 +28,19 @@ export default class PourcentageARetrouver extends Exercice {
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.spacing = 1.5
     this.spacingCorr = 1.5
+    this.versionQcmDisponible = true
   }
 
   nouvelleVersion () {
     const listeValeurs = [[5, randint(3, 20) * 10, 2], [10, randint(1, 50) * 5, 1], [20, randint(1, 15) * 5, 2], [30, randint(1, 15) * 5, 3], [40, randint(1, 15) * 10, 4], [60, randint(1, 10) * 10, 6], [70, randint(1, 10) * 10, 7], [80, randint(1, 10) * 10, 8], [90, randint(1, 10) * 10, 9]]//
     const choix = choice(listeValeurs)
     const valeur = new Decimal(choix[0]).mul(choix[1]).div(100)
-    this.reponse = choix[0]
-    this.question = `$p\\,\\%$ de $${choix[1]}$ est égal à $${texNombre(valeur, 1)}$.<br> 
-    Quelle est la valeur de $p$ ?`
+    this.reponse = this.versionQcm ? `$p=${texNombre(choix[0], 2)}$` : choix[0]
+    this.distracteurs = [`$p=${texNombre(choix[0] / 10, 2)}$`,
+         `$p=${texNombre(choix[0] * 10, 0)}$`,
+         `$p=${texNombre(valeur, 2)}$`]
+    this.question = `$p\\,\\%$ de $${choix[1]}$ est égal à $${texNombre(valeur, 1)}$.<br> `
+    if (!this.versionQcm) { this.question += ' Quelle est la valeur de $p$ ?' } else { this.question += ' On a :' }
 
     this.canEnonce = this.question
     this.canReponseACompleter = '$p=\\ldots$'
@@ -51,8 +55,8 @@ export default class PourcentageARetrouver extends Exercice {
       this.correction += ` En multipliant par $${choix[2]}$, on obtient : <br>`
       this.correction += `$${choix[0]}\\,\\%$  de $${choix[1]}$ est égal à $${texNombre(valeur, 1)}$.<br>`
     }
-    this.correction += ` Ainsi $p=${miseEnEvidence(texNombre(this.reponse))}$.`
+    this.correction += ` Ainsi $p=${miseEnEvidence(texNombre(choix[0], 2))}$.`
 
-    if (this.interactif) { this.question += '<br> $p=$' }
+    if (this.interactif && !this.versionQcm) { this.question += '<br> $p=$' }
   }
 }

@@ -3,7 +3,7 @@ import { shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { listeShapesDef, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
+import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { listePatternRatio, type PatternRiche } from '../../lib/2d/patterns/patternsPreDef'
 import { texteParPosition } from '../../lib/2d/textes'
 import { point } from '../../lib/2d/points'
@@ -30,35 +30,21 @@ export const refs = {
   'fr-fr': ['5P12-2'],
   'fr-ch': []
 }
-const pluriels: Record<ShapeName, string> = {
-  carré: 'carrés',
-  triangle: 'triangles',
-  rond: 'ronds',
-  losange: 'losanges',
-  hexagone: 'hexagones',
-  carréBleu: 'carrés bleus',
-  redCross: 'croix rouges',
-  carréRond: 'carrés ronds',
-  étoile: 'étoiles',
-  soleil: 'soleils',
-  chat: 'chats',
-  tortue: 'tortues',
-  hexagoneBlanc: 'hexagones blancs',
-}
 
 export default class PaternNum1 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
+    this.nbQuestionsModifiable = false
     this.comment = 'Cet exercice contient des patterns issus de l\'excellent site : https://www.visualpatterns.org/'
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
   }
 
   nouvelleVersion (): void {
-    const listePat: PatternRiche[] = shuffle(listePatternRatio).filter(pat => pat.pattern instanceof VisualPattern) as PatternRiche[]
+    const listePat: PatternRiche[] = shuffle(listePatternRatio) as PatternRiche[]
     const nbFigures = Math.max(2, this.sup)
-    for (let i = 0; i < this.nbQuestions;) {
+    for (let i = 0; i < Math.min(this.nbQuestions, listePatternRatio.length);) {
       const objetsCorr: NestedObjetMathalea2dArray = []
       const popped = listePat.pop()
       if (!popped) {
@@ -72,18 +58,26 @@ export default class PaternNum1 extends Exercice {
       //  patterns.push(pattern)
 
       for (const name of pat.shapes) {
-        objetsCorr.push(listeShapesDef[name])
+        if (name in listeShapes2DInfos) {
+          objetsCorr.push(listeShapes2DInfos[name].shapeDef)
+        } else {
+          throw new Error(`Le nom de la forme "${name}" n'est pas reconnu dans les formes prédéfinies.`)
+        }
       }
       const rendered = pattern.render(nbFigures + 1, 0, 0)
       objetsCorr.push(...rendered)
       let yMax = 0
       let yMin = 0
-      let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs numériques. Ils évoluent selon des règles définies.<br>`
+      let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs numériques. Les motifs se succèdent selon une règle bien définie.<br>`
       const figures: NestedObjetMathalea2dArray[] = []
       for (let j = 0; j < nbFigures; j++) {
         figures[j] = []
         for (const name of pat.shapes) {
-          figures[j].push(listeShapesDef[name])
+          if (name in listeShapes2DInfos) {
+            figures[j].push(listeShapes2DInfos[name].shapeDef)
+          } else {
+            throw new Error(`Le nom de la forme "${name}" n'est pas reconnu dans les formes prédéfinies.`)
+          }
         }
 
         let xmin = Infinity
@@ -102,7 +96,7 @@ export default class PaternNum1 extends Exercice {
       }
       texte += figures.map((fig, index) => mathalea2d(Object.assign(fixeBordures(fig, { rxmin: 0, rymin: -1, rxmax: 0, rymax: 1 }), { id: `Motif${i}F${index}`, pixelsParCm: 20, yMax, yMin, scale: 0.4, style: 'display: inline-block', optionsTikz: 'transform shape' }), fig)).join('\n')
       let texteCorr = ''
-      texte += `<br>Donner le ratio "${pat.shapes.map(name => pluriels[name]).join(' : ')}" dans le motif au rang $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
+      texte += `<br>Donner le ratio "${pat.texRatio}" dans le motif au rang $${nbFigures + 1}$ ?<br>${ajouteQuestionMathlive(
             {
 exercice: this,
               question: i,
@@ -114,7 +108,7 @@ exercice: this,
         throw new Error(`La fonction ratio n'est pas définie pour le pattern ${JSON.stringify(pat)}`)
       }
       const ratio = pat.fonctionRatio(nbFigures + 1)
-      texteCorr += `Au rang $${nbFigures + 1}$ le ratio "${pat.shapes.join(' : ')}" sera $${miseEnEvidence(ratio.toLatex())}$.<br>`
+      texteCorr += `Au rang $${nbFigures + 1}$ le ratio "${pat.texRatio}" sera $${miseEnEvidence(ratio.toLatex())}$.<br>`
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       i++

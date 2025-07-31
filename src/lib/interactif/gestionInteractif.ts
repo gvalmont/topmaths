@@ -64,7 +64,7 @@ export interface ReponseParams {
 export type clickFigures = { id: string; solution: boolean }[]
 
 export type AnswerType = {
-  value: string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[]
+  value: AnswerValueType
   compare?: CompareFunction
   options?: OptionsComparaisonType
 }
@@ -117,6 +117,12 @@ export interface Valeur {
     score: { nbBonnesReponses: number, nbReponses: number }
   }
 }
+/**
+ * Puisque tous les attributs de Valeur sont facultatifs, on vérifie juste si c'est un objet (et ce type est assez inutile du coup car quasiment identique à un unknown)
+ */
+export function isValeur (value: unknown): value is Valeur {
+  return typeof value === 'object'
+}
 
 export interface ValeurNormalized {
   bareme?: (listePoints: number[]) => [number, number]
@@ -153,6 +159,33 @@ export interface ValeurNormalized {
     score: { nbBonnesReponses: number, nbReponses: number }
   }
 }
+
+export type AnswerValueType = string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[]
+export function isAnswerValueType (value: unknown): value is AnswerValueType {
+  return (
+    typeof value === 'string' ||
+    (Array.isArray(value) && value.every(value => typeof value === 'string')) ||
+    typeof value === 'number' ||
+    (Array.isArray(value) && value.every(value => typeof value === 'number')) ||
+    value instanceof FractionEtendue ||
+    (Array.isArray(value) && value.every(value => value instanceof FractionEtendue)) ||
+    value instanceof Decimal ||
+    (Array.isArray(value) && value.every(value => value instanceof Decimal)) ||
+    value instanceof Grandeur ||
+    (Array.isArray(value) && value.every(value => value instanceof Grandeur)) ||
+    value instanceof Hms ||
+    (Array.isArray(value) && value.every(value => value instanceof Hms))
+  )
+}
+
+export type ReponseComplexe = AnswerValueType | Valeur
+export function isReponseComplexe (value: unknown): value is ReponseComplexe {
+  return (
+    isAnswerValueType(value) ||
+    isValeur(value)
+  )
+}
+
 export type UneProposition = {
   texte?: string
   statut?: number | boolean | string
@@ -342,7 +375,15 @@ export function exerciceInteractif (
         break
       }
       case 'cliqueFigure':
-        resultat = verifQuestionCliqueFigure(exercice, i)
+        if ('callback' in exercice && typeof exercice.callback === 'function') {
+          resultat = verifQuestionCliqueFigure(
+            exercice,
+            i,
+            exercice.callback as (exercice: Exercice, i: number) => void
+          )
+        } else {
+          resultat = verifQuestionCliqueFigure(exercice, i)
+        }
         resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
         break
       default:
@@ -466,7 +507,14 @@ export function prepareExerciceCliqueFigure (exercice: Exercice) {
   }
 }
 
-function verifQuestionCliqueFigure (exercice: Exercice, i: number) {
+// callback est une fonction facultative qui sera appelée avant de vérifier la question
+// elle permet de faire des actions avant la vérification, comme par exemple mettre à jour la correction affichée (voir 6G45)
+function verifQuestionCliqueFigure (exercice: Exercice, i: number, callback?: (exercice:Exercice, i: number) => void): string {
+  // si il y a une callback, on l'appelle
+  if (callback != null) {
+    callback(exercice, i)
+  }
+  // suite du code habituel de verifQuestionCliqueFigure
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
   let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
   // On ajoute le div pour le feedback

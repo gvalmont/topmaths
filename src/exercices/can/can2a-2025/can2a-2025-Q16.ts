@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
@@ -16,7 +16,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class AdditionFractionVF extends Exercice {
+export default class AdditionFractionVF extends ExerciceSimple {
   constructor () {
     super()
 

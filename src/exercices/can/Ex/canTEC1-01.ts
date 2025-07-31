@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { complex, add } from 'mathjs'
 export const titre = 'Somme de nombres complexes'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['canTEC1-01'],
   'fr-ch': []
 }
-export default class SommeDeComplexes extends Exercice {
+export default class SommeDeComplexes extends ExerciceSimple {
   constructor () {
     super()
 

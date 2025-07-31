@@ -250,84 +250,96 @@ export function shapeCubeIso (
   })
 }
 
-export function updateCubeIso (pattern: VisualPattern3D, i: number, j:number, angle: number, newScale?:number): void {
+export function updateCubeIso ({ pattern, i, j, angle, newScale, inCorrectionMode }: {
+  pattern: VisualPattern3D,
+  i: number,
+  j: number,
+  angle: number,
+  newScale?: number,
+  inCorrectionMode?: boolean
+}): void {
   if (pattern instanceof VisualPattern) return
-  setTimeout(() => {
-    let dragging = false
-    let lastX = 0
-    const motifId = `Motif${i}F${j}`
-    const svg = document.querySelector(`svg#${motifId}`) as SVGSVGElement | null
-    if (!svg) {
-      console.warn(`SVG element with id ${motifId} not found`)
-      return
-    }
-    function renderScene () {
-      if (!svg) return
-      // Sélectionne la balise <defs> qui contient un <g> dont l'id commence par "cubeIso"
-      const defs = Array.from(svg.querySelectorAll('defs')).find(defsEl =>
-        defsEl.querySelector('g[id^="cubeIso"]')
-      ) as SVGDefsElement | undefined
-      if (!defs) return
-
-      // Recalculate face coordinates based on angle
-      // Example: update faceTop, faceLeft, faceRight
-      // (Assume faceTop, faceLeft, faceRight are functions that accept angle)
-      const top = faceTop(angle)
-      const left = faceLeft(angle)
-      const right = faceRight(angle)
-
-      // Update the <g> content in <defs>
-      const g = defs.querySelector(`#cubeIsoQ${i}F${j}`)
-      if (g) {
-        g.innerHTML = `${top}\n${left}\n${right}\n`
+  const fn = () => {
+    setTimeout(() => {
+      let dragging = false
+      let lastX = 0
+      const motifId = `Motif${i}F${j}`
+      const svg = document.querySelector(`svg#${motifId}`) as SVGSVGElement | null
+      if (!svg) {
+        console.warn(`SVG element with id ${motifId} not found`)
+        return
       }
-      // Sélectionne tous les <g> qui suivent <defs> et qui sont enfants directs de <svg>
-      const svgGroups = Array.from(svg.children).filter(
-        el => el.tagName === 'g'
-      ) as SVGGElement[]
-      // Supprimer tous les groupes enfants directs de <svg>
-      svgGroups.forEach(group => group.remove())
+      function renderScene () {
+        if (!svg) return
+        // Sélectionne la balise <defs> qui contient un <g> dont l'id commence par "cubeIso"
+        const defs = Array.from(svg.querySelectorAll('defs')).find(defsEl =>
+          defsEl.querySelector('g[id^="cubeIso"]')
+        ) as SVGDefsElement | undefined
+        if (!defs) return
 
-      // Recalculer chaque polygone avec pattern.render(j, angle)
-      const cells = (pattern as VisualPattern3D).render3d(j + 1)
-      // Ajouter les SVG générés par svg() de chaque objet
-      cells.forEach(cell => {
-        const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
-        const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, { scale: cell[3]?.scale ?? newScale ?? 1 })
-        if (typeof obj.svg === 'function') {
-          const temp = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-          // temp.setAttribute('transform', `translate(${px}, ${py})`)
-          temp.innerHTML = obj.svg(20)
-          svg.appendChild(temp)
+        // Recalculate face coordinates based on angle
+        // Example: update faceTop, faceLeft, faceRight
+        // (Assume faceTop, faceLeft, faceRight are functions that accept angle)
+        const top = faceTop(angle)
+        const left = faceLeft(angle)
+        const right = faceRight(angle)
+
+        // Update the <g> content in <defs>
+        const g = defs.querySelector(`#cubeIsoQ${i}F${j}`)
+        if (g) {
+          g.innerHTML = `${top}\n${left}\n${right}\n`
         }
+        // Sélectionne tous les <g> qui suivent <defs> et qui sont enfants directs de <svg>
+        const svgGroups = Array.from(svg.children).filter(
+          el => el.tagName === 'g'
+        ) as SVGGElement[]
+        // Supprimer tous les groupes enfants directs de <svg>
+        svgGroups.forEach(group => group.remove())
+
+        // Recalculer chaque polygone avec pattern.render(j, angle)
+        const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
+        // Ajouter les SVG générés par svg() de chaque objet
+        cells.forEach(cell => {
+          const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
+          const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, { scale: cell[3]?.scale ?? newScale ?? 1 })
+          if (typeof obj.svg === 'function') {
+            const temp = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+            // temp.setAttribute('transform', `translate(${px}, ${py})`)
+            temp.innerHTML = obj.svg(20)
+            svg.appendChild(temp)
+          }
+        })
+      }
+      svg.addEventListener('mouseover', () => {
+        svg.style.cursor = 'grab'
       })
-    }
-    svg.addEventListener('mouseover', () => {
-      svg.style.cursor = 'grab'
-    })
 
-    svg.addEventListener('mousedown', (e) => {
-      dragging = true
-      lastX = e.clientX
-    })
+      svg.addEventListener('mousedown', (e) => {
+        dragging = true
+        lastX = e.clientX
+      })
 
-    window.addEventListener('mousemove', (e) => {
-      if (!dragging) return
-      const dx = e.clientX - lastX
-      lastX = e.clientX
-      angle += dx * 0.02
-      angle = Math.max(0.1, Math.min(1.4, angle))
+      window.addEventListener('mousemove', (e) => {
+        if (!dragging) return
+        const dx = e.clientX - lastX
+        lastX = e.clientX
+        angle += dx * 0.02
+        angle = Math.max(0.1, Math.min(1.4, angle))
+        renderScene()
+      })
+
+      window.addEventListener('mouseup', () => {
+        dragging = false
+      })
+
       renderScene()
     })
+  }
 
-    window.addEventListener('mouseup', () => {
-      dragging = false
-    })
-
-    renderScene()
-  })
-
-  document.addEventListener('exercicesAffiches', () => {
-    // The above setTimeout will run after DOM update
-  })
+  if (inCorrectionMode) {
+    document.addEventListener('correctionsAffichees', fn)
+  } else {
+  // Listen for the 'exercicesAffiches' event to re-render the scene
+    document.addEventListener('exercicesAffiches', fn)
+  }
 }

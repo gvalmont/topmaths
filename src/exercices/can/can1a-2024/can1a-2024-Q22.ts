@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -12,7 +12,7 @@ export const uuid = '88bc2'
  * @author Gilles Mora
 
 */
-export default class nombreDerive extends Exercice {
+export default class nombreDerive extends ExerciceSimple {
   constructor () {
     super()
 
@@ -23,9 +23,9 @@ export default class nombreDerive extends Exercice {
   }
 
   nouvelleVersion () {
-    let a : number
-    let b : number
-    let nbre : number
+    let a: number
+    let b: number
+    let nbre: number
     if (this.canOfficielle) {
       a = 3
       b = -2

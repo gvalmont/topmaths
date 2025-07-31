@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème avec "fois plus", "fois moins"*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['canc3C10'],
   'fr-ch': []
 }
-export default class FoisPlusFoisMoins2 extends Exercice {
+export default class FoisPlusFoisMoins2 extends ExerciceSimple {
   constructor () {
     super()
 

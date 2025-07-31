@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { randint } from '../../../modules/outils'
@@ -14,7 +14,7 @@ export const uuid = 'd23db'
  * @author Gilles Mora
 
 */
-export default class PointsCourbe extends Exercice {
+export default class PointsCourbe extends ExerciceSimple {
   constructor () {
     super()
 
@@ -27,7 +27,7 @@ export default class PointsCourbe extends Exercice {
 
   nouvelleVersion () {
     let A: number
-    let B : number
+    let B: number
     let AinterB: number
     if (this.canOfficielle) {
       A = 0.2

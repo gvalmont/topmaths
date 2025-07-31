@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Utiliser les priorités opératoires avec des relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can4C01'],
   'fr-ch': []
 }
-export default class PrioriteOperatoireEtRelatifs extends Exercice {
+export default class PrioriteOperatoireEtRelatifs extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

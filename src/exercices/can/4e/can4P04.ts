@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { prenom } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Résoudre un problème avec la proportionnalité'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can4P04'],
   'fr-ch': []
 }
-export default class ProportionnaliteNotes extends Exercice {
+export default class ProportionnaliteNotes extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

@@ -1,7 +1,7 @@
 import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer les coordonnées d’un point sur une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,7 @@ export const refs = {
   'fr-fr': ['can2L02'],
   'fr-ch': []
 }
-export default class CoordonneesPointDroite extends Exercice {
+export default class CoordonneesPointDroite extends ExerciceSimple {
   constructor () {
     super()
 

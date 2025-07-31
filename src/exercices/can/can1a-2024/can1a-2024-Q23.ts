@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -13,7 +13,7 @@ export const uuid = 'f0f67'
 /**
  * @author Gilles Mora
  */
-export default class solutionInequation extends Exercice {
+export default class solutionInequation extends ExerciceSimple {
   constructor () {
     super()
     this.canOfficielle = false

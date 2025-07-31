@@ -3,7 +3,7 @@ import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Lire l\'abscisse décimale d\'un point sur une droite graduée'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can6N07'],
   'fr-ch': []
 }
-export default class LireAbscisseDecimaleDeFraction extends Exercice {
+export default class LireAbscisseDecimaleDeFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

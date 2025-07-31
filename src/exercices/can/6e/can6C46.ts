@@ -5,7 +5,7 @@ import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'//
 import FractionEtendue from '../../../modules/FractionEtendue'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { fractionCliquable } from '../../../modules/2dinteractif'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-fr': ['can6C46'],
   'fr-ch': []
 }
-export default class ProblemeResteFraction extends Exercice {
+export default class ProblemeResteFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

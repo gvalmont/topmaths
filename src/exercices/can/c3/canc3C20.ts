@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['canc3C20'],
   'fr-ch': []
 }
-export default class problemeDivision extends Exercice {
+export default class problemeDivision extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -102,7 +102,8 @@ Combien d’appartements y a-t-il à chaque étage ?`
         break
 
       case 5:
-        { const prenom = prenomM()
+        {
+          const prenom = prenomM()
           const a = randint(5, 10)
           const k = randint(3, 9) * 10
           const b = k * a
@@ -120,7 +121,8 @@ Combien de paquets ${prenom} doit-il acheter ?`
         break
 
       case 6:
-        { const a = randint(2, 5) * 1000
+        {
+          const a = randint(2, 5) * 1000
           const k = randint(3, 9) * 10
           const b = k * a
           this.reponse = texNombre(k, 0)

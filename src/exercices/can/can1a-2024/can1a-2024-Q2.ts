@@ -1,9 +1,8 @@
-import Exercice from '../../Exercice'
 import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un point sur une courbe'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -13,15 +12,15 @@ export const uuid = '5157a'
  * @author Gilles Mora
 
 */
-export default class PointsCourbe extends Exercice {
+export default class PointsCourbe extends ExerciceSimple {
   constructor () {
     super()
 
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.formatInteractif = 'qcm'
     this.canOfficielle = false
+    this.versionQcm = true
   }
 
   nouvelleVersion () {
@@ -50,23 +49,9 @@ export default class PointsCourbe extends Exercice {
     this.question = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
     // c'est ça qui fait le this.reponse !
-    this.autoCorrection[0] = {
-      options: { ordered: true, radio: true },
-      enonce: this.question,
-      propositions: [
-        {
-          texte: 'Vrai ',
-          statut: ord === abs ** 2 + a
-        },
-        {
-          texte: 'Faux',
-          statut: ord !== abs ** 2 + a
-        }
-      ],
-    }
-    const qcm = propositionsQcm(this, 0)
-    this.question += qcm.texte
-    this.formatInteractif = 'qcm'
+    const affirmationVraie = ord === abs ** 2 + a
+    this.reponse = affirmationVraie ? 'Vrai' : 'Faux'
+    this.distracteurs = [affirmationVraie ? 'Faux' : 'Vrai']
 
     this.canEnonce = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `

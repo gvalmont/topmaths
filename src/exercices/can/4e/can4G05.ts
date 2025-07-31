@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texRacineCarree } from '../../../lib/outils/texNombre'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 
-export default class DiagonaleCarre extends Exercice {
+export default class DiagonaleCarre extends ExerciceSimple {
   constructor () {
     super()
 

@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Comprendre la division euclidienne'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can6C53'],
   'fr-ch': []
 }
-export default class ComprendreDivisionEuclidienne extends Exercice {
+export default class ComprendreDivisionEuclidienne extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -38,7 +38,7 @@ export default class ComprendreDivisionEuclidienne extends Exercice {
           const dividende = diviseur * quotient + reste
           const choix = choice([true, false])
           this.reponse = `${choix ? quotient : reste} `
-          this.question = `En utilisant l'égalité : $${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}$, résoudre le problème suivant :<br>
+          this.question = `En utilisant l'égalité $${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}$, résoudre le problème suivant :<br>
             Un paysagiste dispose de $${dividende}$ fleurs et souhaite réaliser un maximum de bouquets avec $${diviseur}$ fleurs.<br>`
           this.question += `${choix ? 'Combien de bouquets peut-il confectionner ?' : 'Combien de fleurs restera-t-il ? '}`
           this.correction = ` L'égalité donnée dans l'énoncé est l'égalité obtenue à partir de la division euclidienne de 

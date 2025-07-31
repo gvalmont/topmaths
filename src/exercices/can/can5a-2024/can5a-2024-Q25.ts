@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { rotation } from '../../../lib/2d/transformations'
@@ -18,7 +18,7 @@ export const uuid = 'ddd9d'
  * @author Eric Elter pour le rapporteur et Gilles Mora pour essayer d'en faire quelque chose de bien...
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
 

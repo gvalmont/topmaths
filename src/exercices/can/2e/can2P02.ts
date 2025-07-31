@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomM } from '../../../lib/outils/Personne'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Dénombrer dans une situation concrète'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2P02'],
   'fr-ch': []
 }
-export default class Denombrement extends Exercice {
+export default class Denombrement extends ExerciceSimple {
   constructor () {
     super()
 
@@ -40,7 +40,7 @@ export default class Denombrement extends Exercice {
         this.correction = `On peut avoir : $${a}\\times ${b}\\times ${c} =${a * b * c}$ menus différents.`
         this.reponse = arrondi(a * b * c)
         break
-      case 'b' :
+      case 'b':
         a = randint(2, 8)
         b = randint(2, 10)
         prenom1 = prenomM()

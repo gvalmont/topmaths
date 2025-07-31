@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -14,7 +14,7 @@ export const uuid = '25b8a'
 
 */
 
-export default class PlaceVirguleProduitCM2 extends Exercice {
+export default class PlaceVirguleProduitCM2 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Eric Elter + Gilles Mora
 
 */
-export default class calcRenduMonnaie extends Exercice {
+export default class calcRenduMonnaie extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -31,7 +31,7 @@ export default class calcRenduMonnaie extends Exercice {
   nouvelleVersion () {
     let prix
     switch (randint(1, 5)) {
-      case 1 :
+      case 1:
         prix = new Decimal(20.25)
         this.reponse = texNombre(new Decimal(30).sub(prix), 2)
         this.question = `Pour payer $${texNombre(prix, 2)}$ €, je donne $3$ billets de $10$ €.<br>
@@ -40,7 +40,7 @@ export default class calcRenduMonnaie extends Exercice {
       On doit me rendre $${miseEnEvidence(this.reponse)}$ €.`
         break
 
-      case 2 :
+      case 2:
         prix = new Decimal(20.25)
         this.reponse = texNombre(new Decimal(40).sub(prix), 2)
         this.question = `Pour payer $${texNombre(prix, 2)}$ €, je donne $2$ billets de $20$ €.<br>
@@ -48,7 +48,7 @@ export default class calcRenduMonnaie extends Exercice {
         this.correction = `$40-20,25=${miseEnEvidence(this.reponse)}$<br>
       On doit me rendre $${miseEnEvidence(this.reponse)}$ €.`
         break
-      case 3 :
+      case 3:
         prix = new Decimal(20.25)
         this.reponse = texNombre(new Decimal(50).sub(prix), 2)
         this.question = `Pour payer $${texNombre(prix, 2)}$ €, je donne $1$ billet de $50$ €.<br>
@@ -57,7 +57,7 @@ export default class calcRenduMonnaie extends Exercice {
       On doit me rendre $${miseEnEvidence(this.reponse)}$ €.`
         break
 
-      case 4 :
+      case 4:
         prix = new Decimal(20.25)
         this.reponse = texNombre(new Decimal(25).sub(prix), 2)
         this.question = `Pour payer $${texNombre(prix, 2)}$ €, je donne ${choice([true, false]) ? '$5$ billets de $5$ €' : '$1$ billet de $20$ € et un billet de $5$ €'}.<br>
@@ -66,7 +66,7 @@ export default class calcRenduMonnaie extends Exercice {
           On doit me rendre $${miseEnEvidence(this.reponse)}$ €.`
         break
 
-      case 5 :
+      case 5:
         prix = new Decimal(20.25)
         this.reponse = texNombre(new Decimal(22).sub(prix), 2)
         this.question = `Pour payer $${texNombre(prix, 2)}$ €, je donne $1$ billet de $20$ € et une pièce de $2$ €.<br>

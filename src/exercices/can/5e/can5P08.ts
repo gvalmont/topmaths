@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can5P08'],
   'fr-ch': []
 }
-export default class Proportionnalite3 extends Exercice {
+export default class Proportionnalite3 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

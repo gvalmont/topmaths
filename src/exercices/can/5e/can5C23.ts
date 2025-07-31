@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier par 1,5 ou 2,5 ou ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can5C23'],
   'fr-ch': []
 }
-export default class MultiplierPar extends Exercice {
+export default class MultiplierPar extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

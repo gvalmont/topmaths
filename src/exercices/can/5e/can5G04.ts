@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { milieu, point } from '../../../lib/2d/points'
@@ -24,7 +24,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class longueursRectPerimetre extends Exercice {
+export default class longueursRectPerimetre extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

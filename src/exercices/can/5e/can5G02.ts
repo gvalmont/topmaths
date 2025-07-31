@@ -7,7 +7,7 @@ import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true
@@ -25,15 +25,15 @@ export const refs = {
   'fr-fr': ['can5G02'],
   'fr-ch': []
 }
-export default class AngleTriangleIsocele extends Exercice {
-  constructor () {
+export default class AngleTriangleIsocele extends ExerciceSimple {
+  constructor() {
     super()
     this.typeExercice = 'simple'
 
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     let a, A, B, C, objets, nom, pol, xmin, xmax, ymin, ymax
 
     switch (choice(['a', 'b'])) {

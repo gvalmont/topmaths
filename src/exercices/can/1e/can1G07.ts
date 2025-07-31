@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Déterminer une coordonnée avec un produit scalaire'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can1G07'],
   'fr-ch': []
 }
-export default class RechercheCoordonneesProdScal extends Exercice {
+export default class RechercheCoordonneesProdScal extends ExerciceSimple {
   constructor () {
     super()
 

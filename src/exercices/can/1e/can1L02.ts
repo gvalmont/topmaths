@@ -6,7 +6,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
 export const titre = 'Déterminer le nombre de solutions d’une équation du second degré'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-fr': ['can1L02'],
   'fr-ch': []
 }
-export default class NombreSolutionsSecondDegre extends Exercice {
+export default class NombreSolutionsSecondDegre extends ExerciceSimple {
   constructor () {
     super()
 

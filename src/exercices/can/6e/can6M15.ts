@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer un périmètre par comptage'
 export const dateDePublication = '25/04/2025'
 export const interactifReady = true
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['can6M15'],
   'fr-ch': ['9GM1-13']
 }
-export default class PerimetreParComptageCan extends Exercice {
+export default class PerimetreParComptageCan extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver le reste d’une division euclidienne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can5C06'],
   'fr-ch': []
 }
-export default class ResteDivision5e extends Exercice {
+export default class ResteDivision5e extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

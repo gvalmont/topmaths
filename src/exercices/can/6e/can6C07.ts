@@ -1,7 +1,7 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Trouver le reste d’une division par 3'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-ch': []
 }
 
-export default class ResteDivisionPar3 extends Exercice {
+export default class ResteDivisionPar3 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

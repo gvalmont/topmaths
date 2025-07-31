@@ -8,6 +8,7 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import { reduireAxPlusB } from './ecritures'
 import { KeyboardType } from '../interactif/claviers/keyboard'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { orangeMathalea } from '../colors'
 
 const engine = new ComputeEngine()
 
@@ -324,11 +325,27 @@ export class Yohaku {
     }
     // dernière case
     tabLignes.push(`${context.isHtml ? '' : couleur}///////`)
-    if (context.isHtml && isInteractif) {
-      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes + ' ' + this.clavier, isInteractif, {})
+    if (context.isHtml) {
+      const style: { [key: string]: string } = Object.fromEntries(this.solution
+        ? [
+            ['L1C1', `;${orangeMathalea}`],
+            ['L1C2', `;${orangeMathalea}`],
+            ['L2C1', `;${orangeMathalea}`],
+            ['L2C2', `;${orangeMathalea}`]
+          ]
+        : [])
+      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes + ' ' + this.clavier, isInteractif, style)
       return tab.output
     } else {
-      return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true, numeroExercice, question)
+      const style: { [key: string]: string } = Object.fromEntries(this.solution
+        ? [
+            ['L1C1', `;${orangeMathalea}`],
+            ['L1C2', `;${orangeMathalea}`],
+            ['L2C1', `;${orangeMathalea}`],
+            ['L2C2', `;${orangeMathalea}`]
+          ]
+        : [])
+      return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true, numeroExercice, question, false, style)
     }
   }
 }

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { Spline, spline } from '../../../lib/mathFonctions/Spline'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2025TQ14 extends Exercice {
+export default class Can2025TQ14 extends ExerciceSimple {
   spline!: Spline
   constructor () {
     super()
@@ -65,7 +65,7 @@ export default class Can2025TQ14 extends Exercice {
       { x: 4, y: 2, deriveeGauche: 3, deriveeDroit: 3, isVisible: false }
     ]
     const mesFonctions = this.canOfficielle ? [noeuds5] : [noeuds0, noeuds1, noeuds2, noeuds3, noeuds4]// noeuds0, noeuds1, noeuds2, noeuds3, noeuds4
-    function aleatoiriseCourbe (listeFonctions : Array<{ x: number, y: number, deriveeGauche: number, deriveeDroit: number, isVisible: boolean }>[]) {
+    function aleatoiriseCourbe (listeFonctions: Array<{ x: number, y: number, deriveeGauche: number, deriveeDroit: number, isVisible: boolean }>[]) {
       const coeffX = 1// choice([-1, 1]) // symétries ou pas
       const coeffY = 1// choice([-1, 1])
       const deltaX = 0// randint(-2, 2) // translations
@@ -112,7 +112,7 @@ export default class Can2025TQ14 extends Exercice {
     const objetsEnonce = [repere1, courbe1, courbef1]
 
     this.question = `Nombre de solutions de l'équation $f'(x)=0$${this.canOfficielle ? ' sur $[-3\\,;\\,4]$' : ''}.<br>` +
-        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) // fixeBordures(objetsEnonce))
+      mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) // fixeBordures(objetsEnonce))
     this.question += '<br>'
     const extrema = nuage.filter((el) => el.deriveeGauche === 0)
     this.reponse = String(extrema.length)

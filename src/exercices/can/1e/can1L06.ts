@@ -1,5 +1,5 @@
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Déterminer une forme canonique'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can1L06'],
   'fr-ch': []
 }
-export default class FormeCanonique extends Exercice {
+export default class FormeCanonique extends ExerciceSimple {
   constructor () {
     super()
 

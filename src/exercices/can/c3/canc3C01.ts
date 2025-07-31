@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer un nombre à partir d’une phrase'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['canc3C01'],
   'fr-ch': []
 }
-export default class CalculsAutomatiques extends Exercice {
+export default class CalculsAutomatiques extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

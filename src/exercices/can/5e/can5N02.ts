@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Passer de la fraction décimale à l’écriture décimale*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can5N02'],
   'fr-ch': []
 }
-export default class FractionDecimaleEcritureDecimale2 extends Exercice {
+export default class FractionDecimaleEcritureDecimale2 extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

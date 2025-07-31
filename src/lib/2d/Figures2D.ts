@@ -139,6 +139,63 @@ export class Shape2D extends ObjetMathalea2D {
     }
   }
 
+  rotate (angle: number) {
+    this.angle += angle
+    this.bordures = rotatedBoundingBoxWithCenter(this.bordures[0], this.bordures[1], this.bordures[2], this.bordures[3], angle * Math.PI / 180, this.x, this.y)
+    return this
+  }
+
+  dilate (factor: { x: number, y: number } | number) {
+    if (typeof factor === 'number') {
+      factor = { x: factor, y: factor }
+    }
+    this.scale.x *= factor.x
+    this.scale.y *= factor.y
+    this.width = this.width * factor.x
+    this.height = this.height * factor.y
+    let xmin = this.bordures[0]
+    let ymin = this.bordures[1]
+    let xmax = this.bordures[2]
+    let ymax = this.bordures[3]
+    xmin = (xmin - this.x) * factor.x + this.x
+    ymin = (ymin - this.y) * factor.y + this.y
+    xmax = (xmax - this.x) * factor.x + this.x
+    ymax = (ymax - this.y) * factor.y + this.y
+    this.bordures = [
+      xmin,
+      ymin,
+      xmax,
+      ymax
+    ]
+    return this
+  }
+
+  translate (dx: number, dy: number) {
+    this.x += dx
+    this.y += dy
+    this.bordures = [
+      this.bordures[0] + dx,
+      this.bordures[1] + dy,
+      this.bordures[2] + dx,
+      this.bordures[3] + dy
+    ]
+    return this
+  }
+
+  flip (axes:'x' | 'y' | 'xy' = 'x') {
+    if (axes === 'x') {
+      this.scale.x = -this.scale.x
+      this.angle = -this.angle
+    } else if (axes === 'y') {
+      this.scale.y = -this.scale.y
+      this.angle = -this.angle
+    } else if (axes === 'xy') {
+      this.scale.x = -this.scale.x
+      this.scale.y = -this.scale.y
+    }
+    return this
+  }
+
   clone () {
     const codeTikz = String(this.codeTikz)
     const codeSvg = String(this.codeSvg)

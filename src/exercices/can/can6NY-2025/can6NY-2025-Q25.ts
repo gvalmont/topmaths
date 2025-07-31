@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 
@@ -18,7 +18,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class CalculDivers extends Exercice {
+export default class CalculDivers extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -31,7 +31,7 @@ export default class CalculDivers extends Exercice {
     const choixM = prenomM()
     const pm = randint(1, 9) * 100 + 25
     switch (randint(1, 2)) {
-      case 1 :
+      case 1:
         this.question = `${choixF} a une collection de timbres qui est composée de $${texNombre(2025, 0)}$ timbres.<br>
          ${choixM} en possède $${pm}$ de plus.<br>
          Combien en a-t-il ?`
@@ -40,7 +40,7 @@ export default class CalculDivers extends Exercice {
         $${texNombre(2025, 0)} + ${pm}=${this.reponse}$<br>
          ${choixM} a $${miseEnEvidence(this.reponse)}$ timbres.`
         break
-      case 2 :
+      case 2:
         this.question = `${choixF} a une collection de timbres qui est composée de $${texNombre(2025, 0)}$ timbres.<br>
         ${choixM} en possède $${pm}$ de moins.<br>
         Combien en a-t-il ?`

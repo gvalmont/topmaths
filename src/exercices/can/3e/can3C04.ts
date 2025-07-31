@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can3C04'],
   'fr-ch': []
 }
-export default class SommeEntierEtFractionIrred extends Exercice {
+export default class SommeEntierEtFractionIrred extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction

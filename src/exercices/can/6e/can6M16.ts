@@ -6,18 +6,17 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
-import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { contraindreValeur, randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Mesurer une aire de carré, rectangle, triangle rectangle'
-export const dateDePublication = '25/04/2025'
+export const dateDePublication = '25/04/2024'
+export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Eric Elter
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 
 /**
  * @author Jean-Claude Lhote
- * Créé le 25/04/2024
-
  */
 export const uuid = 'b486a'
 
@@ -25,7 +24,7 @@ export const refs = {
   'fr-fr': ['can6M16'],
   'fr-ch': ['9GM1-12']
 }
-export default class AireUsuelleParComptageCan extends Exercice {
+export default class AireUsuelleParComptageCan extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1
@@ -33,13 +32,16 @@ export default class AireUsuelleParComptageCan extends Exercice {
     this.besoinFormulaireNumerique = ['Type de surface', 3, '1 : Carré\n2 : Rectangle\n3 : Triangle rectangle']
     this.besoinFormulaire2CaseACocher = ['Avec des fractions de carreaux', false]
     this.besoinFormulaire3Numerique = ['Choixe de l\'unité d\'aire', 4, '1 : Le carreau entier\n2 : Le demi carreau rectangulaire\n3 : Le demi carreau triangulaire\n4 : Le quart de carreau']
+    this.besoinFormulaire4Numerique = ['Unités', 3, '1 : u.a\n2 : cm²\n3 : m²']
     this.sup = 1
     this.sup2 = false
     this.sup3 = 1
+    this.sup4 = 2
     this.spacing = 3
   }
 
   nouvelleVersion () {
+    const unite = ['u.a', 'cm²', 'm²'][contraindreValeur(1, 3, this.sup4, 2) - 1]
     const objets: NestedObjetMathalea2dArray = []
     const coeff = this.sup3 === 1
       ? 1
@@ -105,18 +107,16 @@ export default class AireUsuelleParComptageCan extends Exercice {
           ? polygone(point(xmax - 2, ymax - 2), point(xmax - 1, ymax - 2), point(xmax - 2, ymax - 1))
           : polygone(point(xmax - 2, ymax - 2), point(xmax - 1.5, ymax - 2), point(xmax - 1.5, ymax - 1.5), point(xmax - 2, ymax - 1.5))
     uniteAire.couleurDeRemplissage = colorToLatexOrHTML('gray')
-    const texteUniteAire = texteParPosition('u.a', xmax - 1.5, ymax - 2.5)
+    const texteUniteAire = texteParPosition('1 ' + unite, xmax - 1.5, ymax - 2.5)
     objets.push(uniteAire, texteUniteAire, objet)
     if (this.sup2) {
       objets.push(grille(xmin, ymin, xmax, ymax, 'gray', 0.3, 0.5))
     }
     const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5, style: 'display: block' }, fixeBordures(objets, { rxmin: -0.1, rxmax: 0.1, rymin: -0.1, rymax: 0.1 })), [grille(xmin, ymin, xmax, ymax, 'gray', 0.6, 1), ...objets])
-    this.question = `Quelle est l'aire de la figure ci-dessous ?<br>
-
-    ${figure}`
-    this.optionsChampTexte = { texteApres: ' u.a' }
+    this.question = `<br>${figure}<br>Quelle est l'aire de la figure ci-dessus ?`
+    this.optionsChampTexte = { texteApres: unite }
     this.reponse = value
-    this.correction = `L'aire de cette figure est : $${miseEnEvidence(value[0])}\\text{ soit }${miseEnEvidence(String(aire))}$ u.a.`
+    this.correction = `L'aire de cette figure est : $${miseEnEvidence(value[0])}\\text{ soit }${miseEnEvidence(String(aire))}$ ${unite}.`
   }
 
   questionCarre (a: number): Polygone {

@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Compléter un volume au litre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6M07'],
   'fr-ch': []
 }
-export default class CompleterVolumeAuLitre extends Exercice {
+export default class CompleterVolumeAuLitre extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

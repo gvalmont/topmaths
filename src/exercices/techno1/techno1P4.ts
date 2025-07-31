@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 export const titre = 'Proportions de proportions'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['techno1P4'],
   'fr-ch': []
 }
-export default class ProportiondeProportion extends Exercice {
+export default class ProportiondeProportion extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

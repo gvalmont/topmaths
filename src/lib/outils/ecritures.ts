@@ -9,6 +9,9 @@ import { lettreDepuisChiffre } from './outilString'
 import { stringNombre, texNombre } from './texNombre'
 import { fraction } from '../../modules/fractions'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import Grandeur from '../../modules/Grandeur'
+import Hms from '../../modules/Hms'
+import type { ReponseComplexe } from '../interactif/gestionInteractif'
 
 /**
  * écrit le nombre, mais pas un nombre s'il est égal à 1
@@ -633,4 +636,33 @@ export function simpleDeveloppementAvecDoubleX ({ a = 1, b = 1, c = 1, x = 'x', 
       ${ecritureParentheseSiMoins(rienSi1(c) + xSeul)} \\times ${ecritureParentheseSiNegatif(b)}`,
        `${rienSi1(a * c)}${xCarre} + 
       ${ecritureParentheseSiMoins(rienSi1(b * c) + xSeul)}`]
+}
+
+/**
+ * Formate une réponse pour son affichage, par exemple pour formater les différents distracteurs de la version qcm d'un exercice de type simple.
+ * Si la réponse est un tableau, elle formate le premier élément.
+ * @param a La valeur à formater
+ * @returns {string} La valeur formatée pour l'affichage
+ */
+export function formaterReponse (a: ReponseComplexe | undefined) {
+  if (Array.isArray(a)) {
+    return formaterReponse(a[0])
+  }
+  if (typeof a === 'number' || a instanceof Decimal) {
+    return `$${texNombre(a, 7)}$`
+  }
+  if (a instanceof FractionEtendue) {
+    return `$${a.texFraction}$`
+  }
+  if (typeof a === 'string') {
+    return a
+  }
+  if (a instanceof Grandeur) {
+    return `$${a.toTex()}$`
+  }
+  if (a instanceof Hms) {
+    return a.toString()
+  }
+  window.notify('formaterReponse : type de valeur non prise en compte : ', { a })
+  return String(a)
 }

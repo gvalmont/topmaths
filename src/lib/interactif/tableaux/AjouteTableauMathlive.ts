@@ -112,7 +112,8 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
     }
   }
   if (style != null) {
-    cell.style.backgroundColor = style
+    cell.style.backgroundColor = style.split(';')[0] || 'transparent'
+    cell.style.color = style.split(';')[1] || 'black'
   }
   line.appendChild(cell)
 }

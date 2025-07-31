@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
@@ -12,7 +12,7 @@ export const uuid = 'df70c'
  * @author Gilles Mora
 
 */
-export default class termeSuite extends Exercice {
+export default class termeSuite extends ExerciceSimple {
   constructor () {
     super()
 

@@ -29,7 +29,7 @@ Ne conservez pas ces lignes de code inutiles dans votre propre code.
 */
 
 // Le premier import suivant est obligatoire pour créer n'importe quel exercice.
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 
 /*
 Les lignes éventuelles suivantes d'import pour utiliser des fonctions venant d'autres fichiers (de ce projet principalement)
@@ -107,7 +107,7 @@ export const refs = {
       - NomExercice doit porter un nom unique (vérifier qu'aucun autre exercice porte ce nom)
       - NomExercice doit commencer par une majuscule et être écrit en CamelCase
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () { // Inutile de comprendre. Le moteur fonctionne ainsi.
     super() // Inutile de comprendre. Le moteur fonctionne ainsi.
 

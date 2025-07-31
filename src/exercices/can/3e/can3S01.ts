@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { fraction } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can3S01', 'BP2FLUC15'],
   'fr-ch': []
 }
-export default class CalculProbaSimple extends Exercice {
+export default class CalculProbaSimple extends ExerciceSimple {
   constructor () {
     super()
 

@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const dateDePublication = '16/11/2023'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2F18'],
   'fr-ch': []
 }
-export default class MaxMinG extends Exercice {
+export default class MaxMinG extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -110,13 +110,13 @@ export default class MaxMinG extends Exercice {
     this.reponse = choix ? Math.max(...nuage.map(el => el.y)) : Math.min(...nuage.map(el => el.y))
     this.question = `On donne la représentation graphique d'une fonction $f$. <br>
     Déterminer le ${choix ? 'maximum' : 'minimum'} de $f$ sur son ensemble de définition.<br><br>` +
-       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) // fixeBordures(objetsEnonce))
+      mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) // fixeBordures(objetsEnonce))
     this.question += '<br>'
     this.correction = `Sur l'intervalle $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$, le point le plus ${choix ? 'haut' : 'bas'} de la courbe a pour coordonnées ${choix ? `$(${solsMax[0]}\\,;\\,${Math.max(...nuage.map(el => el.y))})$` : `$(${solsMin[0]}\\,;\\,${Math.min(...nuage.map(el => el.y))})$`}.<br>
     On en déduit que le ${choix ? 'maximum' : 'minimum'} de $f$ est ${choix ? `$${miseEnEvidence(`${Math.max(...nuage.map(el => el.y))}`)}$` : `$${miseEnEvidence(`${Math.min(...nuage.map(el => el.y))}`)}$`} . Il est atteint en 
     ${choix ? `$x=${solsMax[0]}$` : `$x=${solsMin[0]}$`}.`
     this.canEnonce = 'On donne la représentation graphique d\'une fonction $f$. <br>' +
-       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+      mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
     this.canReponseACompleter = `Le ${choix ? 'maximum' : 'minimum'} de $f$ sur son ensemble de définition est : $\\ldots$.<br>`
   }
 }

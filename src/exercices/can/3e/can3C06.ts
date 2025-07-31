@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { abs, arrondi } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer avec des carrés/priorité opératoire'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can3C06'],
   'fr-ch': []
 }
-export default class CalculDivers1 extends Exercice {
+export default class CalculDivers1 extends ExerciceSimple {
   constructor () {
     super()
 

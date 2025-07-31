@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"*'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['canc3C08'],
   'fr-ch': []
 }
-export default class PlusOuMoins2 extends Exercice {
+export default class PlusOuMoins2 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -4,7 +4,7 @@ import { abs } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer avec  des puissances*'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can2C03'],
   'fr-ch': []
 }
-export default class CalculPuissance1 extends Exercice {
+export default class CalculPuissance1 extends ExerciceSimple {
   constructor () {
     super()
 

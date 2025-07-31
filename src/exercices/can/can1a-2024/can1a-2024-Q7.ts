@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -13,7 +13,7 @@ export const uuid = 'abe93'
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
 */
-export default class TauxCoeff extends Exercice {
+export default class TauxCoeff extends ExerciceSimple {
   constructor () {
     super()
 
@@ -24,7 +24,7 @@ export default class TauxCoeff extends Exercice {
   }
 
   nouvelleVersion () {
-    let taux:Decimal
+    let taux: Decimal
     let coeff: Decimal
     if (this.canOfficielle) {
       this.question = 'Multiplier une quantité par $0,87$ revient à la diminuer de : '

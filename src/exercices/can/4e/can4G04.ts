@@ -6,7 +6,7 @@ import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellisseme
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can4G04', 'BP2AutoR5'],
   'fr-ch': []
 }
-export default class CalculCotePythagore extends Exercice {
+export default class CalculCotePythagore extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

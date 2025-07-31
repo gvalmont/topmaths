@@ -3,7 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier par 0,1, 0,01 ou 0,001'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6C26'],
   'fr-ch': []
 }
-export default class Multiplier extends Exercice {
+export default class Multiplier extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

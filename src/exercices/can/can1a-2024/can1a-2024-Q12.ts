@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -14,7 +14,7 @@ export const uuid = 'b4205'
  * @author Gilles Mora
 
 */
-export default class Fatorisation1 extends Exercice {
+export default class Fatorisation1 extends ExerciceSimple {
   constructor () {
     super()
 
@@ -38,16 +38,16 @@ export default class Fatorisation1 extends Exercice {
       const choix = choice([true, false])
       this.reponse = `(${reduireAxPlusB(a, b)})(${a}x${ecritureAlgebrique(b + c)})`
       this.question = ` Factoriser   ${choix
-? `$(${reduireAxPlusB(a, b)})^2${ecritureAlgebrique(c)}(${reduireAxPlusB(a, b)})$.<br>`
-      : `$${c}(${reduireAxPlusB(a, b)})+(${reduireAxPlusB(a, b)})^2$.<br>`}`//
+        ? `$(${reduireAxPlusB(a, b)})^2${ecritureAlgebrique(c)}(${reduireAxPlusB(a, b)})$.<br>`
+        : `$${c}(${reduireAxPlusB(a, b)})+(${reduireAxPlusB(a, b)})^2$.<br>`}`//
       this.correction = `$(${reduireAxPlusB(a, b)})$ est un facteur commun.<br>
       $\\begin{aligned}
       ${choix
-        ? `(${reduireAxPlusB(a, b)})^2${ecritureAlgebrique(c)}(${reduireAxPlusB(a, b)})`
-              : `${c}(${reduireAxPlusB(a, b)})+(${reduireAxPlusB(a, b)})^2`}
+          ? `(${reduireAxPlusB(a, b)})^2${ecritureAlgebrique(c)}(${reduireAxPlusB(a, b)})`
+          : `${c}(${reduireAxPlusB(a, b)})+(${reduireAxPlusB(a, b)})^2`}
       &=${choix
-        ? `(${reduireAxPlusB(a, b)})((${reduireAxPlusB(a, b)})${ecritureAlgebrique(c)})`
-              : `(${reduireAxPlusB(a, b)})(${c}+(${reduireAxPlusB(a, b)}))`}\\\\
+          ? `(${reduireAxPlusB(a, b)})((${reduireAxPlusB(a, b)})${ecritureAlgebrique(c)})`
+          : `(${reduireAxPlusB(a, b)})(${c}+(${reduireAxPlusB(a, b)}))`}\\\\
       &=${miseEnEvidence(`(${reduireAxPlusB(a, b)})(${a}x${ecritureAlgebrique(b + c)})`)}\\end{aligned}$`
     }
     this.canEnonce = this.question

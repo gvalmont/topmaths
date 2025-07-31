@@ -1,6 +1,6 @@
 import { texteParPosition } from '../../../lib/2d/textes'
 import Pyramide from '../../../modules/pyramide'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import type FractionEtendue from '../../../modules/FractionEtendue'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can3C13'],
   'fr-ch': []
 }
-export default class Pyramide3EtagesAdditionFractions extends Exercice {
+export default class Pyramide3EtagesAdditionFractions extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction

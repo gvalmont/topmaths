@@ -14,7 +14,8 @@ export const titre = 'Calculer une aire en carreaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDePublication = '24/04/2025'
+export const dateDePublication = '24/04/2024'
+export const dateDeModifImportante = '31/07/2025' // Rajout de différentes unités par Eric Elter
 
 /**
  * @author Jean-Claude Lhote
@@ -31,9 +32,11 @@ export default class AireParComptage extends Exercice {
     this.besoinFormulaireTexte = ['Type de surface', 'Nombres séparés par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec des fractions de carreaux', false]
     this.besoinFormulaire3Numerique = ['Choixe de l\'unité d\'aire', 4, '1 : Le carreau entier\n2 : Le demi carreau rectangulaire\n3 : Le demi carreau triangulaire\n4 : Le quart de carreau']
+    this.besoinFormulaire4Texte = ['Unités', 'Nombres séparés par des tirets\n1 : u.a\n2 : cm²\n3 : m²\n4 : Mélange']
     this.sup = '4'
     this.sup2 = false
     this.sup3 = 1
+    this.sup4 = '2'
     this.nbQuestions = 3
   }
 
@@ -46,6 +49,9 @@ export default class AireParComptage extends Exercice {
         : this.sup3 === 3
           ? 2
           : 4
+    const unites = gestionnaireFormulaireTexte({ saisie: this.sup4, nbQuestions: this.nbQuestions, min: 1, max: 3, melange: 4, defaut: 1 })
+    let unite = ''
+
     for (let i = 0; i < this.nbQuestions; i++) {
       let a: number
       let a2: number
@@ -57,6 +63,17 @@ export default class AireParComptage extends Exercice {
       let value2: string[]
       let aire1: string
       let aire2: string
+      switch (unites[i]) {
+        case 1 :
+          unite = 'u.a'
+          break
+        case 2 :
+          unite = 'cm²'
+          break
+        case 3 :
+          unite = 'm²'
+          break
+      }
       do {
         if (choix) {
           a = randint(4, 10)
@@ -131,7 +148,7 @@ export default class AireParComptage extends Exercice {
             ? polygone(point(xmax - 2, ymax - 2), point(xmax - 1, ymax - 2), point(xmax - 2, ymax - 1))
             : polygone(point(xmax - 2, ymax - 2), point(xmax - 1.5, ymax - 2), point(xmax - 1.5, ymax - 1.5), point(xmax - 2, ymax - 1.5))
       uniteAire.couleurDeRemplissage = colorToLatexOrHTML('gray')
-      const texteUniteAire = texteParPosition('u.a', xmax - 1.5, ymax - 2.5)
+      const texteUniteAire = texteParPosition('1 ' + unite, xmax - 1.5, ymax - 2.5)
 
       objets.push(texFig1, texFig2, uniteAire, texteUniteAire)
       if (this.sup2) {
@@ -140,11 +157,11 @@ export default class AireParComptage extends Exercice {
       const figure = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, { xmin, ymin, xmax, ymax }), [grille(xmin, ymin, xmax, ymax, 'gray', 0.6, 1), ...objets])
       const texte = `${figure}<br><br>
       ${this.interactif
-? `Quelle est l'aire de la figure 1 ? ${ajouteQuestionMathlive({ exercice: this, question: 2 * i, typeInteractivite: 'mathlive', texteApres: ' u.a', objetReponse: { reponse: { value: aire1 } } })}<br>
-      Quelle est l'aire de la figure 2 ? ${ajouteQuestionMathlive({ exercice: this, question: 2 * i + 1, typeInteractivite: 'mathlive', texteApres: ' u.a', objetReponse: { reponse: { value: aire2 } } })}`
+? `Quelle est l'aire de la figure 1 ? ${ajouteQuestionMathlive({ exercice: this, question: 2 * i, typeInteractivite: 'mathlive', texteApres: unite, objetReponse: { reponse: { value: aire1 } } })}<br>
+      Quelle est l'aire de la figure 2 ? ${ajouteQuestionMathlive({ exercice: this, question: 2 * i + 1, typeInteractivite: 'mathlive', texteApres: unite, objetReponse: { reponse: { value: aire2 } } })}`
        : 'Calculer l\'aire de la figure 1 et l\'aire de la figure 2 en écrivant les calculs.'}`
 
-      const texteCorr = `L'aire de la figure 1 est donnée par : $${miseEnEvidence(value1[0])}\\text{ soit }${miseEnEvidence(aire1)}$ u.a, et l'aire de la figure 2 est donnée par : $${miseEnEvidence(value2[0])}\\text{ soit }${miseEnEvidence(aire2)}$ u.a.`
+      const texteCorr = `L'aire de la figure 1 est donnée par : $${miseEnEvidence(value1[0])}\\text{ soit }${miseEnEvidence(aire1)}$ ${unite}, et l'aire de la figure 2 est donnée par : $${miseEnEvidence(value2[0])}\\text{ soit }${miseEnEvidence(aire2)}$ ${unite}.`
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

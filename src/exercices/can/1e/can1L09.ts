@@ -1,13 +1,9 @@
 import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
+import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-
 export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,57 +22,42 @@ export const refs = {
   'fr-fr': ['can1L09'],
   'fr-ch': []
 }
-export default class EquationSecondDegreParticuliere extends Exercice {
+export default class EquationSecondDegreParticuliere extends ExerciceSimple {
   constructor () {
     super()
-
+    this.typeExercice = 'simple'
     this.nbQuestions = 1
+    this.formatChampTexte = KeyboardType.clavierEnsemble
+    this.versionQcmDisponible = true
+    this.optionsDeComparaison = { ensembleDeNombres: true }
   }
 
   nouvelleVersion () {
-    let texte, texteCorr, a, b, c, f
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(-10, 10, 0)
-      b = randint(-10, 10, 0)
-      c = randint(-10, 10, 0)
-      f = new FractionEtendue(-b, a)
-      texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br> $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.`
-      handleAnswers(this, i, { reponse: { value: `\\{0;${f.texFSD}\\}`, options: { ensembleDeNombres: true } } })
-      if (this.interactif) {
-        // texte += '<br>Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=$'
-        texte += '<br>$\\mathscr{S}=$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
-        /* texte += remplisLesBlancs(this, i, '\\bigg\\{ %{champ1}\\,;\\,  %{champ2} \\bigg\\}', KeyboardType.clavierDeBaseAvecFraction)
-        if (-b / a > 0) {
-          handleAnswers(this, i, {
-            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: 0, options: { fractionEgale: true } },
-            champ2: { value: f.texFSD, options: { fractionEgale: true } }
-          }
-          )
-        } else {
-          handleAnswers(this, i, {
-            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            champ1: { value: f.texFSD, options: { fractionEgale: true } },
-            champ2: { value: 0, options: { fractionEgale: true } }
-          }
-          )
-        } */
-      }
+    const a = randint(-10, 10, 0)
+    const b = randint(-10, 10, [0, a, -a])
+    const c = randint(-10, 10, 0)
+    const f = new FractionEtendue(-b, a)
+    if (this.versionQcm) { this.question = `L'ensemble des solutions $\\mathscr{S}$ de l'équation  $${reduirePolynomeDegre3(0, a, b, c)}=${c}$ est :` } else {
+      this.question = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation :<br> $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.`
+    }
+    if (-b * a < 0) {
+      this.reponse = this.versionQcm ? `$\\mathscr{S}=\\left\\{${f.texFractionSimplifiee}\\,;\\,0\\right\\}$` : `\\{0;${f.texFSD}\\}`
+      this.distracteurs = [`$\\mathscr{S}=\\left\\{${f.texFractionSimplifiee}\\right\\}$`, `$\\mathscr{S}=\\left\\{0\\,;\\,${f.oppose().texFractionSimplifiee}\\right\\}$`, `$\\mathscr{S}=\\left\\{${f.inverse().texFractionSimplifiee}\\,;\\,0\\right\\}$`]
+    } else {
+      this.reponse = this.versionQcm ? `$\\mathscr{S}=\\left\\{0\\,;\\,${f.texFractionSimplifiee}\\right\\}$` : `\\{0;${f.texFSD}\\}`
+      this.distracteurs = [`$\\mathscr{S}=\\left\\{${f.texFractionSimplifiee}\\right\\}$`, `$\\mathscr{S}=\\left\\{${f.oppose().texFractionSimplifiee}\\,;\\,0\\right\\}$`, `$\\mathscr{S}=\\left\\{0\\,;\\,${f.inverse().texFractionSimplifiee}\\right\\}$`]
+    }
 
-      texteCorr = `L'équation $${reduirePolynomeDegre3(0, a, b, c)}=${c}$ s'écrit $${reduirePolynomeDegre3(0, a, b, 0)}=0$.<br>
+    if (this.interactif && !this.versionQcm) {
+      this.question += '<br>$\\mathscr{S}=$'
+    }
+
+    this.correction = `L'équation $${reduirePolynomeDegre3(0, a, b, c)}=${c}$ s'écrit $${reduirePolynomeDegre3(0, a, b, 0)}=0$.<br>
           En factorisant le premier membre (facteur commun $x$), on obtient $x(${rienSi1(a)}x${ecritureAlgebrique(b)})=0$.<br>
           On reconnaît une équation produit nul dont les solutions sont : $0$ et $\\dfrac{${-b}}{${a}}${f.texSimplificationAvecEtapes()}$.<br>
           $\\mathscr{S}=${miseEnEvidence(`\\{0;${new FractionEtendue(-b, a).texFractionSimplifiee}\\}`)}$`
 
-      if (this.questionJamaisPosee(i, a, b, c)) {
-        this.listeQuestions[i] = texte
-        this.listeCorrections[i] = texteCorr
-        i++
-      }
-      cpt++
-    }
-    listeQuestionsToContenu(this)
-    this.canEnonce = texte
+    this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
 }

@@ -2,7 +2,7 @@ import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer le chiffre des ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6N05'],
   'fr-ch': []
 }
-export default class ChiffreDes extends Exercice {
+export default class ChiffreDes extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

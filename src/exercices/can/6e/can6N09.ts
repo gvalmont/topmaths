@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Trouver le nombre qui suit'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6N09'],
   'fr-ch': []
 }
-export default class PositionDesChiffres extends Exercice {
+export default class PositionDesChiffres extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

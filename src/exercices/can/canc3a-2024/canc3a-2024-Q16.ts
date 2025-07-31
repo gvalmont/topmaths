@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -12,7 +12,7 @@ export const uuid = 'f5788'
  * @author Gilles Mora (reprise du fichier de Jean-Claude Lhote 6ième)
 
 */
-export default class PourcentageFacileCM2 extends Exercice {
+export default class PourcentageFacileCM2 extends ExerciceSimple {
   constructor () {
     super()
 

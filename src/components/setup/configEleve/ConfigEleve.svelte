@@ -535,7 +535,7 @@
             <div class="my-1">
               <ButtonQRCode
                 tooltip={'QR-code (lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage + ')'}
-                url={buildMathAleaURL(
+                customUrl={buildMathAleaURL(
                   {
                     view: $canOptions.isChoosen ? 'can' : 'eleve',
                     isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,

@@ -8,7 +8,7 @@ import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellisseme
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre, texRacineCarree } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can4G03'],
   'fr-ch': []
 }
-export default class CalculHypotenusePythagore extends Exercice {
+export default class CalculHypotenusePythagore extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

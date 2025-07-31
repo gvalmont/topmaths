@@ -3,7 +3,7 @@ import { point } from '../../../lib/2d/points'
 import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can3C07'],
   'fr-ch': []
 }
-export default class MilieuEntre1EtFraction extends Exercice {
+export default class MilieuEntre1EtFraction extends ExerciceSimple {
   constructor () {
     super()
 

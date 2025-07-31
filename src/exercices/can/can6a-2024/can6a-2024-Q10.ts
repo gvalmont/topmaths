@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
@@ -13,7 +13,7 @@ export const uuid = '8c474'
  * @author Gilles Mora
 
 */
-export default class TrouverLongueur extends Exercice {
+export default class TrouverLongueur extends ExerciceSimple {
   constructor () {
     super()
 

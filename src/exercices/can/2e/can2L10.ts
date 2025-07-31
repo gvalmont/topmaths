@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2L10'],
   'fr-ch': []
 }
-export default class SimplifierQuotient extends Exercice {
+export default class SimplifierQuotient extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
@@ -33,8 +33,9 @@ export default class SimplifierQuotient extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 2])) {
-      case 1 :// ax/b
-        { const a = randint(2, 9)
+      case 1:// ax/b
+        {
+          const a = randint(2, 9)
           const k = randint(-9, 9, [0, 1])
           const maFraction1 = new FractionEtendue(a, k * a)
           if (choice([true, false])) {
@@ -48,8 +49,9 @@ export default class SimplifierQuotient extends Exercice {
           }
         }
         break
-      case 2 :
-        { const a = randint(1, 9)
+      case 2:
+        {
+          const a = randint(1, 9)
           const k = randint(-9, 9, [-1, 0, 1])
           const b = randint(-9, 9, 0)
           if (choice([true, false])) {

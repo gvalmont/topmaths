@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer à partir d’une décomposition'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['canc3C02'],
   'fr-ch': []
 }
-export default class CompositionDeNombreEntier extends Exercice {
+export default class CompositionDeNombreEntier extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

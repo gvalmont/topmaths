@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 import { fraction } from '../../../modules/fractions'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can3L06'],
   'fr-ch': []
 }
-export default class ReduireAvecFraction extends Exercice {
+export default class ReduireAvecFraction extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
@@ -44,7 +44,7 @@ export default class ReduireAvecFraction extends Exercice {
     const lettre = lettreDepuisChiffre(randint(1, 26, [15, 17, 24]))
     if (this.sup) this.spacingCorr = 3
     switch (choice([1, 2, 3, 4])) {
-      case 1 : {
+      case 1: {
         const frac3 = fraction(n + a * d, d).texFraction
         if (choice([true, false])) {
           this.question = ` Réduire l'expression : $${frac}x+${rienSi1(a)}x$`
@@ -56,7 +56,7 @@ export default class ReduireAvecFraction extends Exercice {
         this.reponse = [frac3 + 'x', `\\frac{${n + a * d}x}{${d}}`, (n + a * d) / d + 'x']
       }
         break
-      case 2 :
+      case 2:
         if (choice([true, false])) {
           const frac4 = fraction(n - a * d, d).texFraction
           this.question = ` Réduire l'expression : $${frac}x-${rienSi1(a)}x$`
@@ -69,7 +69,7 @@ export default class ReduireAvecFraction extends Exercice {
           this.reponse = [`${n - a * d < 0 ? '' : '-'}\\frac{${Math.abs(n - a * d)}}{${d}}x`, `\\frac{${a * d - n}}{${d}}x`, `${n - a * d < 0 ? '' : '-'}\\frac{${Math.abs(n - a * d)}x}{${d}}`, `\\frac{${a * d - n}x}{${d}}`, (a * d - n) / d + 'x']
         }
         break
-      case 3 : {
+      case 3: {
         const frac6 = `\\dfrac{${1 + a * d}}{${d}}`
         const frac7 = `\\dfrac{${1 + a * d}x}{${d}}`
         if (choice([true, false])) {
@@ -83,7 +83,7 @@ export default class ReduireAvecFraction extends Exercice {
       }
         break
 
-      case 4 : {
+      case 4: {
         const frac8 = `\\dfrac{${a * d}x}{${d}}`
         if (choice([true, false])) {
           this.question = ` Réduire l'expression : $${frac10}-${rienSi1(a)}x$`

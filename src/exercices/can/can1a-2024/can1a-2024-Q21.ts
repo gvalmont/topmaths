@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { randint } from '../../../modules/outils'
@@ -12,7 +12,7 @@ export const uuid = 'aa8e3'
  * @author Gilles Mora
 
 */
-export default class SommeTermesSG extends Exercice {
+export default class SommeTermesSG extends ExerciceSimple {
   constructor () {
     super()
 
@@ -34,8 +34,8 @@ export default class SommeTermesSG extends Exercice {
     this.correction = `Il s'agit de la somme des termes d'une suite géométrique de raison $q$ et de premier terme ${premierTerme === '1' ? '$1$ ' : '$q$ '}.<br>
    Comme cette somme se calcule par $\\text{(premier terme)}\\times \\dfrac{1-q^{\\text{nombre de termes}}}{1-q}$, 
    on obtient ${premierTerme === '1'
-? `$1+q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{1-q^{${n + 1}}}{1-q}`)}$ `
-   : `$q+q^2+\\ldots+q^{${n}}=q\\times \\dfrac{1-q^{${n}}}{1-q}=${miseEnEvidence(`\\dfrac{q-q^{${n + 1}}}{1-q}`)}$ `}`
+        ? `$1+q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{1-q^{${n + 1}}}{1-q}`)}$ `
+        : `$q+q^2+\\ldots+q^{${n}}=q\\times \\dfrac{1-q^{${n}}}{1-q}=${miseEnEvidence(`\\dfrac{q-q^{${n + 1}}}{1-q}`)}$ `}`
     const question = `$q\\neq 1$ <br>${premierTerme === '1' ? `$1+q+q^2+\\ldots+q^{${n}}=$ ` : `$q+q^2+\\ldots+q^{${n}}=$ `}`
     this.autoCorrection[0] = {
       options: { ordered: true },

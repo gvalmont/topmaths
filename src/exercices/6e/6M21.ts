@@ -547,10 +547,10 @@ export default class CompareAireEtPerimetreAvecRectangle extends Exercice {
           const d2 = droiteParPointEtPente(B, -(aleaPente - randint(50, 90) / 100))
           const d3 = droiteParPointEtPente(C, -(aleaPente + randint(10, 50) / 100))
           const d4 = droiteParPointEtPente(D, -(aleaPente - randint(50, 90) / 100))
-          const E = pointIntersectionDD(d1, d2)
-          const F = pointIntersectionDD(d2, d3)
-          const G = pointIntersectionDD(d3, d4)
-          const H = pointIntersectionDD(d4, d1)
+          const E = pointIntersectionDD(d1, d2) as Point
+          const F = pointIntersectionDD(d2, d3) as Point
+          const G = pointIntersectionDD(d3, d4) as Point
+          const H = pointIntersectionDD(d4, d1) as Point
           const poly = polygone(E, F, G, H)
           poly.couleurDeRemplissage = colorToLatexOrHTML(color[q])
           poly.opaciteDeRemplissage = 0.5

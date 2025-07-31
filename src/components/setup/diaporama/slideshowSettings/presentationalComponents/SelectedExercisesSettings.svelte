@@ -23,7 +23,7 @@
   <CheckboxWithLabel
     id="slideshow-selected-exercises-checkbox"
     isChecked={isSelectedExercises}
-    isDisabled={exercises.length === 0}
+    isDisabled={exercises.length === 1}
     label="Seulement certains exercices de la liste"
     on:change={(e) => {
       const isChecked = e.detail

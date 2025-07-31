@@ -2,7 +2,7 @@ import { repere } from '../../../lib/2d/reperes'
 import { traceBarreHorizontale } from '../../../lib/2d/diagrammes'
 import { prenom } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Lire un diagramme en barres'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6S01'],
   'fr-ch': []
 }
-export default class LectureDiagrammeBarre extends Exercice {
+export default class LectureDiagrammeBarre extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -43,7 +43,7 @@ export default class LectureDiagrammeBarre extends Exercice {
       grilleX: 'pointilles',
       grilleY: false,
       yThickListe: false,
-      yLabelListe: valeurs[n][2].map((v: string, index:number) => Object.assign({}, { valeur: 1.5 * index + 1, texte: `\\text{${v}}` })),
+      yLabelListe: valeurs[n][2].map((v: string, index: number) => Object.assign({}, { valeur: 1.5 * index + 1, texte: `\\text{${v}}` })),
       yLabelEcart: 2,
       xUnite: 1,
       xThickDistance: 1,

@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 
-Blockly.setLocale(En)
+Blockly.setLocale(En as unknown as { [key: string]: string })
 
 export default class Pythagore2DBlockly extends Exercice {
   typeDeQuestion: string
@@ -715,8 +715,9 @@ export default class Pythagore2DBlockly extends Exercice {
 function retrieveWorkspace (name: string) {
   const workspacesAll = Blockly.Workspace.getAll()
   for (let k = 0; k < workspacesAll.length; k++) {
-    if (workspacesAll[k].idkey && workspacesAll[k].idkey.startsWith(name)) {
-      return workspacesAll[k]
+    const ws = workspacesAll[k] as Blockly.Workspace & { idkey?: string }
+    if (ws.idkey && ws.idkey.startsWith(name)) {
+      return ws
     }
   }
   return null

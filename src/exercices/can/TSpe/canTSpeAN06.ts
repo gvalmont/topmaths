@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -20,7 +20,7 @@ export const refs = {
  * @author Stéphane Guyon
 
 */
-export default class deriveLn extends Exercice {
+export default class deriveLn extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

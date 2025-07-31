@@ -2,7 +2,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../lib/outils
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre |z-z\'|=r'
 
 export const dateDePublication = '4/5/2024'
@@ -16,7 +16,7 @@ export const refs = {
 /**
  * @author Stéphane Guyon
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

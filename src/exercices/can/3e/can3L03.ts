@@ -1,6 +1,6 @@
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre une équation du type $ax+b=c$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can3L03'],
   'fr-ch': []
 }
-export default class EquationAXPlusBEgalC extends Exercice {
+export default class EquationAXPlusBEgalC extends ExerciceSimple {
   constructor () {
     super()
 

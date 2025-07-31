@@ -2,7 +2,7 @@ import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Multiplier un nombre pair par 5'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 
-export default class NombrePairFois5 extends Exercice {
+export default class NombrePairFois5 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

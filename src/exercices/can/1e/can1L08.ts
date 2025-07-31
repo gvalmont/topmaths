@@ -4,7 +4,7 @@ import {
   reduireAxPlusB,
   rienSi1
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Déterminer un coefficient dans un développement*'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can1L08'],
   'fr-ch': []
 }
-export default class DeveloppementCoeff2 extends Exercice {
+export default class DeveloppementCoeff2 extends ExerciceSimple {
   constructor () {
     super()
 

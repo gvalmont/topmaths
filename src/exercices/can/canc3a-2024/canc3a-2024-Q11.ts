@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -14,7 +14,7 @@ export const uuid = '74ad3'
  * @author Gilles Mora (reprise du fichier de Jean-Claude Lhote 6ième)
 
 */
-export default class CompareNombre extends Exercice {
+export default class CompareNombre extends ExerciceSimple {
   constructor () {
     super()
 

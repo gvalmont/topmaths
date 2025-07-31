@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { milieu, point } from '../../../lib/2d/points'
@@ -25,7 +25,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class EnFonctionDeAire extends Exercice {
+export default class EnFonctionDeAire extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -38,7 +38,8 @@ export default class EnFonctionDeAire extends Exercice {
   nouvelleVersion () {
     switch (choice([1, 2])) {
       case 1://
-        { const a = randint(1, 3)
+        {
+          const a = randint(1, 3)
           const b1 = randint(1, 5)
           const b = 2 * b1
           const c = a + b
@@ -87,8 +88,9 @@ export default class EnFonctionDeAire extends Exercice {
         }
         break
 
-      case 2 :
-        { const a = randint(2, 3)
+      case 2:
+        {
+          const a = randint(2, 3)
           const b1 = randint(3, 5)
           const b = 2 * b1
           const A = point(-1, 0, 'A', 'below')

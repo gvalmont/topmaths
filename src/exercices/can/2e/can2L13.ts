@@ -1,9 +1,9 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import { choice } from '../../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 export const titre = 'Développer avec la double distributivité'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class DeveloppementDouble extends Exercice {
+export default class DeveloppementDouble extends ExerciceSimple {
   constructor () {
     super()
 
@@ -27,17 +27,24 @@ export default class DeveloppementDouble extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
+    this.versionQcmDisponible = true
   }
 
   nouvelleVersion () {
     switch (choice([1, 2, 3])) {
-      case 1 :// (ax+b)(cx+d) avec a et c =1
+      case 1:// (ax+b)(cx+d) avec a et c =1
         {
           const a = 1
           const b = randint(-10, 10, 0)
           const c = 1
           const d = randint(-10, 10, [0, b, -b])
-          this.reponse = `${a * c}x^2+${b * c + a * d}x+${b * d}`
+          this.reponse = `$x^2${ecritureAlgebriqueSauf1(b + d)}x${ecritureAlgebriqueSauf1(b * d)}$`
+          let tableau = [
+            `$x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b * d)}$`,
+             `$x^2${ecritureAlgebriqueSauf1(b + d)}x${ecritureAlgebrique(b + d)}$`,
+             `$2x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`]
+          tableau = shuffle(tableau)
+          this.distracteurs = tableau.slice(0, 3)
           this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.<br>`
           this.correction = `$\\begin{aligned}
             (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})&=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}\\\\
@@ -48,12 +55,22 @@ export default class DeveloppementDouble extends Exercice {
           this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
         }
         break
-      case 2 :// (ax+b)(cx+d) avec a et c différent de 1
-        { const a = randint(2, 4)
+      case 2:// (ax+b)(cx+d) avec a et c différent de 1
+        {
+          const a = randint(2, 4)
           const b = randint(-3, 3, 0)
-          const c = randint(2, 4)
+          let c = randint(2, 4)
           const d = randint(-10, 10, [0, b, -b])
-          this.reponse = `${a * c}x^2+${b * c + a * d}x+${b * d}`
+          if (a === 2 && c === 2) { c = 3 } // pour éviter a=c=2 car a+b=a*c
+          this.reponse = `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebriqueSauf1(b * d)}$`
+          let tableau = [
+            `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b * d)}$`,
+            `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
+            `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b * d)}$`,
+            `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
+            `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`]
+          tableau = shuffle(tableau)
+          this.distracteurs = tableau.slice(0, 3)
           this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.<br>`
           this.correction = `$\\begin{aligned}
             (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})&=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}\\\\
@@ -64,12 +81,20 @@ export default class DeveloppementDouble extends Exercice {
           this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
         }
         break
-      case 3 :// a^2-b^2
-        { const a = randint(1, 2)
+      case 3:// (b+ax)(d+cx) avec a et c différent de 1
+        {
+          const a = randint(1, 2)
           const b = randint(-3, 3, 0)
           const c = randint(1, 2)
-          const d = randint(-10, 10, [0, b])
-          this.reponse = `${a * c}x^2+${b * c + a * d}x+${b * d}`
+          const d = randint(-10, 10, [0, b, -b])
+          this.reponse = `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b * d)}$`
+          let tableau = [`$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b * d)}$`,
+             `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
+              `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b * d)}$`,
+               `$${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(b * c + a * d)}x${ecritureAlgebrique(b + d)}$`,
+                `$${rienSi1(a + c)}x^2${ecritureAlgebriqueSauf1(b * d)}x${ecritureAlgebrique(b + d)}$`]
+          tableau = shuffle(tableau)
+          this.distracteurs = tableau.slice(0, 3)
           this.question = `Développer et réduire l'expression $(${b}${ecritureAlgebriqueSauf1(a)}x)(${reduireAxPlusB(c, d)})$.<br>`
           this.correction = `$\\begin{aligned}
             (${b}${ecritureAlgebriqueSauf1(a)}x)(${reduireAxPlusB(c, d)})&=${rienSi1(b * a)}x${ecritureAlgebrique(b * d)}${ecritureAlgebriqueSauf1(a * c)}x^2${ecritureAlgebrique(a * d)}x\\\\

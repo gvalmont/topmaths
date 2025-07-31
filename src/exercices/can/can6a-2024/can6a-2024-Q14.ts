@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
@@ -12,7 +12,7 @@ export const uuid = '38fe5'
  * @author Jean-Claude Lhote
 
 */
-export default class MultiplieDixieme extends Exercice {
+export default class MultiplieDixieme extends ExerciceSimple {
   constructor () {
     super()
 

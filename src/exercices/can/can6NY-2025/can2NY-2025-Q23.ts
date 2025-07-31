@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Eric Elter - Gilles Mora
 
 */
-export default class calcAvecChiffresRel extends Exercice {
+export default class calcAvecChiffresRel extends ExerciceSimple {
   constructor () {
     super()
 

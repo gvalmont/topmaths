@@ -1,5 +1,5 @@
 import ExercicePerimetresEtAires from './_Exercice_perimetres_et_aires'
-export const titre = 'Calculer le périmètre et l\'aire de polygones usuels'
+export const titre = 'Calculer le périmètre et/ou l\'aire de polygones usuels'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

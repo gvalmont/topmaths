@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Limite de $n^{-m}\\pm n^{p}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const dateDePublication = '12/08/2024'
  * @author Jean-Claude Lhote
  *
  */
-class N2PlusUnSurN extends Exercice {
+class N2PlusUnSurN extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

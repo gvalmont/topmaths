@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la moitié d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can4C12'],
   'fr-ch': []
 }
-export default class CalculMoitieFraction extends Exercice {
+export default class CalculMoitieFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

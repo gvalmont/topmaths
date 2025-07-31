@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une image par une fonction linéaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can3F02'],
   'fr-ch': []
 }
-export default class CalculImageParFonctionLineaire extends Exercice {
+export default class CalculImageParFonctionLineaire extends ExerciceSimple {
   constructor () {
     super()
 

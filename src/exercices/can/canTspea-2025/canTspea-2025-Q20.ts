@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { sp } from '../../../lib/outils/outilString'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -16,7 +16,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2025TQ20 extends Exercice {
+export default class Can2025TQ20 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, reduireAxPlusB, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
@@ -14,7 +14,7 @@ export const uuid = '9727d'
  * @author Gilles Mora
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
 

@@ -5,7 +5,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer dans une pyramide additive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6C32'],
   'fr-ch': []
 }
-export default class Pyramide3Etages extends Exercice {
+export default class Pyramide3Etages extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

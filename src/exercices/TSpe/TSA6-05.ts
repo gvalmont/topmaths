@@ -21,7 +21,7 @@ export const dateDePublication = '26/03/2025'
 */
 export default class EquaDiff extends ExerciceQcm {
   versionOriginale: () => void = () => {
-    const a = randint(-5, 5, [-3,0,3])
+    const a = randint(-5, 5, [-3, 0, 3])
     const b = randint(-5, 5, 0)
     const fraction = new FractionEtendue(a, 3)
     const fraction2 = new FractionEtendue(abs(b), 2)

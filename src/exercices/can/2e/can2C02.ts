@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une différence de deux carrés'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can2C02'],
   'fr-ch': []
 }
-export default class CalculAstucieuxAvecDifferenceCarre extends Exercice {
+export default class CalculAstucieuxAvecDifferenceCarre extends ExerciceSimple {
   constructor () {
     super()
 

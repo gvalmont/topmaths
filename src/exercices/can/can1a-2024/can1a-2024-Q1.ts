@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
@@ -15,7 +15,7 @@ export const uuid = 'edbea'
 
 */
 
-export default class MultiplierDecimaux1 extends Exercice {
+export default class MultiplierDecimaux1 extends ExerciceSimple {
   constructor () {
     super()
 

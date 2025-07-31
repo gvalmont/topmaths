@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Somme de deux entiers'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Rémi Angot
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

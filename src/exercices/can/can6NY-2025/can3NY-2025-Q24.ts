@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -16,7 +16,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Eric Elter - Gilles Mora
 */
-export default class reduireExpression extends Exercice {
+export default class reduireExpression extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -26,18 +26,18 @@ export default class reduireExpression extends Exercice {
 
   nouvelleVersion () {
     switch (randint(1, 3)) {
-      case 1 :
+      case 1:
         this.question = `Exprimer la somme de $a$ et $${texNombre(2025, 0)}$ en fonction de $a$.`
         this.reponse = '2025+a'
         this.correction = `La somme de $a$ et $${texNombre(2025, 0)}$ en fonction de $a$ est donnée par $${miseEnEvidence(`${texNombre(2025)}+a`)}$`
         break
-      case 2 :
+      case 2:
         this.reponse = 'a\\times 2025'
         this.question = `Comment peut se noter le produit de $a$ par $${texNombre(2025, 0)}$  en fonction de $a$?`
 
         this.correction = `Le produit de $a$ par $${texNombre(2025, 0)}$ se note $${miseEnEvidence(`a\\times ${texNombre(2025, 0)}`)}$.`
         break
-      case 3 :
+      case 3:
         this.reponse = 'a\\div 2025'
         this.question = `Exprimer le quotient de $a$ par $${texNombre(2025, 0)}$  en fonction de $a$.`
 

@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 export const titre = 'Déterminer une longueur avec des triangles semblables'
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can4G01'],
   'fr-ch': []
 }
-export default class LongueurPythagore extends Exercice {
+export default class LongueurPythagore extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

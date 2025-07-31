@@ -1,6 +1,6 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { rienSi1 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des ordonnées et une droite'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can2L04'],
   'fr-ch': []
 }
-export default class CoordonneesPointIntersectionAxeOrdonneesDroite extends Exercice {
+export default class CoordonneesPointIntersectionAxeOrdonneesDroite extends ExerciceSimple {
   constructor () {
     super()
 

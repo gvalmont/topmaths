@@ -1,5 +1,5 @@
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -19,7 +19,7 @@ export const uuid = '82123'
  * @author Gilles Mora
 */
 
-export default class EquationReduite extends Exercice {
+export default class EquationReduite extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
@@ -87,8 +87,8 @@ export default class EquationReduite extends Exercice {
          L' ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est `
 
     this.correction += `${yA !== 0
-? `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`)}$.`
-         : `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x`)}$.`}
+      ? `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`)}$.`
+      : `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x`)}$.`}
 `
     this.canEnonce = this.question
     this.canReponseACompleter = ''

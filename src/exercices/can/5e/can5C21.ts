@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la somme de décimaux qui se marient'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can5C21'],
   'fr-ch': []
 }
-export default class SommeDecimaux extends Exercice {
+export default class SommeDecimaux extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

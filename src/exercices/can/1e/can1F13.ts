@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Déterminer le coefficient directeur d’une tangente (fonctions de référence)'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can1F13'],
   'fr-ch': []
 }
-export default class CalculCoeffDir extends Exercice {
+export default class CalculCoeffDir extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { sp } from '../../../lib/outils/outilString'
@@ -18,7 +18,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Mediane extends Exercice {
+export default class Mediane extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

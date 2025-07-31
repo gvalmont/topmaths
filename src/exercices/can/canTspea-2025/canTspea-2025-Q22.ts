@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une dérivée'
@@ -14,7 +14,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2025TQ22 extends Exercice {
+export default class Can2025TQ22 extends ExerciceSimple {
   constructor () {
     super()
 

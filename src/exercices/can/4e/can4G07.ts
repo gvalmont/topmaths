@@ -5,7 +5,7 @@ import { labelPoint } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can4G07', 'BP2AutoR13'],
   'fr-ch': []
 }
-export default class CalculLongueurThalesMilieu extends Exercice {
+export default class CalculLongueurThalesMilieu extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

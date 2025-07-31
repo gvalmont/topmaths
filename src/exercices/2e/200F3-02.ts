@@ -5,7 +5,7 @@ import { spline, type NoeudSpline } from '../../lib/mathFonctions/Spline'
 import { choice } from '../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { randint } from '../../modules/outils'
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -27,7 +27,7 @@ export const refs = {
  * Trois niveaux, trouver les signes d'une fonction affine
  * @author Jean-Claude Lhote
  */
-export default class LectureEnsebleDef extends Exercice {
+export default class LectureEnsebleDef extends ExerciceSimple {
   constructor () {
     super()
 

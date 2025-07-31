@@ -1,5 +1,5 @@
 import { ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['canTSpeAN07'],
   'fr-ch': []
 }
-export default class IntegraleAffine extends Exercice {
+export default class IntegraleAffine extends ExerciceSimple {
   constructor () {
     super()
 

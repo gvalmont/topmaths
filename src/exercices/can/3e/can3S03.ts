@@ -5,7 +5,7 @@ import {
   texFractionReduite
 } from '../../../lib/outils/deprecatedFractions'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer une probabilité'
@@ -24,7 +24,7 @@ export const refs = {
   'fr-fr': ['can3S03', 'BP2FLUC17'],
   'fr-ch': []
 }
-export default class CalculsProbabilite2 extends Exercice {
+export default class CalculsProbabilite2 extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction

@@ -4,7 +4,7 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 export const titre = 'Lire les coordonnées d\'un point dans un repère'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can2G21'],
   'fr-ch': []
 }
-export default class LectureCoordonnees extends Exercice {
+export default class LectureCoordonnees extends ExerciceSimple {
   constructor () {
     super()
 

@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un nombre à partir de son nombre de centaines, dizaines, unités'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6N03'],
   'fr-ch': []
 }
-export default class RecomposerEntierMoinsSimple extends Exercice {
+export default class RecomposerEntierMoinsSimple extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

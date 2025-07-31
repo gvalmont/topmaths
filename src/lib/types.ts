@@ -109,6 +109,7 @@ export interface InterfaceParams extends Partial<Record<string, string | number>
   sup3?: string
   sup4?: string
   sup5?: string
+  versionQcm?: '0' | '1' // pour la version QCM des exercices de type simple
   nbQuestions?: number
   duration?: number
   cols?: number

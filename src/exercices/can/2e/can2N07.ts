@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -16,7 +16,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class SuitesEv extends Exercice {
+export default class SuitesEv extends ExerciceSimple {
   constructor () {
     super()
 
@@ -40,7 +40,7 @@ export default class SuitesEv extends Exercice {
           Le $${choix}^{\\text{e}}$ nombre est donc $2\\times ${choix}=${miseEnEvidence(String(2 * n))}$.  `
         }
         break
-      case 2 :
+      case 2:
         {
           const n = randint(10, 25)
           const choix = n

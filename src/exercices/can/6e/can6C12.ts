@@ -3,7 +3,7 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le double ou le triple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6C12'],
   'fr-ch': []
 }
-export default class DoubleOuTriple extends Exercice {
+export default class DoubleOuTriple extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

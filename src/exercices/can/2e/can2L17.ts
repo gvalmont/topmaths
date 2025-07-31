@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction'
@@ -20,7 +20,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class InequationTableau extends Exercice {
+export default class InequationTableau extends ExerciceSimple {
   constructor () {
     super()
 
@@ -36,12 +36,12 @@ export default class InequationTableau extends Exercice {
     const a = randint(-10, 10, 0)
     const p = m * (-rac)
     const signe = choice(['<', '\\leqslant', '>', '\\geqslant'])
-    const fonctionAffine = (x:number) => m * x + p
+    const fonctionAffine = (x: number) => m * x + p
     const rac1 = randint(-5, 5, 0)
     const rac2 = rac1 + 2 * randint(1, 4)
     const q = new Trinome(a, a * (-rac1 - rac2), a * (rac1 * rac2))
     q.defFormeFactorisee(a, rac1, rac2)
-    const fonctionTrinome = (x:number) => a * (x - rac1) * (x - rac2)// Forme factorisée
+    const fonctionTrinome = (x: number) => a * (x - rac1) * (x - rac2)// Forme factorisée
     switch (choice([1, 2])) { //
       case 1:
         if (m > 0 && signe === '>') { this.reponse = `]${rac};+\\infty[` }
@@ -75,7 +75,7 @@ export default class InequationTableau extends Exercice {
         }
         break
 
-      case 2 :
+      case 2:
         if (a > 0 && signe === '>') { this.reponse = `]-\\infty;${rac1}[\\cup]${rac2};+\\infty[` }
         if (a > 0 && signe === '\\geqslant') { this.reponse = `]-\\infty;${rac1}]\\cup[${rac2};+\\infty[` }
         if (a > 0 && signe === '<') { this.reponse = `]${rac1}\\,;\\,${rac2}[` }

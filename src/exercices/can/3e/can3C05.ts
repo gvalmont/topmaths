@@ -1,6 +1,6 @@
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Calculer avec une puissance de 10'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can3C05'],
   'fr-ch': []
 }
-export default class CalculPuissance10 extends Exercice {
+export default class CalculPuissance10 extends ExerciceSimple {
   constructor () {
     super()
 

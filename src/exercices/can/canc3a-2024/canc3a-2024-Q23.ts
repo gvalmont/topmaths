@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -14,7 +14,7 @@ export const uuid = '43cf8'
 
 */
 
-export default class MoitieCM2 extends Exercice {
+export default class MoitieCM2 extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can4P02'],
   'fr-ch': []
 }
-export default class ProblemesDeVitesse extends Exercice {
+export default class ProblemesDeVitesse extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

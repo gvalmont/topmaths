@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can2N03'],
   'fr-ch': []
 }
-export default class IntersectionIntervalles extends Exercice {
+export default class IntersectionIntervalles extends ExerciceSimple {
   constructor () {
     super()
 
@@ -33,7 +33,7 @@ export default class IntersectionIntervalles extends Exercice {
   nouvelleVersion () {
     const cours = 'L’intersection de deux intervalles $I$ et $J$ est l’ensemble qui contient les nombres appartenant à $I$ et à $J$.<br>'
     switch (choice([1, 1, 2, 3, 4, 5, 6, 7, 8, 9])) { // 1,1,2,3,4,5,6,7,8
-      case 1 ://  [a;b] inter [c;d] avec c<b resultat [c;b]
+      case 1://  [a;b] inter [c;d] avec c<b resultat [c;b]
         {
           const a = randint(-30, -20)
           const b = randint(-10, 5)
@@ -53,7 +53,7 @@ export default class IntersectionIntervalles extends Exercice {
         }
         break
 
-      case 2 ://  [a;b] inter [c;d] avec c>b resultat vide
+      case 2://  [a;b] inter [c;d] avec c>b resultat vide
         {
           const a = randint(-30, -20)
           const b = randint(-10, 5)
@@ -94,7 +94,7 @@ export default class IntersectionIntervalles extends Exercice {
         }
         break
 
-      case 4 ://  [a;+infini] inter [c;d] avec a>c donc résultat [a;c]
+      case 4://  [a;+infini] inter [c;d] avec a>c donc résultat [a;c]
         {
           const a = randint(-5, 10)
           const c = a - randint(1, 5)
@@ -112,7 +112,7 @@ export default class IntersectionIntervalles extends Exercice {
         }
         break
 
-      case 5 ://  [a;+infini[ inter [c;d] avec a<c donc resultat [c;d]
+      case 5://  [a;+infini[ inter [c;d] avec a<c donc resultat [c;d]
         {
           const a = randint(-5, 10)
           const c = a + randint(1, 5)
@@ -130,7 +130,7 @@ export default class IntersectionIntervalles extends Exercice {
         }
         break
 
-      case 6 ://  [a;+infini[ inter [c;+infini[ avec a<c donc resultat [c;+infini[]
+      case 6://  [a;+infini[ inter [c;+infini[ avec a<c donc resultat [c;+infini[]
         {
           const a = randint(-5, 10)
           const c = a + randint(1, 5)
@@ -146,7 +146,7 @@ export default class IntersectionIntervalles extends Exercice {
         }
         break
 
-      case 7 ://  ]-infini;b] inter [c;+infini[ avec b>c donc resultat [c;b]
+      case 7://  ]-infini;b] inter [c;+infini[ avec b>c donc resultat [c;b]
         {
           const b = randint(-10, 10)
           const c = b - randint(1, 5)
@@ -163,7 +163,7 @@ export default class IntersectionIntervalles extends Exercice {
         }
         break
 
-      case 8 ://  ]-infini;b] inter [c;d] avec c>b donc resultat vide
+      case 8://  ]-infini;b] inter [c;d] avec c>b donc resultat vide
         {
           const b = randint(-10, 10)
           const c = b + randint(1, 5)
@@ -180,7 +180,7 @@ export default class IntersectionIntervalles extends Exercice {
         }
         break
 
-      case 9 ://  ]-infini;b] inter ]-infini;c] avec b<c donc resultat]-infini;b]
+      case 9://  ]-infini;b] inter ]-infini;c] avec b<c donc resultat]-infini;b]
         {
           const b = randint(-5, 10)
           const c = b + randint(1, 5)

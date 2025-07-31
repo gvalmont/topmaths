@@ -26,6 +26,7 @@ export function exportedReinit (this: Exercice) {
   this.listeCanNumerosLies = []
   this.listeArguments = []
   this.autoCorrection = []
+  this.distracteurs = []
   if (this.figures) {
     // figure APIGEOM
     this.figures.forEach(fig => {

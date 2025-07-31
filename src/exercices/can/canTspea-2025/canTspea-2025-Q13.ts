@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
@@ -20,7 +20,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2025TQ13 extends Exercice {
+export default class Can2025TQ13 extends ExerciceSimple {
   constructor () {
     super()
 
@@ -39,7 +39,7 @@ export default class Can2025TQ13 extends Exercice {
     const tolerance = 0.005
     const xMin = a
     const xMax = b
-    const tableau = tableauVariationsFonction(fonction as (x: number | FractionEtendue)=>number, derivee as (x: number | FractionEtendue)=>number, xMin, xMax, {
+    const tableau = tableauVariationsFonction(fonction as (x: number | FractionEtendue) => number, derivee as (x: number | FractionEtendue) => number, xMin, xMax, {
       step: 1,
       tolerance
     })

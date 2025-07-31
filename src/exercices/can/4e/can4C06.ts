@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Trouver le nombre de nombres entiers entre deux valeurs'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can4C06'],
   'fr-ch': []
 }
-export default class NombreDeNombresEntiersEntreDeuxValeurs extends Exercice {
+export default class NombreDeNombresEntiersEntreDeuxValeurs extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

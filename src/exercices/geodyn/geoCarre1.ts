@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 
@@ -19,7 +19,7 @@ export const refs = {
 }
 export const uuid = 'e7bad'
 
-class ConstructionCarre extends Exercice {
+class ConstructionCarre extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   constructor () {

@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Trouver un coefficient de colinéarité (graphique)'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2G16'],
   'fr-ch': []
 }
-export default class VecteursCol extends Exercice {
+export default class VecteursCol extends ExerciceSimple {
   constructor () {
     super()
 
@@ -72,19 +72,19 @@ export default class VecteursCol extends Exercice {
         this.canEnonce = `Compléter l’égalité vectorielle.<br>
       
         ` +
-       mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
-         Unite: 1.5,
-         Min: 0,
-         Max: a,
-         x: 0,
-         y: 0,
-         thickOffset: 0,
-         axeStyle: '|-',
-         pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
-         pointCouleur: 'blue',
-         labelsPrincipaux: false
+          mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
+            Unite: 1.5,
+            Min: 0,
+            Max: a,
+            x: 0,
+            y: 0,
+            thickOffset: 0,
+            axeStyle: '|-',
+            pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+            pointCouleur: 'blue',
+            labelsPrincipaux: false
 
-       }))
+          }))
 
         this.canReponseACompleter = `$\\overrightarrow{${noms[0]}${noms[1]}}= \\ldots\\overrightarrow{${noms[0]}${noms[2]}}$`
         break
@@ -119,19 +119,19 @@ export default class VecteursCol extends Exercice {
         this.canEnonce = `Compléter l’égalité vectorielle.<br>
       
       ` +
-      mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
-        Unite: 1.5,
-        Min: 0,
-        Max: a,
-        x: 0,
-        y: 0,
-        thickOffset: 0,
-        axeStyle: '|-',
-        pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
-        pointCouleur: 'blue',
-        labelsPrincipaux: false
+          mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
+            Unite: 1.5,
+            Min: 0,
+            Max: a,
+            x: 0,
+            y: 0,
+            thickOffset: 0,
+            axeStyle: '|-',
+            pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+            pointCouleur: 'blue',
+            labelsPrincipaux: false
 
-      }))
+          }))
 
         this.canReponseACompleter = `$\\overrightarrow{${noms[0]}${noms[2]}}= ....\\overrightarrow{${noms[0]}${noms[1]}}$`
 
@@ -167,19 +167,19 @@ export default class VecteursCol extends Exercice {
         this.canEnonce = `Compléter l’égalité vectorielle.<br>
       
         ` +
-        mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
-          Unite: 1.5,
-          Min: 0,
-          Max: a,
-          x: 0,
-          y: 0,
-          thickOffset: 0,
-          axeStyle: '|-',
-          pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
-          pointCouleur: 'blue',
-          labelsPrincipaux: false
+          mathalea2d({ xmin: -1, ymin: -1, xmax: 15.5, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
+            Unite: 1.5,
+            Min: 0,
+            Max: a,
+            x: 0,
+            y: 0,
+            thickOffset: 0,
+            axeStyle: '|-',
+            pointListe: [[0, `${noms[0]}`], [b, `${noms[1]}`], [a, `${noms[2]}`]],
+            pointCouleur: 'blue',
+            labelsPrincipaux: false
 
-        }))
+          }))
 
         this.canReponseACompleter = `$\\overrightarrow{${noms[0]}${noms[1]}}= ....\\overrightarrow{${noms[2]}${noms[0]}}$`
 

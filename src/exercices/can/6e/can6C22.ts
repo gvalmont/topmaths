@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { arrondi } from '../../../lib/outils/nombres'
 export const titre = 'Déterminer la valeur décimale d’une fraction'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can6C22'],
   'fr-ch': []
 }
-export default class ValeursDecimalesFractions extends Exercice {
+export default class ValeursDecimalesFractions extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

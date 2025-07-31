@@ -32,7 +32,7 @@
   <ButtonQRCode
     icon="bx-qr text-[6vw] mx-[3vw] my-2"
     tooltip="QR-code du diaporama"
-    url={document.URL}
+    customUrl={document.URL}
   />
   <ButtonIconTooltip
     icon="bx-home-alt-2 text-[6vw] mx-[3vw] my-2"

@@ -5,7 +5,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -29,7 +29,7 @@ export const refs = {
   'fr-fr': ['can1F18'],
   'fr-ch': []
 }
-export default class CalculFonctionDeriveeAsurU extends Exercice {
+export default class CalculFonctionDeriveeAsurU extends ExerciceSimple {
   constructor () {
     super()
 

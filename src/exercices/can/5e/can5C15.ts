@@ -1,7 +1,7 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Rechercher un nombre à ajouter'
 export const interactifReady = true
@@ -19,14 +19,14 @@ export const refs = {
   'fr-fr': ['can5C15'],
   'fr-ch': []
 }
-export default class NombreATrouver extends Exercice {
-  constructor () {
+export default class NombreATrouver extends ExerciceSimple {
+  constructor() {
     super()
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     const a = randint(-9, 9, 0)
     const b = randint(1, 8)
     const c = a - b

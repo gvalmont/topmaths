@@ -3,7 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can6C28'],
   'fr-ch': []
 }
-export default class PetitsProblemeDeFraction extends Exercice {
+export default class PetitsProblemeDeFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

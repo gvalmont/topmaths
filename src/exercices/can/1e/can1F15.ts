@@ -2,7 +2,7 @@ import { courbe } from '../../../lib/2d/courbes'
 import { repere } from '../../../lib/2d/reperes'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['can1F15'],
   'fr-ch': []
 }
-export default class LectureGraphiqueNombreDerivee extends Exercice {
+export default class LectureGraphiqueNombreDerivee extends ExerciceSimple {
   constructor () {
     super()
 

@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can5C26'],
   'fr-ch': []
 }
-export default class AdditionRelatifBisCAN extends Exercice {
+export default class AdditionRelatifBisCAN extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

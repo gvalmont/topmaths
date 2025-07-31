@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Déterminer le coefficient de colinéarité entre deux vecteurs'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2G09'],
   'fr-ch': []
 }
-export default class VecteursColineaires extends Exercice {
+export default class VecteursColineaires extends ExerciceSimple {
   constructor () {
     super()
 

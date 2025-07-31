@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le prochain multiple de 3 ou de 9'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can5C08'],
   'fr-ch': []
 }
-export default class ProchainMultipleDeTroisOuDeNeuf extends Exercice {
+export default class ProchainMultipleDeTroisOuDeNeuf extends ExerciceSimple {
   constructor () {
     super()
     this.nbQuestions = 1

@@ -2,7 +2,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer une somme de nombres avec des unités'
 export const dateDePublication = '05/11/2022'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['canc3M03'],
   'fr-ch': []
 }
-export default class CalculAvecUnite extends Exercice {
+export default class CalculAvecUnite extends ExerciceSimple {
   constructor () {
     super()
 

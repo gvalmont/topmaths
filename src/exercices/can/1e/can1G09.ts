@@ -7,7 +7,7 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Associer un point à un réel sur un cercle trigonométrique '
 export const interactifReady = true
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['can1G09'],
   'fr-ch': []
 }
-export default class AngleSurCercleTrigo extends Exercice {
+export default class AngleSurCercleTrigo extends ExerciceSimple {
   constructor () {
     super()
 

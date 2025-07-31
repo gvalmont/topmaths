@@ -1,9 +1,9 @@
+import { SceneViewer } from '../../3d/SceneViewer'
+import { AframeRegisteredComponent } from '../../3d/solidesAFrame'
 import type { NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
-import { Shape2D } from '../Figures2D'
 import { Shape3D, shapeCubeIso } from '../figures2d/Shape3d'
-import type { ShapeName } from '../figures2d/shapes2d'
 
-type Coord3d = [number, number, number, options?: { scale: number }]
+type Coord3d = [number, number, number, string]
 /**
  * @author Jean-Claude Lhote
  *
@@ -11,12 +11,12 @@ type Coord3d = [number, number, number, options?: { scale: number }]
 
 function filterCells (cells: Set<string>): Set<string> {
   function hasAllNeightbors (cell: string, cells: Set<string>): boolean {
-    const [x, y, z] = cell.split(',').map(Number)
+    const [x, y, z] = cell.split(';').map(Number)
     // Vérifie si toutes les cellules voisines sont présentes
     return (
-      cells.has(`${x + 1},${y},${z}`) &&
-      cells.has(`${x},${y - 1},${z}`) &&
-      cells.has(`${x},${y},${z + 1}`)
+      cells.has(`${x + 1};${y};${z}`) &&
+      cells.has(`${x};${y - 1};${z}`) &&
+      cells.has(`${x};${y};${z + 1}`)
     )
   }
   const filteredCells = new Set<string>()
@@ -30,13 +30,15 @@ function filterCells (cells: Set<string>): Set<string> {
 }
 
 export class VisualPattern3D {
-  shape: Shape3D
-  shapes: ShapeName[] // formes utilisées pour les cellules
+  shape?: Shape3D
+  shapes: string[] // formes utilisées pour les cellules
+  prefixId?: string
+  type: 'iso' | 'full3D'
   cells: Set<string> // ce sont des coordonnées sous forme de chaîne de caractères "x,y" car les ensembles ne peuvent pas contenir d'objets complexes comme des tableaux
   // on utilise un ensemble pour stocker les cellules, ce qui permet d'éviter les doublons et de faciliter la vérification de la présence d'une cellule
   // et la conversion en chaîne de caractères permet de les stocker efficacement dans un ensemble
 
-  constructor (initialCells: Coord3d[] | string[] | Set<string>, shape?: Shape2D) {
+  constructor ({ initialCells, prefixId, shapes, type }: { initialCells: Coord3d[] | string[] | Set<string>, prefixId: string, shapes: string[], type: 'iso' | 'full3D' }) {
     if (initialCells instanceof Set) {
       // si initialCells est déjà un Set, on l'utilise directement
       this.cells = initialCells
@@ -57,17 +59,13 @@ export class VisualPattern3D {
     } else {
       throw new Error('initialCells must be a Set, an array of coordinates or an array of strings')
     }
-    if (!(shape instanceof Shape3D) || shape !== undefined) {
-      this.shape = shapeCubeIso()
-      this.shapes = ['cube']
-    } else {
-      this.shape = shape
-      this.shapes = [(shape as Shape3D).name] // forme par défaut pour les cellules sans forme spécifique
-    }
+    this.type = type
+    this.shapes = shapes == null ? ['cube'] : shapes
+    this.prefixId = prefixId
   }
 
-  hasCell (x: number, y: number, z:number, scale?:number): boolean {
-    return this.cells.has(VisualPattern3D.coordToKey([x, y, z, { scale: scale ?? 1 }]))
+  hasCell (x: number, y: number, z:number, shape: string): boolean {
+    return this.cells.has(VisualPattern3D.coordToKey([x, y, z, shape]))
   }
 
   iterate3d (this: VisualPattern3D, n:number): Set<string> {
@@ -75,31 +73,62 @@ export class VisualPattern3D {
   }
 
   static coordToKey (coord: Coord3d): string {
-    return `${coord[0]};${coord[1]};${coord[2]};${coord[3]?.scale ?? 1}`
+    return `${coord[0]};${coord[1]};${coord[2]};${String(coord[3])}`
   }
 
   static keyToCoord (key: string): Coord3d {
-    const [x, y, z, scale] = key.split(';').map(Number)
-    return [x, y, z, { scale: scale ?? 1 }] as Coord3d
+    const [x, y, z, shape] = key.split(';')
+    return [Number(x), Number(y), Number(z), shape] as Coord3d
   }
 
-  render3d (n: number) {
-    let cells: Set<string> = this.cells
-    for (let i = 0; i < n; i++) {
-      const newPattern = new VisualPattern3D(cells)
-      newPattern.iterate3d = this.iterate3d.bind(newPattern)
-      cells = newPattern.iterate3d(n)
-    }
+  update3DCells (n: number) {
+    const cells = this.iterate3d(n)
     return Array.from(filterCells(cells)).map(VisualPattern3D.keyToCoord)
   }
 
-  render (n:number, dx: number, dy:number, angle:number): NestedObjetMathalea2dArray {
-    let cells: Set<string> = this.cells
-    const newPattern = new VisualPattern3D(cells)
-    newPattern.iterate3d = this.iterate3d.bind(newPattern)
-    cells = newPattern.iterate3d(n)
+  getShapeOfCell (cell: string): string {
+    const shape = VisualPattern3D.keyToCoord(cell)[3] as (typeof AframeRegisteredComponent)[number]
+    if (!AframeRegisteredComponent.includes(shape)) {
+      throw new Error(`Shape ${shape} is not a valid Aframe registered component`)
+    }
+    // on peut implémenter une logique pour choisir la forme en fonction de la position de la cellule
+    // par exemple, on peut alterner entre les formes ou choisir une forme en fonction de la position
+    // ici, on retourne simplement la première forme de la liste
+    // Pour les motifs à plusieurs formes, on peut implémenter une logique plus complexe en remplaçant cette méthode.
+    return this.shapes[0] ?? 'cube'
+  }
+
+  private getCenterOfGravity (): [number, number, number] {
+    if (this.cells.size === 0) return [0, 0, 0]
+    let sumX = 0; let sumY = 0; let sumZ = 0
+    let count = 0
+    for (const cell of this.cells) {
+      const [x, z, y] = VisualPattern3D.keyToCoord(cell)
+      sumX += x
+      sumY += y
+      sumZ += z
+      count++
+    }
+    return [sumX / count, sumY / count, -sumZ / count]
+  }
+
+  render3d (n: number): SceneViewer {
+    const scenebuilder = new SceneViewer({
+      width: 150,
+      height: 150,
+      id: `${this.prefixId}-motif-${n}`,
+      zoomLimits: { min: 3, max: 30 },
+      cameraDistance: 10,
+      fov: 60,
+      rigRotationX: -30,
+      rigRotationY: 30,
+      rigPosition: [0, 0, 0],
+      fullScreenButton: true,
+      backgroundColor: '#ffffff',
+    })
+    const cells = this.iterate3d(n)
     if (cells.size === 0) {
-      return []
+      return scenebuilder
     }
     if (cells.size > 1000) {
       console.warn('VisualPattern3d: le motif contient plus de 1000 cellules, l\'affichage peut être long')
@@ -110,13 +139,49 @@ export class VisualPattern3D {
     if (cells.size > 100000) {
       console.warn('VisualPattern3d: le motif contient plus de 100000 cellules, l\'affichage peut être très très long')
     }
-    const objets: NestedObjetMathalea2dArray = []
-    for (const cell of filterCells(cells)) {
-      const [x, y, z, options] = VisualPattern3D.keyToCoord(cell)
-      const scale = options?.scale ?? 1
+    for (const cell of cells) {
+      const position = VisualPattern3D.keyToCoord(cell)
+      const componentName = this.getShapeOfCell(cell)
+      scenebuilder.addCustomComponent({
+        position: [position[0], position[2], -position[1]], // on inverse Y et Z pour correspondre à la convention de Three.js
+        componentName,
+        componentProps: {
+          size: 1,
+          opacity: 1
+        },
+      })
+    }
+    this.cells = cells
+    const rigPosition = this.getCenterOfGravity()
+    scenebuilder.setRigPosition(rigPosition)
+    return scenebuilder
+  }
 
+  render (n:number, dx: number, dy:number, angle:number): NestedObjetMathalea2dArray {
+    let cells: Set<string> = this.cells
+    const newPattern = new VisualPattern3D({ initialCells: cells, prefixId: this.prefixId ?? '', shapes: ['cube'], type: 'iso' })
+    newPattern.iterate3d = this.iterate3d.bind(newPattern)
+    cells = newPattern.iterate3d(n)
+    const objets: NestedObjetMathalea2dArray = []
+
+    if (cells.size === 0) {
+      return objets
+    }
+    if (cells.size > 1000) {
+      console.warn('VisualPattern3d: le motif contient plus de 1000 cellules, l\'affichage peut être long')
+    }
+    if (cells.size > 10000) {
+      console.warn('VisualPattern3d: le motif contient plus de 10000 cellules, l\'affichage peut être très long')
+    }
+    if (cells.size > 100000) {
+      console.warn('VisualPattern3d: le motif contient plus de 100000 cellules, l\'affichage peut être très très long')
+    }
+    for (const cell of filterCells(cells)) {
+      const [x, y, z, shape] = VisualPattern3D.keyToCoord(cell)
+      if (this.shape == null) {
+        this.shape = shapeCubeIso(shape, 0, 0, { fillStyle: '#ffffff', strokeStyle: '#000000', lineWidth: 1, opacite: 1, scale: 1 })
+      }
       const newShape = this.shape.clone(x, y, z, angle ?? Math.PI / 6)
-      newShape.scale = scale
       newShape.updateBordures()
       objets.push(newShape)
     }
@@ -124,6 +189,6 @@ export class VisualPattern3D {
   }
 
   print (): string {
-    return Array.from(this.cells).join(';')
+    return Array.from(this.cells).map(VisualPattern3D.keyToCoord).map(coord => [coord.join(';'), this.getShapeOfCell(VisualPattern3D.coordToKey(coord))].join(':')).join('\n')
   }
 }

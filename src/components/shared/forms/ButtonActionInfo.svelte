@@ -10,6 +10,7 @@
   export let urlToDownload: string = ''
   export let fileName: string = 'mathAlea'
   export let useCurrentUrl: boolean = false
+  export let removeSeed: boolean = false
 
   export let icon: string = ''
   export let tooltip: string = ''
@@ -44,7 +45,7 @@
       contentDisplayed = 'error'
       return
     }
-    navigator.clipboard.writeText(useCurrentUrl ? buildMathAleaURL({}).toString() : textToCopy).then(
+    navigator.clipboard.writeText(useCurrentUrl ? buildMathAleaURL({removeSeed}).toString() : textToCopy).then(
       () => {
         contentDisplayed = 'success'
       },

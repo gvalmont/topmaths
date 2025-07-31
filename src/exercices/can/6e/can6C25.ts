@@ -6,7 +6,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Rechercher un prix unitaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can6C25'],
   'fr-ch': []
 }
-export default class RecherchePrix extends Exercice {
+export default class RecherchePrix extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

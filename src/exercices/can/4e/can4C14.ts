@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Augmenter un nombre d\'une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can4C14'],
   'fr-ch': []
 }
-export default class AugmenterFraction extends Exercice {
+export default class AugmenterFraction extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -31,7 +31,7 @@ export default class AugmenterFraction extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 2, 3, 4])) {
-      case 1 :// tiers
+      case 1:// tiers
         {
           const n = randint(1, 25)
 
@@ -62,7 +62,7 @@ export default class AugmenterFraction extends Exercice {
         }
         break
 
-      case 2 :// quart
+      case 2:// quart
         {
           const n = randint(1, 25)
 
@@ -92,7 +92,7 @@ export default class AugmenterFraction extends Exercice {
         }
         break
 
-      case 3 :// cinquième
+      case 3:// cinquième
         {
           const n = randint(1, 16)
 
@@ -122,7 +122,7 @@ export default class AugmenterFraction extends Exercice {
         }
         break
 
-      case 4 :// dixième
+      case 4:// dixième
         {
           const n = randint(1, 100)
 

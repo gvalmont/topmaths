@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 export const titre = 'Déterminer les coordonnées d’un vecteur (bis)'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can2G08'],
   'fr-ch': []
 }
-export default class CoordonneesVecteur2 extends Exercice {
+export default class CoordonneesVecteur2 extends ExerciceSimple {
   constructor () {
     super()
 

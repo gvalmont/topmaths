@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 
 import { Grille } from '../../../lib/2d/reperes'
@@ -17,7 +17,7 @@ export const uuid = '693b3'
  * @author Jean-Claude Lhote
 
 */
-export default class AireTrapezeRectangle extends Exercice {
+export default class AireTrapezeRectangle extends ExerciceSimple {
   constructor () {
     super()
 

@@ -7,7 +7,7 @@ import {
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
 import { fraction } from '../../../modules/fractions'
@@ -27,7 +27,7 @@ export const refs = {
   'fr-fr': ['can1F07'],
   'fr-ch': []
 }
-export default class AxeSymetrieParabole extends Exercice {
+export default class AxeSymetrieParabole extends ExerciceSimple {
   constructor () {
     super()
 

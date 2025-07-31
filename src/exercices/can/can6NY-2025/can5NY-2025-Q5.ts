@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
@@ -18,15 +18,15 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class nombreEntreDeuxValeurs extends Exercice {
-  constructor() {
+export default class nombreEntreDeuxValeurs extends ExerciceSimple {
+  constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = KeyboardType.clavierDeBase
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const valInf = new Decimal(2025).div(choice([100, 1000]))
     const valSup = choice([valInf.add(0.01), valInf.add(0.001)])
     this.reponse = {

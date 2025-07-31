@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le double ou la moitié'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6C16'],
   'fr-ch': []
 }
-export default class DoubleEtMoitie extends Exercice {
+export default class DoubleEtMoitie extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

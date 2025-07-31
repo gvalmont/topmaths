@@ -1,4 +1,4 @@
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
@@ -26,7 +26,7 @@ export const refs = {
 // Type simplifié pour la sauvegarde de la réponse
 type Coords = { label: string, x: number, y: number }
 
-class ReperagePointDuPlan extends Exercice {
+class ReperagePointDuPlan extends ExerciceSimple {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   points: Coords[] = []

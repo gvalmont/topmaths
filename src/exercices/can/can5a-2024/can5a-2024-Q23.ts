@@ -1,5 +1,5 @@
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 import { plaque3d } from '../../../lib/3d/solides'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
@@ -16,7 +16,7 @@ export const uuid = '5191d'
  * @author Jean-Claude Lhote pour la pyramide et Gilles Mora pour essayer d'en faire quelque chose de bien....
 
 */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

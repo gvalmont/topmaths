@@ -1,19 +1,10 @@
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
-import type { AutoCorrection, clickFigures, Valeur } from '../lib/interactif/gestionInteractif'
+import type { AutoCorrection, clickFigures, ReponseComplexe } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
 import type Figure from 'apigeom/src/Figure'
 import { KeyboardType, type PartialKbType } from '../lib/interactif/claviers/keyboard'
-import type FractionEtendue from '../modules/FractionEtendue'
-import type Decimal from 'decimal.js'
-import type Hms from '../modules/Hms'
-
-type Reponse = string | string[] | number | number[] | FractionEtendue | Decimal | Grandeur | Hms | Grandeur[] | Hms[] | Decimal[] | FractionEtendue[]
-// Ces types ne sont plus utiles car sont dans le type Valeur
-// type Bareme = (listePoints: number[]) => [number, number]
-// type CallbackReponse = (exercice: Exercice, question: number) => { isOk: boolean, feedback: string, score: { nbBonnesReponses: number, nbReponses: number } }
-type ReponseComplexe = Reponse | Valeur // | { champ1?: { value: Reponse }, champ2?: { value: Reponse }, bareme?: Bareme, callback?: CallbackReponse }
 
 /**
  *

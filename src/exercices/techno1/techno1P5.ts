@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
+import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Déterminer un effectif à partir d\'une proportion'
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['techno1P5'],
   'fr-ch': []
 }
-export default class Effectif extends Exercice {
+export default class Effectif extends ExerciceSimple {
   constructor () {
     super()
 

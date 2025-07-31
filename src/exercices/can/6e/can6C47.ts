@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can6C47'],
   'fr-ch': []
 }
-export default class AdditionnerAstucieusement extends Exercice {
+export default class AdditionnerAstucieusement extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { point, tracePoint } from '../../../lib/2d/points'
@@ -18,7 +18,7 @@ export const refs = {
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
 */
-export default class VecteurEgal extends Exercice {
+export default class VecteurEgal extends ExerciceSimple {
   constructor () {
     super()
 

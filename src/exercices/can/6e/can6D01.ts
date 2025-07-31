@@ -1,5 +1,5 @@
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Convertir des heures/minutes en minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const refs = {
   'fr-fr': ['can6D01'],
   'fr-ch': []
 }
-export default class ConversionHeuresEtMinutesVersMinutes extends Exercice {
+export default class ConversionHeuresEtMinutesVersMinutes extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

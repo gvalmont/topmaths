@@ -1,9 +1,7 @@
-import { emoji } from '../../lib/2d/figures2d/Emojis'
-import { emojis } from '../../lib/2d/figures2d/listeEmojis'
 import { cubeDef, faceLeft, faceRight, faceTop, project3dIso, shapeCubeIso, updateCubeIso } from '../../lib/2d/figures2d/Shape3d'
-import { listeShapesDef, shapeNames, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
+import { listeShapes2DInfos, shapeNames, type ShapeName } from '../../lib/2d/figures2d/shapes2d'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
-import { listePatternsPreDef, type PatternRiche3D, type PatternRiche, patternsRepetition } from '../../lib/2d/patterns/patternsPreDef'
+import { listePatternsPreDef, type PatternRiche3D, type PatternRiche, listePatternsRepetition, listePatternsFor6I13, type PatternRicheRepetition, listePatternsFor6I131, listePattern3d, listePatternRatio } from '../../lib/2d/patterns/patternsPreDef'
 import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
 import { texteParPosition } from '../../lib/2d/textes'
@@ -20,11 +18,10 @@ import { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
 export const titre = 'Liste des patterns stockés dans Mathaléa avec leurs numéros de référence'
 
 export const refs = {
-  'fr-fr': ['P022'],
+  'fr-fr': ['P023'],
   'fr-ch': []
 }
 export const uuid = '4c9ca'
-const listeOfAll = [...listePatternsPreDef, ...patternsRepetition].sort((a, b) => Number(a.numero) - Number(b.numero))
 
 /**
  * Dans le dossier src/lib/2d/patterns, on trouve un fichier patternsPreDef.ts
@@ -46,6 +43,8 @@ export default class ListePatternsPreDef extends Exercice {
     this.nbQuestions = 1
     this.listePackages = ['twemojis']
     this.nbQuestionsModifiable = false
+    this.besoinFormulaireNumerique = ['Liste restreinte pour la référence', 6, '1 : 6I13\n2 : 6I13-1\n3 : 6I13-2\n4 : 6I14\n5 : 5L10-5\n6 : 5P12-2']
+    this.sup = 1
     this.besoinFormulaire3Numerique = ['Nombre de motifs par pattern', 6]
     this.sup3 = 4
     this.comment = `Affiche la liste des patterns stockés dans Mathaléa avec leurs numéros de référence.<br>
@@ -57,14 +56,35 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
   }
 
   nouvelleVersion () {
+    let listePatterns: (PatternRiche | PatternRicheRepetition | PatternRiche3D)[] = []
+    switch (this.sup) {
+      case 1:
+        listePatterns = listePatternsFor6I13
+        break
+      case 2:
+        listePatterns = listePatternsFor6I131
+        break
+      case 3:
+        listePatterns = listePattern3d
+        break
+      case 4:
+        listePatterns = listePatternsRepetition
+        break
+      case 5:
+        listePatterns = listePatternsPreDef
+        break
+      case 6:
+        listePatterns = listePatternRatio
+        break
+    }
+    const listeShapes = Array.from(new Set(listePatterns.map(pat => pat.shapes).flat()))
     let texte = ''
     if (!context.isHtml) {
-      texte += `${Object.values(listeShapesDef).map(shape => shape.tikz()).join('\n')}\n`
-      texte += `${Object.entries(emojis).map(([nom, unicode]) => emoji(nom, unicode).shapeDef.tikz()).join('\n')}\n`
+      texte += `${listeShapes.map(shape => listeShapes2DInfos[shape].shapeDef.tikz()).join('\n')}\n`
     }
-    if (listeOfAll == null || listeOfAll.length === 0) return
-    for (let i = 0; i < listeOfAll.length; i++) {
-      const pat = listeOfAll[i]
+    if (listePatterns == null || listePatterns.length === 0) return
+    for (let i = 0; i < listePatterns.length; i++) {
+      const pat = listePatterns[i]
       if (pat == null) {
         texte += `\n${texteEnCouleurEtGras(`Pattern ${i + 1}`, 'red')}: ${texteEnCouleurEtGras('Pattern inexistant', 'red')}`
         continue
@@ -73,11 +93,8 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
         // On est en présence d'un motif répétitif
         const objets: NestedObjetMathalea2dArray = []
         for (const shape of pat.shapes) {
-          if (shape in listeShapesDef) {
-            objets.push(listeShapesDef[shape])
-          }
-          if (shape in emojis) {
-            objets.push(emoji(shape, emojis[shape]).shapeDef)
+          if (shape in listeShapes2DInfos) {
+            objets.push(listeShapes2DInfos[shape].shapeDef)
           }
         }
         for (let j = 0; j <= pat.nbMotifMin; j++) {
@@ -107,8 +124,8 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
 
         const patternRiche = pat
         if (context.isHtml) texte += patternRiche.visualImg != null ? `<a href="${patternRiche.visualImg}" target="_blank">Image</a><br><br>` : ''
-        const pattern = ('shapeDefault' in pat && pat.shapeDefault) ? new VisualPattern3D([]) : new VisualPattern([])
-        if (pattern instanceof VisualPattern3D) {
+        const pattern = ('iterate3d' in pat) ? new VisualPattern3D({ initialCells: [], type: 'iso', shapes: pat.shapes, prefixId: `Ex${this.numeroExercice}Q${i}` }) : new VisualPattern([])
+        if ('iterate3d' in pattern) {
           pattern.shapes = ['cube']
           pattern.iterate3d = (patternRiche as PatternRiche3D).iterate3d
         } else {
@@ -131,22 +148,20 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
           if (context.isHtml) {
             for (let n = 0; n < pattern.shapes.length; n++) {
               let name = pattern.shapes[n]
-              if (name in listeShapesDef) {
+              if (name in listeShapes2DInfos) {
                 if (name === 'carré') {
-                  const nom = String(choice(Object.keys(emojis)))
+                  const nom = String(choice(Object.keys(listeShapes2DInfos)))
                   name = nom
                   pattern.shapes[n] = nom
-                  figures[j].push(emoji(nom, emojis[nom]).shapeDef)
-                } else figures[j].push(listeShapesDef[name])
-              } else if (name in emojis) {
-                figures[j].push(emoji(name, emojis[name]).shapeDef)
-              } else {
-                if (Object.keys(emojis).includes(name)) {
-                  figures[j].push(emoji(name, emojis[name]))
-                } else if (name === 'cube') {
-                  const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`, (pattern as VisualPattern3D).shape.scale ?? 1)
-                  cubeIsoDef.svg = function (coeff: number): string {
-                    return `
+                }
+                figures[j].push(listeShapes2DInfos[name].shapeDef)
+              } else if (name === 'cube') {
+                if ((pattern as VisualPattern3D).shape == null) {
+                  (pattern as VisualPattern3D).shape = shapeCubeIso()
+                }
+                const cubeIsoDef = cubeDef(`cubeIsoQ${i}F${j}`, 1)
+                cubeIsoDef.svg = function (coeff: number): string {
+                  return `
           <defs>
             <g id="cubeIsoQ${i}F${j}">
               ${faceTop(angle)}
@@ -154,31 +169,32 @@ L'expression donnée entre crochets est la formule qui permet de calculer le nom
               ${faceRight(angle)}
             </g>
           </defs>`
-                  }
-                  figures[j].push(cubeIsoDef)
-                } else {
-                  console.warn(`Shape ${name} n'est pas dans listeShapesDef ou emojis et n'est pas un cube`)
                 }
+                figures[j].push(cubeIsoDef)
+              } else {
+                console.warn(`Shape ${name} n'est pas dans listeShapesDef ou emojis et n'est pas un cube`)
               }
             }
           }
-          if (pattern instanceof VisualPattern3D) {
+          if ('iterate3d' in pattern) {
+            if (pattern.shape == null) {
+              pattern.shape = shapeCubeIso(`cubeIsoQ${i}F${j}`, 0, 0, { fillStyle: '#ffffff', strokeStyle: '#000000', lineWidth: 1, opacite: 1, scale: 1 })
+            }
             if (context.isHtml) {
-              updateCubeIso(pattern, i, j, angle)
+              updateCubeIso({ pattern, i, j, angle, inCorrectionMode: false })
               pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
-              const cells = (pattern as VisualPattern3D).render3d(j + 1)
+              const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
               // Ajouter les SVG générés par svg() de chaque objet
               cells.forEach(cell => {
-                const scale = cell[3]?.scale ?? 1
                 const [px, py] = project3dIso(cell[0], cell[1], cell[2], angle)
-                const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, { scale })
+                const obj = shapeCubeIso(`cubeIsoQ${i}F${j}`, px, py, { scale: 1 })
                 obj.x = px / 20
                 obj.y = -py / 20
                 objets.push(obj)
-                ymin = Math.min(ymin, obj.y * scale)
-                ymax = Math.max(ymax, (obj.y + 1) * scale)
-                xmin = Math.min(xmin, obj.x * scale)
-                xmax = Math.max(xmax, (obj.x + 1) * scale)
+                ymin = Math.min(ymin, obj.y)
+                ymax = Math.max(ymax, (obj.y + 1))
+                xmin = Math.min(xmin, obj.x)
+                xmax = Math.max(xmax, (obj.x + 1))
               })
             } else {
               objets = [cubeDef(`cubeIsoQ${i}F${j}`), ...pattern.render(j + 1, 0, 0, Math.PI / 6)]

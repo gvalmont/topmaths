@@ -7,6 +7,7 @@ import { barreTexte, miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../
 import { shuffleJusquaWithIndexes } from '../amc/qcmCam'
 import type Exercice from '../../exercices/Exercice'
 import type { ButtonWithMathaleaListener } from './gestionCan'
+import type { UneProposition } from './gestionInteractif'
 
 export function verifQuestionQcm (exercice: Exercice, i: number) {
   let resultat
@@ -130,7 +131,6 @@ export function propositionsQcm (exercice: Exercice, i: number, options: { style
  * @param {number} lastChoice - L'index jusqu'auquel mélanger les éléments.
  * @returns {{shuffledArray: Array, indexes: Array}} - Le tableau mélangé et les index des anciens éléments dans le nouvel ordre.
  */
-
   const indexes = []
   let texte = ''
   let texteCorr = ''
@@ -181,26 +181,28 @@ export function propositionsQcm (exercice: Exercice, i: number, options: { style
     espace = '\\qquad '
   }
   // Mélange les propositions du QCM sauf celles à partir de lastchoice (inclus)
-  if (exercice?.autoCorrection[i]?.options !== undefined) {
-    const lastChoice = Math.min(exercice.autoCorrection[i].options.lastChoice ?? exercice.autoCorrection[i].propositions.length, exercice.autoCorrection[i].propositions.length - 1)
-    vertical = exercice.autoCorrection[i].options.vertical ?? false// est-ce qu'on veut une présentation en colonnes ?
-    nbCols =
-      (exercice.autoCorrection[i].options.nbCols ?? 1) > 1
-        ? Number(exercice.autoCorrection[i].options.nbCols)
-        : 1 // Nombre de colonnes avant de passer à la ligne
-    if (!exercice.autoCorrection[i].options.ordered) {
-      const melange = shuffleJusquaWithIndexes(
-        exercice.autoCorrection[i].propositions,
-        lastChoice
-      )
-      exercice.autoCorrection[i].propositions = melange.shuffledArray
-      indexes.push(...melange.indexes)
+  const lastChoice = Math.min(exercice.autoCorrection[i].options?.lastChoice ?? exercice.autoCorrection[i].propositions.length, exercice.autoCorrection[i].propositions.length - 1)
+  vertical = exercice.autoCorrection[i].options?.vertical ?? false// est-ce qu'on veut une présentation en colonnes ?
+  nbCols = Math.min(exercice.autoCorrection[i].options?.nbCols ?? 1, 1)
+  const isTrueFalse = exercice.autoCorrection[i].propositions.some((prop) => prop.texte === 'Vrai') && exercice.autoCorrection[i].propositions.some((prop) => prop.texte === 'Faux')
+  if (isTrueFalse) {
+    // Si on a les réponses Vrai et Faux, on les met en premier
+    const vrai = exercice.autoCorrection[i].propositions.findIndex((prop) => prop.texte === 'Vrai')
+    const faux = exercice.autoCorrection[i].propositions.findIndex((prop) => prop.texte === 'Faux')
+    if (vrai !== -1 && faux !== -1) {
+      // On les met en premier
+      const vraiProp = exercice.autoCorrection[i].propositions[vrai]
+      const fauxProp = exercice.autoCorrection[i].propositions[faux]
+      exercice.autoCorrection[i].propositions.splice(vrai, 1)
+      exercice.autoCorrection[i].propositions.splice(faux - 1, 1)
+      exercice.autoCorrection[i].propositions.unshift(fauxProp)
+      exercice.autoCorrection[i].propositions.unshift(vraiProp)
     }
-  } else {
-    // Si les options ne sont pas définies, on mélange
+  }
+  if (!exercice.autoCorrection[i].options?.ordered && !isTrueFalse) {
     const melange = shuffleJusquaWithIndexes(
       exercice.autoCorrection[i].propositions,
-      exercice.autoCorrection[i].propositions.length - 1
+      lastChoice
     )
     exercice.autoCorrection[i].propositions = melange.shuffledArray
     indexes.push(...melange.indexes)
@@ -354,12 +356,7 @@ export function exerciceQcm (exercice: Exercice) {
  * élimine en cas de doublon la proposition fausse ou la deuxième proposition si elle sont toutes les deux fausses.
  * @author Jean-Claude Lhote
  */
-type PropositionQcm = {
-  texte: string
-  statut?: boolean | number | undefined
-  feedback?: string
-}
-export function elimineDoublons (propositions: PropositionQcm[]) {
+export function elimineDoublons (propositions: UneProposition[]) {
   // fonction qui va éliminer les doublons si il y en a
   let doublonsTrouves = false
   for (let i = 0; i < propositions.length - 1; i++) {

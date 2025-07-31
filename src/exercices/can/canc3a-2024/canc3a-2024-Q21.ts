@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { DroiteGraduee } from '../../../lib/2d/reperes'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
@@ -14,7 +14,7 @@ export const uuid = '36031'
  * @author Gilles Mora (reprise du fichier de Jean-Claude Lhote 6ième)
 
 */
-export default class AbscisseEnDemisCM2 extends Exercice {
+export default class AbscisseEnDemisCM2 extends ExerciceSimple {
   constructor () {
     super()
 

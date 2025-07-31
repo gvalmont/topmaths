@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import RepereBuilder from '../../../lib/2d/RepereBuilder'
 import { Courbe, courbe, IntegraleComptable } from '../../../lib/2d/courbes'
@@ -25,7 +25,7 @@ export const refs = {
  * @author Jean-Claude Lhote
 
 */
-export default class IntegraleSurface extends Exercice {
+export default class IntegraleSurface extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -75,8 +75,8 @@ export default class IntegraleSurface extends Exercice {
       this.correction = `Un encadrement par deux entiers de $\\int_{0}^{5}f(x).dx$ est donné par les aires des zones colorées.<br>
       Sous la courbe, on a $${Math.round(aireInf / pas / pas)}$ carreaux et au-dessus de la courbe, on a $${aireSup / pas / pas}$ carreaux.<br>
       ${pas === 1
-       ? 'Comme l\'unité d\'aire est de 1 carreau'
-: 'Comme l\'unité d\'aire est de 4 carreaux'}
+          ? 'Comme l\'unité d\'aire est de 1 carreau'
+          : 'Comme l\'unité d\'aire est de 4 carreaux'}
  on obtient $${texNombre(Math.floor(aireInf), 0)}<\\int_{0}^{5}f(x).dx<${texNombre(Math.ceil(aireSup), 0)}$<br>
      
       ${figCorr1} ${figCorr2}`

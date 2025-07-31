@@ -3,7 +3,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Trouver les valeurs interdites d’une fonction'
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can2F04'],
   'fr-ch': []
 }
-export default class ValeurInterdite extends Exercice {
+export default class ValeurInterdite extends ExerciceSimple {
   constructor () {
     super()
 

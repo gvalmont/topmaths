@@ -1,5 +1,5 @@
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
@@ -19,7 +19,7 @@ export const refs = {
   'fr-fr': ['can6C36'],
   'fr-ch': []
 }
-export default class PetitsProblemeReste2 extends Exercice {
+export default class PetitsProblemeReste2 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

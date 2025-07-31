@@ -1,6 +1,6 @@
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 
-export default class Ajoute10NPlus9 extends Exercice {
+export default class Ajoute10NPlus9 extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

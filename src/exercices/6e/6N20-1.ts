@@ -12,18 +12,20 @@ import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
 import { consecutiveCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouterAide } from '../../lib/outils/enrichissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
+export const dateDeModifImportante = '21/07/2025'
 
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadrer entre 2 entiers
- * @author Rémi Angot (AMC par EE)
-
+ * @author Rémi Angot (AMC par Eric Elter)
+ * Rajout d'une correction (propre au programme 2025 de 6ème) par Eric Elter
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '1f5de'
@@ -45,10 +47,13 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
     this.correctionDetaillee = false
     this.sup2 = '11'
     this.sup3 = true
+    this.sup4 = true
     this.besoinFormulaire2Texte = this.lycee
       ? ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9\n10: mélange']
       : ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
     this.besoinFormulaire3CaseACocher = ['Brouillon interactif']
+    this.besoinFormulaire4CaseACocher = ['Correction avec nombre mixte']
+    this.spacingCorr = 2.5
   }
 
   nouvelleVersion () {
@@ -75,18 +80,18 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
     const nbDenominateursDifferents = denominateursDifferents.size
     const aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents) + 1
 
-    // this.liste_de_k = this.lycee ? combinaisonListes(rangeMinMax(-5, 5), this.nbQuestions) : combinaisonListes(rangeMinMax(0, aleaMax), this.nbQuestions)
     for (let i = 0, texte, texteCorr, n, d, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       d = this.listeDeDenominateurs[i]
       k = this.lycee ? choice(rangeMinMax(-5, 5)) : choice(rangeMinMax(0, aleaMax))
       n = k * d + randint(1, d - 1)
-      texte = remplisLesBlancs(this, i, `%{champ1} < \\dfrac{${n}}{${d}} < %{champ2}`, 'college6eme', '\\ldots')
-      texteCorr = `$${k} < \\dfrac{${n}}{${d}} < ${k + 1}$`
-      texteCorr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
-      texteCorr += '<br><br>'
+      texte = remplisLesBlancs(this, i, `%{champ1} < \\dfrac{${n}}{${d}} < %{champ2}`, KeyboardType.clavierNumbers, '\\ldots')
+      texteCorr = this.sup4
+        ? ` $\\quad \\dfrac{${n}}{${d}}=${k}+\\dfrac{${n - k * d}}{${d}}\\quad$ et $\\quad${k}<${k}+\\dfrac{${n - k * d}}{${d}}<${k + 1}$ `
+        : ` $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
+      texteCorr += `<br>donc $\\quad ${miseEnEvidence(k)} < \\dfrac{${n}}{${d}} < ${miseEnEvidence(k + 1)}$.`
       if (this.correctionDetaillee && !this.lycee && context.isHtml) {
         const representation = fraction(n, d).representation(0, 0, 3, 0, 'barre', 'blue')
-        texteCorr += mathalea2d(Object.assign({}, fixeBordures(representation)), representation)
+        texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(representation)), representation)
       }
 
       if (this.questionJamaisPosee(i, d, n)) {
@@ -97,7 +102,6 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: texteCorr,
                   statut: '',
@@ -115,7 +119,6 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',

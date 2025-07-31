@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const refs = {
   'fr-fr': ['can2P01'],
   'fr-ch': []
 }
-export default class CalculsDeProbabilites extends Exercice {
+export default class CalculsDeProbabilites extends ExerciceSimple {
   constructor () {
     super()
 

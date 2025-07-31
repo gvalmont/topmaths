@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Lire une abscisse sur une droite graduée avec des grands nombres'
@@ -22,7 +22,7 @@ export const refs = {
   'fr-fr': ['can6N16'],
   'fr-ch': []
 }
-export default class AbscisseDroiteEntiers extends Exercice {
+export default class AbscisseDroiteEntiers extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

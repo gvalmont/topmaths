@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Multiplier astucieusement'
 export const interactifReady = true
@@ -23,7 +23,7 @@ export const refs = {
   'fr-ch': []
 }
 
-export default class MultiplierAstucieusement extends Exercice {
+export default class MultiplierAstucieusement extends ExerciceSimple {
   constructor () {
     super()
     this.typeExercice = 'simple'

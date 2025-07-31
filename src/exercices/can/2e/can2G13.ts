@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer la norme d’un vecteur'
@@ -23,7 +23,7 @@ export const refs = {
   'fr-fr': ['can2G13'],
   'fr-ch': []
 }
-export default class NormeVecteur extends Exercice {
+export default class NormeVecteur extends ExerciceSimple {
   constructor () {
     super()
     this.formatChampTexte = KeyboardType.clavierFullOperations

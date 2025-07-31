@@ -1,5 +1,5 @@
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
 export const titre = 'Simplifier un taux de variation'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const refs = {
   'fr-fr': ['can1L10'],
   'fr-ch': []
 }
-export default class SimplifierTauxVariations extends Exercice {
+export default class SimplifierTauxVariations extends ExerciceSimple {
   constructor () {
     super()
 

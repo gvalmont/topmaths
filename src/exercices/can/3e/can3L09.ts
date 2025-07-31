@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class ReduireAvecParentheses extends Exercice {
+export default class ReduireAvecParentheses extends ExerciceSimple {
   constructor () {
     super()
 
@@ -30,7 +30,7 @@ export default class ReduireAvecParentheses extends Exercice {
 
   nouvelleVersion () {
     switch (choice([1, 2])) {
-      case 1 :// ax+(cx+d) ou a+(cx+d)
+      case 1:// ax+(cx+d) ou a+(cx+d)
         {
           const variable = choice(['x', 'y', 'a', 'b', 'n'])
           const a = randint(-10, 10, 0)
@@ -49,7 +49,7 @@ export default class ReduireAvecParentheses extends Exercice {
           \\end{aligned}$`
         }
         break
-      case 2 :// ax-(cx+d) ou a-(cx+d)
+      case 2:// ax-(cx+d) ou a-(cx+d)
         {
           const variable = choice(['x', 'y', 'a', 'b', 'n'])
           const a = randint(-10, 10, 0)

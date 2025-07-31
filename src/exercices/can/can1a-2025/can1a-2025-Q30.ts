@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice'
+import ExerciceSimple from '../../ExerciceSimple'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
@@ -19,7 +19,7 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2025N5Q30 extends Exercice {
+export default class Can2025N5Q30 extends ExerciceSimple {
   constructor () {
     super()
 
@@ -97,13 +97,13 @@ export default class Can2025N5Q30 extends Exercice {
     this.question = '$A$ et $B$ sont deux événements tels que :<br>'
     this.question += (context.isHtml)
       ? mathalea2d({
-          xmin: -0.1,
-          xmax: 14,
-          ymin: -1,
-          ymax: 7,
-          style: 'inline',
-          scale: 0.5
-        }, ...objets)
+        xmin: -0.1,
+        xmax: 14,
+        ymin: -1,
+        ymax: 7,
+        style: 'inline',
+        scale: 0.5
+      }, ...objets)
       : arbreProfCollege
 
     if (this.interactif) {
