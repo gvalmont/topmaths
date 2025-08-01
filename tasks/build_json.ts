@@ -32,6 +32,7 @@ let warningCount = 0
 let exerciseNumber = 1
 const ancestorsCache = new Map<string, ObjectiveAncestorWithStringReference[]>()
 const descendantsCache = new Map<string, ObjectiveDescendantWithStringReference[]>()
+const unlinkedAutomaticities: (string | undefined)[] = []
 const curriculum = buildCurriculum()
 const units: UnitWithStringReference[] = buildUnits()
 const objectives: ObjectiveWithStringReference[] = buildObjectives()
@@ -42,7 +43,6 @@ const glossary = buildGlossary()
 const calendar = buildCalendar()
 const examExercises = buildExamExercises(units)
 routineCheck()
-console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
 // synchronise them with build_prepare.ts
 writeJson('built_objectives', objectives)
 writeJson('built_units', units)
@@ -158,6 +158,7 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           objective.exercises = buildExercises(objective.reference, objective.exercises)
           objective.exercisesLink = buildLinkFromSlugs(objective.exercises.map(exercise => exercise?.slug))
           objective.grade = grade.name
+          objective.isAutomaticity = objective.isAutomaticity ?? false
           objective.lessonPlans = objective.lessonPlans ? objective.lessonPlans.map(lessonPlan => buildObjectiveLessonPlan(lessonPlan)) : []
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = objective.lessonSummaryImage ? '../topmaths/img/' + objective.lessonSummaryImage : ''
@@ -212,6 +213,7 @@ function updateObjectives (): void {
       }
       prerequisite.title = prerequisiteObjective.title
       prerequisite.titleAcademic = prerequisiteObjective.titleAcademic
+      prerequisite.isAutomaticity = prerequisiteObjective.isAutomaticity
     })
   })
 }
@@ -243,6 +245,7 @@ function buildGlossary (): GlossaryUniteItemWithStringReference[] {
   const glossaryMasterItems = formattedMasterDefinitions.concat(formattedMasterProperties)
   const glossaryUniteItems = glossaryMasterItems.map(buildGlossaryUniteItems).flat()
   updateRelatedItems(glossaryUniteItems)
+  checkRelatedObjectives(glossaryUniteItems)
   glossaryUniteItems.forEach(item => item.relatedItems.sort(comparerTitres))
   glossaryUniteItems.sort(comparerTitres)
   if (!isGlossaryUniteItemsWithStringReference(glossaryUniteItems)) {
@@ -348,6 +351,15 @@ function updateRelatedItems (items: GlossaryUniteItemWithStringReference[]): voi
     relatedItem1.title = item2.title
     if (!item2.relatedItems.find(relatedItem2 => relatedItem2.reference === item1.reference)) {
       item2.relatedItems.push({ reference: item1.reference, title: item1.title })
+    }
+  }))
+}
+
+function checkRelatedObjectives (items: GlossaryUniteItemWithStringReference[]): void {
+  items.forEach(item => item.relatedObjectives.forEach(relatedObjective => {
+    const objective = objectives.find(objective => objective.reference === relatedObjective)
+    if (!objective) {
+      throw new Error(`Glossary ${item.type} related objective ${relatedObjective} not found in objectives`)
     }
   }))
 }
@@ -499,6 +511,9 @@ function routineCheck (): void {
   checkPrivacyPolicyThirdPartyWebsites()
   checkDuplicatesExamExercises()
   checkMathaleaFullLinks()
+  console.warn(warningCount + ' warning' + (warningCount > 1 ? 's' : ''))
+  console.warn(unlinkedAutomaticities.length + ' automaticities not linked to a unit')
+  console.warn(unlinkedAutomaticities)
 }
 
 function buildUnitReference (unit: RecursivePartial<Unit>): string {
@@ -523,6 +538,7 @@ function buildObjectivePrerequisites (objective: RecursivePartial<TuplesToArrays
       if (prerequisite === undefined) throw new Error('Prerequisite is undefined')
       prerequisite.title = ''
       prerequisite.titleAcademic = ''
+      prerequisite.isAutomaticity = false
       return prerequisite
     })
   if (!isObjectivePrerequisitesWithStringReference(objective.prerequisites)) {
@@ -537,8 +553,13 @@ function findTerm (objective: RecursivePartial<TuplesToArraysRecursive<UnitObjec
     .find(unit => unit.objectives
       .find(unitObjective => unitObjective.reference === objective.reference))
   if (!unit) {
-    console.error(objective.reference)
-    throw new Error('Unit corresponding to objective not found')
+    if (objective.isAutomaticity) {
+      unlinkedAutomaticities.push(objective.reference)
+      return 0
+    } else {
+      console.error(objective.reference)
+      throw new Error('Unit corresponding to objective not found')
+    }
   }
   return unit.term
 }
@@ -649,6 +670,7 @@ function updateUnitObjectives (unit: UnitWithStringReference): void {
     unitObjective.title = objective.title
     unitObjective.exercises = objective.exercises
     unitObjective.examExercises = objective.examExercises
+    unitObjective.isAutomaticity = objective.isAutomaticity
     unitObjective.theme = objective.theme
     unitObjective.grade = objective.grade
     unitObjective.lessonPlans = buildUnitLessonPlans(objective, unit.grade)

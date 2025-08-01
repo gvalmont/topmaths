@@ -22,6 +22,7 @@ export function buildThemeFromReference (reference: ObjectiveReference): 'nombre
   if (lettre === 'G') return 'geo'
   if (lettre === 'M') return 'grandeurs'
   if (lettre === 'P' || lettre === 'S') return 'gestion'
+  if (lettre === 'I') return 'algo'
   console.warn('Thème lié à la référence', reference, 'non trouvé')
   return 'nombres'
 }

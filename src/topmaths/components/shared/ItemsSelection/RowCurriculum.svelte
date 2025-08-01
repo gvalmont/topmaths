@@ -71,4 +71,5 @@
   @include theme-style('is-theme-gestion', #9f84e4, #c6b9e7);
   @include theme-style('is-theme-grandeurs', #deb273, #ffddaf);
   @include theme-style('is-theme-geo', #7bd9ec, #aff2ff);
+  @include theme-style('is-theme-algo', #ded273, #fffbbb);
 </style>

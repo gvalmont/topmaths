@@ -222,13 +222,15 @@ export const emptySlugsWithSeedType: SlugsWithSeed = ['', '', '']
 export type ObjectivePrerequisite = {
   title: string,
   titleAcademic: string,
-  objectiveReference: ObjectiveReference
+  objectiveReference: ObjectiveReference,
+  isAutomaticity: boolean
 }
 export function isObjectivePrerequisite (obj: unknown, withStringReference: boolean = false): obj is ObjectivePrerequisite {
   if (obj == null || typeof obj !== 'object') return false
   return 'title' in obj && typeof obj.title === 'string' &&
     'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
-    'objectiveReference' in obj && (withStringReference ? typeof obj.objectiveReference === 'string' : isObjectiveReference(obj.objectiveReference))
+    'objectiveReference' in obj && (withStringReference ? typeof obj.objectiveReference === 'string' : isObjectiveReference(obj.objectiveReference)) &&
+    'isAutomaticity' in obj && typeof obj.isAutomaticity === 'boolean'
 }
 export function isObjectivePrerequisites (obj: unknown, withStringReference: boolean = false): obj is ObjectivePrerequisite[] {
   if (obj == null || !Array.isArray(obj)) return false
@@ -237,7 +239,8 @@ export function isObjectivePrerequisites (obj: unknown, withStringReference: boo
 export const emptyObjectivePrerequisite: ObjectivePrerequisite = {
   title: '',
   titleAcademic: '',
-  objectiveReference: emptyObjectiveReference
+  objectiveReference: emptyObjectiveReference,
+  isAutomaticity: false
 }
 
 export type ObjectivePrerequisiteWithStringReference = ReplaceReferencesByStrings<UnitReference, ReplaceReferencesByStrings<ObjectiveReference, ObjectivePrerequisite>>
@@ -298,6 +301,7 @@ export type Objective = {
   exercises: ObjectiveExercise[],
   exercisesLink: string,
   grade: StringGrade,
+  isAutomaticity: boolean,
   lessonPlans: ObjectiveLessonPlan[],
   lessonSummaryHTML: string,
   lessonSummaryImage: string,
@@ -325,6 +329,7 @@ export function isObjective (obj: unknown, withStringReference: boolean = false)
     'exercises' in obj && isObjectiveExercises(obj.exercises) &&
     'exercisesLink' in obj && typeof obj.exercisesLink === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
+    'isAutomaticity' in obj && typeof obj.isAutomaticity === 'boolean' &&
     'lessonPlans' in obj && isObjectiveLessonPlans(obj.lessonPlans) &&
     'lessonSummaryHTML' in obj && typeof obj.lessonSummaryHTML === 'string' &&
     'lessonSummaryImage' in obj && typeof obj.lessonSummaryImage === 'string' &&
@@ -355,6 +360,7 @@ export const emptyObjective: Objective = { // keep in sync with build_prepare.ts
   exercises: [],
   exercisesLink: '',
   grade: DEFAULT_GRADE,
+  isAutomaticity: false,
   lessonPlans: [],
   lessonSummaryHTML: '',
   lessonSummaryImage: '',

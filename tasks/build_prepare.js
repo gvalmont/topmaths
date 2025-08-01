@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-const emptyObjectiveReference = '6C10' // keep in sync with objective.ts
+const emptyObjectiveReference = '6N1A' // keep in sync with objective.ts
 
 const emptyObjective = { // keep in sync with objective.ts
   downloadLinks: {

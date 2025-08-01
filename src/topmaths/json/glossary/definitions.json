@@ -6,11 +6,7 @@
     ],
     "content": "Deux [[droites sécantes]] sont deux droites qui ont un seul point en commun.<br>Le point commun à deux droites sécantes est appelé leur [[point d'intersection]].",
     "keywords": [],
-    "relatedObjectives": [
-      "6G10",
-      "6G11",
-      "6G12"
-    ],
+    "relatedObjectives": [],
     "relatedItems": [
       {
         "reference": "droites-perpendiculaires",
@@ -33,11 +29,7 @@
       "sécantes",
       "angle droit"
     ],
-    "relatedObjectives": [
-      "6G10",
-      "6G11",
-      "6G12"
-    ],
+    "relatedObjectives": [],
     "relatedItems": []
   },
   {
@@ -52,11 +44,7 @@
     "keywords": [
       "sécantes"
     ],
-    "relatedObjectives": [
-      "6G10",
-      "6G11",
-      "6G12"
-    ],
+    "relatedObjectives": [],
     "relatedItems": [
       {
         "reference": "droites-confondues"
@@ -75,9 +63,7 @@
       "sécantes",
       "parallèles"
     ],
-    "relatedObjectives": [
-      "6G12"
-    ],
+    "relatedObjectives": [],
     "relatedItems": []
   },
   {
@@ -94,10 +80,9 @@
       "centre"
     ],
     "relatedObjectives": [
-      "6G20"
+      "6G2A"
     ],
-    "relatedItems": [
-    ]
+    "relatedItems": []
   },
   {
     "titles": [
@@ -112,7 +97,7 @@
       "diamètre"
     ],
     "relatedObjectives": [
-      "6G20"
+      "6G2A"
     ],
     "relatedItems": [
       {
@@ -136,7 +121,7 @@
       "diametre"
     ],
     "relatedObjectives": [
-      "6G20"
+      "6G2A"
     ],
     "relatedItems": [
       {
@@ -160,7 +145,7 @@
       "cercle"
     ],
     "relatedObjectives": [
-      "6G20"
+      "6G2A"
     ],
     "relatedItems": [
       {
@@ -183,7 +168,7 @@
       "cercle"
     ],
     "relatedObjectives": [
-      "6G20"
+      "6G2A"
     ],
     "relatedItems": [
       {
@@ -207,8 +192,7 @@
       "plus grand"
     ],
     "relatedObjectives": [
-      "6N11",
-      "6N21"
+      "6N1I"
     ],
     "relatedItems": [
       {
@@ -231,8 +215,7 @@
     "exemples": [],
     "keywords": [],
     "relatedObjectives": [
-      "6N11",
-      "6N21"
+      "6N1J"
     ],
     "relatedItems": []
   },
@@ -255,8 +238,7 @@
       "centième"
     ],
     "relatedObjectives": [
-      "6N11",
-      "6N21"
+      "6N1M"
     ],
     "relatedItems": [
       {
@@ -276,8 +258,7 @@
     ],
     "keywords": [],
     "relatedObjectives": [
-      "6N11",
-      "6N21"
+      "6N1M"
     ],
     "relatedItems": []
   },
@@ -292,7 +273,7 @@
       "dénominateur"
     ],
     "relatedObjectives": [
-      "6N31"
+      "6N3A"
     ],
     "relatedItems": [
       {
@@ -315,7 +296,7 @@
       "1000"
     ],
     "relatedObjectives": [
-      "6N31"
+      "6N1D"
     ],
     "relatedItems": [
       {
@@ -340,7 +321,8 @@
       "écriture"
     ],
     "relatedObjectives": [
-      "6N31"
+      "6N1D",
+      "6N1F"
     ],
     "relatedItems": [
       {
@@ -366,9 +348,7 @@
     "keywords": [
       "décimal"
     ],
-    "relatedObjectives": [
-      "6N31"
-    ],
+    "relatedObjectives": [],
     "relatedItems": []
   },
   {
@@ -384,9 +364,7 @@
       "La partie décimale de 27,31 est 0,31."
     ],
     "keywords": [],
-    "relatedObjectives": [
-      "6N31"
-    ],
+    "relatedObjectives": [],
     "relatedItems": []
   },
   {
@@ -401,9 +379,7 @@
       "A et B"
     ],
     "keywords": [],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": [
       {
         "reference": "points-confondus"
@@ -422,9 +398,7 @@
       "A et B"
     ],
     "keywords": [],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": []
   },
   {
@@ -439,9 +413,7 @@
       "(AB)"
     ],
     "keywords": [],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": [
       {
         "reference": "demi-droite"
@@ -475,9 +447,7 @@
       "[AB)"
     ],
     "keywords": [],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": []
   },
   {
@@ -492,9 +462,7 @@
       "[AB]"
     ],
     "keywords": [],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": [
       {
         "reference": "extremites"
@@ -514,9 +482,7 @@
       "Les extrémités du segment [AB] sont les points A et B."
     ],
     "keywords": [],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": []
   },
   {
@@ -528,7 +494,7 @@
     "exemples": [],
     "keywords": [],
     "relatedObjectives": [
-      "6G10"
+      "6G1B"
     ],
     "relatedItems": []
   },
@@ -546,9 +512,7 @@
     "keywords": [
       "droite"
     ],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": [
       {
         "reference": "droite"
@@ -563,9 +527,7 @@
     "comments": [],
     "exemples": [],
     "keywords": [],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": [
       {
         "reference": "segment"
@@ -583,9 +545,7 @@
     "comments": [],
     "exemples": [],
     "keywords": [],
-    "relatedObjectives": [
-      "6G10"
-    ],
+    "relatedObjectives": [],
     "relatedItems": []
   }
 ]

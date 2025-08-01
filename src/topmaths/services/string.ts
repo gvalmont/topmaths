@@ -13,9 +13,13 @@ export function normalize (str: string): string {
 }
 
 export function getTitle (objective: ObjectiveWithStringReference | ReplaceReferencesByStrings<ObjectiveReference, UnitObjective> | ObjectivePrerequisite): string {
+  let title = objective.title
+  let appendix = ''
   if (get(isTitleAcademicPreferred) || !objective.title) {
-    return objective.titleAcademic
-  } else {
-    return objective.title
+    title = objective.titleAcademic
   }
+  if (objective.isAutomaticity) {
+    appendix += ' ⚡️'
+  }
+  return title + appendix
 }

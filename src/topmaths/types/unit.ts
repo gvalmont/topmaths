@@ -40,51 +40,54 @@ export const emptyUnitLessonPlan: UnitLessonPlan = { // Cannot access 'emptyObje
   teacherMaterialsNeeded: [],
   grades: [],
   comments: [],
-  objectiveReference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
+  objectiveReference: '6N1A', // Cannot access 'emptyObjectiveReference' before initialization
   objectiveTitle: '',
   reference: ''
 }
 
 export type UnitObjective = {
-  reference: ObjectiveReference,
-  titleAcademic: string,
-  title: string,
-  exercises: ObjectiveExercise[],
+  descendantsCount: number,
   examExercises: ObjectiveExercise[],
-  theme: string,
+  exercises: ObjectiveExercise[],
   grade: StringGrade,
+  isAutomaticity: boolean,
   lessonPlans: UnitLessonPlan[],
   prerequisites: ObjectivePrerequisite[],
-  descendantsCount: number,
+  reference: ObjectiveReference,
+  theme: string,
+  title: string,
+  titleAcademic: string
 }
 export function isUnitObjective (obj: unknown, withStringReference: boolean = false): obj is UnitObjective {
   if (obj == null || typeof obj !== 'object') return false
-  return 'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
-    'titleAcademic' in obj && typeof obj.titleAcademic === 'string' &&
-    'title' in obj && typeof obj.title === 'string' &&
-    'exercises' in obj && isObjectiveExercises(obj.exercises) &&
+  return 'descendantsCount' in obj && typeof obj.descendantsCount === 'number' &&
     'examExercises' in obj && isObjectiveExercises(obj.examExercises) &&
-    'theme' in obj && typeof obj.theme === 'string' &&
+    'exercises' in obj && isObjectiveExercises(obj.exercises) &&
     'grade' in obj && isStringGrade(obj.grade) &&
+    'isAutomaticity' in obj && typeof obj.isAutomaticity === 'boolean' &&
     'lessonPlans' in obj && isUnitLessonPlans(obj.lessonPlans) &&
     'prerequisites' in obj && isObjectivePrerequisites(obj.prerequisites) &&
-    'descendantsCount' in obj && typeof obj.descendantsCount === 'number'
+    'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
+    'theme' in obj && typeof obj.theme === 'string' &&
+    'title' in obj && typeof obj.title === 'string' &&
+    'titleAcademic' in obj && typeof obj.titleAcademic === 'string'
 }
 export function isUnitObjectives (obj: unknown, withStringReference: boolean = false): obj is UnitObjective[] {
   if (obj == null || !Array.isArray(obj)) return false
   return obj.every(obj => isUnitObjective(obj, withStringReference))
 }
 export const emptyUnitObjective: UnitObjective = {
-  reference: '6C10', // Cannot access 'emptyObjectiveReference' before initialization
-  titleAcademic: '',
-  title: '',
-  exercises: [],
+  descendantsCount: 0,
   examExercises: [],
-  theme: '',
+  exercises: [],
   grade: DEFAULT_GRADE,
+  isAutomaticity: false,
   lessonPlans: [],
   prerequisites: [],
-  descendantsCount: 0
+  reference: '6N1A', // Cannot access 'emptyObjectiveReference' before initialization
+  theme: '',
+  title: '',
+  titleAcademic: '',
 }
 
 export type UnitDownloadLinks = {
