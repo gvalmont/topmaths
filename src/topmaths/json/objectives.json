@@ -11,42 +11,68 @@
               {
                 "reference": "6N1A",
                 "titleAcademic": "Connaître et utiliser la valeur des chiffres selon leur rang dans l'écriture d'un nombre",
-                "title": "",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
-                "videos": [
-                  {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "",
-                    "description": ""
-                  }
-                ]
+                "title": ""
               },
               {
                 "reference": "6N1B",
                 "titleAcademic": "Connaître les liens entre les unités de numération unité, dizaine, centaine, millier, dixième, centième, millième",
                 "title": "Connaître les liens entre les unités de numération",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "<b><u>Définitions :</u></b><br>Une <b><i>fraction décimale</i></b> est une fraction qui a pour <i>dénominateur</i> $10$, $100$, $1\\, 000$ etc.<br>Un <b><i>nombre décimal</i></b> est un nombre qui peut s'écrire sous la forme d'une fraction décimale.<br><br>Pour utiliser différentes écritures d'un nombre décimal, on peut s'aider du tableau de numération et se rappeler que :<br>- un dixième = $\\cfrac{1}{10}$ <br>- un centième = $\\cfrac{1}{100}$ <br>- un millième = $\\cfrac{1}{1000}$ <br>Par exemple, $7$ unités et $3$ centièmes correspondent à $7 + \\cfrac{3}{100} = \\cfrac{703}{100} = 7,03$ <br>Vous pouvez le vérifier dans le tableau ci-dessous ! <br><iframe width='600px' height='450px' src='/topmaths/data/tableau-ecriture-decimale.html'></iframe>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Écrire en lettres un nombre décimal",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mybEQfCJFD0&vignette=https://i.ytimg.com/vi/mybEQfCJFD0/hqdefault.jpg&debut=0&fin=580&largeur=200&hauteur=150",
+                    "authorName": "La classe de Marion",
+                    "authorLink": "https://www.youtube.com/channel/UC1CNz6Kh6hrER1lVD_vwzPg"
+                  },
+                  {
+                    "title": "Passer d'une écriture fractionnaire à l'écriture décimale",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=i75HKdds3Gc&vignette=https://i.ytimg.com/vi/i75HKdds3Gc/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6N23-4,s=1-2-3,n=3",
+                    "description": "Donner l'écriture décimale d'un nombre écrit en lettres"
+                  },
+                  {
+                    "slug": "6N23-0,s=1,s2=1,s3=2,n=4",
+                    "description": "Écrire en lettres un nombre décimal"
+                  },
+                  {
+                    "slug": "6N23-1,s=8,n=4",
+                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale en décomposant"
+                  },
+                  {
+                    "slug": "6N23,n=4",
+                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale directement"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicitte des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N1B"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Rappel des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N1B",
+                          "Enseignement explicite du 4e exercice",
+                          "https://create.kahoot.it/details/e18d795c-e4ab-4565-b3c8-e73c1e47beec",
+                          "#rouge()[Repasser sur le kahoot pour mélanger les questions]"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -54,20 +80,39 @@
                 "reference": "6N1C",
                 "titleAcademic": "Connaître des grands nombres entiers",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "En France, on écrit les grand nombres en faisant des \"paquets de 3\" qu'on appelle des <i>classes</i><br>Il y a la <i>classe des unités</i>, la <i>classe des milliers</i>, la <i>classe des millions</i> etc.<br><img src='/topmaths/img/tableau-de-numeration-entiers.png' /><br><br>Pour écrire un nombre en chiffres, il y a quelques règles à connaître :<ul><li>On place un <i>trait d'union entre tous les mots</i> qui composent le nombre.</li><li><i>Vingt et cent s'accordent</i> au pluriel lorsqu'ils ne sont <i><b>pas suivis</b> d'un autre nombre</i></li><li><i>Mille est invariable</i> (il ne s'accorde jamais)</li><li><i>Million et milliard s'accordent</i> au pluriel</li></ul>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2dZyuZrov5M&vignette=https://i.ytimg.com/vi/2dZyuZrov5M/hqdefault.jpg&debut=0&fin=198&largeur=200&hauteur=113",
+                    "authorName": "Khan Academy",
+                    "authorLink": "https://www.youtube.com/c/KhanAcademyFrancais"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6N10-4,n=2",
+                    "description": "Écrire correctement les grand nombres entiers"
+                  },
+                  {
+                    "slug": "6N10,s=5-6-7-8,s2=0,s3=2,n=2",
+                    "description": "Écrire un nombre en chiffres"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de deux premiers exercices de https://topmaths.fr/?v=objective&ref=6N1C"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -96,20 +141,50 @@
                 "reference": "6N1E",
                 "titleAcademic": "Connaître la définition d'un pourcentage",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Au lieu d'écrire \"sur 100\", on peut écrire \"%\".<br><br>Par exemple : $ \\cfrac{35}{100} = 35 \\% $ <br><br>On peut alors passer de l'écriture décimale à l'écriture en pourcentage en multipliant par 100.<br><br>Par exemple : $0{,}513 = 51{,}3 \\%$<br><br>(car $0{,}513 = \\cfrac{0{,}513 \\times 100}{100} = \\cfrac{51{,}3}{100} = 51{,}3 \\%$)",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=Q9Qg8wOaM64&vignette=https://i.ytimg.com/vi/Q9Qg8wOaM64/hqdefault.jpg&debut=0&fin=144&largeur=200&hauteur=150",
+                    "authorName": "Genevieve Beaudet",
+                    "authorLink": "https://www.youtube.com/channel/UCTkDV8ARPyfjFcwYFoLZuMg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "5N11-3,s=2,n=2",
+                    "description": "Définition d'un pourcentage"
+                  },
+                  {
+                    "slug": "5N11-4,s=2,n=2",
+                    "description": "Écrire une fraction sous la forme d'un pourcentage"
+                  },
+                  {
+                    "slug": "can5P02,s=1,n=2",
+                    "description": "Déterminer un pourcentage de proportion"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes",
+                      "6P16_Presentation"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage de la définition de pourcentage",
+                          "Noter le cours",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N1E",
+                          "Kahoot : https://create.kahoot.it/details/a20ca179-7920-471b-9baf-19243758a82f"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -154,7 +229,7 @@
                         "steps": [
                           "Apprentissage de la définition de pourcentage",
                           "Noter le cours",
-                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6P16",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N1F",
                           "Kahoot : https://create.kahoot.it/details/a20ca179-7920-471b-9baf-19243758a82f"
                         ]
                       }
@@ -170,18 +245,49 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N31"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=tO-2usFPbR4&vignette=https://i.ytimg.com/vi/tO-2usFPbR4/hqdefault.jpg&debut=0&fin=280&largeur=200&hauteur=150",
+                    "authorName": "Soledad GARNIER",
+                    "authorLink": "https://www.youtube.com/@MmeFlip"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6N30-2,s=4,n=3",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "1 tablette par élève",
+                      "QR Code du lien ci-dessous généré grâce à https://www.the-qrcode-generator.com/ par exemple",
+                      "https://topmaths.fr/?uuid=e528e&id=6N30-2&n=3&s=4&i=1&v=eleve"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "En groupe",
+                          "Distribuer les tablettes",
+                          "Tout le monde scanne le code",
+                          "On s'assure qu'on a tous la même page aux variables près et qu'on va rester sur cette page pendant toute l'heure",
+                          "Apprentissage explicite du premier exercice",
+                          "Ils s'entraînent, quand c'est trop facile ils me font une démonstration et si elle est concluante ils peuvent aller aider les autres",
+                          "Quand tout le monde y arrive on fait pareil pour l'exercice suivant, puis celui d'après"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -191,18 +297,49 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N31"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=tO-2usFPbR4&vignette=https://i.ytimg.com/vi/tO-2usFPbR4/hqdefault.jpg&debut=0&fin=280&largeur=200&hauteur=150",
+                    "authorName": "Soledad GARNIER",
+                    "authorLink": "https://www.youtube.com/@MmeFlip"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6N30,s=4,n=3",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "1 tablette par élève",
+                      "QR Code du lien ci-dessous généré grâce à https://www.the-qrcode-generator.com/ par exemple",
+                      "https://topmaths.fr/?uuid=c1888&id=6N30&n=3&s=4&i=1&uuid=8418e&id=6N30-1&n=3&s=3-4-5&i=1&v=eleve"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "En groupe",
+                          "Distribuer les tablettes",
+                          "Tout le monde scanne le code",
+                          "On s'assure qu'on a tous la même page aux variables près et qu'on va rester sur cette page pendant toute l'heure",
+                          "Apprentissage explicite du premier exercice",
+                          "Ils s'entraînent, quand c'est trop facile ils me font une démonstration et si elle est concluante ils peuvent aller aider les autres",
+                          "Quand tout le monde y arrive on fait pareil pour l'exercice suivant, puis celui d'après"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -212,18 +349,43 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=fr5GemewG4Q&vignette=https://i.ytimg.com/vi/fr5GemewG4Q/hqdefault.jpg&debut=0&fin=316&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6N31,n=4",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "",
+                        "steps": [
+                          "Apprentissage explicite du premier exercice de https://topmaths.fr/?v=objective&ref=6N1I",
+                          "#link(\"https://create.kahoot.it/details/9fb1044c-1541-4336-9cd7-8fdc532df304\")[Kahoot]"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -233,18 +395,42 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N20"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=V5fOpdx53R4&vignette=https://i.ytimg.com/vi/V5fOpdx53R4/hqdefault.jpg&debut=0&fin=457&largeur=200&hauteur=113",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "uuid=15ece&id=6N31-7&n=1&d=10&s=3&s2=true&cd=1",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "",
+                        "steps": [
+                          "Apprentissage explicite du 4e exercice de https://topmaths.fr/?v=objective&ref=6N1J"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -296,18 +482,48 @@
                 "title": "Encadrer, intercaler un nombre décimal",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Encadrer",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=B_U6DOnB-0o&vignette=https://i.ytimg.com/vi/B_U6DOnB-0o/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  },
+                  {
+                    "title": "Intercaler",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=sXSS3Gmq3q4&vignette=https://i.ytimg.com/vi/sXSS3Gmq3q4/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6N31-5,s=1-2-3,n=4",
+                    "description": "Encadrer"
+                  },
+                  {
+                    "slug": "6N31-4,n=4",
+                    "description": "Intercaler"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "title": "",
+                        "steps": [
+                          "Apprentissage explicite du 2e et du 3e exercice de https://topmaths.fr/?v=objective&ref=6N1M"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               }
@@ -320,19 +536,26 @@
                 "reference": "6N2A",
                 "titleAcademic": "Additionner et soustraire des nombres décimaux",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Pour additionner ou soustraire des nombres décimaux, il faut faire attention à bien aligner les virgules.",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Poser une addition ou une soustraction",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=OG36kaybrdw&vignette=https://i.ytimg.com/vi/OG36kaybrdw/hqdefault.jpg&debut=0&fin=177&largeur=200&hauteur=113&st=fr,fr",
+                    "authorName": "Maître Lucas",
+                    "authorLink": "https://www.youtube.com/@MaitreLucas"
+                  },
+                  {
+                    "title": "Soustractions avec retenues",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZkjHrm0yOkU&vignette=https://i.ytimg.com/vi/ZkjHrm0yOkU/hqdefault.jpg&debut=0&fin=382&largeur=200&hauteur=113&st=fr,fr",
+                    "authorName": "Maître Lucas",
+                    "authorLink": "https://www.youtube.com/@MaitreLucas"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "uuid=01873&id=6C20&n=2&d=10&s=4&s2=3&s3=4&alea=dZW0&cd=1",
                     "description": ""
                   }
                 ]
@@ -341,20 +564,52 @@
                 "reference": "6N2B",
                 "titleAcademic": "Multiplier un nombre entier ou un nombre décimal par 0,1, par 0,01, et par 0,001",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Multiplier par 0,1 revient à diviser par 10.<br>Multiplier par 0,01 revient à diviser par 100.<br>etc.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6C12"
+                  }
+                ],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Multiplier par 0,1 ; 0,01 ; 0,001",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=NV-TPaYXXLg&vignette=https://i.ytimg.com/vi/NV-TPaYXXLg/hqdefault.jpg&debut=0&fin=304&largeur=200&hauteur=113",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "uuid=47a54&id=6C30-4&n=4&d=10&s=false",
+                    "description": "Placer la virgule"
+                  },
+                  {
+                    "slug": "uuid=021f3&id=6C30-5&n=4&d=10&s=false&s2=4",
+                    "description": "Compléter les pointillés"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6C13_Presentation",
+                      "Tablettes"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander s'ils savent combien ça fait $845 times 0,1$",
+                          "Démontrer que multiplier par 0,1 revient à diviser par 10",
+                          "Noter le cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6C13",
+                          "Kahoot https://create.kahoot.it/details/7fbca177-375b-41f0-a6ee-367c94a0301a"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -404,19 +659,20 @@
                 "reference": "6N2E",
                 "titleAcademic": "Calculer le produit de deux nombres décimaux",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Pour multiplier des nombres décimaux, on commence par poser la multiplication comme s'il n'y avait pas de virgule.<br>Ensuite, on compte il y avait combien de chiffres après la virgule dans les nombres qu'on a multipliés et on place la virgule dans le résultat de façon à avoir ce même nombre de chiffres après la virgule.",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=4YQi_icWTTI&vignette=https://i.ytimg.com/vi/4YQi_icWTTI/hqdefault.jpg&debut=0&fin=571&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6C30,s=false,s2=3,n=1",
                     "description": ""
                   }
                 ]
@@ -448,18 +704,33 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "videos": [
+                "prerequisites": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "objectiveReference": "6C30"
                   }
                 ],
+                "videos": [],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6C32-1,s=2-3-4-6,n=3",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [
+                      "Questions Flash"
+                    ],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6N2G"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -469,18 +740,58 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Diviser un nombre entier",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=RbkDd_p_EVU&vignette=https://i.ytimg.com/vi/RbkDd_p_EVU/hqdefault.jpg&debut=0&fin=436&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "title": "Diviser un nombre décimal",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=kagPFHfG-ZU&vignette=https://i.ytimg.com/vi/kagPFHfG-ZU/hqdefault.jpg&debut=0&fin=335&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "title": "Poser une division qui ne s'arrête jamais",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CnuDwxwNl9k&vignette=https://i.ytimg.com/vi/CnuDwxwNl9k/hqdefault.jpg&debut=0&fin=515&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6C31,s=1,n=2",
+                    "description": "Déterminer le quotient exact"
+                  },
+                  {
+                    "slug": "6C31,s=2,n=2",
+                    "description": "Déterminer un quotient approché"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [
+                      "Mathador"
+                    ],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Laisser faire https://topmaths.fr/?uuid=bbcac&id=6C21&n=1&s=2&alea=lzm4&v=eleve",
+                          "Faire ensemble https://topmaths.fr/?uuid=294bb&id=6C31&n=2&s=1&alea=4xKG&v=eleve",
+                          "Relancer",
+                          "Laisser faire https://topmaths.fr/?uuid=294bb&id=6C31&n=2&s=2&alea=5UJW&v=eleve",
+                          "Lorsqu'ils se rendent compte de l'entourloupe, expliquer que dans certains cas la division ne s'arrête jamais. Ici l'énoncé dit de s'arrêter au millième près",
+                          "Laisser faire le deuxième calcul",
+                          "Relancer"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -511,18 +822,29 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Diviseur à 1 chiffre",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=ZIwmQ3KSMH0&vignette=https://i.ytimg.com/vi/ZIwmQ3KSMH0/hqdefault.jpg&debut=0&fin=392&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
+                  },
+                  {
+                    "title": "Diviseur à 2 chiffres",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2Ocfhucc58g&vignette=https://i.ytimg.com/vi/2Ocfhucc58g/hqdefault.jpg&debut=0&fin=671&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6C21,s=2,n=4",
+                    "description": "Diviseur à 1 chiffre"
+                  },
+                  {
+                    "slug": "6C21,s=3,n=1",
+                    "description": "Diviseur à 2 chiffres"
                   }
                 ]
               },
@@ -596,20 +918,62 @@
                 "titleAcademic": "L’élève passe de manière automatique d’une écriture sous forme de fraction décimale ou de somme de fractions décimales à une écriture décimale, et inversement. Par exemple il sait que les écritures 4107/1000 ; 4 + 107/1000 ; 4 + 1/10 + 7/1000 ; 4,107 représentent le même nombre.",
                 "title": "Passer d'une écriture décimale à une somme de fractions décimales et inversement",
                 "isAutomaticity": true,
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "<b><u>Définitions :</u></b><br>Une <b><i>fraction décimale</i></b> est une fraction qui a pour <i>dénominateur</i> $10$, $100$, $1\\, 000$ etc.<br>Un <b><i>nombre décimal</i></b> est un nombre qui peut s'écrire sous la forme d'une fraction décimale.<br><br>Pour utiliser différentes écritures d'un nombre décimal, on peut s'aider du tableau de numération et se rappeler que :<br>- un dixième = $\\cfrac{1}{10}$ <br>- un centième = $\\cfrac{1}{100}$ <br>- un millième = $\\cfrac{1}{1000}$ <br>Par exemple, $7$ unités et $3$ centièmes correspondent à $7 + \\cfrac{3}{100} = \\cfrac{703}{100} = 7,03$ <br>Vous pouvez le vérifier dans le tableau ci-dessous ! <br><iframe width='600px' height='450px' src='/topmaths/data/tableau-ecriture-decimale.html'></iframe>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Écrire en lettres un nombre décimal",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mybEQfCJFD0&vignette=https://i.ytimg.com/vi/mybEQfCJFD0/hqdefault.jpg&debut=0&fin=580&largeur=200&hauteur=150",
+                    "authorName": "La classe de Marion",
+                    "authorLink": "https://www.youtube.com/channel/UC1CNz6Kh6hrER1lVD_vwzPg"
+                  },
+                  {
+                    "title": "Passer d'une écriture fractionnaire à l'écriture décimale",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=i75HKdds3Gc&vignette=https://i.ytimg.com/vi/i75HKdds3Gc/hqdefault.jpg&debut=0&fin=403&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6N23-4,s=1-2-3,n=3",
+                    "description": "Donner l'écriture décimale d'un nombre écrit en lettres"
+                  },
+                  {
+                    "slug": "6N23-0,s=1,s2=1,s3=2,n=4",
+                    "description": "Écrire en lettres un nombre décimal"
+                  },
+                  {
+                    "slug": "6N23-1,s=8,n=4",
+                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale en décomposant"
+                  },
+                  {
+                    "slug": "6N23,n=4",
+                    "description": "Passer d'une écriture fractionnaire à l'écriture décimale directement"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicitte des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N2N"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Rappel des 3 premiers exercices de https://topmaths.fr/?v=objective&ref=6N2N",
+                          "Enseignement explicite du 4e exercice",
+                          "https://create.kahoot.it/details/e18d795c-e4ab-4565-b3c8-e73c1e47beec",
+                          "#rouge()[Repasser sur le kahoot pour mélanger les questions]"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -687,20 +1051,45 @@
                 "reference": "6N3B",
                 "titleAcademic": "Comprendre et connaître la définition du quotient d'un entier a par un entier b non nul",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Le nombre qui, multiplié par $a$ donne $b$ est le nombre $\\cfrac{b}{a}$",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-xwhkfVwd-o&vignette=https://i.ytimg.com/vi/-xwhkfVwd-o/hqdefault.jpg&debut=0&fin=555&largeur=200&hauteur=150",
+                    "authorName": "Maths et Jeux",
+                    "authorLink": "https://www.youtube.com/c/MathsetJeux"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6N23-5,n=4",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6N32_Presentation",
+                      "Tablettes"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander $4 times \"combien\" = 12$ ? ",
+                          "$2 times \"combien\" = 3$ ?",
+                          "$3 times \"combien\" = 5$ ?",
+                          "Faire la démonstration",
+                          "Noter le cours",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N3B",
+                          "Kahoot https://create.kahoot.it/details/37e47a8c-ca05-4777-97a2-b6a56f2925ca"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -813,20 +1202,47 @@
                 "reference": "6N3H",
                 "titleAcademic": "Établir des égalités de fractions",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "$\\cfrac{a}{b} = \\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Explications détaillées",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=dkE_zaRIeKY&vignette=https://i.ytimg.com/vi/dkE_zaRIeKY/hqdefault.jpg&debut=0&fin=474&largeur=200&hauteur=113",
+                    "authorName": "Maths&Methodes",
+                    "authorLink": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "uuid=06633&n=4&d=10&s=11&s2=3",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes",
+                      "5N20_Presentation"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Écrire $2/5$ au tableau et les représenter en pizza",
+                          "Partager chaque part en 2 et demander quelle fraction de la pizza est coloriée",
+                          "Demander dans quel cas est-ce qu'on mange plus de pizzas : si on mange 2 parts d'une pizza partagée en 5 ou si on mange 4 parts d'une pizza partagée en 10 ?",
+                          "Expliquer à ceux qui ne l'auraient pas remarqué que dans les deux cas on mange la même quantité : oui on mange deux fois plus de part mais comme la pizza est partagée en 2 fois plus de part elles sont deux fois plus petites donc au final ça reivent à manger la même chose",
+                          "Dans quel cas est-ce qu'on mange plus : si on mange 2 parts d'une pizza partagée en 5 ou 6 parts d'une pizza partagée en 15 ?",
+                          "Faire la représentation et répondre",
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N3H",
+                          "Noter le cours si on a le temps",
+                          "Kahoot : https://create.kahoot.it/details/0f120553-eaa9-4eb7-944d-c82ea5ca908b"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -834,20 +1250,41 @@
                 "reference": "6N3I",
                 "titleAcademic": "Comparer et encadrer des fractions",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Pour comparer deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on compare les numérateurs.",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Comparer",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=MVnogrTAGy0&vignette=https://i.ytimg.com/vi/MVnogrTAGy0/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "5N14,s=11,s2=false,n=2",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "5N21_Presentation"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher https://topmaths.fr/?uuid=234a7&id=5N14&n=2&s=11&s2=false&alea=1dMU&v=exercices",
+                          "Rappeler ce que signifie \"Comparer\"",
+                          "Apprentissage explicite",
+                          "Noter le cours"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -857,17 +1294,22 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N3I"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=zzRX2N3o6xM&vignette=https://i.ytimg.com/vi/zzRX2N3o6xM/hqdefault.jpg&debut=0&fin=254&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "5N14-2,s=false,n=1",
                     "description": ""
                   }
                 ]
@@ -876,20 +1318,44 @@
                 "reference": "6N3K",
                 "titleAcademic": "Additionner et soustraire des fractions",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Pour additionner ou soustraire deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on additionne ou on soustrait les numérateurs.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N3H"
+                  }
+                ],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Explications détaillées",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=lGShZVQlXMQ&vignette=https://i.ytimg.com/vi/lGShZVQlXMQ/hqdefault.jpg&debut=0&fin=393&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "5N20,s=11,s2=3,s3=false,n=4"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes"
+                    ],
+                    "startSteps": [
+                      "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
+                    ],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=6N3K",
+                          "Kahoot : https://create.kahoot.it/details/279e7e5a-38ac-41d2-af2e-1ff5ad5ff854"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -983,17 +1449,10 @@
                 "title": "Calculer une proportion et l'exprimer sous forme de pourcentage",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "videos": [
-                  {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
-                  }
-                ],
+                "videos": [],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "can5P02,s=1,n=2",
                     "description": ""
                   }
                 ]
@@ -1004,18 +1463,40 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Explications détaillées",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=2UVaPRdSMl0&vignette=https://i.ytimg.com/vi/2UVaPRdSMl0/hqdefault.jpg&debut=0&fin=298&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6P13,s=3,n=2,s2=true",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6P17_Presentation"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Faire ensemble https://topmaths.fr/?uuid=064ce&id=6P13&n=1&s=3&s2=true&alea=CYBq&v=exercices",
+                          "Relancer",
+                          "Noter le cours",
+                          "Vérifier la bonne application des pourcentages de réduction sur https://lapub.re/index.awp"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -1090,20 +1571,67 @@
                 "titleAcademic": "Les notions de diviseur et de multiple et les tables de multiplication sont réactivées en vue de leur utilisation dans le calcul sur les fractions (simplification, addition et soustraction).",
                 "title": "Connaître les notions de multiple, de diviseur et les tables de multiplication",
                 "isAutomaticity": true,
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Pour apprendre les tables de multiplication, il n'y a pas de méthode facile, encore moins des méthodes magiques, en revanche il y a des bonnes méthodes et des mauvaises méthodes.<br><br>Pour apprendre les tables de multiplication, il ne faut <b>pas</b> :<br><span style='text-decoration: line-through;'>- les lire<br>- les réciter l'une après l'autre comme une poésie ou une chanson<br>- utiliser des techniques avec les doigts</span><br><br>En revanche, il <b>faut</b> :<br>- essayer de se rappeler des résultats dans le désordre.<br>- s'entraîner pas longtemps mais souvent, un petit peu tous les jours par exemple<br><br>Pour le faire, vous pouvez télécharger <a href='/topmaths/telechargements/Tables_de_multiplication.pdf'>les tables de multiplication</a> et vous entraîner avec le lien sous la vidéo.<br><br><a href='https://www.multimaths.net/defitables.php'><img src='https://www.multimaths.net/img/applis/icones/dt.png' class='inline-block' /></a><br>Vous pouvez aussi utiliser l'application <a href='https://www.multimaths.net/defitables.php'>Défi Tables</a> disponible sur <a href='https://play.google.com/store/apps/details?id=air.com.multimaths.DefiTables&hl=fr'>téléphone et tablette Android</a> ainsi que sur <a href='https://apps.apple.com/fr/app/d%C3%A9fi-tables/id1335090081?l=fr&ls=1'>iPad</a>.<br><br>Quand on <i><b>multiplie</b></i> un nombre, on obtient un <i><b>multiple</b></i>.<br>Si un nombre <i><b>divise</b></i> entièrement <i>(sans laisser de reste)</i>, c'est un <i><b>diviseur</b></i>.",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Tables de multiplication",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=IWcz-se9Pj0&vignette=https://i.ytimg.com/vi/IWcz-se9Pj0/hqdefault.jpg&debut=0&fin=458&largeur=200&hauteur=113&st=fr,fr",
+                    "authorName": "Maître Lucas",
+                    "authorLink": "https://www.youtube.com/@MaitreLucas"
+                  },
+                  {
+                    "title": "Multiples et diviseurs",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=-5nTo2PjtKk&vignette=https://i.ytimg.com/vi/-5nTo2PjtKk/hqdefault.jpg&debut=0&fin=121&largeur=200&hauteur=113",
+                    "authorName": "Kristen Montrésor maths channel",
+                    "authorLink": "https://www.youtube.com/channel/UChaDNOEhkrQprL-wfMC1dWQ"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "uuid=challengeTables",
+                    "description": "Lancer l'application sur les tables de multiplication"
+                  },
+                  {
+                    "slug": "uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10-11-12&s2=1-2&s3=false&alea=Cj8R",
+                    "description": "Lancer l'exerice sur les tables de multiplication"
+                  },
+                  {
+                    "slug": "6N43-3,s=4,s2=NaN,n=8",
+                    "description": "Multiples et diviseurs"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes (1 par personne)",
+                      "6C10_Poly_x4"
+                    ],
+                    "startSteps": [
+                      "Calcul mental sur les tables de multiplication"
+                    ],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Distribuer 1 tablette par personne",
+                          "On attend que tout le monde ait allumé et déverrouillé la tablette",
+                          "On lance Défi Tables en mode Entraînement - 10 calculs - Table de 2 (on laisse les autres réglages par défaut à savoir 20 secondes classique et à trou)",
+                          "Lorsqu'ils ont terminé ils m'appellent et me montrent le score",
+                          "S'ils ont 9/10 ou 10/10, ils peuvent passer à la table suivante, sinon ils recommencent",
+                          "Lorsque je vois qu'il y en a plusieurs qui échouent, je les fais arrêter et leur explique qu'il ne faut pas directement passer au suivant lorsqu'ils se trompent (s'ils font ça ils ne vont rien apprendre et continuer à répéter les mêmes erreurs) mais répéter plusieurs fois la bonne réponse dans sa tête avant",
+                          "Ainsi de suite jusqu'à la fin de l'heure"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Suite de la séance précédente",
+                          "Lorsque des élèves ont fini toutes les tables, ils peuvent se défier entre eux en attendant que les autres finissent",
+                          "Un peu avant la fin de l'heure, les encourager à poursuivre l'entraînement à la maison et distribuer les poly qu'il pourront utiliser en cas de trou de mémoire"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -1232,20 +1760,53 @@
                 "reference": "6M1C",
                 "titleAcademic": "Calculer le périmètre d'un disque",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": " Périmètre du disque $= \\pi \\times \\text{diamètre} = 2 \\times \\pi \\times \\text{rayon}$",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=y-PV5LNmqsM&vignette=https://i.ytimg.com/vi/y-PV5LNmqsM/hqdefault.jpg&debut=0&fin=366&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6M22-1,s=3,s2=true,n=2",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6M13_Presentation"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Demander s’ils se rappellent la définition d’un cercle",
+                          "- La rappeler si besoin",
+                          "Demander s’ils savent ce qu’est un disque",
+                          "- un cercle est vide à l’intérieur, on dit qu’il est creux alors qu’un disque est rempli à l’intérieur, on dit qu’il est plein",
+                          "- Imagine que tu commandes une pizza",
+                          "-- Si on te livre que la croûte, on te livre un cercle",
+                          "-- Si on te livre la croûte et aussi ce qu’il y a à l’intérieur, on te livre un disque",
+                          "Noter la remarque du cours",
+                          "Demander s’ils se rappellent comment calculer le périmètre d’un cercle",
+                          "- Après avoir écrit la formule, demander s’ils savent combien vaut ce nombre ($pi$)",
+                          "- Montrer comment obtenir une valeur approchée de $pi$ sur la calculatrice",
+                          "- Note Propriétés et Exemple du cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M1C",
+                          "Montrer les premières décimales de $pi$ sur http://www.gecif.net/articles/mathematiques/pi/pi_decimales.html",
+                          "Rechercher des dates de naissance et autres sur https://www.angio.net/pi/piquery.html "
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -1255,18 +1816,41 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=wm0pfj3U3LI&vignette=https://i.ytimg.com/vi/wm0pfj3U3LI/hqdefault.jpg&debut=0&fin=329&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6M11-2,n=2,s=4-5-6,s2=true,s3=1,cd=1"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6M11_Poly_x6 (pour les 5e uniquement)",
+                      "6M14_Poly_x2"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Donner à faire https://topmaths.fr/?uuid=5999f&id=6M11-2&n=2&s=1-2-3&s2=true&s3=1&cd=1&v=exercices",
+                          "Pour les 5e, coller la photocopie dans le cours",
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M1D",
+                          "Distribuer le devoir maison",
+                          "Réfléchir à la stratégie (parler de l'échelle notamment)",
+                          "Laisser les élèves commencer s'il y a le temps, finir à la maison (noté)"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -1340,20 +1924,45 @@
                 "titleAcademic": "L’élève sait convertir en mètre une longueur donnée dans une autre unité, multiple ou sous-multiple du mètre. Inversement, l’élève sait convertir dans une unité donnée une longueur exprimée en mètre.",
                 "title": "Convertir une longueur en mètre dans une autre unité multiple ou sous-multiple et inversement",
                 "isAutomaticity": true,
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='800px' height='350px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_longueur.html'></iframe>",
+                "lessonSummaryImage": "utiliser-convertisseur-de-longueurs.png",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=a6rFbX2eRx4&vignette=https://i.ytimg.com/vi/a6rFbX2eRx4/hqdefault.jpg&debut=0&fin=515&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/c/YMONKA"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6M12,s=4,s2=false,n=2",
+                    "description": "Avec des nombres entiers"
+                  },
+                  {
+                    "slug": "6M12,s=4,s2=true,n=2",
+                    "description": "Avec des nombres décimaux"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6M20_Poly_x6",
+                      "Tablettes"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher un exercice de https://topmaths.fr/?v=objective&ref=6M20",
+                          "Distribuer les poly",
+                          "Enseignement explicite",
+                          "Kahoot : https://create.kahoot.it/details/d1f73255-561b-4670-a4fb-7fb92da53955"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -1409,21 +2018,55 @@
               {
                 "reference": "6M2A",
                 "titleAcademic": "Effectuer des conversions d'aire",
-                "title": "",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "title": "Convertir des aires",
+                "lessonSummaryHTML": "Utilise le tableau ci-dessous ou fais-en un sur ta feuille pour t'aider à convertir !<br><iframe width='1000px' height='360px' src='https://sesaprof.sesamath.net/doc/outils_tableaux/minified/unites_aire_agraire.html'></iframe>",
+                "lessonSummaryImage": "utiliser-convertisseur-de-longueurs.png",
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=vZew5Ia03FY&vignette=https://i.ytimg.com/vi/vZew5Ia03FY/hqdefault.jpg&debut=0&fin=404&largeur=200&hauteur=150",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6M23,s=4,s2=false,s3=1,n=2",
+                    "description": "Avec des nombres entiers"
+                  },
+                  {
+                    "slug": "6M23,s=4,s2=true,s3=1,n=2",
+                    "description": "Avec des nombres décimaux"
+                  },
+                  {
+                    "slug": "6M23,s=5,s2=true,s3=1,n=2",
+                    "description": "Avec des ares et des hectares"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6M21_Presentation",
+                      "6M21_Poly_x5 (il y a 2 tableaux par élève)"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "\"Aujourd’hui, on va convertir des unités d’aires\"",
+                          "\"En quelle unité se mesure une aire ?\" Noter les réponses au tableau",
+                          "\"Et $1 \"dm\"^2$ par exemple, ça fait combien de $\"cm\"^2$ ?\"",
+                          "Faire un carré de côté $1 \"dm\"$ de côté et le partager en rectangles de largeur $1 \"cm\"$ de largeur puis en carrés de $1 \"cm\"$ de côté pour voir que $1 \"dm\"^2 = 100 \"cm\"^2$ $->$ C’est pour ça que dans le tableau de conversion des unités d’aires, on met 2 colonnes dans chaque unité.",
+                          "Afficher le tableau et le décrire \"$1 \"m \"^2$ c’est $100 \"dm\"^2$ etc.\"",
+                          "Copier le cours",
+                          "Coller le deuxième tableau partie exercice",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M21"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -1452,20 +2095,74 @@
                 "reference": "6M2C",
                 "titleAcademic": "Calculer l'aire d'un carré ou d'un rectangle",
                 "title": "",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryHTML": "Le <b><i>périmètre</i></b> d'une figure est la longueur de son contour.<br>L'<b><i>aire</i></b> d'une figure est la mesure de la surface à l'intérieur de son contour, on la calcule souvent en utilisant une formule :",
+                "lessonSummaryImage": "Aire-carre-rectangle-triangle-rectangle.png",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Aires du carré et du rectangle en 1 min",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=UCd5hm4NMN4&vignette=https://i.ytimg.com/vi/UCd5hm4NMN4/hqdefault.jpg&debut=0&fin=64&largeur=200&hauteur=113",
+                    "authorName": "Hedacademy",
+                    "authorLink": "https://www.youtube.com/channel/UC8SRYHgGMqAYZehYdznaqvQ"
+                  },
+                  {
+                    "title": "Cours sur l'aire",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=T1iLZzu1Irs&vignette=https://i.ytimg.com/vi/T1iLZzu1Irs/hqdefault.jpg&debut=0&fin=348&largeur=200&hauteur=113&st=fr,fr",
+                    "authorName": "Maître Lucas",
+                    "authorLink": "https://www.youtube.com/c/Ma%C3%AEtreLucas"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "uuid=83be1&id=6M10&n=3&d=10&s=1-2-3&s2=false&s3=true&s4=false",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6M10_Presentation-1",
+                      "6M10_Poly-1_x1",
+                      "6M10_Poly-2_x2 avec quelques exemplaires supplémentaires pour ceux qui veulent",
+                      "6M10_Presentation-2",
+                      "6M10_Poly-3_x15"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Projeter la présentation",
+                          "Demander s'ils savent ce qu'est le contour d'une figure",
+                          "Demander s'ils savent le nom qu'on donne à la longueur du contour d'une figure, écrire \"Périmètre = longueur du contour\"",
+                          "Demander s'ils savent comment on appelle l'intérieur d'une figure, écrire \"Surface\" avec une flèche",
+                          "Demander s'ils savent comment on appelle la mesure de la surface, écrire \"Aire = mesure de la surface\"",
+                          "Distribuer la première moitié du poly (jusqu'au deuxième exemple)",
+                          "La compléter ensemble avec les couleurs",
+                          "Demander s'ils savent calculer le périmètre",
+                          "Le faire ensemble",
+                          "Expliquer comment calculer l'aire d'une figure et le sens des unités d'aire",
+                          "Distribuer la deuxième moitié du poly et la compléter ensemble",
+                          "Expliquer les règles de la guerre des champs :",
+                          "- Chacun son tour :",
+                          "- on lance deux dés",
+                          "  - on doit dessiner un rectangle de longueur et de largeur les résultats des dés collé à un de nos rectangles existants",
+                          "- on calcule l'aire et le périmètre du rectangle et on les écrit à l'intérieur",
+                          "- au tour de l'autre",
+                          "Quand les deux joueurs échouent à dessiner un rectangle, la partie s'arrête et on compte les points :",
+                          "- 1 point pour pour l'aire la plus grande",
+                          "- 1 point pour le périmètre le plus grand",
+                          "- 1 point pour le rectangle qui a la plus grande aire"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Faire la présentation",
+                          "Distribuer et faire coller le résumé",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M10"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -1476,18 +2173,46 @@
                 "isAutomaticity": true,
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Périmètre",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=wNk5XKwEZDw&vignette=https://i.ytimg.com/vi/wNk5XKwEZDw/hqdefault.jpg&debut=0&fin=208&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
+                  },
+                  {
+                    "title": "Aire",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=bMSrZjOBwcA&vignette=https://i.ytimg.com/vi/bMSrZjOBwcA/hqdefault.jpg&debut=0&fin=558&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6M11-2,n=2,s=1-2-3,s2=true,s3=1,cd=1",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6M11_Poly_x6"
+                    ],
+                    "startSteps": [
+                      "Mathador"
+                    ],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Faire ensemble https://topmaths.fr/?uuid=5999f&id=6M11-2&n=2&s=1-2-3&s2=true&s3=1&alea=fOP7&cd=1&v=eleve",
+                          "Coller la photocopie partie cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=6M11"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -1655,21 +2380,47 @@
               {
                 "reference": "6M4A",
                 "titleAcademic": "Effectuer des calculs sur des horaires et des durées",
-                "title": "",
-                "lessonSummaryHTML": "",
+                "title": "Calculer des durées et des horaires",
+                "lessonSummaryHTML": "Pour calculer des durées ou des horaires on fait attention à calculer les minutes avec les minutes et les heures avec les heures.<br>S'il y a un souci, on peut utiliser le fait que 60 min = 1 h :<br>- si le résultat d'une addition dépasse les 60 minutes, on enlève 60 min et on rajoute 1h ;<br>- si on veut faire une soustraction mais qu'on n'a pas assez de minutes, on ajoute 60 min et on enlève 1h.",
                 "lessonSummaryImage": "",
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=frnQXnbL6yo&vignette=https://i.ytimg.com/vi/frnQXnbL6yo/hqdefault.jpg&debut=0&fin=299&largeur=200&hauteur=150",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/channel/UCA-i2IV5_F1ak53ZbED1u1w"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6D11,s=1,n=2",
+                    "description": "Additionner des durées"
+                  },
+                  {
+                    "slug": "6D12,s=4,n=3",
+                    "description": "Calculer des durées ou déterminer un horaire"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [
+                      "Calculatrice"
+                    ],
+                    "teacherMaterialsNeeded": [
+                      "6M31_Presentation"
+                    ],
+                    "startSteps": [
+                      "https://topmaths.fr/?uuid=4f8f4&id=6D13&n=2&s=3&alea=XRnd&cd=1&v=exercices"
+                    ],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M31"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -1699,19 +2450,36 @@
                 "titleAcademic": "Convertir des durées",
                 "title": "",
                 "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryImage": "5M30-RDC.png",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=9IIcLRhI-Qs&vignette=https://i.ytimg.com/vi/9IIcLRhI-Qs/hqdefault.jpg&debut=0&fin=283&largeur=200&hauteur=113",
+                    "authorName": "jaicompris Maths",
+                    "authorLink": "https://www.youtube.com/channel/UCo-O74A4qVz6nq5cfCIee6w"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "uuid=8b0f9&id=6D10&n=2&d=10&s=5",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [
+                      "Calculatrice"
+                    ],
+                    "teacherMaterialsNeeded": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=6M30"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -1952,21 +2720,58 @@
               {
                 "reference": "6G2A",
                 "titleAcademic": "Connaître les définitions d'un cercle, d'un disque, d'un rayon, d'un diamètre, d'une corde",
-                "title": "",
+                "title": "Connaître le vocabulaire du cercle",
                 "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryImage": "Vocabulaire-du-cercle.png",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=PY4XwGIeJ4s&vignette=https://i.ytimg.com/vi/PY4XwGIeJ4s/hqdefault.jpg&debut=0&fin=230&largeur=200&hauteur=150",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "6G10-4,s=1,s2=true,n=1,cd=1",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "2 règles d’1m",
+                      "Téléphone",
+                      "Photos prises lors de la séance précédente",
+                      "6G20_Poly"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Aller dans la cour à côté de l’escalier près de la salle des profs avec deux règles d’1m",
+                          "Faire deux groupes (1 groupe garçons et 1 groupe filles)",
+                          "Dans chaque groupe, choisir un élève au centre, lui dire de ne surtout pas bouger et dire aux autres de se placer à 1m de lui (ils peuvent placer la règle sur leur front pour que la mesure soit régulière)",
+                          "Monter, prendre les photos à bout de bras, me les envoyer par mail, rentrer en classe",
+                          "Récupérer les photos en demandant aux élèves d’après eux ça aura quelle forme ?",
+                          "Afficher les photos et demander pourquoi ça a cette forme ? (parce que je ne leur ai pas dit de se positionner en cercle) → Faire ressortir que cette forme est la conséquence de l’équidistance",
+                          "Noter la définition du cercle et du rayon"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Ressortir les photos prises lors de la séance précédente",
+                          "Mettre une lettre sur la tête de chaque élève",
+                          "Demander aux élèves de donner un rayon, un diamètre, le rayon, le diamètre en laissant les élèves argumenter en cas d’avis divergents",
+                          "Noter à chaque fois avec les bons crochets et/ou parenthèses",
+                          "Introduire le mot corde",
+                          "Distribuer le poly et le coller partie cours"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -2157,20 +2962,68 @@
                 "reference": "6G4A",
                 "titleAcademic": "Connaître et utiliser les angles ainsi que le lexique et les notations qui s'y rapportent : angle droit, angle plat, angle plein, angle nul, angle aigu, angle obtus, angles opposés par le sommet, angles adjacents, angles supplémentaires",
                 "title": "Connaître et utiliser les angles ainsi que le lexique et les notations qui s'y rapportent",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryHTML": "<img src=\"https://topmaths.fr/img/6G40-RDC.png\"/>",
+                "lessonSummaryImage": "6G41-RDC.png",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=mCC0H9pNNEY&vignette=https://i.ytimg.com/vi/mCC0H9pNNEY/hqdefault.jpg&debut=0&fin=498&largeur=200&hauteur=150",
+                    "authorName": "Maths et Jeux",
+                    "authorLink": "https://www.youtube.com/@MathsetJeux"
+                  },
+                  {
+                    "title": "",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=yfCIOM1tqEw&vignette=https://i.ytimg.com/vi/yfCIOM1tqEw/hqdefault.jpg&debut=113&fin=278&largeur=200&hauteur=150",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "uuid=e8d33&id=6G22-1&n=1&d=10&s=5",
+                    "description": "Connaître le vocabulaire de base"
+                  },
+                  {
+                    "slug": "uuid=e10d1&id=6G22&n=1&d=10&s=2&s2=1&s3=false",
+                    "description": "Savoir nommer un angle"
+                  },
+                  {
+                    "slug": "6G22-2,n=4,cd=1",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "6G40_Presentation",
+                      "6G41_Presentation",
+                      "6G41_Poly_x5",
+                      "Tablettes"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher l'image d'angle et demander :",
+                          "Comment s'appelle cet angle ?",
+                          "Quel est son sommet ?",
+                          "Quels sont ses côtés ?",
+                          "Noter les réponses et expliquer au fur et à mesure",
+                          "Noter le cours (slide 3 complétée au tableau ou slide 4)",
+                          "Kahoot : https://create.kahoot.it/details/9bbd1a11-d91c-484e-9233-bd4f0dc29d2c"
+                        ]
+                      },
+                      {
+                        "steps": [
+                          "Présentation",
+                          "Coller la photocopie partie cours",
+                          "Kahoot : https://create.kahoot.it/details/516d515b-060f-45e7-b528-bdbf7cfeeb5a"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -2179,19 +3032,52 @@
                 "titleAcademic": "Mesurer un angle",
                 "title": "",
                 "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryInstrumenpoche": "tracer-angle",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Mesurer un angle",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=YqUMin1FQ2c&vignette=https://i.ytimg.com/vi/YqUMin1FQ2c/hqdefault.jpg&debut=0&fin=312&largeur=200&hauteur=150",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  },
+                  {
+                    "title": "Tracer un angle",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CIrYkaNIBKE&vignette=https://i.ytimg.com/vi/CIrYkaNIBKE/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=150",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "https://mathix.org/permis_rapporteur/",
+                    "description": "Permis Rapporteur"
+                  },
+                  {
+                    "slug": "uuid=c7f7a&id=6G23-1&n=2&d=10&s=3&s2=true&alea=DGyO&cd=1",
+                    "description": "Mesurer un angle"
+                  },
+                  {
+                    "slug": "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=yRV1&cd=1",
+                    "description": "Construire un angle"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes ou Ordinateurs",
+                      "6G42_Poly_x4"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "https://mathix.org/permis_rapporteur/"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -2200,19 +3086,52 @@
                 "titleAcademic": "Construire un angle de mesure donnée",
                 "title": "",
                 "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryInstrumenpoche": "tracer-angle",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Mesurer un angle",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=YqUMin1FQ2c&vignette=https://i.ytimg.com/vi/YqUMin1FQ2c/hqdefault.jpg&debut=0&fin=312&largeur=200&hauteur=150",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
+                  },
+                  {
+                    "title": "Tracer un angle",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CIrYkaNIBKE&vignette=https://i.ytimg.com/vi/CIrYkaNIBKE/hqdefault.jpg&debut=0&fin=206&largeur=200&hauteur=150",
+                    "authorName": "jean-yves Labouche",
+                    "authorLink": "https://www.youtube.com/c/JeanYvesLaboucheMaths"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "https://mathix.org/permis_rapporteur/",
+                    "description": "Permis Rapporteur"
+                  },
+                  {
+                    "slug": "uuid=c7f7a&id=6G23-1&n=2&d=10&s=3&s2=true&alea=DGyO&cd=1",
+                    "description": "Mesurer un angle"
+                  },
+                  {
+                    "slug": "uuid=34e3c&id=6G23&n=1&d=10&s=3&alea=yRV1&cd=1",
+                    "description": "Construire un angle"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes ou Ordinateurs",
+                      "6G42_Poly_x4"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "https://mathix.org/permis_rapporteur/"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               }
@@ -2381,20 +3300,50 @@
                 "reference": "6G6C",
                 "titleAcademic": "Connaître la valeur de la somme des mesures des angles d'un triangle",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "La somme des angles d'un triangle fait (toujours) 180°.",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Explications détaillées",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=_QIj_-2EzJA&vignette=https://i.ytimg.com/vi/_QIj_-2EzJA/hqdefault.jpg&debut=0&fin=272&largeur=200&hauteur=113",
+                    "authorName": "Maths&Methodes",
+                    "authorLink": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
+                    "slug": "uuid=dc8c9&id=5G31&n=4&d=10&s=1-2-5&s2=true&s3=false",
                     "description": ""
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "S5S14_Cours",
+                      "Huitièmes de feuilles blanches",
+                      "5G32_Presentation"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Distribuer les huitièmes de feuilles blances",
+                          "Dire aux élèves de dessiner un triangle : peu importe sa taille, peu importe sa forme",
+                          "Colorier les 3 angles de 3 couleurs différentes (faire un exemple au tableau)",
+                          "Découper le triangle",
+                          "Séparer les 3 angles (montrer comment au tableau)",
+                          "Rassembler les trois angles colorés (montrer la procédure au tableau avec des flèches)",
+                          "Qu'est-ce qu'ils remarquent ?",
+                          "La consigne ne donnait aucune condition sur les angles pourtant, c'est parce que ça marche sur tous les triangles !",
+                          "Faire la démonstration",
+                          "Noter le cours",
+                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5G32"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -2630,19 +3579,54 @@
                 "title": "Identifier les solides usuels dans un ensemble de solides",
                 "isAutomaticity": true,
                 "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryImage": "Solides-usuels.png",
                 "videos": [
                   {
-                    "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "title": "Présentation des solides",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=SYBogG4e43E&vignette=https://i.ytimg.com/vi/SYBogG4e43E/hqdefault.jpg&debut=0&fin=257&largeur=200&hauteur=113",
+                    "authorName": "Loïc Cadoret",
+                    "authorLink": "https://www.youtube.com/channel/UCDsagbCc_MHFdJZLDwsjwzA"
+                  },
+                  {
+                    "title": "Vue en 3D",
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=muK4M7_ej58&vignette=https://i.ytimg.com/vi/muK4M7_ej58/hqdefault.jpg&debut=0&fin=232&largeur=200&hauteur=113",
+                    "authorName": "Le prof de maths sciences",
+                    "authorLink": "https://www.youtube.com/channel/UCfRhflEKujHRHkYVkX4ZGBg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "uuid=051aa&id=6G44-1&n=8&d=10&s=8&s2=false&s3=false",
+                    "description": "Reconnaître les solides usuels"
+                  },
+                  {
+                    "slug": "uuid=083b9&id=6G44-2&n=4",
+                    "description": "Décrire des assemblages de solides"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes",
+                      "6G60_Poly_x1"
+                    ],
+                    "startSteps": [
+                      "Mathador"
+                    ],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Diaporama ensemble en défilement manuel https://coopmaths.fr/alea/?uuid=051aa&id=6G44-1&n=10&d=20&s=8&s2=false&s3=false&alea=X1q4&v=diaporama&selectedExercises=%7B%22isActive%22%3Afalse%2C%22indexes%22%3A%5B0%5D%7D&questionsOrder=%7B%22isQuestionsShuffled%22%3Afalse%2C%22indexes%22%3A%5B0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%5D%7D",
+                          "Distribuer et coller le cours",
+                          "Relancer le diaporama tout seul",
+                          "Enseignement explicite du deuxième exercice de https://topmaths.fr/?v=objective&ref=6G60",
+                          "Kahoot : https://create.kahoot.it/details/fa5b51ed-6945-4d22-9e14-c08dd66f5d31"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               }
@@ -2702,20 +3686,46 @@
                 "reference": "6P1C",
                 "titleAcademic": "Construire un tableau simple pour présenter des données (observations, caractères)",
                 "title": "",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
+                "lessonSummaryHTML": "Si on veut juste organiser et regrouper des données pour pouvoir les lire plus facilement, on peut utiliser un tableau :",
+                "lessonSummaryImage": "6S11-tableau.png",
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=gvIZ3bt6gw8&vignette=https://i.ytimg.com/vi/gvIZ3bt6gw8/hqdefault.jpg&debut=0&fin=217&largeur=200&hauteur=113",
+                    "authorName": "Math Coaching",
+                    "authorLink": "https://www.youtube.com/channel/UCGqY72r3_uGP4VWw8GLSNsQ"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "6S11,s=false,s2=4"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [
+                      "Règle"
+                    ],
+                    "teacherMaterialsNeeded": [
+                      "6S11_Poly_x1",
+                      "6S11_Presentation"
+                    ],
+                    "grades": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Laisser les élèves faire le premier exercice du poly",
+                          "Correction",
+                          "Deuxième exercice",
+                          "Correction",
+                          "Présentation"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -2745,20 +3755,42 @@
                 "titleAcademic": "L’élève sait lire un tableau, un diagramme en barres, un diagramme circulaire ou une courbe dans des cas adaptés à une lecture immédiate.",
                 "title": "Lire une représentation graphique dans des cas adaptés à une lecture immédiate",
                 "isAutomaticity": true,
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "<p>Dans un diagramme en barres, chaque barre représente une donnée.<br>La hauteur de chaque barre correspond à la valeur de cette donnée qu'on peut lire sur l'axe vertical.</p>",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=CR4lSAfho5A&vignette=https://i.ytimg.com/vi/CR4lSAfho5A/hqdefault.jpg&debut=0&fin=399&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "uuid=adac4&id=6S10-1&n=2&d=10&s=3&s2=5"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "Tablettes"
+                    ],
+                    "grades": [],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=3&v=exercices",
+                          "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=4&v=exercices",
+                          "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=2&v=exercices",
+                          "Enseignement explicite de https://topmaths.fr/?uuid=adac4&id=6S10-1&n=1&d=10&s=3&s2=1&v=exercices",
+                          "Kahoot avec les questions aléatoires et les réponses dans l'ordre : https://create.kahoot.it/details/1f2bc80c-a6b3-47b7-8f72-2002c4984e02"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               }
@@ -2791,21 +3823,40 @@
               {
                 "reference": "6P2B",
                 "titleAcademic": "Calculer des probabilités dans des situations simples d'équiprobabilité",
-                "title": "",
+                "title": "Calculer des probabilités",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113",
+                    "authorName": "Yvan Monka",
+                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "5S21,n=1"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [],
+                    "teacherMaterialsNeeded": [
+                      "5S21_Presentation",
+                      "Tablettes"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=5S21",
+                          "Noter le cours",
+                          "https://create.kahoot.it/details/08dee843-7a0f-4071-9c92-2aea5d8a787f"
+                        ]
+                      }
+                    ],
+                    "closureSteps": []
                   }
                 ]
               },
@@ -2970,20 +4021,53 @@
                 "reference": "6P3E",
                 "titleAcademic": "S'initier à la résolution de problèmes d'échelles",
                 "title": "",
-                "lessonSummaryHTML": "",
+                "lessonSummaryHTML": "Une échelle de $\\cfrac{1}{\\text{1 000 000}}$ signifie que 1 unité sur la carte correspond à 1 000 000 unités dans la réalité.",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6P14"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
-                    "videoLink": "",
-                    "authorName": "",
-                    "authorLink": ""
+                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=VvaCZM0I2-E&vignette=https://i.ytimg.com/vi/VvaCZM0I2-E/hqdefault.jpg&debut=0&fin=80&largeur=200&hauteur=113",
+                    "authorName": " Christophe Gombert",
+                    "authorLink": "https://www.youtube.com/channel/UCuvHpNCqGDTFaEvO4c0nhZQ"
                   }
                 ],
                 "exercises": [
                   {
-                    "slug": "",
-                    "description": ""
+                    "slug": "5P13,s=4,n=3"
+                  }
+                ],
+                "lessonPlans": [
+                  {
+                    "studentMaterialsNeeded": [
+                      "Règle"
+                    ],
+                    "teacherMaterialsNeeded": [
+                      "5P11_Poly_x1",
+                      "5P11_Presentation"
+                    ],
+                    "startSteps": [],
+                    "segments": [
+                      {
+                        "steps": [
+                          "Afficher la slide sans règle",
+                          "Demander comment faire si on veut savoir quelle est la distance entre Saint Denis et Sainte Marie ? (il faut mesurer)",
+                          "Afficher la slide avec règle",
+                          "Donc la distance entre Saint Denis et Sainte Marie est de 6,2 cm ? Ça fait un peu petit.",
+                          "Les faire remarquer l'échelle s'ils ne la remarquent pas",
+                          "Montrer comment calculer la distance réelle à l'aide d'un tableau de proportionnalité",
+                          "Distribuer les poly et leur demander de mesurer différentes distances",
+                          "#rouge()[Ce n'était pas efficace, les élèves étaient trop distraits à chercher leur maison etc. Finalement ce serait mieux de garder ce genre de carte pour des DM et en classe de travailler sur une carte plus impersonnelle]",
+                          "Une fois qu'ils ont compris, passer aux exercices sans carte comme ceux de https://topmaths.fr/?v=objective&ref=5P11"
+                        ]
+                      }
+                    ],
+                    "closureSteps": [],
+                    "comments": []
                   }
                 ]
               },
@@ -3621,57 +4705,6 @@
                     "comments": []
                   }
                 ]
-              },
-              {
-                "reference": "5G32",
-                "title": "Calculer des mesures d'angles dans un triangle",
-                "titleAcademic": "Connaître et utiliser la somme des angles d'un triangle",
-                "lessonSummaryHTML": "La somme des angles d'un triangle fait (toujours) 180°.",
-                "lessonSummaryImage": "",
-                "videos": [
-                  {
-                    "title": "Explications détaillées",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=_QIj_-2EzJA&vignette=https://i.ytimg.com/vi/_QIj_-2EzJA/hqdefault.jpg&debut=0&fin=272&largeur=200&hauteur=113",
-                    "authorName": "Maths&Methodes",
-                    "authorLink": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "uuid=dc8c9&id=5G31&n=4&d=10&s=1-2-5&s2=true&s3=false",
-                    "description": ""
-                  }
-                ],
-                "lessonPlans": [
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "S5S14_Cours",
-                      "Huitièmes de feuilles blanches",
-                      "5G32_Presentation"
-                    ],
-                    "startSteps": [],
-                    "segments": [
-                      {
-                        "steps": [
-                          "Distribuer les huitièmes de feuilles blances",
-                          "Dire aux élèves de dessiner un triangle : peu importe sa taille, peu importe sa forme",
-                          "Colorier les 3 angles de 3 couleurs différentes (faire un exemple au tableau)",
-                          "Découper le triangle",
-                          "Séparer les 3 angles (montrer comment au tableau)",
-                          "Rassembler les trois angles colorés (montrer la procédure au tableau avec des flèches)",
-                          "Qu'est-ce qu'ils remarquent ?",
-                          "La consigne ne donnait aucune condition sur les angles pourtant, c'est parce que ça marche sur tous les triangles !",
-                          "Faire la démonstration",
-                          "Noter le cours",
-                          "Entraînement sur https://topmaths.fr/?v=objective&ref=5G32"
-                        ]
-                      }
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  }
-                ]
               }
             ]
           },
@@ -4220,117 +5253,13 @@
             "name": "5N2 Fractions",
             "objectives": [
               {
-                "reference": "5N20",
-                "titleAcademic": "Reconnaître et produire des fractions égales",
-                "lessonSummaryHTML": "$\\cfrac{a}{b} = \\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}}$",
-                "lessonSummaryImage": "",
-                "prerequisites": [],
-                "videos": [
-                  {
-                    "title": "Explications détaillées",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=dkE_zaRIeKY&vignette=https://i.ytimg.com/vi/dkE_zaRIeKY/hqdefault.jpg&debut=0&fin=474&largeur=200&hauteur=113",
-                    "authorName": "Maths&Methodes",
-                    "authorLink": "https://www.youtube.com/channel/UCb9LSmnMAXQ6LtggV7pD_xw"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "uuid=06633&n=4&d=10&s=11&s2=3",
-                    "description": ""
-                  }
-                ],
-                "lessonPlans": [
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes",
-                      "5N20_Presentation"
-                    ],
-                    "startSteps": [],
-                    "segments": [
-                      {
-                        "steps": [
-                          "Écrire $2/5$ au tableau et les représenter en pizza",
-                          "Partager chaque part en 2 et demander quelle fraction de la pizza est coloriée",
-                          "Demander dans quel cas est-ce qu'on mange plus de pizzas : si on mange 2 parts d'une pizza partagée en 5 ou si on mange 4 parts d'une pizza partagée en 10 ?",
-                          "Expliquer à ceux qui ne l'auraient pas remarqué que dans les deux cas on mange la même quantité : oui on mange deux fois plus de part mais comme la pizza est partagée en 2 fois plus de part elles sont deux fois plus petites donc au final ça reivent à manger la même chose",
-                          "Dans quel cas est-ce qu'on mange plus : si on mange 2 parts d'une pizza partagée en 5 ou 6 parts d'une pizza partagée en 15 ?",
-                          "Faire la représentation et répondre",
-                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N20",
-                          "Noter le cours si on a le temps",
-                          "Kahoot : https://create.kahoot.it/details/0f120553-eaa9-4eb7-944d-c82ea5ca908b"
-                        ]
-                      }
-                    ],
-                    "closureSteps": []
-                  }
-                ]
-              },
-              {
-                "reference": "5N21",
-                "titleAcademic": "Comparer et ranger des fractions dont les dénominateurs sont multiples l'un de l'autre",
-                "lessonSummaryHTML": "Pour comparer deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on compare les numérateurs.",
-                "lessonSummaryImage": "",
-                "prerequisites": [
-                  {
-                    "objectiveReference": "5N20"
-                  }
-                ],
-                "videos": [
-                  {
-                    "title": "Comparer",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=MVnogrTAGy0&vignette=https://i.ytimg.com/vi/MVnogrTAGy0/hqdefault.jpg&debut=0&fin=362&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  },
-                  {
-                    "title": "Ranger",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=zzRX2N3o6xM&vignette=https://i.ytimg.com/vi/zzRX2N3o6xM/hqdefault.jpg&debut=0&fin=254&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "5N14,s=11,s2=false,n=2",
-                    "description": "Comparer"
-                  },
-                  {
-                    "slug": "5N14-2,s=false,n=1",
-                    "description": "Ranger"
-                  }
-                ],
-                "lessonPlans": [
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "5N21_Presentation"
-                    ],
-                    "startSteps": [],
-                    "segments": [
-                      {
-                        "steps": [
-                          "Afficher https://topmaths.fr/?uuid=234a7&id=5N14&n=2&s=11&s2=false&alea=1dMU&v=exercices",
-                          "Rappeler ce que signifie \"Comparer\"",
-                          "Apprentissage explicite",
-                          "Apprentissage explicite de https://topmaths.fr/?uuid=ce9ca&id=5N14-2&n=1&s=false&alea=s60Z&v=exercices",
-                          "Noter le cours (ne pas noter les exemples si on manque de temps)"
-                        ]
-                      }
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  }
-                ]
-              },
-              {
                 "reference": "5N22",
                 "titleAcademic": "Simplifier des fractions simples",
                 "lessonSummaryHTML": "$\\cfrac{a {\\color{red} \\times k}}{b {\\color{red} \\times k}} = \\cfrac{a}{b}$",
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "objectiveReference": "5N20"
+                    "objectiveReference": "6N3H"
                   }
                 ],
                 "videos": [],
@@ -4407,53 +5336,6 @@
                           "Correction",
                           "Relance, on fait ensemble",
                           "Relance, ils font seuls"
-                        ]
-                      }
-                    ],
-                    "closureSteps": []
-                  }
-                ]
-              },
-              {
-                "reference": "5N24",
-                "titleAcademic": "Additionner ou soustraire des fractions dont les dénominateurs sont égaux ou multiples l'un de l'autre",
-                "lessonSummaryHTML": "Pour additionner ou soustraire deux fractions :<br>- on commence par les mettre sur le même dénominateur ;<br>- puis on additionne ou on soustrait les numérateurs.",
-                "lessonSummaryImage": "",
-                "prerequisites": [
-                  {
-                    "objectiveReference": "6N3K"
-                  },
-                  {
-                    "objectiveReference": "5N20"
-                  }
-                ],
-                "videos": [
-                  {
-                    "title": "Explications détaillées",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=lGShZVQlXMQ&vignette=https://i.ytimg.com/vi/lGShZVQlXMQ/hqdefault.jpg&debut=0&fin=393&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "5N20,s=11,s2=3,s3=false,n=4"
-                  }
-                ],
-                "lessonPlans": [
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
-                    "startSteps": [
-                      "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
-                    ],
-                    "segments": [
-                      {
-                        "steps": [
-                          "Apprentissage explicite de https://topmaths.fr/?v=objective&ref=5N24",
-                          "Kahoot : https://create.kahoot.it/details/279e7e5a-38ac-41d2-af2e-1ff5ad5ff854"
                         ]
                       }
                     ],
@@ -5386,59 +6268,6 @@
                 ]
               },
               {
-                "reference": "5P11",
-                "titleAcademic": "Utiliser l'échelle d'une carte",
-                "lessonSummaryHTML": "Une échelle de $\\cfrac{1}{\\text{1 000 000}}$ signifie que 1 unité sur la carte correspond à 1 000 000 unités dans la réalité.",
-                "lessonSummaryImage": "",
-                "prerequisites": [
-                  {
-                    "objectiveReference": "5P14"
-                  }
-                ],
-                "videos": [
-                  {
-                    "title": "",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=VvaCZM0I2-E&vignette=https://i.ytimg.com/vi/VvaCZM0I2-E/hqdefault.jpg&debut=0&fin=80&largeur=200&hauteur=113",
-                    "authorName": " Christophe Gombert",
-                    "authorLink": "https://www.youtube.com/channel/UCuvHpNCqGDTFaEvO4c0nhZQ"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "5P13,s=4,n=3"
-                  }
-                ],
-                "lessonPlans": [
-                  {
-                    "studentMaterialsNeeded": [
-                      "Règle"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "5P11_Poly_x1",
-                      "5P11_Presentation"
-                    ],
-                    "startSteps": [],
-                    "segments": [
-                      {
-                        "steps": [
-                          "Afficher la slide sans règle",
-                          "Demander comment faire si on veut savoir quelle est la distance entre Saint Denis et Sainte Marie ? (il faut mesurer)",
-                          "Afficher la slide avec règle",
-                          "Donc la distance entre Saint Denis et Sainte Marie est de 6,2 cm ? Ça fait un peu petit.",
-                          "Les faire remarquer l'échelle s'ils ne la remarquent pas",
-                          "Montrer comment calculer la distance réelle à l'aide d'un tableau de proportionnalité",
-                          "Distribuer les poly et leur demander de mesurer différentes distances",
-                          "#rouge()[Ce n'était pas efficace, les élèves étaient trop distraits à chercher leur maison etc. Finalement ce serait mieux de garder ce genre de carte pour des DM et en classe de travailler sur une carte plus impersonnelle]",
-                          "Une fois qu'ils ont compris, passer aux exercices sans carte comme ceux de https://topmaths.fr/?v=objective&ref=5P11"
-                        ]
-                      }
-                    ],
-                    "closureSteps": [],
-                    "comments": []
-                  }
-                ]
-              },
-              {
                 "reference": "5P12",
                 "titleAcademic": "Construire un agrandissement ou une réduction d'une figure donnée",
                 "lessonSummaryHTML": "Pour construire un agrandissement ou une réduction de rapport $k$ d'une figure donnée, on reproduit la même figure mais en multipliant les longueurs par $k$.",
@@ -5749,46 +6578,6 @@
                         "steps": [
                           "Expliquer et noter le cours au fur et à mesure",
                           "https://create.kahoot.it/details/c6c6ad85-5a8d-4cab-ba9e-2e64bbd8fc2c"
-                        ]
-                      }
-                    ],
-                    "closureSteps": []
-                  }
-                ]
-              },
-              {
-                "reference": "5S21",
-                "titleAcademic": "Calculer des probabilités dans des situations simples d'équiprobabilité",
-                "title": "Calculer des probabilités",
-                "lessonSummaryHTML": "",
-                "lessonSummaryImage": "",
-                "videos": [
-                  {
-                    "title": "",
-                    "videoLink": "https://ladigitale.dev/digiview/inc/video.php?videoId=XTlxQPG5ehc&vignette=https://i.ytimg.com/vi/XTlxQPG5ehc/hqdefault.jpg&debut=0&fin=479&largeur=200&hauteur=113",
-                    "authorName": "Yvan Monka",
-                    "authorLink": "https://www.youtube.com/channel/UCaDqmzanCq4ZYhdEm0Df9Qg"
-                  }
-                ],
-                "exercises": [
-                  {
-                    "slug": "5S21,n=1"
-                  }
-                ],
-                "lessonPlans": [
-                  {
-                    "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "5S21_Presentation",
-                      "Tablettes"
-                    ],
-                    "startSteps": [],
-                    "segments": [
-                      {
-                        "steps": [
-                          "Enseignement explicite de https://topmaths.fr/?v=objective&ref=5S21",
-                          "Noter le cours",
-                          "https://create.kahoot.it/details/08dee843-7a0f-4071-9c92-2aea5d8a787f"
                         ]
                       }
                     ],
@@ -6628,7 +7417,7 @@
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "objectiveReference": "5N24"
+                    "objectiveReference": "6N3K"
                   }
                 ],
                 "videos": [],
@@ -6653,7 +7442,7 @@
                     "objectiveReference": "5N40"
                   },
                   {
-                    "objectiveReference": "5N20"
+                    "objectiveReference": "6N3H"
                   }
                 ],
                 "videos": [

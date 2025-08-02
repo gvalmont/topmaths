@@ -229,7 +229,7 @@
         ]
       },
       {
-        "title": "Calculs 2 : Division décimale",
+        "title": "Calculs 2",
         "objectives": [
           {
             "reference": "6N2H"
@@ -732,7 +732,7 @@
             "reference": "6N1F"
           },
           {
-            "reference": "5N20"
+            "reference": "6N3H"
           }
         ]
       },
@@ -743,7 +743,7 @@
             "reference": "6M1H"
           },
           {
-            "reference": "5P11"
+            "reference": "6P3E"
           }
         ]
       },
@@ -762,7 +762,7 @@
         "title": "Somme des angles d'un triangle",
         "objectives": [
           {
-            "reference": "5G32"
+            "reference": "6G6C"
           }
         ]
       },
@@ -798,7 +798,10 @@
         "title": "Fractions 2",
         "objectives": [
           {
-            "reference": "5N21"
+            "reference": "6N3I"
+          },
+          {
+            "reference": "6N3J"
           },
           {
             "reference": "5N22"
@@ -834,7 +837,7 @@
             "reference": "5S20"
           },
           {
-            "reference": "5S21"
+            "reference": "6P2B"
           }
         ]
       },
