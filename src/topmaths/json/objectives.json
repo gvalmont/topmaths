@@ -245,11 +245,7 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "prerequisites": [
-                  {
-                    "objectiveReference": "6N31"
-                  }
-                ],
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
@@ -297,11 +293,7 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "prerequisites": [
-                  {
-                    "objectiveReference": "6N31"
-                  }
-                ],
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
@@ -349,11 +341,7 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "prerequisites": [
-                  {
-                    "objectiveReference": "6N20"
-                  }
-                ],
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
@@ -395,11 +383,7 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "prerequisites": [
-                  {
-                    "objectiveReference": "6N20"
-                  }
-                ],
+                "prerequisites": [],
                 "videos": [
                   {
                     "title": "",
@@ -568,7 +552,7 @@
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "objectiveReference": "6C12"
+                    "objectiveReference": "6N2O"
                   }
                 ],
                 "videos": [
@@ -704,11 +688,7 @@
                 "title": "",
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
-                "prerequisites": [
-                  {
-                    "objectiveReference": "6C30"
-                  }
-                ],
+                "prerequisites": [],
                 "videos": [],
                 "exercises": [
                   {
@@ -4025,7 +4005,7 @@
                 "lessonSummaryImage": "",
                 "prerequisites": [
                   {
-                    "objectiveReference": "6P14"
+                    "objectiveReference": "5P14"
                   }
                 ],
                 "videos": [
