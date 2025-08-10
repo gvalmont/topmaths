@@ -1,8 +1,6 @@
-##6M10
+##6M1J
 
-##6M12
-
-##6M13
+##6M2C
 
 #definitions()[
   Une #motDefini()[#rouge()[hauteur]] d’un parallélogramme est la distance entre deux côtés opposés du parallélogramme.\
