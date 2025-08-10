@@ -1,5 +1,3 @@
-##6M1J
-
 ##6M2C
 
 #definitions()[

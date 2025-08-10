@@ -1,4 +1,4 @@
-##5S21
+##6P2B
 
 #definition()[
   L’événement #motDefini()[contraire] d’un événement $A$ est l’événement qui se réalise à chaque fois que $A$ n’est pas réalisé~: il est réalisé par toutes les issues qui ne réalisent pas l’événement $A$.\
