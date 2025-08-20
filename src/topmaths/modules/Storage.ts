@@ -35,17 +35,17 @@ export default class Storage {
     isDarkMode.set(darkMode)
   }
 
-  // generic set and get for other data stored in sessionStorage
+  // generic set and get for other data stored in localStorage
   static get (key: string): unknown {
-    const obj = sessionStorage.getItem(key)
+    const obj = localStorage.getItem(key)
     if (obj !== null) return JSON.parse(obj)
   }
 
   static set (key: string, objet: unknown): void {
-    sessionStorage.setItem(key, JSON.stringify(objet))
+    localStorage.setItem(key, JSON.stringify(objet))
   }
 
   static delete (key: string): void {
-    sessionStorage.removeItem(key)
+    localStorage.removeItem(key)
   }
 }
