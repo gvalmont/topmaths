@@ -76,6 +76,7 @@ function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
     objective.lessonImages.forEach(image => {
       content += `\n#image("../../../../../.${image}")\n`
     })
+    content += '\n#align(center, text(black, 9pt)[Cours de #link("https://x.com/ClaireBruneau1")[Claire Bruneau]])\n'
   } else {
     content += fs.readFileSync(objectiveLessonPath, 'utf8')
     if (content.includes('image("')) copyImages(objective, unit)
