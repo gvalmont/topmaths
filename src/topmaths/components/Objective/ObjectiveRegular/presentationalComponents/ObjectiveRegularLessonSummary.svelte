@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
+  export let lessonImages: string[]
   export let lessonSummaryHTML: string
   export let lessonSummaryImage: string
   export let lessonSummaryImageAlt: string
@@ -22,17 +23,37 @@
 >
   Résumé du cours
 </h2>
-<div class="p-6 flex flex-col items-center">
-  <div bind:this={lessonSummaryDiv} />
-  {#if lessonSummaryImage}
-    <img
-      src={lessonSummaryImage}
-      alt={lessonSummaryImageAlt}
-    />
-  {/if}
-  {#if lessonSummaryInstrumenpoche}
-    <div class="text-center">
-      <div class="inline-block" id="divIEP"></div>
-    </div>
-  {/if}
-</div>
+
+{#if lessonImages.length > 0}
+  <div>
+    {#each lessonImages as image, i}
+      <img src={image} alt="Résumé de cours {i + 1}" />
+    {/each}
+  </div>
+  <p class="bg-white">
+    Cours de
+    <a
+      href="https://x.com/ClaireBruneau1"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="is-interactive is-topmaths"
+    >
+      Claire Bruneau
+    </a>
+  </p>
+{:else}
+  <div class="p-6 flex flex-col items-center">
+    <div bind:this={lessonSummaryDiv} />
+    {#if lessonSummaryImage}
+      <img
+        src={lessonSummaryImage}
+        alt={lessonSummaryImageAlt}
+      />
+    {/if}
+    {#if lessonSummaryInstrumenpoche}
+      <div class="text-center">
+        <div class="inline-block" id="divIEP"></div>
+      </div>
+    {/if}
+  </div>
+{/if}
