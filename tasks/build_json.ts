@@ -159,6 +159,7 @@ function buildObjectives (): ObjectiveWithStringReference[] {
           objective.exercisesLink = buildLinkFromSlugs(objective.exercises.map(exercise => exercise?.slug))
           objective.grade = grade.name
           objective.isAutomaticity = objective.isAutomaticity ?? false
+          objective.lessonImages = buildObjectiveLessonImages(objective)
           objective.lessonPlans = objective.lessonPlans ? objective.lessonPlans.map(lessonPlan => buildObjectiveLessonPlan(lessonPlan)) : []
           objective.lessonSummaryHTML = objective.lessonSummaryHTML ?? ''
           objective.lessonSummaryImage = objective.lessonSummaryImage ? '../topmaths/img/' + objective.lessonSummaryImage : ''
@@ -522,6 +523,25 @@ function buildUnitReference (unit: RecursivePartial<Unit>): string {
     throw new Error('Unit grade is undefined')
   }
   return `S${unit.grade.slice(0, 1)}S${unit.number}`
+}
+
+function buildObjectiveLessonImages (objective: RecursivePartial<Objective>): string[] {
+  const objectiveReference = objective.reference
+  if (!objectiveReference) return []
+  const lessonImages: string[] = []
+  const basePath = './public/topmaths/cours-image/'
+  if (fs.existsSync(basePath)) {
+    const files = fs.readdirSync(basePath)
+    // Match files like "6N1A-1.png", "6N1A-2.png", etc.
+    const pattern = new RegExp(`^${objectiveReference}-\\d+\\.png$`)
+    files.forEach(file => {
+      if (pattern.test(file)) {
+        lessonImages.push(basePath + file)
+      }
+    })
+  }
+
+  return lessonImages
 }
 
 function buildObjectiveLessonPlan (lessonPlan: undefined | RecursivePartial<ObjectiveLessonPlan>): ObjectiveLessonPlan {

@@ -302,6 +302,7 @@ export type Objective = {
   exercisesLink: string,
   grade: StringGrade,
   isAutomaticity: boolean,
+  lessonImages: string[],
   lessonPlans: ObjectiveLessonPlan[],
   lessonSummaryHTML: string,
   lessonSummaryImage: string,
@@ -330,6 +331,7 @@ export function isObjective (obj: unknown, withStringReference: boolean = false)
     'exercisesLink' in obj && typeof obj.exercisesLink === 'string' &&
     'grade' in obj && isStringGrade(obj.grade) &&
     'isAutomaticity' in obj && typeof obj.isAutomaticity === 'boolean' &&
+    'lessonImages' in obj && isStrings(obj.lessonImages) &&
     'lessonPlans' in obj && isObjectiveLessonPlans(obj.lessonPlans) &&
     'lessonSummaryHTML' in obj && typeof obj.lessonSummaryHTML === 'string' &&
     'lessonSummaryImage' in obj && typeof obj.lessonSummaryImage === 'string' &&
@@ -361,6 +363,7 @@ export const emptyObjective: Objective = { // keep in sync with build_prepare.ts
   exercisesLink: '',
   grade: DEFAULT_GRADE,
   isAutomaticity: false,
+  lessonImages: [],
   lessonPlans: [],
   lessonSummaryHTML: '',
   lessonSummaryImage: '',

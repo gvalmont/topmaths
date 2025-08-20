@@ -75,15 +75,34 @@
       isTeacherMode={$isTeacherMode}
     />
   {/if}
-  {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche}
-    <ObjectiveRegularLessonSummary
-      lessonSummaryHTML={objective.lessonSummaryHTML}
-      lessonSummaryImage={objective.lessonSummaryImage}
-      lessonSummaryImageAlt={objective.lessonSummaryImageAlt}
-      lessonSummaryInstrumenpoche={objective.lessonSummaryInstrumenpoche}
-      {mathaleaRenderDiv}
-      {loadIep}
-    />
+  {#if objective.lessonImages.length > 0}
+    <div>
+      {#each objective.lessonImages as image}
+        <img src={image} alt="Image for {getTitle(objective)}" />
+      {/each}
+    </div>
+    <p>
+      Cours de
+      <a
+        href="https://x.com/ClaireBruneau1"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="is-interactive is-topmaths"
+      >
+        Claire Bruneau
+      </a>
+    </p>
+  {:else}
+    {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche}
+      <ObjectiveRegularLessonSummary
+        lessonSummaryHTML={objective.lessonSummaryHTML}
+        lessonSummaryImage={objective.lessonSummaryImage}
+        lessonSummaryImageAlt={objective.lessonSummaryImageAlt}
+        lessonSummaryInstrumenpoche={objective.lessonSummaryInstrumenpoche}
+        {mathaleaRenderDiv}
+        {loadIep}
+      />
+    {/if}
   {/if}
   {#if objective.videos.length > 0}
     <ObjectiveRegularVideos

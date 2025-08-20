@@ -49,6 +49,7 @@
         href={video.authorLink}
         target="_blank"
         rel="noopener noreferrer"
+        class="is-interactive is-topmaths"
       >
         <button>
           {video.authorName}
