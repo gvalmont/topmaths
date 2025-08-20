@@ -21,7 +21,7 @@
     Avant de viser cet objectif, il faut d'abord maîtriser {prerequisites.length > 1 ? 'les objectifs suivants' : 'l\'objectif suivant'} :
   </p>
 {/if}
-<ul class="pt-2">
+<ul class="pt-4">
   {#each prerequisites as prerequisite}
     <li class="p-2 is-{buildGradeFromObjectiveReference(prerequisite.objectiveReference)}">
       <a

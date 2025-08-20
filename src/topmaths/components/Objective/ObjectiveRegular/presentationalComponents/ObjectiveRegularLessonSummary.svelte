@@ -14,7 +14,7 @@
 
   onMount(() => {
     if (lessonSummaryInstrumenpoche) loadIep()
-    lessonSummaryDiv.innerHTML = lessonSummaryHTML
+    if (lessonSummaryDiv) lessonSummaryDiv.innerHTML = lessonSummaryHTML
   })
 </script>
 
@@ -25,12 +25,12 @@
 </h2>
 
 {#if lessonImages.length > 0}
-  <div>
+  <div class="flex flex-col items-center py-6">
     {#each lessonImages as image, i}
-      <img src={image} alt="Résumé de cours {i + 1}" />
+      <img src={image} alt="Résumé de cours {i + 1}" class="w-full max-w-3xl" />
     {/each}
   </div>
-  <p class="bg-white">
+  <p class="pb-6">
     Cours de
     <a
       href="https://x.com/ClaireBruneau1"
