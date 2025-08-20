@@ -1,7 +1,7 @@
 import { isObjectiveExercises, isObjectiveLessonPlan, isObjectivePrerequisites, isObjectiveReference, type ObjectiveExercise, type ObjectiveLessonPlan, type ObjectivePrerequisite, type ObjectiveReference } from './objective.js'
 import { DEFAULT_GRADE, isStringGrade, type StringGrade } from './grade.js'
 import { unitsReferences } from './unitsReferences.js'
-import type { ReplaceReferencesByStrings } from './shared'
+import { isStrings, type ReplaceReferencesByStrings } from './shared.js'
 
 type UnitsReferencesValidTypes = typeof unitsReferences
 export type UnitReference = UnitsReferencesValidTypes[number]
@@ -51,6 +51,7 @@ export type UnitObjective = {
   exercises: ObjectiveExercise[],
   grade: StringGrade,
   isAutomaticity: boolean,
+  lessonImages: string[],
   lessonPlans: UnitLessonPlan[],
   prerequisites: ObjectivePrerequisite[],
   reference: ObjectiveReference,
@@ -65,6 +66,7 @@ export function isUnitObjective (obj: unknown, withStringReference: boolean = fa
     'exercises' in obj && isObjectiveExercises(obj.exercises) &&
     'grade' in obj && isStringGrade(obj.grade) &&
     'isAutomaticity' in obj && typeof obj.isAutomaticity === 'boolean' &&
+    'lessonImages' in obj && isStrings(obj.lessonImages) &&
     'lessonPlans' in obj && isUnitLessonPlans(obj.lessonPlans) &&
     'prerequisites' in obj && isObjectivePrerequisites(obj.prerequisites) &&
     'reference' in obj && (withStringReference ? typeof obj.reference === 'string' : isObjectiveReference(obj.reference)) &&
@@ -82,6 +84,7 @@ export const emptyUnitObjective: UnitObjective = {
   exercises: [],
   grade: DEFAULT_GRADE,
   isAutomaticity: false,
+  lessonImages: [],
   lessonPlans: [],
   prerequisites: [],
   reference: '6N1A', // Cannot access 'emptyObjectiveReference' before initialization

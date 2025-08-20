@@ -11,14 +11,17 @@
     columns: (35%, 5%, 60%),
     stroke: none,
     align: horizon,
-    image("../../cours/objectifs/6e/6G20-1.png"), [], [
+    image("../../cours/objectifs/6e/6G2A-1.png"),
+    [],
+    [
       Ce cercle a pour centre le point O et pour rayon le nombre OM\
       Le segment [OM] est un rayon du cercle, tout comme [OC]\
       La longueur OM = OC = OD est le rayon du cercle\
       Le segment [DC] est un diamètre du cercle\
       La longueur DC est le diamètre du cercle\
       Le segment [AB] est une corde du cercle
-  ])
+    ],
+  )
 ]
 
 #definition()[

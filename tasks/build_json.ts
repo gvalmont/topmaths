@@ -693,6 +693,7 @@ function updateUnitObjectives (unit: UnitWithStringReference): void {
     unitObjective.isAutomaticity = objective.isAutomaticity
     unitObjective.theme = objective.theme
     unitObjective.grade = objective.grade
+    unitObjective.lessonImages = objective.lessonImages
     unitObjective.lessonPlans = buildUnitLessonPlans(objective, unit.grade)
     unitObjective.prerequisites = objective.prerequisites
     unitObjective.descendantsCount = objective.descendantsCount

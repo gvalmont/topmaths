@@ -67,12 +67,19 @@ function isIgnored (objective: UnitObjective): boolean {
 
 function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
   const objectiveLessonPath = `${SOURCE_ROOT}/${LESSONS}/${OBJECTIVES}/${objective.grade}/${objective.reference}.typ`
-  if (!fs.existsSync(objectiveLessonPath)) return ''
+  if (!fs.existsSync(objectiveLessonPath) && objective.lessonImages.length === 0) return ''
   const title = `
 = ${getTitle(objective)}
 `
-  const content = fs.readFileSync(objectiveLessonPath, 'utf8')
-  if (content.includes('image("')) copyImages(objective, unit)
+  let content = ''
+  if (objective.lessonImages.length > 0) {
+    objective.lessonImages.forEach(image => {
+      content += `\n#image("../../../../../.${image}")\n`
+    })
+  } else {
+    content += fs.readFileSync(objectiveLessonPath, 'utf8')
+    if (content.includes('image("')) copyImages(objective, unit)
+  }
   return title + content
 }
 

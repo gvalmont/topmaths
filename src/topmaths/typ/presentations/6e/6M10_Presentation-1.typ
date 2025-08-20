@@ -1,12 +1,12 @@
 #import "../../preambule_presentation.typ": *
 #import "../../preambule_sequence.typ": *
-#show: doc => presentation(doc, titre: "6M10 : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle")
+#show: doc => presentation(doc, titre: "6M2C : Calculer le périmètre et l'aire d'un carré, d'un rectangle et d'un triangle rectangle")
 #set text(couleurPrincipale, size: 20pt)
 #slide()[
   #align(center + horizon, image("../../photocopies/6e/6M10-1.png", width: 50%))
 ]
 #slide()[
-  #align(center + horizon, image("../../cours/objectifs/6e/6M10-1.png", width: 50%))
+  #align(center + horizon, image("../../cours/objectifs/6e/6M2C-1.png", width: 50%))
 ]
 #slide()[
   #align(center + horizon, image("6M10-1.png", width: 50%))
@@ -20,7 +20,7 @@
 
   #exemple()[
     Le #uncover(2)[#rouge()[périmètre]] de cette figure est la longueur en #rouge()[rouge].
-    #image("../../cours/objectifs/6e/6M10-1.png", height: 8em)
+    #image("../../cours/objectifs/6e/6M2C-1.png", height: 8em)
   ]
 ]
 
@@ -31,7 +31,7 @@
 
   #exemple()[
     L'#uncover(2)[#vert()[aire]] de cette figure est la mesure de la surface #vert()[verte].
-    #image("../../cours/objectifs/6e/6M10-2.png", height: 8em)
+    #image("../../cours/objectifs/6e/6M2C-2.png", height: 8em)
   ]
 ]
 
@@ -51,7 +51,7 @@
       #rouge()[Périmètre] = 16 cm
     ]
   ]
-  #image("../../cours/objectifs/6e/6M10-3.png", width: 35%)
+  #image("../../cours/objectifs/6e/6M2C-3.png", width: 35%)
   Pour calculer l'#vert()[aire] d'une figure, on compte combien de carrés on a besoin pour la remplir :
 
   Cette figure est constituée de 12 carrés de 1 centimètre de côté, on peut donc dire qu'elle a une aire de 12 centimètres carrés. En mathématiques, on le note :\

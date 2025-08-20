@@ -39,7 +39,7 @@ function compile_pdfs() {
     echo "Compiling $current_file of $total_files $pdf_directory"
 
     # Add error handling for the typst compile command
-    if typst compile "$file" "$pdf_directory/$parent_directory_name/${modified_file_name}.pdf" --root "src/topmaths/typ/"; then
+    if typst compile "$file" "$pdf_directory/$parent_directory_name/${modified_file_name}.pdf" --root "/"; then
       :
     else
       echo "Error compiling file: $file $pdf_directory/$parent_directory_name/${modified_file_name}.pdf"
