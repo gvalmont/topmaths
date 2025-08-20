@@ -51,7 +51,7 @@
 
   function updateParams (): void {
     updateParamsFromUrl()
-    Cart.updateFromStorage()
+    Cart.loadFromStorage()
     isTeacherMode.set(Storage.getTeacherMode())
     isPersonalMode.set(Storage.getPersonalMode())
   }

@@ -18,10 +18,12 @@ export default class Cart {
   }
 
   static add (cartItem: CartItem): void {
+    this.loadFromStorage()
     if (!this.includes(cartItem.exercise.id)) {
       const currentItems = this.items
       currentItems.push(cartItem)
       this.items = currentItems // instead of this.items.push(cartItem) to use the setter checks
+      this.saveToStorage()
     }
   }
 
@@ -31,18 +33,24 @@ export default class Cart {
     if (index !== -1) {
       currentItems.splice(index, 1)
       this.items = currentItems
+      this.saveToStorage()
     }
   }
 
-  static updateFromStorage (): void {
+  static loadFromStorage (): void {
     const newCart: unknown = Storage.get('cart')
     if (isCartItems(newCart)) {
       this.items = newCart
     }
   }
 
+  static saveToStorage (): void {
+    Storage.set('cart', this.items)
+  }
+
   static clear (): void {
     this.items = []
+    this.saveToStorage()
     goToView(new MouseEvent('click'), 'home')
   }
 
