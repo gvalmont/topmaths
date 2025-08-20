@@ -74,7 +74,7 @@ function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
   let content = ''
   if (objective.lessonImages.length > 0) {
     objective.lessonImages.forEach(image => {
-      content += `\n#image("../../../../../.${image}")\n`
+      content += `\n#image("../../../../../../public/${image}")\n`
     })
     content += '\n#align(center, text(black, 9pt)[Cours de #link("https://x.com/ClaireBruneau1")[Claire Bruneau]])\n'
   } else {

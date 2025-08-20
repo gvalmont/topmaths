@@ -529,9 +529,10 @@ function buildObjectiveLessonImages (objective: RecursivePartial<Objective>): st
   const objectiveReference = objective.reference
   if (!objectiveReference) return []
   const lessonImages: string[] = []
-  const basePath = './public/topmaths/cours-image/'
-  if (fs.existsSync(basePath)) {
-    const files = fs.readdirSync(basePath)
+  const publicPath = './public/'
+  const basePath = 'topmaths/cours-image/'
+  if (fs.existsSync(publicPath + basePath)) {
+    const files = fs.readdirSync(publicPath + basePath)
     // Match files like "6N1A-1.png", "6N1A-2.png", etc.
     const pattern = new RegExp(`^${objectiveReference}-\\d+\\.png$`)
     files.forEach(file => {
