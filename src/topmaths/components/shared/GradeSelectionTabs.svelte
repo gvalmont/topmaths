@@ -10,20 +10,20 @@
   mb-2 md:mb-4"
 >
   <ul class="flex flex-grow justify-center">
-    {#each stringGradeValidKeys as level}
+    {#each stringGradeValidKeys as grade}
       <li>
         <button
-          on:click={() => onClick(level)}
-          class="button is-light is-{level}
+          on:click={() => onClick(grade)}
+          class="button is-light is-{grade}
             text-base md:text-2xl
             my-1 md:my-4
             py-1 md:py-2
             px-3 md:px-5
-            {level === DEFAULT_GRADE ? 'rounded-l-[1.5rem]' : ''}
-            {level === stringGradeValidKeys[stringGradeValidKeys.length - 1] ? 'rounded-r-[1.5rem]' : ''}"
-          class:is-active={activeLevelTab === level}
+            {grade === DEFAULT_GRADE ? 'rounded-l-[1.5rem]' : ''}
+            {grade === stringGradeValidKeys[stringGradeValidKeys.length - 1] ? 'rounded-r-[1.5rem]' : ''}"
+          class:is-active={activeLevelTab === grade}
         >
-          {level === DEFAULT_GRADE ? 'Tout' : level}
+          {grade === DEFAULT_GRADE ? 'Tout' : grade}
         </button
         >
       </li>

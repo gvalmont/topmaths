@@ -93,8 +93,14 @@
     (view === 'classroom' && isUnit(item) && item.objectives.some(objective => normalize(getTitle(objective)).includes(word)))
   }
 
-  function updateFilter (grade: StringGrade, term?: number): void {
-    $filter.grade = grade
+  type UpdateFilterOptions = {
+    grade?: StringGrade,
+    term?: number
+  }
+  function updateFilter (options: UpdateFilterOptions): void {
+    if (options.grade === undefined && options.term === undefined) return
+    const { grade = $filter.grade, term = $filter.term } = options
+    if (isStringGrade(grade)) $filter.grade = grade
     if (term !== undefined) {
       $filter.term = term
     }
@@ -104,26 +110,28 @@
 
 <GradeSelectionTabs
   activeLevelTab={$filter.grade}
-  onClick={updateFilter}
+  onClick={(grade) => updateFilter({ grade })}
 />
 <TermSelectionButtons
   selectedTerm={$filter.term}
   on:change={(e) => {
     const term = e.detail
-    updateFilter($filter.grade, term)
+    updateFilter({term})
   }}
 />
 <SearchInput
   bind:searchString={$searchString}
 />
-{#if (view !== 'unit') && $isTeacherMode}
-<span class="print-hidden absolute">
-  <InputCheckbox
-    bind:isChecked={$isTitleAcademicPreferred}
-  >
-    Intitulés proches des attendus de fin d'année
-  </InputCheckbox>
-</span>
+{#if (view !== 'unit')}
+  {#if $isTeacherMode}
+    <span class="print-hidden absolute">
+      <InputCheckbox
+        bind:isChecked={$isTitleAcademicPreferred}
+      >
+        Intitulés proches des attendus de fin d'année
+      </InputCheckbox>
+    </span>
+  {/if}
 {/if}
 {#each stringGradeValidKeys as grade}
   {#if $filteredItems.filter(item => item.grade === grade).length > 0}
