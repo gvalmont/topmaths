@@ -2,7 +2,7 @@
 #import "./components/page.typ": *
 #import "./components/outils.typ": *
 
-#let couleurPrincipale = blue
+#let couleurPrincipale = black
 #let normal(texte) = text(couleurPrincipale, texte)
 
 #let attention() = {
@@ -77,7 +77,7 @@
 
 #let titrePrincipal(titre) = {
   align(center)[
-    #block(text(red, weight: "semibold", 1.75em, titre))
+    #block(text(couleurRouge, weight: "semibold", 1.75em, titre))
   ]
 }
 
@@ -117,8 +117,8 @@
   block(
     text(
       underline(
-        text(red, font: "STIX Two Text", size: 1.05em, headingCount) + " " + titre,
-        stroke: 1pt + red,
+        text(couleurRouge, font: "STIX Two Text", size: 1.05em, headingCount) + " " + titre,
+        stroke: 1pt + couleurRouge,
         offset: 2pt,
       ),
       weight: "regular",
@@ -157,7 +157,7 @@
 
 #let sequence(title: "", body) = {
   set document(author: "Guillaume Valmont", title: title)
-  set text(couleurPrincipale, font: "Source Sans Pro", weight: "medium", lang: "fr", hyphenate: false)
+  set text(couleurPrincipale, font: "Verdana Pro", weight: "regular", lang: "fr", hyphenate: false)
   set page(footer: footerTopmaths(fonctionCouleurLiens: normal))
   set figure(supplement: none, numbering: none)
   show math.frac: it => math.display(it) // Pour avoir de grosses fractions partout

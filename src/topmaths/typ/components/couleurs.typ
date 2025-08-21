@@ -1,10 +1,12 @@
+#let couleurRouge = rgb("#d72b30")
+
 #let bleu(texte) = text(blue, texte)
-#let rouge(texte) = text(red, texte)
+#let rouge(texte) = text(couleurRouge, texte)
 #let vert(texte) = text(green, texte)
 #let noir(texte) = text(black, texte)
 #let gris(texte) = text(gray, texte)
 #let blanc(texte) = text(white, texte, size: 1.3em)
-#let motDefini(texte) = text(red, texte)
+#let motDefini(texte) = text(couleurRouge, texte)
 
 #let degrade(couleur1, couleur2, texte) = {
   let couleur(indiceCouleur, indiceTexte) = {
