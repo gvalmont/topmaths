@@ -3,7 +3,7 @@
 
 </script>
 
-<label class="flex items-center mt-2 ml-2 cursor-pointer is-interactive is-link">
+<label class="flex items-center mt-5 ml-2 cursor-pointer is-interactive is-link">
   <div class="custom-checkbox relative inline-block w-5 h-5 mr-2">
     <input
       class="opacity-0 w-0 h-0"

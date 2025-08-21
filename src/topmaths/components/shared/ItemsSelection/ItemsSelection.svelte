@@ -18,7 +18,7 @@
   import { isSpecialUnit } from '../../../types/specialUnit'
   import { emptyCurriculum, type Curriculum } from '../../../types/curriculum'
   import type { Unsubscriber } from 'svelte/motion'
-    import { isReferenceIgnored } from '../../../services/reference';
+  import { isReferenceIgnored } from '../../../services/reference'
 
   export let view: View
   export let items: Writable<Item[]>
@@ -56,14 +56,19 @@
   function updateParamsFromUrl (): void {
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
-    let newGrade: StringGrade = DEFAULT_GRADE
-    let newTerm: number = 0
+    let grade: StringGrade = DEFAULT_GRADE
+    let term: number = 0
+    let isAutomaticity: boolean = false
     for (const entry of entries) {
-      if (entry[0] === 'grade') newGrade = isStringGrade(entry[1]) ? entry[1] : DEFAULT_GRADE
-      if (entry[0] === 'term') newTerm = Number(entry[1])
+      if (entry[0] === 'grade') grade = isStringGrade(entry[1]) ? entry[1] : DEFAULT_GRADE
+      if (entry[0] === 'term') term = Number(entry[1])
+      if (entry[0] === 'options') isAutomaticity = entry[1] === '1'
     }
-    $filter.grade = newGrade
-    $filter.term = newTerm
+    $filter = Object.assign({}, $filter, {
+      grade,
+      term,
+      isAutomaticity
+    })
   }
 
   function buildFilteredItems (searchString: string, filter: Item, items: Item[]): Item[] {
@@ -78,6 +83,19 @@
       })
       .filter((item) => {
         return filter.term === 0 || item.term === filter.term
+      })
+      .filter((item) => {
+        if (!filter.isAutomaticity) return true
+        if (isObjective(item)) {
+          return item.isAutomaticity === filter.isAutomaticity
+        } else {
+          if (item.objectives.every(objective => !objective.isAutomaticity)) {
+            return false
+          } else {
+            item.objectives = item.objectives.filter(objective => objective.isAutomaticity)
+            return true
+          }
+        }
       })
   }
 
@@ -96,15 +114,16 @@
   type UpdateFilterOptions = {
     grade?: StringGrade,
     term?: number
+    isAutomaticity?: boolean
   }
   function updateFilter (options: UpdateFilterOptions): void {
-    if (options.grade === undefined && options.term === undefined) return
-    const { grade = $filter.grade, term = $filter.term } = options
+    if (options.grade === undefined && options.term === undefined && options.isAutomaticity === undefined) return
+    const { grade , term , isAutomaticity } = options
     if (isStringGrade(grade)) $filter.grade = grade
-    if (term !== undefined) {
-      $filter.term = term
-    }
-    window.history.pushState({}, '', `?v=${view}&grade=${$filter.grade}&term=${$filter.term}`)
+    if (term !== undefined) $filter.term = term
+    if (isAutomaticity !== undefined) $filter.isAutomaticity = isAutomaticity
+    const optionsString = isAutomaticity ? '&options=1' : ''
+    window.history.pushState({}, '', `?v=${view}&grade=${$filter.grade}&term=${$filter.term}${optionsString}`)
   }
 </script>
 
@@ -123,12 +142,22 @@
   bind:searchString={$searchString}
 />
 {#if (view !== 'unit')}
+  <button
+    class="my-4 mx-1 rounded transition-all duration-300 border border-[#ec8b0c] {$filter.isAutomaticity ? 'bg-[#fffabb]' : ''}
+    w-8 h-8
+    text-base md:text-xl"
+    on:click={() => {
+      updateFilter({ isAutomaticity: !$filter.isAutomaticity })
+    }}
+  >
+    ⚡️
+  </button>
   {#if $isTeacherMode}
     <span class="print-hidden absolute">
       <InputCheckbox
         bind:isChecked={$isTitleAcademicPreferred}
       >
-        Intitulés proches des attendus de fin d'année
+        Intitulés du programme
       </InputCheckbox>
     </span>
   {/if}
