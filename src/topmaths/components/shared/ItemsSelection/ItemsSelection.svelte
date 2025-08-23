@@ -1,28 +1,26 @@
 <script lang="ts">
-  import { writable, derived, type Writable } from 'svelte/store'
-  import { goToView } from '../../../services/navigation'
-  import { DEFAULT_GRADE, isStringGrade, stringGradeValidKeys, type StringGrade } from '../../../types/grade'
-  import type { View } from '../../../types/navigation'
-  import GradeSelectionTabs from '../GradeSelectionTabs.svelte'
-  import SearchInput from '../SearchInput.svelte'
-  import TermSelectionButtons from '../TermSelectionButtons.svelte'
-  import { onDestroy, onMount } from 'svelte'
-  import { getTitle, normalize } from '../../../services/string'
-  import { emptyItem, type Item } from './types'
-  import RowRegular from './RowRegular.svelte'
-  import RowCurriculum from './RowCurriculum.svelte'
-  import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store'
-  import InputCheckbox from '../InputCheckbox.svelte'
-  import { isUnit, type Unit } from '../../../types/unit'
-  import { isObjective, type Objective } from '../../../types/objective'
-  import { isSpecialUnit } from '../../../types/specialUnit'
-  import { emptyCurriculum, type Curriculum } from '../../../types/curriculum'
-  import type { Unsubscriber } from 'svelte/motion'
-  import { isReferenceIgnored } from '../../../services/reference'
+  import { onDestroy, onMount } from 'svelte';
+  import type { Unsubscriber } from 'svelte/motion';
+  import { derived, writable, type Writable } from 'svelte/store';
+  import { goToView } from '../../../services/navigation';
+  import { isReferenceIgnored } from '../../../services/reference';
+  import { isTeacherMode, isTitleAcademicPreferred } from '../../../services/store';
+  import { getTitle, normalize } from '../../../services/string';
+  import { DEFAULT_GRADE, isStringGrade, stringGradeValidKeys, type StringGrade } from '../../../types/grade';
+  import type { View } from '../../../types/navigation';
+  import { isObjective, type Objective } from '../../../types/objective';
+  import { isSpecialUnit } from '../../../types/specialUnit';
+  import { isUnit, type Unit, type UnitObjective } from '../../../types/unit';
+  import GradeSelectionTabs from '../GradeSelectionTabs.svelte';
+  import InputCheckbox from '../InputCheckbox.svelte';
+  import SearchInput from '../SearchInput.svelte';
+  import TermSelectionButtons from '../TermSelectionButtons.svelte';
+  import RowCurriculum from './RowCurriculum.svelte';
+  import RowRegular from './RowRegular.svelte';
+  import { emptyItem, type Item } from './types';
 
   export let view: View
   export let items: Writable<Item[]>
-  export let curriculum: Curriculum = emptyCurriculum
 
   const filter = writable<Item>(emptyItem)
   const searchString = writable<string>('')
@@ -32,11 +30,141 @@
       buildFilteredItems($searchString, $filter, $items)
   )
 
-  let objectives: Objective[]
-  $: objectives = $filteredItems.filter(item => isObjective(item))
+  let filteredItemsByGrade: { [grade in StringGrade]: Item[] } = {
+    'tout': [],
+    '6e': [],
+    '5e': [],
+    '4e': [],
+    '3e': []
+  }
+  $: {
+    filteredItemsByGrade = {
+      'tout': $filteredItems.filter(item => item.grade === 'tout'),
+      '6e': $filteredItems.filter(item => item.grade === '6e'),
+      '5e': $filteredItems.filter(item => item.grade === '5e'),
+      '4e': $filteredItems.filter(item => item.grade === '4e'),
+      '3e': $filteredItems.filter(item => item.grade === '3e')
+    }
+  }
 
-  let units: Unit[]
-  $: units = $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item))
+  let unitsByGrade: { [grade in StringGrade]: Unit[] } = {
+    'tout': [],
+    '6e': [],
+    '5e': [],
+    '4e': [],
+    '3e': []
+  }
+  $: {
+    unitsByGrade = {
+      'tout': $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item)).filter(unit => unit.grade === 'tout'),
+      '6e': $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item)).filter(unit => unit.grade === '6e'),
+      '5e': $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item)).filter(unit => unit.grade === '5e'),
+      '4e': $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item)).filter(unit => unit.grade === '4e'),
+      '3e': $filteredItems.filter(item => isUnit(item) || isSpecialUnit(item)).filter(unit => unit.grade === '3e')
+    }
+  }
+
+  let objectivesByGrade: { [grade in StringGrade]: Objective[] } = {
+    'tout': [],
+    '6e': [],
+    '5e': [],
+    '4e': [],
+    '3e': []
+  }
+  $: {
+    objectivesByGrade = {
+      'tout': $filteredItems.filter(item => isObjective(item)).filter(objective => objective.grade === 'tout').filter(objective => !isReferenceIgnored(objective.reference)),
+      '6e': $filteredItems.filter(item => isObjective(item)).filter(objective => objective.grade === '6e').filter(objective => !isReferenceIgnored(objective.reference)),
+      '5e': $filteredItems.filter(item => isObjective(item)).filter(objective => objective.grade === '5e').filter(objective => !isReferenceIgnored(objective.reference)),
+      '4e': $filteredItems.filter(item => isObjective(item)).filter(objective => objective.grade === '4e').filter(objective => !isReferenceIgnored(objective.reference)),
+      '3e': $filteredItems.filter(item => isObjective(item)).filter(objective => objective.grade === '3e').filter(objective => !isReferenceIgnored(objective.reference))
+    }
+  }
+
+  let objectivesThemesByGrade: { [grade in StringGrade]: string[] } = {
+    'tout': [],
+    '6e': [],
+    '5e': [],
+    '4e': [],
+    '3e': []
+  }
+  $: {
+    objectivesThemesByGrade = {
+      'tout': [...new Set(objectivesByGrade['tout'].map(objective => objective.theme))],
+      '6e': [...new Set(objectivesByGrade['6e'].map(objective => objective.theme))],
+      '5e': [...new Set(objectivesByGrade['5e'].map(objective => objective.theme))],
+      '4e': [...new Set(objectivesByGrade['4e'].map(objective => objective.theme))],
+      '3e': [...new Set(objectivesByGrade['3e'].map(objective => objective.theme))]
+    }
+  }
+
+  let objectivesSubThemesByGradeAndTheme: { [grade in StringGrade]: { [theme: string]: string[] } } = {
+    'tout': {},
+    '6e': {},
+    '5e': {},
+    '4e': {},
+    '3e': {}
+  }
+  $: {
+    for (const grade of stringGradeValidKeys) {
+      objectivesSubThemesByGradeAndTheme[grade] = {}
+      for (const theme of objectivesThemesByGrade[grade]) {
+        objectivesSubThemesByGradeAndTheme[grade][theme] = [...new Set(objectivesByGrade[grade].filter(objective => objective.theme === theme).map(objective => objective.subTheme))]
+      }
+    }
+  }
+
+  let objectivesByGradeAndThemeAndSubTheme: { [grade in StringGrade]: { [theme: string]: { [subTheme: string]: Objective[] } } } = {
+    'tout': {},
+    '6e': {},
+    '5e': {},
+    '4e': {},
+    '3e': {}
+  }
+  $: {
+    for (const grade of stringGradeValidKeys) {
+      objectivesByGradeAndThemeAndSubTheme[grade] = {}
+      for (const theme of objectivesThemesByGrade[grade]) {
+        objectivesByGradeAndThemeAndSubTheme[grade][theme] = {}
+        for (const subTheme of objectivesSubThemesByGradeAndTheme[grade][theme]) {
+          objectivesByGradeAndThemeAndSubTheme[grade][theme][subTheme] = objectivesByGrade[grade].filter(objective => objective.theme === theme).filter(objective => objective.subTheme === subTheme)
+        }
+      }
+    }
+  }
+
+  let termsByGrade: { [grade in StringGrade]: number[] } = {
+    'tout': [],
+    '6e': [],
+    '5e': [],
+    '4e': [],
+    '3e': []
+  }
+  $: {
+    for (const grade of stringGradeValidKeys) {
+      const termsSet = new Set<number>()
+      for (const unit of unitsByGrade[grade]) {
+        if (unit.term > 0) termsSet.add(unit.term)
+      }
+      termsByGrade[grade] = Array.from(termsSet).sort((a, b) => a - b)
+    }
+  }
+
+  let unitsByGradeAndTerm: { [grade in StringGrade]: { [term: number]: Unit[] } } = {
+    'tout': {},
+    '6e': {},
+    '5e': {},
+    '4e': {},
+    '3e': {}
+  }
+  $: {
+    for (const grade of stringGradeValidKeys) {
+      unitsByGradeAndTerm[grade] = {}
+      for (const term of termsByGrade[grade]) {
+        unitsByGradeAndTerm[grade][term] = unitsByGrade[grade].filter(unit => unit.term === term)
+      }
+    }
+  }
 
   let isTitleAcademicPreferredUnsubscriber: Unsubscriber
 
@@ -125,6 +253,10 @@
     const optionsString = isAutomaticity ? '&options=1' : ''
     window.history.pushState({}, '', `?v=${view}&grade=${$filter.grade}&term=${$filter.term}${optionsString}`)
   }
+
+  function getObjectivesFromUnit (unit: Unit): UnitObjective[] {
+    return unit.objectives.filter(objective => !isReferenceIgnored(objective.reference))
+  }
 </script>
 
 <GradeSelectionTabs
@@ -163,7 +295,7 @@
   {/if}
 {/if}
 {#each stringGradeValidKeys as grade}
-  {#if $filteredItems.filter(item => item.grade === grade).length > 0}
+  {#if filteredItemsByGrade[grade].length > 0}
     <div class="is-{grade} grade-container my-8
         rounded-4xl md:rounded-5xl
         {view === 'classroom' ? 'border' : ''}"
@@ -175,7 +307,7 @@
         {grade === DEFAULT_GRADE ? 'Séquences particulières' : grade}
       </h1>
       {#if view === 'unit'}
-        {#each units.filter(unit => unit.grade === grade) as unit}
+        {#each unitsByGrade[grade] as unit}
           <RowRegular
             item={unit}
             {view}
@@ -184,19 +316,19 @@
         {/each}
       {/if}
       {#if view === 'objective'}
-        {#each [...new Set(objectives.filter(objective => objective.grade === grade && !isReferenceIgnored(objective.reference)).map(objective => objective.theme))] as theme}
+        {#each objectivesThemesByGrade[grade] as theme}
           <h2 class="title
             text-xl md:text-3xl"
           >
             {theme}
           </h2>
-          {#each [...new Set(objectives.filter(objective => objective.grade === grade).filter(objective => objective.theme === theme).map(objective => objective.subTheme))] as subTheme}
+          {#each objectivesSubThemesByGradeAndTheme[grade][theme] as subTheme}
             <h3 class="subtitle
               text-l md:text-2xl"
             >
               {subTheme}
             </h3>
-            {#each objectives.filter(item => item.grade === grade).filter(item => item.theme === theme).filter(item => item.subTheme === subTheme) as objective}
+            {#each objectivesByGradeAndThemeAndSubTheme[grade][theme][subTheme] as objective}
               <RowRegular
                 item={objective}
                 view={view}
@@ -207,7 +339,7 @@
         {/each}
       {/if}
       {#if view === 'classroom'}
-        {#each Object.keys(curriculum.tout.unitsPerTerm).map(Number).map(termIndex => termIndex + 1).filter(term => $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length > 0) as term, termIndex}
+        {#each termsByGrade[grade] as term, termIndex}
           <h2 class="title
             text-xl md:text-3xl"
           >
@@ -221,7 +353,7 @@
               Objectifs
             </div>
           </div>
-          {#each $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term) as unit, unitIndex}
+          {#each unitsByGradeAndTerm[grade][term] as unit, unitIndex}
           <div class="flex flex-row border-t is-{unit.grade}
             text-sm md:text-base"
           >
@@ -245,12 +377,12 @@
             </div>
             <div class="flex flex-col justify-center items-center
               w-2/3">
-                {#each unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)) as objective, objectiveIndex}
+                {#each getObjectivesFromUnit(unit) as objective, objectiveIndex}
                   <RowCurriculum
                     {objective}
                     gradeTeached={unit.grade}
                     {goToView}
-                    isLastRow={termIndex === Object.keys(curriculum.tout.unitsPerTerm).map(Number).map(termIndex => termIndex + 1).filter(term => $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length > 0).length - 1 && unitIndex === $filteredItems.filter(item => isUnit(item)).filter(unit => unit.grade === grade).filter(unit => unit.term === term).length - 1 && objectiveIndex === unit.objectives.filter(objective => !isReferenceIgnored(objective.reference)).length - 1}
+                    isLastRow={termIndex === termsByGrade[grade].length - 1 && unitIndex === unitsByGradeAndTerm[grade][term].length - 1 && objectiveIndex === getObjectivesFromUnit(unit).length - 1}
                   />
                 {/each}
             </div>
