@@ -76,7 +76,7 @@ function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
     objective.lessonImages.forEach(image => {
       content += `\n#image("../../../../../../public/${image}")\n`
     })
-    content += '\n#align(center, text(9pt)[#link("https://www.canva.com/design/DAGsRWDsi8k/ow8Y3IaBgW60cCecoe8AjQ/view")[Cours]] de #link("https://x.com/ClaireBruneau1")[Claire Bruneau]])\n'
+    content += '\n#align(center, text(9pt)[#link("https://www.canva.com/design/DAGsRWDsi8k/ow8Y3IaBgW60cCecoe8AjQ/view")[Cours] de #link("https://x.com/ClaireBruneau1")[Claire Bruneau]])\n'
   } else {
     content += fs.readFileSync(objectiveLessonPath, 'utf8')
     if (content.includes('image("')) copyImages(objective, unit)
