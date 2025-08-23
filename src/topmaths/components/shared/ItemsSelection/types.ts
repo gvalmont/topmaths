@@ -5,4 +5,4 @@ import { emptyUnit, type Unit } from '../../../types/unit'
 export type Item = Objective | Unit & {
   isAutomaticity?: boolean
 }
-export const emptyItem: Item = deepCopy(emptyUnit)
+export const emptyItem: Item = Object.assign(deepCopy(emptyUnit), { isAutomaticity: false })

@@ -22,6 +22,11 @@
   export let view: View
   export let items: Writable<Item[]>
 
+  let previousFilter: Item = emptyItem
+  let previousSearchString: string = ''
+  let previousItems: Item[] = []
+  let previousFilteredItems: Item[] = []
+
   const filter = writable<Item>(emptyItem)
   const searchString = writable<string>('')
   const filteredItems = derived(
@@ -192,6 +197,7 @@
       if (entry[0] === 'term') term = Number(entry[1])
       if (entry[0] === 'options') isAutomaticity = entry[1] === '1'
     }
+    if ($filter.grade === grade && $filter.term === term && $filter.isAutomaticity === isAutomaticity) return
     $filter = Object.assign({}, $filter, {
       grade,
       term,
@@ -200,7 +206,13 @@
   }
 
   function buildFilteredItems (searchString: string, filter: Item, items: Item[]): Item[] {
-    return items
+    if (searchString === previousSearchString && filter === previousFilter && items.length === previousItems.length) {
+      return previousFilteredItems
+    }
+    previousSearchString = searchString
+    previousFilter = filter
+    previousItems = items
+    previousFilteredItems = items
       .filter((item) => {
         if (searchString === '') return true
         const words = normalize(searchString).split(' ')
@@ -225,6 +237,7 @@
           }
         }
       })
+    return previousFilteredItems
   }
 
   function isWordFound (word: string, item: Item): boolean {

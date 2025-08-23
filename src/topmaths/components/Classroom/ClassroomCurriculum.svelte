@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { curriculum, units } from '../../services/store'
-  import ItemsSelection from '../shared/ItemsSelection/ItemsSelection.svelte'
+  import { units } from '../../services/store';
+  import ItemsSelection from '../shared/ItemsSelection/ItemsSelection.svelte';
 
 </script>
 
@@ -10,6 +10,5 @@
 
 <ItemsSelection
   items={units}
-  curriculum={$curriculum}
   view='classroom'
 />
