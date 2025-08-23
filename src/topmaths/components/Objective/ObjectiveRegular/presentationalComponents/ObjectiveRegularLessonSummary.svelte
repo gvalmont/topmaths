@@ -31,7 +31,15 @@
     {/each}
   </div>
   <p class="pb-6">
-    Cours de
+    <a
+      href="https://www.canva.com/design/DAGsRWDsi8k/ow8Y3IaBgW60cCecoe8AjQ/view"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="is-interactive is-topmaths"
+    >
+      Cours
+    </a>
+    de
     <a
       href="https://x.com/ClaireBruneau1"
       target="_blank"

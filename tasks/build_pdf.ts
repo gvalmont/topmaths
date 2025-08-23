@@ -1,13 +1,13 @@
+import { spawn } from 'child_process'
 import * as fs from 'fs'
 import * as path from 'path'
 import units from '../src/topmaths/json/built_units.json' assert { type: 'json' }
-import { spawn } from 'child_process'
-import { isStringGrade, type StringGrade } from '../src/topmaths/types/grade.js'
-import { isUnits, type UnitLessonPlan, type Unit, type UnitObjective, emptyUnitLessonPlan, emptyUnitObjective, emptyUnit } from '../src/topmaths/types/unit.js'
-import { countLessonPlans } from './helpers/lesson_plans.js'
 import { buildGradeFromObjectiveReference, isReferenceIgnored } from '../src/topmaths/services/reference.js'
 import { getTitle } from '../src/topmaths/services/string.js'
+import { isStringGrade, type StringGrade } from '../src/topmaths/types/grade.js'
 import { isObjectiveReferences, type ObjectiveReference } from '../src/topmaths/types/objective.js'
+import { emptyUnit, emptyUnitLessonPlan, emptyUnitObjective, isUnits, type Unit, type UnitLessonPlan, type UnitObjective } from '../src/topmaths/types/unit.js'
+import { countLessonPlans } from './helpers/lesson_plans.js'
 
 const SOURCE_ROOT = './src/topmaths/typ'
 const LESSONS = 'cours'
@@ -76,7 +76,7 @@ function buildObjectiveLesson (objective: UnitObjective, unit: Unit): string {
     objective.lessonImages.forEach(image => {
       content += `\n#image("../../../../../../public/${image}")\n`
     })
-    content += '\n#align(center, text(9pt)[Cours de #link("https://x.com/ClaireBruneau1")[Claire Bruneau]])\n'
+    content += '\n#align(center, text(9pt)[#link("https://www.canva.com/design/DAGsRWDsi8k/ow8Y3IaBgW60cCecoe8AjQ/view")[Cours]] de #link("https://x.com/ClaireBruneau1")[Claire Bruneau]])\n'
   } else {
     content += fs.readFileSync(objectiveLessonPath, 'utf8')
     if (content.includes('image("')) copyImages(objective, unit)
