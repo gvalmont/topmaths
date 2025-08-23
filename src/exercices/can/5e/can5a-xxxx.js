@@ -1,17 +1,17 @@
 import { droiteGraduee } from '../../../lib/2d/reperes'
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import Exercice from '../../Exercice'
 
-import FractionEtendue from '../../../modules/FractionEtendue'
-import Grandeur from '../../../modules/Grandeur'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../../lib/outils/nombres'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import Grandeur from '../../../modules/Grandeur'
 
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
@@ -34,7 +34,7 @@ export default class CourseAuxNombres5e extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Choix des questions',
-  `Nombres séparés par des tirets\n1 : Multiplication (facteur 12 à 19)\n
+  `Nombres séparés par des tirets :\n1 : Multiplication (facteur 12 à 19)\n
 2 : Somme à abc + de\n
 3 : Différence abc - de\n
 4 : Somme de deux décimaux avec retenue\n

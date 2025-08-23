@@ -13,7 +13,7 @@ export const titre = 'Trouver le symétrique d’un point'
 export const uuid = '135d4'
 
 export const refs = {
-  'fr-fr': ['can6G01'],
+  'fr-fr': ['can6G01', '6G7B-flash1'],
   'fr-ch': []
 }
 export default class SymetriqueD1Point extends Transformations {

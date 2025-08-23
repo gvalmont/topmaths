@@ -93,7 +93,7 @@ export default class VecteurNormalADeuxAutresVecteurs extends Exercice {
       }
 
       texteCorr += `<br>Un vecteur normal aux deux vecteurs de l'énoncé est : $\\vec{n} \\begin{pmatrix} ${miseEnEvidence(n1)} \\\\ ${miseEnEvidence(n2)} \\\\ ${miseEnEvidence(n3)} \\end{pmatrix}$.`
-      texteCorr += '<br>Remarque : Tout vecteur non-nul et colinéaire à ce vecteur sera aussi normal au plan.'
+      texteCorr += '<br>Remarque : Tout vecteur non nul et colinéaire à ce vecteur sera aussi normal au plan.'
       if (this.questionJamaisPosee(i, u1, u2, u3, v1, v2, v3)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr

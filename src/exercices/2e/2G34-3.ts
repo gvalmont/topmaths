@@ -51,10 +51,14 @@ export default class systemeEquationsPremDegSol extends Exercice {
       let texte = ''
       let texteCorr = ''
       this.autoCorrection[i] = {}
-      const choix = ['Seulement la première équation du système est vérifiée, donc non.',
-        'Seulement la deuxième équation du système est vérifiée, donc non.',
-        'Aucune des deux équations du système n\'est vérifiée, donc non.',
-        'Les deux équations du système sont vérifiées, donc oui.']
+      const choix = [
+        { label: 'Chosir une des réponses suivantes :', value: '' },
+        { label: 'Seulement la première équation du système est vérifiée, donc non.', value: 'E1Ne2' },
+        { label: 'Seulement la deuxième équation du système est vérifiée, donc non.', value: 'Ne1E2' },
+        { label: 'Aucune des deux équations du système n\'est vérifiée, donc non.', value: 'Ne1Ne2' },
+        { label: 'Les deux équations du système sont vérifiées, donc oui.', value: 'E1E2' }
+      ]
+
       const solX = randint(-10, 10)
       const solY = randint(-10, 10, [solX])
       const eq1 = [1, 0, 0, 0, 0, solX]
@@ -258,20 +262,12 @@ export default class systemeEquationsPremDegSol extends Exercice {
         texteCorr = texteCorr + `On substitue le couple (${texNombre(solPropX, 0)};${texNombre(solPropY, 0)}) dans les équations du système :<br> \\[\\begin{cases}\\begin{aligned}${eqToLatex(eqFinale1, listeVal1, true, 1)}\\\\${eqToLatex(eqFinale2, listeVal2, true, 1)}\\end{aligned}\\end{cases}\\] On réduit les membres de gauche et de droite des deux équations
         \\[\\begin{cases}\\begin{aligned}${eqToLatex([0, 0, verifEq(eqFinale1, solPropX, solPropY)[0], 0, 0, verifEq(eqFinale1, solPropX, solPropY)[1]], listeVar, true, 1)}\\\\${eqToLatex([0, 0, verifEq(eqFinale2, solPropX, solPropY)[0], 0, 0, verifEq(eqFinale2, solPropX, solPropY)[1]], listeVar, true, 1)}\\end{aligned}\\end{cases}\\]`
       }
-      let rep = ''
-      const substring = listeTypeQuestions[i].substring(3)
-      if (substring === 'E1Ne2') {
-        rep = choix[0]
-      } else if (substring === 'Ne1E2') {
-        rep = choix[1]
-      } else if (substring === 'Ne1Ne2') {
-        rep = choix[2]
-      } else {
-        rep = choix[3]
-      }
-      texteCorr = texteCorr + `<br> ${texteEnCouleurEtGras(`${rep}`)}`
+      // Les suffixes des types de questions ont été passés comme values des choix. C'est ce qu'on passe à handleAnswers.
+      const rep = listeTypeQuestions[i].substring(3)
+
+      texteCorr = texteCorr + `<br> ${texteEnCouleurEtGras(`${choix.find(el => el.value === rep)?.label ?? ''}`)}`
       if (this.interactif) {
-        texte = texte + choixDeroulant(this, i, choix, 'une réponse')
+        texte = texte + choixDeroulant(this, i, choix, false)
         handleAnswers(this, i, { reponse: { value: rep, options: { texteSansCasse: true } } }, { formatInteractif: 'listeDeroulante' })
       } else {
         const options = { ordered: true, vertical: true }

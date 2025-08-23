@@ -1,4 +1,4 @@
-import DivisionsEuclidiennes from '../6e/6C11'
+import DivisionsEuclidiennes from '../6e/6N2J'
 export const titre = 'Divisions euclidiennes'
 export const amcReady = true
 export const amcType = 'AMCOpen'

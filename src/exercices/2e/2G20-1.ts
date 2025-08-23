@@ -117,7 +117,7 @@ export default class ReconnaitreVecteurs extends Exercice {
       switch (listeTypeDeQuestions[i]) {
         case 1: { // Vecteurs égaux
           texte = mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 }, AB, nomvAB, CptExt, nomvCptExt, Grille)
-          texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{u}$ sont-ils égaux ?'
+          texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils égaux ?'
           texteCorr = 'Deux vecteurs sont égaux s\'ils ont :'
           texteCorr += '<br>- la même direction,'
           texteCorr += '<br>- le même sens,'
@@ -167,7 +167,7 @@ export default class ReconnaitreVecteurs extends Exercice {
 
         case 2: { // Vecteurs opposés
           texte = mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 }, AB, nomvAB, CptExt, nomvCptExt, Grille)
-          texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{u}$ sont-ils opposés ?'
+          texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils opposés ?'
           texteCorr = 'Deux vecteurs sont opposés s\'ils ont :'
           texteCorr += '<br>- la même direction,'
           texteCorr += '<br>- des sens opposés,'
@@ -218,7 +218,7 @@ export default class ReconnaitreVecteurs extends Exercice {
         case 3:
         default: { // Vecteurs colinéaires
           texte = mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 }, AB, nomvAB, CptExt, nomvCptExt, Grille)
-          texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{u}$ sont-ils colinéaires ?'
+          texte += '<br>Les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils colinéaires ?'
           texteCorr = 'Deux vecteurs sont colinéaires s\'ils ont la même direction.'
 
           let rep1, rep2

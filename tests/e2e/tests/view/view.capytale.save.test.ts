@@ -27,7 +27,7 @@ async function testV (page: Page) {
 
   // Go to the page
   const hostname = `http://localhost:${process.env.CI ? '80' : '5173'}/parent`
-  await page.setDefaultTimeout(60000) // Set timeout to 60 seconds
+  await page.setDefaultTimeout(6000) // Set timeout to 60 seconds
   await page.goto(hostname)
 
   await page.getByText('bonjour').waitFor({ state: 'visible' })
@@ -89,8 +89,13 @@ async function testV (page: Page) {
   await page.locator('#iframe').contentFrame().getByText('P Q').nth(1).click()
   await page.locator('#iframe').contentFrame().getByRole('button', { name: 'Vérifier la réponse' }).click()
   await page.locator('#iframe').contentFrame().getByRole('button', { name: 'Exercice 6' }).click()
-  await page.locator('#iframe').contentFrame().locator('#consigne5-0').getByRole('combobox').selectOption('somme')
-  await page.locator('#iframe').contentFrame().locator('#consigne5-2').getByRole('combobox').selectOption('différence')
+  const listeToClick = page.locator('#iframe').contentFrame().locator('liste-deroulante#ex5Q0')
+  await listeToClick.click()
+  await listeToClick.locator('li', { hasText: 'somme' }).click()
+  const listeEx5Q2 = page.locator('#iframe').contentFrame().locator('liste-deroulante#ex5Q2')
+  await listeEx5Q2.click()
+  await listeEx5Q2.locator('li', { hasText: 'différence' }).click()
+
   await page.locator('#iframe').contentFrame().getByRole('button', { name: 'Vérifier la réponse' }).click()
   await page.locator('#iframe').contentFrame().getByRole('button', { name: 'Exercice 7' }).click()
   await page.locator('#iframe').contentFrame().locator('#etiquetteEx6Q0I20').dragTo(page.locator('#iframe').contentFrame().locator('#rectangleEx6Q0R1'))
@@ -105,7 +110,7 @@ async function testV (page: Page) {
     { Ex2Q0: '6000' },
     { apigeomEx3F06GXX0: '{\n  "apiGeomVersion": "3.0.20230508",\n  "options": {\n    "animationStepInterval": 3000,\n    "automaticUserMessage": true,\n    "borderSize": 0.2,\n    "color": "currentColor",\n    "colorPointPolygon": "none",\n    "changeColorChangeActionToSetOptions": true,\n    "discFillOpacity": 0.2,\n    "displayGrid": false,\n    "distanceWithoutNewPoint": 0.2,\n    "fillColor": "none",\n    "fillColorAndBorderColorAreSame": true,\n    "fillOpacity": 0.2,\n    "gridWithTwoPointsOnSamePosition": true,\n    "fontSize": "1em",\n    "isDashed": false,\n    "labelDxInPixels": 15,\n    "labelDyInPixels": 15,\n    "latexHeight": 12,\n    "labelIsVisible": true,\n    "latexWidth": 18,\n    "limitNumberOfElement": {},\n    "mark": "||",\n    "moveTextGrid": 15,\n    "pointDescriptionWithCoordinates": true,\n    "pointSize": 5,\n    "thickness": 1,\n    "shape": "x",\n    "shapeForPolygon": "x",\n    "thicknessForPoint": 2,\n    "tmpColor": "gray",\n    "tmpFillColor": "rgba(241, 89, 41, 0.5)",\n    "tmpFillOpacity": 0.2,\n    "tmpIsDashed": true,\n    "tmpThickness": 1,\n    "tmpShape": "x"\n  },\n  "point1": {\n    "color": "currentColor",\n    "id": "point1",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "B",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": 1,\n    "y": 2\n  },\n  "point2": {\n    "color": "currentColor",\n    "id": "point2",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": false,\n    "opacity": 1,\n    "thickness": 2,\n    "type": "Point",\n    "colorLabel": "currentColor",\n    "label": "S",\n    "labelDxInPixels": 10,\n    "labelDyInPixels": 20,\n    "shape": "x",\n    "sizeInPixels": 5,\n    "x": -3,\n    "y": 2\n  },\n  "element0": {\n    "color": "currentColor",\n    "id": "element0",\n    "isDashed": false,\n    "isVisible": true,\n    "isSelectable": true,\n    "isDeletable": true,\n    "opacity": 1,\n    "thickness": 1,\n    "type": "Circle",\n    "fillColor": "currentColor",\n    "fillOpacity": 0.2,\n    "idCenter": "point1",\n    "radius": "5"\n  }\n}' },
     { cliquefigure1Ex4Q0: '1', cliquefigure0Ex4Q1: '1' },
-    { ex5Q0: 'somme', ex5Q1: 'Choisir une réponse', ex5Q2: 'différence', ex5Q3: 'Choisir une réponse' },
+    { ex5Q0: 'somme', ex5Q1: '', ex5Q2: 'différence', ex5Q3: '' },
     { rectangleDNDEx6Q0R1: 'etiquetteEx6Q0I20-clone-1740844199069', texteDNDEx6Q0R1: 'deux' }
   ]
   value.studentAssignment.forEach((assignment: any, i: number) => {

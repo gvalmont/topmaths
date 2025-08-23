@@ -670,14 +670,18 @@ export class AfficheCoteSegment extends ObjetMathalea2D {
         horizontal
       )
     } else {
-      valeur = texteSurSegment(
-        Cote,
-        cote.extremite1,
-        cote.extremite2,
-        couleurValeur,
-        positionValeur,
-        horizontal
-      )
+      if (Cote.includes('\\')) {
+        valeur = placeLatexSurSegment(Cote, cote.extremite1, cote.extremite2, { distance: positionValeur, horizontal, letterSize: 'normalsize', color: couleurValeur })
+      } else {
+        valeur = texteSurSegment(
+          Cote,
+          cote.extremite1,
+          cote.extremite2,
+          couleurValeur,
+          positionValeur,
+          horizontal
+        )
+      }
     }
     const { xmin, xmax, ymin, ymax } = fixeBordures([cote, valeur])
     this.bordures = [xmin, ymin, xmax, ymax]

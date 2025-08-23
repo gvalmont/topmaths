@@ -1,6 +1,15 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import DoubleDistributivite from '../../src/exercices/3e/3L11-1'
 import { context } from '../../src/modules/context'
+
+// Mock avant l'import
+vi.mock('../../src/lib/renderScratch', () => ({
+  renderScratch: vi.fn(() => 'mocked value')
+}))
+
+vi.mock('../../src/lib/components/version', () => ({
+  checkForServerUpdate: vi.fn(() => 'mocked value')
+}))
 
 describe('DoubleDistributivite', () => {
   let exercice: any

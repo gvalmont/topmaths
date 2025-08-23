@@ -1,13 +1,13 @@
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { choice } from '../../../lib/outils/arrayOutils'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { choice } from '../../../lib/outils/arrayOutils'
 export const titre = 'Décomposer un nombre décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const dateDePublication = '02/11/2024'
 export const uuid = '3a8f8'
 
 export const refs = {
-  'fr-fr': ['can6N19'],
+  'fr-fr': ['can6N19', '6N1B-flash2'],
   'fr-ch': []
 }
 export default class decomposerDecimal extends Exercice {

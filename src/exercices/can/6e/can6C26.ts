@@ -1,8 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { randint } from '../../../modules/outils'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier par 0,1, 0,01 ou 0,001'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const dateDeModifImportante = '03/07/2025'
 export const uuid = '31096'
 
 export const refs = {
-  'fr-fr': ['can6C26'],
+  'fr-fr': ['can6C26', '6N2B-flash2'],
   'fr-ch': []
 }
 export default class Multiplier extends ExerciceSimple {

@@ -1,11 +1,11 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, creerCouples } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -30,9 +30,9 @@ export default class TablesDeMultiplications extends Exercice {
     this.consigne = 'Calculer : '
     this.spacing = 2
 
-    this.besoinFormulaireTexte = ['Choix des tables', 'Nombres séparés par des tirets\nChoisir des tables entre 1 et 11.\nMettre 12 pour choisir une table au hasard.'] // Texte, tooltip
+    this.besoinFormulaireTexte = ['Choix des tables', 'Nombres séparés par des tirets :\nChoisir des tables entre 1 et 11.\nMettre 12 pour choisir une table au hasard.'] // Texte, tooltip
     this.besoinFormulaire2Texte = [
-      'Type de questions', 'Nombres séparés par des tirets\n1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange'
+      'Type de questions', 'Nombres séparés par des tirets :\n1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange'
     ]
     this.besoinFormulaire3CaseACocher = ['Le facteur de gauche est celui de la table', true]
   }

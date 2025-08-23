@@ -1,8 +1,8 @@
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { cercle } from '../../../lib/2d/cercle'
 import { point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation } from '../../../lib/2d/transformations'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import { randint } from '../../../modules/outils'
@@ -22,7 +22,7 @@ export const amcType = 'AMCHybride'
 export const uuid = '2ce11'
 
 export const refs = {
-  'fr-fr': ['canc3D01'],
+  'fr-fr': ['canc3D01', 'auto6M4A-flash1'],
   'fr-ch': []
 }
 export default class LireHeure extends ExerciceSimple {

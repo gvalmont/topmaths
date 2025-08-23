@@ -1,19 +1,19 @@
+import Decimal from 'decimal.js'
+import { point3d, vecteur3d } from '../../lib/3d/3dProjectionMathalea2d/elements'
+import { cylindre3d, sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteExposant } from '../../lib/outils/ecritures'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { cylindre3d, sphere3d } from '../../lib/3d/solides'
-import { point3d, vecteur3d } from '../../lib/3d/elements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import Decimal from 'decimal.js'
 import Grandeur from '../../modules/Grandeur'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { sp } from '../../lib/outils/outilString'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -38,7 +38,7 @@ export const refs = {
 export default class VolumeBoule extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : À partir du rayon\n2 : À partir du diamètre\n3 : À partir de l\'aire\n4 : En résolvant un problème\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : À partir du rayon\n2 : À partir du diamètre\n3 : À partir de l\'aire\n4 : En résolvant un problème\n5 : Mélange']
 
     this.video = 'YQF7CBY-uEk'
     this.nbQuestions = 3 // Ici le nombre de questions

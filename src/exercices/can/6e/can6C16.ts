@@ -1,7 +1,7 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = '88435'
 
 export const refs = {
-  'fr-fr': ['can6C16'],
+  'fr-fr': ['can6C16', 'auto6P3A-flash3'],
   'fr-ch': []
 }
 export default class DoubleEtMoitie extends ExerciceSimple {

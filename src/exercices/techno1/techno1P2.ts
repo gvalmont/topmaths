@@ -1,4 +1,4 @@
-import AppliquerPourcentage from '../6e/6N33-1'
+import AppliquerPourcentage from '../6e/6N3Q'
 export const titre = 'Appliquer un pourcentage'
 export const dateDePublication = '19/06/2022'
 export const amcReady = true

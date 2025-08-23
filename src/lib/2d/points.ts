@@ -1,5 +1,5 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites'
-import type { Point3d } from '../3d/elements'
+import type { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 
 import { context } from '../../modules/context'
 import { egal, inferieurouegal, randint, superieurouegal } from '../../modules/outils'

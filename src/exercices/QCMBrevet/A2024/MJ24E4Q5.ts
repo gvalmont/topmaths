@@ -72,4 +72,9 @@ export default class MetropoleJuin24Exo4Q5 extends ExerciceQcmA {
       k++
     } while (nombreElementsDifferents(this.reponses) < n && k < 100)
   }
+
+  constructor () {
+    super()
+    this.versionAleatoire()
+  }
 }

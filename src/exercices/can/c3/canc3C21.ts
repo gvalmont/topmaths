@@ -1,9 +1,9 @@
-import Exercice from '../../Exercice'
 import { gestionnaireFormulaireTexte, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ajouteQuestionMathlive } from '../../../lib/interactif/questionMathLive'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'ajouter ou soustraire des dizaines à un près'
 export const interactifReady = true
@@ -25,7 +25,7 @@ export default class AjouterDizainesAUnPres extends Exercice {
     this.nbQuestions = 1
     this.spacing = 1.5
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.besoinFormulaireTexte = ['Types de questions\nNombres séparés par des tirets', '1: ajouter 9 ou 99\n2: soustraire 9 ou 99\n3: ajouter x9\n4: soustraire x9\n5: ajouter xx9\n6: soustraire xx9\n7: mélange']
+    this.besoinFormulaireTexte = ['Types de questions\nNombres séparés par des tirets :', '1: ajouter 9 ou 99\n2: soustraire 9 ou 99\n3: ajouter x9\n4: soustraire x9\n5: ajouter xx9\n6: soustraire xx9\n7: mélange']
   }
 
   nouvelleVersion () {

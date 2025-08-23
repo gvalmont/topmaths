@@ -1,13 +1,13 @@
+import type { BoxedExpression } from '@cortex-js/compute-engine'
+import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
+import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
-import type { BoxedExpression } from '@cortex-js/compute-engine'
 
 export const titre = 'Dérivée d\'un polynôme'
 export const dateDePublication = '06/05/2024'
@@ -30,7 +30,7 @@ const termNames = ['u', 'v', 'w', 'z']
 export default class DeriveePoly extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 Constante\n2 : Affine\n3 : Degré 2\n4 : Degré 3\n5 : Deux monomes\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets :\n1 Constante\n2 : Affine\n3 : Degré 2\n4 : Degré 3\n5 : Deux monomes\n6 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Coefficients rationnels', false]
     this.besoinFormulaire3CaseACocher = ['Coefficients décimaux', false]
 

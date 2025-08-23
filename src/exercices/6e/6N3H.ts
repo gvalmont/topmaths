@@ -1,0 +1,354 @@
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import Exercice from '../Exercice'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import engine from '../../lib/interactif/comparisonFunctions'
+import type { MathfieldElement } from 'mathlive'
+
+export const titre = 'Compléter les égalités entre fractions simples'
+export const amcReady = true
+export const amcType = 'qcmMono'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModifImportante = '05/04/2024'
+
+/**
+ * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
+ * @author Rémi Angot
+ * @author Jean-claude Lhote (Mode QCM et alternance numérateur / dénominateur)
+ */
+export const uuid = '06633'
+
+export const refs = {
+  'fr-fr': ['6N3H'],
+  'fr-2016': ['6N41'],
+  'fr-ch': ['9NO12-1']
+}
+export default class EgalitesEntreFractions extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99]
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Mélange']
+    this.sup = 11 // Correspond au facteur commun
+    this.sup2 = 2 // alternance numérateur ou dénominateur imposé.
+    this.consigne = 'Compléter les égalités.'
+    this.spacing = 2
+    this.spacingCorr = 2
+  }
+
+  nouvelleVersion () {
+    let listeFractions = [
+      [1, 2],
+      [1, 3],
+      [2, 3],
+      [1, 4],
+      [3, 4],
+      [1, 5],
+      [2, 5],
+      [3, 5],
+      [4, 5],
+      [1, 6],
+      [5, 6],
+      [1, 7],
+      [2, 7],
+      [3, 7],
+      [4, 7],
+      [5, 7],
+      [6, 7],
+      [1, 8],
+      [3, 8],
+      [5, 8],
+      [7, 8],
+      [1, 9],
+      [2, 9],
+      [4, 9],
+      [5, 9],
+      [7, 9],
+      [8, 9],
+      [1, 10],
+      [3, 10],
+      [7, 10],
+      [9, 10]
+    ] // Couples de nombres premiers entre eux
+    listeFractions = shuffle(listeFractions)
+    const listeTypeDeQuestions = combinaisonListes(
+      [1, 1, 1, 1, 2],
+      this.nbQuestions
+    )
+    for (
+      let i = 0, cpt = 0, fraction, a:number, b:number, c:number, d:number, k:number, choix, texte, texteCorr;
+      i < this.nbQuestions && cpt < 50;
+    ) {
+      if (this.sup2 === 3) {
+        choix = i % 2
+      } else {
+        choix = this.sup2 % 2
+      }
+
+      if (listeTypeDeQuestions[i] === 1) {
+        // égalité entre 2 fractions
+        fraction = listeFractions[i % listeFractions.length] //
+        a = fraction[0]
+        b = fraction[1]
+
+        k = randint(2, Math.max(3, this.sup))
+        c = k * a
+        d = k * b
+
+        switch (choix) {
+          case 0 :
+            texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction('\\ldots\\ldots', d)}$`
+            if (this.interactif && context.isHtml) {
+              texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}`, 'fillInTheBlank', '\\ldots')
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                champ1: { value: `${a}\\times ${k}` },
+                champ2: { value: `${b}\\times ${k}` },
+                champ3: { value: String(c) }
+              })
+            }
+            texteCorr = `$${stringTexFraction(a, b)} = ${stringTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${stringTexFraction(c, d)}$`
+            if (context.isAmc) {
+              this.autoCorrection[i] = {}
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${stringTexFraction(c, d)}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${stringTexFraction(a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction((k - 1) * a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction((k + 1) * a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction(Math.abs(d - a), d)}$`,
+                  statut: false
+                }
+              ]
+            }
+            break
+          case 1 :
+          default:
+            texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction(c, '\\ldots\\ldots')}$`
+            if (this.interactif && context.isHtml) {
+              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
+              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                champ1: { value: `${a}\\times ${k}` },
+                champ2: { value: `${b}\\times ${k}` },
+                champ3: { value: String(d) }
+              })
+            }
+            texteCorr = `$${stringTexFraction(a, b)} = ${stringTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${stringTexFraction(c, d)}$`
+            if (context.isAmc) {
+              this.autoCorrection[i] = {}
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${stringTexFraction(c, d)}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${stringTexFraction(c, b)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$\\dfrac{${c}}{${(k - 1) * b}}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction(c, (k + 1) * b)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$\\dfrac{${c}}{${Math.abs(c - b)}}$`,
+                  statut: false
+                }
+              ]
+            }
+            break
+        }
+      } else {
+        // écrire un entier sous la forme d'une fraction
+        a = randint(1, 9)
+        b = 0 // Pour éviter un warning
+        if (this.interactif && !context.isAmc) {
+          d = randint(3, 9, [a, 2 * a])
+        } else {
+          d = randint(2, 9)
+        }
+        c = a * d
+
+        const callback = (exercice: Exercice, question: number) => {
+          let feedback
+          const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
+          const prompts = mfe.getPrompts()
+          const [num1, den1, champ3] = prompts.map(el => engine.parse(mfe.getPromptValue(el)).evaluate().numericValue) as number[]
+          const num2 = choix === 0 ? champ3 : c
+          const den2 = choix === 1 ? champ3 : d
+          if (num1 !== undefined && den1 !== undefined && num2 !== undefined && den2 !== undefined) {
+            const isOk1 = num1 * den2 === num2 * den1 && num1 * den1 * num2 * den2 !== 0
+            if (isOk1) {
+              mfe.setPromptState('champ1', 'correct', true)
+              mfe.setPromptState('champ2', 'correct', true)
+            } else {
+              mfe.setPromptState('champ1', 'incorrect', true)
+              mfe.setPromptState('champ2', 'incorrect', true)
+            }
+            const isOk2 = num2 === a * d
+            if (isOk2) {
+              mfe.setPromptState('champ3', 'correct', true)
+            } else {
+              mfe.setPromptState('champ3', 'incorrect', true)
+            }
+            feedback = isOk1 ? '' : 'Le calcul intermédiaire est faux.<br>'
+            feedback += isOk2 ? '' : 'Le résultat final est faux.'
+            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+            if (spanReponseLigne != null) {
+              spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
+            }
+
+            const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
+            if (feedback != null && spanFeedback != null && feedback.length > 0) {
+              spanFeedback.innerHTML = '💡 ' + feedback
+              spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+            }
+            return {
+              isOk: isOk1 && isOk2,
+              feedback,
+              score: {
+                nbBonnesReponses: (isOk1 ? 1 : 0) + (isOk2 ? 1 : 0),
+                nbReponses: 2
+              }
+            }
+          } else {
+            window.notify('Un problème avec la récupération des saisies', { num1, den1, num2, den2, champ3 })
+            return {
+              isOk: false,
+              feedback: 'problème dans le programme',
+              score: {
+                nbBonnesReponses: 0,
+                nbReponses: 2
+              }
+            }
+          }
+        }
+
+        switch (choix) {
+          case 0 : // Recherche du numérateur
+            if (this.interactif && context.isHtml) {
+              const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}`
+              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                champ1: { value: String(a) },
+                champ2: { value: '1' },
+                champ3: { value: String(a * d) },
+                callback
+              })
+            } else {
+              texte = `$${a} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction('\\ldots\\ldots', d)}$`
+            }
+            if (this.interactif && this.interactifType !== 'mathLive') {
+              texte = `$${a} = \\ldots$`
+            }
+            texteCorr = `$${a} = \\dfrac{${a}}{1} =${stringTexFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${stringTexFraction(c, d)}$`
+            if (context.isAmc) {
+              this.autoCorrection[i] = {}
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${stringTexFraction(c, d)}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${stringTexFraction(a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction(d + a, d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction(Math.abs(d - a), d)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction((a + 1) * d, d)}$`,
+                  statut: false
+                }
+              ]
+            }
+            break
+          case 1 :
+          default:
+            texte = `$${a} = ${stringTexFraction('\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots', '\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots')} = ${stringTexFraction(c, '\\ldots\\ldots\\ldots\\ldots')}$`
+            if (this.interactif && context.isHtml) {
+              const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
+              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              handleAnswers(this, i, {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                champ1: { value: String(a) },
+                champ2: { value: '1' },
+                champ3: { value: String(d) },
+                callback
+              })
+            }
+            if (this.interactif && this.interactifType !== 'mathLive') {
+              texte = `$${a} = \\ldots$`
+            }
+            texteCorr = `$${a} = \\dfrac{${a}}{1} =${stringTexFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${stringTexFraction(c, d)}$`
+            if (context.isAmc) {
+              this.autoCorrection[i] = {}
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${stringTexFraction(c, d)}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${stringTexFraction(c, c - a)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction(c, a)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction(c, c + a)}$`,
+                  statut: false
+                },
+                {
+                  texte: `$${stringTexFraction(c, c * a)}$`,
+                  statut: false
+                }
+              ]
+            }
+            break
+        }
+      }
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = `Parmi les fractions suivantes, laquelle est égale à ${texte.split('=')[0]}$ ?`
+      }
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
+}
+
+function stringTexFraction (a: number | string, b: number | string) {
+  return `\\dfrac{${a}}{${b}}`
+}

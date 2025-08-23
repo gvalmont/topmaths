@@ -1,4 +1,4 @@
-import LireAbscisseDecimaleTroisFormes from '../6e/6N23-2'
+import LireAbscisseDecimaleTroisFormes from '../6e/6N1H-2'
 export const titre = 'Lire abscisse décimale sous trois formes'
 export const interactifReady = true
 export const interactifType = 'mathLive'

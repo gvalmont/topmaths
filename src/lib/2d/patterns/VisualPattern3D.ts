@@ -1,7 +1,6 @@
-import { SceneViewer } from '../../3d/SceneViewer'
-import { AframeRegisteredComponent } from '../../3d/solidesAFrame'
 import type { NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
 import { Shape3D, shapeCubeIso } from '../figures2d/Shape3d'
+import { ajouteCanvas3d, type Elements3DDescription } from '../../3d/3d_dynamique/Canvas3DElement'
 
 type Coord3d = [number, number, number, string]
 /**
@@ -87,10 +86,7 @@ export class VisualPattern3D {
   }
 
   getShapeOfCell (cell: string): string {
-    const shape = VisualPattern3D.keyToCoord(cell)[3] as (typeof AframeRegisteredComponent)[number]
-    if (!AframeRegisteredComponent.includes(shape)) {
-      throw new Error(`Shape ${shape} is not a valid Aframe registered component`)
-    }
+    // const shape = VisualPattern3D.keyToCoord(cell)[3]
     // on peut implémenter une logique pour choisir la forme en fonction de la position de la cellule
     // par exemple, on peut alterner entre les formes ou choisir une forme en fonction de la position
     // ici, on retourne simplement la première forme de la liste
@@ -112,49 +108,38 @@ export class VisualPattern3D {
     return [sumX / count, sumY / count, -sumZ / count]
   }
 
-  render3d (n: number): SceneViewer {
-    const scenebuilder = new SceneViewer({
-      width: 150,
-      height: 150,
-      id: `${this.prefixId}-motif-${n}`,
-      zoomLimits: { min: 3, max: 30 },
-      cameraDistance: 10,
-      fov: 60,
-      rigRotationX: -30,
-      rigRotationY: 30,
-      rigPosition: [0, 0, 0],
-      fullScreenButton: true,
-      backgroundColor: '#ffffff',
-    })
+  render3d (n: number): string {
     const cells = this.iterate3d(n)
-    if (cells.size === 0) {
-      return scenebuilder
-    }
-    if (cells.size > 1000) {
-      console.warn('VisualPattern3d: le motif contient plus de 1000 cellules, l\'affichage peut être long')
-    }
-    if (cells.size > 10000) {
-      console.warn('VisualPattern3d: le motif contient plus de 10000 cellules, l\'affichage peut être très long')
-    }
-    if (cells.size > 100000) {
-      console.warn('VisualPattern3d: le motif contient plus de 100000 cellules, l\'affichage peut être très très long')
-    }
+    if (cells.size === 0) return ''
+
+    const objects: Elements3DDescription[] = []
     for (const cell of cells) {
-      const position = VisualPattern3D.keyToCoord(cell)
-      const componentName = this.getShapeOfCell(cell)
-      scenebuilder.addCustomComponent({
-        position: [position[0], position[2], -position[1]], // on inverse Y et Z pour correspondre à la convention de Three.js
-        componentName,
-        componentProps: {
-          size: 1,
-          opacity: 1
-        },
+      const [x, y, z/*, shape */] = VisualPattern3D.keyToCoord(cell)
+      objects.push({
+        type: 'cube',
+        pos: [x, z, -y], // adapte selon ta convention
+        size: 1,
+        color: '#ffffff',
+        edges: true
       })
     }
-    this.cells = cells
-    const rigPosition = this.getCenterOfGravity()
-    scenebuilder.setRigPosition(rigPosition)
-    return scenebuilder
+    objects.push({ type: 'ambientLight', color: 0xffffff, intensity: 1.2 }, { type: 'directionalLight', pos: [5, 10, 5], color: 0xffffff, intensity: 2 }, { type: 'directionalLight', pos: [-5, -10, -5], color: 0xffffff, intensity: 1.6 })
+
+    // Optionnel : calcul du centre pour centrer la scène
+
+    const content = {
+      objects,
+      backgroundColor: '#ffffff',
+      autoCenterZoomMargin: 1.2
+    }
+
+    // Utilise la fonction utilitaire pour générer le HTML
+    return ajouteCanvas3d({
+      id: `${this.prefixId}-motif-${n}`,
+      content,
+      width: 250,
+      height: 250
+    })
   }
 
   render (n:number, dx: number, dy:number, angle:number): NestedObjetMathalea2dArray {

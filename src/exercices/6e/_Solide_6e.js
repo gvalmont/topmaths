@@ -4,12 +4,12 @@ import { grille, seyes } from '../../lib/2d/reperes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { similitude, translation2Points } from '../../lib/2d/transformations'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
-import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, nouveau paramètre, couleur appropriée dans la correction, AMC
 
@@ -31,7 +31,7 @@ export default class Solide6e extends Exercice {
       3,
       ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
     ]
-    this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Arêtes parallèles\n2: Faces parallèles\n3: Arêtes perpendiculaires\n4: Faces perpendiculaires\n5 : Mélange']
+    this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets :\n1: Arêtes parallèles\n2: Faces parallèles\n3: Arêtes perpendiculaires\n4: Faces perpendiculaires\n5 : Mélange']
   }
 
   nouvelleVersion () {

@@ -183,9 +183,12 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
       case 1:
         {
           const a = randint(31, 59) / 100
+          const aBis = randint(9, 19) / 100
           const b = randint(31, 49) / 10
+          const bBis = randint(31, 58) / 10
           const v1 = randint(-30, -15) / 10
           const v2 = randint(-40, -31) / 10
+          const v2b = randint(17, 29) / 10
           const v3 = randint(-24, -20) / 10
           const v4 = randint(-25, 5) / 10
           const v5 = randint(1, 3)
@@ -247,8 +250,8 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
               estCorrecte: false
             },
             {
-              texte: `${choix ? `$f(${texNombre(v1, 2)}) \\times f(${texNombre(v2, 2)}) > 0$` : `$f(${texNombre(b, 2)}) \\times  f(${texNombre(a, 2)}) < 0$`}`,
-              correction: AFF + `${choix ? `$f(${texNombre(v1, 2)}) >0$ et  $f(${texNombre(v2, 2)}) < 0$, donc le produit est négatif.` : `$f(${texNombre(b, 2)}) < 0$ et   $f(${texNombre(a, 2)}) < 0$, donc le produit est positif.`}`,
+              texte: `${choix ? `$f(${texNombre(v1, 2)}) \\times f(${texNombre(v2b, 2)}) > 0$` : `$f(${texNombre(bBis, 2)}) \\times  f(${texNombre(aBis, 2)}) < 0$`}`,
+              correction: AFF + `${choix ? `$f(${texNombre(v1, 2)}) >0$ et  $f(${texNombre(v2b, 2)}) < 0$, donc le produit est négatif.` : `$f(${texNombre(bBis, 2)}) < 0$ et   $f(${texNombre(aBis, 2)}) < 0$, donc le produit est positif.`}`,
               estCorrecte: false
             },
             {
@@ -278,7 +281,6 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
               estCorrecte: false
             }
           ]
-
           // Choisir une bonne réponse et 3 mauvaises réponses distinctes
           const bonneReponseChoisie = choice(bonnesReponses)
           const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(() => Math.random() - 0.5)
@@ -304,11 +306,15 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
         {
           const v6 = randint(30, 45) / 10
           const v7 = randint(53, 60) / 10
+          const v6Bis = randint(21, 29) / 10
+          const v7Bis = randint(31, 39) / 10
           const v8 = randint(2, 22) / 10
           const v9 = randint(2, 8) / 10
           const v10 = randint(12, 18) / 10
-          const v11 = randint(2, 17) / 10
+          const v11 = randint(51, 59) / 10
           const v12 = randint(22, 55) / 10
+          const v11Bis = randint(1, 15) / 10
+          const v12Bis = randint(16, 19) / 10
           const v13 = randint(0, 2)
           const v14 = randint(6, 7)
           const choix = choice([true, false])
@@ -359,7 +365,7 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
 
           const mauvaisesReponses = [
             {
-              texte: `$f$ est négative sur $[${texNombre(v6, 1)}\\,;\\,${texNombre(v7, 1)}]$.`,
+              texte: `$f$ est négative sur $[${texNombre(v6Bis, 1)}\\,;\\,${texNombre(v7Bis, 1)}]$.`,
               correction: AFF + `$f$ est positive sur $[${texNombre(v6, 1)}\\,;\\,${texNombre(v7, 1)}]$ car la courbe se situe au-dessus de l'axe des abscisses sur cet intervalle.`,
               estCorrecte: true
             },
@@ -384,8 +390,8 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
               estCorrecte: false
             },
             {
-              texte: `${choix ? `$f(${texNombre(v9, 2)}) \\times f(${texNombre(v10, 2)}) < 0$` : `$f(${texNombre(v11, 2)}) \\times  f(${texNombre(v12, 2)}) < 0$`}`,
-              correction: AFF + `${choix ? `$f(${texNombre(v9, 2)}) <0$ et  $f(${texNombre(v10, 2)}) < 0$, donc le produit est positif.` : `$f(${texNombre(v11, 2)}) > 0$ et   $f(${texNombre(v12, 2)}) > 0$, donc le produit est positif.`}`,
+              texte: `${choix ? `$f(${texNombre(-v9, 2)}) \\times f(${texNombre(-v10, 2)}) < 0$` : `$f(${texNombre(v11Bis, 2)}) \\times  f(${texNombre(v12Bis, 2)}) < 0$`}`,
+              correction: AFF + `${choix ? `$f(${texNombre(-v9, 2)}) <0$ et  $f(${texNombre(-v10, 2)}) < 0$, donc le produit est positif.` : `$f(${texNombre(v11Bis, 2)}) < 0$ et   $f(${texNombre(v12Bis, 2)}) < 0$, donc le produit est positif.`}`,
               estCorrecte: false
             },
             {
@@ -399,7 +405,36 @@ Cette affirmation est fausse : Les solutions de l'inéquation $f(x) \\geqslant 0
               estCorrecte: true
             }
           ]
+          /* // ========== MODE TEST - AFFICHAGE DE TOUTES LES RÉPONSES ==========
+    // Afficher TOUTES les bonnes réponses avec leurs corrections
+    this.reponses = []
+    bonnesReponses.forEach((rep, i) => {
+      this.reponses.push(`✓ BONNE ${i + 1}: ${rep.texte} → CORRECTION: ${rep.correction}`)
+    })
 
+    // Afficher TOUTES les mauvaises réponses avec leurs corrections
+    mauvaisesReponses.forEach((rep, i) => {
+      this.reponses.push(`✗ MAUVAISE ${i + 1}: ${rep.texte} → CORRECTION: ${rep.correction}`)
+    })
+
+    // Afficher TOUTES les corrections organisées
+    this.correction = '<h3>RÉCAPITULATIF COMPLET :</h3>'
+    this.correction += `<h4>BONNES RÉPONSES (${bonnesReponses.length}) :</h4>`
+    bonnesReponses.forEach((rep, i) => {
+      this.correction += '<div style="border: 2px solid green; padding: 10px; margin: 5px 0; background: #e8f5e8;">'
+      this.correction += `<strong>✓ BONNE ${i + 1}:</strong> ${rep.texte}<br>`
+      this.correction += `<strong>Correction:</strong> ${rep.correction}`
+      this.correction += '</div>'
+    })
+
+    this.correction += `<h4>MAUVAISES RÉPONSES (${mauvaisesReponses.length}) :</h4>`
+    mauvaisesReponses.forEach((rep, i) => {
+      this.correction += '<div style="border: 2px solid red; padding: 10px; margin: 5px 0; background: #ffe8e8;">'
+      this.correction += `<strong>✗ MAUVAISE ${i + 1}:</strong> ${rep.texte}<br>`
+      this.correction += `<strong>Correction:</strong> ${rep.correction}`
+      this.correction += '</div>'
+    }) */
+          // ========== FIN MODE TEST ==========
           // Choisir une bonne réponse et 3 mauvaises réponses distinctes
           const bonneReponseChoisie = choice(bonnesReponses)
           const mauvaisesReponsesMelangees = [...mauvaisesReponses].sort(() => Math.random() - 0.5)

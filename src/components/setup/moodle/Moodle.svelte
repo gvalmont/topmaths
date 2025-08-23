@@ -1,83 +1,83 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from "../../../lib/stores/generalStore";
-  import Footer from "../../Footer.svelte";
-  import NavBar from "../../shared/header/NavBar.svelte";
+  import { exercicesParams, darkMode } from '../../../lib/stores/generalStore'
+  import Footer from '../../Footer.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
   import {
     mathaleaGetExercicesFromParams,
     mathaleaUpdateExercicesParamsFromUrl,
-  } from "../../../lib/mathalea";
-  import type TypeExercice from "../../../exercices/Exercice";
-  import ButtonToggleAlt from "../../shared/forms/ButtonToggleAlt.svelte";
-  import FormRadio from "../../shared/forms/FormRadio.svelte";
-  import { referentielLocale } from "../../../lib/stores/languagesStore";
-  import { onMount } from "svelte";
-  import { Tab, initTE } from "tw-elements"; // pour les tabs
-  import { saveAs } from "file-saver";
-  import JSZip from "jszip";
+  } from '../../../lib/mathalea'
+  import type TypeExercice from '../../../exercices/Exercice'
+  import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
+  import FormRadio from '../../shared/forms/FormRadio.svelte'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import { onMount } from 'svelte'
+  import { Tab, initTE } from 'tw-elements' // pour les tabs
+  import { saveAs } from 'file-saver'
+  import JSZip from 'jszip'
 
   onMount(() => {
-    initTE({ Tab });
-  });
+    initTE({ Tab })
+  })
 
   const copyCode = async () => {
-    const preElt = document.querySelector("pre");
+    const preElt = document.querySelector('pre')
     if (preElt) {
       try {
-        const text = preElt.innerText;
-        await navigator.clipboard.writeText(text);
+        const text = preElt.innerText
+        await navigator.clipboard.writeText(text)
       } catch (err) {
-        console.error("Accès au presse-papier impossible: ", err);
+        console.error('Accès au presse-papier impossible: ', err)
       }
     } else {
-      throw new Error("Can't find `pre` selector in document");
+      throw new Error("Can't find `pre` selector in document")
     }
-  };
+  }
 
   function downloadGift() {
-    const preElt = document.querySelector("pre");
+    const preElt = document.querySelector('pre')
     if (preElt) {
-      const text = preElt.innerText;
-      const element = document.createElement("a");
+      const text = preElt.innerText
+      const element = document.createElement('a')
       element.setAttribute(
-        "href",
-        "data:text/plain;charset=utf-8," + encodeURIComponent(text),
-      );
-      element.setAttribute("download", "mathalea-gift.txt");
-      element.style.display = "none";
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
+        'href',
+        'data:text/plain;charset=utf-8,' + encodeURIComponent(text),
+      )
+      element.setAttribute('download', 'mathalea-gift.txt')
+      element.style.display = 'none'
+      document.body.appendChild(element)
+      element.click()
+      document.body.removeChild(element)
     } else {
-      throw new Error("Can't find `pre` selector in document");
+      throw new Error("Can't find `pre` selector in document")
     }
   }
 
   function downloadScorm() {
-    const zip = new JSZip();
-    zip.file("imsmanifest.xml", contentScorm);
-    let indexHtml = "";
-    indexHtml += "<html>\n";
-    indexHtml += "  <head>\n";
-    indexHtml += "    <title>MathAlea</title>\n";
+    const zip = new JSZip()
+    zip.file('imsmanifest.xml', contentScorm)
+    let indexHtml = ''
+    indexHtml += '<html>\n'
+    indexHtml += '  <head>\n'
+    indexHtml += '    <title>MathAlea</title>\n'
     indexHtml +=
-      "    <scr" +
+      '    <scr' +
       'ipt type="text/javascript" src="https://coopmaths.fr/alea/assets/externalJs/SCORM_API_wrapper.js"></scr' +
-      "ipt>\n";
+      'ipt>\n'
     indexHtml +=
-      "    <scr" +
+      '    <scr' +
       'ipt type="text/javascript" src="https://coopmaths.fr/alea/assets/externalJs/moodle.scorm.js"></scr' +
-      "ipt>\n";
-    indexHtml += "  </head>\n";
-    indexHtml += "  <body></body>\n";
-    indexHtml += "</html>\n";
-    zip.file("index.html", indexHtml);
-    zip.generateAsync({ type: "blob" }).then(function (content) {
-      saveAs(content, "mathalea.scorm.zip");
-    });
+      'ipt>\n'
+    indexHtml += '  </head>\n'
+    indexHtml += '  <body></body>\n'
+    indexHtml += '</html>\n'
+    zip.file('index.html', indexHtml)
+    zip.generateAsync({ type: 'blob' }).then(function (content) {
+      saveAs(content, 'mathalea.scorm.zip')
+    })
   }
 
-  let contentGift = "";
-  let contentScorm = "";
+  let contentGift = ''
+  let contentScorm = ''
   /*
     <organizations default="coopmaths.fr">
         <organization identifier="coopmaths.fr" structure="hierarchical">
@@ -104,159 +104,159 @@
         </resource>
       </resources>
   */
-  let exercices: TypeExercice[];
+  let exercices: TypeExercice[]
 
   async function initExercices() {
-    contentGift = "";
-    let xmlScorm = document.implementation.createDocument("", "", null);
-    let xmlManifest = xmlScorm.createElement("manifest");
-    xmlManifest.setAttribute("identifier", "MathAlea");
-    xmlManifest.setAttribute("version", "1.0");
-    xmlScorm.appendChild(xmlManifest);
+    contentGift = ''
+    let xmlScorm = document.implementation.createDocument('', '', null)
+    let xmlManifest = xmlScorm.createElement('manifest')
+    xmlManifest.setAttribute('identifier', 'MathAlea')
+    xmlManifest.setAttribute('version', '1.0')
+    xmlScorm.appendChild(xmlManifest)
     /*<metadata>
     <schema>ADL SCORM</schema>
     <schemaversion>1.2</schemaversion>
     </metadata>*/
-    let xmlMetadata = xmlScorm.createElement("metadata");
-    let xmlSchema = xmlScorm.createElement("schema");
-    xmlSchema.textContent = "ADL SCORM";
-    let xmlSchemaVersion = xmlScorm.createElement("schemaversion");
-    xmlSchemaVersion.textContent = "1.2";
-    xmlMetadata.appendChild(xmlSchema);
-    xmlMetadata.appendChild(xmlSchemaVersion);
-    xmlManifest.appendChild(xmlMetadata);
-    let xmlOrganizations = xmlScorm.createElement("organizations");
-    xmlOrganizations.setAttribute("default", "coopmaths.fr");
-    let xmlOrganization = xmlScorm.createElement("organization");
-    xmlOrganization.setAttribute("identifier", "coopmaths.fr");
-    xmlOrganization.setAttribute("structure", "hierarchical");
-    let xmlTitle = xmlScorm.createElement("title");
-    xmlTitle.textContent = "MathAlea";
-    xmlOrganization.appendChild(xmlTitle);
-    xmlOrganizations.appendChild(xmlOrganization);
-    xmlManifest.appendChild(xmlOrganizations);
-    let xmlResources = xmlScorm.createElement("resources");
-    xmlManifest.appendChild(xmlResources);
-    mathaleaUpdateExercicesParamsFromUrl();
-    exercices = await mathaleaGetExercicesFromParams($exercicesParams);
-    let i = 0;
+    let xmlMetadata = xmlScorm.createElement('metadata')
+    let xmlSchema = xmlScorm.createElement('schema')
+    xmlSchema.textContent = 'ADL SCORM'
+    let xmlSchemaVersion = xmlScorm.createElement('schemaversion')
+    xmlSchemaVersion.textContent = '1.2'
+    xmlMetadata.appendChild(xmlSchema)
+    xmlMetadata.appendChild(xmlSchemaVersion)
+    xmlManifest.appendChild(xmlMetadata)
+    let xmlOrganizations = xmlScorm.createElement('organizations')
+    xmlOrganizations.setAttribute('default', 'coopmaths.fr')
+    let xmlOrganization = xmlScorm.createElement('organization')
+    xmlOrganization.setAttribute('identifier', 'coopmaths.fr')
+    xmlOrganization.setAttribute('structure', 'hierarchical')
+    let xmlTitle = xmlScorm.createElement('title')
+    xmlTitle.textContent = 'MathAlea'
+    xmlOrganization.appendChild(xmlTitle)
+    xmlOrganizations.appendChild(xmlOrganization)
+    xmlManifest.appendChild(xmlOrganizations)
+    let xmlResources = xmlScorm.createElement('resources')
+    xmlManifest.appendChild(xmlResources)
+    mathaleaUpdateExercicesParamsFromUrl()
+    exercices = await mathaleaGetExercicesFromParams($exercicesParams)
+    let i = 0
     for (const param of $exercicesParams) {
-      let paramUrl = "";
+      let paramUrl = ''
       for (const key of Object.keys(param)) {
-        if (key === "sup") {
-          paramUrl += `s\\=${param[key]}&`;
-        } else if (key === "sup2") {
-          paramUrl += `s2\\=${param[key]}&`;
-        } else if (key === "sup3") {
-          paramUrl += `s3\\=${param[key]}&`;
-        } else if (key === "sup4") {
-          paramUrl += `s4\\=${param[key]}&`;
-        } else if (key === "sup5") {
-          paramUrl += `s5\\=${param[key]}&`;
-        } else if (key === "nbQuestions") {
-          paramUrl += `n\\=${param[key]}&`;
-        } else if (key !== "alea" && key !== "id") {
-          paramUrl += `${key}\\=${param[key]}&`;
+        if (key === 'sup') {
+          paramUrl += `s\\=${param[key]}&`
+        } else if (key === 'sup2') {
+          paramUrl += `s2\\=${param[key]}&`
+        } else if (key === 'sup3') {
+          paramUrl += `s3\\=${param[key]}&`
+        } else if (key === 'sup4') {
+          paramUrl += `s4\\=${param[key]}&`
+        } else if (key === 'sup5') {
+          paramUrl += `s5\\=${param[key]}&`
+        } else if (key === 'nbQuestions') {
+          paramUrl += `n\\=${param[key]}&`
+        } else if (key !== 'alea' && key !== 'id') {
+          paramUrl += `${key}\\=${param[key]}&`
         }
       }
-      paramUrl = paramUrl.slice(0, -1);
-      let graine;
-      if (aleaType === "alea") {
-        graine = ' graine\\="-1"';
-      } else if (aleaType === "moodle") {
-        graine = "";
+      paramUrl = paramUrl.slice(0, -1)
+      let graine
+      if (aleaType === 'alea') {
+        graine = ' graine\\="-1"'
+      } else if (aleaType === 'moodle') {
+        graine = ''
       } else {
-        graine = ` graine\\="${param.alea}" `;
+        graine = ` graine\\="${param.alea}" `
       }
-      contentGift += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? "questions" : "question"} ::\n`;
+      contentGift += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? 'questions' : 'question'} ::\n`
       contentGift +=
-        '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n';
-      contentGift += `<mathalea-moodle v="4" url\\="${paramUrl}"${showTitle ? "" : ' titre="false"'}${graine}/>\n`;
-      contentGift += "{\n";
+        '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
+      contentGift += `<mathalea-moodle v="4" url\\="${paramUrl}"${showTitle ? '' : ' titre="false"'}${graine}/>\n`
+      contentGift += '{\n'
       contentGift +=
-        "=%100%100|*=%90%90|*=%83.33333%83.333|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*\n";
+        '=%100%100|*=%90%90|*=%83.33333%83.333|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*\n'
       contentGift +=
-        '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n';
-      contentGift += `<mathalea-moodle v="4" url\\="${paramUrl}"${showTitle ? "" : ' titre="false"'}${graine} correction />\n`;
-      contentGift += "}\n\n";
-      let xmlItem = xmlScorm.createElement("item");
-      xmlItem.setAttribute("identifier", `MathAlea-Exo${i + 1}`);
-      xmlItem.setAttribute("isvisible", "true");
-      xmlItem.setAttribute("identifierref", `MathAlea-Exo${i + 1}`);
-      let xmlTitle = xmlScorm.createElement("title");
-      xmlTitle.textContent = exercices[i].titre;
-      xmlItem.appendChild(xmlTitle);
-      xmlOrganization.appendChild(xmlItem);
-      let xmlResource = xmlScorm.createElement("resource");
-      xmlResource.setAttribute("identifier", `MathAlea-Exo${i + 1}`);
-      xmlResource.setAttribute("type", "webcontent");
-      xmlResource.setAttribute("adlcp:scormtype", "sco");
+        '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
+      contentGift += `<mathalea-moodle v="4" url\\="${paramUrl}"${showTitle ? '' : ' titre="false"'}${graine} correction />\n`
+      contentGift += '}\n\n'
+      let xmlItem = xmlScorm.createElement('item')
+      xmlItem.setAttribute('identifier', `MathAlea-Exo${i + 1}`)
+      xmlItem.setAttribute('isvisible', 'true')
+      xmlItem.setAttribute('identifierref', `MathAlea-Exo${i + 1}`)
+      let xmlTitle = xmlScorm.createElement('title')
+      xmlTitle.textContent = exercices[i].titre
+      xmlItem.appendChild(xmlTitle)
+      xmlOrganization.appendChild(xmlItem)
+      let xmlResource = xmlScorm.createElement('resource')
+      xmlResource.setAttribute('identifier', `MathAlea-Exo${i + 1}`)
+      xmlResource.setAttribute('type', 'webcontent')
+      xmlResource.setAttribute('adlcp:scormtype', 'sco')
       xmlResource.setAttribute(
-        "href",
-        "index.html#" +
-          paramUrl.replaceAll("\\=", "=") +
-          (useAlea ? "" : "&alea=" + param.alea),
-      );
-      let xmlDependency = xmlScorm.createElement("dependency");
-      xmlDependency.setAttribute("identifierref", "COMMON_FILES");
-      xmlResource.appendChild(xmlDependency);
-      xmlResources.appendChild(xmlResource);
-      i++;
+        'href',
+        'index.html#' +
+          paramUrl.replaceAll('\\=', '=') +
+          (useAlea ? '' : '&alea=' + param.alea),
+      )
+      let xmlDependency = xmlScorm.createElement('dependency')
+      xmlDependency.setAttribute('identifierref', 'COMMON_FILES')
+      xmlResource.appendChild(xmlDependency)
+      xmlResources.appendChild(xmlResource)
+      i++
     }
-    let xmlResource = xmlScorm.createElement("resource");
-    xmlResource.setAttribute("identifier", "COMMON_FILES");
-    xmlResource.setAttribute("type", "webcontent");
-    xmlResource.setAttribute("adlcp:scormtype", "asset");
-    let xmlFile = xmlScorm.createElement("file");
-    xmlFile.setAttribute("href", "index.html");
-    xmlResource.appendChild(xmlFile);
-    xmlResources.appendChild(xmlResource);
-    contentScorm = new XMLSerializer().serializeToString(xmlScorm);
-    let ident = "";
+    let xmlResource = xmlScorm.createElement('resource')
+    xmlResource.setAttribute('identifier', 'COMMON_FILES')
+    xmlResource.setAttribute('type', 'webcontent')
+    xmlResource.setAttribute('adlcp:scormtype', 'asset')
+    let xmlFile = xmlScorm.createElement('file')
+    xmlFile.setAttribute('href', 'index.html')
+    xmlResource.appendChild(xmlFile)
+    xmlResources.appendChild(xmlResource)
+    contentScorm = new XMLSerializer().serializeToString(xmlScorm)
+    let ident = ''
     // Debut Beautify XML
     // Remarque : il s'agit d'un code maison qui ne gère probablement pas tous les cas
     //            mais suffit emplement ici
-    let dir = 1;
+    let dir = 1
     contentScorm =
-      "<" +
+      '<' +
       contentScorm
-        .split("<")
+        .split('<')
         .slice(1)
         .reduce((a, x) => {
-          if (x[0] === "/") {
+          if (x[0] === '/') {
             if (dir === 1) {
-              a += "<" + x;
+              a += '<' + x
             } else {
-              a += "\n" + ident + "<" + x;
+              a += '\n' + ident + '<' + x
             }
-            ident = ident.slice(1);
-            dir = -1;
+            ident = ident.slice(1)
+            dir = -1
           } else {
-            ident += " ";
-            a += "\n" + ident + "<" + x;
-            dir = 1;
-            if (x.includes("/>")) {
-              ident = ident.slice(1);
-              dir = -1;
+            ident += ' '
+            a += '\n' + ident + '<' + x
+            dir = 1
+            if (x.includes('/>')) {
+              ident = ident.slice(1)
+              dir = -1
             }
           }
-          return a;
-        });
+          return a
+        })
     // Fin Beautify XML
-    contentScorm = '<?xml version="1.0" encoding="UTF-8"?>\n' + contentScorm;
+    contentScorm = '<?xml version="1.0" encoding="UTF-8"?>\n' + contentScorm
   }
 
-  let aleaType = "alea"; // 'alea' | 'moodle' | 'graine'
-  let useAlea = true;
-  let showTitle = true;
+  let aleaType = 'alea' // 'alea' | 'moodle' | 'graine'
+  let useAlea = true
+  let showTitle = true
   $: {
-    aleaType;
-    useAlea;
-    showTitle;
-    initExercices();
+    aleaType
+    useAlea
+    showTitle
+    initExercices()
   }
 
-  let tab = "gift";
+  let tab = 'gift'
 </script>
 
 <main
@@ -306,7 +306,7 @@
             aria-selected="true"
             data-te-nav-active=""
             on:click={() => {
-              tab = "gift";
+              tab = 'gift'
             }}
           >
             Export Gift (Quiz)
@@ -324,7 +324,7 @@
             aria-controls="tabs-scorm"
             aria-selected="false"
             on:click={() => {
-              tab = "scorm";
+              tab = 'scorm'
             }}
           >
             Export SCORM
@@ -344,7 +344,7 @@
             aria-controls="tabs-bookmarklet"
             aria-selected="false"
             on:click={() => {
-              tab = "bookmarklet";
+              tab = 'bookmarklet'
             }}
           >
             Marque-page magique
@@ -407,16 +407,16 @@
                       {
                         label:
                           "L'énoncé change à chaque actualisation de la page",
-                        value: "alea",
+                        value: 'alea',
                       },
                       {
                         label:
                           "L'énoncé change à chaque nouvelle tentative du test Moodle et est différente pour chaque élève",
-                        value: "moodle",
+                        value: 'moodle',
                       },
                       {
                         label: "Pas d'aléatoire (utiliser l'énoncé actuel')",
-                        value: "graine",
+                        value: 'graine',
                       },
                     ]}
                   />
@@ -426,7 +426,7 @@
                     Autres options
                   </div>
                   <ButtonToggleAlt
-                    title={"Afficher le titre"}
+                    title={'Afficher le titre'}
                     bind:value={showTitle}
                     explanations={[
                       "Le titre de l'exercice sera affiché",
@@ -502,11 +502,11 @@
               <div class="flex flex-col justify-center items-center space-y-2">
                 <div class="pl-4 pt-4">
                   <ButtonToggleAlt
-                    title={"Utiliser des exercices aléatoires"}
+                    title={'Utiliser des exercices aléatoires'}
                     bind:value={useAlea}
                     explanations={[
-                      "Chaque élève aura des exercices différents.",
-                      "Tous les élèves auront le même exercice",
+                      'Chaque élève aura des exercices différents.',
+                      'Tous les élèves auront le même exercice',
                     ]}
                   />
                 </div>

@@ -1,4 +1,4 @@
-import ArrondirUneValeur6e from '../6e/6N31-3'
+import ArrondirUneValeur6e from '../6e/6N1K'
 export const titre = 'Encadrer puis arrondir une valeur comprenant un cosinus'
 export const amcReady = true
 export const amcType = 'qcmMult'

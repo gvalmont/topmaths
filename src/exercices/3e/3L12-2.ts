@@ -1,14 +1,14 @@
 import { max, min } from 'mathjs'
+import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
+import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 import { choice, getRandomSubarray } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { pgcd } from '../../lib/outils/primalite'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
-import { pgcd } from '../../lib/outils/primalite'
-import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
-import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Factoriser à l\'aide de la mise en évidence ou des identités remarquables'
 export const dateDePublication = '10/09/2024'
 
@@ -27,7 +27,7 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Factoriser au maximum les expressions suivantes' : 'Factoriser au maximum l\'expression suivante'
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 - Mise en évidence\n2 - Identité remarquable (sans somme-produit)\n3 - Mise en évidence puis identité (sans somme-produit)\n4 - Identité remarquable (somme-produit)\n5 - Mise en évidence puis identité (somme-produit)\n6 - Identité remarquable (somme-produit avec degré > 0)\n7 - Mise en évidence puis identité (somme-produit avec degré > 0)\n8 - Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 - Mise en évidence\n2 - Identité remarquable (sans somme-produit)\n3 - Mise en évidence puis identité (sans somme-produit)\n4 - Identité remarquable (somme-produit)\n5 - Mise en évidence puis identité (somme-produit)\n6 - Identité remarquable (somme-produit avec degré > 0)\n7 - Mise en évidence puis identité (somme-produit avec degré > 0)\n8 - Mélange']
     this.besoinFormulaire2Numerique = ['Degré maximum du monôme en évidence ou du monôme de l\'identité', 3, '1\n2\n3']
     this.besoinFormulaire3Numerique = ['Degré maximum du facteur restant', 5, '1\n2\n3\n4\n5']
     this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']

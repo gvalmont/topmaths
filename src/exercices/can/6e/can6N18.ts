@@ -1,11 +1,11 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
-import { texNombre } from '../../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Encadrer à la dizaine, centaine'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const dateDeModifImportante = '26/11/2024'
 export const uuid = 'b9582'
 
 export const refs = {
-  'fr-fr': ['can6N18'],
+  'fr-fr': ['can6N18', '6N1A-flash6'],
   'fr-ch': []
 }
 export default class EncadrerDizaine extends Exercice {

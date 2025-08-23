@@ -1,19 +1,19 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
+import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiMoins, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { abs, signe } from '../../lib/outils/nombres'
+import { pgcd } from '../../lib/outils/primalite'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { abs, signe } from '../../lib/outils/nombres'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { pgcd } from '../../lib/outils/primalite'
 
 export const titre = 'Calculer la dérivée d\'une fonction avec exponentielle'
-export const dateDePublication = '02/07/2025'
+export const dateDePublication = '06/08/2025'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -25,7 +25,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'd2a2d'
 
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['1AN14-9'],
   'fr-ch': ['']
 }
 
@@ -33,8 +33,8 @@ export default class DeriveeExp extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : a*e^x+bx+c\n2 : e^u avec u affine\n3 :  e^u avec u poly second degré\n4 : u*e^x\n5 : (ax+b)*e^mx\n6 : (m*e^x)/(ax+b) ou  (m*e^x)/(ax^2+b) \n7: Mélange']
-    this.sup = '1'
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : a*e^x+bx+c\n2 : e^u avec u affine\n3 :  e^u avec u poly second degré\n4 : u*e^x\n5 : (ax+b)*e^mx\n6 : (m*e^x)/(ax+b) ou  (m*e^x)/(ax^2+b) \n7 : Mélange']
+    this.sup = '7'
     this.spacing = 1.5
     this.spacingCorr = 1.5
   }
@@ -61,16 +61,16 @@ export default class DeriveeExp extends Exercice {
             const b = randint(-5, 5)
             const c = randint(-5, 5, b)
             const choix = choice([true, false])
-            texteCorr = `$f$ est dérivable sur $\\mathbb{R}$ comme somme de fonctions dérivables sur $\\mathbb{R}$.<br><br>
+            texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme somme de fonctions dérivables sur $\\mathbb{R}$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, `
             if (choix === true) {
               texte = texteIntro + ` $f(x)=${rienSi1(a)}\\text{e}^x${b === 0 ? `${ecritureAlgebrique(c)}` : `${signe(b)}${reduireAxPlusB(abs(b), c)}`}$.<br>
             Calculer $f'(x)$.`
-              texteCorr += `$f'(x)=${miseEnEvidence(`${rienSi1(a)}\\text{e}^x${b === 0 ? '' : `${ecritureAlgebrique(b)}`}$`)}`
+              texteCorr += `$f'(x)=${miseEnEvidence(`${rienSi1(a)}\\text{e}^x${b === 0 ? '' : `${ecritureAlgebrique(b)}`}`)}$.`
             } else {
               texte = texteIntro + ` $f(x)=${reduireAxPlusB(b, c)}${signe(a)}${rienSi1(abs(a))}\\text{e}^x$.<br>
             Calculer $f'(x)$.`
-              texteCorr += ` $f'(x)=${miseEnEvidence(`${b}${rienSi1(a)}\\text{e}^x`)}$`
+              texteCorr += `$f'(x)=${miseEnEvidence(`${b}${rienSi1(a)}\\text{e}^x`)}$.`
             }
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
             value = `${`${a}e^x+${b}`}`
@@ -84,10 +84,10 @@ export default class DeriveeExp extends Exercice {
             const derivee = poly.derivee()
             texte = texteIntro + `$f(x)=\\text{e}^{${poly}}$.<br>
              Calculer $f'(x)$.`
-            texteCorr = `$f$ est dérivable sur $\\mathbb{R}$ comme composée de fonctions dérivables sur $\\mathbb{R}$.<br>
+            texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme composée de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $\\text{e}^u$ avec $u(x)=${poly}$, donc sa fonction dérivée est donnée par $f'=u'\\text{e}^u$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, `
-            texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\text{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\text{e}^{${poly}}`)}$`}`
+            texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\text{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\text{e}^{${poly}}`)}$`}.`
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
             value = `${`${derivee}e^{${poly}}`}`
           }
@@ -103,10 +103,10 @@ export default class DeriveeExp extends Exercice {
             const derivee = poly.derivee()
             texte = texteIntro + `$f(x)=\\text{e}^{${poly}}$.<br>
              Calculer $f'(x)$.`
-            texteCorr = `$f$ est dérivable sur $\\mathbb{R}$ comme composée de fonctions dérivables sur $\\mathbb{R}$.<br>
+            texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme composée de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $\\text{e}^u$ avec $u(x)=${poly}$, donc sa fonction dérivée est donnée par $f'=u'\\text{e}^u$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, `
-            texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\text{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\text{e}^{${poly}}`)}$`}`
+            texteCorr += `${derivee.isMon() ? `$f'(x)=${miseEnEvidence(`${derivee}\\text{e}^{${poly}}`)}$` : `$f'(x)=${miseEnEvidence(`(${derivee})\\text{e}^{${poly}}`)}$`}.`
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
             value = `${`${derivee}e^{${poly}}`}`
           }
@@ -121,7 +121,7 @@ export default class DeriveeExp extends Exercice {
                 const ab = choice(listeab)
                 const poly = new Polynome({ rand: true, coeffs: [ab[1], ab[0]] })// ax+b
 
-                texteCorr = `$f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
+                texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^x$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
@@ -131,7 +131,7 @@ export default class DeriveeExp extends Exercice {
               $\\begin{aligned}
               f'(x)&=\\underbrace{${poly.derivee()}}_{u'(x)}\\times \\underbrace{\\text{e}^x}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{\\text{e}^x}_{v'(x)}\\\\
             ${poly.isMon() ? '' : `&=\\text{e}^x(${poly.derivee()}+(${poly}))\\\\`}
-              &= ${miseEnEvidence(`${ab[0] + ab[1] === 0 ? `${ab[0]}\\text{e}^x` : `\\text{e}^x(${reduireAxPlusB(ab[0], ab[0] + ab[1])})`}`)}
+              &= ${miseEnEvidence(`${ab[0] + ab[1] === 0 ? `${ab[0]}\\text{e}^x` : `\\text{e}^x(${reduireAxPlusB(ab[0], ab[0] + ab[1])})`}`)}.
               \\end{aligned}$`
 
                 texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
@@ -149,7 +149,7 @@ export default class DeriveeExp extends Exercice {
                 const derivee = poly.derivee()
                 const polyF = new Polynome({ rand: true, coeffs: [abc[2] + abc[1], 2 * abc[0] + abc[1], abc[0]] })
 
-                texteCorr = `$f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
+                texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^x$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
@@ -158,8 +158,8 @@ export default class DeriveeExp extends Exercice {
                 texteCorr += ` 
               $\\begin{aligned}
               f'(x)&=\\underbrace{${derivee.isMon() ? `${derivee}` : `(${derivee})`}}_{u'(x)}\\times \\underbrace{\\text{e}^x}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{\\text{e}^x}_{v'(x)}\\\\
-           &=${derivee.isMon() ? `${miseEnEvidence(`\\text{e}^x(${polyF})`)}` : `\\text{e}^x(${derivee}+(${poly}))`}\\\\
-              ${derivee.isMon() ? '' : `&=${miseEnEvidence(`\\text{e}^x(${polyF})`)}`}\\\\
+           &=${derivee.isMon() ? `${miseEnEvidence(`\\text{e}^x(${polyF})`)}.` : `\\text{e}^x(${derivee}+(${poly}))`}\\\\
+              ${derivee.isMon() ? '' : `&=${miseEnEvidence(`\\text{e}^x(${polyF})`)}.`}
               \\end{aligned}$`
                 texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
                 value = `${`(${polyF})e^x`}`
@@ -178,7 +178,7 @@ export default class DeriveeExp extends Exercice {
             const derivee = poly.derivee()
             const m = randint(-10, 10, [0, 1])
             const polyF = new Polynome({ rand: true, coeffs: [ab[0] + m * ab[1], m * ab[0]] })
-            texteCorr = `$f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
+            texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme produit de fonctions dérivables sur $\\mathbb{R}$.<br>
             $f$ est de la forme $u\\times v$ avec $u(x)=${poly}$ et $v(x)=\\text{e}^{${rienSi1(m)}x}$, donc sa fonction dérivée est donnée par 
             $f'=u'\\times v+ u\\times v'$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
@@ -190,7 +190,7 @@ export default class DeriveeExp extends Exercice {
               f'(x)&=\\underbrace{${derivee}}_{u'(x)}\\times \\underbrace{\\text{e}^{${rienSi1(m)}x}}_{v(x)}+\\underbrace{(${poly})}_{u(x)}\\times \\underbrace{${ecritureParentheseSiMoins(m)}\\text{e}^{${rienSi1(m)}x}}_{v'(x)}\\\\
             ${poly.isMon() ? `&=${rienSi1(m)}\\text{e}^{${rienSi1(m)}x} ${ecritureAlgebriqueSauf1(ab[0] * m)}x\\text{e}^{${rienSi1(m)}x}\\\\` : ''}
             ${poly.isMon() ? '' : `&=\\text{e}^{${rienSi1(m)}x}(${derivee}+${poly.isMon() ? `(${m}\\times (${poly}))` : `(${m}(${poly}))`}\\\\`}
-              &= ${miseEnEvidence(`\\text{e}^{${rienSi1(m)}x}(${polyF})`)}
+              &= ${miseEnEvidence(`\\text{e}^{${rienSi1(m)}x}(${polyF})`)}.
               \\end{aligned}$`
 
             texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
@@ -213,7 +213,7 @@ export default class DeriveeExp extends Exercice {
                 const poly = new Polynome({ rand: true, coeffs: [ab[1], ab[0]] })// b+ax
                 const polyNum = poly.multiply(m).add(-m * ab[0])
                 const vi = new FractionEtendue(-ab[1], ab[0]).simplifie()
-                texteCorr = `$f$ est dérivable sur $\\mathbb{R}$ comme quotient de fonctions dérivables sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$ dont le dénominateur ne s'annule pas sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$.<br>
+                texteCorr = `La fonction $f$ est dérivable sur $\\mathbb{R}$ comme quotient de fonctions dérivables sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$ dont le dénominateur ne s'annule pas sur $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$.<br>
             $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${rienSi1(m)}\\text{e}^{x}$ et $v(x)=${poly}$, donc sa fonction dérivée est donnée par 
             $f'=\\dfrac{u'\\times v- u\\times v'}{v^2}$.<br><br>
             Pour tout $x$ de $\\mathbb{R}\\smallsetminus\\left\\{${vi.texFraction}\\right\\}$, <br>`
@@ -224,7 +224,7 @@ export default class DeriveeExp extends Exercice {
               $\\begin{aligned}
               f'(x)&=\\dfrac{\\overbrace{${rienSi1(m)}\\text{e}^{x}}^{u'(x)}\\times \\overbrace{${poly.isMon() ? `${poly}` : `(${poly})`}}^{v(x)}-\\overbrace{${rienSi1(m)}\\text{e}^{x}}^{u(x)}\\times \\overbrace{${ecritureParentheseSiNegatif(ab[0])}}^{v'(x)}}{\\underbrace{(${poly})^2}_{(v(x))^2}}\\\\
          &=\\dfrac{  ${poly.multiply(m)}\\text{e}^{x}- ${m * ab[0]}\\text{e}^{x}}{(${poly})^2} \\\\
-        &=${miseEnEvidence(`\\dfrac{${polyNum.isMon() ? ` ${polyNum}` : `(${polyNum})`}\\text{e}^{x}}{${ab[0] === 1 && ab[1] === 0 ? `${poly}^2` : `(${poly})^2`}}`)}
+        &=${miseEnEvidence(`\\dfrac{${polyNum.isMon() ? ` ${polyNum}` : `(${polyNum})`}\\text{e}^{x}}{${ab[0] === 1 && ab[1] === 0 ? `${poly}^2` : `(${poly})^2`}}`)}.
               \\end{aligned}$`
 
                 texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })
@@ -246,7 +246,7 @@ export default class DeriveeExp extends Exercice {
                 const poly = new Polynome({ rand: true, coeffs: [abc[2], abc[1], abc[0]] }) // c+bx+ax^2
                 const derivee = poly.derivee()
                 const polyF = new Polynome({ rand: true, coeffs: [abc[2] * m, -2 * abc[0] * m, m * abc[0]] })
-                texteCorr = `$f$ est dérivable sur $${abc[2] !== 0 ? '\\mathbb{R}' : '\\mathbb{R}^*'}$ comme quotient de fonctions dérivables sur ${abc[2] !== 0 ? '$\\mathbb{R}$' : '$\\mathbb{R}^*$ dont le dénominateur ne s\'annule pas sur $\\mathbb{R}^*$'}.<br>
+                texteCorr = `La fonction $f$ est dérivable sur $${abc[2] !== 0 ? '\\mathbb{R}' : '\\mathbb{R}^*'}$ comme quotient de fonctions dérivables sur ${abc[2] !== 0 ? '$\\mathbb{R}$' : '$\\mathbb{R}^*$ dont le dénominateur ne s\'annule pas sur $\\mathbb{R}^*$'}.<br>
             $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${rienSi1(m)}\\text{e}^{x}$ et $v(x)=${poly}$, donc sa fonction dérivée est donnée par 
             $f'=\\dfrac{u'\\times v- u\\times v'}{v^2}$.<br><br>
             Pour tout $x$ de $\\mathbb{R}$, <br>`
@@ -257,7 +257,7 @@ export default class DeriveeExp extends Exercice {
                 texteCorr += ` 
               $\\begin{aligned}
               f'(x)&=\\dfrac{\\overbrace{${rienSi1(m)}\\text{e}^{x}}^{u'(x)}\\times \\overbrace{${poly.isMon() ? `${poly}` : `(${poly})`}}^{v(x)}-\\overbrace{${rienSi1(m)}\\text{e}^{x}}^{u(x)}\\times \\overbrace{${derivee}}^{v'(x)}}{\\underbrace{(${poly})^2}_{(v(x))^2}}\\\\
-        &=${miseEnEvidence(`\\dfrac{${polyF.isMon() ? ` ${polyF}` : `(${polyF})`}\\text{e}^{x}}{(${poly})^2}`)}
+        &=${miseEnEvidence(`\\dfrac{${polyF.isMon() ? ` ${polyF}` : `(${polyF})`}\\text{e}^{x}}{(${poly})^2}`)}.
               \\end{aligned}$`
 
                 texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '<br>$f\'(x)=$' })

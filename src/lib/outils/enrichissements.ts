@@ -34,7 +34,7 @@ export function ajouterAide (contenu: string, options: optionsAide = {}) {
     </div>`
     return HTML
   } else {
-    return `\\textbf{${options.texteAvant ?? ''}} \\footnote{\\textbf{${options.titreAide ?? ''}} ${contenu}}`
+    return `\\textbf{${options.texteAvant ?? ''}} \\anote{\\textbf{${options.titreAide ?? ''}} ${contenu}}`
   }
 }
 

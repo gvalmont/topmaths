@@ -23,7 +23,8 @@ export const titre = 'Compléter une représentation en perspective cavalière'
 export const uuid = 'a8e0f'
 
 export const refs = {
-  'fr-fr': ['6G41'],
+  'fr-fr': [],
+  'fr-2016': ['6G41'],
   'fr-ch': ['9ES7-1']
 }
 export default class RepresenterUnSolide extends Exercice {

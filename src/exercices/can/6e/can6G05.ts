@@ -3,9 +3,9 @@ import { droite } from '../../../lib/2d/droites'
 import { point, tracePointSurDroite } from '../../../lib/2d/points'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../../lib/2d/textes'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Résoudre un problème de longueurs (inverse)'
 export const dateDePublication = '2/11/2021'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const amcType = 'AMCNum'
 export const uuid = '84be1'
 
 export const refs = {
-  'fr-fr': ['can6G05'],
+  'fr-fr': ['can6G05', '6M1E-flash2'],
   'fr-ch': []
 }
 export default class ProblemesDeLongueursInverse extends ExerciceSimple {

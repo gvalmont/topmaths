@@ -11,7 +11,7 @@ export const refs = {
 export default class CalculProbaExperience2Epreuves2nde extends CalculProbaExperience2Epreuves3e {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Deux épreuves indépendantes\n2 : Deux épreuves avec remise\n3 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets :\n1 : Deux épreuves indépendantes\n2 : Deux épreuves avec remise\n3 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec un arbre', false]
     this.niveau = '2nde'
     this.sup2 = true

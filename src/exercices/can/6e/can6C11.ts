@@ -1,10 +1,10 @@
+import Decimal from 'decimal.js'
+import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Decimal from 'decimal.js'
-import { bleuMathalea } from '../../../lib/colors'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer le double ou le triple (décimal)'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const amcType = 'AMCNum'
 export const uuid = '50fc4'
 
 export const refs = {
-  'fr-fr': ['can6C11'],
+  'fr-fr': ['can6C11', '6N2E-flash2'],
   'fr-ch': []
 }
 export default class DoubleOuTripleDecimal extends ExerciceSimple {

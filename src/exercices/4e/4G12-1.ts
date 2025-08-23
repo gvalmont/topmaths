@@ -310,7 +310,7 @@ export default class TrouverLaTransformation extends Exercice {
       const textePossible = []
       const texteCorrPossible = []
       const reponsePossible = []
-      const propositions:string[][] = []
+      const propositions:({ latex: string, value: string } | { label: string, value: string })[][] = []
       const objetEnonce = []
       for (let k = 0; k < 4; k++) {
         // On va mettre dans les propositions toutes les transformations possibles pour passer de transfo|k].depart à transfo[k].arrivee
@@ -322,40 +322,61 @@ export default class TrouverLaTransformation extends Exercice {
               let centre = trans.centre
               if (centre == null) break
               propositions[k].push(
-                `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
+                {
+                  latex: `\\text{la rotation de centre }\\,${centre.nom}\\text{, d'angle }\\,90°\\text{ dans le sens des aiguilles d'une montre}`,
+                  value: `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
+                }
               )
               propositions[k].push(
-                `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
+                {
+                  latex: `\\text{la rotation de centre}\\,${centre.nom}\\text{, d'angle }\\,90°\\text{ dans le sens inverse des aiguilles d'une montre}`,
+                  value: `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
+                }
               )
 
               trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart] as Polygone)
               centre = trans.centre
               if (centre == null) break
               propositions[k].push(
-                `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
+                {
+                  latex: `\\text{la rotation de centre}\\, ${centre.nom}\\text{, d'angle }\\, 90°\\text{ dans le sens des aiguilles d'une montre}`,
+                  value: `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
+                }
               )
               propositions[k].push(
-                `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
+                {
+                  latex: `\\text{la rotation de centre }\\,${centre.nom}\\text{, d'angle }\\,90°\\text{ dans le sens inverse des aiguilles d'une montre}`,
+                  value: `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
+                }
               )
             }
               break
             case 'trans':
             //    trans = definitElements('trans', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
               propositions[k].push(
-                            `la translation transformant ${noeuds[transfos[k].depart].nom} en ${noeuds[transfos[k].arrivee].nom}`
+                {
+                  latex: `\\text{la translation transformant }\\,${noeuds[transfos[k].depart].nom}\\,\\text{ en }\\,${noeuds[transfos[k].arrivee].nom}`,
+                  value: `la translation transformant ${noeuds[transfos[k].depart].nom} en ${noeuds[transfos[k].arrivee].nom}`
+                }
               )
               break
             case 'rot180':
             //    trans = definitElements('rot180', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
               propositions[k].push(
-                            `la symétrie dont le centre est le milieu de [${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom}]`
+                {
+                  latex: `\\text{la symétrie dont le centre est le milieu de }\\,[${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom}]`,
+                  value: `la symétrie dont le centre est le milieu de [${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom}]`
+                }
               )
               break
 
             case 'symax':
             //    trans = definitElements('symax', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
               propositions[k].push(
-                            `la symétrie d'axe (${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom})`
+                {
+                  latex: `\\text{la symétrie d'axe }\\,(${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom})`,
+                  value: `la symétrie d'axe (${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom})`
+                }
               )
               break
           }
@@ -375,7 +396,8 @@ export default class TrouverLaTransformation extends Exercice {
       for (let ee = 0; ee < nbSousQuestions; ee++) {
         texte += ee > 0 ? '<br>' : ''
         texte += nbSousQuestions > 1 ? numAlpha(ee) : ''
-        texte += objetEnonce[ee].textePossible + choixDeroulant(this, i * nbSousQuestions + ee, propositions[ee], 'une réponse')
+        propositions[ee].unshift({ label: 'Choisir une transformation', value: '' })
+        texte += objetEnonce[ee].textePossible + choixDeroulant(this, i * nbSousQuestions + ee, propositions[ee])
         texteCorrComplement += ee > 0 ? '<br>' : ''
         texteCorrComplement += nbSousQuestions > 1 ? numAlpha(ee) : ''
         texteCorrComplement += objetEnonce[ee].texteCorrPossible

@@ -1,10 +1,10 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import { randint, } from '../../../modules/outils'
 import { bleuMathalea } from '../../../lib/colors'
+import { randint, } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer avec +/-99 ou +/-999'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'ad0ee'
 
 export const refs = {
-  'fr-fr': ['can6C23'],
+  'fr-fr': ['can6C23', 'CM2N3J-flash3'],
   'fr-ch': []
 }
 export default class CalculAvec99 extends ExerciceSimple {

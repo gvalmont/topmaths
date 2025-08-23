@@ -271,19 +271,6 @@ async function readInfos (
     })
   )
 }
-/**
- * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités)
- * @returns {string}
- */
-function createUuid () {
-  let dt = new Date().getTime()
-  const uuid = 'xxxxx'.replace(/[xy]/g, (c) => {
-    const r = ((dt + Math.random() * 16) % 16) | 0
-    dt = Math.floor(dt / 16)
-    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
-  })
-  return uuid
-}
 
 // ToDo : automatiser la lecture de exercicesInteractifs
 function handleExerciceSvelte (uuidToUrl) {
@@ -497,7 +484,19 @@ readInfos(
   .catch((err) => {
     console.error(err)
   })
-
+  /**
+ * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités)
+ * @returns {string}
+ */
+function createUuid () {
+  let dt = new Date().getTime()
+  const uuid = 'xxxxx'.replace(/[xy]/g, (c) => {
+    const r = ((dt + Math.random() * 16) % 16) | 0
+    dt = Math.floor(dt / 16)
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
+  })
+  return uuid
+}
 // On choisit comme point de comparaison la liste de UUID francais
 let uuid = createUuid()
 while (uuidMapFR.has(uuid)) {

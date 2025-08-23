@@ -443,6 +443,9 @@ export class Arc extends ObjetMathalea2D {
     }
     if (this.rayons) {
       this.style = ''
+      if (this.opacite !== 1) {
+        this.style += ` stroke-opacity="${this.opacite}" `
+      }
       if (this.epaisseur !== 1) {
         this.style += ` stroke-width="${this.epaisseur}" `
       }
@@ -478,12 +481,9 @@ export class Arc extends ObjetMathalea2D {
             couleurDeRemplissage: this.couleurDeRemplissage[0],
             opaciteDeRemplissage: this.opaciteDeRemplissage
           }) +
-          `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+          `<path d="M${this.pointDepart.xSVG(coeff)} ${this.pointDepart.ySVG(coeff)} A ${this.rayon * coeff} ${this.rayon * coeff} 0 ${large} ${sweep} ${this.pointFinal.xSVG(coeff)} ${this.pointFinal.ySVG(coeff)} L ${this.centre.xSVG(coeff)} ${this.centre.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})"/>`
         )
       } else {
-        if (this.opacite !== 1) {
-          this.style += ` stroke-opacity="${this.opacite}" `
-        }
         if (
           this.couleurDeRemplissage[0] === '' ||
           this.couleurDeRemplissage[0] === undefined ||

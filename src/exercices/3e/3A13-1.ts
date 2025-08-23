@@ -1,4 +1,4 @@
-import DivisionsEuclidiennesEgaliteFondamentale from '../6e/6C11b'
+import DivisionsEuclidiennesEgaliteFondamentale from '../6e/6N2J-1'
 export const titre = 'Poser divisions euclidiennes'
 export const dateDePublication = '14/09/2022'
 export const amcReady = true

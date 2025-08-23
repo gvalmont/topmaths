@@ -1,21 +1,21 @@
 <script lang="ts">
+  import katex from 'katex/dist/katex'
   import { onDestroy } from 'svelte'
   import {
-    isExerciceItemInReferentiel,
-    resourceHasMonth,
-    resourceHasPlace,
-    isTool,
-    type JSONReferentielEnding,
-    isGeoDynamic
+      isExerciceItemInReferentiel,
+      isGeoDynamic,
+      isTool,
+      resourceHasMonth,
+      resourceHasPlace,
+      type JSONReferentielEnding
   } from '../../../../../../lib/types/referentiels'
-  import katex from 'katex/dist/katex'
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  import { mathaleaGenerateSeed } from '../../../../../../lib/mathalea'
   import { changes, exercicesParams, globalOptions } from '../../../../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../../../../lib/types'
-  import { isLessThanAMonth } from '../../../../../../lib/types/dates'
+  import { isLessThan3Months } from '../../../../../../lib/types/dates'
   import NoInteractivityIcon from '../../../../../shared/icons/NoInteractivityIcon.svelte'
   import QcmCamIcon from '../../../../../shared/icons/QcmCamIcon.svelte'
-  import { mathaleaGenerateSeed } from '../../../../../../lib/mathalea'
 
   export let ending: JSONReferentielEnding
   export let nestedLevelCount: number
@@ -142,7 +142,7 @@
             class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
             <span class="font-bold">{ending.id} - </span>{@html endingTitre}
-            {#if isLessThanAMonth(ending.datePublication)}
+            {#if isLessThan3Months(ending.datePublication)}
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"
@@ -155,7 +155,7 @@
                 </span>
               </span>
             {/if}
-            {#if isLessThanAMonth(ending.dateModification)}
+            {#if isLessThan3Months(ending.dateModification)}
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"

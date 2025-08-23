@@ -1,16 +1,16 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
+import Horloge from '../../../lib/2d/horloge'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { personne } from '../../../lib/outils/Personne'
+import { formatMinute } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
+import Hms from '../../../modules/Hms'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import Horloge from '../../../lib/2d/horloge'
-import Hms from '../../../modules/Hms'
-import { formatMinute } from '../../../lib/outils/texNombre'
-import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const titre = 'Lire une durée'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0861b'
 
 export const refs = {
-  'fr-fr': ['canc3D02'],
+  'fr-fr': ['canc3D02', '6M4B-flash1'],
   'fr-ch': []
 }
 export default class LireUneDuree extends ExerciceSimple {

@@ -15,7 +15,7 @@ export default class PuissancesEncadrement2nde extends PuissancesEncadrement {
     this.classe = 2
     this.besoinFormulaireTexte = [
       'Niveau de difficulté',
-      'Nombres séparés par des tirets\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Nombre relatif \n5 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Nombre entier naturel\n2 : Nombre décimal positif supérieur à 1 \n3 : Nombre décimal positif inférieur à 1\n4 : Nombre relatif \n5 : Mélange'
     ]
   }
 }

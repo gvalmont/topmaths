@@ -1401,7 +1401,6 @@ export class PapierPointe extends ObjetMathalea2D {
 
   svg (coeff: number) {
     let code = ''
-    if (this.objets == null) return code
     for (const objet of this.plots) {
       code += objet.svg(coeff)
     }
@@ -1410,7 +1409,6 @@ export class PapierPointe extends ObjetMathalea2D {
 
   tikz = () => {
     let code = ''
-    if (this.objets == null) return code
     for (const objet of this.plots) {
       code += objet.tikz()
     }

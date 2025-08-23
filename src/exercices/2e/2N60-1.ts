@@ -75,7 +75,7 @@ export default class ModeliseInequations extends Exercice {
             const c = randint(20, 35) / 100
             const d = randint(14, 19) / 100
 
-            texte = `  Une société de location de véhicules particulièrs propose deux tarifs :<br>
+            texte = `  Une société de location de véhicules particuliers propose deux tarifs :<br>
               $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par km parcouru ;<br>
               $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par km parcouru ;<br>
                       À partir de combien de km (arrondi à l'unité), le tarif B est-il plus intéressant que le tarif A ?<br>`

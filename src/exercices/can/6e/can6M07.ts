@@ -17,7 +17,7 @@ export const amcType = 'AMCNum'
 export const uuid = '62de7'
 
 export const refs = {
-  'fr-fr': ['can6M07'],
+  'fr-fr': ['can6M07', 'CM1M3A-flash1'],
   'fr-ch': []
 }
 export default class CompleterVolumeAuLitre extends ExerciceSimple {

@@ -1,18 +1,18 @@
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../Exercice'
-import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Point, point, tracePoint } from '../../lib/2d/points'
+import { polygone } from '../../lib/2d/polygones'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../lib/2d/textes'
+import { orangeMathalea } from '../../lib/colors'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import { orangeMathalea } from '../../lib/colors'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import { polygone } from '../../lib/2d/polygones'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer les coordonnées du centre ou de sommets d\'un parallèlogramme'
 export const dateDePublication = '25/05/2025'
@@ -86,7 +86,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
     super()
     this.besoinFormulaireTexte = [
       'Choix des questions',
-      'Nombres séparés par des tirets\n1 : Coordonnées du centre (4 sommets)\n2 : Coordonnées du centre (3 sommets)\n3 : Coordonnées de 2 points (centre donné)\n4 Mélange'
+      'Nombres séparés par des tirets :\n1 : Coordonnées du centre (4 sommets)\n2 : Coordonnées du centre (3 sommets)\n3 : Coordonnées de 2 points (centre donné)\n4 Mélange'
     ]
     this.sup = '1'
     this.besoinFormulaire2CaseACocher = ['Avec des fractions', false]

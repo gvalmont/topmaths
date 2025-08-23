@@ -1,4 +1,4 @@
-import VocabulaireDivisionEuclidienne from '../6e/6C11-2'
+import VocabulaireDivisionEuclidienne from '../6e/6N2J-2'
 export const titre = "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne"
 export const amcReady = true
 export const amcType = 'qcmMult'

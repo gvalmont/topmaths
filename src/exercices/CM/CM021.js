@@ -1,11 +1,11 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi, range1 } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
+  randint
 } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Le compte est bon original'
 
@@ -24,7 +24,7 @@ export default class CompteEstBon extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = [
-      'Niveaux de difficultés nombres de 1 à 3 séparés par des tirets',
+      'Niveaux de difficultés nombres de 1 à 3 séparés par des tirets :',
       '1: Avec 10 et 100\n2 : Avec 10 et de quoi faire facilement 100\n3 : Avec des calculs imbriqués\n4 : Mélange'
     ] // Texte, tooltip
     this.consigne =

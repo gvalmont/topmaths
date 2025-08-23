@@ -59,6 +59,44 @@ export function loadFonts (latexFileInfos: LatexFileInfos) {
 }`
 }
 
+function loadNoteBasExercices (contents: contentsType) {
+  const noteBas = `
+\\newcounter{customfootnote}
+\\newcounter{tempreset}%
+\\newcounter{temp}
+
+\\makeatletter
+\\newcommand{\\anote}[1]{%
+  \\refstepcounter{customfootnote}%
+  \\textsuperscript{\\thecustomfootnote}%
+  \\expandafter\\gdef\\csname custom@footnote@\\thecustomfootnote\\endcsname{#1}%
+}
+
+\\newcommand{\\printcustomnotes}{%
+  \\par\\noindent\\rule{\\linewidth}{0.4pt}\\par
+  \\setcounter{temp}{1}%
+  \\whileboolexpr{
+    test {\\ifcsdef{custom@footnote@\\thetemp}}
+  }{%
+    \\noindent\\textsuperscript{\\thetemp}~\\csname custom@footnote@\\thetemp\\endcsname\\par
+    \\stepcounter{temp}%
+  }%
+}
+
+\\newcommand{\\resetcustomnotes}{%
+  \\setcounter{customfootnote}{0}%
+  \\setcounter{tempreset}{1}%
+  \\whileboolexpr{
+    test {\\ifcsdef{custom@footnote@\\thetempreset}}
+  }{%
+    \\global\\expandafter\\let\\csname custom@footnote@\\thetempreset\\endcsname\\@undefined
+    \\stepcounter{tempreset}%
+  }%
+}
+\\makeatother`
+  testIfLoaded(['\\anote{'], noteBas, contents)
+}
+
 export function loadPreambule (latexFileInfos : LatexFileInfos, contents : contentsType) {
   if (latexFileInfos.style === 'Can') {
     contents.preamble += loadPreambuleCan()
@@ -205,6 +243,7 @@ function testIfLoaded (values : string[], valueToPut : string, contents: content
 export function loadPackagesFromContent (contents: contentsType) {
   contents.preamble += '\n% loadPackagesFromContent'
   loadProfCollegeIfNeed(contents)
+  loadNoteBasExercices(contents)
   testIfLoaded(['\\twemoji'], '\\usepackage{twemojis}', contents)
   testIfLoaded(['ifthenelse'], '\\usepackage{ifthen}', contents)
   testIfLoaded(['pspicture', '\\rput', '\\pscurve', '\\psset', '\\psframe'], '\\usepackage{pstricks}', contents)
@@ -310,7 +349,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\EUR{'], '\\usepackage{marvosym}', contents)
   testIfLoaded(['\\hautab'], '\\newcommand\\hautab[1]{\\renewcommand{\\arraystretch}{#1}}', contents)
   testIfLoaded(['|C{', '{C{'], '\\newcolumntype{C}[1]{>{\\centering\\arraybackslash}p{#1cm}}', contents)
-  testIfLoaded(['pattern'], '\\usetikzlibrary{patterns}', contents)
+  testIfLoaded(['pattern'], '\\usetikzlibrary{patterns.meta}', contents)
   testIfLoaded(['framed'], '\\usetikzlibrary{backgrounds}', contents)
   testIfLoaded(['single arrow', 'ellipse,'], '\\usetikzlibrary{shapes}', contents)
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
@@ -333,6 +372,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\tkz', '\\pic['], '\\usepackage{tkz-euclide}', contents)
   testIfLoaded(['\\pstEllipse[linewidth='], '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}', contents, '\\pstEllipse')
   testIfLoaded(['\\makecell'], '\\usepackage{makecell}', contents)
+  testIfLoaded(['\\includegraphicsembedded'], '\\usepackage{luaimageembed}', contents)
 
   if (contents.content.includes('\\begin{forest}') || contents.contentCorr.includes('\\begin{forest}')) {
     logPDF(`usepackage{forest} : ${window.location.href}`)

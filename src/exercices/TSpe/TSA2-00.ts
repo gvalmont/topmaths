@@ -1,13 +1,13 @@
-import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 export const titre = 'Dérivation de fonction composées V2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +28,7 @@ export const dateDePublication = '17/04/2024'
 class DerivationLnU extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : ln(ax+b)\n2 : ln(ax²+bx+c)\n3 : ln(x^n)\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets :\n1 : ln(ax+b)\n2 : ln(ax²+bx+c)\n3 : ln(x^n)\n4 : Mélange']
     this.sup = '1'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true

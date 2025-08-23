@@ -1,7 +1,7 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { shuffle, shuffle2tableaux } from '../../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d, ObjetMathalea2D, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
-import { cube } from '../../../lib/3d/CubeIso'
+import { cube } from '../../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 

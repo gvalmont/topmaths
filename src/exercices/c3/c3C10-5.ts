@@ -1,10 +1,10 @@
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Effectuer la soustraction de deux entiers'
 export const interactifReady = true
@@ -32,7 +32,7 @@ class ExerciceTablesSoustractions extends Exercice {
     this.spacing = 2
 
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-    this.besoinFormulaire2Texte = ['Type de question', 'Nombres séparés par des tirets\n1 : Calculer la différence\n2 : Calculer le premier terme\n3 : Calculer le deuxième terme\n4 : Calculer un des termes\n5 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de question', 'Nombres séparés par des tirets :\n1 : Calculer la différence\n2 : Calculer le premier terme\n3 : Calculer le deuxième terme\n4 : Calculer un des termes\n5 : Mélange']
   }
 
   nouvelleVersion () {

@@ -1,14 +1,14 @@
+import { createList } from '../../lib/format/lists'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
-  texFractionFromString,
   simplificationDeFractionAvecEtapes,
+  texFractionFromString,
   texFractionReduite
 } from '../../lib/outils/deprecatedFractions'
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { context } from '../../modules/context'
-import { createList } from '../../lib/format/lists'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
@@ -35,7 +35,7 @@ export const refs = {
 export default class FonctionsProbabilite2 extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Yaourts\n2 : Cartes\n3 : Chaussettes\n4 : Dé\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets :\n1 : Yaourts\n2 : Cartes\n3 : Chaussettes\n4 : Dé\n5 : Mélange']
     this.nbQuestions = 2
 
     context.isHtml ? this.spacing = 2 : this.spacing = 2
@@ -105,7 +105,14 @@ export default class FonctionsProbabilite2 extends Exercice {
             {
               items: [
                   `Combien d'issues possède cette experience aléatoire ?${this.interactif ? ' ' + ajouteChampTexteMathLive(this, iInteractif) : ''} Donner un exemple d'issue.${this.interactif ? ' ' + ajouteChampTexteMathLive(this, iInteractif + 1, '', { texteAvant: `<br>On donnera la réponse sous la forme $(X,Y)$ avec $X,Y$ deux lettres parmi $${Initiale[p]}$, $${Initiale[q]}$ et $${Initiale[r]}$ : ` }) : ''}`,
-                  'Est-ce une expérience en situation d\'équiprobabilité ?' + (!this.interactif ? ' Justifier.' : choixDeroulant(this, iInteractif + 2, ['oui', 'non', 'je sais pas'], 'une réponse')),
+                  'Est-ce une expérience en situation d\'équiprobabilité ?' + (!this.interactif
+                    ? ' Justifier.'
+                    : choixDeroulant(this, iInteractif + 2, [
+                      { label: 'Choisir une des réponses suivantes', value: '' },
+                      { label: 'oui', value: 'oui' },
+                      { label: 'non', value: 'non' },
+                      { label: 'je sais pas', value: 'je sais pas' }
+                    ])),
                   `Calculer la probabilité que ${quidame} et ${quidam} aient choisi tous les deux un yaourt ${qualites[0][p]}.` + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 3) : ''),
                   ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums identiques.' + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 4) : ''),
                   ' Calculer la probabilité qu\'ils aient choisi des yaourts aux parfums différents.' + (this.interactif ? ajouteChampTexteMathLive(this, iInteractif + 5) : '')

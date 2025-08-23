@@ -1,7 +1,9 @@
-import VocabulaireDuCercle from './6G10-4'
 /**
  * Clone de 6G10-4 pour rien (juste pour définir l'uuid 35282 qui a été diffusée et utilisée par Myriade)
  */
+
+import VocabulaireDuCercle from './6G2A'
+
 // export { titre } from './6G10-4'
 export const titre = 'Connaitre le vocabulaire du cercle'
 

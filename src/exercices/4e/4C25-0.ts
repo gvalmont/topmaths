@@ -1,17 +1,17 @@
-import { shuffle, enleveElementBis } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
-import { fraction, listeFractions } from '../../modules/fractions'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../../lib/outils/nombres'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers, type UneProposition } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { enleveElementBis, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
+import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
+import { context } from '../../modules/context'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { fraction, listeFractions } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Résoudre des problèmes additifs et de comparaison sur les fractions'
 export const dateDeModifImportante = '21/05/2025'
@@ -33,7 +33,7 @@ export const refs = {
 export default class ProblemesAdditifsFractionsBis extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de problèmes', 'Nombres séparés par des tirets\n1: Triathlon (3 fractions)\n2 : Élection (3 fractions)\n3 : Mandala (4 fractions)\n4 : Jardin (4 fractions)\n5 : Stade (4 fractions)\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Type de problèmes', 'Nombres séparés par des tirets :\n1: Triathlon (3 fractions)\n2 : Élection (3 fractions)\n3 : Mandala (4 fractions)\n4 : Jardin (4 fractions)\n5 : Stade (4 fractions)\n6 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec dénominateur(s) multiple(s) du plus petit']
     this.sup = '6'
     this.sup2 = false

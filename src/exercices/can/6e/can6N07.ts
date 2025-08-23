@@ -3,9 +3,9 @@ import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Lire l\'abscisse décimale d\'un point sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export const dateDeModifImportante = '12/10/2024'
 export const uuid = '34d01'
 
 export const refs = {
-  'fr-fr': ['can6N07'],
+  'fr-fr': ['can6N07', '6N1H-flash1'],
   'fr-ch': []
 }
 export default class LireAbscisseDecimaleDeFraction extends ExerciceSimple {

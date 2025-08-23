@@ -1,6 +1,6 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { enleveElement } from '../../../lib/outils/arrayOutils'
 import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Trouver la bonne unité'
@@ -17,7 +17,7 @@ export const amcType = 'qcmMono'
 export const uuid = 'ac56a'
 
 export const refs = {
-  'fr-fr': ['can6M02'],
+  'fr-fr': ['can6M02', 'CM1M1C-flash1'],
   'fr-ch': []
 }
 export default class LaBonneUnite extends Exercice {

@@ -1,17 +1,17 @@
-import ExerciceSimple from '../../ExerciceSimple'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import ExerciceSimple from '../../ExerciceSimple'
 
+import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Decimal from 'decimal.js'
 export const titre = 'Résoudre un problème d\'économie'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/04/2024'
 export const uuid = 'b40d5'
 export const refs = {
-  'fr-fr': ['can6C48'],
+  'fr-fr': ['can6C48', '6N2G-flash1'],
   'fr-ch': ['9NO8-18']
 }
 /**

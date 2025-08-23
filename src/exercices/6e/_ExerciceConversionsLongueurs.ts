@@ -1,15 +1,15 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { arrondi } from '../../lib/outils/nombres'
-import { texNombre } from '../../lib/outils/texNombre'
-import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { texTexte } from '../../lib/format/texTexte'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +37,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
     this.besoinFormulaire3CaseACocher = ['Avec tableau']
-    this.besoinFormulaire4Texte = ['Type de grandeur', 'Nombres séparés par des tirets\n1 : Longueur\n2 : Masse\n3 : Mélange']
+    this.besoinFormulaire4Texte = ['Type de grandeur', 'Nombres séparés par des tirets :\n1 : Longueur\n2 : Masse\n3 : Mélange']
     this.sup = niveau // Niveau de difficulté de l'exercice
     this.sup2 = false // Avec des nombres décimaux ou pas
     this.sup3 = false // avec le tableau

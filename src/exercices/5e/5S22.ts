@@ -1,4 +1,4 @@
-import FonctionsProbabilite1 from './5S21'
+import FonctionsProbabilite1 from '../6e/6P2B-1'
 export const titre = 'Décrire une expérience aléatoire'
 export const interactifReady = false
 export const dateDePublication = '03/04/2022'

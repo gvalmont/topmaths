@@ -1,10 +1,10 @@
+import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
 import { choice, getRandomSubarray, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 
 export const titre = 'Factoriser à l\'aide des groupements'
 export const dateDePublication = '22/09/2024'
@@ -25,7 +25,7 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
 
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1- Groupement non développé sans monôme semblable\n2- Groupement non développé avec monômes semblables\n3- Groupement non développé avec changement de signe dans le groupement\n4- Groupement développé termes non mélangés\n5- Groupement développé termes mélangés\n6- Groupement non développé sans monôme semblable avec mise en évidence supplémentaire\n7- Groupement non développé avec monômes semblables avec mise en évidence supplémentaire\n8- Groupement non développé avec changement de signe dans le groupement avec mise en évidence supplémentaire\n9- Groupement développé termes non mélangés avec mise en évidence supplémentaire\n10- Groupement développé termes mélangés avec mise en évidence supplémentaire\n11- Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1- Groupement non développé sans monôme semblable\n2- Groupement non développé avec monômes semblables\n3- Groupement non développé avec changement de signe dans le groupement\n4- Groupement développé termes non mélangés\n5- Groupement développé termes mélangés\n6- Groupement non développé sans monôme semblable avec mise en évidence supplémentaire\n7- Groupement non développé avec monômes semblables avec mise en évidence supplémentaire\n8- Groupement non développé avec changement de signe dans le groupement avec mise en évidence supplémentaire\n9- Groupement développé termes non mélangés avec mise en évidence supplémentaire\n10- Groupement développé termes mélangés avec mise en évidence supplémentaire\n11- Mélange']
     this.besoinFormulaire2Numerique = ['Degré maximum du monôme en évidence', 3, '2\n3\n4']
     this.besoinFormulaire3Numerique = ['Nombre de termes du groupement (>1)', 2, '2\n3']
     this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 4, '1\n2\n3\n4']

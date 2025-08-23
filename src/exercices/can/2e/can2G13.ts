@@ -51,7 +51,7 @@ export default class NormeVecteur extends ExerciceSimple {
           \\sqrt{${a ** 2}+ ${b ** 2}}=
           \\sqrt{${a ** 2 + b ** 2}}=
           ${miseEnEvidence(`${Math.sqrt(a ** 2 + b ** 2)}`)}$.<br><br>`
-          this.correction += texteEnCouleur(`Comme $${a ** 2 + b ** 2}$ est un carré parfait, on simplie la racine carrée.`, 'blue')
+          this.correction += texteEnCouleur(`Comme $${a ** 2 + b ** 2}$ est un carré parfait, on simplifie la racine carrée.`, 'blue')
           this.reponse = Math.sqrt(a ** 2 + b ** 2)
         } else {
           this.question = `Dans un repère orthonormé du plan, on donne $\\overrightarrow{${nom}}(${a};${b})$.<br>

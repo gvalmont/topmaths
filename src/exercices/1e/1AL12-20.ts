@@ -1,11 +1,11 @@
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fraction } from '../../modules/fractions'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { fraction } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Etudier le sens de variation d\'une suite définie de façon explicite'
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
     this.sup = 4
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets',
+        'Nombres séparés par des tirets :',
         '1 : Affine',
         '2 : Second degré',
         '3 : Homographique',

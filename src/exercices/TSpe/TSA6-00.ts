@@ -1,11 +1,11 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { context } from '../../modules/context'
 export const titre = 'Équations différentielles'
@@ -28,7 +28,7 @@ class EquaDiffs extends Exercice {
   constructor () {
     super()
 
-    this.besoinFormulaireTexte = ['Types d\'équations ', 'Nombres séparés par des tirets\n1 : y\'= ay\n2 : y\'= ay + b\n3 : y\'= ay + f\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Types d\'équations ', 'Nombres séparés par des tirets :\n1 : y\'= ay\n2 : y\'= ay + b\n3 : y\'= ay + f\n4 : Mélange']
     this.sup = '1'
     this.nbQuestions = 2
     this.correctionDetailleeDisponible = true

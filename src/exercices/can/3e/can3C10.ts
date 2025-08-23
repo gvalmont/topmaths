@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = '3c064'
 
 export const refs = {
-  'fr-fr': ['can3C10'],
+  'fr-fr': ['can3C10','auto6P3B-flash2'],
   'fr-ch': []
 }
 export default class EncadrementAvecPuissancesDe10 extends ExerciceSimple {

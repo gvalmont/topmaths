@@ -1,4 +1,4 @@
-import CalculDeVolumes from '../6e/6M30'
+import CalculDeVolumes from '../5e/5M20-1'
 export const titre = 'Calculs de volumes'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -16,6 +16,6 @@ export default class CalculDeVolumes5e extends CalculDeVolumes {
     this.sup = 1
     this.sup4 = 5
     this.classe = 5
-    this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1  : Cubes\n2 : Pavés droits\n3 : Cylindres\n4 : Prismes droits\n5 : Mélange']
+    this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets :\n1  : Cubes\n2 : Pavés droits\n3 : Cylindres\n4 : Prismes droits\n5 : Mélange']
   }
 }

@@ -1,17 +1,17 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { fraction } from '../../modules/fractions'
 import { Arbre } from '../../modules/arbres'
+import { fraction } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
 export const titre = 'Simuler une expérience aléatoire à deux épreuves (indépendantes ou avec remise)'
 export const dateDePublication = '15/01/2022'
@@ -34,7 +34,7 @@ export default class CalculProbaExperience2Epreuves3e extends Exercice {
   constructor () {
     super()
 
-    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Deux épreuves indépendantes\n2 : Deux épreuves avec remise\n3 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets :\n1 : Deux épreuves indépendantes\n2 : Deux épreuves avec remise\n3 : Mélange']
     this.niveau = '3eme'
     this.sup = 1
     this.sup2 = false

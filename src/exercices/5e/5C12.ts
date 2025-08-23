@@ -1,11 +1,11 @@
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import choisirExpressionNumerique from './_choisirExpressionNumerique'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +32,7 @@ export default class CalculerUneExpressionNumerique extends Exercice {
     this.sup2 = false // si false alors utilisation de nombres entiers (calcul mental), si true alors utilisation de nombres à un chiffre après la virgule.
     this.sup3 = true
     this.sup4 = true
-    this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip - il faut au moins deux opérations
+    this.besoinFormulaireTexte = ['Choix des expressions', 'Nombres séparés par des tirets :\n2 : Expressions à deux opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions complexes'] // Texte, tooltip - il faut au moins deux opérations
     this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
     this.besoinFormulaire3CaseACocher = ['Avec le signe × devant les parenthèses', true]
     this.besoinFormulaire4CaseACocher = ['Calculs nommés avec des lettres', false]

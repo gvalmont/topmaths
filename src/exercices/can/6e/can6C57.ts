@@ -21,7 +21,7 @@ export const dateDePublication = '05/07/2025'
 export const uuid = '058e4'
 
 export const refs = {
-  'fr-fr': ['can6C57'],
+  'fr-fr': ['can6C57', '6N3K-flash3'],
   'fr-ch': []
 }
 export default class SommeDiffFractionsCompatibles extends ExerciceSimple {

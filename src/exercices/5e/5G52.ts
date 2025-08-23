@@ -1,21 +1,21 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { labelPoint, Latex2d, TexteParPoint } from '../../lib/2d/textes'
-import { fixeBordures, mathalea2d, Vide2d } from '../../modules/2dGeneralites'
-import { longueur, Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
-import { texNombre } from '../../lib/outils/texNombre'
-import { NommePolygone, Polygone, polygone, Polyline } from '../../lib/2d/polygones'
-import { Point, point, pointAdistance, tracePoint, TracePoint } from '../../lib/2d/points'
-import { cercle } from '../../lib/2d/cercle'
-import { similitude, translation } from '../../lib/2d/transformations'
 import type { CodageAngleDroit, MarqueAngle } from '../../lib/2d/angles'
+import { cercle } from '../../lib/2d/cercle'
+import { CodageAngle, placeLatexSurSegment } from '../../lib/2d/codages'
+import { Point, point, pointAdistance, tracePoint, TracePoint } from '../../lib/2d/points'
+import { NommePolygone, Polygone, polygone, Polyline } from '../../lib/2d/polygones'
+import { Cylindre, cylindre } from '../../lib/2d/projections3d'
+import { longueur, Segment, segment, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, Latex2d, TexteParPoint } from '../../lib/2d/textes'
+import { similitude, translation } from '../../lib/2d/transformations'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
-import { Cylindre, cylindre } from '../../lib/2d/projections3d'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d, Vide2d } from '../../modules/2dGeneralites'
 
 export const titre = 'Calculer des longueurs avec un patron de cylindre'
 
@@ -36,9 +36,9 @@ export default class nomExercice extends Exercice {
     super()
     this.consigne = ''
     this.nbQuestions = 4
-    this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Cylindre vers patron \n2 : Patron vers cylindre \n3 : Mélange']
-    this.besoinFormulaire2Texte = ['Position du cylindre', 'Nombres séparés par des tirets\n1 : Debout \n2 : La base en face avant \n3 : La base vue de côté \n4 : Mélange']
-    this.besoinFormulaire3Texte = ['Base du cylindre donnée par son ...', 'Nombres séparés par des tirets\n1 : Rayon \n2 : Diamètre \n3 : Mélange']
+    this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets :\n1 : Cylindre vers patron \n2 : Patron vers cylindre \n3 : Mélange']
+    this.besoinFormulaire2Texte = ['Position du cylindre', 'Nombres séparés par des tirets :\n1 : Debout \n2 : La base en face avant \n3 : La base vue de côté \n4 : Mélange']
+    this.besoinFormulaire3Texte = ['Base du cylindre donnée par son ...', 'Nombres séparés par des tirets :\n1 : Rayon \n2 : Diamètre \n3 : Mélange']
     this.sup = '3'
     this.sup2 = '4'
     this.sup3 = '3'

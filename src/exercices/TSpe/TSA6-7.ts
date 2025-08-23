@@ -47,17 +47,17 @@ export default class VraiFauxSuites extends ExerciceVraiFaux {
         correction: 'Faux. Deux primitives diffèrent toujours d\'une constante additive.'
       },
       {
-        texte: 'Soit $u$ une fonction dérivable et non-nulle sur $I$. Une primitive de $\\dfrac{u\'}{u}$ sur $I$ est $\\ln u$.',
+        texte: 'Soit $u$ une fonction dérivable et non nulle sur $I$. Une primitive de $\\dfrac{u\'}{u}$ sur $I$ est $\\ln u$.',
         statut: false,
         correction: 'Faux. Il faut que $u$ soit strictement positive sur l\'intervalle considéré.'
       },
       {
-        texte: 'Soit $u$ une fonction dérivable et non-nulle sur $I$. Une primitive de $u\'u$ sur $I$ est $-\\dfrac12 u^2$.',
+        texte: 'Soit $u$ une fonction dérivable et non nulle sur $I$. Une primitive de $u\'u$ sur $I$ est $-\\dfrac12 u^2$.',
         statut: false,
         correction: 'Faux. Une primitive de $u\'u$ sur $I$ est $\\dfrac12 u^2$..'
       },
       {
-        texte: 'Soit $u$ une fonction dérivable et non-nulle sur $I$. Une primitive de $\\dfrac{1}{u^2}$ sur $I$ est $\\dfrac1u$.', // (9)
+        texte: 'Soit $u$ une fonction dérivable et non nulle sur $I$. Une primitive de $\\dfrac{1}{u^2}$ sur $I$ est $\\dfrac1u$.', // (9)
         statut: false,
         correction: 'Faux. Une primitive de $\\dfrac{1}{u^2}$ sur $I$ est $-\\dfrac1u$.'
       },

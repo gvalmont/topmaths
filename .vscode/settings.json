@@ -10,6 +10,7 @@
     "javascript.preferences.importModuleSpecifierEnding": "minimal",
     "vitest.disableWorkspaceWarning": true,
     "editor.codeActionsOnSave": {
+        "source.organizeImports": "always",
         "source.fixAll.eslint": "always"
     },
     "eslint.validate": [
@@ -21,5 +22,14 @@
     ],
     "eslint.format.enable": true,
     "editor.formatOnSave": true,
-    "svelte.plugin.svelte3.disable": false
+    "svelte.plugin.svelte3.disable": false,
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.svelte$",
+                "cmd": "pnpm exec prettier --plugin=prettier-plugin-svelte --write ${file}"
+            }
+        ]
+    },
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
 }

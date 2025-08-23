@@ -1,11 +1,11 @@
+import Decimal from 'decimal.js'
+import { texPrix } from '../../../lib/format/style'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
-import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Decimal from 'decimal.js'
 import ExerciceSimple from '../../ExerciceSimple'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"'
@@ -21,7 +21,7 @@ export const dateDePublication = '27/07/2022'
 export const uuid = '95dd2'
 
 export const refs = {
-  'fr-fr': ['can6C35'],
+  'fr-fr': ['can6C35', '6N2A-flash6'],
   'fr-ch': []
 }
 export default class PlusOuMoins6ieme extends ExerciceSimple {

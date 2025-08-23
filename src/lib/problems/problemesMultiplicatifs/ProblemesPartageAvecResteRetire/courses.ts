@@ -1,4 +1,4 @@
-import { troisObjetsAVendre } from '../../../../exercices/6e/6C35-1'
+import { troisObjetsAVendre } from '../../../../exercices/6e/6N4A-2'
 import { randint } from '../../../../modules/outils'
 import { choice, shuffle } from '../../../outils/arrayOutils'
 import { miseEnEvidence } from '../../../outils/embellissements'

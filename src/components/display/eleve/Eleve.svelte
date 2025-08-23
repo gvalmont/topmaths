@@ -340,14 +340,42 @@
     }
   }
 
-  function handleIndexChange(exoNum: number) {
+  async function handleIndexChange(exoNum: number) {
     currentIndex = exoNum
-    if (
-      exercices[exoNum] &&
-      exercices[exoNum].interactifType === 'cliqueFigure' &&
-      exercices[exoNum].interactif
-    ) {
-      prepareExerciceCliqueFigure(exercices[exoNum])
+    if ($globalOptions.presMode === 'une_question_par_page'){
+      await tick() // MGU attendre que le div soit affiché avant de mettre à jour la question
+      const exo = exercices[indiceExercice[exoNum]]
+      const questionEvent = new CustomEvent('questionDisplay', {
+        detail: { 
+          uuid: exo.uuid,
+          exoNumber:indiceExercice[exoNum],
+          questionNumber: exoNum,}
+      })
+      document.dispatchEvent(questionEvent)
+      if (
+        exo &&
+        exo.interactifType === 'cliqueFigure' &&
+        exo.interactif
+      ) {
+        prepareExerciceCliqueFigure(exo)
+      }
+    } else if ($globalOptions.presMode === 'un_exo_par_page') {
+      await tick() // MGU attendre que le div soit affiché avant de mettre à jour la question
+      const exo = exercices[exoNum]
+      const questionEvent = new CustomEvent('questionDisplay', {
+        detail: { 
+          uuid: exo.uuid,
+          exoNumber: exoNum,
+          questionNumber: null,}
+      })
+      document.dispatchEvent(questionEvent)
+      if (
+        exo &&
+        exo.interactifType === 'cliqueFigure' &&
+        exo.interactif
+      ) {
+        prepareExerciceCliqueFigure(exo)
+      }
     }
   }
 </script>

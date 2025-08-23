@@ -1,23 +1,23 @@
-import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import Exercice from '../Exercice'
 
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1
 } from '../../lib/outils/ecritures'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
+import FractionEtendue from '../../modules/FractionEtendue'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
+} from '../../modules/outils'
 
 export const titre = "Domaine de définition d'une fonction logarithme"
 export const dateDePublication = '22/7/2024'
@@ -45,7 +45,7 @@ export default class DomaineDefFnLog extends Exercice {
     this.sup2 = true
     this.besoinFormulaireTexte = [
       'Type de fonction dans le logarithme',
-      'Nombres séparés par des tirets\n1 : Fonction affine\n2 : Fonction homographique\n3 : Polynôme de degré 2\n4 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Fonction affine\n2 : Fonction homographique\n3 : Polynôme de degré 2\n4 : Mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', true]
     this.comment = 'Domaines de définition de fonctions logarithmes'

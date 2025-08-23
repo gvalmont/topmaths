@@ -2,6 +2,12 @@ import { ObjetMathalea2D } from '../../../modules/2dGeneralites'
 import { Shape2D } from '../Figures2D'
 import { emoji } from './Emojis'
 
+export function shapeDefToShapeSvg (shapeName: string): string {
+  const shapeDef = listeShapes2DInfos[shapeName].shapeDef
+  const svg = shapeDef.svg ? String(shapeDef.svg(20)) : ''
+  return svg.replace('<defs>', '').replace('</defs>', '').replaceAll('\n', '')
+}
+
 /*
 La classe Shape2D est définie ddans le fichier Figures2D.ts car elle est une version simplifiée de la classe Figure2D.
 Elle représente une forme géométrique 2D avec des propriétés de base comme le code SVG, le code TikZ, la largeur, la hauteur, l'opacité et le nom.

@@ -79,7 +79,7 @@ export default class Resolutionavecformecanonique extends Exercice {
       texteCorr += `<br>$\\iff\\quad  \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)^2    ${b2.simplifie().oppose().ecritureAlgebrique}=0$`
       // test des solutions
       if (delta < 0) {
-        texteCorr += '<br>L\'équation revient à ajouter deux nombres positifs, dont un non-nul. Cette somme ne peut pas être égale à zéro.'
+        texteCorr += '<br>L\'équation revient à ajouter deux nombres positifs, dont un non nul. Cette somme ne peut pas être égale à zéro.'
         texteCorr += '<br>On en déduit que $S=\\emptyset$'
       } else if (delta > 0) { // Cas des deux solutions :
         texteCorr += '<br>On reconnaît l\'identité remarquable $a^2-b^2$ :'

@@ -1,8 +1,8 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { rienSi1, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 
 export const titre = 'Tester si un nombre est solution d\'une équation'
 
@@ -40,7 +40,7 @@ export default class TesterSiUnNombreEstSolutionDUneEquation extends Exercice {
       2,
       '1 : Entiers naturels\n2 : Entiers relatifs'
     ]
-    this.besoinFormulaire2Texte = ['Choix des équations', 'Nombres séparés par des tirets\n1 : 3x-a=2x+b\n2 : 3x+a=5x-b\n3 : 10(x-a)=4(2x+b)\n4 : ax+b=(a+1)x-c\n5 : a-2x=b+2x\n6 : ax-ab=x²-bx\n7 : adx-bd=acx²-bcx\n8 : 2x-4a=4(2x+b)\n9 : x²-bx-ax+ab=0\n10 : Mélange\n']
+    this.besoinFormulaire2Texte = ['Choix des équations', 'Nombres séparés par des tirets :\n1 : 3x-a=2x+b\n2 : 3x+a=5x-b\n3 : 10(x-a)=4(2x+b)\n4 : ax+b=(a+1)x-c\n5 : a-2x=b+2x\n6 : ax-ab=x²-bx\n7 : adx-bd=acx²-bcx\n8 : 2x-4a=4(2x+b)\n9 : x²-bx-ax+ab=0\n10 : Mélange\n']
     this.besoinFormulaire3CaseACocher = ['Forme simplifiée', false]
     this.sup = 1
     this.nbQuestions = 4

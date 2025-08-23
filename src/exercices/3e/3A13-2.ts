@@ -1,4 +1,4 @@
-import DivisionsEuclidiennesEgalite from '../6e/6C11-1'
+import DivisionsEuclidiennesEgalite from '../6e/6N2J-1'
 export const titre = 'Déterminer reste et quotient d\'une division euclidienne à partir d\'une égalité'
 export const amcReady = true
 export const amcType = 'AMCHybride'

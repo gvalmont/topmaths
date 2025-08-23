@@ -1,15 +1,13 @@
 /* eslint-disable camelcase */
 import { point, tracePoint } from '../../../lib/2d/points'
 import { texteParPositionEchelle } from '../../../lib/2d/textes'
+import { texteGras } from '../../../lib/format/style'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ajouterLien } from '../../../lib/outils/enrichissements'
-import { texteGras } from '../../../lib/format/style'
 import { stringNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
-import { context } from '../../../modules/context'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { noteLaCouleur, Plateau2dNLC, testInstruction, testSequence, traducNum } from '../../../modules/noteLaCouleur'
 import {
   allerA,
   angleScratchTo2d,
@@ -20,9 +18,11 @@ import {
   ObjetLutin,
   orienter
 } from '../../../modules/2dLutin'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { context } from '../../../modules/context'
+import { noteLaCouleur, Plateau2dNLC, testInstruction, testSequence, traducNum } from '../../../modules/noteLaCouleur'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { roseDesVents, scratchblock } from '../../../modules/scratchblock'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import Exercice from '../../Exercice'
 
 export const dateDePublication = '11/04/2021'
 export const titre = 'Noter la couleur (scratch)'
@@ -47,7 +47,7 @@ export type NoteLaCouleurParams = {
 export const uuid = '667d1'
 
 export const refs = {
-  'fr-fr': ['can6I01'],
+  'fr-fr': ['can6I01', '6I1B-flash1'],
   'fr-ch': []
 }
 export default class CanNoteLaCouleur6 extends Exercice {

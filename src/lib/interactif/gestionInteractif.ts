@@ -362,14 +362,6 @@ export function exerciceInteractif (
         resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
         break
       case 'listeDeroulante': {
-        const selects = document.querySelectorAll(
-          `select[id^="ex${exercice.numeroExercice}Q${i}"]`
-        )
-        if (selects) {
-          for (const select of selects) {
-            (select as HTMLSelectElement).disabled = true
-          }
-        }
         resultat = verifQuestionListeDeroulante(exercice, i)
         resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
         break

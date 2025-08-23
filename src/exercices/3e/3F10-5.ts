@@ -14,7 +14,7 @@ export default class CalculsImagesFonctionsLineairesOuAffines extends CalculsIma
   constructor () {
     super()
     this.besoinFormulaireTexte = [
-      'Choix des questions', 'Nombres séparés par des tirets\n1 : Fonction linéaire\n2 : Fonction affine \n3 :  Mélange'
+      'Choix des questions', 'Nombres séparés par des tirets :\n1 : Fonction linéaire\n2 : Fonction affine \n3 :  Mélange'
     ]
     this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent\n3 : Mélange"]
     this.fonctions = 'affinesOuLineaires'

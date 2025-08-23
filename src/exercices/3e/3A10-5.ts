@@ -1,15 +1,15 @@
-import { sp } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { sp } from '../../lib/outils/outilString'
 import { factorisation } from '../../lib/outils/primalite'
-import type { MathfieldElement } from 'mathlive'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Recourir à une décomposition en facteurs premiers dans des cas simples'
 export const interactifReady = true
@@ -139,7 +139,7 @@ export default class RecourirDecompositionFacteursPremiers extends Exercice {
     super()
 
     this.nbQuestions = 4
-    this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Au moins un nombre premier entre 10 et 20\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets :\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Au moins un nombre premier entre 10 et 20\n6 : Mélange']
     this.besoinFormulaire2Numerique = ['Puissance la plus élevée possible (entre 2 et 5)', 3]
     this.sup = 6
     this.sup2 = 4

@@ -1,4 +1,4 @@
-import EgalitesEntreFractions from '../6e/6N41'
+import EgalitesEntreFractions from '../6e/6N3H'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true

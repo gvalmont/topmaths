@@ -1,4 +1,4 @@
-import TracerTriangle2Angles from '../6e/6G23-2'
+import TracerTriangle2Angles from '../6e/6G6A-6'
 export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angles'
 export const interactifReady = false
 export const uuid = '6a1a2'

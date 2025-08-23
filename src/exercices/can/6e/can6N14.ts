@@ -1,9 +1,9 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -19,7 +19,7 @@ export const dateDePublication = '05/03/2022' // La date de publication initiale
 export const uuid = 'dcf22'
 
 export const refs = {
-  'fr-fr': ['can6N14'],
+  'fr-fr': ['can6N14', '6N1B-flash1'],
   'fr-ch': []
 }
 export default class DeterminerLeNombre extends Exercice {

@@ -1,12 +1,12 @@
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { cribleEratostheneN, obtenirListeFacteursPremiers, premiersEntreBornes } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +41,7 @@ export default class DecompositionFacteursPremiers extends Exercice {
     // this.correctionDetailleeDisponible = true;
 
     this.besoinFormulaireCaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
-    this.besoinFormulaire2Texte = ['Choix des décompositions', 'Nombres séparés par des tirets\n1 : 3 à 5 petits facteurs premiers max\n2 : 2 facteurs premiers entre 30 et 100\n3 : Un seul grand nombre premier\n4 : Mélange']
+    this.besoinFormulaire2Texte = ['Choix des décompositions', 'Nombres séparés par des tirets :\n1 : 3 à 5 petits facteurs premiers max\n2 : 2 facteurs premiers entre 30 et 100\n3 : Un seul grand nombre premier\n4 : Mélange']
     this.sup = true
     this.sup2 = 4
   }
@@ -256,5 +256,5 @@ export default class DecompositionFacteursPremiers extends Exercice {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireCaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
-  // this.besoinFormulaire2Texte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Trouver une échelle\n2 : Trouver une distance réelle\n3 : Trouver une longueur sur le plan\n4 : Mélange']
+  // this.besoinFormulaire2Texte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : Trouver une échelle\n2 : Trouver une distance réelle\n3 : Trouver une longueur sur le plan\n4 : Mélange']
 }

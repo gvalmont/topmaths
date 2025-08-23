@@ -218,18 +218,16 @@ export default class systemeEquationsPremDegComp extends Exercice {
           texteCorr = texteCorr + 'Les deux droites sont confondues, elles sont représentées par la même équation.'
           break
       }
-      let rep = ''
-      const choix = ['admet une unique solution', 'n\'admet pas de solution', 'admet une infinité de solutions']
-      if (listeTypeQuestions[i] === 'unique') {
-        rep = choix[0]
-      } else if (listeTypeQuestions[i] === 'aucune') {
-        rep = choix[1]
-      } else {
-        rep = choix[2]
-      }
+      const choix = [
+        { label: 'Choisir une des réponses suivantes :', value: '' },
+        { label: 'admet une unique solution', value: 'unique' },
+        { label: 'n\'admet pas de solution', value: 'aucune' },
+        { label: 'admet une infinité de solutions', value: 'inf' }
+      ]
+      const rep = listeTypeQuestions[i]
       texteCorr = texteCorr + ` Ainsi, le système ${texteEnCouleurEtGras(`${rep}`)}.`
       if (this.interactif) {
-        texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix, 'position') + '.'
+        texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix) + '.'
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
           reponse: { value: rep, options: { texteSansCasse: true } }

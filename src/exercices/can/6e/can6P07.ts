@@ -1,10 +1,10 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions'
-import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
-import { randint } from '../../../modules/outils'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer un pourcentage de proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export const dateDeModifImportante = '06/07/2025'
 export const uuid = '1a706'
 
 export const refs = {
-  'fr-fr': ['can6P07'],
+  'fr-fr': ['can6P07', '6N3P-flash1'],
   'fr-ch': []
 }
 export default class PoucentageProportion extends ExerciceSimple {
@@ -86,7 +86,7 @@ export default class PoucentageProportion extends ExerciceSimple {
         this.question += this.versionQcm ? `Le pourcentage ${choix ? 'de réduction' : 'd’augmentation'} de ce prix est :` : ` Quel est le pourcentage ${choix ? 'de réduction' : 'd’augmentation'} de ce prix ?`
 
         this.optionsChampTexte = { texteAvant: '<br>', texteApres: '$\\%$' }
-        this.correction = `${choix ? 'La réduction' : 'L’augmentation'} est $${b}$ euros sur un total de $${a}$ euros.<br>
+        this.correction = `${choix ? 'La réduction' : 'L’augmentation'} est de $${b}$ euros sur un total de $${a}$ euros.<br>
           Le pourcentage  ${choix ? 'de baisse' : 'd’augmentation'} est donné par le quotient : $\\dfrac{${b}}{${a}}${simplificationDeFractionAvecEtapes(b, a)}=${texNombre(b / a)}= ${miseEnEvidence(texNombre((b / a) * 100))}\\,\\%$.
           `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>

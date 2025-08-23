@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer des longueurs à partir des périmètres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'd5c88'
 
 export const refs = {
-  'fr-fr': ['can6M09'],
+  'fr-fr': ['can6M09', 'CM1M1I-flash1'],
   'fr-ch': []
 }
 export default class PerimetreCarreRectangle extends ExerciceSimple {

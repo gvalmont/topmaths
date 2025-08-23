@@ -1,9 +1,9 @@
+import Decimal from 'decimal.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import Decimal from 'decimal.js'
 import ExerciceSimple from '../../ExerciceSimple'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Calculer la moitié d’un nombre décimal'
@@ -20,7 +20,7 @@ export const dateDePublication = '13/09/2022'
 export const uuid = 'bfec4'
 
 export const refs = {
-  'fr-fr': ['can6C40'],
+  'fr-fr': ['can6C40', '6N2H-flash1'],
   'fr-ch': []
 }
 export default class CalculMoitieDecimal extends ExerciceSimple {

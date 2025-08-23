@@ -1,11 +1,11 @@
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
@@ -27,7 +27,7 @@ export const refs = {
 export default class FractionEtPriorites extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets\n1 : produit en premier\n2 : produit en deuxième sans piège\n3 : produit en deuxième avec piège\n4 : quotient en premier\n5 : quotient en deuxième sans piège\n6 : quotient en deuxième avec piège\n7 : Mélange']
+    this.besoinFormulaireTexte = ['Types de questions', 'Nombres séparés par des tirets :\n1 : produit en premier\n2 : produit en deuxième sans piège\n3 : produit en deuxième avec piège\n4 : quotient en premier\n5 : quotient en deuxième sans piège\n6 : quotient en deuxième avec piège\n7 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Présence de nombre relatifs', false]
     this.sup = '3'
 

@@ -1,12 +1,12 @@
-import Exercice from '../../Exercice'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import Exercice from '../../Exercice'
 
-import { randint, listeQuestionsToContenu } from '../../../modules/outils'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { choice } from '../../../lib/outils/arrayOutils'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 export const titre = 'Compléter une égalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +17,7 @@ export const dateDePublication = '31/10/2024'
 export const uuid = 'ab2fc'
 
 export const refs = {
-  'fr-fr': ['can6C49'],
+  'fr-fr': ['can6C49', '6N2A-flash9'],
   'fr-ch': []
 }
 export default class egaliteCompleter extends Exercice {

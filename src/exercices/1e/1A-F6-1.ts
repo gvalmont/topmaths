@@ -22,7 +22,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Déterminer le coefficient directeur d\'une droite'
+export const titre = 'Déterminer le tableau de signes d\'une fonction affine.'
 export const dateDePublication = '10/07/2025'
 
 export default class Auto1AF6a extends ExerciceQcmA {

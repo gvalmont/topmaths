@@ -1,8 +1,8 @@
-import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Tables de multiplication et de divisions'
 export const amcReady = true
@@ -28,7 +28,7 @@ export default class TablesMultiplicationsDivisions extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Choix des tables',
-      'Nombres séparés par des tirets'
+      'Nombres séparés par des tirets :'
     ] // Texte, tooltip
     this.besoinFormulaire2Numerique = [
       'Style de questions',

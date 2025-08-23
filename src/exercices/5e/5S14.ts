@@ -1,13 +1,13 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
-import { joursParMois } from '../../lib/outils/dateEtHoraires'
-import Exercice from '../Exercice'
-import { OutilsStats } from '../../modules/outilsStat'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
+import { choice } from '../../lib/outils/arrayOutils'
+import { joursParMois } from '../../lib/outils/dateEtHoraires'
 import { arrondi } from '../../lib/outils/nombres'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { OutilsStats } from '../../modules/outilsStat'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +31,7 @@ export const refs = {
 export default class CalculerDesMoyennes extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets :\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange']
 
     this.nbQuestions = 1
 

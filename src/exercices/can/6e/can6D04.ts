@@ -1,4 +1,4 @@
-import ConversionHeuresMinutesOuMinutesEtSecondes from '../../6e/6D13'
+import ConversionHeuresMinutesOuMinutesEtSecondes from '../../6e/6M4C-1'
 export const titre = 'Convertir minutes<->heures ou secondes<->minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,7 +14,7 @@ export const amcType = 'AMCHybride'
 export const uuid = 'd34e5'
 
 export const refs = {
-  'fr-fr': ['can6D04'],
+  'fr-fr': ['can6D04', '6M4C-flash3'],
   'fr-ch': []
 }
 export default class ConvertirMinutesHeures extends ConversionHeuresMinutesOuMinutesEtSecondes {

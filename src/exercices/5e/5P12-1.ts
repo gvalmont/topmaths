@@ -1,17 +1,17 @@
+import type { MathfieldElement } from 'mathlive'
+import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString'
 import { personne, personnes } from '../../lib/outils/Personne'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
-import { toutAUnPoint } from '../../lib/interactif/mathLive'
-import type { MathfieldElement } from 'mathlive'
 import { ppcm } from '../../lib/outils/primalite'
+import { texNombre } from '../../lib/outils/texNombre'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Problèmes de ratio'
 export const interactifReady = true
@@ -33,7 +33,7 @@ export default class ProblemeDeRatio extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
-    this.besoinFormulaire2Texte = ['Type de problèmes', 'Nombres séparés par des tirets\n1 : Partage\n2 : Coktails\n3 : dilution\n4 Recette\n5 : Écrans\n6 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de problèmes', 'Nombres séparés par des tirets :\n1 : Partage\n2 : Coktails\n3 : dilution\n4 Recette\n5 : Écrans\n6 : Mélange']
 
     this.nbQuestions = 4 // Ici le nombre de questions
     this.sup = 3

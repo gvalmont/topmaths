@@ -1,14 +1,14 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { ecritureParentheseSiMoins, ecritureParentheseSiNegatif, reduirePolynomeDegre3, rienSi1, simpleDeveloppement, simpleDeveloppementAvecDoubleX } from '../../lib/outils/ecritures'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ecritureParentheseSiMoins, ecritureParentheseSiNegatif, reduirePolynomeDegre3, rienSi1, simpleDeveloppement, simpleDeveloppementAvecDoubleX } from '../../lib/outils/ecritures'
 
 export const titre = 'Effectuer la simple distributivité'
 export const dateDePublication = '03/02/2025'
@@ -31,7 +31,7 @@ export const refs = {
 export default class SimpleDistributivite extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type d\'expressions', 'Nombres séparés par des tirets\n1 : c(ax+b)\n2 : (ax+b)*c\n3 : cx(ax+b) \n4 : (ax+b)*cx\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type d\'expressions', 'Nombres séparés par des tirets :\n1 : c(ax+b)\n2 : (ax+b)*c\n3 : cx(ax+b) \n4 : (ax+b)*cx\n5 : Mélange']
     this.besoinFormulaire2Numerique = ['Signe de $a$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
     this.besoinFormulaire3Numerique = ['Signe de $b$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']
     this.besoinFormulaire4Numerique = ['Signe de $c$', 3, '1 : Positif\n2 : Négatif \n3 : Hasard']

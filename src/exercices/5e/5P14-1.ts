@@ -1,4 +1,4 @@
-import ExercicePourcentage from '../2e/2S10-2'
+import Proportions from '../2e/2S10-2'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,10 +12,9 @@ export const refs = {
   'fr-ch': []
 }
 export const uuid = '542be'
-export default class ExercicePourcentage5e extends ExercicePourcentage {
+export default class ExercicePourcentage5e2 extends Proportions {
   constructor () {
     super()
-
     this.sup = 1
     this.besoinFormulaireNumerique = false
   }

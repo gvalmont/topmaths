@@ -1,17 +1,17 @@
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 import { droiteGraduee } from '../../../lib/2d/reperes'
 import { latex2d } from '../../../lib/2d/textes'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { pgcd } from '../../../lib/outils/primalite'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { context } from '../../../modules/context'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lire une abscisse sur une droite graduée'
 export const interactifReady = true
@@ -28,7 +28,7 @@ export const dateDeModifImportante = '12/10/2024'
 export const uuid = 'ca515'
 
 export const refs = {
-  'fr-fr': ['can6N04'],
+  'fr-fr': ['can6N04', 'CM1N3J-flash1'],
   'fr-ch': []
 }
 
@@ -98,7 +98,6 @@ export default class AbscisseFractionnaire extends Exercice {
             propositions: [
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: this.correction,
                   statut: '',
@@ -116,7 +115,6 @@ export default class AbscisseFractionnaire extends Exercice {
               },
               {
                 type: 'AMCNum',
-                // @ts-expect-error
                 propositions: [{
                   texte: '',
                   statut: '',

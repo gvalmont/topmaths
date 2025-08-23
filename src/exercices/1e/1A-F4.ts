@@ -183,7 +183,7 @@ export default class AutoF4 extends ExerciceQcmA {
 
     const AFC = 'Cette affirmation est correcte : <br>'
     const AFF = 'Cette affirmation est fausse : <br>'
-    this.enonce = `$${solutions2[0]}$Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.`
+    this.enonce = `Voici la représentation graphique d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.`
     this.enonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) + '<br>'
     this.enonce += 'Une seule affirmation est correcte :'
 
@@ -221,7 +221,7 @@ export default class AutoF4 extends ExerciceQcmA {
       },
       {
         texte: `Soit $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$. <br>
-              L'équation $f(x)=k$ admet exactement deux solutions`,
+              L'équation $f(x)=k$ admet exactement deux solutions.`,
         correction: AFC + `Si $k\\in]${Math.min(theSpline.y[2], theSpline.y[3])}\\,;\\,${Math.max(theSpline.y[2], theSpline.y[3])}[$, la droite d'équation $y=k$ coupe bien deux fois la courbe.`,
         estCorrecte: true
       },

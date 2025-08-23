@@ -1,9 +1,9 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import ExerciceSimple from '../../ExerciceSimple'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Comprendre la division euclidienne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,7 @@ export const dateDePublication = '03/07/2025'
 export const uuid = '7a447'
 
 export const refs = {
-  'fr-fr': ['can6C53'],
+  'fr-fr': ['can6C53', '6N2J-flash3'],
   'fr-ch': []
 }
 export default class ComprendreDivisionEuclidienne extends ExerciceSimple {

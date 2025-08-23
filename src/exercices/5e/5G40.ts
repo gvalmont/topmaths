@@ -7,15 +7,15 @@ import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes'
 import { rotation, similitude } from '../../lib/2d/transformations'
-import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice } from '../../lib/outils/arrayOutils'
+import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import Alea2iep from '../../modules/Alea2iep'
 import { context } from '../../modules/context'
-import { arrondi } from '../../lib/outils/nombres'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Construire des parallélogrammes'
 export const dateDeModifImportante = '18/04/2024'
@@ -43,7 +43,7 @@ export default class ConstructionsParallelogrammes extends Exercice {
   sup3: boolean
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Mélange']
     this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
     this.besoinFormulaire3CaseACocher = ['Cibles pour la correction']
     this.nbQuestions = 1

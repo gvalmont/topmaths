@@ -3,6 +3,7 @@ import { sp } from '../../../lib/outils/outilString'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Déterminer les coordonnées d’un vecteur'
 export const interactifReady = true
@@ -25,7 +26,7 @@ export const refs = {
 export default class CoordonneesVecteur1 extends ExerciceSimple {
   constructor () {
     super()
-
+    this.formatChampTexte = KeyboardType.clavierFullOperations
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }

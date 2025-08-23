@@ -1,11 +1,11 @@
-import Exercice from '../../Exercice'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import handleInteractiveClock from '../../../lib/InteractiveClock'
-import { context } from '../../../modules/context'
 import Horloge from '../../../lib/2d/horloge'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import Hms from '../../../modules/Hms'
+import handleInteractiveClock from '../../../lib/InteractiveClock'
 import { formatMinute } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/2dGeneralites'
+import { context } from '../../../modules/context'
+import Hms from '../../../modules/Hms'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 export const titre = 'Indiquer l\'heure sur une horloge'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -14,7 +14,7 @@ export const dateDePublication = '21/2/2025'
 
 export const uuid = '51242'
 export const refs = {
-  'fr-fr': ['canc3D04'],
+  'fr-fr': ['canc3D04', 'auto6M4B-flash1'],
   'fr-ch': []
 }
 

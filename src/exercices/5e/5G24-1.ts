@@ -263,16 +263,21 @@ export default class TrianglesEgaux extends Exercice {
           break
       }
 
-      const auChoixCote = shuffle([`[${D.nom + E.nom}]`, `[${D.nom + F.nom}]`, `[${E.nom + F.nom}]`])
+      const auChoixCote = [{ label: 'Choisir le bon côté', value: '' },
+        ...shuffle([{ latex: `[${D.nom + E.nom}]`, value: `[${D.nom + E.nom}]` },
+          { latex: `[${D.nom + F.nom}]`, value: `[${D.nom + F.nom}]` },
+          { latex: `[${E.nom + F.nom}]`, value: `[${E.nom + F.nom}]` }
+        ])]
+
       const repCote = [`[${D.nom + E.nom}]`, `[${D.nom + F.nom}]`, `[${E.nom + F.nom}]`]
       texte += `Ci-dessous les triangles $${shuffleLettres(A.nom + B.nom + C.nom)}$ et $${shuffleLettres(D.nom + E.nom + F.nom)}$ sont égaux.<br>`
 
       if (this.interactif) {
-        texte += `$[${A.nom + B.nom}]$ et ` + choixDeroulant(this, 3 * i, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
+        texte += `$[${A.nom + B.nom}]$ et ` + choixDeroulant(this, 3 * i, auChoixCote) + ' sont homologues.<br>'
         handleAnswers(this, 3 * i, { reponse: { value: repCote[0] } }, { formatInteractif: 'listeDeroulante' })
-        texte += `$[${A.nom + C.nom}]$ et ` + choixDeroulant(this, 3 * i + 1, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
+        texte += `$[${A.nom + C.nom}]$ et ` + choixDeroulant(this, 3 * i + 1, auChoixCote) + ' sont homologues.<br>'
         handleAnswers(this, 3 * i + 1, { reponse: { value: repCote[1] } }, { formatInteractif: 'listeDeroulante' })
-        texte += `$[${B.nom + C.nom}]$ et ` + choixDeroulant(this, 3 * i + 2, auChoixCote, 'le bon objet') + ' sont homologues.<br>'
+        texte += `$[${B.nom + C.nom}]$ et ` + choixDeroulant(this, 3 * i + 2, auChoixCote) + ' sont homologues.<br>'
         handleAnswers(this, 3 * i + 2, { reponse: { value: repCote[2] } }, { formatInteractif: 'listeDeroulante' })
       } else if (context.isAmc) {
         const options = { ordered: true, vertical: true }

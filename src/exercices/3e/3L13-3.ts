@@ -4,21 +4,21 @@ import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { homothetie } from '../../lib/2d/transformations'
+import { texPrix } from '../../lib/format/style'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenom } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import Grandeur from '../../modules/Grandeur'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { resoudre } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import Grandeur from '../../modules/Grandeur'
-import { context } from '../../modules/context'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true
@@ -471,7 +471,7 @@ export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 2
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes (produit vs produit,\n ... solution entière positive)\n6 : programmes (produit vs produit,\n ... solution entière négative)\n7 : tarifs\n8 : spectacle\n9 : isocèle\n10 : Thalès\n11 : Thalès2\n14 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes (produit vs produit,\n ... solution entière positive)\n6 : programmes (produit vs produit,\n ... solution entière négative)\n7 : tarifs\n8 : spectacle\n9 : isocèle\n10 : Thalès\n11 : Thalès2\n14 : Mélange']
     this.sup = '12'
     this.besoinFormulaire2CaseACocher = ['Uniquement des nombres entiers']
     this.sup2 = false

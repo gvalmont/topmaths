@@ -9,7 +9,7 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 export const dateDePublication = '24/07/2025'
 export const uuid = '7f5f6'
 /**
- * 
+ *
  * @author Gilles Mora avec IA (Claude)
  */
 export const refs = {

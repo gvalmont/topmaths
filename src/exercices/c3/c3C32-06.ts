@@ -1,13 +1,13 @@
+import { deuxColonnesResp } from '../../lib/format/miseEnPage'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { nombreEnLettres } from '../../modules/nombreEnLettres'
+import Operation from '../../modules/operations'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { prenoms } from './c3C32-02'
-import Operation from '../../modules/operations'
-import { deuxColonnesResp } from '../../lib/format/miseEnPage'
-import { nombreEnLettres } from '../../modules/nombreEnLettres'
-import { texNombre } from '../../lib/outils/texNombre'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const uuid = 'c7954'
 export const refs = {
   'fr-fr': ['c3C32-06'],
@@ -32,7 +32,7 @@ export default class ExerciceProbleme006 extends Exercice {
     this.besoinFormulaireNumerique = ['niveau de difficulté', 3, '1 : Élèves à besoin\n2 : Moyens\n3 : Avancés']
     this.sup = 2
     this.besoinFormulaire2Texte = ['type de Problème', [
-      '1 : Nombres séparés par des tirets',
+      '1 : Nombres séparés par des tirets :',
       '2 : Problème de combinaison',
       '3 : Problème de comparaison',
       '4 : Problème de partage',

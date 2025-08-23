@@ -1,14 +1,15 @@
 <script lang="ts">
-  import Card from '../../../shared/ui/Card.svelte'
-  import BasicClassicModal from '../../../shared/modal/BasicClassicModal.svelte'
-  import appsTierce from '../../../../json/referentielAppsTierce.json'
-  import type { AppTierceGroup } from 'src/lib/types/referentiels'
+  import Card from '../../../shared/ui/Card.svelte';
+  import BasicClassicModal from '../../../shared/modal/BasicClassicModal.svelte';
+  import appsTierce from '../../../../json/referentielAppsTierce.json';
+  import type { AppTierceGroup } from '../../../../lib/types/referentiels';
 
-  export let thirdAppsChoiceModal: BasicClassicModal
-  export let showThirdAppsChoiceDialog: boolean
-  export let appsTierceInExercisesList: string[]
+  export let thirdAppsChoiceModal: BasicClassicModal;
+  export let showThirdAppsChoiceDialog: boolean;
+  export let appsTierceInExercisesList: string[];
 
-  const appsTierceReferentielArray: AppTierceGroup[] = Object.values(appsTierce)
+  const appsTierceReferentielArray: AppTierceGroup[] =
+    Object.values(appsTierce);
 </script>
 
 <!-- Fenêtre de dialogue pour le choix des applications tierces -->

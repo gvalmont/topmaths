@@ -1,4 +1,4 @@
-import ExercicePourcentage from '../2e/2S10-2'
+import Proportions from '../2e/2S10-2'
 export const titre = 'Exprimer une proportion sous la forme d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,10 +12,10 @@ export const refs = {
   'fr-ch': []
 }
 export const uuid = '4db23'
-export default class ExercicePourcentage5e extends ExercicePourcentage {
+export default class ExercicePourcentage5e extends Proportions {
   constructor () {
     super()
     this.sup = 2
-    this.besoinFormulaireNumerique = []
+    this.besoinFormulaireNumerique = false
   }
 }

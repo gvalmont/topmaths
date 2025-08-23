@@ -1,10 +1,10 @@
-import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import Decimal from 'decimal.js'
-import { randint } from '../../../modules/outils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de reste*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,7 @@ export const dateDeModifImportante = '03/07/2025'
 export const uuid = '6e1de'
 
 export const refs = {
-  'fr-fr': ['can6C36'],
+  'fr-fr': ['can6C36', '6N2A-flash7'],
   'fr-ch': []
 }
 export default class PetitsProblemeReste2 extends ExerciceSimple {

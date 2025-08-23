@@ -7,7 +7,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 export const dateDePublication = '22/07/2025'
 export const uuid = '28d47'
 /**
- * @author Gilles Mora (avec IA)
+ * @author Claude (ia) et un peu Gilles Mora
  *
  */
 export const refs = {
@@ -48,6 +48,22 @@ export default class ElectionPourcentages extends ExerciceQcmA {
   // Fonction pour convertir un pourcentage en fraction de dénominateur 60
   private convertirPourcentageVers60 (pourcentage: number): number {
     return (pourcentage * 60) / 100
+  }
+
+  // Fonction pour formater l'affichage d'un pourcentage avec étape intermédiaire si nécessaire
+  private formaterPourcentage (pourcentage: number): string {
+    if (pourcentage % 5 === 0) {
+      // Pourcentage se terminant par 5 (ou 0) : ajouter l'étape intermédiaire
+      const fractionSur100 = `\\dfrac{${pourcentage}}{100}`
+      const fractionSimplifiee = `\\dfrac{${pourcentage / 5}}{20}`
+      const fractionSur60 = `\\dfrac{${this.convertirPourcentageVers60(pourcentage)}}{60}`
+      return `$${pourcentage}\\,\\% = ${fractionSur100} = ${fractionSimplifiee} = ${fractionSur60}$`
+    } else {
+      // Pourcentage normal : affichage direct
+      const fractionSur100 = `\\dfrac{${pourcentage}}{100}`
+      const fractionSur60 = `\\dfrac{${this.convertirPourcentageVers60(pourcentage)}}{60}`
+      return `$${pourcentage}\\,\\% = ${fractionSur100} = ${fractionSur60}$`
+    }
   }
 
   versionAleatoire = () => {
@@ -112,18 +128,17 @@ export default class ElectionPourcentages extends ExerciceQcmA {
            fA.valeurDecimale > Math.min(pB / 100, propC.val, fD.valeurDecimale) ||
            propC.val < Math.max(propA.val, pB / 100, fD.valeurDecimale))
 
-        this.enonce = `Lors d'une élection, ${propA.tex} des électeurs ${propA.singulier ? 'a' : 'ont'} voté pour A, $${pB}\\,\\%$ ont voté pour C, et le reste a voté pour D.<br>Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est :`
+        this.enonce = `Lors d'une élection, ${propA.tex} des électeurs ${propA.singulier ? 'a' : 'ont'} voté pour A, $${pB}\\,\\%$ ont voté pour B, ${propC.tex} ${propC.singulier ? 'a' : 'ont'} voté pour C, et le reste a voté pour D.<br>Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est :`
 
         const comparaison1 = creerComparaison([fA, fB, fC, fD], ['A', 'B', 'C', 'D'])
 
         const numA60 = Math.round(this.convertirVers60(propA.frac[0], propA.frac[1]))
-        const numB60 = this.convertirPourcentageVers60(pB)
         const numC60 = Math.round(this.convertirVers60(propC.frac[0], propC.frac[1]))
         const numD60 = Math.round(fD.valeurDecimale * 60)
 
         this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
 • Candidat A : ${propA.tex} $= \\dfrac{${propA.frac[0]}}{${propA.frac[1]}} = \\dfrac{${numA60}}{60}$<br>
-• Candidat B : $${pB}\\,\\% = \\dfrac{${pB}}{100} = \\dfrac{${numB60}}{60}$<br>
+• Candidat B : ${this.formaterPourcentage(pB)}<br>
 • Candidat C : ${propC.tex} $= \\dfrac{${propC.frac[0]}}{${propC.frac[1]}} = \\dfrac{${numC60}}{60}$<br>
 • Candidat D : $1 - \\dfrac{${propA.frac[0]}}{${propA.frac[1]}} - \\dfrac{${pB}}{100} - \\dfrac{${propC.frac[0]}}{${propC.frac[1]}} = \\dfrac{${numD60}}{60}$<br>
 En comparant les fractions : $${comparaison1}$<br>
@@ -157,13 +172,12 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
         const comparaison2 = creerComparaison([fA, fB, fC, fD], ['A', 'B', 'C', 'D'])
 
         const numA60Case2 = Math.round(this.convertirVers60(propA.frac[0], propA.frac[1]))
-        const numB60Case2 = this.convertirPourcentageVers60(pB)
         const numC60Case2 = Math.round(this.convertirVers60(propC.frac[0], propC.frac[1]))
         const numD60Case2 = Math.round(fD.valeurDecimale * 60)
 
         this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
 • Candidat A : ${propA.tex} $= \\dfrac{${propA.frac[0]}}{${propA.frac[1]}} = \\dfrac{${numA60Case2}}{60}$<br>
-• Candidat B : $${pB}\\,\\% = \\dfrac{${pB}}{100} = \\dfrac{${numB60Case2}}{60}$<br>
+• Candidat B : ${this.formaterPourcentage(pB)}<br>
 • Candidat C : ${propC.tex} $= \\dfrac{${propC.frac[0]}}{${propC.frac[1]}} = \\dfrac{${numC60Case2}}{60}$<br>
 • Candidat D : $1 - \\dfrac{${propA.frac[0]}}{${propA.frac[1]}} - \\dfrac{${pB}}{100} - \\dfrac{${propC.frac[0]}}{${propC.frac[1]}} = \\dfrac{${numD60Case2}}{60}$<br>
 En comparant les fractions : $${comparaison2}$<br>
@@ -196,13 +210,12 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
         const comparaison3 = creerComparaison([fA, fB, fC, fD], ['A', 'B', 'C', 'D'])
 
         const numA60Case3 = Math.round(this.convertirVers60(propA.frac[0], propA.frac[1]))
-        const numB60Case3 = this.convertirPourcentageVers60(pB)
         const numC60Case3 = Math.round(this.convertirVers60(propC.frac[0], propC.frac[1]))
         const numD60Case3 = Math.round(fD.valeurDecimale * 60)
 
         this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
 • Candidat A : ${propA.tex} $= \\dfrac{${propA.frac[0]}}{${propA.frac[1]}} = \\dfrac{${numA60Case3}}{60}$<br>
-• Candidat B : $${pB}\\,\\% = \\dfrac{${pB}}{100} = \\dfrac{${numB60Case3}}{60}$<br>
+• Candidat B : ${this.formaterPourcentage(pB)}<br>
 • Candidat C : ${propC.tex} $= \\dfrac{${propC.frac[0]}}{${propC.frac[1]}} = \\dfrac{${numC60Case3}}{60}$<br>
 • Candidat D : $1 - \\dfrac{${propA.frac[0]}}{${propA.frac[1]}} - \\dfrac{${pB}}{100} - \\dfrac{${propC.frac[0]}}{${propC.frac[1]}} = \\dfrac{${numD60Case3}}{60}$<br>
 En comparant les fractions : $${comparaison3}$<br>
@@ -236,13 +249,12 @@ Le candidat ayant recueilli ${choix ? 'le moins' : 'le plus'} de votes est donc 
         const comparaison4 = creerComparaison([fA, fB, fC, fD], ['A', 'B', 'C', 'D'])
 
         const numA60Case4 = Math.round(this.convertirVers60(propA.frac[0], propA.frac[1]))
-        const numB60Case4 = this.convertirPourcentageVers60(pB)
         const numC60Case4 = Math.round(this.convertirVers60(propC.frac[0], propC.frac[1]))
         const numD60Case4 = Math.round(fD.valeurDecimale * 60)
 
         this.correction = `Exprimons chaque proportion sous forme de fraction :<br>
 • Candidat A : ${propA.tex} $= \\dfrac{${propA.frac[0]}}{${propA.frac[1]}} = \\dfrac{${numA60Case4}}{60}$<br>
-• Candidat B : $${pB}\\,\\% = \\dfrac{${pB}}{100} = \\dfrac{${numB60Case4}}{60}$<br>
+• Candidat B : ${this.formaterPourcentage(pB)}<br>
 • Candidat C : ${propC.tex} $= \\dfrac{${propC.frac[0]}}{${propC.frac[1]}} = \\dfrac{${numC60Case4}}{60}$<br>
 • Candidat D : $1 - \\dfrac{${propA.frac[0]}}{${propA.frac[1]}} - \\dfrac{${pB}}{100} - \\dfrac{${propC.frac[0]}}{${propC.frac[1]}} = \\dfrac{${numD60Case4}}{60}$<br>
 En comparant les fractions : $${comparaison4}$<br>

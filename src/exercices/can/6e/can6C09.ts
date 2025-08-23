@@ -17,7 +17,7 @@ export const amcType = 'AMCNum'
 export const uuid = '592c7'
 
 export const refs = {
-  'fr-fr': ['can6C09'],
+  'fr-fr': ['can6C09', 'CM2N3J-flash2'],
   'fr-ch': []
 }
 export default class SoustraireX9 extends ExerciceSimple {

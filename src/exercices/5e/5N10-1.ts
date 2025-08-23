@@ -26,7 +26,7 @@ export const refs = {
 export default class PasserEcritureFractionnaireFraction extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de question', 'Nombres séparés par des tirets\n1 : Numérateur décimal seulement\n2 : Dénominateur décimal seulement\n3 : Numérateur et dénominateur décimaux\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question', 'Nombres séparés par des tirets :\n1 : Numérateur décimal seulement\n2 : Dénominateur décimal seulement\n3 : Numérateur et dénominateur décimaux\n4 : Mélange']
     this.sup = '4'
     this.besoinFormulaire2Numerique = ['Nombre maximum de décimales', 3]
     this.sup2 = 1

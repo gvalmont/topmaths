@@ -124,13 +124,15 @@ export default class FactoriserIdentitesRemarquables2 extends Exercice {
          Résoudre l'équation revient à résoudre $(x-\\sqrt{${b}})(x+\\sqrt{${b}})=0$ (on reconnaît une équation produit nul).<br>  
         $x-\\sqrt{${b}}=0$ ou $x+\\sqrt{${b}}=0$<br>
         $x=\\sqrt{${b}}$ ou $x=-\\sqrt{${b}}$<br>
-        <br>${texteGras('Méthode 2 :')}<br>`
+        Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${b}}\\,;\\,\\sqrt{${b}}\\}`)}$<br>
+       `
+            texteCorr += ` <br>${texteGras('Méthode 2 :')}<br>`
+            texteCorr += CorrCarre + ` $x^2=${b}$.<br>  
+        Puisque $${b}$` + CorrPositif
+            texteCorr += ` $-\\sqrt{${b}}$ et $\\sqrt{${b}}$.<br>`
             texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${b}}\\,;\\,\\sqrt{${b}}\\}`)}$.`
           } else { texteCorr = '' }
-          texteCorr += CorrCarre + ` $x^2=${b}$.<br>  
-        Puisque $${b}$` + CorrPositif
-          texteCorr += ` $-\\sqrt{${b}}$ et $\\sqrt{${b}}$.<br>`
-          texteCorr += `Ainsi, $S=${miseEnEvidence(`\\{-\\sqrt{${b}}\\,;\\,\\sqrt{${b}}\\}`)}$.`
+
           handleAnswers(this, i, { reponse: { value: reponse, options: { ensembleDeNombres: true } } })
 
           break

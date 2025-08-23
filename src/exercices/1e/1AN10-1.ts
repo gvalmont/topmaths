@@ -62,7 +62,7 @@ export default class Tauxvariation extends Exercice {
           texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
           texteCorr = `Pour déterminer $f'(${a})$, `
           texteCorr += `on commence par calculer le taux de variation de $f$, <br> entre $${a}$ et $${a}+h$ , `
-          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non-nul.<br>'
+          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non nul.<br>'
           texteCorr += `$\\begin{aligned}\\tau(h) &= \\dfrac{f(${a}+h)-f(${a})}{h}&\\text{Définition du taux de variation}\\\\`
           texteCorr += `&= \\dfrac{${m}(${a}+h)${ecritureAlgebrique(p)}-${ecritureParentheseSiNegatif(m)}\\times ${ecritureParentheseSiNegatif(a)}${ecritureAlgebrique(-p)}}{h}&\\text{Application à la fonction } f(x)=${reduireAxPlusB(m, p)}  \\\\`
           texteCorr += `&= \\dfrac{${ecritureParentheseSiNegatif(a * m)}${ecritureAlgebriqueSauf1(m)} h ${ecritureAlgebrique(p)}-${ecritureParentheseSiNegatif(a * m)} ${ecritureAlgebriqueSauf1(-p)}}{h}&\\text{Développement au numérateur}  \\\\`
@@ -84,7 +84,7 @@ export default class Tauxvariation extends Exercice {
           texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
           texteCorr = `Pour déterminer $f'(${a})$, `
           texteCorr += `on commence par calculer le taux de variation de $f$, <br> entre $${a}$ et $${a}+h$ , `
-          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non-nul.<br>'
+          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non nul.<br>'
           texteCorr += `$\\begin{aligned}\\tau(h) &= \\dfrac{f(${a}+h)-f(${a})}{h}&\\text{Définition du taux de variation}\\\\`
           texteCorr += `&= \\dfrac{(${a}+h)^2-(${a})^2}{h}&\\text{Application à la fonction carré.}\\\\`
           texteCorr += `&= \\dfrac{${ecritureParentheseSiNegatif(a)}^2+2\\times${ecritureParentheseSiNegatif(a)}\\times h+h^2-${ecritureParentheseSiNegatif(a)}^2}{h}&\\text{Développement de l'identité remarquable.}\\\\`
@@ -106,7 +106,7 @@ export default class Tauxvariation extends Exercice {
           texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
           texteCorr = `Pour déterminer $f'(${a})$, `
           texteCorr += `on commence par calculer le taux de variation de $f$, <br> entre $${a}$ et $${a}+h$ , `
-          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non-nul.<br>'
+          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non nul.<br>'
           texteCorr += `$\\begin{aligned}\\tau(h) &= \\dfrac{f(${a}+h)-f(${a})}{h}&\\text{Définition du taux de variation}\\\\`
           texteCorr += `&= \\dfrac{\\dfrac{1}{${a}+h}-\\dfrac{1}{${a}}}{h}&\\text{Application à la fonction inverse.}\\\\`
           texteCorr += `&= \\dfrac{\\dfrac{${a}}{(${a}+h)\\times ${ecritureParentheseSiNegatif(a)}}-\\dfrac{${a}+h}{${a}\\times (${a}+h)}}{h}&\\text{Mise au même dénominateur.}\\\\`
@@ -132,7 +132,7 @@ export default class Tauxvariation extends Exercice {
           texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
           texteCorr = `Pour déterminer $f'(${a})$, `
           texteCorr += `on commence par calculer le taux de variation de $f$, <br> entre $${a}$ et $${a}+h$ , `
-          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non-nul.<br>'
+          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non nul.<br>'
           texteCorr += `$\\begin{aligned}\\tau(h) &= \\dfrac{f(${a}+h)-f(${a})}{h}&\\text{Définition du taux de variation}\\\\`
           texteCorr += `&= \\dfrac{\\sqrt{${a}+h}-\\sqrt{${a}}}{h}&\\text{Application à la fonction racine carrée.}\\\\`
           texteCorr += `&=\\dfrac{(\\sqrt{${a}+h}-\\sqrt{${a}})(\\sqrt{${a}+h}+\\sqrt{${a}})}{h(\\sqrt{${a}+h}+\\sqrt{${a}})}&\\text{Multiplication par la "quantité conjuguée".}\\\\`

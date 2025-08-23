@@ -1,6 +1,6 @@
 import { exercicesParams, globalOptions } from '../lib/stores/generalStore'
-import type TypeExercice from '../exercices/Exercice'
 import type { InterfaceParams } from '../lib/types'
+import { logDebug, log, getIntrus } from './statsUtils'
 
 declare global {
   interface Window {
@@ -9,7 +9,6 @@ declare global {
   }
 }
 
-window.logDebug = window.logDebug || 0
 // pour pour pouvoir le déactiver en mode debug...
 // eslint-disable-next-line prefer-const
 let activeStats = (document.location.hostname === 'coopmaths.fr')
@@ -28,23 +27,13 @@ if (activeStats) {
   })()
 }
 
-const url = new URL(window.location.href)
-const debug = url.searchParams.get('log') === '3' || window.logDebug !== 0 ? 1 : 0
-function log (message?: any, ...optionalParams: any[]) {
-  if (debug) {
-    console.info(message, ...optionalParams)
-  }
-}
-
-function logDebug (message?: any, ...optionalParams: any[]) {
-  if (debug > 1 || window.logDebug > 1) log('DEBUG:', message, ...optionalParams)
-}
-
 logDebug('Matomo loaded')
 
 const paramExos : string[] = []
 const uuids : string[] = []
+const vueUuids : string[] = []
 const vue : string [] = ['']
+const recorder : string[] = ['']
 
 function paraConvert (param: InterfaceParams) {
   const par: { nb?: number; uuid: string, t?: string, e?: string | number, c?: string, et?: string | number, s1?: string, s2?: string, s3?: string, s4?: string, s5?: string, a?: string, i?: string, s?: number } = { uuid: param.uuid }
@@ -78,20 +67,46 @@ globalOptions.subscribe((options) => {
     log('vue', vue[0])
     if (window._paq) window._paq.push(['trackEvent', 'Vue', vue[0]])
     // if (window._paq) window._paq.push(['setCustomDimension', 1, vue[0]])
+    if (options.recorder) recorder[0] = options.recorder
+    log('recorder', recorder[0])
+    // if (window._paq) window._paq.push(['setCustomDimension', 2, recorder[0]])
     if (window._paq && options.recorder) window._paq.push(['setCustomDimension', 1, options.recorder])
 
-    for (let i = paramExos.length - 1; i >= 0; i--) {
+    // changement de vue
+    const vueUuids1 : string[] = []
+    for (let i = 0; i < paramExos.length; i++) {
       const parsedExo = JSON.parse(paramExos[i])
-      if (window._paq) window._paq.push(['trackEvent', 'VueExo', vue[0] + '-' + parsedExo.uuid, paramExos[i]])
+      // if (window._paq) window._paq.push(['trackEvent', 'VueExo', vue[0] + '-' + parsedExo.uuid, paramExos[i]])
       log(vue[0] + '-' + parsedExo.uuid, 'par:', paramExos[i])
+      if (vue[0] !== '') vueUuids1.push(vue[0] + '-' + parsedExo.uuid + (recorder[0] ? '-' + recorder[0] : ''))
     }
+
+    // changement de vue pour les exercices
+    getIntrus(vueUuids1, vueUuids).forEach((intrus) => {
+      if (intrus.difference > 0) {
+        for (let j = 0; j < intrus.difference; j++) {
+          vueUuids.push(intrus.value)
+          log('Ajout de', intrus.value, 'dans vueUuids')
+          if (window._paq) window._paq.push(['trackEvent', 'VueUuid', intrus.value])
+        }
+      } else if (intrus.difference < 0) {
+        for (let j = 0; j < Math.abs(intrus.difference); j++) {
+          const index = vueUuids.lastIndexOf(intrus.value)
+          if (index > -1) {
+            vueUuids.splice(index, 1)
+            log('Suppression de', intrus.value, 'de vueUuids')
+          }
+        }
+      }
+    })
+    logDebug('vueUuids:', vueUuids)
   }
 })
 
 exercicesParams.subscribe((params) => {
   logDebug('exercicesParams', params)
   if (params) {
-    // let newExos = false
+    const vueUuids1 : string[] = []
     params.forEach((param) => {
       // on met à jour la liste des exercices
       if (uuids.includes(param.uuid)) {
@@ -101,13 +116,14 @@ exercicesParams.subscribe((params) => {
         if (window._paq) window._paq.push(['trackEvent', 'Uuid', param.uuid])
         log('Uuids-' + param.uuid)
       }
+      // on met à jour la liste des paramètres avec la vue et le recorder:
+      if (vue[0] !== '') vueUuids1.push(vue[0] + '-' + param.uuid + (recorder[0] ? '-' + param.recorder : ''))
       const par = paraConvert(param)
       if (paramExos.includes(JSON.stringify(par))) {
         logDebug('déjà chargé:', param.uuid)
       } else {
         paramExos.push(JSON.stringify(par))
-        // if (window._paq) window._paq.push(['setCustomDimension', 2, par.uuid])
-        if (window._paq && vue[0] !== '') window._paq.push(['trackEvent', 'VueExo', vue[0] + '-' + par.uuid, JSON.stringify(par)])
+        // if (window._paq && vue[0] !== '') window._paq.push(['trackEvent', 'VueExo', vue[0] + '-' + par.uuid, JSON.stringify(par)])
         if (vue[0] !== '') log(vue[0] + '-' + par.uuid, 'par:', JSON.stringify(par))
       }
     })
@@ -118,21 +134,42 @@ exercicesParams.subscribe((params) => {
         log('exercice supprimé', ele)
       }
     }
-    logDebug('paramExos', paramExos)
+    logDebug('paramExos:', paramExos)
     for (let i = uuids.length - 1; i >= 0; i--) {
       if (!params.some(param => param.uuid === uuids[i])) {
         const ele = uuids.splice(i, 1)
         log('uuid supprimé', ele)
       }
     }
-    logDebug('uuids', uuids)
+    logDebug('uuids:', uuids)
+    getIntrus(vueUuids1, vueUuids).forEach((intrus) => {
+      if (intrus.difference > 0) {
+        for (let j = 0; j < intrus.difference; j++) {
+          vueUuids.push(intrus.value)
+          log('Ajout de', intrus.value, 'dans vueUuids')
+          if (window._paq) window._paq.push(['trackEvent', 'VueUuid', intrus.value])
+        }
+      } else if (intrus.difference < 0) {
+        for (let j = 0; j < Math.abs(intrus.difference); j++) {
+          const index = vueUuids.lastIndexOf(intrus.value)
+          if (index > -1) {
+            vueUuids.splice(index, 1)
+            log('Suppression de', intrus.value, 'de vueUuids')
+          }
+        }
+      }
+    })
+    logDebug('vueUuids:', vueUuids)
   }
 })
 
-export function statsTracker (exercise: TypeExercice, recorder:string, vue: string) {
-  logDebug('Tracking stats...')
-  if (window._paq) {
-    window._paq.push(['trackEvent', 'CheckExo', vue + '-' + exercise.uuid + (recorder ? '-' + recorder : '')])
+export function statsCanTracker (recorder:string, vue: string) {
+  logDebug('Tracking can stats...')
+  for (let i = 0; i < vueUuids.length; i++) {
+    const uuid = vueUuids[i].split('-')[1]
+    if (window._paq) {
+      window._paq.push(['trackEvent', 'CheckCan', vue + '-' + uuid + (recorder ? '-' + recorder : '')])
+    }
+    log(vue + '-' + uuid, 'CheckCan', (recorder ? '-' + recorder : ''))
   }
-  log(vue + '-' + exercise.uuid, 'CheckExo', (recorder ? '-' + recorder : ''))
 }

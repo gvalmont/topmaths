@@ -1,4 +1,4 @@
-import EncadrerFractionEntre2Entiers from '../6e/6N20-1'
+import EncadrerFractionEntre2Entiers from '../6e/6N3I-1'
 export const titre = 'Encadrer une fraction entre deux nombres entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,6 +22,6 @@ export default class EncadrerFractionEntre2Entiers2nde extends EncadrerFractionE
     this.lycee = true
     this.sup = false
     this.sup2 = '10'
-    this.besoinFormulaire2Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9 pour les dénominateurs correspondants\n10 Mélange']
+    this.besoinFormulaire2Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets :\nDe 2 à 9 pour les dénominateurs correspondants\n10 Mélange']
   }
 }

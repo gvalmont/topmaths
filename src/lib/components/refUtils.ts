@@ -1,14 +1,14 @@
-import { isLessThanAMonth } from '../types/dates'
+import codeListForLevels from '../../json/codeToLevelList.json'
+import codeListForThemes from '../../json/codeToThemeList.json'
+import referentielsActivation from '../../json/referentielsActivation.json'
+import { isLessThan3Months } from '../types/dates'
 import {
-  type JSONReferentielObject,
   type JSONReferentielEnding,
+  type JSONReferentielObject,
   type ResourceAndItsPath,
   isExerciceItemInReferentiel,
   isJSONReferentielEnding
 } from '../types/referentiels'
-import codeListForLevels from '../../json/codeToLevelList.json'
-import codeListForThemes from '../../json/codeToThemeList.json'
-import referentielsActivation from '../../json/referentielsActivation.json'
 import { toMap } from './toMap'
 
 /**
@@ -23,8 +23,8 @@ export function getRecentExercices (
   return findResourcesAndPaths(refObj, (e: JSONReferentielEnding) => {
     if (isExerciceItemInReferentiel(e)) {
       if (
-        (e.datePublication && isLessThanAMonth(e.datePublication)) ||
-        (e.dateModification && isLessThanAMonth(e.dateModification))
+        (e.datePublication && isLessThan3Months(e.datePublication)) ||
+        (e.dateModification && isLessThan3Months(e.dateModification))
       ) {
         return true
       } else {

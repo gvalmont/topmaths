@@ -46,7 +46,9 @@ export default defineConfig({
   },
   server: (process.env.CI ? { port: 80, watch: null } : { port: 5173 }),
   define: {
-    APP_VERSION: JSON.stringify(process.env.npm_package_version)
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+    // Injecte dans le bundle final
+    __REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify({ isDisabled: true })
   },
   plugins: [
     svelte({

@@ -1,4 +1,5 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { bleuMathalea } from '../../../lib/colors'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString'
 import { prenomM } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils'
@@ -17,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = '05b2e'
 
 export const refs = {
-  'fr-fr': ['can6D03'],
+  'fr-fr': ['can6D03', '6M4B-flash2'],
   'fr-ch': []
 }
 export default class CalculDureeMinutes extends ExerciceSimple {
@@ -40,13 +41,13 @@ export default class CalculDureeMinutes extends ExerciceSimple {
     Il est arrivé à $${b}$h${sp(1)}$${d}$.<br>
 
     Combien de temps a duré son trajet ?`
-    this.correction = `$${b}$h${sp(1)}$${d}-${a}$h${sp(1)}$${c}=${this.reponse}$ min`
+    this.correction = `$${b}$h${sp(1)}$${d}-${a}$h${sp(1)}$${c}=${miseEnEvidence(this.reponse)}$ min`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
       On part de $${a}$h${sp(1)}$${c}$ et  on complète par $${(a + 1) * 60 - (a * 60 + c)}$ min pour arriver
       à $${a + 1}$h. <br>
       Puis on ajoute  les $${d}$ minutes pour arriver à $${b}$h${sp(1)}$${d}$.<br>
       Le résultat est donc donné par $${(a + 1) * 60 - (a * 60 + c)}+${d}=${this.reponse}$ min.
-          `)
+          `, bleuMathalea)
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ minutes'
   }

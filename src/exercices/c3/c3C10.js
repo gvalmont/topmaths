@@ -1,4 +1,4 @@
-import AdditionsSoustractionsMultiplicationsPosees from '../6e/6C10'
+import AdditionsSoustractionsMultiplicationsPosees from '../6e/6N2A-1'
 export const titre = 'Poser additions, soustractions et multiplications de nombres entiers'
 
 export const dateDeModifImportante = '15/02/2025'

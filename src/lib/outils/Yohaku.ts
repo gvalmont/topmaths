@@ -339,10 +339,10 @@ export class Yohaku {
     } else {
       const style: { [key: string]: string } = Object.fromEntries(this.solution
         ? [
-            ['L1C1', `;${orangeMathalea}`],
-            ['L1C2', `;${orangeMathalea}`],
-            ['L2C1', `;${orangeMathalea}`],
-            ['L2C2', `;${orangeMathalea}`]
+            ['L1C1', `${orangeMathalea}`],
+            ['L1C2', `${orangeMathalea}`],
+            ['L2C1', `${orangeMathalea}`],
+            ['L2C2', `${orangeMathalea}`]
           ]
         : [])
       return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true, numeroExercice, question, false, style)

@@ -12,7 +12,7 @@ import { lettreDepuisChiffre } from '../outils/outilString'
 import { codageSegments } from './codages'
 import { codageAngleDroit } from './angles'
 import { isPointsAbstraits, PointAbstrait } from './points-abstraits'
-import { Point3d } from '../3d/elements'
+import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 
 type BinomeXY = { x: number, y: number }
 type BinomesXY = BinomeXY[]
@@ -377,6 +377,9 @@ export class Polygone extends ObjetMathalea2D {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
     switch (this.pointilles) {
       case 1:
         this.style += ' stroke-dasharray="6 10" '
@@ -454,7 +457,18 @@ export class Polygone extends ObjetMathalea2D {
     if (this.couleurDeRemplissage[1] !== '' && this.couleurDeRemplissage[1] !== 'none') {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}${this.opaciteDeRemplissage !== 1 ? ', opacity = ' + this.opaciteDeRemplissage : ''}}`)
     }
-
+    if (this.hachures != null && typeof this.hachures === 'string') {
+      tableauOptions.push(
+        pattern({
+          motif: this.hachures,
+          id: String(this.id),
+          distanceDesHachures: this.distanceDesHachures,
+          couleurDesHachures: this.couleurDesHachures[1],
+          couleurDeRemplissage: this.couleurDeRemplissage[1],
+          opaciteDeRemplissage: this.opaciteDeRemplissage
+        })
+      )
+    }
     let optionsDraw = ''
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -465,19 +479,7 @@ export class Polygone extends ObjetMathalea2D {
     for (const point of this.listePoints) {
       binomeXY += `(${arrondi(point.x)},${arrondi(point.y)})--`
     }
-    let lines = `\\draw${optionsDraw} ${binomeXY}cycle;`
-
-    if (this.hachures != null && typeof this.hachures === 'string') {
-      lines += patternTikZ({
-        motif: this.hachures,
-        x0: this.listePoints[0].x,
-        y0: this.listePoints[0].y,
-        x1: this.listePoints[2].x,
-        y1: this.listePoints[2].y,
-        distanceDesHachures: this.distanceDesHachures / 10,
-        couleurDesHachures: this.couleurDesHachures[1] === '' ? 'black' : this.couleurDesHachures[1],
-      })
-    }
+    const lines = `\\draw${optionsDraw} ${binomeXY}cycle;`
 
     return lines
   }
@@ -1080,6 +1082,12 @@ export function motifs (index: number) {
  *
  * @author Eric Elter
  * @returns Une chaîne contenant le code TikZ généré, ou une chaîne vide si le motif est inconnu.
+ *
+ * @deprecated Cette fonction n'est pas recommandée pour créer des motifs au sein d'une surface quelconque en tikz
+ * car elle ne fait qu'une surface rectangulaire et le fait en ajoutant un clip et un code très long.
+ * Le même résultat (hachures, points, étoiles...) peut être obtenu la propriété hachures de l'objet Polygone.
+ * les hachures sont gérées par la fonction pattern() et retourne une option pour la commande draw qui est plus efficace.
+ * Il est donc préférable d'utiliser la propriété hachures des objets Polygone. (Jean-Claude Lhote)
  */
 export function patternTikZ (params: {
   x0: number;
@@ -1373,13 +1381,13 @@ export function pattern ({
   } else if (context.issortieNB) {
     switch (motif) {
       case 'north east lines':
-        myPattern = `pattern = ${motif}`
+        myPattern = `pattern = {Lines[angle=45, distance=${distanceDesHachures}pt, line width=0.3pt]}`
         break
       case 'horizontal lines':
-        myPattern = `pattern = ${motif}`
+        myPattern = `pattern = {Lines[angle=0, distance=${distanceDesHachures}pt, line width=0.3pt]}`
         break
       case 'vertical lines':
-        myPattern = `pattern = ${motif}`
+        myPattern = `pattern = {Lines[angle=90, distance=${distanceDesHachures}pt, line width=0.3pt]}`
         break
       case 'dots':
         myPattern = `pattern = ${motif}`
@@ -1406,20 +1414,20 @@ export function pattern ({
         myPattern = `pattern = ${motif}`
         break
       default:
-        myPattern = 'pattern = north east lines'
+        myPattern = `pattern = {Lines[angle=45, distance=${distanceDesHachures}pt, line width=0.3pt]}`
         break
     }
     return myPattern
   } else { // Sortie Latex
     switch (motif) {
       case 'north east lines':
-        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = {Lines[angle=45, distance=${distanceDesHachures}pt, line width=0.3pt]}`
         break
       case 'horizontal lines':
-        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = {Lines[angle=0, distance=${distanceDesHachures}pt, line width=0.3pt]}`
         break
       case 'vertical lines':
-        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = {Lines[angle=90, distance=${distanceDesHachures}pt, line width=0.3pt]}`
         break
       case 'dots':
         myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
@@ -1446,7 +1454,7 @@ export function pattern ({
         myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
         break
       default:
-        myPattern = `pattern color = ${couleurDesHachures} , pattern = north east lines`
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = {Lines[angle=45, distance=${distanceDesHachures}pt, line width=0.3pt]}`
         break
     }
     return `${myPattern}`

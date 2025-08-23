@@ -1,4 +1,4 @@
-import ConstruireUnTriangle from '../6e/6G21'
+import ConstruireUnTriangle from '../6e/6G6A-1'
 export const titre = 'Construire un triangle avec les instruments'
 export const interactifReady = false
 export const uuid = '36116'

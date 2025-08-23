@@ -1,6 +1,6 @@
-import Exercice from '../Exercice'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils'
 import TrouverSolutionMathador from '../5e/_TrouverSolutionMathador'
+import Exercice from '../Exercice'
 export const titre = 'Générateur de compte est bon version semi-aléatoire'
 
 /**
@@ -19,7 +19,7 @@ export default class LeCompteEstBonV4 extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Choix des nombres du tirage (de aucun à cinq)',
-      'Nombres séparés par des tirets'
+      'Nombres séparés par des tirets :'
     ] // Texte, tooltip
     this.besoinFormulaire2Texte = [
       'Intervalle pour la cible (ou rien pour cible non contrainte)',

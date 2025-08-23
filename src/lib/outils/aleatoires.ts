@@ -120,3 +120,17 @@ export function unMoisDeTemperature (base: number, indiceMois: number, annee: nu
   for (let i = 1; i < nombreJours; i++) temperatures.push(temperatures[i - 1] + randint(-2, 2))
   return temperatures
 }
+
+/**
+ * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités) (copie d'une fonction qui se trouve dans updateMenuInternational.js)
+ * @returns {string}
+ */
+export function createUuid () {
+  let dt = new Date().getTime()
+  const uuid = 'xxxxx'.replace(/[xy]/g, (c) => {
+    const r = ((dt + Math.random() * 16) % 16) | 0
+    dt = Math.floor(dt / 16)
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
+  })
+  return uuid
+}

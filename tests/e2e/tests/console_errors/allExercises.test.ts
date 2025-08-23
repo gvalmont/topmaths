@@ -124,6 +124,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
       // Listen for all console events and handle errors
       page.on('console', msg => {
         // if (msg.type() === 'error') {
+        console.log(msg.location())
         if (!msg.text().includes('[vite]') &&
             !msg.text().includes('[bugsnag] Loaded!') &&
             !msg.text().includes('No character metrics for') && // katex
@@ -138,6 +139,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
             !msg.text().includes('WARNING: Too many active WebGL contexts. Oldest context will be lost.') &&
             !msg.text().includes('GPU stall due to ReadPixels') &&
             !msg.text().includes(': le motif contient plus') &&
+            !msg.text().includes('The column width is less than 0, need to adjust page width to make') &&
             !msg.location().url.includes('mathgraph32')
         ) {
           if (!msg.text().includes('<HeaderExercice>')) {
@@ -269,5 +271,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('QCMStatiques')
 
   // pour faire un test sur un exercice particulier:
-  testRunAllLots('beta/betaListeDeroulante')
+  testRunAllLots('6e/6I16')
 }

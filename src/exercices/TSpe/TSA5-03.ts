@@ -1,11 +1,11 @@
-import Exercice from '../Exercice'
-import { choice } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculs utilisant les propriétés des logarithmes'
 export const dateDePublication = '27/07/2024'
@@ -29,7 +29,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
     this.nbQuestions = 5
     this.spacingCorr = 3
     this.sup = '3'
-    this.besoinFormulaireTexte = ['Type de question', ' Nombres séparés par des tirets\n1 : Avec log(a^n*b^m)\n2 : Avec log(a^n/b^m)\n3 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question', ' Nombres séparés par des tirets :\n1 : Avec log(a^n*b^m)\n2 : Avec log(a^n/b^m)\n3 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.sup2 = false
     this.besoinFormulaire3CaseACocher = ['Données exprimées avec des puissances', true]

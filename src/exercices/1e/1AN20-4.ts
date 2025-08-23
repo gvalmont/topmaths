@@ -1,5 +1,4 @@
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -7,10 +6,11 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../lib/outils/ecritures'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
-import Trinome from '../../modules/Trinome'
 import { texNombre } from '../../lib/outils/texNombre'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 export const titre = 'Étudier le sens de variations d\'une fonction polynôme du troisième degré (avec discriminant)'
 export const dateDePublication = '08/07/2024'
 export const dateDeModifImportante = '26/09/2024'
@@ -30,7 +30,7 @@ export default class EtudeFctPoly3 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Dérivée avec des racines entières\n2 : Dérivée sans racine\n3 : Dérivée avec des racines non forcément entières\n4: Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : Dérivée avec des racines entières\n2 : Dérivée sans racine\n3 : Dérivée avec des racines non forcément entières\n4: Mélange']
     this.sup = '4'
   }
 

@@ -7,16 +7,16 @@ import { barycentre, polygone } from '../../lib/2d/polygones'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint, latexParCoordonnees, texteParPoint } from '../../lib/2d/textes'
 import { rotation, similitude, translation } from '../../lib/2d/transformations'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
-import { imagePointParTransformation } from '../../modules/imagePointParTransformation'
+import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { imagePointParTransformation } from '../../modules/imagePointParTransformation'
 import { egal, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -36,7 +36,7 @@ export default class PavagesEtTransformations extends Exercice {
     this.nbQuestionsModifiable = false
     this.besoinFormulaireNumerique = ['Transformations', 4, ' 1 : Symétries axiales\n 2 : Symétries centrales\n 3 : Translations\n 4 : Rotations\n 5 : Homothéties\n']
     this.listeAvecNumerotation = false
-    this.besoinFormulaire2Texte = ['Choix des pavages', 'Nombres séparés par des tirets\nChoix entre 1 et 7\nChoix 8 pour un mélange de tous les pavages']
+    this.besoinFormulaire2Texte = ['Choix des pavages', 'Nombres séparés par des tirets :\nChoix entre 1 et 7\nChoix 8 pour un mélange de tous les pavages']
     this.sup2 = 1
     // this.sup = 1 // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
     this.sup = 1

@@ -1,12 +1,12 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
-import { context } from '../../../modules/context'
-import { listeQuestionsToContenu } from '../../../modules/outils'
-import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { listeQuestionsToContenu } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 export const titre = 'Comparer une fraction avec 1'
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const dateDePublication = '04/11/2022'
 export const uuid = 'b0fc5'
 
 export const refs = {
-  'fr-fr': ['can6C42'],
+  'fr-fr': ['can6C42', '6N31-flash2'],
   'fr-ch': []
 }
 export default class ComparerFractionAUn extends Exercice {

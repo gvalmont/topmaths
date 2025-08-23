@@ -1,13 +1,13 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { OutilsStats } from '../../modules/outilsStat'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer des caractéristiques d\'une série'
 export const interactifReady = true
@@ -34,10 +34,10 @@ export default class CalculerCaracteristiques extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Type de séries',
-      'Nombres séparés par des tirets\n1 : Lancers de dés\n2 : Notes\n3 : Températures\n4 : Salaires\n5 : Pointures\n6 : Notes avec coefficients\n7 : Mélange']
+      'Nombres séparés par des tirets :\n1 : Lancers de dés\n2 : Notes\n3 : Températures\n4 : Salaires\n5 : Pointures\n6 : Notes avec coefficients\n7 : Mélange']
     this.besoinFormulaire2Texte = [
       'Choix des questions',
-      'Nombres séparés par des tirets\n1 : Moyenne\n2 : Médiane\n3 : Étendue\n4 : Toutes']
+      'Nombres séparés par des tirets :\n1 : Moyenne\n2 : Médiane\n3 : Étendue\n4 : Toutes']
     this.besoinFormulaire3CaseACocher = ['Avec du vocabulaire explicatif']
 
     this.nbQuestions = 4

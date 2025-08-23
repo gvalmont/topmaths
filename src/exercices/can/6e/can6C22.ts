@@ -1,12 +1,12 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
-import ExerciceSimple from '../../ExerciceSimple'
 import { arrondi } from '../../../lib/outils/nombres'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Déterminer la valeur décimale d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'bf6e6'
 
 export const refs = {
-  'fr-fr': ['can6C22'],
+  'fr-fr': ['can6C22', '6N3A-flash1'],
   'fr-ch': []
 }
 export default class ValeursDecimalesFractions extends ExerciceSimple {

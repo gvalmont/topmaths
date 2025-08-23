@@ -1,12 +1,12 @@
-import Exercice from '../Exercice'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { texNombre } from '../../lib/outils/texNombre'
+import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import Decimal from 'decimal.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Comparer des nombres relatifs'
 export const dateDePublication = '1/08/2024'
@@ -30,7 +30,7 @@ export default class InequationsLog extends Exercice {
     this.consigne = 'Compléter avec le signe < ou >.'
     this.spacingCorr = 3
     this.sup = '1'
-    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Nombres décimaux à une seule décimale \n2 : Nombres décimaux à deux décimales \n3 : Nombres décimaux à trois décimales \n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets :\n1 : Nombres décimaux à une seule décimale \n2 : Nombres décimaux à deux décimales \n3 : Nombres décimaux à trois décimales \n4 : Mélange']
   }
 
   nouvelleVersion () {

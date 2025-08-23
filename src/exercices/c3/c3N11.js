@@ -1,4 +1,4 @@
-import LireAbscisseEntiere2d from '../6e/6N11'
+import LireAbscisseEntiere2d from '../6e/6N1C-1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

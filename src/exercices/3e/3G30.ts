@@ -4,20 +4,20 @@ import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { latexParPoint } from '../../lib/2d/textes'
 import { homothetie, rotation } from '../../lib/2d/transformations'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { quatriemeProportionnelle } from '../../lib/outils/calculs'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import Grandeur from '../../modules/Grandeur'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../lib/outils/nombres'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -61,7 +61,7 @@ export default class CalculDeLongueur extends Exercice {
       this.spacingCorr = 2
     }
     this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
-    this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets\n1 : Côté adjacent (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjacent (tangente)\n7 : Mélange']
+    this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1 : Côté adjacent (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjacent (tangente)\n7 : Mélange']
     this.besoinFormulaire3Numerique = ['Types de correction', 2, '1 : Avec produit en croix\n2 : Sans produit en croix']
     this.level = 3
   }

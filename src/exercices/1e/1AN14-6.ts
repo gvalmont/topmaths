@@ -1,13 +1,13 @@
+import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 
 export const titre = 'Dériver $\\dfrac{u}{v}$'
 export const dateDePublication = '22/01/2022'
@@ -34,7 +34,7 @@ type TypeDeFonction = 'mon' | 'racine' | 'poly1' | 'poly2centre' | 'poly' | 'exp
 export default class DeriveeQuotient extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : (ax+b)/(cx+d)\n2 : ax^n/(cx+d)\n3 : (ax²+bx+c)/(ex+f)\n4 ax^n/(ax²+bx+c)\n5 : mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets :\n1 : (ax+b)/(cx+d)\n2 : ax^n/(cx+d)\n3 : (ax²+bx+c)/(ex+f)\n4 ax^n/(ax²+bx+c)\n5 : mélange']
     this.besoinFormulaire2CaseACocher = ['Montrer que... (non interactif)', false]
     // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
     this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'

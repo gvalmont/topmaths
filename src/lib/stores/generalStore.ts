@@ -9,6 +9,7 @@ import type {
 import { type JSONReferentielEnding } from '../types/referentiels'
 import { canOptions } from './canStore'
 import { buildDsParams } from '../components/urls'
+import { statsPageTracker } from '../../modules/statsUtils'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -215,6 +216,7 @@ export function updateGlobalOptionsInURL (url: URL) {
   if (timerId === undefined) {
     timerId = setTimeout(() => {
       window.history.pushState({}, '', urlToWrite)
+      statsPageTracker()
       timerId = undefined
     }, 500)
   }

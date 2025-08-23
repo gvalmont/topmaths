@@ -1,12 +1,12 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
-import Exercice from '../Exercice'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { OutilsStats } from '../../modules/outilsStat'
+import Exercice from '../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Déterminer une médiane'
@@ -31,7 +31,7 @@ export const refs = {
 export default class DeterminerDesMedianes extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets :\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange']
 
     this.nbQuestions = 1
 

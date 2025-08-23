@@ -1,6 +1,15 @@
-import { describe, test, expect, beforeEach } from 'vitest'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import ConstrctionsSymetrieCentralePoints from '../../src/exercices/5e/5G11-10'
 import { Point } from '../../src/lib/2d/points'
+
+// Mock avant l'import
+vi.mock('../../src/lib/renderScratch', () => ({
+  renderScratch: vi.fn(() => 'mocked value')
+}))
+
+vi.mock('../../src/lib/components/version', () => ({
+  checkForServerUpdate: vi.fn(() => 'mocked value')
+}))
 
 describe('ConstrctionsSymetrieCentralePoints', () => {
   let exercice: ConstrctionsSymetrieCentralePoints

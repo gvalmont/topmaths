@@ -1,15 +1,15 @@
 import { droite } from '../../../lib/2d/droites'
 import { point, TracePoint, tracePoint } from '../../../lib/2d/points'
-import { symetrieAxiale } from '../../../lib/2d/transformations'
-import { shuffle } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
-import { colorToLatexOrHTML, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../../modules/outils'
-import { context } from '../../../modules/context'
-import { range } from '../../../lib/outils/nombres'
 import { latex2d, type Latex2d } from '../../../lib/2d/textes'
-import { choisitNombresEntreMetN } from '../../../lib/outils/aleatoires'
+import { symetrieAxiale } from '../../../lib/2d/transformations'
 import { ajouteQuestionMathlive } from '../../../lib/interactif/questionMathLive'
+import { choisitNombresEntreMetN } from '../../../lib/outils/aleatoires'
+import { shuffle } from '../../../lib/outils/arrayOutils'
+import { range } from '../../../lib/outils/nombres'
+import { colorToLatexOrHTML, mathalea2d, type NestedObjetMathalea2dArray } from '../../../modules/2dGeneralites'
+import { context } from '../../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 export const titre = 'Trouver le symétrique'
 export const dateDePublication = '03/05/2025'
@@ -27,7 +27,7 @@ export const amcType = 'AMCNum'
 export const uuid = '85dfc'
 
 export const refs = {
-  'fr-fr': ['can6G08'],
+  'fr-fr': ['can6G08', '6G7B-flash3'],
   'fr-ch': []
 }
 
@@ -37,7 +37,7 @@ export default class TrouverLeSym extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Axes de symétrie', 'Nombres séparé par des tirets\n1 : Vertical\n2 : Horizontal\n3 : Oblique 1\n4 : Oblique 2\n:Mélange']
+    this.besoinFormulaireTexte = ['Axes de symétrie', 'Nombres séparé par des tirets :\n1 : Vertical\n2 : Horizontal\n3 : Oblique 1\n4 : Oblique 2\n:Mélange']
     this.sup = '1'
     this.besoinFormulaire2Numerique = ['Nombre de points à afficher', 3]
     this.sup2 = 1

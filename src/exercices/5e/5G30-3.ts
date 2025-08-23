@@ -451,13 +451,22 @@ export default class VocabulaireAngles extends Exercice {
       }
       objets.push(ang1, objet2, d3Rot)
 
-      const choixTypeAngles = ['correspondants', 'alternes-internes', 'supplémentaires', 'opposés par le sommet', 'complémentaires', 'côté', 'sommet']
-      if (choixQuestion !== 2 && choixQuestion !== 4) choixTypeAngles.push('adjacents')
+      const choixTypeAngles = [
+        { label: 'Choisir le type d\'angles', value: '' },
+        { label: 'correspondants', value: 'correspondants' },
+        { label: 'alternes-internes', value: 'alternes-internes' },
+        { label: 'supplémentaires', value: 'supplémentaires' },
+        { label: 'opposés par le sommet', value: 'opposés par le sommet' },
+        { label: 'complémentaires', value: 'complémentaires' },
+        { label: 'côté', value: 'côté' },
+        { label: 'sommet', value: 'sommet' }
+      ]
+      if (choixQuestion !== 2 && choixQuestion !== 4) choixTypeAngles.push({ label: 'adjacents', value: 'adjacents' })
       if (this.interactif) {
-        texteSousFigure += choixDeroulant(this, i, choixTypeAngles, 'la réponse la plus adaptée')
+        texteSousFigure += choixDeroulant(this, i, choixTypeAngles)
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          reponse: { value: choixTypeAngles[choixQuestion], options: { texteSansCasse: true } }
+          reponse: { value: choixTypeAngles[choixQuestion + 1].value, options: { texteSansCasse: true } }
         }, { formatInteractif: 'listeDeroulante' })
       }
 

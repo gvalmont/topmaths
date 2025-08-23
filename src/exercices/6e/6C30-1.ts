@@ -36,7 +36,8 @@ export const dateDeModifImportante = '11/02/2025'
 export const uuid = '2471d'
 
 export const refs = {
-  'fr-fr': ['6C30-1'],
+  'fr-fr': [],
+  'fr-2016': ['6C30-1'],
   'fr-ch': ['9NO1-10', '10NO5-1']
 }
 export default class MultiplierDecimauxPar101001000 extends Exercice {

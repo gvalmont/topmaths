@@ -1,13 +1,13 @@
-import Exercice from '../Exercice'
-import { randint, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { calculer, toTex } from '../../modules/outilsMathjs'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { simplify } from 'mathjs'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
+import { calculer, toTex } from '../../modules/outilsMathjs'
 
 export const titre = 'Calculer la valeur d\'une expression littérale à une variable pour une valeur donnée'
 export const interactifReady = true
@@ -53,8 +53,8 @@ export default class SubstituerDansUneExpressionLitterale extends Exercice {
     super()
     this.nbQuestions = 5
 
-    this.besoinFormulaireTexte = ['Type d\'expression', 'Nombres séparés par des tirets\n1: a+bx\n2: (a+cx)b\n3: ax^2+bx+c\n4: Mélange']
-    this.besoinFormulaire2Texte = ['Type de nombres', 'Nombres séparés par des tirets\n1: Entiers positifs\n2: Entiers relatifs (au moins 1 coeff/x négatifs)\n3: Mélange']
+    this.besoinFormulaireTexte = ['Type d\'expression', 'Nombres séparés par des tirets :\n1: a+bx\n2: (a+cx)b\n3: ax^2+bx+c\n4: Mélange']
+    this.besoinFormulaire2Texte = ['Type de nombres', 'Nombres séparés par des tirets :\n1: Entiers positifs\n2: Entiers relatifs (au moins 1 coeff/x négatifs)\n3: Mélange']
     this.besoinFormulaire3CaseACocher = ['Rendre les questions plus variées']
     this.sup = 4
     this.sup2 = 1

@@ -1,11 +1,11 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../../lib/outils/deprecatedFractions'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Multiplier une fraction décimale par 10, 100, 1000 '
 export const interactifReady = true
@@ -21,7 +21,7 @@ export const dateDePublication = '03/07/2025'
 export const uuid = '0515e'
 
 export const refs = {
-  'fr-fr': ['can6C51'],
+  'fr-fr': ['can6C51', 'auto6N2C-flash1'],
   'fr-ch': []
 }
 export default class MultiplieFractionDPar10Par100Par1000 extends ExerciceSimple {

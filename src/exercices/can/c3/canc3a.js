@@ -3,18 +3,18 @@ import { point } from '../../../lib/2d/points'
 import { polygoneRegulier } from '../../../lib/2d/polygones'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { homothetie } from '../../../lib/2d/transformations'
+import { texPrix } from '../../../lib/format/style'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { personne, prenom } from '../../../lib/outils/Personne'
-import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { arrondi } from '../../../lib/outils/nombres'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true
@@ -37,7 +37,7 @@ export default class CourseAuxNombresCM extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Choix des questions',
-  ` Nombres séparés par des tirets\n1 : Somme d'entiers\n
+  ` Nombres séparés par des tirets :\n1 : Somme d'entiers\n
 2 : Différence d'entiers\n
 3 : Somme d'entiers avec retenue\n
 4 : Différence d'entiers avec retenue\n

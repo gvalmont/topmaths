@@ -199,8 +199,8 @@ const activityParams = {
       alea: 'fdfj',
       answers: {
         ex5Q0: 'somme',
-        ex5Q1: 'Choisir une réponse',
-        ex5Q2: 'Choisir une réponse',
+        ex5Q1: 'quotient',
+        ex5Q2: 'produit',
         ex5Q3: 'différence'
       },
       numberOfPoints: 0,

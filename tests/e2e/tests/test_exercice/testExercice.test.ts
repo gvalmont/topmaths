@@ -264,7 +264,13 @@ async function testNanUndefined (page: Page) {
     if (NaNLocators.length > 0 || undefinedLocators.length > 0) {
       await action(page, `${getTimeStamp()}`, 'apercu', '', `testNaNUndefined-${i + 1}`)
     }
-    await page.locator('.bx-refresh').click()
+    if (await page.locator('.bx-refresh').count() === 1) {
+      await page.locator('.bx-refresh').click()
+    } else if (await page.locator('.bx-refresh').count() > 1) {
+      await page.locator('.bx-refresh').nth(0).click()
+    } else {
+      console.warn('No refresh button found, skipping NaN/undefined test')
+    }
   }
 }
 

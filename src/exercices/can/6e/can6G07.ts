@@ -3,16 +3,16 @@ import { point, tracePoint } from '../../../lib/2d/points'
 import { papierPointe } from '../../../lib/2d/reperes'
 import { longueur } from '../../../lib/2d/segmentsVecteurs'
 import { symetrieAxiale } from '../../../lib/2d/transformations'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { context } from '../../../modules/context'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
+import { context } from '../../../modules/context'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
-export const titre = 'Compter les points symétriques manquant'
+export const titre = 'Compter les points symétriques manquants'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +28,7 @@ export const amcType = 'AMCNum'
 export const uuid = '85dfb'
 
 export const refs = {
-  'fr-fr': ['can6G07'],
+  'fr-fr': ['can6G07', '6G7B-flash2'],
   'fr-ch': []
 }
 export default class CompleterParSymetrieCan extends Exercice {
@@ -120,7 +120,7 @@ export default class CompleterParSymetrieCan extends Exercice {
       texte = context.isAmc
         ? 'Voici une grille contenant des points et un axe de symétrie.<br>Quel nombre minimum de points faut-il ajouter pour que chacun ait son symétrique ?<br>Écrire le nombre de points ajoutés dans le cadre. Coder ensuite ce nombre de points.<br>'
         : 'Voici une grille contenant des points et un axe de symétrie.<br>Quel nombre minimum de points faut-il ajouter pour que chacun ait son symétrique ?<br>'
-      texteCorr = ''
+      texteCorr = `Il y a ${pointsEnPlusCorr.length} points à ajouter (en rouge sur la figure).<br>`
       // On prépare la figure...
       texte += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.7 }, ...objetsEnonce)
       if (this.interactif && context.isHtml) {

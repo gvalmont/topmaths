@@ -8,7 +8,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
-import { fixeBordures, mathalea2d, type ObjetMathalea2D } from '../../modules/2dGeneralites'
+import { type ObjetMathalea2D, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -33,7 +33,7 @@ export default class VocabulaireTriangleRectangle extends Exercice {
     this.nbQuestions = 5
     this.spacingCorr = 3
     this.besoinFormulaireCaseACocher = ['Figure à main levée', true]
-    this.besoinFormulaire2Texte = ['Type de questions ', 'Nombres séparés par des tirets\n1 : Donner le bon terme\n2 : Donner le bon côté\n3 : Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions ', 'Nombres séparés par des tirets :\n1 : Donner le bon terme\n2 : Donner le bon côté\n3 : Mélange']
     this.sup = false
     this.sup2 = '3'
   }

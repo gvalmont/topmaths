@@ -23,7 +23,7 @@
 
   onMount(() => {
     const questionContent = document.getElementById(
-      'can-solutions'
+      'can-solutions',
     ) as HTMLDivElement
     if (questionContent) {
       mathaleaRenderDiv(questionContent)
@@ -32,33 +32,35 @@
 
   afterUpdate(() => {
     const answersContents = document.querySelectorAll(
-      '[id^="answer-container"]'
+      '[id^="answer-container"]',
     )
     for (let i = 0; i < answersContents.length; i++) {
       const content = answersContents[i] as HTMLDivElement
       mathaleaRenderDiv(content)
     }
     const exercicesAffiches = new window.Event('exercicesAffiches', {
-      bubbles: true
+      bubbles: true,
     })
     document.dispatchEvent(exercicesAffiches)
   })
 
-  function formatAnswer (question: string, answer: string) {
-    console.log(question)
+  function formatAnswer(question: string, answer: string) {
     if (!answer) return 'aucune'
     if (question.includes('checkbox')) return answer // Pour les QCM
-    if (question.includes('<select')) return answer // Pour les listeDeroulante
-    if (question.includes('interactive-clock')) return `$${answer.split('h')[0]}$ h $${answer.split('h')[1]}$` // Pour les horloges interactives
-    if (question.includes('<input') && question.includes('champTexteEx')) return answer // Pour les champTexte
+    if (question.includes('<liste-deroulante')) return answer // Pour les listeDeroulante
+    if (question.includes('interactive-clock'))
+      return `$${answer.split('h')[0]}$ h $${answer.split('h')[1]}$` // Pour les horloges interactives
+    if (question.includes('<input') && question.includes('champTexteEx'))
+      return answer // Pour les champTexte
     if (question.includes('apigeomEx')) return answer // Pour le "Voir figure" des figures apigeom
     if (question.includes('divDragAndDropEx')) return answer // Pour les drag and drop
     return '$' + cleanFillInTheBlanks(answer, false) + '$'
   }
 
-  function removeMathField (text: string, removeDollar: boolean = true) {
+  function removeMathField(text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
-    if (text.includes('placeholder')) return cleanFillInTheBlanks(text, removeDollar) // Pour les fillInTheBlanks
+    if (text.includes('placeholder'))
+      return cleanFillInTheBlanks(text, removeDollar) // Pour les fillInTheBlanks
     if (text.includes('interactive-clock')) return removeInteractiveClock(text) // Pour les horloges interactives
     if (text.includes('<select')) return cleanSelect(text) // Pour les listeDeroulante
     const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
@@ -69,14 +71,16 @@
     const regex = /<select[^>]*>[^]*?<\/select>/g
     return text.replace(regex, '')
   }
-  
-  function cleanFillInTheBlanks (text: string, removeDollar: boolean = true) {
+
+  function cleanFillInTheBlanks(text: string, removeDollar: boolean = true) {
     if (typeof text !== 'string') return ''
     if (removeDollar) text = text.replace(/\$/g, '')
-    return text.replace(/\\placeholder(\[[^\]]*\])+/g, '').replace(/\{\}/g, '{...}')
+    return text
+      .replace(/\\placeholder(\[[^\]]*\])+/g, '')
+      .replace(/\{\}/g, '{...}')
   }
 
-  function removeInteractiveClock (text: string) {
+  function removeInteractiveClock(text: string) {
     if (typeof text !== 'string') return ''
     const regex = /<interactive-clock[^>]*\/>/g
     return text.replace(regex, '')
@@ -86,8 +90,8 @@
 <div
   class="w-full h-full flex flex-col items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
    {$canOptions.solutionsMode === 'split'
-     ? 'justify-between'
-     : 'justify-start'}"
+    ? 'justify-between'
+    : 'justify-start'}"
 >
   {#if $canOptions.solutionsMode === 'split'}
     <div class="w-full flex flex-col">
@@ -170,7 +174,7 @@
           bind:value={displayCorrection}
           titles={[
             'Correction uniquement des mauvaises réponses',
-            'Correction de toutes les questions'
+            'Correction de toutes les questions',
           ]}
         />
       </div>
@@ -190,10 +194,11 @@
             <div class={$canOptions.isInteractive ? 'flex text-xl' : 'hidden'}>
               {#if resultsByQuestion[i]}
                 <button
-                type="button"
-                on:click={() => {
-                  solutionDisplayed[i] = !solutionDisplayed[i]
-                }}>
+                  type="button"
+                  on:click={() => {
+                    solutionDisplayed[i] = !solutionDisplayed[i]
+                  }}
+                >
                   <i
                     class="pl-2 bx bxs-check-square text-coopmaths-warn-800 dark:text-green-500"
                   />
@@ -208,14 +213,18 @@
           <div class="flex flex-col">
             <div
               class="p-2 text-pretty text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              hidden={!solutionDisplayed[i] && resultsByQuestion[i] && displayCorrection}
+              hidden={!solutionDisplayed[i] &&
+                resultsByQuestion[i] &&
+                displayCorrection}
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html removeMathField(questions[i], false)}
             </div>
             <div
               class="p-2 text-pretty bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus-darkest"
-              hidden={!solutionDisplayed[i] && resultsByQuestion[i] && displayCorrection}
+              hidden={!solutionDisplayed[i] &&
+                resultsByQuestion[i] &&
+                displayCorrection}
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html consignesCorrections[i]}

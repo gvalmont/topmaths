@@ -8,6 +8,7 @@ import { stringNombre, texNombre } from '../outils/texNombre'
 import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
 import { MathfieldElement } from 'mathlive'
 import './tableau2x2.scss'
+import { parseHexColor } from '../colors'
 
 export type StyledText = { texte: string, gras?: boolean, math?: boolean, latex?: boolean, color?: string }
 
@@ -308,19 +309,21 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
 
     tableauCL += '\\hline\n'
     const color0 = style.L0C0 ? style.L0C0 : 'lightgray'
+    const color0Hex = parseHexColor(color0)
     if (tabEntetesColonnes.length > 0) {
       if (typeof tabEntetesColonnes[0] === 'number') {
-        tableauCL += `\\cellcolor{${color0}} ${latex ? texNombre(tabEntetesColonnes[0], 2) : '\\text{' + stringNombre(tabEntetesColonnes[0], 2) + '}'}`
+        tableauCL += `\\cellcolor${color0Hex ? '[HTML]' : ''}{${color0Hex ? color0Hex.withoutHash : color0}} ${latex ? texNombre(tabEntetesColonnes[0], 2) : '\\text{' + stringNombre(tabEntetesColonnes[0], 2) + '}'}`
       } else {
-        tableauCL += `\\cellcolor{${color0}} ${latex ? tabEntetesColonnes[0] : ('\\text{' + tabEntetesColonnes[0] + '}')}`
+        tableauCL += `\\cellcolor${color0Hex ? '[HTML]' : ''}{${color0Hex ? color0Hex.withoutHash : color0}} ${latex ? tabEntetesColonnes[0] : ('\\text{' + tabEntetesColonnes[0] + '}')}`
       }
       for (let k = 1; k < nbColonnes; k++) {
         const enTeteColonne = tabEntetesColonnes[k]
         const color = style[`L0C${k}`] != null ? style[`L0C${k}`] : 'lightgray'
+        const colorHex = parseHexColor(color)
         if (typeof enTeteColonne === 'number') {
-          tableauCL += ` & \\cellcolor{${color}} ${latex ? texNombre(enTeteColonne, 6) : '\\text{' + stringNombre(enTeteColonne, 6) + '}'}`
+          tableauCL += ` & \\cellcolor${colorHex ? '[HTML]' : ''}{${colorHex ? colorHex.withoutHash : color}} ${latex ? texNombre(enTeteColonne, 6) : '\\text{' + stringNombre(enTeteColonne, 6) + '}'}`
         } else {
-          tableauCL += ` & \\cellcolor{${color}} ${latex ? enTeteColonne : ('\\text{' + enTeteColonne + '}')}`
+          tableauCL += ` & \\cellcolor${colorHex ? '[HTML]' : ''}{${colorHex ? colorHex.withoutHash : color}} ${latex ? enTeteColonne : ('\\text{' + enTeteColonne + '}')}`
         }
       }
       tableauCL += '\\\\\n'
@@ -331,23 +334,25 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
     for (let k = 0; k < nbLignes; k++) {
       const enTeteLigne = tabEntetesLignes[k]
       const color = style[`L${k + 1}C0`] ? style[`L${k + 1}C0`] : style.LC0 ? style.LC0 : 'lightgray'
+      const colorHex = parseHexColor(color)
       if (typeof enTeteLigne === 'number') {
-        tableauCL += `\\cellcolor{${color}} ${latex ? texNombre(enTeteLigne, 6) : '\\text{' + stringNombre(enTeteLigne, 6) + '}'}`
+        tableauCL += `\\cellcolor${colorHex ? '[HTML]' : ''}{${colorHex ? colorHex.withoutHash : color}} ${latex ? texNombre(enTeteLigne, 6) : '\\text{' + stringNombre(enTeteLigne, 6) + '}'}`
       } else {
-        tableauCL += `\\cellcolor{${color}} ${latex ? enTeteLigne : '\\text{' + enTeteLigne + '}'}`
+        tableauCL += `\\cellcolor${colorHex ? '[HTML]' : ''}{${colorHex ? colorHex.withoutHash : color}} ${latex ? enTeteLigne : '\\text{' + enTeteLigne + '}'}`
       }
       for (let m = 0; m < nbColonnes - 1; m++) {
         const cellule = tabLignes[(nbColonnes - 1) * k + m]
         const color = style[`L${k + 1}C${m + 1}`] != null ? style[`L${k + 1}C${m + 1}`] : ''
+        const colorHex = parseHexColor(color)
         if (typeof cellule === 'number') {
           if (color !== '') {
-            tableauCL += ` & \\cellcolor{${color}} ${latex ? texNombre(cellule, 6) : '\\text{' + stringNombre(cellule, 6) + '}'}`
+            tableauCL += ` & \\cellcolor${colorHex ? '[HTML]' : ''}{${colorHex ? colorHex.withoutHash : color}} ${latex ? texNombre(cellule, 6) : '\\text{' + stringNombre(cellule, 6) + '}'}`
           } else {
             tableauCL += ` & ${latex ? texNombre(cellule, 6) : '\\text{' + stringNombre(cellule, 6) + '}'}`
           }
         } else {
           if (color !== '') {
-            tableauCL += ` & \\cellcolor{${color}} ${latex ? cellule : '\\text{' + cellule + '}'}`
+            tableauCL += ` & \\cellcolor${colorHex ? '[HTML]' : ''}{${colorHex ? colorHex.withoutHash : color}} ${latex ? cellule : '\\text{' + cellule + '}'}`
           } else {
             tableauCL += ` & ${latex ? cellule : '\\text{' + cellule + '}'}`
           }

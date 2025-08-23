@@ -1,10 +1,10 @@
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Decimal from 'decimal.js'
-import { fraction } from '../../modules/fractions'
-import { context } from '../../modules/context'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { fraction } from '../../modules/fractions'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -27,7 +27,7 @@ export const refs = {
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : m/h\n2 : m$^3$/h\n3 : L/h\n4 : L/m$^2$\n5 : m$^2$/h\n6 : Wh\n7 : VA\n8 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : m/h\n2 : m$^3$/h\n3 : L/h\n4 : L/m$^2$\n5 : m$^2$/h\n6 : Wh\n7 : VA\n8 : Mélange']
     this.sup = 8
   }
 

@@ -62,14 +62,14 @@ export default class PoucentageP2 extends ExerciceSimple {
         this.correction = `Les ${n}  représentent $${b}\\%$   des logements.<br>
         Il y en a donc : $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre(b * a / 100)}$.<br>
         Dans cette ville, il y a  $${texNombre(b * a / 100, 2)}$ ${n}.<br>
-        Parmi ces ${n}, il y a $${c}\\%$  de ${d}.<br>
-        $${c}\\%$  de $${texNombre(b * a / 100)}=${texNombre(c / 100, 2)}\\times ${texNombre(b * a / 100, 2)}=${texNombre(c * b * a / 10000, 2)}$.<br>
+        Parmi ces ${n}, il y a $${c}\\,\\%$  de ${d}.<br>
+        $${c}\\,\\%$  de $${texNombre(b * a / 100)}=${texNombre(c / 100, 2)}\\times ${texNombre(b * a / 100, 2)}=${texNombre(c * b * a / 10000, 2)}$.<br>
         Il y a donc $${miseEnEvidence(texNombre(c * b * a / 10000, 2))}$ ${n} de type ${d} dans cette ville.
         `
         this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
-                Prendre $10\\%$  d'une quantité revient à la diviser par $10$. <br>
-       Pour calculer $20\\%$ , $30\\, \\%$ , $40\\%$, .... d'une quantité, on
+                Prendre $10\\,\\%$  d'une quantité revient à la diviser par $10$. <br>
+       Pour calculer $20\\,\\%$ , $30\\,\\, \\%$ , $40\\,\\%$, .... d'une quantité, on
        commence par calculer  $10\\,\\%$  de cette quantité en la divisant par $10$, puis on multiplie
        par $2$ ce résultat si on veut en calculer $20\\, \\%$, par $3$ si on veut en calculer $30\\,\\%$, ....<br>
                            `)
@@ -89,19 +89,19 @@ export default class PoucentageP2 extends ExerciceSimple {
 
         this.optionsChampTexte = { texteAvant: '<br>', texteApres: '€' }
         if (a === 25) {
-          this.correction = ` $25~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $4$ fois plus que $${b}$ € (car $4\\times 25=100$).<br>
+          this.correction = ` $25\\,\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $4$ fois plus que $${b}$ € (car $4\\times 25=100$).<br>
         Le prix de l'article était  donc : $4\\times${b}=${miseEnEvidence(4 * b)}$ €. `
         }
         if (a === 20) {
-          this.correction = ` $20~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $5$ fois plus que $${b}$ € (car $5\\times 20=100$).<br>
+          this.correction = ` $20\\,\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $5$ fois plus que $${b}$ € (car $5\\times 20=100$).<br>
           Le prix de l'article était donc : $5\\times${b}=${miseEnEvidence(5 * b)}$ €.  `
         }
         if (a === 10) {
-          this.correction = ` $10~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $10$ fois plus que $${b}$ € (car $10\\times 10=100$).<br>
+          this.correction = ` $10\\,\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $10$ fois plus que $${b}$ € (car $10\\times 10=100$).<br>
           Le prix de l'article était donc : $10\\times${b}=${miseEnEvidence(10 * b)}$ €.  `
         }
         if (a === 50) {
-          this.correction = ` $50~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $2$ fois plus que $${b}$ € (car $2\\times 50=100$).<br>
+          this.correction = ` $50\\,\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $2$ fois plus que $${b}$ € (car $2\\times 50=100$).<br>
            Le prix de l'article était donc : $2\\times${b}=${miseEnEvidence(2 * b)}$ €.  `
         }
         this.distracteurs = [`$${texNombre(b + b * a / 100, 2)}$ €`,

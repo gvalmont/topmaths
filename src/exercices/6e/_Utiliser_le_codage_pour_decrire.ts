@@ -9,7 +9,7 @@ import { affiniteOrtho, rotation, similitude, translation2Points } from '../../l
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { mathalea2d } from '../../modules/2dGeneralites'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export default class UtiliserLeCodagePourDecrire extends Exercice {
@@ -21,7 +21,7 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
     this.nbQuestions = 1
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés par des tirets\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : À propos d\'angles dans un polygone dessiné\n5 : Mélange'
+        'Nombres séparés par des tirets :\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : À propos d\'angles dans un polygone dessiné\n5 : Mélange'
       ].join('\n')
     ]
     this.sup = 1
@@ -31,13 +31,13 @@ export default class UtiliserLeCodagePourDecrire extends Exercice {
     if (this.classe === 5) {
       this.besoinFormulaireTexte = [
         'Type de questions', [
-          'Nombres séparés par des tirets\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : À propos d\'angles dans un polygone dessiné\n5 : Mélange'
+          'Nombres séparés par des tirets :\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : À propos d\'angles dans un polygone dessiné\n5 : Mélange'
         ].join('\n')
       ]
     } else {
       this.besoinFormulaireTexte = [
         'Type de questions', [
-          'Nombres séparés par des tirets\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : Mélange'
+          'Nombres séparés par des tirets :\n1 : À propos de longueurs d\'un polygone dessiné\n2 : À partir d\'un carré sous forme de texte\n3 : À partir d\'un rectangle sous forme de texte\n4 : Mélange'
         ].join('\n')
       ]
     }

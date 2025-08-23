@@ -87,19 +87,27 @@ async function testV (page: Page) {
   await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
 
   // question 7
-  await page.locator('#iframe').contentFrame().getByRole('combobox').selectOption('différence')
+  const liste0 = await page.locator('#iframe').contentFrame().locator('liste-deroulante#ex5Q0')
+  await liste0.click()
+  await liste0.locator('li', { hasText: 'différence' }).click()
   await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
 
   // question 8
-  await page.locator('#iframe').contentFrame().getByRole('combobox').selectOption('différence')
+  const liste1 = await page.locator('#iframe').contentFrame().locator('liste-deroulante#ex5Q1')
+  await liste1.click()
+  await liste1.locator('li', { hasText: 'différence' }).click()
   await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
 
   // question 9
-  await page.locator('#iframe').contentFrame().getByRole('combobox').selectOption('différence')
+  const liste2 = await page.locator('#iframe').contentFrame().locator('liste-deroulante#ex5Q2')
+  await liste2.click()
+  await liste2.locator('li', { hasText: 'différence' }).click()
   await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
 
   // question 10
-  await page.locator('#iframe').contentFrame().getByRole('combobox').selectOption('différence')
+  const liste3 = await page.locator('#iframe').contentFrame().locator('liste-deroulante#ex5Q3')
+  await liste3.click()
+  await liste3.locator('li', { hasText: 'différence' }).click()
   await page.locator('#iframe').contentFrame().locator('.bxs-chevron-right').click()
 
   // question 11

@@ -1,15 +1,15 @@
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
-import choisirExpressionNumerique from './_choisirExpressionNumerique'
-import ChoisirExpressionLitterale from './_Choisir_expression_litterale'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { context } from '../../modules/context'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import ChoisirExpressionLitterale from './_Choisir_expression_litterale'
+import choisirExpressionNumerique from './_choisirExpressionNumerique'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -31,7 +31,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
     this.sup3 = true // Si présence ou pas du signe "fois"
     this.sup4 = 6
     this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
-    this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
+    this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets :\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
     this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
   }
 
@@ -96,7 +96,7 @@ export default class EcrireUneExpressionNumerique extends Exercice {
       expn += expn[expn.length - 1] !== '$' ? '$' : ''
       expc = resultats[2]
       nbval = resultats[3]
-      const expNom = this.litteral ? String(resultats[6]).split(' ')[1] : resultats[5] // Le split, c'est pour virer le déterminant.
+      const expNom = this.litteral ? String(resultats[6]) : resultats[5] // Le split, c'est pour virer le déterminant.
       switch (this.version) {
         case 1:
           this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
@@ -205,7 +205,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
               propositions: [
                 {
                   type: 'AMCOpen',
-                  // @ts-expect-error Trop compliqué à typer
                   propositions: [{
                     enonce: texte,
                     texte: texteCorr,
@@ -215,7 +214,6 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                 },
                 {
                   type: 'AMCNum',
-                  // @ts-expect-error Trop compliqué à typer
                   propositions: [{
                     texte: '',
                     statut: '',
@@ -254,7 +252,15 @@ export default class EcrireUneExpressionNumerique extends Exercice {
                 ]
               }
           } else {
-            texte += sp(10) + choixDeroulant(this, i, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
+            texte += sp(10) + choixDeroulant(this, i, [
+              { label: '?', value: '' },
+              ...shuffle([
+                { label: 'somme', value: 'somme' },
+                { label: 'différence', value: 'différence' },
+                { label: 'produit', value: 'produit' },
+                { label: 'quotient', value: 'quotient' }
+              ])
+            ])
             handleAnswers(this, i, { reponse: { value: expNom } }, { formatInteractif: 'listeDeroulante' })
           }
         }

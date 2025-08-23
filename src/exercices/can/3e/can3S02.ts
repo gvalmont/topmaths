@@ -47,7 +47,7 @@ Quelle est la probabilité de son événement contraire ?
     this.correction = `La relation entre la probabilité d'un événement $A$ et celle de son contraire $\\overline{A}$ est :  $P(\\overline{A})=1-P(A)$.<br>
         Ainsi : $P(\\overline{A})=1-\\dfrac{${n}}{${d}}=${dMoinsNSurD.texFraction}$.`
     this.reponse = new FractionEtendue(d - n, d)
-    this.distracteurs = [`$${new FractionEtendue(d, n)}$`, `$-${new FractionEtendue(n, d)}$`, `$${new FractionEtendue(n, d)}$`]
+    this.distracteurs = [`$${new FractionEtendue(d, n).texFraction}$`, `$-${new FractionEtendue(n, d).texFraction}$`, `$${new FractionEtendue(n, d).texFraction}$`]
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

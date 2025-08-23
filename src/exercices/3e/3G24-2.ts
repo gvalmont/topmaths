@@ -1,25 +1,25 @@
 import { Point, point, pointAdistance } from '../../lib/2d/points'
-import { triangle2points2longueurs } from '../../lib/2d/triangle'
 import { barycentre, nommePolygone } from '../../lib/2d/polygones'
+import { triangle2points2longueurs } from '../../lib/2d/triangle'
 // import { angle, angleOriente, MarqueAngle, MarqueAngleDroit } from '../../lib/2d/angles'
-import { angleOriente, MarqueAngle, markTypeArray } from '../../lib/2d/angles'
+import { angleOriente, markTypeArray, MarqueAngle } from '../../lib/2d/angles'
 // import { afficheLongueurSegment, texteSurSegment, placeLatexSurSegment } from '../../lib/2d/codages'
 import { placeLatexSurSegment } from '../../lib/2d/codages'
 
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { droite } from '../../lib/2d/droites'
-import { similitude, homothetie, symetrieAxiale } from '../../lib/2d/transformations'
+import { homothetie, similitude, symetrieAxiale } from '../../lib/2d/transformations'
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
+import { creerNomDePolygone } from '../../lib/outils/outilString'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { choice, combinaisonListes, shuffle, shuffleLettres } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+import { choice, combinaisonListes, shuffle, shuffleLettres } from '../../lib/outils/arrayOutils'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -42,7 +42,7 @@ export default class nomExercice extends Exercice {
     this.nbQuestions = 1
     this.sup = 3
     this.consigne = 'Dans cet exercice, les marques identiques désignent des angles égaux.'
-    this.besoinFormulaireTexte = ['Types de questions ', 'Nombres séparés par des tirets\n1: Valeurs entières coefficient entier ou égal à 0,5\n2: Valeurs décimales coefficient entier\n3: Valeurs décimales coefficient décimal']
+    this.besoinFormulaireTexte = ['Types de questions ', 'Nombres séparés par des tirets :\n1: Valeurs entières coefficient entier ou égal à 0,5\n2: Valeurs décimales coefficient entier\n3: Valeurs décimales coefficient décimal']
     //    this.besoinFormulaire2CaseACocher = ['Pour les tests,décoréler completement les deux triangles']
     //    this.sup2 = false
   }

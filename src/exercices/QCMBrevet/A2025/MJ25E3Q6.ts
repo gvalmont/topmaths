@@ -3,11 +3,11 @@ import { latex2d } from '../../../lib/2d/textes'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
-import { arete3d, point3d, polygone3d } from '../../../lib/3d/elements'
+import { arete3d, point3d, polygone3d } from '../../../lib/3d/3dProjectionMathalea2d/elements'
 
 import ExerciceQcmA from '../../ExerciceQcmA'
-import { pyramide3d } from '../../../lib/3d/solides'
-import { CodageAngleDroit3D } from '../../../lib/3d/tranformations'
+import { pyramide3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
+import { CodageAngleDroit3D } from '../../../lib/3d/3dProjectionMathalea2d/tranformations'
 
 export const uuid = '47v56'
 export const refs = {

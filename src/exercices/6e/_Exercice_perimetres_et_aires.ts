@@ -14,18 +14,18 @@ import {
 } from '../../lib/2d/points'
 import { Polygone, polygone, polygoneRegulier } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } from '../../lib/outils/nombres'
 import { labelPoint, TexteParPoint } from '../../lib/2d/textes'
-import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { mathalea2d } from '../../modules/2dGeneralites'
-import { context } from '../../modules/context'
 import { texTexte } from '../../lib/format/texTexte'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } from '../../lib/outils/nombres'
+import { creerNomDePolygone, sp } from '../../lib/outils/outilString'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const interactifReady = true
@@ -57,7 +57,7 @@ export default class ExercicePerimetresEtAires extends Exercice {
     this.exo = 'NoDisk'
     this.besoinFormulaireTexte = [
       'Type de figures',
-      'Valeurs séparées par des tirets\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
+      'Valeurs séparées par des tirets :\n1 : Carré\n2 : Rectangle\n3 : Triangle rectangle\n4 : Mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
     this.besoinFormulaire3CaseACocher = ['Avec figure']

@@ -1,14 +1,14 @@
-import { propositionsQcm } from '../../../lib/interactif/qcm'
-import { gestionnaireFormulaireTexte } from '../../../modules/outils'
-import { combinaisonListesSansChangerOrdre, enleveElementBis } from '../../../lib/outils/arrayOutils'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { combinaisonListesSansChangerOrdre, enleveElementBis } from '../../../lib/outils/arrayOutils'
+import { gestionnaireFormulaireTexte } from '../../../modules/outils'
 
+import Decimal from 'decimal.js'
 import uuidToUrl from '../../../json/uuidsToUrlFR.json'
 import { mathaleaGenerateSeed, mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
-import Exercice from '../../Exercice'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import Decimal from 'decimal.js'
+import Exercice from '../../Exercice'
 export const titre = 'Choix aléatoires des questions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -39,7 +39,7 @@ export default class can6eAll extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Type de questions', [
-        'Nombres séparés\n par des tirets',
+        'Nombres séparés\n par des tirets :',
         'All : mélange',
         'C1 à C47 : can de 6C01 à 6C47',
         'G1 à G7 : can de 6G01 à 6G07',

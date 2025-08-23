@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'a2d6a'
 
 export const refs = {
-  'fr-fr': ['can3C09'],
+  'fr-fr': ['can3C09','auto6P3B-flash1'],
   'fr-ch': []
 }
 export default class CalculAvecRacineCarree1 extends ExerciceSimple {

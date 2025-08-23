@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'c0bf1'
 
 export const refs = {
-  'fr-fr': ['can6M04'],
+  'fr-fr': ['can6M04', 'auto6M1C-flash3'],
   'fr-ch': []
 }
 export default class ConversionEnTousSens extends ExerciceSimple {

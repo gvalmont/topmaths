@@ -1,11 +1,11 @@
-import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { glossaire } from './c3N10-1'
 import DragAndDrop, { type Etiquette } from '../../lib/interactif/DragAndDrop'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { contraindreValeur, gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
+import { glossaire } from './c3N10-1'
 export const titre = 'Décomposition entière facile'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -43,7 +43,7 @@ class DragAndDropNumerationEntiere extends Exercice {
     this.sup2 = 4
     this.besoinFormulaire4Texte = [
       'Présence de zéro(s) ',
-      'Nombres séparés par des tirets\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
     ]
     this.sup4 = '4'
     this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]

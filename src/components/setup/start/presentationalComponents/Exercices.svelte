@@ -1,11 +1,10 @@
 <script lang="ts">
   import Footer from '../../../Footer.svelte'
   import Exercice from '../../../shared/exercice/Exercice.svelte'
-  import type { InterfaceParams } from 'src/lib/types'
+  import type { InterfaceParams } from '../../../../lib/types'
   import { flip } from 'svelte/animate'
 
   export let exercicesParams: InterfaceParams[]
-
 </script>
 
 <div
@@ -14,10 +13,7 @@
 >
   <div class="flex flex-col md:mt-9 xl:mt-0">
     {#each exercicesParams as paramsExercice, i (paramsExercice)}
-      <div
-        id="exo{i}"
-        animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
-      >
+      <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
         <Exercice
           {paramsExercice}
           indiceExercice={i}

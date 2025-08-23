@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gilles Mora
+ * @author Gilles Mora et Stéphane Guyon (version QCM)
 
  * Date de publication
 */
@@ -24,14 +24,14 @@ export const refs = {
 export default class MoyenneStat extends ExerciceSimple {
   constructor () {
     super()
-
+    this.versionQcmDisponible = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
   }
 
   nouvelleVersion () {
     let a, b, c, d, e, f, N
-    switch (choice([1, 2, 3, 3])) { //
+    switch (this.versionQcm ? choice([1, 2]) : choice([1, 2, 3, 3])) { //
       case 1:
         a = randint(2, 6)
         b = randint(8, 15)
@@ -40,10 +40,11 @@ export default class MoyenneStat extends ExerciceSimple {
         d = e - a - b - c
         this.question = `$${a}$ ${sp(2)} ; ${sp(2)} $${b}$ ${sp(2)} ; ${sp(2)} $${c}$${sp(2)} ; ${sp(2)} $${d}$<br>
    
-        Quelle est la moyenne de cette série ?`
+        ${this.versionQcm ? 'La moyenne de cette série est :' : ' Quelle est la moyenne de cette série ?'}`
         this.correction = `La somme des $4$ valeurs est : $${a}+${b}+${c}+${d} =${e}$.<br>
          La moyenne est donc $\\dfrac{${e}}{4}=${texFractionReduite(e, 4)}$.`
         this.reponse = e / 4
+        this.distracteurs = [`$${texNombre(e / 4 - 1)}$`, `$${texNombre((e + 1) / 4)}$`, `$${texNombre(e / 4 + 1)}$`, `$${texNombre(e / 4 + 2)}$`, `$${texNombre(e / 4 - 2)}$`, `$${texNombre(e / 4 - 0.5)}$`, `$${texNombre(e / 4 + 0.5)}$`]
         break
       case 2:
         a = randint(1, 2) * 5
@@ -54,7 +55,8 @@ export default class MoyenneStat extends ExerciceSimple {
         f = e - a - b - c - d
         this.question = `$${b}$${sp(2)} ; ${sp(2)} $${a}$ ${sp(2)} ; ${sp(2)}$${c}$${sp(2)} ; ${sp(2)}$${d}$ ${sp(2)} ; ${sp(2)}$${f}$<br>
        
-        Quelle est la moyenne de cette série ?`
+        ${this.versionQcm ? 'La moyenne de cette série est :' : ' Quelle est la moyenne de cette série ?'}`
+        this.distracteurs = [`$${texNombre(e / 5 - 1)}$`, `$${texNombre((e + 1) / 5)}$`, `$${texNombre(e / 5 + 1)}$`, `$${texNombre(e / 5 + 2)}$`, `$${texNombre(e / 5 - 2)}$`, `$${texNombre(e / 5 - 0.5)}$`, `$${texNombre(e / 5 + 0.5)}$`]
         this.correction = `La somme des $5$ valeurs est : $${b}+${a}+${c}+${d}+${f}= ${e}$.<br>
          La moyenne est donc $\\dfrac{${texNombre(e)}}{5}=${texFractionReduite(e, 5)}$.`
 

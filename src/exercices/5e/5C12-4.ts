@@ -1,5 +1,7 @@
 // import { choice } from '../../lib/outils/arrayOutils'
+import { evaluate, type Fraction } from 'mathjs'
 import type { MathfieldElement } from 'mathlive'
+import engine from '../../lib/interactif/comparisonFunctions'
 import {
   handleAnswers,
   type AnswerType
@@ -14,9 +16,6 @@ import {
   calculer
 } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
-import { evaluate } from 'mathjs'
-import engine from '../../lib/interactif/comparisonFunctions'
-import { type Fraction } from 'mathjs'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -139,7 +138,7 @@ class MettreDesParentheses extends Exercice {
     this.nbQuestions = 5
     this.besoinFormulaireTexte = [
       'Complexité',
-      'Nombres séparés par des tirets\n1 : 2 opérations\n2 : 3 opérations\n3 Mélange'
+      'Nombres séparés par des tirets :\n1 : 2 opérations\n2 : 3 opérations\n3 Mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs', false]
     this.sup = '3'

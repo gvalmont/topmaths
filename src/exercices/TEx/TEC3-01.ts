@@ -1,10 +1,10 @@
-import Exercice from '../Exercice'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = "Différentes écritures d'un nombre complexe"
 export const interactifReady = true
@@ -90,7 +90,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
     this.nbQuestions = 2
     this.spacingCorr = 3
     this.sup = '1'
-    this.besoinFormulaireTexte = ['Type de questions', ' Nombres séparés par des tirets\n1 : algébrique vers trigonométrique\n2 : trigonométrique vers algébrique\n3 : algébrique vers $k.e^{i\\theta}$\n4 : $k.e^{i\\theta}$ vers algébrique\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions', ' Nombres séparés par des tirets :\n1 : algébrique vers trigonométrique\n2 : trigonométrique vers algébrique\n3 : algébrique vers $k.e^{i\\theta}$\n4 : $k.e^{i\\theta}$ vers algébrique\n5 : Mélange']
   }
 
   nouvelleVersion () {

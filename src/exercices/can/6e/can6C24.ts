@@ -1,9 +1,9 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { premiereLettreEnMajuscule } from '../../../lib/outils/outilString'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { bleuMathalea } from '../../../lib/colors'
 import { arrondi } from '../../../lib/outils/nombres'
@@ -23,7 +23,7 @@ export const dateDePublication = '15/09/2021'
 export const uuid = '53034'
 
 export const refs = {
-  'fr-fr': ['can6C24'],
+  'fr-fr': ['can6C24', '6N2B-flash1'],
   'fr-ch': []
 }
 export default class MultiplierParPuissanceDixNeg extends ExerciceSimple {

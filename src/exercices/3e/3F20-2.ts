@@ -2,9 +2,9 @@ import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu
 } from '../../modules/outils'
-import FonctionsAffines from './3F20-1'
-import FonctionsLineaires from './3F20'
 import Exercice from '../Exercice'
+import FonctionsLineaires from './3F20'
+import FonctionsAffines from './3F20-1'
 
 export const titre = 'Fonctions affines et/ou linéaires'
 export const interactifType = 'mathLive'
@@ -37,10 +37,10 @@ export default class FonctionsAffinesOuLineaires extends Exercice {
     this.sup3 = '9'
     this.sup4 = '3'
     this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
-    this.besoinFormulaire2Texte = ['Type de questions pour fonctions affines', 'Nombres séparés par des tirets\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Expression par graphique fonctions affines uniquement (formule des accroissements)\n10: Expression par valeurs fonctions affines uniquement (formule des accroissements)\n11: Mélange']
-    this.besoinFormulaire3Texte = ['Type de questions pour fonctions linéaires', 'Nombres séparés par des tirets\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange']
+    this.besoinFormulaire2Texte = ['Type de questions pour fonctions affines', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Expression par graphique fonctions affines uniquement (formule des accroissements)\n10: Expression par valeurs fonctions affines uniquement (formule des accroissements)\n11: Mélange']
+    this.besoinFormulaire3Texte = ['Type de questions pour fonctions linéaires', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange']
 
-    this.besoinFormulaire4Texte = ['Type de fonctions', 'Nombres séparés par des tirets\n1: Linéaire\n2: Affine\n3: Mélange']
+    this.besoinFormulaire4Texte = ['Type de fonctions', 'Nombres séparés par des tirets :\n1: Linéaire\n2: Affine\n3: Mélange']
   }
 
   nouvelleVersion () {

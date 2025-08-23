@@ -5,13 +5,13 @@ import { barycentre, nommePolygone } from '../../lib/2d/polygones'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { rotation, translation } from '../../lib/2d/transformations'
 import { triangle2points2longueurs } from '../../lib/2d/triangle'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { context } from '../../modules/context'
 export const titre = 'Justifier que deux triangles sont égaux'
 
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.
@@ -38,7 +38,7 @@ export default class TrianglesEgaux extends Exercice {
     this.sup = 6
     this.spacing = 2
 
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange']
   }
 
   nouvelleVersion () {

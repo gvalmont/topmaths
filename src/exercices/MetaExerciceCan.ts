@@ -1,15 +1,15 @@
-import { handleAnswers } from '../lib/interactif/gestionInteractif'
-import Exercice from './Exercice'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
-import { propositionsQcm } from '../lib/interactif/qcm'
-import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
-import Grandeur from '../modules/Grandeur'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../modules/FractionEtendue'
-import { gestionnaireFormulaireTexte } from '../modules/outils'
+import { string } from 'mathjs'
+import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../lib/interactif/qcm'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { combinaisonListes, shuffle } from '../lib/outils/arrayOutils'
 import { range1 } from '../lib/outils/nombres'
-import { string } from 'mathjs'
+import FractionEtendue from '../modules/FractionEtendue'
+import Grandeur from '../modules/Grandeur'
+import { gestionnaireFormulaireTexte } from '../modules/outils'
+import Exercice from './Exercice'
 
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -238,7 +238,7 @@ export default class MetaExercice extends Exercice {
       ? false
       : [
           'Choix des questions',
-          'Nombres séparés par des tirets'
+          'Nombres séparés par des tirets :'
         ]
     this.besoinFormulaire3CaseACocher = ['Choix du nombre de questions']
     this.comment = `Cet exercice fait partie des annales des Courses Aux Nombres (CAN).<br>

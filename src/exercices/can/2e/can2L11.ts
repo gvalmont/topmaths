@@ -46,7 +46,7 @@ export default class ExprimerVariable extends ExerciceSimple {
 
       if (choice([true, false])) {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
-      ${this.versionQcm ? `On cherche à isoler $${var1}$. On a : ` : `Exprimer $${var1}$ en fonction de $${var2}$. ${this.interactif ? `<br>$${var1}=$` : '.'}`}  `
+      ${this.versionQcm ? `On cherche à isoler $${var1}$. On a : ` : `Exprimer $${var1}$ en fonction de $${var2}$ ${this.interactif ? `<br>$${var1}=$` : '.'}`}  `
         if (a === 1) {
           this.correction = `${corr1}`
         } else if (a > 0) {
@@ -67,11 +67,8 @@ export default class ExprimerVariable extends ExerciceSimple {
           // Erreur de signe dans le numérateur
           a < 0 ? `$${var1}=\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${-a}}$` : `$${var1}=\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${a}}$`,
 
-          // Erreur : mauvais coefficient au dénominateur (utilise b au lieu de a)
-          a < 0 ? `$${var1}=\\dfrac{${reduireAxPlusB(b, -c, var2)}}{${-b}}$` : `$${var1}=\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${b}}$`,
-
           // Erreur : inversion complète (comme si on isolait var2)
-          b < 0 ? `$${var1}=\\dfrac{${reduireAxPlusB(a, -c, var2)}}{${-b}}$` : `$${var1}=\\dfrac{${reduireAxPlusB(-a, c, var2)}}{${b}}$`
+          a < 0 ? `$${var1}=-\\dfrac{${c}}{${-a}}${ecritureAlgebriqueSauf1(-b)}${var2}$` : `$${var1}=\\dfrac{${c}}{${a}}${ecritureAlgebriqueSauf1(-b)}${var2}$`
         ]
       } else {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
@@ -100,11 +97,8 @@ export default class ExprimerVariable extends ExerciceSimple {
           // Erreur de signe dans le numérateur
           b < 0 ? `$${var2}=\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${-b}}$` : `$${var2}=\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${b}}$`,
 
-          // Erreur : mauvais coefficient au dénominateur (utilise a au lieu de b)
-          b < 0 ? `$${var2}=\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-a}}$` : `$${var2}=\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${a}}$`,
-
-          // Erreur : inversion complète (comme si on isolait var1)
-          a < 0 ? `$${var2}=\\dfrac{${reduireAxPlusB(b, -c, var1)}}{${-a}}$` : `$${var2}=\\dfrac{${reduireAxPlusB(-b, c, var1)}}{${a}}$`
+          // Erreur : inversion complète (comme si on isolait var2)
+          a < 0 ? `$${var2}=-\\dfrac{${c}}{${-a}}${ecritureAlgebriqueSauf1(-b)}${var1}$` : `$${var2}=\\dfrac{${c}}{${a}}${ecritureAlgebriqueSauf1(-b)}${var1}$`
         ]
       }
     }

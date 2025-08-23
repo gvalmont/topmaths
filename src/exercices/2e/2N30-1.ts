@@ -1,4 +1,4 @@
-import Exercice from '../6e/6N20-2'
+import Exercice from '../6e/auto6N2B-6'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
 export const interactifReady = true
 export const interactifType = 'custom'

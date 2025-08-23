@@ -43,7 +43,7 @@ export default class CoeffDirecteurDroite extends ExerciceSimple {
   }
 
   nouvelleVersion () {
-    switch (choice([1, 2, 3, 4, 4, 5, 5, 6, 6])) {
+    switch (choice([1, 2, 3, 4, 4, 5, 5, 6, 6])) { //
       case 1:
         {
           const a = 0
@@ -131,17 +131,17 @@ export default class CoeffDirecteurDroite extends ExerciceSimple {
       case 6:
       default:
         {
-          const a = randint(2, 10)
+          const a = randint(-9, 9, 0)
           const b = randint(-10, 10, [0, a])
-          const c = a + 1
-          const equation = `y=\\dfrac{${a}x${ecritureAlgebrique(b)}}{${c}}`
+          const c = randint(2, 9, a)
+          const equation = `y=\\dfrac{${rienSi1(a)}x${ecritureAlgebrique(b)}}{${c}}`
           this.question = this.questionReprise(equation)
           this.correction = this.correctionReprise() + `$m=${miseEnEvidence(`\\dfrac{${a}}{${c}}`)}$ et $p=${b}$.`
-          this.reponse = this.versionQcm ? `$m=\\dfrac{${a}}{${c}}$` : `\\dfrac{${a}}{${c}}`
+          this.reponse = this.versionQcm ? `$m=${new FractionEtendue(a, c).texFractionSimplifiee}$` : `\\dfrac{${a}}{${c}}`
           this.distracteurs = [
-            `$m=\\dfrac{${c}}{${a}}$`,
+            `$m=${new FractionEtendue(c, a).texFractionSimplifiee}$`,
             `$m=${a}$`,
-            `$m=${rienSi1(a)}x$`
+            `$m=\\dfrac{${rienSi1(a)}x}{${c}}$`
           ]
         }
         break

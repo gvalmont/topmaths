@@ -109,7 +109,10 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
           it(`${test.name} works with ${browserName}`, async ({ skip }) => {
             if (stop) return skip()
             try {
-              if (page === null) page = await getDefaultPage({ browserName })
+              if (page === null) {
+                page = await getDefaultPage({ browserName })
+                await createDefaultRoutes(page) // on crée les routes par défaut
+              }
               result = false
               const promise = test(page)
               if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
@@ -129,6 +132,21 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
     }
   })
 }
+
+async function createDefaultRoutes (page: Page) {
+  // This function can be used to set up default network routes or intercepts for the test page.
+  // For example, you might want to block analytics, set up mock API responses, or log requests.
+  // Here is a basic implementation that blocks requests to common analytics domains.
+  await page.route('https://podeduc.apps.education.fr/video/**', route => {
+    console.log(`[INTERCEPTÉ] Requête bloquée : ${route.request().url()}`)
+    route.fulfill({
+      status: 200,
+      contentType: 'text/html',
+      body: '<html><body><h3>Vidéo désactivée en test</h3></body></html>'
+    })
+  })
+}
+
 export async function getQuestions (page: Page, urlExercice: string) {
   const questionSelector = 'div#exo0 div.mb-5 div.container>li'
 

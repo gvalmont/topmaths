@@ -1,4 +1,4 @@
-import DernierChiffre from '../6e/6C34'
+import DernierChiffre from '../6e/6N0A-6'
 export const titre = 'Dernier chiffre d\'un calcul'
 export const amcReady = true
 export const interactifReady = true

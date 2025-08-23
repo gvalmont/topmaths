@@ -1,36 +1,36 @@
 import { tracePoint } from '../../lib/2d/points'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
-import { sp } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { context } from '../../modules/context'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Grandeur from '../../modules/Grandeur'
 import {
-  CodageAngleDroit3D,
-  rotation3d,
-  translation3d
-} from '../../lib/3d/tranformations'
+  droite3d, point3d,
+  polygone3d, vecteur3d
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
 import {
   cone3d,
   cube3d,
   cylindre3d,
   pave3d,
   pyramide3d, sphere3d
-} from '../../lib/3d/solides'
+} from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
-  droite3d, point3d,
-  polygone3d, vecteur3d
-} from '../../lib/3d/elements'
-import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { RedactionPythagore } from '../4e/_pythagore'
+  CodageAngleDroit3D,
+  rotation3d,
+  translation3d
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
+import { sp } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { context } from '../../modules/context'
+import Grandeur from '../../modules/Grandeur'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import { RedactionPythagore } from '../4e/_pythagore'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer des longueurs dans la géométrie dans l\'espace'
 export const amcReady = true
@@ -54,7 +54,7 @@ export const refs = {
 export default class CalculPythagoreEspace extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Type de longueur à trouver', 'Nombres séparés par des tirets\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
+    this.besoinFormulaireTexte = ['Type de longueur à trouver', 'Nombres séparés par des tirets :\n1 : Diagonale d\'une face d\'un cube\n2 : Diagonale d\'un cube\n3 : Diagonale d\'une face d\'un pavé droit\n4 : Diagonale d\'un pavé droit\n5 : Dans un cylindre\n6 : Dans une pyramide\n7 : Dans un cône\n8 : Rayon d\'une sphère\n9 : Rayon d\'une section d\'une sphère\n10 : Mélange']
 
     this.nbQuestions = 4
     this.sup2 = 1

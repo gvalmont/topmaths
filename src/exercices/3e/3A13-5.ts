@@ -1,14 +1,14 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import Operation from '../../modules/operations'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { context } from '../../modules/context'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import Exercice from '../Exercice'
 
 export const titre = 'Jouer avec la compréhension des multiples d\'un nombre'
 
@@ -38,7 +38,7 @@ export default class DivisionEuclidienneEtAjout extends Exercice {
       '1 : Ajouter un nombre\n2 : Soustraire un nombre\n3 : Mélange'
     ]
 
-    this.besoinFormulaire3Texte = ['Nombre de dizaines dans le diviseur', 'Nombres séparés par des tirets\nChoix entre 0 et 29\n30 : Mélange']
+    this.besoinFormulaire3Texte = ['Nombre de dizaines dans le diviseur', 'Nombres séparés par des tirets :\nChoix entre 0 et 29\n30 : Mélange']
 
     this.nbQuestions = 5
     this.sup = true

@@ -1,6 +1,6 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import ExerciceSimple from '../../ExerciceSimple'
@@ -17,7 +17,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'c3b5b'
 
 export const refs = {
-  'fr-fr': ['can6C12'],
+  'fr-fr': ['can6C12', 'auto6P3A-flash2'],
   'fr-ch': []
 }
 export default class DoubleOuTriple extends ExerciceSimple {

@@ -41,7 +41,7 @@ export default class ExercicePolynesie52024 extends ExerciceBrevetA {
     const volume = Math.PI * r ** 2 * h
     const dureeMax = volume / v2
     const volumeArrondi = Math.round(volume * 10) / 10
-    const volumeRestant = volumeArrondi - v1 * 2
+    const volumeRestant = volumeArrondi - v1 * duree
     const xMin = -20
     const xMax = Math.ceil((dureeMax + 10) / 10) * 10
     const yMax = Math.ceil(volumeArrondi / 50) * 50 + 10

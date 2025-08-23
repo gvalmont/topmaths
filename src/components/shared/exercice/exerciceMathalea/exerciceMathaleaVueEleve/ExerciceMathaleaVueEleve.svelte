@@ -4,155 +4,158 @@
     resultsByExercice,
     exercicesParams,
     isMenuNeededForExercises,
-  } from '../../../../../lib/stores/generalStore';
-  import { statsTracker } from '../../../../../modules/stats';
-  import { afterUpdate, onMount, tick, onDestroy, beforeUpdate } from 'svelte';
-  import type TypeExercice from '../../../../../exercices/Exercice';
-  import seedrandom from 'seedrandom';
+  } from '../../../../../lib/stores/generalStore'
+  import { statsTracker } from '../../../../../modules/statsUtils'
+  import { afterUpdate, onMount, tick, onDestroy, beforeUpdate } from 'svelte'
+  import type TypeExercice from '../../../../../exercices/Exercice'
+  import seedrandom from 'seedrandom'
   import {
     prepareExerciceCliqueFigure,
     exerciceInteractif,
-  } from '../../../../../lib/interactif/gestionInteractif';
-  import { loadMathLive } from '../../../../../modules/loaders';
+  } from '../../../../../lib/interactif/gestionInteractif'
+  import { loadMathLive } from '../../../../../modules/loaders'
   import {
     mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams,
     mathaleaWriteStudentPreviousAnswers,
-  } from '../../../../../lib/mathalea';
-  import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte';
-  import type { MathfieldElement } from 'mathlive';
-  import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale';
-  import Question from './presentationalComponents/Question.svelte';
-  import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte';
-  import { isLocalStorageAvailable } from '../../../../../lib/stores/storage';
-  import type { InterfaceParams, InterfaceResultExercice } from 'src/lib/types';
-  import { countMathField } from '../../countMathField';
-  import { handleCorrectionAffichee } from '../../handleCorrection';
-  export let exercise: TypeExercice;
-  export let exerciseIndex: number;
-  export let indiceLastExercice: number;
-  export let isCorrectionVisible: boolean = false;
+  } from '../../../../../lib/mathalea'
+  import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
+  import type { MathfieldElement } from 'mathlive'
+  import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
+  import Question from './presentationalComponents/Question.svelte'
+  import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
+  import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
+  import type {
+    InterfaceParams,
+    InterfaceResultExercice,
+  } from '../../../../../lib/types'
+  import { countMathField } from '../../countMathField'
+  import { handleCorrectionAffichee } from '../../handleCorrection'
+  export let exercise: TypeExercice
+  export let exerciseIndex: number
+  export let indiceLastExercice: number
+  export let isCorrectionVisible: boolean = false
 
-  let divExercice: HTMLDivElement;
-  let divScore: HTMLDivElement;
-  let buttonScore: HTMLButtonElement;
-  let columnsCount = $exercicesParams[exerciseIndex].cols || 1;
-  let isInteractif = exercise.interactif && exercise?.interactifReady;
+  let divExercice: HTMLDivElement
+  let divScore: HTMLDivElement
+  let buttonScore: HTMLButtonElement
+  let columnsCount = $exercicesParams[exerciseIndex].cols || 1
+  let isInteractif = exercise.interactif && exercise?.interactifReady
   // une variable locale car si on modifie isCorrectionVisible, parfois elle devient undefined
-  let isCorrectVisible = isCorrectionVisible;
+  let isCorrectVisible = isCorrectionVisible
 
-  let title: string;
+  let title: string
   if ($globalOptions.isTitleDisplayed) {
     title = exercise.id
       ? `${exercise.id.replace('.js', '').replace('.ts', '')} - ${exercise.titre}`
-      : exercise.titre;
+      : exercise.titre
   } else {
-    title = exercise.id || '';
+    title = exercise.id || ''
   }
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event('exercicesAffiches', {
     bubbles: true,
-  });
+  })
 
-  let headerExerciceProps: { title: string } = { title };
+  let headerExerciceProps: { title: string } = { title }
 
   $: {
-    if (isInteractif && buttonScore) initButtonScore();
-    if (!isInteractif && divScore) divScore.innerHTML = '';
-    headerExerciceProps = headerExerciceProps;
+    if (isInteractif && buttonScore) initButtonScore()
+    if (!isInteractif && divScore) divScore.innerHTML = ''
+    headerExerciceProps = headerExerciceProps
   }
 
-  let numberOfAnswerFields: number = 0;
+  let numberOfAnswerFields: number = 0
 
   async function forceUpdate() {
-    if (exercise == null) return;
-    exercise.numeroExercice = exerciseIndex;
-    await adjustMathalea2dFiguresWidth();
+    if (exercise == null) return
+    exercise.numeroExercice = exerciseIndex
+    await adjustMathalea2dFiguresWidth()
   }
 
   function updateAnswers() {
     if ($globalOptions.done === '1' && $globalOptions.recorder !== 'capytale') {
       const q1 = document.querySelector<HTMLElement>(
-        '#exercice' + exercise.numeroExercice + 'Q0'
-      );
-      if (q1?.innerText === 'chargement...') return; // en attente du chargement de l'exercice
-      const fields = document.querySelectorAll('math-field');
+        '#exercice' + exercise.numeroExercice + 'Q0',
+      )
+      if (q1?.innerText === 'chargement...') return // en attente du chargement de l'exercice
+      const fields = document.querySelectorAll('math-field')
       fields.forEach((field) => {
-        field.setAttribute('disabled', 'true');
-      });
-      const url = new URL(window.location.href);
+        field.setAttribute('disabled', 'true')
+      })
+      const url = new URL(window.location.href)
       // Pour Moodle, les réponses sont dans l'URL
-      const answers = url.searchParams.get('answers');
-      const objAnswers = answers ? JSON.parse(answers) : undefined;
+      const answers = url.searchParams.get('answers')
+      const objAnswers = answers ? JSON.parse(answers) : undefined
       if (
         JSON.stringify($globalOptions.answers) === JSON.stringify(objAnswers)
       ) {
-        $globalOptions.answers = objAnswers;
+        $globalOptions.answers = objAnswers
       }
-      mathaleaUpdateUrlFromExercicesParams($exercicesParams);
+      mathaleaUpdateUrlFromExercicesParams($exercicesParams)
       Promise.all(mathaleaWriteStudentPreviousAnswers(objAnswers)).then(() => {
         // une fois que les réponses sont chargées et on en est sûr, on clique...
         if (buttonScore) {
-          exercise.isDone = true;
-          buttonScore.click();
+          exercise.isDone = true
+          buttonScore.click()
         }
-      });
+      })
     }
   }
 
   onDestroy(() => {
-    log('ondestroy' + exercise.id);
+    log('ondestroy' + exercise.id)
     // Détruit l'objet exercice pour libérer la mémoire
-    exercise.reinit(); // MGu nécessaire pour supprimer les listeners
-  });
+    exercise.reinit() // MGu nécessaire pour supprimer les listeners
+  })
 
   onMount(async () => {
-    log('onMount');
-    document.addEventListener('newDataForAll', newData);
-    document.addEventListener('setAllInteractif', setAllInteractif);
-    document.addEventListener('removeAllInteractif', removeAllInteractif);
-    document.addEventListener('updateAsyncEx', forceUpdate);
-    updateDisplay();
+    log('onMount')
+    document.addEventListener('newDataForAll', newData)
+    document.addEventListener('setAllInteractif', setAllInteractif)
+    document.addEventListener('removeAllInteractif', removeAllInteractif)
+    document.addEventListener('updateAsyncEx', forceUpdate)
+    updateDisplay()
     if ($globalOptions.setInteractive === '1') {
-      setAllInteractif();
+      setAllInteractif()
     } else if ($globalOptions.setInteractive === '0') {
-      removeAllInteractif();
+      removeAllInteractif()
     }
-  });
+  })
 
   beforeUpdate(async () => {
-    log('beforeUpdate:' + exercise.id);
-    numberOfAnswerFields = countMathField(exercise);
-    log('isCorrectVisible:' + isCorrectVisible);
-  });
+    log('beforeUpdate:' + exercise.id)
+    numberOfAnswerFields = countMathField(exercise)
+    log('isCorrectVisible:' + isCorrectVisible)
+  })
 
   afterUpdate(async () => {
-    log('afterUpdate');
+    log('afterUpdate')
     // console.trace()
     // const starttime = window.performance.now()
     if (exercise) {
-      await tick();
+      await tick()
       // let time = window.performance.now()
       // log('duration tick:'+ (time - starttime))
-      updateAnswers();
+      updateAnswers()
       // time = window.performance.now()
       // log('duration updateAnswers:'+ (time - starttime))
-      mathaleaRenderDiv(divExercice);
+      mathaleaRenderDiv(divExercice)
       // time = window.performance.now()
       // log('duration mathaleaRenderDiv:'+ (time - starttime))
-      adjustMathalea2dFiguresWidth();
+      adjustMathalea2dFiguresWidth()
       // time = window.performance.now()
       // log('duration adjustMathalea2dFiguresWidth:'+ (time - starttime))
       if (exercise.interactif) {
-        log('loadMathLive');
-        loadMathLive(divExercice);
-        log('end loadMathLive');
+        log('loadMathLive')
+        loadMathLive(divExercice)
+        log('end loadMathLive')
         // time = window.performance.now()
         // log('duration loadMathLive:'+ (time - starttime))
         if (exercise.interactifType === 'cliqueFigure' && !isCorrectVisible) {
-          prepareExerciceCliqueFigure(exercise);
+          prepareExerciceCliqueFigure(exercise)
         }
 
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
@@ -164,139 +167,139 @@
             window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) !=
               null
           ) {
-            newData();
+            newData()
           }
         } catch (e) {
-          console.error(e);
+          console.error(e)
         }
         // time = window.performance.now()
         // log('duration interactif:'+ (time - starttime))
       }
     }
     // affectation du zoom pour les figures scratch
-    const scratchDivs = divExercice.getElementsByClassName('scratchblocks');
+    const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
     for (const scratchDiv of scratchDivs) {
-      const svgDivs = scratchDiv.getElementsByTagName('svg');
+      const svgDivs = scratchDiv.getElementsByTagName('svg')
       for (const svg of svgDivs) {
         if (svg.hasAttribute('data-width') === false) {
-          const originalWidth = svg.getAttribute('width');
-          svg.dataset.width = originalWidth ?? '';
+          const originalWidth = svg.getAttribute('width')
+          svg.dataset.width = originalWidth ?? ''
         }
         if (svg.hasAttribute('data-height') === false) {
-          const originalHeight = svg.getAttribute('height');
-          svg.dataset.height = originalHeight ?? '';
+          const originalHeight = svg.getAttribute('height')
+          svg.dataset.height = originalHeight ?? ''
         }
         const w =
-          Number(svg.getAttribute('data-width')) * Number($globalOptions.z);
+          Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
         const h =
-          Number(svg.getAttribute('data-height')) * Number($globalOptions.z);
-        svg.setAttribute('width', w.toString());
-        svg.setAttribute('height', h.toString());
+          Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
+        svg.setAttribute('width', w.toString())
+        svg.setAttribute('height', h.toString())
       }
     }
-    document.dispatchEvent(exercicesAffiches);
+    document.dispatchEvent(exercicesAffiches)
     if (isCorrectVisible) {
-      handleCorrectionAffichee();
+      handleCorrectionAffichee()
     }
-  });
+  })
 
   async function newData() {
-    exercise.isDone = false;
-    if (isCorrectVisible) switchCorrectionVisible(false);
-    const seed = mathaleaGenerateSeed();
-    exercise.seed = seed;
-    if (buttonScore) initButtonScore();
-    if (divScore) divScore.innerHTML = '';
-    updateDisplay();
+    exercise.isDone = false
+    if (isCorrectVisible) switchCorrectionVisible(false)
+    const seed = mathaleaGenerateSeed()
+    exercise.seed = seed
+    if (buttonScore) initButtonScore()
+    if (divScore) divScore.innerHTML = ''
+    updateDisplay()
   }
 
   async function setAllInteractif() {
     if (exercise?.interactifReady && !isInteractif) {
-      isInteractif = true;
-      updateDisplay();
+      isInteractif = true
+      updateDisplay()
     }
   }
   async function removeAllInteractif() {
     if (exercise?.interactifReady && isInteractif) {
-      isInteractif = false;
-      updateDisplay();
+      isInteractif = false
+      updateDisplay()
     }
   }
 
-  const debug = false;
+  const debug = false
   function log(str: string) {
     if (debug) {
-      console.info(str);
+      console.info(str)
     }
   }
 
   async function updateDisplay() {
-    log('updateDisplay');
-    if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed();
-    seedrandom(exercise.seed, { global: true });
+    log('updateDisplay')
+    if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+    seedrandom(exercise.seed, { global: true })
     if (exercise.typeExercice === 'simple')
-      mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex);
-    exercise.interactif = isInteractif;
+      mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
+    exercise.interactif = isInteractif
     if ($exercicesParams[exerciseIndex] != null) {
       // Des erreurs bugsnag font état de cet objet undefined. JC le 3/12/2024
       // MGU ne sette que si nécessaire, car ici c'est un storer
       if ($exercicesParams[exerciseIndex].alea !== exercise.seed)
-        $exercicesParams[exerciseIndex].alea = exercise.seed;
+        $exercicesParams[exerciseIndex].alea = exercise.seed
       if (isInteractif && $exercicesParams[exerciseIndex].interactif !== '1')
-        $exercicesParams[exerciseIndex].interactif = '1';
+        $exercicesParams[exerciseIndex].interactif = '1'
       if (!isInteractif && $exercicesParams[exerciseIndex].interactif !== '0')
-        $exercicesParams[exerciseIndex].interactif = '0';
+        $exercicesParams[exerciseIndex].interactif = '0'
       if (
         columnsCount > 1 &&
         columnsCount !== $exercicesParams[exerciseIndex].cols
       )
-        $exercicesParams[exerciseIndex].cols = columnsCount;
+        $exercicesParams[exerciseIndex].cols = columnsCount
       if (
         columnsCount <= 1 &&
         $exercicesParams[exerciseIndex].hasOwnProperty('cols') &&
         $exercicesParams[exerciseIndex].cols !== undefined
       )
-        $exercicesParams[exerciseIndex].cols = undefined;
+        $exercicesParams[exerciseIndex].cols = undefined
     }
-    exercise.numeroExercice = exerciseIndex;
+    exercise.numeroExercice = exerciseIndex
     if (
       exercise !== undefined &&
       exercise.typeExercice !== 'simple' &&
       typeof exercise.nouvelleVersionWrapper === 'function'
     ) {
-      exercise.nouvelleVersionWrapper(exerciseIndex);
+      exercise.nouvelleVersionWrapper(exerciseIndex)
     }
-    mathaleaUpdateUrlFromExercicesParams($exercicesParams);
-    await adjustMathalea2dFiguresWidth();
+    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    await adjustMathalea2dFiguresWidth()
   }
 
   function verifExerciceVueEleve() {
-    log('verifExerciceVueEleve');
+    log('verifExerciceVueEleve')
     if (exercise.numeroExercice != null && !(exercise.isDone === true))
       statsTracker(
         exercise,
         $globalOptions.recorder ?? '',
-        $globalOptions.v ?? ''
-      );
-    exercise.isDone = true;
-    if ($globalOptions.isSolutionAccessible) isCorrectVisible = true;
+        $globalOptions.v ?? '',
+      )
+    exercise.isDone = true
+    if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
     if (exercise.numeroExercice != null) {
       const previousBestScore =
-        $exercicesParams[exercise.numeroExercice]?.bestScore ?? 0;
+        $exercicesParams[exercise.numeroExercice]?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(
         exercise,
         divScore,
-        buttonScore
-      );
-      const isThisTryBetter = numberOfPoints >= previousBestScore;
-      let bestScore = previousBestScore;
+        buttonScore,
+      )
+      const isThisTryBetter = numberOfPoints >= previousBestScore
+      let bestScore = previousBestScore
       // On ne met à jour resultsByExercice que si le score est meilleur
       if (isThisTryBetter) {
-        bestScore = numberOfPoints;
+        bestScore = numberOfPoints
         exercicesParams.update((l: InterfaceParams[]) => {
-          l[exercise.numeroExercice as number].bestScore = bestScore;
-          return l;
-        });
+          l[exercise.numeroExercice as number].bestScore = bestScore
+          return l
+        })
         resultsByExercice.update((l: InterfaceResultExercice[]) => {
           l[exercise.numeroExercice as number] = {
             uuid: exercise.uuid,
@@ -308,46 +311,46 @@
             numberOfPoints,
             numberOfQuestions,
             bestScore,
-          };
-          return l;
-        });
+          }
+          return l
+        })
       }
 
       if ($globalOptions.recorder === 'moodle') {
-        const url = new URL(window.location.href);
-        const iframe = url.searchParams.get('iframe');
+        const url = new URL(window.location.href)
+        const iframe = url.searchParams.get('iframe')
         console.info({
           resultsByExercice: $resultsByExercice,
           action: 'mathalea:score',
           iframe,
-        });
+        })
         window.parent.postMessage(
           {
             resultsByExercice: $resultsByExercice,
             action: 'mathalea:score',
             iframe,
           },
-          '*'
-        );
+          '*',
+        )
       } else if ($globalOptions.recorder === 'capytale') {
         if (buttonScore.dataset.capytaleLoadAnswers === '1') {
           console.info(
-            'Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau'
-          );
-          return;
+            'Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau',
+          )
+          return
         }
         if (isThisTryBetter) {
           sendToCapytaleSaveStudentAssignment({
             indiceExercice: exerciseIndex,
-          });
+          })
         }
       }
     }
   }
 
   function initButtonScore() {
-    buttonScore.classList.remove(...buttonScore.classList);
-    buttonScore.id = `buttonScoreEx${exerciseIndex}`;
+    buttonScore.classList.remove(...buttonScore.classList)
+    buttonScore.id = `buttonScoreEx${exerciseIndex}`
     buttonScore.classList.add(
       'inline-block',
       'px-6',
@@ -380,8 +383,8 @@
       'transition',
       'duration-150',
       'ease-in-out',
-      'checkReponses'
-    );
+      'checkReponses',
+    )
   }
 
   /**
@@ -391,11 +394,11 @@
    * @author sylvain
    */
   async function adjustMathalea2dFiguresWidth(
-    initialDimensionsAreNeeded: boolean = false
+    initialDimensionsAreNeeded: boolean = false,
   ) {
     const mathalea2dFigures =
-      document.querySelectorAll<SVGElement>('.mathalea2d');
-    const zoom = Number($globalOptions.z ?? 1);
+      document.querySelectorAll<SVGElement>('.mathalea2d')
+    const zoom = Number($globalOptions.z ?? 1)
     // console.log('zoom:' + zoom )
     if (mathalea2dFigures != null) {
       if (mathalea2dFigures.length !== 0) {
@@ -405,19 +408,19 @@
           if (initialDimensionsAreNeeded) {
             // réinitialisation
             const initialWidth = mathalea2dFigures[k].getAttribute(
-              'data-width-initiale'
-            );
+              'data-width-initiale',
+            )
             const initialHeight = mathalea2dFigures[k].getAttribute(
-              'data-height-initiale'
-            );
+              'data-height-initiale',
+            )
             mathalea2dFigures[k].setAttribute(
               'width',
-              (Number(initialWidth) * zoom).toString()
-            );
+              (Number(initialWidth) * zoom).toString(),
+            )
             mathalea2dFigures[k].setAttribute(
               'height',
-              (Number(initialHeight) * zoom).toString()
-            );
+              (Number(initialHeight) * zoom).toString(),
+            )
             // les éléments Katex des figures SVG
             if (
               mathalea2dFigures[k] != null &&
@@ -427,18 +430,18 @@
                 mathalea2dFigures[
                   k
                 ].parentElement?.querySelectorAll<HTMLElement>(
-                  'div.divLatex'
-                ) || [];
+                  'div.divLatex',
+                ) || []
               for (const elt of eltsInFigures) {
-                const e = elt;
+                const e = elt
                 e.style.setProperty(
                   'top',
-                  (Number(e.dataset.top) * zoom).toString() + 'px'
-                );
+                  (Number(e.dataset.top) * zoom).toString() + 'px',
+                )
                 e.style.setProperty(
                   'left',
-                  (Number(e.dataset.left) * zoom).toString() + 'px'
-                );
+                  (Number(e.dataset.left) * zoom).toString() + 'px',
+                )
               }
             }
           }
@@ -448,7 +451,7 @@
           */
           const consigneDiv = mathalea2dFigures[k]
             .closest('article')
-            ?.querySelector('[id^="consigne"]');
+            ?.querySelector('[id^="consigne"]')
           // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
           if (
             consigneDiv &&
@@ -456,29 +459,29 @@
           ) {
             const coef =
               (consigneDiv.clientWidth * 0.95) /
-              mathalea2dFigures[k].clientWidth;
+              mathalea2dFigures[k].clientWidth
             // console.log('coef:' + coef )
-            const width = mathalea2dFigures[k].getAttribute('width');
-            const height = mathalea2dFigures[k].getAttribute('height');
+            const width = mathalea2dFigures[k].getAttribute('width')
+            const height = mathalea2dFigures[k].getAttribute('height')
             if (!mathalea2dFigures[k].dataset.widthInitiale && width != null)
-              mathalea2dFigures[k].dataset.widthInitiale = width;
+              mathalea2dFigures[k].dataset.widthInitiale = width
             if (!mathalea2dFigures[k].dataset.heightInitiale && height != null)
-              mathalea2dFigures[k].dataset.heightInitiale = height;
+              mathalea2dFigures[k].dataset.heightInitiale = height
             const newHeight = (
               Number(mathalea2dFigures[k].dataset.heightInitiale) *
               zoom *
               coef
-            ).toString();
+            ).toString()
             const newWidth = (
               Number(mathalea2dFigures[k].dataset.widthInitiale) *
               zoom *
               coef
-            ).toString();
+            ).toString()
             if (width !== newWidth) {
-              mathalea2dFigures[k].setAttribute('width', newWidth);
+              mathalea2dFigures[k].setAttribute('width', newWidth)
             }
             if (height !== newHeight) {
-              mathalea2dFigures[k].setAttribute('height', newHeight);
+              mathalea2dFigures[k].setAttribute('height', newHeight)
             }
 
             if (
@@ -489,20 +492,20 @@
                 mathalea2dFigures[
                   k
                 ].parentElement?.querySelectorAll<HTMLElement>(
-                  'div.divLatex'
-                ) || [];
+                  'div.divLatex',
+                ) || []
               for (const elt of eltsInFigures) {
-                const e = elt;
-                const initialTop = Number(e.dataset.top) ?? 0;
-                const initialLeft = Number(e.dataset.left) ?? 0;
+                const e = elt
+                const initialTop = Number(e.dataset.top) ?? 0
+                const initialLeft = Number(e.dataset.left) ?? 0
                 e.style.setProperty(
                   'top',
-                  (initialTop * coef * zoom).toString() + 'px'
-                );
+                  (initialTop * coef * zoom).toString() + 'px',
+                )
                 e.style.setProperty(
                   'left',
-                  (initialLeft * coef * zoom).toString() + 'px'
-                );
+                  (initialLeft * coef * zoom).toString() + 'px',
+                )
               }
             }
           }
@@ -513,17 +516,17 @@
 
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
   window.onresize = () => {
-    adjustMathalea2dFiguresWidth(true);
-  };
+    adjustMathalea2dFiguresWidth(true)
+  }
 
   function switchCorrectionVisible(newdata: boolean = true) {
-    isCorrectVisible = !isCorrectVisible;
+    isCorrectVisible = !isCorrectVisible
     if (
       isCorrectVisible &&
       isLocalStorageAvailable() &&
       exercise.id !== undefined
     ) {
-      window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true');
+      window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
     }
     if (
       newdata &&
@@ -532,23 +535,23 @@
       !isCorrectVisible &&
       !exercise.isDone
     ) {
-      newData();
+      newData()
     }
-    if (newdata) adjustMathalea2dFiguresWidth();
+    if (newdata) adjustMathalea2dFiguresWidth()
   }
 
   function switchInteractif() {
-    if (isCorrectVisible) switchCorrectionVisible();
-    isInteractif = !isInteractif;
-    exercise.interactif = isInteractif;
-    $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0';
-    updateDisplay();
+    if (isCorrectVisible) switchCorrectionVisible()
+    isInteractif = !isInteractif
+    exercise.interactif = isInteractif
+    $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
+    updateDisplay()
   }
 
   function columnsCountUpdate(plusMinus: '+' | '-') {
-    if (plusMinus === '+') columnsCount++;
-    if (plusMinus === '-') columnsCount--;
-    updateDisplay();
+    if (plusMinus === '+') columnsCount++
+    if (plusMinus === '-') columnsCount--
+    updateDisplay()
   }
 </script>
 

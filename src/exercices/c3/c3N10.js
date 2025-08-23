@@ -1,4 +1,4 @@
-import ÉcrireNombresEntiers from '../6e/6N10'
+import ÉcrireNombresEntiers from '../6e/6N0A-6'
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
 export const amcReady = true
 export const amcType = 'AMCOpen'

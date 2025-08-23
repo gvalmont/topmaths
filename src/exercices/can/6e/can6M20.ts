@@ -18,7 +18,7 @@ export const amcReady = true
 export const uuid = '10697'
 
 export const refs = {
-  'fr-fr': ['can6M20'],
+  'fr-fr': ['can6M20', 'auto6M12-flash1'],
   'fr-ch': []
 }
 export default class ConversionUnitesMetriquesConsecutives extends ExerciceSimple {

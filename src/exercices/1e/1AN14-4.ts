@@ -1,13 +1,13 @@
-import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { Polynome } from '../../lib/mathFonctions/Polynome'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { rienSi1 } from '../../lib/outils/ecritures'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { rienSi1 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Dérivée de $u + v$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +26,7 @@ export const dateDePublication = '17/04/2024'
 class DerivationSommesSimples extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 : polynôme et inverse\n2 : polynôme et racine carrée\n3 : inverse et racine carrée\n4 : les trois réunis\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets :\n1 : polynôme et inverse\n2 : polynôme et racine carrée\n3 : inverse et racine carrée\n4 : les trois réunis\n5 : Mélange']
     this.sup = '5'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true

@@ -1,15 +1,15 @@
+import Decimal from 'decimal.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import { prenomPronom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import {
-  randint,
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  gestionnaireFormulaireTexte
+  randint
 } from '../../modules/outils'
-import Decimal from 'decimal.js'
-import { propositionsQcm } from '../../lib/interactif/qcm'
+import Exercice from '../Exercice'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -34,7 +34,7 @@ export default class nomExercice extends Exercice {
     super()
 
     this.nbQuestions = 5
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Problèmes \'\'naturels\'\'\n2 : Problèmes avec des puissances de 10\n3 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : Problèmes \'\'naturels\'\'\n2 : Problèmes avec des puissances de 10\n3 : Mélange']
     this.sup = '3'
   }
 

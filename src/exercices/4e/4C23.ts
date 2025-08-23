@@ -1,16 +1,16 @@
+import { orangeMathalea } from '../../lib/colors'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { simplificationDeFractionAvecEtapes, texFractionFromString } from '../../lib/outils/deprecatedFractions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
-import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { orangeMathalea } from '../../lib/colors'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Effectuer somme, différence, produit ou quotient de fractions'
 export const interactifType = 'mathLive'
@@ -34,7 +34,7 @@ export default class SommeOuProduitFractions extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Type de questions',
-      'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient'
+      'Nombres séparés par des tirets :\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient'
     ]
     this.spacing = 3
     this.spacingCorr = context.isHtml ? 3 : 3

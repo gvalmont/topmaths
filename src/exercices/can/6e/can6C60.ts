@@ -1,11 +1,11 @@
-import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import ExerciceSimple from '../../ExerciceSimple'
-import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { pgcd } from '../../../lib/outils/primalite'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer la somme ou la différence d\'un entier et d\'une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const dateDePublication = '06/07/2025'
 export const uuid = 'dd7d1'
 
 export const refs = {
-  'fr-fr': ['can6C60'],
+  'fr-fr': ['can6C60', '6N3K-flash5'],
   'fr-ch': []
 }
 export default class SommeDiffEntierFraction extends ExerciceSimple {

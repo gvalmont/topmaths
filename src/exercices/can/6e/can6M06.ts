@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js'
 import { cercle } from '../../../lib/2d/cercle'
 import { milieu, point, pointAdistance, pointIntersectionCC, tracePoint } from '../../../lib/2d/points'
 import { polygoneAvecNom } from '../../../lib/2d/polygones'
@@ -6,10 +7,9 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
-import Decimal from 'decimal.js'
 export const titre = 'Calculer le périmètre d’une figure'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +24,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'e52ba'
 
 export const refs = {
-  'fr-fr': ['can6M06'],
+  'fr-fr': ['can6M06', 'CM1M1H-flash2'],
   'fr-ch': []
 }
 export default class Perimetre extends ExerciceSimple {

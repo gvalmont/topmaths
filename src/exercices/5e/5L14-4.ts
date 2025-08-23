@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../lib/outils/embellissements'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
 
@@ -21,7 +21,7 @@ export default class DeterminerDerniereOperationExpressionLitterale extends Exer
     super()
     this.besoinFormulaireCaseACocher = ['Signe × explicite', true]
     this.besoinFormulaire2CaseACocher = ['Avec décimaux.', false]
-    this.besoinFormulaire3Texte = ['Nombre d\'opérations', 'Nombres séparés par des tirets\n1 : 1 opération\n2 : 2 opérations\n3 : 3 opérations\n4 : 4 opérations\n5 : Entre 2 et 5 opérations']
+    this.besoinFormulaire3Texte = ['Nombre d\'opérations', 'Nombres séparés par des tirets :\n1 : 1 opération\n2 : 2 opérations\n3 : 3 opérations\n4 : 4 opérations\n5 : Entre 2 et 5 opérations']
     this.nbQuestions = 4
     this.sup3 = 5
     this.consigne = 'Déterminer la dernière opération à effectuer s\'il fallait faire le calcul pour des valeurs données de $x$ et de $y$.'

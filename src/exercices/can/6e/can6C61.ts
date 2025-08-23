@@ -1,10 +1,10 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import ExerciceSimple from '../../ExerciceSimple'
+import Decimal from 'decimal.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { randint } from '../../../modules/outils'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Decimal from 'decimal.js'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Calculer un produit par déduction d\'un autre produit'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,7 +15,7 @@ export const dateDePublication = '06/07/2025'
 export const uuid = 'a3046'
 
 export const refs = {
-  'fr-fr': ['can6C61'],
+  'fr-fr': ['can6C61', '6N2D-flash1'],
   'fr-ch': []
 }
 export default class ProduitParDeduction extends ExerciceSimple {

@@ -9,11 +9,11 @@ import {
 import Exercice from '../Exercice'
 
 import Decimal from 'decimal.js'
+import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import type { MathfieldElement } from 'mathlive'
 
 export const titre = 'Recomposer un entier'
 export const interactifReady = true
@@ -66,12 +66,12 @@ export default class RecomposerEntierC3 extends Exercice {
       9
     ]
     this.besoinFormulaire3Texte = [
-      'Types de question séparés par des tirets',
+      'Types de question séparés par des tirets :',
       '1 : Décomposer (donner les chiffres)\n2 : Décomposer (compléter avec 10, 100...)\n3 : Composer (sans groupement)\n4 : Composer avec groupement\n5 : Mélange'
     ]
     this.besoinFormulaire4Texte = [
       'Présence de zéro(s) ',
-      'Nombres séparés par des tirets\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
+      'Nombres séparés par des tirets :\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
     ]
     this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
     this.nbQuestions = 4

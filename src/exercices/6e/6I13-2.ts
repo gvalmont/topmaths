@@ -1,16 +1,14 @@
-import { shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { createList } from '../../lib/format/lists'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 // import type { VisualPattern } from '../../lib/2d/patterns/VisualPattern'
+import { listePattern3d } from '../../lib/2d/patterns/patternsPreDef'
 import { VisualPattern3D } from '../../lib/2d/patterns/VisualPattern3D'
 import { range } from '../../lib/outils/nombres'
-import type { SceneViewer } from '../../lib/3d/SceneViewer'
-import { listePattern3d } from '../../lib/2d/patterns/patternsPreDef'
-import { AframeRegisteredComponent } from '../../lib/3d/solidesAFrame'
 import { context } from '../../modules/context'
 
 export const titre = 'Comprendre un algorithme itératif'
@@ -34,6 +32,7 @@ export const refs = {
 }
 
 export default class PaternNum0 extends Exercice {
+  canvas3ds: any[][] = []
   constructor () {
     super()
     this.nbQuestions = 1
@@ -42,12 +41,11 @@ export default class PaternNum0 extends Exercice {
  Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/`
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
-    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
+    this.besoinFormulaire4Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes']
     this.sup4 = '6'
   }
 
   nouvelleVersion (): void {
-    const sceneBuilders: SceneViewer[][] = []
     if (this.nbQuestions > 25) this.nbQuestions = 25
     // on ne conserve que les linéaires et les affines.
     const listePreDef = shuffle(listePattern3d)
@@ -55,17 +53,12 @@ export default class PaternNum0 extends Exercice {
     const typesQuestions = Array.from(new Set(gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 5, defaut: 1, melange: 6, nbQuestions: 5, shuffle: false }).map(Number)))
     let indexInteractif = 0
     for (let i = 0; i < this.nbQuestions;) {
-      sceneBuilders[i] = []
+      const canvas3d: any[] = []
       const popped = listePreDef.pop()
       if (!popped) {
         continue
       }
-      for (const shape of popped.shapes ?? ['cube-trois-couleurs-tube-edges']) {
-        if (!AframeRegisteredComponent.includes(shape as (typeof AframeRegisteredComponent)[number])) {
-          console.warn(`Le motif ${shape} n'est pas un motif valide dans la liste des motifs 3D.`)
-          continue
-        }
-      }
+
       const delta = popped.fonctionNb(2) - popped.fonctionNb(1)
       const b = popped.fonctionNb(1) - delta
       const explain = popped.type === 'linéaire'
@@ -77,15 +70,14 @@ export default class PaternNum0 extends Exercice {
       pattern.shapes = ([...(popped.shapes ?? ['cube-trois-couleurs-tube-edges'])].slice(0, 11) as unknown) as typeof pattern.shapes
       pattern.iterate3d = popped.iterate3d
 
-      let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs figuratifs. Ils évoluent selon des règles définies.<br><br>
-      ${range(nbFigures - 1).map(j => `<div id=emplacementPourSceneViewerSerie${i}F${j} style="display: inline-block; width: 150px; height: 170px; margin-right: 10px;"><h1>motif ${j + 1}</h1></div>`).join('\n')}`
+      let texte = `Voici les ${nbFigures} premiers motifs d'une série de motifs figuratifs. Ils évoluent selon des règles définies.<br><br>`
 
       for (let j = 0; j < nbFigures + 1; j++) {
         pattern.prefixId = `Serie${i}F${j}`
-        const sb = pattern.render3d(j + 1)
-        sb.id = `Serie${i}F${j}`
-        sceneBuilders[i].push(sb)
+        const c3d = pattern.render3d(j + 1)
+        canvas3d.push(c3d)
       }
+      texte += `${range(nbFigures - 1).map(j => `<div style="display: inline-block; width: 250px; height: 250px; margin-right: 10px;">${canvas3d[j]}<h1>motif ${j + 1}</h1></div>`).join('\n')}`
 
       let texteCorr = ''
       const listeQuestions: string[] = []
@@ -95,9 +87,10 @@ export default class PaternNum0 extends Exercice {
         switch (q) {
           case 1:
             listeQuestions.push(`\nDessiner le motif $${nbFigures + 1}$.<br>`)
+            canvas3d[nbFigures + 1] = pattern.render3d(nbFigures + 1)
             listeCorrections.push(`Voici le motif $${nbFigures + 1}$ :<br>
               ${context.isHtml
-              ? `<div id=emplacementPourSceneViewerSerie${i}F${nbFigures} style="display: inline-block; width: 150px; height: 170px; margin-right: 10px;"><h1>motif ${nbFigures + 1}</h1></div>`
+              ? `<div style="display: inline-block; width: 250px; height: 250px; margin-right: 10px;">${canvas3d[nbFigures + 1]}</div>`
               : ''}`)
             break
           case 2:{
@@ -191,40 +184,5 @@ exercice: this,
       this.listeCorrections.push(texteCorr)
       i++
     }
-    const listener2 = () => {
-      for (let i = 0; i < sceneBuilders.length; i++) {
-        const sb = sceneBuilders[i][sceneBuilders[i].length - 1]
-        const id = `emplacementPourSceneViewerSerie${i}F${sceneBuilders[i].length - 1}`
-        const emplacement = document.getElementById(id)
-        if (!emplacement) {
-          console.warn(`Emplacement pour le SceneViewer ${id} introuvable.`)
-          continue
-        }
-        emplacement.innerHTML = `<h1 align="center">motif ${sceneBuilders[i].length}</h1>` // Clear previous content
-        sb.showSceneAt(emplacement)
-      }
-      document.removeEventListener('correctionsAffichees', listener2)
-    }
-    document.addEventListener('correctionsAffichees', listener2, { once: true })
-
-    const listener = () => {
-      for (let i = 0; i < sceneBuilders.length; i++) {
-        for (let j = 0; j < sceneBuilders[i].length - 1; j++) {
-          const sb = sceneBuilders[i][j]
-          const id = `emplacementPourSceneViewer${sb.id}`
-          const matchResult = sb.id?.match(/Serie(\d+)F(\d+)/)
-          const num = matchResult && matchResult[2] ? matchResult[2] : 1
-          const emplacement = document.getElementById(id)
-          if (!emplacement) {
-            console.warn(`Emplacement pour le SceneViewer ${id} introuvable.`)
-            continue
-          }
-          emplacement.innerHTML = `<h1 align="center">motif ${Number(num) + 1}</h1>` // Clear previous content
-          sb.showSceneAt(emplacement)
-        }
-      }
-      document.removeEventListener('exercicesAffiches', listener)
-    }
-    document.addEventListener('exercicesAffiches', listener, { once: true })
   }
 }

@@ -28,7 +28,7 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
 
     ${cont2.replaceAll('<br>', '\\\\\n')}
     \\end{multicols}
-    `
+`
   }
 }
 

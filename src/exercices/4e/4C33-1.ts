@@ -1,14 +1,14 @@
+import { texteGras } from '../../lib/format/style'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance'
-import { texteGras } from '../../lib/format/style'
 import { context } from '../../modules/context'
 
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
@@ -81,7 +81,7 @@ export default class PuissancesDunRelatif1 extends Exercice {
 
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Quotient de puissances de même exposant\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets :\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Quotient de puissances de même exposant\n6 : Mélange']
     this.besoinFormulaire2Numerique = [
       'Signe de la mantisse',
       3,

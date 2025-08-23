@@ -22,7 +22,7 @@ export const amcReady = true
 export const uuid = 'b9878'
 
 export const refs = {
-  'fr-fr': ['can6M15'],
+  'fr-fr': ['can6M15', 'CM1M1H-flash3'],
   'fr-ch': ['9GM1-13']
 }
 export default class PerimetreParComptageCan extends ExerciceSimple {

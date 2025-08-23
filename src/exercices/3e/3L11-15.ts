@@ -1,12 +1,12 @@
 import { max } from 'mathjs'
+import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
+import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
 import { choice, getRandomSubarray } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
-import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
-import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
 export const titre = 'Développer une identité remarquable'
 export const dateDePublication = '04/09/2024'
 
@@ -26,7 +26,7 @@ export default class nomExercice extends Exercice {
     super()
     this.consigne = 'Développer et réduire en utilisant les identités remarquables.'
 
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 - (x+a)^2\n2 - (x-a)^2\n3 - (x-a)(x-b)\n4 - (x+a)(x+b)\n5 - (ax+by)^2\n6 - (ax-by)^2\n7 - (ax+by)(ax-by)\n8 - (ax+b)(ax+c)\n9 - Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 - (x+a)^2\n2 - (x-a)^2\n3 - (x-a)(x-b)\n4 - (x+a)(x+b)\n5 - (ax+by)^2\n6 - (ax-by)^2\n7 - (ax+by)(ax-by)\n8 - (ax+b)(ax+c)\n9 - Mélange']
     this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
     this.besoinFormulaire3Numerique = ['Degré maximum', 5, '1\n2\n3\n4\n5']
     this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']

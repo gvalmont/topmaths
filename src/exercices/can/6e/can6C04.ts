@@ -1,9 +1,9 @@
-import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
-import { randint } from '../../../modules/outils'
-import ExerciceSimple from '../../ExerciceSimple'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { bleuMathalea } from '../../../lib/colors'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
+import ExerciceSimple from '../../ExerciceSimple'
 
 export const titre = 'Ajouter $10n + 9$'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = '5b591'
 
 export const refs = {
-  'fr-fr': ['can6C04'],
+  'fr-fr': ['can6C04', 'CM2N3J-flash1'],
   'fr-ch': []
 }
 

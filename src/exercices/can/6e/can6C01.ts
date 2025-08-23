@@ -1,7 +1,7 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 
@@ -18,7 +18,7 @@ export const amcType = 'qcmMono'
 export const uuid = 'de779'
 
 export const refs = {
-  'fr-fr': ['can6C01'],
+  'fr-fr': ['can6C01', '6N2F-flash1'],
   'fr-ch': []
 }
 

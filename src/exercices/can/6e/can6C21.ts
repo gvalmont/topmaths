@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = '89135'
 
 export const refs = {
-  'fr-fr': ['can6C21'],
+  'fr-fr': ['can6C21', '6N2A-flash3'],
   'fr-ch': []
 }
 export default class ComplementAUn extends ExerciceSimple {

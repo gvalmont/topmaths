@@ -1,137 +1,211 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { texNombre } from '../../lib/outils/texNombre'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
+import { prenom } from '../../lib/outils/Personne'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 
-export const titre = 'Utiliser la distributivité pour du calcul numérique'
+import engine from '../../lib/interactif/comparisonFunctions'
+import { parseExpression, type Expression, type Operator } from '../../lib/types/expression'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
-export const dateDePublication = '26/11/2022'
+export const titre = 'Organiser des calculs en une seule ligne'
+export const dateDePublication = '31/05/2024'
 
 /**
- * Distribultivité numérique
- * @author Sébastien LOZANO
+ *
+ * @author Guillaume Valmont
 */
-
-export const uuid = '41f23'
-
+export const uuid = '2z3e5'
 export const refs = {
   'fr-fr': ['5C12-2'],
-  'fr-ch': ['10FA2-1']
+  'fr-2016': ['6C33-2'],
+  'fr-ch': ['9NO6-8', '10NO6-6']
 }
-export default class DistributiviteNumerique extends Exercice {
+export default class ExpressionsDepuisCalculs extends Exercice {
   constructor () {
     super()
-    this.nbQuestions = 6 // Ici le nombre de questions
-    this.consigne = 'Calculer les expressions suivantes de deux manières différentes.'
+    this.nbQuestions = 1
+    this.sup = false
+    this.sup2 = '2'
+    this.sup3 = false
+    this.besoinFormulaireCaseACocher = ['Inclure des divisions']
+    this.besoinFormulaire2Texte = ['Nombre d\'opérations de 2 à 4', 'nombres séparés par des tirets :']
+    this.besoinFormulaire3CaseACocher = ['Sans parenthèses inutiles', false]
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
   }
 
   nouvelleVersion () {
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6] // tableau à compléter par valeurs possibles des types de questions
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const avecDivision = !!this.sup
 
-    // Quelques fonctions pour factoriser le code
-    function avecLesPriorites (i:number, k:number, b:number, c:number, formeInitiale:'factorisee' | 'developpee', operation:number) {
-      let sortie = 'bug'
-      if (formeInitiale === 'factorisee') {
-        sortie = `
-        $\\textbf{Méthode 1 : avec les priorités.}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * (b + c)) : texNombre(k * (b - c))}$<br>
-        `
-        sortie += `<br>
-        $\\textbf{Méthode 2 : en distribuant d'abord.}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(k)}\\times ${c}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${texNombre(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre(k * c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * b + k * c) : texNombre(k * b - k * c)}$<br>
-        `
+    // const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
+    // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const nbOps = gestionnaireFormulaireTexte({ defaut: 2, saisie: this.sup2, min: 2, max: 4, melange: 5, nbQuestions: this.nbQuestions }) as number[]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200; cpt++) {
+      const A = randint(2, 9)
+      const B = randint(2, 9, [A])
+      const C = randint(2, 10, [A, B])
+      const D = randint(2, 12, [A, B, C])
+      const E = randint(2, 20, [A, B, C, D])
+      const nombres = shuffle([A, B, C, D, E])
+      const signes = avecDivision ? shuffle(['+', '-', '\\times', '\\div']) : combinaisonListes(['+', '-', '\\times'], 4)
+      const calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
+      const calcul1EN : Expression = {
+        operator: signes[0] as Operator,
+        left: nombres[0],
+        right: nombres[1]
       }
-      if (formeInitiale === 'developpee') {
-        sortie = `
-        $\\textbf{Méthode 1 : avec les priorités.}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${k}\\times ${texNombre(c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${texNombre(k * b)} ${operation === 1 ? '+' : '-'} ${texNombre(k * c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * b + k * c) : texNombre(k * b - k * c)}$<br>
-        `
-        sortie += `<br>
-        $\\textbf{Méthode 2 : en factorisant d'abord.}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${texNombre(b)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(k)}\\times ${texNombre(c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times (${texNombre(b)} ${operation === 1 ? `+ ${texNombre(c)}` : `- ${texNombre(c)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${operation === 1 ? texNombre(b + c) : texNombre(b - c)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * (b + c)) : texNombre(k * (b - c))}$<br>
-        `
-      }
-      return sortie
-    }
+      const resultat1 = engine.parse(calcul1).simplify().latex
+      const calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
+      const resultat2 = engine.parse(calcul2).simplify().latex
+      const calcul3 = `${resultat2} ${signes[2]} ${nombres[3]}`
+      const resultat3 = engine.parse(calcul3).simplify().latex
+      const calcul4 = `${resultat3} ${signes[3]} ${nombres[4]}`
+      const resultat4 = engine.parse(calcul4).simplify().latex
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
-      texteCorr = '' // Idem pour le texte de la correction.
-      // Choix des paramètres aléatoires
-      // Pour la gestion de la soustraction, on ne veut pas que b-c soit négatif
-      let k = randint(2, 9)
-      let b = randint(1, 9, [k])
-      let c = randint(1, 9, [k, b])
-      let temp
-      if (b < c) {
-        temp = b
-        b = c
-        c = temp
-      }
-      // Pour éviter la contre-productivité tendant à montrer que distribuer allonge le travail
-      // On ajoute le cas classique d'application au calcul mental
-      const puissance = [100, 1000]
-      const ajoutRetrait = randint(1, 9)
-      texte = ''
-      texteCorr = ''
-      switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 6 cas sont prévus...
-        case 1: // k(a+b)
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre(b)} + ${texNombre(c)})$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', 1)
+      let calculRedaction : Expression = ''
+      let nombreCible: string
+      let redaction:string
+      let cd: string = '' // correction détaillée
+
+      switch (Number(nbOps[i])) {
+        case 2:
+          nombreCible = resultat2
+          redaction = rediger(calcul1, signes[1], nombres[2].toString())
+          calculRedaction = {
+            operator: signes[1] as Operator,
+            left: calcul1EN,
+            right: nombres[2]
+          }
+          if (!checkValue(Number(nombreCible), [nombres[1], nombres[2], nombres[0]], [Number(resultat1)])) {
+            continue
+          }
+          if (this.sup3) redaction = parseExpression(calculRedaction) // sans parenthèse inutile
+          cd = `
+$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[1]} ${nombres[2]} = ${resultat2}`, 'blue')}$<br>
+<br>
+$${miseEnCouleur(`(${calcul1})`, 'red')}${miseEnCouleur(`${signes[1]}${nombres[2]} = ${nombreCible}`, 'blue')}$<br>
+<br>
+En supprimant les parenthèses inutiles, on peut écrire :<br> $${miseEnEvidence(parseExpression(calculRedaction))} = ${nombreCible}$<br>
+`
           break
-        case 2: // ka+kb
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} + ${k}\\times ${texNombre(c)}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
+        case 3:
+          nombreCible = resultat3
+          redaction = rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[2], nombres[3].toString())
+          calculRedaction = {
+            operator: signes[2] as Operator,
+            left: {
+              operator: signes[1] as Operator,
+              left: calcul1EN,
+              right: nombres[2]
+            },
+            right: nombres[3]
+          }
+          if (!checkValue(Number(nombreCible), [nombres[1], nombres[2], nombres[0], nombres[3]], [Number(resultat1), Number(resultat2)])) {
+            continue
+          }
+          if (this.sup3) redaction = parseExpression(calculRedaction) // sans parenthèse inutile
+          cd = `
+$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[1]} ${nombres[2]} = ${resultat2}`, 'blue')}$<br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[3]} = ${resultat3}`, 'green')}$<br>
+<br>
+$${miseEnCouleur(`${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]}=${resultat3}`, 'green')}$<br>
+<br>
+En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidence(parseExpression(calculRedaction))} = ${nombreCible}$<br>
+`
           break
-        case 3: // k(a-b)
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times (${texNombre(b)} - ${texNombre(c)})$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'factorisee', -1)
+        case 4:
+        default:
+          nombreCible = resultat4
+          redaction = rediger(rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[2], nombres[3].toString()), signes[3], nombres[4].toString())
+          calculRedaction = {
+            operator: signes[3] as Operator,
+            left: {
+              operator: signes[2] as Operator,
+              left: {
+                operator: signes[1] as Operator,
+                left: calcul1EN,
+                right: nombres[2]
+              },
+              right: nombres[3]
+            },
+            right: nombres[4]
+          }
+          if (!checkValue(Number(nombreCible), [nombres[1], nombres[2], nombres[0], nombres[3], nombres[3]], [Number(resultat1), Number(resultat2), Number(resultat3)])) {
+            continue
+          }
+          if (this.sup3) redaction = parseExpression(calculRedaction) // sans parenthèse inutile
+          cd = `
+$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[1]} ${nombres[2]} = ${resultat2}`, 'blue')}$<br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[3]} = ${resultat3}`, 'green')}$<br>
+$${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})}{${resultat3}}`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br>
+<br>
+$${miseEnCouleur(`(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br>
+<br>
+En supprimant les parenthèses inutiles, on peut écrire : <br> $${miseEnEvidence(parseExpression(calculRedaction))} = ${nombreCible}$<br>
+`
           break
-        case 4: // ka-kb
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} - ${k}\\times ${texNombre(c)}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
-          break
-        case 5: { // Calcul mental addition
-          k = randint(47, 83)
-          const choixIndicePuissance = randint(0, 1)
-          c = ajoutRetrait
-          b = puissance[choixIndicePuissance] - c
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} + ${k}\\times ${c}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', 1)
-          break
-        }
-        case 6: { // Calcul mental soustraction
-          k = randint(47, 83)
-          const choixIndicePuissance = randint(0, 1)
-          c = ajoutRetrait
-          b = puissance[choixIndicePuissance] + c
-          texte += `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b)} - ${k}\\times ${c}$`
-          texteCorr += avecLesPriorites(i, k, b, c, 'developpee', -1)
-          break
-        }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+      const texteCorr = this.correctionDetaillee ? cd : `$${miseEnEvidence(redaction)} = ${nombreCible}$`
+
+      const enonce = [`$${calcul1} = ${resultat1}$<br>`,
+        `$${calcul2} = ${resultat2}$<br>`,
+        `$${calcul3} = ${resultat3}$<br>`,
+        `$${calcul4} = ${resultat4}$<br>`]
+      const tirage = nombres.slice(0, nbOps[i] + 1)
+      const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${tirage.join(' ; ')}.<br>
+Voici ses calculs :<br>${enonce.slice(0, nbOps[i]).join('\n')}
+Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6eme')}`
+      handleAnswers(this, i, { reponse: { value: redaction, options: { operationSeulementEtNonResultat: true } } })
+      //   if (!this.correctionDetaillee) texteCorr = ''
+      //   texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
+
+      const nombreCibleValide = Number(nombreCible) < 100 * Number(nbOps[i])
+      if (this.questionJamaisPosee(i, ...nombres, ...signes, redaction) && nombreCibleValide) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
       }
-      cpt++
     }
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this)
+
+    function rediger (expression1: string, signe: string, expression2: string): string {
+      if (isNaN(Number(expression2))) expression2 = `( ${expression2} )`
+      return `(${expression1}) ${signe} ${expression2}`
+    }
+
+    function checkValue (nombreCible: number, nombresUtilises: number[], resultat: number[]) : boolean {
+      if (nombreCible < 2) {
+        return false
+      }
+      if (Math.floor(nombreCible) !== nombreCible) {
+        return false
+      }
+      if (nombresUtilises.includes(nombreCible)) {
+        return false
+      }
+      for (let i = 0; i < resultat.length; i++) {
+        if (Math.floor(resultat[i]) !== resultat[i]) {
+          return false
+        }
+        if (resultat[i] < 2) {
+          return false
+        }
+        if (nombreCible === resultat[i]) {
+          return false
+        }
+        if (nombresUtilises.includes(resultat[i])) {
+          return false
+        }
+      }
+      return true
+    }
   }
 }

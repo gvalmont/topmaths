@@ -1,6 +1,6 @@
 import { point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import { cube } from '../../../lib/3d/CubeIso'
+import { cube } from '../../../lib/3d/3dProjectionMathalea2d/CubeIso'
 import { shuffle } from '../../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d, ObjetMathalea2D } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'

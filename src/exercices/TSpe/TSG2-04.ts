@@ -111,7 +111,7 @@ export default class nomExercice extends Exercice {
         texteCorr += ' nul, ils sont orthogonaux.<br>'
         texteCorr += 'Les droites $(\\Delta)$ et $(AB)$ sont donc orthogonales.<br>'
       } else {
-        texteCorr += ' non-nul, ils ne sont pas orthogonaux.<br>'
+        texteCorr += ' non nul, ils ne sont pas orthogonaux.<br>'
         texteCorr += 'Les droites $(\\Delta)$ et $(AB)$ ne sont donc pas orthogonales.'
       }
 

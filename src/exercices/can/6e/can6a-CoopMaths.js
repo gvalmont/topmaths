@@ -1,20 +1,20 @@
+import Decimal from 'decimal.js'
 import { droiteGraduee } from '../../../lib/2d/reperes'
+import { texPrix } from '../../../lib/format/style'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
+import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString'
 import { pgcd } from '../../../lib/outils/primalite'
-import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import Grandeur from '../../../modules/Grandeur'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { arrondi } from '../../../lib/outils/nombres'
 import Hms from '../../../modules/Hms'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import Decimal from 'decimal.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils'
+import Exercice from '../../Exercice'
 
 export const dateDeModifImportante = '11/09/2024'
 export const dateDePublication = '5/08/2021'
@@ -39,7 +39,7 @@ export default class CourseAuxNombres6e extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Choix des questions',
-  ` Nombres séparés par des tirets\n1 : Moitié et double\n
+  ` Nombres séparés par des tirets :\n1 : Moitié et double\n
 2 : Quotient de a par b\n
 3 : Somme astucieuse de 4 nombres entiers\n
 4 : Somme de deux décimaux avec retenue\n

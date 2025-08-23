@@ -1,4 +1,4 @@
-import ReperageEntiersOuDecimaux from '../6e/6N30-0'
+import ReperageEntiersOuDecimaux from '../6e/6N1G-1'
 export const titre = 'Repérer des entiers sur une droite graduée'
 export const uuid = '14b84'
 export const refs = {
@@ -21,7 +21,7 @@ class ReperageEntierC3 extends ReperageEntiersOuDecimaux {
     this.nbQuestions = 4
     this.besoinFormulaireTexte = [
       'Niveaux de difficulté ',
-      'Nombres séparés par des tirets\n1 : 10 graduations secondaires\n2 : 2 graduations secondaires\n3 : 5 graduations secondaires\n4 : Pas secondaire plus compliqué\n5 : Mélange']
+      'Nombres séparés par des tirets :\n1 : 10 graduations secondaires\n2 : 2 graduations secondaires\n3 : 5 graduations secondaires\n4 : Pas secondaire plus compliqué\n5 : Mélange']
     this.sup3 = false
   }
 }

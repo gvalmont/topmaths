@@ -1,11 +1,11 @@
-import { choice, compteOccurences, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message'
+import { choice, compteOccurences, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
+import { context } from '../../modules/context'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
-import { context } from '../../modules/context'
+import Exercice from '../Exercice'
 export const titre = 'Compléter un script Scratch - 2'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -28,17 +28,17 @@ export default class CompleterScriptDiviseurs extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Brique(s) à trouver',
-      'Nombres séparés par des tirets\n1 : Ligne 2 (variable)\n2 : Ligne 2 (nombre)\n3 : Ligne 4\n4 : Ligne 5 (réponse)\n5 : Ligne 5 (variable)\n6 : Ligne 5 (nombre)\n7 : Ligne 6 (variable et réponse)\n8 : Ligne 6 (mot(s))\n9 : Ligne 7 (nombre)\n10 : Ligne 7 (variable)\n11 : Tous ces choix'
+      'Nombres séparés par des tirets :\n1 : Ligne 2 (variable)\n2 : Ligne 2 (nombre)\n3 : Ligne 4\n4 : Ligne 5 (réponse)\n5 : Ligne 5 (variable)\n6 : Ligne 5 (nombre)\n7 : Ligne 6 (variable et réponse)\n8 : Ligne 6 (mot(s))\n9 : Ligne 7 (nombre)\n10 : Ligne 7 (variable)\n11 : Tous ces choix'
     ]
     // 'Choix entre 1 et 10. Si ce choix est inférieur au nombre de briques à trouver, alors les briques seront choisies aléatoirement parmi celles à trouver. Si ce choix est supérieur au nombre de briques à trouver, alors les briques à trouver seront complétées par des briques choisies aléatoirement parmi les restantes.'
     this.besoinFormulaire2Numerique = ['Nombre de briques à trouver', 10]
     this.besoinFormulaire3Texte = [
       'Choix sur la brique intiale',
-      'Nombres séparés par des tirets\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
+      'Nombres séparés par des tirets :\n1 : La brique initiale est un clic sur drapeau vert.\n2 : La brique initiale est un clic sur lutin.\n3 : La brique initiale est un appui sur touche imposée\n4 : La brique initiale est un appui sur touche non imposée\n5 : Une des possiblités précédentes choisie au hasard'
     ]
     this.besoinFormulaire4Texte = [
       'Choix sur une des phrases finales',
-      'Nombres séparés par des tirets\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard'
+      'Nombres séparés par des tirets :\n1 : Une phrase finale contient : ... est un multiple de ...\n2 : Une phrase finale contient : ... divise ...\n3 : Une phrase finale contient : ... est un diviseur de ...\n4 : Une des possiblités précédentes choisie au hasard'
     ]
     this.sup = 11
     this.sup2 = 3

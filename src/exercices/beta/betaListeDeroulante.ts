@@ -1,17 +1,12 @@
-import { Courbe } from '../../lib/2d/courbes'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { listeQuestionsToContenu } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { choice } from '../../lib/outils/arrayOutils'
-import RepereBuilder from '../../lib/2d/RepereBuilder'
-import ListeDeroulante, { type AllChoicesType } from '../../lib/interactif/listeDeroulante/ListeDeroulante'
-import '../../lib/interactif/listeDeroulante/listeDeroulante.scss'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import type { Repere } from '../../lib/2d/reperes'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { shapeDefToShapeSvg } from '../../lib/2d/figures2d/shapes2d'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 
 export const titre = 'Reconnaitre une fonction d\'après sa courbe'
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = 'listeDeroulante'
 
 export const dateDePublication = '22/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'addd5' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
@@ -20,14 +15,14 @@ export const refs = {
   'fr-fr': ['betaListeDeroulante'],
   'fr-ch': []
 }
-const fonctionsAuChoix = [
-  { latex: '\\sin(x)', name: 'sin', fonction: (x:number) => Math.sin(x), derivee: (x:number) => Math.cos(x) },
-  { latex: '\\cos(x)', name: 'cos', fonction: (x:number) => Math.cos(x), derivee: (x:number) => -Math.sin(x) },
-  { latex: '\\frac{1}{x}', name: 'inverse', fonction: (x:number) => 1 / x, derivee: (x:number) => -1 / x / x },
-  { latex: 'x^2', name: 'carré', fonction: (x:number) => x ** 2, derivee: (x:number) => 2 * x },
-  { latex: 'x^3', name: 'cube', fonction: (x:number) => x ** 3, derivee: (x:number) => 3 * x ** 2 },
-  { latex: '|x|', name: 'abs', fonction: (x:number) => Math.abs(x), derivee: (x:number) => x < 0 ? -1 : 1 },
-  { latex: '-x', name: 'opposé', fonction: (x:number) => -x, derivee: (x:number) => 0 * x - 1 } // Pour pas qu'il me dise que x n'est pas utilisé
+const choix = [
+  { label: 'Choisir un élément', value: '' },
+  { label: '<strong>Un texte en gras</strong>', value: 'unTexte' },
+  { label: '<strike>Un label barré</strike>', value: 'unLabel' },
+  { latex: '\\dfrac{1+\\sqrt{5}}{2}', value: 'phi' },
+  { image: 'images/balancoire_trebuchet.png', value: 'balançoire' },
+  { svg: '<circle cx="0" cy="0" r="10"/>', value: 'cercle' },
+  { svg: shapeDefToShapeSvg('soleil'), value: 'soleil' }
 ]
 
 /**
@@ -36,72 +31,34 @@ const fonctionsAuChoix = [
 
  */
 export default class BetaListeDeroulante extends Exercice {
-  listeDeroulante!: ListeDeroulante
   constructor () {
     super()
 
-    this.sup = 3
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
-    this.besoinFormulaireNumerique = ['Type de courbe:', 2, '1: Fonction\n2: Dérivée']
   }
 
   nouvelleVersion () {
-    //
-    const choices: AllChoicesType = fonctionsAuChoix.map((el) => Object.assign({}, { latex: el.latex, value: el.name }))
-    const choix = choice(fonctionsAuChoix)
-    const name = choix.name
-    const latex = choix.latex
-    const fonction = this.sup === 1 ? choix.fonction : choix.derivee
-    const { xMin, xMax, yMin, yMax } = { xMin: -5, xMax: 5, yMin: -5, yMax: 5 } // pour le repère et la courbe
-    const repere1 = new RepereBuilder({ xMin, xMax, yMin, yMax }).buildStandard() as Repere
-    const courbe1 = new Courbe(fonction, {
-      repere: repere1,
-      xMin,
-      xMax,
-      yMin,
-      yMax,
-      xUnite: 1,
-      yUnite: 1,
-      epaisseur: 1,
-      step: 0.05
-    })
-    const objetsEnonce = repere1.objets != null ? [repere1.objets, courbe1] : [courbe1]
-    let texteEnonce = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce)), objetsEnonce)
-    texteEnonce += `<br>Voici la représentation graphique ${this.sup === 1 ? '' : 'de la dérivée '} d'une fonction $f$.`
-    const spanListe = document.createElement('span')
-    this.listeDeroulante = ListeDeroulante.create(spanListe, ['Propositions', ...choices], { choix0: false, sansFleche: false })
-    texteEnonce += '<br>Sélectionner dans la liste déroulante l\'expression de la fonction $f$ dont la courbe est tracée ci-dessus.'
-    texteEnonce += `<br><span id="ListeDeroulanteExo${this.numeroExercice}Q0"></span><span id ="resultatCheckEx${this.numeroExercice}Q0"></span>`
-    const texteCorrection = `L'expression de la fonction $f$ est : $f(x)=${latex}$.`
-    document.addEventListener('exercicesAffiches', () => {
-      const span = document.querySelector(`span#ListeDeroulanteExo${this.numeroExercice}Q0`) as HTMLSpanElement
-      if (span.getElementsByClassName('listeDeroulante').length === 0) {
-        if (this.listeDeroulante.container != null) span.appendChild(this.listeDeroulante.container)
-        // this.listeDeroulante.show()
-        const spanFeedback = document.createElement('div')
-        spanFeedback.id = `resultatCheckEx${this.numeroExercice}Q0`
-        if (this.listeDeroulante.spanSelected != null) this.listeDeroulante.spanSelected.appendChild(spanFeedback)
+    // Voilà ce qu'il faut pour mettre une liste déroulante interactive.
+    // Attention, il n'y a pas de version latex ou html non intéractive.
+    // Il faudra prévoir une autre version pour ça.
+    const enonce = `Choisir l'expression mathématique<br>${choixDeroulant(this, 0, choix, false)}`
+
+    const texteCorrection = 'Vous avez choisi : <span id=\'choixEffectué\'></span>.' // Je mets un span vide ici pour y déposer le choix de l'utilisateur après correction.
+    handleAnswers(this, 0, { reponse: { value: 'phi' } }, { formatInteractif: 'listeDeroulante' })
+
+    this.listeQuestions.push(enonce)
+    this.listeCorrections.push(texteCorrection)
+    listeQuestionsToContenu(this)
+
+    // ça c'est pour mettre à jour la correction pour affiché ce que l'utilisateur a choisi.
+    // C'est une fioriture pour cet exemple, mais ça n'a aucune utilité dans un exercice réel.
+    document.addEventListener('correctionsAffichees', () => {
+      const laListeDeroulante = document.getElementById('ex0Q0') as HTMLSelectElement | null
+      const leSpan = document.getElementById('choixEffectué')
+      if (leSpan && laListeDeroulante) {
+        leSpan.textContent = laListeDeroulante.value ?? 'Aucun choix effectué'
       }
     })
-    setReponse(this, 0, name)
-    this.listeQuestions.push(texteEnonce)
-    this.listeCorrections.push(texteCorrection)
-    listeQuestionsToContenu(this)// On envoie l'exercice à la fonction de mise en page
-  }
-
-  correctionInteractive = (i: number) => {
-    const spanFeedback = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q0`) as HTMLSpanElement
-    const index = this.listeDeroulante.getSelectedIndex()
-    const saisie = index < 0 ? '' : typeof this.listeDeroulante.choices[index] === 'string' ? this.listeDeroulante.choices[index] : this.listeDeroulante.choices[index].value
-    // @ts-expect-error
-    const resultatOK = saisie === this.autoCorrection[0].reponse.valeur[0]
-    if (resultatOK) {
-      spanFeedback.innerHTML += '😎'
-      return 'OK'
-    } else {
-      spanFeedback.innerHTML += '☹️'
-      return 'KO'
-    }
   }
 }

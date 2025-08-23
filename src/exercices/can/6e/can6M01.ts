@@ -1,6 +1,6 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Comparer des périmètres (V/F)'
@@ -17,7 +17,7 @@ export const amcType = 'qcmMono'
 export const uuid = '79035'
 
 export const refs = {
-  'fr-fr': ['can6M01'],
+  'fr-fr': ['can6M01', 'CM1M1H-flash1'],
   'fr-ch': []
 }
 export default class QuestionDePerimetres extends Exercice {

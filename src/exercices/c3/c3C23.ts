@@ -1,11 +1,11 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { equalFractionCompareSansRadical } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Opérations simples avec des fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +33,7 @@ class CalculsFractionsSimples extends Exercice {
     this.consigne = 'Calculer.'
 
     this.version = 'c3'
-    this.besoinFormulaireTexte = ['Opérations', 'Nombres séparés par des tirets\n1 : Additions\n2 : Soustractions\n3: Multiplications par un entier\n4: Mélange']
+    this.besoinFormulaireTexte = ['Opérations', 'Nombres séparés par des tirets :\n1 : Additions\n2 : Soustractions\n3: Multiplications par un entier\n4: Mélange']
   }
 
   nouvelleVersion () {

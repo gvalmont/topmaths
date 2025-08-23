@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Convertir des heures/minutes en minutes'
@@ -14,7 +15,7 @@ export const amcType = 'AMCNum'
 export const uuid = '1db82'
 
 export const refs = {
-  'fr-fr': ['can6D01'],
+  'fr-fr': ['can6D01', '6M4C-flash1'],
   'fr-ch': []
 }
 export default class ConversionHeuresEtMinutesVersMinutes extends ExerciceSimple {
@@ -35,7 +36,7 @@ export default class ConversionHeuresEtMinutesVersMinutes extends ExerciceSimple
       this.question += ' .... minutes'
     }
     this.correction = `Il y a $60$ minutes dans une heure.<br>
-    Comme $${a} \\times 60 + ${b}=${d}$ alors $${a}$h $${b}$min = $${d}$ minutes`
+    Comme $${a} \\times 60 + ${b}=${d}$ alors $${a}$h $${b}$min = $${miseEnEvidence(d)}$ minutes`
     this.reponse = d
     this.canEnonce = 'Compléter.'
     this.canReponseACompleter = `$${a}$ heures $${b} $ minutes $=$ $\\ldots$ minutes`

@@ -31,6 +31,8 @@ export const uuid = '71ff5'
 
  */
 export default class ListePatternsPreDef6I13 extends Exercice {
+  destroyers: (() => void)[] = []
+
   constructor () {
     super()
     this.nbQuestions = 1
@@ -42,7 +44,17 @@ export default class ListePatternsPreDef6I13 extends Exercice {
     pour le motif 43 ainsi que le nombre d'éléments au rang n de chaque pattern.<br>`
   }
 
-  nouvelleVersion () {
+  destroy () {
+    // MGu quan l'exercice est supprimé par svelte : bouton supprimé
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
+  }
+
+  nouvelleVersion (): void {
+    // MGu quand l'exercice est modifié, on détruit les anciens listeners
+    this.destroyers.forEach(destroy => destroy())
+    this.destroyers.length = 0
+    this.sup3 = Math.max(2, this.sup3) // On ne peut pas afficher moins de 2 motifs
     const listePatternReference = listePatternAffineOuLineaire.filter(p => p.fonctionRatio == null && p.fonctionFraction == null && (!('shapes' in p) || p.shapes.length === 1))
     const listeOfAll :(PatternRiche | PatternRiche3D)[] = [...listePatternReference]
 
@@ -153,8 +165,8 @@ export default class ListePatternsPreDef6I13 extends Exercice {
               pattern.shape = shapeCubeIso(`cubeIsoQ${i}F${j}`, 1, 1, { scale: 1 })
             }
             if (context.isHtml) {
-              updateCubeIso({ pattern, i, j, angle })
-
+              const listeners = updateCubeIso({ pattern, i, j, angle })
+              if (listeners) this.destroyers.push(listeners)
               pattern.shape.codeSvg = `<use href="#cubeIsoQ${i}F${j}"></use>`
               const cells = (pattern as VisualPattern3D).update3DCells(j + 1)
               // Ajouter les SVG générés par svg() de chaque objet

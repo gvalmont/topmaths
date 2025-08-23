@@ -1,12 +1,12 @@
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
+import { tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
-import { tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Trinome from '../../modules/Trinome'
-import { choice } from '../../lib/outils/arrayOutils'
+import Exercice from '../Exercice'
 export const titre = 'Étudier le sens de variations d\'une fonction polynôme du second degré'
 export const dateDePublication = '04/08/2024'
 export const interactifReady = false
@@ -25,7 +25,7 @@ export default class variationPol2 extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Forme développée sur R\n2 : Forme développée sur un intervalle borné\n3 : Forme canonique sur R\n4 : Forme canonique sur un intervalle borné\n5 : Forme factorisée sur R \n6 : Forme factorisée sur un interavlle borné\n7 : Tableau de signes sur R\n8 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : Forme développée sur R\n2 : Forme développée sur un intervalle borné\n3 : Forme canonique sur R\n4 : Forme canonique sur un intervalle borné\n5 : Forme factorisée sur R \n6 : Forme factorisée sur un interavlle borné\n7 : Tableau de signes sur R\n8 : Mélange']
     this.sup = '8'
   }
 

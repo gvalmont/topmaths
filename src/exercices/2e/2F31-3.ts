@@ -1,12 +1,12 @@
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
 import { propositionsQcm } from '../../lib/interactif/qcm'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
-import Trinome from '../../modules/Trinome'
 import { choice } from '../../lib/outils/arrayOutils'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import type FractionEtendue from '../../modules/FractionEtendue'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Trinome from '../../modules/Trinome'
+import Exercice from '../Exercice'
 export const titre = 'Comparer des images dans un tableau de variations'
 export const dateDeModifImportante = '08/09/2024'
 export const interactifReady = true
@@ -26,7 +26,7 @@ export default class ComparerImagesTableau extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : On peut comparer avec le sens de variation\n2 : On peut comparer par encadrement\n3 : On ne peut pas comparer\n4  : Mélange']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets :\n1 : On peut comparer avec le sens de variation\n2 : On peut comparer par encadrement\n3 : On ne peut pas comparer\n4  : Mélange']
     this.sup = '4'
     this.spacingCorr = 1.5
   }

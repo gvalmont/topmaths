@@ -1,7 +1,7 @@
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 
-import { plaque3d } from '../../../lib/3d/solides'
+import { plaque3d } from '../../../lib/3d/3dProjectionMathalea2d/solides'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'

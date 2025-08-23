@@ -13,11 +13,11 @@
     previousView,
     darkMode,
     exercicesParams,
-    globalOptions
+    globalOptions,
   } from '../../../lib/stores/generalStore'
   import {
     localisedIDToUuid,
-    referentielLocale
+    referentielLocale,
   } from '../../../lib/stores/languagesStore'
   import SideMenu from './presentationalComponents/sideMenu/SideMenu.svelte'
   import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
@@ -31,13 +31,21 @@
   import HeaderButtons from './presentationalComponents/header/headerButtons/HeaderButtons.svelte'
   import Exercices from './presentationalComponents/Exercices.svelte'
   import Placeholder from './presentationalComponents/Placeholder.svelte'
-  import type { InterfaceGlobalOptions, InterfaceParams, VueType } from 'src/lib/types'
+  import type {
+    InterfaceGlobalOptions,
+    InterfaceParams,
+    VueType,
+  } from '../../../lib/types'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
   import type { Language } from '../../../lib/types/languages'
   import { ALLOWED_LANGUAGES, isLanguage } from '../../../lib/types/languages'
   import { get } from 'svelte/store'
-  import { getExercisesFromExercicesParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
+  import {
+    getExercisesFromExercicesParams,
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams,
+  } from '../../../lib/mathalea'
   import handleCapytale from '../../../lib/handleCapytale'
   import { sendActivityParams } from '../../../lib/handleRecorder'
   import { canOptions } from '../../../lib/stores/canStore'
@@ -47,7 +55,7 @@
   import SideMenuWrapper from './presentationalComponents/header/SideMenuWrapper.svelte'
   import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
   import { downloadFile } from '../../../lib/files'
-  
+
   let isNavBarVisible: boolean = true
   let innerWidth = 0
   let isBackToTopButtonVisible = false
@@ -61,7 +69,7 @@
   const unsubscribeToReferentielLocale = referentielLocale.subscribe(
     (value) => {
       localeValue = value
-    }
+    },
   )
 
   onMount(async () => {
@@ -89,7 +97,7 @@
   // Spécifique à Capytale
   let isSettingsDialogDisplayed = false
   // Gestion de la graine
-  function buildUrlAndOpenItInNewTab (status: 'eleve' | 'usual') {
+  function buildUrlAndOpenItInNewTab(status: 'eleve' | 'usual') {
     const url = new URL('https://coopmaths.fr/alea/')
     for (const ex of $exercicesParams) {
       url.searchParams.append('uuid', ex.uuid)
@@ -126,14 +134,14 @@
     url.searchParams.append('title', $globalOptions.title ?? '')
     const presMode =
       $exercicesParams.length === 1 ? 'liste_exos' : 'un_exo_par_page'
-    url.searchParams.append(
-      'es',
-      buildEsParams(presMode)
-    )
+    url.searchParams.append('es', buildEsParams(presMode))
 
     if ($canOptions.isChoosen) {
       if ($canOptions.durationInMinutes !== 0) {
-        url.searchParams.append('canD', $canOptions.durationInMinutes.toString())
+        url.searchParams.append(
+          'canD',
+          $canOptions.durationInMinutes.toString(),
+        )
       }
       if ($canOptions.subTitle !== '') {
         url.searchParams.append('canT', $canOptions.subTitle)
@@ -145,13 +153,13 @@
     window.open(url, '_blank')?.focus()
   }
 
-  function toggleCan () {
+  function toggleCan() {
     if ($canOptions.isChoosen) {
       $globalOptions.setInteractive = '1'
     }
   }
 
-  function showSettingsDialog () {
+  function showSettingsDialog() {
     isSettingsDialogDisplayed = true
   }
 
@@ -176,17 +184,18 @@
         })
         const frenchID = (
           Object.keys(
-            localisedIDToUuid['fr-FR']
+            localisedIDToUuid['fr-FR'],
           ) as (keyof (typeof localisedIDToUuid)['fr-FR'])[]
         ).find((key) => {
           return localisedIDToUuid['fr-FR'][key] === list[i].uuid
         })
-        list[i].id = localeID !== undefined && localeID.length !== 0 ? localeID : frenchID
+        list[i].id =
+          localeID !== undefined && localeID.length !== 0 ? localeID : frenchID
       }
       return list
     })
     const event = new window.Event('languageHasChanged', {
-      bubbles: true
+      bubbles: true,
     })
     document.dispatchEvent(event)
     mathaleaUpdateUrlFromExercicesParams()
@@ -198,8 +207,8 @@
     isMd = innerWidth >= SM_BREAKPOINT
   }
 
-  function addScrollListener () {
-    function updateBackToTopButtonVisibility () {
+  function addScrollListener() {
+    function updateBackToTopButtonVisibility() {
       isBackToTopButtonVisible =
         document.body.scrollTop > 500 ||
         document.documentElement.scrollTop > 500
@@ -219,11 +228,11 @@
     }
   })
 
-  function updateSelectedThirdApps () {
+  function updateSelectedThirdApps() {
     const appsTierceReferentielArray: AppTierceGroup[] =
       Object.values(appsTierce)
     const uuidList: string[] = $exercicesParams.map(
-      (exerciceParams) => exerciceParams.uuid
+      (exerciceParams) => exerciceParams.uuid,
     )
     selectedThirdApps = []
     for (const group of appsTierceReferentielArray) {
@@ -235,7 +244,7 @@
     }
   }
 
-  function zoomUpdate (plusMinus: '+' | '-') {
+  function zoomUpdate(plusMinus: '+' | '-') {
     let zoom = Number($globalOptions.z)
     if (plusMinus === '+') zoom = Number.parseFloat((zoom + 0.1).toFixed(1))
     if (plusMinus === '-') zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
@@ -245,7 +254,7 @@
     })
   }
 
-  function setAllInteractive (isAllInteractive: boolean) {
+  function setAllInteractive(isAllInteractive: boolean) {
     let eventName: string
     if (isAllInteractive) {
       $globalOptions.setInteractive = '1'
@@ -259,24 +268,24 @@
     console.log($globalOptions.setInteractive)
   }
 
-  function newDataForAll () {
+  function newDataForAll() {
     const newDataForAll = new window.Event('newDataForAll', { bubbles: true })
     document.dispatchEvent(newDataForAll)
   }
 
-  function trash () {
+  function trash() {
     exercicesParams.set([])
     toggleSidenav(true)
   }
 
-  function setFullScreen (isFullScreen: boolean) {
+  function setFullScreen(isFullScreen: boolean) {
     globalOptions.update((params) => {
       isFullScreen ? (params.v = 'l') : (params.v = '')
       return params
     })
   }
 
-  function handleExport (vue: VueType) {
+  function handleExport(vue: VueType) {
     $previousView = ''
     globalOptions.update((params) => {
       params.v = vue
@@ -284,19 +293,22 @@
     })
   }
 
-  function addExercise (uuid: string, id: string) {
+  function addExercise(uuid: string, id: string) {
     const newExercise: InterfaceParams = { uuid, id }
-    if ($globalOptions.recorder === 'capytale' || $globalOptions.setInteractive === '1') {
+    if (
+      $globalOptions.recorder === 'capytale' ||
+      $globalOptions.setInteractive === '1'
+    ) {
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
   }
 
-  function backToTop () {
+  function backToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  function importExercises (urlFeuilleEleve: string) {
+  function importExercises(urlFeuilleEleve: string) {
     const tempRecorder = $globalOptions.recorder
     let url = urlFeuilleEleve.replace('&v=confeleve', '')
     url = url.replace('&v=eleve', '&recorder=' + $globalOptions.recorder)
@@ -327,15 +339,18 @@
       if (showThirdAppsChoiceDialog === false && thirdAppsChoiceModal) {
         thirdAppsChoiceModal.closeModal()
       }
-    }
+    },
   })
 
-  function updateParams (params: { globalOptions: InterfaceGlobalOptions; canOptions: CanOptions }) {
+  function updateParams(params: {
+    globalOptions: InterfaceGlobalOptions
+    canOptions: CanOptions
+  }) {
     canOptions.set(params.canOptions)
     globalOptions.set(params.globalOptions) // en dernier car c'est sa modification qui déclenche la mise à jour de l'url dans App.svelte qui prévient ensuite Capytale d'une mise à jour
   }
 
-  function toggleSidenav (forceOpening: boolean): void {
+  function toggleSidenav(forceOpening: boolean): void {
     const sideMenuWrapper = document.getElementById('choiceSideMenuWrapper')
     if (!sideMenuWrapper) return
     const sidenav = Sidenav.getOrCreateInstance(sideMenuWrapper)
@@ -351,21 +366,30 @@
     }
   }
 
-  async function exportQcmCam (): Promise<void> {
+  async function exportQcmCam(): Promise<void> {
     const exercises = await getExercisesFromExercicesParams()
     const exercisesQcms = exercises.filter((exercise) => {
       exercise.nouvelleVersion()
-      const questionsQcm = exercise.autoCorrection.filter((el)=>el.reponse?.param?.formatInteractif === 'qcm' && el.propositions !=null && el.propositions?.length >1).length
-      return questionsQcm !==0
-  })
-    
+      const questionsQcm = exercise.autoCorrection.filter(
+        (el) =>
+          el.reponse?.param?.formatInteractif === 'qcm' &&
+          el.propositions != null &&
+          el.propositions?.length > 1,
+      ).length
+      return questionsQcm !== 0
+    })
+
     if (exercisesQcms.length === 0) {
-      alert('Il n\'y a pas encore d\'export vers QCM Cam pour les exercices sélectionnés')
+      alert(
+        "Il n'y a pas encore d'export vers QCM Cam pour les exercices sélectionnés",
+      )
       return
     }
     const content = qcmCamExportAll(exercisesQcms)
-    if (content==='{}') {
-      alert('Il n\'y a pas encore d\'export vers QCM Cam pour les exercices sélectionnés')
+    if (content === '{}') {
+      alert(
+        "Il n'y a pas encore d'export vers QCM Cam pour les exercices sélectionnés",
+      )
       return
     }
     downloadFile(content, 'questions.txt') // @todo Si possible, il faudrait l'nvoyer directement à travers l'ouverture d'un nouvel onglet qcmcam.net avec le lien vers ce fichier en argument.
@@ -535,7 +559,7 @@
   appsTierceInExercisesList={selectedThirdApps}
 />
 <ModalCapytalSettings
-  bind:isSettingsDialogDisplayed={isSettingsDialogDisplayed}
+  bind:isSettingsDialogDisplayed
   globalOptions={$globalOptions}
   canOptions={$canOptions}
   {toggleCan}
@@ -546,7 +570,13 @@
 <style>
   @media (min-width: 768px) {
     #barre-boutons {
-      width: calc(100% - (var(--isMenuOpen) * var(--sidebarWidth) * 1px + (var(--isMenuOpen)) * 16px));
+      width: calc(
+        100% -
+          (
+            var(--isMenuOpen) * var(--sidebarWidth) * 1px +
+              (var(--isMenuOpen)) * 16px
+          )
+      );
     }
   }
   @media (max-width: 768px) {

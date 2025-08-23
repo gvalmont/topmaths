@@ -9,11 +9,12 @@ import { colorToLatexOrHTML, mathalea2d, type NestedObjetMathalea2dArray } from 
 import { context } from '../../modules/context'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { scratchblock } from '../../modules/scratchblock'
-import { noteLaCouleur, plateau2dNLC, testInstruction, testSequence, traducNum } from '../../modules/noteLaCouleur'
+import { noteLaCouleur, plateau2dNLC, testInstruction, testSequence, traducColor, traducNum } from '../../modules/noteLaCouleur'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
+import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 
 export const titre = 'Note la couleur (Scratch)'
 export const interactifReady = true
@@ -264,9 +265,16 @@ export default class NoteLaCouleurC3 extends Exercice {
       reponseCouleur = couleurs
       if (this.sup % 2 === 0) reponseCouleur[0] = '(' + traducNum(couleurs[0]) + ') ' + couleurs[0]
       texteCorr = 'On obtient la série de couleurs suivante :<br> '
-      texteCorr += `${texteEnCouleurEtGras(reponseCouleur[q * couleurs.length])} `
-      texte += !this.interactif ? '' : 'Couleur n°1 : ' + choixDeroulant(this, q * couleurs.length, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
-      handleAnswers(this, q * couleurs.length, { reponse: { value: couleurs[0] } }, { formatInteractif: 'listeDeroulante' })
+      texteCorr += `${texteEnCouleurEtGras(reponseCouleur[0])} `
+      if (this.interactif) {
+        texte += 'Couleur n°1 : ' + choixDeroulant(this, q * couleurs.length, [{ label: 'Choisir une couleur', value: '' }, ...choixListeDeroulante[(this.sup - 1) % 2].map(item => this.sup === 1 ? ({ svg: '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' + traducColor(item) + '"/>', value: item }) : ({ label: item, value: item }))]) + '<br>'
+        handleAnswers(this, q * couleurs.length, { reponse: { value: couleurs[0] } }, { formatInteractif: 'listeDeroulante' })
+      } else {
+        listeDeroulanteToQcm(this, q * couleurs.length, [{ label: 'Choisir une couleur', value: '' }, ...choixListeDeroulante[(this.sup - 1) % 2].map(item => this.sup === 1 ? ({ svg: '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' + traducColor(item) + '"/>', value: item }) : ({ label: item, value: item }))], reponseCouleur[0], { ordered: false, vertical: false })
+        const leQcm = propositionsQcm(this, q * couleurs.length)
+
+        texte += 'Couleur n°1 : ' + leQcm.texte + '<br>'
+      }
       /*
       texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
       for (let i = 1; i < couleurs.length; i++) {
@@ -277,8 +285,14 @@ export default class NoteLaCouleurC3 extends Exercice {
       for (let i = 1; i < couleurs.length; i++) {
         if (this.sup % 2 === 0) reponseCouleur[i] = '(' + traducNum(couleurs[i]) + ') ' + couleurs[i]
         texteCorr += `${texteEnCouleurEtGras(reponseCouleur[i])} `
-        texte += !this.interactif ? '' : 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q * couleurs.length + i, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
-        handleAnswers(this, q * couleurs.length + i, { reponse: { value: couleurs[i] } }, { formatInteractif: 'listeDeroulante' })
+        if (this.interactif) {
+          texte += 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q * couleurs.length + i, [{ label: 'Choisir une couleur', value: '' }, ...choixListeDeroulante[(this.sup - 1) % 2].map(item => this.sup === 1 ? ({ svg: '<rect x="-10" y="-10" width="20" height="20" fill="' + traducColor(item) + '"/>', value: item }) : ({ label: item, value: item }))]) + '<br>'
+          handleAnswers(this, q * couleurs.length + i, { reponse: { value: couleurs[i] } }, { formatInteractif: 'listeDeroulante' })
+        } else {
+          listeDeroulanteToQcm(this, q * couleurs.length + i, [{ label: 'Choisir une couleur', value: '' }, ...choixListeDeroulante[(this.sup - 1) % 2].map(item => this.sup === 1 ? ({ svg: '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' + traducColor(item) + '"/>', value: item }) : ({ label: item, value: item }))], couleurs[i], { ordered: false, vertical: false })
+          const leQcm = propositionsQcm(this, q * couleurs.length + i)
+          texte += 'Couleur n°' + (i + 1) + ' : ' + leQcm.texte + '<br>'
+        }
       }
       lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>

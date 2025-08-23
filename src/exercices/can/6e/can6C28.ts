@@ -1,8 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import FractionEtendue from '../../../modules/FractionEtendue'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de fraction'
 export const interactifReady = true
@@ -17,7 +17,7 @@ export const dateDeModifImportante = '19/09/2024'
 export const uuid = '2ce71'
 
 export const refs = {
-  'fr-fr': ['can6C28'],
+  'fr-fr': ['can6C28', 'auto6N3E-flash2'],
   'fr-ch': []
 }
 export default class PetitsProblemeDeFraction extends ExerciceSimple {

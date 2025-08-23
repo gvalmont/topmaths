@@ -1,8 +1,8 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import Decimal from 'decimal.js'
 import { bleuMathalea } from '../../../lib/colors'
@@ -20,7 +20,7 @@ export const dateDePublication = '04/03/2022'
 export const uuid = '16ea9'
 
 export const refs = {
-  'fr-fr': ['can6C30'],
+  'fr-fr': ['can6C30', '6N2E-flash1'],
   'fr-ch': []
 }
 export default class MultiplierDeuxDecimaux extends ExerciceSimple {

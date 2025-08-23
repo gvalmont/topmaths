@@ -1,6 +1,6 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
-import { objet } from '../6e/6C35'
+import { objet } from '../6e/6N4A-1'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie

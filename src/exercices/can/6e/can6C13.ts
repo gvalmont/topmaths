@@ -1,8 +1,8 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import Decimal from 'decimal.js' // ici j'importe la classe Decimal qui va me permettre de créer de tels nombres et d'utiliser leur méthodes de calcul exactes.
 import { bleuMathalea } from '../../../lib/colors'
@@ -20,7 +20,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'c3e17'
 
 export const refs = {
-  'fr-fr': ['can6C13'],
+  'fr-fr': ['can6C13', '6N2A-flash1'],
   'fr-ch': []
 }
 export default class FSomme2Decimaux extends ExerciceSimple {

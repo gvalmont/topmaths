@@ -1,21 +1,21 @@
+import { round } from 'mathjs'
+import { texPrix } from '../../lib/format/style'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { ajouterAide, ajouterImage } from '../../lib/outils/enrichissements'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { prenom, prenomF } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint,
-  gestionnaireFormulaireTexte
+  randint
 } from '../../modules/outils'
-import { round } from 'mathjs'
-import { ajouterAide, ajouterImage } from '../../lib/outils/enrichissements'
+import Exercice from '../Exercice'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
 
 /**
@@ -129,7 +129,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Type des grandeurs',
-      'Nombres séparés par des tirets\n 1 : Energie consommée\n 2 :  Volume\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesse\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'
+      'Nombres séparés par des tirets :\n 1 : Energie consommée\n 2 :  Volume\n 3 : Quantité de mouvement & Energie cinétique\n 4 : Moment de force\n 5 : Trafic de voyageurs\n 6 : Puissance électrique\n 7 : Vitesse\n 8 : Prix massique\n 9 : Prix horaire\n 10 : Densité de population\n 11 : Masse volumique\n 12 : Concentration massique\n 13 : Débits\n 14 : Transfert de fichiers'
     ] // Texte, tooltip
 
     this.nbQuestions = 3

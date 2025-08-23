@@ -1,4 +1,4 @@
-import { troisObjetsAVendre } from '../../../../exercices/6e/6C35-1'
+import { troisObjetsAVendre } from '../../../../exercices/6e/6N4A-2'
 import { randint } from '../../../../modules/outils'
 import { KeyboardType } from '../../../interactif/claviers/keyboard'
 import { choice } from '../../../outils/arrayOutils'

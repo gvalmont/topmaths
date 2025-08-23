@@ -1,12 +1,12 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { rangeMinMax } from '../../../lib/outils/nombres'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { mathalea2d } from '../../../modules/2dGeneralites'
-import { context } from '../../../modules/context'//
+import { context } from '../../../modules/context' //
 import FractionEtendue from '../../../modules/FractionEtendue'
 import ExerciceSimple from '../../ExerciceSimple'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import { fractionCliquable } from '../../../modules/2dinteractif'
 export const titre = 'Résoudre un problème de reste en fraction'
@@ -24,7 +24,7 @@ export const dateDePublication = '13/02/2023'
 export const uuid = '1cee6'
 
 export const refs = {
-  'fr-fr': ['can6C46'],
+  'fr-fr': ['can6C46', '6N3K-flash1'],
   'fr-ch': []
 }
 export default class ProblemeResteFraction extends ExerciceSimple {

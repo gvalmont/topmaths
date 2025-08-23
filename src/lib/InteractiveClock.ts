@@ -4,18 +4,23 @@
  *
  * @attr {number} hour - L'heure initiale de l'horloge (0-12)
  * @attr {number} minute - La minute initiale de l'horloge (0-59)
+ * @attr {number} [second=0] - La seconde initiale de l'horloge (0-59)
  * @attr {boolean} [isDynamic=true] - Indique si l'horloge est interactive
  * @attr {boolean} [showHands=true] - Indique si les aiguilles de l'horloge doivent être affichées
+ * @attr {boolean} [showSecond=true] - Indique si l'aiguille des secondes doit être affichée
  */
 class InteractiveClock extends HTMLElement {
   svgHandHour!: SVGElement
   svgHandMinute!: SVGElement
+  svgHandSecond!: SVGElement
   radius = 200
   showHands = true
+  showSecond = false
   draggingHand: boolean
   previousMinute = 0
+  previousSecond = 0
   private _isDynamic = true
-  private _currentAction?: 'hour' | 'minute'
+  private _currentAction?: 'hour' | 'minute' | 'second'
 
   constructor () {
     super()
@@ -23,7 +28,9 @@ class InteractiveClock extends HTMLElement {
     this.minute = this.getAttribute('minute') ? Number(this.getAttribute('minute')) : 0
     this.svgHandHour = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     this.svgHandMinute = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+    this.svgHandSecond = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     this.showHands = !(this.getAttribute('showHands') === 'false')
+    this.showSecond = this.hasAttribute('showSecond') ? !(this.getAttribute('showSecond') === 'false') : false
     this.isDynamic = !(this.getAttribute('isDynamic') === 'false')
     this.draggingHand = false
   }
@@ -107,10 +114,19 @@ class InteractiveClock extends HTMLElement {
     if (this.showHands) {
       this.svgHandHour = this.createHand(100, 'hour')
       this.svgHandMinute = this.createHand(150, 'minute')
+      if (this.showSecond) {
+        this.svgHandSecond = this.createHand(170, 'second')
+      }
       this.updateHandHour()
       this.updateHandMinute()
+      if (this.showSecond) {
+        this.updateHandSecond()
+      }
       svg.appendChild(this.svgHandHour)
       svg.appendChild(this.svgHandMinute)
+      if (this.showSecond) {
+        svg.appendChild(this.svgHandSecond)
+      }
     }
 
     container.appendChild(svgContainer)
@@ -149,7 +165,6 @@ class InteractiveClock extends HTMLElement {
         this.currentAction = 'hour'
         handlePointerDown(event)
       })
-
       this.svgHandHour.addEventListener('pointerup', handlePointerUp)
 
       this.svgHandMinute.addEventListener('pointerdown', (event) => {
@@ -157,20 +172,34 @@ class InteractiveClock extends HTMLElement {
         this.currentAction = 'minute'
         handlePointerDown(event)
       })
-
       this.svgHandMinute.addEventListener('pointerup', handlePointerUp)
+
+      if (this.showSecond) {
+        this.svgHandSecond.addEventListener('pointerdown', (event) => {
+          this.draggingHand = true
+          this.currentAction = 'second'
+          handlePointerDown(event)
+        })
+        this.svgHandSecond.addEventListener('pointerup', handlePointerUp)
+      }
     }
   }
 
   /**
    * Création d'une aiguille
    */
-  createHand (length: number, type: 'hour' | 'minute') {
+  createHand (length: number, type: 'hour' | 'minute' | 'second') {
     const hand = document.createElementNS('http://www.w3.org/2000/svg', 'line')
     hand.setAttribute('x1', '0')
     hand.setAttribute('y1', '0')
     hand.setAttribute('stroke', 'black')
-    hand.setAttribute('stroke-width', type === 'hour' ? '12' : '8')
+    if (type === 'hour') {
+      hand.setAttribute('stroke-width', '12')
+    } else if (type === 'minute') {
+      hand.setAttribute('stroke-width', '8')
+    } else {
+      hand.setAttribute('stroke-width', '3')
+    }
     hand.setAttribute('stroke-linecap', 'round')
     hand.setAttribute('class', type + '-hand')
     return hand
@@ -195,6 +224,14 @@ class InteractiveClock extends HTMLElement {
     this.svgHandMinute.setAttribute('y2', y2.toString())
   }
 
+  updateHandSecond () {
+    const angle = (this.second / 60) * 2 * Math.PI
+    const x2 = Math.sin(angle) * 170
+    const y2 = -Math.cos(angle) * 170
+    this.svgHandSecond.setAttribute('x2', x2.toString())
+    this.svgHandSecond.setAttribute('y2', y2.toString())
+  }
+
   dragHand (event: MouseEvent | TouchEvent) {
     if (!this.isDynamic) return
     if (!this.draggingHand) return
@@ -209,17 +246,24 @@ class InteractiveClock extends HTMLElement {
     const value = Math.round((angle / (2 * Math.PI)) * (this.currentAction === 'hour' ? 12 : 60))
     if (this.currentAction === 'hour') {
       this.hour = value
-    } else {
+    } else if (this.currentAction === 'minute') {
       if (this.previousMinute > 50 && value < 10) {
         this.hour = (this.hour + 1) % 12
       } else if (this.previousMinute < 10 && value > 50) {
         this.hour = (this.hour + 11) % 12
       }
       this.minute = value
+    } else if (this.currentAction === 'second') {
+      if (this.previousSecond > 50 && value < 10) {
+        this.minute = (this.minute + 1) % 60
+      } else if (this.previousSecond < 10 && value > 50) {
+        this.minute = (this.minute + 59) % 60
+      }
+      this.second = value
     }
-    // this.updateHandHour(!(this.currentAction === 'hour'))
     this.updateHandHour()
     this.updateHandMinute()
+    this.updateHandSecond()
   }
 
   disconnectedCallback () {
@@ -230,17 +274,24 @@ class InteractiveClock extends HTMLElement {
     return this._currentAction
   }
 
-  set currentAction (value: 'hour' | 'minute' | undefined) {
+  set currentAction (value: 'hour' | 'minute' | 'second' | undefined) {
     this._currentAction = value
     if (value === 'hour') {
       this.svgHandHour.setAttribute('stroke', '#216D9A')
       this.svgHandMinute.setAttribute('stroke', '#F15929')
+      this.svgHandSecond.setAttribute('stroke', '#F15929')
     } else if (value === 'minute') {
       this.svgHandHour.setAttribute('stroke', '#F15929')
       this.svgHandMinute.setAttribute('stroke', '#216D9A')
+      this.svgHandSecond.setAttribute('stroke', '#F15929')
+    } else if (value === 'second') {
+      this.svgHandHour.setAttribute('stroke', '#F15929')
+      this.svgHandMinute.setAttribute('stroke', '#F15929')
+      this.svgHandSecond.setAttribute('stroke', '#216D9A')
     } else {
       this.svgHandHour.setAttribute('stroke', 'black')
       this.svgHandMinute.setAttribute('stroke', 'black')
+      this.svgHandSecond.setAttribute('stroke', 'black')
     }
   }
 
@@ -253,6 +304,15 @@ class InteractiveClock extends HTMLElement {
       value = 12
     }
     this.setAttribute('hour', value.toString())
+  }
+
+  get second () {
+    return Number(this.getAttribute('second')) || 0
+  }
+
+  set second (value: number) {
+    this.setAttribute('second', value.toString())
+    this.previousSecond = this.second
   }
 
   get isDynamic () {

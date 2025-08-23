@@ -1,3 +1,4 @@
+import { pickRandom } from 'mathjs'
 import { arcPointPointAngle } from '../../lib/2d/cercle'
 import { texteSurArc } from '../../lib/2d/codages'
 import { droite } from '../../lib/2d/droites'
@@ -5,15 +6,14 @@ import { point } from '../../lib/2d/points'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
 import { homothetie, rotation, translation } from '../../lib/2d/transformations'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites'
+import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
+import { abs } from '../../lib/outils/nombres'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { pickRandom } from 'mathjs'
-import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { abs } from '../../lib/outils/nombres'
+import Exercice from '../Exercice'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
 export const dateDePublication = '15/01/2022'
 export const dateDeModifImportante = '20/02/2025'
@@ -92,7 +92,7 @@ export default class ExercicesAnglesAIC extends Exercice {
     ]
 
     this.nbQuestions = 1
-    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n' + formulaire.join('\n')]
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets :\n' + formulaire.join('\n')]
 
     this.nbCols = 2
     this.nbColsCorr = 2

@@ -38,6 +38,7 @@
   import { get } from 'svelte/store'
   import MetaExercice from '../../../exercices/MetaExerciceCan'
   import { verifDragAndDrop } from '../../../lib/interactif/DragAndDrop'
+  import { statsCanTracker } from '../../../modules/stats'
 
   let state: CanState = 'canHomeScreen'
   let exercises: TypeExercice[] = []
@@ -131,6 +132,7 @@
   }
 
   function checkAnswers() {
+    statsCanTracker($globalOptions.recorder ?? '', $globalOptions.v ?? '')
     const answersType : answerType[] = []
     for (let i = 0; i < questions.length; i++) {
       const exercice = exercises[indiceExercice[i]]

@@ -110,7 +110,7 @@ export default class PositionsDeDroites extends Exercice {
       texteCorr += '<br> Pour cela, on calcule leur déterminant : <br>'
       texteCorr += `$Det\\big(\\vec u;\\vec {u'}\\big)=\\begin{vmatrix}${-b1}&${-b2}\\\\${a1}&${a2}\\end{vmatrix}=${ecritureParentheseSiNegatif(-b1)} \\times ${ecritureParentheseSiNegatif(a2)} - ${ecritureParentheseSiNegatif(a1)} \\times ${ecritureParentheseSiNegatif(-b2)}=${-b1 * a2 + a1 * b2}$`
       if (-b1 * a2 + a1 * b2 !== 0) {
-        texteCorr += '<br>On observe que le déterminant est non-nul. <br>Les vecteurs directeurs des deux droites ne sont donc pas colinéaires.'
+        texteCorr += '<br>On observe que le déterminant est non nul. <br>Les vecteurs directeurs des deux droites ne sont donc pas colinéaires.'
         texteCorr += '<br>Les droites $(d)$ et $(d\')$ ne sont donc pas parallèles.'
       } else {
         texteCorr += '<br>On observe que le déterminant est nul. <br>Les vecteurs directeurs des deux droites sont donc colinéaires.'

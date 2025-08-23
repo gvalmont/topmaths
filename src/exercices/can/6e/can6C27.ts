@@ -1,12 +1,12 @@
+import { texPrix } from '../../../lib/format/style'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF } from '../../../lib/outils/Personne'
-import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 import Decimal from 'decimal.js'
-import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de rendu de monnaie'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export const dateDePublication = '21/10/2021'
 export const uuid = '02170'
 
 export const refs = {
-  'fr-fr': ['can6C27'],
+  'fr-fr': ['can6C27', '6N2A-flash4'],
   'fr-ch': []
 }
 export default class RenduMonnaie extends ExerciceSimple {

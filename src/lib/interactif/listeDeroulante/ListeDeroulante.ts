@@ -1,6 +1,5 @@
-// et notre css
-import './listeDeroulante.scss'
-import { MathfieldElement } from 'mathlive'
+import { renderMathInElement } from 'mathlive'
+
 type EventListener = (event?: Event) => void
 type KeyboardEventListener = (event: KeyboardEvent) => void
 
@@ -8,7 +7,8 @@ interface CHoiceValue {
   latex?: string,
   image?: string,
   label?: string,
-  value: string
+  value: string,
+  svg?: string
 }
 
 /**
@@ -30,16 +30,20 @@ function empty (...elts: Element[]): void {
 //            {latex: '\\frac{\\sqrt{3}}{2}',value: 'sinusPiSur3'},
 //            {label: "n'est pas définie en zéro", value: 'noF0'}
 //            'Je ne sais pas']
-export type AllChoiceType = (string | CHoiceValue)
+export type AllChoiceType = (CHoiceValue)
 export type AllChoicesType = AllChoiceType[]
 
-/**
- * Cette fonction est amenée à disparaître : elle palie à un bug du MathfieldElement qui intercepte les actions du pointer alors qu'il est readOnly.
- * @param htmlString
- */
-function setPointEventsToNone (htmlString: string) {
-  return htmlString.replaceAll('pointer-events:auto', 'pointer-events:none')
+// @todo faire évoluer cette fonction vers un renderToString() directement dans le li lorsque mathlive sera en version 1.0 ou plus.
+function renderLatexToHTMLFragment (li: HTMLLIElement | HTMLSpanElement, latex: string): void {
+  li.innerHTML = `$$${latex}$$`
+  renderMathInElement(li)
+  const spanToInvisible = li.querySelectorAll('span')
+  if (spanToInvisible.length > 2) {
+    spanToInvisible[2].style.display = 'none'
+  }
 }
+
+// Usage :
 
 /**
  * La fonction qui affiche l'un des choix, que ce soit du texte, du latex ou une image.
@@ -49,31 +53,29 @@ function setPointEventsToNone (htmlString: string) {
 function afficheChoice (li: HTMLLIElement | HTMLSpanElement, choice: AllChoiceType | undefined) {
   // Les textes sont naturellement alignés avec li.textAlign, mais pas les images ou les math-field
   if (choice == null) return
-  if (typeof choice === 'string') {
-    li.textContent = choice
-  } else if (typeof choice === 'object') {
+  if (typeof choice === 'object') {
     if ('latex' in choice) {
-      const mf: MathfieldElement = new MathfieldElement()
-      mf.value = choice.latex ?? choice.value
-      mf.readOnly = true
-      mf.setAttribute('contenteditable', 'false')  // <-- Ajouté ici
-      // à supprimer lorsque le bug des MathfieldElement readOnly sera fixé.
-      const shadowRoot = mf.shadowRoot
-      if (shadowRoot) mf.shadowRoot.innerHTML = setPointEventsToNone(shadowRoot.innerHTML)
-      li.appendChild(mf)
-      // Ajout du listener pour propager le clic
-      mf.addEventListener('click', (event) => {
-        event.stopPropagation()
-        li.click()
-      })
+      renderLatexToHTMLFragment(li, choice.latex ?? '')
     } else if ('image' in choice) {
       const image = document.createElement('img')
       image.src = choice.image ?? choice.value
+      image.style.width = '30px'
+      image.style.height = '30px'
       li.appendChild(image)
     } else if ('label' in choice) {
-      li.textContent = choice.label ?? choice.value
-    } else {
-      console.error('Le choix ne contient pas d\'élément affichable')
+      const span = document.createElement('span')
+      span.innerHTML = choice.label ?? choice.value
+      li.appendChild(span)
+    } else if ('svg' in choice) {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      svg.setAttribute('viewBox', '-10 -10 20 20') // Valeur par défaut, peut être ajustée
+      svg.classList.add('svgChoice')
+      svg.style.display = 'block'
+      svg.style.width = '20px'
+      svg.style.height = '20px'
+      svg.style.verticalAlign = 'middle'
+      svg.innerHTML = choice.svg ?? ''
+      li.appendChild(svg)
     }
   } else {
     throw Error(`Type de choix inconnu : ${choice}`)
@@ -91,7 +93,7 @@ class ListeDeroulante {
   givenChoices?: AllChoicesType // Je ne vois pas pourquoi on aurait ça...
   private _kbIndex: number = -1 // L'index du choix sélectionné au clavier
   changed: boolean = false // Passe à true dès qu'on a fait une sélection (ou dès le départ si le choix initial est sélectionnable)
-  private readonly _offset: number = 0 // Décalage éventuel d'index entre le tableau de choix fourni et celui qu'on manipule (0 ou 1 suivant que le premier choix est sélectionnable ou pas)
+  readonly _offset: number = 0 // Décalage éventuel d'index entre le tableau de choix fourni et celui qu'on manipule (0 ou 1 suivant que le premier choix est sélectionnable ou pas)
   reponse: string = ''
 
   private _elts: HTMLLIElement[] = [] // Liste des elts contenant les choix (les &lt;li&gt;)

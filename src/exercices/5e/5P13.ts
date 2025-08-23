@@ -1,21 +1,21 @@
+import Decimal from 'decimal.js'
+import { min } from 'mathjs'
+import { tableau } from '../../lib/2d/tableau'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import FractionEtendue from '../../modules/FractionEtendue'
-import { min } from 'mathjs'
-import Grandeur from '../../modules/Grandeur'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
-import Decimal from 'decimal.js'
-import { tableau } from '../../lib/2d/tableau'
-import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites'
+import FractionEtendue from '../../modules/FractionEtendue'
+import Grandeur from '../../modules/Grandeur'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +41,7 @@ export const refs = {
 export default class EchellesProblemes extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Trouver une échelle\n2 : Trouver une distance réelle\n3 : Trouver une longueur sur le plan\n4 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets :\n1 : Trouver une échelle\n2 : Trouver une distance réelle\n3 : Trouver une longueur sur le plan\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Avec un tableau dans la correction']
     this.sup = '4'
     this.sup2 = false

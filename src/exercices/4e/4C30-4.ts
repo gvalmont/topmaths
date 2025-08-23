@@ -50,7 +50,22 @@ export default class PuissancesEtPrefixe extends Exercice {
       const description = listeExposants[i][2]
       const reponseDecimale = new Decimal(10).pow(exposant)
       if (this.sup === 1) {
-        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, shuffle(['nano', 'micro', 'milli', 'centi', 'déci', 'déca', 'hecto', 'kilo', 'méga', 'giga', 'téra']), 'une réponse')
+        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, [
+          { label: 'Choisir le bon préfixe', value: '' },
+          ...shuffle([
+            { label: 'nano', value: 'nano' },
+            { label: 'micro', value: 'micro' },
+            { label: 'milli', value: 'milli' },
+            { label: 'centi', value: 'centi' },
+            { label: 'déci', value: 'déci' },
+            { label: 'déca', value: 'déca' },
+            { label: 'hecto', value: 'hecto' },
+            { label: 'kilo', value: 'kilo' },
+            { label: 'méga', value: 'méga' },
+            { label: 'giga', value: 'giga' },
+            { label: 'téra', value: 'téra' }
+          ])
+        ])
         handleAnswers(this, i, { reponse: { value: prefixe } }, { formatInteractif: 'listeDeroulante' })
         texteCorr = `$10^{${exposant}}$, c'est ${description} donc le préfixe correspondant est ${texteEnCouleurEtGras(prefixe)}.`
       } else {

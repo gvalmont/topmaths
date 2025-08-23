@@ -1,11 +1,11 @@
+import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteExposant } from '../../../lib/outils/ecritures'
+import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-import { texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const titre = 'Comparer des aires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -20,7 +20,7 @@ export const amcType = 'qcmMono'
 export const uuid = 'bae27'
 
 export const refs = {
-  'fr-fr': ['can6M08'],
+  'fr-fr': ['can6M08', '6M2C-flash1'],
   'fr-ch': []
 }
 export default class QuestionDAires extends Exercice {

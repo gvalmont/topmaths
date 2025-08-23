@@ -1,11 +1,11 @@
+import Decimal from 'decimal.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
-import ExerciceSimple from '../../ExerciceSimple'
-import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils'
-import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import ExerciceSimple from '../../ExerciceSimple'
 export const titre = 'Résoudre un problème de partage*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +16,7 @@ export const dateDePublication = '03/07/2025'
 export const uuid = '6c977'
 
 export const refs = {
-  'fr-fr': ['can6C52'],
+  'fr-fr': ['can6C52', '6N2K-flash3'],
   'fr-ch': []
 }
 export default class PetitsProblemePartage2 extends ExerciceSimple {

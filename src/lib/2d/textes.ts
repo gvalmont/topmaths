@@ -3,7 +3,7 @@ import { context } from '../../modules/context'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { point, Point } from './points'
-import { Point3d } from '../3d/elements'
+import { Point3d } from '../3d/3dProjectionMathalea2d/elements'
 import { Polygone } from './polygones'
 import type { PointAbstrait } from './points-abstraits'
 

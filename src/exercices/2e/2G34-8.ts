@@ -264,18 +264,17 @@ export default class systemeEquationsPremDeg extends Exercice {
         texteCorr = texteCorr + `On additionne les deux equations pour élimer l'inconnue $${varElim}$ dans la deuxième équation. `
         texteCorr = texteCorr + `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1), listeVar, true))}\\]`
       }
-      let rep = ''
-      const choix = ['admet une unique solution', 'n\'admet pas de solution', 'admet une infinité de solutions']
-      if (listeTypeQuestions[i].substring(3) === 'Uni') {
-        rep = choix[0]
-      } else if (listeTypeQuestions[i].substring(3) === 'Auc') {
-        rep = choix[1]
-      } else {
-        rep = choix[2]
-      }
-      texteCorr = texteCorr + `Ainsi, le système ${texteEnCouleurEtGras(`${rep}`)}.`
+      const choix = [
+        { label: 'Choisir une des réponses suivantes :', value: '' },
+        { label: 'admet une unique solution', value: 'Uni' },
+        { label: 'n\'admet pas de solution', value: 'Auc' },
+        { label: 'admet une infinité de solutions', value: 'Inf' }
+      ]
+      const rep = listeTypeQuestions[i].substring(3)
+
+      texteCorr = texteCorr + `Ainsi, le système ${texteEnCouleurEtGras(`${choix.find(el => el.value === rep)?.label ?? ''}`)}.`
       if (this.interactif) {
-        texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix, 'reponse') + '.'
+        texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix) + '.'
         handleAnswers(this, i, { reponse: { value: rep, options: { texteSansCasse: true } } }, { formatInteractif: 'listeDeroulante' })
       }
       if (this.questionJamaisPosee(i, solX, solY)) {

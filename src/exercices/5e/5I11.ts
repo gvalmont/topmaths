@@ -1,4 +1,4 @@
-import NoteLaCouleur6e from '../6e/6I11'
+import NoteLaCouleur6e from '../6e/6I1B-2'
 export const titre = 'Note la couleur (scratch) 5e'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'

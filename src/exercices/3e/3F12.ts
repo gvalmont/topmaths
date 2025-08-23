@@ -1,17 +1,17 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
-import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
+import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines'
+import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs'
 import {
+  gestionnaireFormulaireTexte,
+  itemize,
   listeQuestionsToContenu,
   randint,
-  texEnumerate,
-  itemize,
-  gestionnaireFormulaireTexte
+  texEnumerate
 } from '../../modules/outils'
-import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer, de manières différentes, des images par une fonction'
 
@@ -31,7 +31,7 @@ export default class FonctionsCalculsDImages extends Exercice {
     super()
     // this.besoinFormulaireNumerique = ['Règle à travailler', 5, '1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
     this.besoinFormulaireTexte = ['Règle à travailler',
-      'Nombres séparés par des tirets\n1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
+      'Nombres séparés par des tirets :\n1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
 
     this.sup = 5
     // pas de différence entre la version html et la version latex pour la consigne

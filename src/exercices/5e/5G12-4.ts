@@ -1,16 +1,16 @@
-import { texteParPosition } from '../../lib/2d/textes'
-import { choice } from '../../lib/outils/arrayOutils'
-import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
-import Exercice from '../Exercice'
 import type { Figure2D } from '../../lib/2d/Figures2D'
+import { listeFigures2d, type Forme } from '../../lib/2d/figures2d/listeFigures2d'
 import { tracePoint } from '../../lib/2d/points'
-import { propositionsQcm } from '../../lib/interactif/qcm'
-import { translation } from '../../lib/2d/transformations'
 import { vecteur } from '../../lib/2d/segmentsVecteurs'
+import { texteParPosition } from '../../lib/2d/textes'
+import { translation } from '../../lib/2d/transformations'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+import { choice } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
 import { context } from '../../modules/context'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Reconnaitre une symétrie centrale'
 export const interactifReady = true
@@ -35,7 +35,7 @@ export default class NbAxesDeSymetrie extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 3
-    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Type de figures', 'Nombres séparés par des tirets :\n1 : Panneaux\n2 : Formes géométriques\n3 : Legos\n4 : Lettres\n5 : Chiffres et nombres\n6 : Mélange']
     this.sup = '6'
     this.besoinFormulaire2Numerique = ['Nombre de figures par question', 3]
     this.sup2 = 3

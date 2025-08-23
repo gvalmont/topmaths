@@ -1,17 +1,17 @@
-import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
-import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import Exercice from '../Exercice'
-import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { Point, point, tracePoint } from '../../lib/2d/points'
-import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { latex2d } from '../../lib/2d/textes'
-import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { polygone } from '../../lib/2d/polygones'
+import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { segment, Vecteur, vecteur } from '../../lib/2d/segmentsVecteurs'
+import { latex2d } from '../../lib/2d/textes'
+import { orangeMathalea } from '../../lib/colors'
+import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import { orangeMathalea } from '../../lib/colors'
+import { fixeBordures, mathalea2d, type NestedObjetMathalea2dArray } from '../../modules/2dGeneralites'
+import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Déterminer les coordonnées des sommets d’un parallélogramme'
 export const dateDePublication = '25/05/2025'
@@ -86,7 +86,7 @@ export default class ConstructionsParallelogrammesParticuliers extends Exercice 
     super()
     this.besoinFormulaireTexte = [
       'Choix des questions',
-      'Nombres séparés par des tirets\n1 : 4e sommet\n2 : 3e sommet\n3 : 2e sommet\n4 : 1er sommet\n5 : Mélange'
+      'Nombres séparés par des tirets :\n1 : 4e sommet\n2 : 3e sommet\n3 : 2e sommet\n4 : 1er sommet\n5 : Mélange'
     ]
     this.sup = '1'
     this.besoinFormulaire2CaseACocher = ['Avec des fractions', false]

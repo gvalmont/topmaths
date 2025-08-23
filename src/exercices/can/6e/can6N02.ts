@@ -18,7 +18,7 @@ export const dateDeModifImportante = '26/10/2024'
 export const uuid = '75d40'
 
 export const refs = {
-  'fr-fr': ['can6N02'],
+  'fr-fr': ['can6N02', '6N1A-flash2'],
   'fr-ch': []
 }
 export default class RecomposerEntierSimple extends ExerciceSimple {

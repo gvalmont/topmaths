@@ -8,14 +8,14 @@ import {
   rotation3d,
   rotationV3d,
   sensDeRotation3d
-} from '../../lib/3d/tranformations'
-import { sphere3d } from '../../lib/3d/solides'
+} from '../../lib/3d/3dProjectionMathalea2d/tranformations'
+import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/solides'
 import {
   arete3d,
   demicercle3d,
   droite3d,
   point3d, vecteur3d
-} from '../../lib/3d/elements'
+} from '../../lib/3d/3dProjectionMathalea2d/elements'
 import { context } from '../../modules/context'
 import {
   listeQuestionsToContenuSansNumero,

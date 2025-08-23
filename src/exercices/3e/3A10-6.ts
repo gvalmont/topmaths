@@ -1,11 +1,11 @@
-import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texteGras } from '../../lib/format/style'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sommeDesChiffres } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString'
-import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -31,7 +31,7 @@ export default class TrouverChiffre extends Exercice {
     super()
 
     this.nbQuestions = 4
-    this.besoinFormulaireTexte = ['Nombre de chiffres dans le nombre à découvrir ', 'Nombres séparés par des tirets\n2 : 2 chiffres\n3 : 3 chiffres\n4 : 4 chiffres\n5 : 5 chiffres\n6 : 6 chiffres\n7 : Mélange']
+    this.besoinFormulaireTexte = ['Nombre de chiffres dans le nombre à découvrir ', 'Nombres séparés par des tirets :\n2 : 2 chiffres\n3 : 3 chiffres\n4 : 4 chiffres\n5 : 5 chiffres\n6 : 6 chiffres\n7 : Mélange']
     this.besoinFormulaire2Texte = ['Critère choisi de divisibilité', 'Nombres séparés par des tirets \n1 : par 2\n2 : par 3\n3 : par 5\n4 : par 9\n5 : par 2 et par 3\n6 : par 2 et par 5\n7 : par 6\n8 : par 10\n9 : Mélange']
     this.besoinFormulaire3Numerique = ['Choix du symbole remplaçant le chiffre manquant', 4, '1 : ?\n2 : _\n3 : ...\n4 : X']
     this.besoinFormulaire4CaseACocher = ['Le chiffre des unités est le seul chiffre caché', false]

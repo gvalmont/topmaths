@@ -1,9 +1,9 @@
-import { repere } from '../../../lib/2d/reperes'
 import { traceBarreHorizontale } from '../../../lib/2d/diagrammes'
+import { repere } from '../../../lib/2d/reperes'
 import { prenom } from '../../../lib/outils/Personne'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { randint } from '../../../modules/outils'
 import ExerciceSimple from '../../ExerciceSimple'
-import { mathalea2d } from '../../../modules/2dGeneralites'
 export const titre = 'Lire un diagramme en barres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = '1957a'
 
 export const refs = {
-  'fr-fr': ['can6S01'],
+  'fr-fr': ['can6S01', 'auto6P1A-flash1'],
   'fr-ch': []
 }
 export default class LectureDiagrammeBarre extends ExerciceSimple {
