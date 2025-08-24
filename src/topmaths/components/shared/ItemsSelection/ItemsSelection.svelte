@@ -260,9 +260,16 @@
   function updateFilter (options: UpdateFilterOptions): void {
     if (options.grade === undefined && options.term === undefined && options.isAutomaticity === undefined) return
     const { grade , term , isAutomaticity } = options
-    if (isStringGrade(grade)) $filter.grade = grade
-    if (term !== undefined) $filter.term = term
-    if (isAutomaticity !== undefined) $filter.isAutomaticity = isAutomaticity
+    const newGrade = isStringGrade(grade) ? grade : $filter.grade
+    const newTerm = term ?? $filter.term
+    const newIsAutomaticity = isAutomaticity ?? $filter.isAutomaticity
+
+    $filter = Object.assign({}, $filter, {
+      grade: newGrade,
+      term: newTerm,
+      isAutomaticity: newIsAutomaticity
+    })
+
     const optionsString = isAutomaticity ? '&options=1' : ''
     window.history.pushState({}, '', `?v=${view}&grade=${$filter.grade}&term=${$filter.term}${optionsString}`)
   }
