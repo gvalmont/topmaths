@@ -11,7 +11,13 @@
               {
                 "reference": "6N1A",
                 "titleAcademic": "Connaître et utiliser la valeur des chiffres selon leur rang dans l'écriture d'un nombre",
-                "title": ""
+                "title": "",
+                "exercises": [
+                  {
+                    "slug": "uuid=34579&id=6N1A-2&n=4&d=10&s=3&s2=3&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6N1B",
@@ -82,6 +88,11 @@
                 "title": "",
                 "lessonSummaryHTML": "En France, on écrit les grand nombres en faisant des \"paquets de 3\" qu'on appelle des <i>classes</i><br>Il y a la <i>classe des unités</i>, la <i>classe des milliers</i>, la <i>classe des millions</i> etc.<br><img src='/topmaths/img/tableau-de-numeration-entiers.png' /><br><br>Pour écrire un nombre en chiffres, il y a quelques règles à connaître :<ul><li>On place un <i>trait d'union entre tous les mots</i> qui composent le nombre.</li><li><i>Vingt et cent s'accordent</i> au pluriel lorsqu'ils ne sont <i><b>pas suivis</b> d'un autre nombre</i></li><li><i>Mille est invariable</i> (il ne s'accorde jamais)</li><li><i>Million et milliard s'accordent</i> au pluriel</li></ul>",
                 "lessonSummaryImage": "",
+                "prerequisites": [
+                  {
+                    "objectiveReference": "6N1A"
+                  }
+                ],
                 "videos": [
                   {
                     "title": "",
@@ -92,12 +103,20 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "6N10-4,n=2",
+                    "slug": "uuid=dc348&id=6N1C&n=2&d=10&cd=1",
                     "description": "Écrire correctement les grand nombres entiers"
                   },
                   {
-                    "slug": "6N10,s=5-6-7-8,s2=0,s3=2,n=2",
-                    "description": "Écrire un nombre en chiffres"
+                    "slug": "uuid=a7aa7&id=6N0A-11&n=2&d=10&s=3&cd=1",
+                    "description": "Comparer deux nombres entiers"
+                  },
+                  {
+                    "slug": "uuid=3bba9&id=6N0A-10&n=1&d=10&s=3&s2=4&s3=false&s4=false&cd=1",
+                    "description": "Ranger des nombres entiers"
+                  },
+                  {
+                    "slug": "uuid=29b40&id=6N0A-9&n=2&d=10&s=4-5&s2=3-4&s3=2&cd=1",
+                    "description": "Encadrer un nombre entier"
                   }
                 ],
                 "lessonPlans": [
@@ -2159,7 +2178,7 @@
                 ],
                 "exercises": [
                   {
-                    "slug": "6G10-4,s=1,s2=true,n=1,cd=1",
+                    "slug": "uuid=03b49&id=6G2A&n=1&d=10&s=2&s2=true&s3=2-4-5-6&cd=1",
                     "description": ""
                   }
                 ],
@@ -2208,7 +2227,12 @@
                 "lessonSummaryHTML": "",
                 "lessonSummaryImage": "",
                 "videos": [],
-                "exercises": []
+                "exercises": [
+                  {
+                    "slug": "uuid=f8dee&id=6G2B&n=1&d=10&s=3&s2=2&cd=1",
+                    "description": ""
+                  }
+                ]
               },
               {
                 "reference": "6G2C",
