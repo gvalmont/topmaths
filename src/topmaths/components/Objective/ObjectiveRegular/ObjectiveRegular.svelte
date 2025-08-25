@@ -1,26 +1,26 @@
 <script lang="ts">
-  import {
-    isTeacherMode,
-    isPersonalMode,
-    objectives
-  } from '../../../services/store'
-  import { emptyObjective, type Objective } from '../../../types/objective'
-  import { getTitle } from '../../../services/string'
-  import { goToView } from '../../../services/navigation'
-  import { onDestroy, onMount } from 'svelte'
+  import iepLoadPromise from 'instrumenpoche';
+  import { onDestroy, onMount } from 'svelte';
+  import type { Unsubscriber, Writable } from 'svelte/store';
   import {
     mathaleaRenderDiv
-  } from '../../../../lib/mathalea'
-  import iepLoadPromise from 'instrumenpoche'
-  import { isEmptyArrayRecord, deepCopy } from '../../../types/shared'
-  import ObjectiveRegularLessonSummary from './presentationalComponents/ObjectiveRegularLessonSummary.svelte'
-  import ObjectiveRegularVideos from './presentationalComponents/ObjectiveRegularVideos.svelte'
-  import ObjectiveRegularExercises from './presentationalComponents/ObjectiveRegularExercises.svelte'
-  import ObjectiveRegularExamExercises from './presentationalComponents/ObjectiveRegularExamExercises.svelte'
-  import ObjectiveRegularDownloads from './presentationalComponents/ObjectiveRegularDownloads.svelte'
-  import ObjectiveRegularUnits from './presentationalComponents/ObjectiveRegularUnits.svelte'
-  import ObjectiveRegularPrerequisites from './presentationalComponents/ObjectiveRegularPrerequisites.svelte'
-  import type { Unsubscriber, Writable } from 'svelte/store'
+  } from '../../../../lib/mathalea';
+  import { goToView } from '../../../services/navigation';
+  import {
+    isPersonalMode,
+    isTeacherMode,
+    objectives
+  } from '../../../services/store';
+  import { getTitle } from '../../../services/string';
+  import { emptyObjective, type Objective } from '../../../types/objective';
+  import { deepCopy, isEmptyArrayRecord } from '../../../types/shared';
+  import ObjectiveRegularDownloads from './presentationalComponents/ObjectiveRegularDownloads.svelte';
+  import ObjectiveRegularExamExercises from './presentationalComponents/ObjectiveRegularExamExercises.svelte';
+  import ObjectiveRegularExercises from './presentationalComponents/ObjectiveRegularExercises.svelte';
+  import ObjectiveRegularLessonSummary from './presentationalComponents/ObjectiveRegularLessonSummary.svelte';
+  import ObjectiveRegularPrerequisites from './presentationalComponents/ObjectiveRegularPrerequisites.svelte';
+  import ObjectiveRegularUnits from './presentationalComponents/ObjectiveRegularUnits.svelte';
+  import ObjectiveRegularVideos from './presentationalComponents/ObjectiveRegularVideos.svelte';
 
   export let objectiveReference: Writable<string>
 
@@ -75,7 +75,7 @@
       isTeacherMode={$isTeacherMode}
     />
   {/if}
-  {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche}
+  {#if objective.lessonSummaryHTML || objective.lessonSummaryImage || objective.lessonSummaryInstrumenpoche || objective.lessonImages.length > 0}
     <ObjectiveRegularLessonSummary
       lessonImages={objective.lessonImages}
       lessonSummaryHTML={objective.lessonSummaryHTML}
