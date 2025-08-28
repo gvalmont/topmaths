@@ -4,7 +4,6 @@
   import ClassroomMathador from './ClassroomMathador.svelte'
   import ClassroomPrerequisites from './ClassroomPrerequisites.svelte'
   import ClassroomSelection from './ClassroomSelection.svelte'
-
 </script>
 
 {#if $reference === 'curriculum'}

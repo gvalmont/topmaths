@@ -9,7 +9,8 @@
 </script>
 
 {#if displayCondition ?? !!href}
-  <li class="flex justify-center
+  <li
+    class="flex justify-center
     p-1 md:p-2"
   >
     <a

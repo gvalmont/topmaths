@@ -366,9 +366,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -408,9 +406,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -477,9 +473,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -647,9 +641,7 @@
                   {
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [],
-                    "startSteps": [
-                      "Questions Flash"
-                    ],
+                    "startSteps": ["Questions Flash"],
                     "segments": [
                       {
                         "steps": [
@@ -702,9 +694,7 @@
                   {
                     "studentMaterialsNeeded": [],
                     "teacherMaterialsNeeded": [],
-                    "startSteps": [
-                      "Mathador"
-                    ],
+                    "startSteps": ["Mathador"],
                     "segments": [
                       {
                         "steps": [
@@ -1073,9 +1063,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "5N21_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["5N21_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -1145,9 +1133,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "startSteps": [
                       "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
                     ],
@@ -1237,9 +1223,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "6P17_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["6P17_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -1440,9 +1424,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "6M13_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["6M13_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -1588,10 +1570,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "6M20_Poly_x6",
-                      "Tablettes"
-                    ],
+                    "teacherMaterialsNeeded": ["6M20_Poly_x6", "Tablettes"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -1808,12 +1787,8 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "6M11_Poly_x6"
-                    ],
-                    "startSteps": [
-                      "Mathador"
-                    ],
+                    "teacherMaterialsNeeded": ["6M11_Poly_x6"],
+                    "startSteps": ["Mathador"],
                     "segments": [
                       {
                         "steps": [
@@ -1966,12 +1941,8 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "6M31_Presentation"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
+                    "teacherMaterialsNeeded": ["6M31_Presentation"],
                     "startSteps": [
                       "https://topmaths.fr/?uuid=4f8f4&id=6D13&n=2&s=3&alea=XRnd&cd=1&v=exercices"
                     ],
@@ -2017,9 +1988,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
                     "segments": [
@@ -2274,11 +2243,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "Équerre"
-                    ],
+                    "studentMaterialsNeeded": ["Règle", "Compas", "Équerre"],
                     "teacherMaterialsNeeded": [
                       "6G50_Presentation-1",
                       "6G50_Poly_x1 à imprimer",
@@ -2295,9 +2260,7 @@
                         ]
                       }
                     ],
-                    "closureSteps": [
-                      "Mettre la correction sur Pronote"
-                    ],
+                    "closureSteps": ["Mettre la correction sur Pronote"],
                     "comments": []
                   }
                 ]
@@ -2329,11 +2292,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "Équerre"
-                    ],
+                    "studentMaterialsNeeded": ["Règle", "Compas", "Équerre"],
                     "teacherMaterialsNeeded": [
                       "6G50_Presentation-1",
                       "6G50_Poly_x1 à imprimer",
@@ -2356,9 +2315,7 @@
                         ]
                       }
                     ],
-                    "closureSteps": [
-                      "Mettre la correction sur Pronote"
-                    ],
+                    "closureSteps": ["Mettre la correction sur Pronote"],
                     "comments": []
                   }
                 ]
@@ -2494,9 +2451,7 @@
                     "startSteps": [],
                     "segments": [
                       {
-                        "steps": [
-                          "https://mathix.org/permis_rapporteur/"
-                        ]
+                        "steps": ["https://mathix.org/permis_rapporteur/"]
                       }
                     ],
                     "closureSteps": [],
@@ -2548,9 +2503,7 @@
                     "startSteps": [],
                     "segments": [
                       {
-                        "steps": [
-                          "https://mathix.org/permis_rapporteur/"
-                        ]
+                        "steps": ["https://mathix.org/permis_rapporteur/"]
                       }
                     ],
                     "closureSteps": [],
@@ -2607,10 +2560,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas"
-                    ],
+                    "studentMaterialsNeeded": ["Règle", "Compas"],
                     "teacherMaterialsNeeded": [
                       "Règle",
                       "Compas",
@@ -2618,9 +2568,7 @@
                       "6G23_Poly-2 Paille en queue",
                       "6G23_Poly-3 Tortue"
                     ],
-                    "grades": [
-                      "6e"
-                    ],
+                    "grades": ["6e"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -2642,10 +2590,7 @@
                     ]
                   },
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas"
-                    ],
+                    "studentMaterialsNeeded": ["Règle", "Compas"],
                     "teacherMaterialsNeeded": [
                       "Règle",
                       "Compas",
@@ -2653,9 +2598,7 @@
                       "5X1_Poly-1_x10 Consigne 1",
                       "S5S3_Cours"
                     ],
-                    "grades": [
-                      "5e"
-                    ],
+                    "grades": ["5e"],
                     "startSteps": [
                       "Diapos Consigne 1 (calcul mental, pas le droit de poser les opérations, s’ils ont du mal, les inciter à rechercher \"un truc\" qui leur permettrait de faire les calculs très facilement.)",
                       "Le professeur demande, si on fait comme ça, est-ce qu’on est sûr d’avoir obtenu le bon résultat ?",
@@ -2817,11 +2760,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "Équerre"
-                    ],
+                    "studentMaterialsNeeded": ["Règle", "Compas", "Équerre"],
                     "teacherMaterialsNeeded": [
                       "6G51_Poly_x1 à imprimer",
                       "Entrainement_6G51 à mettre sur Pronote à la fin de l'heure",
@@ -2946,13 +2885,8 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes",
-                      "6G60_Poly_x1"
-                    ],
-                    "startSteps": [
-                      "Mathador"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes", "6G60_Poly_x1"],
+                    "startSteps": ["Mathador"],
                     "segments": [
                       {
                         "steps": [
@@ -3019,9 +2953,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle"
-                    ],
+                    "studentMaterialsNeeded": ["Règle"],
                     "teacherMaterialsNeeded": [
                       "6S11_Poly_x1",
                       "6S11_Presentation"
@@ -3076,9 +3008,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "grades": [],
                     "startSteps": [],
                     "segments": [
@@ -3298,9 +3228,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle"
-                    ],
+                    "studentMaterialsNeeded": ["Règle"],
                     "teacherMaterialsNeeded": [
                       "5P11_Poly_x1",
                       "5P11_Presentation"
@@ -3434,11 +3362,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Équerre",
-                      "Compas"
-                    ],
+                    "studentMaterialsNeeded": ["Règle", "Équerre", "Compas"],
                     "teacherMaterialsNeeded": [
                       "Triangle découpé dans une feuille",
                       "Équerre",
@@ -3540,13 +3464,9 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "grades": [],
-                    "startSteps": [
-                      "Mathador"
-                    ],
+                    "startSteps": ["Mathador"],
                     "segments": [
                       {
                         "steps": [
@@ -3647,11 +3567,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Compas",
-                      "Rapporteur"
-                    ],
+                    "studentMaterialsNeeded": ["Règle", "Compas", "Rapporteur"],
                     "teacherMaterialsNeeded": [
                       "Règle",
                       "Compas",
@@ -3814,10 +3730,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes",
-                      "5G30_Poly_x1"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes", "5G30_Poly_x1"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -3926,11 +3839,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Règle",
-                      "Équerre",
-                      "Compas"
-                    ],
+                    "studentMaterialsNeeded": ["Règle", "Équerre", "Compas"],
                     "teacherMaterialsNeeded": [
                       "5G40_Poly-1_x1 à imprimer",
                       "5G40_Poly-2_x0 à mettre sur Pronote",
@@ -3949,9 +3858,7 @@
                         ]
                       }
                     ],
-                    "closureSteps": [
-                      "Mettre le poly-2 sur Pronote"
-                    ],
+                    "closureSteps": ["Mettre le poly-2 sur Pronote"],
                     "comments": []
                   }
                 ]
@@ -3983,9 +3890,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "5G42_Poly_x1"
-                    ],
+                    "teacherMaterialsNeeded": ["5G42_Poly_x1"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -4056,9 +3961,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
                     "teacherMaterialsNeeded": [
                       "5M10_Poly_x8",
                       "5M10_Presentation"
@@ -4174,9 +4077,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "6M13_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["6M13_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -4409,9 +4310,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "5N11_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["5N11_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -4502,9 +4401,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [
                       "https://topmaths.fr/?id=5N13&s=11&s2=true&n=3&serie=7fc9&v=exercices"
@@ -4557,9 +4454,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "S5S3_Cours"
-                    ],
+                    "teacherMaterialsNeeded": ["S5S3_Cours"],
                     "startSteps": [
                       "https://mathsmentales.net/index.html?i=321,e=correction,o=no,s=1,so=h,f=n,a=,colors=,snd=null&p=0~t=Diapo%201~c=1~o=true~d=normal~at=10_i=5NC1~o=1~q=1.~p=~t=18~n=8"
                     ],
@@ -4761,9 +4656,7 @@
                         ]
                       },
                       {
-                        "steps": [
-                          "Défi relatifs"
-                        ]
+                        "steps": ["Défi relatifs"]
                       }
                     ],
                     "closureSteps": [],
@@ -4797,9 +4690,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -5044,9 +4935,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
                     "teacherMaterialsNeeded": [
                       "5N43_Poly",
                       "5N43_Presentation"
@@ -5108,9 +4997,7 @@
                       "Hue HD",
                       "Tablettes"
                     ],
-                    "startSteps": [
-                      "Quelque chose de rapide"
-                    ],
+                    "startSteps": ["Quelque chose de rapide"],
                     "segments": [
                       {
                         "steps": [
@@ -5267,9 +5154,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "5N53_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["5N53_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -5328,12 +5213,8 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -5377,12 +5258,8 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "5N55_Presentation"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
+                    "teacherMaterialsNeeded": ["5N55_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -5435,12 +5312,8 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "Tablettes"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
+                    "teacherMaterialsNeeded": ["Tablettes"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -5484,9 +5357,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "6P18_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["6P18_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -5554,13 +5425,8 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
-                    "teacherMaterialsNeeded": [
-                      "S5S6_Cours",
-                      "5S10_Poly_x6"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
+                    "teacherMaterialsNeeded": ["S5S6_Cours", "5S10_Poly_x6"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -5619,9 +5485,7 @@
                 ],
                 "lessonPlans": [
                   {
-                    "studentMaterialsNeeded": [
-                      "Calculatrice"
-                    ],
+                    "studentMaterialsNeeded": ["Calculatrice"],
                     "teacherMaterialsNeeded": [],
                     "startSteps": [],
                     "segments": [
@@ -5658,10 +5522,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "Haricots",
-                      "5S12_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["Haricots", "5S12_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -5709,9 +5570,7 @@
                 "lessonPlans": [
                   {
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "5S13_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["5S13_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {
@@ -6061,9 +5920,7 @@
                     "segments": [
                       {
                         "title": "Introduction",
-                        "steps": [
-                          "À planifier"
-                        ]
+                        "steps": ["À planifier"]
                       },
                       {
                         "title": "Utiliser le théorème de Pythagore",
@@ -6209,13 +6066,9 @@
                 ],
                 "lessonPlans": [
                   {
-                    "grades": [
-                      "3e"
-                    ],
+                    "grades": ["3e"],
                     "studentMaterialsNeeded": [],
-                    "teacherMaterialsNeeded": [
-                      "4G30_Presentation"
-                    ],
+                    "teacherMaterialsNeeded": ["4G30_Presentation"],
                     "startSteps": [],
                     "segments": [
                       {

@@ -1,18 +1,13 @@
 [
   {
-    "titles": [
-      "Théorème de Pythagore"
-    ],
+    "titles": ["Théorème de Pythagore"],
     "content": "rouge[[Si]] vert[[un triangle est rectangle]], rouge[[alors]] le carré de la longueur de son hypoténuse est égal à la somme des carrés des longueurs des côtés de l'angle droit.",
     "comments": [],
     "examples": [
       "<table style='text-align: center;'><tbody><tr style='border:none'><td>rouge[[Donnée]]</td><td></td><td>rouge[[Conclusion]]</td></tr><tr style='border:none'><td>vert[[ABC est un triangle rectangle en A]]</td><td>rouge[[Donc =>]]</td><td>BC² = AB² + AC²</td></tr></tbody></table>"
     ],
     "keywords": [],
-    "relatedObjectives": [
-      "4G22",
-      "4G23"
-    ],
+    "relatedObjectives": ["4G22", "4G23"],
     "relatedItems": []
   }
 ]

@@ -6,13 +6,11 @@
   export let imgAlt: string
 </script>
 
-<Tooltip
-  {dropdownText}
->
+<Tooltip {dropdownText}>
   <img
     class="is-icon
       size-4 md:size-6"
-    src={imgSrc}
-    alt={imgAlt}
+    src="{imgSrc}"
+    alt="{imgAlt}"
   />
 </Tooltip>

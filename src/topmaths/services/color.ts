@@ -1,4 +1,8 @@
-export function getGradeColor (grade: string, variant: 'default' | 'light' = 'default'): string { // keep in sync with tailwind-colors.css
+export function getGradeColor(
+  grade: string,
+  variant: 'default' | 'light' = 'default',
+): string {
+  // keep in sync with tailwind-colors.css
   switch (grade) {
     case '6e':
       switch (variant) {

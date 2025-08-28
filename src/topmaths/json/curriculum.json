@@ -1,42 +1,18 @@
 [
   {
     "name": "6e",
-    "unitsPerTerm": [
-      10,
-      10,
-      7,
-      7,
-      5
-    ]
+    "unitsPerTerm": [10, 10, 7, 7, 5]
   },
   {
     "name": "5e",
-    "unitsPerTerm": [
-      6,
-      6,
-      6,
-      6,
-      5
-    ]
+    "unitsPerTerm": [6, 6, 6, 6, 5]
   },
   {
     "name": "4e",
-    "unitsPerTerm": [
-      7,
-      7,
-      7,
-      7,
-      5
-    ]
+    "unitsPerTerm": [7, 7, 7, 7, 5]
   },
   {
     "name": "3e",
-    "unitsPerTerm": [
-      6,
-      7,
-      7,
-      7,
-      5
-    ]
+    "unitsPerTerm": [6, 7, 7, 7, 5]
   }
 ]

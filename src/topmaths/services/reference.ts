@@ -4,7 +4,9 @@ import type { ObjectiveReference } from '../types/objective'
 import type { UnitReference } from '../types/unit'
 import { examExercises } from './store.js'
 
-export function buildGradeFromObjectiveReference (reference: ObjectiveReference): StringGrade {
+export function buildGradeFromObjectiveReference(
+  reference: ObjectiveReference,
+): StringGrade {
   const grade = reference.slice(0, 1) + 'e'
   if (!isStringGrade(grade)) {
     console.error(reference)
@@ -16,7 +18,9 @@ export function buildGradeFromObjectiveReference (reference: ObjectiveReference)
 /**
  * To be used in Curriculum.svelte and LaTeX export in Coopmaths style
  */
-export function buildThemeFromReference (reference: ObjectiveReference): 'nombres' | 'gestion' | 'gestionbis' | 'grandeurs' | 'geo' | 'algo' {
+export function buildThemeFromReference(
+  reference: ObjectiveReference,
+): 'nombres' | 'gestion' | 'gestionbis' | 'grandeurs' | 'geo' | 'algo' {
   const lettre = reference.slice(1, 2)
   if (lettre === 'C' || lettre === 'N') return 'nombres'
   if (lettre === 'G') return 'geo'
@@ -27,10 +31,14 @@ export function buildThemeFromReference (reference: ObjectiveReference): 'nombre
   return 'nombres'
 }
 
-export function isReferenceIgnored (reference: string): boolean {
+export function isReferenceIgnored(reference: string): boolean {
   return reference.slice(1, 2) === 'X'
 }
 
-export function getUnitReferenceFromExamUuid (examUuid: string): UnitReference | undefined {
-  return get(examExercises).find(examExercise => examExercise.uuid === examUuid)?.unitReference
+export function getUnitReferenceFromExamUuid(
+  examUuid: string,
+): UnitReference | undefined {
+  return get(examExercises).find(
+    (examExercise) => examExercise.uuid === examUuid,
+  )?.unitReference
 }

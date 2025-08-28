@@ -1,7 +1,5 @@
 <script lang="ts">
-
   export let searchString: string
-
 </script>
 
 <input
@@ -14,5 +12,5 @@
   aria-describedby="Champ pour rechercher une séquence"
   autocomplete="off"
   placeholder="Recherche"
-  bind:value={searchString}
+  bind:value="{searchString}"
 />

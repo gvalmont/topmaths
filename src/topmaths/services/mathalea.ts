@@ -6,7 +6,7 @@ import { isDoubleView } from './store'
 let urlToWrite: URL
 let timerId: ReturnType<typeof setTimeout> | undefined
 
-export function getParamsFromUrl (urlString: string): InterfaceParams[] {
+export function getParamsFromUrl(urlString: string): InterfaceParams[] {
   const url = new URL(urlString)
   const entries = url.searchParams.entries()
   let indiceExercice = -1
@@ -16,10 +16,13 @@ export function getParamsFromUrl (urlString: string): InterfaceParams[] {
     if (entry[0] === 'uuid') {
       indiceExercice++
       const uuid = entry[1]
-      const id = (Object.keys(refToUuid) as (keyof typeof refToUuid)[]).find((key) => {
-        return refToUuid[key] === uuid
-      })
-      if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
+      const id = (Object.keys(refToUuid) as (keyof typeof refToUuid)[]).find(
+        (key) => {
+          return refToUuid[key] === uuid
+        },
+      )
+      if (!newListeExercice[indiceExercice])
+        newListeExercice[indiceExercice] = { uuid, id }
       newListeExercice[indiceExercice].uuid = uuid // string
       newListeExercice[indiceExercice].id = id // string
     } else if (entry[0] === 'id' && !previousEntryWasUuid) {
@@ -27,7 +30,8 @@ export function getParamsFromUrl (urlString: string): InterfaceParams[] {
       indiceExercice++
       const id = entry[1]
       const uuid = refToUuid[id as keyof typeof refToUuid]
-      if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { id, uuid }
+      if (!newListeExercice[indiceExercice])
+        newListeExercice[indiceExercice] = { id, uuid }
     } else if (entry[0] === 'n') {
       newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
     } else if (entry[0] === 'd') {
@@ -55,18 +59,26 @@ export function getParamsFromUrl (urlString: string): InterfaceParams[] {
   return newListeExercice
 }
 
-export function updateUrlFromParams (v: VueType, exercicesParams: InterfaceParams[]): void {
+export function updateUrlFromParams(
+  v: VueType,
+  exercicesParams: InterfaceParams[],
+): void {
   urlToWrite = getUrlFromParams(v, exercicesParams)
   updateUrl(v, urlToWrite.href)
 }
 
-export function getUrlFromParams (v: VueType, exercicesParams: InterfaceParams[]): URL {
+export function getUrlFromParams(
+  v: VueType,
+  exercicesParams: InterfaceParams[],
+): URL {
   const url = new URL(window.location.protocol + '//' + window.location.host)
   for (const ex of exercicesParams) {
     url.searchParams.append('uuid', ex.uuid)
     if (ex.id != null) url.searchParams.append('id', ex.id)
-    if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
-    if (ex.duration != null) url.searchParams.append('d', ex.duration.toString())
+    if (ex.nbQuestions !== undefined)
+      url.searchParams.append('n', ex.nbQuestions.toString())
+    if (ex.duration != null)
+      url.searchParams.append('d', ex.duration.toString())
     if (ex.sup != null) url.searchParams.append('s', ex.sup)
     if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
     if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
@@ -81,7 +93,7 @@ export function getUrlFromParams (v: VueType, exercicesParams: InterfaceParams[]
   return url
 }
 
-export function updateUrl (v: VueType, urlToWrite: string): void {
+export function updateUrl(v: VueType, urlToWrite: string): void {
   // On ne met à jour l'url qu'une fois toutes les 0,1 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
   if (timerId === undefined) {

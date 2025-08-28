@@ -6,7 +6,6 @@
   import Sps2 from './presentationalComponents/specialUnits/SPS2.svelte'
   import UnitRegular from './presentationalComponents/UnitRegular/UnitRegular.svelte'
   import UnitSelection from './UnitSelection.svelte'
-
 </script>
 
 <div class="w-full max-w-screen-lg">
@@ -15,10 +14,7 @@
   {:else if $reference === 'SPS2'}
     <Sps2 />
   {:else if isUnitReference($reference)}
-    <UnitRegular
-      unitReference={$reference}
-      {goToView}
-    />
+    <UnitRegular unitReference="{$reference}" {goToView} />
   {:else}
     <UnitSelection />
   {/if}

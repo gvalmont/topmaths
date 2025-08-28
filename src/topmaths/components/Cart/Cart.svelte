@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { REGULAR_VIEW_ADDENDUM, TOPMATHS_BASE_URL } from '../../services/environment'
+  import {
+    REGULAR_VIEW_ADDENDUM,
+    TOPMATHS_BASE_URL,
+  } from '../../services/environment'
   import { goToCoopmathsView, launchExercise } from '../../services/navigation'
   import { copyLink } from '../../services/url'
   import Cart from '../../modules/Cart'
@@ -18,9 +21,12 @@
     Cart.unsubscribe(updateCartLink)
   })
 
-  function updateCartLink (): void {
+  function updateCartLink(): void {
     items = Cart.items
-    cartLink = TOPMATHS_BASE_URL + items.map(item => item.exercise.slug).join('&') + REGULAR_VIEW_ADDENDUM
+    cartLink =
+      TOPMATHS_BASE_URL +
+      items.map((item) => item.exercise.slug).join('&') +
+      REGULAR_VIEW_ADDENDUM
   }
 </script>
 
@@ -41,7 +47,7 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click={() => copyLink(cartLink, { includeSeed: false })}
+      on:click="{() => copyLink(cartLink, { includeSeed: false })}"
     >
       <img
         class="is-icon
@@ -53,7 +59,7 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click={(mouseEvent) => launchExercise(mouseEvent, cartLink)}
+      on:click="{(mouseEvent) => launchExercise(mouseEvent, cartLink)}"
     >
       <img
         class="is-icon
@@ -65,7 +71,7 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-      on:click={() => Cart.clear()}
+      on:click="{() => Cart.clear()}"
     >
       <img
         class="is-icon
@@ -77,24 +83,28 @@
     <button
       class="is-fuchsia is-interactive
         mx-2 md:mx-4"
-        on:click={(mouseEvent) => goToCoopmathsView(mouseEvent, cartLink, 'latex')}
+      on:click="{(mouseEvent) =>
+        goToCoopmathsView(mouseEvent, cartLink, 'latex')}"
     >
-    <img
-      class="is-icon
+      <img
+        class="is-icon
         size-12 md:size-16"
-      src="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
-      alt="Imprimante"
-    />
+        src="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
+        alt="Imprimante"
+      />
     </button>
   </h3>
   <ul>
     {#each items as item}
       <li>
         <div>
-          {item.reference} {item.label}&nbsp;
+          {item.reference}
+          {item.label}&nbsp;
           <button
-            class="is-{buildGradeFromObjectiveReference(item.reference)} is-interactive"
-            on:click={() => Cart.remove(item.exercise.id)}
+            class="is-{buildGradeFromObjectiveReference(
+              item.reference,
+            )} is-interactive"
+            on:click="{() => Cart.remove(item.exercise.id)}"
           >
             <img
               class="is-icon

@@ -4,7 +4,10 @@ import type { Objective } from '../types/objective.js'
 import { writable } from 'svelte/store'
 import { deepCopy } from '../types/shared.js'
 import { type View } from '../types/navigation.js'
-import { emptyCalendarSchoolYear, type CalendarSchoolYear } from '../types/calendar.js'
+import {
+  emptyCalendarSchoolYear,
+  type CalendarSchoolYear,
+} from '../types/calendar.js'
 import { emptyCurriculum, type Curriculum } from '../types/curriculum.js'
 import type { SpecialUnit } from '../types/specialUnit.js'
 import type { ExamExercise } from '../types/exam-exercise.js'
@@ -14,7 +17,9 @@ export const units = writable<Unit[]>([])
 export const specialUnits = writable<SpecialUnit[]>([])
 export const objectives = writable<Objective[]>([])
 export const glossary = writable<GlossaryUniteItem[]>([])
-export const calendar = writable<CalendarSchoolYear>(deepCopy(emptyCalendarSchoolYear))
+export const calendar = writable<CalendarSchoolYear>(
+  deepCopy(emptyCalendarSchoolYear),
+)
 export const curriculum = writable<Curriculum>(emptyCurriculum)
 export const examExercises = writable<ExamExercise[]>([])
 

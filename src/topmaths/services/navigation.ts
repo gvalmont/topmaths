@@ -1,16 +1,27 @@
-import { exerciseLinks, view, reference, reference2, isDoubleView } from './store'
+import {
+  exerciseLinks,
+  view,
+  reference,
+  reference2,
+  isDoubleView,
+} from './store'
 import { removeSeed } from './url'
 import type { Reference, View } from '../types/navigation'
 import { isTopmaths } from './environment'
 import { getParamsFromUrl, updateUrlFromParams } from './mathalea'
 import type { VueType } from '../../lib/types'
 
-export function backToHome (): void {
+export function backToHome(): void {
   view.set('home')
   window.history.pushState({}, '', '/')
 }
 
-export function goToView (mouseEvent: MouseEvent, destinationView: View, ref?: Reference, ref2?: string): void {
+export function goToView(
+  mouseEvent: MouseEvent,
+  destinationView: View,
+  ref?: Reference,
+  ref2?: string,
+): void {
   if (!isRegularClick(mouseEvent)) {
     return // to allow right clicks and opening in new tabs
   }
@@ -18,10 +29,18 @@ export function goToView (mouseEvent: MouseEvent, destinationView: View, ref?: R
   reference.set(ref ?? '')
   reference2.set(ref2 ?? '')
   view.set(destinationView)
-  window.history.pushState({}, '', `?v=${destinationView}${ref ? `&ref=${ref}` : ''}${ref2 ? `&ref2=${ref2}` : ''}`)
+  window.history.pushState(
+    {},
+    '',
+    `?v=${destinationView}${ref ? `&ref=${ref}` : ''}${ref2 ? `&ref2=${ref2}` : ''}`,
+  )
 }
 
-export function goToCoopmathsView (mouseEvent: MouseEvent, exercisesLink: string, coopmathsView: VueType): void {
+export function goToCoopmathsView(
+  mouseEvent: MouseEvent,
+  exercisesLink: string,
+  coopmathsView: VueType,
+): void {
   if (!isRegularClick(mouseEvent)) {
     return // to allow right clicks and opening in new tabs
   }
@@ -30,7 +49,11 @@ export function goToCoopmathsView (mouseEvent: MouseEvent, exercisesLink: string
   updateUrlFromParams(coopmathsView, params)
 }
 
-export function launchExercise (mouseEvent: MouseEvent, link: string, isDoubleView: boolean = false): void {
+export function launchExercise(
+  mouseEvent: MouseEvent,
+  link: string,
+  isDoubleView: boolean = false,
+): void {
   if (!isRegularClick(mouseEvent)) {
     return // to allow right clicks and opening in new tabs
   }
@@ -47,16 +70,16 @@ export function launchExercise (mouseEvent: MouseEvent, link: string, isDoubleVi
   }
 }
 
-export function isRegularClick (mouseEvent: MouseEvent): boolean {
+export function isRegularClick(mouseEvent: MouseEvent): boolean {
   return mouseEvent.button === 0 && !mouseEvent.ctrlKey && !mouseEvent.metaKey
 }
 
-function launchMathaleaExercise (link: string, doubleView: boolean): void {
+function launchMathaleaExercise(link: string, doubleView: boolean): void {
   exerciseLinks.set([removeSeed(link)])
   isDoubleView.set(doubleView)
   view.set('exercise')
 }
 
-function goTo (link: string): void {
+function goTo(link: string): void {
   window.location.href = link
 }

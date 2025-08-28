@@ -4,7 +4,6 @@
   import StudentGlossary from './Glossary/StudentGlossary.svelte'
   import StudentSelection from './StudentSelection.svelte'
   import StudentTuto from './StudentTuto.svelte'
-
 </script>
 
 <div class="w-full max-w-screen-lg">

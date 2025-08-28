@@ -1,14 +1,15 @@
 <script lang="ts">
-
   export let dropdownText: string
 </script>
 
-<div class="tooltip
+<div
+  class="tooltip
   {$$props.class}"
 >
   <slot />
   {#if dropdownText}
-    <span class="tooltiptext
+    <span
+      class="tooltiptext
       text-sm md:text-base"
     >
       {dropdownText}

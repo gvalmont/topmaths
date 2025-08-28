@@ -14,8 +14,8 @@
     id="hidden-checkbox-for-darkmode"
     type="checkbox"
     class="invisible"
-    on:change={() => setDarkMode(!isDarkMode)}
+    on:change="{() => setDarkMode(!isDarkMode)}"
   />
-  <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
-  <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
+  <div class="swap-on"><i class="bx bx-sm bx-sun"></i></div>
+  <div class="swap-off"><i class="bx bx-sm bx-moon"></i></div>
 </label>

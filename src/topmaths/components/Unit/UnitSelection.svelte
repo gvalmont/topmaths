@@ -6,15 +6,17 @@
   import { emptyUnit } from '../../types/unit'
   import { DEFAULT_GRADE } from '../../types/grade'
 
-  const items = writable($units.concat($specialUnits.map((unit) => Object.assign({}, deepCopy(emptyUnit), unit, { grade: DEFAULT_GRADE }))))
-
+  const items = writable(
+    $units.concat(
+      $specialUnits.map((unit) =>
+        Object.assign({}, deepCopy(emptyUnit), unit, { grade: DEFAULT_GRADE }),
+      ),
+    ),
+  )
 </script>
 
 <svelte:head>
   <title>Liste des séquences - topmaths</title>
 </svelte:head>
 
-<ItemsSelection
-  {items}
-  view='unit'
-/>
+<ItemsSelection {items} view="unit" />

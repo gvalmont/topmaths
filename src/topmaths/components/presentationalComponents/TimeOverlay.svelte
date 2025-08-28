@@ -12,18 +12,18 @@
     clearTimeInterval()
   })
 
-  function startTimeInterval (): void {
+  function startTimeInterval(): void {
     updateTime()
     intervalId = setInterval(() => {
       updateTime()
     }, 1000)
   }
 
-  function clearTimeInterval (): void {
+  function clearTimeInterval(): void {
     clearInterval(intervalId)
   }
 
-  function updateTime (): void {
+  function updateTime(): void {
     const date = new Date()
     const hh = date.getHours().toString().padStart(2, '0')
     const mm = date.getMinutes().toString().padStart(2, '0')
@@ -31,20 +31,20 @@
     time = `${hh}:${mm}`
   }
 
-function toggleTimeOverlaySize (): void {
-  const timeOverlayDiv = document.getElementById('timeOverlay')
-  if (timeOverlayDiv !== null) {
-    if (timeOverlayDiv.style.width === '240px') {
-      timeOverlayDiv.style.width = '60px'
-      timeOverlayDiv.style.height = '30px'
-      timeOverlayDiv.style.fontSize = '18px'
-    } else {
-      timeOverlayDiv.style.width = '240px'
-      timeOverlayDiv.style.height = '120px'
-      timeOverlayDiv.style.fontSize = '72px'
+  function toggleTimeOverlaySize(): void {
+    const timeOverlayDiv = document.getElementById('timeOverlay')
+    if (timeOverlayDiv !== null) {
+      if (timeOverlayDiv.style.width === '240px') {
+        timeOverlayDiv.style.width = '60px'
+        timeOverlayDiv.style.height = '30px'
+        timeOverlayDiv.style.fontSize = '18px'
+      } else {
+        timeOverlayDiv.style.width = '240px'
+        timeOverlayDiv.style.height = '120px'
+        timeOverlayDiv.style.fontSize = '72px'
+      }
     }
   }
-}
 </script>
 
 <button
@@ -52,7 +52,7 @@ function toggleTimeOverlaySize (): void {
   text-coopmaths-corpus dark:text-coopmathsdark-corpus"
   tabindex="-1"
   id="timeOverlay"
-  on:click={toggleTimeOverlaySize}
+  on:click="{toggleTimeOverlaySize}"
 >
   {time}
 </button>
@@ -66,6 +66,9 @@ function toggleTimeOverlaySize (): void {
     width: 60px;
     height: 30px;
     font-size: 18px;
-    transition: width 1s, height 1s, font-size 1s;
+    transition:
+      width 1s,
+      height 1s,
+      font-size 1s;
   }
 </style>

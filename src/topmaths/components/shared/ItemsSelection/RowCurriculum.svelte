@@ -11,12 +11,18 @@
 
   export let objective: UnitObjective
   export let gradeTeached: StringGrade
-  export let goToView: (event: MouseEvent, view: View, reference: ObjectiveReference) => void
+  export let goToView: (
+    event: MouseEvent,
+    view: View,
+    reference: ObjectiveReference,
+  ) => void
   export let isLastRow: boolean
-
 </script>
 
-<div class="flex flex-row grow w-full is-theme-{buildThemeFromReference(objective.reference)}
+<div
+  class="flex flex-row grow w-full is-theme-{buildThemeFromReference(
+    objective.reference,
+  )}
   {isLastRow ? 'rounded-br-4xl md:rounded-br-5xl' : ''}"
 >
   <div class="w-2/12 flex items-center justify-center">
@@ -27,8 +33,9 @@
       >
         <a
           class="is-interactive p-1"
-          href='?v=objective&ref={objective.reference}'
-          on:click={(event) => goToView(event, 'objective', objective.reference)}
+          href="?v=objective&ref={objective.reference}"
+          on:click="{(event) =>
+            goToView(event, 'objective', objective.reference)}"
         >
           {objective.reference}
         </a>
@@ -36,15 +43,16 @@
     {:else}
       <a
         class="is-interactive p-1 m-0.5"
-        href='?v=objective&ref={objective.reference}'
-        on:click={(event) => goToView(event, 'objective', objective.reference)}
+        href="?v=objective&ref={objective.reference}"
+        on:click="{(event) =>
+          goToView(event, 'objective', objective.reference)}"
       >
         {objective.reference}
       </a>
     {/if}
     <span class="is-black">
       <ButtonPrerequisitesVisualization
-        objectiveReference={objective.reference}
+        objectiveReference="{objective.reference}"
         {gradeTeached}
       />
     </span>
@@ -60,10 +68,10 @@
   @mixin theme-style($class-name, $main-color, $light-color) {
     .#{$class-name} {
       background-color: #{$light-color};
-        a {
-          color: tailwind-colors.$topmaths-corpus-default;
-          text-decoration: underline;
-        }
+      a {
+        color: tailwind-colors.$topmaths-corpus-default;
+        text-decoration: underline;
+      }
     }
   }
 

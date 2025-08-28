@@ -15,7 +15,6 @@
   })
 
   $: if ($reference) scrollTo(0, 0)
-
 </script>
 
 <div class="w-full max-w-screen-lg info-container m-10 text-justify">

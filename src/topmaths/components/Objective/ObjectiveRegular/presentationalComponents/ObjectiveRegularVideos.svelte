@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+  import { onMount } from 'svelte'
   import type { ObjectiveVideo } from '../../../../types/objective'
 
   export let videos: ObjectiveVideo[] = []
@@ -17,7 +17,8 @@
   })
 </script>
 
-<h2 class="{videos.length > 0 && videos[0].title ? 'title' : 'subtitle'}
+<h2
+  class="{videos.length > 0 && videos[0].title ? 'title' : 'subtitle'}
   text-xl md:text-3xl"
 >
   Vidéo{videos.length > 1 ? 's' : ''} d'explication
@@ -25,7 +26,8 @@
 {#each videos as video}
   <div class="pb-5">
     {#if video.title}
-      <h3 class="subtitle
+      <h3
+        class="subtitle
         text-lg md:text-2xl"
       >
         {video.title}
@@ -33,20 +35,20 @@
     {/if}
     <div class="is-16by9">
       <iframe
-        src={video.videoLink}
-        id={video.videoLink}
+        src="{video.videoLink}"
+        id="{video.videoLink}"
         title="Vidéo d'explication"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
         style="display: none;"
-      />
+      ></iframe>
     </div>
     <p>
       Vidéo de
       <a
-        href={video.authorLink}
+        href="{video.authorLink}"
         target="_blank"
         rel="noopener noreferrer"
         class="is-interactive is-topmaths"

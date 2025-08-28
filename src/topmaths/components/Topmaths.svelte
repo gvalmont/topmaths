@@ -8,11 +8,24 @@
   import { ElementInstrumenpoche } from '../../modules/ElementInstrumenpoche'
   import Student from './Student/Student.svelte'
   import Practice from './Practice/Practice.svelte'
-  import { isTeacherMode, isPersonalMode, reference, view, reference2, isDoubleView, isDarkMode } from '../services/store'
+  import {
+    isTeacherMode,
+    isPersonalMode,
+    reference,
+    view,
+    reference2,
+    isDoubleView,
+    isDarkMode,
+  } from '../services/store'
   import Exercise from './Exercise/Exercise.svelte'
   import HeaderMenu from './presentationalComponents/HeaderMenu/HeaderMenu.svelte'
   import { cacheData } from '../services/data'
-  import { isView, isReference, type Reference, type View } from '../types/navigation'
+  import {
+    isView,
+    isReference,
+    type Reference,
+    type View,
+  } from '../types/navigation'
   import Cart from '../modules/Cart'
   import type { CartItem } from '../types/cart'
   import TimeOverlay from './presentationalComponents/TimeOverlay.svelte'
@@ -49,18 +62,18 @@
     removeDarkModeListener()
   })
 
-  function updateParams (): void {
+  function updateParams(): void {
     updateParamsFromUrl()
     Cart.loadFromStorage()
     isTeacherMode.set(Storage.getTeacherMode())
     isPersonalMode.set(Storage.getPersonalMode())
   }
 
-  function handleCartUpdate (cartItems: CartItem[]): void {
+  function handleCartUpdate(cartItems: CartItem[]): void {
     isCartEmpty = cartItems.length === 0
   }
 
-  function updateParamsFromUrl (): void {
+  function updateParamsFromUrl(): void {
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let newView: View = 'home'
@@ -93,24 +106,24 @@
     isDoubleView.set(newIsDoubleView)
   }
 
-  function addDarkModeListener (): void {
+  function addDarkModeListener(): void {
     setDarkMode(Storage.getDarkMode() ?? darkModeMediaQuery.matches)
-    darkModeMediaQuery.addEventListener('change', event => {
+    darkModeMediaQuery.addEventListener('change', (event) => {
       setDarkMode(event.matches)
     })
   }
 
-  function removeDarkModeListener (): void {
-    darkModeMediaQuery.removeEventListener('change', event => {
+  function removeDarkModeListener(): void {
+    darkModeMediaQuery.removeEventListener('change', (event) => {
       setDarkMode(event.matches)
     })
   }
 
-  function setDarkMode (isDarkMode: boolean): void {
+  function setDarkMode(isDarkMode: boolean): void {
     Storage.setDarkMode(isDarkMode)
   }
 
-  function setPersonalMode (isPersonalMode: boolean): void {
+  function setPersonalMode(isPersonalMode: boolean): void {
     Storage.setPersonalMode(isPersonalMode)
   }
 </script>
@@ -120,18 +133,16 @@
 </svelte:head>
 
 <svelte:window bind:innerWidth />
-<div id="top"
+<div
+  id="top"
   class="flex flex-col items-center text-center
     text-base md:text-xl
     text-topmaths-corpus
     bg-topmaths-canvas"
 >
-  <HeaderMenu
-    view={$view}
-    {goToView}
-    {isCartEmpty}
-  />
-  <div class="w-full flex justify-center
+  <HeaderMenu view="{$view}" {goToView} {isCartEmpty} />
+  <div
+    class="w-full flex justify-center
     pb-8 mb:pb-20"
   >
     {#if $view === 'exercise'}
@@ -162,10 +173,7 @@
     {:else if $view === 'info'}
       <Info />
     {:else if $view === 'perso'}
-      <Perso
-        isPersonalMode={$isPersonalMode}
-        {setPersonalMode}
-      />
+      <Perso isPersonalMode="{$isPersonalMode}" {setPersonalMode} />
     {:else}
       <Home />
     {/if}
@@ -175,5 +183,4 @@
     <TimeOverlay />
   {/if}
   <InfoDialog />
-
 </div>

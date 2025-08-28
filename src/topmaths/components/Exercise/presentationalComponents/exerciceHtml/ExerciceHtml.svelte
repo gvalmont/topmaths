@@ -15,7 +15,7 @@
     interactifReady: false,
     randomReady: true,
     settingsReady: false,
-    correctionReady: false
+    correctionReady: false,
   }
 
   onMount(async () => {
@@ -32,6 +32,9 @@
   }
 </script>
 
-<section id="insert-html-{indiceExercice}" class="mt-6 mb-2 ml-2 lg:mx-5 w-full">
-  <div bind:this={divExercice} />
+<section
+  id="insert-html-{indiceExercice}"
+  class="mt-6 mb-2 ml-2 lg:mx-5 w-full"
+>
+  <div bind:this="{divExercice}"></div>
 </section>

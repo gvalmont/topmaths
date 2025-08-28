@@ -1,4 +1,12 @@
-import { objectives as storeObjectives, units as storeUnits, specialUnits as storeSpecialUnits, calendar as storeCalendar, glossary as storeGlossary, curriculum as storeCurriculum, examExercises as storeExamExercises } from './store'
+import {
+  objectives as storeObjectives,
+  units as storeUnits,
+  specialUnits as storeSpecialUnits,
+  calendar as storeCalendar,
+  glossary as storeGlossary,
+  curriculum as storeCurriculum,
+  examExercises as storeExamExercises,
+} from './store'
 import unitsJson from '../../topmaths/json/built_units.json'
 import objectivesJson from '../../topmaths/json/built_objectives.json'
 import glossaryJson from '../../topmaths/json/glossary.json'
@@ -14,7 +22,7 @@ import { isCurriculum } from '../types/curriculum'
 import { isSpecialUnits } from '../types/specialUnit'
 import { isExamExercises } from '../types/exam-exercise'
 
-export function cacheData (): void {
+export function cacheData(): void {
   cacheUnits()
   cacheObjectives()
   cacheSpecialUnits()
@@ -24,7 +32,7 @@ export function cacheData (): void {
   cacheExamExercises()
 }
 
-function cacheUnits (): void {
+function cacheUnits(): void {
   if (!isUnits(unitsJson)) {
     console.error(unitsJson)
     throw new Error('built_units.json is not an array of Unit')
@@ -32,7 +40,7 @@ function cacheUnits (): void {
   storeUnits.set(unitsJson)
 }
 
-function cacheObjectives (): void {
+function cacheObjectives(): void {
   if (!isObjectives(objectivesJson)) {
     console.error(objectivesJson)
     throw new Error('built_objectives.json is not an array of Objective')
@@ -40,7 +48,7 @@ function cacheObjectives (): void {
   storeObjectives.set(objectivesJson)
 }
 
-function cacheSpecialUnits (): void {
+function cacheSpecialUnits(): void {
   const sequencesParticulieres = specialUnitsJson
   if (!isSpecialUnits(sequencesParticulieres)) {
     console.error(sequencesParticulieres)
@@ -49,7 +57,7 @@ function cacheSpecialUnits (): void {
   storeSpecialUnits.set(sequencesParticulieres)
 }
 
-function cacheGlossary (): void {
+function cacheGlossary(): void {
   if (!isGlossaryUniteItems(glossaryJson)) {
     console.error(glossaryJson)
     throw new Error('glossary.json is not an array of GlossaryUniteItem')
@@ -57,14 +65,17 @@ function cacheGlossary (): void {
   storeGlossary.set(glossaryJson)
 }
 
-function cacheCalendar (): void {
+function cacheCalendar(): void {
   const parsedCalendar = calendarJson.map(parseSchoolYear)
   const now = new Date()
-  const currentYear = parsedCalendar.find(schoolYear => schoolYear.start <= now && schoolYear.end >= now) ?? parsedCalendar[0]
+  const currentYear =
+    parsedCalendar.find(
+      (schoolYear) => schoolYear.start <= now && schoolYear.end >= now,
+    ) ?? parsedCalendar[0]
   storeCalendar.set(currentYear)
 }
 
-function cacheCurriculum (): void {
+function cacheCurriculum(): void {
   const curriculum = curriculumJson
   if (!isCurriculum(curriculum)) {
     console.error(curriculum)
@@ -73,7 +84,7 @@ function cacheCurriculum (): void {
   storeCurriculum.set(curriculum)
 }
 
-function cacheExamExercises (): void {
+function cacheExamExercises(): void {
   const examExercises = examExercisesJson
   if (!isExamExercises(examExercises)) {
     console.error(examExercises)

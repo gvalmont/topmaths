@@ -2,14 +2,14 @@
   import { isTeacherMode } from '../../services/store'
   import Storage from '../../modules/Storage'
   import MainMenuItem from '../shared/MainMenuItem.svelte'
-
 </script>
 
 <svelte:head>
   <title>Outils pour la classe - topmaths</title>
 </svelte:head>
 
-<div class="grade-container is-6e
+<div
+  class="grade-container is-6e
   rounded-4xl md:rounded-5xl"
 >
   <h1
@@ -20,32 +20,20 @@
     Outils pour la classe
   </h1>
   <div class="p-6">
-    <MainMenuItem
-      view='classroom'
-      ref='mathador'
-      color='purple'
-    >
+    <MainMenuItem view="classroom" ref="mathador" color="purple">
       Mathador
     </MainMenuItem>
     {#if $isTeacherMode}
-      <MainMenuItem
-        view='classroom'
-        ref='curriculum'
-        color='sponsor'
-      >
+      <MainMenuItem view="classroom" ref="curriculum" color="sponsor">
         Progressions
       </MainMenuItem>
-      <MainMenuItem
-        view='classroom'
-        ref='prerequisites'
-        color='brown'
-      >
+      <MainMenuItem view="classroom" ref="prerequisites" color="brown">
         Visualisation des prérequis
       </MainMenuItem>
     {/if}
     <div>
       <button
-        on:click={() => Storage.setTeacherMode(!$isTeacherMode)}
+        on:click="{() => Storage.setTeacherMode(!$isTeacherMode)}"
         class="button is-green border
           rounded md:rounded-lg
           py-1 md:py-2

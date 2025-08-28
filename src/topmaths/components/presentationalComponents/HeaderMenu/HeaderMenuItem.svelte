@@ -10,12 +10,11 @@
   export let imageSrc: string
   export let imageAlt: string
   export let goToView: (event: MouseEvent, view: View) => void
-
 </script>
 
 {#if isDisplayed}
   <li>
-    <a href='?v={destinationView}'>
+    <a href="?v={destinationView}">
       <ButtonImage
         class="
           px-3 md:px-4
@@ -24,7 +23,7 @@
         {isActive}
         {imageSrc}
         {imageAlt}
-        on:click={(event) => goToView(event, destinationView)}
+        on:click="{(event) => goToView(event, destinationView)}"
       />
     </a>
   </li>

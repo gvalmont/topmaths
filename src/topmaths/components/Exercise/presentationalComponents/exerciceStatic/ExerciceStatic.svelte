@@ -3,7 +3,7 @@
   import type { JSONReferentielObject } from '../../../../../lib/types/referentiels'
   import referentielStatic from '../../../../../json/referentielStaticFR.json'
   import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
-    import { afterUpdate } from 'svelte';
+  import { afterUpdate } from 'svelte'
   export let uuid: string
   export let exerciseIndex: number
   export let zoomFactor: string
@@ -14,15 +14,15 @@
     resourceToDisplay = getResourceToDisplay()
   })
 
-  function getResourceToDisplay () {
+  function getResourceToDisplay() {
     const allStaticRefecentiels = getAllStaticReferenciels()
     return retrieveResourceFromUuid(allStaticRefecentiels, uuid)
   }
 
-  function getAllStaticReferenciels () {
+  function getAllStaticReferenciels() {
     const allStaticReferentiels: JSONReferentielObject = {
       ...referentielBibliotheque,
-      ...referentielStatic
+      ...referentielStatic,
     }
     // on supprime les entrées par thèmes qui entraîne des doublons
     delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
@@ -37,7 +37,15 @@
 <div class="flex items-center">
   <div class="flex-1 md:max-w-screen-lg mx-auto">
     {#if resourceToDisplay}
-      <img src="https://coopmaths.fr/alea/static/{resourceToDisplay.uuid.split('_')[0]}/{resourceToDisplay.uuid.split('_')[1]}/tex/png/{resourceToDisplay.uuid}.png" style="width: calc(100% * {zoomFactor}" alt="énoncé" />
+      <img
+        src="https://coopmaths.fr/alea/static/{resourceToDisplay.uuid.split(
+          '_',
+        )[0]}/{resourceToDisplay.uuid.split(
+          '_',
+        )[1]}/tex/png/{resourceToDisplay.uuid}.png"
+        style="width: calc(100% * {zoomFactor}"
+        alt="énoncé"
+      />
     {/if}
     {#if isCorrectionVisible}
       <div
@@ -46,12 +54,16 @@
       >
         <div class="container">
           {#if resourceToDisplay}
-              <img
-                src="https://coopmaths.fr/alea/static/{resourceToDisplay.uuid.split('_')[0]}/{resourceToDisplay.uuid.split('_')[1]}/tex/png/{resourceToDisplay.uuid}_cor.png"
-                class="p-2"
-                style="width: calc(100% * {zoomFactor}"
-                alt="correction"
-              />
+            <img
+              src="https://coopmaths.fr/alea/static/{resourceToDisplay.uuid.split(
+                '_',
+              )[0]}/{resourceToDisplay.uuid.split(
+                '_',
+              )[1]}/tex/png/{resourceToDisplay.uuid}_cor.png"
+              class="p-2"
+              style="width: calc(100% * {zoomFactor}"
+              alt="correction"
+            />
           {/if}
         </div>
         <div
@@ -61,7 +73,7 @@
         </div>
         <div
           class="absolute border-green-600 dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
-        />
+        ></div>
       </div>
     {/if}
   </div>

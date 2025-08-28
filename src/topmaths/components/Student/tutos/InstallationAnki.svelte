@@ -1,12 +1,13 @@
 <script lang="ts">
   import ListItemPdfDownload from '../../shared/ListItemPdfDownload.svelte'
-
 </script>
 
-<div class="grade-container is-5e
+<div
+  class="grade-container is-5e
   rounded-4xl md:rounded-5xl"
 >
-  <h1 class="title mb-8
+  <h1
+    class="title mb-8
     text-2xl md:text-4xl
     rounded-t-4xl md:rounded-t-5xl"
   >
@@ -15,7 +16,8 @@
   <div class="p-8">
     Dans ce tuto nous allons voir comment installer Anki sur Android et sur iOS.
   </div>
-  <h2 class="title
+  <h2
+    class="title
     text-xl md:text-3xl"
   >
     Android
@@ -50,17 +52,17 @@
           Topmaths
         </a>
       </li>
-      <li>
-        Les ouvrir avec AnkiDroid
-      </li>
+      <li>Les ouvrir avec AnkiDroid</li>
     </ul>
   </div>
-  <h2 class="title
+  <h2
+    class="title
     text-xl md:text-3xl"
   >
     iOS
   </h2>
-  <h3 class="subtitle
+  <h3
+    class="subtitle
     text-lg md:text-2xl"
   >
     Version payante
@@ -77,15 +79,16 @@
           AnkiMobile à 29,99 €
         </a>
         <span class="text-sm md:text-base">
-          (ce n'est pas un abonnement, on le paye une fois et on l'a pour toute la vie et jusqu'à 6 personnes
-          de la famille peuvent en profiter)
+          (ce n'est pas un abonnement, on le paye une fois et on l'a pour toute
+          la vie et jusqu'à 6 personnes de la famille peuvent en profiter)
         </span>
       </li>
       <li>
         Télécharger le paquet de
         <a
           href="https://topmaths.fr/topmaths/telechargements/tables_de_multiplication_anki.apkg"
-          target="_blank" rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Tables de multiplication
         </a>
@@ -98,18 +101,18 @@
           Topmaths
         </a>
       </li>
-      <li>
-        Les ouvrir avec AnkiMobile
-      </li>
+      <li>Les ouvrir avec AnkiMobile</li>
     </ul>
   </div>
-  <h3 class="subtitle
+  <h3
+    class="subtitle
     text-lg md:text-2xl"
   >
     Version gratuite
   </h3>
   <div class="p-8">
-    L'installation de la version gratuite est un peu plus compliquée, elle est détaillée dans
+    L'installation de la version gratuite est un peu plus compliquée, elle est
+    détaillée dans
     <a
       href="topmaths/tutos/tutos/installation-anki.pdf"
       target="_blank"
@@ -124,11 +127,11 @@
       src="https://tube-numerique-educatif.apps.education.fr/videos/embed/0c96a8a2-9cff-4862-8439-68557179e9cc"
       title="Installation et utilisation Anki sur iOS (sans avoir à payer l'application)"
       allowfullscreen
-    />
+    ></iframe>
   </div>
   <div class="p-8">
     <ListItemPdfDownload
-      displayCondition={true}
+      displayCondition="{true}"
       href="topmaths/tutos/tutos/installation-anki.pdf"
       label="Télécharger la version pdf"
       grade="5e"

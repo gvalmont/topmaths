@@ -5,11 +5,14 @@ import { getTitle } from '../services/string'
 import { buildGradeFromObjectiveReference } from '../services/reference'
 import type { UnitObjective } from '../types/unit'
 
-export function isKey (objective: Objective | UnitObjective): boolean {
+export function isKey(objective: Objective | UnitObjective): boolean {
   return objective.descendantsCount > 3
 }
 
-export function appendPrerequisiteTree (container: HTMLElement, objective: Objective): void {
+export function appendPrerequisiteTree(
+  container: HTMLElement,
+  objective: Objective,
+): void {
   const width = Math.min(Math.floor(container.clientWidth / 2), 600)
   const height = width * 0.9
   const divAncestors = document.createElement('div')
@@ -25,10 +28,18 @@ export function appendPrerequisiteTree (container: HTMLElement, objective: Objec
   container.appendChild(wrapper)
 }
 
-function appendTree (container: HTMLElement, rootNode: Objective, type: 'ancestors' | 'descendants', width: number, height: number, parentContainer: HTMLElement): void {
+function appendTree(
+  container: HTMLElement,
+  rootNode: Objective,
+  type: 'ancestors' | 'descendants',
+  width: number,
+  height: number,
+  parentContainer: HTMLElement,
+): void {
   const widthPadding = 130 // to avoid the text being cut off
   const heightPadding = 100 // to avoid the text being cut off
-  const accessorFunction = type === 'ancestors' ? (d: any) => d.ancestors : (d: any) => d.descendants
+  const accessorFunction =
+    type === 'ancestors' ? (d: any) => d.ancestors : (d: any) => d.descendants
   const linkColor = type === 'ancestors' ? '#8B4513' : '#E48900'
   const nodeColor = type === 'ancestors' ? '#A0522D' : '#E48900'
 
@@ -42,7 +53,9 @@ function appendTree (container: HTMLElement, rootNode: Objective, type: 'ancesto
 
   const root = d3.hierarchy(rootNode, accessorFunction)
 
-  const treeLayout = d3.tree<Objective>().size([height - heightPadding, width - widthPadding])
+  const treeLayout = d3
+    .tree<Objective>()
+    .size([height - heightPadding, width - widthPadding])
   treeLayout(root)
 
   // Calculate the vertical offset to center the tree
@@ -51,13 +64,17 @@ function appendTree (container: HTMLElement, rootNode: Objective, type: 'ancesto
 
   // Create links
   const links = root.links()
-  const linkGenerator = d3.linkHorizontal<d3.HierarchyLink<Objective>, d3.HierarchyNode<Objective>>()
+  const linkGenerator = d3
+    .linkHorizontal<d3.HierarchyLink<Objective>, d3.HierarchyNode<Objective>>()
     .x((d) => (type === 'ancestors' ? width - (d.y ?? 0) : (d.y ?? 0)))
     .y((d) => d.x ?? 0)
 
   const treeGroup = svg
     .append('g')
-    .attr('transform', `translate(${type === 'ancestors' ? '-45' : '2.5'}, ${verticalOffset})`) // horizontal offset are set to elegantly meld the two trees
+    .attr(
+      'transform',
+      `translate(${type === 'ancestors' ? '-45' : '2.5'}, ${verticalOffset})`,
+    ) // horizontal offset are set to elegantly meld the two trees
 
   treeGroup
     .selectAll('path')
@@ -77,7 +94,11 @@ function appendTree (container: HTMLElement, rootNode: Objective, type: 'ancesto
     .data(nodes)
     .enter()
     .append('g')
-    .attr('transform', (d: d3.HierarchyNode<Objective>) => `translate(${type === 'ancestors' ? width - (d.y ?? 0) : d.y},${d.x})`)
+    .attr(
+      'transform',
+      (d: d3.HierarchyNode<Objective>) =>
+        `translate(${type === 'ancestors' ? width - (d.y ?? 0) : d.y},${d.x})`,
+    )
 
   nodeGroup
     .append('path')
@@ -97,20 +118,29 @@ function appendTree (container: HTMLElement, rootNode: Objective, type: 'ancesto
       if (!(this.parentNode instanceof SVGGElement)) {
         throw new Error('Parent node is not an SVG element')
       }
-      const group = d3.select<SVGGElement, d3.HierarchyNode<Objective>>(this.parentNode)
+      const group = d3.select<SVGGElement, d3.HierarchyNode<Objective>>(
+        this.parentNode,
+      )
 
       // Append a rectangle behind the text
       group
         .select('a')
         .append('rect')
-        .attr('x', (d: d3.HierarchyNode<Objective>) => ((d.children && type === 'ancestors') || (!d.children && (type === 'descendants' || nodes.length === 1)) ? 6 : -41))
+        .attr('x', (d: d3.HierarchyNode<Objective>) =>
+          (d.children && type === 'ancestors') ||
+          (!d.children && (type === 'descendants' || nodes.length === 1))
+            ? 6
+            : -41,
+        )
         .attr('y', -10)
         .attr('width', 38)
         .attr('height', 20)
         .attr('rx', 5)
         .attr('ry', 5)
         .attr('fill', 'white')
-        .attr('stroke', (d) => getGradeColor(`${d.data.reference.slice(0, 1)}e`))
+        .attr('stroke', (d) =>
+          getGradeColor(`${d.data.reference.slice(0, 1)}e`),
+        )
         .attr('stroke-width', 1)
         .style('pointer-events', 'none')
 
@@ -130,16 +160,34 @@ function appendTree (container: HTMLElement, rootNode: Objective, type: 'ancesto
         .select('a')
         .append('text')
         .attr('dy', 5)
-        .attr('x', (d) => ((d.children && type === 'ancestors') || (!d.children && (type === 'descendants' || nodes.length === 1)) ? 8 : -5))
-        .style('text-anchor', (d) => ((d.children && type === 'ancestors') || (!d.children && (type === 'descendants' || nodes.length === 1)) ? 'start' : 'end'))
+        .attr('x', (d) =>
+          (d.children && type === 'ancestors') ||
+          (!d.children && (type === 'descendants' || nodes.length === 1))
+            ? 8
+            : -5,
+        )
+        .style('text-anchor', (d) =>
+          (d.children && type === 'ancestors') ||
+          (!d.children && (type === 'descendants' || nodes.length === 1))
+            ? 'start'
+            : 'end',
+        )
         .style('font-size', '14px')
-        .style('fill', (d) => getGradeColor(buildGradeFromObjectiveReference(d.data.reference)))
+        .style('fill', (d) =>
+          getGradeColor(buildGradeFromObjectiveReference(d.data.reference)),
+        )
         .text((d) => d.data.reference)
         .on('mouseover', (event: MouseEvent, d) => {
           tooltip
             .style('visibility', 'visible')
-            .style('color', getGradeColor(buildGradeFromObjectiveReference(d.data.reference)))
-            .style('border', `1px solid ${getGradeColor(buildGradeFromObjectiveReference(d.data.reference))}`)
+            .style(
+              'color',
+              getGradeColor(buildGradeFromObjectiveReference(d.data.reference)),
+            )
+            .style(
+              'border',
+              `1px solid ${getGradeColor(buildGradeFromObjectiveReference(d.data.reference))}`,
+            )
             .text(getTitle(d.data))
         })
         .on('mousemove', (event: MouseEvent) => {

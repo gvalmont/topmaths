@@ -7,19 +7,19 @@
   import AnchorExternal from '../shared/AnchorExternal.svelte'
 
   type Calculation = {
-    calculation: string;
-    result: number;
+    calculation: string
+    result: number
   }
 
   type Possibility = {
-    numbers: number[];
-    operations: string[];
-    calculation: string;
+    numbers: number[]
+    operations: string[]
+    calculation: string
   }
 
   type Solution = {
-    calculations: string[];
-    writing: string;
+    calculations: string[]
+    writing: string
   }
 
   let targetNumber = 0
@@ -46,7 +46,7 @@
 
   onDestroy(() => clearInterval(timerInterval))
 
-  function startTimerInterval (): void {
+  function startTimerInterval(): void {
     timerInterval = setInterval(() => {
       if (isTimerActive) {
         if (secondsLeft > 0) {
@@ -63,7 +63,7 @@
     }, 1000)
   }
 
-  function reroll (): void {
+  function reroll(): void {
     targetNumber = randint(0, 99)
     number1 = randint(1, 4)
     number2 = randint(1, 6)
@@ -75,27 +75,39 @@
     if (solutions.length === 0) reroll()
   }
 
-  function solveMathador (): Solution[] {
+  function solveMathador(): Solution[] {
     const newSolutions: Solution[] = []
     const possibilities0: Possibility = {
       numbers: [number1, number2, number3, number4, number5],
       operations: ['+', '-', '*', '/'],
-      calculation: ''
+      calculation: '',
     }
-    const possibilities1 = calculatePossibilities(possibilities0.numbers, possibilities0.operations)
+    const possibilities1 = calculatePossibilities(
+      possibilities0.numbers,
+      possibilities0.operations,
+    )
     for (const possibility1 of possibilities1) {
-      const possibilities2 = calculatePossibilities(possibility1.numbers, possibility1.operations)
+      const possibilities2 = calculatePossibilities(
+        possibility1.numbers,
+        possibility1.operations,
+      )
       for (const possibility2 of possibilities2) {
-        const possibilities3 = calculatePossibilities(possibility2.numbers, possibility2.operations)
+        const possibilities3 = calculatePossibilities(
+          possibility2.numbers,
+          possibility2.operations,
+        )
         for (const possibility3 of possibilities3) {
-          const possibilities4 = calculatePossibilities(possibility3.numbers, possibility3.operations)
+          const possibilities4 = calculatePossibilities(
+            possibility3.numbers,
+            possibility3.operations,
+          )
           for (const possibility4 of possibilities4) {
             if (possibility4.numbers[0] === targetNumber) {
               const calculations = [
                 possibility1.calculation,
                 possibility2.calculation,
                 possibility3.calculation,
-                possibility4.calculation
+                possibility4.calculation,
               ]
               const writing = `
                 $ ${possibility1.calculation} $ <br>
@@ -114,26 +126,43 @@
     return newSolutions
   }
 
-  function calculatePossibilities (numbers: number[], signs: string[]): Possibility[] {
+  function calculatePossibilities(
+    numbers: number[],
+    signs: string[],
+  ): Possibility[] {
     const possibilities: Possibility[] = []
     for (const firstNumber of numbers) {
       for (const firstSign of signs) {
         const numbersWithoutFirst = removeNumberOnce([...numbers], firstNumber)
         for (const secondNumber of numbersWithoutFirst) {
-          const firstCalculation = calculate(firstNumber, secondNumber, firstSign)
-          const numbersWithout1and2 = removeNumberOnce([...numbersWithoutFirst], secondNumber)
+          const firstCalculation = calculate(
+            firstNumber,
+            secondNumber,
+            firstSign,
+          )
+          const numbersWithout1and2 = removeNumberOnce(
+            [...numbersWithoutFirst],
+            secondNumber,
+          )
           possibilities.push({
             numbers: numbersWithout1and2.concat(firstCalculation.result),
-            operations: signs.filter(value => value !== firstSign),
-            calculation: firstCalculation.calculation
+            operations: signs.filter((value) => value !== firstSign),
+            calculation: firstCalculation.calculation,
           })
         }
       }
     }
-    return possibilities.filter(possibility => possibility.numbers.every(number => number >= 0 && number === Math.floor(number)))
+    return possibilities.filter((possibility) =>
+      possibility.numbers.every(
+        (number) => number >= 0 && number === Math.floor(number),
+      ),
+    )
   }
 
-  function removeNumberOnce (numbers: number[], numberToRemove: number): number[] {
+  function removeNumberOnce(
+    numbers: number[],
+    numberToRemove: number,
+  ): number[] {
     for (const number of numbers) {
       if (number === numberToRemove) {
         numbers.splice(numbers.indexOf(number), 1)
@@ -143,73 +172,81 @@
     return numbers
   }
 
-  function calculate (number1: number, number2: number, operation: string): Calculation {
+  function calculate(
+    number1: number,
+    number2: number,
+    operation: string,
+  ): Calculation {
     const max = Math.max(number1, number2)
     const min = Math.min(number1, number2)
     switch (operation) {
       case '+':
         return {
           result: max + min,
-          calculation: `${max} + ${min} = ${max + min}`
+          calculation: `${max} + ${min} = ${max + min}`,
         }
       case '-':
         return {
           result: max - min,
-          calculation: `${max} - ${min} = ${max - min}`
+          calculation: `${max} - ${min} = ${max - min}`,
         }
       case '*':
         return {
           result: max * min,
-          calculation: `${max} \\times ${min} = ${max * min}`
+          calculation: `${max} \\times ${min} = ${max * min}`,
         }
       case '/':
         if (number2 === 0) {
           return {
             result: -1000,
-            calculation: 'Erreur : division par zéro'
+            calculation: 'Erreur : division par zéro',
           }
         } else {
           return {
             result: max / min,
-            calculation: `${max} \\div ${min} = ${max / min}`
+            calculation: `${max} \\div ${min} = ${max / min}`,
           }
         }
       default:
         console.error("Signe d'opération inconnu", number1, number2, operation)
         return {
           result: -1000,
-          calculation: "Erreur : signe d'opération inconnu"
+          calculation: "Erreur : signe d'opération inconnu",
         }
     }
   }
 
-  function isSolutionFound (solutionCandidate: Solution, solutions: Solution[]): boolean {
-    return solutions
-      .some(solution => solution.calculations
-        .every(calculation => solutionCandidate.calculations
-          .includes(calculation)))
+  function isSolutionFound(
+    solutionCandidate: Solution,
+    solutions: Solution[],
+  ): boolean {
+    return solutions.some((solution) =>
+      solution.calculations.every((calculation) =>
+        solutionCandidate.calculations.includes(calculation),
+      ),
+    )
   }
 
-  async function renderSolutionsDiv (): Promise<void> {
+  async function renderSolutionsDiv(): Promise<void> {
     await tick()
     if (solutionsDiv) mathaleaRenderDiv(solutionsDiv, -1)
   }
 
-  function setupTimer (minuts: number): void {
+  function setupTimer(minuts: number): void {
     secondsLeft = minuts * 60
     isTimerActive = false
     updateDisplayedTime()
   }
 
-  function startTimer (): void {
+  function startTimer(): void {
     isTimerActive = true
   }
 
-  function stopTimer (): void {
+  function stopTimer(): void {
     isTimerActive = false
   }
 
-  function updateDisplayedTime (): void {
+  function updateDisplayedTime(): void {
     if (displayTimeDiv) {
       const minutes = Math.floor(secondsLeft / 60)
       const seconds = (secondsLeft % 60).toString().padStart(2, '0')
@@ -217,7 +254,7 @@
     }
   }
 
-  function toggerPointsInfo (): void {
+  function toggerPointsInfo(): void {
     if (pointsInfoBackground && pointsInfoText) {
       if (pointsInfoText.style.opacity === '1') {
         pointsInfoText.style.opacity = '0%'
@@ -251,15 +288,12 @@
         imageAlt="Symbole P entouré"
         imageClass="size-12"
         class="border-2 rounded-full p-0"
-        on:click={toggerPointsInfo}
+        on:click="{toggerPointsInfo}"
       />
     </div>
+    <div bind:this="{pointsInfoBackground}" id="points-info-background"></div>
     <div
-      bind:this={pointsInfoBackground}
-      id="points-info-background"
-    />
-    <div
-      bind:this={pointsInfoText}
+      bind:this="{pointsInfoText}"
       id="points-info-text"
       class="text-center
         text-base md:text-xl
@@ -284,11 +318,13 @@
       </figure>
     </div>
   </div>
-  <div class="flex items-center justify-center
+  <div
+    class="flex items-center justify-center
     p-6 md:p-8"
   >
     En utilisant
-    <div class="flex flex-row
+    <div
+      class="flex flex-row
       text-lg md:text-2xl"
     >
       <figure
@@ -320,13 +356,14 @@
   </div>
   <div class="flex flex-row justify-center items-center">
     <div class="is-link is-interactive">
-      <select class="border border-is-link
+      <select
+        class="border border-is-link
         bg-topmaths-canvas
         text-base md:text-lg"
       >
         <option>Minuteur</option>
         {#each range(9) as i}
-          <option on:click={() => setupTimer(i + 1)}>{i + 1} min</option>
+          <option on:click="{() => setupTimer(i + 1)}">{i + 1} min</option>
         {/each}
       </select>
     </div>
@@ -338,7 +375,7 @@
           imageSrc="/topmaths/img/cc0/pause-svgrepo-com.svg"
           imageAlt="Pause"
           imageClass="size-6 md:size-8"
-          on:click={stopTimer}
+          on:click="{stopTimer}"
         />
       {:else if secondsLeft > 0}
         <ButtonImage
@@ -347,16 +384,16 @@
           imageSrc="/topmaths/img/cc0/play-button-svgrepo-com.svg"
           imageAlt="Play"
           imageClass="size-6 md:size-8"
-          on:click={startTimer}
+          on:click="{startTimer}"
         />
       {/if}
     </div>
     <div
-      bind:this={displayTimeDiv}
+      bind:this="{displayTimeDiv}"
       class="ml-2
         text-lg md:text-2xl
         {secondsLeft <= 0 ? 'text-red-500 shake' : ''}"
-    />
+    ></div>
   </div>
   <br />
   <p class="has-text-grey">
@@ -367,59 +404,54 @@
         : "n'y a aucune possibilité"} de coup Mathador.
   </p>
 </div>
-<button
-  class="button border is-tout rounded-lg py-2 px-4"
-  on:click={reroll}
->
+<button class="button border is-tout rounded-lg py-2 px-4" on:click="{reroll}">
   Relancer
 </button>
 <button
   class="button border is-green rounded-lg py-2 px-4 ml-4 mb-8"
-  on:click={() => {
+  on:click="{() => {
     isSolutionsDisplayed = !isSolutionsDisplayed
     renderSolutionsDiv()
-  }}
+  }}"
 >
   {isSolutionsDisplayed ? 'Cacher les solutions' : 'Afficher les solutions'}
 </button>
 {#if isSolutionsDisplayed}
-  <p
-    bind:this={solutionsDiv}
-    class="is-size-5"
-  >
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  {@html solutions.map((solution) => solution.writing).join('<br><br>')}
+  <p bind:this="{solutionsDiv}" class="is-size-5">
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html solutions.map((solution) => solution.writing).join('<br><br>')}
   </p>
 {/if}
-<div class="p-8
+<div
+  class="p-8
   text-sm md:text-base"
 >
-  Si vous ne connaissez pas le super jeu qu'est Mathador, je vous encourage à visiter
+  Si vous ne connaissez pas le super jeu qu'est Mathador, je vous encourage à
+  visiter
   <AnchorExternal href="https://www.mathador.fr/index.php">
     le site officiel
   </AnchorExternal>
   !
 </div>
-<div class="p-4
+<div
+  class="p-4
   text-xs md:text-sm"
 >
   <i>
-    Mathador est une marque protégée d'Eric Trouillot et de Réseau Canopé, enregistrée en France.
-    Eric Trouillot est le concepteur du jeu Mathador que vous pouvez retrouver sur le site
+    Mathador est une marque protégée d'Eric Trouillot et de Réseau Canopé,
+    enregistrée en France. Eric Trouillot est le concepteur du jeu Mathador que
+    vous pouvez retrouver sur le site
     <AnchorExternal href="https://www.mathador.fr">
       www.mathador.fr
-    </AnchorExternal>.
-    Le site
-    <AnchorExternal href="https://topmaths.fr">
-      Topmaths
-    </AnchorExternal>
+    </AnchorExternal>. Le site
+    <AnchorExternal href="https://topmaths.fr">Topmaths</AnchorExternal>
     est un site indépendant et n’est pas affilié à
     <AnchorExternal href="https://www.mathador.fr">
       www.mathador.fr
     </AnchorExternal>.
   </i>
 </div>
-<audio bind:this={audioElement}>
+<audio bind:this="{audioElement}">
   <source
     src="/topmaths/mp3/BELLHand_Sonnette de velo 2 (ID 0275)_LS.mp3"
     type="audio/mpeg"
@@ -465,57 +497,57 @@
     text-align: center;
   }
 
-.shake {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: shake 0.5s;
+  .shake {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
 
-  /* When the animation is finished, start again */
-  animation-iteration-count: infinite;
-}
-
-@keyframes shake {
-  0% {
-    transform: translate(1px, 1px) rotate(0deg);
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
   }
 
-  10% {
-    transform: translate(-1px, -2px) rotate(-1deg);
-  }
+  @keyframes shake {
+    0% {
+      transform: translate(1px, 1px) rotate(0deg);
+    }
 
-  20% {
-    transform: translate(-3px, 0px) rotate(1deg);
-  }
+    10% {
+      transform: translate(-1px, -2px) rotate(-1deg);
+    }
 
-  30% {
-    transform: translate(3px, 2px) rotate(0deg);
-  }
+    20% {
+      transform: translate(-3px, 0px) rotate(1deg);
+    }
 
-  40% {
-    transform: translate(1px, -1px) rotate(1deg);
-  }
+    30% {
+      transform: translate(3px, 2px) rotate(0deg);
+    }
 
-  50% {
-    transform: translate(-1px, 2px) rotate(-1deg);
-  }
+    40% {
+      transform: translate(1px, -1px) rotate(1deg);
+    }
 
-  60% {
-    transform: translate(-3px, 1px) rotate(0deg);
-  }
+    50% {
+      transform: translate(-1px, 2px) rotate(-1deg);
+    }
 
-  70% {
-    transform: translate(3px, 1px) rotate(-1deg);
-  }
+    60% {
+      transform: translate(-3px, 1px) rotate(0deg);
+    }
 
-  80% {
-    transform: translate(-1px, -1px) rotate(1deg);
-  }
+    70% {
+      transform: translate(3px, 1px) rotate(-1deg);
+    }
 
-  90% {
-    transform: translate(1px, 2px) rotate(0deg);
-  }
+    80% {
+      transform: translate(-1px, -1px) rotate(1deg);
+    }
 
-  100% {
-    transform: translate(1px, -2px) rotate(-1deg);
+    90% {
+      transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+      transform: translate(1px, -2px) rotate(-1deg);
+    }
   }
-}
 </style>

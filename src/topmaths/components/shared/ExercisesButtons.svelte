@@ -28,17 +28,22 @@
     Cart.unsubscribe(updateCartEmpty)
   })
 
-  function updateCartEmpty (): void {
-    isCartEmpty = itemsToAddToCart.map(item => item.exercise).some(exercise => !Cart.includes(exercise.id))
+  function updateCartEmpty(): void {
+    isCartEmpty = itemsToAddToCart
+      .map((item) => item.exercise)
+      .some((exercise) => !Cart.includes(exercise.id))
   }
 
-  function includesTopmathsExercises (itemsToAddToCart: CartItem[]): boolean {
-    return itemsToAddToCart.map(exerciseLabel => exerciseLabel.exercise).map(exercice => exercice.link).some(isTopmaths)
+  function includesTopmathsExercises(itemsToAddToCart: CartItem[]): boolean {
+    return itemsToAddToCart
+      .map((exerciseLabel) => exerciseLabel.exercise)
+      .map((exercice) => exercice.link)
+      .some(isTopmaths)
   }
 
-  function updateCapytaleLink (): void {
+  function updateCapytaleLink(): void {
     let link = COOPMATHS_BASE_URL
-    for (const exercise of itemsToAddToCart.map(item => item.exercise)) {
+    for (const exercise of itemsToAddToCart.map((item) => item.exercise)) {
       if (exercise.slug.includes('&i=0')) {
         link += exercise.slug.replaceAll('&i=0', '&i=1') + '&'
       } else {
@@ -51,78 +56,82 @@
     capytaleLink = link + 'v=eleve&beta=1&es=011100'
   }
 
-  function buildMathaleaVideoFromDigiview (videoLink: string): string {
-    return 'uuid=video&s=https://www.youtube.com/watch?v=' + videoLink.split('videoId=')[1].split('&')[0]
+  function buildMathaleaVideoFromDigiview(videoLink: string): string {
+    return (
+      'uuid=video&s=https://www.youtube.com/watch?v=' +
+      videoLink.split('videoId=')[1].split('&')[0]
+    )
   }
 
-  function addExercisesToCart (): void {
-    itemsToAddToCart.forEach(item => {
+  function addExercisesToCart(): void {
+    itemsToAddToCart.forEach((item) => {
       if (!isTopmaths(item.exercise.link)) {
-        console.warn(`L'exercice ${item.reference} ${item.label} n'a pas été ajouté au panier car il n'est pas un exercice MathALÉA`)
+        console.warn(
+          `L'exercice ${item.reference} ${item.label} n'a pas été ajouté au panier car il n'est pas un exercice MathALÉA`,
+        )
         return
       }
       Cart.add(item)
     })
   }
 
-  function copyCapytaleLink (mouseEvent: MouseEvent): void {
+  function copyCapytaleLink(mouseEvent: MouseEvent): void {
     const copyLinkOptions = {
       includeSeed: false,
       forceInteractive: true,
       mouseEvent,
-      baseUrl: COOPMATHS_BASE_URL
+      baseUrl: COOPMATHS_BASE_URL,
     }
     updateCapytaleLink()
     copyLink(capytaleLink, copyLinkOptions)
   }
-
 </script>
 
 <div class="flex flex-row justify-center items-center {$$props.class}">
   {#if exercisesLink === ''}
     <button><slot /></button>
   {:else}
-    <a
-      href={exercisesLink}
-      class="is-interactive"
-    >
+    <a href="{exercisesLink}" class="is-interactive">
       <button
         class="flex items-center"
-        on:click={(mouseEvent) => launchExercise(mouseEvent, exercisesLink)}
+        on:click="{(mouseEvent) => launchExercise(mouseEvent, exercisesLink)}"
       >
         <slot /> &nbsp;
         <TooltipIcon
-          dropdownText = {exerciseIndex < 0 ? 'Lancer les exercices' : 'Lancer l\'exercice'}
+          dropdownText="{exerciseIndex < 0
+            ? 'Lancer les exercices'
+            : "Lancer l'exercice"}"
           imgSrc="/topmaths/img/cc0/fullscreen-svgrepo-com.svg"
-          imgAlt = "Lancer l'exercice"
+          imgAlt="Lancer l'exercice"
         />
       </button>
     </a>
     {#if $isTeacherMode && isTopmaths(exercisesLink) && !exercisesLink.includes('&v=diaporama')}
-      <a
-        href={exercisesLink}
-        class="ml-2 is-interactive"
-      >
+      <a href="{exercisesLink}" class="ml-2 is-interactive">
         <button
           class="flex items-center"
-          on:click={(mouseEvent) => launchExercise(mouseEvent, exercisesLink, true)}
+          on:click="{(mouseEvent) =>
+            launchExercise(mouseEvent, exercisesLink, true)}"
         >
           <TooltipIcon
-            dropdownText = {exerciseIndex < 0 ? 'Lancer les exercices en double-vue' : 'Lancer l\'exercice en double-vue'}
+            dropdownText="{exerciseIndex < 0
+              ? 'Lancer les exercices en double-vue'
+              : "Lancer l'exercice en double-vue"}"
             imgSrc="/topmaths/img/cc0/fullscreen-double-svgrepo-com.svg"
-            imgAlt = "Lancer l'exercice en double-vue"
+            imgAlt="Lancer l'exercice en double-vue"
           />
         </button>
       </a>
-      {/if}
-      {#if $isTeacherMode && isTopmaths(exercisesLink)}
+    {/if}
+    {#if $isTeacherMode && isTopmaths(exercisesLink)}
       <a
-        href={exercisesLink.replace('v=exercise', 'v=latex')}
+        href="{exercisesLink.replace('v=exercise', 'v=latex')}"
         class="ml-2 is-interactive"
       >
         <button
           class="flex items-center"
-          on:click={(mouseEvent) => goToCoopmathsView(mouseEvent, exercisesLink, 'latex')}
+          on:click="{(mouseEvent) =>
+            goToCoopmathsView(mouseEvent, exercisesLink, 'latex')}"
         >
           <TooltipIcon
             imgSrc="/topmaths/img/cc0/printing-document-svgrepo-com.svg"
@@ -132,42 +141,41 @@
         </button>
       </a>
       {#if includesTopmathsExercises(itemsToAddToCart)}
-      <a
-        href={capytaleLink}
-        class="ml-2 is-interactive"
-      >
-        <button
-          class="flex items-center"
-          on:click={(mouseEvent) => copyCapytaleLink(mouseEvent)}
-        >
-          <TooltipIcon
-            imgSrc="/topmaths/img/gvalmont/capytale.svg"
-            dropdownText = {'Créer un lien pour une utilisation avec CAPYTALE'}
-            imgAlt = {'"PY" dans un cercle'}
-          />
-        </button>
-      </a>
+        <a href="{capytaleLink}" class="ml-2 is-interactive">
+          <button
+            class="flex items-center"
+            on:click="{(mouseEvent) => copyCapytaleLink(mouseEvent)}"
+          >
+            <TooltipIcon
+              imgSrc="/topmaths/img/gvalmont/capytale.svg"
+              dropdownText="{'Créer un lien pour une utilisation avec CAPYTALE'}"
+              imgAlt="{'"PY" dans un cercle'}"
+            />
+          </button>
+        </a>
         {#if isCartEmpty}
           <button
-            on:click={() => {
+            on:click="{() => {
               addExercisesToCart()
               isCartEmpty = false
-            }}
+            }}"
             class="is-interactive flex items-center ml-1"
           >
             <TooltipIcon
               imgSrc="/topmaths/img/cc0/cart-plus-svgrepo-com.svg"
-              dropdownText={itemsToAddToCart.length > 1 ? 'Ajouter tous les exercices au panier' : 'Ajouter l\'exercice au panier'}
+              dropdownText="{itemsToAddToCart.length > 1
+                ? 'Ajouter tous les exercices au panier'
+                : "Ajouter l'exercice au panier"}"
               imgAlt="Caddie avec un signe + à l'intérieur"
             />
           </button>
         {:else}
-          <button
-            class="is-interactive flex items-center ml-1"
-          >
+          <button class="is-interactive flex items-center ml-1">
             <TooltipIcon
               imgSrc="/topmaths/img/cc0/cart-check-svgrepo-com.svg"
-              dropdownText={itemsToAddToCart.length > 1 ? 'Les exercices sont déjà tous dans le panier' : 'L\'exercice est déjà présent dans le panier'}
+              dropdownText="{itemsToAddToCart.length > 1
+                ? 'Les exercices sont déjà tous dans le panier'
+                : "L'exercice est déjà présent dans le panier"}"
               imgAlt="Caddie rempli"
             />
           </button>

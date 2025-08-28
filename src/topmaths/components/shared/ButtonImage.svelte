@@ -16,11 +16,19 @@
   class="button is-{color} justify-evenly
     {isHovered || isFocused || isActive ? 'is-active' : ''}
     {$$props.class}"
-  disabled={$$props.disabled}
-  on:mouseenter={() => { isHovered = true }}
-  on:mouseleave={() => { isHovered = false }}
-  on:focus={() => { isFocused = true }}
-  on:blur={() => { isFocused = false }}
+  disabled="{$$props.disabled}"
+  on:mouseenter="{() => {
+    isHovered = true
+  }}"
+  on:mouseleave="{() => {
+    isHovered = false
+  }}"
+  on:focus="{() => {
+    isFocused = true
+  }}"
+  on:blur="{() => {
+    isFocused = false
+  }}"
   on:click
 >
   <p
@@ -30,10 +38,6 @@
     <slot />
   </p>
   {#if imageSrc !== ''}
-    <img
-      class="{imageClass}"
-      src={imageSrc}
-      alt={imageAlt}
-    />
+    <img class="{imageClass}" src="{imageSrc}" alt="{imageAlt}" />
   {/if}
 </button>

@@ -4,14 +4,14 @@
   let rotativeCross: HTMLImageElement
   let isActive: boolean = false
 
-  function collapsibleOnClick (): void {
+  function collapsibleOnClick(): void {
     collapsibleButton.classList.toggle('active')
     toggleMaxHeight(collapsibleContent)
     rotativeCross.classList.toggle('active')
     isActive = collapsibleButton.classList.contains('active')
   }
 
-  function toggleMaxHeight (contentElement: HTMLElement): void {
+  function toggleMaxHeight(contentElement: HTMLElement): void {
     if (contentElement.style.maxHeight) {
       contentElement.style.maxHeight = ''
     } else {
@@ -22,30 +22,31 @@
 
 <div class="mt-1 collapsible-container">
   <button
-    bind:this={collapsibleButton}
+    bind:this="{collapsibleButton}"
     class="{$$props.class} button collapsible flex items-center is-interactive
       bg-sky-100 hover:bg-sky-200
       dark:border dark:border-is-info"
-    on:click={collapsibleOnClick}
+    on:click="{collapsibleOnClick}"
   >
     <img
-      bind:this={rotativeCross}
+      bind:this="{rotativeCross}"
       class="w-4 h-4 ml-2"
       src="topmaths/img/cc0/plus-alt-svgrepo-com.svg"
       alt="croix"
     />
-    <h4 class="ml-2
+    <h4
+      class="ml-2
         text-topmaths-corpus dark:text-inherit"
     >
       <slot name="header" />
     </h4>
   </button>
   <div
-    bind:this={collapsibleContent}
+    bind:this="{collapsibleContent}"
     class="content
       border-info-200
       {isActive ? 'border ' : ''}"
-    >
+  >
     <slot name="content" />
   </div>
 </div>
@@ -75,8 +76,9 @@
   button img {
     transform: rotate(0deg);
     transition: transform 0.3s ease-out;
-  } button.active img {
-      transform: rotate(135deg);
-      transition: transform 0.3s ease-out;
-    }
+  }
+  button.active img {
+    transform: rotate(135deg);
+    transition: transform 0.3s ease-out;
+  }
 </style>

@@ -1,6 +1,5 @@
 <script lang="ts">
   export let href: string
-
 </script>
 
 <a
@@ -10,5 +9,5 @@
   class="is-interactive is-topmaths"
 >
   <slot />
-  <i class='bx bx-link-external' />
+  <i class="bx bx-link-external"></i>
 </a>

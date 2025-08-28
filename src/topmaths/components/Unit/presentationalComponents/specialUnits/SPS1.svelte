@@ -7,7 +7,7 @@
     'Conditions',
     'Variables',
     'Boucles conditionnelles',
-    'Procédures'
+    'Procédures',
   ]
 </script>
 
@@ -15,16 +15,19 @@
   <title>SPS1 : Programmation</title>
 </svelte:head>
 
-<div class="grade-container is-tout
+<div
+  class="grade-container is-tout
   rounded-4xl md:rounded-5xl"
 >
-  <h1 class="title
+  <h1
+    class="title
     text-2xl md:text-4xl
     rounded-t-4xl md:rounded-t-5xl"
   >
     Programmation
   </h1>
-  <h2 class="subtitle
+  <h2
+    class="subtitle
     text-xl md:text-3xl"
   >
     Initiation : Lightbot Hour
@@ -81,17 +84,15 @@
     Il y a eu un bug ? Tu as eu un problème de connexion ?<br />
     Ou tu veux juste continuer à la maison la séance que tu as commencée en classe
     ?<br />
-    Si tu as bien noté ton code, tu peux reprendre là où tu en étais grâce à
-    ce bouton :
+    Si tu as bien noté ton code, tu peux reprendre là où tu en étais grâce à ce bouton
+    :
   </p>
   <a
     href="https://concours.castor-informatique.fr/?"
     target="_blank"
     rel="noopener noreferrer"
   >
-    <button
-      class="button is-link border rounded p-2 mb-8"
-    >
+    <button class="button is-link border rounded p-2 mb-8">
       Continuer une séance Algorea
     </button>
   </a>

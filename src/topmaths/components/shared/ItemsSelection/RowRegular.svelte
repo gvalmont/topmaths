@@ -7,14 +7,17 @@
 
   export let item: Item
   export let view: View
-  export let goToView: (event: MouseEvent, view: View, reference: Reference) => void
-
+  export let goToView: (
+    event: MouseEvent,
+    view: View,
+    reference: Reference,
+  ) => void
 </script>
 
 <a
   class="is-interactive"
   href="/?v={view}&ref={item.reference}"
-  on:click={(event) => goToView(event, view, item.reference)}
+  on:click="{(event) => goToView(event, view, item.reference)}"
 >
   <div class="p-1">
     {#if isUnit(item) || isSpecialUnit(item)}

@@ -1,7 +1,10 @@
 <script lang="ts">
   import { afterUpdate, onMount, SvelteComponent, tick } from 'svelte'
   import type TypeExercice from '../../../../exercices/Exercice'
-  import { exerciceInteractif, prepareExerciceCliqueFigure } from '../../../../lib/interactif/gestionInteractif'
+  import {
+    exerciceInteractif,
+    prepareExerciceCliqueFigure,
+  } from '../../../../lib/interactif/gestionInteractif'
   import { loadMathLive } from '../../../../modules/loaders'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import Question from './presentationalComponents/Question.svelte'
@@ -9,7 +12,9 @@
   export let exerciseIndex: number
   export let isCorrectionVisible: boolean
   export let nbCols: number = 1
-  export let adjustMathalea2dFiguresWidth: (initialDimensionsAreNeeded?: boolean) => Promise<void>
+  export let adjustMathalea2dFiguresWidth: (
+    initialDimensionsAreNeeded?: boolean,
+  ) => Promise<void>
   export let newData: (exerciseIndex: number) => void
   export let zoom: number
 
@@ -19,7 +24,9 @@
   let numberOfAnswerFields: number = 0
 
   // Evènement indispensable pour pointCliquable par exemple
-  const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
+  const exercicesAffiches = new window.Event('exercicesAffiches', {
+    bubbles: true,
+  })
 
   onMount(async () => {
     await tick()
@@ -36,25 +43,33 @@
     if (exercise.interactif && buttonScore) initButtonScore()
   }
 
-  async function countMathField (): Promise<void> {
-    const answerFields = document.querySelectorAll(`[id^='champTexteEx${exerciseIndex}']`) // IDs de la forme 'champTexteEx1Q0'
+  async function countMathField(): Promise<void> {
+    const answerFields = document.querySelectorAll(
+      `[id^='champTexteEx${exerciseIndex}']`,
+    ) // IDs de la forme 'champTexteEx1Q0'
     numberOfAnswerFields = answerFields.length
   }
 
-  async function renderExercise (): Promise<void> {
+  async function renderExercise(): Promise<void> {
     await tick()
     if (exercise.interactif) {
       loadMathLive()
-      if (exercise.interactifType === 'cliqueFigure') prepareExerciceCliqueFigure(exercise)
+      if (exercise.interactifType === 'cliqueFigure')
+        prepareExerciceCliqueFigure(exercise)
       if (isCorrectionSeen()) newData(exerciseIndex)
     }
     mathaleaRenderDiv(divExercice, zoom)
     adjustMathalea2dFiguresWidth()
   }
 
-  function isCorrectionSeen (): boolean {
+  function isCorrectionSeen(): boolean {
     try {
-      if (window.localStorage != null && exercise.id !== undefined && exercise.seed !== undefined && window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) != null) {
+      if (
+        window.localStorage != null &&
+        exercise.id !== undefined &&
+        exercise.seed !== undefined &&
+        window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) != null
+      ) {
         return true
       }
     } catch (e) {
@@ -63,7 +78,7 @@
     return false
   }
 
-  function applyZoomOnScratch (): void {
+  function applyZoomOnScratch(): void {
     const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
     for (const scratchDiv of scratchDivs) {
       const svgDivs = scratchDiv.getElementsByTagName('svg')
@@ -84,13 +99,13 @@
     }
   }
 
-  function verifExerciceVueEleve (): void {
+  function verifExerciceVueEleve(): void {
     exercise.isDone = true
     isCorrectionVisible = true
     exerciceInteractif(exercise, divScore, buttonScore)
   }
 
-  function initButtonScore (): void {
+  function initButtonScore(): void {
     buttonScore.classList.remove(...buttonScore.classList)
     buttonScore.id = `buttonScoreEx${exerciseIndex}`
     buttonScore.classList.add(
@@ -125,7 +140,7 @@
       'transition',
       'duration-150',
       'ease-in-out',
-      'checkReponses'
+      'checkReponses',
     )
   }
 
@@ -134,7 +149,7 @@
 </script>
 
 <div
-  bind:this={divExercice}
+  bind:this="{divExercice}"
   class="z-0 flex-1
     {exercise.spacing < 1 ? '' : 'mb-10 md:mb-20'}"
 >
@@ -147,7 +162,8 @@
       <div class="flex flex-col">
         {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
           <div>
-            <p class="my-2
+            <p
+              class="my-2
               ml-2 lg:ml-6
               text-coopmaths-corpus dark:text-coopmathsdark-corpus"
             >
@@ -158,7 +174,8 @@
         {/if}
         {#if exercise.introduction}
           <div>
-            <p class="my-2
+            <p
+              class="my-2
               ml-2 lg:ml-6
               text-coopmaths-corpus dark:text-coopmathsdark-corpus"
             >
@@ -171,7 +188,10 @@
       <div style="columns: {nbCols.toString()}">
         <ul
           class="list-inside my-2
-            {exercise.listeQuestions.length === 1 || !exercise.listeAvecNumerotation ? 'list-none' : 'list-decimal'}
+            {exercise.listeQuestions.length === 1 ||
+          !exercise.listeAvecNumerotation
+            ? 'list-none'
+            : 'list-decimal'}
             mx-4 md:mx-6
             marker:font-bold
             marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct"
@@ -186,17 +206,14 @@
             />
           {/each}
         </ul>
-        <div
-          id="divScoreEx{exerciseIndex}"
-          bind:this={divScore}
-        />
+        <div id="divScoreEx{exerciseIndex}" bind:this="{divScore}"></div>
       </div>
     </article>
     {#if exercise.interactif && !isCorrectionVisible}
       <button
         type="submit"
-        on:click={verifExerciceVueEleve}
-        bind:this={buttonScore}
+        on:click="{verifExerciceVueEleve}"
+        bind:this="{buttonScore}"
       >
         Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}
       </button>

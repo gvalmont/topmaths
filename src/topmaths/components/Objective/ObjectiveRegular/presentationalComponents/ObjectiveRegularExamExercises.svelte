@@ -1,6 +1,10 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
-  import type { ObjectiveExercise, ObjectiveReference, ObjectiveVideo } from '../../../../types/objective'
+  import type {
+    ObjectiveExercise,
+    ObjectiveReference,
+    ObjectiveVideo,
+  } from '../../../../types/objective'
   import ExercisesButtons from '../../../shared/ExercisesButtons.svelte'
   import type { CartItem } from '../../../../types/cart'
 
@@ -12,31 +16,35 @@
   let itemsToAddToCart: CartItem[]
   onMount(async () => {
     await tick() // else is doesn't work on page reload
-    itemsToAddToCart = examExercises
-      .map(exercise => {
-        return { exercise, label: exercise.slug.split('uuid=')[1].split('&')[0], reference: objectiveReference }
-      })
+    itemsToAddToCart = examExercises.map((exercise) => {
+      return {
+        exercise,
+        label: exercise.slug.split('uuid=')[1].split('&')[0],
+        reference: objectiveReference,
+      }
+    })
   })
 </script>
 
-<h2 class="subtitle
+<h2
+  class="subtitle
   text-xl md:text-3xl"
 >
   En route vers le brevet
 </h2>
-<div class="pt-6
+<div
+  class="pt-6
   text-sm md:text-base"
 >
-  Tu ne peux pas encore faire ces exercices en entier mais avec ce que tu
-  as appris tu sais répondre à au moins une question de chacun
-  d'entre eux !
+  Tu ne peux pas encore faire ces exercices en entier mais avec ce que tu as
+  appris tu sais répondre à au moins une question de chacun d'entre eux !
 </div>
 <ul class="p-6">
   <li class="p-2">
     <ExercisesButtons
       {itemsToAddToCart}
-      videos = {videos}
-      exercisesLink = {examExercisesLink}
+      {videos}
+      exercisesLink="{examExercisesLink}"
     />
   </li>
 </ul>

@@ -2,7 +2,7 @@ import { TOPMATHS_BASE_URL } from './environment.js'
 import { showDialogForLimitedTime } from '../../lib/components/dialogs.js'
 import { isRegularClick } from './navigation'
 
-export function removeSeed (link: string): string {
+export function removeSeed(link: string): string {
   const url = new URL(link)
   const searchParams = url.searchParams
   searchParams.delete('alea')
@@ -10,7 +10,7 @@ export function removeSeed (link: string): string {
   return url.toString()
 }
 
-export function setSeed (link: string, seed: number): string {
+export function setSeed(link: string, seed: number): string {
   const url = new URL(link)
   const searchParams = url.searchParams
   searchParams.set('alea', seed.toString())
@@ -18,7 +18,7 @@ export function setSeed (link: string, seed: number): string {
   return url.toString()
 }
 
-export function setInteractivity (link: string, isInteractive: boolean): string {
+export function setInteractivity(link: string, isInteractive: boolean): string {
   const url = new URL(link)
   const searchParams = url.searchParams
   searchParams.set('i', isInteractive ? '1' : '0')
@@ -32,7 +32,7 @@ type CopyLinkOptions = {
   mouseEvent?: MouseEvent
   baseUrl?: string
 }
-export function copyLink (link: string, options?: CopyLinkOptions): void {
+export function copyLink(link: string, options?: CopyLinkOptions): void {
   if (options?.mouseEvent && isRegularClick(options.mouseEvent)) {
     options.mouseEvent.preventDefault()
   }
@@ -51,14 +51,22 @@ export function copyLink (link: string, options?: CopyLinkOptions): void {
   copyToClipboard(baseUrl + params.toString())
 }
 
-export function copyToClipboard (str: string): void {
+export function copyToClipboard(str: string): void {
   navigator.clipboard.writeText(str).then(
     () => {
-      showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien a été copié.')
+      showDialogForLimitedTime(
+        'topmaths-info-dialog',
+        1000,
+        'Le lien a été copié.',
+      )
     },
     (err) => {
       console.error('Async: Could not copy text: ', err)
-      showDialogForLimitedTime('topmaths-info-dialog', 1000, 'Le lien n\'a pas pu être copié.')
-    }
+      showDialogForLimitedTime(
+        'topmaths-info-dialog',
+        1000,
+        "Le lien n'a pas pu être copié.",
+      )
+    },
   )
 }
